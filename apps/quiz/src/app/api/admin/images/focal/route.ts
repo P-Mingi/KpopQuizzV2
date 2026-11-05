@@ -1,4 +1,6 @@
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
 import { revalidateImage } from '@/lib/entity-images/cache';
+import { IMAGE_SITE } from '@/lib/entity-images/constants';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readJson, sameOrigin } from '@/lib/entity-images/route-kit';
 import { setFocal } from '@/lib/entity-images/store';
 import { parseFocal, parseKind, parseSlug } from '@/lib/entity-images/validate';
@@ -19,7 +21,9 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
     const kind = parseKind(body.kind);
     const slug = parseSlug(kind, body.slug);
     const { x, y } = parseFocal(body.x, body.y);
-    return ok({ image: await setFocal(createServiceRoleClient(), kind, slug, x, y, revalidateImage) });
+    const image = await setFocal(createServiceRoleClient(), kind, slug, x, y, revalidateImage);
+    await logAdminAction({ user: { id: gate.userId } }, { site: IMAGE_SITE, action: 'image.focal', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
+    return ok({ image });
   } catch (e) {
     return failure(e);
   }

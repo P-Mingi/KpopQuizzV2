@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -19,9 +23,11 @@ export async function POST(
   }
 
   let updates: Record<string, unknown> = { needs_review: false };
+  let parsed: unknown;
 
   try {
     const body = await request.json();
+    parsed = body;
     if (typeof body === 'object' && body !== null) {
       const allowed = ['name', 'slug', 'fandom_name', 'logo_url', 'display_color', 'text_color'];
       for (const key of allowed) {
@@ -34,11 +40,17 @@ export async function POST(
     // No body provided, just approve
   }
 
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request, parsed);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
+
   const adminDb = createServiceRoleClient();
 
-  const { error } = await adminDb
+  const { error } = await forSite(adminDb
     .from('groups')
-    .update(updates)
+    .update(updates))
     .eq('id', groupId);
 
   if (error) {
@@ -46,6 +58,8 @@ export async function POST(
     return NextResponse.json({ error: 'Failed to approve group' }, { status: 500 });
   }
 
+  const cache = await revalidateSite(site, ['groups']);
+  await logAdminAction(gate, { site, action: 'group.approve', targetType: 'group', targetId: groupId, detail: { cache: cacheOutcome(cache), fields: Object.keys(updates) }, requestId: requestIdOf(request) });
   return NextResponse.json({ success: true });
 }
 

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -26,6 +28,11 @@ export async function POST(req: Request): Promise<NextResponse> {
   const formData = await req.formData();
   const file = formData.get('file') as File | null;
   const externalUrl = formData.get('external_url') as string | null;
+
+  // ADMIN-2: the image goes to the shared quiz-images bucket (no site column); the site, from ?site= or the form, is validated and journaled.
+  const siteResult = adminSiteOf(req, { site: formData.get('site') });
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
 
   const adminDb = createServiceRoleClient();
   const now = new Date();
@@ -59,6 +66,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
 
     const { data: urlData } = adminDb.storage.from('quiz-images').getPublicUrl(storagePath);
+    await logAdminAction(gate, { site, action: 'quiz_image.upload', targetType: 'quiz_image', targetId: filename, detail: { source: 'file', bytes: file.size }, requestId: requestIdOf(req) });
     return NextResponse.json({ url: urlData.publicUrl, storage_path: storagePath, filename });
   }
 
@@ -112,6 +120,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       }
 
       const { data: urlData } = adminDb.storage.from('quiz-images').getPublicUrl(storagePath);
+      await logAdminAction(gate, { site, action: 'quiz_image.upload', targetType: 'quiz_image', targetId: filename, detail: { source: 'url', bytes: buffer.length }, requestId: requestIdOf(req) });
       return NextResponse.json({ url: urlData.publicUrl, storage_path: storagePath, original_url: externalUrl, filename });
     } catch (err) {
       return NextResponse.json({ error: `Failed to process URL: ${err instanceof Error ? err.message : 'Unknown error'}` }, { status: 400 });

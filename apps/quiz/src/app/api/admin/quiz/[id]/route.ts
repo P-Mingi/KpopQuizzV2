@@ -1,23 +1,30 @@
 import { NextResponse } from 'next/server';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 import { SITE_ID } from '@/lib/site/registry';
-import { forSite } from '@/lib/site/scope';
 import { spoilerColumnsFor } from '@/lib/quiz/site-insert';
 
 import type { NextRequest } from 'next/server';
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
 
   const { id } = await params;
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(req);
+  if (!siteResult.ok) return siteResult.res;
+  const { forSite } = siteScope(siteResult.site);
   const adminDb = createServiceRoleClient();
-  // Run O1: only a quiz of the build's site (a no-op on kpop with SITE_SCOPE off).
+  // Run O1: only a quiz of the chosen site (a no-op on kpop with SITE_SCOPE off).
   const { data, error } = await forSite(adminDb
     .from('quizzes')
     .select('*, groups(id, name, slug)'))
@@ -43,6 +50,10 @@ export async function PATCH(
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 
+  const siteResult = adminSiteOf(req, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
   const adminDb = createServiceRoleClient();
 
   const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
@@ -69,7 +80,7 @@ export async function PATCH(
     update.question_count = body.questions.length;
 
     // Run O1: the level of an anime quiz follows its questions' tags (computed here, never taken from the body).
-    if (SITE_ID !== 'kpop') {
+    if (site !== 'kpop') {
       const { data: own } = await forSite(adminDb.from('quizzes').select('group_id')).eq('id', id).maybeSingle();
       Object.assign(update, await spoilerColumnsFor(adminDb, (own as { group_id: number } | null)?.group_id ?? null, body.questions));
     }
@@ -101,9 +112,13 @@ export async function PATCH(
     const g = Array.isArray(row.groups) ? row.groups[0] : row.groups;
     const groupSlug = g && typeof g === 'object' ? (g as { slug?: string }).slug ?? null : null;
     const change = row.status !== 'published' ? 'removed' : typeof body.status === 'string' ? 'published' : 'edited';
-    onQuizChanged(change, row.slug, [groupSlug]);
+    // The quiz page, its hub and IndexNow belong to the host of THIS build: onQuizChanged only for the build's own site. A quiz of another
+    // site is expired through that site's own revalidation route (its tags; its pages catch up at their interval, IndexNow is not pinged from here).
+    if (site === SITE_ID) onQuizChanged(change, row.slug, [groupSlug]);
   }
 
+  const cache = site === SITE_ID ? null : await revalidateSite(site, ['quizzes']);
+  await logAdminAction(gate, { site, action: 'quiz.update', targetType: 'quiz', targetId: id, detail: { cache: cache ? cacheOutcome(cache) : 'local', fields: Object.keys(update).filter((k) => k !== 'updated_at'), status: typeof update.status === 'string' ? update.status : null }, requestId: requestIdOf(req) });
   return NextResponse.json({ success: true });
 }
 

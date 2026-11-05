@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import { adminNotFound } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 
 import { adminGate } from '@/lib/editorial/admin-api';
 import { checkDraftInput, checkSchedule } from '@/lib/editorial/drafts';
 import { approveDraft, editDraft, rejectDraft } from '@/lib/editorial/pipeline';
+import { supabaseStore } from '@/lib/editorial/store';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -27,22 +31,33 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   let body: unknown;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const b = (body ?? {}) as { action?: unknown; draft?: unknown; scheduled_at?: unknown };
+  // ADMIN-2: the site is the admin's choice (query or body), validated; the draft is read and written in that site's queue.
+  const siteResult = adminSiteOf(req, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const store = site === SITE_ID ? g.store : supabaseStore(undefined, site);
+  const note = async (action: string): Promise<void> => {
+    await logAdminAction({ user: { id: g.adminId } }, { site, action, targetType: 'editorial_draft', targetId: id, requestId: requestIdOf(req) });
+  };
   const now = Date.now();
   try {
     if (b.action === 'edit') {
       const c = checkDraftInput(b.draft);
       if (!c.ok) return NextResponse.json({ error: c.error }, { status: 400 });
-      const r = await editDraft(g.store, id, c.value);
+      const r = await editDraft(store, id, c.value);
+      if (r.ok) await note('editorial.edit');
       return r.ok ? NextResponse.json({ ok: true, draft: r.value }) : NextResponse.json({ error: r.error }, { status: r.status });
     }
     if (b.action === 'approve') {
       const when = checkSchedule(b.scheduled_at);
       if (!when.ok) return NextResponse.json({ error: when.error }, { status: 400 });
-      const r = await approveDraft(g.store, id, { adminId: g.adminId, isAdmin: isThisAdmin, scheduledAt: when.value, now });
+      const r = await approveDraft(store, id, { adminId: g.adminId, isAdmin: isThisAdmin, scheduledAt: when.value, now });
+      if (r.ok) await note('editorial.approve');
       return r.ok ? NextResponse.json({ ok: true, draft: r.value }) : NextResponse.json({ error: r.error }, { status: r.status });
     }
     if (b.action === 'reject') {
-      const r = await rejectDraft(g.store, id, { adminId: g.adminId, isAdmin: isThisAdmin, now });
+      const r = await rejectDraft(store, id, { adminId: g.adminId, isAdmin: isThisAdmin, now });
+      if (r.ok) await note('editorial.reject');
       return r.ok ? NextResponse.json({ ok: true, draft: r.value }) : NextResponse.json({ error: r.error }, { status: r.status });
     }
     return NextResponse.json({ error: 'bad_action' }, { status: 400 });

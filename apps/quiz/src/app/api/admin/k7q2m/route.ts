@@ -9,9 +9,10 @@
 import { NextResponse } from 'next/server';
 
 import { ADMIN_RESPONSE_HEADERS, adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
 import { confirmSetup, startSetup, verifyCode } from '@/lib/admin/mfa';
 import { sameOrigin } from '@/lib/entity-images/route-kit';
-import { SITE } from '@/lib/site/registry';
+import { SITE, SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -41,6 +42,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     : body.action === 'confirm' ? await confirmSetup(ctx, body.factorId, body.code)
       : null;
   if (!r) return adminNotFound();
+  // ADMIN-2: a code accepted (or a factor set up) is an event of the journal: who, where, when. Never the code.
+  if (r.ok) await logAdminAction(ctx, { site: SITE_ID, action: body.action === 'verify' ? 'mfa.verify' : 'mfa.enrol', requestId: requestIdOf(req) });
   return answer(r, r.ok ? 200 : 400);
 }
 

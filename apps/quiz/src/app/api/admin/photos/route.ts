@@ -1,3 +1,4 @@
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
 import { revalidateImage } from '@/lib/entity-images/cache';
 import { MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
@@ -41,6 +42,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (action === 'remove') {
       const removed = await removePhoto(createServiceRoleClient(), kind, slug);
       if (kind === 'series' || kind === 'character') revalidateImage(kind, slug);
+      await logAdminAction({ user: { id: gate.userId } }, { site: kind === 'series' || kind === 'character' ? 'anime' : 'kpop', action: 'photo.remove', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
       return ok({ removed });
     }
     if (action !== null && action !== 'save') throw new ImageError('bad_request', 400, 'Action inconnue.');
@@ -60,6 +62,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await assertPhotoEntity(db, kind, slug);
     const saved = await savePhoto(db, { kind, slug, files: anyFile ? { x1: x1!, x2: x2!, thumb: thumb! } : null, meta, verified, focal, userId: gate.userId });
     if (kind === 'series' || kind === 'character') revalidateImage(kind, slug);
+    await logAdminAction({ user: { id: gate.userId } }, { site: kind === 'series' || kind === 'character' ? 'anime' : 'kpop', action: 'photo.save', targetType: kind, targetId: slug, detail: { verified, files: anyFile }, requestId: requestIdOf(req) });
     return ok({ photo: saved });
   } catch (e) {
     return failure(e);

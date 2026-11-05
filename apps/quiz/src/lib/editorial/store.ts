@@ -1,9 +1,12 @@
 import { createServiceRoleClient } from '@/lib/supabase/server';
-import { forSite, withSite } from '@/lib/site/scope';
+import { siteScope } from '@/lib/admin/site-scope';
+import { SITE_ID } from '@/lib/site/registry';
 import { isMissingTable } from '@/lib/ux-v1/p8/features';
 import { insertCommunityDebate } from '@/lib/ux-v1/p8/write';
 
 import { DRAFT_COLS } from './types';
+
+import type { SiteId } from '@/lib/site/types';
 
 import type { DraftPatch, EditorialStore } from './pipeline';
 import type { EditorialAccount, EditorialDraft } from './types';
@@ -37,7 +40,9 @@ export async function editorialLive(svc: Svc = createServiceRoleClient()): Promi
   return true;
 }
 
-export function supabaseStore(svc: Svc = createServiceRoleClient()): EditorialStore {
+// ADMIN-2: `site` is the site of the queue (default: the build's own, as before); the admin of the hub names it per call.
+export function supabaseStore(svc: Svc = createServiceRoleClient(), site: SiteId = SITE_ID): EditorialStore {
+  const { forSite, withSite } = siteScope(site);
   return {
     async accounts() {
       const { data } = must(await forSite(svc.from('editorial_accounts').select('user_id, display_name, beat, active')).order('created_at', { ascending: true }).limit(50), 'accounts');

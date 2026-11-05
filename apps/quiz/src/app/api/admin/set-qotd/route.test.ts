@@ -16,6 +16,8 @@ vi.mock('@/lib/supabase/server', async () => ({
       state.calls.push(c);
       const b: Record<string, unknown> = {};
       b.update = (arg: unknown) => { c.op = 'update'; c.arg = arg; return b; };
+      // ADMIN-2: the action journal (lib/admin/journal.ts) inserts one line into admin_actions after each write.
+      b.insert = (arg: unknown) => { c.op = 'insert'; c.arg = arg; return Promise.resolve({ data: null, error: null }); };
       b.upsert = (arg: unknown, opts: unknown) => { c.op = 'upsert'; c.arg = arg; c.opts = opts; return Promise.resolve({ data: null, error: null }); };
       b.eq = (k: string, v: unknown) => { c.filters.push([k, v]); return b; };
       b.then = (ok: (v: unknown) => unknown) => ok({ data: null, error: null });
@@ -33,6 +35,10 @@ async function post(site: string, body: unknown): Promise<Response> {
   return POST(new NextRequest('https://example.test/api/admin/set-qotd', { method: 'POST', body: JSON.stringify(body) }));
 }
 
+// The queries under test, without the journal line that follows the write (asserted on its own with journal()).
+const queries = (): Call[] => (state.calls as Call[]).filter((c) => c.table !== 'admin_actions');
+const journal = (): Call[] => (state.calls as Call[]).filter((c) => c.table === 'admin_actions');
+
 beforeEach(() => { state.calls = []; state.user = { id: 'admin-user' }; });
 afterEach(() => { vi.unstubAllEnvs(); });
 
@@ -47,18 +53,20 @@ describe('POST /api/admin/set-qotd', () => {
     const res = await post('', { quiz_id: 'q1', date: '2026-10-20' });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ success: true });
-    const calls = state.calls as Call[];
+    const calls = queries();
     expect(calls.map((c) => `${c.table}:${c.op}`)).toEqual(['quizzes:update', 'quizzes:update', 'qotd_log:upsert']);
     expect(calls[0]).toMatchObject({ arg: { is_quiz_of_the_day: false, quiz_of_the_day_date: null }, filters: [['quiz_of_the_day_date', '2026-10-20']] });
     expect(calls[1]).toMatchObject({ arg: { is_quiz_of_the_day: true, quiz_of_the_day_date: '2026-10-20' }, filters: [['id', 'q1']] });
     expect(calls[2]!.arg).toEqual({ quiz_id: 'q1', featured_date: '2026-10-20', selection_method: 'manual', score: null });
     expect(calls[2]!.opts).toEqual({ onConflict: 'site_id,featured_date' });
+    expect(journal()).toHaveLength(1);
+    expect(journal()[0]!.arg).toMatchObject({ admin_id: 'admin-user', site_id: 'kpop', action: 'qotd.set', target_type: 'quiz', target_id: 'q1' });
   });
 
   it('anime build: the unflagging and the flagging carry site_id anime, the log row is filed under anime', async () => {
     const res = await post('anime', { quiz_id: 'q1', date: '2026-10-20' });
     expect(res.status).toBe(200);
-    const calls = state.calls as Call[];
+    const calls = queries();
     expect(calls[0]!.filters).toEqual([['site_id', 'anime'], ['quiz_of_the_day_date', '2026-10-20']]);
     expect(calls[1]!.filters).toEqual([['site_id', 'anime'], ['id', 'q1']]);
     expect(calls[2]!.arg).toEqual({ quiz_id: 'q1', featured_date: '2026-10-20', selection_method: 'manual', score: null, site_id: 'anime' });

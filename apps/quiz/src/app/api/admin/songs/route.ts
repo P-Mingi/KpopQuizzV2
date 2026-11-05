@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { NextRequest } from 'next/server';
@@ -17,6 +20,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   } catch {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
+
+  // ADMIN-2: the blind test songs are kpopquiz.org's (no site column); the site is validated all the same.
+  const siteResult = adminSiteOf(request, body, { only: ['kpop'] });
+  if (!siteResult.ok) return siteResult.res;
 
   if (!body.title || !body.youtube_id || !body.year) {
     return NextResponse.json({ error: 'Title, YouTube ID, and year are required' }, { status: 400 });
@@ -44,6 +51,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  const cache = await revalidateSite(siteResult.site, ['songs']);
+  await logAdminAction(gate, { site: siteResult.site, action: 'song.create', targetType: 'song', targetId: (data as { id?: string | number } | null)?.id ?? null, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(request) });
   return NextResponse.json(data);
 }
 

@@ -1,21 +1,30 @@
 import { NextResponse } from 'next/server';
 
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
-export async function GET(): Promise<NextResponse> {
+import type { NextRequest } from 'next/server';
+
+export async function GET(request: NextRequest): Promise<NextResponse> {
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
   const { supabase } = gate;
 
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request);
+  if (!siteResult.ok) return siteResult.res;
+  const { forSite } = siteScope(siteResult.site);
+
   const [pendingRes, allGroupsRes] = await Promise.all([
-    supabase
+    forSite(supabase
       .from('groups')
-      .select('*, quizzes(count)')
+      .select('*, quizzes(count)'))
       .eq('needs_review', true)
       .order('created_at', { ascending: false }),
-    supabase
+    forSite(supabase
       .from('groups')
-      .select('id, name')
+      .select('id, name'))
       .eq('needs_review', false)
       .order('name', { ascending: true }),
   ]);

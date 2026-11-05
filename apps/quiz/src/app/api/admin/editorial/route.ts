@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import { adminNotFound } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 
 import { adminGate, generateTemplateDrafts } from '@/lib/editorial/admin-api';
 import { checkDraftInput } from '@/lib/editorial/drafts';
 import { createDraft } from '@/lib/editorial/pipeline';
+import { supabaseStore } from '@/lib/editorial/store';
+import { SITE_ID } from '@/lib/site/registry';
 
 import type { NextRequest } from 'next/server';
 
@@ -16,11 +20,15 @@ import type { NextRequest } from 'next/server';
 // (PATCH /api/admin/editorial/<id>), the cron publishes it.
 export const dynamic = 'force-dynamic';
 
-export async function GET(): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   const g = await adminGate();
   if (!g.ok) return g.res;
+  // ADMIN-2: the queue of the site the admin chose (query), validated.
+  const siteResult = adminSiteOf(req);
+  if (!siteResult.ok) return siteResult.res;
+  const store = siteResult.site === SITE_ID ? g.store : supabaseStore(undefined, siteResult.site);
   try {
-    const [drafts, accounts] = await Promise.all([g.store.listDrafts(200), g.store.accounts()]);
+    const [drafts, accounts] = await Promise.all([store.listDrafts(200), store.accounts()]);
     return NextResponse.json({ ok: true, drafts, accounts });
   } catch {
     return NextResponse.json({ error: 'read_failed' }, { status: 500 });
@@ -33,15 +41,23 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   let body: unknown;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const b = (body ?? {}) as { action?: unknown; draft?: unknown };
+  // ADMIN-2: the site is the admin's choice (query or body), validated; the template drafts read kpopquiz.org's weekly data, so they are kpop only.
+  const siteResult = adminSiteOf(req, body, b.action === 'generate' ? { only: ['kpop'] } : {});
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const store = site === SITE_ID ? g.store : supabaseStore(undefined, site);
   try {
     if (b.action === 'generate') {
-      return NextResponse.json({ ok: true, ...(await generateTemplateDrafts(g.store, Date.now())) });
+      const out = await generateTemplateDrafts(store, Date.now());
+      await logAdminAction({ user: { id: g.adminId } }, { site, action: 'editorial.generate', targetType: 'editorial_draft', detail: { created: out.created, existing: out.existing }, requestId: requestIdOf(req) });
+      return NextResponse.json({ ok: true, ...out });
     }
     if (b.action === 'create') {
       const c = checkDraftInput(b.draft);
       if (!c.ok) return NextResponse.json({ error: c.error }, { status: 400 });
-      const r = await createDraft(g.store, c.value, { adminId: g.adminId });
+      const r = await createDraft(store, c.value, { adminId: g.adminId });
       if (!r.ok) return NextResponse.json({ error: r.error }, { status: r.status });
+      await logAdminAction({ user: { id: g.adminId } }, { site, action: 'editorial.create', targetType: 'editorial_draft', targetId: (r.value as { id?: number } | null)?.id ?? null, requestId: requestIdOf(req) });
       return NextResponse.json({ ok: true, draft: r.value });
     }
     return NextResponse.json({ error: 'bad_action' }, { status: 400 });

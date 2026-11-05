@@ -20,6 +20,8 @@ vi.mock('@/lib/supabase/server', async () => ({
       b.select = () => b;
       b.update = (arg: unknown) => { c.op = 'update'; c.arg = arg; return b; };
       b.delete = () => { c.op = 'delete'; return b; };
+      // ADMIN-2: the action journal (lib/admin/journal.ts) inserts one line into admin_actions after each write.
+      b.insert = (arg: unknown) => { c.op = 'insert'; c.arg = arg; return Promise.resolve({ data: null, error: null }); };
       for (const m of ['eq', 'neq']) b[m] = (k: string, v: unknown) => { c.filters.push([k, v]); return b; };
       b.single = async () => ({ data: { id: 'b1' }, error: null });
       b.then = (ok: (v: unknown) => unknown) => ok({ data: table === 'quiz_bank' && c.op === 'select' ? state.bank : null, error: null });
@@ -39,6 +41,10 @@ const req = (url: string, method: string, body?: unknown): NextRequest =>
   new NextRequest(`https://example.test${url}`, { method, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
 const ctx = { params: Promise.resolve({ id: 'b1' }) };
 
+// The queries under test, without the journal line that follows each write (asserted on its own with journal()).
+const queries = (): Call[] => (state.calls as Call[]).filter((c) => c.table !== 'admin_actions');
+const journal = (): Call[] => (state.calls as Call[]).filter((c) => c.table === 'admin_actions');
+
 beforeEach(() => { state.calls = []; state.bank = []; });
 afterEach(() => { vi.unstubAllEnvs(); });
 
@@ -48,10 +54,11 @@ describe('PATCH and DELETE /api/admin/quiz-bank/[id]', () => {
     const { PATCH, DELETE } = await import('./[id]/route');
     expect((await PATCH(req('/api/admin/quiz-bank/b1', 'PATCH', { status: 'verified' }), ctx)).status).toBe(200);
     expect((await DELETE(req('/api/admin/quiz-bank/b1', 'DELETE'), ctx)).status).toBe(200);
-    const calls = state.calls as Call[];
+    const calls = queries();
     expect(calls.map((c) => `${c.table}:${c.op}`)).toEqual(['quiz_bank:update', 'quiz_bank:delete']);
     expect(calls.map((c) => c.filters)).toEqual([[['id', 'b1']], [['id', 'b1']]]);
     expect(calls[0]!.arg).toMatchObject({ status: 'verified' });
+    expect(journal().map((c) => [(c.arg as { action: string }).action, (c.arg as { site_id: string }).site_id])).toEqual([['quiz_bank.update', 'kpop'], ['quiz_bank.delete', 'kpop']]);
   });
 
   it('anime build: both carry site_id anime, so an id of another site matches nothing', async () => {
@@ -59,7 +66,8 @@ describe('PATCH and DELETE /api/admin/quiz-bank/[id]', () => {
     const { PATCH, DELETE } = await import('./[id]/route');
     await PATCH(req('/api/admin/quiz-bank/b1', 'PATCH', { status: 'verified' }), ctx);
     await DELETE(req('/api/admin/quiz-bank/b1', 'DELETE'), ctx);
-    expect((state.calls as Call[]).map((c) => c.filters)).toEqual([[['site_id', 'anime'], ['id', 'b1']], [['site_id', 'anime'], ['id', 'b1']]]);
+    expect(queries().map((c) => c.filters)).toEqual([[['site_id', 'anime'], ['id', 'b1']], [['site_id', 'anime'], ['id', 'b1']]]);
+    expect(journal().map((c) => (c.arg as { site_id: string }).site_id)).toEqual(['anime', 'anime']);
   });
 });
 
@@ -76,7 +84,7 @@ describe('POST /api/admin/quiz-bank/auto-schedule', () => {
     const res = await POST(req('/api/admin/quiz-bank/auto-schedule', 'POST', { start_date: '2026-11-01' }));
     expect(res.status).toBe(200);
     expect(((await res.json()) as { scheduled: number }).scheduled).toBe(2);
-    const calls = state.calls as Call[];
+    const calls = queries();
     expect(calls[0]).toMatchObject({ table: 'quiz_bank', op: 'select', filters: [['status', 'published']] });
     expect(calls.slice(1).map((c) => c.filters.map((f) => f[0]))).toEqual([['id'], ['id']]);
   });
@@ -86,7 +94,7 @@ describe('POST /api/admin/quiz-bank/auto-schedule', () => {
     state.bank = unscheduled;
     const { POST } = await import('./auto-schedule/route');
     expect((await POST(req('/api/admin/quiz-bank/auto-schedule', 'POST', { start_date: '2026-11-01' }))).status).toBe(200);
-    const calls = state.calls as Call[];
+    const calls = queries();
     expect(calls[0]!.filters).toEqual([['site_id', 'anime'], ['status', 'published']]);
     expect(calls.slice(1).map((c) => c.filters[0])).toEqual([['site_id', 'anime'], ['site_id', 'anime']]);
   });

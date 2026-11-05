@@ -1,3 +1,4 @@
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
 import { MAX_OUTPUT_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readForm, sameOrigin } from '@/lib/entity-images/route-kit';
@@ -43,12 +44,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (action === 'retire') {
       const slot = parseAssetSlot(form.get('key'));
       await retireAsset(db, slot.key);
+      await logAdminAction({ user: { id: gate.userId } }, { site: 'hub', action: 'asset.retire', targetType: 'site_asset', targetId: slot.key, requestId: requestIdOf(req) });
       return ok({ retired: slot.key });
     }
     if (action === 'restore') {
       const id = Number(form.get('id'));
       if (!Number.isInteger(id) || id < 1) throw new ImageError('bad_request', 400, 'La version n\'est pas valide.');
       await restoreAsset(db, id);
+      await logAdminAction({ user: { id: gate.userId } }, { site: 'hub', action: 'asset.restore', targetType: 'site_asset', targetId: id, requestId: requestIdOf(req) });
       return ok({ restored: id });
     }
     if (action !== 'save') throw new ImageError('bad_request', 400, 'Action inconnue.');
@@ -63,6 +66,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const saved = await saveAsset(db, {
       slot, files: large && thumb ? { large, mid, thumb } : null, noFile, settings, meta, verified: parseFlag(form.get('verified')), publishAt, userId: gate.userId,
     });
+    await logAdminAction({ user: { id: gate.userId } }, { site: 'hub', action: 'asset.save', targetType: 'site_asset', targetId: slot.key, requestId: requestIdOf(req) });
     return ok({ saved: saved.id, key: slot.key });
   } catch (e) {
     return failure(e);

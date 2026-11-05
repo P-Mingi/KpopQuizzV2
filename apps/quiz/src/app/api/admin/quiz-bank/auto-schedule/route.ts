@@ -2,8 +2,10 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 import { autoSchedule } from '@/lib/quiz-bank-scheduling';
-import { forSite } from '@/lib/site/scope';
 
 import type { NextRequest } from 'next/server';
 import type { QuizBankEntry } from '@/lib/quiz-bank-scheduling';
@@ -18,6 +20,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   } catch {
     // body is optional
   }
+
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
 
   // Start date defaults to tomorrow
   const tomorrow = new Date();
@@ -66,6 +74,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   await Promise.all(updates);
 
+  await logAdminAction(gate, { site, action: 'quiz_bank.auto_schedule', targetType: 'quiz_bank', detail: { scheduled: assignments.size, force }, requestId: requestIdOf(request) });
   return NextResponse.json({ scheduled: assignments.size, assignments: Object.fromEntries(assignments) });
 }
 

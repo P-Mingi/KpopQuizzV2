@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
-import { forSite, withSite } from '@/lib/site/scope';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -18,6 +21,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   const { quiz_id, date } = body as Record<string, unknown>;
+
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite, withSite } = siteScope(site);
+
 
   if (typeof quiz_id !== 'string' || typeof date !== 'string') {
     return NextResponse.json({ error: 'quiz_id and date are required' }, { status: 400 });
@@ -52,6 +62,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     { onConflict: 'site_id,featured_date' },
   );
 
+  const cache = await revalidateSite(site, ['quizzes']);
+  await logAdminAction(gate, { site, action: 'qotd.set', targetType: 'quiz', targetId: quiz_id, detail: { cache: cacheOutcome(cache), date }, requestId: requestIdOf(request) });
   return NextResponse.json({ success: true });
 }
 

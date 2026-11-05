@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -8,6 +10,11 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
   const { supabase } = gate;
+
+  // ADMIN-2: the members of the site the admin chose (world_memberships; a kpop member is a profile), so each section lists its own people.
+  const siteResult = adminSiteOf(request);
+  if (!siteResult.ok) return siteResult.res;
+  const { scoped, site } = siteScope(siteResult.site);
 
   const { searchParams } = new URL(request.url);
   const offset = parseInt(searchParams.get('offset') ?? '0', 10);
@@ -17,7 +24,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   let query = supabase
     .from('profiles')
-    .select('id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, total_quizzes_created, total_plays_received, created_at, banned_at');
+    .select(scoped
+      ? 'id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, total_quizzes_created, total_plays_received, created_at, banned_at, world_memberships!inner(site_id)'
+      : 'id, username, display_name, avatar_url, avatar_bg, avatar_text, xp, total_quizzes_created, total_plays_received, created_at, banned_at');
+  if (scoped) query = query.eq('world_memberships.site_id', site);
 
   if (search) {
     query = query.ilike('username', `%${search}%`);
@@ -38,7 +48,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   // Get total count
-  let countQuery = supabase.from('profiles').select('id', { count: 'exact', head: true });
+  let countQuery = supabase.from('profiles').select(scoped ? 'id, world_memberships!inner(site_id)' : 'id', { count: 'exact', head: true });
+  if (scoped) countQuery = countQuery.eq('world_memberships.site_id', site);
   if (search) {
     countQuery = countQuery.ilike('username', `%${search}%`);
   }

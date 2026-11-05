@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { isUxV12 } from '@/lib/ux-v12';
 
@@ -27,6 +29,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const id = Number(body.id);
   if (!Number.isSafeInteger(id) || id <= 0) return NextResponse.json({ error: 'bad_params' }, { status: 400 });
+  // ADMIN-2: this tool serves kpopquiz.org only (its tables have no site column); the site is validated all the same.
+  const siteResult = adminSiteOf(req, body, { only: ['kpop'] });
+  if (!siteResult.ok) return siteResult.res;
 
   const svc = createServiceRoleClient();
   const { data } = await svc.from('community_autohidden').select('id, target_type, target_id, target_ref, prev_status, restored_at').eq('id', id).maybeSingle();
@@ -41,6 +46,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await svc.from('verse_flags').update({ status: 'dismissed', resolved_by: user.id, resolved_at: now })
       .eq('target_type', 'debate_vote').eq('target_ref', row.target_ref).eq('status', 'open');
     await svc.from('community_autohidden').update({ restored_at: now, restored_by: user.id }).eq('id', row.id);
+    await logAdminAction(gate, { site: siteResult.site, action: 'community.restore', targetType: 'community_autohidden', targetId: row.id, detail: { kind: row.target_type }, requestId: requestIdOf(req) });
     return NextResponse.json({ ok: true });
   }
   const table = TABLE[row.target_type];
@@ -52,6 +58,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   await svc.from('verse_flags').update({ status: 'dismissed', resolved_by: user.id, resolved_at: now })
     .eq('target_type', row.target_type).eq('target_id', row.target_id).eq('status', 'open');
   await svc.from('community_autohidden').update({ restored_at: now, restored_by: user.id }).eq('id', row.id);
+  await logAdminAction(gate, { site: siteResult.site, action: 'community.restore', targetType: 'community_autohidden', targetId: row.id, detail: { kind: row.target_type }, requestId: requestIdOf(req) });
   return NextResponse.json({ ok: true });
 }
 

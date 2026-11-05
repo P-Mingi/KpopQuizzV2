@@ -2,11 +2,15 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   const gate = await requireAdmin('api');
@@ -19,10 +23,16 @@ export async function DELETE(
     return NextResponse.json({ error: 'Invalid group ID' }, { status: 400 });
   }
 
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
+
   // Check if group has published quizzes
-  const { count } = await supabase
+  const { count } = await forSite(supabase
     .from('quizzes')
-    .select('id', { count: 'exact', head: true })
+    .select('id', { count: 'exact', head: true }))
     .eq('group_id', groupId);
 
   if (count && count > 0) {
@@ -31,9 +41,9 @@ export async function DELETE(
 
   const adminDb = createServiceRoleClient();
 
-  const { error } = await adminDb
+  const { error } = await forSite(adminDb
     .from('groups')
-    .delete()
+    .delete())
     .eq('id', groupId);
 
   if (error) {
@@ -41,6 +51,8 @@ export async function DELETE(
     return NextResponse.json({ error: 'Failed to delete group' }, { status: 500 });
   }
 
+  const cache = await revalidateSite(site, ['groups']);
+  await logAdminAction(gate, { site, action: 'group.delete', targetType: 'group', targetId: groupId, detail: { cache: cacheOutcome(cache) }, requestId: requestIdOf(request) });
   return NextResponse.json({ success: true });
 }
 

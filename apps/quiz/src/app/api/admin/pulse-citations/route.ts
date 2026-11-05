@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 
 // Workstream T0: create a pulse_citations row (the owner-curated "context
 // corner"). Admin-only; writes with the service-role client since the table has
@@ -48,10 +50,15 @@ export async function POST(request: Request): Promise<NextResponse> {
   const parsed = parseCitation(body);
   if ('error' in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
+  // ADMIN-2: this tool serves kpopquiz.org only (its tables have no site column); the site is validated all the same.
+  const siteResult = adminSiteOf(request, body, { only: ['kpop'] });
+  if (!siteResult.ok) return siteResult.res;
+
   const svc = createServiceRoleClient();
   const { data, error } = await svc.from('pulse_citations').insert(parsed.row).select('id').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  await logAdminAction(gate, { site: siteResult.site, action: 'citation.create', targetType: 'pulse_citation', targetId: data.id, detail: { active: parsed.row.active }, requestId: requestIdOf(request) });
   return NextResponse.json({ ok: true, id: data.id });
 }
 

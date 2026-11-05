@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { revalidateEverywhere } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
 import { getAvatarColors } from '@/lib/utils';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 
@@ -19,6 +22,11 @@ export async function POST(
   const adminDb = createServiceRoleClient();
 
   const body = await request.json();
+  // ADMIN-2: the site is the admin's choice (query or body), validated. Accounts are shared by the three sites: it scopes what is site data
+  // (the notification, the list of members) and tells the journal where the admin was.
+  const siteResult = adminSiteOf(request, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
   const updates: Record<string, unknown> = {};
 
   if (body.username !== undefined) {
@@ -71,6 +79,9 @@ export async function POST(
     return NextResponse.json({ error: 'Failed to update user' }, { status: 500 });
   }
 
+  // A profile is shown by the three sites: its public pages are refreshed on each.
+  const cache = await revalidateEverywhere(['creators']);
+  await logAdminAction(gate, { site, action: 'user.edit', targetType: 'user', targetId: id, detail: { cache, fields: Object.keys(updates).filter((k) => k !== 'updated_at' && k !== 'avatar_bg' && k !== 'avatar_text') }, requestId: requestIdOf(request) });
   return NextResponse.json({ success: true });
 }
 

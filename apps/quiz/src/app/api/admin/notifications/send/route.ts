@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -45,6 +48,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'recipient_username or recipient_id required' }, { status: 400 });
   }
 
+  // ADMIN-2: the site is the admin's choice (query or body), validated. Accounts are shared by the three sites: it scopes what is site data
+  // (the notification, the list of members) and tells the journal where the admin was.
+  const siteResult = adminSiteOf(request, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { withSite } = siteScope(site);
+
   const admin = createServiceRoleClient();
 
   // Resolve recipient.
@@ -63,14 +73,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const { data: inserted, error } = await admin
     .from('creator_notifications')
-    .insert({
+    .insert(withSite({
       user_id: targetId,
       type: 'admin_dm',
       title,
       body: bodyText,
       link_url: linkUrl,
       sender_id: sender.id,
-    })
+    }))
     .select('id, created_at')
     .single();
 
@@ -79,6 +89,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  // The journal keeps who it went to and on which site, never the words (no title, no body, no link).
+  await logAdminAction(gate, { site, action: 'notification.send', targetType: 'user', targetId, detail: { notification_id: inserted?.id == null ? null : String(inserted.id) }, requestId: requestIdOf(request) });
   return NextResponse.json({
     ok: true,
     id: inserted?.id,

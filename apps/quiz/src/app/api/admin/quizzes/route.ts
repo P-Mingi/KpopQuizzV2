@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
-import { forSite } from '@/lib/site/scope';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 import { avgScorePct } from '@/lib/quiz/scoring';
 
 import type { NextRequest } from 'next/server';
@@ -16,6 +17,12 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
   const { supabase } = gate;
+
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
 
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q')?.trim() ?? '';

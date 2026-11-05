@@ -1,4 +1,5 @@
-import { MAX_SOURCE_BYTES } from '@/lib/entity-images/constants';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { IMAGE_SITE, MAX_SOURCE_BYTES } from '@/lib/entity-images/constants';
 import { ImageError } from '@/lib/entity-images/errors';
 import { revalidateImage } from '@/lib/entity-images/cache';
 import { processImage } from '@/lib/entity-images/process';
@@ -40,7 +41,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const db = createServiceRoleClient();
     await assertEntity(db, kind, slug);
     const image = await processImage(new Uint8Array(await file.arrayBuffer()), kind);
-    return ok({ image: await saveImage(db, { kind, slug, image, meta, userId: gate.userId }, revalidateImage) });
+    const saved = await saveImage(db, { kind, slug, image, meta, userId: gate.userId }, revalidateImage);
+    await logAdminAction({ user: { id: gate.userId } }, { site: IMAGE_SITE, action: 'image.upload', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
+    return ok({ image: saved });
   } catch (e) {
     return failure(e);
   }

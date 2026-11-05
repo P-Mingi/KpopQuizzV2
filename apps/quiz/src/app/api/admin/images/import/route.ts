@@ -1,4 +1,6 @@
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
 import { revalidateImage } from '@/lib/entity-images/cache';
+import { IMAGE_SITE } from '@/lib/entity-images/constants';
 import { fetchRemoteImage } from '@/lib/entity-images/fetch-remote';
 import { processImage } from '@/lib/entity-images/process';
 import { adminGate, failure, forbidden, notFoundHandler, ok, readJson, sameOrigin } from '@/lib/entity-images/route-kit';
@@ -32,7 +34,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await assertEntity(db, kind, slug);
     const bytes = await fetchRemoteImage(file && linkIsCommons(body.url) ? file.imageUrl : body.url);
     const image = await processImage(bytes, kind);
-    return ok({ image: await saveImage(db, { kind, slug, image, meta, userId: gate.userId }, revalidateImage) });
+    const saved = await saveImage(db, { kind, slug, image, meta, userId: gate.userId }, revalidateImage);
+    await logAdminAction({ user: { id: gate.userId } }, { site: IMAGE_SITE, action: 'image.import', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
+    return ok({ image: saved });
   } catch (e) {
     return failure(e);
   }

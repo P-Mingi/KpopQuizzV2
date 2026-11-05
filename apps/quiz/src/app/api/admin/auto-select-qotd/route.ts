@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 import { isCronAuthorized } from '@/lib/cron-auth';
 import { avgScorePct } from '@/lib/quiz/scoring';
-import { forSite, withSite } from '@/lib/site/scope';
 
 export async function POST(req: Request): Promise<NextResponse> {
   // ADMIN-1: Bearer CRON_SECRET, or an admin that requireAdmin lets through (aal2); anyone else gets the admin 404.
@@ -11,6 +14,14 @@ export async function POST(req: Request): Promise<NextResponse> {
     const gate = await requireAdmin('api');
     if (!gate.ok) return gate.res;
   }
+
+  // ADMIN-2: an admin names the site (?site=); the cron of a build, which has no admin and no site argument, acts on its own build's site.
+  const cron = isCronAuthorized(req);
+  const siteResult = adminSiteOf(req, undefined, { buildDefault: cron });
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite, withSite } = siteScope(site);
+  const actor = cron ? null : await requireAdmin('check');
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -215,6 +226,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     selection_method: 'auto',
     score: Math.round(winner.score * 100) / 100,
   }));
+
+  if (actor) {
+    const cache = await revalidateSite(site, ['quizzes']);
+    await logAdminAction(actor, { site, action: 'qotd.auto_select', targetType: 'quiz', targetId: winner.id, detail: { cache: cacheOutcome(cache), date: tomorrowStr }, requestId: requestIdOf(req) });
+  }
 
   return NextResponse.json({
     message: 'QOTD set for tomorrow',

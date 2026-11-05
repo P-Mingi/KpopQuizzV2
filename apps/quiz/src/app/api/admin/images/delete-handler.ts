@@ -1,4 +1,6 @@
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
 import { revalidateImage } from '@/lib/entity-images/cache';
+import { IMAGE_SITE } from '@/lib/entity-images/constants';
 import { adminGate, failure, forbidden, ok, readJson, sameOrigin } from '@/lib/entity-images/route-kit';
 import { deleteImage } from '@/lib/entity-images/store';
 import { parseKind, parseSlug } from '@/lib/entity-images/validate';
@@ -19,7 +21,9 @@ export async function deleteHandler(req: NextRequest): Promise<NextResponse> {
     const body = req.headers.get('content-length') === '0' || !req.body ? {} : await readJson(req);
     const kind = parseKind(body.kind ?? q.get('kind'));
     const slug = parseSlug(kind, body.slug ?? q.get('slug'));
-    return ok({ image: await deleteImage(createServiceRoleClient(), kind, slug, revalidateImage) });
+    const image = await deleteImage(createServiceRoleClient(), kind, slug, revalidateImage);
+    await logAdminAction({ user: { id: gate.userId } }, { site: IMAGE_SITE, action: 'image.delete', targetType: kind, targetId: slug, requestId: requestIdOf(req) });
+    return ok({ image });
   } catch (e) {
     return failure(e);
   }

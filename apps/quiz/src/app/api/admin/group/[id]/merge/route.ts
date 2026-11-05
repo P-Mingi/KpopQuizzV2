@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { cacheOutcome, revalidateSite } from '@/lib/admin/revalidate-client';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -30,12 +34,24 @@ export async function POST(
     return NextResponse.json({ error: 'Invalid target group ID' }, { status: 400 });
   }
 
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
+
   const adminDb = createServiceRoleClient();
 
+  // Both groups must belong to the chosen site: a merge never reaches across sites.
+  const { data: sameSite } = await forSite(adminDb.from('groups').select('id')).in('id', [sourceGroupId, targetGroupId]);
+  if ((sameSite ?? []).length !== 2) {
+    return NextResponse.json({ error: 'Both groups must belong to this site' }, { status: 400 });
+  }
+
   // Move all quizzes from source to target
-  const { error: moveError } = await adminDb
+  const { error: moveError } = await forSite(adminDb
     .from('quizzes')
-    .update({ group_id: targetGroupId })
+    .update({ group_id: targetGroupId }))
     .eq('group_id', sourceGroupId);
 
   if (moveError) {
@@ -44,9 +60,9 @@ export async function POST(
   }
 
   // Delete the source group
-  const { error: deleteError } = await adminDb
+  const { error: deleteError } = await forSite(adminDb
     .from('groups')
-    .delete()
+    .delete())
     .eq('id', sourceGroupId);
 
   if (deleteError) {
@@ -55,17 +71,19 @@ export async function POST(
   }
 
   // Recalculate quiz_count on target group
-  const { count } = await adminDb
+  const { count } = await forSite(adminDb
     .from('quizzes')
-    .select('id', { count: 'exact', head: true })
+    .select('id', { count: 'exact', head: true }))
     .eq('group_id', targetGroupId)
     .eq('status', 'published');
 
-  await adminDb
+  await forSite(adminDb
     .from('groups')
-    .update({ quiz_count: count ?? 0 })
+    .update({ quiz_count: count ?? 0 }))
     .eq('id', targetGroupId);
 
+  const cache = await revalidateSite(site, ['groups', 'quizzes']);
+  await logAdminAction(gate, { site, action: 'group.merge', targetType: 'group', targetId: sourceGroupId, detail: { cache: cacheOutcome(cache), target_group_id: targetGroupId }, requestId: requestIdOf(request) });
   return NextResponse.json({ success: true });
 }
 

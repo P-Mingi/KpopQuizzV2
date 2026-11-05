@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
-import { forSite } from '@/lib/site/scope';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -21,6 +23,12 @@ export async function PATCH(
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
+
+  // ADMIN-2: the site is the admin's choice (query or body), validated; every query below filters by it.
+  const siteResult = adminSiteOf(request, body);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
 
   const adminDb = createServiceRoleClient();
 
@@ -50,17 +58,22 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  await logAdminAction(gate, { site, action: 'quiz_bank.update', targetType: 'quiz_bank', targetId: id, detail: { fields: Object.keys(update).filter((k) => k !== 'updated_at'), status: typeof update.status === 'string' ? update.status : null }, requestId: requestIdOf(request) });
   return NextResponse.json({ entry: data });
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ): Promise<NextResponse> {
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
 
   const { id } = await params;
+  const siteResult = adminSiteOf(request);
+  if (!siteResult.ok) return siteResult.res;
+  const site = siteResult.site;
+  const { forSite } = siteScope(site);
   const adminDb = createServiceRoleClient();
 
   const { error } = await forSite(adminDb.from('quiz_bank').delete()).eq('id', id);
@@ -69,6 +82,7 @@ export async function DELETE(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  await logAdminAction(gate, { site, action: 'quiz_bank.delete', targetType: 'quiz_bank', targetId: id, requestId: requestIdOf(request) });
   return NextResponse.json({ success: true });
 }
 

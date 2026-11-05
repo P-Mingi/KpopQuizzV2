@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 
 // Workstream T1.5: create a tracked MV (admin-only, service-role write).
 
@@ -43,10 +45,15 @@ export async function POST(request: Request): Promise<NextResponse> {
   const parsed = parseMv(body);
   if ('error' in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
 
+  // ADMIN-2: this tool serves kpopquiz.org only (its tables have no site column); the site is validated all the same.
+  const siteResult = adminSiteOf(request, body, { only: ['kpop'] });
+  if (!siteResult.ok) return siteResult.res;
+
   const svc = createServiceRoleClient();
   const { data, error } = await svc.from('mv_tracking').insert(parsed.row).select('id').single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  await logAdminAction(gate, { site: siteResult.site, action: 'mv.create', targetType: 'mv', targetId: data.id, detail: { active: parsed.row.active }, requestId: requestIdOf(request) });
   return NextResponse.json({ ok: true, id: data.id });
 }
 

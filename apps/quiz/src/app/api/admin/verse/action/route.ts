@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { logAdminAction, requestIdOf } from '@/lib/admin/journal';
+import { adminSiteOf } from '@/lib/admin/site';
 import { runVerseRefresh } from '@/lib/verse/refresh';
 
 import type { NextRequest } from 'next/server';
@@ -24,7 +26,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   let body: Record<string, unknown>;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad_json' }, { status: 400 }); }
   const type = String(body.type ?? '');
+  // ADMIN-2: the Verse data is kpopquiz.org's; the site is validated all the same.
+  const siteResult = adminSiteOf(req, body, { only: ['kpop'] });
+  if (!siteResult.ok) return siteResult.res;
   const svc = createServiceRoleClient();
+  // One journal line per action done, with the ids it touched and never the value a curator typed.
+  const target = body.entity_id ?? body.album_id ?? body.idol_id ?? body.group_id ?? null;
+  const done = async (extra: Record<string, unknown> = {}): Promise<NextResponse> => {
+    await logAdminAction(gate, { site: siteResult.site, action: `verse.${type}`.replace(/[^a-z0-9_.]/g, '_'), targetType: String(body.entity_type ?? 'verse'), targetId: typeof target === 'string' || typeof target === 'number' ? target : null, requestId: requestIdOf(req) });
+    return NextResponse.json({ ok: true, ...extra });
+  };
 
   try {
     switch (type) {
@@ -42,23 +53,23 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
           entity_type, entity_id, field, value, author: user.id, updated_at: new Date().toISOString(),
         }, { onConflict: 'entity_type,entity_id,field' });
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'override_delete': {
         const { error } = await svc.from('entity_overrides').delete()
           .eq('entity_type', String(body.entity_type ?? '')).eq('entity_id', String(body.entity_id ?? '')).eq('field', String(body.field ?? ''));
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'album_keep': {
         const { error } = await svc.from('albums').update({ review_flag: false, review_reason: null }).eq('id', Number(body.album_id));
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'album_drop': {
         const { error } = await svc.from('albums').delete().eq('id', Number(body.album_id));
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'idol_activate': {
         // Approve a review candidate (Wikidata mismatch OR curator-created) into a
@@ -72,7 +83,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         }
         const { error } = await svc.from('idols').update({ active: true, needs_review: false, review_reason: null }).eq('id', Number(body.idol_id));
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'idol_keep_hidden': {
         // "Keep hidden" on the curator-idol queue: reviewed, decided not to publish. The
@@ -80,16 +91,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         // inactive (active=false already 404s the page via getIdol). Not a delete.
         const { error } = await svc.from('idols').update({ needs_review: false }).eq('id', Number(body.idol_id)).eq('active', false);
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'idol_reject': {
         const { error } = await svc.from('idols').delete().eq('id', Number(body.idol_id));
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ ok: true });
+        return done();
       }
       case 'refresh_group': {
         const stats = await runVerseRefresh(svc, { groupId: Number(body.group_id) });
-        return NextResponse.json({ ok: true, stats });
+        return done({ stats });
       }
       default:
         return NextResponse.json({ error: 'unknown_action' }, { status: 400 });

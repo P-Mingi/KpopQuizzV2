@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { adminSiteOf } from '@/lib/admin/site';
+import { siteScope } from '@/lib/admin/site-scope';
 
 import type { NextRequest } from 'next/server';
 
@@ -15,6 +17,16 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
   const { supabase } = gate;
+
+  // ADMIN-2 (R36): the numbers of the site the admin chose. Quizzes, groups and reports are read through forSite; plays through the
+  // quiz they belong to (plays has no site column). Accounts are one per person for the whole network: the user counts stay network-wide.
+  const siteResult = adminSiteOf(request);
+  if (!siteResult.ok) return siteResult.res;
+  const { forSite, scoped, site } = siteScope(siteResult.site);
+  const playsOf = (cols: string, opts?: { count: 'exact'; head: boolean }) => {
+    const base = supabase.from('plays').select(scoped ? `${cols}, quizzes!inner(site_id)` : cols, opts);
+    return scoped ? base.eq('quizzes.site_id', site) : base;
+  };
 
   const { searchParams } = new URL(request.url);
   const period = searchParams.get('period') ?? '7d';
@@ -49,52 +61,52 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   ] = await Promise.all([
     // KPI: plays current period
     periodStart
-      ? supabase.from('plays').select('id', { count: 'exact', head: true }).gte('created_at', periodStartISO)
-      : supabase.from('plays').select('id', { count: 'exact', head: true }),
+      ? playsOf('id', { count: 'exact', head: true }).gte('created_at', periodStartISO)
+      : playsOf('id', { count: 'exact', head: true }),
     // KPI: plays previous period
     periodStart
-      ? supabase.from('plays').select('id', { count: 'exact', head: true }).gte('created_at', prevPeriodStartISO).lt('created_at', periodStartISO)
+      ? playsOf('id', { count: 'exact', head: true }).gte('created_at', prevPeriodStartISO).lt('created_at', periodStartISO)
       : Promise.resolve({ count: 0 }),
     // KPI: quizzes current period
     periodStart
-      ? supabase.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published').gte('created_at', periodStartISO)
-      : supabase.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published'),
+      ? forSite(supabase.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published').gte('created_at', periodStartISO)
+      : forSite(supabase.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published'),
     // KPI: users current period
     periodStart
       ? supabase.from('profiles').select('id', { count: 'exact', head: true }).gte('created_at', periodStartISO)
       : supabase.from('profiles').select('id', { count: 'exact', head: true }),
     // Today: plays
-    supabase.from('plays').select('id', { count: 'exact', head: true }).gte('created_at', todayStart),
+    playsOf('id', { count: 'exact', head: true }).gte('created_at', todayStart),
     // Today: users
     supabase.from('profiles').select('id', { count: 'exact', head: true }).gte('created_at', todayStart),
     // Today: quizzes
-    supabase.from('quizzes').select('id', { count: 'exact', head: true }).eq('status', 'published').gte('created_at', todayStart),
+    forSite(supabase.from('quizzes').select('id', { count: 'exact', head: true })).eq('status', 'published').gte('created_at', todayStart),
     // Today: pending reports
-    supabase.from('reports').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+    forSite(supabase.from('reports').select('id', { count: 'exact', head: true })).eq('status', 'pending'),
     // Avg completion rate - fetch published quizzes with play data
-    supabase.from('quizzes').select('play_count, total_completions').eq('status', 'published').gt('play_count', 0),
+    forSite(supabase.from('quizzes').select('play_count, total_completions')).eq('status', 'published').gt('play_count', 0),
     // Activity: plays per day
     periodStart
-      ? supabase.from('plays').select('created_at').gte('created_at', periodStartISO).order('created_at', { ascending: true })
-      : supabase.from('plays').select('created_at').order('created_at', { ascending: true }),
+      ? playsOf('created_at').gte('created_at', periodStartISO).order('created_at', { ascending: true })
+      : playsOf('created_at').order('created_at', { ascending: true }),
     // Activity: users per day
     periodStart
       ? supabase.from('profiles').select('created_at').gte('created_at', periodStartISO).order('created_at', { ascending: true })
       : supabase.from('profiles').select('created_at').order('created_at', { ascending: true }),
     // Activity: quizzes per day
     periodStart
-      ? supabase.from('quizzes').select('created_at').eq('status', 'published').gte('created_at', periodStartISO).order('created_at', { ascending: true })
-      : supabase.from('quizzes').select('created_at').eq('status', 'published').order('created_at', { ascending: true }),
+      ? forSite(supabase.from('quizzes').select('created_at')).eq('status', 'published').gte('created_at', periodStartISO).order('created_at', { ascending: true })
+      : forSite(supabase.from('quizzes').select('created_at')).eq('status', 'published').order('created_at', { ascending: true }),
     // Top groups by plays
-    supabase.from('groups').select('name, display_color, total_plays').order('total_plays', { ascending: false }).limit(10),
+    forSite(supabase.from('groups').select('name, display_color, total_plays')).order('total_plays', { ascending: false }).limit(10),
     // Top quizzes this period
     periodStart
-      ? supabase.from('quizzes').select('title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)').eq('status', 'published').gte('created_at', periodStartISO).order('play_count', { ascending: false }).limit(10)
-      : supabase.from('quizzes').select('title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)').eq('status', 'published').order('play_count', { ascending: false }).limit(10),
+      ? forSite(supabase.from('quizzes').select('title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)')).eq('status', 'published').gte('created_at', periodStartISO).order('play_count', { ascending: false }).limit(10)
+      : forSite(supabase.from('quizzes').select('title, slug, play_count, groups(name), profiles!quizzes_creator_id_fkey(username)')).eq('status', 'published').order('play_count', { ascending: false }).limit(10),
     // Top creators - fetch all published quizzes with creator info for the period
     periodStart
-      ? supabase.from('quizzes').select('play_count, creator_id, profiles!quizzes_creator_id_fkey(username, total_quizzes_created)').eq('status', 'published').gte('created_at', periodStartISO).order('play_count', { ascending: false })
-      : supabase.from('quizzes').select('play_count, creator_id, profiles!quizzes_creator_id_fkey(username, total_quizzes_created)').eq('status', 'published').order('play_count', { ascending: false }),
+      ? forSite(supabase.from('quizzes').select('play_count, creator_id, profiles!quizzes_creator_id_fkey(username, total_quizzes_created)')).eq('status', 'published').gte('created_at', periodStartISO).order('play_count', { ascending: false })
+      : forSite(supabase.from('quizzes').select('play_count, creator_id, profiles!quizzes_creator_id_fkey(username, total_quizzes_created)')).eq('status', 'published').order('play_count', { ascending: false }),
   ]);
 
   // Calculate KPIs
@@ -136,7 +148,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     return counts;
   }
 
-  const playsByDay = countByDay(playsForActivityRes.data);
+  const playsByDay = countByDay(playsForActivityRes.data as unknown as { created_at: string }[] | null);
   const usersByDay = countByDay(usersForActivityRes.data);
   const quizzesByDay = countByDay(quizzesForActivityRes.data);
 
@@ -200,6 +212,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     }));
 
   return NextResponse.json({
+    scope: { site, users: 'network' },
     kpis: {
       total_plays: totalPlays,
       total_plays_delta: totalPlaysDelta,
