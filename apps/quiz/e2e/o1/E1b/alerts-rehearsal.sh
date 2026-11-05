@@ -8,11 +8,16 @@
 # S4, Mission U part D). Then 001 to 008 through docs/launch/o1/session.sh B1 B2 B3 D (their own gates and checks), then:
 #   1. with 008 only: the first quiz of a group notifies its two subscribers, the second quiz notifies nobody (the one-shot of today);
 #   2. 025 applied twice (the second run changes nothing: schema and rows read before and after);
-#   3. with 025: every quiz published in the group notifies every subscriber again, notified_at is the time of the last notification,
-#      the creator is never notified, another group's subscribers are left alone, a subscriber who joined later is notified by the next
-#      quiz, a quiz published again after a flag does not duplicate, a subscriber who turned "following" off gets nothing, a failing
-#      notification insert never blocks the publish, a draft published later by an update notifies too;
-#   4. the rollback file puts 008's body back byte for byte (same md5 of prosrc) and the alert is one-shot again; 025 is applied again.
+#   3. with 025 (owner decision of 2026-11-05: every publication notifies, at most one alert per subscriber and group every 20 h): a
+#      quiz published within 20 h of the last alert notifies nobody already notified, and moves no stamp; 20 h or more later it notifies
+#      every subscriber again; notified_at is the time of the last notification and is stamped only for who received a row; the creator
+#      is never notified; another group's subscribers are left alone and a subscriber of two groups is held back per group; a subscriber
+#      who joined later is notified by the next quiz; a quiz published again after a flag does not duplicate (inside and past 20 h, where
+#      ON CONFLICT does the work) and moves no stamp of who had the row; the 19 h 59 and 20 h 01 edge; a subscriber who turned
+#      "following" off gets nothing, is not stamped, and is reached by the next quiz once it is back on; a failing notification insert
+#      never blocks the publish and stamps nobody; a draft published later by an update notifies too;
+#   4. the rollback file puts 008's body back byte for byte (same md5 of prosrc) and the alert is one-shot again; 025 is applied again
+#      and notifies on the next publication.
 # Prints PASS or FAIL per step. Exit 0 when every step passed. The cluster is stopped and its folder removed at the end, pass or fail.
 
 set -uo pipefail
@@ -126,43 +131,79 @@ fingerprint "$WORK/fp1"
 if psql "$DB" -X -q -v ON_ERROR_STOP=1 --single-transaction -f "$M/025-quiz-alerts-every-publish.sql" >>"$WORK/build.log" 2>&1; then pass "025 applied a second time"; else fail "025 second run"; fi
 fingerprint "$WORK/fp2"
 if cmp -s "$WORK/fp1.schema" "$WORK/fp2.schema" && cmp -s "$WORK/fp1.rows" "$WORK/fp2.rows" && [ -s "$WORK/fp2.rows" ]; then pass "the second run changed nothing (schema, grants and every table's rows)"; else fail "the second run changed the database"; diff "$WORK/fp1.schema" "$WORK/fp2.schema" | head; fi
-check "025: the function no longer holds the notified_at guard, is SECURITY DEFINER with search_path public" "true true" "select (prosrc !~ 'notified_at is null') || ' ' || (prosecdef and proconfig @> array['search_path=public']) from pg_proc where oid = 'public.notify_group_quiz_alerts()'::regprocedure"
+check "025: the function no longer holds the notified_at guard, holds the 20 h rule, is SECURITY DEFINER with search_path public" "true true true" "select (prosrc !~ 'notified_at is null') || ' ' || (prosrc ~ '20 hours') || ' ' || (prosecdef and proconfig @> array['search_path=public']) from pg_proc where oid = 'public.notify_group_quiz_alerts()'::regprocedure"
 check "025: the browser roles hold no EXECUTE on the function" "false false" "select has_function_privilege('anon', 'public.notify_group_quiz_alerts()', 'EXECUTE') || ' ' || has_function_privilege('authenticated', 'public.notify_group_quiz_alerts()', 'EXECUTE')"
 check "025: the index on group_id is there" "1" "select count(*) from pg_indexes where schemaname = 'public' and indexname = 'group_quiz_alerts_group_idx'"
 
-# ---- 3. with 025: every publication ------------------------------------------------------------------------------------------
+# ---- 3. with 025: every publication, at most one alert per subscriber and group every 20 h -----------------------------------
+# age_alpha: moves the Alpha stamps 21 h back, as if the next publication came a day later (a null stamp stays null).
+age_alpha() { q "update public.group_quiz_alerts a set notified_at = a.notified_at - interval '21 hours' from public.groups g where g.id = a.group_id and g.slug = 'alpha'" >/dev/null; }
+alpha_fresh() { q "select count(*) from public.group_quiz_alerts a join public.groups g on g.id = a.group_id where g.slug = 'alpha' and a.notified_at > now() - interval '20 hours'"; }
+STAMP1="$(q "select max(notified_at) from public.group_quiz_alerts a join public.groups g on g.id = a.group_id where g.slug = 'alpha'")"
+sleep 1
+publish quiz-soon alpha
+check "025: a quiz of Alpha within 20 h of the last alerts notifies nobody (they were stamped by 008's quiz-one)" "0" "select $(notified quiz-soon)"
+check "025: and no stamp moves" "0" "select count(*) from public.group_quiz_alerts a join public.groups g on g.id = a.group_id where g.slug = 'alpha' and a.notified_at > '$STAMP1'"
+age_alpha
 STAMP1="$(q "select max(notified_at) from public.group_quiz_alerts a join public.groups g on g.id = a.group_id where g.slug = 'alpha'")"
 sleep 1
 publish quiz-three alpha
-check "025: a quiz of Alpha notifies every subscriber again, the creator excluded" "sub_one,sub_two" "select '$(who quiz-three)'"
+check "025: 20 h or more later, a quiz of Alpha notifies every subscriber again, the creator excluded" "sub_one,sub_two" "select '$(who quiz-three)'"
 check "025: notified_at is the time of the last notification (moved forward for the notified, not for the creator)" "2 1" "select (select count(*) from public.group_quiz_alerts a join public.groups g on g.id = a.group_id where g.slug = 'alpha' and a.user_id <> '$U3' and a.notified_at > '$STAMP1') || ' ' || (select count(*) from public.group_quiz_alerts a join public.groups g on g.id = a.group_id where g.slug = 'alpha' and a.user_id = '$U3' and a.notified_at <= '$STAMP1')"
 publish quiz-beta beta
 check "025: a quiz of Beta notifies the Beta subscriber only" "sub_four" "select '$(who quiz-beta)'"
 check "025: the Alpha subscribers have no notification for the Beta quiz" "0" "select count(*) from public.creator_notifications n join public.quizzes z on z.id = n.quiz_id where z.slug = 'quiz-beta' and n.user_id in ('$U1', '$U2')"
+# per group: sub_one, told by Alpha a moment ago, subscribes to Beta and is not held back there; sub_four, told by Beta a moment ago, is held back
+q "insert into public.group_quiz_alerts (user_id, group_id) select '$U1', id from public.groups where slug = 'beta'" >/dev/null
+publish quiz-beta-two beta
+check "025: per group, the Alpha alert of sub_one does not hold back Beta (sub_four, told by Beta a moment ago, is held back)" "sub_one" "select '$(who quiz-beta-two)'"
 q "insert into public.group_quiz_alerts (user_id, group_id) select '$U5', id from public.groups where slug = 'alpha'" >/dev/null
 publish quiz-four alpha
-check "025: a subscriber who joined later is notified by the next quiz" "sub_five,sub_one,sub_two" "select '$(who quiz-four)'"
-# a quiz flagged then published again: the rows of the first publication stay, nothing is duplicated, the subscribers that joined since get theirs
+check "025: within 20 h, only the subscriber who joined later is notified" "sub_five" "select '$(who quiz-four)'"
+# a quiz flagged then published again within 20 h: nothing is duplicated, the subscriber that joined since gets hers
 q "insert into auth.users (id, email) values ('00000000-0000-4000-8000-0000000000a6', 'u6@example.test')" >/dev/null
 q "insert into public.profiles (id, username) values ('00000000-0000-4000-8000-0000000000a6', 'sub_six')" >/dev/null
 q "insert into public.group_quiz_alerts (user_id, group_id) select '00000000-0000-4000-8000-0000000000a6', id from public.groups where slug = 'alpha'" >/dev/null
 q "update public.quizzes set status = 'flagged' where slug = 'quiz-four'" >/dev/null
 q "update public.quizzes set status = 'published' where slug = 'quiz-four'" >/dev/null
-check "025: published again after a flag, no duplicate and the late subscriber is told" "sub_five,sub_one,sub_six,sub_two" "select '$(who quiz-four)'"
+check "025: published again after a flag, no duplicate and the late subscriber is told" "sub_five,sub_six" "select '$(who quiz-four)'"
+# the same, past 20 h: the subscribers who already have the row hit ON CONFLICT, are not stamped again; the others get theirs
+age_alpha
+STAMPS56="$(q "select string_agg(user_id::text || ' ' || notified_at::text, ',' order by user_id) from public.group_quiz_alerts where user_id in ('$U5', '00000000-0000-4000-8000-0000000000a6') and group_id = (select id from public.groups where slug = 'alpha')")"
+q "update public.quizzes set status = 'flagged' where slug = 'quiz-four'" >/dev/null
+q "update public.quizzes set status = 'published' where slug = 'quiz-four'" >/dev/null
+check "025: published again after a flag and 20 h, the two who had the row keep it and the two who had none get one" "sub_five,sub_one,sub_six,sub_two" "select '$(who quiz-four)'"
 check "025: no subscriber has two notifications for one quiz" "0" "select count(*) from (select user_id, quiz_id from public.creator_notifications where type = 'followed_new_quiz' group by 1, 2 having count(*) > 1) d"
-# preferences: a subscriber who turned "following" off gets nothing, the others still do
+check "025: notified_at did not move for the two who already had the row" "$STAMPS56" "select string_agg(user_id::text || ' ' || notified_at::text, ',' order by user_id) from public.group_quiz_alerts where user_id in ('$U5', '00000000-0000-4000-8000-0000000000a6') and group_id = (select id from public.groups where slug = 'alpha')"
+publish quiz-next alpha
+check "025: and the next quiz still reaches them (the two stamped a moment ago are held back)" "sub_five,sub_six" "select '$(who quiz-next)'"
+# the edge: sub_one stamped 19 h 59 ago is held back, sub_two stamped 20 h 01 ago is not
+age_alpha
+q "update public.group_quiz_alerts set notified_at = now() - interval '19 hours 59 minutes' where user_id = '$U1' and group_id = (select id from public.groups where slug = 'alpha')" >/dev/null
+q "update public.group_quiz_alerts set notified_at = now() - interval '20 hours 1 minute' where user_id = '$U2' and group_id = (select id from public.groups where slug = 'alpha')" >/dev/null
+publish quiz-edge alpha
+check "025: the 20 h edge, 19 h 59 gets nothing and 20 h 01 gets it" "sub_five,sub_six,sub_two" "select '$(who quiz-edge)'"
+# preferences: a subscriber who turned "following" off gets nothing and is not stamped; turned back on, the next quiz reaches them even within 20 h
+age_alpha
 q "insert into public.notification_prefs (user_id, categories) values ('$U1', '{\"following\": false}'::jsonb) on conflict (user_id) do update set categories = excluded.categories" >/dev/null
 publish quiz-five alpha
 check "025: following off for sub_one, the others are notified" "sub_five,sub_six,sub_two" "select '$(who quiz-five)'"
+check "025: sub_one is not stamped (no row, no stamp: the stamp is still older than 20 h)" "t" "select notified_at <= now() - interval '20 hours' from public.group_quiz_alerts where user_id = '$U1' and group_id = (select id from public.groups where slug = 'alpha')"
+q "update public.notification_prefs set categories = '{\"following\": true}'::jsonb where user_id = '$U1'" >/dev/null
+publish quiz-five-b alpha
+check "025: following back on, the next quiz reaches sub_one within 20 h of the others (they are held back)" "sub_one" "select '$(who quiz-five-b)'"
 # a draft published later by an update notifies too
+age_alpha
 q "insert into public.quizzes (creator_id, group_id, title, slug, quiz_type, questions, settings, difficulty, status, question_count) select '$U3', id, 'Quiz six title', 'quiz-six', 'multiple_choice', '[{},{},{}]'::jsonb, '{}'::jsonb, 'easy', 'draft', 3 from public.groups where slug = 'alpha'" >/dev/null
 check "025: a draft notifies nobody" "0" "select $(notified quiz-six)"
 q "update public.quizzes set status = 'published' where slug = 'quiz-six'" >/dev/null
-check "025: the draft published by an update notifies the subscribers" "sub_five,sub_six,sub_two" "select '$(who quiz-six)'"
-# never block a publish: a notification insert that fails is swallowed
+check "025: the draft published by an update notifies the subscribers" "sub_five,sub_one,sub_six,sub_two" "select '$(who quiz-six)'"
+# never block a publish: a notification insert that fails is swallowed, and nobody is stamped
+age_alpha
 q "alter table public.creator_notifications add constraint e1b_fail check (false) not valid" >/dev/null
 publish quiz-seven alpha
 check "025: a failing notification insert never blocks the publish (the quiz exists, no notification)" "1 0" "select (select count(*) from public.quizzes where slug = 'quiz-seven' and status = 'published') || ' ' || $(notified quiz-seven)"
+check "025: and nobody is stamped" "0" "select $(alpha_fresh)"
 q "alter table public.creator_notifications drop constraint e1b_fail" >/dev/null
 # a group nobody follows
 q "insert into public.groups (name, slug, fandom_name, display_color, text_color) values ('Gamma', 'gamma', 'g', '#ffffff', '#000000')" >/dev/null
@@ -178,7 +219,7 @@ check "rollback: the alert is one-shot again (every Alpha subscriber is stamped,
 if psql "$DB" -X -q -v ON_ERROR_STOP=1 --single-transaction -f "$M/025-quiz-alerts-every-publish.rollback.sql" >>"$WORK/build.log" 2>&1; then pass "rollback applied a second time"; else fail "rollback second run"; fi
 if psql "$DB" -X -q -v ON_ERROR_STOP=1 --single-transaction -f "$M/025-quiz-alerts-every-publish.sql" >>"$WORK/build.log" 2>&1; then pass "025 applied again after the rollback"; else fail "025 after the rollback"; fi
 publish quiz-nine alpha
-check "025 again: every publication notifies (Alpha, minus the creator and the one who turned following off)" "sub_five,sub_six,sub_two" "select '$(who quiz-nine)'"
+check "025 again: a publication 20 h or more after the last alerts notifies (Alpha, minus the creator)" "sub_five,sub_one,sub_six,sub_two" "select '$(who quiz-nine)'"
 
 echo
 if [ "$fails" = 0 ]; then echo "alerts-rehearsal: every step passed"; else echo "alerts-rehearsal: $fails step(s) FAILED"; fi
