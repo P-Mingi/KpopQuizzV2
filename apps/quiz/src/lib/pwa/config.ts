@@ -7,7 +7,7 @@
 //     the first switch says. The way out for a worker already installed in browsers (docs/launch/o1/PWA.md).
 // These two live here and not in registry.ts O1_FLAGS: registry.ts is in the kpop client bundle (the NET_LAUNCH_DATE precedent of
 // lib/site/indexing.ts), and the flags table of flags-env.md mirrors O1_FLAGS one to one (contract.test.ts). ORCH moves them
-// when it accepts that chunk change; PWA_FLAGS has the exact entries.
+// when it accepts that chunk change; PWA_FLAGS has the exact entries (lane L1: 'PWA' is no lane of LANES.md, contract.test.ts refuses it).
 //
 // Free of next/*, Node built-ins and browser globals: the route handler, the worker builder and the browser code all import it.
 
@@ -23,8 +23,8 @@ export const PWA_KILLED_MESSAGE = 'kq-pwa-killed';
 
 /** The two switches, in the shape of O1_FLAGS (registry.ts). */
 export const PWA_FLAGS: readonly { readonly name: string; readonly scope: 'public' | 'server'; readonly lane: string; readonly reserved: false }[] = [
-  { name: 'NEXT_PUBLIC_NET_PWA', scope: 'public', lane: 'PWA', reserved: false },
-  { name: 'NET_PWA_KILL', scope: 'server', lane: 'PWA', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_PWA', scope: 'public', lane: 'L1', reserved: false },
+  { name: 'NET_PWA_KILL', scope: 'server', lane: 'L1', reserved: false },
 ];
 
 /** The installable apps: one per domain. KpopQuiz on kpopquiz.org, Bunnyverse on bunnyverse.org. */
