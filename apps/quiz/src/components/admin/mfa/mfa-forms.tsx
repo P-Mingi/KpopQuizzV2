@@ -35,8 +35,18 @@ async function post(body: Record<string, string>): Promise<Answer> {
   }
 }
 
-function openAdmin(): void {
-  window.location.assign(`${BASE_PATH}${ADMIN_HOME_PATH}`);
+// ADMIN-2: behind the secret door of the hub the server hands the forms the address to open (a prop, never read here: this file is a client
+// bundle and must not know the address). `to` is the page the admin asked for (validated on the server), else `home`. Without props the
+// forms are the ones of the kpop and anime admins: /admin.
+interface MfaFormProps {
+  /** Where the admin lands after the code. */
+  readonly home?: string;
+  /** The address the admin asked for before the code was due again; wins over `home`. */
+  readonly to?: string | null;
+}
+
+function openAdmin(props: MfaFormProps): void {
+  window.location.assign(`${BASE_PATH}${props.to ?? props.home ?? ADMIN_HOME_PATH}`);
 }
 
 const field: React.CSSProperties = {
@@ -68,7 +78,7 @@ function CodeInput({ value, onChange }: { value: string; onChange: (v: string) =
 }
 
 /** aal1 with a verified factor: one field, 6 digits. */
-export function MfaCodeForm(): React.ReactElement {
+export function MfaCodeForm(props: MfaFormProps): React.ReactElement {
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -78,7 +88,7 @@ export function MfaCodeForm(): React.ReactElement {
     setBusy(true);
     setError(null);
     const r = await post({ action: 'verify', code });
-    if (r.ok) { openAdmin(); return; }
+    if (r.ok) { openAdmin(props); return; }
     setBusy(false);
     setCode('');
     setError(MESSAGES[r.error ?? ''] ?? FALLBACK);
@@ -96,7 +106,7 @@ export function MfaCodeForm(): React.ReactElement {
 }
 
 /** aal1 with no factor: show the QR code once, then the first code verifies the factor. */
-export function MfaSetupForm(): React.ReactElement {
+export function MfaSetupForm(props: MfaFormProps): React.ReactElement {
   const [factor, setFactor] = useState<{ id: string; qr: string; secret: string } | null>(null);
   const [code, setCode] = useState('');
   const [busy, setBusy] = useState(false);
@@ -117,7 +127,7 @@ export function MfaSetupForm(): React.ReactElement {
     setBusy(true);
     setError(null);
     const r = await post({ action: 'confirm', factorId: factor.id, code });
-    if (r.ok) { openAdmin(); return; }
+    if (r.ok) { openAdmin(props); return; }
     setBusy(false);
     setCode('');
     setError(MESSAGES[r.error ?? ''] ?? FALLBACK);

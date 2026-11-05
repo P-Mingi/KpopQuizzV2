@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { adminDoorTarget } from '@/lib/admin/door';
+import { adminDoorAnswer, carriesDoorHeader, stripDoorHeaders } from '@/lib/admin/door-middleware';
 import { updateSession } from '@/lib/supabase/middleware';
 import { NOT_FOUND_REWRITE, isFilePath, isKnownRoute } from '@/lib/route-allowlist';
 import { SITE_ID } from '@/lib/site/registry';
@@ -37,7 +39,17 @@ function needsAuth(pathname: string): boolean {
 // degrades auth instead of 504-ing the whole site.
 const MIDDLEWARE_TIMEOUT_MS = 2500;
 
-export async function middleware(request: NextRequest) {
+// ADMIN-2 (owner, 2026-10-30): the secret door of the one admin. On the hub build only, /<ADMIN_PATH>/... is rewritten to the internal admin tree
+// with the door header; a request on any build that arrives with a door header from outside loses it here, before any page sees it. Without
+// ADMIN_PATH there is no door (adminDoorTarget answers null). Everything else is the middleware it always was (route below).
+export async function middleware(request: NextRequest): Promise<NextResponse> {
+  const door = SITE_ID === 'hub' ? adminDoorTarget(request.nextUrl.pathname) : null;
+  if (door !== null) return adminDoorAnswer(request, door);
+  const res = await route(request);
+  return carriesDoorHeader(request) ? stripDoorHeaders(request, res) : res;
+}
+
+async function route(request: NextRequest): Promise<NextResponse> {
   const pathname = request.nextUrl.pathname;
   // RENDER-FIX: the x-pathname header is gone. It existed only so the root layout
   // could branch chrome on/off for /embed via await headers(), which forced every

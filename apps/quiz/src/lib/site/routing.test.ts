@@ -631,7 +631,10 @@ describe('middleware step and the sites/[site] guard', () => {
     const walk = (dir: string): void => {
       for (const name of readdirSync(dir, { withFileTypes: true })) {
         if (name.isDirectory()) {
-          if (name.name !== '(anime)' && name.name !== '[...rest]') walk(join(dir, name.name));
+          // ADMIN-2: (hub)/admin is the internal tree of the one admin, reached through the secret door of the hub middleware only (door.ts), never by
+          // its public path: /admin of the hub stays an unknown URL (the next test holds that). It is skipped here and nowhere else.
+          const doorOnly = dir === join(root, '(hub)') && name.name === 'admin';
+          if (name.name !== '(anime)' && name.name !== '[...rest]' && !doorOnly) walk(join(dir, name.name));
         } else if (name.name === 'page.tsx') {
           pages.push(dir.slice(root.length).split('/').filter((s) => !/^\(.*\)$/.test(s)).map((s) => s.replace(/^\[(.*)\]$/, 'x$1')).join('/') || '/');
         }
@@ -653,6 +656,14 @@ describe('middleware step and the sites/[site] guard', () => {
       '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
     ]));
     for (const p of pages.filter((q) => !closed.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
+  });
+
+  it('ADMIN-2: the internal tree of the one admin is no public route of the hub: /admin and everything below it is the unknown-URL answer of the middleware', () => {
+    for (const p of ['/admin', '/admin/code', '/admin/setup', '/admin/quizzes', '/admin/reports', '/admin/journal', '/admin/x']) {
+      expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+      expect(isKnownRouteFor('hub', p, { v1: true, v12: true }), `hub ${p}`).toBe(false);
+    }
+    expect(REGISTRY.hub.routes.allow).not.toContain('/admin/**');
   });
 
   it('a session path is a protected path of today\'s middleware and a route of the site', () => {

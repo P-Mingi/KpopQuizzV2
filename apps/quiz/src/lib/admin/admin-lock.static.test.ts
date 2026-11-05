@@ -1,6 +1,6 @@
 // ADMIN-1 (owner, 2026-10-30): the static ratchet of the admin lock. It fails when
-//   - a page, template or default file (any extension) in the three admin trees, app/(site)/admin/**, app/sites/[site]/(anime)/admin/**
-//     and app/api/admin/**, does not call requireAdmin (the two MFA pages: AdminMfaPage, whose module calls requireAdmin('mfa') and answers
+//   - a page, template or default file (any extension) in the admin trees, app/(site)/admin/**, app/sites/[site]/(anime)/admin/**,
+//     app/sites/[site]/(hub)/admin/** (ADMIN-2: the one admin behind the secret door) and app/api/admin/**, does not call requireAdmin (the two MFA pages: AdminMfaPage, whose module calls requireAdmin('mfa') and answers
 //     notFound()), or is not a plain re-export of such a page;
 //   - a handler of a route (any extension) in the same three trees is not guarded by requireAdmin('api') (or a thin wrapper that calls it:
 //     the adminGate of lib/entity-images/route-kit.ts or lib/editorial/admin-api.ts), or answers a 401 or a 403 of its own;
@@ -9,17 +9,36 @@
 //   - an isAdmin call, an import of the old lib/admin module or a read of ADMIN_USER_IDS remains outside lib/admin/guard.ts;
 //   - the MFA paths appear in robots, the sitemap or anywhere outside the admin lock's own files;
 //   - the middleware sends /admin to /login again;
+//   - ADMIN-2: a page of the hub tree does not open with requireAdminDoor() then requireAdmin(), or its layout answers before the door;
 //   - an origin check runs before the admin guard, or anything but the admin 404 is answered before it.
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+// The checks read every source file once; on a loaded machine that takes longer than the default 5 s.
+vi.setConfig({ testTimeout: 60_000 });
 
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
-const read = (rel: string): string => readFileSync(join(SRC, rel), 'utf8');
+// Read once per file and walk once per folder: the same checks, a fraction of the disk reads (the file count grows with the codebase).
+const readMemo = new Map<string, string>();
+const read = (rel: string): string => {
+  let text = readMemo.get(rel);
+  if (text === undefined) { text = readFileSync(join(SRC, rel), 'utf8'); readMemo.set(rel, text); }
+  return text;
+};
 
+const walkMemo = new Map<string, string[]>();
 function walk(rel: string): string[] {
+  const hit = walkMemo.get(rel);
+  if (hit) return hit;
+  const found = walkUncached(rel);
+  walkMemo.set(rel, found);
+  return found;
+}
+
+function walkUncached(rel: string): string[] {
   const out: string[] = [];
   const dir = join(SRC, rel);
   if (!existsSync(dir)) return out;
@@ -41,8 +60,9 @@ function strip(text: string): string {
 
 const KPOP_ADMIN = 'app/(site)/admin';
 const ANIME_ADMIN = 'app/sites/[site]/(anime)/admin';
+const HUB_ADMIN = 'app/sites/[site]/(hub)/admin';
 const API_ADMIN = 'app/api/admin';
-const ADMIN_TREES = [...walk(KPOP_ADMIN), ...walk(ANIME_ADMIN), ...walk(API_ADMIN)];
+const ADMIN_TREES = [...walk(KPOP_ADMIN), ...walk(ANIME_ADMIN), ...walk(HUB_ADMIN), ...walk(API_ADMIN)];
 const PAGE_FILE = /(^|\/)(page|template|default)\.(tsx|ts|jsx|js|mdx)$/;
 const ROUTE_FILE = /(^|\/)route\.(tsx|ts|jsx|js)$/;
 const BANNED_FILE = /(^|\/)(loading|error|global-error|not-found|forbidden|unauthorized|opengraph-image|twitter-image|icon|apple-icon|sitemap|robots|manifest)\.[a-z]+$/;
@@ -52,7 +72,11 @@ const MFA_PAGE = 'components/admin/mfa/mfa-page.tsx';
 const MFA_GATE = /\breturn AdminMfaPage\(\{ step: '(code|setup)' \}\);/;
 
 const adminPages = ADMIN_TREES.filter((f) => PAGE_FILE.test(f));
-const isMfa = (f: string): boolean => f.includes(`/admin/${MFA_SEGMENT}/`);
+// ADMIN-2: the two TOTP pages of the hub tree follow the secret address, so they carry no fixed segment: /admin/code and /admin/setup.
+const isHubMfa = (f: string): boolean => f.startsWith(`${HUB_ADMIN}/`) && /\/admin\/(code|setup)\/page\.tsx$/.test(f);
+const isMfa = (f: string): boolean => f.includes(`/admin/${MFA_SEGMENT}/`) || isHubMfa(f);
+const HUB_PAGE_GATE = /await requireAdminDoor\(\);\s*await requireAdmin\(\);/;
+const HUB_MFA_GATE = /const door = await requireAdminDoor\(\);[\s\S]*return AdminMfaPage\(\{ step: '(code|setup)', door/;
 
 /** The admin page a plain re-export points at (`import X from '@/app/...'` then `export default X;`), else null. */
 function reexportTarget(text: string): string | null {
@@ -66,20 +90,24 @@ function pageGuarded(f: string, seen: Set<string> = new Set()): boolean {
   if (seen.has(f) || !existsSync(join(SRC, f))) return false;
   seen.add(f);
   const text = strip(read(f));
+  if (f.startsWith(`${HUB_ADMIN}/`)) return isHubMfa(f) ? HUB_MFA_GATE.test(text) : HUB_PAGE_GATE.test(text);
   if (isMfa(f) ? MFA_GATE.test(text) : PAGE_GATE.test(text)) return true;
   const target = reexportTarget(text);
   return target !== null && (target.startsWith(`${KPOP_ADMIN}/`) || target.startsWith(`${ANIME_ADMIN}/`)) && pageGuarded(target, seen);
 }
 
 describe('every admin page calls requireAdmin', () => {
-  it('finds the 22 kpop pages and the anime ones of ADMIN-0, plus the two MFA pages on each build', () => {
+  it('finds the 22 kpop pages and the anime ones of ADMIN-0, the 4 + 2 of the hub tree (ADMIN-2), plus the two MFA pages on each build', () => {
     const kpop = adminPages.filter((f) => f.startsWith(KPOP_ADMIN) && !isMfa(f));
     const anime = adminPages.filter((f) => f.startsWith(ANIME_ADMIN) && !isMfa(f));
+    const hub = adminPages.filter((f) => f.startsWith(HUB_ADMIN) && !isMfa(f));
     expect(kpop.length).toBe(22);
     expect(anime.length).toBe(4);
+    expect(hub.sort()).toEqual(['journal', 'quizzes', 'reports'].map((n) => `${HUB_ADMIN}/${n}/page.tsx`).concat(`${HUB_ADMIN}/page.tsx`).sort());
     expect(adminPages.filter(isMfa).sort()).toEqual([
       `${KPOP_ADMIN}/${MFA_SEGMENT}/code/page.tsx`, `${KPOP_ADMIN}/${MFA_SEGMENT}/setup/page.tsx`,
       `${ANIME_ADMIN}/${MFA_SEGMENT}/code/page.tsx`, `${ANIME_ADMIN}/${MFA_SEGMENT}/setup/page.tsx`,
+      `${HUB_ADMIN}/code/page.tsx`, `${HUB_ADMIN}/setup/page.tsx`,
     ].sort());
   });
 
@@ -93,7 +121,7 @@ describe('every admin page calls requireAdmin', () => {
     for (const f of adminPages.filter((x) => isMfa(x) && x.startsWith(KPOP_ADMIN))) expect(strip(read(f)), f).toMatch(/from '@\/components\/admin\/mfa\/mfa-page'/);
     expect(strip(read(MFA_PAGE))).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);/);
     const users = walk('').filter(code).filter((f) => /requireAdmin\('mfa'\)/.test(strip(read(f))));
-    expect(users.sort()).toEqual([MFA_PAGE, `${KPOP_ADMIN}/layout.tsx`, `${ANIME_ADMIN}/layout.tsx`, `app/api/admin/${MFA_SEGMENT}/route.ts`].sort());
+    expect(users.sort()).toEqual([MFA_PAGE, `${KPOP_ADMIN}/layout.tsx`, `${ANIME_ADMIN}/layout.tsx`, `${HUB_ADMIN}/layout.tsx`, `app/api/admin/${MFA_SEGMENT}/route.ts`].sort());
   });
 
   it('the kpop admin layout answers 404 before its nav and its title, so a refused visitor\'s 404 says nothing about the admin', () => {
@@ -105,9 +133,16 @@ describe('every admin page calls requireAdmin', () => {
     expect(ADMIN_TREES.filter((f) => BANNED_FILE.test(f))).toEqual([]);
   });
 
-  it('the anime admin layout answers 404 before any page, like the kpop one, and these two are the only layouts of the trees', () => {
+  it('the anime admin layout answers 404 before any page, like the kpop one, and these three are the only layouts of the trees', () => {
     expect(strip(read(`${ANIME_ADMIN}/layout.tsx`))).toMatch(/const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);/);
-    expect(ADMIN_TREES.filter((f) => /(^|\/)layout\.[a-z]+$/.test(f)).sort()).toEqual([`${KPOP_ADMIN}/layout.tsx`, `${ANIME_ADMIN}/layout.tsx`].sort());
+    expect(ADMIN_TREES.filter((f) => /(^|\/)layout\.[a-z]+$/.test(f)).sort()).toEqual([`${KPOP_ADMIN}/layout.tsx`, `${ANIME_ADMIN}/layout.tsx`, `${HUB_ADMIN}/layout.tsx`].sort());
+  });
+
+  it('ADMIN-2: the hub admin layout answers 404 without the door, then to anyone requireAdmin refuses, before it renders anything; its metadata names nothing to either', () => {
+    const layout = strip(read(`${HUB_ADMIN}/layout.tsx`));
+    expect(layout).toMatch(/await requireAdminDoor\(\);\s*const admin = await requireAdmin\('mfa'\);\s*if \(!admin\) notFound\(\);/);
+    expect(layout).not.toMatch(/export const metadata/);
+    expect(layout).toMatch(/export async function generateMetadata[\s\S]*if \(!\(await adminDoorOfRequest\(\)\)\) return noindex;[\s\S]*await requireAdmin\('check'\)/);
   });
 });
 

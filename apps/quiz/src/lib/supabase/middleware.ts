@@ -23,9 +23,12 @@ import type { NextRequest } from 'next/server';
 // cannot be learned from a redirect.
 const PROTECTED_PATHS = ['/onboarding', '/settings'];
 
-export async function updateSession(request: NextRequest): Promise<NextResponse> {
+/** `admin: true` (ADMIN-2): the request is the secret door of the hub admin, so the /admin narrowing below applies to it though its path is not /admin. */
+export interface UpdateSessionOptions { readonly admin?: boolean }
+
+export async function updateSession(request: NextRequest, options: UpdateSessionOptions = {}): Promise<NextResponse> {
   try {
-    return await updateSessionInner(request);
+    return await updateSessionInner(request, options);
   } catch (err) {
     // Last-resort safety net: if anything in the middleware throws, let the
     // request through untouched rather than returning a 500. Auth / SEO
@@ -35,7 +38,7 @@ export async function updateSession(request: NextRequest): Promise<NextResponse>
   }
 }
 
-async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
+async function updateSessionInner(request: NextRequest, options: UpdateSessionOptions): Promise<NextResponse> {
   let response = NextResponse.next({
     request: { headers: request.headers },
   });
@@ -95,7 +98,7 @@ async function updateSessionInner(request: NextRequest): Promise<NextResponse> {
   // gets the very answer of an unknown URL. A page's own notFound() is still a 404, but its Flight data names the route and the page's
   // title; this rewrite shows neither. The refreshed session cookies stay on the answer. Grants nothing: an account that may go on reaches
   // the page, whose requireAdmin decides (and answers for this branch failing open).
-  if ((pathname === '/admin' || pathname.startsWith('/admin/')) && !mayReachAdminPages(user)) {
+  if ((options.admin === true || pathname === '/admin' || pathname.startsWith('/admin/')) && !mayReachAdminPages(user)) {
     const notFoundAnswer = NextResponse.rewrite(new URL(withBase(SITE_ID, NOT_FOUND_REWRITE), request.url));
     response.cookies.getAll().forEach((c) => notFoundAnswer.cookies.set(c));
     return notFoundAnswer;
