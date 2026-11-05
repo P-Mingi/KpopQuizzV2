@@ -485,6 +485,9 @@
     "docs/o1/reports/C2/**",
     "docs/pending-migrations/s4/**"
   ],
+  "admin2": [
+    "docs/pending-migrations/multisite/026-*"
+  ],
   "C3": [
     "apps/quiz/e2e/o1/C3/**",
     "docs/o1/reports/C3/**",
