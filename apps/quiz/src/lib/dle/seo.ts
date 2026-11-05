@@ -152,10 +152,16 @@ export interface DleSitemapRow { readonly path: string; readonly lastModified?: 
 /**
  * The rows of the hub's sitemap (rule 9.6, v2 section 11.5): nothing with the flag off or the site closed, and the French pages once reviewed. /credits stays out, like OtakuQuiz's.
  * lastmod is the date of the day: yesterday's answer on the page really changes each day. Play counts never touch it.
+ * `live` (rule 9.6, only indexable URLs): the games that answer today. A built game that does not answer (switched off, a pool under its minimum, a failed read) says noindex on its own page
+ * (lib/dle/page-meta.ts), so it stays out of the sitemap too, and so does the Burrow when no game answers. Left out, every built game counts as live.
  */
-export function dleSitemapRows(flag: boolean, date: string | null, reviewed: boolean = DLE_FR_REVIEWED, open: boolean = indexingOpenFor('hub')): readonly DleSitemapRow[] {
+export function dleSitemapRows(
+  flag: boolean, date: string | null, reviewed: boolean = DLE_FR_REVIEWED, open: boolean = indexingOpenFor('hub'), live?: readonly DleGameId[],
+): readonly DleSitemapRow[] {
   if (!flag || !open) return [];
-  const en = [DAILY_PATH, ...builtGames().map((g) => g.path)];
+  const games = builtGames().filter((g) => !live || live.includes(g.id));
+  if (games.length === 0) return [];
+  const en = [DAILY_PATH, ...games.map((g) => g.path)];
   const paths = reviewed ? [...en, ...en.map((p) => localePath(p, 'fr'))] : en;
   return paths.map((path) => ({
     path,
