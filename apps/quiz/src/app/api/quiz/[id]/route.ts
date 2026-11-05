@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { spoilerColumnsFor } from '@/lib/quiz/site-insert';
 import { SITE_ID } from '@/lib/site/registry';
-import { createServerClient } from '@/lib/supabase/server';
+import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { validateQuestions } from '@/lib/quiz-validation';
 import { onQuizChanged } from '@/lib/seo/quiz-freshness';
 
@@ -179,10 +179,14 @@ export async function DELETE(
     return NextResponse.json({ success: true, alreadyRemoved: true });
   }
 
-  const { error: removeError } = await supabase
+  // The owner check above ran on the player's session. The write runs on the service role: the only SELECT policy of
+  // quizzes shows published rows, and Postgres checks it on the updated row, so a player's own update to 'removed'
+  // was refused ("new row violates row-level security policy", seen on 2026-11-03). Still scoped to this creator.
+  const { error: removeError } = await createServiceRoleClient()
     .from('quizzes')
     .update({ status: 'removed', updated_at: new Date().toISOString() })
-    .eq('id', id);
+    .eq('id', id)
+    .eq('creator_id', user.id);
 
   if (removeError) {
     console.error('Failed to delete own quiz:', removeError);
