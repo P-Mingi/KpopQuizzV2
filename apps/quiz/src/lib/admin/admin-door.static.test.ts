@@ -11,6 +11,8 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it, vi } from 'vitest';
 
+import { IMAGES_LIST_TAG } from '@/lib/entity-images/constants';
+
 import { REVALIDATE_TAGS } from './revalidate';
 
 // The checks read every source file once; on a loaded machine that takes longer than the default 5 s.
@@ -130,7 +132,14 @@ describe('the revalidation route of every build', () => {
   it('expires only tags of the closed list, and each tag of the list is read by a cached page (no tag nobody reads)', () => {
     expect(route).toMatch(/parseRevalidateBody\(body\)/);
     const used = new Set<string>();
-    for (const f of sources().filter(code)) for (const m of strip(read(f)).matchAll(/tags: \[([^\]]*)\]/g)) for (const t of m[1]!.matchAll(/'([a-z-]+)'/g)) used.add(t[1]!);
+    // A tag is a literal ('quizzes') or one of the two names of the list tag of OtakuQuiz's images (entity-images:anime, which has a colon).
+    const NAMED: Readonly<Record<string, string>> = { ENTITY_IMAGES_TAG: IMAGES_LIST_TAG, IMAGES_LIST_TAG };
+    for (const f of sources().filter(code)) {
+      for (const m of strip(read(f)).matchAll(/tags: \[([^\]]*)\]/g)) {
+        for (const t of m[1]!.matchAll(/'([a-z-]+)'/g)) used.add(t[1]!);
+        for (const t of m[1]!.matchAll(/\b([A-Z][A-Z_]+)\b/g)) if (NAMED[t[1]!]) used.add(NAMED[t[1]!]!);
+      }
+    }
     for (const tag of REVALIDATE_TAGS) expect(used.has(tag), `tag ${tag} is read by no unstable_cache`).toBe(true);
   });
 
