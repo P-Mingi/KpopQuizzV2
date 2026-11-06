@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 import { computeMetrics, grantEarnedTiers } from '@/lib/badges/award';
+import { isHiddenBadge, withoutHiddenBadges } from '@/lib/badges/hidden';
 import { getProfileById } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
@@ -63,8 +64,9 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     supabase.from('badge_definitions').select('*').order('sort_order'),
     supabase.from('user_badges').select('badge_id, earned_at').eq('user_id', user.id),
   ]);
-  const allBadges = (badgeDefsRes.data ?? []) as BadgeDefinition[];
-  const userBadgeRows = (userBadgesRes.data ?? []) as Array<{ badge_id: string; earned_at: string }>;
+  // lib/badges/hidden.ts: the retired photocard badges never reach the shelf, the counts or the pinned slot.
+  const allBadges = withoutHiddenBadges((badgeDefsRes.data ?? []) as BadgeDefinition[]);
+  const userBadgeRows = ((userBadgesRes.data ?? []) as Array<{ badge_id: string; earned_at: string }>).filter((b) => !isHiddenBadge(b.badge_id));
   const earnedBadgeIds = userBadgeRows.map((b) => b.badge_id);
   const badgeEarnedAt = Object.fromEntries(userBadgeRows.map((b) => [b.badge_id, b.earned_at]));
 

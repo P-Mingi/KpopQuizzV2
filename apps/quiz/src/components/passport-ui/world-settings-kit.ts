@@ -4,6 +4,7 @@
 // profile flair, followed series, oshi, in that order).
 
 import { createBrowserClient } from '@/lib/supabase/client';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 import { fmt } from '@/lib/passport-ui/fmt';
 import { clearOshi, pickOshi } from '@/lib/passport-ui/oshi';
 import {
@@ -36,7 +37,7 @@ export async function loadWorldSettings(user: User, world: SettingsWorld): Promi
   const mr = (mrow as unknown as WorldMembershipRow | null) ?? null;
   const earned = ((badges ?? []) as Array<{ badge_definitions: { id: string; name: string } | Array<{ id: string; name: string }> }>)
     .map((b) => (Array.isArray(b.badge_definitions) ? b.badge_definitions[0] : b.badge_definitions))
-    .filter((b): b is { id: string; name: string } => Boolean(b));
+    .filter((b): b is { id: string; name: string } => Boolean(b) && !isHiddenBadge(b?.id));
   const slugs = ((favs ?? []) as Array<{ entity_id: string | null }>).map((f) => f.entity_id).filter((x): x is string => typeof x === 'string' && x !== '');
   const wf = worldFormFromRows(pr, mr, slugs);
   return {

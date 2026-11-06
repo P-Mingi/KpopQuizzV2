@@ -2,6 +2,7 @@
 
 import { BADGE_TIER_GROUPS, BADGE_CATEGORY_ORDER, badgeCategory } from '@/lib/badges';
 import { tierMetaFor } from '@/lib/badges/catalog';
+import { withoutHiddenBadges } from '@/lib/badges/hidden';
 import { BadgeCoin } from '@/components/profile/badge-coin';
 
 import type { BadgeDefinition } from '@/lib/db/types';
@@ -25,7 +26,9 @@ interface BadgeGridProps {
  * badge carries its next threshold as "31 / 50" so the grind is legible. Tiered
  * families still render as their own labelled ladder within a world.
  */
-export function BadgeGrid({ allBadges, earnedBadgeIds, metrics, onSelect }: BadgeGridProps): React.ReactElement {
+export function BadgeGrid({ allBadges: allBadgesIn, earnedBadgeIds, metrics, onSelect }: BadgeGridProps): React.ReactElement {
+  // The retired photocard badges are never listed here, whatever the caller read (lib/badges/hidden.ts).
+  const allBadges = withoutHiddenBadges(allBadgesIn);
   const earned = new Set(earnedBadgeIds);
   const byId = new Map(allBadges.map((b) => [b.id, b]));
 

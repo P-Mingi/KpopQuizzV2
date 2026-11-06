@@ -9,6 +9,7 @@ import { SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 
 import { BADGE_FAMILIES, isOneTime, type BadgeMetric } from './catalog';
+import { isHiddenBadge } from './hidden';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { SiteId } from '@/lib/site/types';
@@ -23,12 +24,12 @@ export async function computeMetrics(db: SupabaseClient, userId: string, site: S
     quizzes_played: 0, perfect_scores: 0, blindtests_played: 0, personality_plays: 0,
     daily_streak_longest: 0, debate_votes: 0, quizzes_created: 0, plays_received: 0,
     distinct_groups_played: 0, wiki_pages: 0, sourced_overrides: 0, essays_published: 0,
-    photocard_sets: 0, nest_depth: 0, era_stories: 0, contrib_streak: 0, first_fan: 0,
+    nest_depth: 0, era_stories: 0, contrib_streak: 0, first_fan: 0,
     founding_curator: 0, dual_citizen: 0, spaces_joined: 0, account_age_years: 0, completionist: 0,
   };
 
   // Run O1 (B3): a non-kpop site counts its own activity only (its membership counters, the plays of its own
-  // quizzes). The kpop-only metrics (Verse, photocards, spaces, debates, group mastery) stay 0 there, so kpop
+  // quizzes). The kpop-only metrics (Verse, spaces, debates, group mastery) stay 0 there, so kpop
   // activity never earns a badge on another site.
   if (site !== 'kpop') return computeWorldMetrics(db, userId, site, m);
 
@@ -85,22 +86,6 @@ export async function computeMetrics(db: SupabaseClient, userId: string, site: S
     const { data } = await db.from('verse_revisions').select('entity_type, entity_id').eq('author', userId).eq('section_key', 'era_story');
     const set = new Set(((data ?? []) as { entity_type: string; entity_id: string }[]).map((r) => `${r.entity_type}:${r.entity_id}`));
     m.era_stories = set.size;
-  }
-
-  // --- photocard sets completed: groups where the user owns every published card ---
-  {
-    const { data: owned } = await db.from('photocard_collection').select('photocard_id').eq('user_id', userId).eq('state', 'owned');
-    const ownedIds = new Set(((owned ?? []) as { photocard_id: number }[]).map((r) => r.photocard_id));
-    if (ownedIds.size > 0) {
-      const { data: cards } = await db.from('photocards').select('id, group_id').eq('status', 'published');
-      const byGroup = new Map<number, { total: number; owned: number }>();
-      for (const c of (cards ?? []) as { id: number; group_id: number }[]) {
-        const g = byGroup.get(c.group_id) ?? { total: 0, owned: 0 };
-        g.total += 1; if (ownedIds.has(c.id)) g.owned += 1;
-        byGroup.set(c.group_id, g);
-      }
-      m.photocard_sets = [...byGroup.values()].filter((g) => g.total > 0 && g.owned === g.total).length;
-    }
   }
 
   // --- nesting depth: longest parent chain that includes a page the user authored ---
@@ -195,7 +180,8 @@ export async function grantEarnedTiers(db: SupabaseClient, userId: string, metri
   }
   if (cats.has('play') && cats.has('verse') && cats.has('cross')) earned.push('completionist');
 
-  const fresh = [...new Set(earned)].filter((id) => !existing.has(id));
+  // A hidden badge (hidden.ts) is never granted, whatever a family says: its definition row is being deleted.
+  const fresh = [...new Set(earned)].filter((id) => !existing.has(id) && !isHiddenBadge(id));
   if (fresh.length) {
     await db.from('user_badges').upsert(
       fresh.map((badge_id) => ({ user_id: userId, badge_id })),

@@ -3,6 +3,7 @@
 // the v11 render, and the unit tests pin every rule. No I/O here.
 
 import { badgeRarity, RARITY_ORDER } from '@/lib/badges';
+import { withoutHiddenBadges } from '@/lib/badges/hidden';
 import { isValidTheme, PASSPORT_THEMES } from '@/lib/passport-themes';
 import { MASTERY } from '@/lib/passport';
 import { SITE } from '@/lib/site/registry';
@@ -225,7 +226,8 @@ export interface BadgeTile { id: string; name: string; description: string; rari
  *  rarity from lib/badges badgeRarity(). */
 export function badgeTiles(defs: BadgeDef[], earnedIds: Iterable<string>): BadgeTile[] {
   const earned = new Set(earnedIds);
-  const tiles = defs.map((d) => ({ id: d.id, name: d.name, description: d.description ?? '', rarity: badgeRarity(d.id), earned: earned.has(d.id) }));
+  // The retired photocard badges are never listed, counted or pinned (lib/badges/hidden.ts).
+  const tiles = withoutHiddenBadges(defs).map((d) => ({ id: d.id, name: d.name, description: d.description ?? '', rarity: badgeRarity(d.id), earned: earned.has(d.id) }));
   return [...tiles.filter((t) => t.earned), ...tiles.filter((t) => !t.earned)];
 }
 

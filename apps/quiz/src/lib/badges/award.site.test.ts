@@ -58,7 +58,7 @@ describe('computeMetrics', () => {
     const m = await computeMetrics(db, 'u1', 'anime');
     expect(m).toMatchObject({
       blindtests_played: 6, daily_streak_longest: 8, quizzes_created: 1, plays_received: 120, quizzes_played: 3, perfect_scores: 2,
-      wiki_pages: 0, debate_votes: 0, essays_published: 0, spaces_joined: 0, photocard_sets: 0, dual_citizen: 0, personality_plays: 0,
+      wiki_pages: 0, debate_votes: 0, essays_published: 0, spaces_joined: 0, dual_citizen: 0, personality_plays: 0,
     });
     expect(m.account_age_years).toBeGreaterThanOrEqual(5);
     expect(queries.map((q) => q.table).sort()).toEqual(['plays', 'world_memberships']);
@@ -80,7 +80,7 @@ describe('grantEarnedTiers', () => {
   const all = (extra: Record<string, number>) => ({
     quizzes_played: 0, perfect_scores: 0, blindtests_played: 0, personality_plays: 0, daily_streak_longest: 0, debate_votes: 0,
     quizzes_created: 0, plays_received: 0, distinct_groups_played: 0, wiki_pages: 0, sourced_overrides: 0, essays_published: 0,
-    photocard_sets: 0, nest_depth: 0, era_stories: 0, contrib_streak: 0, first_fan: 0, founding_curator: 0, dual_citizen: 0,
+    nest_depth: 0, era_stories: 0, contrib_streak: 0, first_fan: 0, founding_curator: 0, dual_citizen: 0,
     spaces_joined: 0, account_age_years: 0, completionist: 0, ...extra,
   }) as Parameters<typeof grantEarnedTiers>[2];
 

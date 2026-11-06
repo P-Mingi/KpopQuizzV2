@@ -13,6 +13,7 @@ import { FanCardShare } from '@/components/profile/fan-card-share';
 import { FollowButton } from '@/components/profile/follow-button';
 import { formatJoinDate } from '@/lib/utils';
 import { getLevelInfo } from '@/lib/constants';
+import { isHiddenBadge, withoutHiddenBadges } from '@/lib/badges/hidden';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { readPassportSpine, readPassportGroupStats, readCollectionProgress } from '@/lib/passport';
 import { passportAccent } from '@/lib/passport-themes';
@@ -128,8 +129,9 @@ export default async function ProfilePage({ params }: ProfilePageProps): Promise
   const collection = ok(got.collection, { groups_mastered: 0, groups_total: 0, eras: [] });
   const groupRows = (ok(got.groupsRes, null)?.data ?? []) as Array<{ id: number; name: string; slug: string; logo_url: string | null; display_color: string }>;
   const initialQuizzes = ok(got.initialQuizzes, []);
-  const badgeDefRows = badgesFailed ? [] : ((ok(got.badgeDefsResult, null)?.data ?? []) as BadgeDefinition[]);
-  const userBadgeRows = badgesFailed ? [] : ((ok(got.userBadgesResult, null)?.data ?? []) as UserBadge[]);
+  // lib/badges/hidden.ts: the retired photocard badges never reach the shelf, the counts or the pinned slot.
+  const badgeDefRows = badgesFailed ? [] : withoutHiddenBadges((ok(got.badgeDefsResult, null)?.data ?? []) as BadgeDefinition[]);
+  const userBadgeRows = badgesFailed ? [] : ((ok(got.userBadgesResult, null)?.data ?? []) as UserBadge[]).filter((b) => !isHiddenBadge(b.badge_id));
 
   const groupMeta = new Map<number, { name: string; logo: string | null; color: string }>();
   const bySlug = new Map<string, { name: string; color: string }>();
