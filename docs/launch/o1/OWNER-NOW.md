@@ -197,10 +197,10 @@ Tout de suite après, avec le compte jetable : joue un quiz, like un quiz, retir
 
 Vérif : la commande fait V4 après 008 (seule `merge_anon_passport` change) et V-S4 ; Claude (XP et compteurs bougent comme avant, audit des compteurs), worker (V1).
 
-### 23. La veille de 24 h, à l'étape 22 plus 24 h
+### 23. La veille de nuit : le lendemain de D, à 09:30 UTC (décision du 2026-11-06, au lieu de 24 h)
 Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
 
-Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte depuis le tableau de bord Supabase : pas besoin de code. Depuis l'admin, il faut d'abord ton code à 6 chiffres (`docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E1b, puis la session E.
+Claude : l'audit des compteurs reste au plus au niveau de base, et les XP bougent comme avant. Worker : Runtime Logs calmes depuis D. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte depuis le tableau de bord Supabase : pas besoin de code. Depuis l'admin, il faut d'abord ton code à 6 chiffres (`docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E1b, puis la session E.
 
 ### 23 bis. E1b : 025, les alertes de groupe
 Moi 8 min, Claude 6 min. [RUNBOOK D4](RUNBOOK.md#d-p2-008-write-locks)
