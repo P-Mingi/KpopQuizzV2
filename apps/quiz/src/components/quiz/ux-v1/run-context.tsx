@@ -18,7 +18,7 @@ export interface P4RunQuiz {
   likeCount: number;
   groupName: string;
   groupSlug: string;
-  /** Result card / share preview photo: the quiz cover, else the group photo (same origin), else null. */
+  /** Photocard / share preview photo: the quiz cover, else the group photo (same origin), else null. */
   photo: string | null;
   /** Same-origin group photo for the story image (canvas needs it untainted). */
   groupPhoto: string | null;

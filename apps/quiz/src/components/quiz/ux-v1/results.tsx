@@ -70,7 +70,7 @@ function useCountUp(to: number, ms: number): number {
 }
 
 /**
- * Quiz results (DESIGN-SPEC 16.7 "Results (600)", 17.4, prototype #end): result card
+ * Quiz results (DESIGN-SPEC 16.7 "Results (600)", 17.4, prototype #end): photocard
  * kept exactly (count-up score, verdict stamp from getResultLabel, mascot on the seam,
  * confetti on a pass), XP + streak line (guest: "Save your 7/8" -> sign-in sheet),
  * You / Average / Time in one bordered row, the rank line (challenge runs: win or
