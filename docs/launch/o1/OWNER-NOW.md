@@ -14,7 +14,7 @@ Objectif « moins de 5 h » tenu, de justesse, si les deux étapes « si besoin 
 - Sous chaque titre : qui fait quoi, et combien de temps. Un bloc = une commande : copie-le en entier, dans le Terminal, depuis le dossier du dépôt. `read -rs` n'affiche rien pendant que tu colles : appuie sur Entrée.
 - Après chaque collage, écris dans le chat « collé n° X ». Claude (ou le worker) vérifie et répond OK avant la suite. Une sortie avec `ERROR` : ne lance rien d'autre, colle la sortie dans le chat. Chaque fichier se rejoue sans risque.
 - Heures en UTC (Paris en hiver : UTC + 1). Jamais de SQL entre 23:50 et 00:30. Une session SQL par phase, une sauvegarde au début de chaque session, les fichiers dans l'ordre de `SQL-ORDER.md`.
-- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1, E2, G, J1 à J5), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
+- Le SQL passe par une seule commande par partie de session, `bash docs/launch/o1/session.sh <partie>` (B1, B2, B3, D, E1b, E1, E2, G, J1 à J5), dans le terminal ouvert par la sauvegarde de la session : la sauvegarde exporte la chaîne de connexion, la commande la lit. Elle applique les fichiers dans l'ordre de `SQL-ORDER.md` avec psql, lance après chacun ses vérifications, n'affiche que OK ou KO et des comptes (jamais un nom, un e-mail ni une clé), et s'arrête au premier KO. Elle se relance sans risque depuis le début de la partie : un fichier déjà appliqué ne change rien la seconde fois. Le détail complet va dans `~/kpq-launch/logs`, sur ta machine seulement. Terminal fermé en cours de session : relance seulement cette ligne, puis la commande de la partie.
 ```
 export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL
 ```
@@ -165,7 +165,7 @@ Worker 10 min, Claude 2 min. [RUNBOOK B11](RUNBOOK.md#b-p1-001-to-007)
 
 Worker : nouvelle photo V1 et comparaison. Claude note l'heure : la veille de 24 h commence. Tu peux fermer le terminal.
 
-## Partie 4. Veille, session D : 008, veille (21 min pour moi)
+## Partie 4. Veille, session D : 008, veille, puis 025 (29 min pour moi)
 
 ### 19. La veille de 24 h, à l'étape 18 plus 24 h
 Claude 15 min, Worker 20 min. [RUNBOOK C](RUNBOOK.md#c-24-hour-watch-after-b)
@@ -197,10 +197,26 @@ Tout de suite après, avec le compte jetable : joue un quiz, like un quiz, retir
 
 Vérif : la commande fait V4 après 008 (seule `merge_anon_passport` change) et V-S4 ; Claude (XP et compteurs bougent comme avant, audit des compteurs), worker (V1).
 
-### 23. La veille de 24 h, à l'étape 22 plus 24 h
+### 23. La veille de nuit : le lendemain de D, à 09:30 UTC (décision du 2026-11-06, au lieu de 24 h)
 Moi 8 min, Claude 15 min, Worker 20 min. [RUNBOOK D3](RUNBOOK.md#d-p2-008-write-locks)
 
-Claude : l'audit des compteurs reste au plus au niveau de base. Worker : Runtime Logs calmes sur 24 h. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte depuis le tableau de bord Supabase : pas besoin de code. Depuis l'admin, il faut d'abord ton code à 6 chiffres (`docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E.
+Claude : l'audit des compteurs reste au plus au niveau de base, et les XP bougent comme avant. Worker : Runtime Logs calmes depuis D. Toi : la même preuve qu'à l'étape 22 avec le compte jetable, puis supprime ce compte depuis le tableau de bord Supabase : pas besoin de code. Depuis l'admin, il faut d'abord ton code à 6 chiffres (`docs/o1/admin/MFA-OWNER.md` section 2). Écris « fait n° 23 ». Leur « veille propre » ouvre la session E1b, puis la session E.
+
+### 23 bis. E1b : 025, les alertes de groupe
+Moi 8 min, Claude 6 min. [RUNBOOK D4](RUNBOOK.md#d-p2-008-write-locks)
+
+Après la veille de l'étape 23, avant la session E : une session à part, avec sa sauvegarde.
+```
+git checkout main && git pull --ff-only
+```
+```
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && read -rs PROD_DB_URL && export PROD_DB_URL && umask 077 && mkdir -p ~/kpq-launch && pg_dump "$PROD_DB_URL" -Fc --no-owner --schema=public --schema=auth -f ~/kpq-launch/pre-o1-$(date -u +%F-%H%M).dump
+```
+La commande vérifie d'abord que 008 est en production (`porte 025`), applique 025 puis ses six vérifications (V-025). Une fonction change et un index s'ajoute, aucune ligne ne bouge. Dès le prochain quiz publié dans un groupe, les abonnés du groupe sont prévenus à chaque publication, au plus une fois toutes les 20 h par abonné et par groupe (décision du 2026-11-05). Le drapeau `EDITORIAL_QUIZ` reste éteint : 025 n'en dépend pas.
+```
+bash docs/launch/o1/session.sh E1b
+```
+Écris « collé E1b ». Claude relit les six lignes de V-025.
 
 ## Partie 5. Session E : 009, le déploiement, 010 (10 min pour moi)
 

@@ -7,12 +7,12 @@
 # The base: the platform part of docs/o1/contracts/schema.base.sql (roles, auth, storage), the auth and storage columns Supabase
 # has and the launch files write, production's schema copy (schema only, no data), the rows part of schema.base.sql, then what was
 # applied in production since the copy: S4 (2026-10-23) and Mission U part D (2026-10-27).
-# Then, in the order of OWNER-NOW.md: B1 B2 B3 D E1 E2 G J1 J2 J3 J4 J5. Each part runs twice: the second run must change nothing and
+# Then, in the order of OWNER-NOW.md: B1 B2 B3 D E1b E1 E2 G J1 J2 J3 J4 J5. Each part runs twice: the second run must change nothing and
 # say OK. "Nothing" is read, not assumed: the schema (pg_dump --schema-only, grants included) and every table's rows (count and md5
 # of the sorted rows; sequences are left out, an insert that meets a conflict still takes a number) before and after the second run.
 # The owner's steps between parts are simulated where the database sees them (the 31 Team auth users of step 40); the others (a
 # throwaway quiz, a deploy, a flag) do not touch the database.
-# Stops that must happen are checked too: J2 before the Team users, G and J4 on a missing K1 or A1 file (pointed at a path that does
+# Stops that must happen are checked too: E1b (025) before 008 is in, J2 before the Team users, G and J4 on a missing K1 or A1 file (pointed at a path that does
 # not exist, so the stop stays checked once the files are on main), and a check that finds a KO.
 # Lot K2 (021d) is its own small session after G: the rehearsal runs it last, on a fixture of the rows production holds and this base does not
 # (docs/launch/o1/K2-rehearsal-fixture.sql: the target groups, the 021b rows), checks two refusals (a stray idol in a target group, a minor in
@@ -122,7 +122,11 @@ STAND=""
 [ -f docs/pending-migrations/multisite/021c-k1-idol-corrections.sql ] || STAND="$STAND KPQ_K1C_SQL=$WORK/K1c-stand-in.sql"
 [ -f docs/pending-migrations/multisite/021b-k1-idol-activate.sql ] || STAND="$STAND KPQ_K1B_SQL=$WORK/K1b-stand-in.sql"
 [ -f docs/pending-migrations/multisite/launch/L13-A1-character-facts.sql ] || STAND="$STAND KPQ_A1_SQL=$WORK/A1-stand-in.sql"
-for p in B1 B2 B3 D E1 E2; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
+for p in B1 B2 B3; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
+# E1b (025) on a base where 008 is not in yet: the gate stops it before any write, and 025 is not applied.
+part E1b 1 "porte 025 : notify_group_quiz_alerts n'a pas la forme de 008"
+[ "$(psql "$PROD_DB_URL" -X -q -At -c "select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'notify_group_quiz_alerts' and prosrc like '%20 hours%'")" = 0 ] && pass "E1b stopped at the gate: 025 not applied" || fail "E1b stopped but 025 was applied"
+for p in D E1b E1 E2; do part "$p" 0 "terminée : tout est OK"; again "$p" 0 "terminée : tout est OK"; done
 part G 1 "021a-k1-idol-gender-debut.sql : fichier absent de main" "KPQ_K1A_SQL=$WORK/absent/021a-k1-idol-gender-debut.sql"
 part G 1 "021c-k1-idol-corrections.sql : fichier absent de main" $STAND "KPQ_K1C_SQL=$WORK/absent/021c-k1-idol-corrections.sql"
 part G 1 "021b-k1-idol-activate.sql : fichier absent de main" $STAND "KPQ_K1B_SQL=$WORK/absent/021b-k1-idol-activate.sql"

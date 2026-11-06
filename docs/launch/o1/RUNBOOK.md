@@ -47,7 +47,7 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
       q()    { psql "$PROD_DB_URL" -X -At -v ON_ERROR_STOP=1 -c "$1"; }
 
   Session commands (owner order 2026-10-30): every SQL step of B, D, E, G and K runs through `bash docs/launch/o1/session.sh <part>`, one command per
-  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a, 021c and 021b (lot K1), 022, 023, 024, 012 to 017, J1 = L01,
+  part (B1 = 001 to 002d, B2 = 003, B3 = 004 to 007, D = 008, E1b = 025, E1 = 009, E2 = 010, G = 011, 018, 019, 020, 021a, 021c and 021b (lot K1), 022, 023, 024, 012 to 017, J1 = L01,
   J2 = L02 to L04, J3 = L05 to L10-PERS and the fourteen bank rows, J4 = L12, 023 and 024 again, the lot A1 file and L15, J5 = L14, Kpopdle Idol and Otakudle on, and the two games of one series when their pool is enough). It reads `PROD_DB_URL` (exported by the backup line),
   refuses any other database and the 23:50 to 00:30 window, applies each file with psql and ON_ERROR_STOP (single or none as below), runs the checks of
   `docs/launch/o1/checks` (VERIFY's lines as OK or KO rows) after each file, prints counts only, and stops at the first KO. A part can be run again from its
@@ -203,6 +203,11 @@ S4 after 008: nothing to do. 008 replaces `merge_anon_passport` with the 7 argum
 Back: `sql1 $M/008-write-locks.rollback.sql` (before launch only).
 
 **D3  24 hour watch**: at D2 plus 24 hours, V4 live proof again; Runtime Logs quiet over the 24 hours; counters audit at or under baseline. Do not start E before it is clean.
+
+**D4  025 group quiz alerts (own session part E1b, after D3, before E).** (`bash docs/launch/o1/session.sh E1b`: the gate first (008 is in: `notify_group_quiz_alerts` holds its world branch), then 025 and V-025.)
+Do: A2 backup; `sql1 $M/025-quiz-alerts-every-publish.sql`. The flag `EDITORIAL_QUIZ` stays off: 025 does not depend on it.
+Check: `docs/launch/o1/checks/V-025.sql` (6 rows: the 20 hour rule and no `notified_at is null` in the body, SECURITY DEFINER with search_path public, no EXECUTE entry for anon or authenticated, the 2 alert triggers, the index `group_quiz_alerts_group_idx`); the behaviour is rehearsed by `apps/quiz/e2e/o1/E1b/alerts-rehearsal.sh`.
+Back: `sql1 $M/025-quiz-alerts-every-publish.rollback.sql` (before the rollback of 008).
 
 ---------------------------------------------------------------------------------------------------------------------------------
 
