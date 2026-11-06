@@ -52,9 +52,10 @@ const adminHeaders = (): { key: string; value: string }[] => [
 ];
 
 // Private launch (owner, 2026-11-06; src/lib/private-launch/config.ts, docs/launch/o1/PRIVATE-LAUNCH.md): on the hub and anime builds only,
-// PRIVATE_LAUNCH on sends every page to the Coming soon page unless the browser holds the cookie of an allowed account. Off (unset or
-// 0) and on the kpop build it adds nothing: the lists below are empty and the config is today's. A gate that is on but misconfigured
-// fails closed (everyone gets Coming soon) and says so in the build log.
+// PRIVATE_LAUNCH on sends every page to the Coming soon page unless the browser holds the cookie of an allowed account. Off (0, false,
+// off, no; unset too, except on a production build on Vercel, where unset counts as on) and on the kpop build it adds nothing: the lists
+// below are empty and the config is today's. A gate that is on but misconfigured fails closed (everyone gets Coming soon) and says so in
+// the build log.
 const PRIVATE_LAUNCH = readPrivateLaunch(SITE_ID, process.env);
 if (PRIVATE_LAUNCH.on) {
   console.warn(`[private-launch] ${SITE_ID}: the gate is on${PRIVATE_LAUNCH.expected === null ? ', CLOSED FOR EVERYONE' : ''}.`);
