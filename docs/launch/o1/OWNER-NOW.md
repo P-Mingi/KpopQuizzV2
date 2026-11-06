@@ -175,6 +175,8 @@ Claude : les lignes « 24 hour watch » de V3, des parties et des inscriptions q
 ### 20. Ouvrir la session D : sauvegarde
 Moi 5 min, Claude 2 min. [RUNBOOK A2](RUNBOOK.md#a-before)
 
+Sans le Mac : la même session depuis un codespace (`CODESPACE.md`). Là-bas, une seule ligne fait la sauvegarde puis la partie.
+
 Ton heure la plus calme, loin de 00:05 et de 03:30 à 05:00 (les crons). Supabase, Database, Backups : une sauvegarde de moins de 24 h existe. Puis :
 ```
 git checkout main && git pull --ff-only

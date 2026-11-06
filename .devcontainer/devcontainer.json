@@ -1,0 +1,12 @@
+// Codespace for the owner's SQL sessions only (docs/launch/o1/CODESPACE.md). No Node, no app: bash, git, python3, psql 18.
+{
+  "name": "KpopQuiz SQL sessions",
+  "build": { "dockerfile": "Dockerfile" },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "settings": { "terminal.integrated.defaultProfile.linux": "bash" }
+    },
+    "codespaces": { "openFiles": ["docs/launch/o1/CODESPACE.md"] }
+  }
+}

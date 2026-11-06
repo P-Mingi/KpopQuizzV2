@@ -1,0 +1,106 @@
+######## scenario: codespace created on o1/codespace (linux/amd64, as on GitHub)
+== codespace on branch: o1/codespace
+== post-create
+   psql (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)
+   pg_dump (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)
+   lrwxrwxrwx vscode /workspaces/kpq-launch
+   drwx------ vscode /workspaces/kpq-launch
+== the line of CODESPACE.md, verbatim (session.sh D), stand-in pooler, password at the prompt
+   Switched to a new branch 'main'
+   branch 'main' set up to track 'origin/main'.
+   Already up to date.
+   
+   sauvegarde : 2178 lignes
+   Session D, base de production, 2026-11-06 11:07 UTC
+   KO   porte 008 : fonctions lues et différentes du fichier de retour : 0 none (attendu : 11 none). On s'arrête (RUNBOOK D1).
+   
+   Arrêt : rien d'autre n'a été lancé. Colle ces lignes dans le chat.
+   Journal complet (sur ta machine seulement) : /home/vscode/kpq-launch/logs/session-D-20261106-110732.log
+   exit 1
+== now on: main 51d5cd87
+   dump 600 vscode 523600 bytes pre-o1-2026-11-06-1107.dump; entries 2178
+   git status after copying a dump into the repo: [?? kpq-launch/ ?? x.dump ]
+== the same line ending in session.sh D --dry-run
+   Already on 'main'
+   Your branch is up to date with 'origin/main'.
+   Already up to date.
+   
+   sauvegarde : 2178 lignes
+   Session D : plan (rien n'est lancé)
+   porte 008 : les 11 fonctions de production = le fichier de retour de 008 (sautée si 008 est déjà là)
+   plan docs/pending-migrations/multisite/008-write-locks.sql (single)
+        vérif V-008
+        vérif signatures : seule merge_anon_passport change
+        vérif V-S4
+   
+   Fin du plan de D.
+== every part in --dry-run (main)
+   B1 exit 0 lines 13 KO 0
+   B2 exit 0 lines 6 KO 0
+   B3 exit 0 lines 13 KO 0
+   D exit 0 lines 8 KO 0
+   E1 exit 0 lines 7 KO 0
+   E2 exit 0 lines 6 KO 0
+   G exit 0 lines 37 KO 0
+   K2 exit 0 lines 7 KO 0
+   J1 exit 0 lines 6 KO 0
+   J2 exit 0 lines 12 KO 0
+   J3 exit 0 lines 19 KO 0
+   J4 exit 0 lines 16 KO 0
+   J5 exit 0 lines 13 KO 0
+== reconnect line, then psql through PGPASSWORD
+   
+   postgres.rdkgouofytwfdpbxbzio|PostgreSQL 17.11 (Debian 17.11
+######## scenario: codespace created on main (linux/amd64, as on GitHub)
+== codespace on branch: main
+== post-create
+   psql (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)
+   pg_dump (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)
+   lrwxrwxrwx vscode /workspaces/kpq-launch
+   drwx------ vscode /workspaces/kpq-launch
+== the line of CODESPACE.md, verbatim (session.sh D), stand-in pooler, password at the prompt
+   Already on 'main'
+   Your branch is up to date with 'origin/main'.
+   Already up to date.
+   
+   sauvegarde : 2178 lignes
+   Session D, base de production, 2026-11-06 11:07 UTC
+   KO   porte 008 : fonctions lues et différentes du fichier de retour : 0 none (attendu : 11 none). On s'arrête (RUNBOOK D1).
+   
+   Arrêt : rien d'autre n'a été lancé. Colle ces lignes dans le chat.
+   Journal complet (sur ta machine seulement) : /home/vscode/kpq-launch/logs/session-D-20261106-110753.log
+   exit 1
+== now on: main 1074c354
+   dump 600 vscode 523600 bytes pre-o1-2026-11-06-1107.dump; entries 2178
+   git status after copying a dump into the repo: []
+== the same line ending in session.sh D --dry-run
+   Already on 'main'
+   Your branch is up to date with 'origin/main'.
+   Already up to date.
+   
+   sauvegarde : 2178 lignes
+   Session D : plan (rien n'est lancé)
+   porte 008 : les 11 fonctions de production = le fichier de retour de 008 (sautée si 008 est déjà là)
+   plan docs/pending-migrations/multisite/008-write-locks.sql (single)
+        vérif V-008
+        vérif signatures : seule merge_anon_passport change
+        vérif V-S4
+   
+   Fin du plan de D.
+== every part in --dry-run (main)
+   B1 exit 0 lines 13 KO 0
+   B2 exit 0 lines 6 KO 0
+   B3 exit 0 lines 13 KO 0
+   D exit 0 lines 8 KO 0
+   E1 exit 0 lines 7 KO 0
+   E2 exit 0 lines 6 KO 0
+   G exit 0 lines 37 KO 0
+   K2 exit 0 lines 7 KO 0
+   J1 exit 0 lines 6 KO 0
+   J2 exit 0 lines 12 KO 0
+   J3 exit 0 lines 19 KO 0
+   J4 exit 0 lines 16 KO 0
+   J5 exit 0 lines 13 KO 0
+== reconnect line, then psql through PGPASSWORD
+   
+   postgres.rdkgouofytwfdpbxbzio|PostgreSQL 17.11 (Debian 17.11

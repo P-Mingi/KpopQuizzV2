@@ -9,6 +9,32 @@ Le détail de chaque étape (en anglais) : `RUNBOOK.md`. Le retour arrière : `R
 - Durée : au moins 5 jours de la session B au jour J (veilles de 24 h après B, après 008 et après 010), puis 72 h de veille. Au plus tôt : B le jour 1, jour J le jour 5, fin le jour 8.
 - Je peux commencer maintenant : étapes 1 à 4 de `OWNER-NOW.md` (domaine, DNS, clé, adresses de retour). La suite attend la fusion des lanes par l'intégrateur.
 
+## Calendrier recalé (décision du 2026-11-06)
+
+Le jour 0 est le jour de D. Heures en UTC. Les sessions se font au Mac, ou sans lui depuis un codespace (`CODESPACE.md`).
+
+- **Jour 0 :**
+  - D (008) dès que possible, au plus tard vers 22:00, pour que la veille couvre la nuit. Jamais entre 23:50 et 00:30, et loin de 00:05 et de 03:30 à 05:00 (les crons).
+  - Tout de suite après : la preuve avec le compte jetable (étape 22), puis les contrôles de Claude.
+  - Puis les logos, dans le même terminal : 001, 002, V-logos. Claude donne les trois commandes.
+- **La nuit :** la veille après D, au lieu de 24 h.
+- **Jour 1, 09:30 :** le contrôle de la veille. Claude fait l'audit des compteurs, l'égalité des XP, les signatures et les journaux. Toi : la même preuve avec le compte jetable, puis tu le supprimes (étape 23).
+- **Jour 1, dès 10:00,** si la veille est propre :
+  1. E1b (025), avec sa sauvegarde. La PR de E1b (#204) est fusionnée avant.
+  2. La session E, avec sa sauvegarde : E1 (009), le contrôle du déploiement (étape 26), puis E2 (010), jamais après 23:45.
+  3. La session G, avec sa sauvegarde. La PR de o1/integration (#203) est fusionnée avant, sur ton accord.
+  4. K2, avec sa sauvegarde.
+- **Nuit du jour 1 au jour 2 :** après 00:05, le quiz du jour (étape 28) ; à 00:40, V7.
+
+## Au prochain passage au Mac
+
+- **Installer Chrome Remote Desktop,** pour lancer les sessions depuis le téléphone. Une fois testé, c'est la route à préférer au codespace : la sauvegarde reste sur le Mac et ne passe pas chez GitHub.
+  1. Sur le Mac, dans Chrome : remotedesktop.google.com/access, **Configurer l'accès à distance**, installe l'hôte. Dans Réglages Système, accorde-lui Accessibilité et Enregistrement de l'écran.
+  2. Choisis un code PIN d'au moins 6 chiffres, utilisé nulle part ailleurs. Garde la validation en deux étapes du compte Google.
+  3. Le Mac doit rester allumé et éveillé sur secteur : Réglages Système, Batterie, empêcher la mise en veille automatique.
+  4. Sur le téléphone : l'app Chrome Remote Desktop, avec le même compte Google. Teste une fois : ouvre Terminal sur le Mac et lance `psql --version`.
+- **Rapatrier les sauvegardes faites dans un codespace,** les vérifier, puis les effacer du codespace (`CODESPACE.md`, section 4).
+
 ## État
 
 - En production : S4 (2026-10-23, D-103) et Mission U partie D (2026-10-27, D-127). Rien d'autre.
