@@ -87,7 +87,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     likeCount: quiz.like_count ?? 0,
     groupName: quiz.group_name,
     groupSlug: quiz.group_slug,
-    // photocard + share preview: the group photo (prototype), else the quiz cover
+    // result card + share preview: the group photo (prototype), else the quiz cover
     photo: groupPhoto ?? cover,
     groupPhoto,
     creatorUsername: quiz.creator_username,

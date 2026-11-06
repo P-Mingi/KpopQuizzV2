@@ -17,7 +17,6 @@ import { UX_V1 } from '@/lib/ux-v1';
 import { PassportView, type PassportTopGroup, type PassportNearGap, type PassportUntouched, type PassportClimb } from '@/components/profile/passport-view';
 import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
 import { ContributionGraph } from '@/components/verse/contribution-graph';
-import { PhotocardCollectionCard } from '@/components/verse/photocard-collection-card';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 
 import type { Metadata } from 'next';
@@ -263,7 +262,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       />
       {/* V-HARMONY-2B step 2 (owner ruling): the passport spans BOTH worlds. The
           same min-gated Verse cards the public /u/ passport shows - memberships +
-          contribution graph + collection - now on the owner's own /me. Each
+          contribution graph - now on the owner's own /me. Each
           returns null when the owner has none, so a Play-only fan sees no empty
           Verse boxes; no public visibility gate here (this is the owner's own
           view of their own data). Rendered directly (not a flex column) so each
@@ -271,7 +270,6 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
           column, aligned with everything else. */}
       <SpaceMembershipsCard userId={user.id} />
       <ContributionGraph userId={user.id} />
-      <PhotocardCollectionCard userId={user.id} />
       <div style={{ marginTop: 18 }}>
         <ProfileTabs profileUsername={profile.username} initialQuizzes={createdQuizzes} creatorId={user.id} />
       </div>

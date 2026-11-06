@@ -5,7 +5,7 @@
 // from the sheet's own preview (picture, line 1, line 2). No server route, no upload,
 // no write. A picture that does not allow CORS fails to load (crossOrigin anonymous)
 // instead of tainting the canvas: the card is then the plain ground. Pages with a
-// richer story (P4's result photocard) keep passing their own onStoryImage.
+// richer story (P4's result card) keep passing their own onStoryImage.
 
 import { SITE } from '@/lib/site/registry';
 
@@ -39,7 +39,7 @@ export const STORY_SQUARE_H = 1080;
 /**
  * The file name of a story image of `site`: its brand name in lower case, so a saved or shared picture says which site it comes
  * from (kpopquiz-story.png as before, otakuquiz-story.png, bunnyverse-story.png; the first part of the domain named both sites
- * of bunnyverse.org 'bunnyverse'). components/quiz/ux-v1/story.ts names its photocard the same way.
+ * of bunnyverse.org 'bunnyverse'). components/quiz/ux-v1/story.ts names its result card the same way.
  */
 export function storyFileName(kind: 'story' | 'square', site: Pick<SiteConfig, 'brand'> = SITE): string {
   return `${site.brand.name.toLowerCase()}-${kind}.png`;

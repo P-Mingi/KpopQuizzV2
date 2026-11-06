@@ -374,7 +374,7 @@ function formatDuration(seconds: number): string {
   return `${m}:${String(sec).padStart(2, '0')}`;
 }
 
-// UI-1 zone 1 - the human label printed on the photocard serial strip, one per
+// UI-1 zone 1 - the human label printed on the result card serial strip, one per
 // quiz type. Kept here (not invented per render) so the strip reads the same on
 // every card of a given kind.
 const SERIAL_KIND: Record<QuizType, string> = {
@@ -1050,7 +1050,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     // Zone 3 - the run ledger cells. A comparison row, deliberately in the same
     // unit across cells: your score as a percent sits next to the field average
     // and the pass rate, so "You 25% / Avg 53% / Pass 32%" reads at a glance.
-    // The raw score (2/8) and the percentile live on the photocard, so no fact
+    // The raw score (2/8) and the percentile live on the result card, so no fact
     // is repeated. The XP the round earned is a cell here, not its own card.
     const ledgerCells: Array<{ value: string; label: string; tone?: string }> = [
       { value: `${scorePct}%`, label: 'You', tone: 'text-accent' },
@@ -1063,7 +1063,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     if (state.timeTaken > 0) ledgerCells.push({ value: formatDuration(state.timeTaken), label: 'Time' });
     const ledgerCols = Math.min(ledgerCells.length, 5);
 
-    // Zone 1 - the photocard serial strip. Real data only: the run's play
+    // Zone 1 - the result card serial strip. Real data only: the run's play
     // number is this quiz's recorded play count plus this run (which is not in
     // the ISR-baked count yet), and the mint month is now. The result phase
     // only ever renders client-side after a play, so new Date() cannot cause a
@@ -1087,7 +1087,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
           );
         })()}
 
-        {/* ZONE 1 - the photocard hero. The result IS the share image: a
+        {/* ZONE 1 - the result card hero. The result IS the share image: a
             branded gradient top with the score, the mascot as a sticker on the
             seam, a verdict stamp, share/replay actions, and a real serial strip.
             Count-up score, fill bar and share handler are all kept from the
@@ -1210,7 +1210,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         )}
 
         {/* ZONE 4 - keep playing. Related quizzes plus the blindtest cross-link
-            as the last row, in one list card. Play again lives in the photocard,
+            as the last row, in one list card. Play again lives in the result card,
             so it is not repeated here. */}
         <div className="mt-6">
           <div className="keep-playing-head">

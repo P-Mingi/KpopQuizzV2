@@ -1,7 +1,7 @@
 'use client';
 
 // Story image (DESIGN-SPEC 16.7 share sheet: "Story image", "More apps shares the
-// story image as a file where supported"). A 1080 x 1920 PNG of the photocard, drawn
+// story image as a file where supported"). A 1080 x 1920 PNG of the result card, drawn
 // in the browser from the run's own numbers: no server route, no upload, no write.
 // The photo is the same-origin group photo (public/idols) so the canvas stays
 // exportable; without one the card is the plain gradient.
