@@ -35,7 +35,7 @@ export async function getUserActivity(userId: string, opts?: { limit?: number; k
     on('essay') ? svc.from('verse_essays').select('id, title, group_id, featured_at, created_at').eq('author', userId).eq('status', 'featured').order('featured_at', { ascending: false, nullsFirst: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
     on('space_join') ? svc.from('space_members').select('group_id, joined_at, status').eq('user_id', userId).order('joined_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
     on('quiz_play') ? svc.from('game_plays').select('game_id, created_at').eq('player_id', userId).order('created_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
-    on('card_add') ? svc.from('verse_profile_shelf').select('item_type, item_id, created_at').eq('user_id', userId).order('created_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
+    on('card_add') ? svc.from('verse_profile_shelf').select('item_type, item_id, created_at').eq('user_id', userId).eq('item_type', 'collectible').order('created_at', { ascending: false }).limit(PER_SOURCE) : Promise.resolve({ data: [] }),
   ]);
 
   const revRows = (revs.data ?? []) as Array<{ entity_id: string; created_at: string }>;
@@ -47,19 +47,16 @@ export async function getUserActivity(userId: string, opts?: { limit?: number; k
   // Batch-resolve the referenced rows (pages, games, cards, groups).
   const pageIds = [...new Set(revRows.map((r) => Number(r.entity_id)).filter(Number.isFinite))];
   const gameIds = [...new Set(playRows.map((p) => p.game_id))];
-  const pcIds = [...new Set(cardRows.filter((c) => c.item_type === 'photocard').map((c) => c.item_id))];
   const colIds = [...new Set(cardRows.filter((c) => c.item_type === 'collectible').map((c) => c.item_id))];
 
-  const [pagesR, gamesR, pcR, colR] = await Promise.all([
+  const [pagesR, gamesR, colR] = await Promise.all([
     pageIds.length ? svc.from('verse_pages').select('id, slug, title, group_id, status').in('id', pageIds).eq('status', 'published') : Promise.resolve({ data: [] }),
     gameIds.length ? svc.from('games').select('id, title, game_type').in('id', gameIds) : Promise.resolve({ data: [] }),
-    pcIds.length ? svc.from('photocards').select('id, name').in('id', pcIds) : Promise.resolve({ data: [] }),
     colIds.length ? svc.from('collectibles').select('id, name').in('id', colIds) : Promise.resolve({ data: [] }),
   ]);
   const pageById = new Map((pagesR.data ?? []).map((p) => [(p as { id: number }).id, p as { id: number; slug: string; title: string; group_id: number }]));
   const gameById = new Map((gamesR.data ?? []).map((g) => [(g as { id: string }).id, g as { id: string; title: string | null; game_type: string | null }]));
   const cardName = new Map<string, string>();
-  for (const c of (pcR.data ?? []) as Array<{ id: number; name: string }>) cardName.set(`photocard:${c.id}`, c.name);
   for (const c of (colR.data ?? []) as Array<{ id: number; name: string }>) cardName.set(`collectible:${c.id}`, c.name);
 
   // Resolve every referenced group (from pages, essays, joins) in one read.

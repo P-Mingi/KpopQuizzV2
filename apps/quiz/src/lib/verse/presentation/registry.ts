@@ -45,9 +45,8 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   masthead:     { type: 'masthead', label: 'Curator invite', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 2, implemented: true, category: 'feature' },
   // V-SPACE-FLOW step 5 - the public coverage score (min-gated past a floor).
   completeness: { type: 'completeness', label: 'Coverage meter', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 3, implemented: true, category: 'feature' },
-  // V-CARDS-MAX step 7 - the binder + shelf home widgets (duality). Feature
-  // modules in the rail; each self-min-gates (renders null at 0 catalog).
-  binder_widget: { type: 'binder_widget', label: 'Binder widget', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 4, implemented: true, category: 'feature' },
+  // V-CARDS-MAX step 7 - the shelf home widget (duality). A feature module in the
+  // rail; it self-min-gates (renders null at 0 catalog).
   shelf_widget: { type: 'shelf_widget', label: 'Shelf widget', seoCritical: false, zones: ['side', 'main'], defaultZone: 'side', defaultOrder: 5, implemented: true, category: 'feature' },
   // V-ESSAYS-MAX step 6 - the featured-essay home widget (duality); min-gates
   // to null when a space has no featured hero pick.
@@ -71,11 +70,14 @@ export const BLOCK_REGISTRY: Record<string, BlockDef> = {
   countdown:    { type: 'countdown', label: 'Now (era / countdown)', seoCritical: false, zones: ['side', 'main'], defaultZone: 'main', defaultOrder: 5, implemented: true, category: 'feature' },
   poll:         { type: 'poll', label: 'Poll', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   quote:        { type: 'quote', label: 'Quote highlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
-  spotlight:    { type: 'spotlight', label: 'Spotlight', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   social_embed: { type: 'social_embed', label: 'Social post', seoCritical: false, zones: ['main', 'side'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   discord:      { type: 'discord', label: 'Discord', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: true, category: 'feature' },
   live_now:     { type: 'live_now', label: 'Live now', seoCritical: false, zones: ['side', 'main'], defaultZone: null, defaultOrder: 0, implemented: false, category: 'feature' },
 };
+
+// Retired block types. A config saved before they left may still hold one: validate.ts drops it silently (never an
+// error, the rest of that config keeps validating and re-saving) and no renderer exists for it.
+export const RETIRED_BLOCK_TYPES: readonly string[] = ['binder_widget', 'spotlight'];
 
 export function isKnownBlock(type: string): boolean {
   return Object.prototype.hasOwnProperty.call(BLOCK_REGISTRY, type);

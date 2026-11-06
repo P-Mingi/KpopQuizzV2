@@ -22,10 +22,11 @@ export const STRUCTURE_TEMPLATES: StructureTemplateId[] = ['starter', 'complete'
 export type TabId =
   | 'home' | 'members' | 'discography' | 'timeline' | 'quests' | 'essays'
   | 'community' | 'about' | 'tours' | 'shows' | 'ost' | 'awards'
-  | 'photocards' | 'collectibles' | 'wiki' | 'songs';
+  | 'collectibles' | 'wiki' | 'songs';
 // V-MODES: 'quests' stays in TabId for stored-config compat but is no longer
-// pickable (it left the reader nav, locked Q1); validate drops legacy picks.
-export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'photocards', 'collectibles', 'wiki', 'songs'];
+// pickable (it left the reader nav, locked Q1); validate drops legacy picks, and
+// the retired 'photocards' pick the same way.
+export const ALLOWED_TABS: TabId[] = ['home', 'members', 'discography', 'timeline', 'essays', 'community', 'about', 'tours', 'shows', 'ost', 'awards', 'collectibles', 'wiki', 'songs'];
 
 /** One placed module in the stack. `type` is a registry key; `zone` is validated. */
 export interface ModulePlacement {
@@ -41,7 +42,7 @@ export interface ModulePlacement {
   hidden?: boolean;          // feature blocks only; ignored (forced false) for seoCritical
   frame?: FrameStyle;
   mode?: string;             // per-module option (e.g. music mode); validated per block
-  props?: Record<string, unknown>; // per-instance data (quote text, pinned spotlight...); validated per block
+  props?: Record<string, unknown>; // per-instance data (quote text, music mode...); validated per block
   order: number;             // sort within zone
   // V-BUILDER-2 step 5 - per-block STYLE, all named enum/token keys (see composition/
   // block-style.ts). Ride the presentation jsonb; validated + clamped on every save.

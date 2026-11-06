@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { WidgetShell } from '@/components/verse/primitives/widget-shell';
 
-import { getPhotocards } from '@/lib/verse/photocards';
 import { getActiveSpacePoll } from '@/lib/verse/presentation/poll';
 import { getEras } from '@/lib/verse/eras';
 import { upcomingBirthday } from '@/lib/verse/date-engines';
@@ -101,27 +100,6 @@ export function QuoteModule({ placement }: ModuleProps): React.ReactElement | nu
       <p className="mt-1 font-semibold leading-tight" style={{ fontSize: 'clamp(1.2rem, 2.4vw, 1.7rem)', color: 'var(--verse-ink)', letterSpacing: 'var(--v-tracking-tight)' }}>{text}</p>
       {attribution ? <cite className="mt-3 block text-[11px] not-italic uppercase tracking-[0.12em] text-tertiary">{attribution}</cite> : null}
     </blockquote>
-  );
-}
-
-/** SPOTLIGHT - featured photocard from the space collection (pinned or first). */
-export async function SpotlightModule({ space, placement }: ModuleProps): Promise<React.ReactElement | null> {
-  const cards = await getPhotocards(space.group.id);
-  if (!cards.length) return null;
-  const pinnedId = typeof placement.props?.photocardId === 'number' ? placement.props.photocardId : null;
-  const card = (pinnedId ? cards.find((c) => c.id === pinnedId) : null) ?? cards.find((c) => c.image_url) ?? cards[0]!;
-  return (
-    <Card title="Spotlight">
-      <div className="flex gap-3">
-        <div className="flex aspect-[3/4] w-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg" style={{ background: 'var(--verse-soft-strong)' }}>
-          {card.image_url ? <img src={card.image_url} alt={card.name} className="h-full w-full object-cover" loading="lazy" /> : <span className="px-1 text-center text-[10px] font-semibold text-tertiary">{card.era ?? card.name}</span>}
-        </div>
-        <div className="min-w-0">
-          <p className="truncate text-sm font-bold" style={{ color: 'var(--verse-ink)' }}>{card.name}</p>
-          <p className="truncate text-[11px] text-tertiary">{[card.era, card.version, card.card_type].filter(Boolean).join(' · ')}</p>
-        </div>
-      </div>
-    </Card>
   );
 }
 

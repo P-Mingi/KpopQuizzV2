@@ -86,7 +86,7 @@ export async function PATCH(req: NextRequest): Promise<NextResponse> {
   if (!row || !await canCurateSpace((await roleOf(row.group_id)).uid ?? '', row.group_id)) return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
   const patch = fields(body);
   if (body.status === 'published' || body.status === 'draft') patch.status = body.status;
-  // Source-gate the invariant, not just the transition (see photocards route).
+  // Source-gate the invariant, not just the transition.
   const resultStatus = (patch.status ?? row.status) as string;
   const resultSource = ('source_url' in patch ? patch.source_url : row.source_url) as string | null;
   if (resultStatus === 'published' && !resultSource) return NextResponse.json({ error: 'source_required' }, { status: 400 });

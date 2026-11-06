@@ -27,7 +27,7 @@ const MOBILE_INLINE = 3;
 // renders as the active tab would, without becoming a navigable duplicate.
 const SEGMENT_LABELS: Record<string, string> = {
   content: 'Browse', curate: 'Curate', studio: 'Studio', about: 'About',
-  wiki: 'Atlas', songs: 'Songs', photocards: 'Photocards', collectibles: 'Collectibles',
+  wiki: 'Atlas', songs: 'Songs', collectibles: 'Collectibles',
   members: 'Members', discography: 'Discography', timeline: 'Timeline', quests: 'Quests',
   essays: 'Essays', community: 'Community', awards: 'Awards', tours: 'Tours', shows: 'Shows', ost: 'OST',
 };
@@ -36,7 +36,7 @@ const orphanLabel = (seg: string): string => SEGMENT_LABELS[seg] ?? seg.charAt(0
 // V-POLISH-2 A6 - the More sheet groups by intent instead of one flat list.
 const SHEET_GROUPS: { label: string; segs: string[] }[] = [
   { label: 'The space', segs: ['', 'members', 'discography', 'timeline', 'about'] },
-  { label: 'The catalog', segs: ['songs', 'wiki', 'awards', 'tours', 'shows', 'ost', 'photocards', 'collectibles'] },
+  { label: 'The catalog', segs: ['songs', 'wiki', 'awards', 'tours', 'shows', 'ost', 'collectibles'] },
   { label: 'The community', segs: ['essays', 'community'] },
 ];
 

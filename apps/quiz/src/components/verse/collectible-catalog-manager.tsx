@@ -6,8 +6,7 @@ import { EmptyState } from '@/components/verse/primitives/empty-state';
 import { useBuildMode } from '@/components/verse/build-mode';
 
 // V-CARDS-MAX step 6 - the SHELF's curator side (parity with the reader shelf).
-// Same shape as the photocard manager: contributors submit, curators publish
-// (source-gated) and review. Lives in Build mode.
+// Contributors submit, curators publish (source-gated) and review. Lives in Build mode.
 const KINDS = ['lightstick', 'merch'];
 
 interface Draft { id: number; name: string; kind: string; category: string | null; era: string | null; version: string | null; source_url: string | null }

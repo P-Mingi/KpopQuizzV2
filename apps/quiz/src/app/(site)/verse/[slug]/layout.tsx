@@ -14,7 +14,6 @@ import { createPublicReadClient } from '@/lib/supabase/server';
 import { BuildModeProvider, BuildModeToggle } from '@/components/verse/build-mode';
 import { getSpace } from '@/lib/verse/space';
 import { sceneCounts } from '@/lib/verse/entities';
-import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { composeTabs } from '@/lib/verse/presentation/tabs';
 import { featuredEssayCount } from '@/lib/verse/essays';
@@ -71,13 +70,12 @@ export default async function SpaceLayout({
   }
 
   // Scene tabs (Tours / Shows / OST / Awards) appear only where there is published content.
-  const [counts, pcCount, colCount, wikiPages, essayCount] = await Promise.all([
-    sceneCounts(space.group.id), photocardCount(space.group.id), collectibleCount(space.group.id),
+  const [counts, colCount, wikiPages, essayCount] = await Promise.all([
+    sceneCounts(space.group.id), collectibleCount(space.group.id),
     listPublishedPages(space.group.id), featuredEssayCount(space.group.id),
   ]);
   const extraTabs = SCENE_LIST.filter((s) => counts[s.kind] > 0).map((s) => ({ label: s.label, seg: s.seg }));
-  // Collection tabs are likewise conditional - each appears once a space has a catalogued item.
-  if (pcCount > 0) extraTabs.push({ label: 'Photocards', seg: 'photocards' });
+  // The collectibles tab is likewise conditional - it appears once a space has a catalogued item.
   if (colCount > 0) extraTabs.push({ label: 'Collectibles', seg: 'collectibles' });
   // V-PAGES tabs: the wiki once a page is published; the song deck once tracks
   // exist (albums with dates imply catalogued tracks; the deck itself min-gates).
