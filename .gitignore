@@ -49,6 +49,9 @@ next-env.d.ts
 
 # data dumps
 scripts/*.json
+# session backups (pg_dump, docs/launch/o1/CODESPACE.md): never in this public repository
+*.dump
+/kpq-launch/
 
 # pinterest worker (local-only)
 pinterest-worker/tmp/
