@@ -2,7 +2,9 @@
 // owner's signed-in account may see them; everyone else gets the Coming soon page. kpopquiz.org (the kpop build) never gets any of this.
 //
 // Three server variables, set on the Vercel projects fandomverse and otakuquiz (never in git):
-//   PRIVATE_LAUNCH        unset, '', '0', 'false', 'off' or 'no': off, the build is exactly today's. Any other value: on.
+//   PRIVATE_LAUNCH        '0', 'false', 'off' or 'no': off, the build is exactly today's. Any other value: on. Unset or empty: on for a
+//                         production build on Vercel (VERCEL=1 and VERCEL_ENV=production: closed until the owner opens it explicitly), off
+//                         anywhere else (previews, local and parity builds, tests), so those stay today's.
 //   PRIVATE_LAUNCH_ALLOW  the user ids (uuid) that may enter, comma separated.
 //   PRIVATE_LAUNCH_KEY    a random secret of at least 64 hex characters (openssl rand -hex 32), the same on both projects.
 // With the gate on, next.config.ts adds beforeFiles rewrites (the last ones, after the site's own rules of lib/site/routing.ts) that
@@ -62,6 +64,8 @@ export interface PrivateLaunchEnv {
   readonly PRIVATE_LAUNCH?: string | undefined;
   readonly PRIVATE_LAUNCH_ALLOW?: string | undefined;
   readonly PRIVATE_LAUNCH_KEY?: string | undefined;
+  readonly VERCEL?: string | undefined;
+  readonly VERCEL_ENV?: string | undefined;
 }
 
 export type PrivateLaunch =
@@ -78,10 +82,21 @@ export type PrivateLaunch =
 
 export const OFF: PrivateLaunch = { on: false };
 
-/** True when PRIVATE_LAUNCH turns the gate on: every value but unset, '', '0', 'false', 'off' and 'no' (a typo closes, never opens). */
-export function gateOn(raw: string | undefined): boolean {
-  if (raw === undefined) return false;
-  return !['', '0', 'false', 'off', 'no'].includes(raw.trim().toLowerCase());
+const OFF_VALUES: readonly string[] = ['0', 'false', 'off', 'no'];
+
+/** A production build or function on Vercel: Vercel sets both on every build and at run time of a production deployment. */
+export function vercelProduction(env: PrivateLaunchEnv): boolean {
+  return env.VERCEL === '1' && env.VERCEL_ENV === 'production';
+}
+
+/**
+ * True when PRIVATE_LAUNCH turns the gate on. An explicit off value ('0', 'false', 'off', 'no', any case, trimmed) opens; any other value
+ * closes (a typo closes, never opens). Unset or empty: closed in production on Vercel (the owner opens with PRIVATE_LAUNCH=0), open elsewhere.
+ */
+export function gateOn(raw: string | undefined, production = false): boolean {
+  const v = (raw ?? '').trim().toLowerCase();
+  if (v === '') return production;
+  return !OFF_VALUES.includes(v);
 }
 
 /** The allowed ids of PRIVATE_LAUNCH_ALLOW: trimmed, lowercased, uuids only, no duplicate. */
@@ -98,7 +113,7 @@ export function expectedCookie(key: string, ids: ReadonlySet<string>): string {
 
 /** The gate of a build. kpop: always off, whatever the variables say. */
 export function readPrivateLaunch(site: SiteId, env: PrivateLaunchEnv): PrivateLaunch {
-  if (site === 'kpop' || !gateOn(env.PRIVATE_LAUNCH)) return OFF;
+  if (site === 'kpop' || !gateOn(env.PRIVATE_LAUNCH, vercelProduction(env))) return OFF;
   const key = (env.PRIVATE_LAUNCH_KEY ?? '').trim().toLowerCase();
   const { ids, dropped } = parseAllow(env.PRIVATE_LAUNCH_ALLOW);
   const problems: string[] = [];

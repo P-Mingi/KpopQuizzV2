@@ -40,14 +40,19 @@ const FULL: Env = { PRIVATE_LAUNCH: '1', PRIVATE_LAUNCH_ALLOW: `${ID_B}, ${ID_A.
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('@/lib/site/registry'); vi.doUnmock('../site/registry'); });
 
-async function loadConfig(site: SiteId, env: Env): Promise<NextConfig> {
+/** Where the build runs: a production or preview build on Vercel (VERCEL=1), or a local build that says production (no VERCEL). */
+type Deploy = 'vercel-production' | 'vercel-preview' | 'local-production';
+const warnings: string[] = [];
+
+async function loadConfig(site: SiteId, env: Env, deploy: Deploy = 'local-production'): Promise<NextConfig> {
   vi.resetModules();
   vi.stubEnv('NEXT_PUBLIC_SITE_ID', site === 'kpop' ? '' : site);
   vi.stubEnv('SITE_ID', '');
   vi.stubEnv('NET_INDEXING', '');
   vi.stubEnv('NEXT_PUBLIC_UX_V1', '1');
   vi.stubEnv('NEXT_PUBLIC_UX_V12', '1');
-  vi.stubEnv('VERCEL_ENV', 'production');
+  vi.stubEnv('VERCEL_ENV', deploy === 'vercel-preview' ? 'preview' : 'production');
+  vi.stubEnv('VERCEL', deploy === 'local-production' ? '' : '1');
   vi.stubEnv('PRIVATE_LAUNCH', env.PRIVATE_LAUNCH ?? '');
   vi.stubEnv('PRIVATE_LAUNCH_ALLOW', env.PRIVATE_LAUNCH_ALLOW ?? '');
   vi.stubEnv('PRIVATE_LAUNCH_KEY', env.PRIVATE_LAUNCH_KEY ?? '');
@@ -59,7 +64,8 @@ async function loadConfig(site: SiteId, env: Env): Promise<NextConfig> {
   };
   vi.doMock('../site/registry', mock);
   vi.doMock('@/lib/site/registry', mock);
-  const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+  warnings.length = 0;
+  const warn = vi.spyOn(console, 'warn').mockImplementation((...a: unknown[]) => { warnings.push(a.map(String).join(' ')); });
   const c = (await import('../../../next.config')).default;
   warn.mockRestore();
   return c;
@@ -116,6 +122,22 @@ describe('the variables', () => {
   it('PRIVATE_LAUNCH: off only when unset, empty, 0, false, off or no; any other value turns the gate on (a typo closes)', () => {
     for (const v of [undefined, '', '0', ' 0 ', 'false', 'FALSE', 'off', 'no']) expect(gateOn(v), String(v)).toBe(false);
     for (const v of ['1', 'true', 'yes', 'on', '2', 'x']) expect(gateOn(v), v).toBe(true);
+  });
+
+  it('in production on Vercel, PRIVATE_LAUNCH unset or empty counts as on; only an explicit off value opens', () => {
+    for (const v of [undefined, '', '  ']) expect(gateOn(v, true), String(v)).toBe(true);
+    for (const v of ['0', 'false', 'OFF', ' no ']) expect(gateOn(v, true), v).toBe(false);
+    for (const v of ['1', 'x']) expect(gateOn(v, true), v).toBe(true);
+    const prod = { VERCEL: '1', VERCEL_ENV: 'production' };
+    expect(readPrivateLaunch('hub', prod)).toMatchObject({ on: true, expected: null });
+    expect(readPrivateLaunch('anime', { ...prod, PRIVATE_LAUNCH: '' })).toMatchObject({ on: true, expected: null });
+    expect(readPrivateLaunch('hub', { ...prod, PRIVATE_LAUNCH: '0' })).toEqual({ on: false });
+    expect(readPrivateLaunch('hub', { VERCEL: '1', VERCEL_ENV: 'preview' })).toEqual({ on: false });
+    expect(readPrivateLaunch('hub', { VERCEL_ENV: 'production' })).toEqual({ on: false });
+    expect(readPrivateLaunch('hub', {})).toEqual({ on: false });
+    expect(readPrivateLaunch('kpop', prod)).toEqual({ on: false });
+    // Unset in production with ALLOW and KEY set: the gate is on and the listed account can enter.
+    expect(readPrivateLaunch('hub', { ...prod, PRIVATE_LAUNCH_ALLOW: ID_A, PRIVATE_LAUNCH_KEY: KEY })).toMatchObject({ on: true, expected: expectedCookie(KEY, new Set([ID_A])) });
   });
 
   it('PRIVATE_LAUNCH_ALLOW is read like ADMIN_USER_IDS (comma separated, trimmed, empty parts dropped), uuids only, lowercased', () => {
@@ -257,6 +279,63 @@ describe('next.config.ts with the gate', () => {
     for (const cookies of [{}, { [PRIVATE_COOKIE]: EXPECTED }]) {
       expect(resolveBefore(rules, `${prefix}${ENTER_PATH}`, cookies)).toBe(`${prefix}${ENTER_INTERNAL}`);
       expect(resolveBefore(rules, `${prefix}${LEAVE_PATH}`, cookies)).toBe(`${prefix}${LEAVE_INTERNAL}`);
+    }
+  });
+
+  it.each([['hub'], ['anime']] as const)('%s, production build on Vercel, PRIVATE_LAUNCH unset or empty: closed for everyone, with the build warning', async (site) => {
+    const prefix = site === 'anime' ? '/anime' : '';
+    for (const env of [{}, { PRIVATE_LAUNCH: '' }, { PRIVATE_LAUNCH: ' ' }]) {
+      const c = await loadConfig(site, env, 'vercel-production');
+      expect(warnings.some((w) => w.includes('CLOSED FOR EVERYONE')), JSON.stringify(env)).toBe(true);
+      const rules = await processed(c);
+      for (const cookies of [{}, SIGNED_IN_NOT_ALLOWED, { [PRIVATE_COOKIE]: EXPECTED }]) {
+        expect(resolveBefore(rules, prefix || '/', cookies)).toBe(`${prefix}${COMING_SOON_INTERNAL}`);
+        expect(resolveBefore(rules, `${prefix}/privacy`, cookies)).toBe(`${prefix}${COMING_SOON_INTERNAL}`);
+        expect(resolveBefore(rules, `${prefix}/login`, cookies)).toBe(`${prefix}/sites/${site}/login`);
+        expect(resolveBefore(rules, `${prefix}/auth/callback`, cookies)).toBe(`${prefix}/auth/callback`);
+      }
+      const h = (await c.headers!()) as { source: string; missing?: unknown; headers: { key: string; value: string }[] }[];
+      expect(h.slice(-2).map((x) => x.source)).toEqual(['/((?!robots\\.txt|sitemap\\.xml).*)', '/']);
+      for (const x of h.slice(-2)) expect('missing' in x).toBe(false);
+    }
+  });
+
+  it.each([['hub'], ['anime']] as const)('%s, production build on Vercel, PRIVATE_LAUNCH=0 (or false, off, no): no rule of the gate', async (site) => {
+    const ref = await loadConfig(site, {});
+    const r0 = { r: await ref.rewrites!(), h: await ref.headers!() };
+    for (const env of [{ PRIVATE_LAUNCH: '0' }, { PRIVATE_LAUNCH: 'false' }, { PRIVATE_LAUNCH: 'off' }, { PRIVATE_LAUNCH: 'no' }, { ...FULL, PRIVATE_LAUNCH: '0' }]) {
+      const c = await loadConfig(site, env, 'vercel-production');
+      // The production build differs from the local one only by the vercel.app noindex rule of zones.ts, which the gate does not touch.
+      const ref1 = await loadConfig(site, { PRIVATE_LAUNCH: '0' }, 'vercel-production');
+      expect(await c.rewrites!(), JSON.stringify(env)).toEqual(await ref1.rewrites!());
+      expect(await c.headers!(), JSON.stringify(env)).toEqual(await ref1.headers!());
+      expect(JSON.stringify(await c.rewrites!())).not.toContain(COMING_SOON_INTERNAL);
+      expect(JSON.stringify(await c.headers!())).not.toContain(PRIVATE_COOKIE);
+    }
+    expect(JSON.stringify(r0)).not.toContain(COMING_SOON_INTERNAL);
+  });
+
+  it.each([['hub'], ['anime']] as const)('%s, preview build on Vercel or local production build, PRIVATE_LAUNCH unset: no rule (today\'s behaviour)', async (site) => {
+    for (const deploy of ['vercel-preview', 'local-production'] as const) {
+      const c = await loadConfig(site, {}, deploy);
+      expect(JSON.stringify(await c.rewrites!()), deploy).not.toContain(COMING_SOON_INTERNAL);
+      expect(JSON.stringify(await c.headers!()), deploy).not.toContain(PRIVATE_COOKIE);
+      expect(warnings.some((w) => w.includes('[private-launch]')), deploy).toBe(false);
+      const explicitOff = await loadConfig(site, { PRIVATE_LAUNCH: '0' }, deploy);
+      const unset = await loadConfig(site, {}, deploy);
+      expect(await unset.rewrites!()).toEqual(await explicitOff.rewrites!());
+      expect(await unset.headers!()).toEqual(await explicitOff.headers!());
+    }
+  });
+
+  it('kpop, production build on Vercel, PRIVATE_LAUNCH unset (or anything): no rule, today\'s config', async () => {
+    const ref = await loadConfig('kpop', { PRIVATE_LAUNCH: '0' }, 'vercel-production');
+    for (const env of [{}, { PRIVATE_LAUNCH: '' }, FULL]) {
+      const c = await loadConfig('kpop', env, 'vercel-production');
+      expect(await c.rewrites!(), JSON.stringify(env)).toEqual(await ref.rewrites!());
+      expect(await c.headers!(), JSON.stringify(env)).toEqual(await ref.headers!());
+      expect(Object.keys(c).sort()).toEqual(Object.keys(ref).sort());
+      expect(warnings.some((w) => w.includes('[private-launch]'))).toBe(false);
     }
   });
 

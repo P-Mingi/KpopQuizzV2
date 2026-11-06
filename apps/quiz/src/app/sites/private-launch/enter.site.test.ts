@@ -115,6 +115,24 @@ describe('GET /auth/private-launch', () => {
   });
 });
 
+describe('PRIVATE_LAUNCH unset', () => {
+  it('in production on Vercel the gate is on: the listed account enters, nobody enters without ALLOW and KEY; elsewhere a 404', async () => {
+    state.user = OWNER;
+    vi.stubEnv('VERCEL', '1');
+    vi.stubEnv('VERCEL_ENV', 'production');
+    stubGate({ PRIVATE_LAUNCH_ALLOW: OWNER, PRIVATE_LAUNCH_KEY: KEY });
+    delete process.env.PRIVATE_LAUNCH;
+    expect((await enter.GET()).headers.get('set-cookie')).toBe(`${PRIVATE_COOKIE}=${EXPECTED}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`);
+    stubGate({});
+    delete process.env.PRIVATE_LAUNCH;
+    const closed = await enter.GET();
+    expect(closed.headers.get('location')).toBe('/');
+    expect(closed.headers.get('set-cookie')).toBe(CLEARED);
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    expect((await enter.GET()).status).toBe(404);
+  });
+});
+
 describe('GET /auth/private-launch/leave', () => {
   it('clears the cookie and goes home; 404 with the gate off and on kpop', async () => {
     const res = leave.GET();

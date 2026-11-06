@@ -68,6 +68,17 @@ describe('the Coming soon page', () => {
     expect(route.GET().status).toBe(200);
   });
 
+  it('production on Vercel with PRIVATE_LAUNCH unset: served (closed for everyone); 404 only with an explicit off value', () => {
+    vi.stubEnv('VERCEL', '1');
+    vi.stubEnv('VERCEL_ENV', 'production');
+    vi.stubEnv('PRIVATE_LAUNCH_ALLOW', '');
+    vi.stubEnv('PRIVATE_LAUNCH_KEY', '');
+    delete process.env.PRIVATE_LAUNCH;
+    expect(route.GET().status).toBe(200);
+    vi.stubEnv('PRIVATE_LAUNCH', '0');
+    expect(route.GET().status).toBe(404);
+  });
+
   it('is a 404 with the gate off and on the kpop build', () => {
     vi.stubEnv('PRIVATE_LAUNCH', '0');
     expect(route.GET().status).toBe(404);

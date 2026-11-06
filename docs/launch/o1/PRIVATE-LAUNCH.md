@@ -15,6 +15,8 @@ Dans Vercel, Settings, Environment Variables, environnement Production, sur les 
 
 Ne mets jamais ces valeurs dans git. Après tout changement d'une des trois variables : Redeploy des deux projets.
 
+En production, `PRIVATE_LAUNCH` absent ou vide compte comme fermé (pour tout le monde si ALLOW ou KEY manque) : seul `PRIVATE_LAUNCH=0` + Redeploy ouvre.
+
 Si `PRIVATE_LAUNCH=1` mais que `PRIVATE_LAUNCH_ALLOW` ou `PRIVATE_LAUNCH_KEY` manque ou est invalide, le site reste fermé pour tout
 le monde, toi compris (le log du build l'indique par une ligne `[private-launch]`). Il ne s'ouvre jamais par erreur.
 
