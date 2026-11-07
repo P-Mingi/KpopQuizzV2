@@ -71,9 +71,12 @@ describe('the hub /directory metadata', () => {
 });
 
 describe('the /daily handler of the anime group', () => {
-  it('anime: redirects to today\'s quiz', async () => {
-    const { GET } = await onSite('anime', () => import('@/app/sites/[site]/(anime)/daily/route'));
-    await expect(GET()).rejects.toMatchObject({ digest: expect.stringContaining('NEXT_REDIRECT') });
+  // Flipped 2026-11-07 (owner, step 52): the handler no longer throws redirect() of next/navigation, which drops the basePath
+  // in a route handler in production; it answers a 307 whose Location carries /anime (the build's __NEXT_ROUTER_BASEPATH).
+  it('anime: redirects to today\'s quiz, under /anime', async () => {
+    const { GET } = await onSite('anime', () => { vi.stubEnv('__NEXT_ROUTER_BASEPATH', '/anime'); return import('@/app/sites/[site]/(anime)/daily/route'); });
+    const res = await GET();
+    expect({ status: res.status, location: res.headers.get('location') }).toEqual({ status: 307, location: '/anime/q/dn-1?daily=quiz' });
   });
 
   it('hub: 404 (a route handler has no layout to guard it)', async () => {

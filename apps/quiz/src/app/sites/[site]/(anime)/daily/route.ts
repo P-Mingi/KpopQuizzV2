@@ -1,8 +1,9 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/daily/route.ts, rows 10: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
+import { withBasePath } from '@/lib/site/base-path';
 import { SITE, SITE_ID } from '@/lib/site/registry';
 
 // Stable entry to today's daily quiz (Workstream M, M1.3). The streak nudge and
@@ -19,5 +20,8 @@ export async function GET(): Promise<Response> {
   // The quiz of the day of this site (one per site, published by the cron through ensure_daily_quiz_v2 for 'anime');
   // the play, the result and the streak are the ones of /q/{slug}?daily=quiz, shared with kpop.
   const qotd = await safeFetch(getQuizOfTheDay(SITE.id), null, '[daily] getQuizOfTheDay');
-  redirect(qotd ? `/q/${qotd.slug}?daily=quiz` : '/quizzes');
+  // Not redirect() of next/navigation: in a route handler it does not add the basePath in production (seen on
+  // bunnyverse.org/anime/daily, 2026-11-07: Location /quizzes, a 404 of the hub). The Location carries /anime itself.
+  const target = qotd ? `/q/${qotd.slug}?daily=quiz` : '/quizzes';
+  return new Response(null, { status: 307, headers: { Location: withBasePath(target) } });
 }
