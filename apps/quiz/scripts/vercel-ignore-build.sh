@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Ignored Build Step of the three Vercel projects (kpopquiz, otakuquiz, fandomverse): the ignoreCommand of
-# apps/quiz/vercel.json, run by Vercel in apps/quiz before each build. It overrides the Ignored Build Step of every
+# apps/quiz/shared.vercel.json (given to Vercel by vercel.ts), run by Vercel in apps/quiz before each build. It overrides the Ignored Build Step of every
 # project's dashboard. Exit 0 skips the build, exit 1 builds; any doubt builds.
 #
 # 1. Until launch (runbook K5b), otakuquiz and fandomverse never built production (D-091, D-092). This replaced their
