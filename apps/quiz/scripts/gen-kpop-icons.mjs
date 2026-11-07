@@ -1,9 +1,11 @@
-// The icons of kpopquiz.org (owner brief, Lane F): a full square in the KpopQuiz pink, no rounded corner and no transparency (Google cuts it to
-// a circle itself), the rabbit in white in the middle, as the white rabbit on the pink tile of the Bunnyverse doors drew it (home v2,
+// The icons of kpopquiz.org (owner brief, Lane F): a square in the KpopQuiz pink, the rabbit in white in the middle, as the white rabbit on the pink tile of the Bunnyverse doors drew it (home v2,
 // e2e/o1/H1/H2a/rabbit-white.mjs; the pink is --hub-k of styles/sites/hub/h2.css, 'pink-fill' of lib/design-tokens.ts).
 // The rabbit comes from public/rabbit-source.webp (1024 px, no vector exists; public/mascot/mascot-default.png is the same art at 128 px): how
 // dark a pixel is becomes how white it is, and only the rabbit is kept (its two stars stay, the two loose sparkles of the source go, as on the mascot).
 // Its bounding box is centred and its farthest pixel sits 40% of the side from the centre: a margin in the inscribed circle, and the safe zone of a maskable icon.
+// The tab favicons (favicon.svg, favicon.ico, favicon-16x16.png, favicon-32x32.png) are a rounded square (owner, 2026-11-07): a corner radius of 22%
+// of the side, transparent outside, the same pixels inside. apple-touch-icon and android-chrome stay the full opaque square (owner, 2026-11-01): iOS and
+// Android cut their own shape, a maskable icon is full bleed, and Google cuts a circle that the rounded square holds whole.
 //
 // Writes public/brand/kpop/, served at the root addresses by kpopIconRewrites (lib/site/routing.ts). The root files stay the files of anime and hub (D-099).
 //   node apps/quiz/scripts/gen-kpop-icons.mjs           writes the files
@@ -20,8 +22,10 @@ const OUT = join(QUIZ, 'public', 'brand', 'kpop');
 const PINK = [0xd1, 0x3a, 0x6e];
 const MASTER = 1024;
 const SAFE_RADIUS = 0.4;
+const CORNER = 0.22;
 const ICO_SIZES = [16, 32, 48, 96, 144];
 const PNG_FILES = { 'favicon-16x16.png': 16, 'favicon-32x32.png': 32, 'apple-touch-icon.png': 180, 'android-chrome-192x192.png': 192, 'android-chrome-512x512.png': 512 };
+const ROUNDED = new Set(['favicon-16x16.png', 'favicon-32x32.png']);
 
 /** The rabbit of the source as a coverage mask: dark is 255, the cream is 0 (the pink stars fall between, so they read as tinted on the white). */
 async function rabbitMask() {
@@ -105,8 +109,60 @@ async function master() {
   return out;
 }
 
-const png = (raw, size) => sharp(raw, { raw: { width: MASTER, height: MASTER, channels: 3 } })
-  .resize(size, size, { kernel: 'lanczos3' }).removeAlpha().png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+/** How much of each pixel the rounded square covers, 0 to 255, from 16 x 16 samples a pixel (so a corner pixel is exactly 0, an edge pixel exactly 255). */
+function roundedAlpha(size) {
+  const r = CORNER * size, n = 16;
+  const alpha = Buffer.alloc(size * size);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      let inside = 0;
+      for (let j = 0; j < n; j++) {
+        const dy = Math.max(0, r - (y + (j + 0.5) / n), y + (j + 0.5) / n - (size - r));
+        for (let i = 0; i < n; i++) {
+          const dx = Math.max(0, r - (x + (i + 0.5) / n), x + (i + 0.5) / n - (size - r));
+          if (dx * dx + dy * dy <= r * r) inside++;
+        }
+      }
+      alpha[y * size + x] = Math.round((255 * inside) / (n * n));
+    }
+  }
+  return alpha;
+}
+
+/** The pixels of a size px image whose whole square of the master is the pink. */
+function purePink(raw, size) {
+  const pure = new Uint8Array(size * size);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      let all = true;
+      for (let my = Math.floor((y * MASTER) / size); all && my < Math.ceil(((y + 1) * MASTER) / size); my++) {
+        for (let mx = Math.floor((x * MASTER) / size); all && mx < Math.ceil(((x + 1) * MASTER) / size); mx++) {
+          const o = (my * MASTER + mx) * 3;
+          all = raw[o] === PINK[0] && raw[o + 1] === PINK[1] && raw[o + 2] === PINK[2];
+        }
+      }
+      pure[y * size + x] = all ? 1 : 0;
+    }
+  }
+  return pure;
+}
+
+/** The master at size px: opaque RGB, or with rounded set the same RGB plus the alpha of the rounded square. The outer ring of a rounded icon is the exact
+ * pink where its square of the master is all pink (lanczos3 tints five of those pixels by one unit at 16 px); the pixels inside the ring do not move. */
+async function png(raw, size, rounded = false) {
+  const rgb = sharp(raw, { raw: { width: MASTER, height: MASTER, channels: 3 } }).resize(size, size, { kernel: 'lanczos3' }).removeAlpha();
+  let out = rgb;
+  if (rounded) {
+    const px = await rgb.raw().toBuffer();
+    const pure = purePink(raw, size);
+    for (let i = 0; i < size * size; i++) {
+      const x = i % size, y = Math.floor(i / size);
+      if (pure[i] === 1 && (x === 0 || y === 0 || x === size - 1 || y === size - 1)) px.set(PINK, i * 3);
+    }
+    out = sharp(px, { raw: { width: size, height: size, channels: 3 } }).joinChannel(roundedAlpha(size), { raw: { width: size, height: size, channels: 1 } });
+  }
+  return out.png({ compressionLevel: 9, adaptiveFiltering: true }).toBuffer();
+}
 
 /** An .ico of PNG images (the header, one 16 byte entry per size, then the files). */
 function ico(images) {
@@ -119,7 +175,7 @@ function ico(images) {
     head[e] = size;
     head[e + 1] = size;
     head.writeUInt16LE(1, e + 4);
-    head.writeUInt16LE(24, e + 6);
+    head.writeUInt16LE(32, e + 6);
     head.writeUInt32LE(file.length, e + 8);
     head.writeUInt32LE(offset, e + 12);
     offset += file.length;
@@ -129,10 +185,10 @@ function ico(images) {
 
 const raw = await master();
 const files = {};
-for (const [name, size] of Object.entries(PNG_FILES)) files[name] = await png(raw, size);
-files['favicon.ico'] = ico(await Promise.all(ICO_SIZES.map(async (size) => ({ size, file: await png(raw, size) }))));
-// The SVG icon the head links first: an opaque picture, as the favicon.svg it replaces is (the art has no vector).
-files['favicon.svg'] = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><image href="data:image/png;base64,${(await png(raw, 128)).toString('base64')}" width="128" height="128"/></svg>\n`);
+for (const [name, size] of Object.entries(PNG_FILES)) files[name] = await png(raw, size, ROUNDED.has(name));
+files['favicon.ico'] = ico(await Promise.all(ICO_SIZES.map(async (size) => ({ size, file: await png(raw, size, true) }))));
+// The SVG icon the head links first: the rounded picture at 128 px (the art has no vector).
+files['favicon.svg'] = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><image href="data:image/png;base64,${(await png(raw, 128, true)).toString('base64')}" width="128" height="128"/></svg>\n`);
 
 const check = process.argv.includes('--check');
 let bad = 0;

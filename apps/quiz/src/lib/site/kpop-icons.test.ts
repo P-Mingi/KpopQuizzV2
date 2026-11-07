@@ -1,5 +1,8 @@
 // Lane F (owner, 2026-11-01): the icon Google shows for kpopquiz.org. A full square in the KpopQuiz pink, no transparency, no rounded corner, the
 // white rabbit inside the circle Google cuts. kpopquiz.org keeps its addresses (rewrites to public/brand/kpop/); anime and hub keep their bytes.
+// Owner, 2026-11-07: the tab favicons (favicon.svg, favicon.ico, favicon-16x16.png, favicon-32x32.png) get slightly rounded corners, like an app
+// icon: RGBA, the four corner pixels fully transparent, the middle of each edge the exact pink, the same rabbit. apple-touch-icon and android-chrome
+// stay the full opaque square of 2026-11-01 (iOS and Android cut their own shape, a maskable icon is full bleed).
 import { createHash } from 'node:crypto';
 import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -15,15 +18,25 @@ const PUBLIC = fileURLToPath(new URL('../../../public/', import.meta.url));
 const KPOP = join(PUBLIC, 'brand', 'kpop');
 const PINK = [0xd1, 0x3a, 0x6e];
 const PNGS: readonly (readonly [string, number])[] = [
-  ['favicon-16x16.png', 16], ['favicon-32x32.png', 32], ['apple-touch-icon.png', 180],
-  ['android-chrome-192x192.png', 192], ['android-chrome-512x512.png', 512],
+  ['apple-touch-icon.png', 180], ['android-chrome-192x192.png', 192], ['android-chrome-512x512.png', 512],
 ];
+const FAVICON_PNGS: readonly (readonly [string, number])[] = [['favicon-16x16.png', 16], ['favicon-32x32.png', 32]];
 const ICO_SIZES = [16, 32, 48, 96, 144];
 
-/** Width, height and colour type of a PNG, from its IHDR (type 2 is RGB: no alpha channel, and no tRNS chunk may add one). */
+/** Width, height and colour type of a PNG, from its IHDR (type 2 is RGB: no alpha channel, and no tRNS chunk may add one; type 6 is RGBA). */
 function ihdr(png: Buffer): { width: number; height: number; colorType: number; tRNS: boolean } {
   expect(png.subarray(1, 4).toString()).toBe('PNG');
   return { width: png.readUInt32BE(16), height: png.readUInt32BE(20), colorType: png[25]!, tRNS: png.includes(Buffer.from('tRNS')) };
+}
+
+/** A rounded favicon: the four corner pixels fully transparent, the pixel at the middle of each edge the exact pink, fully opaque. */
+async function expectRounded(png: Buffer, size: number): Promise<void> {
+  const { data, info } = await sharp(png).raw().toBuffer({ resolveWithObject: true });
+  expect([info.width, info.height, info.channels]).toEqual([size, size, 4]);
+  const at = (x: number, y: number): number[] => [...data.subarray((y * size + x) * 4, (y * size + x) * 4 + 4)];
+  for (const [x, y] of [[0, 0], [size - 1, 0], [0, size - 1], [size - 1, size - 1]] as const) expect(at(x, y)[3], `${size} px corner ${x},${y}`).toBe(0);
+  const mid = Math.floor(size / 2);
+  for (const [x, y] of [[mid, 0], [mid, size - 1], [0, mid], [size - 1, mid]] as const) expect(at(x, y), `${size} px edge ${x},${y}`).toEqual([...PINK, 255]);
 }
 
 function icoImages(ico: Buffer): { size: number; png: Buffer }[] {
@@ -44,19 +57,31 @@ describe('the icon files of kpopquiz.org', () => {
     expect(ihdr(readFileSync(join(KPOP, file)))).toEqual({ width: size, height: size, colorType: 2, tRNS: false });
   });
 
-  it('favicon.ico holds 16, 32, 48, 96 and 144 px, each RGB with no alpha, and stays small', () => {
+  it.each(FAVICON_PNGS)('%s is exactly %i px, RGBA', (file, size) => {
+    expect(ihdr(readFileSync(join(KPOP, file)))).toEqual({ width: size, height: size, colorType: 6, tRNS: false });
+  });
+
+  it.each(FAVICON_PNGS)('%s: a rounded square (corners transparent, edges the exact pink)', async (file, size) => {
+    await expectRounded(readFileSync(join(KPOP, file)), size);
+  });
+
+  it('favicon.ico holds 16, 32, 48, 96 and 144 px, each RGBA with rounded corners, and stays small', async () => {
     const ico = readFileSync(join(KPOP, 'favicon.ico'));
     const images = icoImages(ico);
     expect(images.map((x) => x.size)).toEqual(ICO_SIZES);
-    for (const { size, png } of images) expect(ihdr(png)).toEqual({ width: size, height: size, colorType: 2, tRNS: false });
+    for (const { size, png } of images) {
+      expect(ihdr(png)).toEqual({ width: size, height: size, colorType: 6, tRNS: false });
+      await expectRounded(png, size);
+    }
     expect(ico.length).toBeLessThan(30_000);
   });
 
-  it('favicon.svg is the opaque picture, in a square', () => {
+  it('favicon.svg is the rounded picture, in a square', async () => {
     const svg = readFileSync(join(KPOP, 'favicon.svg'), 'utf8');
     expect(svg).toContain('viewBox="0 0 128 128"');
     const png = Buffer.from(/base64,([^"]+)"/.exec(svg)![1]!, 'base64');
-    expect(ihdr(png)).toEqual({ width: 128, height: 128, colorType: 2, tRNS: false });
+    expect(ihdr(png)).toEqual({ width: 128, height: 128, colorType: 6, tRNS: false });
+    await expectRounded(png, 128);
   });
 
   it.each(PNGS)('%s: all four corners are the exact pink (no rounded corner)', async (file, size) => {
