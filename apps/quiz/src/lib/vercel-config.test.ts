@@ -21,17 +21,17 @@ function deploys(branch: string): boolean {
   return rules.length === 0 || rules.some(([, on]) => on);
 }
 
-// Owner, 2026-10-29 (Vercel cost): only main and preview/<topic> deploy, plus o1/integration until launch day (K5b);
-// every other branch is checked locally.
+// Owner, 2026-10-29 (Vercel cost): only main and preview/<topic> deploy; o1/integration also deployed until launch day (K5b,
+// 2026-11-07) and no longer does. Every other branch is checked locally.
 describe('vercel.json: which branches build (F8, owner 2026-10-29)', () => {
   it('agent, integration and release branches do not build', () => {
-    for (const b of ['ux11/a0-fix8', 'ux11/p2-quizzes', 'w3/support', 'v12/g3-blindtest', 'v12/c1-check', 'feat/v12', 'feat/ux-v1-v11', 'r1/fixes', 'r1/report', 'v12', 'ux11', 'o1/fv-int', 'o1/vercel-builds']) {
+    for (const b of ['ux11/a0-fix8', 'ux11/p2-quizzes', 'w3/support', 'v12/g3-blindtest', 'v12/c1-check', 'feat/v12', 'feat/ux-v1-v11', 'r1/fixes', 'r1/report', 'v12', 'ux11', 'o1/fv-int', 'o1/vercel-builds', 'o1/integration']) {
       expect(deploys(b), b).toBe(false);
     }
   });
 
-  it('main, preview/** and o1/integration build', () => {
-    for (const b of ['main', 'preview/x', 'preview/anime-home', 'preview/hub/mobile', 'o1/integration']) {
+  it('main and preview/** build', () => {
+    for (const b of ['main', 'preview/x', 'preview/anime-home', 'preview/hub/mobile']) {
       expect(deploys(b), b).toBe(true);
     }
   });
