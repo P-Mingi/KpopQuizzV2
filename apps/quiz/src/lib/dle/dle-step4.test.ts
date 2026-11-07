@@ -446,10 +446,27 @@ describe('the screens', () => {
     expect(creditSections([], [], {}, {}, 'fr')).toEqual([]);
   });
 
-  it('flag off, on the hub\'s build: every page and the share image answer as an unknown URL', async () => {
+  it('flag on since launch day (2026-11-07, RUNBOOK K8c): the guard of every page opens on the hub\'s build only', async () => {
+    for (const site of ['hub', 'kpop', 'anime'] as const) {
+      vi.stubEnv('NEXT_PUBLIC_SITE_ID', site);
+      vi.stubEnv('SITE_ID', site);
+      vi.resetModules();
+      const { REGISTRY } = await import('@/lib/site/registry');
+      expect(REGISTRY.hub.features.dailyGuess, site).toBe(true);
+      expect((await import('@/lib/site/hub/daily-guess')).dleOpen(), site).toBe(site === 'hub');
+    }
+  });
+
+  it('flag off (before launch day, or after a revert of the K8c PR), on the hub\'s build: every page and the share image answer as an unknown URL', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', 'hub');
     vi.stubEnv('SITE_ID', 'hub');
     vi.resetModules();
+    // The registry as it was before the K8c PR: the hub's flag off and its route map without the pages.
+    vi.doMock('@/lib/site/registry', async (orig) => {
+      const real = await orig<typeof import('@/lib/site/registry')>();
+      const hub = { ...real.REGISTRY.hub, features: { ...real.REGISTRY.hub.features, dailyGuess: false }, routes: { allow: real.hubRouteAllow({ dailyGuess: false }) } };
+      return { ...real, REGISTRY: { ...real.REGISTRY, hub }, SITE: hub };
+    });
     const loaders = [
       () => import('@/app/sites/[site]/(hub)/burrow/page'), () => import('@/app/sites/[site]/(hub)/fr/daily/page'),
       () => import('@/app/sites/[site]/(hub)/kpopdle/page'), () => import('@/app/sites/[site]/(hub)/fr/kpopdle/page'),
@@ -468,8 +485,10 @@ describe('the screens', () => {
     const { sitemapEntriesFor } = await import('@/lib/site/root-files');
     const { SITE } = await import('@/lib/site/registry');
     vi.stubEnv('NET_INDEXING', '1');
+    expect(SITE.features.dailyGuess).toBe(false);
     const entries = await sitemapEntriesFor(SITE, {} as never);
     for (const p of livePaths()) expect(entries.map((e) => e.path), p).not.toContain(p);
+    vi.doUnmock('@/lib/site/registry');
   });
 
   it('the shell asks for the bare frame on these pages only with the flag on', () => {

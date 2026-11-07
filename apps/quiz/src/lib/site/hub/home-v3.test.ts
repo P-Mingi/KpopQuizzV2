@@ -112,26 +112,41 @@ describe('the Burrow', () => {
   // The owner's switch is the registry feature `dailyGuess` of the hub (daily games step 1), not an environment variable.
   const withKey = (on: boolean) => ({ ...REGISTRY.hub.features, dailyGuess: on }) as typeof REGISTRY.hub.features;
 
-  it('is off by default: the registry feature dailyGuess, a missing key reading as false', () => {
-    expect(dailyGuessOn()).toBe(false);
-    // the hub's registry entry: no key yet (step 1 adds it as false)
-    expect((REGISTRY.hub.features as unknown as Record<string, unknown>).dailyGuess ?? false).toBe(false);
-    expect(dailyGuessOn(REGISTRY.hub.features)).toBe(false);
+  it('is on since launch day (2026-11-07, RUNBOOK K8c): the registry feature dailyGuess, a missing key reading as false', () => {
+    expect(dailyGuessOn()).toBe(true);
+    // the hub's registry entry: the key, true since the launch-day PR
+    expect((REGISTRY.hub.features as unknown as Record<string, unknown>).dailyGuess ?? false).toBe(true);
+    expect(dailyGuessOn(REGISTRY.hub.features)).toBe(true);
     expect(dailyGuessOn(withKey(false))).toBe(false);
     expect(dailyGuessOn(withKey(true))).toBe(true);
+    const { dailyGuess: _dropped, ...missing } = REGISTRY.hub.features;
+    expect(dailyGuessOn(missing as unknown as typeof REGISTRY.hub.features)).toBe(false);
     // a truthy value that is not true is not the switch
     expect(dailyGuessOn({ ...REGISTRY.hub.features, dailyGuess: 1 } as unknown as typeof REGISTRY.hub.features)).toBe(false);
   });
 
-  it('ignores the old DAILY_GUESS environment variable', () => {
-    vi.stubEnv('DAILY_GUESS', '1');
-    expect(dailyGuessOn()).toBe(false);
-    expect(burrowOpen()).toBe(false);
+  it('ignores the old DAILY_GUESS environment variable', async () => {
+    for (const v of ['0', '', '1']) {
+      vi.stubEnv('DAILY_GUESS', v);
+      vi.resetModules();
+      const m = await import('./daily-guess');
+      expect(m.dailyGuessOn(), v).toBe(true);
+      expect(m.burrowOpen(), v).toBe(true);
+    }
+    vi.unstubAllEnvs();
+    vi.resetModules();
   });
 
-  it('stays closed with the feature on while the hub has no /daily, /kpopdle and /otakudle', () => {
-    expect(burrowOpen()).toBe(false);
+  it('opens with the feature on now that the hub has /daily, /kpopdle and /otakudle, and stays closed with the feature off or without those routes', async () => {
+    expect(burrowOpen()).toBe(true);
     expect(burrowOpen(withKey(false))).toBe(false);
-    expect(burrowOpen(withKey(true))).toBe(false);
+    expect(burrowOpen(withKey(true))).toBe(true);
+    // The route guard of the Burrow, the hub's route map without the three pages (before launch day, or after a revert): closed even with the feature on.
+    vi.resetModules();
+    vi.doMock('@/lib/site/routing', async (orig) => ({ ...(await orig<typeof import('@/lib/site/routing')>()), isKnownRouteFor: () => false }));
+    const noRoutes = await import('./daily-guess');
+    expect(noRoutes.burrowOpen(withKey(true))).toBe(false);
+    vi.doUnmock('@/lib/site/routing');
+    vi.resetModules();
   });
 });

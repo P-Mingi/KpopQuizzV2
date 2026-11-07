@@ -2,7 +2,7 @@
 // and files that hold them on origin/main, so B1's swap of a literal for SITE.* cannot change
 // a byte. The anime and hub entries are checked for shape and for their frozen values only.
 
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -15,7 +15,7 @@ import { validateSchedule, type QuizBankEntry } from '@/lib/quiz-bank-scheduling
 import { siteForOrigin } from './origin-site';
 import * as registryModule from './registry';
 import {
-  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, dlePreviewOn, flagOn, isSiteId, netOrigin, parseNetOrigins,
+  NETWORK, PLACEHOLDERS, REGISTRY, SITE, SITE_ID, flagOn, isSiteId, netOrigin, parseNetOrigins,
   resolveSiteId, siteConfig,
 } from './registry';
 import { SITE_IDS } from './types';
@@ -206,10 +206,10 @@ describe('frozen values of every entry (BACKLOG 5.1)', () => {
     expect(a.daily.fallbackGroupSlug).toBe('anime-mix');
   });
 
-  it('hub: passport pages only, no quiz feature', () => {
+  it('hub: passport pages and, since launch day 2026-11-07 (RUNBOOK K8c), the daily games; no quiz feature', () => {
     const h = REGISTRY.hub;
     const on = Object.entries(h.features).filter(([, v]) => v).map(([k]) => k);
-    expect(on).toEqual(['passportPages']);
+    expect(on).toEqual(['passportPages', 'dailyGuess']);
     expect(h.auth.emailLanding).toBe('/auth/confirm');
     expect(h.auth.providers).toEqual(['google', 'discord']);
     expect(h.auth.googleClientIdEnv).toBeNull();
@@ -353,112 +353,52 @@ describe('siteForOrigin lives outside the registry module', () => {
   });
 });
 
-// DEV-PREVIEW (owner order, 2026-11-03): NEXT_PUBLIC_DLE_PREVIEW opens the daily games on a Preview only. Off by default, ignored on Production.
-describe('NEXT_PUBLIC_DLE_PREVIEW (the Preview-only switch of dailyGuess)', () => {
+// Launch day (2026-11-07, RUNBOOK K8c): the hub's dailyGuess is a code constant, true, and the Preview-only switch of 2026-11-03
+// (DEV-PREVIEW.md) is gone with its function. The name is spelled in two pieces so that this file is not a read of it either.
+const PREVIEW_FLAG = ['NEXT_PUBLIC', 'DLE', 'PREVIEW'].join('_');
+describe('dailyGuess on the hub since launch day (the code constant of RUNBOOK K8c, no env flag)', () => {
   afterEach(() => {
     vi.unstubAllEnvs();
     vi.resetModules();
   });
 
-  it('is off when unset, empty, 0 or false, on for 1 and true, and only on a Preview', () => {
-    expect(dlePreviewOn({})).toBe(false);
-    for (const v of [undefined, '', '0', 'false', 'yes', ' 1']) expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'preview' }), String(v)).toBe(false);
-    for (const v of ['1', 'true']) {
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'preview' })).toBe(true);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'production' })).toBe(false);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'development' })).toBe(false);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'Preview' })).toBe(false);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: '' })).toBe(false);
-    }
+  it('the hub line is the literal `dailyGuess: true`, with no function call and no env read', () => {
+    const src = read(`${SRC}lib/site/registry.ts`);
+    expect(src).toContain('const HUB_FEATURES: SiteFeatures = { ...ALL_OFF, passportPages: true, directory: false, dailyGuess: true };');
+    expect(src).not.toMatch(/dailyGuess: [a-zA-Z]+\(/);
+    expect('dlePreviewOn' in registryModule).toBe(false);
   });
 
-  it('is closed by default where the deployment kind is unknown, as in a browser bundle that only has the public flag', () => {
-    // Integrator review 2026-11-03: a flag set on Production by mistake must not open the games on the client when the server keeps them closed.
-    for (const v of ['1', 'true']) {
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v })).toBe(false);
-      expect(dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: undefined })).toBe(false);
-    }
+  it('no file of the app reads the Preview-only switch any more', () => {
+    const walk = (rel: string): string[] => (statSync(`${APP}${rel}`).isDirectory()
+      ? readdirSync(`${APP}${rel}`).filter((n) => n !== 'node_modules' && !n.startsWith('.')).flatMap((n) => walk(`${rel}/${n}`))
+      : [rel]);
+    const files = ['src', 'scripts', 'e2e', 'next.config.ts', 'vercel.json'].filter((r) => existsSync(`${APP}${r}`)).flatMap(walk).filter((f) => /\.(m?[jt]sx?|json|sh)$/.test(f));
+    expect(files.length).toBeGreaterThan(100);
+    expect(files.filter((f) => read(`${APP}${f}`).includes(PREVIEW_FLAG))).toEqual([]);
   });
 
-  it('does not read VERCEL_ENV: the server-only variable alone never turns the switch on, whatever its value', () => {
-    // Integrator review 2026-11-03: VERCEL_ENV is not inlined in a client bundle, so a test on it made the server and the client disagree.
-    // The param type no longer has it, so the cast is what lets the test hand it over.
-    const withServerVar = (e: Record<string, string | undefined>): boolean => dlePreviewOn(e as Parameters<typeof dlePreviewOn>[0]);
-    for (const v of ['1', 'true']) {
-      for (const vercelEnv of ['preview', 'development', 'production', '', undefined]) {
-        expect(withServerVar({ NEXT_PUBLIC_DLE_PREVIEW: v, VERCEL_ENV: vercelEnv }), `${v} / VERCEL_ENV ${String(vercelEnv)}`).toBe(false);
-      }
-      // One source of truth: the public value decides, whatever the server-only one says next to it.
-      expect(withServerVar({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'preview', VERCEL_ENV: 'production' })).toBe(true);
-      expect(withServerVar({ NEXT_PUBLIC_DLE_PREVIEW: v, NEXT_PUBLIC_VERCEL_ENV: 'production', VERCEL_ENV: 'preview' })).toBe(false);
-    }
+  it('is on for the hub in this test run, with no variable set', () => {
+    expect(REGISTRY.hub.features.dailyGuess).toBe(true);
+    expect(REGISTRY.hub.routes.allow).toContain('/kpopdle');
   });
 
-  it('passes the two public values written out in full, so Next inlines the same ones in the server and the client bundles', () => {
-    const call = /dailyGuess: dlePreviewOn\(([^\n]*)\),?\n/.exec(read(`${SRC}lib/site/registry.ts`));
-    expect(call, 'the dailyGuess line of the hub').not.toBeNull();
-    const args = call?.[1] ?? '';
-    expect(args).toContain('process.env.NEXT_PUBLIC_DLE_PREVIEW');
-    expect(args).toContain('process.env.NEXT_PUBLIC_VERCEL_ENV');
-    // Not the server-only variable, and not the env object as a whole (Next inlines `process.env.NAME` accesses only).
-    expect(args).not.toMatch(/process\.env\.VERCEL_ENV|\.\.\.process\.env|process\.env\s*[,)}]/);
-  });
-
-  it('leaves the hub switch off in this test run, where the variable is not set', () => {
-    expect(REGISTRY.hub.features.dailyGuess).toBe(false);
-    expect(REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
-  });
-
-  it('turns the hub switch and its route map on with the variable on a preview, and not on Production', async () => {
-    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', '1');
-    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'preview');
-    vi.resetModules();
-    const on = await import('./registry');
-    expect(on.REGISTRY.hub.features.dailyGuess).toBe(true);
-    expect(on.REGISTRY.hub.routes.allow).toEqual(expect.arrayContaining(['/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball', '/fr/otakudle']));
-    // Only the hub's switch moves: kpop and anime keep their own features.
-    expect(on.REGISTRY.kpop.features.dailyGuess).toBe(false);
-    expect(on.REGISTRY.anime.features.dailyGuess).toBe(false);
-    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'production');
-    vi.resetModules();
-    const prod = await import('./registry');
-    expect(prod.REGISTRY.hub.features.dailyGuess).toBe(false);
-    // The flag alone, with no deployment kind (a client bundle reads only the public values), keeps the switch closed.
-    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', '');
-    vi.resetModules();
-    const unknown = await import('./registry');
-    expect(unknown.REGISTRY.hub.features.dailyGuess).toBe(false);
-    expect(prod.REGISTRY.hub.features.dailyGuess).toBe(false);
-    expect(prod.REGISTRY.hub.routes.allow).not.toContain('/kpopdle');
-  });
-
-  it('on the module too: only the public deployment kind "preview" with the flag opens the hub; VERCEL_ENV and the other kinds do not', async () => {
-    const hubOn = async (): Promise<boolean> => {
-      vi.resetModules();
-      return (await import('./registry')).REGISTRY.hub.features.dailyGuess;
-    };
-    // Flag on, deployment kind unset (a local build, a test run, a client bundle without system variables): closed, even with VERCEL_ENV preview.
-    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', '1');
-    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', undefined);
-    vi.stubEnv('VERCEL_ENV', 'preview');
-    expect(await hubOn()).toBe(false);
-    for (const kind of ['production', 'development', '']) {
+  it('the hub switch and its route map are on whatever the old variables say, and only the hub moves: kpop and anime stay off', async () => {
+    for (const [flag, kind] of [['1', 'preview'], ['1', 'production'], ['true', ''], ['', 'preview'], ['0', undefined], [undefined, undefined]] as const) {
+      vi.stubEnv(PREVIEW_FLAG, flag);
       vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', kind);
-      expect(await hubOn(), `flag 1 / public kind "${kind}"`).toBe(false);
+      vi.stubEnv('VERCEL_ENV', kind);
+      vi.resetModules();
+      const m = await import('./registry');
+      const at = `${String(flag)} / ${String(kind)}`;
+      expect(m.REGISTRY.hub.features.dailyGuess, at).toBe(true);
+      expect(m.REGISTRY.hub.routes.allow, at).toEqual(expect.arrayContaining(['/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball', '/fr/otakudle']));
+      expect(m.REGISTRY.kpop.features.dailyGuess, at).toBe(false);
+      expect(m.REGISTRY.anime.features.dailyGuess, at).toBe(false);
     }
-    // The flag 'true' opens a Preview, and a Preview without the flag stays closed.
-    vi.stubEnv('NEXT_PUBLIC_VERCEL_ENV', 'preview');
-    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', 'true');
-    expect(await hubOn()).toBe(true);
-    for (const flag of ['', '0', 'false']) {
-      vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', flag);
-      expect(await hubOn(), `preview / flag "${flag}"`).toBe(false);
-    }
-    vi.stubEnv('NEXT_PUBLIC_DLE_PREVIEW', undefined);
-    expect(await hubOn()).toBe(false);
   });
 
-  it('is a public flag of the table, lane ORCH, not reserved', () => {
-    expect(registryModule.O1_FLAGS).toContainEqual({ name: 'NEXT_PUBLIC_DLE_PREVIEW', scope: 'public', lane: 'ORCH', reserved: false });
+  it('is not a flag of the table any more', () => {
+    expect(registryModule.O1_FLAGS.map((f) => f.name)).not.toContain(PREVIEW_FLAG);
   });
 });

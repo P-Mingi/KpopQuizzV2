@@ -10,6 +10,8 @@ import { COPY } from '@/copy/hub/h1';
 // next/font only runs inside the Next compiler, so the font module is replaced by the one field of each face the page reads.
 // Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): two columns, images first, rows everywhere; the tabs; Today with the
 // progress of the day; Hot right now with Start easy; Top fans per site; the SEO block; the Burrow hidden while the dailyGuess flag is off.
+// Launch day (2026-11-07, RUNBOOK K8c): the hub's flag is on in the registry, so the page as served has the Burrow; the closed page is the one a
+// revert of that PR brings back, rendered here with the feature set to false.
 
 vi.mock('@/components/hub/home/home-font', () => ({ dmSans: { variable: 'dm-sans-var' }, dmMono: { variable: 'dm-mono-var' } }));
 
@@ -35,10 +37,26 @@ vi.mock('@/lib/site/hub/data', async () => {
 });
 
 // The Burrow switch: the real one (the registry feature dailyGuess AND the hub's pages), unless a test opens it to see the rows it draws.
-const burrowSwitch = vi.hoisted(() => ({ open: false }));
+// `features` is the hub's features a test sets (renderHomeWithDailyGuess), handed to the real switch: the module that holds the switch keeps the
+// registry it was first loaded with, so a change to the registry a test loads later would not reach it.
+const burrowSwitch = vi.hoisted(() => ({ open: false, features: null as null | Record<string, unknown>, noHubPages: false }));
+// The hub's route map as it is, unless a test takes the pages of the Burrow out of it (the map before launch day, or after a revert).
+vi.mock('@/lib/site/routing', async (importOriginal) => {
+  const real = await importOriginal<typeof import('@/lib/site/routing')>();
+  return {
+    ...real,
+    isKnownRouteFor: (...args: Parameters<typeof real.isKnownRouteFor>) => !(burrowSwitch.noHubPages && args[0] === 'hub' && /^\/(fr\/)?(daily|kpopdle|otakudle)(\/|$)/.test(args[1]))
+      && real.isKnownRouteFor(...args),
+  };
+});
 vi.mock('@/lib/site/hub/daily-guess', async (importOriginal) => {
   const real = await importOriginal<typeof import('@/lib/site/hub/daily-guess')>();
-  return { ...real, burrowOpen: (...args: Parameters<typeof real.burrowOpen>) => burrowSwitch.open || real.burrowOpen(...args) };
+  type Features = Parameters<typeof real.burrowOpen>[0];
+  return {
+    ...real,
+    burrowOpen: (...args: Parameters<typeof real.burrowOpen>) => burrowSwitch.open
+      || real.burrowOpen(...(args.length > 0 || burrowSwitch.features === null ? args : [burrowSwitch.features as unknown as Features])),
+  };
 });
 
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -110,10 +128,15 @@ async function renderHome(): Promise<string> {
 /** The page with the hub's registry feature dailyGuess set as given (undefined: no key, as on main before daily games step 1). */
 async function renderHomeWithDailyGuess(dailyGuess: boolean | undefined): Promise<string> {
   const { home, registry } = await load();
-  const features = registry.REGISTRY.hub.features as unknown as Record<string, unknown>;
+  const features = { ...registry.REGISTRY.hub.features } as unknown as Record<string, unknown>;
   if (dailyGuess === undefined) delete features.dailyGuess;
   else features.dailyGuess = dailyGuess;
-  return renderToStaticMarkup(await home.default());
+  burrowSwitch.features = features;
+  try {
+    return renderToStaticMarkup(await home.default());
+  } finally {
+    burrowSwitch.features = null;
+  }
 }
 
 const lines = (html: string): string[] => html.replace(/<[^>]+>/g, '\n').split('\n').map((s) => s.trim()).filter(Boolean);
@@ -140,6 +163,8 @@ beforeEach(() => {
   fake.playsToday = [];
   fake.playsAsked = [];
   burrowSwitch.open = false;
+  burrowSwitch.features = null;
+  burrowSwitch.noHubPages = false;
 });
 afterEach(() => { vi.unstubAllEnvs(); });
 
@@ -155,8 +180,8 @@ describe('the top bar', () => {
     for (const [href, label] of [['#hot', 'Quizzes'], ['#today', 'Blind test'], ['#fans', 'Community']] as const) {
       expect(nav).toContain(`<a href="${href}" class="hub-h2-tab">${label}</a>`);
     }
-    // the Burrow is closed (no dailyGuess, no page) and the hub has no French page yet: no tab, no switch to nowhere
-    expect(nav).not.toContain('The Burrow');
+    // launch day: the Burrow is open (dailyGuess on, its pages in the map), its tab leads to /daily with the games left today; no language switch yet
+    expect(nav).toContain('<a href="/daily" class="hub-h2-tab">The Burrow<span class="hub-h2-badge hub-h2-num">4<span class="hub-h2-sr"> left today</span></span></a>');
     expect(nav).not.toContain('lang="fr"');
     // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), named after that site (review fix)
     expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn">/);
@@ -279,25 +304,42 @@ describe('Today', () => {
     expect(today).toContain('<a href="https://kpopquiz.org/community" class="hub-h2-line hub-h2-s-n">');
     expect(today).toContain('Debate of the day');
     expect(today).toContain('Best title track of 2025 so far?');
-    expect(count(today, />Play<\/span>/g)).toBe(2);
+    // launch day: the rows of Kpopdle and Otakudle join the two quizzes of the day, each with its Play
+    expect(today).toContain('>Kpopdle</span>');
+    expect(today).toContain('>Otakudle</span>');
+    expect(count(today, />Play<\/span>/g)).toBe(4);
     expect(count(today, />Vote<\/span>/g)).toBe(1);
     // the blind test: the real size of the set (10 songs), the 10 second preview, the way to the whole set
     expect(today).toContain('Blind test of the day');
     expect(today).toContain('aria-label="Play a 10 second preview"');
     expect(today).toContain('KpopQuiz · 10 songs, 10 s each');
     expect(today).toContain('<a href="https://kpopquiz.org/blindtest?daily=true" class="hub-h2-btall">All 10 songs</a>');
-    // a row with no image from the admin shows its icon on the colour of its site
-    expect(count(today, /<span class="hub-h2-th hub-h2-th-row"><svg/g)).toBe(3);
+    // a row with no image from the admin shows its icon on the colour of its site (the two Burrow rows have none)
+    expect(count(today, /<span class="hub-h2-th hub-h2-th-row"><svg/g)).toBe(5);
   });
 
-  it('hides the Burrow (Kpopdle and Otakudle) while the registry feature dailyGuess is off or missing, and while the hub has no page for it even with it on', async () => {
-    for (const feature of [undefined, false, true]) {
+  it('hides the Burrow (Kpopdle and Otakudle) while the registry feature dailyGuess is off or missing, and while the hub has no page for it even with it on; shows it with it on (launch day)', async () => {
+    const WORDS = ['Kpopdle', 'Otakudle', 'The Burrow', 'Open the Burrow', 'href="/daily"', 'href="/kpopdle"'];
+    for (const feature of [undefined, false]) {
       const html = await renderHomeWithDailyGuess(feature);
-      for (const word of ['Kpopdle', 'Otakudle', 'The Burrow', 'Open the Burrow', 'href="/daily"', 'href="/kpopdle"']) expect(html, `${String(feature)} ${word}`).not.toContain(word);
+      for (const word of WORDS) expect(html, `${String(feature)} ${word}`).not.toContain(word);
     }
-    // the old environment flag is not the switch
-    vi.stubEnv('DAILY_GUESS', '1');
-    expect(await renderHome()).not.toContain('Kpopdle');
+    // launch day (RUNBOOK K8c): the feature on and the pages in the hub's map, the Burrow is drawn; the page as served is that one
+    const on = await renderHomeWithDailyGuess(true);
+    for (const word of WORDS) expect(on, `true ${word}`).toContain(word);
+    expect(await renderHome()).toBe(on);
+    // the feature on, the hub's map without the pages (before launch day, or after a revert): no door to a 404
+    burrowSwitch.noHubPages = true;
+    const noPages = await renderHomeWithDailyGuess(true);
+    burrowSwitch.noHubPages = false;
+    for (const word of WORDS) expect(noPages, `no pages ${word}`).not.toContain(word);
+    // the old environment flag is not the switch: it neither opens a closed Burrow nor closes the open one
+    for (const v of ['1', '0']) {
+      vi.stubEnv('DAILY_GUESS', v);
+      expect(await renderHomeWithDailyGuess(false), `DAILY_GUESS ${v}`).not.toContain('Kpopdle');
+      vi.stubEnv('DAILY_GUESS', v);
+      expect(await renderHome(), `DAILY_GUESS ${v}`).toContain('Kpopdle');
+    }
   });
 
   it('with the Burrow open: the progress and the badge of its tab count the same rows, the playable dailies (never the debate)', async () => {
@@ -325,11 +367,14 @@ describe('Today', () => {
     expect(block(html, '<header class="hub-h2-head"', 'header')).toContain('>3<span class="hub-h2-sr"> left today</span>');
   });
 
-  it('the progress counts only the playable dailies: with the Burrow closed, the two quizzes of the day, not the debate', async () => {
+  it('the progress counts only the playable dailies: with the Burrow closed, the two quizzes of the day, not the debate; open (launch day), the four games', async () => {
     fake.user = { id: 'u-1' };
     fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }, { quiz_id: 'anime:journeys-beginning-frieren-basics' }];
+    const closed = block(await renderHomeWithDailyGuess(false), '<aside id="today"', 'aside');
+    expect(closed).toContain('2 of 2 done');
+    expect(closed).toContain('Debate of the day');
     const today = block(await renderHome(), '<aside id="today"', 'aside');
-    expect(today).toContain('2 of 2 done');
+    expect(today).toContain('2 of 4 done');
     expect(today).toContain('Debate of the day');
   });
 
@@ -342,7 +387,8 @@ describe('Today', () => {
   it('signed in: the progress of the day from the fan\'s plays of today, and the streak of each site joined', async () => {
     fake.user = { id: 'u-1' };
     let today = block(await renderHome(), '<aside id="today"', 'aside');
-    expect(today).toContain('0 of 2 done</span> · streaks K-pop 6 days, anime 2 days');
+    // launch day: Kpopdle and Otakudle count with the two quizzes of the day
+    expect(today).toContain('0 of 4 done</span> · streaks K-pop 6 days, anime 2 days');
     expect(today).not.toContain('Same puzzles for everyone');
     // the page asks for the fan's plays of today on the two quizzes of the day, and nothing else
     expect(fake.playsAsked.at(-1)).toMatchObject({
@@ -350,9 +396,9 @@ describe('Today', () => {
     });
     fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }];
     today = block(await renderHome(), '<aside id="today"', 'aside');
-    expect(today).toContain('1 of 2 done');
+    expect(today).toContain('1 of 4 done');
     expect(today).toMatch(/<span class="hub-h2-tstate hub-h2-tstate-done"><svg[^>]*>.*<\/svg>Done<\/span>/);
-    expect(count(today, />Play<\/span>/g)).toBe(1);
+    expect(count(today, />Play<\/span>/g)).toBe(3);
   });
 
   it('signed out: the plays are never read', async () => {
@@ -566,14 +612,20 @@ describe('the SEO block', () => {
     const seo = block(html, '<section aria-labelledby="what-h"', 'section');
     expect(seo).toContain('<h2 id="what-h" class="hub-h2-h2">What is Bunnyverse?</h2>');
     const answer = lines(block(seo, '<p class="hub-h2-seo-p"', 'p'))[0]!;
-    expect(answer).toBe('Bunnyverse is a free website of quizzes and daily games for K-pop and anime fans. It hosts OtakuQuiz and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site, a K-pop blind test and a debate. One passport keeps your levels and streaks on every site.');
+    // launch day (RUNBOOK K8c): the Burrow is open, so the answer names its games
+    expect(answer).toBe('Bunnyverse is a free website of daily games and quizzes for K-pop and anime fans. It hosts OtakuQuiz and the daily games of the Burrow, Kpopdle and Otakudle, and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site, a K-pop blind test and a debate. One passport keeps your levels and streaks on every site.');
     // SEO rule 3.1: an answer block of 40 to 60 words
     const words = answer.split(/\s+/).length;
     expect(words).toBeGreaterThanOrEqual(40);
     expect(words).toBeLessThanOrEqual(60);
-    // the Burrow is closed: its games and how they work are not described
-    expect(seo).not.toContain('Kpopdle');
-    expect(seo).not.toContain('How do the daily games work?');
+    // the Burrow is open: its games and how they work are described
+    expect(seo).toContain('Kpopdle');
+    expect(seo).toContain('How do the daily games work?');
+    // closed (a revert of the PR), the answer of before, and neither its games nor how they work
+    const closed = block(await renderHomeWithDailyGuess(false), '<section aria-labelledby="what-h"', 'section');
+    expect(lines(block(closed, '<p class="hub-h2-seo-p"', 'p'))[0]).toBe('Bunnyverse is a free website of quizzes and daily games for K-pop and anime fans. It hosts OtakuQuiz and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site, a K-pop blind test and a debate. One passport keeps your levels and streaks on every site.');
+    expect(closed).not.toContain('Kpopdle');
+    expect(closed).not.toContain('How do the daily games work?');
   });
 
   it('builds the answer from today\'s data: the blind test and the debate are named only when today has them, always 40 to 60 words', async () => {
@@ -610,7 +662,8 @@ describe('the SEO block', () => {
   it('on the page: without the blind test and the debate of the day, the answer names neither', async () => {
     const seo = block(await (async () => { blocks.values.getBlindtest = null; blocks.values.getDebate = null; return renderHome(); })(), '<section aria-labelledby="what-h"', 'section');
     const answer = lines(block(seo, '<p class="hub-h2-seo-p"', 'p'))[0]!;
-    expect(answer).toBe('Bunnyverse is a free website of quizzes and daily games for K-pop and anime fans. It hosts OtakuQuiz and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site. One passport keeps your levels and streaks on every site.');
+    // launch day: the answer with the Burrow
+    expect(answer).toBe('Bunnyverse is a free website of daily games and quizzes for K-pop and anime fans. It hosts OtakuQuiz and the daily games of the Burrow, Kpopdle and Otakudle, and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site. One passport keeps your levels and streaks on every site.');
     expect(answer.split(/\s+/).length).toBeGreaterThanOrEqual(40);
     expect(seo).not.toContain('Blind test of the day');
   });
@@ -659,7 +712,8 @@ describe('the footer', () => {
     expect(foot).toContain('href="/legal"');
     expect(foot).toContain('>hello@kpopquiz.org</span>');
     expect(foot).toContain('mascot-default.png');
-    expect(foot).not.toContain('The Burrow');
+    // launch day (RUNBOOK K8c): the Burrow's line, to the hub's own /daily
+    expect(foot).toContain('<a href="/daily" class="hub-h2-foot-a">The Burrow</a>');
   });
 });
 
@@ -674,7 +728,14 @@ describe('every link is the canonical page of its own site', () => {
     const html = page.replace(SOURCE, '<a>');
     expect(html).not.toContain('nofollow');
     const hrefs = [...html.matchAll(/ href="([^"]+)"/g)].map((m) => m[1]!);
-    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#fans', '#main']);
+    // launch day (RUNBOOK K8c): the pages of the Burrow are the hub's own, each a route of its map, never a 404
+    const burrow = ['/daily', '/kpopdle', '/otakudle'];
+    const { isKnownRouteFor } = await import('@/lib/site/routing');
+    for (const b of burrow) {
+      expect(hrefs, b).toContain(b);
+      expect(isKnownRouteFor('hub', b, { v1: true, v12: true }), b).toBe(true);
+    }
+    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#fans', '#main', ...burrow]);
     expect(hrefs).toContain('https://kpopquiz.org/search');
     for (const h of hrefs) {
       if (h.startsWith('/_next') || own.has(h) || /^\/u\/[a-z0-9_]+$/.test(h)) continue;
@@ -751,9 +812,17 @@ describe('a block with no data leaves the page, and its grid adapts', () => {
     expect(html).toContain('<div id="passport"');
     expect(html).toContain('<footer class="hub-h2-foot"');
     expect(html).toContain('aria-labelledby="what-h"');
-    for (const gone of ['<aside id="today"', '<section id="hot"', 'hub-h2-site ', 'hub-h2-ghost', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', 'id="top-h"', '<table']) {
+    for (const gone of ['<aside id="today"', '<section id="hot"', 'hub-h2-site ', 'hub-h2-ghost', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', 'id="top-h"']) {
       expect(html, gone).not.toContain(gone);
     }
+    // launch day (RUNBOOK K8c): the table of the daily games keeps the two games of the Burrow, which read no module; nothing of the modules is left in it
+    const table = block(html, '<table class="hub-h2-seo-table"', 'table');
+    expect(table).toContain('<td class="hub-h2-seo-game">Kpopdle</td>');
+    expect(table).toContain('<td class="hub-h2-seo-game">Otakudle</td>');
+    expect(table).not.toContain('Quiz of the day');
+    expect(table).not.toContain('Blind test of the day');
+    // closed (a revert), no table at all
+    expect(await renderHomeWithDailyGuess(false)).not.toContain('<table');
     // the rows that are left take the whole width
     expect([...html.matchAll(/<div class="(hub-h2-cols[^"]*)">/g)].map((m) => m[1])).toEqual(['hub-h2-cols hub-h2-row1 hub-h2-cols-one', 'hub-h2-cols hub-h2-row hub-h2-cols-one']);
     // the tabs to blocks that are not there go with them; Community stays (the passport is always there)
