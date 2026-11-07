@@ -73,11 +73,12 @@ describe('the Ignored Build Step', () => {
     expect(deploy(prev, commit({}))).toBe(1);
     expect(deploy('0123456789abcdef0123456789abcdef01234567', head)).toBe(1);
   });
-  it('holds the production of otakuquiz and fandomverse until launch, not their previews nor kpopquiz', () => {
+  it('since launch day (K5b) builds the production of all three projects, and their previews', () => {
     const prev = git('rev-parse', 'HEAD');
     const head = commit({ 'apps/quiz/src/w.ts': 'w' });
-    expect(deploy(prev, head, { VERCEL_ENV: 'production', VERCEL_PROJECT_NAME: 'otakuquiz' })).toBe(0);
-    expect(deploy(prev, head, { VERCEL_ENV: 'production', VERCEL_PROJECT_NAME: 'fandomverse' })).toBe(0);
+    expect(readFileSync(SCRIPT, 'utf8')).toMatch(/^NET_PRODUCTION_HOLD=0$/m);
+    expect(deploy(prev, head, { VERCEL_ENV: 'production', VERCEL_PROJECT_NAME: 'otakuquiz' })).toBe(1);
+    expect(deploy(prev, head, { VERCEL_ENV: 'production', VERCEL_PROJECT_NAME: 'fandomverse' })).toBe(1);
     expect(deploy(prev, head, { VERCEL_ENV: 'preview', VERCEL_PROJECT_NAME: 'otakuquiz' })).toBe(1);
     expect(deploy(prev, head, { VERCEL_ENV: 'production', VERCEL_PROJECT_NAME: 'kpopquiz' })).toBe(1);
   });
@@ -87,12 +88,12 @@ describe('the Preview of main that the Microfrontends group creates', () => {
   const on = (project: string, env: string, ref: string, prev: string, head: string): Record<string, string> => ({
     VERCEL_ENV: env, VERCEL_PROJECT_NAME: project, VERCEL_GIT_COMMIT_REF: ref, VERCEL_GIT_PREVIOUS_SHA: prev, VERCEL_GIT_COMMIT_SHA: head,
   });
-  /** The script as the launch-day PR leaves it (K5b): the hold is off. */
-  const afterLaunch = (env: Record<string, string>): number => {
-    const copy = path.join(repo, 'after-launch.sh');
+  /** The script with the hold set back on (before launch day, or to hold the two projects again). */
+  const held = (env: Record<string, string>): number => {
+    const copy = path.join(repo, 'held.sh');
     const text = readFileSync(SCRIPT, 'utf8');
-    expect(text).toContain('NET_PRODUCTION_HOLD=1');
-    writeFileSync(copy, text.replace('NET_PRODUCTION_HOLD=1', 'NET_PRODUCTION_HOLD=0'));
+    expect(text).toMatch(/^NET_PRODUCTION_HOLD=0$/m);
+    writeFileSync(copy, text.replace(/^NET_PRODUCTION_HOLD=0$/m, 'NET_PRODUCTION_HOLD=1'));
     return spawnSync('bash', [copy], { cwd: path.join(repo, 'apps/quiz'), env: { NODE_ENV: 'test', PATH: process.env.PATH ?? '', ...env } }).status ?? -1;
   };
   it('is skipped on otakuquiz and fandomverse, code change or not, first deployment or not', () => {
@@ -117,12 +118,15 @@ describe('the Preview of main that the Microfrontends group creates', () => {
     expect(run(on('kpopquiz', 'preview', 'main', prev, head))).toBe(1);
     expect(run({ VERCEL_ENV: 'preview', VERCEL_GIT_COMMIT_REF: 'main', VERCEL_GIT_PREVIOUS_SHA: prev, VERCEL_GIT_COMMIT_SHA: head })).toBe(1);
   });
-  it('changes no production build: kpopquiz builds today, and all three build once the hold is off', () => {
+  it('changes no production build: all three build with the hold off, and only kpopquiz with it back on', () => {
     const prev = git('rev-parse', 'HEAD');
     const head = commit({ 'apps/quiz/src/r.ts': 'r' });
-    expect(run(on('kpopquiz', 'production', 'main', prev, head))).toBe(1);
     for (const project of ['kpopquiz', 'otakuquiz', 'fandomverse']) {
-      expect(afterLaunch(on(project, 'production', 'main', prev, head))).toBe(1);
+      expect(run(on(project, 'production', 'main', prev, head))).toBe(1);
+    }
+    expect(held(on('kpopquiz', 'production', 'main', prev, head))).toBe(1);
+    for (const project of ['otakuquiz', 'fandomverse']) {
+      expect(held(on(project, 'production', 'main', prev, head))).toBe(0);
     }
   });
 });

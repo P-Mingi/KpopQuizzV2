@@ -3,8 +3,9 @@
 # apps/quiz/vercel.json, run by Vercel in apps/quiz before each build. It overrides the Ignored Build Step of every
 # project's dashboard. Exit 0 skips the build, exit 1 builds; any doubt builds.
 #
-# 1. Until launch (runbook K5b), otakuquiz and fandomverse never build production (D-091, D-092). This replaces their
-#    dashboard rule, which vercel.json now overrides. K5b sets NET_PRODUCTION_HOLD=0. No variable tells a dashboard
+# 1. Until launch (runbook K5b), otakuquiz and fandomverse never built production (D-091, D-092). This replaced their
+#    dashboard rule, which vercel.json now overrides. Launch day (K5b, 2026-11-07) set NET_PRODUCTION_HOLD=0: all three
+#    projects build production; set it back to 1 to hold the two again. No variable tells a dashboard
 #    Redeploy from a git push, so a Redeploy of these two projects unticks "Use project's Ignore Build Step" (OWNER-NOW 8).
 # 2. A push whose changes since the branch's last deployment are all under docs/ or in .md or .sql files does not
 #    build. docs/data/ is the exception: a route serves docs/data/w5-dataset.md at runtime.
@@ -13,7 +14,7 @@
 #    VERCEL_ENV=preview only: no production build reaches this rule, before or after launch. See docs/o1/NETTOYAGES.md.
 set -u
 
-NET_PRODUCTION_HOLD=1
+NET_PRODUCTION_HOLD=0
 
 say() { echo "ignore-build: $*"; }
 
