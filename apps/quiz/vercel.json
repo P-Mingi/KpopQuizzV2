@@ -6,8 +6,7 @@
     "deploymentEnabled": {
       "**": false,
       "main": true,
-      "preview/**": true,
-      "o1/integration": true
+      "preview/**": true
     }
   },
   "ignoreCommand": "bash scripts/vercel-ignore-build.sh",
