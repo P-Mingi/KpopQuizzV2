@@ -169,7 +169,7 @@ beforeEach(() => {
 afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('the top bar', () => {
-  it('has the rabbit and the wordmark, the tabs Home, Quizzes, Blind test and Community, search and sign in', async () => {
+  it('has the rabbit and the wordmark, the tabs Home, Quizzes and Community (no Blind test tab, owner 2026-11-07), search and sign in', async () => {
     const html = await renderHome();
     const nav = block(html, '<header class="hub-h2-head"', 'header');
     expect(nav).toContain(`<nav aria-label="${COPY['hp.nav.main']}"`);
@@ -177,9 +177,12 @@ describe('the top bar', () => {
     // the board's wordmark: "Bunny" in ink, "verse" in the accent, split from the registry name
     expect(nav).toContain('<span class="hub-h2-brand-name">Bunny<span class="hub-h2-brand-tail">verse</span></span>');
     expect(nav).toContain('<a href="/" class="hub-h2-tab hub-h2-tab-on" aria-current="page">Home</a>');
-    for (const [href, label] of [['#hot', 'Quizzes'], ['#today', 'Blind test'], ['#fans', 'Community']] as const) {
+    for (const [href, label] of [['#hot', 'Quizzes'], ['#fans', 'Community']] as const) {
       expect(nav).toContain(`<a href="${href}" class="hub-h2-tab">${label}</a>`);
     }
+    // owner, 2026-11-07: no Blind test tab, even with the blind test of the day on the page (it stays in Today)
+    expect(nav).not.toContain('href="#today"');
+    expect(nav).not.toContain('>Blind test<');
     // launch day: the Burrow is open (dailyGuess on, its pages in the map), its tab leads to /daily with the games left today; no language switch yet
     expect(nav).toContain('<a href="/daily" class="hub-h2-tab">The Burrow<span class="hub-h2-badge hub-h2-num">4<span class="hub-h2-sr"> left today</span></span></a>');
     expect(nav).not.toContain('lang="fr"');

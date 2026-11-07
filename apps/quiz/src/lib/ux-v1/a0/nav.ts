@@ -34,12 +34,12 @@ const NAV_FEATURE: Record<NavKey, keyof typeof SITE.features | null> = {
 };
 
 // The hub (home v3, 2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the tabs of its home on every hub page. Its sections live on
-// the home, so the tabs lead there: Quizzes to Hot right now, Blind test to Today (its player), Community to Top fans. The Burrow joins
+// the home, so the tabs lead there: Quizzes to Hot right now, Community to Top fans (owner, 2026-11-07: no Blind test tab; its player stays
+// in Today on the home). The Burrow joins
 // them with its pages and the dailyGuess flag (step 4 of the daily games).
 const HUB_NAV: NavItem<NavKey>[] = [
   { key: 'home', label: 'Home', href: '/', icon: 'home' },
   { key: 'quizzes', label: 'Quizzes', href: '/#hot', icon: 'layers' },
-  { key: 'blindtest', label: 'Blind test', href: '/#today', icon: 'music' },
   { key: 'community', label: 'Community', href: '/#fans', icon: 'msg' },
 ];
 
