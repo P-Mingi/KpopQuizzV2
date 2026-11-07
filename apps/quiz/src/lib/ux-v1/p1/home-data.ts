@@ -23,7 +23,7 @@ import { listThreads } from '@/lib/verse/threads';
 import { spaceUnpublished, verseHidden } from '@/lib/verse/visibility';
 
 import { aboutMinutes, comma, groupInitials, isVisibleGroupSlug, meanRunSeconds, spreadBy, utcDay } from './format';
-import { LIVE_HUB_ORDER } from './hubs';
+import { homeRailOrder } from './hubs';
 
 import type { QuizCardData } from '@/lib/db/types';
 import { isUxV12 } from '@/lib/ux-v12';
@@ -179,8 +179,8 @@ async function readGroups(): Promise<HomeGroups> {
     };
   };
   // Every live hub, in the live order (as on the live home), then up to 3 more
-  // groups with a quiz published in the last 7 days.
-  const live = LIVE_HUB_ORDER.map((slug) => bySlug.get(slug)).filter((g): g is GroupRow => !!g);
+  // groups with a quiz published in the last 7 days. On anime, the famous series first (hubs.ts).
+  const live = homeRailOrder(SITE_ID).map((slug) => bySlug.get(slug)).filter((g): g is GroupRow => !!g);
   const inLive = new Set(live.map((g) => g.slug));
   const extra = groups
     .filter((g) => !inLive.has(g.slug) && (stats.get(g.id)?.newest ?? '') >= since)
@@ -189,7 +189,7 @@ async function readGroups(): Promise<HomeGroups> {
   return { groups: [...live, ...extra].map(toRail), visibleGroups: groups.length };
 }
 
-export const getHomeGroups = unstable_cache(readGroups, ['ux-v1:p1:groups:v2'], { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] });
+export const getHomeGroups = unstable_cache(readGroups, ['ux-v1:p1:groups:v3'], { revalidate: CACHE_TTL.stats, tags: ['groups', 'quizzes'] });
 
 /* ------------------------------------------------------------ quiz rows --- */
 
