@@ -19,6 +19,7 @@ import { forSite } from './scope';
 import type { MetadataRoute } from 'next';
 
 import type { SeriesDb } from '@/lib/anime/series';
+import type { DleGameId } from '@/lib/dle/games';
 import type { SiteConfig } from './types';
 
 /** One URL of a sitemap: a site-relative path and, when known, the date its content was created. */
@@ -129,6 +130,16 @@ export function zoneSitemaps(site: SiteConfig, children: readonly SiteConfig[], 
 }
 
 /**
+ * Daily games step 4 (rule 9.6, the sitemap lists only indexable URLs): the built games whose page says index today, i.e. the ones that answer dle_day, and the date of the day. A game that is off
+ * (dle_unavailable), under its minimum pool, or whose read fails is left out, like its page says noindex (lib/dle/page-meta.ts): a read that fails closes the game for this answer, never lists it.
+ */
+async function liveDleGames(db: SeriesDb): Promise<{ readonly ids: readonly DleGameId[]; readonly date: string | null }> {
+  const days = await Promise.all(builtGames().map(async (g) => ({ id: g.id, day: await readDay(db, g.id).catch(() => null) })));
+  const answering = days.filter((d) => d.day !== null);
+  return { ids: answering.map((d) => d.id), date: answering[0]?.day?.date ?? null };
+}
+
+/**
  * The URLs a non-kpop site lists, in the order a crawler should meet them.
  *   hub:   its home, and its /privacy and /legal once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
  *          (/legal is indexable only once its [BRACKETED] facts are filled: lib/site/hub/legal.ts fails an open build that still prints one.)
@@ -146,7 +157,8 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
     if (!indexingOpenFor(site.id)) return [home];
     const launch = parseLaunchDate(process.env.NET_LAUNCH_DATE);
     // Daily games step 4: the pages of the Terrier, only with the flag on (lib/dle/seo.ts): the read of the day is not even made with it off.
-    const dle = site.features.dailyGuess ? dleSitemapRows(true, (await readDay(db, builtGames()[0]!.id).catch(() => null))?.date ?? null) : [];
+    const live = site.features.dailyGuess ? await liveDleGames(db) : null;
+    const dle = live ? dleSitemapRows(true, live.date, undefined, undefined, live.ids) : [];
     return [
       home,
       ...dle,
