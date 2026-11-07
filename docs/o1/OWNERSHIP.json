@@ -356,6 +356,7 @@
     "docs/anime/data/series/**",
     "apps/quiz/src/**",
     "apps/quiz/scripts/**",
+    "apps/quiz/public/brand/kpop/**",
     "scripts/anime/**",
     "docs/anime/**",
     "apps/quiz/e2e/o1/LE/**",
