@@ -1,11 +1,11 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 // apps/quiz/vercel.json is deployment configuration with no code path to test, so
 // its rules are pinned here (R1: F8 agent branches, F9 / F10 cron routes).
-const config = JSON.parse(readFileSync(fileURLToPath(new URL('../../vercel.json', import.meta.url)), 'utf8')) as {
+const config = JSON.parse(readFileSync(fileURLToPath(new URL('../../shared.vercel.json', import.meta.url)), 'utf8')) as {
   git?: { deploymentEnabled?: Record<string, boolean> };
   crons: { path: string; schedule: string }[];
 };
@@ -63,5 +63,55 @@ describe('vercel.json: crons', () => {
     }
     expect(debate).toContain(".rpc('ensure_daily_debate')");
     for (const reason of ["skipped: 'flag_off'", "skipped: 'no_season'", 'skipped: e.reason']) expect(nightly).toContain(reason);
+  });
+});
+
+// 48 bis (2026-11-07): the three projects share shared.vercel.json, and vercel.ts gives each one its configuration. The anime
+// crons carry the base path, because the Microfrontends group serves a path outside /anime on otakuquiz's own domains with the
+// default app (fandomverse), so /api/cron/x never reached the anime code. kpop and the hub get the shared file as it is.
+describe('vercel.ts: the configuration of each project', () => {
+  it('kpop (no site id) and the hub: exactly the shared file, so no /anime cron on kpopquiz and none added to the hub', async () => {
+    const { vercelConfigFor, vercelSiteOf } = await import('../../vercel');
+    expect(vercelSiteOf({})).toBe('kpop');
+    expect(vercelSiteOf({ SITE_ID: 'hub' })).toBe('hub');
+    expect(vercelSiteOf({ NEXT_PUBLIC_SITE_ID: ' anime ', SITE_ID: 'anime' })).toBe('anime');
+    for (const site of ['kpop', 'hub']) {
+      const c = vercelConfigFor(config as never, site);
+      expect(c, site).toEqual(config);
+      expect(c.crons.some((x) => x.path.startsWith('/anime')), site).toBe(false);
+    }
+  });
+
+  it('anime: every cron of the shared file, same schedule, under the base path of the anime site, and nothing else changes', async () => {
+    const { vercelConfigFor, ANIME_BASE_PATH } = await import('../../vercel');
+    const { basePathOf } = await import('./site/base-path');
+    const { REGISTRY } = await import('./site/registry');
+    expect(ANIME_BASE_PATH).toBe(basePathOf(REGISTRY.anime.url));
+    const c = vercelConfigFor(config as never, 'anime');
+    expect(c.crons).toEqual(config.crons.map((x) => ({ path: `/anime${x.path}`, schedule: x.schedule })));
+    expect({ ...c, crons: [] }).toEqual({ ...config, crons: [] });
+    expect(config.crons.length).toBeGreaterThan(0);
+  });
+
+  it('the exported config follows the site of the build', async () => {
+    for (const [env, prefix] of [[{}, '/api/'], [{ NEXT_PUBLIC_SITE_ID: 'hub' }, '/api/'], [{ NEXT_PUBLIC_SITE_ID: 'anime' }, '/anime/api/']] as const) {
+      vi.resetModules();
+      vi.unstubAllEnvs();
+      vi.stubEnv('NEXT_PUBLIC_SITE_ID', '');
+      vi.stubEnv('SITE_ID', '');
+      for (const [k, v] of Object.entries(env)) vi.stubEnv(k, v);
+      vi.spyOn(console, 'log').mockImplementation(() => {});
+      const { config: built } = await import('../../vercel');
+      expect(built.crons.length).toBe(config.crons.length);
+      for (const x of built.crons) expect(x.path.startsWith(prefix), `${JSON.stringify(env)} ${x.path}`).toBe(true);
+      expect(built.ignoreCommand).toBe('bash scripts/vercel-ignore-build.sh');
+    }
+    vi.unstubAllEnvs();
+    vi.restoreAllMocks();
+  });
+
+  it('there is no vercel.json next to vercel.ts (Vercel takes one or the other)', () => {
+    expect(existsSync(fileURLToPath(new URL('../../vercel.json', import.meta.url)))).toBe(false);
+    expect(existsSync(fileURLToPath(new URL('../../vercel.ts', import.meta.url)))).toBe(true);
   });
 });

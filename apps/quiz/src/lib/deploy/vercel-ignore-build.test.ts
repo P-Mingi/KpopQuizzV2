@@ -10,7 +10,7 @@ import { afterAll, describe, expect, it } from 'vitest';
 
 const APP = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const SCRIPT = path.join(APP, 'scripts/vercel-ignore-build.sh');
-const config = JSON.parse(readFileSync(path.join(APP, 'vercel.json'), 'utf8')) as { ignoreCommand: string };
+const config = JSON.parse(readFileSync(path.join(APP, 'shared.vercel.json'), 'utf8')) as { ignoreCommand: string };
 
 const repo = mkdtempSync(path.join(tmpdir(), 'ignore-build-'));
 afterAll(() => rmSync(repo, { recursive: true, force: true }));

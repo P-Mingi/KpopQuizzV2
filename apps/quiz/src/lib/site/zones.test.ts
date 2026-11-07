@@ -29,7 +29,7 @@ const MFE = `${APP}microfrontends.json`;
 const ANIME_FV: SiteConfig = { ...REGISTRY.anime, url: 'https://bunnyverse.org/anime', domain: 'bunnyverse.org' };
 const HUB_FV: SiteConfig = { ...REGISTRY.hub, url: 'https://bunnyverse.org', domain: 'bunnyverse.org' };
 
-const vercelCrons = (JSON.parse(readFileSync(`${APP}vercel.json`, 'utf8')) as { crons: { path: string }[] }).crons.map((c) => c.path);
+const vercelCrons = (JSON.parse(readFileSync(`${APP}shared.vercel.json`, 'utf8')) as { crons: { path: string }[] }).crons.map((c) => c.path);
 
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.doUnmock('./registry'); });
 
@@ -309,7 +309,7 @@ describe('the home of a build gets the security headers and the noindex of every
 
 describe('the cron paths of vercel.json', () => {
   it('cronPathsOf: the path of every cron, in order', () => {
-    expect(cronPathsOf(readFileSync(`${APP}vercel.json`, 'utf8'), 'vercel.json')).toEqual(vercelCrons);
+    expect(cronPathsOf(readFileSync(`${APP}shared.vercel.json`, 'utf8'), 'vercel.json')).toEqual(vercelCrons);
     expect(cronPathsOf('{"crons":[]}', 'vercel.json')).toEqual([]);
   });
 
@@ -331,7 +331,7 @@ describe('the cron paths of vercel.json', () => {
     function cwdWith(vercelJson: string | null): void {
       dir = mkdtempSync(join(tmpdir(), 'o1-zones-'));
       symlinkSync(join(APP, 'src'), join(dir, 'src'));
-      if (vercelJson !== null) writeFileSync(join(dir, 'vercel.json'), vercelJson);
+      if (vercelJson !== null) writeFileSync(join(dir, 'shared.vercel.json'), vercelJson);
       vi.spyOn(process, 'cwd').mockReturnValue(dir);
     }
 
