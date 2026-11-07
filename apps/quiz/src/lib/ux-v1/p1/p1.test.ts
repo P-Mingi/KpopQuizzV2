@@ -12,7 +12,7 @@ import {
   aboutMinutes, ageLabel, averagePct, countdownLabel, fansLabel, greetingFor, groupInitials, hoursLeftLabel,
   isVisibleGroupSlug, meanRunSeconds, minutesToUtcMidnight, pickedOnLabel, spreadBy,
 } from './format';
-import { LIVE_HUB_ORDER } from './hubs';
+import { ANIME_HOME_SERIES_ORDER, homeRailOrder, LIVE_HUB_ORDER } from './hubs';
 import { rotateQotd } from './qotd-rotation';
 import { DEGRADED_HOLD_MS, DEGRADED_REVALIDATE_S, degradedAction, renderPhase, RenderHealth, settleRender } from './render-health';
 
@@ -350,5 +350,25 @@ describe('a render that lost a read is never kept in the page cache (C3-003)', (
     cacheCalls.length = 0;
     await expect(settleRender(lost, 4_000 + DEGRADED_HOLD_MS)).resolves.toBeUndefined();
     expect(cacheCalls).toEqual([{ keys: ['ux-v1:p1:degraded-render'], revalidate: 30 }]);
+  });
+});
+
+describe('the series rail of the anime home (owner, 2026-11-07)', () => {
+  it('kpop and the hub keep the live hub order; anime lists the series by sales, One Piece, Detective Conan, Dragon Ball first', () => {
+    expect(homeRailOrder('kpop')).toBe(LIVE_HUB_ORDER);
+    expect(homeRailOrder('hub')).toBe(LIVE_HUB_ORDER);
+    expect(homeRailOrder('anime')).toBe(ANIME_HOME_SERIES_ORDER);
+    expect(ANIME_HOME_SERIES_ORDER.slice(0, 4)).toEqual(['one-piece', 'detective-conan', 'dragon-ball', 'naruto']);
+    expect(ANIME_HOME_SERIES_ORDER.at(-1)).toBe('omniscient-readers-viewpoint');
+    expect(new Set(ANIME_HOME_SERIES_ORDER).size).toBe(ANIME_HOME_SERIES_ORDER.length);
+  });
+
+  it('every series of the launch seed (L04-K1-series.sql) is in the order exactly once, Anime Mix excepted; never a kpop group', () => {
+    const here = path.dirname(fileURLToPath(import.meta.url));
+    const seed = fs.readFileSync(path.resolve(here, '../../../../../../docs/pending-migrations/multisite/launch/L04-K1-series.sql'), 'utf8');
+    const series = [...seed.matchAll(/insert into public\.groups \(name, slug[^)]*\) values \('(?:[^']|'')+', '([a-z0-9-]+)'/g)].map((m) => m[1]!);
+    expect(series.length).toBe(51);
+    expect([...ANIME_HOME_SERIES_ORDER].sort()).toEqual(series.filter((slug) => slug !== 'anime-mix').sort());
+    for (const slug of ANIME_HOME_SERIES_ORDER) expect(LIVE_HUB_ORDER).not.toContain(slug);
   });
 });
