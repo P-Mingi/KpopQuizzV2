@@ -7,6 +7,7 @@ import { getTitleForLevel } from '@/lib/level-titles';
 import { formatCount } from '@/lib/utils';
 import { AVATAR_PRESETS, nameAccentColor, nameFontFamily, type AvatarKind } from '@/lib/passport-flair';
 import { badgeIconFor } from '@/lib/badges';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 
 // ONE reusable person / passport card (Workstream M, M1.12 + M1.26 flair). Single
 // source of truth + the ONE carrier of identity flair, shown wherever a person
@@ -92,7 +93,7 @@ export function PersonCard({
       <WorldLink href={`/u/${person.username}`} style={{ display: 'flex', alignItems: 'center', gap: compact ? 10 : 12, flex: 1, minWidth: 0, textDecoration: 'none', color: 'inherit' }}>
         <div style={{ position: 'relative', flexShrink: 0, lineHeight: 0 }}>
           <AvatarSlot person={person} size={avatarSize} />
-          {person.pinnedBadgeId && (
+          {person.pinnedBadgeId && !isHiddenBadge(person.pinnedBadgeId) && (
             // Pinned-badge slot (M1.15 final): the real badge art when we have it,
             // otherwise the original accent dot so badges without art still read
             // as "something is pinned here".

@@ -13,6 +13,7 @@ import { SoundToggle } from '@/components/settings/sound-toggle';
 import { HapticsToggle } from '@/components/settings/haptics-toggle';
 import { NotificationPrefs } from '@/components/settings/notification-prefs';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 import { PersonCard, type PersonCardData } from '@/components/profile/person-card';
 import { passportAccent, PASSPORT_THEMES, PASSPORT_THEME_KEYS, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
 import { NAME_ACCENTS, NAME_ACCENT_KEYS, NAME_FONTS, NAME_FONT_KEYS, AVATAR_PRESETS, AVATAR_PRESET_KEYS } from '@/lib/passport-flair';
@@ -123,7 +124,7 @@ function LegacySettingsPage(): React.ReactElement {
         setAvatarRef(p.avatar_ref ?? null);
       }
       setAllGroups(((groups ?? []) as Array<{ slug: string; name: string; display_color: string }>).map((g) => ({ slug: g.slug, name: g.name, color: g.display_color })));
-      setEarnedBadges(((badges ?? []) as Array<{ badge_definitions: EarnedBadge | EarnedBadge[] }>).map((b) => (Array.isArray(b.badge_definitions) ? b.badge_definitions[0]! : b.badge_definitions)).filter(Boolean));
+      setEarnedBadges(((badges ?? []) as Array<{ badge_definitions: EarnedBadge | EarnedBadge[] }>).map((b) => (Array.isArray(b.badge_definitions) ? b.badge_definitions[0]! : b.badge_definitions)).filter(Boolean).filter((b) => !isHiddenBadge(b.id)));
       setLoading(false);
     }
     load();

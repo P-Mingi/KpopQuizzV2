@@ -3,7 +3,7 @@
 //   contribXp - sum of per-space contribution XP (space_members.contrib_xp)
 //   pages     - distinct PUBLISHED pages the user has a revision on
 //   essays    - featured (public) essays authored
-//   cards     - showcase pins
+//   cards     - showcase pins (collectibles)
 //   quiz      - overall accuracy from player_group_mastery (correct/played), null if none
 //   spaces    - the user's active memberships (for the cross-space role chips)
 
@@ -31,7 +31,7 @@ export async function deriveProfileStats(userId: string): Promise<ProfileStats> 
     // author's Pages count stays stable across ISR bakes rather than sampling).
     svc.from('verse_revisions').select('entity_id').eq('author', userId).eq('entity_type', 'page').order('id', { ascending: false }).limit(1000),
     svc.from('verse_essays').select('id', { count: 'exact', head: true }).eq('author', userId).eq('status', 'featured'),
-    svc.from('verse_profile_shelf').select('id', { count: 'exact', head: true }).eq('user_id', userId),
+    svc.from('verse_profile_shelf').select('id', { count: 'exact', head: true }).eq('user_id', userId).eq('item_type', 'collectible'),
     svc.from('player_group_mastery').select('songs_correct, songs_played').eq('player_id', userId),
   ]);
 

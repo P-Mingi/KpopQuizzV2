@@ -18,7 +18,6 @@ import { validatePresentation } from '@/lib/verse/presentation/validate';
 import { EMPTY_PRESENTATION } from '@/lib/verse/presentation/types';
 import { resolvePlacements } from '@/lib/verse/presentation/resolve';
 import { presentationToComposition } from '@/lib/verse/composition/convert';
-import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { featuredEssayCount } from '@/lib/verse/essays';
 import { getSection } from '@/lib/verse/content';
@@ -66,8 +65,8 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
   // ghost. Only the cheaply-countable sources are asserted; anything absent defaults
   // ready, so a hint only ever fires when the source is provably empty.
   const gid = space.group.id;
-  const [pc, cc, ec, pollRes] = await Promise.all([
-    photocardCount(gid), collectibleCount(gid), featuredEssayCount(gid),
+  const [cc, ec, pollRes] = await Promise.all([
+    collectibleCount(gid), featuredEssayCount(gid),
     svc.from('space_polls').select('id', { count: 'exact', head: true }).eq('group_id', gid),
   ]);
   const polls = pollRes.count ?? 0;
@@ -82,8 +81,8 @@ export default async function BuildShellPage({ params }: { params: Promise<{ slu
   };
   const sourceReady: Record<string, boolean> = {
     members: c.members > 0, discography: c.albums > 0, music: c.tracks > 0,
-    spotlight: pc > 0, binder_widget: pc > 0, shelf_widget: cc > 0,
-    collections: pc + cc > 0, featured_essay: ec > 0, poll: polls > 0,
+    shelf_widget: cc > 0,
+    collections: cc > 0, featured_essay: ec > 0, poll: polls > 0,
   };
 
   // V-BUILDER-3 step 5 - the DATA-DRIVEN hero defaults the identity editor shows as

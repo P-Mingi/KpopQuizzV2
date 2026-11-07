@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { BadgeGrid, badgeProgress, type BadgeMetrics } from '@/components/ui/badge-grid';
 import { BadgeDetailModal } from '@/components/profile/badge-detail-modal';
 import { BadgeCoin } from '@/components/profile/badge-coin';
+import { withoutHiddenBadges, withoutHiddenBadgeIds } from '@/lib/badges/hidden';
 
 import type { BadgeDefinition } from '@/lib/db/types';
 
@@ -23,7 +24,10 @@ interface Props {
 // colour, and everything still locked collapses into one chip that expands the
 // full frosted grid inline. Keeps a fresh profile from opening on a wall of
 // greyed-out tiles while still showing there is something to chase.
-export function BadgeShelf({ allBadges, earnedBadgeIds, earnedAt, metrics, self }: Props): React.ReactElement | null {
+export function BadgeShelf({ allBadges: allBadgesIn, earnedBadgeIds: earnedBadgeIdsIn, earnedAt, metrics, self }: Props): React.ReactElement | null {
+  // The retired photocard badges are never listed here, whatever the caller read (lib/badges/hidden.ts).
+  const allBadges = withoutHiddenBadges(allBadgesIn);
+  const earnedBadgeIds = withoutHiddenBadgeIds(earnedBadgeIdsIn);
   const [expanded, setExpanded] = useState(false);
   const [selected, setSelected] = useState<BadgeDefinition | null>(null);
   if (allBadges.length === 0) return null;

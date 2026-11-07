@@ -6,7 +6,6 @@ import { getSpace } from '@/lib/verse/space';
 import { getEras } from '@/lib/verse/eras';
 import { sceneCounts } from '@/lib/verse/entities';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
-import { photocardCount } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
 import { listPublishedPages } from '@/lib/verse/pages/data';
 import { createPublicReadClient } from '@/lib/supabase/server';
@@ -40,8 +39,8 @@ export default async function ContentRouterPage({ params }: { params: Promise<{ 
 
   const db = createPublicReadClient();
   const albumIds = space.albums.map((a) => a.id);
-  const [eras, scenes, pcCount, colCount, wikiPages, { count: trackCount }] = await Promise.all([
-    getEras(g.id), sceneCounts(g.id), photocardCount(g.id), collectibleCount(g.id), listPublishedPages(g.id),
+  const [eras, scenes, colCount, wikiPages, { count: trackCount }] = await Promise.all([
+    getEras(g.id), sceneCounts(g.id), collectibleCount(g.id), listPublishedPages(g.id),
     albumIds.length
       ? db.from('album_tracks').select('id', { count: 'exact', head: true }).in('album_id', albumIds)
       : Promise.resolve({ count: 0 } as { count: number | null }),
@@ -57,7 +56,6 @@ export default async function ContentRouterPage({ params }: { params: Promise<{ 
     const n = scenes[s.kind] ?? 0;
     if (n > 0) cards.push({ href: `/verse/${g.slug}/${s.seg}`, label: s.label, count: n, sub: 'Documented and sourced' });
   }
-  if (pcCount > 0) cards.push({ href: `/verse/${g.slug}/photocards`, label: 'Photocards', count: pcCount, sub: 'The catalogued sets' });
   if (colCount > 0) cards.push({ href: `/verse/${g.slug}/collectibles`, label: 'Collectibles', count: colCount, sub: 'Lightsticks and more' });
 
   return (

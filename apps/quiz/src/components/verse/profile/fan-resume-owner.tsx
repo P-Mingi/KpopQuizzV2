@@ -9,7 +9,7 @@ import { LEGACY_SECTIONS } from '@/lib/verse/profile-sections';
 import type { ProfileSection } from '@/lib/verse/profile-sections';
 
 const LEGACY_LABELS: Record<(typeof LEGACY_SECTIONS)[number], string> = {
-  spaces: 'Verse spaces', contributions: 'Contribution graph', collection: 'Photocard collection', essays_list: 'Essays',
+  spaces: 'Verse spaces', contributions: 'Contribution graph', collection: 'Collection', essays_list: 'Essays',
 };
 // Human names for every section, so the toggle's accessible name never announces
 // a raw key ('essays_list').

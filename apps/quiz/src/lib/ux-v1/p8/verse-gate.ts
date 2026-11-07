@@ -1,4 +1,5 @@
 import { badgeCategory } from '@/lib/badges';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 import { isUxV12 } from '@/lib/ux-v12';
 import { spaceUnpublished, verseHidden } from '@/lib/verse/visibility';
 
@@ -74,5 +75,6 @@ export function gateVersePosts<T extends { kind: PostKind; group: Pick<P8Group, 
 /** Badge watch: while the Verse is hidden only Play badges show (Verse and cross-world
  *  badges are earned through, or name, Verse activity). */
 export function badgeShown(badgeId: string, verseOpen: boolean): boolean {
+  if (isHiddenBadge(badgeId)) return false;
   return verseOpen || badgeCategory(badgeId) === 'play';
 }

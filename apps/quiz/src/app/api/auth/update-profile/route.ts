@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { createServerClient } from '@/lib/supabase/server';
 import { getAvatarColors } from '@/lib/utils';
 import { RESERVED_USERNAMES } from '@/lib/constants';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 import { isValidTheme, ULT_MAX, BIAS_MAX } from '@/lib/passport-themes';
 import { isValidNameAccent, isValidNameFont, isValidAvatarKind, isValidAvatarPreset } from '@/lib/passport-flair';
 
@@ -218,6 +219,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (input.pinned_badge_id === null || input.pinned_badge_id === '') {
       updates.pinned_badge_id = null;
     } else if (typeof input.pinned_badge_id === 'string') {
+      // A retired badge (lib/badges/hidden.ts) can no longer be pinned, even by someone who holds it.
+      if (isHiddenBadge(input.pinned_badge_id)) {
+        return NextResponse.json({ error: 'You have not earned that badge' }, { status: 400 });
+      }
       // Can only pin a badge you have earned.
       const { data: earned } = await supabase
         .from('user_badges').select('badge_id').eq('user_id', user.id).eq('badge_id', input.pinned_badge_id).maybeSingle();

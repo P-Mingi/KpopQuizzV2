@@ -19,6 +19,7 @@ import { createBrowserClient } from '@/lib/supabase/client';
 import { clearMe } from '@/lib/auth/use-me';
 import { RESERVED_USERNAMES } from '@/lib/constants';
 import { badgeRarity } from '@/lib/badges';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { isSoundEnabled, setSoundEnabled } from '@/lib/sounds';
@@ -189,7 +190,7 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
         const r = row as Loaded['row'];
         const earned = ((badges ?? []) as Array<{ badge_definitions: { id: string; name: string } | Array<{ id: string; name: string }> }>)
           .map((b) => (Array.isArray(b.badge_definitions) ? b.badge_definitions[0] : b.badge_definitions))
-          .filter((b): b is { id: string; name: string } => Boolean(b));
+          .filter((b): b is { id: string; name: string } => Boolean(b) && !isHiddenBadge(b?.id));
         const provider = (user.app_metadata?.provider as string | undefined) ?? user.identities?.[0]?.provider ?? null;
         setData({ row: r, groups: (groups ?? []) as Loaded['groups'], earned, provider });
         const f = formFromRow(r);

@@ -42,10 +42,10 @@ export const RARITY_LABEL: Record<Rarity, string> = {
 };
 
 const BADGE_RARITY: Record<string, Rarity> = {
-  first_steps: 'common', quiz_maker: 'common', pc_first: 'common',
+  first_steps: 'common', quiz_maker: 'common',
   hard_mode: 'uncommon', multi_stan: 'uncommon', streak_7: 'uncommon',
-  perfect_score: 'rare', prolific_creator: 'rare', dedicated_fan: 'rare', creator_bronze: 'rare', pc_collector: 'rare',
-  community_star: 'epic', viral_hit: 'epic', streak_30: 'epic', creator_silver: 'epic', pc_set: 'epic',
+  perfect_score: 'rare', prolific_creator: 'rare', dedicated_fan: 'rare', creator_bronze: 'rare',
+  community_star: 'epic', viral_hit: 'epic', streak_30: 'epic', creator_silver: 'epic',
   group_master: 'legendary', founding_fan: 'legendary', streak_100: 'legendary', creator_gold: 'legendary',
 };
 // V-UPGRADE-1: the new tiered families carry their own rarity in the catalog.
@@ -90,7 +90,7 @@ const LEGACY_CATEGORY: Record<string, BadgeCat> = {
   dedicated_fan: 'play', multi_stan: 'play', community_star: 'play', viral_hit: 'play',
   prolific_creator: 'play', creator_bronze: 'play', creator_silver: 'play', creator_gold: 'play',
   streak_7: 'play', streak_30: 'play', streak_100: 'play',
-  pc_first: 'verse', pc_collector: 'verse', pc_set: 'verse', group_master: 'verse', founding_fan: 'verse',
+  group_master: 'verse', founding_fan: 'verse',
 };
 export function badgeCategory(id: string): BadgeCat {
   return (CATALOG_CATEGORY[id] as BadgeCat | undefined) ?? LEGACY_CATEGORY[id] ?? 'play';

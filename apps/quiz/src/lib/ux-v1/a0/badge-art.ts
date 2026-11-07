@@ -61,7 +61,6 @@ const G = {
   chart: '<path d="M18 20V10M12 20V4M6 20v-6"/>',
   book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
   link: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
-  cards: '<rect x="2" y="6" width="14" height="14" rx="2"/><path d="M6 2h14a2 2 0 0 1 2 2v14"/>',
   map: '<path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/>',
   scroll: '<path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/>',
   award: '<circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/>',
@@ -89,9 +88,6 @@ const BY_ID: Record<string, string> = {
   community_star: G.sparkles,
   group_master: G.crown,
   founding_fan: G.gem,
-  pc_first: G.cards,
-  pc_collector: G.cards,
-  pc_set: G.cards,
 };
 
 /** Families (lib/badges/catalog.ts keys + legacy prefixes): an id with no exact
@@ -109,7 +105,6 @@ const BY_FAMILY: Record<string, string> = {
   wordsmith: G.book,
   sourcerer: G.link,
   essayist: G.feather,
-  quest_collector: G.cards,
   cartographer: G.map,
   chronicler: G.scroll,
   steady_hand: G.flame,
@@ -121,12 +116,11 @@ const BY_FAMILY: Record<string, string> = {
   completionist: G.star,
   streak: G.flame,
   creator: G.penTool,
-  pc: G.cards,
 };
 
 /** Family key of a badge id: `marathoner_50` -> `marathoner`, `creator_gold` -> `creator`. */
 export function badgeFamily(id: string): string {
-  return id.replace(/_(\d+|bronze|silver|gold|first|collector|set)$/, '');
+  return id.replace(/_(\d+|bronze|silver|gold)$/, '');
 }
 
 /** The glyph (inner SVG, 24 box) for a badge id. Unknown ids get the star. */

@@ -8,7 +8,7 @@ import { resolveDoorway } from '@/lib/verse/presentation/doorways';
 
 // V-PAGES step 4 - the "More about this" zone on entity pages: the custom pages
 // whose body references this entity (an album lists its versions page, MV pages,
-// photocard set...). Published sources only (requirement 2); renders nothing
+// related pages...). Published sources only (requirement 2); renders nothing
 // when no page is attached (min-gate: no empty doorway). V-HARMONY-2A step 4:
 // the presentation (link/button/card/feature) is the space's doorway config;
 // the default is `card`. A custom label overrides the "More about {entity}"

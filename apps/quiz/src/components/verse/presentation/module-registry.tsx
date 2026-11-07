@@ -1,13 +1,13 @@
 // W-CUSTOM - the runtime module registry: config type -> renderer. Merges the core
 // (W2) modules with the feature modules. Modules may be sync or async server
-// components; an async one (spotlight, poll) fetches its own min-gated data. A type
+// components; an async one (poll) fetches its own min-gated data. A type
 // with no renderer here is skipped (safe for forward config).
 
 import { MODULE_RENDERERS as CORE } from './space-home-modules';
-import { CountdownModule, QuoteModule, SpotlightModule, PollModule } from './feature-modules';
+import { CountdownModule, QuoteModule, PollModule } from './feature-modules';
 import { MusicModule, SocialEmbedModule, DiscordModule } from './media-modules';
 import { IntroModule, VitalsStrip, StoryModule, GoDeeperModule, CollectionsModule, CommunityModule, CompletenessModule } from './canonical-modules';
-import { BinderWidgetModule, ShelfWidgetModule } from './cards-widgets';
+import { ShelfWidgetModule } from './cards-widgets';
 import { FeaturedEssayModule } from './essays-widget';
 import { AtlasMiniMapModule } from './atlas-widget';
 import { FeaturedThreadModule } from './thread-widget';
@@ -30,12 +30,10 @@ export const ALL_MODULES: Record<string, ModuleComponent> = {
   completeness: CompletenessModule,
   countdown: CountdownModule,
   quote: QuoteModule,
-  spotlight: SpotlightModule,
   poll: PollModule,
   music: MusicModule,
   social_embed: SocialEmbedModule,
   discord: DiscordModule,
-  binder_widget: BinderWidgetModule,
   shelf_widget: ShelfWidgetModule,
   featured_essay: FeaturedEssayModule,
   atlas_mini: AtlasMiniMapModule,

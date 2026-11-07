@@ -4,7 +4,7 @@
 // (text/background must pass WCAG AA). Unknown block types are rejected. Every
 // failure is a plain human sentence a curator can act on.
 
-import { BLOCK_REGISTRY, isKnownBlock, blockDef, defaultSeoCriticalTypes, FRAME_STYLES } from './registry';
+import { BLOCK_REGISTRY, RETIRED_BLOCK_TYPES, isKnownBlock, blockDef, defaultSeoCriticalTypes, FRAME_STYLES } from './registry';
 import { PRESETS, STRUCTURE_TEMPLATES, ALLOWED_TABS, STICKER_SLOTS, PRESENTATION_VERSION } from './types';
 import { DOORWAY_IDS, DOORWAY_FORMATS, DOORWAY_DEFAULTS, DOORWAY_MAX_LABEL } from './doorways';
 import { isHex, accentReadableOn } from './contrast';
@@ -38,10 +38,7 @@ function validateProps(type: string, raw: unknown): { props?: Record<string, unk
   if (raw == null || typeof raw !== 'object') return { errors };
   const p = raw as Record<string, unknown>;
   const out: Record<string, unknown> = {};
-  if (type === 'spotlight') {
-    if (p.photocardId != null) { const n = Number(p.photocardId); if (Number.isFinite(n) && n > 0) out.photocardId = n; }
-    if (typeof p.kind === 'string' && ['photocard', 'collectible'].includes(p.kind)) out.kind = p.kind;
-  } else if (type === 'music') {
+  if (type === 'music') {
     if (typeof p.mode === 'string' && ['youtube', 'audio', 'playlist', 'signature'].includes(p.mode)) out.mode = p.mode;
     for (const k of ['videoId', 'url', 'audioUrl', 'title']) if (typeof p[k] === 'string') out[k] = (p[k] as string).slice(0, 500);
     if (Array.isArray(p.tracks)) {
@@ -107,12 +104,13 @@ export function validatePresentation(raw: unknown): ValidationResult {
   // tabs (3-7, subset, must include home, no dupes). Hidden tabs never hide pages.
   let tabs: Presentation['tabs'] | undefined;
   if (c.tabs != null) {
-    // Legacy 'quests' picks (pre V-MODES) drop silently, never error: the tab
-    // left the reader nav for good and old saved configs must keep re-saving.
+    // Legacy 'quests' picks (pre V-MODES) and the retired 'photocards' pick drop
+    // silently, never error: the tab left the reader nav for good and old saved
+    // configs must keep re-saving.
     // The MIN check judges the curator's ORIGINAL pick, so our migration can
     // never push a valid old config under the floor and block its saves.
     const raw = asArray(c.tabs).map(String);
-    const t = raw.filter((x) => x !== 'quests');
+    const t = raw.filter((x) => x !== 'quests' && x !== 'photocards');
     const bad = t.filter((x) => !ALLOWED_TABS.includes(x as never));
     if (bad.length) errors.push(`Unknown tab(s): ${bad.join(', ')}.`);
     if (new Set(t).size !== t.length) errors.push('Duplicate tabs are not allowed.');
@@ -133,6 +131,8 @@ export function validatePresentation(raw: unknown): ValidationResult {
       if (m === null || typeof m !== 'object') { errors.push('Each module must be an object.'); continue; }
       const mm = m as Record<string, unknown>;
       const type = String(mm.type ?? '');
+      // A retired block (the binder widget, the spotlight) in an old saved config drops silently, never an error.
+      if (RETIRED_BLOCK_TYPES.includes(type)) continue;
       if (!isKnownBlock(type)) { errors.push(`Unknown block type "${type}".`); continue; }
       const def = blockDef(type)!;
       const zone = String(mm.zone ?? def.defaultZone ?? 'main') as ModulePlacement['zone'];

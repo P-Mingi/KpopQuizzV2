@@ -5,6 +5,7 @@ import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { pgList, teamIdsToExclude } from '@/lib/db/queries/profiles';
 import { rpcFandomWar, warCacheKey } from '@/lib/editorial/surfaces/war';
 import { forSite, siteScoped } from '@/lib/site/scope';
+import { isHiddenBadge } from '@/lib/badges/hidden';
 
 import type { PersonCardData } from '@/components/profile/person-card';
 
@@ -499,6 +500,8 @@ export async function getLatestBadgeEarns(limit = 6): Promise<BadgeEarn[]> {
     profiles: ProfileRow | null;
   }>)
     .filter((r) => r.profiles && r.badge_definitions)
+    // The retired photocard badges are never announced (lib/badges/hidden.ts).
+    .filter((r) => !isHiddenBadge(r.badge_id))
     .filter((r) => {
       if (seenBadge.has(r.badge_id)) return false;
       seenBadge.add(r.badge_id);

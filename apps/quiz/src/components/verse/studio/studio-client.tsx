@@ -18,7 +18,7 @@ import type { DoorwayId, DoorwayConfig } from '@/lib/verse/presentation/doorways
 
 type BP = 'mobile' | 'tablet' | 'desktop';
 const BP_WIDTH: Record<BP, number> = { mobile: 390, tablet: 768, desktop: 1100 };
-const TAB_LABELS: Record<string, string> = { home: 'Home', members: 'Members', discography: 'Discography', timeline: 'Timeline', quests: 'Quests', essays: 'Essays', community: 'Community', about: 'About', tours: 'Tours', shows: 'Shows', ost: 'OST', awards: 'Awards', photocards: 'Photocards', collectibles: 'Collectibles' };
+const TAB_LABELS: Record<string, string> = { home: 'Home', members: 'Members', discography: 'Discography', timeline: 'Timeline', quests: 'Quests', essays: 'Essays', community: 'Community', about: 'About', tours: 'Tours', shows: 'Shows', ost: 'OST', awards: 'Awards', collectibles: 'Collectibles' };
 
 // W-CUSTOM step 10 - the studio. Left: controls (preset, accent, frames, modules with
 // reorder + toggle, tabs). Right: the server-rendered draft preview with a breakpoint

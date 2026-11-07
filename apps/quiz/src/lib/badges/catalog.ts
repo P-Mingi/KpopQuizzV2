@@ -16,7 +16,7 @@ export type BadgeMetric =
   | 'quizzes_played' | 'perfect_scores' | 'blindtests_played' | 'personality_plays'
   | 'daily_streak_longest' | 'debate_votes' | 'quizzes_created' | 'plays_received'
   | 'distinct_groups_played' | 'wiki_pages' | 'sourced_overrides' | 'essays_published'
-  | 'photocard_sets' | 'nest_depth' | 'era_stories' | 'contrib_streak' | 'first_fan'
+  | 'nest_depth' | 'era_stories' | 'contrib_streak' | 'first_fan'
   | 'founding_curator' | 'dual_citizen' | 'spaces_joined' | 'account_age_years' | 'completionist';
 
 export interface BadgeTierDef {
@@ -63,7 +63,6 @@ export const BADGE_FAMILIES: BadgeFamily[] = [
   { key: 'wordsmith', label: 'Wordsmith', category: 'verse', metric: 'wiki_pages', iconKey: 'book', noun: 'pages', desc: 'Write {n} wiki pages.', one: 'Write a wiki page.', tiers: [1, 5, 25, 100], rarities: R4 },
   { key: 'sourcerer', label: 'Sourcerer', category: 'verse', metric: 'sourced_overrides', iconKey: 'link', noun: 'sourced facts', desc: 'Add {n} facts, each with a source.', tiers: [10, 50, 250], rarities: R3 },
   { key: 'essayist', label: 'Essayist', category: 'verse', metric: 'essays_published', iconKey: 'feather', noun: 'essays', desc: 'Publish {n} essays.', one: 'Publish an essay.', tiers: [1, 5, 25], rarities: R3 },
-  { key: 'quest_collector', label: 'Collector', category: 'verse', metric: 'photocard_sets', iconKey: 'cards', noun: 'sets', desc: 'Complete {n} photocard sets.', one: 'Complete a photocard set.', tiers: [1, 5, 25], rarities: R3 },
   { key: 'cartographer', label: 'Cartographer', category: 'verse', metric: 'nest_depth', iconKey: 'map', noun: 'levels', desc: 'Nest wiki pages {n} levels deep.', tiers: [3, 5, 8], rarities: R3H },
   { key: 'chronicler', label: 'Chronicler', category: 'verse', metric: 'era_stories', iconKey: 'scroll', noun: 'era stories', desc: 'Write {n} era stories.', one: 'Write an era story.', tiers: [1, 3, 10], rarities: R3 },
   { key: 'steady_hand', label: 'Steady Hand', category: 'verse', metric: 'contrib_streak', iconKey: 'flame', noun: 'days', desc: 'Reach a {n}-day contribution streak.', tiers: [7, 30, 100], rarities: R3 },

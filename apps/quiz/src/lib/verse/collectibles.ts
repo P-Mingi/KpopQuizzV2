@@ -1,6 +1,5 @@
 // W5.3 - merch + lightstick gallery + personal owned/wanted checklist.
-// Mirrors photocards (W5.2): public catalog (published only, RLS) + private per-user
-// collection (service-role). One table, `kind` discriminates merch vs lightstick.
+// Public catalog (published only, RLS) + private per-user collection (service-role). One table, `kind` discriminates merch vs lightstick.
 import { createPublicReadClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 export type CollectibleKind = 'merch' | 'lightstick';

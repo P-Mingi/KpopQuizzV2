@@ -94,6 +94,9 @@ describe('/api/verse write routes', () => {
       if (seen !== declared) missing.push(`${file.slice(api.length)} (a handler the guard could not read)`);
     }
     expect(missing).toEqual([]);
-    expect(handlers).toBeGreaterThanOrEqual(64);
+    // The floor stops the guard from being emptied silently. 64 -> 58 (2026-11-06, owner order): the six handlers of the
+    // photocard routes left with them (/api/verse/photocards POST PATCH DELETE, /api/verse/collection POST, /api/verse/shelf
+    // POST PATCH). Every handler that remains is still checked above.
+    expect(handlers).toBeGreaterThanOrEqual(58);
   });
 });

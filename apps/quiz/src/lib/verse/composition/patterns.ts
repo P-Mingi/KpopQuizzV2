@@ -17,7 +17,7 @@ export const PATTERNS: PatternSpec[] = [
   { id: 'meet-members', name: 'Meet the members', description: 'The member grid with the latest releases.', blocks: [{ type: 'members' }, { type: 'discography' }] },
   { id: 'era-spotlight', name: 'Era spotlight', description: 'The era spine and timeline.', blocks: [{ type: 'timeline' }] },
   { id: 'comeback-countdown', name: 'Comeback countdown', description: 'The current era plus the next dated moment.', blocks: [{ type: 'countdown' }] },
-  { id: 'collector-corner', name: 'Collector corner', description: 'The photocard binder and collectibles shelf.', blocks: [{ type: 'binder_widget' }, { type: 'shelf_widget' }] },
+  { id: 'collector-corner', name: 'Collector corner', description: 'The collectibles shelf.', blocks: [{ type: 'shelf_widget' }] },
   { id: 'new-fan-start', name: 'New fan starts here', description: 'A welcome lede plus doorways to go deeper.', blocks: [{ type: 'intro' }, { type: 'go_deeper' }] },
 ];
 

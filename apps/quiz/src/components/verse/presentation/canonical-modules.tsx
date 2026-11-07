@@ -9,9 +9,7 @@ import { splitTipTapForFold } from '@/lib/verse/render-content';
 import { computeQuality } from '@/lib/verse/quality';
 import { getEras } from '@/lib/verse/eras';
 import { CoverArt } from '@/components/verse/cover-art';
-import { getPhotocards } from '@/lib/verse/photocards';
 import { collectibleCount } from '@/lib/verse/collectibles';
-import { photocardCount } from '@/lib/verse/photocards';
 import { sceneCounts } from '@/lib/verse/entities';
 import { SCENE_LIST } from '@/lib/verse/entity-types';
 import { getDiscussions } from '@/lib/verse/discussions';
@@ -139,8 +137,8 @@ export async function StoryModule({ space }: ModuleProps): Promise<React.ReactEl
  * plus "Surprise me" (a random real page within the space). */
 export async function GoDeeperModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
   const { group, idols, albums } = space;
-  const [scenes, pcCount, colCount, eras, wikiPages] = await Promise.all([
-    sceneCounts(group.id), photocardCount(group.id), collectibleCount(group.id), getEras(group.id),
+  const [scenes, colCount, eras, wikiPages] = await Promise.all([
+    sceneCounts(group.id), collectibleCount(group.id), getEras(group.id),
     listPublishedPages(group.id),
   ]);
   const targets: { label: string; sub: string; href: string }[] = [];
@@ -153,7 +151,6 @@ export async function GoDeeperModule({ space }: ModuleProps): Promise<React.Reac
     const n = scenes[s.kind] ?? 0;
     if (n > 0) targets.push({ label: s.label, sub: `${n} entries`, href: `/verse/${group.slug}/${s.seg}` });
   }
-  if (pcCount > 0) targets.push({ label: 'Photocards', sub: `${pcCount} catalogued`, href: `/verse/${group.slug}/photocards` });
   if (colCount > 0) targets.push({ label: 'Collectibles', sub: `${colCount} items`, href: `/verse/${group.slug}/collectibles` });
   if (targets.length >= 5) targets.push({ label: 'Browse everything', sub: 'The index of indexes', href: `/verse/${group.slug}/content` });
   if (targets.length === 0) return null;
@@ -180,28 +177,16 @@ export async function GoDeeperModule({ space }: ModuleProps): Promise<React.Reac
   );
 }
 
-/** 9. COLLECTIONS teaser - a glimpse of the catalogued photocards/collectibles.
- * Hidden until the space has any. */
+/** 9. COLLECTIONS teaser - a doorway to the catalogued collectibles. Hidden until the space has any. */
 export async function CollectionsModule({ space }: ModuleProps): Promise<React.ReactElement | null> {
-  const [cards, colCount] = await Promise.all([getPhotocards(space.group.id), collectibleCount(space.group.id)]);
-  if (cards.length === 0 && colCount === 0) return null;
-  const thumbs = cards.filter((c) => c.image_url).slice(0, 5);
+  const colCount = await collectibleCount(space.group.id);
+  if (colCount === 0) return null;
   return (
     <section className="v-module">
       <h2 className="v-section-title">Collections</h2>
       <div className="v-section-rule" aria-hidden />
-      {thumbs.length > 0 ? (
-        <div className="flex gap-2.5">
-          {thumbs.map((c) => (
-            <div key={c.id} className="aspect-[3/4] w-16 overflow-hidden rounded-lg sm:w-20" style={{ background: 'var(--verse-soft-strong)' }}>
-              <img src={c.image_url!} alt={c.name} className="h-full w-full object-cover" loading="lazy" />
-            </div>
-          ))}
-        </div>
-      ) : null}
       <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm font-semibold">
-        {cards.length > 0 ? <Link href={`/verse/${space.group.slug}/photocards`} className="no-underline" style={{ color: 'var(--verse-ink)' }}>{cards.length} photocards</Link> : null}
-        {colCount > 0 ? <Link href={`/verse/${space.group.slug}/collectibles`} className="no-underline" style={{ color: 'var(--verse-ink)' }}>{colCount} collectibles</Link> : null}
+        <Link href={`/verse/${space.group.slug}/collectibles`} className="no-underline" style={{ color: 'var(--verse-ink)' }}>{colCount} collectibles</Link>
       </div>
     </section>
   );
