@@ -11,6 +11,7 @@ import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, kpopIconRewrites, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { MFE_APPLICATIONS, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
+import { privateLaunchHeaders, privateLaunchRewrites, readPrivateLaunch } from './src/lib/private-launch/config';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
 // rule of lib/ux-v12.ts, inlined because this file is read before the app).
@@ -49,6 +50,17 @@ const adminHeaders = (): { key: string; value: string }[] => [
   { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
   { key: 'Cache-Control', value: 'no-store' },
 ];
+
+// Private launch (owner, 2026-11-06; src/lib/private-launch/config.ts, docs/launch/o1/PRIVATE-LAUNCH.md): on the hub and anime builds only,
+// PRIVATE_LAUNCH on sends every page to the Coming soon page unless the browser holds the cookie of an allowed account. Off (0, false,
+// off, no; unset too, except on a production build on Vercel, where unset counts as on) and on the kpop build it adds nothing: the lists
+// below are empty and the config is today's. A gate that is on but misconfigured fails closed (everyone gets Coming soon) and says so in
+// the build log.
+const PRIVATE_LAUNCH = readPrivateLaunch(SITE_ID, process.env);
+if (PRIVATE_LAUNCH.on) {
+  console.warn(`[private-launch] ${SITE_ID}: the gate is on${PRIVATE_LAUNCH.expected === null ? ', CLOSED FOR EVERYONE' : ''}.`);
+  if (PRIVATE_LAUNCH.problem) console.warn(`[private-launch] ${SITE_ID}: ${PRIVATE_LAUNCH.problem}.`);
+}
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -134,7 +146,12 @@ const nextConfig: NextConfig = {
     // under app/sites/<site>/ before the filesystem is read, and what no public file or handler
     // serves to the same pages after it, so no kpop page can answer.
     if (SITE_ID !== 'kpop') {
-      return { beforeFiles: [...rewritesFor(SITE_ID)], afterFiles: [...afterFilesFor(SITE_ID)], fallback: [...fallbackFor(SITE_ID)] };
+      // The private launch rules come last: they match the paths the site's own rules leave (empty with the gate off).
+      return {
+        beforeFiles: [...rewritesFor(SITE_ID), ...privateLaunchRewrites(SITE_ID, PRIVATE_LAUNCH)],
+        afterFiles: [...afterFilesFor(SITE_ID)],
+        fallback: [...fallbackFor(SITE_ID)],
+      };
     }
     // Run O1 (lane L1): kpopquiz.org answers its own IndexNow key file only; the other two key files of public/ are its 404.
     // The V12 pretty URLs below stay afterFiles rules, as the plain array they were.
@@ -282,7 +299,8 @@ function zoneConfig(base: NextConfig): NextConfig {
       // already match it and this one repeats the same values). zones.test.ts compares the home with the other pages through
       // Next's own route processing.
       const home = { source: '/', headers: [...(INDEXING_OPEN ? [] : closedHeaders()), ...frameSelfHeaders()] };
-      return [...deploymentHosts, ...await baseHeaders(), home];
+      // Private launch: noindex, nofollow on every answer to a browser without the cookie (empty with the gate off).
+      return [...deploymentHosts, ...await baseHeaders(), home, ...privateLaunchHeaders(SITE_ID, PRIVATE_LAUNCH)];
     },
     async rewrites() {
       const r = await baseRewrites();
