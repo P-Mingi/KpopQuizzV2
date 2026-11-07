@@ -485,7 +485,7 @@ export interface ManifestRow {
 }
 
 const MANIFEST_DIR = 'docs/pending-migrations/multisite/';
-const MANIFEST_PHASES = new Set(['pre', 'pre-T14', 'pre-T14 (window)', 'pre-after-V0', 'pre-after-V0 (dormant)', 'launch', 'launch (last)']);
+const MANIFEST_PHASES = new Set(['pre', 'pre-T14', 'pre-T14 (window)', 'pre-after-V0', 'pre-after-V0 (dormant)', 'launch', 'launch (last)', 'dev-only']);
 const MANIFEST_EXTERNAL = new Set(['Mission U deletion file']);
 /** BACKLOG 4.1 rows that have no SQL file (manifest.md 4). */
 const ROWS_WITHOUT_FILE = [19, 31, 32, 33];
@@ -496,10 +496,12 @@ export function parseManifest(md: string): ManifestRow[] {
   for (const m of md.matchAll(/^\| (\d+) \| `([^`]+)` \| `([^`]+)` \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$/gm)) {
     const file = m[2]!;
     const base = file.split('/').pop()!.replace(/\.sql$/, '');
+    // A launch file named L<nn>-<WORD>-<topic> (L10-PERS-personality) shares its number with the file of a lane (L10-K3-formats): its id keeps the word.
+    const word = /^(L\d{2})-([A-Z]{3,})-/.exec(base);
     out.push({
       n: Number(m[1]),
       file,
-      id: base.split('-')[0]!,
+      id: word ? `${word[1]}-${word[2]}` : base.split('-')[0]!,
       rollback: m[3]!,
       owner: m[4]!.trim(),
       rows: [...m[5]!.matchAll(/\b(\d{1,2})\b/g)].map((r) => Number(r[1])),
@@ -518,14 +520,18 @@ export function checkManifest(rows: ManifestRow[]): string[] {
   rows.forEach((r, i) => {
     if (r.n !== i + 1) problems.push(`row ${r.n} out of sequence`);
     const launch = r.file.startsWith(`${MANIFEST_DIR}launch/`);
-    const re = launch
-      ? /^docs\/pending-migrations\/multisite\/launch\/L\d{2}-[A-Z][A-Z0-9]*-[a-z0-9-]+\.sql$/
-      : /^docs\/pending-migrations\/multisite\/\d{3}[a-z]?-[a-z0-9-]+\.sql$/;
+    const dev = r.file.startsWith(`${MANIFEST_DIR}dev/`);
+    const re = dev
+      ? /^docs\/pending-migrations\/multisite\/dev\/D\d{2}-[a-z0-9-]+\.sql$/
+      : launch
+        ? /^docs\/pending-migrations\/multisite\/launch\/L\d{2}-[A-Z][A-Z0-9]*-[a-z0-9-]+\.sql$/
+        : /^docs\/pending-migrations\/multisite\/\d{3}[a-z]?-[a-z0-9-]+\.sql$/;
     if (!re.test(r.file)) problems.push(`${r.file}: name does not follow manifest.md`);
     if (r.rollback !== r.file.replace(/\.sql$/, '.rollback.sql')) problems.push(`${r.file}: rollback ${r.rollback}`);
     if (r.tx !== 'single' && r.tx !== 'none') problems.push(`${r.file}: tx ${r.tx}`);
     if (!MANIFEST_PHASES.has(r.phase)) problems.push(`${r.file}: phase ${r.phase}`);
     if (launch !== r.phase.startsWith('launch')) problems.push(`${r.file}: launch folder and phase disagree`);
+    if (dev !== (r.phase === 'dev-only')) problems.push(`${r.file}: dev folder and phase disagree`);
     if (seen.has(r.id)) problems.push(`${r.file}: id ${r.id} used twice`);
     for (const need of r.needs) {
       if (MANIFEST_EXTERNAL.has(need)) continue;
@@ -596,6 +602,23 @@ export function checkSchema(sql: string): string[] {
   return problems;
 }
 
+/** Rows 1 to 20 of the manifest as they were at the tag (o1-dev holds them), relative to the multisite folder. */
+const FIRST_20_FILES = [
+  '001-sites.sql', 'launch/L01-B2-sites.sql', '002a-site-columns.sql', '002b-site-validate.sql', '002c-site-indexes.sql', '002d-quiz-site-guard.sql',
+  '003-memberships.sql', '004-passport-prefs.sql', '005-net-counters.sql', '006-passport-handoff.sql', '007-world-xp.sql', '008-write-locks.sql',
+  '009-daily-prep.sql', '010-daily-v2.sql', '011-anime-series.sql', '012-editorial-quiz.sql', '013-formats.sql', '014-daily-openings.sql',
+  '015-spoilers.sql', '016-passport-deletion.sql',
+];
+/** All 31 files the manifest had at the tag. */
+const FIRST_31_FILES = [
+  ...FIRST_20_FILES,
+  'launch/L02-K2-team-accounts.sql', 'launch/L03-B7-sentinel.sql', 'launch/L04-K1-series.sql', 'launch/L05-K1-facts.sql', 'launch/L06-B3-badges.sql',
+  'launch/L07-K2-catalogue.sql', 'launch/L08-K3-daily-bank.sql', 'launch/L09-K4-openings.sql', 'launch/L10-K3-formats.sql',
+  'launch/L11-X1-crossover-quiz.sql', 'launch/L12-L1-sites-live.sql',
+];
+/** Files whose objects the file itself declares (and dle-a1-characters.md), so they have no `-- @file` section in schema.sql. */
+const NO_SECTION = ['D01', 'D03', '017', '018', '019', '020', '021a', '021b', '021c', '021d', '022', '023', '024'];
+
 describe('SQL manifest (manifest.md)', () => {
   const md = read(`${CONTRACTS}manifest.md`);
   const rows = parseManifest(md);
@@ -604,9 +627,22 @@ describe('SQL manifest (manifest.md)', () => {
     const good = parseManifest([
       '| 1 | `docs/pending-migrations/multisite/001-sites.sql` | `docs/pending-migrations/multisite/001-sites.rollback.sql` | B2 | 1 | single | pre | none | R-SQL |',
       '| 2 | `docs/pending-migrations/multisite/launch/L01-B2-sites.sql` | `docs/pending-migrations/multisite/launch/L01-B2-sites.rollback.sql` | B2 | 1 | single | launch | 001 | R-SQL |',
+      '| 3 | `docs/pending-migrations/multisite/dev/D01-dev-catchup.sql` | `docs/pending-migrations/multisite/dev/D01-dev-catchup.rollback.sql` | ORCH | dev only | single | dev-only | 001 | R-SQL |',
+      '| 4 | `docs/pending-migrations/multisite/launch/L10-PERS-personality.sql` | `docs/pending-migrations/multisite/launch/L10-PERS-personality.rollback.sql` | K3 | personality | single | launch | L01 | R-CONTENT |',
+      '| 5 | `docs/pending-migrations/multisite/launch/L10-K3-formats.sql` | `docs/pending-migrations/multisite/launch/L10-K3-formats.rollback.sql` | K3 | 37 | single | launch | L10-PERS | R-CONTENT |',
     ].join('\n'));
-    expect(good).toHaveLength(2);
+    expect(good).toHaveLength(5);
+    expect(good.map((r) => r.id)).toEqual(['001', 'L01', 'D01', 'L10-PERS', 'L10']);
     expect(checkManifest(good)).toEqual([]);
+  });
+
+  it('reports a dev-only file outside the dev folder, and the dev folder with another phase', () => {
+    const p = checkManifest(parseManifest([
+      '| 1 | `docs/pending-migrations/multisite/dev/D01-dev-catchup.sql` | `docs/pending-migrations/multisite/dev/D01-dev-catchup.rollback.sql` | ORCH | dev only | single | pre | none | R-SQL |',
+      '| 2 | `docs/pending-migrations/multisite/D02-dev-more.sql` | `docs/pending-migrations/multisite/D02-dev-more.rollback.sql` | ORCH | dev only | single | dev-only | none | R-SQL |',
+    ].join('\n')));
+    expect(p.some((x) => x.includes('dev folder and phase disagree'))).toBe(true);
+    expect(p.some((x) => x.includes('D02-dev-more.sql: name does not follow'))).toBe(true);
   });
 
   it('reports each planted break', () => {
@@ -625,8 +661,12 @@ describe('SQL manifest (manifest.md)', () => {
   });
 
   it('the real manifest follows the rules and every path is in section 1', () => {
-    expect(rows.length).toBe(31);
+    // 31 rows until the DEV-PREVIEW lot; 47 with 017 to 024, L10-PERS, L13 to L15 and the dev-only D01; 48 with the dev-only D03 right after L14 (rows are only ever added).
+    expect(rows.length).toBe(48);
     expect(checkManifest(rows)).toEqual([]);
+    // The first 20 rows are what o1-dev already holds and keep their place; the other 11 of the first 31 are all still there (L02, L03 and L07 moved to the end of the dev order).
+    expect(rows.slice(0, 20).map((r) => r.file.replace(MANIFEST_DIR, ''))).toEqual(FIRST_20_FILES);
+    expect(rows.map((r) => r.file.replace(MANIFEST_DIR, ''))).toEqual(expect.arrayContaining(FIRST_31_FILES));
     // migrate-dev.sh reads every path of the document in order: section 1 must be the first place each appears.
     const all = [...md.matchAll(/docs\/pending-migrations\/multisite\/[A-Za-z0-9_./-]+\.sql/g)].map((m) => m[0]);
     const first = all.filter((p, i) => all.indexOf(p) === i && !p.endsWith('.rollback.sql'));
@@ -641,6 +681,62 @@ describe('SQL manifest (manifest.md)', () => {
 
   it('modes none are the files with CONCURRENTLY or VALIDATE (002b, 002c, 009)', () => {
     expect(rows.filter((r) => r.tx === 'none').map((r) => r.id)).toEqual(['002b', '002c', '009']);
+  });
+
+  it('puts the files that o1-dev needs for the daily games in the order the sessions use (DEV-PREVIEW)', () => {
+    const ids = rows.map((r) => r.id);
+    const at = (id: string): number => {
+      expect(ids, id).toContain(id);
+      return ids.indexOf(id);
+    };
+    // 017 right after the dev catch-up; the games engine then the K1 files, the photos, the games; then the launch data in the order of J2 to J5.
+    const chain = ['016', 'D01', '017', '018', '019', '020', '021a', '021c', '021b', '022', '023', '024', 'L04', 'L05', 'L06', 'L08', 'L10-PERS', 'L13', 'L15', 'L14', 'D03'];
+    expect(chain.map(at)).toEqual(chain.map(at).slice().sort((a, b) => a - b));
+    // L02, L03, L07 and 021d (Team auth users, sentinels, Team catalogue, the K2 idols) are not applied on o1-dev: after everything it applies, before the files not written.
+    const tail = ['L14', 'D03', 'L02', 'L03', 'L07', '021d', 'L09', 'L10', 'L11', 'L12'];
+    expect(tail.map(at)).toEqual(tail.map(at).slice().sort((a, b) => a - b));
+    // D03 (019 and 023 run again after L14) is the row right after L14: it needs every file above it applied and blocks nothing that the preview needs.
+    expect(at('D03')).toBe(at('L14') + 1);
+    expect(at('L07')).toBeGreaterThan(at('L02'));
+    expect(ids.slice(-4)).toEqual(['L09', 'L10', 'L11', 'L12']);
+  });
+
+  it('keeps the dev-only file out of the production paths (section 2, SQL-ORDER.md, session.sh)', () => {
+    const dev = rows.filter((r) => r.phase === 'dev-only');
+    expect(dev.map((r) => r.id)).toEqual(['D01', 'D03']);
+    const section2 = md.slice(md.indexOf('## 2. Production order'), md.indexOf('## 3. What every file contains'));
+    expect(section2).not.toMatch(/D01|D03|\/dev\/|dev-only/);
+    for (const doc of ['docs/launch/o1/SQL-ORDER.md', 'docs/launch/o1/session.sh', 'docs/launch/o1/RUNBOOK.md']) {
+      expect(readFileSync(`${REPO}${doc}`, 'utf8'), doc).not.toMatch(/multisite\/dev\/|D01-dev-catchup|D02-dev-rebuild|D03-dev-reapply/);
+    }
+    const file = readFileSync(`${REPO}docs/pending-migrations/multisite/dev/D01-dev-catchup.sql`, 'utf8');
+    expect(file.split('\n')[1]).toMatch(/^-- DEV ONLY\. NEVER FOR PRODUCTION\./);
+    // It refuses on a database that is not the dev branch.
+    expect(file).toMatch(/> 200 then\s+raise exception 'D01-dev-catchup: refused/);
+    expect(file).toMatch(/status = 'live'\) then\s+raise exception 'D01-dev-catchup: refused/);
+  });
+
+  it('keeps D03 (019 and 023 run again after L14) dev-only, in one transaction, refusing outside the dev branch, with a rollback that refuses', () => {
+    const dir = `${REPO}docs/pending-migrations/multisite/`;
+    const file = readFileSync(`${dir}dev/D03-dev-reapply-019-023.sql`, 'utf8');
+    expect(file.split('\n')[1]).toMatch(/^-- DEV ONLY\. NEVER FOR PRODUCTION\./);
+    // The same guards as D01: more than 200 profiles, a live anime or hub site.
+    expect(file).toMatch(/> 200 then\s+raise exception 'D03-dev-reapply-019-023: refused/);
+    expect(file).toMatch(/status = 'live'\) then\s+raise exception 'D03-dev-reapply-019-023: refused/);
+    // migrate-dev.sh skips a path it already applied: the two files changed in place run through \ir (relative to the dev folder), then the bank rebuild.
+    expect([...file.matchAll(/^\\ir (\S+)$/gm)].map((m) => m[1])).toEqual(['../019-dle-core.sql', '../023-dle-otakudle.sql', 'D02-dev-rebuild-banks.sql']);
+    // Everything it includes runs inside the one transaction of migrate-dev.sh: no transaction control, never the mode none.
+    for (const f of ['dev/D03-dev-reapply-019-023.sql', '019-dle-core.sql', '023-dle-otakudle.sql', 'dev/D02-dev-rebuild-banks.sql']) {
+      const t = readFileSync(`${dir}${f}`, 'utf8');
+      expect(t, f).toMatch(/^-- o1-transaction: single/m);
+      expect(t, f).not.toMatch(/^-- *o1-transaction: *none/im);
+      expect(t, f).not.toMatch(/^\s*(begin|commit|rollback|start transaction)\s*;/im);
+    }
+    // D02 is run through D03 only: it is not a manifest row, so migrate-dev.sh cannot run it alone.
+    expect(rows.some((r) => r.file.includes('D02-dev-rebuild'))).toBe(false);
+    const rollback = readFileSync(`${dir}dev/D03-dev-reapply-019-023.rollback.sql`, 'utf8');
+    expect(rollback.split('\n')[0]).toMatch(/DEV ONLY\. NEVER FOR PRODUCTION\./);
+    expect(rollback).toMatch(/raise exception 'D03-dev-reapply-019-023 has no rollback/);
   });
 });
 
@@ -685,8 +781,17 @@ describe('schema.sql', () => {
   });
 
   it('has one section per manifest file that declares objects, in manifest order', () => {
-    const declaring = rows.filter((r) => !r.file.includes('/launch/') || r.id === 'L01');
+    const declaring = rows.filter((r) => (!r.file.includes('/launch/') && !NO_SECTION.includes(r.id)) || r.id === 'L01');
     expect(sections.map((s) => s.name)).toEqual(declaring.map((r) => r.file.split('/').pop()!.replace(/\.sql$/, '')));
+  });
+
+  it('keeps the files that declare their own objects out of schema.sql, and out of nothing else', () => {
+    // 017 to 024 and D01 have no section (manifest.md 5): each is a manifest row, and none has a section that would be silently skipped.
+    expect(NO_SECTION.every((id) => rows.some((r) => r.id === id))).toBe(true);
+    expect(sections.filter((s) => NO_SECTION.includes(s.name.split('-')[0]!))).toEqual([]);
+    expect(rows.filter((r) => !r.file.includes('/launch/') && !NO_SECTION.includes(r.id)).map((r) => r.id)).toEqual(
+      ['001', '002a', '002b', '002c', '002d', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '013', '014', '015', '016'],
+    );
   });
 
   it('replaces exactly the locked functions, and merge_anon_passport by drop and create', () => {

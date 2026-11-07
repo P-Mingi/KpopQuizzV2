@@ -4,7 +4,6 @@
 import { dleGame } from './games';
 import { VALUE_FR, hintValueLabel, seriesValueLabel } from './value-i18n';
 
-import type { DleProgress } from './local';
 import type { DleLocale } from './types';
 
 export interface DleCopy {
@@ -242,11 +241,6 @@ export interface DleGameCopy {
   readonly nativeLang: 'ko' | null;
   /** The name before the number of the day; default: the brand and the step. */
   readonly noLabel?: string;
-  /** "How far are you?", for a game with spoilers. */
-  readonly progress?: {
-    readonly question: string; readonly legend: string;
-    readonly options: readonly { readonly id: DleProgress; readonly label: string; readonly help: string }[];
-  };
   readonly noPhoto?: string; readonly found?: string; readonly dlgNear?: string; readonly dlgSamples?: readonly [string, string, string]; readonly streakSr?: string;
   /** Yesterday's answer stays closed behind this, for a game with spoilers. The name is in the HTML of the fold. */
   readonly yesterdayShow?: string;
@@ -317,14 +311,6 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
       poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
       dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
       dlgFoot: 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata et de Wikipedia.',
-      progress: {
-        question: 'Où en es-tu ?', legend: 'Où en es-tu ? Les personnages arrivés après ton avancée ne sortent ni comme réponse, ni dans la liste.',
-        options: [
-          { id: 'anime', label: 'Anime', help: 'Jusqu’au dernier épisode diffusé' },
-          { id: 'manga', label: 'Manga', help: 'Jusqu’au dernier tome paru' },
-          { id: 'beginner', label: 'Je débute', help: 'Seulement les personnages des premiers arcs' },
-        ],
-      },
       noPhoto: 'Pas d’image du personnage : les visuels d’anime appartiennent aux studios. On en affichera seulement avec une licence écrite.',
       found: 'Trouvé !', dlgNear: 'Proche. Deux ans d’écart au plus, un studio en commun, ou la même franchise.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'de série anime', yesterdayShow: 'Afficher, sans spoiler',
     };
@@ -341,14 +327,6 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
     poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
     dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
     dlgFoot: 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata and Wikipedia.',
-    progress: {
-      question: 'How far are you?', legend: 'How far are you? Characters who arrive after your progress never come up as the answer or in the list.',
-      options: [
-        { id: 'anime', label: 'Anime', help: 'Up to the latest episode aired' },
-        { id: 'manga', label: 'Manga', help: 'Up to the latest volume out' },
-        { id: 'beginner', label: 'Just starting', help: 'Only the characters of the first arcs' },
-      ],
-    },
     noPhoto: 'No picture of the character: anime art belongs to the studios. We will show some only with a written licence.',
     found: 'Found!', dlgNear: 'Close. Two years apart at most, one studio in common, or the same franchise.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'anime streak', yesterdayShow: 'Show, no spoilers',
   };
@@ -474,9 +452,7 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
 const seriesWords = (game: 'otakudle-one-piece' | 'otakudle-dragon-ball', locale: DleLocale): DleGameCopy => {
   const spec = SERIES_SPEC[game];
   const name = dleGame(game).series!.name;
-  // The words of Otakudle, but not its "How far are you?": a game of one series has no such choice (024 does not read spoiler_level).
-  const { progress: _progress, ...o } = otakudleWords(locale);
-  void _progress;
+  const o = otakudleWords(locale);
   const fr = locale === 'fr';
   return {
     ...o,

@@ -66,7 +66,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 
 | lane | SQL files | TWINS rows | copy namespaces | endpoints | modules | flags | formats written |
 |---|---|---|---|---|---|---|---|
-| ORCH | none | none | none | none | none | none | none |
+| ORCH | D01, D03, 018, 019, 020, 022, 023, 024, L13, L14, L15 | none | none | none | none | NEXT_PUBLIC_DLE_PREVIEW | none |
 | F0 | none | none | none | none | none | none | none |
 | F0s | none | none | none | none | none | none | none |
 | Q0a | none | none | none | none | none | none | none |
@@ -79,11 +79,11 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | B4 | 006 | 37 | kpop.b4, anime.b4, hub.b4 | /auth/passport/out, /auth/arrive, /auth/authorize, /auth/land, /api/passport/redeem, /api/passport/after-signin, /api/passport/revalidate, /api/cron/passport-cleanup | safeReturnTo | PASSPORT_JUMP, PASSPORT_CONTINUE, PASSPORT_SEED | none |
 | B5 | 008, 009, 010 | none | none | none | getQuizOfTheDay | none | none |
 | B6 | none | none | kpop.b6, anime.b6 | /api/n/me, /api/n/b | bridgeHref, editorialHref, eligibleFor, canShow, NetLink | NEXT_PUBLIC_NET_BEACON, NEXT_PUBLIC_NET_FOOTER, NEXT_PUBLIC_NET_MENU | none |
-| B7 | 016, L03 | 37 | anime.b7, hub.b7 | /auth/confirm, /api/passport/delete, /api/passport/cancel, /api/passport/leave, /api/cron/passport-deletions | none | NEXT_PUBLIC_NET_DELETION | none |
+| B7 | 016, 017, L03 | 37 | anime.b7, hub.b7 | /auth/confirm, /api/passport/delete, /api/passport/cancel, /api/passport/leave, /api/cron/passport-deletions | none | NEXT_PUBLIC_NET_DELETION | none |
 | E1a | none | none | none | none | none | none | fact, review packet |
-| K1 | 011, L04, L05 | none | none | none | none | none | fact |
-| K2 | L02, L07 | none | none | none | none | none | quiz draft, creator profile |
-| K3 | L08, L10 | none | none | none | none | none | daily bank row, Which character question set, Which character set, name-all set, this-or-that bracket |
+| K1 | 011, 021a, 021b, 021c, L04, L05 | none | none | none | none | none | fact |
+| K2 | 021d, L02, L07 | none | none | none | none | none | quiz draft, creator profile |
+| K3 | L08, L10, L10-PERS | none | none | none | none | none | daily bank row, Which character question set, Which character set, name-all set, this-or-that bracket |
 | K4 | L09 | none | none | none | none | none | playlist, crossover entry |
 | O1 | none | 1, 10, 21, 22, 23, 23b, 24, 25, 26, 26b, 26c, 27, 27b, 28, 30, 30b, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, H-9 | anime.o1 | none | none | none | none |
 | O2 | none | 2, 3, 4, 5, 31, 31b, 31c, 31d, 32, 32b, 32c, 33 | anime.o2 | none | none | none | none |

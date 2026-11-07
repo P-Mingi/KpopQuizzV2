@@ -10,10 +10,9 @@
 --         seasons contain 1; when no entry does, the entries with no seasons, which is the studio of One Piece, Naruto, Dragon Ball and Bleach.
 --         'Studio Pierrot' and 'Pierrot' of L04 are one studio). Hints after 5 and 10 errors: Japanese voice actor, initial (owner, 2026-11-02, CR-020: the first appearance
 --         hint is removed for launch; character_facts.first_appearance and its L13 data stay, it is just never served).
---         attrs.seen_at is no column: it holds the answers to "How far are you?" that may see the character (anime, manga, beginner). Only a
---         character every answer may see can be a target, so the answer of the day never reaches past a player's choice.
---         Who can be the target (CR-023, owner 2026-11-03): every column of the game and the voice actor hint have a value, the character is seen by
---         every "How far are you?" answer (above), AND character_facts.featured is true. The first 365 days draw only from the 200 best known characters
+--         Who can be the target (CR-026, owner 2026-11-03: Otakudle has no "How far are you?", one character of the day for everyone, so the
+--         view has no seen_anime, seen_manga or seen_beginner and attrs has no seen_at): character_facts.featured is true AND the voice actor hint
+--         has a value, and every column of the game has a value (019 checks that one in dle_refresh_entities). The first 365 days draw only from the 200 best known characters
 --         (TOP200 of lot A2): L13 sets featured for those 200, the bank of L14 is drawn from them, and everyone else of the pool stays guessable. A year
 --         later the owner widens the draw with one statement, update public.character_facts set featured = true, and the nightly maintenance rebuilds
 --         the bank (it keeps today and the 7 days after it, 019). No engine change: the view's can_be_target is the only place the rule lives.
@@ -88,9 +87,6 @@ with first_studio as (
 ), pool as (
   select c.id, c.name, c.name_native, c.aliases, c.slug,
     f.gender, f.species, f.role_at_debut, f.first_appearance, f.voice_actor_ja, f.featured,
-    c.debut_medium is distinct from 'manga' as seen_anime,
-    c.debut_medium is distinct from 'anime' as seen_manga,
-    c.debut_medium is not distinct from 'both' and coalesce(c.debut_arc_ord, 99) <= 2 as seen_beginner,
     g.slug as series_slug, s.title_en, s.aliases as series_aliases, sf.demographic,
     nullif(btrim(to_jsonb(s) ->> 'franchise'), '') as franchise,
     case when s.type = 'anime_original' then s.anime_start_year else s.manga_start_year end as work_year,
@@ -114,16 +110,13 @@ select
     'role', jsonb_build_object('v', p.role_at_debut),
     'demographic', jsonb_build_object('v', p.demographic),
     'year', jsonb_build_object('v', p.work_year),
-    'studio', jsonb_build_object('v', to_jsonb(p.studios)),
-    'seen_at', jsonb_build_object('v', to_jsonb(array_remove(array[
-      case when p.seen_anime then 'anime' end, case when p.seen_manga then 'manga' end, case when p.seen_beginner then 'beginner' end
-    ], null)))
+    'studio', jsonb_build_object('v', to_jsonb(p.studios))
   ) as attrs,
   jsonb_strip_nulls(jsonb_build_object('voice_actor_ja', p.voice_actor_ja, 'initial', upper(left(p.name, 1)))) as hints,
   (select ei.thumb_path from public.entity_images ei
     where ei.site_id = 'anime' and ei.kind = 'character' and ei.slug = p.series_slug || '/' || p.slug and ei.license_verified and ei.thumb_path is not null) as thumb_path,
   p.series_slug as balance_key,
-  p.featured and p.voice_actor_ja is not null and p.seen_anime and p.seen_manga and p.seen_beginner as can_be_target
+  p.featured and p.voice_actor_ja is not null as can_be_target
 from pool p;
 
 -- A view is readable by anon and authenticated by default on Supabase and runs with its owner's rights unless security_invoker:

@@ -14,6 +14,7 @@ select case when ok is true then 'ok' else 'KO' end, what, coalesce(got, '-') fr
   (9, 'otakudle : 7 colonnes si le jeu est là', (select (select count(*) from public.dle_attributes where game_id = 'otakudle') = case when exists (select 1 from public.dle_games where id = 'otakudle') then 7 else 0 end), (select count(*)::text from public.dle_attributes where game_id = 'otakudle')),
   (10, 'otakudle : indices après 5 et 10 erreurs (doubleur japonais, initiale)', (select coalesce(bool_and(hint_keys = '{voice_actor_ja,initial}' and hint_after = '{5,10}'), true) from public.dle_games where id = 'otakudle'), null),
   (11, 'personnages dans la vue (information)', true, (select count(*)::text from public.dle_src_anime_character)),
-  (12, 'la vue : une cible est du TOP200 (featured) et a son doubleur japonais (CR-023)', (select d ~ 'featured' and d ~ 'voice_actor_ja IS NOT NULL' from pg_get_viewdef('public.dle_src_anime_character'::regclass) as d), null)
+  (12, 'la vue : une cible est du TOP200 (featured) et a son doubleur japonais (CR-023)', (select d ~ 'featured' and d ~ 'voice_actor_ja IS NOT NULL' from pg_get_viewdef('public.dle_src_anime_character'::regclass) as d), null),
+  (13, 'la vue n''a aucune règle de progression : ni seen_anime, seen_manga, seen_beginner, ni seen_at (CR-026)', (select d !~ 'seen_' from pg_get_viewdef('public.dle_src_anime_character'::regclass) as d), null)
 ) as c(n, what, ok, got) order by n;
 rollback;
