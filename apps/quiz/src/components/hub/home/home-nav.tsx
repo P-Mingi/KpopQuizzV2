@@ -1,8 +1,8 @@
 // Run O1, lot H2a: the top bar of the new home. Hub chrome is ink and cream. Links to the sites are the registry origins (homeUrl).
 // Home v3 (2026-10-29, Home.dc.html): the rabbit and the wordmark, then the tabs Home, The Burrow (with the number of today's games left),
-// Quizzes, Blind test, Community; on the right search and Sign in, or the level chip. The same tabs are the navigation of every other hub
+// Quizzes, Community (owner, 2026-11-07: no Blind test tab, the blind test of the day stays in Today); on the right search and Sign in, or the level chip. The same tabs are the navigation of every other hub
 // page (lib/ux-v1/a0/nav.ts, the hub entry). A tab whose target is not on the page is left out: The Burrow until its pages exist and the
-// dailyGuess flag is on (lib/site/hub/daily-guess.ts), Quizzes without Hot right now, Blind test without the blind test of the day.
+// dailyGuess flag is on (lib/site/hub/daily-guess.ts), Quizzes without Hot right now.
 // The EN/FR switch of the board is not drawn: the hub has no French page yet (the /fr pages come with the Burrow), and a switch to nowhere
 // would be a dead door.
 // Review fixes: the level chip of a signed-in fan is the way to their passport page (/passport); the search button is named after the site
@@ -41,7 +41,6 @@ export function HomeNav({ viewer, sections, burrowLeft }: { viewer: HomeViewer |
             </a>
           ) : null}
           {sections.hot ? <a href="#hot" className="hub-h2-tab">{ht('hp.nav.quizzes')}</a> : null}
-          {sections.blindtest ? <a href="#today" className="hub-h2-tab">{ht('hp.nav.blindtest')}</a> : null}
           <a href="#fans" className="hub-h2-tab">{ht('hp.nav.community')}</a>
         </div>
         <div className="hub-h2-actions">

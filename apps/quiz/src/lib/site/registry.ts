@@ -272,26 +272,9 @@ const ANIME: SiteConfig = {
   copy: { namespace: 'anime' },
 };
 
-/**
- * DEV-PREVIEW (owner order, 2026-11-03): the one way to see the daily games and the links to them on a Vercel Preview of o1-dev before the
- * launch-day PR. Closed by default: true only when NEXT_PUBLIC_DLE_PREVIEW is '1' or 'true' AND NEXT_PUBLIC_VERCEL_ENV is exactly 'preview'.
- * Both are public variables, so Next inlines the same two values in the server and the client bundles (VERCEL_ENV is not inlined: in the
- * browser it is undefined, and a test on it alone would open the games client side on a Production build that carried the flag by mistake,
- * integrator review 2026-11-03). Vercel sets NEXT_PUBLIC_VERCEL_ENV on every deployment when its system variables are exposed; a local
- * build, a test run or Production leave the switch off. Set NEXT_PUBLIC_DLE_PREVIEW on the Preview environment of the three projects only,
- * scoped to the branch o1/integration. Remove this function at the launch-day PR, which writes `dailyGuess: true` itself (RUNBOOK K8c).
- * The env is passed written out in full so Next inlines both public values.
- */
-export function dlePreviewOn(env: { readonly NEXT_PUBLIC_DLE_PREVIEW?: string | undefined; readonly NEXT_PUBLIC_VERCEL_ENV?: string | undefined }): boolean {
-  return env.NEXT_PUBLIC_VERCEL_ENV === 'preview' && flagOn(env.NEXT_PUBLIC_DLE_PREVIEW);
-}
-
-// The owner's switch of the daily games: false on every site until the launch (RAPPORT-JEUX-DU-JOUR-v2.md section 12, step 4); on a Preview only,
-// NEXT_PUBLIC_DLE_PREVIEW=1 turns it on early (dlePreviewOn above).
-const HUB_FEATURES: SiteFeatures = {
-  ...ALL_OFF, passportPages: true, directory: false,
-  dailyGuess: dlePreviewOn({ NEXT_PUBLIC_DLE_PREVIEW: process.env.NEXT_PUBLIC_DLE_PREVIEW, NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV }),
-};
+// The owner's switch of the daily games: on for the hub since the launch-day PR (2026-11-07, RUNBOOK K8c), a code constant with no env flag;
+// kpop and anime keep false. The Preview-only switch of 2026-11-03 (docs/launch/o1/DEV-PREVIEW.md) went away with that PR.
+const HUB_FEATURES: SiteFeatures = { ...ALL_OFF, passportPages: true, directory: false, dailyGuess: true };
 
 /**
  * Daily games step 4: the games that have a page. One line here opens a game: its routes (with the flag), its shared results, its tile and rows (lib/dle/games.ts reads it). Here and not in lib/dle, so
@@ -472,7 +455,6 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'NET_KPOPDLE_HOME', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_QUIZEND', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_GROUP', scope: 'server', lane: 'H1', reserved: false },
-  { name: 'NEXT_PUBLIC_DLE_PREVIEW', scope: 'public', lane: 'ORCH', reserved: false },
   { name: 'EDITORIAL_QUIZ', scope: 'server', lane: 'E1b', reserved: false },
 ];
 

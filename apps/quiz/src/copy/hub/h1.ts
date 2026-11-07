@@ -21,7 +21,6 @@ export const COPY = {
   'hp.nav.burrow': 'The Burrow',
   'hp.nav.burrowLeft': 'left today',
   'hp.nav.quizzes': 'Quizzes',
-  'hp.nav.blindtest': 'Blind test',
   'hp.nav.community': 'Community',
   // The search button opens the search page of one site (the one the Hot filter names): its name says which.
   'hp.nav.search': 'Search {name}',

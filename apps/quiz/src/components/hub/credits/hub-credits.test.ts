@@ -118,7 +118,8 @@ describe('the page', () => {
     await expect(page.generateMetadata()).rejects.toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
     reads.pictures = [pic('series', 'one-piece', 'One Piece')];
     const listedMeta = await page.generateMetadata();
-    expect(listedMeta.alternates).toEqual({ canonical: '/credits' });
+    // Launch day (2026-11-07, RUNBOOK K8c): the hub's dailyGuess is on, so /credits and its French twin /fr/credits carry hreflang to each other.
+    expect(listedMeta.alternates).toEqual({ canonical: '/credits', languages: { en: '/credits', fr: '/fr/credits', 'x-default': '/credits' } });
     expect(listedMeta.description).toBe(CREDITS_DESCRIPTION);
     expect(CREDITS_DESCRIPTION.length).toBeGreaterThanOrEqual(120);
     expect(CREDITS_DESCRIPTION.length).toBeLessThanOrEqual(160);

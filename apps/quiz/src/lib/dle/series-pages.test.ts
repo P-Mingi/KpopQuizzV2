@@ -7,8 +7,8 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { REGISTRY } from '@/lib/site/registry';
-import { rewritesFor } from '@/lib/site/routing';
+import { REGISTRY, hubRouteAllow } from '@/lib/site/registry';
+import { isKnownRouteFor, rewritesFor } from '@/lib/site/routing';
 
 import { dleCopy, gameCopy, hintValueLabel, valueLabel } from './copy';
 import { DLE_GAMES, builtGames, dleGame, futurePaths, livePaths, localePath, seriesPath } from './games';
@@ -148,7 +148,9 @@ describe('the two games as data', () => {
     expect(rewritesFor('hub').filter((r) => r.has).map((r) => r.destination)).toEqual(expect.arrayContaining([
       '/sites/hub/dle-share/en/otakudle-one-piece/:r', '/sites/hub/dle-share/fr/otakudle-dragon-ball/:r',
     ]));
-    expect(REGISTRY.hub.features.dailyGuess).toBe(false);
+    // Launch day (2026-11-07, RUNBOOK K8c): the hub's flag is on, so its route map carries the four addresses.
+    expect(REGISTRY.hub.features.dailyGuess).toBe(true);
+    for (const p of ['/otakudle/one-piece', '/otakudle/dragon-ball', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball']) expect(REGISTRY.hub.routes.allow, p).toContain(p);
     expect(new Set(DLE_GAMES.map((g) => g.path)).size).toBe(DLE_GAMES.length);
   });
 });
@@ -609,8 +611,11 @@ describe('what the lot does not touch', () => {
       expect(text, f).not.toMatch(/[\u2013\u2014]/);
       expect(text, f).not.toMatch(/from '@\/components\/(kpop|ux-v1\/kpop)/);
     }
-    // The route map stays the one it always was with the flag off.
-    expect(REGISTRY.hub.routes.allow).not.toContain('/otakudle/one-piece');
+    // The route map stays the one it always was with the flag off; since launch day (RUNBOOK K8c) the hub's is the one with the flag on, and kpop keeps its flag off.
+    expect(hubRouteAllow({ dailyGuess: false })).not.toContain('/otakudle/one-piece');
+    expect(REGISTRY.hub.routes.allow).toEqual(hubRouteAllow({ dailyGuess: true }));
+    expect(REGISTRY.hub.routes.allow).toContain('/otakudle/one-piece');
     expect(REGISTRY.kpop.features.dailyGuess).toBe(false);
+    for (const site of ['kpop', 'anime'] as const) expect(isKnownRouteFor(site, '/otakudle/one-piece', { v1: true, v12: true }), site).toBe(false);
   });
 });

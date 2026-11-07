@@ -1,6 +1,7 @@
 // Home v3 (2026-10-29, docs/strategy/o1/dle/RAPPORT-JEUX-DU-JOUR-v2.md sections 3 and 12): the daily games of the Burrow (Kpopdle and
 // Otakudle) are hidden until the owner turns them on, at step 4. The owner's switch is the registry feature `dailyGuess` of the hub (a
-// SiteFeatures key since daily games step 1, false on every site); a registry without the key reads as off.
+// SiteFeatures key since daily games step 1, true on the hub since the launch-day PR of 2026-11-07, RUNBOOK K8c, false on kpop and anime); a registry
+// without the key reads as off.
 // The home shows the Burrow (its tab, its rows in Today, its line in the footer and in the SEO block) only when the feature is on AND the
 // hub has the route (/daily, /kpopdle, /otakudle in the route map of the registry): a door is never drawn to a page that does not exist.
 

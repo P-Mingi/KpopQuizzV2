@@ -6,26 +6,24 @@ import { isKnownRouteFor } from '@/lib/site/routing';
 import { NAV_ITEMS, navItemsFor, TAB_ITEMS, tabItemsFor } from './nav';
 
 // Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the hub branch of the navigation. Every hub page carries the tabs of the
-// hub home (Home, Quizzes, Blind test, Community), each leading to a section of the home; the tab bar adds You (the passport page). The kpop
+// hub home (Home, Quizzes, Community; no Blind test tab since the owner's decision of 2026-11-07), each leading to a section of the home; the tab bar adds You (the passport page). The kpop
 // arrays are not touched (their own test keeps them as they are).
 
 const known = (href: string): boolean => isKnownRouteFor('hub', href.split(/[?#]/)[0]!, { v1: true, v12: true });
 
 describe('the hub navigation', () => {
-  it('top bar: Home, Quizzes, Blind test and Community, the sections of the hub home', () => {
+  it('top bar: Home, Quizzes and Community, the sections of the hub home; no Blind test tab (owner, 2026-11-07)', () => {
     expect(navItemsFor(REGISTRY.hub).map((it) => [it.key, it.label, it.href, it.icon])).toEqual([
       ['home', 'Home', '/', 'home'],
       ['quizzes', 'Quizzes', '/#hot', 'layers'],
-      ['blindtest', 'Blind test', '/#today', 'music'],
       ['community', 'Community', '/#fans', 'msg'],
     ]);
   });
 
-  it('tab bar: the same four, then You on the passport page', () => {
+  it('tab bar: the same three, then You on the passport page; no Blind test tab (owner, 2026-11-07)', () => {
     expect(tabItemsFor(REGISTRY.hub).map((it) => [it.key, it.label, it.href, it.icon])).toEqual([
       ['home', 'Home', '/', 'home'],
       ['quizzes', 'Quizzes', '/#hot', 'layers'],
-      ['blindtest', 'Blind test', '/#today', 'music'],
       ['community', 'Community', '/#fans', 'users'],
       ['you', 'You', '/passport', 'user'],
     ]);
