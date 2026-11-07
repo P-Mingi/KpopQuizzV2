@@ -52,4 +52,6 @@ function readShared(): VercelSharedConfig {
 
 const site = vercelSiteOf(process.env);
 export const config = vercelConfigFor(readShared(), site);
-console.log(`[vercel.ts] ${site}: ${config.crons.length} crons, ${config.crons.map((c) => c.path).join(' ')}`);
+// Whether the project variables are visible here (yes or no, never a value): the anime list depends on NEXT_PUBLIC_SITE_ID.
+const projectVariables = process.env.NEXT_PUBLIC_SUPABASE_URL ? 'yes' : 'no';
+console.log(`[vercel.ts] ${site} (${process.env.VERCEL_ENV ?? 'local'}, project variables visible: ${projectVariables}): ${config.crons.length} crons, ${config.crons.map((c) => c.path).join(' ')}`);
