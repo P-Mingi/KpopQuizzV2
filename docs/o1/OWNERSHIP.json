@@ -85,6 +85,7 @@
     "apps/quiz/scripts/check-route-allowlist.mts",
     "docs/pending-migrations/multisite/README.md",
     "docs/pending-migrations/logos/**",
+    "docs/pending-migrations/multisite/021e-*",
     "docs/pending-migrations/photocards/**",
     ".claude/settings.json",
     ".claude/hooks/**",
