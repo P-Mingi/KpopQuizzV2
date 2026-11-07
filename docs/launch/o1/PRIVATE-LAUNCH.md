@@ -5,7 +5,9 @@ Tout le monde d'autre voit une page "Coming soon". kpopquiz.org n'est pas concer
 
 ## Les trois variables (sur fandomverse ET sur otakuquiz)
 
-Dans Vercel, Settings, Environment Variables, environnement Production, sur les deux projets, avec les mêmes valeurs :
+Dans Vercel, environnement Production, sur les deux projets. Le plus sûr : des variables partagées d'équipe (Team, Environment Variables, Shared), liées à fandomverse et à otakuquiz. Une variable partagée n'a qu'une valeur, donc elle est la même sur les deux projets. Un projet ne doit pas avoir en plus une variable de projet du même nom : elle passerait avant la partagée.
+
+**`PRIVATE_LAUNCH_ALLOW` et `PRIVATE_LAUNCH_KEY` doivent être strictement identiques sur fandomverse et sur otakuquiz : la valeur du cookie en dépend. Sinon tu entres sur bunnyverse.org mais pas sur /anime (ou l'inverse).**
 
 | Nom | Valeur |
 |---|---|
@@ -31,11 +33,15 @@ Pour retirer l'accès de ce navigateur : bunnyverse.org/auth/private-launch/leav
 
 ## Ouvrir au public
 
-Sur fandomverse et otakuquiz : `PRIVATE_LAUNCH=0`, puis Redeploy des deux projets. Rien d'autre.
+`PRIVATE_LAUNCH=0` (la variable partagée, ou celle de chaque projet), puis Redeploy de fandomverse et d'otakuquiz. Rien d'autre.
 (`PRIVATE_LAUNCH_ALLOW` et `PRIVATE_LAUNCH_KEY` peuvent rester, ils ne servent plus.)
 
-## Vérifier
+## Vérifier, dans cet ordre
 
-- Fenêtre privée : bunnyverse.org, bunnyverse.org/kpopdle et bunnyverse.org/anime montrent Coming soon.
-- Ton navigateur, connecté, après le lien "Sign in" : tu vois tout, partout.
-- Une fois ouvert au public : la fenêtre privée montre les vraies pages.
+1. Ton navigateur, connecté, après le lien "Sign in" : bunnyverse.org, bunnyverse.org/kpopdle et bunnyverse.org/anime montrent les vraies pages.
+2. Puis une fenêtre privée, sur les mêmes adresses : Coming soon partout. Ce second passage prouve qu'aucun cache ne mélange les deux réponses.
+3. Une fois ouvert au public : la fenêtre privée montre les vraies pages.
+
+## Couper l'accès tout de suite
+
+Change `PRIVATE_LAUNCH_KEY` (une nouvelle valeur de `openssl rand -hex 32`), puis Redeploy des deux projets : tout cookie déjà donné ne vaut plus rien.
