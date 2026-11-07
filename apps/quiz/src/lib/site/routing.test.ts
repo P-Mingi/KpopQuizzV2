@@ -376,10 +376,11 @@ describe('the route map of anime and hub', () => {
   });
 
   it('hub routes of BACKLOG 5.1 are known, quiz routes are not', () => {
-    for (const p of ['/', '/privacy', '/passport', '/u/mina_92', '/settings', '/settings/worlds', '/login', '/directory', '/auth/arrive', '/api/passport/redeem']) {
+    // /daily is the Burrow of the daily games on the hub since launch day (2026-11-07, RUNBOOK K8c), not a daily quiz: known with the hub's dailyGuess on.
+    for (const p of ['/', '/privacy', '/passport', '/u/mina_92', '/settings', '/settings/worlds', '/login', '/directory', '/auth/arrive', '/api/passport/redeem', '/daily']) {
       expect(isKnownRouteFor('hub', p, flags), p).toBe(true);
     }
-    for (const p of ['/q/anything', '/series', '/one-piece-quiz', '/blindtest', '/create', '/daily', '/me', '/search']) {
+    for (const p of ['/q/anything', '/series', '/one-piece-quiz', '/blindtest', '/create', '/me', '/search']) {
       expect(isKnownRouteFor('hub', p, flags), p).toBe(false);
     }
   });
@@ -640,14 +641,18 @@ describe('middleware step and the sites/[site] guard', () => {
     walk(root);
     expect(pages.length).toBeGreaterThanOrEqual(9);
     // The daily games (CR-013) are the only pages closed by a flag. While dailyGuess is off they answer as any unknown URL; on, each public address is in the map.
-    // /burrow and /dle-share are internal folders, reached through the rewrites only.
+    // /burrow and /dle-share are internal folders, reached through the rewrites only. Since launch day (2026-11-07, RUNBOOK K8c) the hub's flag is on.
     const closed = new Set([
       '/burrow', '/dle-share/xlocale/xgame/xr', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball',
       '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
     ]);
     for (const p of closed) expect(pages, `closed page ${p}`).toContain(p);
-    expect(REGISTRY.hub.features.dailyGuess).toBe(false);
-    for (const p of closed) expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+    expect(REGISTRY.hub.features.dailyGuess).toBe(true);
+    const internal = new Set(['/burrow', '/dle-share/xlocale/xgame/xr']);
+    for (const p of closed) {
+      if (internal.has(p)) expect(middlewareStep('hub', p), `hub ${p}`).toBe('not-found');
+      else expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
+    }
     expect(hubRouteAllow({ dailyGuess: true })).toEqual(expect.arrayContaining([
       '/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball',
       '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',

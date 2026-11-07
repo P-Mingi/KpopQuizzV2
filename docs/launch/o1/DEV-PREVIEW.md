@@ -3,7 +3,8 @@
 A Vercel Preview of the three projects (`kpopquiz`, `fandomverse`, `otakuquiz`), branch `o1/integration`, on the dev database `o1-dev`, with the four
 daily games on (Kpopdle Idol, Otakudle, Otakudle One Piece, Otakudle Dragon Ball), the links between the sites and the 365-day draw of each game.
 Preview only. Nothing here touches Production: the SQL is applied to `o1-dev` by the orchestrator with `scripts/o1/migrate-dev.sh`, and the one
-code switch ignores a Production build.
+code switch ignored a Production build. That switch (`NEXT_PUBLIC_DLE_PREVIEW`) is gone since launch day, 2026-11-07: the launch-day PR (RUNBOOK K8c)
+writes `dailyGuess: true` for the hub in the registry, on every build (section 2).
 
 ## 1. The SQL, for the orchestrator
 
@@ -55,7 +56,7 @@ The Preview variables that already exist stay as they are. A public variable is 
 
 | variable | kpopquiz | fandomverse (hub) | otakuquiz (anime) | note |
 |---|---|---|---|---|
-| `NEXT_PUBLIC_DLE_PREVIEW` | `1` | `1` | `1` | new. Turns the hub's `dailyGuess` on for the Preview: the Burrow and the four game pages on the hub, the links on OtakuQuiz and, with the three below, on kpopquiz.org. Closed by default: it is on only when `NEXT_PUBLIC_VERCEL_ENV` is exactly `preview` as well (Vercel sets that one itself on every deployment, if "Automatically expose System Environment Variables" is on in the project's Environment Variables settings), the same value in the server and the browser. A Production build, a local build and a project without the exposed system variables keep the games closed. Never set it on Production |
+| `NEXT_PUBLIC_DLE_PREVIEW` | gone | gone | gone | Gone since launch day, 2026-11-07. The launch-day PR (RUNBOOK K8c) writes `dailyGuess: true` for the hub in the registry and removes the switch with its function (`dlePreviewOn`): no code reads this variable any more, and a Preview of `o1/integration` now has the daily games on because the code has them on. A value left on the three projects does nothing; delete it from their Preview environment when convenient. Until that day it turned the hub's `dailyGuess` on for a Preview only (on when `NEXT_PUBLIC_VERCEL_ENV` was exactly `preview` as well) |
 | `NET_KPOPDLE_HOME` | `1` | not used | not used | the Kpopdle module on the kpopquiz.org home |
 | `NET_KPOPDLE_QUIZEND` | `1` | not used | not used | the Kpopdle row under "Next quiz" after a K-pop quiz |
 | `NET_KPOPDLE_GROUP` | `1` | not used | not used | the Kpopdle card on a group page |

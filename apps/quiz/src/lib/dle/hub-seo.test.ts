@@ -1,5 +1,6 @@
 // Run O1, lane SEO (2026-11-05): the SEO of the pages of the daily games on bunnyverse.org, judged against the rulebook (.claude/skills/kpopquiz-seo) for both states of the hub's dailyGuess flag.
-// Flag off (today): every page and the share page answer 404, the sitemap lists none of them, the route map knows none. Flag on (launch day): the pages are drawn, and the sitemap, the metadata
+// Flag off (before launch day, or after a revert): every page and the share page answer 404, the sitemap lists none of them, the route map knows none. Flag on (launch day 2026-11-07,
+// the registry since the K8c PR): the pages are drawn, and the sitemap, the metadata
 // (robots, canonical, hreflang), the JSON-LD and the links agree with each other. The pieces are tested one by one in dle-step4.test.ts and series-pages.test.ts; this file holds the invariants
 // between them, so that no page is listed while it says noindex, none says index while it is out of the sitemap, and no link or hreflang leads to a 404.
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -97,7 +98,7 @@ const hrefs = (html: string): string[] => [...html.matchAll(/<a\b[^>]*?\bhref="(
 const internalPaths = (html: string): string[] => hrefs(html).filter((h) => h.startsWith('/') && !h.startsWith('//')).map((h) => h.split(/[?#]/)[0]!);
 const jsonLd = (html: string): Record<string, unknown>[] => [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]!) as Record<string, unknown>);
 
-describe('the flag off (today): the pages are a 404 and nothing leads to them', () => {
+describe('the flag off (before launch day, or after a revert of the K8c PR): the pages are a 404 and nothing leads to them', () => {
   it('every game page, the Burrow and the share page answer as an unknown URL, in the metadata and in the body', async () => {
     gate.open = false;
     gate.live = new Set(ALL_GAMES);
@@ -114,11 +115,14 @@ describe('the flag off (today): the pages are a 404 and nothing leads to them', 
 
   it('the route map of the hub knows none of the pages, the sitemap lists none of them, with the network open', async () => {
     for (const path of dleLivePaths()) expect(known(false, path), path).toBe(false);
-    expect(REGISTRY.hub.features.dailyGuess).toBe(false);
-    for (const path of dleLivePaths()) expect(REGISTRY.hub.routes.allow, path).not.toContain(path);
+    // Launch day (2026-11-07, RUNBOOK K8c): the registry has the flag on and its route map carries every page; the off state is the one a revert brings back.
+    expect(REGISTRY.hub.features.dailyGuess).toBe(true);
+    for (const path of dleLivePaths()) expect(REGISTRY.hub.routes.allow, path).toContain(path);
+    const hubOff = { ...REGISTRY.hub, features: { ...REGISTRY.hub.features, dailyGuess: false }, routes: { allow: hubRouteAllow({ dailyGuess: false }) } };
+    for (const path of dleLivePaths()) expect(hubOff.routes.allow, path).not.toContain(path);
     vi.stubEnv('NET_INDEXING', '1');
     const rpc = vi.fn(async () => ({ data: dayOf('kpopdle-idol'), error: null }));
-    const paths = (await sitemapEntriesFor(REGISTRY.hub, { rpc } as never)).map((e) => e.path);
+    const paths = (await sitemapEntriesFor(hubOff, { rpc } as never)).map((e) => e.path);
     for (const path of dleLivePaths()) expect(paths, path).not.toContain(path);
     expect(rpc).not.toHaveBeenCalled();
   });
@@ -146,6 +150,8 @@ describe('the sitemap of the hub, the flag on', () => {
   it('the network open and every game answering: the Burrow and the four English pages, a real date, nothing else of the Terrier', async () => {
     vi.stubEnv('NET_INDEXING', '1');
     const entries = await sitemapEntriesFor(hubOn, dbOf(everyGame(DATE)) as never);
+    // Launch day (RUNBOOK K8c): the registry's own hub is this one, so the sitemap bunnyverse.org serves is the same list.
+    expect(await sitemapEntriesFor(REGISTRY.hub, dbOf(everyGame(DATE)) as never)).toEqual(entries);
     const en = [DAILY_PATH, ...builtGames().map((g) => g.path)];
     expect(entries.map((e) => e.path)).toEqual(['/', ...en, ...(DLE_FR_REVIEWED ? en.map((p) => localePath(p, 'fr')) : []), '/privacy', '/legal']);
     for (const e of entries.filter((x) => en.includes(x.path))) expect(e.lastModified?.toISOString(), e.path).toBe(`${DATE}T00:05:00.000Z`);
