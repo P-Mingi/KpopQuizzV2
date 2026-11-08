@@ -114,10 +114,10 @@
   {
     "slug": "buggy",
     "name": "Buggy",
-    "affiliation": "Cross Guild",
+    "affiliation": "Buggy Pirates",
     "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/Buggy",
-    "note": "Judgement: infobox lists Cross Guild first; first met as Buggy Pirates (also listed)."
+    "note": "Debut-arc rule (Orange Town): the captain of the Buggy Pirates, the crew he leads there. Cross Guild comes after Impel Down. Infobox lists Buggy Pirates."
   },
   {
     "slug": "donquixote-doflamingo",
@@ -146,10 +146,10 @@
   {
     "slug": "crocodile",
     "name": "Crocodile",
-    "affiliation": "Cross Guild",
-    "family": "pirates",
+    "affiliation": "Baroque Works",
+    "family": null,
     "source": "https://onepiece.fandom.com/wiki/Crocodile",
-    "note": "Judgement: infobox lists Cross Guild first; first met as Baroque Works boss (also listed, former)."
+    "note": "Debut-arc rule (Little Garden): the boss of Baroque Works (Mr. 0). Family: none, Baroque Works is a criminal company, not a crew. Infobox lists Baroque Works (former)."
   },
   {
     "slug": "smoker",
@@ -213,7 +213,7 @@
     "affiliation": "Marines",
     "family": "marines",
     "source": "https://onepiece.fandom.com/wiki/Kuzan",
-    "note": "Judgement: infobox lists Blackbeard Pirates first; the series mainly presents Admiral Aokiji of the Marines (listed as resigned)."
+    "note": "Debut-arc rule (Long Ring Long Land): met as Admiral Aokiji of the Marines. Blackbeard Pirates comes after his resignation. Infobox lists Marines (resigned)."
   },
   {
     "slug": "sakazuki",
@@ -250,10 +250,10 @@
   {
     "slug": "dracule-mihawk",
     "name": "Dracule Mihawk",
-    "affiliation": "Cross Guild",
+    "affiliation": "Seven Warlords of the Sea",
     "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/Dracule_Mihawk",
-    "note": ""
+    "note": "Debut-arc rule (Baratie): met as a Seven Warlord of the Sea. Cross Guild comes two years after Marineford. Infobox lists Seven Warlords of the Sea (former). Family: pirates, a Warlord is a pirate under a government pact."
   },
   {
     "slug": "jewelry-bonney",
@@ -274,10 +274,10 @@
   {
     "slug": "caesar-clown",
     "name": "Caesar Clown",
-    "affiliation": "Germa Kingdom",
-    "family": null,
+    "affiliation": "Donquixote Pirates",
+    "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/Caesar_Clown",
-    "note": "Judgement: infobox lists Germa Kingdom first, then NEO MADS; first met as Doflamingo's ally (Donquixote Pirates, former). Needs the owner's eye."
+    "note": "Debut-arc rule (Punk Hazard): met as the scientist who works for Doflamingo (the arc page lists him with the Donquixote Pirates). Judgement: MADS is the other reading. Infobox lists Donquixote Pirates (former)."
   },
   {
     "slug": "gecko-moria",
@@ -442,10 +442,10 @@
   {
     "slug": "galdino",
     "name": "Galdino",
-    "affiliation": "Cross Guild",
-    "family": "pirates",
+    "affiliation": "Baroque Works",
+    "family": null,
     "source": "https://onepiece.fandom.com/wiki/Galdino",
-    "note": "Infobox lists Cross Guild first."
+    "note": "Debut-arc rule (Little Garden): met as Mr. 3 of Baroque Works. Cross Guild comes after Impel Down. Infobox lists Baroque Works (formerly)."
   },
   {
     "slug": "hatchan",
@@ -610,10 +610,10 @@
   {
     "slug": "x-drake",
     "name": "X Drake",
-    "affiliation": "Marines",
-    "family": "marines",
+    "affiliation": "Drake Pirates",
+    "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/X_Drake",
-    "note": "Judgement: infobox lists Marines first (SWORD); first met as Drake Pirates (listed next)."
+    "note": "Debut-arc rule (Sabaody Archipelago): met as the captain of the Drake Pirates, a Supernova. His Marine infiltration (SWORD) is revealed later. Infobox lists Drake Pirates."
   },
   {
     "slug": "jesus-burgess",
@@ -722,10 +722,10 @@
   {
     "slug": "alvida",
     "name": "Alvida",
-    "affiliation": "Cross Guild",
+    "affiliation": "Alvida Pirates",
     "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/Alvida",
-    "note": "Judgement: infobox lists Cross Guild first; first met as captain of the Alvida Pirates (listed, former)."
+    "note": "Debut-arc rule (Romance Dawn): met as the captain of the Alvida Pirates. Cross Guild comes after Impel Down. Infobox lists Alvida Pirates (formerly)."
   },
   {
     "slug": "trebol",
@@ -746,10 +746,10 @@
   {
     "slug": "daz-bonez",
     "name": "Daz Bonez",
-    "affiliation": "Cross Guild",
-    "family": "pirates",
+    "affiliation": "Baroque Works",
+    "family": null,
     "source": "https://onepiece.fandom.com/wiki/Daz_Bonez",
-    "note": "Infobox lists Cross Guild first."
+    "note": "Debut-arc rule (Alabasta): met as Mr. 1 of Baroque Works. Cross Guild comes after Impel Down. Infobox lists Baroque Works (former)."
   },
   {
     "slug": "diamante",

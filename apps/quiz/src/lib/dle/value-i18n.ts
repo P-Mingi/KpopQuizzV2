@@ -55,6 +55,8 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
   'Germa Kingdom': 'Royaume de Germa',
   'Vinsmoke Family': 'Famille Vinsmoke',
   'Ryugu Kingdom': 'Royaume de Ryugu',
+  'Alvida Pirates': 'Pirates d’Alvida',
+  'Drake Pirates': 'Pirates de Drake',
   // Dragon Ball: races, planets, organisations
   Human: 'Humain',
   Android: 'Androïde',

@@ -92,6 +92,39 @@ describe('L17: one main affiliation per One Piece character', () => {
     expect(await cell(db, 'Monkey D. Luffy', 'Vegapunk')).toBe('unknown');
   });
 
+  it('the debut-arc rule (owner 2026-11-08): the affiliation of the arc the game lists, for the named cases', async () => {
+    const want: Record<string, [string, string | null]> = {
+      buggy: ['Buggy Pirates', 'pirates'], crocodile: ['Baroque Works', null], galdino: ['Baroque Works', null], alvida: ['Alvida Pirates', 'pirates'],
+      'daz-bonez': ['Baroque Works', null], 'dracule-mihawk': ['Seven Warlords of the Sea', 'pirates'], kuzan: ['Marines', 'marines'],
+      'x-drake': ['Drake Pirates', 'pirates'], 'caesar-clown': ['Donquixote Pirates', 'pirates'],
+    };
+    for (const [slug, [aff, fam]] of Object.entries(want)) {
+      const d = DATA.find((x) => x.slug === slug)!;
+      expect([slug, d.affiliation, d.family]).toEqual([slug, aff, fam]);
+    }
+    expect(DATA.filter((d) => d.affiliation === 'Cross Guild')).toEqual([]);
+    // Right, Close, Wrong between them.
+    expect(await cell(db, 'Crocodile', 'Galdino')).toBe('correct');
+    expect(await cell(db, 'Crocodile', 'Daz Bonez')).toBe('correct');
+    expect(await cell(db, 'Crocodile', 'Buggy')).toBe('wrong');
+    expect(await cell(db, 'Buggy', 'Alvida')).toBe('near');
+    expect(await cell(db, 'Buggy', 'Dracule Mihawk')).toBe('near');
+    expect(await cell(db, 'X Drake', 'Buggy')).toBe('near');
+    expect(await cell(db, 'Caesar Clown', 'Donquixote Doflamingo')).toBe('correct');
+    expect(await cell(db, 'Kuzan', 'Monkey D. Garp')).toBe('correct');
+    expect(await cell(db, 'Kuzan', 'Buggy')).toBe('wrong');
+  });
+
+  it('the other characters the rule would change are listed for the owner, not applied', () => {
+    const f = JSON.parse(readFileSync(path.resolve(MIGRATIONS, '../../anime/data/dle/one-piece-affiliation-rule-diffs.json'), 'utf8')) as {
+      diffs: { slug: string; today: string | null; rule: string }[]; joins: { slug: string }[];
+    };
+    expect(f.diffs.map((d) => d.slug).sort()).toEqual(['bartholomew-kuma', 'brook', 'franky', 'jinbe', 'koby', 'kyros', 'nefertari-vivi', 'nico-robin', 'portgas-d-ace', 'sabo', 'sanji', 'usopp', 'vegapunk', 'viola']);
+    for (const d of f.diffs) expect(d.rule, d.slug).not.toBe(DATA.find((x) => x.slug === d.slug)!.affiliation);
+    expect(f.joins.map((j) => j.slug).sort()).toEqual(['nami', 'roronoa-zoro', 'tony-tony-chopper']);
+    expect(JSON.stringify(f)).not.toMatch(/[–—]/);
+  });
+
   it('a second run changes nothing; the French words exist for every affiliation', async () => {
     const a = await snapshot(db);
     await db.exec(readLaunch('L17-l1-op-affiliation.sql'));

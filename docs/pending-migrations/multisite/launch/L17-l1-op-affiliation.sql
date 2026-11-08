@@ -3,7 +3,7 @@
 -- What:   Otakudle One Piece, column affiliation: from multi (several crews, "one in common is near") to single, ONE main affiliation per character
 --         ({"v": affiliation, "p": [family]}, dle_compare: same v is Right, same family p is Near, else Wrong; no "p" means no Near).
 --         Families: pirates (every crew, Yonko and subordinate crews, Cross Guild), marines, world-government (Cipher Pol, Impel Down, the World Government),
---         revolutionary-army; kingdoms, clans, Minks and civilians have no family. 100 characters, 99 with a main affiliation, 45 affiliations, 4 families (pirates, marines, revolutionary-army, world-government), 21 with no family, 28 judgement calls, 1 unsourced (vegapunk).
+--         revolutionary-army; kingdoms, clans, Minks and civilians have no family. 100 characters, 99 with a main affiliation, 48 affiliations, 4 families (pirates, marines, revolutionary-army, world-government), 23 with no family, 22 judgement calls, 1 unsourced (vegapunk).
 --         Sources: data in docs/anime/data/dle/one-piece-affiliation.json (the Fandom infobox of each character, captured in scripts/anime/a2/data/one-piece.json).
 --         Updates the attrs.affiliation of 99 character_game_facts rows (otakudle-one-piece), the kind of the column in dle_attributes, and adds 6 entity_sources
 --         rows (fandom) for characters that had no value (silvers-rayleigh, yamato, marco, bellamy, helmeppo, uta). can_be_target is not touched (vegapunk keeps an empty affiliation: no clear main one in the infobox).
@@ -44,11 +44,11 @@ with n(slug, val) as (values
     ('trafalgar-law', '{"v":"Heart Pirates","p":["pirates"]}'::jsonb),
     ('portgas-d-ace', '{"v":"Whitebeard Pirates","p":["pirates"]}'::jsonb),
     ('boa-hancock', '{"v":"Kuja Pirates","p":["pirates"]}'::jsonb),
-    ('buggy', '{"v":"Cross Guild","p":["pirates"]}'::jsonb),
+    ('buggy', '{"v":"Buggy Pirates","p":["pirates"]}'::jsonb),
     ('donquixote-doflamingo', '{"v":"Donquixote Pirates","p":["pirates"]}'::jsonb),
     ('charlotte-linlin', '{"v":"Big Mom Pirates","p":["pirates"]}'::jsonb),
     ('edward-newgate', '{"v":"Whitebeard Pirates","p":["pirates"]}'::jsonb),
-    ('crocodile', '{"v":"Cross Guild","p":["pirates"]}'::jsonb),
+    ('crocodile', '{"v":"Baroque Works"}'::jsonb),
     ('smoker', '{"v":"Marines","p":["marines"]}'::jsonb),
     ('bartholomew-kuma', '{"v":"Revolutionary Army","p":["revolutionary-army"]}'::jsonb),
     ('kaido', '{"v":"Beasts Pirates","p":["pirates"]}'::jsonb),
@@ -61,10 +61,10 @@ with n(slug, val) as (values
     ('eustass-kid', '{"v":"Kid Pirates","p":["pirates"]}'::jsonb),
     ('borsalino', '{"v":"Marines","p":["marines"]}'::jsonb),
     ('sabo', '{"v":"Revolutionary Army","p":["revolutionary-army"]}'::jsonb),
-    ('dracule-mihawk', '{"v":"Cross Guild","p":["pirates"]}'::jsonb),
+    ('dracule-mihawk', '{"v":"Seven Warlords of the Sea","p":["pirates"]}'::jsonb),
     ('jewelry-bonney', '{"v":"Bonney Pirates","p":["pirates"]}'::jsonb),
     ('rob-lucci', '{"v":"Cipher Pol","p":["world-government"]}'::jsonb),
-    ('caesar-clown', '{"v":"Germa Kingdom"}'::jsonb),
+    ('caesar-clown', '{"v":"Donquixote Pirates","p":["pirates"]}'::jsonb),
     ('gecko-moria', '{"v":"Thriller Bark Pirates","p":["pirates"]}'::jsonb),
     ('arlong', '{"v":"Arlong Pirates","p":["pirates"]}'::jsonb),
     ('kozuki-oden', '{"v":"Kouzuki Family"}'::jsonb),
@@ -84,7 +84,7 @@ with n(slug, val) as (values
     ('bellamy', '{"v":"Bellamy Pirates","p":["pirates"]}'::jsonb),
     ('kin-emon', '{"v":"Kouzuki Family"}'::jsonb),
     ('basil-hawkins', '{"v":"Hawkins Pirates","p":["pirates"]}'::jsonb),
-    ('galdino', '{"v":"Cross Guild","p":["pirates"]}'::jsonb),
+    ('galdino', '{"v":"Baroque Works"}'::jsonb),
     ('hatchan', '{"v":"Arlong Pirates","p":["pirates"]}'::jsonb),
     ('foxy', '{"v":"Foxy Pirates","p":["pirates"]}'::jsonb),
     ('don-krieg', '{"v":"Krieg Pirates","p":["pirates"]}'::jsonb),
@@ -105,7 +105,7 @@ with n(slug, val) as (values
     ('helmeppo', '{"v":"Marines","p":["marines"]}'::jsonb),
     ('vinsmoke-reiju', '{"v":"Vinsmoke Family"}'::jsonb),
     ('caribou', '{"v":"Caribou Pirates","p":["pirates"]}'::jsonb),
-    ('x-drake', '{"v":"Marines","p":["marines"]}'::jsonb),
+    ('x-drake', '{"v":"Drake Pirates","p":["pirates"]}'::jsonb),
     ('jesus-burgess', '{"v":"Blackbeard Pirates","p":["pirates"]}'::jsonb),
     ('rebecca', '{"v":"Dressrosa"}'::jsonb),
     ('nekomamushi', '{"v":"Mokomo Dukedom"}'::jsonb),
@@ -119,10 +119,10 @@ with n(slug, val) as (values
     ('jack', '{"v":"Beasts Pirates","p":["pirates"]}'::jsonb),
     ('vinsmoke-yonji', '{"v":"Vinsmoke Family"}'::jsonb),
     ('vinsmoke-ichiji', '{"v":"Vinsmoke Family"}'::jsonb),
-    ('alvida', '{"v":"Cross Guild","p":["pirates"]}'::jsonb),
+    ('alvida', '{"v":"Alvida Pirates","p":["pirates"]}'::jsonb),
     ('trebol', '{"v":"Donquixote Pirates","p":["pirates"]}'::jsonb),
     ('uta', '{"v":"Red Hair Pirates","p":["pirates"]}'::jsonb),
-    ('daz-bonez', '{"v":"Cross Guild","p":["pirates"]}'::jsonb),
+    ('daz-bonez', '{"v":"Baroque Works"}'::jsonb),
     ('diamante', '{"v":"Donquixote Pirates","p":["pirates"]}'::jsonb),
     ('pica', '{"v":"Donquixote Pirates","p":["pirates"]}'::jsonb),
     ('viola', '{"v":"Riku Family"}'::jsonb),
