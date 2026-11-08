@@ -11,6 +11,9 @@ export const dynamic = 'force-dynamic';
 
 const PINK = '#D13A6E';
 const ORANGE = '#C2410C';
+// The bars count right cells: green like the Right cell of the games (--hub-dle-right), a lighter green under the best guess.
+const RIGHT = '#15803D';
+const RIGHT_SOFT = '#86C79B';
 
 export async function GET(request: NextRequest): Promise<Response> {
   const { searchParams } = new URL(request.url);
@@ -31,7 +34,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         </div>
         <div style={{ display: 'flex', alignItems: 'flex-end', height: 200 }}>
           {v.counts.map((k, i) => (
-            <div key={i} style={{ display: 'flex', width: 44, marginRight: 14, borderRadius: 10, height: Math.max(18, Math.round((k / v.max) * 200)), background: k === v.max ? accent : v.game.universe === 'kpop' ? '#F2C3D3' : '#FDBA8C' }} />
+            <div key={i} style={{ display: 'flex', width: 44, marginRight: 14, borderRadius: 10, height: Math.max(18, Math.round((k / v.max) * 200)), background: k === v.max ? RIGHT : RIGHT_SOFT }} />
           ))}
         </div>
         <div style={{ display: 'flex', fontSize: 32, fontWeight: 700 }}>{`bunnyverse.org${v.game.path}`}</div>
