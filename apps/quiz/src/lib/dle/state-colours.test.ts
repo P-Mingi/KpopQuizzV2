@@ -62,6 +62,29 @@ describe('the cell colours, in the stylesheet', () => {
   });
 });
 
+describe('Close reads as clearly red, not pale pink (owner 2026-11-08)', () => {
+  const sat = (hex: string): { s: number; l: number } => {
+    const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number];
+    const max = Math.max(r, g, b); const min = Math.min(r, g, b); const l = (max + min) / 2;
+    return { s: max === min ? 0 : (max - min) / (1 - Math.abs(2 * l - 1)), l };
+  };
+  for (const [name, t] of Object.entries({ light: LIGHT, dark: DARK, 'dark (system)': DARK_AUTO })) {
+    it(`${name}: both stripes are saturated and neither is a pastel`, () => {
+      for (const k of ['hub-dle-near-1', 'hub-dle-near-2']) {
+        const { s, l } = sat(t[k]!);
+        expect(s, `${name} ${k} saturation`).toBeGreaterThanOrEqual(0.6);
+        expect(l, `${name} ${k} lightness`).toBeLessThanOrEqual(0.72);
+      }
+    });
+  }
+  it('the kpopquiz.org Kpopdle module stripes use the strong red, not the soft tint', () => {
+    const mod = readFileSync(join(__dirname, '../../components/home/ux-v1/kpopdle-home.tsx'), 'utf8');
+    const line = mod.split('\n').find((l) => l.startsWith('.p1-kd-near')) ?? '';
+    expect(line).toContain('repeating-linear-gradient(135deg, var(--ux-no) 0 3px');
+    expect(line).not.toContain('--ux-no-soft');
+  });
+});
+
 describe('the text of every cell is AA (4.5:1), computed', () => {
   const themes = { light: LIGHT, dark: DARK, 'dark (system)': DARK_AUTO } as const;
   for (const [name, t] of Object.entries(themes)) {
