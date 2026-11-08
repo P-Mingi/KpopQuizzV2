@@ -99,6 +99,20 @@ export const GENDER: Readonly<Record<DleLocale, Readonly<Record<string, string>>
 };
 
 /** What a stored label (the `l` of a value) says in French; a label that is not here is shown as it is. */
+/** Otakudle, column Genres (owner 2026-11-08): the closed list of the genres of a work, as stored (a key), in both languages. The list, its mapping from the Wikipedia infobox and the rule are in docs/anime/data/dle/otakudle-genres-map.md. */
+export const GENRE: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
+  en: {
+    action: 'Action', adventure: 'Adventure', fantasy: 'Fantasy', 'dark-fantasy': 'Dark fantasy', supernatural: 'Supernatural', 'martial-arts': 'Martial arts', 'science-fiction': 'Science fiction',
+    comedy: 'Comedy', 'mystery-thriller': 'Mystery and thriller', romance: 'Romance', drama: 'Drama', 'slice-of-life': 'Slice of life', sports: 'Sports', 'post-apocalyptic': 'Post-apocalyptic',
+    historical: 'Historical', 'visual-novel': 'Visual novel',
+  },
+  fr: {
+    action: 'Action', adventure: 'Aventure', fantasy: 'Fantasy', 'dark-fantasy': 'Dark fantasy', supernatural: 'Surnaturel', 'martial-arts': 'Arts martiaux', 'science-fiction': 'Science-fiction',
+    comedy: 'Comédie', 'mystery-thriller': 'Mystère et thriller', romance: 'Romance', drama: 'Drame', 'slice-of-life': 'Tranche de vie', sports: 'Sport', 'post-apocalyptic': 'Post-apocalyptique',
+    historical: 'Historique', 'visual-novel': 'Visual novel',
+  },
+};
+
 export const LABEL_FR: Readonly<Record<string, string>> = {
   'No bounty': 'Pas de prime',
 };

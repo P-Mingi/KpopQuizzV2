@@ -466,7 +466,7 @@ describe('the words and the SEO of /otakudle', () => {
   it('every column and every hint of the game has its words, in both languages', () => {
     for (const l of ['en', 'fr'] as const) {
       const w = gameCopy('otakudle', l);
-      expect(Object.keys(w.columns)).toEqual(['series', 'magazine', 'year', 'studio', 'gender', 'species', 'role']);
+      expect(Object.keys(w.columns)).toEqual(['series', 'genres', 'year', 'studio', 'gender', 'species', 'role']);
       for (const h of dleGame('otakudle').hints) expect(w.hints[h.key], h.key).toBeTruthy();
       expect(w, l).not.toHaveProperty('progress');
     }

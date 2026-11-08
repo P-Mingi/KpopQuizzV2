@@ -314,7 +314,9 @@
     "wikipedia_magazine": "Tonari no Young Jump",
     "source": "https://en.wikipedia.org/wiki/One-Punch_Man",
     "revision": "1384356976",
-    "note": "The infobox lists ONE's self-published webcomic (2009, no magazine) then the Tonari no Young Jump remake (2012): the magazine is the remake. The year is the owner's open question, see work_year."
+    "note": "The infobox lists ONE's self-published webcomic (2009, no magazine) then the Tonari no Young Jump remake (2012). Not displayed any more (the Genres column replaced Magazine); the year is 2009 by the owner's answer, see work_year.",
+    "work_year": 2009,
+    "year_note": "ONE's self-published webcomic, 2009 (first web publication, as for Re:Zero and Sword Art Online). The Tonari no Young Jump remake began in 2012. Owner's answer 2026-11-08: 2009."
   },
   {
     "series": "oshi-no-ko",
