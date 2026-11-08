@@ -1,0 +1,460 @@
+[
+  {
+    "series": "apothecary-diaries",
+    "magazine": "Light novel",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+    "revision": "1382807323",
+    "note": "Light novel (Hero Bunko, Shufunotomo), from the web novel of 2011. The Monthly Big Gangan manga (Square Enix, 2017) is an adaptation and is not the value."
+  },
+  {
+    "series": "attack-on-titan",
+    "magazine": "Bessatsu Shōnen Magazine",
+    "publisher": "Kodansha",
+    "wikipedia_magazine": "Bessatsu Shōnen Magazine",
+    "source": "https://en.wikipedia.org/wiki/Attack_on_Titan",
+    "revision": "1383771741",
+    "note": ""
+  },
+  {
+    "series": "black-clover",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Black_Clover",
+    "revision": "1381706424",
+    "note": "Weekly Shōnen Jump from 2015 to 2023, then Jump Giga (listed after it)."
+  },
+  {
+    "series": "bleach",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+    "revision": "1383591576",
+    "note": ""
+  },
+  {
+    "series": "blue-lock",
+    "magazine": "Shōnen Magazine",
+    "publisher": "Kodansha",
+    "wikipedia_magazine": "Weekly Shōnen Magazine",
+    "source": "https://en.wikipedia.org/wiki/Blue_Lock",
+    "revision": "1383987350",
+    "note": ""
+  },
+  {
+    "series": "bocchi-the-rock",
+    "magazine": "Kirara Max",
+    "publisher": "Houbunsha",
+    "wikipedia_magazine": "Manga Time Kirara Max",
+    "source": "https://en.wikipedia.org/wiki/Bocchi_the_Rock!",
+    "revision": "1383576549",
+    "note": ""
+  },
+  {
+    "series": "chainsaw-man",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+    "revision": "1382617994",
+    "note": "Part 1 ran in Weekly Shōnen Jump (2018 to 2020), part 2 in Shōnen Jump+ (2022 to 2026): the infobox lists Weekly Shōnen Jump first."
+  },
+  {
+    "series": "code-geass",
+    "magazine": "Original anime",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Code_Geass",
+    "revision": "1383895796",
+    "note": "Anime original (TV, October 2006). The Sneaker manga is a later adaptation."
+  },
+  {
+    "series": "cowboy-bebop",
+    "magazine": "Original anime",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Cowboy_Bebop",
+    "revision": "1382858966",
+    "note": "Anime original (TV, April 1998). The Asuka Fantasy DX manga ran alongside it as a tie-in and is not the value."
+  },
+  {
+    "series": "dandadan",
+    "magazine": "Jump+",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Shōnen Jump+",
+    "source": "https://en.wikipedia.org/wiki/Dandadan",
+    "revision": "1383634740",
+    "note": ""
+  },
+  {
+    "series": "death-note",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Death_Note",
+    "revision": "1381769893",
+    "note": ""
+  },
+  {
+    "series": "demon-slayer",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "revision": "1384221301",
+    "note": ""
+  },
+  {
+    "series": "detective-conan",
+    "magazine": "Shōnen Sunday",
+    "publisher": "Shogakukan",
+    "wikipedia_magazine": "Weekly Shōnen Sunday",
+    "source": "https://en.wikipedia.org/wiki/Case_Closed",
+    "revision": "1383303247",
+    "note": ""
+  },
+  {
+    "series": "dr-stone",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Dr._Stone",
+    "revision": "1383456221",
+    "note": ""
+  },
+  {
+    "series": "dragon-ball",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Dragon_Ball_(manga)",
+    "revision": "1384184378",
+    "note": "Read on the Dragon Ball (manga) page; the franchise page has no magazine."
+  },
+  {
+    "series": "evangelion",
+    "magazine": "Original anime",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+    "revision": "1383469280",
+    "note": "Anime original (TV, October 1995). The Shōnen Ace manga is a later adaptation."
+  },
+  {
+    "series": "fairy-tail",
+    "magazine": "Shōnen Magazine",
+    "publisher": "Kodansha",
+    "wikipedia_magazine": "Weekly Shōnen Magazine",
+    "source": "https://en.wikipedia.org/wiki/Fairy_Tail",
+    "revision": "1381103857",
+    "note": ""
+  },
+  {
+    "series": "frieren",
+    "magazine": "Shōnen Sunday",
+    "publisher": "Shogakukan",
+    "wikipedia_magazine": "Weekly Shōnen Sunday",
+    "source": "https://en.wikipedia.org/wiki/Frieren",
+    "revision": "1381436923",
+    "note": ""
+  },
+  {
+    "series": "fruits-basket",
+    "magazine": "Hana to Yume",
+    "publisher": "Hakusensha",
+    "wikipedia_magazine": "Hana to Yume",
+    "source": "https://en.wikipedia.org/wiki/Fruits_Basket",
+    "revision": "1379854325",
+    "note": ""
+  },
+  {
+    "series": "fullmetal-alchemist",
+    "magazine": "Shōnen Gangan",
+    "publisher": "Square Enix",
+    "wikipedia_magazine": "Monthly Shōnen Gangan",
+    "source": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist",
+    "revision": "1383145379",
+    "note": "The infobox lists Enix (2001 to 2003) then Square Enix (2003 to 2010), one company since the 2003 merger: the value is Square Enix."
+  },
+  {
+    "series": "gintama",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Gintama",
+    "revision": "1383136036",
+    "note": ""
+  },
+  {
+    "series": "haikyu",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Haikyu!!",
+    "revision": "1381740115",
+    "note": ""
+  },
+  {
+    "series": "hunter-x-hunter",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+    "revision": "1381097044",
+    "note": ""
+  },
+  {
+    "series": "inuyasha",
+    "magazine": "Shōnen Sunday",
+    "publisher": "Shogakukan",
+    "wikipedia_magazine": "Weekly Shōnen Sunday",
+    "source": "https://en.wikipedia.org/wiki/Inuyasha",
+    "revision": "1383636250",
+    "note": ""
+  },
+  {
+    "series": "jojo",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/JoJo's_Bizarre_Adventure",
+    "revision": "1382026619",
+    "note": "Weekly Shōnen Jump (1987 to 2004), then Ultra Jump: the first magazine is the value."
+  },
+  {
+    "series": "jujutsu-kaisen",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "revision": "1383558677",
+    "note": ""
+  },
+  {
+    "series": "kagurabachi",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Kagurabachi",
+    "revision": "1383522845",
+    "note": ""
+  },
+  {
+    "series": "kaguya-sama-love-is-war",
+    "magazine": "Young Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Young Jump",
+    "source": "https://en.wikipedia.org/wiki/Kaguya-sama:_Love_Is_War",
+    "revision": "1383885228",
+    "note": "The infobox lists Miracle Jump first (May 2015 to January 2016, eight months), then Weekly Young Jump (2016 to 2022). Rule: the first magazine, unless the work left it within a year; then the one it moved to. Both are Shueisha, so Miracle Jump would also be Close to Young Jump."
+  },
+  {
+    "series": "kaiju-no-8",
+    "magazine": "Jump+",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Shōnen Jump+",
+    "source": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+    "revision": "1383652211",
+    "note": ""
+  },
+  {
+    "series": "mob-psycho-100",
+    "magazine": "Ura Sunday",
+    "publisher": "Shogakukan",
+    "wikipedia_magazine": "Ura Sunday",
+    "source": "https://en.wikipedia.org/wiki/Mob_Psycho_100",
+    "revision": "1380373905",
+    "note": "The infobox lists Ura Sunday and MangaONE (its app); the first is the value.",
+    "work_year": 2012,
+    "year_note": "Manga on Ura Sunday, 18 April 2012 (infobox)."
+  },
+  {
+    "series": "my-hero-academia",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/My_Hero_Academia",
+    "revision": "1382270421",
+    "note": ""
+  },
+  {
+    "series": "naruto",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Naruto",
+    "revision": "1384339309",
+    "note": ""
+  },
+  {
+    "series": "omniscient-readers-viewpoint",
+    "magazine": "Webtoon",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Omniscient_Reader's_Viewpoint",
+    "revision": "1384228095",
+    "note": "A web novel of 2018 (Munpia) became a webtoon; the repo year and the research note count it as a webtoon."
+  },
+  {
+    "series": "one-piece",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/One_Piece",
+    "revision": "1383040207",
+    "note": ""
+  },
+  {
+    "series": "one-punch-man",
+    "magazine": "Tonari no Young Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Tonari no Young Jump",
+    "source": "https://en.wikipedia.org/wiki/One-Punch_Man",
+    "revision": "1384356976",
+    "note": "The infobox lists ONE's self-published webcomic (2009, no magazine) then the Tonari no Young Jump remake (2012): the magazine is the remake. The year is the owner's open question, see work_year."
+  },
+  {
+    "series": "oshi-no-ko",
+    "magazine": "Young Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Young Jump",
+    "source": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+    "revision": "1383885658",
+    "note": ""
+  },
+  {
+    "series": "re-zero",
+    "magazine": "Light novel",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Re:Zero",
+    "revision": "1383900035",
+    "note": "Web novel on Shōsetsuka ni Narō from April 2012, light novel (MF Bunko J, Media Factory) from January 2014.",
+    "work_year": 2012,
+    "year_note": "Web novel on Shōsetsuka ni Narō, 20 April 2012 (first print entry of the infobox). The light novel followed in January 2014."
+  },
+  {
+    "series": "sailor-moon",
+    "magazine": "Nakayoshi",
+    "publisher": "Kodansha",
+    "wikipedia_magazine": "Nakayoshi",
+    "source": "https://en.wikipedia.org/wiki/Sailor_Moon",
+    "revision": "1383278869",
+    "note": ""
+  },
+  {
+    "series": "sakamoto-days",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Sakamoto_Days",
+    "revision": "1383740686",
+    "note": ""
+  },
+  {
+    "series": "slam-dunk",
+    "magazine": "Shōnen Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Shōnen Jump",
+    "source": "https://en.wikipedia.org/wiki/Slam_Dunk_(manga)",
+    "revision": "1379466912",
+    "note": ""
+  },
+  {
+    "series": "solo-leveling",
+    "magazine": "Webtoon",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Solo_Leveling",
+    "revision": "1383622083",
+    "note": "A web novel of 2016 (KakaoPage) became a webtoon in 2018; the repo year and the research note count it as a webtoon."
+  },
+  {
+    "series": "spy-x-family",
+    "magazine": "Jump+",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Shōnen Jump+",
+    "source": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+    "revision": "1383633476",
+    "note": ""
+  },
+  {
+    "series": "steins-gate",
+    "magazine": "Visual novel",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Steins%3BGate",
+    "revision": "1383046647",
+    "note": "Visual novel (5pb., 15 October 2009).",
+    "work_year": 2009,
+    "year_note": "The visual novel, released 15 October 2009 (infobox)."
+  },
+  {
+    "series": "sword-art-online",
+    "magazine": "Light novel",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Sword_Art_Online",
+    "revision": "1383891138",
+    "note": "Web novel on the author's site from 2002, Dengeki Bunko light novel from April 2009.",
+    "work_year": 2002,
+    "year_note": "Self-published web novel, 2002 (first print entry of the infobox). The Dengeki Bunko light novel followed in April 2009."
+  },
+  {
+    "series": "that-time-i-got-reincarnated-as-a-slime",
+    "magazine": "Light novel",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/That_Time_I_Got_Reincarnated_as_a_Slime",
+    "revision": "1381575839",
+    "note": "Web novel on Shōsetsuka ni Narō from February 2013, GC Novels light novel from 2014. The Monthly Shōnen Sirius manga (2015) is an adaptation and is not the value."
+  },
+  {
+    "series": "tokyo-ghoul",
+    "magazine": "Young Jump",
+    "publisher": "Shueisha",
+    "wikipedia_magazine": "Weekly Young Jump",
+    "source": "https://en.wikipedia.org/wiki/Tokyo_Ghoul",
+    "revision": "1383194295",
+    "note": ""
+  },
+  {
+    "series": "tokyo-revengers",
+    "magazine": "Shōnen Magazine",
+    "publisher": "Kodansha",
+    "wikipedia_magazine": "Weekly Shōnen Magazine",
+    "source": "https://en.wikipedia.org/wiki/Tokyo_Revengers",
+    "revision": "1383843905",
+    "note": ""
+  },
+  {
+    "series": "tower-of-god",
+    "magazine": "Webtoon",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Tower_of_God",
+    "revision": "1378030268",
+    "note": "Naver Webtoon, 2010."
+  },
+  {
+    "series": "vinland-saga",
+    "magazine": "Afternoon",
+    "publisher": "Kodansha",
+    "wikipedia_magazine": "Monthly Afternoon",
+    "source": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)",
+    "revision": "1383626696",
+    "note": "The infobox lists Weekly Shōnen Magazine first (April to October 2005, six months), then Monthly Afternoon (2005 to 2025). Rule: the first magazine, unless the work left it within a year; then the one it moved to. Both are Kodansha."
+  },
+  {
+    "series": "violet-evergarden",
+    "magazine": "Light novel",
+    "publisher": null,
+    "wikipedia_magazine": null,
+    "source": "https://en.wikipedia.org/wiki/Violet_Evergarden",
+    "revision": "1381043521",
+    "note": "Light novel (KA Esuma Bunko, Kyoto Animation), December 2015."
+  }
+]

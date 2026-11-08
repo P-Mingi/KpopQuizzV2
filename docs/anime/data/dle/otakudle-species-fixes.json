@@ -1,0 +1,162 @@
+[
+  {
+    "series": "dragon-ball",
+    "character": "captain-ginyu",
+    "name": "Captain Ginyu",
+    "from": "ginyu-s-race-mutant",
+    "to": "ginyu-race-mutant",
+    "source": "https://dragonball.fandom.com/wiki/Captain_Ginyu",
+    "infobox": "Ginyu's race mutant; Saiyan (Formerly) ; Human-type Earthling (Formerly) ; Namekian ; Frieza Race ; Majin ; 1/2 Saiyan-1/2 Earthling hybrid; Namekian Frog (Formerly) ; Tagoma's race",
+    "note": "The possessive (Fandom: the race of that character) lost its apostrophe as a hyphen and an s; the possessive is dropped, as for beerus-race."
+  },
+  {
+    "series": "dragon-ball",
+    "character": "babidi",
+    "name": "Babidi",
+    "from": "bibidi-s-race",
+    "to": "bibidi-race",
+    "source": "https://dragonball.fandom.com/wiki/Babidi",
+    "infobox": "Bibidi's race ( Alien -type)",
+    "note": "The possessive (Fandom: the race of that character) lost its apostrophe as a hyphen and an s; the possessive is dropped, as for beerus-race."
+  },
+  {
+    "series": "dragon-ball",
+    "character": "zarbon",
+    "name": "Zarbon",
+    "from": "zarbon-s-race",
+    "to": "zarbon-race",
+    "source": "https://dragonball.fandom.com/wiki/Zarbon",
+    "infobox": "Zarbon's race",
+    "note": "The possessive (Fandom: the race of that character) lost its apostrophe as a hyphen and an s; the possessive is dropped, as for beerus-race."
+  },
+  {
+    "series": "dragon-ball",
+    "character": "dodoria",
+    "name": "Dodoria",
+    "from": "dodoria-s-race",
+    "to": "dodoria-race",
+    "source": "https://dragonball.fandom.com/wiki/Dodoria",
+    "infobox": "Dodoria's race",
+    "note": "The possessive (Fandom: the race of that character) lost its apostrophe as a hyphen and an s; the possessive is dropped, as for beerus-race."
+  },
+  {
+    "series": "dragon-ball",
+    "character": "recoome",
+    "name": "Recoome",
+    "from": "recoome-s-race",
+    "to": "recoome-race",
+    "source": "https://dragonball.fandom.com/wiki/Recoome",
+    "infobox": "Recoome's race (mutant)",
+    "note": "The possessive (Fandom: the race of that character) lost its apostrophe as a hyphen and an s; the possessive is dropped, as for beerus-race."
+  },
+  {
+    "series": "dragon-ball",
+    "character": "jiren",
+    "name": "Jiren",
+    "from": "jiren-s-race",
+    "to": "jiren-race",
+    "source": "https://dragonball.fandom.com/wiki/Jiren",
+    "infobox": "Jiren's race",
+    "note": "The possessive (Fandom: the race of that character) lost its apostrophe as a hyphen and an s; the possessive is dropped, as for beerus-race."
+  },
+  {
+    "series": "fairy-tail",
+    "character": "natsu-dragneel",
+    "name": "Natsu Dragneel",
+    "from": "demon",
+    "to": "human",
+    "source": "https://fairytail.fandom.com/wiki/Natsu_Dragneel",
+    "infobox": "Demon ( Etherious ) ; Human (former)",
+    "note": "A late reveal (Etherious, E.N.D.) is not the species as first met: the infobox says Human (former). Wikipedia (rev 1377065524) places the demon identity in the Tartaros and Alvarez arcs."
+  },
+  {
+    "series": "fullmetal-alchemist",
+    "character": "father",
+    "name": "Father",
+    "from": "homunculu",
+    "to": "homunculus",
+    "source": "https://fma.fandom.com/wiki/Father",
+    "infobox": "Homunculus",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "fullmetal-alchemist",
+    "character": "king-bradley",
+    "name": "King Bradley",
+    "from": "homunculu",
+    "to": "homunculus",
+    "source": "https://fma.fandom.com/wiki/King_Bradley",
+    "infobox": "Homunculus ; Human -based Homunculus",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "inuyasha",
+    "character": "sesshomaru",
+    "name": "Sesshomaru",
+    "from": "dog-daiy-kai",
+    "to": "dog-daiyokai",
+    "source": "https://inuyasha.fandom.com/wiki/Sessh%C5%8Dmaru",
+    "infobox": "Dog daiyōkai",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "inuyasha",
+    "character": "naraku",
+    "name": "Naraku",
+    "from": "spider-hany-spider-y-kai-spirit",
+    "to": "spider-hanyo",
+    "source": "https://inuyasha.fandom.com/wiki/Naraku",
+    "infobox": "Spider hanyō → Spider yōkai → Spirit",
+    "note": "The slug lost the long vowel of hanyō and glued the whole chain; the species as first met is the first step of the chain, Spider hanyō (hanyo)."
+  },
+  {
+    "series": "inuyasha",
+    "character": "kagura",
+    "name": "Kagura",
+    "from": "wind-y-kai",
+    "to": "wind-yokai",
+    "source": "https://inuyasha.fandom.com/wiki/Kagura",
+    "infobox": "Wind yōkai (detachment of Naraku)",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "inuyasha",
+    "character": "kanna",
+    "name": "Kanna",
+    "from": "nothing-y-kai",
+    "to": "nothing-yokai",
+    "source": "https://inuyasha.fandom.com/wiki/Kanna",
+    "infobox": "Nothing yōkai",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "inuyasha",
+    "character": "jaken",
+    "name": "Jaken",
+    "from": "imp-y-kai",
+    "to": "imp-yokai",
+    "source": "https://inuyasha.fandom.com/wiki/Jaken",
+    "infobox": "Imp yōkai",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "tower-of-god",
+    "character": "evan-edrok",
+    "name": "Evan Edrok",
+    "from": "silver-dwarve",
+    "to": "silver-dwarves",
+    "source": "https://towerofgod.fandom.com/wiki/Evan_Edrok",
+    "infobox": "Silver Dwarves",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  },
+  {
+    "series": "tower-of-god",
+    "character": "hwa-ryun",
+    "name": "Hwa Ryun",
+    "from": "red-witche",
+    "to": "red-witches",
+    "source": "https://towerofgod.fandom.com/wiki/Hwa_Ryun",
+    "infobox": "Red Witches",
+    "note": "The slug lost a long vowel or a final s of the infobox word."
+  }
+]

@@ -70,8 +70,8 @@ export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: nu
   }
   if (game === 'otakudle') {
     return locale === 'fr'
-      ? `Otakudle est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage d’anime. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la série, le genre, l’espèce, le rôle, la démographie, l’année et le studio. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
-      : `Otakudle is a free daily anime character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: series, gender, species, role, demographic, year and studio. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
+      ? `Otakudle est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage d’anime. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la série, le magazine, l’année, le studio, le genre, l’espèce et le rôle. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
+      : `Otakudle is a free daily anime character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: series, magazine, year, studio, gender, species and role. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
   }
   if (game === 'otakudle-one-piece') {
     return locale === 'fr'
