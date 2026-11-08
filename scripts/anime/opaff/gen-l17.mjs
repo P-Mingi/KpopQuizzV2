@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { D, FAMILY } from './decisions.mjs';
+import { D, FAMILY, RULE_DIFFS, JOINS } from './decisions.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const LAUNCH = path.join(ROOT, 'docs/pending-migrations/multisite/launch');
@@ -38,6 +38,14 @@ for (const c of chars) {
 }
 mkdirSync(path.join(ROOT, 'docs/anime/data/dle'), { recursive: true });
 writeFileSync(path.join(ROOT, 'docs/anime/data/dle/one-piece-affiliation.json'), JSON.stringify(out, null, 2) + '\n');
+
+const diffs = Object.entries(RULE_DIFFS).map(([slug, [aff, fam, arc, note]]) => {
+  const cur = out.find((x) => x.slug === slug);
+  if (!cur) throw new Error('unknown slug ' + slug);
+  return { slug, name: cur.name, debut_arc: arc, today: cur.affiliation, rule: aff, rule_family: FAMILY[fam], source: cur.source, note };
+});
+const joins = Object.entries(JOINS).map(([slug, note]) => ({ slug, name: out.find((x) => x.slug === slug).name, today: out.find((x) => x.slug === slug).affiliation, note }));
+writeFileSync(path.join(ROOT, 'docs/anime/data/dle/one-piece-affiliation-rule-diffs.json'), JSON.stringify({ diffs, joins }, null, 2) + '\n');
 
 const affs = new Set(out.filter((x) => x.affiliation).map((x) => x.affiliation));
 const fams = new Set(out.filter((x) => x.family).map((x) => x.family));
