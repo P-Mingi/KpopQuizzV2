@@ -81,6 +81,26 @@ export const HINT_VALUE_FR: Readonly<Record<string, string>> = {
 
 const frOr = (s: string, locale: DleLocale): string => (locale === 'fr' ? VALUE_FR[s] ?? s : s);
 
+const NBSP = '\u00A0';
+
+/**
+ * A bounty in Berry, short, the symbol last after a no-break space (the plain space between the number and the unit may wrap in a narrow cell): FR "3 milliards ฿", "1,5 milliard ฿", "320 millions ฿"; EN "3 billion ฿", "1.5 billion ฿", "320 million ฿".
+ * From a billion: billions; from a million: millions; under a million the whole number with the grouping of the language ("50 000 ฿" with a narrow no-break space in French, "50,000 ฿").
+ * At most two decimals, the trailing zeros dropped. French writes the unit in the singular under 2 ("1,5 milliard"), English never takes an s.
+ */
+export function formatBounty(berries: number, locale: DleLocale): string {
+  const tag = locale === 'fr' ? 'fr-FR' : 'en-US';
+  const num = (x: number, max: number): string => new Intl.NumberFormat(tag, { maximumFractionDigits: max }).format(x);
+  // 999 995 000 and more rounds to a billion: "1 milliard", never "1 000 millions".
+  const billions = berries >= 999_995_000;
+  if (billions || berries >= 1e6) {
+    const x = Math.round((berries / (billions ? 1e9 : 1e6)) * 100) / 100;
+    const unit = locale === 'fr' ? (billions ? ['milliard', 'milliards'] : ['million', 'millions']) : (billions ? ['billion', 'billion'] : ['million', 'million']);
+    return `${num(x, 2)} ${x < 2 ? unit[0] : unit[1]}${NBSP}\u0E3F`;
+  }
+  return `${num(berries, 0)}${NBSP}\u0E3F`;
+}
+
 /** A value of a column of a per-series game in a locale, or null when the column is not one of theirs (the caller then reads its own rules). */
 export function seriesValueLabel(key: string, v: string | number, locale: DleLocale, label?: string): string | null {
   const s = String(v);
@@ -91,7 +111,7 @@ export function seriesValueLabel(key: string, v: string | number, locale: DleLoc
     case 'devil_fruit_type': return s === 'none' ? NO_FRUIT_TYPE[locale] : s;
     case 'bounty': {
       if (label) return locale === 'fr' ? LABEL_FR[label] ?? label : label;
-      return typeof v === 'number' ? new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US').format(v) : s;
+      return typeof v === 'number' ? formatBounty(v, locale) : s;
     }
     case 'height_cm': return `${new Intl.NumberFormat(locale === 'fr' ? 'fr-FR' : 'en-US').format(Number(v))} cm`;
     case 'universe': return `${locale === 'fr' ? 'Univers' : 'Universe'} ${s}`;

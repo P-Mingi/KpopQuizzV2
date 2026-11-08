@@ -266,8 +266,8 @@ describe('the table of the values that change in French', () => {
   });
 
   it('numbers: a bounty and a height in the number format of the language; a stored label (an arc, a saga) is the cell, the saga without its series', () => {
-    expect(seriesValueLabel('bounty', 3000000000, 'en')).toBe('3,000,000,000');
-    expect(seriesValueLabel('bounty', 3000000000, 'fr')).toMatch(/^3\s000\s000\s000$/u);
+    expect(seriesValueLabel('bounty', 3000000000, 'en')).toBe('3 billion\u00A0\u0E3F');
+    expect(seriesValueLabel('bounty', 3000000000, 'fr')).toBe('3 milliards\u00A0\u0E3F');
     expect(seriesValueLabel('height_cm', 174, 'en')).toBe('174 cm');
     expect(seriesValueLabel('universe', 7, 'fr')).toBe('Univers 7');
     expect(seriesValueLabel('universe', 7, 'en')).toBe('Universe 7');
@@ -393,7 +393,7 @@ describe('the grid: 8 columns, the cells, the arrows', () => {
     const en = render('otakudle-one-piece', 'en', OP_POOL, LUFFY, [null, null, null, null, 'down', 'up']);
     expect(en).toContain('Straw Hat Pirates, Straw Hat Grand Fleet, Four Emperors, Clan of D.');
     expect(en).toContain('Observation, Armament, Conqueror');
-    expect(en).toContain('3,000,000,000');
+    expect(en).toContain('3 billion\u00A0\u0E3F');
     expect(en).toContain('174 cm');
     expect(en).toContain('Romance Dawn');
     expect(en).toContain('Male');
