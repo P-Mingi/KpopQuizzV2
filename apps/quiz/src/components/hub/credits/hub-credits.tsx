@@ -35,7 +35,7 @@ const WORDS: Readonly<Record<DleLocale, {
     photo: 'Photo :', source: 'Page source', character: (s) => `Un personnage de ${s}`,
     sections: { idols: 'Idols', groups: 'Groupes', agencies: 'Agences', series: 'Séries anime', characters: 'Personnages d\u2019anime', images: 'Bannières et images du site' },
     slots: {
-      'banner:kpopdle': 'Bannière de Kpopdle', 'banner:otakudle': 'Bannière d\u2019Otakudle', 'banner:daily': 'Bannière du Terrier', 'banner:otakudle/one-piece': 'Bannière d\u2019Otakudle One Piece',
+      'banner:kpopdle': 'Bannière de Kpopdle', 'banner:otakudle': 'Bannière d\u2019Otakudle', 'banner:daily': 'Bannière des jeux dle', 'banner:otakudle/one-piece': 'Bannière d\u2019Otakudle One Piece',
       'home:kpopdle': 'Carte Kpopdle', 'home:otakudle': 'Carte Otakudle',
       'home:qotd-k': 'Quiz K-pop du jour, page d\u2019accueil', 'home:qotd-a': 'Quiz anime du jour, page d\u2019accueil', 'home:debate': 'Débat du jour, page d\u2019accueil',
       'home:cross-1': 'Crossover, première vignette', 'home:cross-2': 'Crossover, deuxième vignette', 'home:cross-3': 'Crossover, troisième vignette',
@@ -70,7 +70,7 @@ export interface CreditSection { readonly id: string; readonly title: string; re
 const SLOT_NAMES: Readonly<Record<string, string>> = {
   'banner:kpopdle': 'Kpopdle banner',
   'banner:otakudle': 'Otakudle banner',
-  'banner:daily': 'The Burrow banner',
+  'banner:daily': 'The Dle games banner',
   'banner:otakudle/one-piece': 'Otakudle One Piece banner',
   'home:kpopdle': 'Kpopdle card',
   'home:otakudle': 'Otakudle card',
