@@ -11,6 +11,7 @@ import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { suggest } from '@/lib/dle/search';
 import { correctCounts, shareText } from '@/lib/dle/share';
 import { utcDate } from '@/lib/dle/day';
+import { yesterdayWasText } from '@/lib/dle/yesterday';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
@@ -36,6 +37,8 @@ export interface DleGameProps {
   /** Group name to the address of its blind test on KpopQuiz (P5, link 3); empty for a game of another world. */
   readonly blindLinks?: Readonly<Record<string, string>>;
   readonly kpopName: string;
+  /** The name of yesterday's answer (lib/dle/yesterday.ts), or null: the line under the input is then absent. */
+  readonly yesterday?: string | null;
 }
 
 const CONFETTI: Readonly<Record<'k' | 'a', readonly string[]>> = {
@@ -170,7 +173,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName, yesterday = null }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -470,6 +473,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <span>{t.enterHelp}</span>
               {!over && guesses.length > 0 ? <button type="button" className="hub-dle-giveup" disabled={busy} onClick={() => void giveUp()}>{t.giveUp}</button> : null}
             </div>
+            {yesterday ? <p className="hub-dle-yline">{yesterdayWasText(locale, w.yesterdayLine, yesterday)}</p> : null}
             {error ? <p role="alert" className="hub-dle-error">{error}</p> : null}
             {!over && lastCount >= 4 ? (
               <div role="status" className="hub-dle-close hub-dle-toast">
