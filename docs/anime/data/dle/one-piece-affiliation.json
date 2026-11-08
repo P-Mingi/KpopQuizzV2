@@ -1,0 +1,802 @@
+[
+  {
+    "slug": "monkey-d-luffy",
+    "name": "Monkey D. Luffy",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy",
+    "note": ""
+  },
+  {
+    "slug": "roronoa-zoro",
+    "name": "Roronoa Zoro",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Roronoa_Zoro",
+    "note": ""
+  },
+  {
+    "slug": "sanji",
+    "name": "Sanji",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Sanji",
+    "note": "Also Vinsmoke Family (former) and Baratie (resigned); the Straw Hats are what the series shows."
+  },
+  {
+    "slug": "nami",
+    "name": "Nami",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Nami",
+    "note": ""
+  },
+  {
+    "slug": "tony-tony-chopper",
+    "name": "Tony Tony Chopper",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper",
+    "note": ""
+  },
+  {
+    "slug": "usopp",
+    "name": "Usopp",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Usopp",
+    "note": ""
+  },
+  {
+    "slug": "nico-robin",
+    "name": "Nico Robin",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Nico_Robin",
+    "note": "Also Baroque Works (defected) when first met; the Straw Hats are what the series shows."
+  },
+  {
+    "slug": "franky",
+    "name": "Franky",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Franky",
+    "note": ""
+  },
+  {
+    "slug": "brook",
+    "name": "Brook",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Brook",
+    "note": ""
+  },
+  {
+    "slug": "jinbe",
+    "name": "Jinbe",
+    "affiliation": "Straw Hat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Jinbe",
+    "note": "Infobox lists Straw Hat Pirates first; first met as a Warlord and Sun Pirates captain (both former)."
+  },
+  {
+    "slug": "shanks",
+    "name": "Shanks",
+    "affiliation": "Red Hair Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Shanks",
+    "note": ""
+  },
+  {
+    "slug": "trafalgar-law",
+    "name": "Trafalgar Law",
+    "affiliation": "Heart Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Trafalgar_D._Water_Law",
+    "note": ""
+  },
+  {
+    "slug": "portgas-d-ace",
+    "name": "Portgas D. Ace",
+    "affiliation": "Whitebeard Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Portgas_D._Ace",
+    "note": "Also Spade Pirates (former) when first met."
+  },
+  {
+    "slug": "boa-hancock",
+    "name": "Boa Hancock",
+    "affiliation": "Kuja Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Boa_Hancock",
+    "note": "Infobox: \"Kuja (Kuja Pirates)\"."
+  },
+  {
+    "slug": "buggy",
+    "name": "Buggy",
+    "affiliation": "Cross Guild",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Buggy",
+    "note": "Judgement: infobox lists Cross Guild first; first met as Buggy Pirates (also listed)."
+  },
+  {
+    "slug": "donquixote-doflamingo",
+    "name": "Donquixote Doflamingo",
+    "affiliation": "Donquixote Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Donquixote_Doflamingo",
+    "note": "Also World Government (secret) and Seven Warlords (former)."
+  },
+  {
+    "slug": "charlotte-linlin",
+    "name": "Charlotte Linlin",
+    "affiliation": "Big Mom Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Charlotte_Linlin",
+    "note": ""
+  },
+  {
+    "slug": "edward-newgate",
+    "name": "Edward Newgate",
+    "affiliation": "Whitebeard Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Edward_Newgate",
+    "note": ""
+  },
+  {
+    "slug": "crocodile",
+    "name": "Crocodile",
+    "affiliation": "Cross Guild",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Crocodile",
+    "note": "Judgement: infobox lists Cross Guild first; first met as Baroque Works boss (also listed, former)."
+  },
+  {
+    "slug": "smoker",
+    "name": "Smoker",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Smoker",
+    "note": "G-5 is a Marine branch."
+  },
+  {
+    "slug": "bartholomew-kuma",
+    "name": "Bartholomew Kuma",
+    "affiliation": "Revolutionary Army",
+    "family": "revolutionary-army",
+    "source": "https://onepiece.fandom.com/wiki/Bartholomew_Kuma",
+    "note": "First met as a Seven Warlord (former)."
+  },
+  {
+    "slug": "kaido",
+    "name": "Kaido",
+    "affiliation": "Beasts Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Kaidou",
+    "note": ""
+  },
+  {
+    "slug": "marshall-d-teach",
+    "name": "Marshall D. Teach",
+    "affiliation": "Blackbeard Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Marshall_D._Teach",
+    "note": ""
+  },
+  {
+    "slug": "gol-d-roger",
+    "name": "Gol D. Roger",
+    "affiliation": "Roger Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Gol_D._Roger",
+    "note": ""
+  },
+  {
+    "slug": "nefertari-vivi",
+    "name": "Nefertari Vivi",
+    "affiliation": "Arabasta Kingdom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Nefertari_Vivi",
+    "note": "Judgement: infobox lists Arabasta Kingdom first (Straw Hat Pirates is former); a kingdom has no family."
+  },
+  {
+    "slug": "monkey-d-garp",
+    "name": "Monkey D. Garp",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Monkey_D._Garp",
+    "note": ""
+  },
+  {
+    "slug": "kuzan",
+    "name": "Kuzan",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Kuzan",
+    "note": "Judgement: infobox lists Blackbeard Pirates first; the series mainly presents Admiral Aokiji of the Marines (listed as resigned)."
+  },
+  {
+    "slug": "sakazuki",
+    "name": "Sakazuki",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Sakazuki",
+    "note": ""
+  },
+  {
+    "slug": "eustass-kid",
+    "name": "Eustass Kid",
+    "affiliation": "Kid Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Eustass_Kid",
+    "note": ""
+  },
+  {
+    "slug": "borsalino",
+    "name": "Borsalino",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Borsalino",
+    "note": ""
+  },
+  {
+    "slug": "sabo",
+    "name": "Sabo",
+    "affiliation": "Revolutionary Army",
+    "family": "revolutionary-army",
+    "source": "https://onepiece.fandom.com/wiki/Sabo",
+    "note": ""
+  },
+  {
+    "slug": "dracule-mihawk",
+    "name": "Dracule Mihawk",
+    "affiliation": "Cross Guild",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Dracule_Mihawk",
+    "note": ""
+  },
+  {
+    "slug": "jewelry-bonney",
+    "name": "Jewelry Bonney",
+    "affiliation": "Bonney Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Jewelry_Bonney",
+    "note": ""
+  },
+  {
+    "slug": "rob-lucci",
+    "name": "Rob Lucci",
+    "affiliation": "Cipher Pol",
+    "family": "world-government",
+    "source": "https://onepiece.fandom.com/wiki/Rob_Lucci",
+    "note": "Judgement: infobox lists CP0 first; first met as CP9 (listed, former). Both are Cipher Pol."
+  },
+  {
+    "slug": "caesar-clown",
+    "name": "Caesar Clown",
+    "affiliation": "Germa Kingdom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Caesar_Clown",
+    "note": "Judgement: infobox lists Germa Kingdom first, then NEO MADS; first met as Doflamingo's ally (Donquixote Pirates, former). Needs the owner's eye."
+  },
+  {
+    "slug": "gecko-moria",
+    "name": "Gecko Moria",
+    "affiliation": "Thriller Bark Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Gecko_Moria",
+    "note": ""
+  },
+  {
+    "slug": "arlong",
+    "name": "Arlong",
+    "affiliation": "Arlong Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Arlong",
+    "note": ""
+  },
+  {
+    "slug": "kozuki-oden",
+    "name": "Kozuki Oden",
+    "affiliation": "Kouzuki Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Kouzuki_Oden",
+    "note": "Judgement: infobox lists Kouzuki Family first; Roger Pirates and Whitebeard Pirates are former."
+  },
+  {
+    "slug": "monkey-d-dragon",
+    "name": "Monkey D. Dragon",
+    "affiliation": "Revolutionary Army",
+    "family": "revolutionary-army",
+    "source": "https://onepiece.fandom.com/wiki/Monkey_D._Dragon",
+    "note": ""
+  },
+  {
+    "slug": "silvers-rayleigh",
+    "name": "Silvers Rayleigh",
+    "affiliation": "Roger Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Silvers_Rayleigh",
+    "note": "Judgement: the infobox lists only \"Roger Pirates (former)\"."
+  },
+  {
+    "slug": "charlotte-katakuri",
+    "name": "Charlotte Katakuri",
+    "affiliation": "Big Mom Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Charlotte_Katakuri",
+    "note": "Judgement: infobox lists Charlotte Family first, then Big Mom Pirates; the crew is used so that the whole family matches Big Mom."
+  },
+  {
+    "slug": "sengoku",
+    "name": "Sengoku",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Sengoku",
+    "note": ""
+  },
+  {
+    "slug": "capone-bege",
+    "name": "Capone Bege",
+    "affiliation": "Fire Tank Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Capone_Bege",
+    "note": ""
+  },
+  {
+    "slug": "yamato",
+    "name": "Yamato",
+    "affiliation": "Beasts Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Yamato",
+    "note": "Judgement: the infobox lists \"Ninja-Pirate-Mink-Samurai Alliance (disbanded)\" then \"Beasts Pirates (defected)\"; the alliance is not a crew."
+  },
+  {
+    "slug": "carrot",
+    "name": "Carrot",
+    "affiliation": "Mokomo Dukedom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Carrot",
+    "note": "Minks form no family."
+  },
+  {
+    "slug": "nerona-imu",
+    "name": "Nerona Imu",
+    "affiliation": "World Government",
+    "family": "world-government",
+    "source": "https://onepiece.fandom.com/wiki/Nerona_Imu",
+    "note": ""
+  },
+  {
+    "slug": "eneru",
+    "name": "Eneru",
+    "affiliation": "God's Army",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Enel",
+    "note": "Judgement: infobox lists God's Army (former) then Automata; the series presents him as the god of Skypiea."
+  },
+  {
+    "slug": "wapol",
+    "name": "Wapol",
+    "affiliation": "Evil Black Drum Kingdom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Wapol",
+    "note": "Judgement: first listed; his Bliking Pirates are disbanded."
+  },
+  {
+    "slug": "issho",
+    "name": "Issho",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Issho",
+    "note": ""
+  },
+  {
+    "slug": "hody-jones",
+    "name": "Hody Jones",
+    "affiliation": "New Fish-Man Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Hody_Jones",
+    "note": ""
+  },
+  {
+    "slug": "vegapunk",
+    "name": "Vegapunk",
+    "affiliation": null,
+    "family": null,
+    "source": null,
+    "note": "UNSOURCED: the infobox lists only \"MADS (former)\" and \"Marines (former) (SSG)\"; no clear main affiliation, left empty."
+  },
+  {
+    "slug": "marco",
+    "name": "Marco",
+    "affiliation": "Whitebeard Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Polo_Marco",
+    "note": "Judgement: the infobox lists only \"Whitebeard Pirates (former)\" and the alliance."
+  },
+  {
+    "slug": "bellamy",
+    "name": "Bellamy",
+    "affiliation": "Bellamy Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Bellamy",
+    "note": "Judgement: the infobox lists \"Donquixote Pirates (former)\" then \"Bellamy Pirates (former)\"; first met as Bellamy Pirates."
+  },
+  {
+    "slug": "kin-emon",
+    "name": "Kin'emon",
+    "affiliation": "Kouzuki Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Kin'emon",
+    "note": ""
+  },
+  {
+    "slug": "basil-hawkins",
+    "name": "Basil Hawkins",
+    "affiliation": "Hawkins Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Basil_Hawkins",
+    "note": ""
+  },
+  {
+    "slug": "galdino",
+    "name": "Galdino",
+    "affiliation": "Cross Guild",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Galdino",
+    "note": "Infobox lists Cross Guild first."
+  },
+  {
+    "slug": "hatchan",
+    "name": "Hatchan",
+    "affiliation": "Arlong Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Hatchan",
+    "note": "Judgement: infobox lists Takoyaki 8 first (his later stall); first met as an Arlong Pirates officer (listed, former)."
+  },
+  {
+    "slug": "foxy",
+    "name": "Foxy",
+    "affiliation": "Foxy Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Foxy",
+    "note": ""
+  },
+  {
+    "slug": "don-krieg",
+    "name": "Don Krieg",
+    "affiliation": "Krieg Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Krieg",
+    "note": ""
+  },
+  {
+    "slug": "perona",
+    "name": "Perona",
+    "affiliation": "Thriller Bark Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Perona",
+    "note": "Judgement: infobox lists \"Dracule Mihawk\" (a person) first, then Thriller Bark Pirates."
+  },
+  {
+    "slug": "kuro",
+    "name": "Kuro",
+    "affiliation": "Black Cat Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Kuro",
+    "note": ""
+  },
+  {
+    "slug": "shirahoshi",
+    "name": "Shirahoshi",
+    "affiliation": "Ryugu Kingdom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Shirahoshi",
+    "note": "Judgement: infobox lists Neptune Family then Ryugu Kingdom; the kingdom is used so that the royal family matches."
+  },
+  {
+    "slug": "magellan",
+    "name": "Magellan",
+    "affiliation": "Impel Down",
+    "family": "world-government",
+    "source": "https://onepiece.fandom.com/wiki/Magellan",
+    "note": "Impel Down staff belong to the World Government family."
+  },
+  {
+    "slug": "charlotte-perospero",
+    "name": "Charlotte Perospero",
+    "affiliation": "Big Mom Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Charlotte_Perospero",
+    "note": "Judgement: infobox lists Charlotte Family first, then Big Mom Pirates."
+  },
+  {
+    "slug": "cavendish",
+    "name": "Cavendish",
+    "affiliation": "Beautiful Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Cavendish",
+    "note": ""
+  },
+  {
+    "slug": "vinsmoke-judge",
+    "name": "Vinsmoke Judge",
+    "affiliation": "Vinsmoke Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Vinsmoke_Judge",
+    "note": ""
+  },
+  {
+    "slug": "charlotte-pudding",
+    "name": "Charlotte Pudding",
+    "affiliation": "Big Mom Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Charlotte_Pudding",
+    "note": "Judgement: infobox lists Charlotte Family first, then Big Mom Pirates."
+  },
+  {
+    "slug": "tashigi",
+    "name": "Tashigi",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Tashigi",
+    "note": "G-5 is a Marine branch."
+  },
+  {
+    "slug": "koby",
+    "name": "Koby",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Koby",
+    "note": ""
+  },
+  {
+    "slug": "bartolomeo",
+    "name": "Bartolomeo",
+    "affiliation": "Barto Club",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Bartolomeo",
+    "note": ""
+  },
+  {
+    "slug": "kaku",
+    "name": "Kaku",
+    "affiliation": "Cipher Pol",
+    "family": "world-government",
+    "source": "https://onepiece.fandom.com/wiki/Kaku",
+    "note": "Judgement: infobox lists CP0 first; first met as CP9 (listed, former). Both are Cipher Pol."
+  },
+  {
+    "slug": "kyros",
+    "name": "Kyros",
+    "affiliation": "Riku Royal Army",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Kyros",
+    "note": "Infobox lists Corrida Colosseum (former) first."
+  },
+  {
+    "slug": "inuarashi",
+    "name": "Inuarashi",
+    "affiliation": "Mokomo Dukedom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Inuarashi",
+    "note": "Minks form no family."
+  },
+  {
+    "slug": "helmeppo",
+    "name": "Helmeppo",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Helmeppo",
+    "note": "Judgement: the infobox lists only \"Marines (Headquarters; SWORD) (formerly 153rd Branch)\"."
+  },
+  {
+    "slug": "vinsmoke-reiju",
+    "name": "Vinsmoke Reiju",
+    "affiliation": "Vinsmoke Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Vinsmoke_Reiju",
+    "note": ""
+  },
+  {
+    "slug": "caribou",
+    "name": "Caribou",
+    "affiliation": "Caribou Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Caribou",
+    "note": ""
+  },
+  {
+    "slug": "x-drake",
+    "name": "X Drake",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/X_Drake",
+    "note": "Judgement: infobox lists Marines first (SWORD); first met as Drake Pirates (listed next)."
+  },
+  {
+    "slug": "jesus-burgess",
+    "name": "Jesus Burgess",
+    "affiliation": "Blackbeard Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Jesus_Burgess",
+    "note": ""
+  },
+  {
+    "slug": "rebecca",
+    "name": "Rebecca",
+    "affiliation": "Dressrosa",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Rebecca",
+    "note": ""
+  },
+  {
+    "slug": "nekomamushi",
+    "name": "Nekomamushi",
+    "affiliation": "Mokomo Dukedom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Nekomamushi",
+    "note": "Minks form no family."
+  },
+  {
+    "slug": "hajrudin",
+    "name": "Hajrudin",
+    "affiliation": "New Giant Warrior Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Hajrudin",
+    "note": ""
+  },
+  {
+    "slug": "shiki",
+    "name": "Shiki",
+    "affiliation": "Golden Lion Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Shiki",
+    "note": ""
+  },
+  {
+    "slug": "kozuki-hiyori",
+    "name": "Kozuki Hiyori",
+    "affiliation": "Kouzuki Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Kouzuki_Hiyori",
+    "note": ""
+  },
+  {
+    "slug": "killer",
+    "name": "Killer",
+    "affiliation": "Kid Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Killer",
+    "note": ""
+  },
+  {
+    "slug": "neptune",
+    "name": "Neptune",
+    "affiliation": "Ryugu Kingdom",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Neptune",
+    "note": "Judgement: infobox lists Neptune Family then Ryugu Kingdom; the kingdom is used so that the royal family matches."
+  },
+  {
+    "slug": "scratchmen-apoo",
+    "name": "Scratchmen Apoo",
+    "affiliation": "On Air Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Scratchmen_Apoo",
+    "note": ""
+  },
+  {
+    "slug": "vinsmoke-niji",
+    "name": "Vinsmoke Niji",
+    "affiliation": "Vinsmoke Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Vinsmoke_Niji",
+    "note": ""
+  },
+  {
+    "slug": "jack",
+    "name": "Jack",
+    "affiliation": "Beasts Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Jack",
+    "note": ""
+  },
+  {
+    "slug": "vinsmoke-yonji",
+    "name": "Vinsmoke Yonji",
+    "affiliation": "Vinsmoke Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Vinsmoke_Yonji",
+    "note": ""
+  },
+  {
+    "slug": "vinsmoke-ichiji",
+    "name": "Vinsmoke Ichiji",
+    "affiliation": "Vinsmoke Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Vinsmoke_Ichiji",
+    "note": ""
+  },
+  {
+    "slug": "alvida",
+    "name": "Alvida",
+    "affiliation": "Cross Guild",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Alvida",
+    "note": "Judgement: infobox lists Cross Guild first; first met as captain of the Alvida Pirates (listed, former)."
+  },
+  {
+    "slug": "trebol",
+    "name": "Trebol",
+    "affiliation": "Donquixote Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Trebol",
+    "note": ""
+  },
+  {
+    "slug": "uta",
+    "name": "Uta",
+    "affiliation": "Red Hair Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Uta",
+    "note": "Judgement: the infobox lists only \"Red Hair Pirates (former)\"."
+  },
+  {
+    "slug": "daz-bonez",
+    "name": "Daz Bonez",
+    "affiliation": "Cross Guild",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Daz_Bonez",
+    "note": "Infobox lists Cross Guild first."
+  },
+  {
+    "slug": "diamante",
+    "name": "Diamante",
+    "affiliation": "Donquixote Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Diamante",
+    "note": ""
+  },
+  {
+    "slug": "pica",
+    "name": "Pica",
+    "affiliation": "Donquixote Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Pica",
+    "note": ""
+  },
+  {
+    "slug": "viola",
+    "name": "Viola",
+    "affiliation": "Riku Family",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Viola",
+    "note": "Judgement: infobox lists Riku Family first; Donquixote Pirates (defected)."
+  },
+  {
+    "slug": "aramaki",
+    "name": "Aramaki",
+    "affiliation": "Marines",
+    "family": "marines",
+    "source": "https://onepiece.fandom.com/wiki/Aramaki",
+    "note": ""
+  },
+  {
+    "slug": "charlotte-cracker",
+    "name": "Charlotte Cracker",
+    "affiliation": "Big Mom Pirates",
+    "family": "pirates",
+    "source": "https://onepiece.fandom.com/wiki/Charlotte_Cracker",
+    "note": "Judgement: infobox lists Charlotte Family first, then Big Mom Pirates."
+  },
+  {
+    "slug": "makino",
+    "name": "Makino",
+    "affiliation": "Party's Bar",
+    "family": null,
+    "source": "https://onepiece.fandom.com/wiki/Makino",
+    "note": "A civilian bar owner: no family."
+  }
+]
