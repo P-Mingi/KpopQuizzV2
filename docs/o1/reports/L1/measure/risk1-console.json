@@ -1,0 +1,101 @@
+[
+ {
+  "url": "https://kpopquiz.org/",
+  "theme": "dark",
+  "info": {
+   "classChanges": [
+    "427ms:inter_71824f44-module__s09DDa__variable ux-v1 -> ux-v1 dark",
+    "427ms:inter_71824f44-module__s09DDa__variable ux-v1 -> ux-v1 dark"
+   ],
+   "finalClass": "dmsans_f6d5b21e-module__LLe9sq__variable dmsansext_e84803a-module__ErtxRa__variable pretendard_70a0ff19-module__kiHWMa__variable inter_71824f44-module__s09DDa__variable ux-v1 dark",
+   "themeScriptParent": "BODY",
+   "hydrationAttr": false
+  },
+  "log": [
+   "console.error: Failed to load resource: net::ERR_FAILED",
+   "console.log: [Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information."
+  ]
+ },
+ {
+  "url": "https://kpopquiz.org/q/are-you-a-real-coer",
+  "theme": "dark",
+  "info": {
+   "classChanges": [
+    "607ms:inter_71824f44-module__s09DDa__variable ux-v1 -> ux-v1 dark",
+    "607ms:inter_71824f44-module__s09DDa__variable ux-v1 -> ux-v1 dark"
+   ],
+   "finalClass": "dmsans_f6d5b21e-module__LLe9sq__variable dmsansext_e84803a-module__ErtxRa__variable pretendard_70a0ff19-module__kiHWMa__variable inter_71824f44-module__s09DDa__variable ux-v1 dark",
+   "themeScriptParent": "BODY",
+   "hydrationAttr": false
+  },
+  "log": [
+   "console.error: Failed to load resource: net::ERR_FAILED",
+   "console.log: [Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information."
+  ]
+ },
+ {
+  "url": "https://kpopquiz.org/blindtest",
+  "theme": "dark",
+  "info": {
+   "classChanges": [
+    "264ms:inter_71824f44-module__s09DDa__variable ux-v1 -> ux-v1 dark",
+    "264ms:inter_71824f44-module__s09DDa__variable ux-v1 -> ux-v1 dark"
+   ],
+   "finalClass": "dmsans_f6d5b21e-module__LLe9sq__variable dmsansext_e84803a-module__ErtxRa__variable pretendard_70a0ff19-module__kiHWMa__variable inter_71824f44-module__s09DDa__variable ux-v1 dark",
+   "themeScriptParent": "BODY",
+   "hydrationAttr": false
+  },
+  "log": [
+   "console.error: Failed to load resource: net::ERR_FAILED",
+   "console.log: [Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information."
+  ]
+ },
+ {
+  "url": "https://kpopquiz.org/",
+  "theme": "none",
+  "info": {
+   "classChanges": [
+    "390ms:inter_71824f44-module__s09DDa__variable ux-v1 -> inter_71824f44-module__s09DDa__variable ux-v1"
+   ],
+   "finalClass": "dmsans_f6d5b21e-module__LLe9sq__variable dmsansext_e84803a-module__ErtxRa__variable pretendard_70a0ff19-module__kiHWMa__variable inter_71824f44-module__s09DDa__variable ux-v1",
+   "themeScriptParent": "BODY",
+   "hydrationAttr": false
+  },
+  "log": [
+   "console.error: Failed to load resource: net::ERR_FAILED",
+   "console.log: [Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information."
+  ]
+ },
+ {
+  "url": "https://kpopquiz.org/q/are-you-a-real-coer",
+  "theme": "none",
+  "info": {
+   "classChanges": [
+    "108ms:inter_71824f44-module__s09DDa__variable ux-v1 -> inter_71824f44-module__s09DDa__variable ux-v1"
+   ],
+   "finalClass": "dmsans_f6d5b21e-module__LLe9sq__variable dmsansext_e84803a-module__ErtxRa__variable pretendard_70a0ff19-module__kiHWMa__variable inter_71824f44-module__s09DDa__variable ux-v1",
+   "themeScriptParent": "BODY",
+   "hydrationAttr": false
+  },
+  "log": [
+   "console.error: Failed to load resource: net::ERR_FAILED",
+   "console.log: [Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information."
+  ]
+ },
+ {
+  "url": "https://kpopquiz.org/blindtest",
+  "theme": "none",
+  "info": {
+   "classChanges": [
+    "424ms:inter_71824f44-module__s09DDa__variable ux-v1 -> inter_71824f44-module__s09DDa__variable ux-v1"
+   ],
+   "finalClass": "dmsans_f6d5b21e-module__LLe9sq__variable dmsansext_e84803a-module__ErtxRa__variable pretendard_70a0ff19-module__kiHWMa__variable inter_71824f44-module__s09DDa__variable ux-v1",
+   "themeScriptParent": "BODY",
+   "hydrationAttr": false
+  },
+  "log": [
+   "console.error: Failed to load resource: net::ERR_FAILED",
+   "console.log: [Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again. See https://vercel.com/docs/analytics/quickstart for more information."
+  ]
+ }
+]
