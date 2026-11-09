@@ -18,6 +18,7 @@ import { AnswerFirst } from '@/components/group/answer-first';
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 import { atLeast } from '@/lib/stats/site-stats';
 import { groupHubDescription, groupHubTitle } from '@/lib/seo/group-meta';
+import { groupHubHead } from '@/lib/seo/frozen-heads';
 import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
 import { topicList } from '@/lib/hubs/theme-view';
 import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
@@ -108,12 +109,16 @@ export function generateGroupQuizMetadata(group: Group, levels = 1): Metadata {
   // W2 PART D (owner ruling): `seo_intro` does not touch the meta description (it is the visible intro paragraph only).
   // SEO phase 1, PR 16: the General K-pop category is not a group (no members, no fandom); its description names
   // its theme pages (the same topic names as the hub's FAQ).
-  const title = override?.title ?? groupHubTitle(input);
-  const description = override?.description
-    ? override.description
-    : isCategoryGroup(group.slug)
-    ? `Play ${atLeast(n)} free ${group.name} quizzes by topic: ${topicList(GENERAL_THEMES)}. No sign-up.`
-    : groupHubDescription(input);
+  const fresh = {
+    title: override?.title ?? groupHubTitle(input),
+    description: override?.description
+      ? override.description
+      : isCategoryGroup(group.slug)
+      ? `Play ${atLeast(n)} free ${group.name} quizzes by topic: ${topicList(GENERAL_THEMES)}. No sign-up.`
+      : groupHubDescription(input),
+  };
+  // Audit 04 section 2.4: a top-clicks page (lib/seo/top-clicks-freeze.ts) keeps main's title and description.
+  const { title, description } = groupHubHead(group, isCategoryGroup(group.slug), topicList(GENERAL_THEMES), fresh);
 
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 

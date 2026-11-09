@@ -6,6 +6,8 @@ import { isLanguage } from '@/lib/languages';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import { quizzesIndexMeta } from '@/lib/seo/index-pages-meta';
+import { legacyQuizzesMeta } from '@/lib/seo/frozen-heads';
+import { isTopClicksFrozen } from '@/lib/seo/top-clicks-freeze';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -61,7 +63,10 @@ export async function generateMetadata(
   // helper so "N+" is always true (owner, 2026-10-14: the live stats of
   // lib/stats/site-stats.ts; the old floor of 380 and a week-old cache said 430+ for 455).
   const stats = await getPublicStatsOrNull();
-  const meta = quizzesIndexMeta(stats ? atLeast(stats.quizzes) : null);
+  // Audit 04 section 2.4: /quizzes is a top-clicks page, it keeps main's head until the owner lifts it.
+  const meta = isTopClicksFrozen('/quizzes')
+    ? legacyQuizzesMeta(stats ? `${atLeast(stats.quizzes)} ` : '')
+    : quizzesIndexMeta(stats ? atLeast(stats.quizzes) : null);
 
   return {
     // Audit 04 P1-3: "Browse N K-pop Quizzes by Group and Level", no longer the home's twin; the count is the same atLeast as the FAQ.
