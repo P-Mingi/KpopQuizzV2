@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { D, FAMILY, WAS, FLAGS } from './decisions.mjs';
+import { toSingleDoBlock } from '../sql/single-do-block.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const LAUNCH = path.join(ROOT, 'docs/pending-migrations/multisite/launch');
@@ -177,6 +178,7 @@ do $op$ begin
   end if;
 end $op$;
 `;
-writeFileSync(path.join(LAUNCH, 'L17-l1-op-affiliation.sql'), sql);
-writeFileSync(path.join(LAUNCH, 'L17-l1-op-affiliation.rollback.sql'), rb);
+// One DO block each (owner, 2026-11-09): the owner may apply them from the Supabase SQL Editor.
+writeFileSync(path.join(LAUNCH, 'L17-l1-op-affiliation.sql'), toSingleDoBlock(sql, 'o1l17'));
+writeFileSync(path.join(LAUNCH, 'L17-l1-op-affiliation.rollback.sql'), toSingleDoBlock(rb, 'o1l17r'));
 console.log(stats);
