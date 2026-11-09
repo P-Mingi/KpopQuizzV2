@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 
+import { parseFrom } from '@/lib/analytics';
+
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
 
@@ -10,7 +12,9 @@ import { safeFetch } from '@/lib/error-handling';
 // by nature, which is fine: it is not a page and does not affect home staticness.
 export const dynamic = 'force-dynamic';
 
-export async function GET(): Promise<Response> {
+export async function GET(req: Request): Promise<Response> {
   const qotd = await safeFetch(getQuizOfTheDay(), null, '[daily] getQuizOfTheDay');
-  redirect(qotd ? `/q/${qotd.slug}?daily=quiz` : '/quizzes');
+  // Audit 01: the `from` of the link (nav, share, hub...) goes on to the quiz; anything outside the enum is dropped (direct).
+  const from = parseFrom(new URL(req.url).search);
+  redirect(qotd ? `/q/${qotd.slug}?daily=quiz${from === 'direct' ? '' : `&from=${from}`}` : '/quizzes');
 }

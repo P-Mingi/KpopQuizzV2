@@ -620,6 +620,50 @@ const getReplayQotdForDate = unstable_cache(
 const getQuizOfTheDayForDate = async (today: string, site: SiteId): Promise<QuizCardData | null> =>
   (await getPublishedQotdForDate(today, site)) ?? (await getReplayQotdForDate(today, site));
 
+// Audit 01 P1-8: a past quiz of the day, by its UTC date. Read-only, cached with the stats TTL under the `quizzes` tag. Null when that
+// day had no pick (the "Missed yesterday?" line then does not show).
+const getQuizOfDateCached = unstable_cache(
+  async (date: string, site: SiteId): Promise<{ slug: string; title: string } | null> => {
+    const admin = createServiceRoleClient();
+    const { data, error } = await forSite(admin.from('quizzes').select('slug, title'), site)
+      .eq('status', 'published')
+      .eq('is_quiz_of_the_day', true)
+      .eq('quiz_of_the_day_date', date)
+      .limit(1)
+      .maybeSingle();
+    if (error || !data) return null;
+    return data as { slug: string; title: string };
+  },
+  ['db:quizzes:getQuizOfDate:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
+
+export async function getQuizOfDate(date: string, site: SiteId = SITE.id): Promise<{ slug: string; title: string } | null> {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  return getQuizOfDateCached(date, site);
+}
+
+// Audit 01 P1-5: the day the quiz of the day started (the oldest pick), for the "Daily #N" of the share text. Null when unknown.
+const getFirstQotdDateCached = unstable_cache(
+  async (site: SiteId): Promise<string | null> => {
+    const admin = createServiceRoleClient();
+    const { data, error } = await forSite(admin.from('quizzes').select('quiz_of_the_day_date'), site)
+      .eq('is_quiz_of_the_day', true)
+      .not('quiz_of_the_day_date', 'is', null)
+      .order('quiz_of_the_day_date', { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (error || !data) return null;
+    return (data as { quiz_of_the_day_date: string | null }).quiz_of_the_day_date;
+  },
+  ['db:quizzes:getFirstQotdDate:v1'],
+  { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+);
+
+export async function getFirstQotdDate(site: SiteId = SITE.id): Promise<string | null> {
+  return getFirstQotdDateCached(site);
+}
+
 // Not scoped on purpose: quizzes.slug is unique across the whole network (one unique index, no site_id in it), so
 // a slug taken by another site is taken here too. A forSite filter would answer "free" and the insert would then
 // fail on the index.
