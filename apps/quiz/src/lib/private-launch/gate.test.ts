@@ -31,7 +31,7 @@ const ID_B = '00000000-0000-4000-8000-00000000000b';
 const KEY = 'ab'.repeat(32);
 const EXPECTED = expectedCookie(KEY, new Set([ID_A, ID_B]));
 
-const vercelCrons = (JSON.parse(readFileSync(`${APP}vercel.json`, 'utf8')) as { crons: { path: string }[] }).crons.map((c) => c.path);
+const vercelCrons = (JSON.parse(readFileSync(`${APP}shared.vercel.json`, 'utf8')) as { crons: { path: string }[] }).crons.map((c) => c.path);
 
 type Env = { PRIVATE_LAUNCH?: string | undefined; PRIVATE_LAUNCH_ALLOW?: string | undefined; PRIVATE_LAUNCH_KEY?: string | undefined };
 // A signed-in browser that is not allowed: the Supabase session cookies, no bv_private (the entry never gave it one).

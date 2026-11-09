@@ -77,6 +77,8 @@
     "apps/quiz/package.json",
     "apps/quiz/playwright.config.ts",
     "apps/quiz/vercel.json",
+    "apps/quiz/vercel.ts",
+    "apps/quiz/shared.vercel.json",
     "apps/quiz/next.config.ts",
     "apps/quiz/src/middleware.ts",
     "apps/quiz/src/middleware-matcher.test.ts",

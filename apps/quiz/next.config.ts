@@ -269,16 +269,17 @@ const nextConfig: NextConfig = {
 //     the package does not support a basePath with its own prefix (docs, quickstart).
 const ZONE_BASE_PATH = SITE_ID === 'kpop' ? '' : basePathOf(SITE.url);
 
-// The cron paths of vercel.json (apps/quiz, the Root Directory of the three projects), read by the hub and anime builds only
-// (zoneConfig). A file that cannot be read or is not valid fails the build with its name (cronPathsOf), never a build without
+// The cron paths of shared.vercel.json (apps/quiz, the Root Directory of the three projects; vercel.ts gives Vercel its settings),
+// read by the hub and anime builds only (zoneConfig). Since 48 bis the anime crons reach the code as /anime/api/cron/... (vercel.ts),
+// so the proxies of /api/cron/... are a fallback that the Microfrontends routing of the child's domains never lets through. A file that cannot be read or is not valid fails the build with its name (cronPathsOf), never a build without
 // its cron proxies. The kpop build never calls this.
 function cronPaths(): string[] {
-  const file = join(process.cwd(), 'vercel.json');
+  const file = join(process.cwd(), 'shared.vercel.json');
   let text: string;
   try {
     text = readFileSync(file, 'utf8');
   } catch (err) {
-    throw new Error(`Cannot read ${file} (${(err as Error).message}). The ${SITE_ID} build proxies the crons of vercel.json: build from apps/quiz.`);
+    throw new Error(`Cannot read ${file} (${(err as Error).message}). The ${SITE_ID} build proxies the crons of shared.vercel.json: build from apps/quiz.`);
   }
   return cronPathsOf(text, file);
 }
