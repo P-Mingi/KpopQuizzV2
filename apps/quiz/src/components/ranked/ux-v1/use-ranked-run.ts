@@ -384,7 +384,7 @@ export function useRankedRun(opts: {
     } : null;
     setIssued(got);
     setQuestions(Array.from({ length: got.rounds }, (_, i) => unreleased(i)));
-    analytics.gameStart('blindtest', false);
+    analytics.gameStart({ game: 'blindtest', mode: 'ranked', kind: 'bt_ranked' });
     await openRound(0);
   }, [close, onRefused, openRound, sendFinish, unlock]);
 
@@ -437,7 +437,7 @@ export function useRankedRun(opts: {
   useEffect(() => {
     if (phase !== 'results' || announcedEnd.current === runRef.current) return;
     announcedEnd.current = runRef.current;
-    analytics.gameComplete('blindtest', summary.correct, questions.length, false);
+    analytics.gameComplete({ game: 'blindtest', mode: 'ranked', kind: 'bt_ranked', score: summary.correct, max: questions.length });
     announce?.(`Ranked run finished. ${summary.correct} out of ${questions.length}, ${summary.points} points.`);
   }, [announce, phase, questions.length, summary.correct, summary.points]);
 

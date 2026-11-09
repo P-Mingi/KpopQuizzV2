@@ -6,7 +6,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useToast } from '@/components/ui/toast-provider';
-import { analytics } from '@/lib/analytics';
+import { analytics, quizRunMode, readFrom } from '@/lib/analytics';
+import type { Mode } from '@/lib/analytics';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { getAnonId } from '@/lib/anon-id';
 import { ClaimRun } from '@/components/quiz/claim-run';
@@ -398,6 +399,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
   const { showToast } = useToast();
   const router = useRouter();
   const timeRef = useRef(0);
+  // the analytics mode of the run on screen (embed plays are told apart from the site's own)
+  const runModeRef = useRef<Mode>('classic');
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const questionStartRef = useRef(Date.now());
   const perQuestionTimesRef = useRef<number[]>([]);
@@ -546,6 +549,8 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
         settings: data.settings,
         quizType: (data.quiz_type as QuizType) ?? quiz.quizType,
       });
+      runModeRef.current = quizRunMode({ embed: window.location.pathname.includes('/embed/'), daily: new URLSearchParams(window.location.search).get('daily') === 'quiz' });
+      analytics.gameStart({ game: 'quiz', mode: runModeRef.current, kind: (data.quiz_type as QuizType) ?? quiz.quizType, from: readFrom() });
     } catch (err) {
       console.error('Failed to start quiz:', err);
     } finally {
@@ -637,7 +642,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
     });
     // Workstream LOOP B2 - the only analytics addition in this file. The quiz
     // result screen is the reference model and is otherwise untouched.
-    analytics.gameComplete('quiz', state.score, maxScore);
+    analytics.gameComplete({ game: 'quiz', mode: runModeRef.current, kind: state.quizType, score: state.score, max: maxScore, from: readFrom() });
   }, [state, quiz.id, showToast]);
 
   const handleShare = useCallback(async () => {

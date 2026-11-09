@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useAudioPlayer } from '@/components/blind-test/use-audio-player';
-import { analytics } from '@/lib/analytics';
-import { completeDaily, markDailyPlayed } from '@/lib/daily-played';
+import { analytics, btRunAnalytics, readFrom } from '@/lib/analytics';
+import { completeDaily, hasPlayedDaily, markDailyPlayed } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { btChallengeCodeHere, btLocale, btPlaylistId, btSourceHere, newBtRunId, trackBtRun } from '@/lib/tracking/bt';
 import { summarizeRun } from '@/lib/ux-v1/p6/points';
@@ -288,7 +288,7 @@ export function useBlindtestRun(opts: {
     setAnswers([]);
     submittedRef.current = false;
     setDaily({ rank: null, total: null, xp: null, signedIn: null });
-    analytics.gameStart('blindtest', m === 'daily');
+    analytics.gameStart({ game: 'blindtest', ...btRunAnalytics(m, p.playlist, Boolean(p.group)), from: readFrom() });
     setPhase('playing');
     playQuestion(qs[0]!, qs[1]?.preview_url);
   }, [playQuestion, sendFinish]);
@@ -416,10 +416,12 @@ export function useBlindtestRun(opts: {
     if (phase !== 'results') return;
     lastAnnounced.current = -1;
     sendFinish(true);
-    analytics.gameComplete('blindtest', score, questions.length, mode === 'daily');
+    analytics.gameComplete({ game: 'blindtest', ...btRunAnalytics(mode, pick.playlist, Boolean(pick.group)), score, max: questions.length, from: readFrom() });
     announce?.(`Blindtest finished. ${score} out of ${questions.length}, ${summary.points} points.`);
     if (mode !== 'daily' || submittedRef.current) return;
     submittedRef.current = true;
+    // first daily blind test of the day on this browser, read before it is marked (daily_complete fires once)
+    const firstDaily = !hasPlayedDaily('blindtest');
     markDailyPlayed('blindtest');
     const totalTimeMs = answers.reduce((s, a) => s + a.time_ms, 0);
     void (async () => {
@@ -440,7 +442,7 @@ export function useBlindtestRun(opts: {
         // anon or network: the score still shows, just unranked
       }
       recordGuestDaily();
-      const done = await completeDaily('blindtest');
+      const done = await completeDaily('blindtest', { first: firstDaily });
       setDaily({ rank, total, xp: done?.signed_in ? done.awarded : null, signedIn: done ? done.signed_in : null });
       onDailySaved?.();
     })();

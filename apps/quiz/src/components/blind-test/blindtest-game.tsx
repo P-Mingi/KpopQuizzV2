@@ -7,7 +7,7 @@ import { DeezerAttribution } from '@/components/deezer-attribution';
 import { Mascot } from '@/components/ui/mascot';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
-import { analytics, isDailyLaunch } from '@/lib/analytics';
+import { analytics, btRunAnalytics, readFrom } from '@/lib/analytics';
 import { hasPlayedDaily, markDailyPlayed, completeDaily } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { StreakBackup } from '@/components/quiz/streak-backup';
@@ -239,9 +239,11 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     if (phase !== 'results') return;
     if (alreadyPlayed) { void loadBoard(); return; }
     tracking.finish(true);
-    analytics.gameComplete('blindtest', score, questions.length, isDailyLaunch());
+    analytics.gameComplete({ game: 'blindtest', ...btRunAnalytics(daily ? 'daily' : 'free', playlist, selectedGroups.length > 0), score, max: questions.length, from: readFrom() });
     if (daily && !dailySubmittedRef.current) {
       dailySubmittedRef.current = true;
+      // first daily blind test of the day on this browser, read before it is marked (daily_complete fires once)
+      const firstDaily = !hasPlayedDaily('blindtest');
       markDailyPlayed('blindtest');
       const totalTimeMs = answers.reduce((s, a) => s + a.time_ms, 0);
       void (async () => {
@@ -261,7 +263,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
         // W3b follow-up: the guest's own streak for this browser, recorded on the
         // blindtest daily too (it previously only counted on the quiz).
         recordGuestDaily();
-        void completeDaily('blindtest');
+        void completeDaily('blindtest', { first: firstDaily });
         await loadBoard();
       })();
     }
@@ -311,7 +313,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setIndex(0);
       setAnswers([]);
       tracking.open({ kind: 'free', playlist, groups: selectedGroups, rounds: data.questions.length });
-      analytics.gameStart('blindtest', isDailyLaunch());
+      analytics.gameStart({ game: 'blindtest', ...btRunAnalytics('free', playlist, selectedGroups.length > 0), from: readFrom() });
       setPhase('playing');
       playQuestion(data.questions[0]!, data.questions[1]?.preview_url);
     } catch {
@@ -337,7 +339,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
       setAnswers([]);
       dailySubmittedRef.current = false;
       tracking.open({ kind: 'daily', rounds: data.questions.length });
-      analytics.gameStart('blindtest', true);
+      analytics.gameStart({ game: 'blindtest', ...btRunAnalytics('daily', 'all', false), from: readFrom() });
       setPhase('playing');
       playQuestion(data.questions[0]!, data.questions[1]?.preview_url);
     } catch {
