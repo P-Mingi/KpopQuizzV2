@@ -108,6 +108,7 @@ describe('L22: the Otakudle facts', () => {
     expect(await va('fullmetal-alchemist', 'van-hohenheim')).toBe('Masashi Ebara');
     expect(await va('fullmetal-alchemist', 'lin-yao')).toBe('Mamoru Miyano');
     expect(await va('dragon-ball', 'raditz')).toBe('Shigeru Chiba');
+    expect(await va('dragon-ball', 'zamasu')).toBe('Shin-ichiro Miki');
     expect(await va('oshi-no-ko', 'aqua-hoshino')).toBe('Takeo Ōtsuka');
     expect(await va('fruits-basket', 'tohru-honda')).toBe('Yui Horie');
     expect(await va('jojo', 'giorno-giovanna')).toBe('Kensho Ono');

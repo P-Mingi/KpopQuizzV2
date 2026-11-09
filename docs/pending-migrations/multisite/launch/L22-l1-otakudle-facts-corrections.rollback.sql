@@ -174,6 +174,7 @@ insert into l22_fix values
     ('DA6', 'dandadan', 'reiko-kashima', 'voice_actor_ja', null, 'カシマレイコ'),
     ('DA7', 'dandadan', 'vamola', 'voice_actor_ja', null, 'バモラ'),
     ('DA8', 'dandadan', 'unji-zuma', 'voice_actor_ja', null, '頭間 雲児'),
+    ('DB-Za', 'dragon-ball', 'zamasu', 'voice_actor_ja', 'Shin-ichiro Miki', 'Masako Nozawa'),
     ('F-goku', 'dragon-ball', 'goku', 'featured', 'true', 'false'),
     ('F-frieza', 'dragon-ball', 'frieza', 'featured', 'true', 'false'),
     ('F-piccolo', 'dragon-ball', 'piccolo', 'featured', 'true', 'false'),
@@ -457,7 +458,9 @@ insert into l22_src values
     ('DA5', 'upsert', 'count-saint-germain', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Saint-Germain', '2026-11-02T00:00:00Z'),
     ('DA6', 'upsert', 'reiko-kashima', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Reiko_Kashima', '2026-11-02T00:00:00Z'),
     ('DA7', 'upsert', 'vamola', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Bamora', '2026-11-02T00:00:00Z'),
-    ('DA8', 'upsert', 'unji-zuma', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Unji_Zuma', '2026-11-02T00:00:00Z');
+    ('DA8', 'upsert', 'unji-zuma', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Unji_Zuma', '2026-11-02T00:00:00Z'),
+    ('DB-Za', 'delete', 'zamasu', 'voice_actor_ja', 'fandom', '2257308', 'https://dragonball.fandom.com/wiki/Zamasu', '2026-11-09T00:00:00Z'),
+    ('DB-Za', 'upsert', 'zamasu', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Zamasu', '2026-11-02T00:00:00Z');
 create temp table l22_new (series text, slug text, gender text, species text, role_at_debut text, first_appearance text, voice_actor_ja text, featured boolean) on commit drop;
 insert into l22_new values
     ('tokyo-ghoul', 'ken-kaneki', 'male', 'human', 'main', 'Chapter 1 / Episode 1', 'Natsuki Hanae', true);
@@ -518,8 +521,8 @@ begin
   if n_missing > 0 then
     raise exception 'L22 rollback: % corrections found no row (apply L13 first)', n_missing;
   end if;
-  if n_drift = 0 and n_changed not in (0, 134) then
-    raise exception 'L22 rollback: % rows changed, expected 0 or 134', n_changed;
+  if n_drift = 0 and n_changed not in (0, 135) then
+    raise exception 'L22 rollback: % rows changed, expected 0 or 135', n_changed;
   end if;
   if n_new not in (0, 1) then
     raise exception 'L22 rollback: % new rows, expected 0 or 1', n_new;
