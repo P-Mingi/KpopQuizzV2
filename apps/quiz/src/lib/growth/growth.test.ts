@@ -153,7 +153,7 @@ describe('landings', () => {
   });
 
   it('their own hreflang cluster, x-default English, and no /blindtest in it', () => {
-    expect(landingAlternates()).toEqual({
+    expect(landingAlternates(LANDING_LANGS)).toEqual({
       en: '/guess-the-kpop-song', fr: '/fr/blind-test-kpop', es: '/es/adivina-la-cancion-kpop', id: '/id/tebak-lagu-kpop', 'x-default': '/guess-the-kpop-song',
     });
   });

@@ -126,4 +126,15 @@ describe('app/sitemap.ts indexing gates', () => {
     } finally { vi.doUnmock('@/lib/seo/demand-gate'); }
     expect(await urls(false)).toContain('/blindtest/group-twice');
   });
+
+  it('P1-7: with V12 on, only the English landing is listed (fr, es, id have no recorded review)', async () => {
+    vi.resetModules();
+    process.env.NEXT_PUBLIC_UX_V1 = '1';
+    process.env.NEXT_PUBLIC_UX_V12 = '1';
+    try {
+      const all = await urls(false);
+      expect(all).toContain('/guess-the-kpop-song');
+      for (const p of ['/fr/blind-test-kpop', '/es/adivina-la-cancion-kpop', '/id/tebak-lagu-kpop']) expect(all, p).not.toContain(p);
+    } finally { delete process.env.NEXT_PUBLIC_UX_V1; delete process.env.NEXT_PUBLIC_UX_V12; }
+  });
 });
