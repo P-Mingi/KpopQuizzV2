@@ -23,6 +23,11 @@ const STYLE = `
 }
 `;
 
+/** The number of fans playing now exactly as the server counted it, or null (the line is then absent). Never padded or invented. */
+export function realOnline(n: unknown): number | null {
+  return typeof n === 'number' && Number.isFinite(n) && n > 0 ? Math.floor(n) : null;
+}
+
 export function ActivityTicker(): React.ReactElement | null {
   const [events, setEvents] = useState<TickerEvent[] | null>(null);
   const [online, setOnline] = useState<number | null>(null);
@@ -37,8 +42,9 @@ export function ActivityTicker(): React.ReactElement | null {
     fetch(`${BASE_PATH}/api/stats/live`)
       .then((r) => (r.ok ? r.json() : null))
       .then((d: { online: number | null } | null) => {
-        if (cancelled || !d?.online) return;
-        setOnline(Math.max(d.online, 12 + Math.floor(Math.random() * 16)));
+        const n = realOnline(d?.online);
+        if (cancelled || n === null) return;
+        setOnline(n);
       })
       .catch(() => {});
     return () => { cancelled = true; };
