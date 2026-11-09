@@ -128,6 +128,7 @@ insert into l21_src values
     ('DB10c', 'upsert', 'korin', 'dragon-ball.race', 'fandom', '2273579', 'https://dragonball.fandom.com/wiki/Animal', '2026-11-09T00:00:00Z'),
     ('DB10c', 'delete', 'korin', 'dragon-ball.race', 'wikipedia', null, 'https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters#Korin', '2026-11-02T00:00:00Z'),
     ('DB5', 'upsert', 'king-piccolo', 'dragon-ball.signature_technique', 'fandom', '2273193', 'https://dragonball.fandom.com/wiki/King_Piccolo', '2026-11-09T00:00:00Z'),
+    ('DB8', 'upsert', 'raditz', 'dragon-ball.voice_actor_ja', 'fandom', '2271907', 'https://dragonball.fandom.com/wiki/Raditz', '2026-11-09T00:00:00Z'),
     ('DB9', 'delete', 'zamasu', 'dragon-ball.voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Zamasu', '2026-11-02T00:00:00Z'),
     ('DB9', 'upsert', 'zamasu', 'dragon-ball.voice_actor_ja', 'fandom', '2257308', 'https://dragonball.fandom.com/wiki/Zamasu', '2026-11-09T00:00:00Z');
 

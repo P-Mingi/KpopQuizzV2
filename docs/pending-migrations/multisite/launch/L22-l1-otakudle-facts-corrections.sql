@@ -4,9 +4,9 @@
 --         gender 2 (Captain Ginyu male, Neferpitou null), role_at_debut 21 (OT2 to OT9 and the sample, plus the 9 missing roles), species 27 (the "as first met" rule, the 9 missing,
 --         Kagura and Kamui "yato", Inuyasha "half-demon", Puar, Oolong and Korin "animal"), voice_actor_ja 75 (D-5: the Japanese voice actor of the first TV anime series: Tokyo Revengers 12, Fullmetal Alchemist 7,
 --         Hunter x Hunter 8 (the 1999 series), Raditz, Aqua, Tohru, Giorno, Joseph, Dio, Kogoro, Kyo, Jotaro, Josuke, Tae; Dandadan and Blue Lock were in Japanese script; surname-first names of Re:Zero and Sword Art Online reordered).
---         featured: rimuru-tempest false -> true, haise-sasaki true -> false, goku false -> true, frieza false -> true, gohan false -> true, piccolo false -> true, nezuko-kamado false -> true, inosuke-hashibira false -> true, alphonse-elric false -> true (OT-D2, OT-D3). A new facts row: ken-kaneki (OT-D3, from its own pages; it differs from Haise Sasaki's row in species: "human" as first met, Haise holds "ghoul").
---         OT-D4: 36 source rows for the roles that rested on the site's own data. OT-D1: hisoka-morrow is excluded from the pool (dle_curation).
---         Answers: the featured characters with a complete row are possible answers: jinbe, jewelry-bonney, kozuki-oden, vegapunk, toshiro-hitsugaya, byakuya-kuchiki, kenpachi-zaraki, mayuri-kurotsuchi, gotenks, kyo-sohma, jotaro-kujo, josuke-higashikata, ken-kaneki, goku, frieza, gohan, piccolo, nezuko-kamado, inosuke-hashibira, alphonse-elric.
+--         featured: rimuru-tempest false -> true, haise-sasaki true -> false, gohan false -> true, goku false -> true, frieza false -> true, piccolo false -> true, nezuko-kamado false -> true, inosuke-hashibira false -> true, alphonse-elric false -> true (OT-D2, OT-D3). A new facts row: ken-kaneki (OT-D3, from its own pages; it differs from Haise Sasaki's row in species: "human" as first met, Haise holds "ghoul").
+--         OT-D4: 38 source rows for the roles that rested on the site's own data. OT-D1: hisoka-morrow is excluded from the pool (dle_curation).
+--         Answers: the featured characters with a complete row are possible answers: jinbe, jewelry-bonney, kozuki-oden, vegapunk, toshiro-hitsugaya, byakuya-kuchiki, kenpachi-zaraki, mayuri-kurotsuchi, gotenks, kyo-sohma, jotaro-kujo, josuke-higashikata, ken-kaneki, gohan, goku, frieza, piccolo, nezuko-kamado, inosuke-hashibira, alphonse-elric.
 --         Not applied, listed below as commented blocks (the audit leaves them open or the source says otherwise):
 --   OT-D7a: Obito (role antagonist: his debut, chapter 239, is the heroic Kakashi Gaiden flashback), Uryu (role main, introduced as Ichigo's rival), Garp (role antagonist) and Sukuna (species human; JJK says cursed-spirit): the audit leaves it to the owner, case by case. Nothing is written.
 -- (no statement until the owner decides each case)
@@ -23,7 +23,7 @@
 -- WHEN:   apply by the owner after a backup, just after 00:30 UTC, never between 23:50 and 00:30 UTC, never during a build. The first statements read dle_schedule for today and the next 7 days and abort
 --         (nothing is written) if a character that stops being a possible answer is scheduled there (haise-sasaki); ORCH reads those 7 days in production before the owner applies.
 --         A guess is stored as the entity id only and its colours are computed on every read, so a game in progress is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.
---         The pool of answers changes (20 characters become possible answers, 1 stops): the next dle_daily_maintenance sees a new pool hash and rebuilds the bank from today.
+--         The pool of answers changes (20 characters become possible answers, 1 stops): the next dle_daily_maintenance sees a new pool hash and rebuilds the bank (L18: it keeps today and the 7 days after it).
 -- Undo:   L22-l1-otakudle-facts-corrections.rollback.sql (restores the values of L13 and their sources).
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).
 
@@ -187,19 +187,20 @@ insert into l22_fix values
     ('SAO11', 'sword-art-online', 'argo', 'voice_actor_ja', 'Izawa Shiori', 'Shiori Izawa'),
     ('SAO12', 'sword-art-online', 'eugeo', 'voice_actor_ja', 'Shimazaki Nobunaga', 'Nobunaga Shimazaki'),
     ('F-haise-sasaki', 'tokyo-ghoul', 'haise-sasaki', 'featured', 'true', 'false'),
+    ('F-gohan', 'dragon-ball', 'gohan', 'featured', 'false', 'true'),
     ('DA5', 'dandadan', 'count-saint-germain', 'voice_actor_ja', 'サンジェルマン', null),
     ('DA6', 'dandadan', 'reiko-kashima', 'voice_actor_ja', 'カシマレイコ', null),
     ('DA7', 'dandadan', 'vamola', 'voice_actor_ja', 'バモラ', null),
     ('DA8', 'dandadan', 'unji-zuma', 'voice_actor_ja', '頭間 雲児', null),
     ('F-goku', 'dragon-ball', 'goku', 'featured', 'false', 'true'),
     ('F-frieza', 'dragon-ball', 'frieza', 'featured', 'false', 'true'),
-    ('F-gohan', 'dragon-ball', 'gohan', 'featured', 'false', 'true'),
     ('F-piccolo', 'dragon-ball', 'piccolo', 'featured', 'false', 'true'),
     ('F-nezuko-kamado', 'demon-slayer', 'nezuko-kamado', 'featured', 'false', 'true'),
     ('F-inosuke-hashibira', 'demon-slayer', 'inosuke-hashibira', 'featured', 'false', 'true'),
     ('F-alphonse-elric', 'fullmetal-alchemist', 'alphonse-elric', 'featured', 'false', 'true');
 create temp table l22_src (id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) on commit drop;
 insert into l22_src values
+    ('OT1', 'upsert', 'captain-ginyu', 'gender', 'fandom', '2274755', 'https://dragonball.fandom.com/wiki/Captain_Ginyu', '2026-11-09T00:00:00Z'),
     ('OT1', 'upsert', 'captain-ginyu', 'gender', 'wikidata', 'Q12322495', 'https://www.wikidata.org/wiki/Q12322495', '2026-11-02T00:00:00Z'),
     ('OT-N1', 'delete', 'neferpitou', 'gender', 'wikipedia', null, 'https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters#Neferpitou', '2026-11-02T00:00:00Z'),
     ('OT-Ne', 'upsert', 'neferpitou', 'species', 'fandom', '425732', 'https://hunterxhunter.fandom.com/wiki/Neferpitou', '2026-11-09T00:00:00Z'),
@@ -216,11 +217,11 @@ insert into l22_src values
     ('OT8', 'upsert', 'beerus', 'role_at_debut', 'wikipedia', '1379659500', 'https://en.wikipedia.org/wiki/Beerus', '2026-11-09T00:00:00Z'),
     ('OT-Oo', 'upsert', 'oolong', 'species', 'fandom', '2273579', 'https://dragonball.fandom.com/wiki/Animal', '2026-11-09T00:00:00Z'),
     ('OT-Oo', 'delete', 'oolong', 'species', 'wikidata', 'Q3091550', 'https://www.wikidata.org/wiki/Q3091550', '2026-11-02T00:00:00Z'),
-    ('OT9', 'upsert', 'oolong', 'role_at_debut', 'fandom', null, 'https://dragonball.fandom.com/wiki/Oolong', '2026-11-02T00:00:00Z'),
+    ('OT9', 'upsert', 'oolong', 'role_at_debut', 'fandom', '2276787', 'https://dragonball.fandom.com/wiki/Oolong', '2026-11-09T00:00:00Z'),
     ('OT9', 'delete', 'oolong', 'role_at_debut', 'wikipedia', null, 'https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters', '2026-11-02T00:00:00Z'),
-    ('OT-Y', 'upsert', 'yamcha', 'role_at_debut', 'fandom', null, 'https://dragonball.fandom.com/wiki/Yamcha', '2026-11-02T00:00:00Z'),
+    ('OT-Y', 'upsert', 'yamcha', 'role_at_debut', 'fandom', '2264528', 'https://dragonball.fandom.com/wiki/Yamcha', '2026-11-09T00:00:00Z'),
     ('OT-Y', 'delete', 'yamcha', 'role_at_debut', 'wikipedia', null, 'https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters', '2026-11-02T00:00:00Z'),
-    ('OT-Ga', 'upsert', 'gajeel-redfox', 'role_at_debut', 'fandom', null, 'https://fairytail.fandom.com/wiki/Gajeel_Redfox', '2026-11-02T00:00:00Z'),
+    ('OT-Ga', 'upsert', 'gajeel-redfox', 'role_at_debut', 'fandom', '1074676', 'https://fairytail.fandom.com/wiki/Gajeel_Redfox', '2026-11-09T00:00:00Z'),
     ('OT-Ga', 'delete', 'gajeel-redfox', 'role_at_debut', 'wikipedia', null, 'https://en.wikipedia.org/wiki/List_of_Fairy_Tail_characters#Gajeel_Redfox', '2026-11-02T00:00:00Z'),
     ('OT13', 'upsert', 'sousuke-aizen', 'role_at_debut', 'wikipedia', '1379659441', 'https://en.wikipedia.org/wiki/Sousuke_Aizen', '2026-11-09T00:00:00Z'),
     ('OT-Ro', 'upsert', 'roswaal-l-mathers', 'role_at_debut', 'fandom', '184099', 'https://rezero.fandom.com/wiki/Roswaal_L._Mathers', '2026-11-09T00:00:00Z'),
@@ -233,8 +234,10 @@ insert into l22_src values
     ('MV-R3', 'upsert', 'kozuki-oden', 'role_at_debut', 'fandom', '2129723', 'https://onepiece.fandom.com/wiki/Kouzuki_Oden', '2026-11-09T00:00:00Z'),
     ('MV-R4', 'upsert', 'vegapunk', 'role_at_debut', 'fandom', '2133846', 'https://onepiece.fandom.com/wiki/Vegapunk', '2026-11-09T00:00:00Z'),
     ('MV-R5', 'upsert', 'toshiro-hitsugaya', 'role_at_debut', 'fandom', '618106', 'https://bleach.fandom.com/wiki/T%C5%8Dshir%C5%8D_Hitsugaya', '2026-11-09T00:00:00Z'),
+    ('MV-S1', 'upsert', 'byakuya-kuchiki', 'species', 'fandom', '617932', 'https://bleach.fandom.com/wiki/Byakuya_Kuchiki', '2026-11-09T00:00:00Z'),
     ('MV-S1', 'upsert', 'byakuya-kuchiki', 'species', 'wikidata', 'Q755181', 'https://www.wikidata.org/wiki/Q755181', '2026-11-02T00:00:00Z'),
     ('MV-R6', 'upsert', 'byakuya-kuchiki', 'role_at_debut', 'fandom', '617932', 'https://bleach.fandom.com/wiki/Byakuya_Kuchiki', '2026-11-09T00:00:00Z'),
+    ('MV-S2', 'upsert', 'kenpachi-zaraki', 'species', 'fandom', '617941', 'https://bleach.fandom.com/wiki/Kenpachi_Zaraki', '2026-11-09T00:00:00Z'),
     ('MV-S2', 'upsert', 'kenpachi-zaraki', 'species', 'wikidata', 'Q1200966', 'https://www.wikidata.org/wiki/Q1200966', '2026-11-02T00:00:00Z'),
     ('MV-R7', 'upsert', 'kenpachi-zaraki', 'role_at_debut', 'fandom', '617941', 'https://bleach.fandom.com/wiki/Kenpachi_Zaraki', '2026-11-09T00:00:00Z'),
     ('MV-R8', 'upsert', 'mayuri-kurotsuchi', 'role_at_debut', 'fandom', '618107', 'https://bleach.fandom.com/wiki/Mayuri_Kurotsuchi', '2026-11-09T00:00:00Z'),
@@ -252,24 +255,30 @@ insert into l22_src values
     ('OT-H9', 'upsert', 'dio-brando', 'voice_actor_ja', 'wikipedia', '1382674317', 'https://en.wikipedia.org/wiki/Dio_Brando', '2026-11-09T00:00:00Z'),
     ('OT14', 'upsert', 'inuyasha', 'species', 'wikipedia', '1379659812', 'https://en.wikipedia.org/wiki/Inuyasha_(character)', '2026-11-09T00:00:00Z'),
     ('OT14', 'delete', 'inuyasha', 'species', 'wikidata', 'Q858425', 'https://www.wikidata.org/wiki/Q858425', '2026-11-02T00:00:00Z'),
-    ('OT18', 'upsert', 'yoruichi-shihoin', 'species', 'fandom', null, 'https://bleach.fandom.com/wiki/Yoruichi_Shih%C5%8Din', '2026-11-02T00:00:00Z'),
+    ('OT15', 'upsert', 'dr-gero', 'species', 'fandom', '2276343', 'https://dragonball.fandom.com/wiki/Dr._Gero', '2026-11-09T00:00:00Z'),
+    ('OT18', 'upsert', 'yoruichi-shihoin', 'species', 'fandom', '612984', 'https://bleach.fandom.com/wiki/Yoruichi_Shih%C5%8Din', '2026-11-09T00:00:00Z'),
     ('OT18', 'upsert', 'yoruichi-shihoin', 'species', 'wikidata', 'Q2084607', 'https://www.wikidata.org/wiki/Q2084607', '2026-11-02T00:00:00Z'),
     ('OT18', 'delete', 'yoruichi-shihoin', 'species', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Yoruichi_Shih%C5%8Din', '2026-11-02T00:00:00Z'),
     ('OT19a', 'upsert', 'gintama/kagura', 'species', 'fandom', '78074', 'https://gintama.fandom.com/wiki/Kagura', '2026-11-09T00:00:00Z'),
     ('OT19b', 'upsert', 'kamui', 'species', 'fandom', '78009', 'https://gintama.fandom.com/wiki/Kamui', '2026-11-09T00:00:00Z'),
     ('MV-S5', 'upsert', 'kyo-sohma', 'species', 'fandom', '81470', 'https://fruitsbasket.fandom.com/wiki/Kyo_Sohma', '2026-11-09T00:00:00Z'),
     ('KY1', 'upsert', 'kyo-sohma', 'voice_actor_ja', 'wikipedia', '1384552776', 'https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters', '2026-11-09T00:00:00Z'),
+    ('OT-HS', 'upsert', 'hinata-sakaguchi', 'species', 'fandom', '217280', 'https://tensura.fandom.com/wiki/Hinata_Sakaguchi', '2026-11-09T00:00:00Z'),
     ('OT-Po', 'delete', 'mr-popo', 'species', 'wikidata', 'Q3321112', 'https://www.wikidata.org/wiki/Q3321112', '2026-11-02T00:00:00Z'),
     ('OT-Pu', 'upsert', 'puar', 'species', 'fandom', '2273579', 'https://dragonball.fandom.com/wiki/Animal', '2026-11-09T00:00:00Z'),
     ('OT-Kr', 'upsert', 'korin', 'species', 'fandom', '2273579', 'https://dragonball.fandom.com/wiki/Animal', '2026-11-09T00:00:00Z'),
     ('OT-Kr', 'delete', 'korin', 'species', 'wikidata', 'Q2795709', 'https://www.wikidata.org/wiki/Q2795709', '2026-11-02T00:00:00Z'),
     ('OT-Ri', 'upsert', 'rimuru-tempest', 'species', 'wikidata', 'Q104817112', 'https://www.wikidata.org/wiki/Q104817112', '2026-11-02T00:00:00Z'),
     ('OT-Ri', 'upsert', 'rimuru-tempest', 'species', 'fandom', '214489', 'https://tensura.fandom.com/wiki/Rimuru_Tempest', '2026-11-09T00:00:00Z'),
+    ('RS38', 'upsert', 'rimuru-tempest', 'role_at_debut', 'fandom', '214489', 'https://tensura.fandom.com/wiki/Rimuru_Tempest', '2026-11-09T00:00:00Z'),
     ('OT-Kd', 'upsert', 'kim-dokja', 'species', 'fandom', '21281', 'https://omniscient-readers-viewpoint.fandom.com/wiki/Kim_Dokja', '2026-11-09T00:00:00Z'),
+    ('OT-Be', 'upsert', 'benimaru', 'species', 'fandom', '204429', 'https://tensura.fandom.com/wiki/Benimaru', '2026-11-09T00:00:00Z'),
+    ('OT-Sh', 'upsert', 'shion', 'species', 'fandom', '197991', 'https://tensura.fandom.com/wiki/Shion', '2026-11-09T00:00:00Z'),
     ('OT-Pl', 'upsert', 'polnareff', 'species', 'wikipedia', '1382289725', 'https://en.wikipedia.org/wiki/List_of_JoJo''s_Bizarre_Adventure_characters', '2026-11-09T00:00:00Z'),
     ('OT-Pl', 'delete', 'polnareff', 'species', 'fandom', null, 'https://jojo.fandom.com/wiki/Jean_Pierre_Polnareff', '2026-11-02T00:00:00Z'),
-    ('OT-Rz', 'upsert', 'reze', 'species', 'fandom', null, 'https://chainsaw-man.fandom.com/wiki/Reze', '2026-11-02T00:00:00Z'),
+    ('OT-Rz', 'upsert', 'reze', 'species', 'fandom', '40949', 'https://chainsaw-man.fandom.com/wiki/Reze', '2026-11-09T00:00:00Z'),
     ('OT-Rz', 'delete', 'reze', 'species', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Reze_(Chainsaw_Man)', '2026-11-02T00:00:00Z'),
+    ('OT-Kg', 'upsert', 'kugo-ginjo', 'species', 'fandom', '617732', 'https://bleach.fandom.com/wiki/Fullbringer', '2026-11-09T00:00:00Z'),
     ('OT-KB', 'upsert', 'king-bradley', 'species', 'fandom', '78473', 'https://fma.fandom.com/wiki/King_Bradley', '2026-11-09T00:00:00Z'),
     ('FMA3', 'upsert', 'king-bradley', 'voice_actor_ja', 'wikidata', 'Q3196996', 'https://www.wikidata.org/wiki/Q3196996', '2026-11-02T00:00:00Z'),
     ('FMA3', 'upsert', 'king-bradley', 'voice_actor_ja', 'wikipedia', '1383427724', 'https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters', '2026-11-09T00:00:00Z'),
@@ -312,6 +321,7 @@ insert into l22_src values
     ('FMA6', 'delete', 'lin-yao', 'voice_actor_ja', 'fandom', null, 'https://fma.fandom.com/wiki/Ling_Yao', '2026-11-02T00:00:00Z'),
     ('FMA7', 'upsert', 'alex-louis-armstrong', 'voice_actor_ja', 'wikipedia', '1383427724', 'https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters', '2026-11-09T00:00:00Z'),
     ('FMA7', 'delete', 'alex-louis-armstrong', 'voice_actor_ja', 'fandom', null, 'https://fma.fandom.com/wiki/Alex_Louis_Armstrong', '2026-11-02T00:00:00Z'),
+    ('DB-Ra', 'upsert', 'raditz', 'voice_actor_ja', 'fandom', '2271907', 'https://dragonball.fandom.com/wiki/Raditz', '2026-11-09T00:00:00Z'),
     ('RS19', 'upsert', 'aqua-hoshino', 'role_at_debut', 'fandom', '39033', 'https://oshinoko.fandom.com/wiki/Aqua_Hoshino', '2026-11-09T00:00:00Z'),
     ('OT-H5', 'upsert', 'aqua-hoshino', 'voice_actor_ja', 'wikidata', 'Q110713918', 'https://www.wikidata.org/wiki/Q110713918', '2026-11-02T00:00:00Z'),
     ('OT-H5', 'upsert', 'aqua-hoshino', 'voice_actor_ja', 'wikipedia', '1377609994', 'https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters', '2026-11-09T00:00:00Z'),
@@ -323,8 +333,8 @@ insert into l22_src values
     ('OT-H8', 'upsert', 'joseph-joestar', 'voice_actor_ja', 'wikipedia', '1382289725', 'https://en.wikipedia.org/wiki/List_of_JoJo''s_Bizarre_Adventure_characters', '2026-11-09T00:00:00Z'),
     ('OT-H10', 'upsert', 'kogoro-mori', 'voice_actor_ja', 'wikipedia', '1384067915', 'https://en.wikipedia.org/wiki/List_of_Case_Closed_characters', '2026-11-09T00:00:00Z'),
     ('H1', 'upsert', 'gon-freecss', 'voice_actor_ja', 'wikipedia', '1378757391', 'https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters', '2026-11-09T00:00:00Z'),
-    ('H2', 'upsert', 'killua-zoldyck', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Killua_Zoldyck', '2026-11-02T00:00:00Z'),
-    ('H3', 'upsert', 'kurapika', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Kurapika', '2026-11-02T00:00:00Z'),
+    ('H2', 'upsert', 'killua-zoldyck', 'voice_actor_ja', 'wikipedia', '1378757391', 'https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters', '2026-11-09T00:00:00Z'),
+    ('H3', 'upsert', 'kurapika', 'voice_actor_ja', 'wikipedia', '1378757391', 'https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters', '2026-11-09T00:00:00Z'),
     ('H4', 'upsert', 'leorio-paradinight', 'voice_actor_ja', 'wikipedia', '1378757391', 'https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters', '2026-11-09T00:00:00Z'),
     ('H5', 'upsert', 'isaac-netero', 'voice_actor_ja', 'fandom', null, 'https://hunterxhunter.fandom.com/wiki/Isaac_Netero', '2026-11-02T00:00:00Z'),
     ('H5', 'upsert', 'isaac-netero', 'voice_actor_ja', 'wikipedia', '1378757391', 'https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters', '2026-11-09T00:00:00Z'),
@@ -365,13 +375,13 @@ insert into l22_src values
     ('RZ2', 'upsert', 'ram', 'voice_actor_ja', 'wikipedia', '1379441287', 'https://en.wikipedia.org/wiki/List_of_Re:Zero_characters', '2026-11-09T00:00:00Z'),
     ('RZ2', 'delete', 'ram', 'voice_actor_ja', 'fandom', null, 'https://rezero.fandom.com/wiki/Ram', '2026-11-02T00:00:00Z'),
     ('RZ3', 'upsert', 'rem', 'voice_actor_ja', 'wikidata', 'Q28859527', 'https://www.wikidata.org/wiki/Q28859527', '2026-11-02T00:00:00Z'),
-    ('RZ3', 'upsert', 'rem', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Rem_(Re:Zero)', '2026-11-02T00:00:00Z'),
+    ('RZ3', 'upsert', 'rem', 'voice_actor_ja', 'wikipedia', '1379441287', 'https://en.wikipedia.org/wiki/List_of_Re:Zero_characters', '2026-11-09T00:00:00Z'),
     ('RZ3', 'delete', 'rem', 'voice_actor_ja', 'fandom', null, 'https://rezero.fandom.com/wiki/Rem', '2026-11-02T00:00:00Z'),
     ('RZ4', 'upsert', 'reinhard-van-astrea', 'voice_actor_ja', 'wikidata', 'Q102412112', 'https://www.wikidata.org/wiki/Q102412112', '2026-11-02T00:00:00Z'),
     ('RZ4', 'upsert', 'reinhard-van-astrea', 'voice_actor_ja', 'wikipedia', '1379441287', 'https://en.wikipedia.org/wiki/List_of_Re:Zero_characters', '2026-11-09T00:00:00Z'),
     ('RZ4', 'delete', 'reinhard-van-astrea', 'voice_actor_ja', 'fandom', null, 'https://rezero.fandom.com/wiki/Reinhard_van_Astrea', '2026-11-02T00:00:00Z'),
     ('RZ5', 'upsert', 'emilia', 'voice_actor_ja', 'wikidata', 'Q98312780', 'https://www.wikidata.org/wiki/Q98312780', '2026-11-02T00:00:00Z'),
-    ('RZ5', 'upsert', 'emilia', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Emilia_(Re:Zero)', '2026-11-02T00:00:00Z'),
+    ('RZ5', 'upsert', 'emilia', 'voice_actor_ja', 'wikipedia', '1379441287', 'https://en.wikipedia.org/wiki/List_of_Re:Zero_characters', '2026-11-09T00:00:00Z'),
     ('RZ5', 'delete', 'emilia', 'voice_actor_ja', 'fandom', null, 'https://rezero.fandom.com/wiki/Emilia', '2026-11-02T00:00:00Z'),
     ('RZ7', 'upsert', 'beatrice', 'voice_actor_ja', 'wikidata', 'Q102412190', 'https://www.wikidata.org/wiki/Q102412190', '2026-11-02T00:00:00Z'),
     ('RZ7', 'upsert', 'beatrice', 'voice_actor_ja', 'wikipedia', '1379441287', 'https://en.wikipedia.org/wiki/List_of_Re:Zero_characters', '2026-11-09T00:00:00Z'),
@@ -391,10 +401,10 @@ insert into l22_src values
     ('RZ12', 'upsert', 'garfiel-tinzel', 'voice_actor_ja', 'wikipedia', '1379441287', 'https://en.wikipedia.org/wiki/List_of_Re:Zero_characters', '2026-11-09T00:00:00Z'),
     ('RZ12', 'delete', 'garfiel-tinzel', 'voice_actor_ja', 'fandom', null, 'https://rezero.fandom.com/wiki/Garfiel_Tinzel', '2026-11-02T00:00:00Z'),
     ('SAO1', 'upsert', 'kirito', 'voice_actor_ja', 'wikidata', 'Q18468944', 'https://www.wikidata.org/wiki/Q18468944', '2026-11-02T00:00:00Z'),
-    ('SAO1', 'upsert', 'kirito', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Kirito_(Sword_Art_Online)', '2026-11-02T00:00:00Z'),
+    ('SAO1', 'upsert', 'kirito', 'voice_actor_ja', 'wikipedia', '1384513234', 'https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters', '2026-11-09T00:00:00Z'),
     ('SAO1', 'delete', 'kirito', 'voice_actor_ja', 'fandom', null, 'https://swordartonline.fandom.com/wiki/Kirigaya_Kazuto', '2026-11-02T00:00:00Z'),
     ('SAO2', 'upsert', 'asuna', 'voice_actor_ja', 'wikidata', 'Q18934600', 'https://www.wikidata.org/wiki/Q18934600', '2026-11-02T00:00:00Z'),
-    ('SAO2', 'upsert', 'asuna', 'voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Asuna_(Sword_Art_Online)', '2026-11-02T00:00:00Z'),
+    ('SAO2', 'upsert', 'asuna', 'voice_actor_ja', 'wikipedia', '1384513234', 'https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters', '2026-11-09T00:00:00Z'),
     ('SAO2', 'delete', 'asuna', 'voice_actor_ja', 'fandom', null, 'https://swordartonline.fandom.com/wiki/Yuuki_Asuna', '2026-11-02T00:00:00Z'),
     ('RS24', 'upsert', 'sinon', 'role_at_debut', 'fandom', '196568', 'https://swordartonline.fandom.com/wiki/Asada_Shino', '2026-11-09T00:00:00Z'),
     ('SAO3', 'upsert', 'sinon', 'voice_actor_ja', 'wikidata', 'Q25222800', 'https://www.wikidata.org/wiki/Q25222800', '2026-11-02T00:00:00Z'),
@@ -461,6 +471,7 @@ insert into l22_src values
     ('RS34', 'upsert', 'kaworu-nagisa', 'role_at_debut', 'fandom', '92891', 'https://evangelion.fandom.com/wiki/Kaworu_Nagisa', '2026-11-09T00:00:00Z'),
     ('RS35', 'upsert', 'usagi-tsukino', 'role_at_debut', 'fandom', '286783', 'https://sailormoon.fandom.com/wiki/Usagi_Tsukino_%2F_Sailor_Moon_(anime)', '2026-11-09T00:00:00Z'),
     ('RS36', 'upsert', 'chibiusa', 'role_at_debut', 'fandom', '286032', 'https://sailormoon.fandom.com/wiki/Chibiusa_Tsukino_%2F_Sailor_Chibi_Moon_(manga)', '2026-11-09T00:00:00Z'),
+    ('RS37', 'upsert', 'gohan', 'role_at_debut', 'fandom', '2274275', 'https://dragonball.fandom.com/wiki/Gohan', '2026-11-09T00:00:00Z'),
     ('DA5', 'delete', 'count-saint-germain', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Saint-Germain', '2026-11-02T00:00:00Z'),
     ('DA6', 'delete', 'reiko-kashima', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Reiko_Kashima', '2026-11-02T00:00:00Z'),
     ('DA7', 'delete', 'vamola', 'voice_actor_ja', 'fandom', null, 'https://dandadan.fandom.com/wiki/Bamora', '2026-11-02T00:00:00Z'),
