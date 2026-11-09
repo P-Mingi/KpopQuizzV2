@@ -5,7 +5,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { PGlite } from '@electric-sql/pglite';
-import { build, load } from './anime-bank-lot1-sql.mjs';
+import { APPLIED_REVIEW, build, load, withReview } from './anime-bank-lot1-sql.mjs';
 
 const REPO = new URL('../../../../../', import.meta.url).pathname;
 const L08 = readFileSync(`${REPO}docs/pending-migrations/multisite/launch/L08-K3-daily-bank.sql`, 'utf8');
@@ -97,4 +97,16 @@ test('rollback is refused once a lot row is published', async () => {
   const before = await dump(db);
   await assert.rejects(db.exec(rollback), /refused/);
   assert.deepEqual(await dump(db), before);
+});
+
+test('the committed L29 is the file applied in production: build() with the recorded review, no placeholder left', async () => {
+  const committed = readFileSync(`${REPO}docs/pending-migrations/multisite/launch/L29-l1-anime-bank-lot1.sql`, 'utf8');
+  assert.equal(committed, withReview(sql));
+  assert.ok(!/[{](REVIEWER|REVIEW_DATE)[}]/.test(committed.split('\n').filter((l) => l.startsWith('insert into _l29_review')).join('')));
+  assert.ok(committed.includes(`insert into _l29_review values ('${APPLIED_REVIEW.reviewer}', '${APPLIED_REVIEW.date}');`));
+  const db = await fresh();
+  await db.exec(committed);
+  const notes = (await db.query(`select verification_notes as n from public.quiz_bank where site_id='anime' and scheduled_date between '2026-11-21' and '2026-12-17'`)).rows;
+  assert.equal(notes.length, N);
+  for (const r of notes) assert.match(r.n, /checked by mingi on 2026-11-09\.$/);
 });

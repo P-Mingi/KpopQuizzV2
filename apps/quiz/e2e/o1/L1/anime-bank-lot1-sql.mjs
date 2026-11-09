@@ -167,9 +167,20 @@ end $o1l$;
 
 function addDays(iso, n) { return new Date(Date.parse(`${iso}T00:00:00Z`) + n * 86400000).toISOString().slice(0, 10); }
 
+// The owner's review, recorded when the file was applied in production (2026-11-09, 12:00 UTC, Supabase SQL Editor). build() keeps the
+// placeholders (the tests prove the refusal on them); the committed file is build() with this review filled, exactly what was applied.
+export const APPLIED_REVIEW = { reviewer: 'mingi', date: '2026-11-09', applied: '2026-11-09 12:00 UTC, by the owner, from the Supabase SQL Editor' };
+export function withReview(sql, review = APPLIED_REVIEW) {
+  const line = "insert into _l29_review values ('{REVIEWER}', '{REVIEW_DATE}');";
+  if (!sql.includes(line)) throw new Error('L29: the review line is missing');
+  return sql
+    .replace(line, `insert into _l29_review values ('${review.reviewer}', '${review.date}');`)
+    .replace('\n-- o1-transaction: single (psql --single-transaction). Idempotent', `\n-- Applied: ${review.applied}; review recorded as ${review.reviewer}, ${review.date}. A second Run in the editor raised "relation _l29_review does not exist" (the editor had dropped the temp table) and changed nothing.\n-- o1-transaction: single (psql --single-transaction). Idempotent`);
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const { sql, rollback, N } = build(load());
-  writeFileSync(`${LAUNCH}/L29-l1-anime-bank-lot1.sql`, sql);
+  writeFileSync(`${LAUNCH}/L29-l1-anime-bank-lot1.sql`, withReview(sql));
   writeFileSync(`${LAUNCH}/L29-l1-anime-bank-lot1.rollback.sql`, rollback);
   console.log(`L29 written: ${N} rows`);
 }
