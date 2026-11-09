@@ -18,10 +18,10 @@ export const DLE_FR_REVIEWED = false;
 type L10n = Readonly<Record<DleLocale, string>>;
 
 export const BURROW_SEO: { readonly title: L10n; readonly description: L10n } = {
-  title: { en: 'Daily K-pop and Anime Games: The Burrow', fr: 'Jeux K-pop et anime du jour : le Terrier' },
+  title: { en: 'Dle games: daily K-pop and anime games', fr: 'Jeux dle : les jeux K-pop et anime du jour' },
   description: {
-    en: 'The Burrow gathers our daily K-pop and anime games: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.',
-    fr: 'Le Terrier réunit nos jeux K-pop et anime du jour : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.',
+    en: 'The Dle games gather our daily K-pop and anime games: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.',
+    fr: 'Les jeux dle réunissent nos jeux K-pop et anime du jour : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.',
   },
 };
 

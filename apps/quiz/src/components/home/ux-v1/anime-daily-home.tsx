@@ -37,24 +37,23 @@ const TILES = ['', 'n', 'o', '', 'o', '', '', 'n', '', '', '', ''] as const;
 const TILE_CLASS = { '': 'p5-ad-t', n: 'p5-ad-t p5-ad-near', o: 'p5-ad-t p5-ad-off' } as const;
 
 const CSS = `
-.p5-ad-list { display: flex; flex-direction: column; gap: 12px; }
-.p5-ad-card { display: flex; align-items: center; gap: 20px; padding: 16px 20px 16px 16px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); }
+/* One row of cards, the same height, the button pinned to the bottom of each. On a phone the row scrolls sideways and snaps, the next card peeking from the right edge. */
+.p5-ad-list { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 16px; }
+.p5-ad-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); min-width: 0; }
 .p5-ad-tiles { flex: none; display: grid; grid-template-columns: repeat(4, 16px); gap: 4px; padding: 12px; border-radius: 16px; background: var(--ux-pink-soft); }
-.p5-ad-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-pink-fill); }
-.p5-ad-near { background: repeating-linear-gradient(135deg, var(--ux-pink-soft) 0 3px, var(--ux-pink-line) 3px 6px); }
+.p5-ad-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-ok); }
+.p5-ad-near { background: repeating-linear-gradient(135deg, var(--ux-no-soft) 0 3px, var(--ux-no) 3px 6px); }
 .p5-ad-off { background: var(--ux-edge); }
-.p5-ad-main { flex: 1; min-width: 0; }
+.p5-ad-main { flex: 1 1 auto; min-width: 0; width: 100%; }
 .p5-ad-no { font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ux-pink-ink); }
-.p5-ad-main h3 { font-size: 21px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; margin-top: 2px; }
+.p5-ad-main h3 { font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; margin-top: 2px; }
 .p5-ad-line { font-size: 14px; line-height: 1.6; color: var(--ux-muted); margin-top: 4px; }
-.p5-ad-go { flex: 0 0 auto; height: 44px; }
+.p5-ad-go { flex: 0 0 auto; height: 44px; width: 100%; box-sizing: border-box; justify-content: center; }
 .p5-ad-go svg { width: 14px; height: 14px; }
 .p5-ad-foot { margin-top: 12px; }
 @media (max-width: 760px) {
-  .p5-ad-card { flex-wrap: wrap; gap: 16px; padding: 16px; }
-  .p5-ad-main { flex-basis: 150px; }
-  .p5-ad-main h3 { font-size: 19px; }
-  .p5-ad-go { width: 100%; }
+  .p5-ad-list { grid-auto-columns: 82%; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; padding-bottom: 6px; scroll-padding-inline: 0; }
+  .p5-ad-card { scroll-snap-align: start; }
 }
 `;
 

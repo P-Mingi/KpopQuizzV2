@@ -477,7 +477,8 @@
     "docs/pending-migrations/multisite/launch/**",
     "apps/quiz/public/*.txt",
     "apps/quiz/public/brand/anime/**",
-    "apps/quiz/public/brand/hub/**"
+    "apps/quiz/public/brand/hub/**",
+    "docs/anime/data/dle/**"
   ],
   "C1": [
     "apps/quiz/e2e/o1/C1/**",

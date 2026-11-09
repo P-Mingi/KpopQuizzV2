@@ -49,8 +49,8 @@ const TILE_CLASS = { '': 'p1-kd-t', n: 'p1-kd-t p1-kd-near', o: 'p1-kd-t p1-kd-o
 const CSS = `
 .p1-kd-card { display: flex; align-items: center; gap: 20px; padding: 16px 20px 16px 16px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); }
 .p1-kd-tiles { flex: none; display: grid; grid-template-columns: repeat(4, 16px); gap: 4px; padding: 12px; border-radius: 16px; background: var(--ux-pink-soft); }
-.p1-kd-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-pink-fill); }
-.p1-kd-near { background: repeating-linear-gradient(135deg, var(--ux-pink-soft) 0 3px, var(--ux-pink-line) 3px 6px); }
+.p1-kd-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-ok); }
+.p1-kd-near { background: repeating-linear-gradient(135deg, var(--ux-no) 0 3px, color-mix(in srgb, var(--ux-no) 62%, var(--ux-raised)) 3px 6px); }
 .p1-kd-off { background: var(--ux-edge); }
 .p1-kd-main { flex: 1; min-width: 0; }
 .p1-kd-no { font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ux-pink-ink); }

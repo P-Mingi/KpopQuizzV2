@@ -1,0 +1,97 @@
+// Lane opaff (owner, 2026-11-08): the main affiliation of each One Piece Otakudle character and its family (the near key).
+// Source of every value: the Fandom infobox "Affiliations" captured in scripts/anime/a2/data/one-piece.json (the entry listed first, the others kept in the note when it is a judgement call).
+export const FAMILY = { P: 'pirates', M: 'marines', W: 'world-government', R: 'revolutionary-army', N: null };
+const SH = 'Straw Hat Pirates';
+const CP = 'Cipher Pol';
+// slug: [affiliation, family code, judgement note or '']
+export const D = {
+  'monkey-d-luffy': [SH, 'P', ''], 'roronoa-zoro': [SH, 'P', ''], sanji: [SH, 'P', 'Also Vinsmoke Family (former) and Baratie (resigned); the Straw Hats are what the series shows.'],
+  nami: [SH, 'P', ''], 'tony-tony-chopper': [SH, 'P', ''], usopp: [SH, 'P', ''], 'nico-robin': [SH, 'P', 'Also Baroque Works (defected) when first met; the Straw Hats are what the series shows.'],
+  franky: [SH, 'P', ''], brook: [SH, 'P', ''], jinbe: [SH, 'P', 'Infobox lists Straw Hat Pirates first; first met as a Warlord and Sun Pirates captain (both former).'],
+  shanks: ['Red Hair Pirates', 'P', ''], 'trafalgar-law': ['Heart Pirates', 'P', ''], 'portgas-d-ace': ['Whitebeard Pirates', 'P', 'Also Spade Pirates (former) when first met.'],
+  'boa-hancock': ['Kuja Pirates', 'P', 'Infobox: "Kuja (Kuja Pirates)".'],
+  buggy: ['Buggy Pirates', 'P', 'Debut-arc rule (Orange Town): the captain of the Buggy Pirates, the crew he leads there. Cross Guild comes after Impel Down. Infobox lists Buggy Pirates.'],
+  'donquixote-doflamingo': ['Donquixote Pirates', 'P', 'Also World Government (secret) and Seven Warlords (former).'],
+  'charlotte-linlin': ['Big Mom Pirates', 'P', ''], 'edward-newgate': ['Whitebeard Pirates', 'P', ''],
+  crocodile: ['Baroque Works', 'N', 'Debut-arc rule (Little Garden): the boss of Baroque Works (Mr. 0). Family: none, Baroque Works is a criminal company, not a crew. Infobox lists Baroque Works (former).'],
+  smoker: ['Marines', 'M', 'G-5 is a Marine branch.'], 'bartholomew-kuma': ['Revolutionary Army', 'R', 'First met as a Seven Warlord (former).'],
+  kaido: ['Beasts Pirates', 'P', ''], 'marshall-d-teach': ['Blackbeard Pirates', 'P', ''], 'gol-d-roger': ['Roger Pirates', 'P', ''],
+  'nefertari-vivi': ['Arabasta Kingdom', 'N', 'Judgement: infobox lists Arabasta Kingdom first (Straw Hat Pirates is former); a kingdom has no family.'],
+  'monkey-d-garp': ['Marines', 'M', ''], kuzan: ['Marines', 'M', 'Debut-arc rule (Long Ring Long Land): met as Admiral Aokiji of the Marines. Blackbeard Pirates comes after his resignation. Infobox lists Marines (resigned).'],
+  sakazuki: ['Marines', 'M', ''], 'eustass-kid': ['Kid Pirates', 'P', ''], borsalino: ['Marines', 'M', ''], sabo: ['Revolutionary Army', 'R', ''],
+  'dracule-mihawk': ['Seven Warlords of the Sea', 'P', 'Debut-arc rule (Baratie): met as a Seven Warlord of the Sea. Cross Guild comes two years after Marineford. Infobox lists Seven Warlords of the Sea (former). Family: pirates, a Warlord is a pirate under a government pact.'], 'jewelry-bonney': ['Bonney Pirates', 'P', ''],
+  'rob-lucci': [CP, 'W', 'Judgement: infobox lists CP0 first; first met as CP9 (listed, former). Both are Cipher Pol.'],
+  'caesar-clown': ['Donquixote Pirates', 'P', 'Debut-arc rule (Punk Hazard): met as the scientist who works for Doflamingo (the arc page lists him with the Donquixote Pirates). Judgement: MADS is the other reading. Infobox lists Donquixote Pirates (former).'],
+  'gecko-moria': ['Thriller Bark Pirates', 'P', ''], arlong: ['Arlong Pirates', 'P', ''],
+  'kozuki-oden': ['Kouzuki Family', 'N', 'Judgement: infobox lists Kouzuki Family first; Roger Pirates and Whitebeard Pirates are former.'],
+  'monkey-d-dragon': ['Revolutionary Army', 'R', ''],
+  'silvers-rayleigh': ['Roger Pirates', 'P', 'Judgement: the infobox lists only "Roger Pirates (former)".'],
+  'charlotte-katakuri': ['Big Mom Pirates', 'P', 'Judgement: infobox lists Charlotte Family first, then Big Mom Pirates; the crew is used so that the whole family matches Big Mom.'],
+  sengoku: ['Marines', 'M', ''], 'capone-bege': ['Fire Tank Pirates', 'P', ''],
+  yamato: ['Beasts Pirates', 'P', 'Judgement: the infobox lists "Ninja-Pirate-Mink-Samurai Alliance (disbanded)" then "Beasts Pirates (defected)"; the alliance is not a crew.'],
+  carrot: ['Mokomo Dukedom', 'N', 'Minks form no family.'], 'nerona-imu': ['World Government', 'W', ''],
+  eneru: ["God's Army", 'N', 'Judgement: infobox lists God\'s Army (former) then Automata; the series presents him as the god of Skypiea.'],
+  wapol: ['Evil Black Drum Kingdom', 'N', 'Judgement: first listed; his Bliking Pirates are disbanded.'],
+  issho: ['Marines', 'M', ''], 'hody-jones': ['New Fish-Man Pirates', 'P', ''],
+  vegapunk: [null, 'N', 'UNSOURCED: the infobox lists only "MADS (former)" and "Marines (former) (SSG)"; no clear main affiliation, left empty.'],
+  marco: ['Whitebeard Pirates', 'P', 'Judgement: the infobox lists only "Whitebeard Pirates (former)" and the alliance.'],
+  bellamy: ['Bellamy Pirates', 'P', 'Judgement: the infobox lists "Donquixote Pirates (former)" then "Bellamy Pirates (former)"; first met as Bellamy Pirates.'],
+  'kin-emon': ['Kouzuki Family', 'N', ''], 'basil-hawkins': ['Hawkins Pirates', 'P', ''],
+  galdino: ['Baroque Works', 'N', 'Debut-arc rule (Little Garden): met as Mr. 3 of Baroque Works. Cross Guild comes after Impel Down. Infobox lists Baroque Works (formerly).'],
+  hatchan: ['Arlong Pirates', 'P', 'Judgement: infobox lists Takoyaki 8 first (his later stall); first met as an Arlong Pirates officer (listed, former).'],
+  foxy: ['Foxy Pirates', 'P', ''], 'don-krieg': ['Krieg Pirates', 'P', ''],
+  perona: ['Thriller Bark Pirates', 'P', 'Judgement: infobox lists "Dracule Mihawk" (a person) first, then Thriller Bark Pirates.'],
+  kuro: ['Black Cat Pirates', 'P', ''],
+  shirahoshi: ['Ryugu Kingdom', 'N', 'Judgement: infobox lists Neptune Family then Ryugu Kingdom; the kingdom is used so that the royal family matches.'],
+  magellan: ['Impel Down', 'W', 'Impel Down staff belong to the World Government family.'],
+  'charlotte-perospero': ['Big Mom Pirates', 'P', 'Judgement: infobox lists Charlotte Family first, then Big Mom Pirates.'],
+  cavendish: ['Beautiful Pirates', 'P', ''],
+  'vinsmoke-judge': ['Vinsmoke Family', 'N', ''], 'charlotte-pudding': ['Big Mom Pirates', 'P', 'Judgement: infobox lists Charlotte Family first, then Big Mom Pirates.'],
+  tashigi: ['Marines', 'M', 'G-5 is a Marine branch.'], koby: ['Marines', 'M', ''],
+  bartolomeo: ['Barto Club', 'P', ''], kaku: [CP, 'W', 'Judgement: infobox lists CP0 first; first met as CP9 (listed, former). Both are Cipher Pol.'],
+  kyros: ['Riku Royal Army', 'N', 'Infobox lists Corrida Colosseum (former) first.'],
+  inuarashi: ['Mokomo Dukedom', 'N', 'Minks form no family.'],
+  helmeppo: ['Marines', 'M', 'Judgement: the infobox lists only "Marines (Headquarters; SWORD) (formerly 153rd Branch)".'],
+  'vinsmoke-reiju': ['Vinsmoke Family', 'N', ''], caribou: ['Caribou Pirates', 'P', ''],
+  'x-drake': ['Drake Pirates', 'P', 'Debut-arc rule (Sabaody Archipelago): met as the captain of the Drake Pirates, a Supernova. His Marine infiltration (SWORD) is revealed later. Infobox lists Drake Pirates.'],
+  'jesus-burgess': ['Blackbeard Pirates', 'P', ''], rebecca: ['Dressrosa', 'N', ''],
+  nekomamushi: ['Mokomo Dukedom', 'N', 'Minks form no family.'], hajrudin: ['New Giant Warrior Pirates', 'P', ''],
+  shiki: ['Golden Lion Pirates', 'P', ''], 'kozuki-hiyori': ['Kouzuki Family', 'N', ''], killer: ['Kid Pirates', 'P', ''],
+  neptune: ['Ryugu Kingdom', 'N', 'Judgement: infobox lists Neptune Family then Ryugu Kingdom; the kingdom is used so that the royal family matches.'],
+  'scratchmen-apoo': ['On Air Pirates', 'P', ''], 'vinsmoke-niji': ['Vinsmoke Family', 'N', ''], jack: ['Beasts Pirates', 'P', ''],
+  'vinsmoke-yonji': ['Vinsmoke Family', 'N', ''], 'vinsmoke-ichiji': ['Vinsmoke Family', 'N', ''],
+  alvida: ['Alvida Pirates', 'P', 'Debut-arc rule (Romance Dawn): met as the captain of the Alvida Pirates. Cross Guild comes after Impel Down. Infobox lists Alvida Pirates (formerly).'],
+  trebol: ['Donquixote Pirates', 'P', ''],
+  uta: ['Red Hair Pirates', 'P', 'Judgement: the infobox lists only "Red Hair Pirates (former)".'],
+  'daz-bonez': ['Baroque Works', 'N', 'Debut-arc rule (Alabasta): met as Mr. 1 of Baroque Works. Cross Guild comes after Impel Down. Infobox lists Baroque Works (former).'], diamante: ['Donquixote Pirates', 'P', ''], pica: ['Donquixote Pirates', 'P', ''],
+  viola: ['Riku Family', 'N', 'Judgement: infobox lists Riku Family first; Donquixote Pirates (defected).'],
+  aramaki: ['Marines', 'M', ''], 'charlotte-cracker': ['Big Mom Pirates', 'P', 'Judgement: infobox lists Charlotte Family first, then Big Mom Pirates.'],
+  makino: ["Party's Bar", 'N', 'A civilian bar owner: no family.'],
+};
+
+// Debut-arc rule (owner 2026-11-08): the affiliation a character has in the arc of the game's "Debut arc" column, as the reader meets them there.
+// The cases above whose note starts with "Debut-arc rule" are applied. These are the OTHER characters where the rule gives a value different from the one above;
+// they are NOT applied, they go to the owner as a question. [affiliation by the rule, family code, debut arc (L15 data), note/source].
+export const RULE_DIFFS = {
+  'nico-robin': ['Baroque Works', 'N', 'Whiskey Peak', 'Met as Miss All Sunday of Baroque Works; the Straw Hats come later. Infobox: Baroque Works (defected).'],
+  jinbe: ['Seven Warlords of the Sea', 'P', 'Impel Down', 'Met as a Seven Warlord; the Sun Pirates are his crew (former). Infobox: Seven Warlords of the Sea (former).'],
+  franky: ['Franky Family', 'N', 'Water 7', 'Met as the head of the Franky Family (house-wreckers gang). Infobox: Franky Family (former).'],
+  'bartholomew-kuma': ['Seven Warlords of the Sea', 'P', 'Jaya', 'Met as a Seven Warlord of the Sea; the Revolutionary Army is revealed later. Infobox: Seven Warlords of the Sea (former).'],
+  'nefertari-vivi': ['Baroque Works', 'N', 'Reverse Mountain / Into the Grand Line', 'Met as Miss Wednesday, an undercover agent of Baroque Works; the kingdom is revealed in the same arc. Infobox: Baroque Works (double agent).'],
+  viola: ['Donquixote Pirates', 'P', 'Dressrosa', 'Met as an officer of the Donquixote Family; the Riku Family is revealed later. Infobox: Donquixote Pirates (defected).'],
+  koby: ['Alvida Pirates', 'P', 'Romance Dawn', 'Met as the cabin boy of the Alvida Pirates. Infobox: Alvida Pirates (defected).'],
+  usopp: ['Usopp Pirates', 'P', 'Syrup Village', 'Met as the captain of the Usopp Pirates (the village kids). Infobox: Usopp Pirates (disbanded).'],
+  sanji: ['Baratie', 'N', 'Baratie', 'Met as a cook of the Baratie restaurant. Infobox: Baratie (resigned).'],
+  brook: ['Rumbar Pirates', 'P', 'Thriller Bark', 'Met as the sole survivor of the Rumbar Pirates. Infobox: Rumbar Pirates (former).'],
+  'portgas-d-ace': ['Spade Pirates', 'P', 'Drum Island', 'Met as the captain of the Spade Pirates; the Whitebeard Pirates are revealed in Alabasta. Infobox: Spade Pirates (former).'],
+  sabo: ['Dadan Family', 'N', 'Marineford / Paramount War', 'Met as a child in the flashback, living with the Dadan Family bandits. Low confidence. Infobox: Dadan Family (former).'],
+  kyros: ['Corrida Colosseum', 'N', 'Dressrosa', 'Met as a gladiator of the Corrida Colosseum. Low confidence. Infobox: Corrida Colosseum (former).'],
+  vegapunk: ['Marines', 'M', 'Punk Hazard', 'Met through the Marines/World Government scientist role (SSG). Today empty (unsourced). Low confidence.'],
+};
+// Join the Straw Hats inside their debut arc and show no other group when met: the rule is ambiguous, today's Straw Hat Pirates is kept (a question to the owner).
+export const JOINS = {
+  'roronoa-zoro': 'Romance Dawn: a pirate hunter, no crew shown before he joins',
+  nami: 'Orange Town: a thief on her own (Arlong Pirates is only revealed in the next arc), joins at the end',
+  'tony-tony-chopper': 'Drum Island: a lone reindeer doctor, joins at the end',
+};
+// Same value under the rule (no change): Kozuki Oden, Yamato, Helmeppo, Trafalgar Law and every character not listed above.

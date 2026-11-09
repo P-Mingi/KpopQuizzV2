@@ -7,6 +7,7 @@ import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
 import { burrowHref, otherWorld, worldHref, worldOf } from '@/lib/dle/worlds';
+import { yesterdayName } from '@/lib/dle/yesterday';
 import { withBasePath } from '@/lib/site/base-path';
 import { REGISTRY } from '@/lib/site/registry';
 
@@ -96,7 +97,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
       <main id="main" tabIndex={-1} className="hub-dle-main">
         <DleGame
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
-          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name}
+          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)}
         />
         {seriesGames.length ? (
           <nav aria-labelledby="dle-series-h" className="hub-dle-seriesnav">

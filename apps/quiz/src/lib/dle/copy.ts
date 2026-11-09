@@ -57,21 +57,21 @@ export const formatCount = num;
 
 const EN: DleCopy = {
   skip: 'Skip to content',
-  navMain: 'Main', navHome: 'Home', navBurrow: 'The Burrow', navQuizzes: 'Quizzes', navBlind: 'Blind test', navCommunity: 'Community',
+  navMain: 'Main', navHome: 'Home', navBurrow: 'Dle games', navQuizzes: 'Quizzes', navBlind: 'Blind test', navCommunity: 'Community',
   left: 'left today',
   langLabel: 'Language', signIn: 'Sign in', signInTitle: 'Sign in to Bunnyverse', signInSub: 'Keep your plays on every device.', passport: 'My passport',
   help: 'How to play', stats: 'Statistics', settings: 'Settings and language', close: 'Close',
   streakDays: (n) => `${n} ${n === 1 ? 'day' : 'days'}`, streakSr: 'K-pop streak',
   footTag: 'Quizzes and daily games for K-pop and anime fans.', footAbout: 'About', footPrivacy: 'Privacy', footLegal: 'Legal notice', footCredits: 'Photo credits',
-  burrowH1: 'The Burrow', burrowLead: 'Two games, one puzzle each, the same for everyone.', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
+  burrowH1: 'Dle games', burrowLead: 'Two games, one puzzle each, the same for everyone.', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
   of: (d, t) => `${d} of ${t}`,
   play: 'Play', continueTo: (m) => `Continue: ${lowerFirst(m)}`, seeResults: 'See my results', soon: 'soon', toPlay: 'to play',
   foundIn: (n) => `found in ${n}`, gaveUp: 'gave up', inProgress: (n) => `in progress · ${n}`,
   fansFound: (n) => `${n} fans found it today`, allFound: 'all found', modesDone: (d, t, next) => `${d} of ${t} · ${next}`,
   gameNo: (k, n) => `${k} no. ${n}`, burrowStreak: (l, n) => `${l}: ${n} ${n === 1 ? 'day' : 'days'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
   show: 'Show', hiddenAnswer: 'Hidden, no spoilers', quizOf: (g) => `${g} quiz`, blindOf: (g) => `${g} blind test`,
-  aboutTitle: 'What is the Burrow?',
-  about1: 'The Burrow gathers the Bunnyverse daily games. Kpopdle: guess today’s K-pop idol, then the group, the song and the hidden members. Otakudle: guess today’s anime character, across all series or one series, spoiler-free.',
+  aboutTitle: 'What are the Dle games?',
+  about1: 'The Dle games gather the Bunnyverse daily games. Kpopdle: guess today’s K-pop idol, then the group, the song and the hidden members. Otakudle: guess today’s anime character, across all series or one series, spoiler-free.',
   about2: 'Unlimited guesses, a new puzzle at midnight UTC.',
   seriesTilesTitle: 'Play one series', seriesTilesLabel: 'Otakudle, one game per series',
   breadcrumb: 'Breadcrumb', stepsLabel: 'The Kpopdle games, in order', stepNow: 'playing', stepDone: 'found',
@@ -83,7 +83,7 @@ const EN: DleCopy = {
   answerUp: 'the answer is higher', answerDown: 'the answer is lower',
   found: 'Found!', answerWas: 'The answer was', wonLine: (n, r) => `In ${n} ${n === 1 ? 'guess' : 'guesses'}.${r ? ` ${r} fans found it today.` : ''}`, gaveUpLine: (n, l) => `You gave up after ${n} ${n === 1 ? 'guess' : 'guesses'}. Your ${l} streak still holds.`,
   streakChip: (l, n) => `${l} streak: ${n} ${n === 1 ? 'day' : 'days'}`, bars: 'Right cells on each guess', shareTitle: 'Your share, without the answer', copy: 'Copy', copied: 'Copied', share: 'Share',
-  whatNow: 'What next', backToBurrow: 'Back to the Burrow', allDone: 'All done today', allDoneLine: 'New puzzles at midnight UTC.', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show the initials.',
+  whatNow: 'What next', backToBurrow: 'Back to the Dle games', allDone: 'All done today', allDoneLine: 'New puzzles at midnight UTC.', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show the initials.',
   yesterdayLine: 'Yesterday’s idol:', howTitle: 'How to play Kpopdle Idol?',
   how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 10 mistakes.',
   how2: 'Only adult idols of major groups are in the game. Every photo is licensed and credited; without a licence, we show the initials.',
@@ -103,21 +103,21 @@ const EN: DleCopy = {
 
 const FR: DleCopy = {
   skip: 'Aller au contenu',
-  navMain: 'Principal', navHome: 'Accueil', navBurrow: 'Le Terrier', navQuizzes: 'Quiz', navBlind: 'Blind test', navCommunity: 'Communauté',
+  navMain: 'Principal', navHome: 'Accueil', navBurrow: 'Jeux dle', navQuizzes: 'Quiz', navBlind: 'Blind test', navCommunity: 'Communauté',
   left: 'à jouer aujourd’hui',
   langLabel: 'Langue', signIn: 'Se connecter', signInTitle: 'Connecte-toi à Bunnyverse', signInSub: 'Retrouve tes parties sur tous tes appareils.', passport: 'Mon passport',
   help: 'Comment jouer', stats: 'Statistiques', settings: 'Réglages et langue', close: 'Fermer',
   streakDays: (n) => `${n} ${n === 1 ? 'jour' : 'jours'}`, streakSr: 'de série K-pop',
   footTag: 'Des quiz et des jeux du jour pour les fans de K-pop et d’anime.', footAbout: 'À propos', footPrivacy: 'Confidentialité', footLegal: 'Mentions légales', footCredits: 'Crédits photos',
-  burrowH1: 'Le Terrier', burrowLead: 'Deux jeux, une énigme chacun, la même pour tout le monde.', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
+  burrowH1: 'Jeux dle', burrowLead: 'Deux jeux, une énigme chacun, la même pour tout le monde.', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
   of: (d, t) => `${d} sur ${t}`,
   play: 'Jouer', continueTo: (m) => `Continuer : ${lowerFirst(m)}`, seeResults: 'Voir mes résultats', soon: 'bientôt', toPlay: 'à jouer',
   foundIn: (n) => `trouvé en ${n}`, gaveUp: 'abandon', inProgress: (n) => `en cours · ${n}`,
   fansFound: (n) => `${n} fans ont trouvé aujourd’hui`, allFound: 'tout trouvé', modesDone: (d, t, next) => `${d} sur ${t} · ${next}`,
   gameNo: (k, n) => `${k} n° ${n}`, burrowStreak: (l, n) => `${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
   show: 'Afficher', hiddenAnswer: 'Masqué, sans spoiler', quizOf: (g) => `Quiz ${g}`, blindOf: (g) => `Blind test ${g}`,
-  aboutTitle: 'C’est quoi, le Terrier ?',
-  about1: 'Le Terrier réunit les jeux quotidiens de Bunnyverse. Kpopdle : devine l’idol K-pop du jour, puis le groupe, la chanson et les membres cachés. Otakudle : devine le personnage d’anime du jour, toutes séries ou une seule, sans spoiler.',
+  aboutTitle: 'C’est quoi, les jeux dle ?',
+  about1: 'Les jeux dle réunissent les jeux quotidiens de Bunnyverse. Kpopdle : devine l’idol K-pop du jour, puis le groupe, la chanson et les membres cachés. Otakudle : devine le personnage d’anime du jour, toutes séries ou une seule, sans spoiler.',
   about2: 'Essais illimités, nouvelle énigme à minuit UTC (1 h à Paris en hiver).',
   seriesTilesTitle: 'Joue une seule série', seriesTilesLabel: 'Otakudle, un jeu par série',
   breadcrumb: 'Fil d’Ariane', stepsLabel: 'Les jeux Kpopdle, dans l’ordre', stepNow: 'en cours', stepDone: 'trouvée',
@@ -129,7 +129,7 @@ const FR: DleCopy = {
   answerUp: 'la réponse est plus grande', answerDown: 'la réponse est plus petite',
   found: 'Trouvée !', answerWas: 'La réponse était', wonLine: (n, r) => `En ${n} ${n === 1 ? 'essai' : 'essais'}.${r ? ` ${r} fans ont trouvé aujourd’hui.` : ''}`, gaveUpLine: (n, l) => `Tu as abandonné après ${n} ${n === 1 ? 'essai' : 'essais'}. Ta série ${l} tient quand même.`,
   streakChip: (l, n) => `Série ${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, bars: 'Cases justes à chaque essai', shareTitle: 'Ton partage, sans la réponse', copy: 'Copier', copied: 'Copié', share: 'Partager',
-  whatNow: 'Et maintenant', backToBurrow: 'Retour au Terrier', allDone: 'Tout est fait aujourd’hui', allDoneLine: 'Nouvelles énigmes à minuit UTC.', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on garde les initiales.',
+  whatNow: 'Et maintenant', backToBurrow: 'Retour aux jeux dle', allDone: 'Tout est fait aujourd’hui', allDoneLine: 'Nouvelles énigmes à minuit UTC.', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on garde les initiales.',
   yesterdayLine: 'L’idol d’hier :', howTitle: 'Comment jouer à Kpopdle Idol ?',
   how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 10 erreurs.',
   how2: 'Seules les idols adultes des groupes majeurs entrent dans le jeu. Les photos sont toutes sous licence et créditées ; sans licence, on affiche les initiales.',
@@ -400,7 +400,8 @@ interface SeriesSpec {
   readonly ja: string;
   readonly suggestSecond: string;
   readonly poolHead: Readonly<Record<DleLocale, readonly [string, string]>>;
-  readonly samples: readonly [string, string, string];
+  /** The three example tiles of How to play (right, close, wrong), in the words of the language. */
+  readonly samples: Readonly<Record<DleLocale, readonly [string, string, string]>>;
   readonly arrowSample: string;
   readonly clues: Readonly<Record<DleLocale, string>>;
   readonly hintsLine: Readonly<Record<DleLocale, string>>;
@@ -413,7 +414,7 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
   'otakudle-one-piece': {
     columns: ONE_PIECE_COLUMNS, ja: 'ワンピース', suggestSecond: 'sea_of_origin',
     poolHead: { en: ['Crew or organisation', 'Characters'], fr: ['Équipage ou organisation', 'Personnages'] },
-    samples: ['Zoan', 'Armament', 'Logia'], arrowSample: '174 cm',
+    samples: { en: ['Zoan', 'Armament', 'Logia'], fr: ['Zoan', 'Armement', 'Logia'] }, arrowSample: '174 cm',
     clues: {
       en: 'gender, affiliation, Devil Fruit, Haki, bounty, height, sea of origin and debut arc',
       fr: 'le genre, l’affiliation, le fruit du démon, le Haki, la prime, la taille, la mer d’origine et l’arc de début',
@@ -431,7 +432,7 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
   'otakudle-dragon-ball': {
     columns: DRAGON_BALL_COLUMNS, ja: 'ドラゴンボール', suggestSecond: 'race',
     poolHead: { en: ['Affiliation', 'Characters'], fr: ['Affiliation', 'Personnages'] },
-    samples: ['Saiyan', 'Capsule Corporation', 'Earth'], arrowSample: 'Z',
+    samples: { en: ['Saiyan', 'Capsule Corporation', 'Earth'], fr: ['Saiyan', 'Capsule Corporation', 'Terre'] }, arrowSample: 'Z',
     clues: {
       en: 'gender, race, affiliation, home planet, universe, debut series, debut saga, and whether the character is good or evil at their first appearance',
       fr: 'le genre, la race, l’affiliation, la planète d’origine, l’univers, la série de début, la saga de début, et si le personnage est gentil ou méchant à sa première apparition',
@@ -483,7 +484,7 @@ const seriesWords = (game: 'otakudle-one-piece' | 'otakudle-dragon-ball', locale
     dlgFoot: fr
       ? 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata, de Wikipedia et du wiki de la série.'
       : 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata, Wikipedia and the series wiki.',
-    dlgNear: spec.near[locale], dlgSamples: spec.samples, dlgArrowSample: spec.arrowSample,
+    dlgNear: spec.near[locale], dlgSamples: spec.samples[locale], dlgArrowSample: spec.arrowSample,
     arrowHelp: fr ? 'La réponse est plus haute ou plus tardive' : 'The answer is higher or later',
     dlgArrow: fr ? 'Flèche. La réponse est plus haute ou plus tardive.' : 'Arrow. The answer is higher or later.',
     poolOther: fr ? 'Autres' : 'Other',
