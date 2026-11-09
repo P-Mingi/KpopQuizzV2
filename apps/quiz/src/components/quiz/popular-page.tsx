@@ -66,6 +66,22 @@ export function popularMeta(window: PopularWindow): Metadata {
   };
 }
 
+/**
+ * O1 audit 03 P1-5 (rulebook 3.1, 3.3, 4): the answer block of the weekly page and the rows of its table, from the
+ * same real window counts as the list. Null when no quiz has a window count (the all-time fallback makes no claim).
+ * The count is written once, with the same grouping, in the block and in the table.
+ */
+export function weeklyAnswer(result: PopularResult, asOf: string): { text: string; table: Array<{ rank: number; title: string; slug: string; group: string | null; plays: string }> } | null {
+  const rows = result.rows.filter((r) => r.windowPlays > 0);
+  const top = rows[0];
+  if (!top) return null;
+  const plays = (n: number): string => n.toLocaleString('en-US');
+  return {
+    text: `${top.card.title} is the most played ${GENRE} quiz this week, with ${plays(top.windowPlays)} plays in the last 7 days. The table below ranks the ${rows.length} quizzes with the most plays, counted from real plays on ${SITE.url.replace(/^https?:\/\//, '')} and refreshed every hour. Figures are as of ${asOf}.`,
+    table: rows.map((r, i) => ({ rank: i + 1, title: r.card.title, slug: r.card.slug, group: r.card.group_name ?? null, plays: plays(r.windowPlays) })),
+  };
+}
+
 function formatTs(iso: string): string {
   return new Date(iso).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC', hour12: false }) + ' UTC';
 }
@@ -94,6 +110,8 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
     ],
   };
 
+  const weekly = IS_KPOP && window === 'week' ? weeklyAnswer(result, formatTs(result.generatedAt)) : null;
+
   const others: PopularWindow[] = (['today', 'week', 'month'] as PopularWindow[]);
 
   return (
@@ -121,6 +139,21 @@ export async function PopularPage({ window }: { window: PopularWindow }): Promis
         <Link href="/quizzes">All quizzes</Link>
         {SITE.features.dataPages ? <Link href="/stats">Stats</Link> : null}
       </nav>
+
+      {weekly !== null && (
+        <>
+          <p className="pop-blurb" data-answer="popular-week">{weekly.text}</p>
+          <table className="pop-table">
+            <caption>Most played quizzes this week, by plays in the last 7 days</caption>
+            <thead><tr><th scope="col">Rank</th><th scope="col">Quiz</th><th scope="col">Group</th><th scope="col">Plays this week</th></tr></thead>
+            <tbody>
+              {weekly.table.map((t) => (
+                <tr key={t.slug}><td>{t.rank}</td><td><Link href={`/q/${t.slug}`}>{t.title}</Link></td><td>{t.group ?? ''}</td><td>{t.plays}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
 
       {state === 'fallback' && (
         <p className="pop-note">Not enough plays {c.suffix} yet. Here are the all-time favorites instead.</p>
