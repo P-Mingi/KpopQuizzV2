@@ -3,6 +3,7 @@
  *
  *   npx tsx scripts/seo-gsc-triage.mts --in docs/seo/gsc-2026-11-20 [--out DIR] [--guard FILE] [--dupes FILE]
  *                                      [--bing FILE] [--no-fetch] [--limit N]
+ *                                      [--perf-urls]
  *
  * Input folder: one CSV per "Why pages aren't indexed" reason (the reason is in the file name), plus the
  * Performance export of Pages, 3 months (its header has Clicks and Impressions), plus optional Bing Site
@@ -14,6 +15,8 @@
  *
  * --guard FILE  the linked-URL guard list (rulebook 13.5): one URL or path per line, # comments allowed.
  * --dupes FILE  the clusters file of the duplicates audit (docs/seo/strategy-2026-10-27/dupes.json).
+ * --perf-urls   the "Why not indexed" exports only give counts (no URL list): triage the URLs of the Performance
+ *                export instead, reason "performance-only" (rules 8 and 9 then do not fire, the rest does).
  * --no-fetch    decide from the exports and the sitemap only (no page is fetched): used by the tests of the script.
  */
 
@@ -55,12 +58,13 @@ const perf = new Map<string, PerfRow>();
 for (const f of files) {
   const text = readFileSync(join(IN_DIR, f), 'utf8');
   const head = (text.split(/\r?\n/, 1)[0] ?? '').toLowerCase();
-  if (/\bclicks\b/.test(head) && /\bimpressions\b/.test(head)) {
+  if (/\bcl(icks|ics)\b/.test(head) && /\bimpressions\b/.test(head)) {
     for (const r of parsePerformanceExport(text)) perf.set(r.url, r);
   } else {
     for (const r of parseReasonExport(f, text)) reasonsByUrl.set(r.url, (reasonsByUrl.get(r.url) ?? new Set()).add(r.reason));
   }
 }
+if (has('perf-urls')) for (const u of perf.keys()) if (!reasonsByUrl.has(u)) reasonsByUrl.set(u, new Set(['performance-only']));
 const bingFile = flag('bing');
 if (bingFile) for (const u of parseUrlList(readFileSync(resolve(bingFile), 'utf8'))) if (!reasonsByUrl.has(u)) reasonsByUrl.set(u, new Set(['bing-site-explorer']));
 
