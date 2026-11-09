@@ -21,7 +21,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2026-12-21 #1 | NEW | Viz Media licensed the Demon Slayer manga for the North American market. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
 - 2026-12-21 #2 | NEW | In the Demon Slayer story, demons can be killed by a poison extracted from lavender flowers. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
 - 2026-12-21 #3 | NEW | Demon Slayer is set in the Taisho era of Japan. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
-- 2026-12-21 #4 | NEW | The video game The Hinokami Chronicles was developed by Capcom. | False | Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Hinokami_Chronicles | 1384679970
+- 2026-12-21 #4 | NEW | The video game The Hinokami Chronicles was developed by Capcom. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
 - 2026-12-21 #5 | NEW | Koyoharu Gotouge named Dragon Ball as one of the three biggest influences on the series. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
 - 2026-12-21 #6 | NEW | A booklet called Rengoku Volume 0 was given to theatergoers of the Mugen Train film. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
 - 2026-12-21 #7 | NEW | Shueisha also published the Demon Slayer manga in English on its Manga Plus service. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
@@ -31,7 +31,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2026-12-22 #3 | NEW | Who voices Loid Forger in the English dub? | *Alex Organ / Tyler Walker / Takuya Eguchi / Natalie Van Sistine | List_of_Spy_%C3%97_Family_characters | 1373964762
 - 2026-12-22 #4 | NEW | Who voices Anya Forger in the English dub for most of the series? | Natalie Van Sistine / Tyler Walker / *Megan Shipman / Atsumi Tanezaki | List_of_Spy_%C3%97_Family_characters | 1373964762
 - 2026-12-22 #5 | NEW | Who voices Yor Forger in the English dub? | Megan Shipman / *Natalie Van Sistine / Alex Organ / Saori Hayami | List_of_Spy_%C3%97_Family_characters | 1373964762
-- 2026-12-22 #6 | NEW | After which character from the cartoon Spy Wars does Anya name the family dog Bond? | *Bondman / Spyman / Agent Strix / Captain Westalis | List_of_Spy_%C3%97_Family_characters | 1373964762
+- 2026-12-22 #6 | NEW | Which character from the cartoon Spy Wars is Anya's favourite? | *Bondman / Spyman / Agent Strix / Captain Westalis | List_of_Spy_%C3%97_Family_characters | 1373964762
 - 2026-12-22 #7 | NEW | The Spy x Family story is set in an alternate version of which country during the Cold War? | Japan / Austria / Switzerland / *Germany | List_of_Spy_%C3%97_Family_characters | 1373964762
 - 2026-12-22 #8 | NEW | Who directed the film Spy x Family Code: White? | Kazuhiro Furuhashi / Takahiro Harada / *Takashi Katagiri / Ichiro Okouchi | Spy_%C3%97_Family_Code:_White | 1384674421
 - 2026-12-23 #1 | NEW | The Monster anime has more episodes than the 1998 Cardcaptor Sakura anime. | True | Monster_(manga) | 1378133015
@@ -60,7 +60,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2026-12-25 #8 | NEW | Aya Hirano plays Makima in the stage play Chainsaw Man The Stage. | True | Chainsaw_Man | 1384606027
 - 2026-12-26 #1 | NEW | Gurenge is on which studio album by LiSA? | Dark Crow / *Leo-Nine / Lander / 5am | Gurenge | 1372196624
 - 2026-12-26 #2 | NEW | Which song won the grand prize at the 62nd Japan Record Awards in 2020? | *Homura / Gurenge / Zankyosanka / Kizuna no Kiseki | Homura_(song) | 1374274295
-- 2026-12-26 #3 | NEW | Which Aimer song is the ending theme of the Entertainment District Arc? | Shirogane / Koi Kogare / Tokoshie / *Asa ga Kuru | Zank%C5%8Dsanka/Asa_ga_Kuru | 1367792716
+- 2026-12-26 #3 | NEW | Which Aimer song is the ending theme of the Entertainment District Arc? | Shirogane / Koi Kogare / Tokoshie / *Asa ga Kuru | Zanky%C5%8Dsanka/Asa_ga_Kuru | 1367792716
 - 2026-12-26 #4 | NEW | Which singer is featured on Go Shiina's Kamado Tanjiro no Uta? | Aimer / Milet / *Nami Nakagawa / Hyde | Kamado_Tanjiro_no_Uta | 1347912050
 - 2026-12-26 #5 | NEW | The music video for Kizuna no Kiseki mainly takes place atop which landmark? | Tokyo Skytree / *Tokyo Tower / Osaka Castle / Mount Fuji | Kizuna_no_Kiseki | 1374871723
 - 2026-12-26 #6 | NEW | Who is credited as the writer of Kizuna no Kiseki, the opening of season 3? | *Jean-Ken Johnny / Yuki Kajiura / Go Shiina / Kayoko Kusano | Kizuna_no_Kiseki | 1374871723
@@ -99,7 +99,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2026-12-30 #7 | NEW | Who is announced as the character designer of the Kagurabachi anime? | Kazutaka Sugiyama / Akira Matsushima / *Keigo Sasaki / Kazuaki Shimada | Kagurabachi | 1384509741
 - 2026-12-30 #8 | NEW | In 2025, Kagurabachi was nominated for an Eisner Award in which category? | *Best U.S. Edition of International Material, Asia / Best Continuing Series / Best New Series / Best Publication for Teens | Kagurabachi | 1384509741
 - 2026-12-31 #1 | NEW | In which month and year did the compilation film To the Swordsmith Village premiere in Japan? | February 2024 / April 2023 / *February 2023 / October 2021 | Demon_Slayer:_Kimetsu_no_Yaiba_season_3 | 1381383424
-- 2026-12-31 #2 | NEW | On which date did the compilation film To the Hashira Training get its wide theatrical release in the United States? | *February 23, 2024 / February 2, 2024 / March 29, 2019 / February 3, 2023 | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-31 #2 | NEW | On which date did the compilation film To the Hashira Training get its wide theatrical release in the United States? | *February 23, 2024 / February 2, 2024 / March 29, 2019 / October 16, 2020 | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
 - 2026-12-31 #3 | NEW | Which network aired the second season of the Demon Slayer TV anime in Japan? | NHK / TBS / TV Tokyo / *Fuji Television | Demon_Slayer:_Kimetsu_no_Yaiba_season_2 | 1381383275
 - 2026-12-31 #4 | NEW | Besides new music, what did the seven-episode Mugen Train Arc add compared with the 2020 film? | A new ending for the story / *An anime original episode set just before the main story / A different director / An extra Hashira as a main character | Demon_Slayer:_Kimetsu_no_Yaiba_season_2 | 1381383275
 - 2026-12-31 #5 | NEW | Which volumes of the manga does the third season, the Swordsmith Village Arc, adapt? | *The 12th to the 15th / The 1st to the 7th / The 7th to the 11th / The 15th and the 16th | Demon_Slayer:_Kimetsu_no_Yaiba_season_3 | 1381383424
@@ -114,14 +114,14 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2027-01-01 #6 | NEW | In the Sentai Filmworks English dub, Thorfinn is voiced by Aleks Le. | False | Vinland_Saga_(TV_series) | 1383317172
 - 2027-01-01 #7 | NEW | Vinland Saga won Best Drama at the 4th Crunchyroll Anime Awards. | True | Vinland_Saga_(TV_series) | 1383317172
 - 2027-01-01 #8 | NEW | Vinland Saga Season 2 won Best Anime Series at the 2023 IGN Awards. | True | Vinland_Saga_(TV_series) | 1383317172
-- 2027-01-02 #1 | NEW | Three of these began in a printed magazine. Which one began as a web novel? | Kuroko's Basketball / Ouran High School Host Club / *KonoSuba / Trigun | KonoSuba | 1384421829
-- 2027-01-02 #2 | NEW | Three of these started in a printed magazine. Which one was first posted online as a web novel? | *Overlord / Dr. Stone / Ouran High School Host Club / Kuroko's Basketball | Overlord_(novel_series) | 1382190939
-- 2027-01-02 #3 | NEW | Which of these stories was first published online at Shosetsuka ni Naro, not in a printed magazine? | Trigun / Dr. Stone / Kuroko's Basketball / *Mushoku Tensei | Mushoku_Tensei | 1384614694
-- 2027-01-02 #4 | NEW | Three of these began in print. Which one was serialized online as a web novel from 2013 to 2016? | Ouran High School Host Club / *That Time I Got Reincarnated as a Slime / Trigun / Dr. Stone | That_Time_I_Got_Reincarnated_as_a_Slime | 1381575839
-- 2027-01-02 #5 | NEW | Three of these first appeared in a printed magazine. Which one first appeared as an online novel in 2012? | Kuroko's Basketball / *The Rising of the Shield Hero / Trigun / Ouran High School Host Club | The_Rising_of_the_Shield_Hero | 1371170534
-- 2027-01-02 #6 | NEW | Which of these started as a web novel, among three print-first manga? | Dr. Stone / Kuroko's Basketball / Trigun / *Log Horizon | Log_Horizon | 1379469314
-- 2027-01-02 #7 | NEW | Three of these started in a printed magazine. Which one started as a web novel in 2013? | *Ascendance of a Bookworm / Ouran High School Host Club / Dr. Stone / Kuroko's Basketball | Ascendance_of_a_Bookworm | 1383856781
-- 2027-01-02 #8 | NEW | Which of these began on a website rather than in a print magazine? | Trigun / Ouran High School Host Club / *The Eminence in Shadow / Dr. Stone | The_Eminence_in_Shadow | 1380156387
+- 2027-01-02 #1 | NEW | Three of these began in a printed magazine. Which one began as a web novel? | Cardcaptor Sakura / Monster / *KonoSuba / Nana | KonoSuba | 1384421829
+- 2027-01-02 #2 | NEW | Three of these started in a printed magazine. Which one was first posted online as a web novel? | *Overlord / Slam Dunk / Great Teacher Onizuka / Parasyte | Overlord_(novel_series) | 1382190939
+- 2027-01-02 #3 | NEW | Which of these stories was first published online at Shosetsuka ni Naro, not in a printed magazine? | Death Note / Attack on Titan / Demon Slayer / *Mushoku Tensei | Mushoku_Tensei | 1384614694
+- 2027-01-02 #4 | NEW | Three of these began in print. Which one was serialized online as a web novel from 2013 to 2016? | Jujutsu Kaisen / *That Time I Got Reincarnated as a Slime / Vinland Saga / Dragon Ball | That_Time_I_Got_Reincarnated_as_a_Slime | 1381575839
+- 2027-01-02 #5 | NEW | Three of these first appeared in a printed magazine. Which one first appeared as an online novel in 2012? | Cardcaptor Sakura / *The Rising of the Shield Hero / Slam Dunk / Death Note | The_Rising_of_the_Shield_Hero | 1371170534
+- 2027-01-02 #6 | NEW | Which of these started as a web novel, among three print-first manga? | Monster / Great Teacher Onizuka / Jujutsu Kaisen / *Log Horizon | Log_Horizon | 1379469314
+- 2027-01-02 #7 | NEW | Three of these started in a printed magazine. Which one started as a web novel in 2013? | *Ascendance of a Bookworm / Nana / Attack on Titan / Vinland Saga | Ascendance_of_a_Bookworm | 1383856781
+- 2027-01-02 #8 | NEW | Which of these began on a website rather than in a print magazine? | Parasyte / Demon Slayer / *The Eminence in Shadow / Dragon Ball | The_Eminence_in_Shadow | 1380156387
 - 2027-01-03 #1 | NEW | Masashi Kishimoto's one-shot Karakuri was published by Shueisha in 1995. | True | Naruto | 1384634084
 - 2027-01-03 #2 | NEW | The fictional monster King Kong inspired the mythological beasts in Naruto. | False | Naruto | 1384634084
 - 2027-01-03 #3 | NEW | Boruto: Naruto Next Generations was illustrated by Masashi Kishimoto himself. | False | Naruto | 1384634084
@@ -136,7 +136,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2027-01-04 #4 | NEW | The Frieren manga won the New Creator Prize of which award in 2021? | Eisner Award / *Tezuka Osamu Cultural Prize / Seiun Award / Kodansha Manga Award | Frieren | 1381436923
 - 2027-01-04 #5 | NEW | How long did the quest of the hero party last before they defeated the Demon King? | Five years / Twenty years / *Ten years / Fifty years | Frieren | 1381436923
 - 2027-01-04 #6 | NEW | Which category did the Frieren anime win at the 9th Crunchyroll Anime Awards? | Anime of the Year / *Best Drama / Best New Series / Best Animation | Frieren_(TV_series) | 1384453379
-- 2027-01-04 #7 | NEW | Which company publishes the Frieren manga in English in North America? | Yen Press / Seven Seas Entertainment / Kodansha USA / *Viz Media | Frieren | 1381436923
+- 2027-01-04 #7 | NEW | Which company announced in August 2025 that it had licensed the prequel novel Frieren: Beyond Journey's End -Prelude- for English release? | Seven Seas Entertainment / Kodansha USA / Viz Media / *Yen Press | Frieren | 1381436923
 - 2027-01-04 #8 | NEW | Who voices Frieren in the English dub of the anime? | *Mallorie Rodak / Jill Harris / Brittney Karbowski / Clifford Chapin | Frieren_(TV_series) | 1384453379
 - 2027-01-05 #1 | NEW | The first Dragon Ball anime series adapted the first 194 chapters of the manga. | True | Dragon_Ball | 1384608321
 - 2027-01-05 #2 | NEW | The spin-off manga Dragon Ball: That Time I Got Reincarnated as Yamcha was written and illustrated by Akira Toriyama. | False | Dragon_Ball | 1384608321
@@ -158,7 +158,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2027-01-07 #2 | NEW | Which light novel series was written by Isuna Hasekura and illustrated by Jū Ayakura? | Date A Live / Monogatari / Overlord / *Spice and Wolf | Spice_and_Wolf | 1380971460
 - 2027-01-07 #3 | NEW | Which light novel series did Kōshi Tachibana write, with Tsunako as the illustrator? | *Date A Live / Spice and Wolf / Re:Zero / Overlord | Date_A_Live | 1382208461
 - 2027-01-07 #4 | NEW | Which light novel series has Nisio Isin as its author and Vofan as its illustrator? | Date A Live / Spice and Wolf / *Monogatari / Re:Zero | Monogatari_(series) | 1384460348
-- 2027-01-07 #5 | NEW | Who illustrates the Re:Zero light novels written by Tappei Nagatsuki? | Vofan / Tsunako / Jū Ayakura / *Shinichirou Otsuka | Re:Zero | 1383900035
+- 2027-01-07 #5 | NEW | Who illustrates the Re:Zero light novels written by Tappei Nagatsuki? | Mikio Ikemoto / Tsukasa Abe / Cain Kuga / *Shinichirou Otsuka | Re:Zero | 1383900035
 - 2027-01-07 #6 | NEW | Which manga was created by the group Clamp? | *Cardcaptor Sakura / The Promised Neverland / Eyeshield 21 / Fruits Basket | Cardcaptor_Sakura | 1384648739
 - 2027-01-07 #7 | NEW | Which manga was written by Riichiro Inagaki and illustrated by Yusuke Murata? | Cardcaptor Sakura / *Eyeshield 21 / The Promised Neverland / Slam Dunk | Eyeshield_21 | 1353437784
 - 2027-01-07 #8 | NEW | Which light novel series did Kugane Maruyama write, with So-bin as the illustrator? | Monogatari / Spice and Wolf / *Overlord / Date A Live | Overlord_(novel_series) | 1382190939
@@ -200,7 +200,7 @@ Format: date #n | verdict | question | options (answer starred) or True/False | 
 - 2027-01-12 #4 | NEW | Three of these anime finished airing in 2007. Which one finished in 2009? | Code Geass: Lelouch of the Rebellion / Gurren Lagann / *Toradora! / Nana | Toradora! | 1373729757
 - 2027-01-12 #5 | NEW | Three of these manga fill fewer than 20 volumes. Which one fills more? | *Kuroko's Basketball / Trigun / Ao Haru Ride / Ouran High School Host Club | Kuroko%27s_Basketball | 1379227908
 - 2027-01-12 #6 | NEW | Three of these manga began serialization in the 1990s. Which one began in 2000? | Rurouni Kenshin / Great Teacher Onizuka / *Nana / Trigun | Nana_(manga) | 1384301307
-- 2027-01-12 #7 | NEW | Three of these anime began airing before 2000. Which one began in 2004? | Berserk (1997) / Cardcaptor Sakura (1998) / Rurouni Kenshin (1996) / *Monster | Monster_(manga) | 1378133015
+- 2027-01-12 #7 | NEW | Three of these anime began airing before 2000. Which one began in 2004? | Berserk / Cardcaptor Sakura / Rurouni Kenshin / *Monster | Monster_(manga) | 1378133015
 - 2027-01-12 #8 | NEW | Three of these anime began airing in 2006. Which one began in 2016? | Code Geass / *Erased / Nana / Ouran High School Host Club | Erased_(manga) | 1378514957
 - 2027-01-13 #1 | NEW | Yuki Kaji voices Eren Yeager in the original Japanese version of the Attack on Titan anime. | True | Attack_on_Titan_(TV_series) | 1384442696
 - 2027-01-13 #2 | NEW | The Attack on Titan live-action miniseries Counter Rockets streamed on Netflix. | False | Attack_on_Titan | 1384443094

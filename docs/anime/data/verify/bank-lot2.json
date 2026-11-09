@@ -838,7 +838,7 @@
       "scope": "both"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Hinokami_Chronicles"
+     "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
     },
     {
      "question": "Koyoharu Gotouge named Dragon Ball as one of the three biggest influences on the series.",
@@ -958,7 +958,7 @@
     {
      "position": 3,
      "verdict": "NEW",
-     "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Hinokami_Chronicles",
+     "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
      "revision": 1384679970,
      "revision_timestamp": "2026-11-09T15:01:55Z",
      "read_on": "2026-11-09",
@@ -978,7 +978,15 @@
       "read_on": "2026-11-09",
       "before": "The video game The Hinokami Chronicles was developed by Capcom."
      },
-     "check3_source_note": "source moved by reader C1; check2 revision was of the main page"
+     "check3_source_note": "source moved by reader C1; check2 revision was of the main page",
+     "check4": {
+      "verdict": "SOURCE",
+      "note": "The source link pointed to the Hinokami Chronicles page while the pinned revision 1384679970 is the Demon Slayer main page, where the claim (developed by CyberConnect2) is stated; the link now matches the revision read.",
+      "revision": 1384679970,
+      "read_on": "2026-11-09",
+      "before": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Hinokami_Chronicles",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
+     }
     },
     {
      "position": 4,
@@ -1212,7 +1220,7 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
     },
     {
-     "question": "After which character from the cartoon Spy Wars does Anya name the family dog Bond?",
+     "question": "Which character from the cartoon Spy Wars is Anya's favourite?",
      "options": [
       "Bondman",
       "Spyman",
@@ -1401,6 +1409,14 @@
       "revision": 1373964762,
       "revision_timestamp": "2026-09-09T01:00:20Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The stem named the dog Bond and the key was Bondman (self-answer). Reread on List of Spy x Family characters rev 1373964762: Bond was named after Bondman, the main character of the in-universe cartoon Spy Wars, Anya's favourite series. The three distractors are not characters of that page.",
+      "revision": 1373964762,
+      "read_on": "2026-11-09",
+      "before": "After which character from the cartoon Spy Wars does Anya name the family dog Bond? [Bondman | Spyman | Agent Strix | Captain Westalis]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -2591,7 +2607,7 @@
       "scope": "both"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Zank%C5%8Dsanka/Asa_ga_Kuru"
+     "source_url": "https://en.wikipedia.org/wiki/Zanky%C5%8Dsanka/Asa_ga_Kuru"
     },
     {
      "question": "Which singer is featured on Go Shiina's Kamado Tanjiro no Uta?",
@@ -2729,7 +2745,7 @@
     {
      "position": 2,
      "verdict": "NEW",
-     "source_url": "https://en.wikipedia.org/wiki/Zank%C5%8Dsanka/Asa_ga_Kuru",
+     "source_url": "https://en.wikipedia.org/wiki/Zanky%C5%8Dsanka/Asa_ga_Kuru",
      "revision": 1367792716,
      "revision_timestamp": "2026-08-05T06:13:35Z",
      "read_on": "2026-11-09",
@@ -2747,6 +2763,14 @@
       "revision": 1367792716,
       "revision_timestamp": "2026-08-05T06:13:35Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "SOURCE",
+      "note": "Title typo in the link (Zankosanka without the y); the page read at rev 1367792716 is Zankyosanka/Asa ga Kuru.",
+      "revision": 1367792716,
+      "read_on": "2026-11-09",
+      "before": "https://en.wikipedia.org/wiki/Zank%C5%8Dsanka/Asa_ga_Kuru",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -4466,7 +4490,7 @@
       "February 23, 2024",
       "February 2, 2024",
       "March 29, 2019",
-      "February 3, 2023"
+      "October 16, 2020"
      ],
      "correct": 0,
      "kind": "episode",
@@ -4625,6 +4649,14 @@
       "revision": 1384679970,
       "revision_timestamp": "2026-11-09T15:01:55Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The decoy February 3, 2023 was the exact Japan premiere date of To the Swordsmith Village, the key of #1. Decoys now come from the same page (rev 1384679970): Japan premiere February 2, 2024, first five episodes screened from March 29, 2019, Mugen Train film premiere October 16, 2020.",
+      "revision": 1384679970,
+      "read_on": "2026-11-09",
+      "before": "On which date did the compilation film To the Hashira Training get its wide theatrical release in the United States? [February 23, 2024 | February 2, 2024 | March 29, 2019 | February 3, 2023]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5151,16 +5183,16 @@
      "question": "Three of these began in a printed magazine. Which one began as a web novel?",
      "options": [
       {
-       "label": "Kuroko's Basketball"
+       "label": "Cardcaptor Sakura"
       },
       {
-       "label": "Ouran High School Host Club"
+       "label": "Monster"
       },
       {
        "label": "KonoSuba"
       },
       {
-       "label": "Trigun"
+       "label": "Nana"
       }
      ],
      "correct": 2,
@@ -5179,13 +5211,13 @@
        "label": "Overlord"
       },
       {
-       "label": "Dr. Stone"
+       "label": "Slam Dunk"
       },
       {
-       "label": "Ouran High School Host Club"
+       "label": "Great Teacher Onizuka"
       },
       {
-       "label": "Kuroko's Basketball"
+       "label": "Parasyte"
       }
      ],
      "correct": 0,
@@ -5201,13 +5233,13 @@
      "question": "Which of these stories was first published online at Shosetsuka ni Naro, not in a printed magazine?",
      "options": [
       {
-       "label": "Trigun"
+       "label": "Death Note"
       },
       {
-       "label": "Dr. Stone"
+       "label": "Attack on Titan"
       },
       {
-       "label": "Kuroko's Basketball"
+       "label": "Demon Slayer"
       },
       {
        "label": "Mushoku Tensei"
@@ -5226,16 +5258,16 @@
      "question": "Three of these began in print. Which one was serialized online as a web novel from 2013 to 2016?",
      "options": [
       {
-       "label": "Ouran High School Host Club"
+       "label": "Jujutsu Kaisen"
       },
       {
        "label": "That Time I Got Reincarnated as a Slime"
       },
       {
-       "label": "Trigun"
+       "label": "Vinland Saga"
       },
       {
-       "label": "Dr. Stone"
+       "label": "Dragon Ball"
       }
      ],
      "correct": 1,
@@ -5251,16 +5283,16 @@
      "question": "Three of these first appeared in a printed magazine. Which one first appeared as an online novel in 2012?",
      "options": [
       {
-       "label": "Kuroko's Basketball"
+       "label": "Cardcaptor Sakura"
       },
       {
        "label": "The Rising of the Shield Hero"
       },
       {
-       "label": "Trigun"
+       "label": "Slam Dunk"
       },
       {
-       "label": "Ouran High School Host Club"
+       "label": "Death Note"
       }
      ],
      "correct": 1,
@@ -5276,13 +5308,13 @@
      "question": "Which of these started as a web novel, among three print-first manga?",
      "options": [
       {
-       "label": "Dr. Stone"
+       "label": "Monster"
       },
       {
-       "label": "Kuroko's Basketball"
+       "label": "Great Teacher Onizuka"
       },
       {
-       "label": "Trigun"
+       "label": "Jujutsu Kaisen"
       },
       {
        "label": "Log Horizon"
@@ -5304,13 +5336,13 @@
        "label": "Ascendance of a Bookworm"
       },
       {
-       "label": "Ouran High School Host Club"
+       "label": "Nana"
       },
       {
-       "label": "Dr. Stone"
+       "label": "Attack on Titan"
       },
       {
-       "label": "Kuroko's Basketball"
+       "label": "Vinland Saga"
       }
      ],
      "correct": 0,
@@ -5326,16 +5358,16 @@
      "question": "Which of these began on a website rather than in a print magazine?",
      "options": [
       {
-       "label": "Trigun"
+       "label": "Parasyte"
       },
       {
-       "label": "Ouran High School Host Club"
+       "label": "Demon Slayer"
       },
       {
        "label": "The Eminence in Shadow"
       },
       {
-       "label": "Dr. Stone"
+       "label": "Dragon Ball"
       }
      ],
      "correct": 2,
@@ -5371,6 +5403,14 @@
       "revision": 1384421829,
       "revision_timestamp": "2026-11-08T04:12:22Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Cardcaptor Sakura rev 1384648739 (Nakayoshi), Monster rev 1378133015 (Big Comic Original), Nana rev 1384301307 (Cookie), KonoSuba rev 1384421829 (web novel).",
+      "revision": 1384421829,
+      "read_on": "2026-11-09",
+      "before": "Three of these began in a printed magazine. Which one began as a web novel? [Kuroko's Basketball | Ouran High School Host Club | KonoSuba | Trigun]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5395,6 +5435,14 @@
       "revision": 1382190939,
       "revision_timestamp": "2026-10-27T05:07:21Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Overlord rev 1382190939 (online on Arcadia, 2010), Slam Dunk rev 1379466912 (Weekly Shonen Jump), GTO rev 1383836267 (Weekly Shonen Magazine), Parasyte rev 1382649630 (Morning).",
+      "revision": 1382190939,
+      "read_on": "2026-11-09",
+      "before": "Three of these started in a printed magazine. Which one was first posted online as a web novel? [Overlord | Dr. Stone | Ouran High School Host Club | Kuroko's Basketball]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5419,6 +5467,14 @@
       "revision": 1384614694,
       "revision_timestamp": "2026-11-09T03:53:22Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Mushoku Tensei rev 1384614694 (online), Death Note rev 1381769893 and Demon Slayer rev 1384679970 (Weekly Shonen Jump), Attack on Titan rev 1384443094 (Bessatsu Shonen Magazine).",
+      "revision": 1384614694,
+      "read_on": "2026-11-09",
+      "before": "Which of these stories was first published online at Shosetsuka ni Naro, not in a printed magazine? [Trigun | Dr. Stone | Kuroko's Basketball | Mushoku Tensei]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5443,6 +5499,14 @@
       "revision": 1381575839,
       "revision_timestamp": "2026-10-23T12:37:39Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Slime rev 1381575839 (online 2013 to 2016), Jujutsu Kaisen rev 1383558677 and Dragon Ball rev 1384608321 (Weekly Shonen Jump), Vinland Saga manga rev 1383626696 (Weekly Shonen Magazine).",
+      "revision": 1381575839,
+      "read_on": "2026-11-09",
+      "before": "Three of these began in print. Which one was serialized online as a web novel from 2013 to 2016? [Ouran High School Host Club | That Time I Got Reincarnated as a Slime | Trigun | Dr. Stone]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5467,6 +5531,14 @@
       "revision": 1371170534,
       "revision_timestamp": "2026-08-25T00:44:50Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Shield Hero rev 1371170534 (2012, Shosetsuka ni Naro); the others are print-first (pages above).",
+      "revision": 1371170534,
+      "read_on": "2026-11-09",
+      "before": "Three of these first appeared in a printed magazine. Which one first appeared as an online novel in 2012? [Kuroko's Basketball | The Rising of the Shield Hero | Trigun | Ouran High School Host Club]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5491,6 +5563,14 @@
       "revision": 1379469314,
       "revision_timestamp": "2026-10-10T04:39:46Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Log Horizon rev 1379469314 (online from April 13, 2010); the others are print-first (pages above).",
+      "revision": 1379469314,
+      "read_on": "2026-11-09",
+      "before": "Which of these started as a web novel, among three print-first manga? [Dr. Stone | Kuroko's Basketball | Trigun | Log Horizon]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5515,6 +5595,14 @@
       "revision": 1383856781,
       "revision_timestamp": "2026-11-05T04:59:11Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Bookworm rev 1383856781 (online from September 2013); the others are print-first (pages above).",
+      "revision": 1383856781,
+      "read_on": "2026-11-09",
+      "before": "Three of these started in a printed magazine. Which one started as a web novel in 2013? [Ascendance of a Bookworm | Ouran High School Host Club | Dr. Stone | Kuroko's Basketball]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -5539,6 +5627,14 @@
       "revision": 1380156387,
       "revision_timestamp": "2026-10-14T03:10:45Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The same four print-first titles (Trigun, Ouran High School Host Club, Dr. Stone, Kuroko's Basketball) were the distractors of all 8 questions, so the intruder followed by elimination. Option sets now differ per question. Read: Eminence in Shadow rev 1380156387 (online from May 2018); the others are print-first (pages above).",
+      "revision": 1380156387,
+      "read_on": "2026-11-09",
+      "before": "Which of these began on a website rather than in a print magazine? [Trigun | Ouran High School Host Club | The Eminence in Shadow | Dr. Stone]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     }
    ],
@@ -6035,12 +6131,12 @@
      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
-     "question": "Which company publishes the Frieren manga in English in North America?",
+     "question": "Which company announced in August 2025 that it had licensed the prequel novel Frieren: Beyond Journey's End -Prelude- for English release?",
      "options": [
-      "Yen Press",
       "Seven Seas Entertainment",
       "Kodansha USA",
-      "Viz Media"
+      "Viz Media",
+      "Yen Press"
      ],
      "correct": 3,
      "kind": "publication",
@@ -6232,6 +6328,14 @@
       "revision": 1381436923,
       "revision_timestamp": "2026-10-22T13:55:11Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "DUPLICATE",
+      "note": "Same fact and answer as lot 1 2026-12-17 (Viz Media licenses the Frieren manga for North America). Replaced by a new fact on the same page, Frieren rev 1381436923, section Other media: Yen Press announced in August 2025 that it had licensed the prequel novel.",
+      "revision": 1381436923,
+      "read_on": "2026-11-09",
+      "before": "Which company publishes the Frieren manga in English in North America? [Yen Press | Seven Seas Entertainment | Kodansha USA | Viz Media]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -7094,9 +7198,9 @@
     {
      "question": "Who illustrates the Re:Zero light novels written by Tappei Nagatsuki?",
      "options": [
-      "Vofan",
-      "Tsunako",
-      "Jū Ayakura",
+      "Mikio Ikemoto",
+      "Tsukasa Abe",
+      "Cain Kuga",
       "Shinichirou Otsuka"
      ],
      "correct": 3,
@@ -7279,6 +7383,14 @@
       "revision": 1383900035,
       "revision_timestamp": "2026-11-05T13:05:52Z",
       "read_on": "2026-11-09"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "The three distractors were the illustrators named in the stems of #2 to #4, so #5 was solved by elimination. New distractors are real illustrators of other works: Mikio Ikemoto (Boruto, Naruto rev 1384634084), Tsukasa Abe (Frieren manga, rev 1381436923), Cain Kuga (Cowboy Bebop: Shooting Star, rev 1382858966); none appears elsewhere in the quiz. Answer on Re:Zero rev 1383900035.",
+      "revision": 1383900035,
+      "read_on": "2026-11-09",
+      "before": "Who illustrates the Re:Zero light novels written by Tappei Nagatsuki? [Vofan | Tsunako | Jū Ayakura | Shinichirou Otsuka]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -9023,13 +9135,13 @@
      "question": "Three of these anime began airing before 2000. Which one began in 2004?",
      "options": [
       {
-       "label": "Berserk (1997)"
+       "label": "Berserk"
       },
       {
-       "label": "Cardcaptor Sakura (1998)"
+       "label": "Cardcaptor Sakura"
       },
       {
-       "label": "Rurouni Kenshin (1996)"
+       "label": "Rurouni Kenshin"
       },
       {
        "label": "Monster"
@@ -9240,6 +9352,14 @@
       "revision_timestamp": "2026-10-03T02:59:14Z",
       "read_on": "2026-11-09",
       "before": "options: Berserk (1997) | Cardcaptor Sakura | Rurouni Kenshin (1996) | Monster"
+     },
+     "check4": {
+      "verdict": "LEAK",
+      "note": "Three labels carried a year and the answer had none, so the odd label gave the answer away. Years removed. Read: Monster anime began 7 April 2004 (rev 1378133015), Berserk 1997 (rev 1384596143), Cardcaptor Sakura 1998 (rev 1384648739), Rurouni Kenshin first TV series 1996 (rev 1379954423).",
+      "revision": 1378133015,
+      "read_on": "2026-11-09",
+      "before": "Three of these anime began airing before 2000. Which one began in 2004? [Berserk (1997) | Cardcaptor Sakura (1998) | Rurouni Kenshin (1996) | Monster]",
+      "reader": "ORCH independent readers (half1.md, half2.md)"
      }
     },
     {
@@ -11130,5 +11250,17 @@
     }
    ]
   }
- ]
+ ],
+ "check4": {
+  "reader": "ORCH: two independent readers at the pinned revisions (half1.md, half2.md)",
+  "read_on": "2026-11-09",
+  "counts": {
+   "total": 240,
+   "CONFIRMED": 225,
+   "changed": 15,
+   "LEAK": 12,
+   "DUPLICATE": 1,
+   "SOURCE": 2
+  }
+ }
 }
