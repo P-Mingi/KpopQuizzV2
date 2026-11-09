@@ -5,7 +5,7 @@ vi.mock('next/image', () => ({ default: () => null }));
 
 import { generateGroupTriviaMetadata } from './group-trivia-page';
 
-import type { Group } from '@/types/database';
+import type { Group } from '@/lib/db/types';
 
 describe('generateGroupTriviaMetadata', () => {
   it.each(['twice', 'general-kpop', 'seventeen'])('%s: noindex,follow and self canonical', (slug) => {
