@@ -1,0 +1,2549 @@
+{
+ "read": "2026-11-09",
+ "items": [
+  {
+   "id": "OT1",
+   "series": "dragon-ball",
+   "slug": "captain-ginyu",
+   "col": "gender",
+   "old": "female",
+   "new": "male",
+   "why": "audit OT1",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Captain_Ginyu",
+    "ref": "2274755",
+    "read": "2026-11-09",
+    "raw": "amekian Frog Former <br>Tagoma's race |Gender = Male<br>Female small| F"
+   }
+  },
+  {
+   "id": "OT-N1",
+   "series": "hunter-x-hunter",
+   "slug": "neferpitou",
+   "col": "gender",
+   "old": "male",
+   "new": null,
+   "why": "audit OTN1",
+   "src": {
+    "url": "https://hunterxhunter.fandom.com/wiki/Neferpitou",
+    "ref": "425732",
+    "read": "2026-11-09",
+    "raw": "Episode 84 (2011) (Actual appearance) |gender = Unknown |eyes = Red (2011)"
+   }
+  },
+  {
+   "id": "OT2",
+   "series": "one-piece",
+   "slug": "sanji",
+   "col": "role_at_debut",
+   "old": "antagonist",
+   "new": "main",
+   "why": "audit OT2",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Sanji_(One_Piece)",
+    "ref": "1384025104",
+    "read": "2026-11-09",
+    "raw": "| data23 = Straw Hat Pirates (cook)<br>Baratie Restaurant (former"
+   }
+  },
+  {
+   "id": "OT3",
+   "series": "dragon-ball",
+   "slug": "vegeta",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "antagonist",
+   "why": "audit OT3",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Vegeta",
+    "ref": "1384110054",
+    "read": "2026-11-09",
+    "raw": "e. He travels to Earth with his partner Nappa to use the Dragon Balls to wish for immortality. Nappa easily fight"
+   }
+  },
+  {
+   "id": "OT4",
+   "series": "dragon-ball",
+   "slug": "android-18",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OT4",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Android_18",
+    "ref": "1379783972",
+    "read": "2026-11-09",
+    "raw": "pe)|Tamara Ryan (Bang Zoom) | family = Android 17 (twin brother) | sp"
+   }
+  },
+  {
+   "id": "OT5",
+   "series": "bleach",
+   "slug": "renji-abarai",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "antagonist",
+   "why": "audit OT5",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Renji_Abarai",
+    "ref": "1375516395",
+    "read": "2026-11-09",
+    "raw": "| portrayer = Taichi Saotome | spouse = Rukia Kuchiki (wife) | c"
+   }
+  },
+  {
+   "id": "OT6",
+   "series": "naruto",
+   "slug": "gaara",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OT6",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Gaara",
+    "ref": "1378039026",
+    "read": "2026-11-09",
+    "raw": "lied ninja village, to take part in the Chunin Exams alongside his"
+   }
+  },
+  {
+   "id": "OT7",
+   "series": "inuyasha",
+   "slug": "sesshomaru",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OT7",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Inuyasha_characters",
+    "ref": "1375701088",
+    "read": "2026-11-09",
+    "raw": "large, bulging eyes and the creator of Tessaiga and Tenseiga, from"
+   }
+  },
+  {
+   "id": "OT8",
+   "series": "dragon-ball",
+   "slug": "beerus",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OT8",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Beerus",
+    "ref": "1379659500",
+    "read": "2026-11-09",
+    "raw": "to maintain balance in the universe by destroying, in contrast to"
+   }
+  },
+  {
+   "id": "OT9",
+   "series": "dragon-ball",
+   "slug": "oolong",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OT9",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Oolong",
+    "ref": "2276787",
+    "read": "2026-11-09",
+    "raw": "xpelled from the kindergarten there for kidnapping a teacher. He later attended"
+   }
+  },
+  {
+   "id": "OT-Y",
+   "series": "dragon-ball",
+   "slug": "yamcha",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OTY",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Yamcha",
+    "ref": "2264528",
+    "read": "2026-11-09",
+    "raw": "i<br>Wolf Boy (by Krillin)<br>Wasteland Bandit Yamcha<br>Lancer |Appears in = DB Series|DB|DBZ|DBGT|DBS|DBD|SDBH |manga debut = \"Yamcha and Pu'a"
+   }
+  },
+  {
+   "id": "OT-Ga",
+   "series": "fairy-tail",
+   "slug": "gajeel-redfox",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "antagonist",
+   "why": "audit OTGa",
+   "src": {
+    "url": "https://fairytail.fandom.com/wiki/Gajeel_Redfox",
+    "ref": "1074676",
+    "read": "2026-11-09",
+    "raw": "liation= Aff|Magic Council|yes <br> Aff|Phantom Lord|yes <br> Aff|Raven Tail|yes (ruse) |mark location=Left Shoulder |occupation=Mage |previous occupat"
+   }
+  },
+  {
+   "id": "OT13",
+   "series": "bleach",
+   "slug": "sousuke-aizen",
+   "col": "role_at_debut",
+   "old": "antagonist",
+   "new": "supporting",
+   "why": "audit OT13",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Sousuke_Aizen",
+    "ref": "1379659441",
+    "read": "2026-11-09",
+    "raw": "part of the story of Bleach. Serving as captain of the Fifth Division of Soul Reapers when he is introduced, Aizen later fakes his death and horrib"
+   }
+  },
+  {
+   "id": "OT-Ro",
+   "series": "re-zero",
+   "slug": "roswaal-l-mathers",
+   "col": "role_at_debut",
+   "old": "antagonist",
+   "new": "supporting",
+   "why": "audit OTRo",
+   "src": {
+    "url": "https://rezero.fandom.com/wiki/Roswaal_L._Mathers",
+    "ref": "184099",
+    "read": "2026-11-09",
+    "raw": "Kingdom of Lugunica<br>House Mathers<br>Emilia Camp |Previous Affiliation = |Occupation = Dragon Kingdom of Lugunica's Court Mage<br>Margrave<br>Lord of House Mathers<br>Chief"
+   }
+  },
+  {
+   "id": "MV-R1",
+   "series": "one-piece",
+   "slug": "jinbe",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "supporting",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Jinbe",
+    "ref": "2130854",
+    "read": "2026-11-09",
+    "raw": "Jinbe is a W|Whale shark|whale shark fish-man and a powerful master of Fish-Man Karate. His dream is to fu"
+   }
+  },
+  {
+   "id": "MV-R2",
+   "series": "one-piece",
+   "slug": "jewelry-bonney",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "supporting",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Jewelry_Bonney",
+    "ref": "2134957",
+    "read": "2026-11-09",
+    "raw": "lve pirates who are referred to as the \"Worst Generation\" and the only female member of the group. Qref|chap=664|page"
+   }
+  },
+  {
+   "id": "MV-R3",
+   "series": "one-piece",
+   "slug": "kozuki-oden",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "supporting",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Kouzuki_Oden",
+    "ref": "2129723",
+    "read": "2026-11-09",
+    "raw": "ommander (former) |origin = Grand Line (Wano Country) Qref|name=c960|chap=960|page=7-9, 12-17|ep=960|Oden is seen in full for the first time. |residenc"
+   }
+  },
+  {
+   "id": "MV-R4",
+   "series": "one-piece",
+   "slug": "vegapunk",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "other",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Vegapunk",
+    "ref": "2133846",
+    "read": "2026-11-09",
+    "raw": ") Qref|name=c684 | occupation = Scientist Qref|name=c684 | origin = Grand Line (Karakuri Island) Qref|name=c523|chap=523|ep=418|F"
+   }
+  },
+  {
+   "id": "MV-R5",
+   "series": "bleach",
+   "slug": "toshiro-hitsugaya",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "supporting",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/T%C5%8Dshir%C5%8D_Hitsugaya",
+    "ref": "618106",
+    "read": "2026-11-09",
+    "raw": "wn, I would gladly abandon my status as captain right here and now!|Tōshirō Hitsugaya in \" Color|White|THE BURNOUT INFERNO \" Parent Tab Template"
+   }
+  },
+  {
+   "id": "MV-R6",
+   "series": "bleach",
+   "slug": "byakuya-kuchiki",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "antagonist",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Byakuya_Kuchiki",
+    "ref": "617932",
+    "read": "2026-11-09",
+    "raw": "br/>Hisana Kuchiki (Wife, deceased)<br/>Rukia Kuchiki (Adoptive Sister/Sister-in-law)<br/>Renji Abarai (Brother-in-law)<br/>Ichika Abarai (Niece)"
+   }
+  },
+  {
+   "id": "MV-R7",
+   "series": "bleach",
+   "slug": "kenpachi-zaraki",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "antagonist",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Kenpachi_Zaraki",
+    "ref": "617941",
+    "read": "2026-11-09",
+    "raw": "right eye. During his first battle with Ichigo, the eyepatch is more elegant, having a gold-like lining and a chain as one of the straps. He also"
+   }
+  },
+  {
+   "id": "MV-R8",
+   "series": "bleach",
+   "slug": "mayuri-kurotsuchi",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "antagonist",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Mayuri_Kurotsuchi",
+    "ref": "618107",
+    "read": "2026-11-09",
+    "raw": "g (119 lbs.) | affiliation = Gotei 13, Soul Society, S.R.D.I. | profession"
+   }
+  },
+  {
+   "id": "MV-R9",
+   "series": "dragon-ball",
+   "slug": "gotenks",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "supporting",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Gotenks",
+    "ref": "2271891",
+    "read": "2026-11-09",
+    "raw": "DB Series|DBZ|DBS |manga debut = \"The Fusion Succeeds...?!\" |anime debut"
+   }
+  },
+  {
+   "id": "OT10",
+   "series": "naruto",
+   "slug": "boruto-uzumaki",
+   "col": "species",
+   "old": "celestial-being",
+   "new": "human",
+   "why": "audit OT10",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Boruto_Uzumaki",
+    "ref": "1377066065",
+    "read": "2026-11-09",
+    "raw": "he manga and anime series Naruto as the son of Naruto Uzumaki and Hinata Uzumaki. He later appears a"
+   }
+  },
+  {
+   "id": "OT11",
+   "series": "chainsaw-man",
+   "slug": "makima",
+   "col": "species",
+   "old": "devil",
+   "new": "human",
+   "why": "audit OT11",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Makima",
+    "ref": "1382933273",
+    "read": "2026-11-09",
+    "raw": "ist from the Part 1 of the series, the \"Public Safety Saga\", and is the caretaker of main character Denji, promising him food and shelter if he comes und"
+   }
+  },
+  {
+   "id": "OT12",
+   "series": "jojo",
+   "slug": "dio-brando",
+   "col": "species",
+   "old": "vampire",
+   "new": "human",
+   "why": "audit OT12",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Dio_Brando",
+    "ref": "1382674317",
+    "read": "2026-11-09",
+    "raw": "thrope who, via the power of an ancient stone mask, becomes an immortal vampire. A century after th"
+   }
+  },
+  {
+   "id": "OT14",
+   "series": "inuyasha",
+   "slug": "inuyasha",
+   "col": "species",
+   "old": "demon",
+   "new": "half-demon",
+   "why": "audit OT14",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Inuyasha_(character)",
+    "ref": "1379659812",
+    "read": "2026-11-09",
+    "raw": "uel, Inuyasha: The Final Act. He is a half-demon, half-human from the Sengoku period of Japan, who once started off as a selfish and ill-tempered in"
+   }
+  },
+  {
+   "id": "OT15",
+   "series": "dragon-ball",
+   "slug": "dr-gero",
+   "col": "species",
+   "old": "human",
+   "new": "android",
+   "why": "audit OT15",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Dr._Gero",
+    "ref": "2276343",
+    "read": "2026-11-09",
+    "raw": "\"Doctor Gero\" , also known as nihongo|Android 20| Ruby|人|じん Ruby|造|ぞう Ruby|人|にん Ruby|間|げん ２０ Ruby|号|ごう |Jinzōningen Niju-Gō|lit. \"Artificial Huma"
+   }
+  },
+  {
+   "id": "OT18",
+   "series": "bleach",
+   "slug": "yoruichi-shihoin",
+   "col": "species",
+   "old": "soul-reaper-werecat",
+   "new": "shinigami",
+   "why": "audit OT18",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Yoruichi_Shih%C5%8Din",
+    "ref": "612984",
+    "read": "2026-11-09",
+    "raw": "ents Bleach Wiki:Character Template (Shinigami) | name = Yoruichi Shihōin | image = <gallery> Ep246YoruichiShihōin.png|Normal Form Ep1"
+   }
+  },
+  {
+   "id": "OT19a",
+   "series": "gintama",
+   "slug": "kagura",
+   "col": "species",
+   "old": "amanto",
+   "new": "yato",
+   "why": "audit OT19a",
+   "src": {
+    "url": "https://gintama.fandom.com/wiki/Kagura",
+    "ref": "78074",
+    "read": "2026-11-09",
+    "raw": "Gin-Chan<br/>Shinsengumi |race= Amanto (Yato Tribe) |occupation= Yorozuya |episode= Episode 1 (Special)<br/>Episode 4 (Official) |lesson= Lesson"
+   }
+  },
+  {
+   "id": "OT19b",
+   "series": "gintama",
+   "slug": "kamui",
+   "col": "species",
+   "old": "yato-tribe",
+   "new": "yato",
+   "why": "audit OT19b",
+   "src": {
+    "url": "https://gintama.fandom.com/wiki/Kamui",
+    "ref": "78009",
+    "read": "2026-11-09",
+    "raw": "iliation= Harusame <br/>Kiheitai |race= Yato Tribe |hair= Vermillion |gender= Male |eye= Blue |height = 170 cm (5' 7\") |weight = 55 kg |episode="
+   }
+  },
+  {
+   "id": "MV-S1",
+   "series": "bleach",
+   "slug": "byakuya-kuchiki",
+   "col": "species",
+   "old": "soul",
+   "new": "shinigami",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Byakuya_Kuchiki",
+    "ref": "617932",
+    "read": "2026-11-09",
+    "raw": "as cutting you down in my capacity as a Shinigami? To justify the actions I have taken, I need but one reason. You raised your bl"
+   }
+  },
+  {
+   "id": "MV-S2",
+   "series": "bleach",
+   "slug": "kenpachi-zaraki",
+   "col": "species",
+   "old": "soul",
+   "new": "shinigami",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Kenpachi_Zaraki",
+    "ref": "617941",
+    "read": "2026-11-09",
+    "raw": "= Gotei 13, Soul Society | profession = Shinigami | position = Captain of the 11th Division | division = Image:11.jpeg 11th Division"
+   }
+  },
+  {
+   "id": "MV-S3",
+   "series": "dragon-ball",
+   "slug": "gotenks",
+   "col": "species",
+   "old": "human",
+   "new": "saiyan-human-hybrid",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Gotenks",
+    "ref": "2271891",
+    "read": "2026-11-09",
+    "raw": "sion Reborn |Race = 1/2 Earthling - 1/2 Saiyan Hybrid |Gender = Male |Occupation = Martial Artist |Allegiance = Dragon Team |FamConnect = Gogeta ("
+   }
+  },
+  {
+   "id": "MV-S4",
+   "series": "one-piece",
+   "slug": "jinbe",
+   "col": "species",
+   "old": null,
+   "new": "fish-man",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Jinbe",
+    "ref": "2130854",
+    "read": "2026-11-09",
+    "raw": "Jinbe is a W|Whale shark|whale shark fish-man and a powerful master of Fish-Man Karate. His dream is to fu"
+   }
+  },
+  {
+   "id": "MV-S5",
+   "series": "fruits-basket",
+   "slug": "kyo-sohma",
+   "col": "species",
+   "old": null,
+   "new": "human",
+   "why": "audit 2.3 c: the value was missing and blocked the character from being an answer",
+   "src": {
+    "url": "https://fruitsbasket.fandom.com/wiki/Kyo_Sohma",
+    "ref": "81470",
+    "read": "2026-11-09",
+    "raw": "= 草摩 夾 |romaji = Sōma Kyō |aka = Stupid Cat (by Yuki)<br>Carrots (by Arisa)<br>Kyon (by Arisa)<br>Orange Top (by Arisa)<br>Kyon-kyon (by Hirosh"
+   }
+  },
+  {
+   "id": "OT-HS",
+   "series": "that-time-i-got-reincarnated-as-a-slime",
+   "slug": "hinata-sakaguchi",
+   "col": "species",
+   "old": "divine-human",
+   "new": "human",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://tensura.fandom.com/wiki/Hinata_Sakaguchi",
+    "ref": "217280",
+    "read": "2026-11-09",
+    "raw": "ing = Chosen Hero Egg |species = Divine human S|Holy spirit of light |evolution = Human S|Incomplete saint |gender = Female |age = 25+ S|Phy"
+   }
+  },
+  {
+   "id": "OT-Po",
+   "series": "dragon-ball",
+   "slug": "mr-popo",
+   "col": "species",
+   "old": "god",
+   "new": null,
+   "why": "audit OTPo",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Mr._Popo",
+    "ref": "2249551",
+    "read": "2026-11-09",
+    "raw": "e debut = Dragon Ball: Daimaō Fukkatsu |Race = |Date of birth = |D"
+   }
+  },
+  {
+   "id": "OT-Pu",
+   "series": "dragon-ball",
+   "slug": "puar",
+   "col": "species",
+   "old": "animal-type-earthling",
+   "new": "animal",
+   "why": "audit OTPu",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Animal",
+    "ref": "2273579",
+    "read": "2026-11-09",
+    "raw": "wo most recurring animal characters are Puar and Oolong. Other significant"
+   }
+  },
+  {
+   "id": "OT-Oo",
+   "series": "dragon-ball",
+   "slug": "oolong",
+   "col": "species",
+   "old": "pig",
+   "new": "animal",
+   "why": "audit OTOo",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Animal",
+    "ref": "2273579",
+    "read": "2026-11-09",
+    "raw": "ecurring animal characters are Puar and Oolong. Other significant"
+   }
+  },
+  {
+   "id": "OT-Kr",
+   "series": "dragon-ball",
+   "slug": "korin",
+   "col": "species",
+   "old": "cat",
+   "new": "animal",
+   "why": "audit OTKr",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Animal",
+    "ref": "2273579",
+    "read": "2026-11-09",
+    "raw": "of the Red Ribbon Army who is a tiger), Korin (a cat deity who lives atop Korin Tower), and King Furry (the King of the Earth, who is a dog). Man-Wolf, one of t"
+   }
+  },
+  {
+   "id": "OT-Ri",
+   "series": "that-time-i-got-reincarnated-as-a-slime",
+   "slug": "rimuru-tempest",
+   "col": "species",
+   "old": "true-dragon",
+   "new": "slime",
+   "why": "audit OTRi",
+   "src": {
+    "url": "https://tensura.fandom.com/wiki/Rimuru_Tempest",
+    "ref": "214489",
+    "read": "2026-11-09",
+    "raw": "ing = Demon Lord Seed<br>Storm's Crest |species = True Dragon S|Ultimate slime |evolution = Demon"
+   }
+  },
+  {
+   "id": "OT-Kd",
+   "series": "omniscient-readers-viewpoint",
+   "slug": "kim-dokja",
+   "col": "species",
+   "old": "constellation",
+   "new": "human",
+   "why": "audit OTKd",
+   "src": {
+    "url": "https://omniscient-readers-viewpoint.fandom.com/wiki/Kim_Dokja",
+    "ref": "21281",
+    "read": "2026-11-09",
+    "raw": "m | species = * Constellation r|152 *Human (formerly) Hide spoiler| * Outer God King * Archangel (Eden's Star Fruit Transformation) * Demon K"
+   }
+  },
+  {
+   "id": "OT-Be",
+   "series": "that-time-i-got-reincarnated-as-a-slime",
+   "slug": "benimaru",
+   "col": "species",
+   "old": "divine-oni",
+   "new": "oni",
+   "why": "audit OTBe",
+   "src": {
+    "url": "https://tensura.fandom.com/wiki/Benimaru",
+    "ref": "204429",
+    "read": "2026-11-09",
+    "raw": "ing |titles = Big Four<br>Flare Lord<br>Oni King<br>Samurai Great General |ftitles = |alias = Young Master<br>Young'un |species = Divine oni S"
+   }
+  },
+  {
+   "id": "OT-Sh",
+   "series": "that-time-i-got-reincarnated-as-a-slime",
+   "slug": "shion",
+   "col": "species",
+   "old": "divine-fighter",
+   "new": "oni",
+   "why": "audit OTSh",
+   "src": {
+    "url": "https://tensura.fandom.com/wiki/Shion",
+    "ref": "197991",
+    "read": "2026-11-09",
+    "raw": "species = Divine fighter S|Battle Soul oni |blessing = Rimuru's Blessing |titles = War Lord<br>Big Four<br>Samurai<br>Tyrant<br>Immortal<br>R"
+   }
+  },
+  {
+   "id": "OT-Pl",
+   "series": "jojo",
+   "slug": "polnareff",
+   "col": "species",
+   "old": "ghost",
+   "new": "human",
+   "why": "audit OTPl",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+    "ref": "1382289725",
+    "read": "2026-11-09",
+    "raw": "ired by those of Araki's three favorite French people, actors Alain Delon and Jean-Paul Belmondo, and musician Michel Polnareff. Not having any li"
+   }
+  },
+  {
+   "id": "OT-Rz",
+   "series": "chainsaw-man",
+   "slug": "reze",
+   "col": "species",
+   "old": "devil",
+   "new": "human",
+   "why": "audit OTRz",
+   "src": {
+    "url": "https://chainsaw-man.fandom.com/wiki/Reze",
+    "ref": "40949",
+    "read": "2026-11-09",
+    "raw": "> |kanji = レゼ |romaji = Reze |species = Human (formerly)<br>Hybrid |gender = Female |status = Alive |occupation = Spy (formerly)<br>Waitress (for"
+   }
+  },
+  {
+   "id": "OT-Kg",
+   "series": "bleach",
+   "slug": "kugo-ginjo",
+   "col": "species",
+   "old": "soul",
+   "new": "human",
+   "why": "audit OTKg",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Fullbringer",
+    "ref": "617732",
+    "read": "2026-11-09",
+    "raw": "avigation== Xcution SoulKingNav es:Fullbringer Category:Races Category:Human Category:World of Bleach"
+   }
+  },
+  {
+   "id": "OT-Ne",
+   "series": "hunter-x-hunter",
+   "slug": "neferpitou",
+   "col": "species",
+   "old": "cat",
+   "new": "chimera-ant",
+   "why": "audit OTNe",
+   "src": {
+    "url": "https://hunterxhunter.fandom.com/wiki/Neferpitou",
+    "ref": "425732",
+    "read": "2026-11-09",
+    "raw": "atus = Deceased |previous affiliation = Chimera Ant Queen (Former) <br /> Royal Guards <br /> Chimera Ant King |previous occupation = Chimera Ant Royal"
+   }
+  },
+  {
+   "id": "OT-KB",
+   "series": "fullmetal-alchemist",
+   "slug": "king-bradley",
+   "col": "species",
+   "old": "homunculu",
+   "new": "human",
+   "why": "audit OTKB",
+   "src": {
+    "url": "https://fma.fandom.com/wiki/King_Bradley",
+    "ref": "78473",
+    "read": "2026-11-09",
+    "raw": "03 |species =Homunculus 03 <br> Human-based Homunculus MH |gender =Male |age =59-60 (deceased) |born =August 25,"
+   },
+   "guard": "homunculus"
+  },
+  {
+   "id": "TR1",
+   "series": "tokyo-revengers",
+   "slug": "takemichi-hanagaki",
+   "col": "voice_actor_ja",
+   "old": "花垣 武道",
+   "new": "Yuuki Shin",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "i|花垣 武道|Hanagaki Takemichi : voiced by|Yuuki Shin|A.J. Beckles : por"
+   }
+  },
+  {
+   "id": "TR2",
+   "series": "tokyo-revengers",
+   "slug": "manjiro-sano",
+   "col": "voice_actor_ja",
+   "old": "佐野 万次郎",
+   "new": "Yū Hayashi",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "nihongo|Mikey|マイキー|Maikī : voiced by|Yū Hayashi|Aleks Le, Casey Mon"
+   }
+  },
+  {
+   "id": "TR3",
+   "series": "tokyo-revengers",
+   "slug": "tetta-kisaki",
+   "col": "voice_actor_ja",
+   "old": "稀咲 鉄太",
+   "new": "Showtaro Morikubo",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "Kisaki|稀咲 鉄太|Kisaki Tetta : voiced by|Showtaro Morikubo|Nicolas Roye : por"
+   }
+  },
+  {
+   "id": "TR4",
+   "series": "tokyo-revengers",
+   "slug": "chifuyu-matsuno",
+   "col": "voice_actor_ja",
+   "old": "松野 千冬",
+   "new": "Shō Karino",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "suno|松野 千冬|Matsuno Chifuyu : voiced by|Shō Karino|Adam McArthur : po"
+   }
+  },
+  {
+   "id": "TR5",
+   "series": "tokyo-revengers",
+   "slug": "ken-ryuguji",
+   "col": "voice_actor_ja",
+   "old": "龍宮寺 堅",
+   "new": "Tatsuhisa Suzuki",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "ihongo|Draken|ドラケン|Doraken : voiced by|Tatsuhisa Suzuki (first season), Mas"
+   }
+  },
+  {
+   "id": "TR6",
+   "series": "tokyo-revengers",
+   "slug": "izana-kurokawa",
+   "col": "voice_actor_ja",
+   "old": "黒川 イザナ",
+   "new": "Nobunaga Shimazaki",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "kawa|黒川 イザナ|Kurokawa Izana : voiced by|Nobunaga Shimazaki :The president of"
+   }
+  },
+  {
+   "id": "TR7",
+   "series": "tokyo-revengers",
+   "slug": "hakkai-shiba",
+   "col": "voice_actor_ja",
+   "old": "柴 八戒",
+   "new": "Tasuku Hatanaka",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "ai Shiba|柴 八戒|Shiba Hakkai : voiced by|Tasuku Hatanaka|Landon McDonald :T"
+   }
+  },
+  {
+   "id": "TR8",
+   "series": "tokyo-revengers",
+   "slug": "hinata-tachibana",
+   "col": "voice_actor_ja",
+   "old": "橘 日向",
+   "new": "Azumi Waki",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "bana|橘 日向|Tachibana Hinata : voiced by|Azumi Waki|Lizzie Freeman : p"
+   }
+  },
+  {
+   "id": "TR9",
+   "series": "tokyo-revengers",
+   "slug": "takashi-mitsuya",
+   "col": "voice_actor_ja",
+   "old": "三ツ谷 隆",
+   "new": "Yoshitsugu Matsuoka",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "suya|三ツ谷 隆|Mitsuya Takashi : voiced by|Yoshitsugu Matsuoka|Grant George : por"
+   }
+  },
+  {
+   "id": "TR10",
+   "series": "tokyo-revengers",
+   "slug": "taiju-shiba",
+   "col": "voice_actor_ja",
+   "old": "柴 大寿",
+   "new": "Tomokazu Sugita",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "iju Shiba|柴 大寿|Shiba Taiju : voiced by|Tomokazu Sugita :Is the Leader of"
+   }
+  },
+  {
+   "id": "TR11",
+   "series": "tokyo-revengers",
+   "slug": "kazutora-hanemiya",
+   "col": "voice_actor_ja",
+   "old": "羽宮 一虎",
+   "new": "Shun'ichi Toki",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "ya|羽宮 一虎|Hanemiya Kazutora : voiced by|Shun'ichi Toki|Joe Zieja : portra"
+   }
+  },
+  {
+   "id": "TR12",
+   "series": "tokyo-revengers",
+   "slug": "shuji-hanma",
+   "col": "voice_actor_ja",
+   "old": "半間 修二",
+   "new": "Takuya Eguchi",
+   "why": "OT-H1: the stored value was the character's own Japanese name",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+    "ref": "1382245718",
+    "read": "2026-11-09",
+    "raw": "ji Hanma|半間 修二|Hanma Shūji : voiced by|Takuya Eguchi|Zeno Robinson : po"
+   }
+  },
+  {
+   "id": "FMA1",
+   "series": "fullmetal-alchemist",
+   "slug": "father",
+   "col": "voice_actor_ja",
+   "old": "Kent Williams",
+   "new": "Iemasa Kayumi",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+    "ref": "1383427724",
+    "read": "2026-11-09",
+    "raw": "the flask. gnr|ch|108 He is voiced by Iemasa Kayumi in Japanese and by Kent William"
+   }
+  },
+  {
+   "id": "FMA2",
+   "series": "fullmetal-alchemist",
+   "slug": "izumi-curtis",
+   "col": "voice_actor_ja",
+   "old": "Christine Auten",
+   "new": "Shōko Tsuda",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+    "ref": "1383427724",
+    "read": "2026-11-09",
+    "raw": "rath in the afterlife. She is voiced by Shōko Tsuda in Japanese and Christine Auten"
+   }
+  },
+  {
+   "id": "FMA3",
+   "series": "fullmetal-alchemist",
+   "slug": "king-bradley",
+   "col": "voice_actor_ja",
+   "old": "Ed Blaylock",
+   "new": "Hidekatsu Shibata",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+    "ref": "1383427724",
+    "read": "2026-11-09",
+    "raw": "spirit of Izumi. Bradley is voiced by Hidekatsu Shibata and Hidenobu Kiuchi"
+   }
+  },
+  {
+   "id": "FMA4",
+   "series": "fullmetal-alchemist",
+   "slug": "dante",
+   "col": "voice_actor_ja",
+   "old": "Cindee Mayfield",
+   "new": "Kazuko Sugiyama",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+    "ref": "1383427724",
+    "read": "2026-11-09",
+    "raw": "poses. ref|K51|ep. 51 She is voiced by Kazuko Sugiyama in the Japanese series, and by Cind"
+   }
+  },
+  {
+   "id": "FMA5",
+   "series": "fullmetal-alchemist",
+   "slug": "van-hohenheim",
+   "col": "voice_actor_ja",
+   "old": "Scott McNeil",
+   "new": "Masashi Ebara",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://fma.fandom.com/wiki/Van_Hohenheim",
+    "ref": "78459",
+    "read": "2026-11-09",
+    "raw": "wasey 09 <br>Aaron Dismuke (young) 09 |seiyu =Masashi Ebara 03 <br>Unshou Ishiz"
+   }
+  },
+  {
+   "id": "FMA6",
+   "series": "fullmetal-alchemist",
+   "slug": "lin-yao",
+   "col": "voice_actor_ja",
+   "old": "Todd Haberkorn",
+   "new": "Mamoru Miyano",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+    "ref": "1383427724",
+    "read": "2026-11-09",
+    "raw": "r his rule. gnr|ch|108 He is voiced by Mamoru Miyano ref|BH15|ep. 15 in"
+   }
+  },
+  {
+   "id": "FMA7",
+   "series": "fullmetal-alchemist",
+   "slug": "alex-louis-armstrong",
+   "col": "voice_actor_ja",
+   "old": "Christopher R. Sabat",
+   "new": "Kenji Utsumi",
+   "why": "OT-H2/H3: the stored value was an English dub actor",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+    "ref": "1383427724",
+    "read": "2026-11-09",
+    "raw": "t interests. gnr|ch|20 He is voiced by Kenji Utsumi in the Japanese series, and Christo"
+   }
+  },
+  {
+   "id": "DB-Ra",
+   "series": "dragon-ball",
+   "slug": "raditz",
+   "col": "voice_actor_ja",
+   "old": "Masako Nozawa",
+   "new": "Shigeru Chiba",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Raditz",
+    "ref": "2271907",
+    "read": "2026-11-09",
+    "raw": "fighters. ==Voice Actors== *Japanese: Shigeru Chiba *English: **Ocean Group dubs: Jason Gray-Stanford (DBZ Episodes 1-5 [1-4 edited"
+   }
+  },
+  {
+   "id": "OT-H5",
+   "series": "oshi-no-ko",
+   "slug": "aqua-hoshino",
+   "col": "voice_actor_ja",
+   "old": "Takeo Ootsuka Yumi Uchiyama",
+   "new": "Takeo Ōtsuka",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters",
+    "ref": "1377609994",
+    "read": "2026-11-09",
+    "raw": "uamarine Hoshino / Aqua === : Voiced by|Takeo Ōtsuka (Aqua, teen), Yumi"
+   }
+  },
+  {
+   "id": "OT-H6",
+   "series": "fruits-basket",
+   "slug": "tohru-honda",
+   "col": "voice_actor_ja",
+   "old": "Hiroko Konishi",
+   "new": "Yui Horie",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+    "ref": "1384552776",
+    "read": "2026-11-09",
+    "raw": "iced by|Hiroko Konishi (1999 Drama CD), Yui Horie (2001 anime, 2005 D"
+   }
+  },
+  {
+   "id": "OT-H7",
+   "series": "jojo",
+   "slug": "giorno-giovanna",
+   "col": "voice_actor_ja",
+   "old": "Romi Park",
+   "new": "Kensho Ono",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+    "ref": "1382289725",
+    "read": "2026-11-09",
+    "raw": "g causes. :In Japanese, he is voiced by Kensho Ono and Natsumi Fujiwara (child) in"
+   }
+  },
+  {
+   "id": "OT-H8",
+   "series": "jojo",
+   "slug": "joseph-joestar",
+   "col": "voice_actor_ja",
+   "old": "Kenji Utsumi",
+   "new": "Tomokazu Sugita",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+    "ref": "1382289725",
+    "read": "2026-11-09",
+    "raw": "ll alive. :In Japanese, he is voiced by Tomokazu Sugita (young) and Unshō Ishizuka"
+   }
+  },
+  {
+   "id": "OT-H9",
+   "series": "jojo",
+   "slug": "dio-brando",
+   "col": "voice_actor_ja",
+   "old": "Norio Wakamoto",
+   "new": "Takehito Koyasu",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Dio_Brando",
+    "ref": "1382674317",
+    "read": "2026-11-09",
+    "raw": "wa (2006-07)|Kenji Nojima (2006; young)|Takehito Koyasu (2012-present)|Engl"
+   }
+  },
+  {
+   "id": "OT-H10",
+   "series": "detective-conan",
+   "slug": "kogoro-mori",
+   "col": "voice_actor_ja",
+   "old": "Rikiya Koyama",
+   "new": "Akira Kamiya",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters",
+    "ref": "1384067915",
+    "read": "2026-11-09",
+    "raw": "goro Mori|Richard Moore : Anime voices|Akira Kamiya (1996-2009), Rikiya"
+   }
+  },
+  {
+   "id": "H1",
+   "series": "hunter-x-hunter",
+   "slug": "gon-freecss",
+   "col": "voice_actor_ja",
+   "old": "Megumi Han",
+   "new": "Junko Takeuchi",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": ": Voiced by|Rica Matsumoto (1998 film), Junko Takeuchi (1999 series), Megumi Han (2011 s"
+   }
+  },
+  {
+   "id": "H2",
+   "series": "hunter-x-hunter",
+   "slug": "killua-zoldyck",
+   "col": "voice_actor_ja",
+   "old": "Mariya Ise",
+   "new": "Kanako Mitsuhashi",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": "ck=== main|Killua Zoldyck : Voiced by|Kanako Mitsuhashi (1999 series), Mariya Ise (2011 s"
+   }
+  },
+  {
+   "id": "H3",
+   "series": "hunter-x-hunter",
+   "slug": "kurapika",
+   "col": "voice_actor_ja",
+   "old": "Miyuki Sawashiro",
+   "new": "Yuki Kaida",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": ": Voiced by|Noriko Hidaka (1998 film), Yuki Kaida (1999 series), Miyuki Sawashiro ("
+   }
+  },
+  {
+   "id": "H4",
+   "series": "hunter-x-hunter",
+   "slug": "leorio-paradinight",
+   "col": "voice_actor_ja",
+   "old": "Keiji Fujiwara",
+   "new": "Hozumi Gōda",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": "Voiced by|Nobutoshi Canna (1998 film), Hozumi Gōda (1999 series), Keiji Fujiwara (20"
+   }
+  },
+  {
+   "id": "H5",
+   "series": "hunter-x-hunter",
+   "slug": "isaac-netero",
+   "col": "voice_actor_ja",
+   "old": "Ichirō Nagai",
+   "new": "Bunmei Tobayama",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": "e rate. ===Isaac Netero=== : Voiced by|Bunmei Tobayama (1999 series), Ichirō Nagai (2011"
+   }
+  },
+  {
+   "id": "H6",
+   "series": "hunter-x-hunter",
+   "slug": "ging-freecss",
+   "col": "voice_actor_ja",
+   "old": "Rikiya Koyama",
+   "new": "Hiroki Tōchi",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": "tero. ====Ging Freecss==== : Voiced by|Hiroki Tōchi (1999 series), Urara Takano (chil"
+   }
+  },
+  {
+   "id": "H7",
+   "series": "hunter-x-hunter",
+   "slug": "kite",
+   "col": "voice_actor_ja",
+   "old": "Shigeru Nakahara",
+   "new": "Yūji Kishi",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": "Voiced by|Shigeru Nakahara (1998 film), Yūji Kishi (1999 series), Shūichi Ikeda (201"
+   }
+  },
+  {
+   "id": "H8",
+   "series": "hunter-x-hunter",
+   "slug": "silva-zoldyck",
+   "col": "voice_actor_ja",
+   "old": "Kouichi Yamadera",
+   "new": "Kouji Ishii",
+   "why": "OT-H11 with D-5: one cast (the 1999 first TV series) for Hunter x Hunter",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "ref": "1378757391",
+    "read": "2026-11-09",
+    "raw": "poll. ===Silva Zoldyck=== : Voiced by|Kouji Ishii (1999 series), Kouichi Yamadera ("
+   }
+  },
+  {
+   "id": "KY1",
+   "series": "fruits-basket",
+   "slug": "kyo-sohma",
+   "col": "voice_actor_ja",
+   "old": null,
+   "new": "Tomokazu Seki",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters",
+    "ref": "1384552776",
+    "read": "2026-11-09",
+    "raw": "iversity. ====Kyo Soma==== : Voiced by|Tomokazu Seki (Drama CD, 2001 ani"
+   }
+  },
+  {
+   "id": "JO1",
+   "series": "jojo",
+   "slug": "jotaro-kujo",
+   "col": "voice_actor_ja",
+   "old": null,
+   "new": "Daisuke Ono",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/Jotaro_Kujo",
+    "ref": "1382326736",
+    "read": "2026-11-09",
+    "raw": "adjitarkhani in its English dub. In the later television anime adaptation and in the rest of his occurrences in future parts, he was voiced by Daisuke Ono in Japanese and Mat"
+   }
+  },
+  {
+   "id": "JO2",
+   "series": "jojo",
+   "slug": "josuke-higashikata",
+   "col": "voice_actor_ja",
+   "old": null,
+   "new": "Yūki Ono",
+   "why": "OT-H4 to H10 with D-5: Japanese voice actor of the first TV anime series",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_JoJo's_Bizarre_Adventure_characters",
+    "ref": "1382289725",
+    "read": "2026-11-09",
+    "raw": "himself. :In Japanese, he is voiced by Yūki Ono and Yō Taichi (child) in the anim"
+   }
+  },
+  {
+   "id": "TA1",
+   "series": "gintama",
+   "slug": "tae-shimura",
+   "col": "voice_actor_ja",
+   "old": "Yukino Satsuki",
+   "new": "Satsuki Yukino",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Gintama_characters",
+    "ref": "1378278398",
+    "read": "2026-11-09",
+    "raw": "(四天王). ====Tae Shimura==== : Voiced by|Satsuki Yukino|Shelley Calene-Blac"
+   }
+  },
+  {
+   "id": "DA1",
+   "series": "dandadan",
+   "slug": "seiko-ayase",
+   "col": "voice_actor_ja",
+   "old": "綾瀬 星子",
+   "new": "Nana Mizuki",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+    "ref": "1384061932",
+    "read": "2026-11-09",
+    "raw": "ries. === Seiko Ayase === : Voiced by|Nana Mizuki|Kari Wahlgren : Po"
+   }
+  },
+  {
+   "id": "DA2",
+   "series": "dandadan",
+   "slug": "turbo-granny",
+   "col": "voice_actor_ja",
+   "old": "ターボババア",
+   "new": "Mayumi Tanaka",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+    "ref": "1384061932",
+    "read": "2026-11-09",
+    "raw": "1=Turbo Granny (Dandadan) : Voiced by|Mayumi Tanaka|Barbara Goodson N"
+   }
+  },
+  {
+   "id": "DA3",
+   "series": "dandadan",
+   "slug": "peeny-weeny",
+   "col": "voice_actor_ja",
+   "old": "シャコ星人",
+   "new": "Tomokazu Seki",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+    "ref": "1384061932",
+    "read": "2026-11-09",
+    "raw": "y / Mr. Mantis Shrimp ==== : Voiced by|Tomokazu Seki|Brent Mukai Nihon"
+   }
+  },
+  {
+   "id": "DA4",
+   "series": "dandadan",
+   "slug": "acrobatic-silky",
+   "col": "voice_actor_ja",
+   "old": "アクロバティックさらさら",
+   "new": "Kikuko Inoue",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_characters",
+    "ref": "1384061932",
+    "read": "2026-11-09",
+    "raw": "==== Acrobatic Silky ==== : Voiced by|Kikuko Inoue|Amber Lee Connors"
+   }
+  },
+  {
+   "id": "BL1",
+   "series": "blue-lock",
+   "slug": "yoichi-isagi",
+   "col": "voice_actor_ja",
+   "old": "潔 世一",
+   "new": "Kazuki Ura",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+    "ref": "1382102833",
+    "read": "2026-11-09",
+    "raw": "=== ==== Yoichi Isagi ==== : Voiced by|Kazuki Ura|Ricco Fajardo : P"
+   }
+  },
+  {
+   "id": "BL2",
+   "series": "blue-lock",
+   "slug": "rin-itoshi",
+   "col": "voice_actor_ja",
+   "old": "糸師 凛",
+   "new": "Kōki Uchiyama",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+    "ref": "1382102833",
+    "read": "2026-11-09",
+    "raw": "Rin Itoshi|糸師 凛|Itoshi Rin : Voiced by|Kōki Uchiyama|Matt Shipman : Por"
+   }
+  },
+  {
+   "id": "BL3",
+   "series": "blue-lock",
+   "slug": "jinpachi-ego",
+   "col": "voice_actor_ja",
+   "old": "絵心 甚八",
+   "new": "Hiroshi Kamiya",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+    "ref": "1382102833",
+    "read": "2026-11-09",
+    "raw": "ers == === Jinpachi Ego === : Voiced by|Hiroshi Kamiya|Derick Snow : Port"
+   }
+  },
+  {
+   "id": "BL4",
+   "series": "blue-lock",
+   "slug": "meguru-bachira",
+   "col": "voice_actor_ja",
+   "old": "蜂楽 廻",
+   "new": "Tasuku Kaito",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+    "ref": "1382102833",
+    "read": "2026-11-09",
+    "raw": ". ==== Meguru Bachira ==== : Voiced by|Tasuku Kaito|Drew Breedlove : P"
+   }
+  },
+  {
+   "id": "BL5",
+   "series": "blue-lock",
+   "slug": "sae-itoshi",
+   "col": "voice_actor_ja",
+   "old": "糸師 冴",
+   "new": "Takahiro Sakurai",
+   "why": "part 1 defect: Japanese-script value (kanji or katakana, the character name), replaced from the Wikipedia cast list",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_characters",
+    "ref": "1382102833",
+    "read": "2026-11-09",
+    "raw": "ayers == === Sae Itoshi === : Voiced by|Takahiro Sakurai|Alejandro Saab Ni"
+   }
+  },
+  {
+   "id": "RZ1",
+   "series": "re-zero",
+   "slug": "subaru-natsuki",
+   "col": "voice_actor_ja",
+   "old": "Kobayashi Yūsuke",
+   "new": "Yūsuke Kobayashi",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "Sean Chiplock<br/>Voiced by (Japanese): Yūsuke Kobayashi :The main protagoni"
+   }
+  },
+  {
+   "id": "RZ2",
+   "series": "re-zero",
+   "slug": "ram",
+   "col": "voice_actor_ja",
+   "old": "Murakawa Rie",
+   "new": "Rie Murakawa",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "Ryan Bartley<br/>Voiced by (Japanese): Rie Murakawa :One of the demons"
+   }
+  },
+  {
+   "id": "RZ3",
+   "series": "re-zero",
+   "slug": "rem",
+   "col": "voice_actor_ja",
+   "old": "Minase Inori",
+   "new": "Inori Minase",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "Knickerbocker<br/>Voiced by (Japanese): Inori Minase :One of the twin de"
+   }
+  },
+  {
+   "id": "RZ4",
+   "series": "re-zero",
+   "slug": "reinhard-van-astrea",
+   "col": "voice_actor_ja",
+   "old": "Nakamura Yuichi",
+   "new": "Yūichi Nakamura",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "obbie Daymond<br/>Voiced by (Japanese): Yūichi Nakamura :An easygoing Royal"
+   }
+  },
+  {
+   "id": "RZ5",
+   "series": "re-zero",
+   "slug": "emilia",
+   "col": "voice_actor_ja",
+   "old": "Takahashi Rie",
+   "new": "Rie Takahashi",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": ": Kayli Mills<br/>Voiced by (Japanese): Rie Takahashi :The main heroine,"
+   }
+  },
+  {
+   "id": "RZ6",
+   "series": "re-zero",
+   "slug": "roswaal-l-mathers",
+   "col": "voice_actor_ja",
+   "old": "Koyasu Takehito",
+   "new": "Takehito Koyasu",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "h): Ray Chase<br/>Voiced by (Japanese): Takehito Koyasu :A Margrave, as wel"
+   }
+  },
+  {
+   "id": "RZ7",
+   "series": "re-zero",
+   "slug": "beatrice",
+   "col": "voice_actor_ja",
+   "old": "Arai Satomi",
+   "new": "Satomi Arai",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "Kira Buckland<br/>Voiced by (Japanese): Satomi Arai :A mysterious girl"
+   }
+  },
+  {
+   "id": "RZ8",
+   "series": "re-zero",
+   "slug": "crusch-karsten",
+   "col": "voice_actor_ja",
+   "old": "Iguchi Yuka",
+   "new": "Yuka Iguchi",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "ika Harlacher<br/>Voiced by (Japanese): Yuka Iguchi :A 20-year-old woma"
+   }
+  },
+  {
+   "id": "RZ9",
+   "series": "re-zero",
+   "slug": "echidna",
+   "col": "voice_actor_ja",
+   "old": "Sakamoto Maaya",
+   "new": "Maaya Sakamoto",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "iris Quiñones<br/>Voiced by (Japanese): Maaya Sakamoto : She is the Witch"
+   }
+  },
+  {
+   "id": "RZ10",
+   "series": "re-zero",
+   "slug": "otto-suwen",
+   "col": "voice_actor_ja",
+   "old": "Amasaki Kōhei",
+   "new": "Kōhei Amasaki",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "Zach Aguilar<br/>Voiced by (Japanese): Kōhei Amasaki :A traveling mercha"
+   }
+  },
+  {
+   "id": "RZ11",
+   "series": "re-zero",
+   "slug": "julius-juukulius",
+   "col": "voice_actor_ja",
+   "old": "Eguchi Takuya",
+   "new": "Takuya Eguchi",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "f the Throne)<br/>Voiced by (Japanese): Takuya Eguchi :Anastasia's knight"
+   }
+  },
+  {
+   "id": "RZ12",
+   "series": "re-zero",
+   "slug": "garfiel-tinzel",
+   "col": "voice_actor_ja",
+   "old": "Okamoto Nobuhiko",
+   "new": "Nobuhiko Okamoto",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters",
+    "ref": "1379441287",
+    "read": "2026-11-09",
+    "raw": "Zeno Robinson<br/>Voiced by (Japanese): Nobuhiko Okamoto :Garfiel Tinzel is"
+   }
+  },
+  {
+   "id": "SAO1",
+   "series": "sword-art-online",
+   "slug": "kirito",
+   "col": "voice_actor_ja",
+   "old": "Matsuoka Yoshitsugu",
+   "new": "Yoshitsugu Matsuoka",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "Kirito (Sword Art Online) : voiced by|Yoshitsugu Matsuoka|Bryce Papenbrook"
+   }
+  },
+  {
+   "id": "SAO2",
+   "series": "sword-art-online",
+   "slug": "asuna",
+   "col": "voice_actor_ja",
+   "old": "Tomatsu Haruka",
+   "new": "Haruka Tomatsu",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "! Asuna (Sword Art Online) : voiced by|Haruka Tomatsu|Cherami Leigh The"
+   }
+  },
+  {
+   "id": "SAO3",
+   "series": "sword-art-online",
+   "slug": "sinon",
+   "col": "voice_actor_ja",
+   "old": "Sawashiro Miyuki",
+   "new": "Miyuki Sawashiro",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "no Asada|朝田 詩乃|Asada Shino : voiced by|Miyuki Sawashiro|Michelle Ruff Sin"
+   }
+  },
+  {
+   "id": "SAO4",
+   "series": "sword-art-online",
+   "slug": "yuuki-konno",
+   "col": "voice_actor_ja",
+   "old": "Yuuki Aoi",
+   "new": "Aoi Yūki",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "Konno|紺野 木綿季|Konno Yūki : anime voices|Aoi Yūki|Erica Mendez One"
+   }
+  },
+  {
+   "id": "SAO5",
+   "series": "sword-art-online",
+   "slug": "leafa",
+   "col": "voice_actor_ja",
+   "old": "Taketatsu Ayana",
+   "new": "Ayana Taketatsu",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "ya|桐ヶ谷 直葉|Kirigaya Suguha : Voiced by|Ayana Taketatsu|Cassandra Lee Morri"
+   }
+  },
+  {
+   "id": "SAO6",
+   "series": "sword-art-online",
+   "slug": "yui",
+   "col": "voice_actor_ja",
+   "old": "Itou Kanae",
+   "new": "Kanae Itō",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "Nihongo| vanchor|Yui |ユイ| : voiced by|Kanae Itō|Stephanie Sheh Or"
+   }
+  },
+  {
+   "id": "SAO7",
+   "series": "sword-art-online",
+   "slug": "silica",
+   "col": "voice_actor_ja",
+   "old": "Hidaka Rina",
+   "new": "Rina Hidaka",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "ko Ayano|綾野 珪子|Ayano Keiko : voiced by|Rina Hidaka|Christine Marie Cab"
+   }
+  },
+  {
+   "id": "SAO8",
+   "series": "sword-art-online",
+   "slug": "lisbeth",
+   "col": "voice_actor_ja",
+   "old": "Takagaki Ayahi",
+   "new": "Ayahi Takagaki",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "ozaki|篠崎 里香|Shinozaki Rika : voiced by|Ayahi Takagaki|Sarah Anne Williams"
+   }
+  },
+  {
+   "id": "SAO9",
+   "series": "sword-art-online",
+   "slug": "klein",
+   "col": "voice_actor_ja",
+   "old": "Hirata Hiroaki",
+   "new": "Hiroaki Hirata",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "uboi|壷井 遼太郎|Tsuboi Ryōtarō : voiced by|Hiroaki Hirata|Kirk Thornton A f"
+   }
+  },
+  {
+   "id": "SAO10",
+   "series": "sword-art-online",
+   "slug": "akihiko-kayaba",
+   "col": "voice_actor_ja",
+   "old": "Ohkawa Tohru",
+   "new": "Tōru Ōkawa",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "ayaba|茅場 晶彦|Kayaba Akihiko : voiced by|Tōru Ōkawa (Heathcliff), Kōich"
+   }
+  },
+  {
+   "id": "SAO11",
+   "series": "sword-art-online",
+   "slug": "argo",
+   "col": "voice_actor_ja",
+   "old": "Izawa Shiori",
+   "new": "Shiori Izawa",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "aka|帆坂朋|Hosaka Karīna Tomo : voiced by|Shiori Izawa|Cassandra Lee Morri"
+   }
+  },
+  {
+   "id": "SAO12",
+   "series": "sword-art-online",
+   "slug": "eugeo",
+   "col": "voice_actor_ja",
+   "old": "Shimazaki Nobunaga",
+   "new": "Nobunaga Shimazaki",
+   "why": "OT-H12: surname first, written given name first like every other row",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters",
+    "ref": "1384513234",
+    "read": "2026-11-09",
+    "raw": "vanchor|Eugeo |ユージオ|Yūjio : voiced by|Nobunaga Shimazaki|Brandon Winckler"
+   }
+  },
+  {
+   "id": "KK1",
+   "series": "tokyo-ghoul",
+   "slug": "ken-kaneki",
+   "col": "gender",
+   "old": null,
+   "new": "male",
+   "why": "OT-D3: Ken Kaneki gets his own facts row (from his own pages), not a copy of Haise Sasaki",
+   "src": {
+    "url": "https://tokyoghoul.fandom.com/wiki/Ken_Kaneki",
+    "ref": "493985",
+    "read": "2026-11-09",
+    "raw": "oul:re)<br/>23 (after :re Ch. 32)<br/> |gender = Male |born = birth date"
+   }
+  },
+  {
+   "id": "KK2",
+   "series": "tokyo-ghoul",
+   "slug": "ken-kaneki",
+   "col": "species",
+   "old": null,
+   "new": "human",
+   "why": "OT-D3: Ken Kaneki gets his own facts row (from his own pages), not a copy of Haise Sasaki",
+   "src": {
+    "url": "https://tokyoghoul.fandom.com/wiki/Ken_Kaneki",
+    "ref": "493985",
+    "read": "2026-11-09",
+    "raw": "es = <br/>Artificial One-eyed ghoul<br/>Human (Formerly) |status = Alive |ag"
+   }
+  },
+  {
+   "id": "KK3",
+   "series": "tokyo-ghoul",
+   "slug": "ken-kaneki",
+   "col": "role_at_debut",
+   "old": null,
+   "new": "main",
+   "why": "OT-D3: Ken Kaneki gets his own facts row (from his own pages), not a copy of Haise Sasaki",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+    "ref": "1383903203",
+    "read": "2026-11-09",
+    "raw": "oul. ==Main characters== ; Nihongo|Ken Kaneki|金木 研|Kaneki Ken : Voiced by|Natsuki Hanae|Austin Tindle :Played by: Masataka Kubota :The main protagonist of the story is an"
+   }
+  },
+  {
+   "id": "KK4",
+   "series": "tokyo-ghoul",
+   "slug": "ken-kaneki",
+   "col": "first_appearance",
+   "old": null,
+   "new": "Chapter 1 / Episode 1",
+   "why": "OT-D3: Ken Kaneki gets his own facts row (from his own pages), not a copy of Haise Sasaki",
+   "src": {
+    "url": "https://tokyoghoul.fandom.com/wiki/Ken_Kaneki",
+    "ref": "493985",
+    "read": "2026-11-09",
+    "raw": "/>Golden Osmanthus Medal |manga debut = Chapter 1<br/>Tokyo Ghoul Epi"
+   }
+  },
+  {
+   "id": "KK5",
+   "series": "tokyo-ghoul",
+   "slug": "ken-kaneki",
+   "col": "voice_actor_ja",
+   "old": null,
+   "new": "Natsuki Hanae",
+   "why": "OT-D3: Ken Kaneki gets his own facts row (from his own pages), not a copy of Haise Sasaki",
+   "src": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Tokyo_Ghoul_characters",
+    "ref": "1383903203",
+    "read": "2026-11-09",
+    "raw": "Ken Kaneki|金木 研|Kaneki Ken : Voiced by|Natsuki Hanae|Austin Tindle :Pla"
+   }
+  },
+  {
+   "id": "RS1",
+   "series": "one-piece",
+   "slug": "nami",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Nami",
+    "ref": "2131356",
+    "read": "2026-11-09",
+    "raw": "Nami Tabs Top For|the chapter of the same name|Chapter 8 \"Cat Burglar\" Nami"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS2",
+   "series": "one-piece",
+   "slug": "tony-tony-chopper",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper",
+    "ref": "2130929",
+    "read": "2026-11-09",
+    "raw": "nies Lobby Bounty is the doctor of the Straw Hat Pirates and one of the Senior Officers of the Straw Hat Grand Fleet. Qref|name=c1058 H"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS3",
+   "series": "one-piece",
+   "slug": "usopp",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Usopp",
+    "ref": "2132866",
+    "read": "2026-11-09",
+    "raw": "ressrosa Bounties is the sniper of the Straw Hat Pirates and one of the Senior Officers of the Straw Hat Grand Fleet. Qref|name=c1058 H"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS4",
+   "series": "one-piece",
+   "slug": "brook",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Brook",
+    "ref": "2130845",
+    "read": "2026-11-09",
+    "raw": "ssrosa Bounties is the musician of the Straw Hat Pirates, one of their two swordsmen, and one of the Senior Officers of the Straw Hat Grand Fleet. Qref|name=c1058 H"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS5",
+   "series": "one-piece",
+   "slug": "trafalgar-law",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Trafalgar_D._Water_Law",
+    "ref": "2137225",
+    "read": "2026-11-09",
+    "raw": "falgar D. Water Law Tabs Top For|the chapter of the same name with his epithet|Chapter 660 Trafalgar D. Water"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS6",
+   "series": "one-piece",
+   "slug": "portgas-d-ace",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Portgas_D._Ace",
+    "ref": "2134646",
+    "read": "2026-11-09",
+    "raw": "uring that his will would live on. Ace first appeared at the end of the Drum Island Arc, but was only formally introduced in the Arabasta Arc, where he acts as a brief all"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS7",
+   "series": "one-piece",
+   "slug": "edward-newgate",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Edward_Newgate",
+    "ref": "2134858",
+    "read": "2026-11-09",
+    "raw": "Edward Newgate Tabs Top For|the chapter of the same name|Chapter 576 Edward Newgate, Qr"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS8",
+   "series": "one-piece",
+   "slug": "eustass-kid",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Eustass_Kid",
+    "ref": "2136479",
+    "read": "2026-11-09",
+    "raw": "= Yūsutasu Kiddo | first = Chapter 498; Episode 392 Qref|name=debut|chap=498|page=15|ep=392|Kid makes his debut. | affiliation"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS9",
+   "series": "one-piece",
+   "slug": "sabo",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://onepiece.fandom.com/wiki/Sabo",
+    "ref": "2127001",
+    "read": "2026-11-09",
+    "raw": "= サボ | first = Chapter 583; Episode 494 Qref|name=c583|chap=583|ep=494|Sabo makes his debut. | affiliation"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS10",
+   "series": "jujutsu-kaisen",
+   "slug": "yuta-okkotsu",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://jujutsu-kaisen.fandom.com/wiki/Yuta_Okkotsu",
+    "ref": "89158",
+    "read": "2026-11-09",
+    "raw": "kotsu (Anime 2).png|Anime Yuta Okkotsu (Chapter 137).png|Manga </gallery"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS11",
+   "series": "attack-on-titan",
+   "slug": "reiner-braun",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://attackontitan.fandom.com/wiki/Reiner_Braun",
+    "ref": "349842",
+    "read": "2026-11-09",
+    "raw": "127|p = 33 <br>In team: 0<br>Total: 3 | Debut chapter = That Day Succession | Tit"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS12",
+   "series": "bleach",
+   "slug": "yhwach",
+   "col": "role_at_debut",
+   "old": "antagonist",
+   "new": "antagonist",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://bleach.fandom.com/wiki/Yhwach",
+    "ref": "618186",
+    "read": "2026-11-09",
+    "raw": "= Reishi Sword, Sankt Bogen |manga debut = Chapter 484 |anime debut"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS13",
+   "series": "chainsaw-man",
+   "slug": "makima",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://chainsaw-man.fandom.com/wiki/Makima",
+    "ref": "44595",
+    "read": "2026-11-09",
+    "raw": "Unnamed five dogs † |caption1 = |manga_debut = Chapter 1 |anime_debut = Epis"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS14",
+   "series": "detective-conan",
+   "slug": "yusaku-kudo",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://detectiveconan.fandom.com/wiki/Yusaku_Kudo",
+    "ref": "48511",
+    "read": "2026-11-09",
+    "raw": "a (Father)<br>Mrs. Kudo (Mother) |manga debut=Chapter 51 |anime debut=Episod"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS15",
+   "series": "fairy-tail",
+   "slug": "natsu-dragneel",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://fairytail.fandom.com/wiki/Natsu_Dragneel",
+    "ref": "1074038",
+    "read": "2026-11-09",
+    "raw": "(former)<br>Heat Blade (former) |manga debut=Chapter 1 |anime debut=Episod"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS16",
+   "series": "fairy-tail",
+   "slug": "erza-scarlet",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://fairytail.fandom.com/wiki/Erza_Scarlet",
+    "ref": "1075812",
+    "read": "2026-11-09",
+    "raw": "Axes, Staffs, and other weapons |manga debut=Chapter 10 |anime debut=Episod"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS17",
+   "series": "fairy-tail",
+   "slug": "lucy-heartfilia",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://fairytail.fandom.com/wiki/Lucy_Heartfilia",
+    "ref": "1075915",
+    "read": "2026-11-09",
+    "raw": "rary) |weapons=Fleuve d'étoiles |manga debut=Chapter 1 |anime debut=Episod"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS18",
+   "series": "mob-psycho-100",
+   "slug": "shigeo-kageyama",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://mob-psycho-100.fandom.com/wiki/Shigeo_Kageyama",
+    "ref": "23229",
+    "read": "2026-11-09",
+    "raw": "br> Reigens' discipline (former) |manga=Chapter 1 |anime=Episode 1 S"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS19",
+   "series": "oshi-no-ko",
+   "slug": "aqua-hoshino",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://oshinoko.fandom.com/wiki/Aqua_Hoshino",
+    "ref": "39033",
+    "read": "2026-11-09",
+    "raw": "『【推しの子】』公式サイト- |age = Hidden|| 0 Note|Chapter 2 Ref|ch=2|pg=4 <br> ~1 Note|Chapter 5-"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS20",
+   "series": "re-zero",
+   "slug": "subaru-natsuki",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://rezero.fandom.com/wiki/Natsuki_Subaru",
+    "ref": "184393",
+    "read": "2026-11-09",
+    "raw": "is page is about the character. For the episode in the anime, see Episode 82. Parent Tab |tab1"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS21",
+   "series": "sakamoto-days",
+   "slug": "taro-sakamoto",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://sakamoto-days.fandom.com/wiki/Taro_Sakamoto",
+    "ref": "16270",
+    "read": "2026-11-09",
+    "raw": "<br>JCC |Bounty = ¥1,000,000,000 |debut = Chapter 1 |animedebut =Epis"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS22",
+   "series": "slam-dunk",
+   "slug": "hanamichi-sakuragi",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://slamdunk.fandom.com/wiki/Hanamichi_Sakuragi",
+    "ref": "15453",
+    "read": "2026-11-09",
+    "raw": "colour = Red |eye colour = Brown |manga debut = Chapter 1 |anime debut = Epis"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS23",
+   "series": "slam-dunk",
+   "slug": "kaede-rukawa",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://slamdunk.fandom.com/wiki/Kaede_Rukawa",
+    "ref": "15467",
+    "read": "2026-11-09",
+    "raw": "r high)<br>#11<br>#23 (practice) |manga debut = Chapter 2 |anime debut = Epis"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS24",
+   "series": "sword-art-online",
+   "slug": "sinon",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://swordartonline.fandom.com/wiki/Asada_Shino",
+    "ref": "196568",
+    "read": "2026-11-09",
+    "raw": "ish) = Michelle Ruff |Novel = Volume 5, Chapter 3 |Manga = Phantom Bu"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS25",
+   "series": "sword-art-online",
+   "slug": "yuuki-konno",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://swordartonline.fandom.com/wiki/Konno_Yuuki",
+    "ref": "195991",
+    "read": "2026-11-09",
+    "raw": "me name in the web version or the anime episode. </div> Character"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS26",
+   "series": "tokyo-ghoul",
+   "slug": "haise-sasaki",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://tokyoghoul.fandom.com/wiki/Ken_Kaneki",
+    "ref": "493985",
+    "read": "2026-11-09",
+    "raw": "Reaper<br/>Number 240<br/>One-Eyed King ChapterRef|86|series=re <br/>HS<br/>Nameless King ChapterRef|107|series=re <br/>Miracle Human<br/>K-eater ChapterRef|44|series="
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS27",
+   "series": "tokyo-revengers",
+   "slug": "takemichi-hanagaki",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://tokyorevengers.fandom.com/wiki/Takemichi_Hanagaki",
+    "ref": "46978",
+    "read": "2026-11-09",
+    "raw": "ji Gang Leader * Brahman Member | manga debut = Chapter 1 | anime debut = Epi"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS28",
+   "series": "apothecary-diaries",
+   "slug": "maomao",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://kusuriya.fandom.com/wiki/Maomao",
+    "ref": "17730",
+    "read": "2026-11-09",
+    "raw": "ys the tingling feeling it causes. *In Episode link|8|episode 8 of the anime (as well as chapter 11 of the TADmanga|manga ), Maomao is somewhat skilled in administe"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS29",
+   "series": "bocchi-the-rock",
+   "slug": "hitori-goto",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://bocchi-the-rock.fandom.com/wiki/Hitori_Gotoh",
+    "ref": "6881",
+    "read": "2026-11-09",
+    "raw": "ruary 21 | age = 15<br/> 17 (Chapter 73) | gender ="
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS30",
+   "series": "cowboy-bebop",
+   "slug": "spike-spiegel",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://cowboybebop.fandom.com/wiki/Spike_Spiegel",
+    "ref": "34351",
+    "read": "2026-11-09",
+    "raw": "rch of where she belongs. ===The Final Chapter=== alt=|left|thumb|193"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS31",
+   "series": "death-note",
+   "slug": "l",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://deathnote.fandom.com/wiki/L_(character)",
+    "ref": "74488",
+    "read": "2026-11-09",
+    "raw": "|Child </gallery> |manga = Chapter One: Boredom |anime"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS32",
+   "series": "evangelion",
+   "slug": "shinji-ikari",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://evangelion.fandom.com/wiki/Shinji_Ikari",
+    "ref": "92970",
+    "read": "2026-11-09",
+    "raw": "last time they visited Yui's grave. In Episode 01, Shinji shows Misato the letter his father sent, summoning him to Tokyo-3. The entirety of th"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS33",
+   "series": "evangelion",
+   "slug": "asuka-langley-soryu",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://evangelion.fandom.com/wiki/Asuka_Langley_Sohryu",
+    "ref": "93095",
+    "read": "2026-11-09",
+    "raw": "i (Former Guardian, Deceased) |first = \"Episode: 08\" NGE <br>Volume 4 EMC |movie=Evangelion:"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS34",
+   "series": "evangelion",
+   "slug": "kaworu-nagisa",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://evangelion.fandom.com/wiki/Kaworu_Nagisa",
+    "ref": "92891",
+    "read": "2026-11-09",
+    "raw": "before Lilith. Kaworu is first seen in episode 24, sitting on a stone amongst wreckage due to the previous battle with Armisael, the Sixteenth Angel. When Shinji firs"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS35",
+   "series": "sailor-moon",
+   "slug": "usagi-tsukino",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://sailormoon.fandom.com/wiki/Usagi_Tsukino_%2F_Sailor_Moon_(anime)",
+    "ref": "286783",
+    "read": "2026-11-09",
+    "raw": "voiced by = Kotono Mitsuishi (Japanese, Episodes 1-43, 51-200)<br /> Kae Araki (Japanese"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS36",
+   "series": "sailor-moon",
+   "slug": "chibiusa",
+   "col": "role_at_debut",
+   "old": "supporting",
+   "new": "supporting",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://sailormoon.fandom.com/wiki/Chibiusa_Tsukino_%2F_Sailor_Chibi_Moon_(manga)",
+    "ref": "286032",
+    "read": "2026-11-09",
+    "raw": "mmencement - Petite Étrangere - <small>(First Appearance)</small> *Act 26 Replay - Ne"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "DA5",
+   "series": "dandadan",
+   "slug": "count-saint-germain",
+   "col": "voice_actor_ja",
+   "old": "サンジェルマン",
+   "new": null,
+   "why": "part 1 defect: the stored value is the character name in Japanese script; no cast source names the actor, so it becomes null",
+   "src": null,
+   "toNull": true
+  },
+  {
+   "id": "DA6",
+   "series": "dandadan",
+   "slug": "reiko-kashima",
+   "col": "voice_actor_ja",
+   "old": "カシマレイコ",
+   "new": null,
+   "why": "part 1 defect: the stored value is the character name in Japanese script; no cast source names the actor, so it becomes null",
+   "src": null,
+   "toNull": true
+  },
+  {
+   "id": "DA7",
+   "series": "dandadan",
+   "slug": "vamola",
+   "col": "voice_actor_ja",
+   "old": "バモラ",
+   "new": null,
+   "why": "part 1 defect: the stored value is the character name in Japanese script; no cast source names the actor, so it becomes null",
+   "src": null,
+   "toNull": true
+  },
+  {
+   "id": "DA8",
+   "series": "dandadan",
+   "slug": "unji-zuma",
+   "col": "voice_actor_ja",
+   "old": "頭間 雲児",
+   "new": null,
+   "why": "part 1 defect: the stored value is the character name in Japanese script; no cast source names the actor, so it becomes null",
+   "src": null,
+   "toNull": true
+  }
+ ],
+ "featuredOn": [
+  "dragon-ball/goku",
+  "dragon-ball/frieza",
+  "dragon-ball/gohan",
+  "dragon-ball/piccolo",
+  "demon-slayer/nezuko-kamado",
+  "demon-slayer/inosuke-hashibira",
+  "fullmetal-alchemist/alphonse-elric",
+  "that-time-i-got-reincarnated-as-a-slime/rimuru-tempest",
+  "tokyo-ghoul/ken-kaneki"
+ ],
+ "featuredOff": [
+  "tokyo-ghoul/haise-sasaki"
+ ],
+ "newChars": [
+  {
+   "series": "tokyo-ghoul",
+   "slug": "ken-kaneki",
+   "name": "Ken Kaneki",
+   "ids": {
+    "fandom_title": "Ken Kaneki",
+    "fandom_url": "https://tokyoghoul.fandom.com/wiki/Ken_Kaneki",
+    "wikidata_qid": "Q25451953",
+    "wikipedia_title": null
+   }
+  }
+ ],
+ "hisoka": {
+  "series": "hunter-x-hunter",
+  "slug": "hisoka-morrow",
+  "keep": "hisoka-morow",
+  "note": "duplicate of hisoka-morow"
+ }
+}

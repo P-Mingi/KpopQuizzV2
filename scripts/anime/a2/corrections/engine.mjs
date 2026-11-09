@@ -50,6 +50,16 @@ export function characterOf(D, item) {
   if (!ch) throw new Error(`${item.id}: no character ${item.series}/${item.slug} in the all-series data`);
   return ch;
 }
+/** A character that the pool did not hold yet (spec-l22 NEW_CHARS): added with empty fields, so that the items can set them. */
+export function ensureNewChars(D, chars) {
+  for (const n of chars) {
+    const s = D.all.series.find((x) => x.slug === n.series);
+    if (!s) throw new Error(`ensureNewChars: no series ${n.series}`);
+    if (s.characters.some((c) => c.slug === n.slug)) continue;
+    const empty = () => ({ value: null, status: 'none', sources: [] });
+    s.characters.push({ series: n.series, slug: n.slug, name: n.name, in_site_data: true, ids: n.ids, fields: { gender: empty(), species: empty(), role_at_debut: empty(), first_appearance: empty(), voice_actor_ja: empty() } });
+  }
+}
 export const fieldKey = (item) => (item.game ? item.col : item.col);
 
 // A data value as the field holds it: gen-sql turns 'no bounty' into {"v":0,"l":"No bounty"}, null into {"v":null}.
