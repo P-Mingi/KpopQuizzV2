@@ -139,7 +139,6 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
             <div className="v-section-rule" aria-hidden />
             <div className="flex flex-wrap gap-3">
               <Link href={`/${d.group.slug}-quiz`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Quizzes</Link>
-              <Link href={`/games/name-all/${d.group.slug}`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Name them all</Link>
               <Link href={`/blindtest/group-${d.group.slug}`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Blind test</Link>
             </div>
           </section>
