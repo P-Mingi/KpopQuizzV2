@@ -15,7 +15,7 @@
 import { hubSlugGroup } from '@/lib/seo/hub-slugs';
 
 import { utcDayBounds } from '../rules';
-import { checkQuizPayload, draftSourcesOf, quizRowFor, slugRefusal } from './payload';
+import { checkQuizPayload, draftSourcesOf, publishByMs, quizRowFor, slugRefusal } from './payload';
 import { DEFAULT_SCHEDULE_DAYS, MAX_SCHEDULE_DAYS, batchVerdict, planQuizPublish, planQuizSchedule, sampleSize } from './rules';
 
 import type { DraftSource, DraftStatus, EditorialAccount } from '../types';
@@ -120,7 +120,11 @@ export interface ImportRejected { index: number; slug: string | null; error: str
 export interface ImportOutcome { batch: ReviewBatch | null; created: QuizDraft[]; rejected: ImportRejected[] }
 
 /** File pasted quiz drafts as one review batch. Drafts that fail a check are listed, the others are filed. */
-export async function importQuizDrafts(store: QuizStore, items: unknown, by: { adminId: string; label: string; now: number }): Promise<QuizResult<ImportOutcome>> {
+/**
+ * `adminId` is null for a system import (the award-prep cron, audit 04 P1-6): the drafts are filed as `draft` and wait for an admin like any other.
+ * `fullReview` makes the whole batch the sample (the owner reads 100 percent of award drafts, not 25).
+ */
+export async function importQuizDrafts(store: QuizStore, items: unknown, by: { adminId: string | null; label: string; now: number; fullReview?: boolean }): Promise<QuizResult<ImportOutcome>> {
   if (!Array.isArray(items) || items.length === 0 || items.length > MAX_IMPORT) return fail('bad_batch_size', 400, `Paste 1 to ${MAX_IMPORT} drafts at a time.`);
   const label = by.label.trim().slice(0, 120) || `Quiz drafts of ${new Date(by.now).toISOString().slice(0, 10)}`;
   const rejected: ImportRejected[] = [];
@@ -164,7 +168,7 @@ export async function importQuizDrafts(store: QuizStore, items: unknown, by: { a
   rejected.sort((a, b) => a.index - b.index);
   if (!ok.length) return { ok: true, value: { batch: null, created: [], rejected } };
 
-  const batch = await store.createReviewBatch({ label, size: ok.length, sample_size: sampleSize(ok.length) });
+  const batch = await store.createReviewBatch({ label, size: ok.length, sample_size: by.fullReview ? ok.length : sampleSize(ok.length) });
   const created: QuizDraft[] = [];
   for (const { p, accountId, group } of ok) {
     created.push(await store.insertQuizDraft({
@@ -181,7 +185,7 @@ export interface ScheduleBy { adminId: string; isAdmin: (id: string) => boolean;
 export interface ApproveOutcome {
   approved: Array<{ id: number; scheduled_at: string }>;
   blocked: Blocked[];
-  unplaced: Array<{ id: number; reason: 'no_group' | 'no_room' }>;
+  unplaced: Array<{ id: number; reason: 'no_group' | 'no_room' | 'past_deadline' }>;
 }
 
 const clampDays = (d: number | undefined): number => Math.max(1, Math.min(MAX_SCHEDULE_DAYS, Math.floor(d ?? DEFAULT_SCHEDULE_DAYS) || DEFAULT_SCHEDULE_DAYS));
@@ -193,7 +197,10 @@ async function planFor(store: QuizStore, drafts: readonly QuizDraft[], by: Sched
     store.calendarRows(dayOf(by.now)),
     store.publishedQuizCounts([...new Set(drafts.map((d) => d.group_id).filter((g): g is number => g !== null))]),
   ]);
-  const items: ScheduleItem[] = drafts.map((d) => ({ id: d.id, group_id: d.group_id }));
+  const items: ScheduleItem[] = drafts.map((d) => {
+    const r = checkQuizPayload(d.payload);
+    return { id: d.id, group_id: d.group_id, publish_by: r.ok && r.value.publish_by ? publishByMs(r.value.publish_by) : null };
+  });
   const firstGroups = new Set(drafts.map((d) => d.group_id).filter((g): g is number => g !== null && (counts.get(g) ?? 0) === 0));
   return planQuizSchedule(items, {
     now: by.now, days: clampDays(by.days), existing: rows.filter((r) => r.id === null || !ids.has(r.id)), firstGroups, rand: by.rand,
