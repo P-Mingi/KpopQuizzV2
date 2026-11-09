@@ -60,7 +60,7 @@ export interface QuizWrite {
   difficulty: 'easy' | 'medium' | 'hard';
   language: 'en';
   questions: Array<{ question: string; options: string[]; correct: number; fun_fact?: string; source_url: string }>;
-  settings: { timer: true; timer_seconds: 15; shuffle: false; show_answers: true; creator_note?: string };
+  settings: { timer: true; timer_seconds: 15; shuffle: false; show_answers: true; creator_note?: string; result_levels?: Array<{ min: number; name: string; blurb: string }> };
   question_count: number;
   cover_image_url: null;
 }
