@@ -18,8 +18,8 @@ it is left out (null), and the character is simply not a target.
 | Species at the first appearance | single | | **A1**: `character_facts.species` |
 | Role at the first appearance | single | | **A1**: `character_facts.role_at_debut` |
 | Demographic | single | | **A1**: `series_facts.demographic` |
-| Year of the work | number | 2 years apart at most | `series` (L04): `manga_start_year`, or `anime_start_year` for an anime original |
-| Studio of the first adaptation | multi | one in common | `series.studios` (L04): the studios whose `seasons` contain 1 |
+| Year of the work | number | 2 years apart at most | the first publication of the original work, in any form (web novel, light novel, webcomic, manga; the broadcast for an anime original): `series_facts.work_year` first (L18, L23), then `series` (L04): `manga_start_year`, or `anime_start_year` for an anime original |
+| Studio of the first adaptation | multi | one in common | the studio of the first TV anime series: `series_facts.first_studios` first (L23), then `series.studios` (L04): the studios whose `seasons` contain 1 |
 
 Hints (optional, shown after errors): Japanese voice actor after 5 errors (**A1**: `character_facts.voice_actor_ja`), initial after 10
 (from the name). The first appearance hint is removed for launch (owner, 2026-11-02, CR-020): **A1** still fills
@@ -137,3 +137,23 @@ Sources: `entity_sources` rows with `entity_type` 'character', `entity_id` the c
 wikipedia or **fandom** (a Fandom wiki states the facts of a fiction: facts only, never a text, a picture or a name taken from it; `entity_sources_source_check` knows it since CR-023, and a fact file may cite a `*.fandom.com` page on a `character` fact only: `fact.schema.json`), one row per
 supporting source. One Piece `height_cm` is the only column the owner accepts with one source. `L14-O1-dle-on.sql` opens a series game when its pool reaches `min_pool`
 (40 and 30); under it the game stays off and the file says so.
+
+## 7. The rules of audit 06 (owner, 2026-11-09; the files are L21, L22 and L23 of lane otkdata)
+
+Everything below is a rule the data now follows. A value that does not follow it is a defect, fixed by an additive guarded file, never by hand.
+
+**Otakudle (part 1)**
+
+- **Voice actor and studio: the first TV anime series (D-5).** The Japanese voice actor is the one of the first TV anime series of the work (not a drama CD, a game, an OVA, a film or an English dub), written given name first as Wikipedia writes it ("Yuki Kaida", "Yūki Ono"). The studio is the one of that series (`series_facts.first_studios` when it differs from the studios of `series`, which describe the later seasons too). Where one work has several casts (Hunter x Hunter 1999 and 2011, Fullmetal Alchemist 2003 and 2009), the first TV series is used for every character of the work; a character that only exists in a later arc keeps the cast that voices it (Meruem, Pariston, Alluka, Komugi). A value in Japanese script, or the character's own name, is never a voice actor: it is null.
+- **Year: the first publication of the original work, in any form (D-6).** A web novel, a light novel and a webcomic count (Apothecary Diaries 2011, Slime 2013, Solo Leveling 2016, Omniscient Reader 2018, Re:Zero 2012, Sword Art Online 2002, Mob Psycho 100 2012, One-Punch Man 2009, Steins;Gate 2009). It is `series_facts.work_year`.
+- **Species and role: as first met, never a later reveal**, with the spelling of the pool ("shinigami", "yato", "half-demon", "animal" for the animal-type Earthlings). A species the source does not give for the character is null (Mr. Popo), and the character is not a target.
+- **Sources.** Every stored value has an `entity_sources` row: the Wikipedia or Fandom page that states it, `source_ref` the revision id read, `source_url` the page, `fetched_at` the day read. A role that rests on the site's own data (`characters.role`, K1) is not enough: it takes a Wikipedia or Fandom row too (OT-D4; the 36 featured roles without a source got one in L22). **One Fandom source is enough** for a value (D-5 of the series games, recommended and applied): the two-source rule of part 3 is dropped for Wikidata-less characters and for the columns of part 6, and the Fandom infobox and the Fandom categories count as one source, as the table stores them.
+- **Duplicates.** Two characters that are the same person (Hisoka Morrow / Hisoka Morow) are one: the other is excluded with `dle_curation.excluded` (OT-D1), not deleted.
+- **Featured.** `character_facts.featured` is the TOP200 plus the characters the owner adds by hand (OT-D2: Goku, Frieza, Gohan, Piccolo, Nezuko, Inosuke, Alphonse, Rimuru, Ken Kaneki) minus the one he replaces (Haise Sasaki, whose facts were Kaneki's, OT-D3). A character is an answer only with a gender, a species, a role and a voice actor. Gender is `female` or `male` (the check of 023); a character without gender (Rimuru) is not an answer until the owner allows a third value.
+
+**The games of one series (part 6)**
+
+- **One Piece, the point of reference of each column.** Bounty = the latest World Government bounty (a Cross Guild rank reward, Doflamingo's Birdcage reward or a lower bound is not a bounty: "No bounty" with value `0`, or null when the source gives none). Height = the adult, latest height (one Fandom source, owner exception). Devil Fruit and Haki = as of the reference point (the Fandom snapshot, then the chapter the owner names), not as first met. Affiliation = the group at the end of the debut arc (rule A, L17).
+- **Seas.** "Calm Belt" is a sea (Boa Hancock). "Grand Line" covers the New World: Fandom's own word is used for every character (D-6, D-7).
+- **Dragon Ball.** Alignment may be `neutral` besides `good` and `evil` (D-DB1: Beerus, Shenron, Porunga, Whis, Jiren, Hit and others). The affiliation holds canon groups only. One rule for the debut saga is still to be chosen by the owner (D-DB2, the manga saga or the anime saga when they differ); L21 holds no statement for it.
+- **Corrections.** `scripts/anime/a2/corrections/` holds the specs (`spec-l21.mjs`, `spec-l22.json`, `spec-l23.mjs`), `apply.mjs` (the last step of the pipeline: a regeneration of L13 and L15 keeps every fix) and `gen.mjs` (the guarded files L21, L22, L23 and their rollbacks).
