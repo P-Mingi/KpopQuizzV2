@@ -1,19 +1,19 @@
 // The 9 Team (editorial) accounts used handles that read like fans ("njeansstan"), which shows in search results and links where no Team
 // badge can show (audit 04 P0-2, owner decision 2026-11-09: new handles approved). This is the one map, old to new. The SQL file
-// L27-l1-team-handles.sql renames the profiles with the same pairs (a test proves both lists equal). The old /u/<handle> URLs answer a
+// L31-l1-team-handles.sql renames the profiles with the same pairs (a test proves both lists equal). The old /u/<handle> URLs answer a
 // permanent redirect to the new one, ONLY when no profile holds the old handle: so the redirect is live before the SQL (nothing is
 // redirected, the old pages still exist) and after it (the old URL leads to the new one). Leaf module, no import.
 
 export const TEAM_HANDLE_RENAMES: ReadonlyArray<readonly [old: string, next: string]> = [
-  ['soojinnie', 'kq_girlgroups'],
-  ['joonified', 'kq_bts'],
-  ['pinkvelvet', 'kq_blackpink_rv'],
-  ['caratland', 'kq_seventeen'],
-  ['skzrealm', 'kq_skz_ateez'],
-  ['njeansstan', 'kq_nj_ive_lsf'],
-  ['kpophistory', 'kq_history'],
-  ['twiceland', 'kq_twice_itzy'],
-  ['exoplanet99', 'kq_exo_shinee'],
+  ['soojinnie', 'kpq_girlgroups'],
+  ['joonified', 'kpq_bts'],
+  ['pinkvelvet', 'kpq_pink_rv'],
+  ['caratland', 'kpq_seventeen'],
+  ['skzrealm', 'kpq_straykids_ateez'],
+  ['njeansstan', 'kpq_4thgen'],
+  ['kpophistory', 'kpq_history'],
+  ['twiceland', 'kpq_twice_itzy'],
+  ['exoplanet99', 'kpq_exo_shinee'],
 ];
 
 const BY_OLD: ReadonlyMap<string, string> = new Map(TEAM_HANDLE_RENAMES);
