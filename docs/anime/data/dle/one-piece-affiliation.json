@@ -50,18 +50,18 @@
   {
     "slug": "nico-robin",
     "name": "Nico Robin",
-    "affiliation": "Straw Hat Pirates",
-    "family": "pirates",
+    "affiliation": "Baroque Works",
+    "family": null,
     "source": "https://onepiece.fandom.com/wiki/Nico_Robin",
-    "note": "Also Baroque Works (defected) when first met; the Straw Hats are what the series shows."
+    "note": "Rule A (Whiskey Peak): she is introduced as Miss All Sunday and the arc ends with her still in Baroque Works; she joins the Straw Hats two arcs later. Infobox: Baroque Works (defected). Family: none (round 2)."
   },
   {
     "slug": "franky",
     "name": "Franky",
-    "affiliation": "Straw Hat Pirates",
-    "family": "pirates",
+    "affiliation": "Franky Family",
+    "family": null,
     "source": "https://onepiece.fandom.com/wiki/Franky",
-    "note": ""
+    "note": "Rule A (Water 7): introduced as the head of the Franky Family; he joins the Straw Hats after the arc, in Enies Lobby. Infobox: Franky Family (former). Family: none, a gang of house wreckers."
   },
   {
     "slug": "brook",
@@ -74,10 +74,10 @@
   {
     "slug": "jinbe",
     "name": "Jinbe",
-    "affiliation": "Straw Hat Pirates",
+    "affiliation": "Sun Pirates",
     "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/Jinbe",
-    "note": "Infobox lists Straw Hat Pirates first; first met as a Warlord and Sun Pirates captain (both former)."
+    "note": "Rule A (Impel Down): still captain of the Sun Pirates when the arc ends (they are active again at Fish-Man Island) and the Warlord title is lost or given up by then; a Warlord with his own crew takes the crew (as Doflamingo). Infobox: Sun Pirates (former), the crew is listed under him. Family: pirates."
   },
   {
     "slug": "shanks",
@@ -162,10 +162,10 @@
   {
     "slug": "bartholomew-kuma",
     "name": "Bartholomew Kuma",
-    "affiliation": "Revolutionary Army",
-    "family": "revolutionary-army",
+    "affiliation": "Seven Warlords of the Sea",
+    "family": "pirates",
     "source": "https://onepiece.fandom.com/wiki/Bartholomew_Kuma",
-    "note": "First met as a Seven Warlord (former)."
+    "note": "Rule A (Jaya): introduced as a Seven Warlord; the Revolutionary Army is revealed years later. Infobox: Seven Warlords of the Sea (former). Family: pirates (round 2)."
   },
   {
     "slug": "kaido",
@@ -194,10 +194,10 @@
   {
     "slug": "nefertari-vivi",
     "name": "Nefertari Vivi",
-    "affiliation": "Arabasta Kingdom",
+    "affiliation": "Baroque Works",
     "family": null,
     "source": "https://onepiece.fandom.com/wiki/Nefertari_Vivi",
-    "note": "Judgement: infobox lists Arabasta Kingdom first (Straw Hat Pirates is former); a kingdom has no family."
+    "note": "Rule A (Reverse Mountain): introduced as Miss Wednesday, an agent of Baroque Works; the kingdom is revealed in the next arc. Infobox: Baroque Works (double agent). Family: none (round 2)."
   },
   {
     "slug": "monkey-d-garp",
@@ -242,10 +242,10 @@
   {
     "slug": "sabo",
     "name": "Sabo",
-    "affiliation": "Revolutionary Army",
-    "family": "revolutionary-army",
+    "affiliation": "Dadan Family",
+    "family": null,
     "source": "https://onepiece.fandom.com/wiki/Sabo",
-    "note": ""
+    "note": "Rule A (Marineford, Post-War flashback): introduced as a child living with the Dadan Family bandits; the Revolutionary Army is revealed in Dressrosa. Low confidence. Infobox: Dadan Family (former). Family: none, bandits."
   },
   {
     "slug": "dracule-mihawk",
@@ -266,10 +266,10 @@
   {
     "slug": "rob-lucci",
     "name": "Rob Lucci",
-    "affiliation": "Cipher Pol",
+    "affiliation": "CP9",
     "family": "world-government",
     "source": "https://onepiece.fandom.com/wiki/Rob_Lucci",
-    "note": "Judgement: infobox lists CP0 first; first met as CP9 (listed, former). Both are Cipher Pol."
+    "note": "Rule A (Water 7): the arc ends with him as the head of CP9; CP0 comes later. Infobox: CP9 (former). Family: world-government."
   },
   {
     "slug": "caesar-clown",
@@ -402,10 +402,10 @@
   {
     "slug": "vegapunk",
     "name": "Vegapunk",
-    "affiliation": null,
+    "affiliation": "MADS",
     "family": null,
-    "source": null,
-    "note": "UNSOURCED: the infobox lists only \"MADS (former)\" and \"Marines (former) (SSG)\"; no clear main affiliation, left empty."
+    "source": "https://onepiece.fandom.com/wiki/Vegapunk",
+    "note": "Rule A (Punk Hazard, flashback): shown as the partner of Caesar in the MADS lab; MADS is the first group the infobox lists (Marines (SSG) is the other, former). Low confidence, was unsourced. Family: none."
   },
   {
     "slug": "marco",
@@ -562,10 +562,10 @@
   {
     "slug": "kaku",
     "name": "Kaku",
-    "affiliation": "Cipher Pol",
+    "affiliation": "CP9",
     "family": "world-government",
     "source": "https://onepiece.fandom.com/wiki/Kaku",
-    "note": "Judgement: infobox lists CP0 first; first met as CP9 (listed, former). Both are Cipher Pol."
+    "note": "Rule A (Water 7): as Lucci, a CP9 agent when the arc ends. Infobox: CP9 (former). Family: world-government."
   },
   {
     "slug": "kyros",

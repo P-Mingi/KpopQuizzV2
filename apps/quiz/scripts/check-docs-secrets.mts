@@ -42,6 +42,20 @@ const ALLOWED_EMAILS = new Set([
 ]);
 
 /**
+ * The project's own domains (owner, 2026-11-09): role addresses on them (the Team accounts of team.bunnyverse.org, the
+ * contact and privacy addresses of the legal drafts) are quoted in launch docs, SQL and reports. They are not personal data.
+ * The old anime domain, its team subdomain and the old hub domain are the domains planned and abandoned on 2026-10-28 (RUNBOOK,
+ * "Superseded"); no account uses them (production read, 2026-11-09). They are built in pieces, as src/lib/site/fandomverse-names.test.ts
+ * asks of any code that names an old domain on purpose. An address on any other domain still fails.
+ */
+const ABANDONED_DOMAINS = [['otakuquiz', 'org'], ['team', 'otakuquiz', 'org'], ['fanquiz', 'org']].map((parts) => parts.join('.'));
+const ALLOWED_EMAIL_DOMAINS = new Set(['kpopquiz.org', 'bunnyverse.org', 'team.bunnyverse.org', ...ABANDONED_DOMAINS]);
+
+function isProjectDomainEmail(address: string): boolean {
+  return ALLOWED_EMAIL_DOMAINS.has(address.toLowerCase().split('@')[1] ?? '');
+}
+
+/**
  * Placeholder addresses are not personal data: the domains RFC 2606 / 6761 reserve for
  * documentation and tests (example.com / .org / .net, *.example, *.test, *.invalid,
  * localhost). Unit-test output and API proofs quoted in reports are full of them.
@@ -108,10 +122,29 @@ function looksLikeSecretValue(token: string): boolean {
   if (/\.[a-z]{2,5}$/i.test(token)) return false;         // songs-database.json, script.mts
   if (token.includes('/')) return false;                  // a path, not a key
   if (!/[a-z]/.test(token) || !/[0-9]/.test(token)) return false; // real keys mix both
+  // Run O1 content (owner, 2026-11-09): quiz slugs and fact ids next to the word "secret" in quiz text
+  // ("akito-s-secret-...", "spy-x-family-anya-telepath-013") are kebab-case words, not keys. A UUID shape stays a candidate.
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-/.test(token) && /^[a-z]+(-[a-z0-9]+){2,}$/.test(token) && /[a-z]{3,}-[a-z]{3,}/.test(token)) return false;
+  // A schema-qualified SQL name next to service_role (`grant execute on function public.ensure_daily_quiz_v2 to service_role`).
+  if (/^[a-z_][a-z0-9_]*\.[a-z_][a-z0-9_]*$/.test(token)) return false;
+  // The all-zero sentinel UUID of the account deletion docs (00000000-0000-0000-0000-00000000dead) is not a key.
+  if (/^0{8}-0{4}-0{4}-0{4}-[0-9a-f]{12}$/.test(token)) return false;
   return true;
 }
 
 const CANDIDATE_VALUE = /[A-Za-z0-9_\-./+=]{24,}/g;
+
+/**
+ * Run O1 (owner, 2026-11-09): the rehearsal and proof scripts under docs/ build their database URL from the environment
+ * (`postgresql://postgres.${REF}:${PW}@host/postgres`). A connection string whose password is a shell variable, a <placeholder>
+ * or absent is a template, not a credential. A literal password still fails.
+ */
+function isTemplateConnection(url: string): boolean {
+  const cred = /^[a-z+]+:\/\/([^@/]*)@/i.exec(url)?.[1];
+  if (cred === undefined) return true;
+  const pw = cred.includes(':') ? cred.slice(cred.indexOf(':') + 1) : '';
+  return pw === '' || /^\$\{?[A-Za-z_][A-Za-z0-9_]*\}?$/.test(pw) || /^<[^<>]+>$/.test(pw);
+}
 
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
 
@@ -149,6 +182,10 @@ function scan(file: string): Finding[] {
 
     for (const { name, re } of PATTERNS) {
       re.lastIndex = 0;
+      if (name === 'DB-CONNECTION-STRING') {
+        if ([...text.matchAll(re)].some((m) => !isTemplateConnection(m[0]))) findings.push({ file, line: lineNo, pattern: name });
+        continue;
+      }
       if (re.test(text)) findings.push({ file, line: lineNo, pattern: name });
     }
 
@@ -159,7 +196,10 @@ function scan(file: string): Finding[] {
 
     if (SECRET_WORDS.test(text)) {
       CANDIDATE_VALUE.lastIndex = 0;
-      const tokens = text.match(CANDIDATE_VALUE) ?? [];
+      // A piece of a URL path on the same line (a Wikipedia title cut at "(" or a non-ASCII letter) is a path, like the tokens
+      // holding a "/" that looksLikeSecretValue already skips. The query string and fragment are not skipped.
+      const urlPaths = [...text.matchAll(/https?:\/\/[^\s"'<>?#]+/g)].map((m) => m[0]);
+      const tokens = (text.match(CANDIDATE_VALUE) ?? []).filter((t) => !urlPaths.some((u) => u.includes(t)));
       if (tokens.some(looksLikeSecretValue)) {
         findings.push({ file, line: lineNo, pattern: 'SECRET-WORD-WITH-VALUE' });
       }
@@ -167,7 +207,7 @@ function scan(file: string): Finding[] {
 
     EMAIL.lastIndex = 0;
     for (const m of text.matchAll(EMAIL)) {
-      if (!ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0]) && !isV12FakeDomainPattern(file, m[0])) {
+      if (!ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0]) && !isProjectDomainEmail(m[0]) && !isV12FakeDomainPattern(file, m[0])) {
         findings.push({ file, line: lineNo, pattern: 'EMAIL-NOT-ALLOWLISTED' });
       }
     }

@@ -1,0 +1,1260 @@
+[
+  {
+    "series": "apothecary-diaries",
+    "wikipedia_title": "The Apothecary Diaries",
+    "revid": "1382807323",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Drama (film and television)",
+        "text": "Drama"
+      },
+      {
+        "link": "Mystery fiction",
+        "text": "Mystery"
+      },
+      {
+        "link": "Romance novel",
+        "text": "Romance"
+      }
+    ],
+    "genres": [
+      "mystery-thriller",
+      "romance",
+      "drama"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "attack-on-titan",
+    "wikipedia_title": "Attack on Titan",
+    "revid": "1384443094",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      },
+      {
+        "link": "Post-apocalyptic",
+        "text": "Post-apocalyptic"
+      }
+    ],
+    "genres": [
+      "action",
+      "dark-fantasy",
+      "post-apocalyptic"
+    ],
+    "note": "",
+    "targets": 6
+  },
+  {
+    "series": "black-clover",
+    "wikipedia_title": "Black Clover",
+    "revid": "1381706424",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "bleach",
+    "wikipedia_title": "Bleach (manga)",
+    "revid": "1383591576",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Martial arts film",
+        "text": "Martial arts"
+      },
+      {
+        "link": "Supernatural fiction",
+        "text": "Supernatural"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "supernatural",
+      "martial-arts"
+    ],
+    "note": "",
+    "targets": 9
+  },
+  {
+    "series": "blue-lock",
+    "wikipedia_title": "Blue Lock",
+    "revid": "1383987350",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Sports manga",
+        "text": "Sports"
+      },
+      {
+        "link": "Thriller (genre)",
+        "text": "Thriller"
+      }
+    ],
+    "genres": [
+      "mystery-thriller",
+      "sports"
+    ],
+    "note": "",
+    "targets": 0
+  },
+  {
+    "series": "bocchi-the-rock",
+    "wikipedia_title": "Bocchi the Rock!",
+    "revid": "1383576549",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Comedy",
+        "text": "Comedy"
+      },
+      {
+        "link": "Musical fiction",
+        "text": "Music"
+      },
+      {
+        "link": "Slice of life",
+        "text": "Slice of life"
+      }
+    ],
+    "genres": [
+      "comedy",
+      "slice-of-life"
+    ],
+    "note": "No word in the list, dropped: Music.",
+    "targets": 1
+  },
+  {
+    "series": "chainsaw-man",
+    "wikipedia_title": "Chainsaw Man",
+    "revid": "1382617994",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Comedy horror",
+        "text": "Comedy horror"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      }
+    ],
+    "genres": [
+      "action",
+      "dark-fantasy",
+      "comedy"
+    ],
+    "note": "",
+    "targets": 3
+  },
+  {
+    "series": "code-geass",
+    "wikipedia_title": "Code Geass",
+    "revid": "1383895796",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Alternate history",
+        "text": "Alternate history"
+      },
+      {
+        "link": "Mecha anime and manga",
+        "text": "Mecha"
+      },
+      {
+        "link": "Military fiction",
+        "text": "Military fiction"
+      }
+    ],
+    "genres": [
+      "action",
+      "science-fiction"
+    ],
+    "note": "",
+    "targets": 4
+  },
+  {
+    "series": "cowboy-bebop",
+    "wikipedia_title": "Cowboy Bebop",
+    "revid": "1382858966",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Neo-noir",
+        "text": "Neo-noir"
+      },
+      {
+        "link": "Space Western",
+        "text": "Space Western"
+      }
+    ],
+    "genres": [
+      "science-fiction",
+      "mystery-thriller"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "dandadan",
+    "wikipedia_title": "Dandadan",
+    "revid": "1383634740",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Romantic comedy",
+        "text": "Romantic comedy"
+      },
+      {
+        "link": "Supernatural thriller",
+        "text": "Supernatural thriller"
+      }
+    ],
+    "genres": [
+      "action",
+      "supernatural",
+      "romance"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "death-note",
+    "wikipedia_title": "Death Note",
+    "revid": "1381769893",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Mystery fiction",
+        "text": "Mystery"
+      },
+      {
+        "link": "Psychological thriller",
+        "text": "Psychological thriller"
+      },
+      {
+        "link": "Supernatural thriller",
+        "text": "Supernatural thriller"
+      }
+    ],
+    "genres": [
+      "supernatural",
+      "mystery-thriller"
+    ],
+    "note": "",
+    "targets": 3
+  },
+  {
+    "series": "demon-slayer",
+    "wikipedia_title": "Demon Slayer: Kimetsu no Yaiba",
+    "revid": "1384221301",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      },
+      {
+        "link": "Martial arts film",
+        "text": "Martial arts"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "dark-fantasy",
+      "martial-arts"
+    ],
+    "note": "",
+    "targets": 3
+  },
+  {
+    "series": "detective-conan",
+    "wikipedia_title": "Case Closed",
+    "revid": "1383303247",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Mystery fiction",
+        "text": "Mystery"
+      },
+      {
+        "link": "Thriller (genre)",
+        "text": "Thriller"
+      }
+    ],
+    "genres": [
+      "mystery-thriller"
+    ],
+    "note": "",
+    "targets": 10
+  },
+  {
+    "series": "dr-stone",
+    "wikipedia_title": "Dr. Stone",
+    "revid": "1383456221",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Post-apocalyptic",
+        "text": "Post-apocalyptic"
+      },
+      {
+        "link": "Science fiction",
+        "text": "Science fiction"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "science-fiction",
+      "post-apocalyptic"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "dragon-ball",
+    "wikipedia_title": "Dragon Ball (manga)",
+    "revid": "1384184378",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Fantasy comedy",
+        "text": "Fantasy comedy"
+      },
+      {
+        "link": "Martial arts (genre)",
+        "text": "Martial arts"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "martial-arts"
+    ],
+    "note": "",
+    "targets": 25
+  },
+  {
+    "series": "evangelion",
+    "wikipedia_title": "Neon Genesis Evangelion",
+    "revid": "1383469280",
+    "infobox": "Infobox anime video",
+    "raw_genres": [
+      {
+        "link": "Apocalyptic and post-apocalyptic fiction",
+        "text": "Apocalyptic"
+      },
+      {
+        "link": "Mecha anime and manga",
+        "text": "Mecha"
+      },
+      {
+        "link": "Psychological drama",
+        "text": "Psychological drama"
+      }
+    ],
+    "genres": [
+      "science-fiction",
+      "drama",
+      "post-apocalyptic"
+    ],
+    "note": "",
+    "targets": 3
+  },
+  {
+    "series": "fairy-tail",
+    "wikipedia_title": "Fairy Tail",
+    "revid": "1381103857",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy"
+    ],
+    "note": "",
+    "targets": 3
+  },
+  {
+    "series": "frieren",
+    "wikipedia_title": "Frieren",
+    "revid": "1381436923",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Drama (film and television)",
+        "text": "Drama"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "drama"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "fruits-basket",
+    "wikipedia_title": "Fruits Basket",
+    "revid": "1379854325",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Romantic comedy",
+        "text": "Romantic comedy"
+      },
+      {
+        "link": "Slice of life",
+        "text": "Slice of life"
+      },
+      {
+        "link": "Supernatural fiction",
+        "text": "Supernatural"
+      }
+    ],
+    "genres": [
+      "supernatural",
+      "romance",
+      "slice-of-life"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "fullmetal-alchemist",
+    "wikipedia_title": "Fullmetal Alchemist",
+    "revid": "1383145379",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      },
+      {
+        "link": "Steampunk",
+        "text": "Steampunk"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "dark-fantasy",
+      "science-fiction"
+    ],
+    "note": "",
+    "targets": 4
+  },
+  {
+    "series": "gintama",
+    "wikipedia_title": "Gintama",
+    "revid": "1383136036",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Samurai cinema",
+        "text": "Samurai"
+      },
+      {
+        "link": "Science fiction comedy",
+        "text": "Science fiction comedy"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "science-fiction",
+      "historical"
+    ],
+    "note": "",
+    "targets": 2
+  },
+  {
+    "series": "haikyu",
+    "wikipedia_title": "Haikyu!!",
+    "revid": "1381740115",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Comedy",
+        "text": "Comedy"
+      },
+      {
+        "link": "Coming-of-age story",
+        "text": "Coming-of-age"
+      },
+      {
+        "link": "Sports manga",
+        "text": "Sports"
+      }
+    ],
+    "genres": [
+      "comedy",
+      "drama",
+      "sports"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "hunter-x-hunter",
+    "wikipedia_title": "Hunter × Hunter",
+    "revid": "1381097044",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      },
+      {
+        "link": "Martial arts fiction",
+        "text": "Martial arts"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "martial-arts"
+    ],
+    "note": "",
+    "targets": 5
+  },
+  {
+    "series": "inuyasha",
+    "wikipedia_title": "Inuyasha",
+    "revid": "1383636250",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      },
+      {
+        "link": "Romance comics",
+        "text": "Romance"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "romance"
+    ],
+    "note": "",
+    "targets": 5
+  },
+  {
+    "series": "jojo",
+    "wikipedia_title": "JoJo's Bizarre Adventure",
+    "revid": "1382026619",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Supernatural fiction",
+        "text": "Supernatural"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "supernatural"
+    ],
+    "note": "",
+    "targets": 3
+  },
+  {
+    "series": "jujutsu-kaisen",
+    "wikipedia_title": "Jujutsu Kaisen",
+    "revid": "1383558677",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      },
+      {
+        "link": "Supernatural fiction",
+        "text": "Supernatural"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "dark-fantasy",
+      "supernatural"
+    ],
+    "note": "",
+    "targets": 6
+  },
+  {
+    "series": "kagurabachi",
+    "wikipedia_title": "Kagurabachi",
+    "revid": "1383522845",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      }
+    ],
+    "genres": [
+      "action",
+      "dark-fantasy"
+    ],
+    "note": "",
+    "targets": 0
+  },
+  {
+    "series": "kaguya-sama-love-is-war",
+    "wikipedia_title": "Kaguya-sama: Love Is War",
+    "revid": "1383885228",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Psychological fiction",
+        "text": "Psychological"
+      },
+      {
+        "link": "Romantic comedy",
+        "text": "Romantic comedy"
+      },
+      {
+        "link": "Slice of life",
+        "text": "Slice of life"
+      }
+    ],
+    "genres": [
+      "romance",
+      "drama",
+      "slice-of-life"
+    ],
+    "note": "",
+    "targets": 2
+  },
+  {
+    "series": "kaiju-no-8",
+    "wikipedia_title": "Kaiju No. 8",
+    "revid": "1383652211",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Science fantasy",
+        "text": "Science fantasy"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "science-fiction"
+    ],
+    "note": "",
+    "targets": 0
+  },
+  {
+    "series": "mob-psycho-100",
+    "wikipedia_title": "Mob Psycho 100",
+    "revid": "1380373905",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Comedy",
+        "text": "Comedy"
+      },
+      {
+        "link": "Supernatural fiction",
+        "text": "Supernatural"
+      }
+    ],
+    "genres": [
+      "action",
+      "supernatural",
+      "comedy"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "my-hero-academia",
+    "wikipedia_title": "My Hero Academia",
+    "revid": "1382270421",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Science fantasy",
+        "text": "Science fantasy"
+      },
+      {
+        "link": "Superhero fiction",
+        "text": "Superhero"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "science-fiction"
+    ],
+    "note": "No word in the list, dropped: Superhero.",
+    "targets": 6
+  },
+  {
+    "series": "naruto",
+    "wikipedia_title": "Naruto",
+    "revid": "1384339309",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Fantasy comedy",
+        "text": "Fantasy comedy"
+      },
+      {
+        "link": "Martial arts film",
+        "text": "Martial arts"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "martial-arts"
+    ],
+    "note": "",
+    "targets": 15
+  },
+  {
+    "series": "omniscient-readers-viewpoint",
+    "wikipedia_title": "Omniscient Reader's Viewpoint",
+    "revid": "1384228095",
+    "infobox": "Infobox manhwa",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      },
+      {
+        "link": "Metafiction",
+        "text": "Metafiction"
+      }
+    ],
+    "genres": [
+      "action",
+      "fantasy"
+    ],
+    "note": "No word in the list, dropped: Metafiction.",
+    "targets": 0
+  },
+  {
+    "series": "one-piece",
+    "wikipedia_title": "One Piece",
+    "revid": "1383040207",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Comedy drama",
+        "text": "Comedy drama"
+      },
+      {
+        "link": "Science fantasy",
+        "text": "Science fantasy"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "comedy"
+    ],
+    "note": "",
+    "targets": 34
+  },
+  {
+    "series": "one-punch-man",
+    "wikipedia_title": "One-Punch Man",
+    "revid": "1384356976",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action (genre)",
+        "text": "Action"
+      },
+      {
+        "link": "Comedy",
+        "text": "Comedy"
+      },
+      {
+        "link": "Superhero comics",
+        "text": "Superhero"
+      }
+    ],
+    "genres": [
+      "action",
+      "comedy"
+    ],
+    "note": "No word in the list, dropped: Superhero.",
+    "targets": 1
+  },
+  {
+    "series": "oshi-no-ko",
+    "wikipedia_title": "Oshi no Ko",
+    "revid": "1383885658",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Drama",
+        "text": "Drama"
+      },
+      {
+        "link": "Mystery fiction",
+        "text": "Mystery"
+      },
+      {
+        "link": "Supernatural fiction",
+        "text": "Supernatural"
+      }
+    ],
+    "genres": [
+      "supernatural",
+      "mystery-thriller",
+      "drama"
+    ],
+    "note": "",
+    "targets": 5
+  },
+  {
+    "series": "re-zero",
+    "wikipedia_title": "Re:Zero",
+    "revid": "1383900035",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      },
+      {
+        "link": "Isekai",
+        "text": "Isekai"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "fantasy",
+      "dark-fantasy"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "sailor-moon",
+    "wikipedia_title": "Sailor Moon",
+    "revid": "1383278869",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Magical girl",
+        "text": "Magical girl"
+      }
+    ],
+    "genres": [
+      "fantasy"
+    ],
+    "note": "One genre in the infobox.",
+    "targets": 4
+  },
+  {
+    "series": "sakamoto-days",
+    "wikipedia_title": "Sakamoto Days",
+    "revid": "1383740686",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action comedy",
+        "text": "Action comedy"
+      }
+    ],
+    "genres": [
+      "action",
+      "comedy"
+    ],
+    "note": "One genre in the infobox (Action comedy, which gives two words).",
+    "targets": 1
+  },
+  {
+    "series": "slam-dunk",
+    "wikipedia_title": "Slam Dunk (manga)",
+    "revid": "1379466912",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Comedy",
+        "text": "Comedy"
+      },
+      {
+        "link": "Coming-of-age story",
+        "text": "Coming-of-age"
+      },
+      {
+        "link": "Sports manga",
+        "text": "Sports"
+      }
+    ],
+    "genres": [
+      "comedy",
+      "drama",
+      "sports"
+    ],
+    "note": "",
+    "targets": 2
+  },
+  {
+    "series": "solo-leveling",
+    "wikipedia_title": "Solo Leveling",
+    "revid": "1383622083",
+    "infobox": "Infobox book series (the web novel)",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Fantasy",
+        "text": "Fantasy"
+      },
+      {
+        "link": "Lovecraftian horror",
+        "text": "Cosmic horror"
+      }
+    ],
+    "genres": [
+      "action",
+      "fantasy"
+    ],
+    "note": "The original work is the web novel; the Infobox manhwa of the webtoon has an empty genre line. No word in the list, dropped: Cosmic horror.",
+    "targets": 0
+  },
+  {
+    "series": "spy-x-family",
+    "wikipedia_title": "Spy × Family",
+    "revid": "1384473131",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Spy film",
+        "text": "Spy"
+      },
+      {
+        "link": "Comedy",
+        "text": "Comedy"
+      },
+      {
+        "link": "Slice of life",
+        "text": "Slice of life"
+      }
+    ],
+    "genres": [
+      "action",
+      "comedy",
+      "mystery-thriller"
+    ],
+    "note": "The infobox item is \"Spy/Comedy\" (two links in one item); the fourth word, Slice of life, is cut by the rule of 3. Cut by the rule of 3: Slice of life.",
+    "targets": 3
+  },
+  {
+    "series": "steins-gate",
+    "wikipedia_title": "Steins;Gate (TV series)",
+    "revid": "1381908034",
+    "infobox": "Infobox anime video (the 2011 TV series)",
+    "raw_genres": [
+      {
+        "link": "Psychological thriller",
+        "text": "Psychological thriller"
+      },
+      {
+        "link": "Science fiction",
+        "text": "Science fiction"
+      }
+    ],
+    "genres": [
+      "science-fiction",
+      "mystery-thriller"
+    ],
+    "note": "Owner decision 2026-11-09: the Genre line of the infobox of the anime (the 2011 TV series), not of the visual novel (whose only genre, \"Visual novel\", is a format).",
+    "targets": 1
+  },
+  {
+    "series": "sword-art-online",
+    "wikipedia_title": "Sword Art Online",
+    "revid": "1383891138",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Science fiction",
+        "text": "Science fiction"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "science-fiction"
+    ],
+    "note": "",
+    "targets": 4
+  },
+  {
+    "series": "that-time-i-got-reincarnated-as-a-slime",
+    "wikipedia_title": "That Time I Got Reincarnated as a Slime",
+    "revid": "1381575839",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Isekai",
+        "text": "Isekai"
+      }
+    ],
+    "genres": [
+      "fantasy"
+    ],
+    "note": "One genre in the infobox.",
+    "targets": 0
+  },
+  {
+    "series": "tokyo-ghoul",
+    "wikipedia_title": "Tokyo Ghoul",
+    "revid": "1383194295",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      },
+      {
+        "link": "Supernatural thriller",
+        "text": "Supernatural thriller"
+      }
+    ],
+    "genres": [
+      "dark-fantasy",
+      "supernatural",
+      "mystery-thriller"
+    ],
+    "note": "",
+    "targets": 1
+  },
+  {
+    "series": "tokyo-revengers",
+    "wikipedia_title": "Tokyo Revengers",
+    "revid": "1383843905",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Science fiction",
+        "text": "Science fiction"
+      },
+      {
+        "link": "Thriller (genre)",
+        "text": "Thriller"
+      },
+      {
+        "link": "Yankī",
+        "text": "Yankī"
+      }
+    ],
+    "genres": [
+      "action",
+      "science-fiction",
+      "mystery-thriller"
+    ],
+    "note": "No word in the list, dropped: Yankī.",
+    "targets": 1
+  },
+  {
+    "series": "tower-of-god",
+    "wikipedia_title": "Tower of God",
+    "revid": "1378030268",
+    "infobox": "Infobox manhwa",
+    "raw_genres": [
+      {
+        "link": "Action fiction",
+        "text": "Action"
+      },
+      {
+        "link": "Dark fantasy",
+        "text": "Dark fantasy"
+      }
+    ],
+    "genres": [
+      "action",
+      "dark-fantasy"
+    ],
+    "note": "",
+    "targets": 0
+  },
+  {
+    "series": "vinland-saga",
+    "wikipedia_title": "Vinland Saga (manga)",
+    "revid": "1383626696",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Adventure fiction",
+        "text": "Adventure"
+      },
+      {
+        "link": "Epic (genre)",
+        "text": "Epic"
+      },
+      {
+        "link": "Historical fiction",
+        "text": "Historical"
+      }
+    ],
+    "genres": [
+      "adventure",
+      "historical"
+    ],
+    "note": "No word in the list, dropped: Epic.",
+    "targets": 0
+  },
+  {
+    "series": "violet-evergarden",
+    "wikipedia_title": "Violet Evergarden",
+    "revid": "1381043521",
+    "infobox": "Infobox animanga/Header",
+    "raw_genres": [
+      {
+        "link": "Coming-of-age story",
+        "text": "Coming-of-age"
+      },
+      {
+        "link": "Steampunk",
+        "text": "Steampunk"
+      }
+    ],
+    "genres": [
+      "science-fiction",
+      "drama"
+    ],
+    "note": "",
+    "targets": 0
+  }
+]

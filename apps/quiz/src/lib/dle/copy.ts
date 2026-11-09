@@ -2,7 +2,7 @@
 // seo.ts stays false until then). Names of idols, groups and songs are never translated; values of the columns are, through valueLabel. No number is typed here:
 // every count arrives as an argument, from the functions of Postgres.
 import { dleGame } from './games';
-import { VALUE_FR, hintValueLabel, seriesValueLabel } from './value-i18n';
+import { GENRE, VALUE_FR, hintValueLabel, seriesValueLabel } from './value-i18n';
 
 import type { DleLocale } from './types';
 
@@ -220,6 +220,7 @@ export function valueLabel(key: string, v: unknown, locale: DleLocale, opts?: { 
   if (key === 'nationality' && locale === 'fr') return COUNTRY_FR[s.toLowerCase()] ?? s;
   if (key === 'species') return (locale === 'fr' ? SPECIES_FR[s] : undefined) ?? (s.charAt(0).toUpperCase() + s.slice(1)).replace(/-/g, ' ');
   if (key === 'demographic') return s === 'none' ? (locale === 'fr' ? 'Aucune' : 'None') : DEMOGRAPHIC[s] ?? s;
+  if (key === 'genres') return GENRE[locale][s] ?? s;
   return s;
 }
 
@@ -273,21 +274,21 @@ const idolWords = (locale: DleLocale): DleGameCopy => {
 export const OTAKUDLE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
   en: {
     series: { label: 'Series', help: 'The series of the character', near: 'same franchise', source: 'Wikidata, Wikipedia' },
+    genres: { label: 'Genres', help: 'Genres of the work. Striped: one genre in common.', near: 'one genre in common', source: 'Wikipedia' },
+    year: { label: 'Series year', help: 'Year the original work began, not the character’s debut. Striped: within 2 years.', near: '2 years apart at most', source: 'Wikidata, Wikipedia' },
+    studio: { label: 'Studio', help: 'Studio of the first adaptation, close if one in common', near: 'one studio in common', source: 'Wikidata, Wikipedia' },
     gender: { label: 'Gender', help: 'As the series presents them first', near: 'never', source: 'Wikidata, Wikipedia' },
     species: { label: 'Species', help: 'As shown first, or the one everyone knows', near: 'never', source: 'Wikidata, Wikipedia' },
     role: { label: 'Role at the start', help: 'Main, supporting, antagonist or other, at the first appearance', near: 'never', source: 'Wikidata, Wikipedia' },
-    demographic: { label: 'Demographic', help: 'The audience of the original work', near: 'never', source: 'Wikidata, Wikipedia' },
-    year: { label: 'Debut year', help: 'Year of the work, close within 2 years', near: '2 years apart at most', source: 'Wikidata, Wikipedia' },
-    studio: { label: 'Studio', help: 'Studio of the first adaptation, close if one in common', near: 'one studio in common', source: 'Wikidata, Wikipedia' },
   },
   fr: {
     series: { label: 'Série', help: 'La série du personnage', near: 'même franchise', source: 'Wikidata, Wikipedia' },
+    genres: { label: 'Thèmes', help: 'Genres de l’œuvre. Rayé : un genre en commun.', near: 'un genre en commun', source: 'Wikipedia' },
+    year: { label: 'Année de la série', help: 'Année de début de l’œuvre, pas de l’apparition du personnage. Rayé : à 2 ans près.', near: '2 ans d’écart au plus', source: 'Wikidata, Wikipedia' },
+    studio: { label: 'Studio', help: 'Studio de la première adaptation, proche si un en commun', near: 'un studio en commun', source: 'Wikidata, Wikipedia' },
     gender: { label: 'Genre', help: 'Tel que la série le présente d’abord', near: 'jamais', source: 'Wikidata, Wikipedia' },
     species: { label: 'Espèce', help: 'Celle montrée d’abord, ou celle que tout le monde connaît', near: 'jamais', source: 'Wikidata, Wikipedia' },
     role: { label: 'Rôle au début', help: 'Principal, secondaire, antagoniste ou autre, à la première apparition', near: 'jamais', source: 'Wikidata, Wikipedia' },
-    demographic: { label: 'Démographie', help: 'Le public de l’œuvre d’origine', near: 'jamais', source: 'Wikidata, Wikipedia' },
-    year: { label: 'Année de début', help: 'Année de l’œuvre, proche à 2 ans', near: '2 ans d’écart au plus', source: 'Wikidata, Wikipedia' },
-    studio: { label: 'Studio', help: 'Studio de la première adaptation, proche si un en commun', near: 'un studio en commun', source: 'Wikidata, Wikipedia' },
   },
 };
 
@@ -306,13 +307,13 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
       proposeLabel: 'Proposer un personnage', placeholder: 'Nom, prénom ou surnom, toutes séries', rowHead: 'Personnage', tableCaption: 'Comparaison de chaque essai avec le personnage du jour',
       empty: 'Propose un premier personnage pour voir les cases se remplir.', nextIn: 'nouveau personnage dans',
       stepsLabel: 'Les jeux Otakudle', stepDone: 'trouvé', yesterdayLine: 'Le personnage d’hier :', howTitle: 'Comment jouer à Otakudle ?',
-      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, le genre, l’espèce, le rôle, la démographie, l’année de début et le studio. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
+      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
       how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
       poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
       dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
       dlgFoot: 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata et de Wikipedia.',
       noPhoto: 'Pas d’image du personnage : les visuels d’anime appartiennent aux studios. On en affichera seulement avec une licence écrite.',
-      found: 'Trouvé !', dlgNear: 'Proche. Deux ans d’écart au plus, un studio en commun, ou la même franchise.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'de série anime', yesterdayShow: 'Afficher, sans spoiler',
+      found: 'Trouvé !', dlgNear: 'Proche. Deux ans d’écart au plus, un studio ou un genre en commun.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'de série anime', yesterdayShow: 'Afficher, sans spoiler',
     };
   }
   return {
@@ -322,13 +323,13 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
     proposeLabel: 'Propose a character', placeholder: 'Name or nickname, all series', rowHead: 'Character', tableCaption: 'Each guess compared with the character of the day',
     empty: 'Propose a first character to see the cells fill up.', nextIn: 'next character in',
     stepsLabel: 'The Otakudle games', stepDone: 'found', yesterdayLine: 'Yesterday’s character:', howTitle: 'How to play Otakudle?',
-    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, gender, species, role, demographic, debut year and studio. Full when right, striped when close, grey when wrong. Hints open after 5 and 10 mistakes.',
+    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, genres, year, studio, gender, species and role. Full when right, striped when close, grey when wrong. Hints open after 5 and 10 mistakes.',
     how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. No character art without a licence.',
     poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
     dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
     dlgFoot: 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata and Wikipedia.',
     noPhoto: 'No picture of the character: anime art belongs to the studios. We will show some only with a written licence.',
-    found: 'Found!', dlgNear: 'Close. Two years apart at most, one studio in common, or the same franchise.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'anime streak', yesterdayShow: 'Show, no spoilers',
+    found: 'Found!', dlgNear: 'Close. Two years apart at most, one studio in common, or one genre in common.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'anime streak', yesterdayShow: 'Show, no spoilers',
   };
 };
 
