@@ -165,11 +165,14 @@ export function sourcesOf(field, ch, anyPage = false) {
   for (const s of field.sources ?? []) {
     if (!s.url || !(anyPage || supports(field.value, s.value))) continue;
     const source = sourceOf(s.url);
-    if (!source || rows.has(source)) continue;
+    // a correction (it names the revision it read) replaces an older row of the same source: the row must carry the revision
+    if (!source || (rows.has(source) && (s.ref === undefined || s.ref === null))) continue;
     let ref = null;
     if (source === 'wikidata') ref = /\/wiki\/(Q[0-9]+)$/.exec(s.url)?.[1] ?? ch.ids?.wikidata_qid ?? null;
     if (source === 'fandom') ref = ch.ids?.fandom_revision ? String(ch.ids.fandom_revision) : null;
-    rows.set(source, { source, ref, url: s.url });
+    // A correction (lot O1, scripts/anime/a2/corrections) carries the revision id of the page it read and the day it read it.
+    if (s.ref !== undefined && s.ref !== null) ref = String(s.ref);
+    rows.set(source, { source, ref, url: s.url, ...(s.read ? { read: s.read } : {}) });
   }
   return [...rows.values()];
 }
@@ -177,6 +180,17 @@ export function sourcesOf(field, ch, anyPage = false) {
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
 const json = (o) => `${q(JSON.stringify(o))}::jsonb`;
 const sqlOrNull = (s) => (s === null || s === undefined ? 'null' : q(s));
+
+// The facts of one character of a game: the attrs, the secret hints, whether the hint is enough and whether every column has a value.
+export function factsOf(gameId, ch, cols, extra) {
+  const attrs = {};
+  for (const c of cols) attrs[c.key] = COLUMNS[gameId][c.key](ch.fields);
+  const hintDefs = HINTS_OF[gameId](ch, extra);
+  const hints = Object.fromEntries(Object.entries(hintDefs).filter(([, h]) => h.value !== null).map(([k, h]) => [k, h.value]));
+  const hintOk = HINT_OK[gameId](ch, hintDefs);
+  const isComplete = cols.every((c) => present(attrs[c.key].v)) && hintOk;
+  return { attrs, hintDefs, hints, hintOk, isComplete };
+}
 
 export function build({ data, l04, columns, targets = 'complete', voices = null }) {
   const result = { games: [], sql: '', rollback: '', targets };
@@ -197,13 +211,8 @@ export function build({ data, l04, columns, targets = 'complete', voices = null 
     const fields = new Set();
     const rowsSql = [];
     for (const ch of inSite) {
-      const attrs = {};
-      for (const c of cols) attrs[c.key] = COLUMNS[game.id][c.key](ch.fields);
       const extra = game.id === 'otakudle-dragon-ball' ? voices?.get(ch.slug) : undefined;
-      const hintDefs = HINTS_OF[game.id](ch, extra);
-      const hints = Object.fromEntries(Object.entries(hintDefs).filter(([, h]) => h.value !== null).map(([k, h]) => [k, h.value]));
-      const hintOk = HINT_OK[game.id](ch, hintDefs);
-      const isComplete = cols.every((c) => present(attrs[c.key].v)) && hintOk;
+      const { attrs, hintDefs, hints, hintOk, isComplete } = factsOf(game.id, ch, cols, extra);
       if (!hintOk) noHint.push(ch.slug);
       if (isComplete) complete++;
       const target = targets === 'complete' && isComplete;
@@ -224,7 +233,7 @@ export function build({ data, l04, columns, targets = 'complete', voices = null 
         fields.add(field);
         for (const s of srcs) {
           rowsSql.push(
-            `insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at) values ('character', ${q(ch.slug)}, ${q(field)}, ${q(s.source)}, ${sqlOrNull(s.ref)}, ${q(s.url)}, ${q(fetched)}::timestamptz) on conflict (entity_type, entity_id, field, source) do update set source_ref = excluded.source_ref, source_url = excluded.source_url, fetched_at = excluded.fetched_at where (entity_sources.source_ref, entity_sources.source_url, entity_sources.fetched_at) is distinct from (excluded.source_ref, excluded.source_url, excluded.fetched_at);`,
+            `insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at) values ('character', ${q(ch.slug)}, ${q(field)}, ${q(s.source)}, ${sqlOrNull(s.ref)}, ${q(s.url)}, ${q(s.read ? `${s.read}T00:00:00Z` : fetched)}::timestamptz) on conflict (entity_type, entity_id, field, source) do update set source_ref = excluded.source_ref, source_url = excluded.source_url, fetched_at = excluded.fetched_at where (entity_sources.source_ref, entity_sources.source_url, entity_sources.fetched_at) is distinct from (excluded.source_ref, excluded.source_url, excluded.fetched_at);`,
           );
         }
       }

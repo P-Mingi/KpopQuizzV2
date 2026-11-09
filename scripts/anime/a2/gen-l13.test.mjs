@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 import { build, storedValues, top200Rows } from './gen-l13.mjs';
 import { l04Characters } from './gen-sql.mjs';
+import { FEATURED_OFF, FEATURED_ON } from './corrections/spec-l22.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '../../..');
@@ -15,32 +16,33 @@ const top = top200Rows(readFileSync(path.join(HERE, 'data', 'TOP200.md'), 'utf8'
 const l04 = l04Characters(readFileSync(path.join(ROOT, 'docs/pending-migrations/multisite/launch/L04-K1-series.sql'), 'utf8'));
 const a1 = JSON.parse(readFileSync(path.join(ROOT, 'scripts/anime/a1/data/a1-facts.json'), 'utf8'));
 const demographics = a1.series.filter((s) => all.series.some((x) => x.slug === s.slug)).sort((x, y) => (x.slug < y.slug ? -1 : 1));
-const run = (opts = {}) => build({ all, top, l04, demographics, ...opts });
+const run = (opts = {}) => build({ all, top, l04, demographics, featuredAdd: FEATURED_ON, featuredDrop: FEATURED_OFF, ...opts });
 
 test('the TOP200 table has 200 rows and each is one character of the pool', () => {
   assert.equal(top.length, 200);
-  assert.equal(run().counts.featured, 200);
+  assert.equal(run({ featuredAdd: [], featuredDrop: [] }).counts.featured, 200);
+  assert.equal(run().counts.featured, 208);
 });
 
-test('750 characters, 50 series, none waiting: every character of the pool is in L04', () => {
+test('751 characters (750 and Ken Kaneki, audit 06), 50 series, none waiting: every character of the pool is in L04', () => {
   const r = run();
-  assert.equal(r.counts.characters, 750);
+  assert.equal(r.counts.characters, 751);
   assert.equal(r.counts.series, 50);
   assert.deepEqual(r.counts.waiting, []);
-  assert.match(r.sql, /expect 750/);
+  assert.match(r.sql, /expect 751/);
 });
 
 test('a character L04 does not have is skipped and listed', () => {
   const r = run({ l04: new Set([...l04].filter((k) => k !== 'one-piece/monkey-d-luffy')) });
-  assert.equal(r.counts.characters, 749);
+  assert.equal(r.counts.characters, 750);
   assert.deepEqual(r.counts.waiting, ['one-piece/monkey-d-luffy']);
 });
 
-test('featured is true for exactly the 200 rows of the TOP200', () => {
+test('featured is true for the 200 rows of the TOP200 plus the nine the owner adds, minus Haise Sasaki (audit 06)', () => {
   const r = run();
   const rows = r.sql.split('\n').filter((l) => l.startsWith('insert into public.character_facts'));
-  assert.equal(rows.length, 750);
-  assert.equal(rows.filter((l) => /, true\) on conflict/.test(l)).length, 200);
+  assert.equal(rows.length, 751);
+  assert.equal(rows.filter((l) => /, true\) on conflict/.test(l)).length, 208);
 });
 
 test('stored values: unknown is null, a species outside the pattern is null, gender and role are the table words', () => {
@@ -60,3 +62,9 @@ test('every stored value has a source or is the role of the site data; fandom, w
   const hosts = new Set([...r.sql.matchAll(/'(fandom|wikidata|wikipedia)', (?:'[^']*'|null), '(https:\/\/[^']+)'/g)].map((m) => `${m[1]} ${new URL(m[2]).hostname.replace(/^[a-z0-9-]+\.(fandom\.com)$/, '$1').replace(/^(www|en)\./, '')}`));
   assert.deepEqual([...hosts].sort(), ['fandom fandom.com', 'wikidata wikidata.org', 'wikipedia wikipedia.org']);
 });
+
+test('storedValues: a voice actor in kanji or kana is the native name of the character, not an actor (null)', () => {
+  assert.equal(storedValues({ voice_actor_ja: { value: '花垣 武道' } }).voice_actor_ja, null)
+  assert.equal(storedValues({ voice_actor_ja: { value: 'サンジェルマン' } }).voice_actor_ja, null)
+  assert.equal(storedValues({ voice_actor_ja: { value: 'Yuuki Shin' } }).voice_actor_ja, 'Yuuki Shin')
+})

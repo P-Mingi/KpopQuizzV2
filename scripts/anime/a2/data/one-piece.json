@@ -219,7 +219,7 @@
      ]
     },
     "devil_fruit_name": {
-     "value": "Gum-Gum Fruit",
+     "value": "Human-Human Fruit, Model: Nika",
      "status": "agree",
      "sources": [
       {
@@ -249,6 +249,21 @@
         "Gum-Gum Fruit",
         "Gum-Gum Fruit"
        ]
+      },
+      {
+       "source": "correction",
+       "id": "OP17",
+       "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy",
+       "raw": "Gum-Gum Fruit; (Human-Human Fruit, Model: Nika)",
+       "value": "Human-Human Fruit, Model: Nika"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP17",
+       "from": "Gum-Gum Fruit",
+       "to": "Human-Human Fruit, Model: Nika",
+       "why": "D-3 (as of the reference point): the type is Zoan, so the name is the awakened fruit (the pair was inconsistent)"
       }
      ]
     },
@@ -4340,7 +4355,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "unknown",
+     "value": "Calm Belt",
      "status": "single",
      "sources": [
       {
@@ -4360,6 +4375,21 @@
        "url": "https://onepiece.fandom.com/wiki/Boa_Hancock",
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "OP18",
+       "url": "https://onepiece.fandom.com/wiki/Boa_Hancock",
+       "raw": "Calm Belt (Amazon Lily)",
+       "value": "Calm Belt"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP18",
+       "from": "unknown",
+       "to": "Calm Belt",
+       "why": "D-6: the Calm Belt is a sea, so the box value counts (Hancock becomes an answer)"
       }
      ]
     },
@@ -5281,7 +5311,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -5322,7 +5352,15 @@
        "https://onepiece.fandom.com/wiki/Charlotte_Linlin",
        "https://onepiece.fandom.com/wiki/Sheep's_House"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "OP11",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
+      }
+     ]
     },
     "debut_chapter": {
      "value": 651,
@@ -8146,7 +8184,7 @@
      ]
     },
     "bounty": {
-     "value": 3000000000,
+     "value": "no bounty",
      "status": "single",
      "sources": [
       {
@@ -8160,6 +8198,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "OP1",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP1",
+       "from": 3000000000,
+       "to": "no bounty",
+       "why": "D-1 (owner: World Government bounties only): the amount is a Cross Guild rank reward, not a bounty"
       }
      ]
     },
@@ -9405,7 +9460,7 @@
      ]
     },
     "bounty": {
-     "value": 3000000000,
+     "value": "no bounty",
      "status": "agree",
      "sources": [
       {
@@ -9419,6 +9474,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "3000000000",
        "value": 3000000000
+      },
+      {
+       "source": "correction",
+       "id": "OP2",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP2",
+       "from": 3000000000,
+       "to": "no bounty",
+       "why": "D-1 (owner: World Government bounties only): the amount is a Cross Guild rank reward, not a bounty"
       }
      ]
     },
@@ -11847,7 +11919,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -11867,6 +11939,14 @@
        "url": "https://onepiece.fandom.com/wiki/Kouzuki_Oden",
        "raw": "New World",
        "value": null
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP15a",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
       }
      ]
     },
@@ -13910,7 +13990,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -13930,6 +14010,14 @@
        "url": "https://onepiece.fandom.com/wiki/Carrot",
        "raw": null,
        "value": null
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP15b",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
       }
      ]
     },
@@ -15101,7 +15189,7 @@
      ]
     },
     "bounty": {
-     "value": 3000000000,
+     "value": "no bounty",
      "status": "single",
      "sources": [
       {
@@ -15115,6 +15203,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "OP3",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP3",
+       "from": 3000000000,
+       "to": "no bounty",
+       "why": "D-1 (owner: World Government bounties only): the amount is a Cross Guild rank reward, not a bounty"
       }
      ]
     },
@@ -16494,7 +16599,7 @@
      ]
     },
     "devil_fruit_name": {
-     "value": "Garb-Garb Jutsu",
+     "value": "Garb-Garb Fruit",
      "status": "agree",
      "sources": [
       {
@@ -16527,6 +16632,14 @@
        "raw": null,
        "value": null
       }
+     ],
+     "corrections": [
+      {
+       "id": "OP10",
+       "from": "Garb-Garb Jutsu",
+       "to": "Garb-Garb Fruit",
+       "why": "the box lists \"Garb-Garb Fruit\" (Fuku Fuku no Mi); \"Jutsu\" is a VIZ and Funimation rendering of a technique, not of the fruit"
+      }
      ]
     },
     "haki": {
@@ -16557,7 +16670,7 @@
      ]
     },
     "bounty": {
-     "value": 100000000,
+     "value": "no bounty",
      "status": "single",
      "sources": [
       {
@@ -16571,6 +16684,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "100000000",
        "value": 100000000
+      },
+      {
+       "source": "correction",
+       "id": "OP6",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP6",
+       "from": 100000000,
+       "to": "no bounty",
+       "why": "D-1: the amount is Doflamingo's reward in his Birdcage game, not a World Government bounty"
       }
      ]
     },
@@ -16593,7 +16723,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -16613,6 +16743,14 @@
        "url": "https://onepiece.fandom.com/wiki/Kin'emon",
        "raw": "New World",
        "value": null
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP12",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
       }
      ]
     },
@@ -20387,7 +20525,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -20407,6 +20545,14 @@
        "url": "https://onepiece.fandom.com/wiki/Charlotte_Pudding",
        "raw": "New World",
        "value": null
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP15c",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
       }
      ]
     },
@@ -20951,7 +21097,7 @@
      ]
     },
     "bounty": {
-     "value": 500000000,
+     "value": "no bounty",
      "status": "agree",
      "sources": [
       {
@@ -20965,6 +21111,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "500000000",
        "value": 500000000
+      },
+      {
+       "source": "correction",
+       "id": "OP5",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP5",
+       "from": 500000000,
+       "to": "no bounty",
+       "why": "D-1 (owner: World Government bounties only): the amount is a Cross Guild rank reward, not a bounty"
       }
      ]
     },
@@ -21834,7 +21997,7 @@
      ]
     },
     "bounty": {
-     "value": 200000000,
+     "value": null,
      "status": "single",
      "sources": [
       {
@@ -21854,6 +22017,15 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "200000000",
        "value": 200000000
+      },
+      {
+       "source": "correction",
+       "id": "OP9",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": null,
+       "ref": "2135525",
+       "read": "2026-11-09"
       }
      ],
      "reviewed": true,
@@ -21862,7 +22034,15 @@
       "pages": [
        "https://onepiece.fandom.com/wiki/Bounty/List"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "OP9",
+       "from": 200000000,
+       "to": null,
+       "why": "the box says Unknown (as Thunder Soldier) and his poster showed no amount; 200,000,000 was Doflamingo's Birdcage reward. Not an answer any more (a column has no value)"
+      }
+     ]
     },
     "height_cm": {
      "value": 298,
@@ -21883,7 +22063,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -21903,6 +22083,14 @@
        "url": "https://onepiece.fandom.com/wiki/Kyros",
        "raw": null,
        "value": null
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP13",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
       }
      ]
     },
@@ -23665,7 +23853,7 @@
      ]
     },
     "bounty": {
-     "value": 20000000,
+     "value": null,
      "status": "single",
      "sources": [
       {
@@ -23679,6 +23867,14 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "20000000",
        "value": 20000000
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP16",
+       "from": 20000000,
+       "to": null,
+       "why": "the box says \"At least 20,000,000\", a lower bound and not a value (audit OP16, recommended: null). Not an answer any more (a column has no value)"
       }
      ]
     },
@@ -23980,7 +24176,7 @@
      ]
     },
     "bounty": {
-     "value": 100000000,
+     "value": "no bounty",
      "status": "single",
      "sources": [
       {
@@ -23994,6 +24190,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "100000000",
        "value": 100000000
+      },
+      {
+       "source": "correction",
+       "id": "OP7",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP7",
+       "from": 100000000,
+       "to": "no bounty",
+       "why": "D-1: the amount is Doflamingo's reward in his Birdcage game, not a World Government bounty"
       }
      ]
     },
@@ -25240,7 +25453,7 @@
      ]
     },
     "sea_of_origin": {
-     "value": "New World",
+     "value": "Grand Line",
      "status": "agree",
      "sources": [
       {
@@ -25281,7 +25494,15 @@
        "https://onepiece.fandom.com/wiki/Kouzuki_Hiyori",
        "https://onepiece.fandom.com/wiki/Flower_Capital"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "OP14",
+       "from": "New World",
+       "to": "Grand Line",
+       "why": "D-7: the Fandom box says \"Grand Line\" (with the place in parentheses); one vocabulary for the same sea"
+      }
+     ]
     },
     "debut_chapter": {
      "value": 909,
@@ -29405,7 +29626,7 @@
      ]
     },
     "bounty": {
-     "value": 100000000,
+     "value": "no bounty",
      "status": "single",
      "sources": [
       {
@@ -29419,6 +29640,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": "100000000",
        "value": 100000000
+      },
+      {
+       "source": "correction",
+       "id": "OP8",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP8",
+       "from": 100000000,
+       "to": "no bounty",
+       "why": "D-1: the amount is Doflamingo's reward in his Birdcage game, not a World Government bounty"
       }
      ]
     },
@@ -29717,7 +29955,7 @@
      ]
     },
     "bounty": {
-     "value": 3000000000,
+     "value": "no bounty",
      "status": "single",
      "sources": [
       {
@@ -29731,6 +29969,23 @@
        "url": "https://onepiece.fandom.com/wiki/Bounty/List",
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "OP4",
+       "url": "https://onepiece.fandom.com/wiki/Bounty",
+       "raw": "Bounty: the World Government (Marines) issues the bounties; the Cross Guild, Doflamingo and Orochi issue their own rewards, which follow a symbol system (stars, crowns)",
+       "value": "no bounty",
+       "ref": "2135525",
+       "read": "2026-11-09"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "OP4",
+       "from": 3000000000,
+       "to": "no bounty",
+       "why": "D-1 (owner: World Government bounties only): the amount is a Cross Guild rank reward, not a bounty"
       }
      ]
     },
