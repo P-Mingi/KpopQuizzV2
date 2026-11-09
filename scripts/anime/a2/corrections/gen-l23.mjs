@@ -1,4 +1,5 @@
 // L23-l1-otakudle-first-adaptation.sql and its rollback, derived from spec-l23.mjs and the view body of L18 (node scripts/anime/a2/corrections/gen.mjs).
+import { toSingleDoBlock } from '../../sql/single-do-block.mjs';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -182,5 +183,5 @@ export function writeL23() {
   ];
   const up = [...head('L23-l1-otakudle-first-adaptation.sql', what, `-- Undo:   L23-l1-otakudle-first-adaptation.rollback.sql (the view of L18, the old values, the sources, the column).`), upBody(), ''].join('\n');
   const down = [...head('L23-l1-otakudle-first-adaptation.rollback.sql', [`-- What:   undoes L23: the view of L18 again, the values back to null / the L04 years, the sources deleted, series_facts.first_studios dropped.`], `-- Undo:   L23-l1-otakudle-first-adaptation.sql.`), downBody(), ''].join('\n');
-  return { up, down };
+  return { up: toSingleDoBlock(up, 'o1l23'), down: toSingleDoBlock(down, 'o1l23r') };
 }
