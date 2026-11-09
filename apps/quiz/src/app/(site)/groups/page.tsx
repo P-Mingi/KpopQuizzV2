@@ -8,6 +8,7 @@ import { formatCount } from '@/lib/utils';
 import { UX_V1 } from '@/lib/ux-v1';
 import { GroupsIndexV11 } from '@/components/group/ux-v1/groups-index';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { groupsIndexMeta } from '@/lib/seo/index-pages-meta';
 
 // Imported here, not added to the UX sheet: every page links that one sheet, and this A to Z belongs to this page (CR-015).
 import '@/styles/kpop/groups-az.css';
@@ -19,20 +20,25 @@ export const revalidate = 3600;
 
 // The root layout already appends " | KpopQuiz", so the suffix must NOT be repeated
 // here (it renders doubled otherwise, and check:metadata-dupes catches it).
-export const metadata: Metadata = {
-  title: 'All K-pop Groups',
-  description:
-    'Every K-pop group with quizzes on KpopQuiz, listed A to Z with its generation. Browse the full list and jump straight to a group to play.',
-  alternates: { canonical: '/groups' },
-  openGraph: {
-    title: 'All K-pop Groups | KpopQuiz',
-    description: 'Browse every K-pop group with quizzes, A to Z.',
-    url: 'https://kpopquiz.org/groups',
-    siteName: 'KpopQuiz',
-    type: 'website',
-    images: [DEFAULT_OG_IMAGE],
-  },
-};
+// Audit 04 P1-3: "K-pop Groups A to Z: N Groups with Quizzes". N is the row count of the directory read below, the number the
+// page intro prints, so the title, the description and the body agree.
+export async function generateMetadata(): Promise<Metadata> {
+  const rows = await safeFetch(getDirectoryGroups(), [] as DirectoryGroup[], '[groups-directory] metadata count');
+  const { title, description } = groupsIndexMeta(rows.length > 0 ? rows.length : null);
+  return {
+    title,
+    description,
+    alternates: { canonical: '/groups' },
+    openGraph: {
+      title: `${title} | KpopQuiz`,
+      description: 'Browse every K-pop group with quizzes, A to Z.',
+      url: 'https://kpopquiz.org/groups',
+      siteName: 'KpopQuiz',
+      type: 'website',
+      images: [DEFAULT_OG_IMAGE],
+    },
+  };
+}
 
 const GENERATION_ORDER = ['1st Gen', '2nd Gen', '3rd Gen', '4th Gen', '5th Gen'];
 
