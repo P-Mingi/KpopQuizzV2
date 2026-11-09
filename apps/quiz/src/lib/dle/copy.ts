@@ -156,22 +156,23 @@ export const IDOL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, Dl
   en: {
     gender: { label: 'Gender', help: 'Female or male' },
     group: { label: 'Group', help: 'Main group' },
-    agency: { label: 'Agency', help: 'Close if same parent company', near: 'same parent company', source: 'Wikidata, official site' },
+    // L20 (view with the mother company of the agency) is not applied yet: Close cannot fire on the agency, so the help promises only Right. Put `near: 'same parent company'` and 'Close if same parent company' back once L20 is applied.
+    agency: { label: 'Agency', help: 'Right if same agency', source: 'Wikidata, official site' },
     nationality: { label: 'Nationality', help: 'Country of nationality' },
     birth: { label: 'Birth', help: 'Year, close within 2 years', near: '2 years apart at most', source: 'Wikidata' },
     debut: { label: 'Debut', help: 'Debut year, close within 1 year', near: '1 year apart at most', source: 'MusicBrainz, Wikipedia' },
     generation: { label: 'Generation', help: 'From the group’s debut year', near: 'never, arrow only', source: 'published rule on the debut year' },
-    role: { label: 'Role', help: 'Official leader or maknae', near: 'official leader or maknae', source: 'official site, Wikipedia' },
+    role: { label: 'Role', help: 'Official leader or maknae', source: 'official site, Wikipedia' },
   },
   fr: {
     gender: { label: 'Genre', help: 'Féminin ou masculin' },
     group: { label: 'Groupe', help: 'Groupe principal' },
-    agency: { label: 'Agence', help: 'Proche si même maison mère', near: 'même maison mère', source: 'Wikidata, site officiel' },
+    agency: { label: 'Agence', help: 'Juste si même agence', source: 'Wikidata, site officiel' },
     nationality: { label: 'Nationalité', help: 'Pays de nationalité' },
     birth: { label: 'Naissance', help: 'Année, proche à 2 ans', near: '2 ans d’écart au plus', source: 'Wikidata' },
     debut: { label: 'Début', help: 'Année de début, proche à 1 an', near: '1 an d’écart au plus', source: 'MusicBrainz, Wikipedia' },
     generation: { label: 'Génération', help: 'Selon l’année de début du groupe', near: 'jamais, flèche seulement', source: 'règle publiée sur l’année de début' },
-    role: { label: 'Rôle', help: 'Leader ou maknae officiels', near: 'leader ou maknae officiels', source: 'site officiel, Wikipedia' },
+    role: { label: 'Rôle', help: 'Leader ou maknae officiels', source: 'site officiel, Wikipedia' },
   },
 };
 
