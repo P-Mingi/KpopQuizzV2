@@ -5,7 +5,7 @@
 --         from 2026-11-08 (never published: the anime cron had not reached otakuquiz) to 2026-12-18. Per row: questions (and title or description when fixed),
 --         status 'scheduled', scheduled_date, verified_at = now(), verification_notes. Nothing else: no group, no other row, no kpop row.
 --         27 of the 30 planned days are filled (the second reading carried 27 quizzes clean of duplicates; the free slots are 2026-12-19 to 2026-12-21, after the moved row).
--- Needs:  L08 (the 99 draft rows), 009 and 010 (quiz_bank_site_date, per-site daily), L04 (anime groups). The owner fills {REVIEWER} and {REVIEW_DATE} in the one review line below after his review:
+-- Needs:  L08 (the 99 draft rows), 009 and 010 (quiz_bank_site_date, per-site daily), L04 (anime groups). The owner fills {REVIEWER} and {REVIEW_DATE} in the one review line below after the review:
 --         while they are unfilled the file refuses to apply.
 -- WHEN:   after a backup, outside a build, never between 23:50 and 00:30 UTC, and before the evening of 2026-11-20 (the anime daily runs out after 2026-11-20).
 -- Verify: select count(*) from public.quiz_bank where site_id = 'anime' and status = 'scheduled' and scheduled_date between '2026-11-21' and '2026-12-17';   expect 27
