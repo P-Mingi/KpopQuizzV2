@@ -1,7 +1,5 @@
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
-import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
-import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { getSourcedTrivia } from '@/lib/trivia/sourced/store';
 import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
@@ -57,37 +55,6 @@ const CATALOG_PATHS = new Set<string>([
 ].map((p) => `${SITE_URL}${p}`));
 
 /**
- * `-trivia` URLs that will actually render (>=12 facts AFTER the J1 override
- * layer). Runs the SAME buildOverriddenFacts the page/gate uses - not a raw
- * mirror - so the sitemap never advertises a -trivia URL that now 404s.
- */
-function buildTriviaEligibleGroupSet(
-  quizzes: Array<{ group_id: number | null; slug: string; questions: unknown }>,
-  slugByGroupId: Map<number, string>,
-): Set<number> {
-  const quizzesByGroup = new Map<number, FactSourceQuiz[]>();
-  for (const quiz of quizzes) {
-    if (quiz.group_id == null) continue;
-    let arr = quizzesByGroup.get(quiz.group_id);
-    if (!arr) {
-      arr = [];
-      quizzesByGroup.set(quiz.group_id, arr);
-    }
-    arr.push({ slug: quiz.slug, questions: quiz.questions });
-  }
-
-  const eligible = new Set<number>();
-  for (const [groupId, groupQuizzes] of quizzesByGroup) {
-    const slug = slugByGroupId.get(groupId);
-    if (!slug) continue;
-    if (buildOverriddenFacts(slug, groupQuizzes).length >= TRIVIA_MIN_FACTS) {
-      eligible.add(groupId);
-    }
-  }
-  return eligible;
-}
-
-/**
  * Dynamic sitemap. Queries are wrapped in try/catch so a database blip
  * returns the static pages only instead of a 500 - Google indexes what it
  * can and tries again later.
@@ -141,9 +108,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(legalIsComplete() ? [{ url: `${SITE_URL}/legal`, lastModified: new Date(LEGAL.written), changeFrequency: 'yearly' as const, priority: 0.3 }] : []),
     { url: `${SITE_URL}/dmca`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    // SEO P0.1 (owner: make /news rank): now indexable (was robots.index=false), so
-    // it joins the sitemap. Curated K-pop headlines, refreshed daily.
-    { url: `${SITE_URL}/news`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.5 },
+    // O1 audit 03 P0-1: /news is noindex,follow (a list of outbound headlines), so it is not listed.
     // Workstream T0 monthly Pulse index. Per-month reports are appended below.
     { url: `${SITE_URL}/data/pulse`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.6 },
 
@@ -295,14 +260,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     }));
 
-    // Only list `-trivia` URLs for groups that have enough unique fun facts
-    // to actually render the page (matches the `notFound()` gate in
-    // [slug]/page.tsx). Prevents Google from indexing 404s.
-    const slugByGroupId = new Map<number, string>(
-      (groupsResult.data ?? []).map((g) => [g.id as number, g.slug as string]),
-    );
-    const triviaEligibleGroupIds = buildTriviaEligibleGroupSet(quizRows, slugByGroupId);
-
     groupPages = ((groupsResult.data ?? []) as Array<{ id: number; slug: string }>).flatMap((g) => {
       const entries: MetadataRoute.Sitemap = [];
       // Honest lastmod: the group page changes when one of its quizzes changes.
@@ -321,9 +278,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
 
-      // general-kpop trivia is noindex until verified (owner, 2026-10-14), so it is not listed.
-      // SEO Mission 2, part E: a sourced trivia page renders whatever the fan facts say, and its
-      // lastmod is the day its fact file was reviewed (the content date), not a quiz date.
+      // O1 audit 03 P0-2: only a trivia page with a sourced fact file is listed. It is the SAME gate
+      // the route uses to pick the sourced (indexable) page; the fan facts derived from our own quizzes
+      // are noindex,follow and never listed. Its lastmod is the day its fact file was reviewed.
       const sourcedTrivia = getSourcedTrivia(g.slug);
       if (sourcedTrivia) {
         entries.push({
@@ -331,13 +288,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: new Date(sourcedTrivia.reviewed),
           changeFrequency: 'monthly' as const,
           priority: 0.6,
-        });
-      } else if (triviaEligibleGroupIds.has(g.id) && g.slug !== 'general-kpop') {
-        entries.push({
-          url: `${SITE_URL}/${g.slug}-trivia`,
-          lastModified: groupDate,
-          changeFrequency: 'weekly' as const,
-          priority: 0.5,
         });
       }
 
@@ -462,7 +412,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       seen.add(url);
       versePages.push({ url, lastModified: STATIC_DATE, changeFrequency: freq, priority });
     };
-    push('/verse', 0.8, 'daily');
+    // O1 audit 03 P0-3: the teaser is noindex while the Verse is hidden (verse/page.tsx), so it is listed
+    // only once the Verse is public. The covenant stays.
+    if (!verseHidden()) push('/verse', 0.8, 'daily');
     push('/verse/promises', 0.6, 'monthly'); // V-TRUST: the covenant is a real indexed trust page
     // PUSH-GATE-1: while the Verse is hidden, ONLY the teaser + covenant stay in the sitemap;
     // every other Verse URL is dropped (belt + braces on top of the 302) so Google stops

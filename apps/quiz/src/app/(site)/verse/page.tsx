@@ -41,6 +41,8 @@ export function generateMetadata(): Metadata {
     title: { absolute: 'KpopVerse · where fans build their fandom’s home' },
     description,
     alternates: { canonical: 'https://kpopquiz.org/verse' },
+    // O1 audit 03 P0-3: while the Verse is hidden this URL is a ~75 word teaser. noindex,follow until it opens.
+    ...(verseHidden() ? { robots: { index: false, follow: true } } : {}),
     openGraph: { title: 'KpopVerse', description, url: 'https://kpopquiz.org/verse', type: 'website', siteName: 'KpopVerse', images: [{ url: '/api/og/verse', width: 1200, height: 630, alt: 'KpopVerse' }] },
     twitter: { card: 'summary_large_image', title: 'KpopVerse', description, images: ['/api/og/verse'] },
   };
