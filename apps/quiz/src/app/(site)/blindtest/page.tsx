@@ -13,6 +13,8 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { UX_V1 } from '@/lib/ux-v1';
 
 import { blindtestMeta } from '@/lib/seo/index-pages-meta';
+import { legacyBlindtestHead } from '@/lib/seo/frozen-heads';
+import { isTopClicksFrozen } from '@/lib/seo/top-clicks-freeze';
 
 import type { Metadata } from 'next';
 
@@ -28,7 +30,11 @@ function catalogLine(stats: PublicStats | null): string {
 export async function generateMetadata(): Promise<Metadata> {
   const stats = await getPublicStatsOrNull();
   const line = catalogLine(stats);
-  const { title, description } = blindtestMeta(stats ? { songs: atLeast(stats.songs), groups: atLeast(stats.songGroups) } : null);
+  const fresh = blindtestMeta(stats ? { songs: atLeast(stats.songs), groups: atLeast(stats.songGroups) } : null);
+  // Audit 04 section 2.4: /blindtest is a top-clicks page, its head stays main's until the owner lifts it (the H1 and the body change).
+  const frozen = isTopClicksFrozen('/blindtest') ? legacyBlindtestHead(line) : null;
+  const title = frozen?.title ?? fresh.title;
+  const description = frozen?.description ?? fresh.description;
   return {
   title,
   description,
@@ -40,10 +46,10 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   },
   openGraph: {
-    title: `${title} | KpopQuiz`,
-    description: `Listen to a 10-second clip and name the K-pop song or artist. ${line}, every generation.`,
+    title: frozen?.ogTitle ?? `${title} | KpopQuiz`,
+    description: frozen?.ogDescription ?? `Listen to a 10-second clip and name the K-pop song or artist. ${line}, every generation.`,
     url: '/blindtest',
-    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(`Name the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
+    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(frozen?.ogImageSubtitle ?? `Name the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
   },
   };
 }
