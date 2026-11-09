@@ -22556,7 +22556,7 @@
        ]
       },
       "voice_actor_ja": {
-       "value": "Masako Nozawa",
+       "value": "Shigeru Chiba",
        "status": "single",
        "sources": [
         {
@@ -22591,6 +22591,15 @@
           "Masako Nozawa",
           "Shigeru Chiba"
          ]
+        },
+        {
+         "source": "correction",
+         "id": "DB8",
+         "url": "https://dragonball.fandom.com/wiki/Raditz",
+         "raw": "Voice actors, Japanese: Shigeru Chiba; Goku's only male biological relative not voiced by Masako Nozawa",
+         "value": "Shigeru Chiba",
+         "ref": "2271907",
+         "read": "2026-11-09"
         }
        ],
        "sources_agreeing": [
@@ -22602,7 +22611,15 @@
         "pages": [
          "https://dragonball.fandom.com/wiki/Masako_Nozawa"
         ]
-       }
+       },
+       "corrections": [
+        {
+         "id": "DB8",
+         "from": "Masako Nozawa",
+         "to": "Shigeru Chiba",
+         "why": "the Fandom list gave two names and the first was kept"
+        }
+       ]
       }
      }
     },
@@ -28961,7 +28978,7 @@
        ]
       },
       "voice_actor_ja": {
-       "value": "Masako Nozawa",
+       "value": "Shin-ichiro Miki",
        "status": "single",
        "sources": [
         {
@@ -28987,6 +29004,15 @@
          "url": "https://en.wikipedia.org/wiki/Zamasu",
          "raw": "Masako Nozawa",
          "value": "Masako Nozawa"
+        },
+        {
+         "source": "correction",
+         "id": "DB9",
+         "url": "https://dragonball.fandom.com/wiki/Zamasu",
+         "raw": "Voice actors, Japanese: Shin-ichiro Miki",
+         "value": "Shin-ichiro Miki",
+         "ref": "2257308",
+         "read": "2026-11-09"
         }
        ],
        "sources_agreeing": [
@@ -28998,7 +29024,15 @@
         "pages": [
          "https://en.wikipedia.org/wiki/Zamasu"
         ]
-       }
+       },
+       "corrections": [
+        {
+         "id": "DB9",
+         "from": "Masako Nozawa",
+         "to": "Shin-ichiro Miki",
+         "why": "Masako Nozawa voices Goku Black; Zamasu is Shin-ichiro Miki"
+        }
+       ]
       }
      }
     },

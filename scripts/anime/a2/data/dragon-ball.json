@@ -868,7 +868,7 @@
      ]
     },
     "race": {
-     "value": "Saiyan",
+     "value": "Android",
      "status": "agree",
      "sources": [
       {
@@ -888,6 +888,21 @@
        "url": "https://en.wikipedia.org/wiki/Cell_(Dragon_Ball)",
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "DB1",
+       "url": "https://dragonball.fandom.com/wiki/Cell",
+       "raw": "Bio-Android (contains Saiyan, Namekian, Frieza Clan, Earthling and several other life-forms' cells)",
+       "value": "Android"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB1",
+       "from": "Saiyan",
+       "to": "Android",
+       "why": "the race is the first one named by the box; the cells he contains are not his race (category Androids)"
       }
      ]
     },
@@ -2888,11 +2903,7 @@
     "affiliation": {
      "value": [
       "Frieza Force",
-      "Saiyan Army",
-      "Dark Empire",
-      "Time Patrol",
-      "Team Beerus",
-      "Resistance faction"
+      "Saiyan Army"
      ],
      "status": "agree",
      "sources": [
@@ -2916,6 +2927,24 @@
        "value": [
         "Time Patrol"
        ]
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-bardock",
+       "from": [
+        "Frieza Force",
+        "Saiyan Army",
+        "Dark Empire",
+        "Time Patrol",
+        "Team Beerus",
+        "Resistance faction"
+       ],
+       "to": [
+        "Frieza Force",
+        "Saiyan Army"
+       ],
+       "why": "Dark Empire, Time Patrol, Team Beerus, Resistance faction: game-only"
       }
      ]
     },
@@ -3685,8 +3714,7 @@
     },
     "affiliation": {
      "value": [
-      "Frieza Force",
-      "Dragon Team"
+      "Frieza Force"
      ],
      "status": "agree",
      "sources": [
@@ -3731,7 +3759,20 @@
        "https://dragonball.fandom.com/wiki/Raditz",
        "https://dragonball.fandom.com/wiki/Frieza_Force"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB7-raditz",
+       "from": [
+        "Frieza Force",
+        "Dragon Team"
+       ],
+       "to": [
+        "Frieza Force"
+       ],
+       "why": "Dragon Team: game-only for a villain"
+      }
+     ]
     },
     "home_planet": {
      "value": "Planet Vegeta",
@@ -5241,9 +5282,7 @@
     "affiliation": {
      "value": [
       "Frieza Force",
-      "King Vegeta's Warriors",
-      "Team Beerus",
-      "Dragon Team"
+      "King Vegeta's Warriors"
      ],
      "status": "agree",
      "sources": [
@@ -5294,7 +5333,23 @@
        "https://dragonball.fandom.com/wiki/Nappa",
        "https://dragonball.fandom.com/wiki/Frieza_Force"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB7-nappa",
+       "from": [
+        "Frieza Force",
+        "King Vegeta's Warriors",
+        "Team Beerus",
+        "Dragon Team"
+       ],
+       "to": [
+        "Frieza Force",
+        "King Vegeta's Warriors"
+       ],
+       "why": "Team Beerus, Dragon Team (after being revived): game-only"
+      }
+     ]
     },
     "home_planet": {
      "value": "Planet Vegeta",
@@ -5659,9 +5714,7 @@
     "affiliation": {
      "value": [
       "Dragon Team",
-      "Vegeta Sky Pirates",
       "Team Universe 7",
-      "Team Universe 6",
       "Galactic Patrol"
      ],
      "status": "agree",
@@ -5685,6 +5738,24 @@
        "value": [
         "Galactic Patrol"
        ]
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-vegeta",
+       "from": [
+        "Dragon Team",
+        "Vegeta Sky Pirates",
+        "Team Universe 7",
+        "Team Universe 6",
+        "Galactic Patrol"
+       ],
+       "to": [
+        "Dragon Team",
+        "Team Universe 7",
+        "Galactic Patrol"
+       ],
+       "why": "Vegeta Sky Pirates: game-only; Team Universe 6: baseball only"
       }
      ]
     },
@@ -6801,7 +6872,7 @@
      ]
     },
     "race": {
-     "value": "Human",
+     "value": "Android",
      "status": "single",
      "sources": [
       {
@@ -6827,6 +6898,13 @@
        "url": "https://dragonball.fandom.com/wiki/Dr._Gero",
        "raw": "0 |AltName = Doctor Gero #20 Artificial Human No. 20 |MangaName=Android #20 |Appears",
        "value": "Human"
+      },
+      {
+       "source": "correction",
+       "id": "DB4",
+       "url": "https://dragonball.fandom.com/wiki/Dr._Gero",
+       "raw": "Human-type Earthling (former); Mechanical Type Android",
+       "value": "Android"
       }
      ],
      "reviewed": true,
@@ -6835,13 +6913,20 @@
       "pages": [
        "https://dragonball.fandom.com/wiki/Dr._Gero"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB4",
+       "from": "Human",
+       "to": "Android",
+       "why": "first met as Android 20 (the \"former\" line is skipped); category Androids"
+      }
+     ]
     },
     "affiliation": {
      "value": [
       "Red Ribbon Army",
-      "Pilaf Gang",
-      "Dr. Gero Sky Pirates"
+      "Pilaf Gang"
      ],
      "status": "agree",
      "sources": [
@@ -6863,6 +6948,21 @@
         "Red Ribbon Army",
         "Pilaf Gang"
        ]
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-dr-gero",
+       "from": [
+        "Red Ribbon Army",
+        "Pilaf Gang",
+        "Dr. Gero Sky Pirates"
+       ],
+       "to": [
+        "Red Ribbon Army",
+        "Pilaf Gang"
+       ],
+       "why": "Dr. Gero Sky Pirates: game-only"
       }
      ]
     },
@@ -8055,9 +8155,7 @@
     },
     "affiliation": {
      "value": [
-      "Tuffle Parasites",
-      "Kings of Destruction",
-      "Berserkers"
+      "Tuffle Parasites"
      ],
      "status": "agree",
      "sources": [
@@ -8078,6 +8176,20 @@
        "value": [
         "Kings of Destruction"
        ]
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-baby",
+       "from": [
+        "Tuffle Parasites",
+        "Kings of Destruction",
+        "Berserkers"
+       ],
+       "to": [
+        "Tuffle Parasites"
+       ],
+       "why": "Kings of Destruction, Berserkers: game-only"
       }
      ]
     },
@@ -8403,7 +8515,7 @@
      ]
     },
     "race": {
-     "value": "Human",
+     "value": "Animal",
      "status": "agree",
      "sources": [
       {
@@ -8423,6 +8535,21 @@
        "url": null,
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "DB10a",
+       "url": "https://dragonball.fandom.com/wiki/Oolong",
+       "raw": "Animal-type Earthling (Pig)",
+       "value": "Animal"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB10a",
+       "from": "Human",
+       "to": "Animal",
+       "why": "DB10: one word for the three animal-type Earthlings"
       }
      ]
     },
@@ -9062,7 +9189,7 @@
      ]
     },
     "signature_technique": {
-     "value": "Evil Containment Wave",
+     "value": "Explosive Demon Wave",
      "status": "agree",
      "sources": [
       {
@@ -9088,6 +9215,15 @@
        "url": "https://dragonball.fandom.com/wiki/Evil_Containment_Wave",
        "raw": "Evil Containment Wave page names King Piccolo",
        "value": "Evil Containment Wave"
+      },
+      {
+       "source": "correction",
+       "id": "DB5",
+       "url": "https://dragonball.fandom.com/wiki/King_Piccolo",
+       "raw": "techniques: Explosive Demon Wave (his own); the Evil Containment Wave is used against him",
+       "value": "Explosive Demon Wave",
+       "ref": "2273193",
+       "read": "2026-11-09"
       }
      ],
      "reviewed": true,
@@ -9097,7 +9233,15 @@
        "https://dragonball.fandom.com/wiki/King_Piccolo",
        "https://dragonball.fandom.com/wiki/Evil_Containment_Wave"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB5",
+       "from": "Evil Containment Wave",
+       "to": "Explosive Demon Wave",
+       "why": "the Evil Containment Wave is used against him; the Explosive Demon Wave is his"
+      }
+     ]
     },
     "voice_actor_ja": {
      "value": "Takeshi Aono",
@@ -9202,7 +9346,7 @@
      ]
     },
     "race": {
-     "value": "Human",
+     "value": "Monster",
      "status": "agree",
      "sources": [
       {
@@ -9222,6 +9366,21 @@
        "url": null,
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "DB3",
+       "url": "https://dragonball.fandom.com/wiki/Emperor_Pilaf",
+       "raw": "Monster-Type Earthling",
+       "value": "Monster"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB3",
+       "from": "Human",
+       "to": "Monster",
+       "why": "the box gives the Earthling type: Monster"
       }
      ]
     },
@@ -9229,9 +9388,8 @@
      "value": [
       "Pilaf Gang",
       "Mifan Army",
-      "Pilaf-Buggy Evil Alliance",
       "Dragon Team",
-      "Capsule  Corporation"
+      "Capsule Corporation"
      ],
      "status": "agree",
      "sources": [
@@ -9255,6 +9413,25 @@
         "Pilaf Gang",
         "Capsule  Corporation"
        ]
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-emperor-pilaf",
+       "from": [
+        "Pilaf Gang",
+        "Mifan Army",
+        "Pilaf-Buggy Evil Alliance",
+        "Dragon Team",
+        "Capsule  Corporation"
+       ],
+       "to": [
+        "Pilaf Gang",
+        "Mifan Army",
+        "Dragon Team",
+        "Capsule Corporation"
+       ],
+       "why": "Pilaf-Buggy Evil Alliance: game-only; \"Capsule  Corporation\" had two spaces (DB6)"
       }
      ]
     },
@@ -12011,8 +12188,7 @@
     },
     "affiliation": {
      "value": [
-      "Dragon Team",
-      "Frieza Force"
+      "Dragon Team"
      ],
      "status": "single",
      "sources": [
@@ -12030,6 +12206,19 @@
        "url": "https://dragonball.fandom.com/wiki/Uub",
        "raw": "no category names a current group",
        "value": null
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-uub",
+       "from": [
+        "Dragon Team",
+        "Frieza Force"
+       ],
+       "to": [
+        "Dragon Team"
+       ],
+       "why": "Frieza Force (Frieza's Elite): game-only"
       }
      ]
     },
@@ -13575,10 +13764,7 @@
     "affiliation": {
      "value": [
       "Organization of Babidi",
-      "Dark Empire",
-      "Team 6",
-      "Berserkers",
-      "Dragon Team"
+      "Team 6"
      ],
      "status": "agree",
      "sources": [
@@ -13632,7 +13818,24 @@
        "https://dragonball.fandom.com/wiki/Dabura",
        "https://dragonball.fandom.com/wiki/Organization_of_Babidi"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB7-dabura",
+       "from": [
+        "Organization of Babidi",
+        "Dark Empire",
+        "Team 6",
+        "Berserkers",
+        "Dragon Team"
+       ],
+       "to": [
+        "Organization of Babidi",
+        "Team 6"
+       ],
+       "why": "Dark Empire, Berserkers: game-only; Dragon Team: after being revived"
+      }
+     ]
     },
     "home_planet": {
      "value": "Demon Realm",
@@ -13990,8 +14193,7 @@
     },
     "affiliation": {
      "value": [
-      "Shadow Dragon",
-      "Mastermind's group"
+      "Shadow Dragon"
      ],
      "status": "agree",
      "sources": [
@@ -14036,7 +14238,20 @@
        "https://dragonball.fandom.com/wiki/Syn_Shenron",
        "https://dragonball.fandom.com/wiki/Shadow_Dragon"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB7-syn-shenron",
+       "from": [
+        "Shadow Dragon",
+        "Mastermind's group"
+       ],
+       "to": [
+        "Shadow Dragon"
+       ],
+       "why": "Mastermind's group: game-only"
+      }
+     ]
     },
     "home_planet": {
      "value": "Earth",
@@ -17429,8 +17644,7 @@
     "affiliation": {
      "value": [
       "Dragon Clan",
-      "Dragon Team",
-      "Dark Empire"
+      "Dragon Team"
      ],
      "status": "agree",
      "sources": [
@@ -17478,7 +17692,22 @@
        "https://dragonball.fandom.com/wiki/Dende",
        "https://dragonball.fandom.com/wiki/Dragon_Clan"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB7-dende",
+       "from": [
+        "Dragon Clan",
+        "Dragon Team",
+        "Dark Empire"
+       ],
+       "to": [
+        "Dragon Clan",
+        "Dragon Team"
+       ],
+       "why": "Dark Empire (brainwashed slave): game-only"
+      }
+     ]
     },
     "home_planet": {
      "value": "Namek",
@@ -18651,9 +18880,7 @@
     },
     "affiliation": {
      "value": [
-      "Dragon Team",
-      "Time Patrol",
-      "Dragon Ball: The Breakers"
+      "Dragon Team"
      ],
      "status": "agree",
      "sources": [
@@ -18674,6 +18901,20 @@
        "value": [
         "Time Patrol"
        ]
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB7-king-kai",
+       "from": [
+        "Dragon Team",
+        "Time Patrol",
+        "Dragon Ball: The Breakers"
+       ],
+       "to": [
+        "Dragon Team"
+       ],
+       "why": "Time Patrol, Dragon Ball: The Breakers: game-only"
       }
      ]
     },
@@ -18984,7 +19225,7 @@
      ]
     },
     "race": {
-     "value": "Human",
+     "value": "Animal",
      "status": "agree",
      "sources": [
       {
@@ -19004,6 +19245,21 @@
        "url": null,
        "raw": null,
        "value": null
+      },
+      {
+       "source": "correction",
+       "id": "DB10b",
+       "url": "https://dragonball.fandom.com/wiki/Puar",
+       "raw": "Animal Type Earthling (Puar (species)",
+       "value": "Animal"
+      }
+     ],
+     "corrections": [
+      {
+       "id": "DB10b",
+       "from": "Human",
+       "to": "Animal",
+       "why": "DB10: one word for the three animal-type Earthlings"
       }
      ]
     },
@@ -21362,7 +21618,7 @@
      ]
     },
     "race": {
-     "value": "Cat",
+     "value": "Animal",
      "status": "agree",
      "sources": [
       {
@@ -21400,6 +21656,15 @@
        "url": "https://dragonball.fandom.com/wiki/Animal",
        "raw": "of the Red Ribbon Army who is a tiger), Korin (a cat deity who lives atop Korin Tower",
        "value": "Cat"
+      },
+      {
+       "source": "correction",
+       "id": "DB10c",
+       "url": "https://dragonball.fandom.com/wiki/Animal",
+       "raw": "Animal: the animal-type Earthlings, the two most recurring are Puar and Oolong, others include Korin (a cat deity)",
+       "value": "Animal",
+       "ref": "2273579",
+       "read": "2026-11-09"
       }
      ],
      "reviewed": true,
@@ -21410,7 +21675,15 @@
        "https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters#Korin",
        "https://dragonball.fandom.com/wiki/Animal"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB10c",
+       "from": "Cat",
+       "to": "Animal",
+       "why": "DB10: one word for the three animal-type Earthlings (the Fandom page Animal names Korin among them)"
+      }
+     ]
     },
     "affiliation": {
      "value": [
@@ -25859,8 +26132,7 @@
      "value": [
       "Dragon Team",
       "MIR",
-      "Kikoukenjutsu Sword School",
-      "Team Universe 6"
+      "Kikoukenjutsu Sword School"
      ],
      "status": "agree",
      "sources": [
@@ -25911,7 +26183,24 @@
        "https://dragonball.fandom.com/wiki/Goten",
        "https://dragonball.fandom.com/wiki/Monster_Island"
       ]
-     }
+     },
+     "corrections": [
+      {
+       "id": "DB7-goten",
+       "from": [
+        "Dragon Team",
+        "MIR",
+        "Kikoukenjutsu Sword School",
+        "Team Universe 6"
+       ],
+       "to": [
+        "Dragon Team",
+        "MIR",
+        "Kikoukenjutsu Sword School"
+       ],
+       "why": "Team Universe 6: baseball only"
+      }
+     ]
     },
     "home_planet": {
      "value": "Earth",

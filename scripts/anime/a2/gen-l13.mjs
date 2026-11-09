@@ -101,7 +101,7 @@ export function build({ all, top, l04, demographics }) {
         for (const x of srcs) {
           nSources++;
           rows.push(
-            `insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at) values ('character', ${q(sourceKey(s.slug, c.slug))}, ${q(f)}, ${q(x.source)}, ${q(x.ref)}, ${q(x.url)}, ${q(fetched)}::timestamptz) on conflict (entity_type, entity_id, field, source) do update set source_ref = excluded.source_ref, source_url = excluded.source_url, fetched_at = excluded.fetched_at where (entity_sources.source_ref, entity_sources.source_url, entity_sources.fetched_at) is distinct from (excluded.source_ref, excluded.source_url, excluded.fetched_at);`,
+            `insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at) values ('character', ${q(sourceKey(s.slug, c.slug))}, ${q(f)}, ${q(x.source)}, ${q(x.ref)}, ${q(x.url)}, ${q(x.read ? `${x.read}T00:00:00Z` : fetched)}::timestamptz) on conflict (entity_type, entity_id, field, source) do update set source_ref = excluded.source_ref, source_url = excluded.source_url, fetched_at = excluded.fetched_at where (entity_sources.source_ref, entity_sources.source_url, entity_sources.fetched_at) is distinct from (excluded.source_ref, excluded.source_url, excluded.fetched_at);`,
           );
         }
       }
