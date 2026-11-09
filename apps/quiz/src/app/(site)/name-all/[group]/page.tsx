@@ -13,6 +13,7 @@ import { getPlayableGroups, settle } from '@/lib/ux-v1/p6/hub-data';
 import { isUxV12 } from '@/lib/ux-v12';
 import { groupOgImage } from '@/lib/seo/og';
 
+import { isDemoted } from '@/lib/seo/demand-gate';
 import type { NameAllSet } from '@/lib/name-all/server';
 import type { Metadata } from 'next';
 
@@ -56,7 +57,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
     title,
     description,
     alternates: { canonical },
-    robots: pretty ? { index: true, follow: true } : { index: false, follow: true },
+    robots: pretty && !isDemoted('name-all', set.group.slug) ? { index: true, follow: true } : { index: false, follow: true },
     openGraph: { title, description, url: `${SITE}${canonical}`, type: 'website', images: [groupOgImage(set.group.slug, title)] },
     twitter: { card: 'summary', title, description },
   };

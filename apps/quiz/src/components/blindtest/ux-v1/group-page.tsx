@@ -13,6 +13,7 @@ import { groupOgImage } from '@/lib/seo/og';
 
 import { BtModeControllerLoader, BtModeErrorLoader, BtThemePlayLoader } from './mode-loader';
 
+import { demandRobots } from '@/lib/seo/demand-gate';
 import type { BtGroup } from '@/lib/ux-v1/p6/playlists';
 import type { Metadata } from 'next';
 
@@ -31,6 +32,7 @@ export function groupBlindtestMetadata(group: BtGroup): Metadata {
     title: copy.title,
     description: copy.description,
     alternates: { canonical: path },
+    ...demandRobots('bt-group', group.slug),
     openGraph: { title: `${copy.title} | KpopQuiz`, description: copy.description, url: path, images: [groupOgImage(group.slug, copy.title)] },
   };
 }

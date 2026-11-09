@@ -17,6 +17,7 @@ import { jsonLdScript } from '@/lib/verse/jsonld';
 import { groupOgImage } from '@/lib/seo/og';
 import { fitTitle } from '@/lib/seo/title-fit';
 
+import { demandRobots } from '@/lib/seo/demand-gate';
 import type { Metadata } from 'next';
 
 // V12 G5 (SYSTEM.md 5.2): Which member are you, one page per group that has a
@@ -60,6 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     alternates: { canonical: url },
+    ...demandRobots('which-member', page.group.slug),
     openGraph: { title: `${title} | KpopQuiz`, description, url, type: 'website', images: [groupOgImage(page.group.slug, title)] },
   };
 }

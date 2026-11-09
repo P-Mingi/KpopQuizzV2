@@ -111,4 +111,19 @@ describe('app/sitemap.ts indexing gates', () => {
       expect(after).toContain('/quizzes/popular-this-week');
     } finally { vi.doUnmock('@/lib/seo/list-noindex'); }
   });
+
+  it('P1-6: a variant page the owner moved under its hub leaves the sitemap; the others stay', async () => {
+    vi.resetModules();
+    vi.doMock('@/lib/seo/demand-gate', async (orig) => {
+      const real = await orig<typeof import('@/lib/seo/demand-gate')>();
+      const demoted = new Set(['/blindtest/group-twice']);
+      return { ...real, isDemotedPath: (p: string) => demoted.has(p) };
+    });
+    try {
+      const after = await urls(false);
+      expect(after).not.toContain('/blindtest/group-twice');
+      expect(after).toContain('/blindtest/group-bts');
+    } finally { vi.doUnmock('@/lib/seo/demand-gate'); }
+    expect(await urls(false)).toContain('/blindtest/group-twice');
+  });
 });
