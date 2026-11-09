@@ -45,7 +45,7 @@ describe('the mails', () => {
     expect(m.headers['List-Unsubscribe']).toContain('/api/reminders/unsubscribe');
     expect(m.headers['List-Unsubscribe-Post']).toBe('List-Unsubscribe=One-Click');
     expect(m.html).not.toMatch(/<img|pixel|utm_|track/i);
-    expect(m.text + m.html).not.toMatch(/[–—]/);
+    expect(m.text + m.html).not.toMatch(/[\u2013\u2014]/);
     for (const href of m.html.match(/href="([^"]+)"/g) ?? []) expect(href).toContain('https://kpopquiz.org');
   });
   it('the confirmation mail has one link', () => {
