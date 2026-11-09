@@ -1,0 +1,86 @@
+{
+  "checked_on": "2026-11-09",
+  "shows": [
+    {
+      "id": "mma-2026",
+      "name": "Melon Music Awards 2026 (MMA2026, the 18th)",
+      "days": ["2026-11-14", "2026-11-15"],
+      "venue": "Gocheok Sky Dome, Seoul",
+      "status": "confirmed",
+      "gives_awards": true,
+      "sources": [
+        { "url": "https://newsroom.kakaoent.com/news/kakao-entertainment-to-host-mma2026-on-nov-14-15/", "publisher": "Kakao Entertainment newsroom", "kind": "official", "read_on": "2026-11-09" },
+        { "url": "https://www.melon.com/mma/info.htm", "publisher": "Melon", "kind": "official", "read_on": "2026-11-09" }
+      ],
+      "nominees_url": null,
+      "winners_url": null,
+      "quiz_slug": "mma-awards-quiz",
+      "prep_days": 10,
+      "allowed_categories": ["grand_prize", "main_prize", "genre_prize", "show_facts", "history"]
+    },
+    {
+      "id": "mama-2026",
+      "name": "2026 MAMA Awards",
+      "days": ["2026-11-20", "2026-11-21"],
+      "venue": "Kyocera Dome Osaka, Osaka",
+      "status": "confirmed",
+      "gives_awards": true,
+      "sources": [
+        { "url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/", "publisher": "CJ Newsroom", "kind": "official", "read_on": "2026-11-09" }
+      ],
+      "nominees_url": null,
+      "winners_url": null,
+      "quiz_slug": "mama-awards-quiz",
+      "prep_days": 10,
+      "allowed_categories": ["grand_prize", "main_prize", "genre_prize", "show_facts", "history"]
+    },
+    {
+      "id": "aaa-2026",
+      "name": "Asia Artist Awards 2026 (AAA 2026)",
+      "days": ["2026-12-05", "2026-12-06"],
+      "venue": "Kaohsiung National Stadium, Kaohsiung",
+      "status": "reported",
+      "gives_awards": true,
+      "sources": [
+        { "url": "https://sports.khan.co.kr/en/article/202609160040007", "publisher": "Sports Kyunghyang (English)", "kind": "outlet", "read_on": "2026-11-09" }
+      ],
+      "nominees_url": null,
+      "winners_url": null,
+      "quiz_slug": "asia-artist-awards-quiz",
+      "prep_days": 10,
+      "allowed_categories": ["grand_prize", "main_prize", "show_facts", "history"]
+    },
+    {
+      "id": "sbs-gayo-daejeon-2026",
+      "name": "2026 SBS Gayo Daejeon",
+      "days": ["2026-12-24", "2026-12-25"],
+      "venue": "KINTEX, Ilsan",
+      "status": "reported",
+      "gives_awards": false,
+      "sources": [
+        { "url": "https://sports.khan.co.kr/en/article/202610231611007", "publisher": "Sports Kyunghyang (English)", "kind": "outlet", "read_on": "2026-11-09" }
+      ],
+      "nominees_url": null,
+      "winners_url": null,
+      "quiz_slug": "sbs-gayo-daejeon-quiz",
+      "prep_days": 10,
+      "allowed_categories": ["show_facts", "history"]
+    },
+    {
+      "id": "golden-disc-41",
+      "name": "41st Golden Disc Awards",
+      "days": ["2027-01-09", "2027-01-10"],
+      "venue": "Vietnam Exposition Center, Hanoi",
+      "status": "reported",
+      "gives_awards": true,
+      "sources": [
+        { "url": "https://www.koreajoongangdaily.com/entertainment/41st-golden-disc-awards-to-be-held-for-2-days-in-hanoi-in-january/12859862", "publisher": "Korea JoongAng Daily", "kind": "outlet", "read_on": "2026-11-09" }
+      ],
+      "nominees_url": null,
+      "winners_url": null,
+      "quiz_slug": "golden-disc-awards-quiz",
+      "prep_days": 10,
+      "allowed_categories": ["grand_prize", "main_prize", "show_facts", "history"]
+    }
+  ]
+}
