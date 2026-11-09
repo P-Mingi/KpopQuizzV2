@@ -29840,6 +29840,15 @@
          "url": null,
          "raw": null,
          "value": null
+        },
+        {
+         "source": "correction",
+         "id": "RS37",
+         "url": "https://dragonball.fandom.com/wiki/Gohan",
+         "raw": "tan) <br>Mightiest Warrior Gohan |manga debut = \"Kakarrot\" |anime debut = \"The",
+         "value": "main",
+         "ref": "2274275",
+         "read": "2026-11-09"
         }
        ],
        "sources_agreeing": [
@@ -29851,7 +29860,15 @@
         "pages": [
          "docs/anime/data/series/dragon-ball.json"
         ]
-       }
+       },
+       "corrections": [
+        {
+         "id": "RS37",
+         "from": "main",
+         "to": "main",
+         "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)"
+        }
+       ]
       },
       "first_appearance": {
        "value": null,
@@ -136315,6 +136332,15 @@
          "url": null,
          "raw": null,
          "value": null
+        },
+        {
+         "source": "correction",
+         "id": "RS38",
+         "url": "https://tensura.fandom.com/wiki/Rimuru_Tempest",
+         "raw": "|light = Volume 1: Empowerment |manga = Chapter 1: Death and Reincarnation |anime = Episode 1:",
+         "value": "main",
+         "ref": "214489",
+         "read": "2026-11-09"
         }
        ],
        "sources_agreeing": [
@@ -136326,7 +136352,15 @@
         "pages": [
          "docs/anime/data/series/that-time-i-got-reincarnated-as-a-slime.json"
         ]
-       }
+       },
+       "corrections": [
+        {
+         "id": "RS38",
+         "from": "main",
+         "to": "main",
+         "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)"
+        }
+       ]
       },
       "first_appearance": {
        "value": "Chapter 1 / Episode 1",

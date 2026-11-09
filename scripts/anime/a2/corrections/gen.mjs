@@ -6,6 +6,7 @@ import path from 'node:path';
 import { LAUNCH, load } from './engine.mjs';
 import { writeL21 } from './gen-l21.mjs';
 import { writeL22 } from './gen-l22.mjs';
+import { writeL23 } from './gen-l23.mjs';
 
 const arg = (n, f) => { const i = process.argv.indexOf(`--${n}`); return i >= 0 ? process.argv[i + 1] : f; };
 const D = load();
@@ -20,5 +21,8 @@ if (!process.argv.includes('--check')) {
   writeFileSync(path.join(out, 'L21-l1-series-games-corrections.rollback.sql'), L.down);
   writeFileSync(path.join(out, 'L22-l1-otakudle-facts-corrections.sql'), M.up);
   writeFileSync(path.join(out, 'L22-l1-otakudle-facts-corrections.rollback.sql'), M.down);
+  const N = writeL23();
+  writeFileSync(path.join(out, 'L23-l1-otakudle-first-adaptation.sql'), N.up);
+  writeFileSync(path.join(out, 'L23-l1-otakudle-first-adaptation.rollback.sql'), N.down);
   console.log(`written in ${out}`);
 }

@@ -2469,6 +2469,38 @@
    "srcOnly": true
   },
   {
+   "id": "RS37",
+   "series": "dragon-ball",
+   "slug": "gohan",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Gohan",
+    "ref": "2274275",
+    "read": "2026-11-09",
+    "raw": "tan) <br>Mightiest Warrior Gohan |manga debut = \"Kakarrot\" |anime debut = \"The"
+   },
+   "srcOnly": true
+  },
+  {
+   "id": "RS38",
+   "series": "that-time-i-got-reincarnated-as-a-slime",
+   "slug": "rimuru-tempest",
+   "col": "role_at_debut",
+   "old": "main",
+   "new": "main",
+   "why": "OT-D4: the role had no external source; the page is the source of the value (unchanged)",
+   "src": {
+    "url": "https://tensura.fandom.com/wiki/Rimuru_Tempest",
+    "ref": "214489",
+    "read": "2026-11-09",
+    "raw": "|light = Volume 1: Empowerment |manga = Chapter 1: Death and Reincarnation |anime = Episode 1:"
+   },
+   "srcOnly": true
+  },
+  {
    "id": "DA5",
    "series": "dandadan",
    "slug": "count-saint-germain",

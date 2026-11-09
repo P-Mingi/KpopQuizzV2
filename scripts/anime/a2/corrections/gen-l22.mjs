@@ -275,7 +275,7 @@ export function writeL22(D) {
     `-- WHEN:   apply by the owner after a backup, just after 00:30 UTC, never between 23:50 and 00:30 UTC, never during a build. The first statements read dle_schedule for today and the next 7 days and abort`,
     `--         (nothing is written) if a character that stops being a possible answer is scheduled there (${p.flips.filter((f) => f.from && !f.to).map((f) => f.slug).join(', ') || 'none'}); ORCH reads those 7 days in production before the owner applies.`,
     `--         A guess is stored as the entity id only and its colours are computed on every read, so a game in progress is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.`,
-    `--         The pool of answers changes (${p.flips.filter((f) => !f.from && f.to).length} characters become possible answers, ${p.flips.filter((f) => f.from && !f.to).length} stops): the next dle_daily_maintenance sees a new pool hash and rebuilds the bank from today.`,
+    `--         The pool of answers changes (${p.flips.filter((f) => !f.from && f.to).length} characters become possible answers, ${p.flips.filter((f) => f.from && !f.to).length} stops): the next dle_daily_maintenance sees a new pool hash and rebuilds the bank (L18: it keeps today and the 7 days after it).`,
     undo,
     `-- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).`,
     ``,

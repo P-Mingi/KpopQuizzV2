@@ -165,7 +165,8 @@ export function sourcesOf(field, ch, anyPage = false) {
   for (const s of field.sources ?? []) {
     if (!s.url || !(anyPage || supports(field.value, s.value))) continue;
     const source = sourceOf(s.url);
-    if (!source || rows.has(source)) continue;
+    // a correction (it names the revision it read) replaces an older row of the same source: the row must carry the revision
+    if (!source || (rows.has(source) && (s.ref === undefined || s.ref === null))) continue;
     let ref = null;
     if (source === 'wikidata') ref = /\/wiki\/(Q[0-9]+)$/.exec(s.url)?.[1] ?? ch.ids?.wikidata_qid ?? null;
     if (source === 'fandom') ref = ch.ids?.fandom_revision ? String(ch.ids.fandom_revision) : null;
