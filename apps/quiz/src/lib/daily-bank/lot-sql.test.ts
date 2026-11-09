@@ -34,17 +34,16 @@ describe('buildLotSql', () => {
   });
 
   it('stops the transaction when a row of the lot is not a kpop row', () => {
-    const check = out.sql.slice(out.sql.indexOf('do $$'), out.sql.indexOf('end $$;'));
+    const check = out.sql.slice(out.sql.indexOf('do $lot$'), out.sql.indexOf('end $lot$;'));
     expect(check).toContain(`and not (${KPOP})`);
     // Only the rows this transaction inserted: an anime row that shares a title stays out of it.
     expect(check).toContain("qb.verified_at = now() and qb.title in ('ZEROBASEONE: In Bloom', 'K-pop Agency Founders')");
     expect(check).toContain("raise exception 'daily bank lot 2: a row of this lot is not a kpop row, nothing applied'");
-    expect(out.sql.indexOf('do $$')).toBeGreaterThan(out.sql.indexOf('insert into'));
-    expect(out.sql.indexOf('do $$')).toBeLessThan(out.sql.indexOf('commit;'));
+    expect(check.indexOf('raise exception')).toBeGreaterThan(check.indexOf('insert into'));
   });
 
   it('checks dates and rolls back among kpop rows only', () => {
-    expect(out.sql).toMatch(new RegExp(`status in \\('verified', 'scheduled'\\) and ${KPOP.replace(/[()|.*+?^$[\]\\{}]/g, '\\$&')}\\ngroup by scheduled_date`));
+    expect(out.sql).toContain(`qb.status in ('verified', 'scheduled') and ${KPOP}\n    group by qb.scheduled_date having count(*) > 1`);
     expect(out.rollback).toContain(`published_quiz_id is null and ${KPOP};`);
     expect(out.rollback).toContain("title in ('ZEROBASEONE: In Bloom', 'K-pop Agency Founders')");
   });
@@ -54,13 +53,26 @@ describe('buildLotSql', () => {
     expect(buildLotSql('1', [quiz('2026-10-24', 'X')], idOf).sql).toContain(`scheduled_date >= '2029-01-01' and ${KPOP};`);
   });
 
+  it('is ONE do block with no temp table, no begin or commit, and Verify lines in the header', () => {
+    for (const sql of [out.sql, out.rollback]) {
+      const code = sql.split('\n').filter((l) => !l.startsWith('--')).join('\n').trim();
+      expect(code.startsWith('do $lot$')).toBe(true);
+      expect(code.endsWith('end $lot$;')).toBe(true);
+      expect(code.match(/\bdo \$/g)).toHaveLength(1);
+      expect(code).not.toMatch(/\b(begin;|commit;)|temp(orary)?\s+table/i);
+      expect(code).toContain("set_config('lock_timeout', '5s', true)");
+    }
+    expect(out.sql.match(/^-- Verify: /gm)).toHaveLength(4);
+    expect(out.rollback.match(/^-- Verify: /gm)).toHaveLength(2);
+  });
+
   it('keeps the review placeholders when no review is recorded, and writes no dash', () => {
     const draft = buildLotSql('2', lot, idOf);
     expect(draft.sql).toContain('-- REVIEW NOT RECORDED');
     expect(draft.sql).toContain('checked by {REVIEWER} on {REVIEW_DATE}.');
     // The draft refuses to apply until the review is written in.
     expect(draft.sql).toContain("raise exception 'daily bank lot 2: review not recorded");
-    expect(draft.sql.indexOf('review not recorded (')).toBeLessThan(draft.sql.indexOf('commit;'));
+    expect(draft.sql.indexOf('review not recorded (')).toBeLessThan(draft.sql.indexOf('end $lot$;'));
     expect(out.sql).not.toContain('review not recorded');
     expect(`${out.sql}${out.rollback}${draft.sql}`).not.toMatch(/[\u2013\u2014]/);
   });
