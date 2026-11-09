@@ -115,7 +115,7 @@ export function ResultLoop({
   // Same pattern as the quiz result: native share when the device offers it,
   // clipboard plus a toast when it does not. A cancelled share is not an error.
   const handleShare = useCallback(async () => {
-    analytics.shareClick(game);
+    analytics.shareClick('result', game);
     const absolute =
       typeof window !== 'undefined' ? `${window.location.origin}${BASE_PATH}${shareUrl}` : shareUrl;
 
