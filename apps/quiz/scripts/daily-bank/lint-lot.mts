@@ -196,6 +196,17 @@ async function main(): Promise<void> {
     if (week.length > 3) err(q.scheduled_date, `${q.group_slug}: more than 3 quizzes in 7 days`);
   }
 
+  // Audit 01 P1-7: at least 70% of a lot is multi-group or general (no group_slug), and at most 2 single-group days in any 7. An
+  // error for a lot that starts on 2026-12-23 or later (lot 4 on); lots 1 to 3 are already written and reviewed, so for them it is a warning.
+  const quotaStart = lot[0]?.scheduled_date ?? '';
+  const quota = quotaStart >= '2026-12-23' ? err : warn;
+  const single = lot.filter((q) => q.group_slug);
+  if (lot.length > 0 && single.length / lot.length > 0.3) quota(quotaStart, `${single.length} of ${lot.length} quizzes are single-group (${Math.round((single.length / lot.length) * 100)}%): at least 70% must be multi-group or general`);
+  for (const q of lot) {
+    const week = single.filter((x) => x.scheduled_date >= q.scheduled_date && x.scheduled_date <= addDays(q.scheduled_date, 6));
+    if (week.length > 2) { quota(q.scheduled_date, `more than 2 single-group days in the 7 days from ${q.scheduled_date}`); break; }
+  }
+
   // Mix.
   const count = (key: keyof LotQuiz): Record<string, number> => lot.reduce<Record<string, number>>((acc, q) => { const k = String(q[key] ?? 'none'); acc[k] = (acc[k] ?? 0) + 1; return acc; }, {});
   console.log(`${lot.length} quizzes, ${lot[0]?.scheduled_date} to ${lot.at(-1)?.scheduled_date}`);
