@@ -187,7 +187,20 @@ const NOINDEX_ALLOWED: ReadonlyArray<readonly [RegExp, string]> = [
  * Noindex pages kept on purpose with a written reason (rulebook 9.2: "any other noindex needs
  * a written reason"). Add a row here, with the reason, in the PR that decides it.
  */
-export const DOCUMENTED_NOINDEX: ReadonlyArray<{ pattern: RegExp; reason: string }> = [];
+export const DOCUMENTED_NOINDEX: ReadonlyArray<{ pattern: RegExp; reason: string }> = [
+  // O1 audit 03 P1-4: the utility pages that were noindex without a written reason (owner decision of 2026-11-09).
+  { pattern: /^\/community(\/|$)/, reason: 'community feed and its posts: user-generated, changes by the minute, no search intent of its own' },
+  { pattern: /^\/live(\/|$)/, reason: 'live rooms: a real-time lobby with no stable content' },
+  { pattern: /^\/creators(\/|$)/, reason: 'creator dashboard: a tool for signed-in creators' },
+  { pattern: /^\/credits(\/|$)/, reason: 'credits page: attribution for visitors, no search intent' },
+  { pattern: /^\/join(\/|$)/, reason: 'room join page: a code entry form' },
+  { pattern: /^\/blindtest\/ranked$/, reason: 'ranked blind test: needs a session, the playable page is /blindtest' },
+  { pattern: /^\/blindtest\/leaderboard$/, reason: 'blind test leaderboard: a daily changing board (rulebook 9.2, daily leaderboards)' },
+  // O1 audit 03 P0: the pages taken out of the index and the sitemap on purpose.
+  { pattern: /^\/news$/, reason: 'list of outbound headlines from news sites, some about private life (rulebook 0 and 1.4)' },
+  { pattern: /^\/[a-z0-9]+(?:-[a-z0-9]+)*-trivia$/, reason: 'trivia built from our own user quizzes, no visible source (rulebook 5.5 and 5.7); a group with a sourced fact file is indexable and listed, and a sitemap URL that is noindex fails the sitemap check' },
+  { pattern: /^\/verse$/, reason: 'KpopVerse teaser, about 75 words, while the Verse is hidden (VERSE_PUBLIC off); indexable and listed again once it opens' },
+];
 
 export type NoindexVerdict = { allowed: true; why: string } | { allowed: false; hub?: { kind: 'quiz' | 'blindtest'; slug: string } };
 
