@@ -35,6 +35,7 @@ import { formFromRow, formProblems, prefsPayload, profilePayload, usernameProble
 
 import { HeaderPicker } from './header-picker';
 import { clearHeader, announceHeader } from './header-actions';
+import { DailyReminderSetting } from './daily-reminder-setting';
 
 import type { ThemeChoice } from '@/lib/ux-v1/a0/theme';
 import type { ProfileForm, ProfileRow, UsernameStatus } from '@/lib/ux-v1/p10/settings-model';
@@ -571,6 +572,8 @@ export function UxSettings({ world }: { world?: SettingsWorld | undefined } = {}
               <UxSwitch checked={false} disabled label={r.label} onChange={() => undefined} />
             </div>
           ))}
+          {/* Audit 01 P2-10: renders nothing unless the server flag is on, the L27 table is there and the player is signed in. */}
+          {world ? null : <DailyReminderSetting />}
         </div>
       </section>
 
