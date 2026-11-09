@@ -9,7 +9,7 @@ describe('daily hub copy (kpopquiz-seo)', () => {
     expect(DAILY_HUB_TITLE.length + ' | KpopQuiz'.length).toBeLessThanOrEqual(60);
     expect(DAILY_HUB_DESCRIPTION.length).toBeGreaterThanOrEqual(120);
     expect(DAILY_HUB_DESCRIPTION.length).toBeLessThanOrEqual(160);
-    expect(DAILY_HUB_TITLE + DAILY_HUB_DESCRIPTION).not.toMatch(/[–—]/);
+    expect(DAILY_HUB_TITLE + DAILY_HUB_DESCRIPTION).not.toMatch(/[\u2013\u2014]/);
   });
   it('the answer block is 40 to 60 words, with the dated number only when it is real', () => {
     const a = dailyHubAnswer({ date: '2026-11-09', questions: 10 });
