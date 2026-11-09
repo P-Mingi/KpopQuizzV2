@@ -37,3 +37,10 @@ html.ux-v1[data-site="hub"] .hub-h1-policy-h { margin: 0 0 8px; font-size: 20px;
 html.ux-v1[data-site="hub"] .hub-h1-prose { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--ux-ink); }
 html.ux-v1[data-site="hub"] .hub-h1-prose-list { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; line-height: 1.55; color: var(--ux-ink); overflow-wrap: anywhere; }
 html.ux-v1[data-site="hub"] .hub-h1-policy .hub-h1-shares { margin: 0 0 12px; }
+
+/* The common passport (components/hub/hub-passport.tsx): the total, then one block per site. */
+html.ux-v1[data-site="hub"] .hub-h1-pass-h { margin: 0 0 8px; font-size: 28px; font-weight: 700; color: var(--ux-ink); overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-h1-pass-total { margin: 0 0 20px; font-size: 18px; font-weight: 600; color: var(--ux-ink); }
+html.ux-v1[data-site="hub"] .hub-h1-pass-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--hub-gap); }
+html.ux-v1[data-site="hub"] .hub-h1-pass-site { padding: 16px; border: 1px solid var(--ux-line); border-radius: 12px; background: var(--ux-surface); }
+html.ux-v1[data-site="hub"] .hub-h1-pass-level { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--ux-ink); }
