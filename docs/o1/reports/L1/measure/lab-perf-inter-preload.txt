@@ -1,0 +1,3 @@
+{"variant":"inter","path":"/","n":5,"fcp":2672,"lcp":2672,"cls":0.0448,"lcpAll":[2672,2560,2664,2972,2992]}
+{"variant":"inter","path":"/q/are-you-a-real-coer","n":5,"fcp":3068,"lcp":3068,"cls":0.0044,"lcpAll":[2724,2704,3376,3316,3068]}
+{"variant":"inter","path":"/blindtest","n":5,"fcp":3040,"lcp":3092,"cls":0,"lcpAll":[2864,3040,3124,3092,3348]}

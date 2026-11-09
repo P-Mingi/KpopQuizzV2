@@ -1,0 +1,6 @@
+/_next/static/chunks/0hp4b4s2gnj_-.css           bytes    3118 used by any of 16 loads     816 26.2% max single load 816
+/_next/static/chunks/0gacxk9mywb7f.css           bytes    2853 used by any of 16 loads     419 14.7% max single load 419
+/_next/static/chunks/0cag-q0g3v98y.css           bytes  399143 used by any of 16 loads    8465 2.1% max single load 8240
+/api/ux-v1/a0/styles                             bytes  229172 used by any of 16 loads   55131 24.1% max single load 20809
+/_next/static/chunks/01.9f5fh23kex.css           bytes    1670 used by any of 16 loads    1420 85.0% max single load 1420
+TOTAL 635956 used-by-any 66251 10.4%
