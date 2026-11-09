@@ -63,18 +63,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
     },
     {
-     "question": "On what date did the Bleach manga end in Weekly Shonen Jump?",
+     "question": "Which award did the Bleach manga win in the shonen category in 2005?",
      "options": [
-      "7 August 2001",
-      "5 October 2004",
-      "22 August 2016",
-      "27 March 2012"
+      "Kodansha Manga Award",
+      "Japan Media Arts Festival Grand Prize",
+      "Shogakukan Manga Award",
+      "Tezuka Osamu Cultural Prize"
      ],
      "correct": 2,
-     "kind": "manga",
+     "kind": "award",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
@@ -135,7 +135,7 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
     },
     {
-     "question": "On what date did the first Bleach anime begin on TV Tokyo?",
+     "question": "On what date did the first Bleach anime premiere in Japan?",
      "options": [
       "5 October 2004",
       "11 October 2022",
@@ -152,21 +152,21 @@
      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)"
     },
     {
-     "question": "Which band performed D-tecnoLife, the second opening of the first Bleach anime?",
+     "question": "By 2022, roughly how many copies of the Bleach manga were in circulation worldwide?",
      "options": [
-      "Aqua Timez",
-      "SCANDAL",
-      "UVERworld",
-      "SID"
+      "13 million",
+      "70 million",
+      "130 million",
+      "300 million"
      ],
      "correct": 2,
-     "kind": "music",
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/List_of_Bleach_soundtracks"
+     "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)"
     }
    ],
    "verdicts": [
@@ -198,7 +198,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who directed the original Bleach anime?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Same fact as the taken row \"Soul Reaper Statements: True or False\" (Bleach ran in Weekly Shonen Jump until August 2016). Replaced by the 2005 Shogakukan Manga Award, read on the manga page (50th Shogakukan Manga Award, shonen category, 2005; the English edition lost its American Anime Awards nominations).",
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+      "revision": 1383591576,
+      "revision_timestamp": "2026-11-03T15:25:23Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the Bleach manga end in Weekly Shonen Jump?",
+      "before_options": [
+       "7 August 2001",
+       "5 October 2004",
+       "*22 August 2016",
+       "27 March 2012"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 3,
@@ -219,7 +235,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which sequel series began on TV Tokyo on 11 October 2022?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: Fade to Black released December 13, 2008. Other options are the 2006, 2007 and 2010 films. Different film from the published \"December 2010\" question.",
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+      "revision": 1384593874,
+      "revision_timestamp": "2026-11-09T01:29:36Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 5,
@@ -240,7 +264,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who took over as director from Noriyuki Abe for the Thousand-Year Blood War series?",
      "replacement_verdict": "OK",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "FIX",
+      "note": "The question named TV Tokyo, which is the answer to question 2 of the same quiz (which network aired the first Bleach anime). Reworded; date 5 October 2004 confirmed on the TV series page.",
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+      "revision": 1384593874,
+      "revision_timestamp": "2026-11-09T01:29:36Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the first Bleach anime begin on TV Tokyo?",
+      "before_options": [
+       "*5 October 2004",
+       "11 October 2022",
+       "16 December 2006",
+       "27 March 2012"
+      ]
+     }
     },
     {
      "index": 7,
@@ -252,7 +291,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many opening songs did the 2004 to 2012 anime use?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "D-tecnoLife as the second opening (UVERworld, episodes 26-51) is the false statement of the published \"Zanpakuto Check: True or False\" row (same fact). Replaced by the 2022 circulation figure on the manga page (\"over 130 million copies ... by 2022\").",
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+      "revision": 1383591576,
+      "revision_timestamp": "2026-11-03T15:25:23Z",
+      "read_on": "2026-11-09",
+      "before": "Which band performed D-tecnoLife, the second opening of the first Bleach anime?",
+      "before_options": [
+       "Aqua Timez",
+       "SCANDAL",
+       "*UVERworld",
+       "SID"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     }
    ]
   },
@@ -306,11 +361,11 @@
      "question": "In which month and year did the original Naruto anime finish airing?",
      "options": [
       "March 2012",
-      "February 2007",
+      "March 2017",
       "October 2002",
-      "March 2017"
+      "February 2007"
      ],
-     "correct": 1,
+     "correct": 3,
      "kind": "episode",
      "spoiler": {
       "arc": 0,
@@ -356,35 +411,35 @@
      "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
     {
-     "question": "In which month and year did Naruto: Shippuden finish airing?",
+     "question": "How many tankobon volumes collect the whole Naruto manga?",
      "options": [
-      "March 2007",
-      "March 2012",
-      "March 2017",
-      "March 2022"
+      "27",
+      "48",
+      "72",
+      "100"
      ],
      "correct": 2,
-     "kind": "episode",
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
+     "source_url": "https://en.wikipedia.org/wiki/Naruto"
     },
     {
-     "question": "In which month and year did the original Naruto anime begin airing?",
+     "question": "On which US channel did the English dub of the original Naruto anime air?",
      "options": [
-      "April 1999",
-      "February 2007",
-      "October 2002",
-      "March 2017"
+      "Nickelodeon",
+      "Fox Kids",
+      "Cartoon Network",
+      "Disney XD"
      ],
      "correct": 2,
-     "kind": "episode",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)"
@@ -429,7 +484,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which studio animated Naruto?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: Blue Bird is the third Shippuden opening, by Ikimonogakari. Not asked in the published Naruto quizzes or the taken Naruto row.",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+      "revision": 1383210738,
+      "revision_timestamp": "2026-11-01T15:37:25Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 2,
@@ -441,7 +504,16 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "In which magazine was the Naruto manga serialized?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: first series ran October 2002 to February 2007 (aired Oct 3, 2002 to Feb 8, 2007). Published rows ask the start year and the Shippuden end, not this.",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+      "revision": 1383210738,
+      "revision_timestamp": "2026-11-01T15:37:25Z",
+      "read_on": "2026-11-09",
+      "options_reordered": "options reordered only to break a run of equal answer positions in the quiz"
+     }
     },
     {
      "index": 3,
@@ -453,7 +525,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "In which year did the Naruto manga begin in Weekly Shonen Jump?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Naruto page: manga ran September 1999 to November 10, 2014. Published rows ask the start year only.",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto",
+      "revision": 1384634084,
+      "revision_timestamp": "2026-11-09T06:59:17Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 4,
@@ -474,7 +554,23 @@
      "note": "Akeboshi ending claim only on the Japanese page, not confirmed on the English source. Replaced by the end date of Shippuden (verified).",
      "original_question": "Akeboshi sang Wind at the start of the first Naruto series. Which much later ending did he also perform?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Naruto From Zero\" asks the year Shippuden finished (2017): same fact with a finer answer. Replaced by the volume count on the Naruto page (72 tankobon volumes, 27 for Part I).",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto",
+      "revision": 1384634084,
+      "revision_timestamp": "2026-11-09T06:59:17Z",
+      "read_on": "2026-11-09",
+      "before": "In which month and year did Naruto: Shippuden finish airing?",
+      "before_options": [
+       "March 2007",
+       "March 2012",
+       "*March 2017",
+       "March 2022"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 6,
@@ -487,7 +583,23 @@
      "original_question": "Hero's Come Back!! accompanied how many episodes at the start of Naruto: Shippuden?",
      "replacement_verdict": "OK",
      "options_reordered": true,
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Naruto From Zero\" asks the year the first anime began (2002): same fact with a finer answer. Replaced by the English dub channel on the TV page (Cartoon Network and YTV, 2005 to 2009; Shippuden dub on Disney XD).",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+      "revision": 1383210738,
+      "revision_timestamp": "2026-11-01T15:37:25Z",
+      "read_on": "2026-11-09",
+      "before": "In which month and year did the original Naruto anime begin airing?",
+      "before_options": [
+       "April 1999",
+       "February 2007",
+       "*October 2002",
+       "March 2017"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 7,
@@ -606,7 +718,7 @@
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
     },
     {
-     "question": "Which band performed More than Words, an ending of season 2?",
+     "question": "Which band performed More Than Words, an ending of season 2?",
      "options": [
       "ALI",
       "Cö shu Nie",
@@ -691,7 +803,15 @@
      "read_on": "2026-11-09",
      "note": "Where Our Blue Is opens only episodes 1 to 5 of season 2 (Specialz replaces it); wording made exact.",
      "original_question": "Which singer performed the season 2 opening Where Our Blue Is?",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: Tatsuya Kitani performed Where Our Blue Is, the opening of the first five episodes of season 2 (Hidden Inventory / Premature Death). The wording \"an opening\" is exact.",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "revision_timestamp": "2026-11-08T15:35:56Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 3,
@@ -720,7 +840,22 @@
      "read_on": "2026-11-09",
      "note": "More Than Words ends only the Shibuya Incident episodes of season 2; wording made exact.",
      "original_question": "Which band performed the season 2 ending More than Words?",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "FIX",
+      "note": "Page spells the song \"More Than Words\" (capital T); the ending of the Shibuya Incident episodes of season 2, by Hitsujibungaku. Title case fixed, answer unchanged.",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "revision_timestamp": "2026-11-08T15:35:56Z",
+      "read_on": "2026-11-09",
+      "before": "Which band performed More than Words, an ending of season 2?",
+      "before_options": [
+       "ALI",
+       "Cö shu Nie",
+       "King Gnu",
+       "*Hitsujibungaku"
+      ]
+     }
     },
     {
      "index": 6,
@@ -829,18 +964,18 @@
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-     "question": "Which band performed Shout Baby, an ending of season 4?",
+     "question": "On which US programming block did the English dub of My Hero Academia air up to its sixth season?",
      "options": [
-      "Ryokuoushoku Shakai",
-      "the Peggies",
-      "Six Lounge",
-      "Brian the Sun"
+      "Toonami",
+      "Disney XD",
+      "Nicktoons",
+      "Kids' WB"
      ],
      "correct": 0,
-     "kind": "music",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
@@ -921,7 +1056,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Roughly what share of people in the world of My Hero Academia have a Quirk?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: from episode 14 of season 2 the opening is Sora ni Utaeba by amazarashi. Not in the published or taken MHA rows.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 2,
@@ -951,7 +1094,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which of these is the first My Hero Academia animated film?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Identical to a question of the taken row \"Directors, Awards and Theme Songs\" (\"Which band performed Shout Baby, an ending of season 4?\"). Replaced by the English dub block on the MHA page (Toonami, up to season 6).",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09",
+      "before": "Which band performed Shout Baby, an ending of season 4?",
+      "before_options": [
+       "*Ryokuoushoku Shakai",
+       "the Peggies",
+       "Six Lounge",
+       "Brian the Sun"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -981,7 +1140,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which company is developing a live-action My Hero Academia film?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: Curtain Call by Yuuri is the opening from episode ten of season 7. Not in the published or taken MHA rows.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09"
+     }
     }
    ]
   },
@@ -1253,7 +1420,7 @@
      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter"
     },
     {
-     "question": "On what date did the earlier Hunter x Hunter anime end its run on Fuji TV?",
+     "question": "On what date did the earlier Hunter x Hunter anime end its run?",
      "options": [
       "16 October 1999",
       "31 March 2001",
@@ -1402,7 +1569,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many episodes does the 2011 Hunter x Hunter anime have?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "FIX",
+      "note": "The question named Fuji TV, the answer to question 3 of the same quiz (which network aired the earlier anime). \"on Fuji TV\" removed; date 31 March 2001 confirmed (Fuji TV, October 16, 1999 to March 31, 2001).",
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+      "revision": 1381097044,
+      "revision_timestamp": "2026-10-20T00:46:03Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the earlier Hunter x Hunter anime end its run on Fuji TV?",
+      "before_options": [
+       "16 October 1999",
+       "*31 March 2001",
+       "24 October 2022",
+       "12 January 2013"
+      ]
+     }
     },
     {
      "index": 2,
@@ -1440,7 +1622,15 @@
      "read_on": "2026-11-09",
      "note": "The page says the irises turn scarlet in anger; it does not say they glow.",
      "original_question": "Kurapika's clan has prized irises that glow scarlet when its members are furious. What is the clan called?",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Characters page: Kurta Clan, \"treasured irises that turn scarlet in times of anger or emotional turmoil\". Wording matches. Other options are Zoldyck, Freecss and Hyuga (not Kurapika's clan).",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+      "revision": 1378757391,
+      "revision_timestamp": "2026-10-06T01:26:44Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 6,
@@ -1462,7 +1652,15 @@
      "original_question": "Which title is one of the two animated Hunter x Hunter films released in 2013?",
      "replacement_verdict": "OK",
      "options_reordered": true,
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: first tankobon volume released June 4, 1998. Published rows ask the magazine and the start year only.",
+      "source_url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+      "revision": 1381097044,
+      "revision_timestamp": "2026-10-20T00:46:03Z",
+      "read_on": "2026-11-09"
+     }
     }
    ]
   },
@@ -1477,18 +1675,18 @@
    "category": "series_specific",
    "questions": [
     {
-     "question": "In which month and year did the first season of the Haikyu!! TV anime begin airing?",
+     "question": "On which Japanese network did the first season of the Haikyu!! TV anime air in 2014?",
      "options": [
-      "April 2014",
-      "October 2012",
-      "July 2015",
-      "January 2016"
+      "MBS",
+      "NHK",
+      "Fuji TV",
+      "TV Tokyo"
      ],
      "correct": 0,
-     "kind": "episode",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
@@ -1532,35 +1730,35 @@
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
     },
     {
-     "question": "How many episodes does the third season of the Haikyu!! TV anime have?",
+     "question": "Which award did the Haikyu!! manga win in the shonen category in 2016?",
+     "options": [
+      "Kodansha Manga Award",
+      "Shogakukan Manga Award",
+      "Tezuka Osamu Cultural Prize",
+      "Japan Media Arts Festival Grand Prize"
+     ],
+     "correct": 1,
+     "kind": "award",
+     "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+     },
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
+    },
+    {
+     "question": "How many episodes does the second season of the Haikyu!! TV anime have?",
      "options": [
       "13",
       "10",
       "25",
       "12"
      ],
-     "correct": 1,
+     "correct": 2,
      "kind": "episode",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
-     },
-     "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
-    },
-    {
-     "question": "Which publisher collected the Haikyu!! chapters in tankobon volumes?",
-     "options": [
-      "Kodansha",
-      "Shogakukan",
-      "Shueisha",
-      "Square Enix"
-     ],
-     "correct": 2,
-     "kind": "manga",
-     "spoiler": {
-      "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
@@ -1585,35 +1783,35 @@
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
     },
     {
-     "question": "On what date did the Haikyu!! manga begin in Weekly Shonen Jump?",
+     "question": "Which band performed Ah Yeah, the opening of episodes 14 to 25 of the Haikyu!! TV anime?",
      "options": [
-      "9 November 2014",
-      "20 February 2012",
-      "6 April 2014",
-      "20 July 2020"
+      "Spyair",
+      "Sukima Switch",
+      "Burnout Syndromes",
+      "Nico Touches the Walls"
      ],
      "correct": 1,
-     "kind": "manga",
+     "kind": "music",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
     },
     {
-     "question": "How many episodes does the fourth season of the Haikyu!! TV anime have?",
+     "question": "By December 2025, roughly how many copies of the Haikyu!! manga were in circulation?",
      "options": [
-      "10",
-      "12",
-      "13",
-      "25"
+      "7.5 million",
+      "15 million",
+      "300 million",
+      "75 million"
      ],
      "correct": 3,
-     "kind": "episode",
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "anime"
+      "scope": "manga"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
@@ -1630,7 +1828,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which studio produced the Haikyu!! TV anime?",
      "replacement_verdict": "OK",
-     "position": 0
+     "position": 0,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Serve It in Numbers\" asks the year the Haikyu!! anime premiered (2014): same fact with a finer answer. Replaced by the network (page: aired on MBS from April to September 2014).",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "revision_timestamp": "2026-10-24T13:42:26Z",
+      "read_on": "2026-11-09",
+      "before": "In which month and year did the first season of the Haikyu!! TV anime begin airing?",
+      "before_options": [
+       "*April 2014",
+       "October 2012",
+       "July 2015",
+       "January 2016"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 1,
@@ -1660,7 +1874,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many episodes does the Haikyu!! TV anime have across its four seasons?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Four Seasons and a Finale\" and \"Serve It in Numbers\" both ask the season 3 episode count (10). Replaced by the 2016 award (page: 61st Shogakukan Manga Award, shonen).",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "revision_timestamp": "2026-10-24T13:42:26Z",
+      "read_on": "2026-11-09",
+      "before": "How many episodes does the third season of the Haikyu!! TV anime have?",
+      "before_options": [
+       "13",
+       "*10",
+       "25",
+       "12"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 4,
@@ -1672,7 +1902,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many volumes does the Haikyu!! manga have?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Ready, Set, Spike\" asks \"Which Japanese company published the Haikyu!! manga?\" (Shueisha): same fact. Replaced by the season 2 episode count (page: October 2015 to March 2016, 25 episodes).",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "revision_timestamp": "2026-10-24T13:42:26Z",
+      "read_on": "2026-11-09",
+      "before": "Which publisher collected the Haikyu!! chapters in tankobon volumes?",
+      "before_options": [
+       "Kodansha",
+       "Shogakukan",
+       "*Shueisha",
+       "Square Enix"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -1693,7 +1939,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "At which event was the first Haikyu!! OVA shown on 9 November 2014?",
      "replacement_verdict": "OK",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Serve It in Numbers\" asks the year the Haikyu!! manga began in Weekly Shonen Jump (2012): same fact with a finer answer. Replaced by the second opening of season 1 (page: episodes 14-25 opening Ah Yeah by Sukima Switch).",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "revision_timestamp": "2026-10-24T13:42:26Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the Haikyu!! manga begin in Weekly Shonen Jump?",
+      "before_options": [
+       "9 November 2014",
+       "*20 February 2012",
+       "6 April 2014",
+       "20 July 2020"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 7,
@@ -1705,7 +1967,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which band performed Imagination, the first opening of the Haikyu!! anime?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Serve It in Numbers\" asks the season 4 episode count (25): same fact. Replaced by the circulation at a fixed past date (page: \"By December 2025, the manga had over 75 million copies\").",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "revision_timestamp": "2026-10-24T13:42:26Z",
+      "read_on": "2026-11-09",
+      "before": "How many episodes does the fourth season of the Haikyu!! TV anime have?",
+      "before_options": [
+       "10",
+       "12",
+       "13",
+       "*25"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     }
    ]
   },
@@ -1756,7 +2034,7 @@
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
     },
     {
-     "question": "By December 2025, the Jujutsu Kaisen franchise had passed how many copies in circulation, digital editions included?",
+     "question": "By December 2025, roughly how many copies of the Jujutsu Kaisen manga were in circulation, digital editions and related novels included?",
      "options": [
       "15 million",
       "150 million",
@@ -1775,18 +2053,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen"
     },
     {
-     "question": "On what date did the Jujutsu Kaisen anime begin its TV broadcast?",
+     "question": "Who designed the characters for the first season of the Jujutsu Kaisen anime?",
      "options": [
-      "19 September 2020",
-      "24 December 2021",
-      "3 October 2020",
-      "2 July 2023"
+      "Hiroshi Seko",
+      "Sunghoo Park",
+      "Tadashi Hiramatsu",
+      "Shota Goshozono"
      ],
      "correct": 2,
-     "kind": "episode",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
@@ -1884,7 +2162,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many of Ryomen Sukuna's fingers must Yuji swallow before his execution is carried out?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: advanced streaming debut on YouTube and Twitter on September 19, 2020. Other platforms are wrong. Not in the published JJK rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "revision_timestamp": "2026-11-08T15:35:56Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 2,
@@ -1895,7 +2181,22 @@
      "read_on": "2026-11-09",
      "note": "The page gives over 150 million copies in circulation by December 2025, counting novels, digital editions and Jujutsu Kaisen 0; date added.",
      "original_question": "The Jujutsu Kaisen manga has passed how many copies in worldwide circulation, digital editions included?",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "FIX",
+      "note": "\"Franchise\" and \"had passed\" are loose: with options 15 and 70 million, every smaller option was also passed. The page says the manga had over 150 million copies by December 2025 (novels, digital and Jujutsu Kaisen 0 included). Reworded to \"roughly\"; date kept.",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+      "revision": 1383558677,
+      "revision_timestamp": "2026-11-03T09:12:44Z",
+      "read_on": "2026-11-09",
+      "before": "By December 2025, the Jujutsu Kaisen franchise had passed how many copies in circulation, digital editions included?",
+      "before_options": [
+       "15 million",
+       "*150 million",
+       "70 million",
+       "300 million"
+      ]
+     }
     },
     {
      "index": 3,
@@ -1907,7 +2208,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Before its TV broadcast premiere, the anime had an early online screening in which month of 2020?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Jujutsu Kaisen by the Numbers\" asks the day of the October 2020 premiere (3 October 2020): same fact. Replaced by the character designer (page: Hiroshi Seko scripts, Tadashi Hiramatsu character designs).",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "revision_timestamp": "2026-11-08T15:35:56Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the Jujutsu Kaisen anime begin its TV broadcast?",
+      "before_options": [
+       "19 September 2020",
+       "24 December 2021",
+       "*3 October 2020",
+       "2 July 2023"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 4,
@@ -1928,7 +2245,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which prize did the series win at the fifth Crunchyroll Anime Awards?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Jujutsu Kaisen 0 page: premiered December 24, 2021 \"in 418 theaters, with some IMAX screenings\". Not in published rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)",
+      "revision": 1384516607,
+      "revision_timestamp": "2026-11-08T16:56:46Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 6,
@@ -1949,7 +2274,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many episodes did the first season of the Jujutsu Kaisen anime have?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: 24 episodes on MBS and TBS (Super Animeism), October 3, 2020 to March 27, 2021. Not in published JJK rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "revision_timestamp": "2026-11-08T15:35:56Z",
+      "read_on": "2026-11-09"
+     }
     }
    ]
   },
@@ -2055,15 +2388,15 @@
      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)"
     },
     {
-     "question": "As of November 2026, how many tankobon volumes had the Spy x Family manga reached?",
+     "question": "In which month and year did the film Spy x Family Code: White reach cinemas in the United States and Canada?",
      "options": [
-      "8",
-      "18",
-      "30",
-      "24"
+      "December 2023",
+      "April 2024",
+      "October 2025",
+      "June 2022"
      ],
      "correct": 1,
-     "kind": "manga",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2137,7 +2470,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who is the handler overseeing Loid's mission, code-named Operation Strix?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: serialized biweekly on Shueisha's Shonen Jump+ since March 2019. Not in published Spy rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "revision": 1384497917,
+      "revision_timestamp": "2026-11-08T14:51:25Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 3,
@@ -2149,7 +2490,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which theatrical film reached Japanese cinemas in December 2023?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: licensed in North America by Viz Media. Different series from the Dandadan \"Viz Media\" rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "revision": 1384497917,
+      "revision_timestamp": "2026-11-08T14:51:25Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 4,
@@ -2170,7 +2519,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "By April 2026, how many copies of the Spy x Family manga were in print?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"A Fake Family on Day One\" asks how many volumes by April 2026 (17) and a published row has the 27-volume statement: same relation (volume count), only the date moved. Replaced by the US and Canada release of Code: White (page: April 2024; Japan December 2023).",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "revision": 1384497917,
+      "revision_timestamp": "2026-11-08T14:51:25Z",
+      "read_on": "2026-11-09",
+      "before": "As of November 2026, how many tankobon volumes had the Spy x Family manga reached?",
+      "before_options": [
+       "8",
+       "*18",
+       "30",
+       "24"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 6,
@@ -2191,7 +2556,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which power lets Anya see through her new parents' secret jobs?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "TV page: second season, 12 episodes, aired 7 October to 23 December 2023.",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+      "revision": 1384499588,
+      "revision_timestamp": "2026-11-08T15:04:01Z",
+      "read_on": "2026-11-09"
+     }
     }
    ]
   },
@@ -2301,22 +2674,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-     "question": "By June 2026, how many collected volumes did the Chainsaw Man manga have?",
+     "question": "In which month and year did the film Chainsaw Man - The Movie: Reze Arc premiere?",
      "options": [
-      "12",
-      "39",
-      "24",
-      "115"
+      "October 2022",
+      "June 2026",
+      "September 2025",
+      "March 2023"
      ],
      "correct": 2,
-     "kind": "manga",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "chainsaw-man-volume-count-005"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
@@ -2377,7 +2748,15 @@
      "read_on": "2026-11-09",
      "note": "The cited page lists the 12 endings alphabetically with no episode numbers, so \"the third ending\" cannot be sourced. Asks about the song as an ending.",
      "original_question": "Which act performed Dainōteki na Rendezvous, the third ending of the anime?",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "TV page lists Dainoteki na Rendezvous by Kanaria among the 12 endings (no order given), wording \"one of the endings\" is exact.",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+      "revision": 1381105566,
+      "revision_timestamp": "2026-10-20T01:42:56Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 2,
@@ -2388,7 +2767,15 @@
      "read_on": "2026-11-09",
      "note": "Same: no episode order on the page, \"the seventh ending\" removed.",
      "original_question": "Which act performed First Death, the seventh ending of the anime?",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "TV page lists First Death by TK from Ling Tosite Sigure among the endings. Maximum the Hormone is listed too but for a different song.",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+      "revision": 1381105566,
+      "revision_timestamp": "2026-10-20T01:42:56Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 3,
@@ -2399,7 +2786,15 @@
      "read_on": "2026-11-09",
      "note": "Same: no episode mapping on the page, \"the ending of episode 12\" removed.",
      "original_question": "Which act performed Zanki, the ending of episode 12?",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "TV page lists Zanki by Zutomayo among the endings. The published row asks which song ends episode 12, not who performed it.",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+      "revision": 1381105566,
+      "revision_timestamp": "2026-10-20T01:42:56Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 4,
@@ -2420,7 +2815,23 @@
      "read_on": "2026-11-09",
      "note": "The page gives 24 volumes released from March 2019 to 4 June 2026 and no as-of date; the date is added.",
      "original_question": "How many collected volumes does the Chainsaw Man manga have?",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Pull the Cord\" asks \"How many volumes collect the chapters?\" (24) and a published statement says 24 volumes: same fact. Replaced by the Reze Arc film date (page: premiered in September 2025).",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+      "revision": 1384606027,
+      "revision_timestamp": "2026-11-09T02:41:48Z",
+      "read_on": "2026-11-09",
+      "before": "By June 2026, how many collected volumes did the Chainsaw Man manga have?",
+      "before_options": [
+       "12",
+       "39",
+       "*24",
+       "115"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 6,
@@ -2431,7 +2842,15 @@
      "read_on": "2026-11-09",
      "note": "Part 2 ran until 25 March 2026; wording made exact.",
      "original_question": "In which month and year did the manga's serialization end?",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Manga page: second part serialized July 13, 2022 to March 25, 2026.",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+      "revision": 1384606027,
+      "revision_timestamp": "2026-11-09T02:41:48Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 7,
@@ -2455,12 +2874,12 @@
    "category": "creators_studios",
    "questions": [
     {
-     "question": "Which two companies produced the 1995 Evangelion series?",
+     "question": "Who designed the characters for the 1995 Evangelion series?",
      "options": [
-      "Studio Pierrot and Wit Studio",
-      "Sunrise and Madhouse",
-      "Toei Animation and Bones",
-      "Gainax and Tatsunoko Production"
+      "Kazuya Tsurumaki",
+      "Yutaka Sugiyama",
+      "Noriko Kobayashi",
+      "Yoshiyuki Sadamoto"
      ],
      "correct": 3,
      "kind": "production",
@@ -2468,9 +2887,7 @@
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "evangelion-studio-director-002"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
     },
     {
@@ -2493,15 +2910,15 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
     },
     {
-     "question": "Animage readers voted Evangelion top Best Loved Series in 1996 and again in which year?",
+     "question": "In a large 2007 TV Asahi survey, where did Evangelion rank among the most appreciated anime in Japan?",
      "options": [
-      "1995",
-      "1998",
-      "1997",
-      "1999"
+      "First",
+      "Fifth",
+      "Second",
+      "Third"
      ],
      "correct": 2,
-     "kind": "award",
+     "kind": "lore",
      "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -2533,8 +2950,8 @@
      "options": [
       "Yoko Takahashi",
       "Claire Littley",
-      "Mai Yamane",
-      "Megumi Hayashibara"
+      "Shirō Sagisu",
+      "Hideaki Anno"
      ],
      "correct": 1,
      "kind": "music",
@@ -2613,7 +3030,23 @@
      "read_on": "2026-11-09",
      "note": "The page says \"produced by Gainax and Tatsunoko Production\", not \"animated\".",
      "original_question": "Which two companies animated the 1995 Evangelion series?",
-     "position": 0
+     "position": 0,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Sync Rate Check\" states \"animated by Gainax together with Tatsunoko Production\": same fact. Replaced by the character designer (infobox: Yoshiyuki Sadamoto).",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "revision_timestamp": "2026-11-09T00:31:05Z",
+      "read_on": "2026-11-09",
+      "before": "Which two companies produced the 1995 Evangelion series?",
+      "before_options": [
+       "Studio Pierrot and Wit Studio",
+       "Sunrise and Madhouse",
+       "Toei Animation and Bones",
+       "*Gainax and Tatsunoko Production"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 1,
@@ -2634,7 +3067,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which network aired the series in Japan?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Sync Rate Check\" and \"From Episode 26 to Rebuild\" ask the 1996 and 1997 Animage Best Loved Series wins: same fact, and the 1998 option is arguable (The End of Evangelion won in 1998). Replaced by the 2007 TV Asahi poll (page: voted Evangelion the second most appreciated anime in Japan).",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "revision_timestamp": "2026-11-09T00:31:05Z",
+      "read_on": "2026-11-09",
+      "before": "Animage readers voted Evangelion top Best Loved Series in 1996 and again in which year?",
+      "before_options": [
+       "1995",
+       "1998",
+       "*1997",
+       "1999"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 3,
@@ -2655,7 +3104,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Outside Japan, which closing song was left out of the Netflix release for licensing reasons?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "FIX",
+      "note": "Claire Littley is right (\"sung by Claire Littley and various other singers from the main vocal cast\"), but Megumi Hayashibara is a main cast voice who sang a version, and Mai Yamane is not on the page. Distractors replaced by page people who did not sing it (Shiro Sagisu, Hideaki Anno).",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "revision_timestamp": "2026-11-09T00:31:05Z",
+      "read_on": "2026-11-09",
+      "before": "Who is credited with singing the ending theme Fly Me to the Moon alongside the main cast?",
+      "before_options": [
+       "Yoko Takahashi",
+       "*Claire Littley",
+       "Mai Yamane",
+       "Megumi Hayashibara"
+      ]
+     }
     },
     {
      "index": 5,
@@ -2684,7 +3148,15 @@
      "read_on": "2026-11-09",
      "note": "The page says Anno began development around the notion of not running away; the question is rephrased to match.",
      "original_question": "Anno began shaping the project with the idea of what kind of hero?",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: \"Anno began the development of the new series in 1993 around the notion of not running away\". Published row asks the year (1993), a different attribute.",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "revision_timestamp": "2026-11-09T00:31:05Z",
+      "read_on": "2026-11-09"
+     }
     }
    ]
   },
@@ -2876,7 +3348,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How does Nezuko keep up her strength without feeding on people?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Manga infobox and text: Weekly Shonen Jump from February 15, 2016. The published T/F only uses the dates inside a false magazine claim.",
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+      "revision": 1384221301,
+      "revision_timestamp": "2026-11-07T05:38:57Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 3,
@@ -2906,7 +3386,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which singer performed Gurenge, the first opening theme?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Manga infobox: last chapter May 18, 2020. Same note as the start date.",
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+      "revision": 1384221301,
+      "revision_timestamp": "2026-11-07T05:38:57Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 6,
@@ -2959,12 +3447,12 @@
      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
     },
     {
-     "question": "On which website was the Murata remake of One-Punch Man published by Shueisha?",
+     "question": "On what date was the first tankobon volume of the Murata remake of One-Punch Man published?",
      "options": [
-      "Shonen Jump+",
-      "Tonari no Young Jump",
-      "Manga Plus",
-      "Jump Giga"
+      "14 June 2012",
+      "4 December 2012",
+      "21 January 2013",
+      "10 March 2015"
      ],
      "correct": 1,
      "kind": "manga",
@@ -2997,7 +3485,7 @@
     {
      "question": "On what date did season 1 of the One-Punch Man anime begin airing?",
      "options": [
-      "21 December 2015",
+      "12 October 2015",
       "5 October 2015",
       "7 April 2013",
       "16 October 2009"
@@ -3012,40 +3500,38 @@
      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
     },
     {
-     "question": "On which website did One begin self-publishing the original webcomic in 2009?",
+     "question": "In which year did One-Punch Man begin publication in Viz Media's Weekly Shonen Jump in North America?",
      "options": [
-      "Pixiv",
-      "Nitosha.net",
-      "Niconico",
-      "Twitter"
+      "2012",
+      "2013",
+      "2014",
+      "2015"
      ],
      "correct": 1,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
     },
     {
-     "question": "Which hero is a parody of Kamen Rider?",
+     "question": "Who composed the music for season 1 of the One-Punch Man anime?",
      "options": [
-      "Speed-o'-Sound Sonic",
-      "Atomic Samurai",
-      "Genos",
-      "Mumen Rider"
+      "Yuki Hayashi",
+      "Hiroyuki Sawano",
+      "Kohei Tanaka",
+      "Makoto Miyazaki"
      ],
      "correct": 3,
-     "kind": "character",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "one-punch-man-mumen-rider-name-014"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
     },
     {
      "question": "Which group performed the season 1 opening, The Hero!! Ikareru Ken ni Honō o Tsukero?",
@@ -3106,7 +3592,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who redrew One's story for the published One-Punch Man manga?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Before the First Punch\" asks the owner of the Tonari no Young Jump site and the published T/F states the same site: same fact. Replaced by the first volume date (page: first volume published December 4, 2012).",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "revision": 1384356976,
+      "revision_timestamp": "2026-11-07T21:44:28Z",
+      "read_on": "2026-11-09",
+      "before": "On which website was the Murata remake of One-Punch Man published by Shueisha?",
+      "before_options": [
+       "Shonen Jump+",
+       "*Tonari no Young Jump",
+       "Manga Plus",
+       "Jump Giga"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 2,
@@ -3127,7 +3629,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which studio animated season 1 of the One-Punch Man anime?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "FIX",
+      "note": "Date confirmed (season 1 aired October 5 to December 21, 2015) but the option \"21 December 2015\" gave away the answer of question 8 (finish month December). Replaced by \"12 October 2015\".",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+      "revision": 1376949985,
+      "revision_timestamp": "2026-09-27T03:04:19Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did season 1 of the One-Punch Man anime begin airing?",
+      "before_options": [
+       "21 December 2015",
+       "*5 October 2015",
+       "7 April 2013",
+       "16 October 2009"
+      ]
+     }
     },
     {
      "index": 4,
@@ -3139,7 +3656,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who directed season 1 of the anime?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "The question text (\"self-publishing\") gave away question 1 of the quiz (self-published webcomic) and repeats its fact; the published row asks the webcomic year. Replaced by the Viz start (page: began in Viz Media's Weekly Shonen Jump on January 21, 2013).",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "revision": 1384356976,
+      "revision_timestamp": "2026-11-07T21:44:28Z",
+      "read_on": "2026-11-09",
+      "before": "On which website did One begin self-publishing the original webcomic in 2009?",
+      "before_options": [
+       "Pixiv",
+       "*Nitosha.net",
+       "Niconico",
+       "Twitter"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -3150,7 +3683,23 @@
      "read_on": "2026-11-09",
      "note": "The page says Mumen Rider parodies Kamen Rider but gives no licence joke; the clause is removed.",
      "original_question": "Which hero is a send-up of Kamen Rider, with a name that jokes he rides without a licence?",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Before the First Punch\" asks \"Which franchise is Mumen Rider a send-up of?\" (Kamen Rider): same fact reversed. Replaced by the season 1 composer (page: music composed by Makoto Miyazaki).",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "revision": 1384356976,
+      "revision_timestamp": "2026-11-07T21:44:28Z",
+      "read_on": "2026-11-09",
+      "before": "Which hero is a parody of Kamen Rider?",
+      "before_options": [
+       "Speed-o'-Sound Sonic",
+       "Atomic Samurai",
+       "Genos",
+       "*Mumen Rider"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 6,
@@ -3242,29 +3791,27 @@
      "source_url": "https://en.wikipedia.org/wiki/Dandadan"
     },
     {
-     "question": "Which company is the North American English publisher of the Dandadan manga?",
+     "question": "On which programming block was the first season of the Dandadan anime broadcast?",
      "options": [
-      "Kodansha USA",
-      "Viz Media",
-      "Seven Seas",
-      "Yen Press"
+      "Noitamina",
+      "Super Animeism Turbo",
+      "Toonami",
+      "Kin'yō Road Show"
      ],
      "correct": 1,
-     "kind": "manga",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
       "scope": "anime"
      },
-     "fact_ids": [
-      "dandadan-anime-season-one-009"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Dandadan"
     },
     {
      "question": "On what date did the first season of the Dandadan anime end its TV run?",
      "options": [
       "20 December 2024",
-      "4 October 2024",
+      "27 December 2024",
       "6 April 2021",
       "28 March 2025"
      ],
@@ -3373,7 +3920,23 @@
      "note": "Weekday not in the source (premiere 4 October 2024, 24:26 on 3 October). Replaced by the North American publisher question.",
      "original_question": "On which day of the week did the first season of the Dandadan anime air, in a slot just after midnight?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Spirits Meet Spaceships\" and the published T/F both ask the North American publisher (Viz Media): same fact. Replaced by the broadcast block (page: Super Animeism Turbo block on JNN affiliates).",
+      "source_url": "https://en.wikipedia.org/wiki/Dandadan",
+      "revision": 1383634740,
+      "revision_timestamp": "2026-11-03T21:04:00Z",
+      "read_on": "2026-11-09",
+      "before": "Which company is the North American English publisher of the Dandadan manga?",
+      "before_options": [
+       "Kodansha USA",
+       "*Viz Media",
+       "Seven Seas",
+       "Yen Press"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 4,
@@ -3385,7 +3948,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which act performed Otonoke, the opening of season one?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "FIX",
+      "note": "Date confirmed (October 4 to December 20, 2024) but the option \"4 October 2024\" (the start date) gave away question 7 (October 2024 start). Replaced by \"27 December 2024\".",
+      "source_url": "https://en.wikipedia.org/wiki/Dandadan",
+      "revision": 1383634740,
+      "revision_timestamp": "2026-11-03T21:04:00Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the first season of the Dandadan anime end its TV run?",
+      "before_options": [
+       "*20 December 2024",
+       "4 October 2024",
+       "6 April 2021",
+       "28 March 2025"
+      ]
+     }
     },
     {
      "index": 5,
@@ -3405,7 +3983,15 @@
      "read_on": "2026-11-09",
      "note": "Source lists the broadcast as 4 October 2024 (24:26 on 3 October), so the exact day is ambiguous. Asks the month and year instead.",
      "original_question": "On which date did the first season of the Dandadan anime begin its TV run?",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: broadcast from October 4, 2024 (listed as 24:26 on October 3). Month and year October 2024 is safe. Not published.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+      "revision": 1381763271,
+      "revision_timestamp": "2026-10-24T17:13:56Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 7,
@@ -3448,18 +4034,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
     },
     {
-     "question": "In the first season, Thorfinn seeks revenge against which man?",
+     "question": "Who composed the music for the Vinland Saga anime?",
      "options": [
-      "Canute",
-      "Thorkell",
-      "Thors",
-      "Askeladd"
+      "Yuki Hayashi",
+      "Hiroyuki Sawano",
+      "Shirō Sagisu",
+      "Yutaka Yamada"
      ],
      "correct": 3,
-     "kind": "story",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
@@ -3503,35 +4089,35 @@
      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
     },
     {
-     "question": "In which division of the Japan Media Arts Festival did Vinland Saga win its Grand Prize in 2009?",
+     "question": "Which act performed River, the first opening of season two of the Vinland Saga anime?",
      "options": [
-      "Manga Division",
-      "Art Division",
-      "Animation Division",
-      "Entertainment Division"
+      "Anonymouz",
+      "LMYK",
+      "Aimer",
+      "Survive Said the Prophet"
      ],
      "correct": 0,
-     "kind": "manga",
+     "kind": "music",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+     "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
     },
     {
-     "question": "Where does season two of the Vinland Saga anime mainly take place?",
+     "question": "Which writer is credited on both seasons of the Vinland Saga anime?",
      "options": [
-      "On a farm worked by slaves",
-      "On a merchant ship",
-      "In the royal court of Denmark",
-      "In a Jomsviking fortress"
+      "Hiroshi Seko",
+      "Kenta Ihara",
+      "Shūhei Yabuta",
+      "Makoto Yukimura"
      ],
      "correct": 0,
-     "kind": "story",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)"
@@ -3595,7 +4181,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many chapters does the Vinland Saga manga hold?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Longships and Crossbows\" asks which Viking seeks revenge on Askeladd (Thorfinn): same relation reversed. Replaced by the composer (infobox: Yutaka Yamada).",
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+      "revision": 1383317172,
+      "revision_timestamp": "2026-11-02T02:16:28Z",
+      "read_on": "2026-11-09",
+      "before": "In the first season, Thorfinn seeks revenge against which man?",
+      "before_options": [
+       "Canute",
+       "Thorkell",
+       "Thors",
+       "*Askeladd"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 2,
@@ -3626,7 +4228,23 @@
      "original_question": "Which band performed the season one opening Dark Crow?",
      "replacement_verdict": "OK",
      "options_reordered": true,
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Same fact as question 7 of the quiz (\"Which top honor did the manga win at the Japan Media Arts Festival in 2009?\" = Grand Prize), and its text (\"win its Grand Prize\") gave that answer away. Replaced by the season 2 opening (page: \"River\" by Anonymouz).",
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+      "revision": 1383317172,
+      "revision_timestamp": "2026-11-02T02:16:28Z",
+      "read_on": "2026-11-09",
+      "before": "In which division of the Japan Media Arts Festival did Vinland Saga win its Grand Prize in 2009?",
+      "before_options": [
+       "*Manga Division",
+       "Art Division",
+       "Animation Division",
+       "Entertainment Division"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -3638,7 +4256,23 @@
      "note": "The cited chapter list names no \"War Arc\" (chapters 1 to 54 are labelled the prologue). Replaced by a season two question sourced on the TV page.",
      "original_question": "Which arc fills chapters 1 to 54 and was adapted as season one?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Four Arcs and Seven Million Copies\" asks which arc fills the season 2 chapters (Slave Arc): same fact. Replaced by the credited writer (infobox: Hiroshi Seko on both seasons, Kenta Ihara on season 1 only).",
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+      "revision": 1383317172,
+      "revision_timestamp": "2026-11-02T02:16:28Z",
+      "read_on": "2026-11-09",
+      "before": "Where does season two of the Vinland Saga anime mainly take place?",
+      "before_options": [
+       "*On a farm worked by slaves",
+       "On a merchant ship",
+       "In the royal court of Denmark",
+       "In a Jomsviking fortress"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 6,
@@ -3671,15 +4305,15 @@
    "category": "series_specific",
    "questions": [
     {
-     "question": "Since which month and year has Blue Lock been serialized in Weekly Shonen Magazine?",
+     "question": "In which month and year did the live-action Blue Lock film premiere in Japan?",
      "options": [
-      "August 2018",
       "August 2026",
-      "March 2021",
-      "April 2024"
+      "April 2024",
+      "October 2022",
+      "March 2023"
      ],
      "correct": 0,
-     "kind": "manga",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -3745,18 +4379,18 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
     },
     {
-     "question": "Which edition of the Kodansha Manga Award did Blue Lock win in the shonen category?",
+     "question": "Season two of the Blue Lock anime, which aired from October to December 2024, carries which subtitle?",
      "options": [
-      "12th",
-      "30th",
-      "45th",
-      "66th"
+      "Neo Egoist League",
+      "Episode Nagi",
+      "vs. U-20 Japan",
+      "Kickoff Cup"
      ],
      "correct": 2,
-     "kind": "award",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
@@ -3830,7 +4464,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many volumes did the Blue Lock collected edition stand at in August 2026?",
      "replacement_verdict": "OK",
-     "position": 0
+     "position": 0,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Offside Check\" and \"Striker's Handbook\" ask the magazine since August 2018: same fact (and question 8 of the quiz names the magazine). Replaced by the live-action film (page: premiered in Japan in August 2026).",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "revision_timestamp": "2026-11-06T00:44:13Z",
+      "read_on": "2026-11-09",
+      "before": "Since which month and year has Blue Lock been serialized in Weekly Shonen Magazine?",
+      "before_options": [
+       "*August 2018",
+       "August 2026",
+       "March 2021",
+       "April 2024"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 1,
@@ -3869,7 +4519,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which of these songs was an ending of season one?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Blue Lock by the Numbers\" and \"Full Time Mix\" ask the 45th Kodansha Manga Award, and question 2 of the same quiz asks the same award by year: same fact. Replaced by the season 2 subtitle (page: \"vs. U-20 Japan\", October to December 2024).",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "revision_timestamp": "2026-11-06T00:44:13Z",
+      "read_on": "2026-11-09",
+      "before": "Which edition of the Kodansha Manga Award did Blue Lock win in the shonen category?",
+      "before_options": [
+       "12th",
+       "30th",
+       "*45th",
+       "66th"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -3945,18 +4611,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)"
     },
     {
-     "question": "Which singer performed Again, the first opening of Fullmetal Alchemist: Brotherhood?",
+     "question": "Who designed the characters for Fullmetal Alchemist: Brotherhood?",
      "options": [
-      "Porno Graffitti",
-      "Yui",
-      "Miwa",
-      "Aimer"
+      "Tetsuya Nishio",
+      "Akira Toriyama",
+      "Yoshiyuki Sadamoto",
+      "Hiroki Kanno"
      ],
-     "correct": 1,
-     "kind": "music",
+     "correct": 3,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood"
@@ -4068,7 +4734,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "How many collected volumes does the finished Fullmetal Alchemist story fill?",
      "replacement_verdict": "OK",
-     "position": 0
+     "position": 0,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Brotherhood infobox: MBS and TBS. The published row with the same pair is about the 2003 anime, a different series.",
+      "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+      "revision": 1384606528,
+      "revision_timestamp": "2026-11-09T02:45:14Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 1,
@@ -4080,7 +4754,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who directed the 2003 Fullmetal Alchemist anime?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "2003 anime page: aired from October 4, 2003; ran until October 2, 2004.",
+      "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+      "revision": 1384613195,
+      "revision_timestamp": "2026-11-09T03:40:15Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 2,
@@ -4092,7 +4774,24 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who directed Fullmetal Alchemist: Brotherhood?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Bones, Batons and Battle Themes\" asks \"Who sang Again, the first opening of Brotherhood?\" (Yui): same fact. Replaced by the character designer (infobox: Hiroki Kanno).",
+      "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+      "revision": 1384606528,
+      "revision_timestamp": "2026-11-09T02:45:14Z",
+      "read_on": "2026-11-09",
+      "before": "Which singer performed Again, the first opening of Fullmetal Alchemist: Brotherhood?",
+      "before_options": [
+       "Porno Graffitti",
+       "*Yui",
+       "Miwa",
+       "Aimer"
+      ],
+      "options_reordered": "options reordered only to break a run of equal answer positions in the quiz",
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 3,
@@ -4172,7 +4871,7 @@
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-     "question": "Which act performed Make my story, the fifth opening?",
+     "question": "Which act performed Make my story, an opening of season 3?",
      "options": [
       "Lenny code fiction",
       "Blue Encount",
@@ -4208,7 +4907,7 @@
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-     "question": "Which act performed Dakara, Hitori ja nai, the second ending?",
+     "question": "Which act performed Dakara, Hitori ja nai, the first ending of season 2?",
      "options": [
       "Brian the Sun",
       "the Peggies",
@@ -4225,12 +4924,12 @@
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-     "question": "Porno Graffitti performed The Day, the first opening. Which other opening did the band perform?",
+     "question": "Which band performed Kitakaze, an ending of season 6?",
      "options": [
-      "Polaris",
-      "The Revo",
-      "Bokurano",
-      "Tagatame"
+      "Omoinotake",
+      "Six Lounge",
+      "Zarame",
+      "Sayuri"
      ],
      "correct": 1,
      "kind": "music",
@@ -4238,13 +4937,11 @@
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "my-hero-academia-opening-themes-011"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-     "question": "Which singer performed Uso ja Nai, the ninth ending?",
+     "question": "Which singer performed Uso ja Nai, an ending of season 5?",
      "options": [
       "Soshi Sakiyama",
       "Kiro Akiyama",
@@ -4319,7 +5016,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which band performed Odd Future, the fourth opening?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "FIX",
+      "note": "The page gives per-season themes only; \"the fifth opening\" is the first agent's own count. Page: for the rest of season 3 the opening is Make my story by Lenny code fiction.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09",
+      "before": "Which act performed Make my story, the fifth opening?",
+      "before_options": [
+       "*Lenny code fiction",
+       "Blue Encount",
+       "Dish",
+       "Super Beaver"
+      ]
+     }
     },
     {
      "index": 2,
@@ -4340,7 +5052,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which band performed Merry-Go-Round, the ninth opening?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "FIX",
+      "note": "The page calls Dakara, Hitori ja nai the first ending of season 2 and never mentions season 1's ending, so \"the second ending\" cannot be sourced from it. Reworded to the page's own wording.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09",
+      "before": "Which act performed Dakara, Hitori ja nai, the second ending?",
+      "before_options": [
+       "Brian the Sun",
+       "the Peggies",
+       "Masaki Suda",
+       "*Little Glee Monster"
+      ]
+     }
     },
     {
      "index": 4,
@@ -4351,7 +5078,23 @@
      "read_on": "2026-11-09",
      "note": "The Day opened season 1, so \"for season 8\" was misleading. Asks which other opening Porno Graffitti performed.",
      "original_question": "Porno Graffitti performed The Day and which other opening, for season 8?",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Heroes on the Mic\" asks \"Which band performed both the first opening, The Day, and the fourteenth, The Revo?\" (Porno Graffitti): same fact. Replaced by the season 6 ending Kitakaze (page: from episode 14 of season 6, Six Lounge).",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09",
+      "before": "Porno Graffitti performed The Day, the first opening. Which other opening did the band perform?",
+      "before_options": [
+       "Polaris",
+       "*The Revo",
+       "Bokurano",
+       "Tagatame"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -4363,7 +5106,22 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which singer performed Datte Atashi no Hero, the third ending?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "FIX",
+      "note": "\"The ninth ending\" needs the season 1 ending, which the page does not list. Page: from episode 14 of season 5 the ending is Uso ja Nai by Soshi Sakiyama. Reworded to the page's own wording.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "revision_timestamp": "2026-11-06T07:38:06Z",
+      "read_on": "2026-11-09",
+      "before": "Which singer performed Uso ja Nai, the ninth ending?",
+      "before_options": [
+       "*Soshi Sakiyama",
+       "Kiro Akiyama",
+       "Sayuri",
+       "Masaki Suda"
+      ]
+     }
     },
     {
      "index": 6,
@@ -4493,12 +5251,12 @@
      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
     },
     {
-     "question": "Who directed the Black Moon arc of the second Sailor Moon season?",
+     "question": "In which year did the live-action TV series Pretty Guardian Sailor Moon begin airing?",
      "options": [
-      "Junichi Sato",
-      "Takuya Igarashi",
-      "Kunihiko Ikuhara",
-      "Seiji Mizushima"
+      "1999",
+      "2001",
+      "2003",
+      "2014"
      ],
      "correct": 2,
      "kind": "production",
@@ -4507,21 +5265,21 @@
       "scope": "both"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+     "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
     },
     {
-     "question": "On what date did the Sailor Moon manga end its serialization in Nakayoshi?",
+     "question": "Toei wanted an anime of an earlier manga about Sailor Venus, which was then reworked into the Sailor Moon team story. What is that earlier manga called?",
      "options": [
-      "28 December 1991",
-      "3 February 1997",
-      "8 February 1997",
-      "4 April 1997"
+      "Cardcaptor Sakura",
+      "Codename: Sailor V",
+      "Magic Knight Rayearth",
+      "Fushigi Yugi"
      ],
      "correct": 1,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
@@ -4602,7 +5360,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Kunihiko Ikuhara took over after the first season from which director?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Directors, Duets and Reboot Runs\" asks who directed the three seasons after the first (Kunihiko Ikuhara): same fact. Replaced by the live-action series (page: Pretty Guardian Sailor Moon aired from 2003 to 2004).",
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+      "revision": 1383278869,
+      "revision_timestamp": "2026-11-01T22:09:02Z",
+      "read_on": "2026-11-09",
+      "before": "Who directed the Black Moon arc of the second Sailor Moon season?",
+      "before_options": [
+       "Junichi Sato",
+       "Takuya Igarashi",
+       "*Kunihiko Ikuhara",
+       "Seiji Mizushima"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 6,
@@ -4614,7 +5388,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who sang the opening Moonlight Densetsu for the first two seasons?",
      "replacement_verdict": "OK",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Before the Transformation\" asks the year the manga ended in Nakayoshi (1997): same fact with a finer answer, and the quiz also asks the anime end month. Replaced by Codename: Sailor V (page: proposed as an anime by Toei, reworked into a team story).",
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+      "revision": 1383278869,
+      "revision_timestamp": "2026-11-01T22:09:02Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the Sailor Moon manga end its serialization in Nakayoshi?",
+      "before_options": [
+       "28 December 1991",
+       "*3 February 1997",
+       "8 February 1997",
+       "4 April 1997"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 7,
@@ -4695,7 +5485,7 @@
      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
     },
     {
-     "question": "As of July 2026, how many volumes had the first manga adaptation reached?",
+     "question": "As of July 2026, how many volumes had Nekokurage's manga adaptation of The Apothecary Diaries reached?",
      "options": [
       "9",
       "17",
@@ -4827,7 +5617,22 @@
      "read_on": "2026-11-09",
      "note": "The count needs its as-of date: 17 volumes as of 24 July 2026.",
      "original_question": "How many volumes had the first manga adaptation reached?",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "FIX",
+      "note": "The page does not number the adaptations (it calls the other one \"an alternative manga adaptation\"), and the text named Square Enix, the answer of question 2 of the quiz. Page: the Nekokurage adaptation had 17 volumes as of July 24, 2026. Reworded to name the artist only.",
+      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+      "revision": 1382807323,
+      "revision_timestamp": "2026-10-30T11:50:07Z",
+      "read_on": "2026-11-09",
+      "before": "As of July 2026, how many volumes had the first manga adaptation reached?",
+      "before_options": [
+       "9",
+       "*17",
+       "6",
+       "30"
+      ]
+     }
     },
     {
      "index": 4,
@@ -4933,18 +5738,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
     },
     {
-     "question": "Which group sang the second cour songs of season two?",
+     "question": "On which floor of the Tower is season two of the anime set?",
      "options": [
-      "NiziU",
-      "Creepy Nuts",
-      "YOASOBI",
-      "Stray Kids"
+      "The 2nd floor",
+      "The 30th floor",
+      "The 100th floor",
+      "The 20th floor"
      ],
      "correct": 3,
-     "kind": "music",
+     "kind": "lore",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
@@ -5005,21 +5810,21 @@
      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
     },
     {
-     "question": "Under which pen name does the creator of Tower of God work?",
+     "question": "Who handled the series composition of season two of the Tower of God anime?",
      "options": [
-      "S.I.U.",
-      "Chugong",
-      "Dubu",
-      "singNsong"
+      "Hiroshi Seko",
+      "Erika Yoshida",
+      "Shō Aikawa",
+      "Hiroshi Ōnogi"
      ],
-     "correct": 0,
-     "kind": "manga",
+     "correct": 1,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
-     "source_url": "https://en.wikipedia.org/wiki/Tower_of_God"
+     "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2"
     }
    ],
    "verdicts": [
@@ -5042,7 +5847,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Through which platform did Tower of God get an official English translation from July 2014?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: part two Workshop Battle aired October 6 to December 29, 2024. Not in the published rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+      "revision": 1373945362,
+      "revision_timestamp": "2026-09-08T22:20:00Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 2,
@@ -5063,7 +5876,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which studio animated season two of the anime?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Floor by Floor\" asks \"Which group sang the opening of the Workshop Battle arc?\" (Stray Kids): same fact. Replaced by the season 2 setting (page: set six years after season 1, on the 20th floor).",
+      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+      "revision": 1373945362,
+      "revision_timestamp": "2026-09-08T22:20:00Z",
+      "read_on": "2026-11-09",
+      "before": "Which group sang the second cour songs of season two?",
+      "before_options": [
+       "NiziU",
+       "Creepy Nuts",
+       "YOASOBI",
+       "*Stray Kids"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 4,
@@ -5084,7 +5913,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which group sang the first cour songs of season two?",
      "replacement_verdict": "OK",
-     "position": 5
+     "position": 5,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: season 2 premiered July 7, 2024. Published rows ask the month of the 2020 anime.",
+      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+      "revision": 1373945362,
+      "revision_timestamp": "2026-09-08T22:20:00Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 6,
@@ -5105,7 +5942,24 @@
      "note": "Page says \"sometimes more than 8 years in advance\" and flags it citation needed. Replaced by the creator pen name (same page).",
      "original_question": "The creator lines up major events long before they appear, in some cases more than how many years ahead?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"First Floor Basics\" and the published T/F both ask the pen name S.I.U.: same fact. Replaced by the series composition (page: Erika Yoshida).",
+      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+      "revision": 1373945362,
+      "revision_timestamp": "2026-09-08T22:20:00Z",
+      "read_on": "2026-11-09",
+      "before": "Under which pen name does the creator of Tower of God work?",
+      "before_options": [
+       "*S.I.U.",
+       "Chugong",
+       "Dubu",
+       "singNsong"
+      ],
+      "options_reordered": "options reordered only to break a run of equal answer positions in the quiz",
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     }
    ]
   },
@@ -5242,7 +6096,15 @@
      "note": "Japanese-title claim not supported by the cited page (the English page gives no katakana title). Replaced by a sourced statement on the director.",
      "original_question": "The Japanese title is simply the English name spelled in katakana.",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Page: the 37-episode TV series was directed by Tetsuro Araki. Not in the published Death Note rows.",
+      "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+      "revision": 1381769893,
+      "revision_timestamp": "2026-10-24T18:10:48Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 1,
@@ -5329,18 +6191,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-     "question": "Which act performed Shinzo wo Sasageyo!, the opening of season 2?",
+     "question": "Which studio animated seasons 1 to 3 of the Attack on Titan anime?",
      "options": [
-      "Cinema Staff",
-      "SiM",
-      "Linked Horizon",
-      "Shinsei Kamattechan"
+      "MAPPA",
+      "Bones",
+      "Wit Studio",
+      "Madhouse"
      ],
      "correct": 2,
-     "kind": "music",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
@@ -5363,18 +6225,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-     "question": "Who sang Shock, the ending of the first part of season 4?",
+     "question": "Which composer scored the Attack on Titan anime from its first season?",
      "options": [
-      "Yoko Hikasa",
-      "Yuko Ando",
-      "Ai Higuchi",
-      "Aimer"
+      "Yuki Hayashi",
+      "Yuki Kajiura",
+      "Shirō Sagisu",
+      "Hiroyuki Sawano"
      ],
-     "correct": 1,
-     "kind": "music",
+     "correct": 3,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
@@ -5418,7 +6280,7 @@
      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)"
     },
     {
-     "question": "Jiyu no Tsubasa by Linked Horizon opened which season?",
+     "question": "The opening Jiyu no Tsubasa belongs to which season?",
      "options": [
       "Season 3",
       "Season 1",
@@ -5467,7 +6329,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which artist performed Red Swan, the fourth opening?",
      "replacement_verdict": "OK",
-     "position": 0
+     "position": 0,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "TV page: \"To You 2,000... or... 20,000 Years From Now...\" by Linked Horizon is listed as a season 4 special ending (S4P4-SP). Not published.",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "revision_timestamp": "2026-11-08T06:42:08Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 1,
@@ -5479,7 +6349,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which band performed My War, the sixth opening?",
      "replacement_verdict": "OK",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Shinzo wo Sasageyo! by Linked Horizon is right (season 2 opening), but Linked Horizon also answers questions 1 and 8 of the same quiz, so three questions share one answer and the quiz becomes a guess. Replaced by the studio (infobox: Wit Studio for seasons 1-3, MAPPA for season 4).",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "revision_timestamp": "2026-11-08T06:42:08Z",
+      "read_on": "2026-11-09",
+      "before": "Which act performed Shinzo wo Sasageyo!, the opening of season 2?",
+      "before_options": [
+       "Cinema Staff",
+       "SiM",
+       "*Linked Horizon",
+       "Shinsei Kamattechan"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 2,
@@ -5491,7 +6377,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "SiM is the band behind which season 4 opening?",
      "replacement_verdict": "OK",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "TV page: Under the Tree by SiM is a season 4 special ending (S4P3-SP). Not published.",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "revision_timestamp": "2026-11-08T06:42:08Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 3,
@@ -5503,7 +6397,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who sang Utsukushiki Zankoku na Sekai, the first ending?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Identical to a question of the taken row \"Closing Credits: Ending Song Quiz\" (Shock by Yuko Ando). Replaced by the composer (infobox: Hiroyuki Sawano).",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "revision_timestamp": "2026-11-08T06:42:08Z",
+      "read_on": "2026-11-09",
+      "before": "Who sang Shock, the ending of the first part of season 4?",
+      "before_options": [
+       "Yoko Hikasa",
+       "*Yuko Ando",
+       "Ai Higuchi",
+       "Aimer"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 4,
@@ -5530,7 +6440,16 @@
      "revision": 1384442696,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "FIX",
+      "note": "Extra finding outside the 81. The text named Linked Horizon, which is the answer of questions 1, 2 and 8 of the same quiz. Artist removed; answer (Season 1, #14-25) unchanged.",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "revision_timestamp": "2026-11-08T06:42:08Z",
+      "read_on": "2026-11-09",
+      "before": "Jiyu no Tsubasa by Linked Horizon opened which season?"
+     }
     },
     {
      "index": 7,
@@ -5595,12 +6514,12 @@
     {
      "question": "Which circulation milestone had the Oshi no Ko manga passed by the end of 2025?",
      "options": [
-      "25 million copies",
-      "2.5 million copies",
       "250 million copies",
+      "2.5 million copies",
+      "25 million copies",
       "100 million copies"
      ],
-     "correct": 0,
+     "correct": 2,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
@@ -5629,18 +6548,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
     },
     {
-     "question": "How long is the first episode of the Oshi no Ko anime?",
+     "question": "On what date did the one-hour special that ended the third season of the Oshi no Ko anime air?",
      "options": [
-      "24 minutes",
-      "45 minutes",
-      "90 minutes",
-      "120 minutes"
+      "6 October 2024",
+      "21 June 2023",
+      "25 March 2026",
+      "30 December 2025"
      ],
      "correct": 2,
      "kind": "episode",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
@@ -5684,18 +6603,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko"
     },
     {
-     "question": "What is the title of the 90-minute first episode of the Oshi no Ko anime?",
+     "question": "On what date did the third season of the Oshi no Ko anime premiere?",
      "options": [
-      "Idol",
-      "Mother and Children",
-      "Stars and Parents",
-      "The Twins"
+      "12 April 2023",
+      "14 January 2026",
+      "3 July 2024",
+      "7 October 2024"
      ],
      "correct": 1,
      "kind": "episode",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)"
@@ -5728,7 +6647,17 @@
      "revision": 1383885658,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 2
+     "position": 2,
+     "check2": {
+      "verdict": "FIX",
+      "note": "Extra finding outside the 81. Options reordered only: questions 1 to 3 of the quiz all had the correct answer in slot A. Text and answer unchanged.",
+      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+      "revision": 1383733090,
+      "revision_timestamp": "2026-11-04T13:49:26Z",
+      "read_on": "2026-11-09",
+      "before": "Which circulation milestone had the Oshi no Ko manga passed by the end of 2025?",
+      "options_reordered": "slot A to slot C"
+     }
     },
     {
      "index": 3,
@@ -5740,7 +6669,15 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Aka Akasaka wrote the story of the Oshi no Ko manga. Who drew it?",
      "replacement_verdict": "OK",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "CONFIRMED",
+      "note": "Manga page: Weekly Young Jump from April 23, 2020 to November 14, 2024. Published rows ask the magazine only.",
+      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+      "revision": 1383885658,
+      "revision_timestamp": "2026-11-05T09:52:39Z",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 4,
@@ -5752,7 +6689,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Who directs the Oshi no Ko television series?",
      "replacement_verdict": "OK",
-     "position": 4
+     "position": 4,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Camera, Mic, Cut\" asks \"How many minutes long is the feature-length opener?\" (90): same fact. Replaced by the end of season 3 (page: one-hour special on March 25, 2026).",
+      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+      "revision": 1383733090,
+      "revision_timestamp": "2026-11-04T13:49:26Z",
+      "read_on": "2026-11-09",
+      "before": "How long is the first episode of the Oshi no Ko anime?",
+      "before_options": [
+       "24 minutes",
+       "45 minutes",
+       "*90 minutes",
+       "120 minutes"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 5,
@@ -5783,7 +6736,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Which act performed Idol, the opening of season one?",
      "replacement_verdict": "OK",
-     "position": 7
+     "position": 7,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Backstage Pass\" and the published T/F both ask the title Mother and Children: same fact. Replaced by the season 3 premiere (page: January 14, 2026).",
+      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+      "revision": 1383733090,
+      "revision_timestamp": "2026-11-04T13:49:26Z",
+      "read_on": "2026-11-09",
+      "before": "What is the title of the 90-minute first episode of the Oshi no Ko anime?",
+      "before_options": [
+       "Idol",
+       "*Mother and Children",
+       "Stars and Parents",
+       "The Twins"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     }
    ]
   },
@@ -5798,15 +6767,15 @@
    "category": "series_specific",
    "questions": [
     {
-     "question": "Which Namie Amuro song was the fourteenth opening of the One Piece anime?",
+     "question": "On what date did the One Piece anime premiere on Fuji TV?",
      "options": [
-      "We Are!",
-      "Fight Together",
-      "Believe",
-      "Brand New World"
+      "1 April 1997",
+      "20 October 1999",
+      "22 July 1997",
+      "4 April 2001"
      ],
      "correct": 1,
-     "kind": "music",
+     "kind": "episode",
      "spoiler": {
       "arc": 0,
       "scope": "both"
@@ -5853,23 +6822,21 @@
      "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
     },
     {
-     "question": "Wit Studio is producing a new One Piece anime titled The One Piece. In which year is its first season scheduled?",
+     "question": "Which studio produces the One Piece TV anime that began in 1999?",
      "options": [
-      "2027",
-      "2025",
-      "2026",
-      "2029"
+      "Toei Animation",
+      "Madhouse",
+      "Bones",
+      "MAPPA"
      ],
      "correct": 0,
      "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "one-piece-wit-studio-remake-030"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/One_Piece"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)"
     },
     {
      "question": "Guinness World Records recognised Eiichiro Oda in 2015 and again in 2022 for what achievement?",
@@ -5959,7 +6926,23 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "By the start of July 2026, how many collected volumes of the One Piece manga had Shueisha published?",
      "replacement_verdict": "OK",
-     "position": 0
+     "position": 0,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Toei, Tanaka and Twenty-Nine Openings\" asks \"Which pop star performed the 14th opening, Fight Together?\" (Namie Amuro): same fact reversed. Replaced by the premiere date (infobox: Fuji Television, first aired October 20, 1999).",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+      "revision": 1384511323,
+      "revision_timestamp": "2026-11-08T16:19:40Z",
+      "read_on": "2026-11-09",
+      "before": "Which Namie Amuro song was the fourteenth opening of the One Piece anime?",
+      "before_options": [
+       "We Are!",
+       "*Fight Together",
+       "Believe",
+       "Brand New World"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 1,
@@ -5988,7 +6971,23 @@
      "read_on": "2026-11-09",
      "note": "The page describes Wit Studio's remake The One Piece (first season February 2027), not a \"second adaptation\"; wording made exact.",
      "original_question": "Wit Studio's second One Piece anime adaptation is planned for which year?",
-     "position": 3
+     "position": 3,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Toei, Tanaka and Twenty-Nine Openings\" asks the studio making the second adaptation planned for 2027 (Wit Studio) and the published T/F tests Wit and 2024: same fact. Replaced by the producing studio (infobox: Toei Animation).",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+      "revision": 1384511323,
+      "revision_timestamp": "2026-11-08T16:19:40Z",
+      "read_on": "2026-11-09",
+      "before": "Wit Studio is producing a new One Piece anime titled The One Piece. In which year is its first season scheduled?",
+      "before_options": [
+       "*2027",
+       "2025",
+       "2026",
+       "2029"
+      ],
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 4,
@@ -6153,18 +7152,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
     },
     {
-     "question": "On what date did the Kaiju No. 8 manga end?",
+     "question": "On which date did the English edition of the Kaiju No. 8 manga begin on Shueisha's Manga Plus?",
      "options": [
       "3 July 2020",
       "18 July 2025",
-      "4 September 2025",
-      "12 July 2024"
+      "22 July 2020",
+      "4 September 2025"
      ],
-     "correct": 1,
+     "correct": 2,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
@@ -6254,7 +7253,24 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "After how many chapters did the manga end?",
      "replacement_verdict": "OK",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"From Jump+ to Season Two\" asks \"On which date did the manga end its run?\" (July 18, 2025): same fact. Replaced by the Manga Plus start (chapter list page: Manga Plus since July 22, 2020).",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters",
+      "revision": 1383652158,
+      "revision_timestamp": "2026-11-03T23:36:36Z",
+      "read_on": "2026-11-09",
+      "before": "On what date did the Kaiju No. 8 manga end?",
+      "before_options": [
+       "3 July 2020",
+       "*18 July 2025",
+       "4 September 2025",
+       "12 July 2024"
+      ],
+      "options_reordered": "options reordered only to break a run of equal answer positions in the quiz",
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 7,
@@ -6291,12 +7307,12 @@
      "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-     "question": "Milet performed an ending of the first season of the anime.",
+     "question": "The first four episodes of the Frieren anime premiered together as a two-hour special on Nippon TV.",
      "correct": true,
-     "kind": "music",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
@@ -6354,12 +7370,12 @@
      "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-     "question": "Yoasobi performed an opening of the first season of the anime.",
-     "correct": true,
-     "kind": "music",
+     "question": "The second season of the Frieren anime aired in 2025.",
+     "correct": false,
+     "kind": "episode",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
@@ -6397,7 +7413,17 @@
      "read_on": "2026-11-09",
      "note": "Near duplicate of question 6 (Wit versus Madhouse, same fact reversed). Replaced by a distinct sourced statement: Milet sang an ending of season one.",
      "original_question": "Studio Wit made the first season of the anime.",
-     "position": 1
+     "position": 1,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Elf Time Check\" states \"Milet sang every ending of the anime\" and \"Music and Makers\" asks who sang every ending: same fact. Replaced by the premiere special (page: first four episodes aired together as a two-hour special on Nippon TV).",
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+      "revision": 1384453379,
+      "revision_timestamp": "2026-11-08T08:12:50Z",
+      "read_on": "2026-11-09",
+      "before": "Milet performed an ending of the first season of the anime.",
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 3,
@@ -6445,7 +7471,17 @@
      "note": "Near duplicate of a published or taken question (same fact). Replaced by a different fact from the same source page.",
      "original_question": "Madhouse made the first season of the Frieren anime.",
      "replacement_verdict": "OK",
-     "position": 6
+     "position": 6,
+     "check2": {
+      "verdict": "REJECT",
+      "note": "Published \"Music and Makers\" asks who sings the first opening (Yoasobi) and the draft T/F states it: same fact. Replaced by a false statement on the season 2 year (page: aired January 16 to March 27, 2026).",
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+      "revision": 1384453379,
+      "revision_timestamp": "2026-11-08T08:12:50Z",
+      "read_on": "2026-11-09",
+      "before": "Yoasobi performed an opening of the first season of the anime.",
+      "replacement": "written and sourced by the second reader from the same series"
+     }
     },
     {
      "index": 7,
@@ -6458,5 +7494,194 @@
     }
    ]
   }
- ]
+ ],
+ "check2": {
+  "reader": "independent second reader (part 2)",
+  "read_on": "2026-11-09",
+  "method": "Wikipedia API action=query&prop=revisions&rvprop=ids|timestamp|content&redirects=1 (latest revision, full wikitext, one request per page, a generic User-Agent, 5 seconds apart). Every claim, answer key and distractor read word by word in the wikitext, then compared with every question of the published anime quizzes, the taken rows, the other L08 drafts and the rest of the lot.",
+  "pages": {
+   "Attack_on_Titan_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+    "revision": 1384442696,
+    "timestamp": "2026-11-08T06:42:08Z"
+   },
+   "Bleach_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Bleach_(TV_series)",
+    "revision": 1384593874,
+    "timestamp": "2026-11-09T01:29:36Z"
+   },
+   "Bleach_(manga)": {
+    "url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+    "revision": 1383591576,
+    "timestamp": "2026-11-03T15:25:23Z"
+   },
+   "Blue_Lock": {
+    "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+    "revision": 1383987350,
+    "timestamp": "2026-11-06T00:44:13Z"
+   },
+   "Chainsaw_Man": {
+    "url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+    "revision": 1384606027,
+    "timestamp": "2026-11-09T02:41:48Z"
+   },
+   "Chainsaw_Man_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+    "revision": 1381105566,
+    "timestamp": "2026-10-20T01:42:56Z"
+   },
+   "Dandadan": {
+    "url": "https://en.wikipedia.org/wiki/Dandadan",
+    "revision": 1383634740,
+    "timestamp": "2026-11-03T21:04:00Z"
+   },
+   "Death_Note": {
+    "url": "https://en.wikipedia.org/wiki/Death_Note",
+    "revision": 1381769893,
+    "timestamp": "2026-10-24T18:10:48Z"
+   },
+   "Demon_Slayer:_Kimetsu_no_Yaiba": {
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba",
+    "revision": 1384221301,
+    "timestamp": "2026-11-07T05:38:57Z"
+   },
+   "Frieren_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+    "revision": 1384453379,
+    "timestamp": "2026-11-08T08:12:50Z"
+   },
+   "Fullmetal_Alchemist:_Brotherhood": {
+    "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+    "revision": 1384606528,
+    "timestamp": "2026-11-09T02:45:14Z"
+   },
+   "Fullmetal_Alchemist_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist_(TV_series)",
+    "revision": 1384613195,
+    "timestamp": "2026-11-09T03:40:15Z"
+   },
+   "Haikyu!!": {
+    "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+    "revision": 1381740115,
+    "timestamp": "2026-10-24T13:42:26Z"
+   },
+   "Hunter_×_Hunter": {
+    "url": "https://en.wikipedia.org/wiki/Hunter_%C3%97_Hunter",
+    "revision": 1381097044,
+    "timestamp": "2026-10-20T00:46:03Z"
+   },
+   "Jujutsu_Kaisen": {
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen",
+    "revision": 1383558677,
+    "timestamp": "2026-11-03T09:12:44Z"
+   },
+   "Jujutsu_Kaisen_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "revision": 1384504554,
+    "timestamp": "2026-11-08T15:35:56Z"
+   },
+   "Jujutsu_Kaisen_0_(film)": {
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)",
+    "revision": 1384516607,
+    "timestamp": "2026-11-08T16:56:46Z"
+   },
+   "List_of_Dandadan_episodes": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes",
+    "revision": 1381763271,
+    "timestamp": "2026-10-24T17:13:56Z"
+   },
+   "List_of_Hunter_×_Hunter_characters": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters",
+    "revision": 1378757391,
+    "timestamp": "2026-10-06T01:26:44Z"
+   },
+   "List_of_Kaiju_No._8_chapters": {
+    "url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters",
+    "revision": 1383652158,
+    "timestamp": "2026-11-03T23:36:36Z"
+   },
+   "My_Hero_Academia_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+    "revision": 1384041392,
+    "timestamp": "2026-11-06T07:38:06Z"
+   },
+   "Naruto": {
+    "url": "https://en.wikipedia.org/wiki/Naruto",
+    "revision": 1384634084,
+    "timestamp": "2026-11-09T06:59:17Z"
+   },
+   "Naruto_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+    "revision": 1383210738,
+    "timestamp": "2026-11-01T15:37:25Z"
+   },
+   "Neon_Genesis_Evangelion": {
+    "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+    "revision": 1384585127,
+    "timestamp": "2026-11-09T00:31:05Z"
+   },
+   "One-Punch_Man": {
+    "url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+    "revision": 1384356976,
+    "timestamp": "2026-11-07T21:44:28Z"
+   },
+   "One-Punch_Man_season_1": {
+    "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+    "revision": 1376949985,
+    "timestamp": "2026-09-27T03:04:19Z"
+   },
+   "One_Piece_(1999_TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+    "revision": 1384511323,
+    "timestamp": "2026-11-08T16:19:40Z"
+   },
+   "Oshi_no_Ko": {
+    "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko",
+    "revision": 1383885658,
+    "timestamp": "2026-11-05T09:52:39Z"
+   },
+   "Oshi_no_Ko_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+    "revision": 1383733090,
+    "timestamp": "2026-11-04T13:49:26Z"
+   },
+   "Sailor_Moon": {
+    "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+    "revision": 1383278869,
+    "timestamp": "2026-11-01T22:09:02Z"
+   },
+   "Spy_×_Family": {
+    "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+    "revision": 1384497917,
+    "timestamp": "2026-11-08T14:51:25Z"
+   },
+   "Spy_×_Family_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family_(TV_series)",
+    "revision": 1384499588,
+    "timestamp": "2026-11-08T15:04:01Z"
+   },
+   "The_Apothecary_Diaries": {
+    "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+    "revision": 1382807323,
+    "timestamp": "2026-10-30T11:50:07Z"
+   },
+   "Tower_of_God_season_2": {
+    "url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+    "revision": 1373945362,
+    "timestamp": "2026-09-08T22:20:00Z"
+   },
+   "Vinland_Saga_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+    "revision": 1383317172,
+    "timestamp": "2026-11-02T02:16:28Z"
+   }
+  },
+  "counts": {
+   "CONFIRMED": 31,
+   "FIX": 11,
+   "REJECT": 39,
+   "total": 81
+  },
+  "extra_findings": 2
+ }
 }

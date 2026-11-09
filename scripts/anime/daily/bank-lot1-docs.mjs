@@ -20,8 +20,8 @@ ol.o{margin:.2em 0 .2em 1.2em;padding:0}ol.o li.c{color:var(--ok);font-weight:60
 .tag.fix{color:var(--warn);border-color:var(--warn)}.tag.drop{color:var(--bad);border-color:var(--bad)}.tag.ok{color:var(--ok);border-color:var(--ok)}.why{color:var(--warn)}.was{color:var(--mut);text-decoration:line-through}`;
 
 let h = `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Review packet bank-lot1</title><style>${css}</style></head><body><main>\n`;
-h += `<h1>Anime daily bank, lot 1: review packet</h1><p class="mut small">${data.quizzes.length} quizzes, ${data.quizzes[0].date} to ${data.quizzes.at(-1).date}. Every question re-read on ${data.read_on} from its cited page. Correct answers are in green. Yellow = FIX (text corrected), red = original question dropped and replaced (the replacement is shown, with its own source).</p>\n`;
-h += `<div class="sum"><div><b>${data.counts.OK}</b>OK</div><div><b>${data.counts.FIX}</b>FIX</div><div><b>${data.counts.DROP}</b>DROP and replaced</div><div><b>${data.quizzes.length}</b>quizzes</div></div>\n`;
+h += `<h1>Anime daily bank, lot 1: review packet</h1><p class="mut small">${data.quizzes.length} quizzes, ${data.quizzes[0].date} to ${data.quizzes.at(-1).date}. Every question re-read on ${data.read_on} from its cited page. Correct answers are in green. Yellow = FIX (text corrected), red = original question dropped and replaced (the replacement is shown, with its own source). A second, independent reader then re-read the ${data.check2.counts.total} new or fixed questions on ${data.check2.read_on} (${data.check2.counts.CONFIRMED} confirmed, ${data.check2.counts.FIX} fixed, ${data.check2.counts.REJECT} rejected and replaced; tags CHECK 2 FIX and CHECK 2 REPLACED, with the revision read).</p>\n`;
+h += `<div class="sum"><div><b>${data.counts.OK}</b>OK</div><div><b>${data.counts.FIX}</b>FIX</div><div><b>${data.counts.DROP}</b>DROP and replaced</div><div><b>${data.check2.counts.CONFIRMED}</b>check 2 confirmed</div><div><b>${data.check2.counts.FIX}</b>check 2 FIX</div><div><b>${data.check2.counts.REJECT}</b>check 2 replaced</div><div><b>${data.quizzes.length}</b>quizzes</div></div>\n`;
 h += `<h2>Schedule</h2><table><tr><th>Date</th><th>Series</th><th>Type</th><th>Difficulty</th><th>Title</th></tr>\n`;
 for (const q of data.quizzes) h += `<tr><td>${q.date}</td><td>${esc(q.group_slug)}</td><td>${esc(q.quiz_type)}</td><td>${esc(q.difficulty)}</td><td><a href="#d${q.date}">${esc(q.title)}</a></td></tr>\n`;
 h += `<tr><td>${data.moved_row.to}</td><td>anime-mix</td><td></td><td></td><td>${esc(data.moved_row.title)} (stuck row, moved from ${data.moved_row.from})</td></tr></table>\n`;
@@ -29,13 +29,16 @@ for (const q of data.quizzes) {
   h += `<h2 id="d${q.date}">${q.date}: ${esc(q.title)}</h2><p class="small">${esc(q.description)} <span class="mut">(${esc(q.group_slug)}, ${esc(q.quiz_type)}, ${esc(q.difficulty)}${q.title !== q.l08_title ? `; title changed from "${esc(q.l08_title)}"` : ''})</span></p>\n`;
   q.questions.forEach((x, k) => {
     const v = q.verdicts[k];
-    const cls = v.verdict === 'FIX' ? 'fix' : v.verdict === 'DROP' ? 'drop' : '';
+    const c2 = v.check2;
+    const cls = c2 && c2.verdict !== 'CONFIRMED' ? (c2.verdict === 'REJECT' ? 'drop' : 'fix') : v.verdict === 'FIX' ? 'fix' : v.verdict === 'DROP' ? 'drop' : '';
     h += `<div class="q ${cls}"><b>${k + 1}.</b> ${esc(x.question)} <span class="tag ${cls || 'ok'}">${v.verdict === 'DROP' ? 'REPLACED' : v.verdict}</span>`;
+    if (c2) h += ` <span class="tag ${c2.verdict === 'REJECT' ? 'drop' : c2.verdict === 'FIX' ? 'fix' : 'ok'}">CHECK 2 ${c2.verdict === 'REJECT' ? 'REPLACED' : c2.verdict}</span>`;
     if (x.clues) h += `<div class="small mut">${x.clues.map(esc).join(' / ')}</div>`;
     if ('options' in x) h += `<ol class="o" type="A">${x.options.map((o, n) => `<li${n === x.correct ? ' class="c"' : ''}>${esc(label(o))}</li>`).join('')}</ol>`;
     else h += `<div>Answer: <b class="c" style="color:var(--ok)">${x.correct ? 'True' : 'False'}</b></div>`;
-    h += `<div class="small"><a href="${esc(x.source_url)}">source</a> <span class="mut">rev ${v.revision}, read ${v.read_on}</span></div>`;
-    if (v.note) h += `<div class="small why">${esc(v.note)} <span class="was">${esc(v.original_question)}</span></div>`;
+    h += `<div class="small"><a href="${esc(x.source_url)}">source</a> <span class="mut">rev ${c2 ? c2.revision : v.revision}, read ${c2 ? c2.read_on : v.read_on}</span></div>`;
+    if (c2 && c2.verdict !== 'CONFIRMED') h += `<div class="small why">Check 2: ${esc(c2.note)} <span class="was">${esc(c2.before)}</span></div>`;
+    else if (v.note && !(c2 && c2.verdict === 'CONFIRMED' && v.verdict === 'DROP')) h += `<div class="small why">${esc(v.note)} <span class="was">${esc(v.original_question)}</span></div>`;
     h += `</div>\n`;
   });
 }
@@ -49,5 +52,7 @@ m += `Most DROPs are near duplicates of a published or taken question (same fact
 for (const q of data.quizzes) m += `| ${q.date} | ${q.group_slug} | ${q.quiz_type} | ${q.difficulty} | ${q.title} |\n`;
 m += `\n## FIX and DROP\n\n`;
 for (const { q, v } of fixes) m += `- ${q.date} #${v.position + 1} ${v.verdict}: ${v.note}\n`;
+m += `\n## Second reading (check 2)\n\nAn independent second reader re-read the ${data.check2.counts.total} questions written or fixed by the first reading: ${data.check2.counts.CONFIRMED} confirmed, ${data.check2.counts.FIX} fixed, ${data.check2.counts.REJECT} rejected and replaced. Full record: \`docs/anime/data/verify/bank-lot1-check2.json\`, summary \`bank-lot1-check2.md\`.\n\n`;
+for (const q of data.quizzes) q.verdicts.forEach((v) => { if (v.check2 && v.check2.verdict !== 'CONFIRMED') m += `- ${q.date} #${v.position + 1} ${v.check2.verdict === 'REJECT' ? 'REPLACED' : 'FIX'}: ${v.check2.note}\n`; });
 writeFileSync(`${ROOT}/docs/anime/data/verify/bank-lot1.md`, m);
 console.log('ok', fixes.length);
