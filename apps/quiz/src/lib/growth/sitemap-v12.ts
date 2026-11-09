@@ -8,6 +8,7 @@
 import { prettyPath } from '@/lib/name-all/round';
 import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
 import { BRIDGE_PATH } from '@/lib/personality/bridge';
+import { servedWmaSlugs } from '@/lib/personality/wma-groups';
 import { whichMemberPath } from '@/lib/personality/view';
 
 /**
@@ -20,7 +21,8 @@ export function v12GrowthPaths(wmaSlugs: readonly string[]): string[] {
   const out = new Set<string>();
   for (const slug of NAME_ALL_GROUPS) out.add(prettyPath(slug));
   out.add(BRIDGE_PATH);
-  for (const slug of wmaSlugs) {
+  // O1 audit 03 P2-2: only the groups whose pretty URL next.config.ts serves (the rest would be listed at a redirect).
+  for (const slug of servedWmaSlugs(wmaSlugs)) {
     // A slug is a path segment: anything else never becomes a URL.
     if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) out.add(whichMemberPath(slug));
   }
