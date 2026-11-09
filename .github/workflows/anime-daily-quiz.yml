@@ -1,0 +1,32 @@
+name: Anime daily quiz
+
+# Stopgap until PR #213 (48 bis) merges: Vercel calls the crons of otakuquiz on its deployment URL, which the
+# Microfrontends group sends to the hub, so the anime quiz of the day is never published. This job calls the anime
+# route through the group (bunnyverse.org/anime/...), which reaches otakuquiz. Delete this file once #213 is merged.
+#
+# The route is idempotent: a second call on the same UTC day publishes nothing new.
+# Secret: ANIME_CRON_SECRET (repository secret) holds otakuquiz's CRON_SECRET. It only ever goes through env, never on
+# the command line, and nothing prints it. No pull_request trigger: the repository is public.
+on:
+  schedule:
+    - cron: '7 0 * * *' # 00:07 UTC, after the day change (00:00 UTC) and the kpop cron (00:05 UTC)
+  workflow_dispatch: {}
+
+permissions: {}
+
+concurrency:
+  group: anime-daily-quiz
+
+jobs:
+  ensure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ensure the anime quiz of the day
+        env:
+          SECRET: ${{ secrets.ANIME_CRON_SECRET }}
+        run: |
+          if [ -z "$SECRET" ]; then echo "ANIME_CRON_SECRET is not set"; exit 1; fi
+          body=$(curl -sS --fail-with-body --retry 3 --retry-delay 20 --max-time 60 -H "Authorization: Bearer $SECRET" https://bunnyverse.org/anime/api/cron/ensure-daily-quiz) || { echo "$body"; exit 1; }
+          echo "$body"
+          echo "$body" | grep -q '"ok":true'
