@@ -3,16 +3,26 @@
 //   QUIZ_MERGES  loser slug -> kept slug. One hop, 301 to the exact successor (next.config.ts redirects). Never to a generic page.
 //   QUIZ_GONE    slugs removed with no successor. A real 410 (next.config.ts rewrite to /api/legacy/gone), not a 404.
 //
-// Both are EMPTY on purpose. The merge proposals come from the duplicates audit (docs/seo/strategy-2026-10-27: one pair, K01, the same
+// The rows need the owner. The merge proposals come from the duplicates audit (docs/seo/strategy-2026-10-27: one pair, K01, the same
 // ILLIT quiz uploaded twice) and the guard of audit 03 section 3 forbids touching a URL with clicks in 90 days, or on the linked-URL
 // guard list, without the owner. The numbers come from the Search Console triage (scripts/seo-gsc-triage.mts). When the owner approves
-// a merge, the row goes here AND the data change (unpublish the loser, enqueue both URLs to IndexNow) ships in the SQL file
-// docs/pending-migrations/multisite/launch/L28-l1-quiz-merges.sql, so the redirect and the data move together. A page is gone from
+// a merge, the row goes here AND the data change (the loser leaves publication) ships in the SQL file
+// docs/pending-migrations/multisite/launch/L28-l1-quiz-merges.sql, applied after the merge of this code. A page is gone from
 // /q/ only after this table says so: today an unpublished or flagged quiz answers 404, because the public read cannot see a removed row.
+// The sitemap leaves out every slug of both tables (app/sitemap.ts), so a merged quiz is out of it before L28 runs.
+//
+// Owner, 2026-11-09 (go for both):
+//   - K01: this-is-only-for-true-gllits (2 clicks in 90 days) is the same quiz as -2 (1 click): 301 to -2; L28 takes the loser out of
+//     publication (status 'removed', nothing deleted).
+//   - only-real-monstiez (2 clicks, a 404 today: the quiz is flagged, out of publication since 2026-09-15): 301 to babymonster-quiz,
+//     the BABYMONSTER quiz with the most plays. No data change: the flagged row stays as it is.
 //
 // Pure data and pure functions (the next.config and the nightly crawl read them), unit tested in quiz-redirects.test.ts.
 
-export const QUIZ_MERGES: Readonly<Record<string, string>> = {};
+export const QUIZ_MERGES: Readonly<Record<string, string>> = {
+  'this-is-only-for-true-gllits': 'this-is-only-for-true-gllits-2',
+  'only-real-monstiez': 'babymonster-quiz',
+};
 
 export const QUIZ_GONE: readonly string[] = [];
 
@@ -36,9 +46,9 @@ export function quizRedirectProblems(
   return problems;
 }
 
-/** The next.config redirects of the merges: a permanent redirect (308, treated as 301 by search engines) to the kept quiz. */
-export function quizMergeRedirects(merges: Readonly<Record<string, string>> = QUIZ_MERGES): Array<{ source: string; destination: string; permanent: true }> {
-  return Object.entries(merges).map(([from, to]) => ({ source: `/q/${from}`, destination: `/q/${to}`, permanent: true as const }));
+/** The next.config redirects of the merges: a 301 to the kept quiz (owner, 2026-11-09: a real 301, not next.config's default 308). */
+export function quizMergeRedirects(merges: Readonly<Record<string, string>> = QUIZ_MERGES): Array<{ source: string; destination: string; statusCode: 301 }> {
+  return Object.entries(merges).map(([from, to]) => ({ source: `/q/${from}`, destination: `/q/${to}`, statusCode: 301 as const }));
 }
 
 /** The next.config rewrites of the removed quizzes: the 410 handler answers in place of the page. */

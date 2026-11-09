@@ -194,6 +194,34 @@ export function portugueseAnswer(pathname: string): LegacyAnswer | null {
   return (PORTUGUESE_PAGES as readonly string[]).includes(english) && english !== '/' ? { status: 301, location: english } : null;
 }
 
+// Owner, 2026-11-09 (audit 03 triage of Search Console, 90 days): the retired URLs that still earned clicks go 301, one hop, to the page
+// that serves their intent today. Every other URL of their families keeps the answers above (410, or its exact successor). The path is
+// matched without its query string (?daily=game is dropped). Four targets are the closest page rather than an exact successor (rulebook
+// 9.4, said in the PR): /games/this-or-that, /games/name-them-all/name-all-kpop-groups and /tier-list to the games hub, and
+// /rankings/general/girl-groups to the groups A to Z. Pinned by legacy-urls.test.ts and the nightly crawl seeds (prod-crawl.ts).
+export const CLICKED_LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
+  '/games': '/kpop-games',
+  '/games/this-or-that': '/kpop-games',
+  '/games/name-them-all/name-all-kpop-groups': '/kpop-games',
+  '/tier-list': '/kpop-games',
+  '/games/match-up/song-title-halves': '/guess-the-kpop-song',
+  '/games/match-up/song-to-group': '/guess-the-kpop-song',
+  '/games/name-all/name-all-babymonster': '/babymonster-quiz',
+  '/games/name-all/name-all-nmixx': '/nmixx-quiz',
+  '/games/name-all/name-top-5-aespa-songs': '/aespa-quiz',
+  '/games/sort-it/3rd-gen-or-4th-gen': '/articles/kpop-generations-explained',
+  '/rankings/general/4th-gen-groups': '/articles/kpop-generations-explained',
+  '/rankings/general/girl-groups': '/groups',
+  '/tier-list/l/aespa-members': '/aespa-quiz',
+  '/tier-list/l/bts-members-2': '/bts-quiz',
+};
+
+/** 301 for a retired URL that still earned clicks, to the page that serves it today, or null. */
+export function clickedLegacyAnswer(pathname: string): LegacyAnswer | null {
+  const path = pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname;
+  return Object.hasOwn(CLICKED_LEGACY_REDIRECTS, path) ? { status: 301, location: CLICKED_LEGACY_REDIRECTS[path]! } : null;
+}
+
 export function legacyAnswer(pathname: string, prettyUrlsLive: boolean): LegacyAnswer | null {
-  return legacyNameAllAnswer(pathname, prettyUrlsLive) ?? retiredFeatureAnswer(pathname) ?? portugueseAnswer(pathname);
+  return clickedLegacyAnswer(pathname) ?? legacyNameAllAnswer(pathname, prettyUrlsLive) ?? retiredFeatureAnswer(pathname) ?? portugueseAnswer(pathname);
 }
