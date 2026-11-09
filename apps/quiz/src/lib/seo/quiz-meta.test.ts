@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clipWords, DESCRIPTION_MIN, NOTE_MIN, quizAuthorJsonLd, quizDescription, quizTitle, TITLE_MAX } from './quiz-meta';
+import { clipWords, collapsePunctuation, NOTE_MIN, quizAuthorJsonLd, quizDescription, quizSeoTitle, quizTitle, TITLE_MAX } from './quiz-meta';
 
 // The title and description of every quiz page (owner, 2026-10-13: SEO). Real titles from
 // the catalogue, including the ones the old middle-cut broke ("Can you guess the IV...rom 3 clues?").
@@ -31,8 +31,8 @@ describe('quiz page title', () => {
 
 describe('quiz page description', () => {
   const base = { title: 'Ultimate BTS era quiz', difficulty: 'easy', questionCount: 8, groupName: 'BTS', creator: 'mina', plays: 2499, creatorNote: null };
-  it('built from real data, with "an" before a vowel; plays are plays, never fans (audit 04 P0-3)', () => {
-    expect(quizDescription(base)).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. Played 2,499 times. Free to play, no sign-up.');
+  it('built from real data; plays are plays, never fans (audit 04 P0-3), the creator is named as a fan creator', () => {
+    expect(quizDescription(base)).toBe('Ultimate BTS era quiz: 8 easy questions on BTS by fan creator mina. Played 2,499 times. Free to play, no sign-up needed.');
   });
   it('one play is singular and the meta never carries the average or the word fans', () => {
     const d = quizDescription({ ...base, plays: 1 });
@@ -41,18 +41,24 @@ describe('quiz page description', () => {
   });
   it('a Team quiz is signed "the KpopQuiz Team", never the handle (audit 04 P0-2)', () => {
     const d = quizDescription({ ...base, creator: 'njeansstan', creatorIsTeam: true });
-    expect(d).toContain('made by the KpopQuiz Team.');
+    expect(d).toContain('by the KpopQuiz Team.');
     expect(d).not.toContain('njeansstan');
-    expect(quizDescription({ ...base, creator: 'njeansstan' })).toContain('made by njeansstan.');
+    expect(quizDescription({ ...base, creator: 'njeansstan' })).toContain('by fan creator njeansstan.');
   });
   it('a new quiz never says "Played 0 times"', () => {
     const d = quizDescription({ ...base, difficulty: 'medium', plays: 0 });
-    expect(d).toContain('a medium 8-question');
+    expect(d).toContain('8 medium questions');
     expect(d).toContain('be one of the first to play it');
     expect(d).not.toContain('0 times');
   });
+  it('the real catalogue example of the audit: the creator words, the format, the group, the plays (150 characters)', () => {
+    const d = quizDescription({ title: 'Think you are a real GLLIT?!!', difficulty: 'easy', questionCount: 3, groupName: 'ILLIT', creator: 'multistancookie', plays: 1784, creatorNote: null, quizType: 'intruder' });
+    expect(d).toBe('Think you are a real GLLIT? 3 easy odd-one-out questions on ILLIT by fan creator multistancookie. Played 1,784 times. Free to play, no sign-up needed.');
+    expect(d.length).toBeGreaterThanOrEqual(140);
+    expect(d.length).toBeLessThanOrEqual(155);
+  });
   it('a few-word creator note is not the description; a real one is', () => {
-    expect(quizDescription({ ...base, creatorNote: 'easy quiz' })).toContain('made by mina');
+    expect(quizDescription({ ...base, creatorNote: 'easy quiz' })).toContain('by fan creator mina');
     const note = 'A deep dive into every BTS era, from School Trilogy to Map of the Soul, with one question per album.';
     expect(note.length).toBeGreaterThanOrEqual(NOTE_MIN);
     expect(quizDescription({ ...base, creatorNote: note })).toBe(note);
@@ -66,11 +72,37 @@ describe('quiz page description', () => {
 });
 
 describe('quiz page description floor', () => {
-  it('a short description gets a last line, never past the snippet', () => {
+  it('a short quiz still gets a closing line, never past the snippet', () => {
     const d = quizDescription({ title: 'IVE', difficulty: 'easy', questionCount: 5, groupName: 'IVE', creator: 'jo', plays: 0, creatorNote: null });
-    expect(d.length).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
-    expect(d.length).toBeLessThanOrEqual(158);
-    expect(d.endsWith('Free to play, no sign-up.')).toBe(true);
+    expect(d.length).toBeLessThanOrEqual(155);
+    expect(d.endsWith('no sign-up needed.') || d.endsWith('no sign-up.')).toBe(true);
+  });
+});
+
+describe('quiz page SEO title (audit 04 P1-2)', () => {
+  const T = (title: string, n: number, name: string, slug?: string): string => quizSeoTitle(title, n, { name, slug: slug ?? null });
+  it('real catalogue titles: punctuation runs collapse, the group and "quiz" are added when missing', () => {
+    expect(T('are u a real GLLIT?!!', 3, 'ILLIT', 'illit')).toBe('are u a real GLLIT? ILLIT quiz, 3 questions');
+    expect(T('Are you a real coer??!!', 7, 'Cortis', 'cortis')).toBe('Are you a real coer? Cortis quiz, 7 questions');
+    expect(T('How well do you know TXT?', 7, 'TXT', 'txt')).toBe('How well do you know TXT? 7-question quiz');
+  });
+  it('a title that already names the group and says quiz only gets the count, as before', () => {
+    expect(T('Illit quiz', 10, 'ILLIT', 'illit')).toBe('Illit quiz · 10 questions');
+    expect(T('BTS ARMY level test', 12, 'BTS', 'bts')).toBe('BTS ARMY level test · 12 questions');
+  });
+  it('a title with quiz but no group gets the group name', () => {
+    expect(T('The hardest idol quiz', 10, 'IVE', 'ive')).toBe('The hardest idol quiz · IVE, 10 questions');
+  });
+  it('never longer than TITLE_MAX, never cut inside a word, the group and quiz kept', () => {
+    const t = T('Guess the common song of these legendary K-pop girl group artists (2)', 8, 'IVE', 'ive');
+    expect(t.length).toBeLessThanOrEqual(TITLE_MAX);
+    expect(t).toMatch(/IVE quiz$/);
+    expect(t).not.toMatch(/\w\.\.\.\w/);
+  });
+  it('collapsePunctuation', () => {
+    expect(collapsePunctuation('wow!!!  what??!!')).toBe('wow! what?');
+    expect(collapsePunctuation('~~true~~ Gllits')).toBe('~true~ Gllits');
+    expect(collapsePunctuation('Who is it ?')).toBe('Who is it?');
   });
 });
 

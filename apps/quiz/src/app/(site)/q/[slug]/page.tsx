@@ -37,7 +37,8 @@ import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from './ux-page';
 
-import { playedText, qualifiedQuizTitle, quizAuthorJsonLd, quizDescription, quizTitle, TEAM_BYLINE } from '@/lib/seo/quiz-meta';
+import { playedText, qualifiedQuizTitle, quizAuthorJsonLd, quizDescription, TEAM_BYLINE } from '@/lib/seo/quiz-meta';
+import { quizPageTitle } from '@/lib/seo/quiz-title-overrides';
 import { isEditorialUser } from '@/lib/editorial/accounts';
 
 import type { Metadata } from 'next';
@@ -174,9 +175,9 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const shown = shownTitle(quiz);
   const description = quizDescription({
     title: shown, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
-    creator: quiz.creator_username, creatorIsTeam: await isTeamQuiz(quiz), plays: quiz.play_count, creatorNote: creatorNote ?? null,
+    creator: quiz.creator_username, creatorIsTeam: await isTeamQuiz(quiz), plays: quiz.play_count, creatorNote: creatorNote ?? null, quizType: quiz.quiz_type,
   });
-  const title = quizTitle(shown, questionLen);
+  const title = quizPageTitle(slug, shown, questionLen, { name: quiz.group_name, slug: quiz.group_slug });
   const ogImageUrl = `/api/og/${slug}`;
 
   return {
