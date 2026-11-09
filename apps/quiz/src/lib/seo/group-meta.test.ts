@@ -44,7 +44,7 @@ describe('hub description', () => {
       expect(d.length, d).toBeLessThanOrEqual(HUB_DESCRIPTION_MAX);
       expect(d.length, d).toBeGreaterThanOrEqual(HUB_DESCRIPTION_MIN);
       expect(d).toContain(`${g.name} quizzes`);
-      expect(d).not.toMatch(/[–—]/);
+      expect(d).not.toMatch(/[\u2013\u2014]/);
     }
   });
   it('says "from easy to hard" only with two levels or more, and names a real fandom only', () => {

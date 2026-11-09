@@ -46,7 +46,7 @@ describe('checkAwardShows catches a bad calendar', () => {
     expect(checkAwardShows([good({ days: ['2026-02-30'] })]).join('\n')).toContain('real YYYY-MM-DD');
     expect(checkAwardShows([good(), good()]).join('\n')).toContain('the id repeats');
     expect(checkAwardShows([good({ quiz_slug: 'mma-2026-quiz' })]).join('\n')).toContain('no year');
-    expect(checkAwardShows([good({ venue: 'Gocheok – Seoul' })]).join('\n')).toContain('dash');
+    expect(checkAwardShows([good({ venue: 'Gocheok \u2013 Seoul' })]).join('\n')).toContain('dash');
     expect(checkAwardShows([good({ allowed_categories: ['fan_vote' as never] })]).join('\n')).toContain('allowed list');
   });
   it('a show with no awards cannot ask for winners', () => {

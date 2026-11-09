@@ -11,7 +11,7 @@ const ok = (m: { title: string; description: string }, primary: RegExp): void =>
   expect(m.description.length, m.description).toBeLessThanOrEqual(HUB_DESCRIPTION_MAX);
   expect(m.title).toMatch(primary);
   expect(m.description).toMatch(primary);
-  expect(`${m.title} ${m.description}`).not.toMatch(/[–—]| - /);
+  expect(`${m.title} ${m.description}`).not.toMatch(/[\u2013\u2014]| - /);
 };
 
 describe('/quizzes', () => {

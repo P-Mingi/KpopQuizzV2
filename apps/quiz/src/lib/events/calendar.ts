@@ -35,7 +35,7 @@ export const PREP_DAYS = 10;
 /** Hosts that are never a source (rulebook 5.2 and 5.3). */
 const BLOCKED_HOSTS = ['kprofiles.com', 'fandom.com', 'wikia.com', 'soompi.com', 'allkpop.com'];
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
-const DASH = /[–—]/;
+const DASH = /[\u2013\u2014]/;
 
 const hostOf = (url: string): string => /^https:\/\/([a-z0-9.-]+)/i.exec(url)?.[1]?.toLowerCase() ?? '';
 const validDay = (d: string): boolean => DAY.test(d) && !Number.isNaN(Date.parse(`${d}T00:00:00Z`)) && new Date(`${d}T00:00:00Z`).toISOString().startsWith(d);
