@@ -9,3 +9,5 @@ The sender allows 100 mails an hour (Resend): the route sends 90 at most per run
 +      "path": "/api/cron/daily-reminders",
 +      "schedule": "0 * * * *"
 +    },
+
+Env for the reminders (owner sets with the flag): DAILY_REMINDERS=1 and REMINDER_SECRET (any long random string; the one-click unsubscribe links are an HMAC under it), RESEND_API_KEY (existing).

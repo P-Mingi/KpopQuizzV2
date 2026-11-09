@@ -14,7 +14,7 @@ async function stop(req: NextRequest): Promise<boolean> {
   const u = url.searchParams.get('u') ?? '';
   const t = url.searchParams.get('t') ?? '';
   if (!/^[0-9a-f-]{36}$/i.test(u) || t.length < 20) return false;
-  if (!unsubscribeValid(u, t, process.env['REMINDER_SECRET'] ?? process.env['CRON_SECRET'])) return false;
+  if (!unsubscribeValid(u, t, process.env['REMINDER_SECRET'])) return false;
   const { data } = await createServiceRoleClient().from(REMINDERS_TABLE).delete().eq('user_id', u).select('user_id');
   return Array.isArray(data) && data.length === 1;
 }

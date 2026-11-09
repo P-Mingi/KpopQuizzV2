@@ -10,7 +10,7 @@ import type { PassportWords } from '@/lib/passport-ui/words';
 
 /** Where "Play a quiz first" goes: today's daily quiz (/daily redirects to it, or to
  *  /quizzes when there is none). The same target as every "play the daily" link. */
-export const GUEST_PLAY_HREF = '/daily';
+export const GUEST_PLAY_HREF = '/daily/play';
 
 /**
  * The passport for a signed-out fan (prototype view "you" with body.guest:

@@ -50,7 +50,7 @@ export function StreakBody({ v, close }: { v: StreakView; close: () => void }): 
         ))}
       </ol>
       {risk
-        ? <Link href="/daily?from=nav" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
+        ? <Link href="/daily/play?from=nav" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
         : <Link href="/profile" className="ux-btn ux-btn-ghost ux-btn-block" onClick={close}>See your passport</Link>}
     </>
   );
@@ -63,7 +63,7 @@ function GuestStreakPill(): React.ReactElement | null {
   const g = guestLiveStreak();
   if (g.count < 2) return null;
   return (
-    <Link href="/daily?from=nav" className="ux-streak" aria-label={`${g.count} day streak in this browser${g.playedToday ? ', today is played' : ''}`}>
+    <Link href="/daily/play?from=nav" className="ux-streak" aria-label={`${g.count} day streak in this browser${g.playedToday ? ', today is played' : ''}`}>
       <Icon name="flame" />{g.count}
     </Link>
   );

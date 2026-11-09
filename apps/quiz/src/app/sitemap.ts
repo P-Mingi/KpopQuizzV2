@@ -1,3 +1,4 @@
+import { dailyHubOn } from '@/lib/daily-hub';
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
 import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
@@ -117,6 +118,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/new`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/most-liked`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/trivia`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    // Audit 01 P2-9: the daily hub, listed only while it is a page (DAILY_HUB=1); off, /daily is a redirect and never in the sitemap.
+    ...(dailyHubOn() ? [{ url: `${SITE_URL}/daily`, lastModified: STATIC_DATE, changeFrequency: 'daily' as const, priority: 0.7 }] : []),
     { url: `${SITE_URL}/leaderboard`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/easy-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/hard-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },

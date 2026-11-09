@@ -1,0 +1,5 @@
+Audit 01 P2-9 (docs/seo/TARGETS.md is not owned by L1 or K1: ORCH or the owner commits this row in the same PR that sets DAILY_HUB=1).
+No cluster owns "daily kpop quiz" at v1 (checked: no row mentions daily). The page ships behind DAILY_HUB (off): with the flag off /daily redirects as before and is not in the sitemap.
+
+| cluster | queries | URL | intent | language | KPI |
+| daily K-pop quiz | daily kpop quiz, kpop quiz of the day, daily kpop game | /daily | play today's shared quiz, blindtest and Kpopdle | en | dailies per player 1.5+ (audit 01), impressions on the queries |
