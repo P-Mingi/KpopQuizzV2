@@ -166,12 +166,14 @@ describe('landing', () => {
     expect(html).toContain('284 chansons');
   });
 
-  it('metadata: title, self canonical, the four-page cluster with x-default English, indexable', () => {
+  it('metadata: title, self canonical; O1 P1-7: a localized landing without a recorded native review is noindex and out of the cluster', () => {
     const m = landingMetadata('id');
     expect(m.title).toBe('Tebak lagu K-pop gratis');
     expect(m.alternates?.canonical).toBe('/id/tebak-lagu-kpop');
-    expect(m.alternates?.languages).toEqual({ en: '/guess-the-kpop-song', fr: '/fr/blind-test-kpop', es: '/es/adivina-la-cancion-kpop', id: '/id/tebak-lagu-kpop', 'x-default': '/guess-the-kpop-song' });
-    expect(m.robots).toEqual({ index: true, follow: true });
+    // was: the four-page cluster and index,follow. Flipped on purpose (rulebook 10.3): only the reviewed pages are in the cluster.
+    expect(m.alternates?.languages).toEqual({ en: '/guess-the-kpop-song', 'x-default': '/guess-the-kpop-song' });
+    expect(m.robots).toEqual({ index: false, follow: true });
+    expect(landingMetadata('en').robots).toEqual({ index: true, follow: true });
     expect(landingMetadata('en').title).toBe('Guess the K-pop song: free K-pop blind test');
   });
 });

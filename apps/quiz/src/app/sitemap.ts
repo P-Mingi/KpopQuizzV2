@@ -10,7 +10,7 @@ import { quizLastModified, readExplanationDates } from '@/lib/db/queries/quiz-ex
 import { forSite } from '@/lib/site/scope';
 import { LEGAL, legalIsComplete } from '@/lib/legal-notice';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
-import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
+import { LANDING_PATH, indexableLandingLangs } from '@/lib/growth/bt-landing';
 import { isDuplicateMode } from '@/lib/growth/bt-mode-pool';
 import { isThemePage } from '@/lib/growth/bt-themes';
 import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
@@ -157,10 +157,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // V12 (flag only): the four blindtest landings (SYSTEM.md 4), one per language.
-  // The hreflang cluster is in each page's own metadata.
+  // V12 (flag only): the blindtest landings (SYSTEM.md 4), one per language.
+  // The hreflang cluster is in each page's own metadata. O1 audit 03 P1-7 (rulebook 10.3): a localized landing
+  // is listed only once a native review is recorded (bt-landing.ts LANDING_REVIEW); today that is English only.
   const blindTestLandingPages: MetadataRoute.Sitemap = isUxV12()
-    ? LANDING_LANGS.map((l) => ({
+    ? indexableLandingLangs().map((l) => ({
         url: `${SITE_URL}${LANDING_PATH[l]}`,
         lastModified: STATIC_DATE,
         changeFrequency: 'weekly' as const,
