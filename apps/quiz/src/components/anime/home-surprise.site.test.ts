@@ -102,18 +102,20 @@ describe('its place on the home', () => {
     expect(at('class="p1-qotd"')).toBeGreaterThan(at('class="anime-h2-surprise"'));
   });
 
-  it('with none passed: no block, and the same ten entries in the page, the quiz of the day fourth (its page data keeps its bytes)', async () => {
+  // Owner, 2026-11-09 (lot o1/next): an eleventh entry, the generations link at the foot of the kpop home (null on the anime build).
+  it('with none passed: no block, and the same eleven entries in the page, the quiz of the day fourth (its page data keeps its bytes)', async () => {
     vi.stubEnv('NEXT_PUBLIC_SITE_ID', '');
     const kpop = await home();
     const html = renderToStaticMarkup(kpop);
     expect(html).not.toContain('anime-h2');
     expect(pool.calls).toEqual([]);
     const children = (kpop.props as { children: unknown[] }).children;
-    expect(children).toHaveLength(10);
+    expect(children).toHaveLength(11);
     const fourth = children[3];
     expect(isValidElement(fourth) && (fourth.type as { name?: string }).name).toBe('QotdRow');
+    expect(renderToStaticMarkup(children[10] as React.ReactElement)).toContain('href="/articles/kpop-generations-explained"');
     // With a block, it shares that one entry with the quiz of the day.
     const anime = await home(h('i', { className: 'marker' }));
-    expect((anime.props as { children: unknown[] }).children).toHaveLength(10);
+    expect((anime.props as { children: unknown[] }).children).toHaveLength(11);
   });
 });

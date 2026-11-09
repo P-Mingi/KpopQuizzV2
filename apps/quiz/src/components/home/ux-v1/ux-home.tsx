@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { ActivityTicker } from '@/components/home/activity-ticker';
+import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
@@ -83,12 +84,6 @@ export async function UxHome({ head, afterHeader }: {
             action={groups.visibleGroups > 0 ? { href: TOPICS_HREF, label: `All ${groups.visibleGroups} ${SITE.vocabulary.topicPlural}` } : { href: TOPICS_HREF, label: `All ${SITE.vocabulary.topicPlural}` }}
           />
           <GroupsRail groups={groups.groups} />
-          {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor (Run O1: a kpop page, so kpop only). */}
-          {IS_KPOP ? (
-            <p className="p1-note" style={{ marginTop: 12 }}>
-              <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
-            </p>
-          ) : null}
         </section>
       ) : null}
 
@@ -133,6 +128,16 @@ export async function UxHome({ head, afterHeader }: {
         <SectionHeader id="p1-comm-h" icon="msg" title="From the community" action={{ href: '/community', label: 'Open community' }} />
         <CommunityRows rows={community.rows} verse={community.verse} />
       </section>
+
+      {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor "K-pop generations" (Run O1: a kpop page, so
+          kpop only). Owner, 2026-11-09: no longer a muted note under the groups, a real link at the foot of the home, right before the
+          footer, in the link colour of "All N groups" (ux-lnk). Always rendered, like the community section above it. */}
+      {IS_KPOP ? (
+        <p className="p1-note p1-gen">
+          <Link className="ux-lnk" href={GENERATIONS_HUB_PATH}>Explore K-pop generations<Icon name="arrow" size="sm" /></Link>{' '}
+          Which era each group belongs to, with sources.
+        </p>
+      ) : null}
     </UxPage>
   );
 }
