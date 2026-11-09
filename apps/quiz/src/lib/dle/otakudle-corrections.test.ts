@@ -201,6 +201,15 @@ describe('L23: first adaptation (studio) and year of the original work', () => {
     expect(answersAfterL23).toBe(answersAfterL22);
   });
 
+  it('the read-only checks V-L21, V-L22 and V-L23 all answer ok', async () => {
+    for (const v of ['V-L21.sql', 'V-L22.sql', 'V-L23.sql']) {
+      const res = await db.exec(readFileSync(path.join(__dirname, '../../../../../docs/launch/o1/checks', v), 'utf8'));
+      const out = res.flatMap((r) => r.rows as Record<string, string>[]).map((r) => Object.values(r));
+      expect(out.length, v).toBeGreaterThanOrEqual(7);
+      expect(out.filter((r) => r[0] !== 'ok'), v).toEqual([]);
+    }
+  });
+
   it('a second run of L23 changes nothing', async () => {
     await db.exec(readLaunch(L23));
     expect(await snap(db)).toEqual(afterL23);
