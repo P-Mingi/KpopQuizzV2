@@ -89,16 +89,22 @@ export const getOverriddenFacts = cache(
         .limit(200);
 
       if (error) {
+        // O1 audit 03 P1-3: a read error must never become a cached empty list. unstable_cache stores a
+        // returned [] for 6 hours, and the trivia route answers 404 for it (real group, wrong status, and a
+        // page Google then drops). A throw is not cached: the next request reads again, and a background
+        // revalidation that throws keeps serving the last good page.
         console.error('[getOverriddenFacts] query failed:', error);
-        return [];
+        throw new Error(`getOverriddenFacts: the quizzes read failed (${error.message ?? 'unknown error'})`);
       }
+      // No rows and no error is a real answer: a group with no published quiz has no derived facts.
       if (!quizzes) return [];
 
       return buildOverriddenFacts(groupSlug, quizzes as FactSourceQuiz[]);
     },
     // v2 (2026-10-13): the fact quality filter changed the result for the same
     // input, so a fresh key keeps a deploy from serving the pre-filter cache.
-    ['trivia:getOverriddenFacts:v2'],
+    // v3 (O1 P1-3): a fresh key drops any [] cached from a failed read under v2.
+    ['trivia:getOverriddenFacts:v3'],
     { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
   ),
 );
