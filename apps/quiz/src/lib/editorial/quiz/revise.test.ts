@@ -9,6 +9,8 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { MIGRATIONS } from '@/lib/dle/pglite-harness';
 
+import { verifyDiffs, verifyLines } from '../launch-verify';
+
 import { RevisionNotLive, reviseTeamQuiz } from './revise';
 import { ADMIN, MINA, JAE, goodPayload, isAdmin } from './test-fixtures';
 
@@ -81,6 +83,10 @@ describe('L26 on PGlite', () => {
     await db.exec(launch('L26-l1-quiz-revision.sql'));
   });
 
+  it('the Verify lines of the header hold right after the apply', async () => {
+    expect(verifyLines('L26-l1-quiz-revision.sql').length).toBeGreaterThanOrEqual(3);
+    expect(await verifyDiffs(db, 'L26-l1-quiz-revision.sql')).toEqual([]);
+  });
   it('a Team quiz: history written, content replaced, average inputs reset, play_count kept', async () => {
     const r = await revise('team-quiz');
     expect((r.rows[0] as { n: number }).n).toBe(1);
@@ -105,7 +111,19 @@ describe('L26 on PGlite', () => {
   it('the rollback drops the function and the table, and runs twice', async () => {
     await db.exec(launch('L26-l1-quiz-revision.rollback.sql'));
     expect((await db.query(`select to_regclass('public.quiz_revision') r, to_regprocedure('public.revise_team_quiz(text,text,jsonb,jsonb,uuid,text)') f`)).rows[0]).toEqual({ r: null, f: null });
+    expect(verifyLines('L26-l1-quiz-revision.rollback.sql').length).toBeGreaterThanOrEqual(3);
+    expect(await verifyDiffs(db, 'L26-l1-quiz-revision.rollback.sql')).toEqual([]);
     await db.exec(launch('L26-l1-quiz-revision.rollback.sql'));
     expect(await state('fan-quiz')).toMatchObject({ title: 'Fan quiz title', play_count: 50, total_score_sum: 300 });
+  });
+});
+
+describe('L26 file shape', () => {
+  it('is one do block, no temp table, no date guard', () => {
+    for (const f of ['L26-l1-quiz-revision.sql', 'L26-l1-quiz-revision.rollback.sql']) {
+      const sql = readFileSync(path.join(MIGRATIONS, 'launch', f), 'utf8').split('\n').filter((l) => !l.startsWith('--')).join('\n');
+      expect((sql.match(/\bdo \$/gi) ?? []).length, f).toBe(1);
+      expect(sql, f).not.toMatch(/temp(orary)? table/i);
+    }
   });
 });
