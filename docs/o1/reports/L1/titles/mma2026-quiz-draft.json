@@ -1,0 +1,169 @@
+[
+  {
+    "site": "kpop",
+    "account": "kpophistory",
+    "group_slug": "general-kpop",
+    "title": "Melon Music Awards quiz: past Daesang winners and show facts",
+    "slug": "mma-awards-quiz",
+    "description": "Ten sourced questions on the Melon Music Awards: who won the grand prizes in past years, and facts about MMA2026 on November 14 and 15 at Gocheok Sky Dome.",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "language": "en",
+    "title_gives_nothing_away": true,
+    "sources": [
+      {
+        "id": "S1",
+        "title": "Kakao Entertainment newsroom: MMA2026 on Nov. 14-15 (June 9, 2026)",
+        "url": "https://newsroom.kakaoent.com/news/kakao-entertainment-to-host-mma2026-on-nov-14-15/"
+      },
+      {
+        "id": "S2",
+        "title": "Melon official page: Melon Music Award info (MMA2026)",
+        "url": "https://www.melon.com/mma/info.htm"
+      },
+      {
+        "id": "S3",
+        "title": "Wikipedia: Melon Music Award for Song of the Year (revision 1383792585)",
+        "url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Song_of_the_Year&oldid=1383792585"
+      },
+      {
+        "id": "S4",
+        "title": "Wikipedia: Melon Music Award for Album of the Year (revision 1383792579)",
+        "url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Album_of_the_Year&oldid=1383792579"
+      },
+      {
+        "id": "S5",
+        "title": "Wikipedia: Melon Music Award for Artist of the Year (revision 1351629018)",
+        "url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Artist_of_the_Year&oldid=1351629018"
+      },
+      {
+        "id": "S6",
+        "title": "Wikipedia: Melon Music Awards, Record of the Year (revision 1383792591)",
+        "url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Awards&oldid=1383792591"
+      }
+    ],
+    "questions": [
+      {
+        "question": "Which song won Song of the Year at the 2023 Melon Music Awards?",
+        "options": [
+          "Ditto",
+          "Love Dive",
+          "Dynamite",
+          "Spring Day"
+        ],
+        "correct": 0,
+        "fun_fact": "NewJeans won Song of the Year in 2023 with Ditto. IVE had won it a year earlier with Love Dive.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Song_of_the_Year&oldid=1383792585"
+      },
+      {
+        "question": "Which album won Album of the Year at the 2024 Melon Music Awards?",
+        "options": [
+          "Love Yourself: Tear",
+          "Lilac",
+          "Armageddon",
+          "I've IVE"
+        ],
+        "correct": 2,
+        "fun_fact": "Armageddon by aespa took the 2024 Album of the Year, and aespa also won Song of the Year that year with Supernova.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Album_of_the_Year&oldid=1383792579"
+      },
+      {
+        "question": "Which song won Song of the Year at the 2012 Melon Music Awards?",
+        "options": [
+          "Gee",
+          "Growl",
+          "Bang Bang Bang",
+          "Gangnam Style"
+        ],
+        "correct": 3,
+        "fun_fact": "Psy won Song of the Year in 2012 with Gangnam Style.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Song_of_the_Year&oldid=1383792585"
+      },
+      {
+        "question": "Which artist has won Melon Music Awards Artist of the Year the most times?",
+        "options": [
+          "EXO",
+          "IU",
+          "BTS",
+          "TVXQ"
+        ],
+        "correct": 2,
+        "fun_fact": "BTS holds the record with three Artist of the Year wins, in 2018, 2019 and 2020.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Award_for_Artist_of_the_Year&oldid=1351629018"
+      },
+      {
+        "question": "Who won Record of the Year at the 2025 Melon Music Awards?",
+        "options": [
+          "G-Dragon",
+          "aespa",
+          "Jennie",
+          "IU"
+        ],
+        "correct": 2,
+        "fun_fact": "Record of the Year is judged by a panel alone. In 2025 it went to Jennie.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=Melon_Music_Awards&oldid=1383792591"
+      },
+      {
+        "question": "Where is MMA2026 held?",
+        "options": [
+          "Kyocera Dome Osaka",
+          "KINTEX in Ilsan",
+          "Gocheok Sky Dome",
+          "Hanoi"
+        ],
+        "correct": 2,
+        "fun_fact": "The 18th Melon Music Awards take place at Gocheok Sky Dome in Seoul.",
+        "source_url": "https://newsroom.kakaoent.com/news/kakao-entertainment-to-host-mma2026-on-nov-14-15/"
+      },
+      {
+        "question": "MMA2026 is which edition of the Melon Music Awards, according to Kakao Entertainment?",
+        "options": [
+          "The 15th",
+          "The 16th",
+          "The 17th",
+          "The 18th"
+        ],
+        "correct": 3,
+        "fun_fact": "Kakao Entertainment calls MMA2026 the 18th Melon Music Awards, held on November 14 and 15, 2026.",
+        "source_url": "https://newsroom.kakaoent.com/news/kakao-entertainment-to-host-mma2026-on-nov-14-15/"
+      },
+      {
+        "question": "At what time in Seoul does the official Melon page list the MMA2026 shows as starting?",
+        "options": [
+          "4 pm",
+          "5 pm",
+          "6 pm",
+          "7 pm"
+        ],
+        "correct": 2,
+        "fun_fact": "The Melon page lists both nights, November 14 and 15, at 18:00 Korea time.",
+        "source_url": "https://www.melon.com/mma/info.htm"
+      },
+      {
+        "question": "Which Japanese service joined Melon and Tencent Music in the Global-K Chart that MMA2026 uses?",
+        "options": [
+          "AWA",
+          "Recochoku",
+          "Rakuten Music",
+          "LINE MUSIC"
+        ],
+        "correct": 3,
+        "fun_fact": "The Global-K Chart combines streaming and fandom activity from Melon, Tencent Music in China and LINE MUSIC in Japan.",
+        "source_url": "https://newsroom.kakaoent.com/news/kakao-entertainment-to-host-mma2026-on-nov-14-15/"
+      },
+      {
+        "question": "Which artist's Dear Name stage did Kakao Entertainment call an iconic Melon Music Awards moment from 2017?",
+        "options": [
+          "Taeyeon",
+          "IU",
+          "Zico",
+          "Lim Young-woong"
+        ],
+        "correct": 1,
+        "fun_fact": "Kakao Entertainment also cites BTS with a traditional Korean version of Idol in 2018 and Jennie in 2025.",
+        "source_url": "https://newsroom.kakaoent.com/news/kakao-entertainment-to-host-mma2026-on-nov-14-15/"
+      }
+    ],
+    "notes": "Facts read on 2026-11-09. Past winners from Wikipedia revisions linked in the sources, show facts from the Kakao newsroom and the Melon page."
+  }
+]
