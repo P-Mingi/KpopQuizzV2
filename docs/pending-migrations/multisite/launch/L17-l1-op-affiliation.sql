@@ -6,7 +6,7 @@
 -- What:   Otakudle One Piece, column affiliation: from multi (several crews, "one in common is near") to single, ONE main affiliation per character
 --         ({"v": affiliation, "p": [family]}, dle_compare: same v is Right, same family p is Near, else Wrong; no "p" means no Near).
 --         Families: pirates (every crew, Yonko and subordinate crews, Cross Guild), marines, world-government (Cipher Pol, Impel Down, the World Government),
---         revolutionary-army; kingdoms, clans, Minks and civilians have no family. 100 characters, 100 with a main affiliation, 50 affiliations, 4 families (pirates, marines, world-government, revolutionary-army), 27 with no family, 18 judgement calls, 0 unsourced.
+--         revolutionary-army; kingdoms, clans, Minks and civilians have no family. 100 characters, 100 with a main affiliation, 51 affiliations, 4 families (pirates, marines, world-government, revolutionary-army), 27 with no family, 18 judgement calls, 0 unsourced.
 --         Sources: data in docs/anime/data/dle/one-piece-affiliation.json (the Fandom infobox of each character, captured in scripts/anime/a2/data/one-piece.json).
 --         Updates the attrs.affiliation of 100 character_game_facts rows (otakudle-one-piece), the kind of the column in dle_attributes, and adds 7 entity_sources
 --         rows (fandom) for characters that had no value (silvers-rayleigh, yamato, vegapunk, marco, bellamy, helmeppo, uta). can_be_target is not touched.
@@ -42,7 +42,7 @@ with n(slug, val) as (values
     ('nico-robin', '{"v":"Baroque Works"}'::jsonb),
     ('franky', '{"v":"Franky Family"}'::jsonb),
     ('brook', '{"v":"Straw Hat Pirates","p":["pirates"]}'::jsonb),
-    ('jinbe', '{"v":"Seven Warlords of the Sea","p":["pirates"]}'::jsonb),
+    ('jinbe', '{"v":"Sun Pirates","p":["pirates"]}'::jsonb),
     ('shanks', '{"v":"Red Hair Pirates","p":["pirates"]}'::jsonb),
     ('trafalgar-law', '{"v":"Heart Pirates","p":["pirates"]}'::jsonb),
     ('portgas-d-ace', '{"v":"Whitebeard Pirates","p":["pirates"]}'::jsonb),

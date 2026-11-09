@@ -133,7 +133,7 @@ describe('L17: one main affiliation per One Piece character', () => {
     for (const s of ['roronoa-zoro', 'usopp', 'sanji', 'tony-tony-chopper', 'brook', 'nami']) expect(DATA.find((x) => x.slug === s)!.affiliation, s).toBe('Straw Hat Pirates');
     expect(DATA.find((x) => x.slug === 'portgas-d-ace')!.affiliation).toBe('Whitebeard Pirates');
     const want: Record<string, [string, string | null]> = {
-      'nico-robin': ['Baroque Works', null], franky: ['Franky Family', null], jinbe: ['Seven Warlords of the Sea', 'pirates'], 'bartholomew-kuma': ['Seven Warlords of the Sea', 'pirates'],
+      'nico-robin': ['Baroque Works', null], franky: ['Franky Family', null], jinbe: ['Sun Pirates', 'pirates'], 'bartholomew-kuma': ['Seven Warlords of the Sea', 'pirates'],
       'nefertari-vivi': ['Baroque Works', null], sabo: ['Dadan Family', null], 'rob-lucci': ['CP9', 'world-government'], kaku: ['CP9', 'world-government'], vegapunk: ['MADS', null],
     };
     for (const [slug, [aff, fam]] of Object.entries(want)) {
@@ -144,9 +144,11 @@ describe('L17: one main affiliation per One Piece character', () => {
     expect(await cell(db, 'Nico Robin', 'Crocodile')).toBe('correct');
     expect(await cell(db, 'Nico Robin', 'Nefertari Vivi')).toBe('correct');
     expect(await cell(db, 'Nico Robin', 'Franky')).toBe('wrong');
-    expect(await cell(db, 'Jinbe', 'Bartholomew Kuma')).toBe('correct');
+    expect(await cell(db, 'Jinbe', 'Bartholomew Kuma')).toBe('near');
     expect(await cell(db, 'Jinbe', 'Monkey D. Luffy')).toBe('near');
     expect(await cell(db, 'Jinbe', 'Sakazuki')).toBe('wrong');
+    expect(await cell(db, 'Jinbe', 'Jinbe')).toBe('correct'); // no other Sun Pirates member among the 100
+    expect(seriesValueLabel('affiliation', 'Sun Pirates', 'fr')).toBe('Pirates du Soleil');
     expect(await cell(db, 'Rob Lucci', 'Kaku')).toBe('correct');
     expect(await cell(db, 'Rob Lucci', 'Nerona Imu')).toBe('near');
     expect(await cell(db, 'Rob Lucci', 'Smoker')).toBe('wrong');

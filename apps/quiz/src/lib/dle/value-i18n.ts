@@ -44,6 +44,7 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
   'Riku Royal Army': 'Armée royale de Riku',
   'Riku Family': 'Famille Riku',
   'Dadan Family': 'Famille Dadan',
+  'Sun Pirates': 'Pirates du Soleil',
   'Caribou Pirates': 'Pirates de Caribou',
   'New Giant Warrior Pirates': 'Nouveaux Pirates Géants',
   'Golden Lion Pirates': 'Pirates du Lion d’or',
