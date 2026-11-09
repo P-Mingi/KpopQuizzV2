@@ -37,7 +37,7 @@ export async function GET(req: NextRequest): Promise<Response> {
     const email = u?.user?.email;
     if (!email) continue;
     // the unsubscribe token is an HMAC of the account id (lib/daily-reminders.ts): every mail ever sent keeps a working link
-    const unsub = unsubscribeToken(row.user_id, process.env['REMINDER_SECRET'] ?? process.env['CRON_SECRET']);
+    const unsub = unsubscribeToken(row.user_id, process.env['REMINDER_SECRET']);
     if (!unsub) continue;
     const origin = siteUrl(SITE.id, process.env as never, '');
     const mail = reminderMail(SITE.brand.name, origin, `${origin}/api/reminders/unsubscribe?u=${row.user_id}&t=${unsub}`);

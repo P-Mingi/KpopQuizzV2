@@ -51,7 +51,7 @@ describe('GET /api/cron/daily-reminders', () => {
   it('a played day sends nothing', async () => {
     vi.stubEnv('DAILY_REMINDERS', '1');
     vi.stubEnv('RESEND_API_KEY', 're_test');
-    vi.stubEnv('CRON_SECRET', 'secret');
+    vi.stubEnv('REMINDER_SECRET', 'secret');
     lastDaily = '2026-11-09';
     const { GET } = await import('../cron/daily-reminders/route');
     const body = await (await GET(new NextRequest('https://kpopquiz.org/api/cron/daily-reminders'))).json();
@@ -61,7 +61,7 @@ describe('GET /api/cron/daily-reminders', () => {
   it('not played: one mail is built for the sender spy (never the network), marked sent first', async () => {
     vi.stubEnv('DAILY_REMINDERS', '1');
     vi.stubEnv('RESEND_API_KEY', 're_test');
-    vi.stubEnv('CRON_SECRET', 'secret');
+    vi.stubEnv('REMINDER_SECRET', 'secret');
     lastDaily = '2026-11-08';
     fetchSpy.mockResolvedValue({ ok: true });
     const { GET } = await import('../cron/daily-reminders/route');

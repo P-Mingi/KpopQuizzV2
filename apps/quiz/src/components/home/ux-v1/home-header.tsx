@@ -31,7 +31,7 @@ function streakLine(days: number | undefined, last: string | null | undefined): 
 export interface HomeDaily { slug: string; title: string }
 
 /** The play link of the daily quiz from the home (audit 01: `from=home`, read by the measurement lot). */
-export const dailyHomeHref = (d: HomeDaily | null | undefined): string => (d ? `/q/${d.slug}?daily=quiz&from=home` : '/daily?from=home');
+export const dailyHomeHref = (d: HomeDaily | null | undefined): string => (d ? `/q/${d.slug}?daily=quiz&from=home` : '/daily/play?from=home');
 
 // The words "daily quiz" and "daily blindtest" of the signed-in line are links (audit 01 P0-2).
 function linkWords(text: string, daily: HomeDaily | null | undefined): React.ReactNode {

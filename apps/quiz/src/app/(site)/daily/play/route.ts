@@ -5,7 +5,7 @@ import { parseFrom } from '@/lib/analytics';
 import { getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
 
-// Stable entry to today's daily quiz (Workstream M, M1.3). The streak nudge and
+// /daily/play (audit 01 P2-9: /daily is the daily hub when DAILY_HUB=1, so the redirect lives here). Stable entry to today's daily quiz (Workstream M, M1.3). The streak nudge and
 // any "play the daily" link point here instead of a per-day slug, so callers stay
 // slug-agnostic. Redirects to the QotD play route (the Workstream D daily ritual);
 // falls back to the quiz catalog if there is no QotD. A route handler is dynamic
