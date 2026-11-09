@@ -20,6 +20,7 @@ import { GENERAL_THEMES, THEME_MIN_LISTED } from '@/lib/hubs/general-themes';
 import { themeCounts } from '@/lib/hubs/theme-view';
 
 import { isListNoindex } from '@/lib/seo/list-noindex';
+import { isDemotedPath } from '@/lib/seo/demand-gate';
 
 import type { MetadataRoute } from 'next';
 
@@ -180,7 +181,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getWmaGroupSlugs(),
       new Promise<string[]>((resolve) => setTimeout(() => resolve([]), WMA_TIMEOUT_MS)),
     ]);
-    v12GrowthPages = v12GrowthPaths(wmaSlugs).map((path) => ({
+    // O1 audit 03 P1-6: a variant under the demand bar (rulebook 1.3) is not advertised; the list is empty today.
+    v12GrowthPages = v12GrowthPaths(wmaSlugs).filter((path) => !isDemotedPath(path)).map((path) => ({
       url: `${SITE_URL}${path}`,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
@@ -265,7 +267,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // /blindtest index links, so the sitemap and the page cannot drift apart.
     const btGroupSlugs = advertisablePlaylists.groups.map((g) => g.slug);
     // P1-1: no lastmod. The page has no content date of its own, and the newest quiz date is not its date.
-    blindTestGroupPages = btGroupSlugs.map((slug) => ({
+    blindTestGroupPages = btGroupSlugs.filter((slug) => !isDemotedPath(`/blindtest/group-${slug}`)).map((slug) => ({
       url: `${SITE_URL}/blindtest/group-${slug}`,
       changeFrequency: 'weekly' as const,
       priority: 0.5,
