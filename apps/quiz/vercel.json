@@ -28,7 +28,7 @@
       "schedule": "5 0 * * *"
     },
     {
-      "path": "/api/cron/ensure-daily-quiz",
+      "path": "/api/cron/ensure-daily-quiz-eve",
       "schedule": "50 23 * * *"
     },
     {
