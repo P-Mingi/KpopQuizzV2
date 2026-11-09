@@ -187,24 +187,7 @@
       ]
     }
   ],
-  "noindex": [
-    {
-      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX",
-      "keys": [
-        "noindex|/blindtest/ranked|noindex",
-        "noindex|/community|noindex",
-        "noindex|/live|noindex",
-        "noindex|/blindtest/leaderboard|noindex",
-        "noindex|/join|noindex"
-      ]
-    },
-    {
-      "reason": "the general-kpop catch-all trivia page is noindex; owner decision pending: keep it out of the index, then add the reason to DOCUMENTED_NOINDEX",
-      "keys": [
-        "noindex|/general-kpop-trivia|noindex"
-      ]
-    }
-  ],
+  "noindex": [],
   "redirect": [
     {
       "reason": "retired rankings URLs answer 410 since #102 (owner, 2026-10-18) before the next.config redirect to the group hub runs; owner decision pending: drop the dead redirect or the expectation",

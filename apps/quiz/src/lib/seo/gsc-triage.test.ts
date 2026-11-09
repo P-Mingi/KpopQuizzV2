@@ -43,6 +43,7 @@ describe('rule 3: 404 or 410 with clicks or guarded -> RESTORE', () => {
 
 describe('rule 4: expected states -> EXPECTED', () => {
   it('an allowlisted noindex (search)', () => expect(decide(page('/search', { metaRobots: 'noindex' })).action).toBe('EXPECTED'));
+  it('a documented noindex (the news list)', () => expect(decide(page('/news', { metaRobots: 'noindex, follow' })).action).toBe('EXPECTED'));
   it('a one-hop redirect to a 200', () => expect(decide(page('/blind-test', { status: 301, hops: [{ url: U('/blind-test'), status: 301, location: U('/blindtest') }, { url: U('/blindtest'), status: 200, location: null }] })).action).toBe('EXPECTED'));
   it('a canonical to a 200 indexable URL', () => expect(decide(page('/blindtest/classic-2', { canonical: U('/blindtest/classic'), canonicalTargetOk: true })).action).toBe('EXPECTED'));
   it('a removed page without clicks', () => expect(decide(page('/q/a', { status: 404 })).action).toBe('EXPECTED'));
