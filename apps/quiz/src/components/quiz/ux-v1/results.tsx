@@ -30,6 +30,7 @@ import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import { P4Comments } from './comments';
+import { DailyDone, DailyKeepRow } from './daily-done';
 import { QuizEndBridge } from './quiz-end-bridge';
 import { P4ReportButton } from './report';
 
@@ -137,6 +138,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quiz.id, result.score, signedIn, extras.outcome, claimed]);
 
+  // Audit 01 P1-5: a run launched from ?daily=quiz ends with the daily ending (results only render on the client after a run).
+  const isDailyRun = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('daily') === 'quiz';
   const passed = pct >= 60;
   // SEO Mission 2: a level-result quiz names the level reached (lib/quiz/result-levels.ts).
   const level = quiz.resultLevels && quiz.resultLevels.length > 0 ? levelFor(pct, quiz.resultLevels) : null;
@@ -147,8 +150,9 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   const line = rankLine(standing);
   const chipScore = standing?.signedIn && typeof standing.bestScore === 'number' ? `${standing.bestScore}/${maxScoreFor(result.quizType, standing.total ?? result.totalQuestions)}` : `${result.score}/${max}`;
 
-  const shareBtn = <UxButton key="share" variant={good ? 'primary' : 'ghost'} size="lg" icon="share" onClick={onShare}>Share</UxButton>;
-  const againBtn = <UxButton key="again" variant={good ? 'ghost' : 'primary'} size="lg" icon="redo" onClick={onPlayAgain}>Play again</UxButton>;
+  // On a daily run the daily ending carries the primary share; Play again is demoted to a ghost button (audit 01 P1-5).
+  const shareBtn = <UxButton key="share" variant={isDailyRun ? 'ghost' : good ? 'primary' : 'ghost'} size="lg" icon="share" onClick={onShare}>Share</UxButton>;
+  const againBtn = <UxButton key="again" variant={isDailyRun || good ? 'ghost' : 'primary'} size="lg" icon="redo" onClick={onPlayAgain}>Play again</UxButton>;
 
   return (
     <div className="ux-stage p4-res-in" data-standing={standingDone ? (line ? 'rank' : 'none') : undefined}>
@@ -219,8 +223,10 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         </p>
       ) : null}
 
+      {isDailyRun ? <DailyDone quiz={quiz} questions={result.questions} answers={result.answers} score={result.score} max={max} /> : null}
+
       <div className="p4-resact">
-        {good ? [shareBtn, againBtn] : [againBtn, shareBtn]}
+        {isDailyRun || good ? [shareBtn, againBtn] : [againBtn, shareBtn]}
         <P4LikePill quizId={quiz.id} initial={quiz.likeCount} />
       </div>
       {/* EXISTS (quiz-player.tsx K2 + K7, WIRING-MAP R117): the Discord line, and Brag on a good
@@ -239,6 +245,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
 
       <section className="ux-sec p4-keep" aria-labelledby="p4-keep-h">
         <SectionHeader id="p4-keep-h" title="Keep playing" icon="play" action={{ href: `/${quiz.groupSlug}-quiz`, label: `All ${quiz.groupName} quizzes` }} />
+        {/* Audit 01 P0-3: the quiz of the day first (then the daily blindtest once it is played), until played on this browser. Not on a daily run: the ending above has it. */}
+        {isDailyRun ? null : <DailyKeepRow />}
         {first ? (
           <Link className="p4-nextq" href={`/q/${first.slug}`}>
             <span className="ux-thumb">

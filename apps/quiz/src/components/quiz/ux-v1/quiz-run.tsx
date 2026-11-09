@@ -362,9 +362,10 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     });
 
     // quiz-player side effects kept: the daily quiz (?daily=quiz) streak + guest streak
+    let dailyPending: Promise<unknown> | null = null;
     if (new URLSearchParams(window.location.search).get('daily') === 'quiz') {
       recordGuestDaily();
-      void completeDaily('quiz', { signedIn });
+      dailyPending = completeDaily('quiz', { signedIn });
     }
     // relaxed run: mark the play (v11-p4-relaxed-runs.sql) so the hall of fame leaves it out
     if (relaxedRun && playId) {
@@ -382,6 +383,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         body: JSON.stringify({ sig: ch.sig, score: state.score, perQuestion, timeMs: now - state.startTime }),
       }).catch(() => {});
     }
+    // Audit 01 P1-5: the streak is saved on the server before the profile is read again, or "streak day N saved" could be missed.
+    if (dailyPending) await dailyPending;
     refreshUxMe();
   }, [state, quiz.id, toast, announce, signedIn]);
 

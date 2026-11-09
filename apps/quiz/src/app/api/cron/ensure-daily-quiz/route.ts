@@ -63,7 +63,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   const supabase = createServiceRoleClient();
-  const target = publishTarget(new Date());
+  const today = new Date().toISOString().split('T')[0]!;
+  const target = publishTarget(new Date(), today);
 
   try {
     const res = await publishDailyQuiz(supabase, target.date);
@@ -80,8 +81,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
  * Audit 01 P0-4: the run of 23:50 UTC publishes TOMORROW's quiz (so 00:00 UTC already has it), the run of 00:05 UTC is the
  * same publish for today (idempotent: a second run finds the pick). The cut is noon UTC: both runs have a margin of hours.
  */
-export function publishTarget(now: Date): { date: string; early: boolean } {
-  if (now.getUTCHours() < 12) return { date: now.toISOString().split('T')[0]!, early: false };
+export function publishTarget(now: Date, today: string = now.toISOString().split('T')[0]!): { date: string; early: boolean } {
+  if (now.getUTCHours() < 12) return { date: today, early: false };
   const next = new Date(now.getTime() + 86_400_000);
   return { date: next.toISOString().split('T')[0]!, early: true };
 }
