@@ -5,6 +5,7 @@ import { getBrowseQuizzes, getLanguageCounts, type BrowseSort } from '@/lib/db/q
 import { isLanguage } from '@/lib/languages';
 import { getAllGroups } from '@/lib/db/queries/groups';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
+import { quizzesIndexMeta } from '@/lib/seo/index-pages-meta';
 import { BrowseQuizzes, type BrowseGroup, type SortKey, type TypeKey } from '@/components/quiz/browse-quizzes';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { safeFetch } from '@/lib/error-handling';
@@ -60,13 +61,12 @@ export async function generateMetadata(
   // helper so "N+" is always true (owner, 2026-10-14: the live stats of
   // lib/stats/site-stats.ts; the old floor of 380 and a week-old cache said 430+ for 455).
   const stats = await getPublicStatsOrNull();
-  const countLabel = stats ? `${atLeast(stats.quizzes)} ` : '';
+  const meta = quizzesIndexMeta(stats ? atLeast(stats.quizzes) : null);
 
   return {
-    // SEO (owner, 2026-10-14): within 60 characters with the suffix (", Every Group" dropped).
-    title: `K-pop Quizzes: ${countLabel}Free Fan-Made Tests`,
-    description:
-      `Browse ${countLabel}free K-pop quizzes made by fans. Filter by group or type, sort by trending, newest, or most played, and test your bias knowledge now.`,
+    // Audit 04 P1-3: "Browse N K-pop Quizzes by Group and Level", no longer the home's twin; the count is the same atLeast as the FAQ.
+    title: meta.title,
+    description: meta.description,
     openGraph: {
       title: 'Browse K-pop Quizzes | KpopQuiz',
       description: 'Every K-pop quiz, filtered and sorted your way.',
