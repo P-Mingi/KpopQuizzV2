@@ -5,6 +5,7 @@
 // This also seeds D2 (the streak will reuse hasPlayedDaily later).
 
 import { analytics } from '@/lib/analytics';
+import { localDate } from '@/lib/daily-rest';
 import { guestStreak } from '@/lib/guest-streak';
 
 // Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
@@ -76,7 +77,7 @@ export async function completeDaily(kind: DailyKind, opts: CompleteDailyOptions 
   let result: DailyCompleteResult | null = null;
   try {
     const res = await fetch(`${BASE_PATH}/api/daily/complete`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind }),
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind, local_date: localDate() }),
     });
     if (res.ok) result = (await res.json()) as DailyCompleteResult;
   } catch {

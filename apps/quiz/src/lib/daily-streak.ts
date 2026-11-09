@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { addDays, dayNumber, restAvailable } from '@/lib/daily-rest';
 import { notifyPassportMilestone } from '@/lib/notifications';
 import { awardXpForSite } from '@/lib/passport/xp';
 import { SITE_ID } from '@/lib/site/registry';
@@ -22,6 +23,20 @@ const STREAK_BADGE_DAYS = [7, 30, 100];
 
 function todayUtc(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+/** The day a rest day last covered, null when none, undefined when the column is not there (additive launch SQL, L27). */
+async function readRestUsedOn(supabase: SupabaseClient, userId: string, site: SiteId): Promise<string | null | undefined> {
+  try {
+    const q = site !== 'kpop'
+      ? supabase.from('world_memberships').select('daily_rest_used_on').eq('user_id', userId).eq('site_id', site)
+      : supabase.from('profiles').select('daily_rest_used_on').eq('id', userId);
+    const { data, error } = await q.maybeSingle();
+    if (error) return undefined;
+    return ((data as { daily_rest_used_on?: string | null } | null)?.daily_rest_used_on) ?? null;
+  } catch {
+    return undefined;
+  }
 }
 
 export interface StreakAwardResult {
@@ -53,6 +68,7 @@ export async function awardDailyStreak(
   supabase: SupabaseClient,
   userId: string,
   site: SiteId = SITE_ID,
+  opts: { localDate?: string | null } = {},
 ): Promise<StreakAwardResult> {
   const onWorld = site !== 'kpop';
   const { data: profile } = onWorld
@@ -68,24 +84,31 @@ export async function awardDailyStreak(
         .eq('id', userId)
         .maybeSingle();
 
-  const today = todayUtc();
+  // Audit 01 P2-11: the browser may send its own calendar date (the route checks it is within a day of UTC); else UTC, as before.
+  const today = opts.localDate ?? todayUtc();
   const prevDate = ((profile as StreakRow | null)?.last_daily_date) ?? null;
   const prevStreak = ((profile as StreakRow | null)?.daily_streak) ?? 0;
   const prevLongest = ((profile as StreakRow | null)?.daily_streak_longest) ?? 0;
 
-  if (prevDate === today) {
+  if (prevDate && dayNumber(prevDate) >= dayNumber(today)) {
     return { awarded: 0, base: 0, milestone: 0, streak: prevStreak, longest: Math.max(prevLongest, prevStreak), alreadyToday: true };
   }
 
-  // yesterday? continue : reset
-  let streak: number;
+  // yesterday? continue; exactly one missed day and the free rest day (one per 7 days, audit 01 P1-6)? continue; else reset
+  let streak = 1;
+  let restPatch: { daily_rest_used_on?: string } = {};
   if (prevDate) {
-    const y = new Date(today + 'T00:00:00Z');
-    y.setUTCDate(y.getUTCDate() - 1);
-    const yesterday = y.toISOString().slice(0, 10);
-    streak = prevDate === yesterday ? prevStreak + 1 : 1;
-  } else {
-    streak = 1;
+    const gap = dayNumber(today) - dayNumber(prevDate);
+    if (gap === 1) {
+      streak = prevStreak + 1;
+    } else if (gap === 2) {
+      const rest = await readRestUsedOn(supabase, userId, site);
+      // undefined = the column does not exist yet (the launch SQL is not applied): no rest day, as before
+      if (rest !== undefined && restAvailable(rest, today)) {
+        streak = prevStreak + 1;
+        restPatch = { daily_rest_used_on: addDays(today, -1) };
+      }
+    }
   }
 
   const milestone = DAILY_MILESTONES[streak] ?? 0;
@@ -93,7 +116,7 @@ export async function awardDailyStreak(
   const longest = Math.max(prevLongest, streak);
 
   if (onWorld) {
-    const patch = { daily_streak: streak, daily_streak_longest: longest, last_daily_date: today };
+    const patch = { daily_streak: streak, daily_streak_longest: longest, last_daily_date: today, ...restPatch };
     if (profile) {
       await supabase.from('world_memberships').update(patch).eq('user_id', userId).eq('site_id', site);
     } else {
@@ -106,7 +129,7 @@ export async function awardDailyStreak(
     return { awarded: total, base: DAILY_BASE_XP, milestone, streak, longest, alreadyToday: false };
   }
 
-  await supabase.from('profiles').update({ daily_streak: streak, daily_streak_longest: longest, last_daily_date: today }).eq('id', userId);
+  await supabase.from('profiles').update({ daily_streak: streak, daily_streak_longest: longest, last_daily_date: today, ...restPatch }).eq('id', userId);
   await awardXpForSite('kpop', userId, total, 'daily_streak', supabase);
 
   // M1.15: streak badges (streak_7/30/100), folded into this existing write so
