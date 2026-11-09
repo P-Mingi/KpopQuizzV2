@@ -14,6 +14,7 @@ import { siteConfig } from '@/lib/site/registry';
 import { AVATAR_PRESETS } from '@/lib/passport-flair';
 import { ULT_MAX } from '@/lib/passport-themes';
 
+import { commonPassportHref } from './common-passport';
 import { p1 } from './copy';
 
 import type { MembershipAvatarOverride, MembershipPatch } from '@/lib/passport/types';
@@ -80,7 +81,7 @@ export function settingsWorld(site: SiteId): SettingsWorld | undefined {
     pickIcon: cfg.vocabulary.favourites.pickIcon,
     seriesMax: ULT_MAX,
     signOutModes: cfg.auth.signOutModes,
-    passportHref: `/auth/passport/out?to=hub&next=${encodeURIComponent('/passport')}&via=${cfg.letter}.pp`,
+    passportHref: commonPassportHref(cfg),
     words: {
       profile: t('settings.profile'), displayName: t('settings.displayName'), photo: t('settings.photo'), bio: t('settings.bio'),
       header: t('settings.header'), anime: t('settings.anime'), animeLead: t('settings.animeLead'), yourSeries: t('settings.yourSeries'),
