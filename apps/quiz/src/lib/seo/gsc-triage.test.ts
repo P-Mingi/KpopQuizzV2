@@ -101,6 +101,8 @@ describe('inputs', () => {
   it('parseReasonExport and parsePerformanceExport', () => {
     expect(parseReasonExport('Not found (404)-2026-11-20.csv', 'URL,Last crawled\nhttps://kpopquiz.org/q/a/,2026-11-01\nhttps://other.org/x,2026')).toEqual([{ url: U('/q/a'), reason: 'not-found-404' }]);
     expect(parsePerformanceExport('Top pages,Clicks,Impressions,CTR,Position\nhttps://kpopquiz.org/q/a,3,"1,200",0.2%,9')).toEqual([{ url: U('/q/a'), clicks: 3, impressions: 1200 }]);
+    // The French console names the columns "Pages les plus populaires" and "Clics".
+    expect(parsePerformanceExport('Pages les plus populaires,Clics,Impressions,CTR,Position\nhttps://kpopquiz.org/q/a,7,40,17.5%,3')).toEqual([{ url: U('/q/a'), clicks: 7, impressions: 40 }]);
   });
 });
 

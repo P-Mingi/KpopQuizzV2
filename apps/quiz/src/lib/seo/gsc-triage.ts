@@ -104,13 +104,13 @@ export function parseReasonExport(fileName: string, text: string): ReasonRow[] {
   return out;
 }
 
-/** A Performance export (Pages tab): "Top pages", Clicks, Impressions. */
+/** A Performance export (Pages tab): "Top pages", Clicks, Impressions (French console: "Clics"). */
 export function parsePerformanceExport(text: string): PerfRow[] {
   const rows = parseCsv(text);
   if (rows.length === 0) return [];
   const header = rows[0]!.map((h) => h.trim().toLowerCase());
-  const url = Math.max(0, header.findIndex((h) => h === 'top pages' || h === 'page' || h === 'pages' || h === 'url'));
-  const clicks = header.indexOf('clicks');
+  const url = Math.max(0, header.findIndex((h) => h === 'top pages' || h === 'page' || h === 'pages' || h === 'url' || h === 'pages les plus populaires'));
+  const clicks = Math.max(header.indexOf('clicks'), header.indexOf('clics'));
   const impressions = header.indexOf('impressions');
   const out: PerfRow[] = [];
   for (const r of rows.slice(1)) {
