@@ -13,6 +13,7 @@ import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
 import { guestLiveStreak } from '@/lib/guest-streak';
+import { passportDoorProps } from '@/lib/passport-ui/common-passport';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
 import { SITE } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
@@ -33,6 +34,9 @@ const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 
 const POLL_MS = 90_000;
 
+// "My quizzes" is a tab of /me: the hub has no /me (its passport is /passport), so the row would be a 404 there. kpop and anime unchanged.
+const SHOWS_MY_QUIZZES = SITE.id === 'kpop' || isKnownRouteFor(SITE.id, '/me', { v1: true, v12: true });
+
 /** Streak popover content (also rendered statically by the /ux-v1/kit gallery). */
 export function StreakBody({ v, close }: { v: StreakView; close: () => void }): React.ReactElement {
   const risk = v.state === 'at_risk';
@@ -51,7 +55,7 @@ export function StreakBody({ v, close }: { v: StreakView; close: () => void }): 
       </ol>
       {risk
         ? <Link href="/daily/play?from=nav" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
-        : <Link href="/profile" className="ux-btn ux-btn-ghost ux-btn-block" onClick={close}>See your passport</Link>}
+        : <Link {...passportDoorProps()} className="ux-btn ux-btn-ghost ux-btn-block" onClick={close}>See your passport</Link>}
     </>
   );
 }
@@ -166,12 +170,15 @@ export function AccountBody({ profile, close, onSignOut, accountExtra }: { profi
         <div><b>{profile.username}</b><small>Lv {lv.level} · {lv.name}</small></div>
       </div>
       <div className="ux-msep" />
-      <Link className="ux-mi" href="/profile" onClick={close}><Icon name="user" />Passport</Link>
+      {/* kpop: /profile (pinned). anime and hub: the common Bunnyverse passport; /profile is kpop-only, a 404 there */}
+      <Link className="ux-mi" {...passportDoorProps()} onClick={close}><Icon name="user" />Passport</Link>
       {/* no prefetch: /me renders on the server for the viewer (badge grants, passport
           snapshot), so it runs only when the viewer actually opens it */}
-      <Link className="ux-mi" href={MY_QUIZZES_HREF} prefetch={false} onClick={(e) => { close(); openMyQuizzes(e); }}>
-        <Icon name="layers" />My quizzes{drafts > 0 ? <small>{drafts} {drafts === 1 ? 'draft' : 'drafts'}</small> : null}
-      </Link>
+      {SHOWS_MY_QUIZZES ? (
+        <Link className="ux-mi" href={MY_QUIZZES_HREF} prefetch={false} onClick={(e) => { close(); openMyQuizzes(e); }}>
+          <Icon name="layers" />My quizzes{drafts > 0 ? <small>{drafts} {drafts === 1 ? 'draft' : 'drafts'}</small> : null}
+        </Link>
+      ) : null}
       <Link className="ux-mi" href="/settings" onClick={close}><Icon name="gear" />Settings</Link>
       {accountExtra ? accountExtra(close) : null}
       <button type="button" className="ux-mi" onClick={() => applyTheme(dark ? 'light' : 'dark')}>
