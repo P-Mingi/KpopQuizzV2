@@ -1,0 +1,31 @@
+diff --git a/apps/quiz/src/lib/seo/targets.ts b/apps/quiz/src/lib/seo/targets.ts
+index 89d8576..5d9d148 100644
+--- a/apps/quiz/src/lib/seo/targets.ts
++++ b/apps/quiz/src/lib/seo/targets.ts
+@@ -31,6 +31,7 @@ export const TARGET_CLUSTERS: readonly TargetCluster[] = [
+   { cluster: 'guess the kpop song', url: '/guess-the-kpop-song', intent: 'guess K-pop songs from clips', label: 'Guess the K-pop song', status: 'live' },
+   { cluster: 'which {group} member are you', url: '/which-{group}-member-are-you', intent: 'take a member personality quiz', label: 'Which member are you', status: 'live' },
+   { cluster: 'name them all', url: '/name-them-all', intent: 'name every member against the clock', label: 'Name them all', status: 'planned' },
++  { cluster: 'browse kpop quizzes', url: '/quizzes', intent: 'browse and filter every K-pop quiz', label: 'Browse K-pop quizzes', status: 'live' },
+   { cluster: 'kpop groups a-z', url: '/groups', intent: 'browse K-pop groups', label: 'K-pop groups A to Z', status: 'live' },
+   { cluster: '{group} quiz', url: '/{group}-quiz', intent: 'play quizzes about that group, with its games and facts', label: 'Group quiz hubs', status: 'live' },
+   { cluster: 'kuis bts', url: '/id/kuis-bts', intent: 'play BTS quizzes in Indonesian', label: 'Kuis BTS', status: 'planned' },
+diff --git a/docs/seo/TARGETS.md b/docs/seo/TARGETS.md
+index 7ed77b9..8f4314b 100644
+--- a/docs/seo/TARGETS.md
++++ b/docs/seo/TARGETS.md
+@@ -19,11 +19,12 @@ section 3): [V] measured, [E] estimated. A blank evidence cell means none was re
+ | kpop generations | kpop generations, what gen is X | /articles/kpop-generations-explained | learn K-pop generations | en | about 1,000 Copilot citations [E] | Copilot share | live |
+ | kpop trivia | kpop trivia, kpop questions | /trivia | read K-pop facts and questions | en | 254 Copilot citations, 18% share [V] | Copilot share | live |
+ | kpop test | kpop test | /kpop-test | test K-pop knowledge | en | 131 Copilot citations, 23% share [V] | Copilot share | planned |
+-| blind test kpop | blind test kpop, kpop blind test | /blindtest | play a K-pop blind test | en | 182 Copilot citations, 78% share [V] | Copilot share | live |
++| blind test kpop | blind test kpop, kpop blind test ("guess the song" belongs to /guess-the-kpop-song) | /blindtest | play a K-pop blind test | en | 182 Copilot citations, 78% share [V] | Copilot share | live |
+ | guess the kpop song | guess the kpop song | /guess-the-kpop-song | guess K-pop songs from clips | en | | clicks, impressions | live |
+ | which {group} member are you | which {group} member are you | /which-{group}-member-are-you | take a member personality quiz | en | "which aespa member" 52 Copilot citations, 22% share [V] | Copilot share | live |
+ | name them all | sporcle kpop, name them all, type them all | /name-them-all | name every member against the clock | en | 109 Copilot citations [V] | Copilot citations | planned |
+-| kpop groups a-z | kpop groups a-z | /groups | browse K-pop groups | en | 16 Copilot citations [V] | Copilot citations | live |
++| browse kpop quizzes | browse kpop quizzes, kpop quizzes list, all kpop quizzes | /quizzes | browse and filter every K-pop quiz | en | no measured query yet; the page competed with the home for "kpop quiz" [E] | clicks, impressions (the home keeps "kpop quiz") | live |
++| kpop groups a-z | kpop groups a-z, kpop groups list a to z | /groups | browse K-pop groups | en | 16 Copilot citations [V] | Copilot citations | live |
+ | {group} quiz | {group} quiz, {group} test | /{group}-quiz | play quizzes about one group | en | hubs at Google positions 5 to 9 [V, September] | clicks, Google position | live |
+ | {group} games | {group} games | section "{Group} games" of /{group}-quiz (#games) | play every game of one group | en | "stray kids games" 63 + 70 Copilot citations [V] | Copilot citations | ready (branch seo/m2-kpop-games, not merged) |
+ | kuis bts | kuis bts | /id/kuis-bts | play BTS quizzes in Indonesian | id | 17,500 Bing impressions [V] | clicks, impressions | planned |
