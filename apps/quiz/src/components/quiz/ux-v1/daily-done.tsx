@@ -147,3 +147,23 @@ export function DailyKeepRow(): React.ReactElement | null {
   }
   return null;
 }
+
+/** Audit 01 P1-5: on a blindtest result, "Also today": the quiz of the day, until it is played on this browser. */
+export function DailyQuizAlsoRow(): React.ReactElement | null {
+  const daily = useDailyToday();
+  const nextIn = useNextIn();
+  const [played, setPlayed] = useState<boolean | null>(null);
+  useEffect(() => { setPlayed(hasPlayedDaily('quiz')); }, []);
+  if (!daily || played !== false) return null;
+  return (
+    <Link className="p4-nextq" href={`/q/${daily.slug}?daily=quiz&from=result`} data-testid="bt-daily-quiz-row" style={{ margin: '20px auto 0', maxWidth: 560 }}>
+      <span className="ux-thumb is-glyph"><Icon name="zap" /></span>
+      <span className="ux-row-grow">
+        <span className="p4-lbl">Quiz of the day</span>
+        <span className="ux-rt">{daily.title}</span>
+        <span className="ux-rs">New quiz in {nextIn}</span>
+      </span>
+      <span className="p4-go" aria-hidden="true"><Icon name="play" /></span>
+    </Link>
+  );
+}

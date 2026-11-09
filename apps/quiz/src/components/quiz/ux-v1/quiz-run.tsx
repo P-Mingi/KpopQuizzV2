@@ -7,7 +7,7 @@ import { useShellMode } from '@/components/ux-v1/use-shell-mode';
 import { refreshUxMe, useUxMe } from '@/components/ux-v1/use-ux-me';
 import { analytics, quizRunMode, readFrom } from '@/lib/analytics';
 import { getAnonId } from '@/lib/anon-id';
-import { completeDaily } from '@/lib/daily-played';
+import { completeDaily, markDailyScore } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { haptic } from '@/lib/haptics';
 import { SITE } from '@/lib/site/registry';
@@ -365,6 +365,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     let dailyPending: Promise<unknown> | null = null;
     if (new URLSearchParams(window.location.search).get('daily') === 'quiz') {
       recordGuestDaily();
+      markDailyScore(state.score, max);
       dailyPending = completeDaily('quiz', { signedIn });
     }
     // relaxed run: mark the play (v11-p4-relaxed-runs.sql) so the hall of fame leaves it out

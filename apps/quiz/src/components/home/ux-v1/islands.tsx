@@ -19,5 +19,6 @@ function Off(): null {
 
 export const HomeHeader = ON ? dynamic(() => import('./home-header').then((m) => m.HomeHeader)) : Off;
 export const QotdNote = ON ? dynamic(() => import('./qotd-note').then((m) => m.QotdNote)) : Off;
+export const QotdStatus = ON ? dynamic(() => import('./qotd-status').then((m) => m.QotdStatus)) : Off;
 export const ContinuePlaying = ON ? dynamic(() => import('./continue-playing').then((m) => m.ContinuePlaying)) : Off;
 export const BlindtestBand = ON ? dynamic(() => import('./blindtest-band').then((m) => m.BlindtestBand)) : Off;

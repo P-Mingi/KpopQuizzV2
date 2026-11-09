@@ -12,6 +12,7 @@ import { useIsClient } from '@/components/ux-v1/use-is-client';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { clearMe } from '@/lib/auth/use-me';
 import { getLevelInfo } from '@/lib/constants';
+import { guestLiveStreak } from '@/lib/guest-streak';
 import { refetchUnread, useUnreadCount } from '@/lib/notifications-store';
 import { SITE } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
@@ -49,9 +50,22 @@ export function StreakBody({ v, close }: { v: StreakView; close: () => void }): 
         ))}
       </ol>
       {risk
-        ? <Link href="/daily" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
+        ? <Link href="/daily?from=nav" className="ux-btn ux-btn-primary ux-btn-block" onClick={close}>Play today&apos;s quiz</Link>
         : <Link href="/profile" className="ux-btn ux-btn-ghost ux-btn-block" onClick={close}>See your passport</Link>}
     </>
+  );
+}
+
+/** Audit 01 P1-6: a guest's own streak from day 2, in this browser. A plain link to the daily, no popover, no threat. */
+function GuestStreakPill(): React.ReactElement | null {
+  const client = useIsClient();
+  if (!client) return null;
+  const g = guestLiveStreak();
+  if (g.count < 2) return null;
+  return (
+    <Link href="/daily?from=nav" className="ux-streak" aria-label={`${g.count} day streak in this browser${g.playedToday ? ', today is played' : ''}`}>
+      <Icon name="flame" />{g.count}
+    </Link>
   );
 }
 
@@ -236,9 +250,12 @@ export function UxNavActions({ accountExtra }: { accountExtra?: AccountExtra } =
           <Account profile={profile} {...(accountExtra ? { accountExtra } : {})} />
         </>
       ) : (
+        <>
+        {me === null ? null : <GuestStreakPill />}
         <button type="button" className="ux-btn ux-btn-ghost ux-nav-signin" onClick={() => openSignIn()} aria-busy={me === null ? true : undefined}>
           Sign in
         </button>
+        </>
       )}
     </div>
   );
