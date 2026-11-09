@@ -5,6 +5,7 @@
 // This also seeds D2 (the streak will reuse hasPlayedDaily later).
 
 import { analytics } from '@/lib/analytics';
+import { guestStreak } from '@/lib/guest-streak';
 
 // Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
@@ -51,24 +52,42 @@ export interface DailyCompleteResult {
   new_level_name?: string | null;
 }
 
+export interface CompleteDailyOptions {
+  /**
+   * Is this the first completion of the kind today on this browser? Compute it with hasPlayedDaily(kind)
+   * BEFORE any markDailyPlayed. Defaults to that check, made here before this function marks.
+   */
+  first?: boolean;
+  /** What the caller already knows of the session, used when the server does not answer. */
+  signedIn?: boolean | null;
+}
+
 /**
  * Mark the daily as played AND (if signed in) award the server-side streak XP.
  * Safe to call when not signed in: the server returns awarded:0.
+ *
+ * The daily_complete event is the browser's own: once per kind per UTC day per browser, fired at the
+ * result whatever the server answers (a replay, a failed request and a guest all count the same way).
+ * Call recordGuestDaily() first so a fallback streak is the local one.
  */
-export async function completeDaily(kind: DailyKind): Promise<DailyCompleteResult | null> {
+export async function completeDaily(kind: DailyKind, opts: CompleteDailyOptions = {}): Promise<DailyCompleteResult | null> {
+  const first = opts.first ?? !hasPlayedDaily(kind);
   markDailyPlayed(kind);
+  let result: DailyCompleteResult | null = null;
   try {
     const res = await fetch(`${BASE_PATH}/api/daily/complete`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind }),
     });
-    if (!res.ok) return null;
-    const result = (await res.json()) as DailyCompleteResult;
-    // Workstream LOOP B2 - the daily retention signal, fired from the one place
-    // every daily funnels through. already_today is excluded so a replay on the
-    // same day does not double count the streak day.
-    if (!result.already_today) analytics.dailyComplete(kind, result.streak ?? 0);
-    return result;
+    if (res.ok) result = (await res.json()) as DailyCompleteResult;
   } catch {
-    return null;
+    result = null;
   }
+  if (first && (kind === 'quiz' || kind === 'blindtest')) {
+    analytics.dailyComplete({
+      game: kind,
+      signedIn: result ? Boolean(result.signed_in) : opts.signedIn === true,
+      streak: result && result.signed_in && result.streak > 0 ? result.streak : guestStreak(),
+    });
+  }
+  return result;
 }
