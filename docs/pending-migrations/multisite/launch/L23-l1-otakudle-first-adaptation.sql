@@ -13,19 +13,22 @@
 -- WHEN:   apply by the owner after a backup, just after 00:30 UTC, never between 23:50 and 00:30 UTC, never during a build. The file refreshes the snapshot and then reads dle_schedule for today and the next 7 days:
 --         if a scheduled answer (or the answer served today) stopped being a possible answer, the file aborts and nothing is written (none is expected: only studio and year values move).
 -- Undo:   L23-l1-otakudle-first-adaptation.rollback.sql (the view of L18, the old values, the sources, the column).
--- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing; a row that already moved to another value is left alone.
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone.
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
+do $o1l23$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
 
-do $l23$ begin
+
+begin
   if to_regclass('public.series_facts') is null or not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'series_facts' and column_name = 'work_year') then
     raise exception 'L23: L18 must be applied first (series_facts.work_year)';
   end if;
   if (select count(*) from public.groups g join public.series_facts sf on sf.group_id = g.id where g.site_id = 'anime' and g.slug in ('apothecary-diaries', 'that-time-i-got-reincarnated-as-a-slime', 'solo-leveling', 'omniscient-readers-viewpoint', 'hunter-x-hunter', 'fruits-basket')) <> 6 then
     raise exception 'L23: a series_facts row is missing (apply L13 first)';
   end if;
-end $l23$;
+end;
 
 -- 1. The override of the studio: the studios of the first TV adaptation, read before the studios of L04 (which describe the later seasons too).
 alter table public.series_facts add column if not exists first_studios text[] check (first_studios is null or cardinality(first_studios) between 1 and 6);
@@ -86,7 +89,6 @@ revoke all on table public.dle_src_anime_character from public, anon, authentica
 grant select on table public.dle_src_anime_character to service_role;
 
 -- 3. The values, each guarded on the value L04 / L18 hold, with a self-check on the number of rows changed.
-do $l23$
 declare n integer; m integer;
 begin
   update public.series_facts sf set work_year = v.y::smallint
@@ -107,7 +109,7 @@ begin
 
   update public.series s set anime_start_year = 1999 from public.groups g where g.id = s.group_id and g.site_id = 'anime' and g.slug = 'hunter-x-hunter' and s.anime_start_year = 2011;
   update public.series s set anime_start_year = 2001 from public.groups g where g.id = s.group_id and g.site_id = 'anime' and g.slug = 'fruits-basket' and s.anime_start_year = 2019;
-end $l23$;
+end;
 
 -- 4. The sources: one row per value (Wikipedia or Fandom page, source_ref = the revision id read on 2026-11-09).
 insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at)
@@ -125,12 +127,11 @@ on conflict (entity_type, entity_id, field, source) do update set source_ref = e
 where (entity_sources.source_ref, entity_sources.source_url, entity_sources.fetched_at) is distinct from (excluded.source_ref, excluded.source_url, excluded.fetched_at);
 
 -- The snapshot the players read.
-do $l23$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle') then perform public.dle_refresh_entities('otakudle'); end if;
-end $l23$;
+end;
 
 -- Nobody scheduled in the next 7 days, nor today's answer, may have stopped being a possible answer (the whole file is undone if so).
-do $l23$
 declare r record;
 begin
   if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null and to_regclass('public.dle_entities') is not null then
@@ -147,6 +148,8 @@ begin
       raise exception 'L23: the answer served today is no longer a possible answer';
     end if;
   end if;
-end $l23$;
+end;
 
 notify pgrst, 'reload schema';
+
+end $o1l23$;

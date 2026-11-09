@@ -14,6 +14,12 @@ const FILES: [file: string, tag: string][] = [
   ['L17-l1-op-affiliation.rollback.sql', 'o1l17r'],
   ['L18-l1-otakudle-genres.sql', 'o1l18'],
   ['L18-l1-otakudle-genres.rollback.sql', 'o1l18r'],
+  ['L21-l1-series-games-corrections.sql', 'o1l21'],
+  ['L21-l1-series-games-corrections.rollback.sql', 'o1l21r'],
+  ['L22-l1-otakudle-facts-corrections.sql', 'o1l22'],
+  ['L22-l1-otakudle-facts-corrections.rollback.sql', 'o1l22r'],
+  ['L23-l1-otakudle-first-adaptation.sql', 'o1l23'],
+  ['L23-l1-otakudle-first-adaptation.rollback.sql', 'o1l23r'],
 ];
 
 describe('launch files the owner may run from the Supabase SQL Editor are one DO block', () => {

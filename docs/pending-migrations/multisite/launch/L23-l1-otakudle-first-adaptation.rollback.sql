@@ -5,14 +5,17 @@
 -- WHEN:   apply by the owner after a backup, just after 00:30 UTC, never between 23:50 and 00:30 UTC, never during a build. The file refreshes the snapshot and then reads dle_schedule for today and the next 7 days:
 --         if a scheduled answer (or the answer served today) stopped being a possible answer, the file aborts and nothing is written (none is expected: only studio and year values move).
 -- Undo:   L23-l1-otakudle-first-adaptation.sql.
--- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing; a row that already moved to another value is left alone.
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone.
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
+do $o1l23r$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
 
-do $l23$ begin
+
+begin
   if to_regclass('public.series_facts') is null then raise exception 'L23 rollback: series_facts is missing'; end if;
-end $l23$;
+end;
 
 -- 1. The view of L18 back (it no longer reads first_studios), then the values, then the column.
 create or replace view public.dle_src_anime_character with (security_invoker = true) as
@@ -69,7 +72,6 @@ from pool p;
 revoke all on table public.dle_src_anime_character from public, anon, authenticated;
 grant select on table public.dle_src_anime_character to service_role;
 
-do $l23$
 begin
   if exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'series_facts' and column_name = 'first_studios') then
     update public.series_facts sf set first_studios = null from public.groups g where g.site_id = 'anime' and g.id = sf.group_id and (g.slug, sf.first_studios) in (('hunter-x-hunter', array['Nippon Animation']::text[]), ('fruits-basket', array['Studio Deen']::text[]));
@@ -77,7 +79,7 @@ begin
   update public.series_facts sf set work_year = null from public.groups g where g.site_id = 'anime' and g.id = sf.group_id and (g.slug, sf.work_year) in (('apothecary-diaries', 2011::smallint), ('that-time-i-got-reincarnated-as-a-slime', 2013::smallint), ('solo-leveling', 2016::smallint), ('omniscient-readers-viewpoint', 2018::smallint));
   update public.series s set anime_start_year = 2011 from public.groups g where g.id = s.group_id and g.site_id = 'anime' and g.slug = 'hunter-x-hunter' and s.anime_start_year = 1999;
   update public.series s set anime_start_year = 2019 from public.groups g where g.id = s.group_id and g.site_id = 'anime' and g.slug = 'fruits-basket' and s.anime_start_year = 2001;
-end $l23$;
+end;
 
 delete from public.entity_sources where entity_type = 'series' and (entity_id, field, source, source_ref) in (
     ('apothecary-diaries', 'otakudle.work_year', 'fandom', '17930'),
@@ -91,12 +93,11 @@ delete from public.entity_sources where entity_type = 'series' and (entity_id, f
 
 alter table public.series_facts drop column if exists first_studios;
 
-do $l23$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle') then perform public.dle_refresh_entities('otakudle'); end if;
-end $l23$;
+end;
 
 -- Nobody scheduled in the next 7 days, nor today's answer, may have stopped being a possible answer (the whole file is undone if so).
-do $l23$
 declare r record;
 begin
   if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null and to_regclass('public.dle_entities') is not null then
@@ -113,6 +114,8 @@ begin
       raise exception 'L23 rollback: the answer served today is no longer a possible answer';
     end if;
   end if;
-end $l23$;
+end;
 
 notify pgrst, 'reload schema';
+
+end $o1l23r$;
