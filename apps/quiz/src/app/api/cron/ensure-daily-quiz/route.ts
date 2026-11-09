@@ -88,7 +88,7 @@ export function publishTarget(now: Date): { date: string; early: boolean } {
 
 function bustQotdCaches(): void {
   try {
-    revalidateTag('quizzes');
+    revalidateTag('quizzes', { expire: 0 });
     revalidatePath('/');
   } catch (err) {
     // a failed bust never fails the publish: the caches then fall back to their short TTLs
