@@ -1,11 +1,11 @@
 [
   {
     "site": "kpop",
-    "account": "kpophistory",
+    "account": "kpq_history",
     "group_slug": "general-kpop",
     "title": "MAMA Awards quiz: past Daesang winners and show facts",
     "slug": "mama-awards-quiz",
-    "description": "Ten sourced questions on the MAMA Awards: who won the big prizes in past years, and facts about the 2026 MAMA Awards on November 20 and 21 at Kyocera Dome Osaka.",
+    "description": "Ten sourced questions on the MAMA Awards: who won the big prizes in past years, and facts about the 2026 show on November 20 and 21.",
     "quiz_type": "multiple_choice",
     "difficulty": "medium",
     "language": "en",
@@ -126,7 +126,7 @@
           "Tooniverse"
         ],
         "correct": 0,
-        "fun_fact": "Mnet launched the ceremony in 1999. Mnet Plus is the service that streams it live worldwide today.",
+        "fun_fact": "Mnet is the music channel of CJ ENM, the company behind the MAMA Awards.",
         "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
       },
       {
@@ -154,6 +154,6 @@
         "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
       }
     ],
-    "notes": "Facts read on 2026-11-09. Past winners from the Wikipedia revisions linked in the sources, show facts from the CJ newsroom."
+    "notes": "Facts read on 2026-11-09, re-checked 2026-11-09. Past winners from the Wikipedia revisions linked in the sources, show facts from the CJ newsroom."
   }
 ]
