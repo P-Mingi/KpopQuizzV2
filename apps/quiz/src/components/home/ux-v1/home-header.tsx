@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
+import Link from 'next/link';
+import { Fragment, useMemo } from 'react';
 
 import { UxButton } from '@/components/ux-v1/button';
 import { GENRE, titleCase } from '@/lib/site/genre';
@@ -26,7 +27,25 @@ function streakLine(days: number | undefined, last: string | null | undefined): 
   return `Streak saved: ${v.days} ${v.days === 1 ? 'day' : 'days'}. Come back tomorrow to make it ${v.days + 1}.`;
 }
 
-export function HomeHeader(): React.ReactElement {
+/** Today's quiz of the day, as the home gives it to the header (audit 01 P0-2). */
+export interface HomeDaily { slug: string; title: string }
+
+/** The play link of the daily quiz from the home (audit 01: `from=home`, read by the measurement lot). */
+export const dailyHomeHref = (d: HomeDaily | null | undefined): string => (d ? `/q/${d.slug}?daily=quiz&from=home` : '/daily?from=home');
+
+// The words "daily quiz" and "daily blindtest" of the signed-in line are links (audit 01 P0-2).
+function linkWords(text: string, daily: HomeDaily | null | undefined): React.ReactNode {
+  return text.split(/(the daily quiz or the daily blindtest|the daily blindtest|the daily quiz)/).map((part, i) => {
+    if (part === 'the daily quiz or the daily blindtest') {
+      return <Fragment key={i}><Link className="p1-inl" href={dailyHomeHref(daily)}>the daily quiz</Link> or <Link className="p1-inl" href="/blindtest?daily=true&from=home">the daily blindtest</Link></Fragment>;
+    }
+    if (part === 'the daily quiz') return <Link key={i} className="p1-inl" href={dailyHomeHref(daily)}>{part}</Link>;
+    if (part === 'the daily blindtest') return <Link key={i} className="p1-inl" href="/blindtest?daily=true&from=home">{part}</Link>;
+    return part;
+  });
+}
+
+export function HomeHeader({ daily = null }: { daily?: HomeDaily | null }): React.ReactElement {
   const me = useUxMe();
   const profile = me?.profile ?? null;
   const signedIn = useMemo(() => {
@@ -35,6 +54,16 @@ export function HomeHeader(): React.ReactElement {
     return { greeting: greetingFor(new Date().getHours()), name, line: streakLine(profile.daily_streak, profile.last_daily_date) };
   }, [profile]);
 
+  const chip = daily ? (
+    <Link className="p1-dchip" href={dailyHomeHref(daily)} aria-label={`Play today's quiz: ${daily.title}`}>
+      <span className="p1-dchip-k">Today&apos;s quiz</span>
+      <span className="p1-dchip-t">{daily.title}</span>
+      <span className="p1-dchip-go">Play</span>
+    </Link>
+  ) : null;
+
+  // Phone only (CSS): the daily one tap away, above the fold (audit 01 P0-2). The desktop card is already in view.
+  // Both headers carry it, so the signed-in swap does not change the height.
   if (signedIn) {
     return (
       <header className="p1-hhead" data-auth="in">
@@ -42,7 +71,8 @@ export function HomeHeader(): React.ReactElement {
           <span className="p1-eyb">{`${titleCase(GENRE)} Quiz`}</span>
           {signedIn.name ? <>{signedIn.greeting}, <em>{signedIn.name}</em></> : signedIn.greeting}
         </h1>
-        <p className="p1-hsub">{signedIn.line}</p>
+        <p className="p1-hsub">{linkWords(signedIn.line, daily)}</p>
+        {chip}
         {/* Keeps the height of the guest header's two buttons (a client-only render, so never in the server HTML): the header does not shrink when /api/auth/me answers, and nothing below it moves (audit 02 P1-4, risk 4). */}
         <div className="p1-hcta" aria-hidden="true" style={{ visibility: 'hidden' }}>
           <UxButton icon="play" tabIndex={-1}>{`Browse ${GENRE} quizzes`}</UxButton>
@@ -59,6 +89,7 @@ export function HomeHeader(): React.ReactElement {
         Are you a <em>real fan?</em>
       </h1>
       <h2 className="p1-hsub">{`Prove it. Play ${GENRE} quizzes and see where you rank.`}</h2>
+      {chip}
       <div className="p1-hcta">
         <UxButton href="/quizzes" icon="play" aria-label={`Browse ${GENRE} quizzes`}>{`Browse ${GENRE} quizzes`}</UxButton>
         <UxButton href="/create" variant="ghost" icon="plus" aria-label="Create a quiz">Create a quiz</UxButton>
