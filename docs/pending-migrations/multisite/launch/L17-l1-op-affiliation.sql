@@ -17,18 +17,21 @@
 --         kind change at once (a guess shown "near" on a shared crew can turn "wrong" for a play in progress) and the values change at the next dle_refresh_entities
 --         (this file calls it for the game when it already has a snapshot, so the change is immediate and consistent). Past days' colours are recomputed the same way.
 -- Undo:   L17-l1-op-affiliation.rollback.sql (restores the attrs.affiliation of L15 byte for byte and the kind multi).
--- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
-do $op$ begin
+do $o1l17$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
+
+begin
   if to_regclass('public.character_game_facts') is null or to_regclass('public.dle_attributes') is null then
     raise exception 'L17: 019 and 024 must be applied first';
   end if;
   if (select count(*) from public.character_game_facts where game_id = 'otakudle-one-piece') < 100 then
     raise exception 'L17: the 100 One Piece facts of L15 are not all there (apply L15 first)';
   end if;
-end $op$;
+end;
 
 update public.dle_attributes set kind = 'single' where game_id = 'otakudle-one-piece' and key = 'affiliation' and kind <> 'single';
 
@@ -155,8 +158,10 @@ select 'character', s.slug, 'one-piece.affiliation', 'fandom', s.rev, s.url, '20
 on conflict (entity_type, entity_id, field, source) do nothing;
 
 -- The snapshot the players read (dle_entities): refreshed now when the game already has one, otherwise the next activation takes it.
-do $op$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle-one-piece') then
     perform public.dle_refresh_entities('otakudle-one-piece');
   end if;
-end $op$;
+end;
+
+end $o1l17$;

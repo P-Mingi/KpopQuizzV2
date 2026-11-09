@@ -3,10 +3,13 @@
 -- What:   undoes L18: the view of 023 (Demographic) back, the seven old columns of the game otakudle in their old order (series, gender, species, role, demographic, year, studio), the old species values
 --         (and the Wikipedia row of Natsu Dragneel), the old spelling "Weekly Shonen Jump" of Demon Slayer, Jujutsu Kaisen and Naruto, the entity_sources rows of L18, then the two columns of series_facts dropped.
 --         series_facts.demographic was never touched. Apply at a day boundary like L18 (same remark on guesses). Idempotent.
--- o1-transaction: single (psql --single-transaction).
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor).
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
+do $o1l18r$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
+
 
 -- The view first: the columns it reads are dropped last.
 create or replace view public.dle_src_anime_character with (security_invoker = true) as
@@ -63,7 +66,7 @@ from pool p;
 revoke all on table public.dle_src_anime_character from public, anon, authenticated;
 grant select on table public.dle_src_anime_character to service_role;
 
-do $l18$ begin
+begin
   if exists (select 1 from public.dle_games where id = 'otakudle') and exists (select 1 from public.dle_attributes where game_id = 'otakudle' and key = 'genres') then
     delete from public.dle_attributes where game_id = 'otakudle' and key = 'genres';
     update public.dle_attributes set position = case key when 'gender' then 8 when 'species' then 9 when 'role' then 10 when 'year' then 11 when 'studio' then 12 end
@@ -72,7 +75,7 @@ do $l18$ begin
     update public.dle_attributes set position = case key when 'gender' then 2 when 'species' then 3 when 'role' then 4 when 'year' then 6 when 'studio' then 7 end
       where game_id = 'otakudle' and key in ('gender', 'species', 'role', 'year', 'studio');
   end if;
-end $l18$;
+end;
 
 with f(series, character, old_value, new_value) as (values
     ('dragon-ball', 'captain-ginyu', 'ginyu-race-mutant', 'ginyu-s-race-mutant'),
@@ -111,10 +114,12 @@ delete from public.entity_sources where entity_type = 'series' and field in ('ot
 
 alter table public.series_facts drop column if exists genres, drop column if exists work_year;
 
-do $l18$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle') then
     perform public.dle_refresh_entities('otakudle');
   end if;
-end $l18$;
+end;
 
 notify pgrst, 'reload schema';
+
+end $o1l18r$;

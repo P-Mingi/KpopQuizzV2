@@ -11,6 +11,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { toSingleDoBlock } from '../../../../scripts/anime/sql/single-do-block.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const MIG = path.resolve(HERE, '../../../pending-migrations/multisite');
@@ -239,12 +240,15 @@ end $l18$;
 notify pgrst, 'reload schema';
 `;
 
+// One DO block each (owner, 2026-11-09): the owner may apply them from the Supabase SQL Editor.
+const sqlFile = toSingleDoBlock(sql, 'o1l18');
+const rollbackFile = toSingleDoBlock(rollback, 'o1l18r');
 if (process.argv.includes('--check')) {
   const dir = path.join(MIG, 'launch');
-  const same = readFileSync(path.join(dir, 'L18-l1-otakudle-genres.sql'), 'utf8') === sql && readFileSync(path.join(dir, 'L18-l1-otakudle-genres.rollback.sql'), 'utf8') === rollback;
+  const same = readFileSync(path.join(dir, 'L18-l1-otakudle-genres.sql'), 'utf8') === sqlFile && readFileSync(path.join(dir, 'L18-l1-otakudle-genres.rollback.sql'), 'utf8') === rollbackFile;
   console.log(same ? 'same' : 'DIFFERENT');
   process.exit(same ? 0 : 1);
 }
-writeFileSync(path.join(MIG, 'launch', 'L18-l1-otakudle-genres.sql'), sql);
-writeFileSync(path.join(MIG, 'launch', 'L18-l1-otakudle-genres.rollback.sql'), rollback);
+writeFileSync(path.join(MIG, 'launch', 'L18-l1-otakudle-genres.sql'), sqlFile);
+writeFileSync(path.join(MIG, 'launch', 'L18-l1-otakudle-genres.rollback.sql'), rollbackFile);
 console.log(`written: ${data.length} series, ${years.length} years, ${fixes.length} species, largest shared set ${maxShared}`);

@@ -2,10 +2,13 @@
 --
 -- What:   undoes L17: the attrs.affiliation of the 100 characters back to the value of L15 byte for byte, the column kind back to multi, and removes the 7 entity_sources rows L17 added.
 --         Apply at a day boundary like L17 (same remark on guesses). Idempotent.
--- o1-transaction: single (psql --single-transaction).
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor).
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
+do $o1l17r$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
+
 
 update public.dle_attributes set kind = 'multi' where game_id = 'otakudle-one-piece' and key = 'affiliation' and kind <> 'multi';
 
@@ -120,8 +123,10 @@ where f.character_id = c.id and f.game_id = 'otakudle-one-piece' and f.attrs -> 
 
 delete from public.entity_sources where entity_type = 'character' and field = 'one-piece.affiliation' and source = 'fandom' and entity_id in ('silvers-rayleigh', 'yamato', 'vegapunk', 'marco', 'bellamy', 'helmeppo', 'uta');
 
-do $op$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle-one-piece') then
     perform public.dle_refresh_entities('otakudle-one-piece');
   end if;
-end $op$;
+end;
+
+end $o1l17r$;

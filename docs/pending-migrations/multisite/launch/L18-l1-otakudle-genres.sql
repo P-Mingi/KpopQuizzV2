@@ -26,12 +26,15 @@
 --         023 builds the old view: do not run 023 again after this file (session.sh runs it before L13, which is before this file).
 --         L13 still carries the 16 old species (its source, scripts/anime/a2/data/all-series.json, belongs to another lane: see docs/o1/requests/L1.md): run L13 never again after this file, or run this file again.
 -- Undo:   L18-l1-otakudle-genres.rollback.sql (the view of 023, the seven old columns, the old species, the old spelling, the columns dropped).
--- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing.
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
+do $o1l18$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
 
-do $l18$ begin
+
+begin
   if to_regclass('public.series_facts') is null or to_regclass('public.character_facts') is null or to_regclass('public.dle_attributes') is null then
     raise exception 'L18: 019 and 023 must be applied first';
   end if;
@@ -41,7 +44,7 @@ do $l18$ begin
   if to_regclass('public.character_game_facts') is null or not exists (select 1 from public.dle_attributes where game_id = 'otakudle-one-piece' and key = 'affiliation' and kind = 'single') then
     raise exception 'L18: L17 must be applied first';
   end if;
-end $l18$;
+end;
 
 alter table public.series_facts add column if not exists genres text[] check (genres is null or (cardinality(genres) between 1 and 3 and genres <@ array['action', 'adventure', 'fantasy', 'dark-fantasy', 'supernatural', 'martial-arts', 'science-fiction', 'comedy', 'mystery-thriller', 'romance', 'drama', 'slice-of-life', 'sports', 'post-apocalyptic', 'historical']::text[]));
 alter table public.series_facts add column if not exists work_year smallint check (work_year is null or work_year between 1900 and 2100);
@@ -255,7 +258,7 @@ revoke all on table public.dle_src_anime_character from public, anon, authentica
 grant select on table public.dle_src_anime_character to service_role;
 
 -- 3. The columns of the game: series, genres, year, studio, gender, species, role. Two steps because (game_id, position) is unique.
-do $l18$ begin
+begin
   if exists (select 1 from public.dle_games where id = 'otakudle') and not exists (select 1 from public.dle_attributes where game_id = 'otakudle' and key = 'genres') then
     delete from public.dle_attributes where game_id = 'otakudle' and key = 'demographic';
     update public.dle_attributes set position = case key when 'gender' then 8 when 'species' then 9 when 'role' then 10 when 'year' then 11 when 'studio' then 12 end
@@ -264,17 +267,17 @@ do $l18$ begin
     update public.dle_attributes set position = case key when 'year' then 3 when 'studio' then 4 when 'gender' then 5 when 'species' then 6 when 'role' then 7 end
       where game_id = 'otakudle' and key in ('gender', 'species', 'role', 'year', 'studio');
   end if;
-end $l18$;
+end;
 
 -- 6. The snapshot the players read.
-do $l18$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle') then
     perform public.dle_refresh_entities('otakudle');
   end if;
-end $l18$;
+end;
 
 -- Self-check.
-do $l18$ begin
+begin
   if exists (select 1 from public.series_facts sf join public.groups g on g.id = sf.group_id and g.site_id = 'anime' where sf.genres is null) then
     raise exception 'L18: a series has no genres';
   end if;
@@ -291,6 +294,8 @@ do $l18$ begin
   if has_table_privilege('anon', 'public.dle_src_anime_character', 'select') or has_table_privilege('authenticated', 'public.dle_src_anime_character', 'select') then
     raise exception 'L18: dle_src_anime_character is readable by a browser role';
   end if;
-end $l18$;
+end;
 
 notify pgrst, 'reload schema';
+
+end $o1l18$;
