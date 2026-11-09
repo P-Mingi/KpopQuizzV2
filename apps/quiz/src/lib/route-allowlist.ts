@@ -32,6 +32,8 @@ export const KNOWN_ROUTES = [
   '/kpop-games',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
+  // O1 audit 03 P2-1: the segment sitemaps, /sitemaps/<segment>.xml (app/sitemaps/[segment]/route.ts).
+  '/sitemaps/',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
   // bell) are real signed-in pages that were never allowlisted, so the
   // unknown-route rule 301'd them to / and made both unreachable. They guard
