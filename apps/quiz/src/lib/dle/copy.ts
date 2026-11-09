@@ -347,7 +347,7 @@ const SRC: Readonly<Record<DleLocale, { readonly all: string; readonly wiki: str
 export const ONE_PIECE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
   en: cols({
     gender: ['Gender', 'Male or female', 'never', SRC.en.all],
-    affiliation: ['Affiliation', 'Crews and organisations, close if one in common', 'one crew or organisation in common', SRC.en.all],
+    affiliation: ['Affiliation', 'Main crew or organisation, close if the same family (pirates, Marines, World Government, Revolutionary Army)', 'the same family (pirates, Marines, World Government, Revolutionary Army)', SRC.en.all],
     devil_fruit_type: ['Devil Fruit', 'Paramecia, Zoan, Logia or none', 'never', SRC.en.all],
     haki: ['Haki', 'Observation, Armament, Conqueror or none, close if one in common', 'one Haki in common', SRC.en.all],
     bounty: ['Bounty', 'The latest bounty, an arrow says higher or lower', 'never, arrow only', SRC.en.all],
@@ -357,7 +357,7 @@ export const ONE_PIECE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<strin
   }),
   fr: cols({
     gender: ['Genre', 'Masculin ou féminin', 'jamais', SRC.fr.all],
-    affiliation: ['Affiliation', 'Équipages et organisations, proche si une en commun', 'un équipage ou une organisation en commun', SRC.fr.all],
+    affiliation: ['Affiliation', 'Équipage ou organisation principale, proche si de la même famille (pirates, Marine, Gouvernement mondial, Armée révolutionnaire)', 'la même famille (pirates, Marine, Gouvernement mondial, Armée révolutionnaire)', SRC.fr.all],
     devil_fruit_type: ['Fruit du démon', 'Paramecia, Zoan, Logia ou aucun', 'jamais', SRC.fr.all],
     haki: ['Haki', 'Observation, armement, rois ou aucun, proche si un en commun', 'un Haki en commun', SRC.fr.all],
     bounty: ['Prime', 'La dernière prime, une flèche dit plus haute ou plus basse', 'jamais, flèche seulement', SRC.fr.all],
@@ -428,7 +428,7 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
       en: 'The values follow the story up to the Egghead arc, the last arc finished in the anime. No column says who is alive or dead. No character art without a licence.',
       fr: 'Les valeurs suivent l’histoire jusqu’à l’arc d’Egghead, le dernier arc terminé dans l’anime. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
     },
-    near: { en: 'Close. One crew, organisation or Haki in common.', fr: 'Proche. Un équipage, une organisation ou un Haki en commun.' },
+    near: { en: 'Close. The same affiliation family (pirates, Marines, World Government, Revolutionary Army) or one Haki in common.', fr: 'Proche. La même famille d’affiliation (pirates, Marine, Gouvernement mondial, Armée révolutionnaire) ou un Haki en commun.' },
   },
   'otakudle-dragon-ball': {
     columns: DRAGON_BALL_COLUMNS, ja: 'ドラゴンボール', suggestSecond: 'race',
