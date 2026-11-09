@@ -1,8 +1,12 @@
 name: IndexNow submit
 
-# After a production deploy, ask Bing/Yandex (via IndexNow) to recrawl the site.
-# Bing is our #1 search referrer. Per-quiz publishes already ping automatically
-# from the app; this covers the full-sitemap resubmit on deploy.
+# After a production deploy, tell Bing/Yandex (via IndexNow) which URLs changed. Rulebook 11.2: submit added, changed and
+# removed URLs, never the whole sitemap again. Per-quiz publishes already ping from the app (lib/seo/quiz-freshness.ts).
+#
+# How: the last sitemap is kept as the artifact "sitemap-snapshot" of the last successful run. This run fetches the live sitemap,
+# POSTs the previous one to /api/indexnow, which compares it with the live sitemap and submits only what was added, removed or got
+# a different lastmod (src/lib/indexnow-diff.ts). With no previous snapshot (first run) it submits 0 and records the baseline, so an
+# unchanged push submits 0. Only main triggers it (the seo-indexation branch trigger is gone).
 #
 # SETUP (one time):
 #   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy).
@@ -11,8 +15,12 @@ name: IndexNow submit
 # workflow_dispatch lets you run it manually from the Actions tab to test.
 on:
   push:
-    branches: [main, seo-indexation]
+    branches: [main]
   workflow_dispatch: {}
+
+permissions:
+  actions: read
+  contents: read
 
 jobs:
   submit:
@@ -20,11 +28,32 @@ jobs:
     steps:
       - name: Wait for the Vercel deploy to go live
         run: sleep 120
-      - name: Resubmit sitemap to IndexNow
+      - name: Fetch the live sitemap
+        run: |
+          mkdir -p current prev
+          curl -fsS https://kpopquiz.org/sitemap.xml -o current/sitemap.xml
+      - name: Fetch the sitemap of the last submission
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          id=$(gh run list --workflow indexnow.yml --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          if [ -n "$id" ]; then gh run download "$id" --name sitemap-snapshot --dir prev || echo "no snapshot in run $id"; fi
+      - name: Submit the changed URLs to IndexNow
         env:
           INDEXNOW_TOKEN: ${{ secrets.INDEXNOW_TOKEN }}
         run: |
           if [ -z "$INDEXNOW_TOKEN" ]; then
             echo "INDEXNOW_TOKEN secret not set - skipping"; exit 0
           fi
-          curl -fsS -X POST "https://kpopquiz.org/api/indexnow?token=${INDEXNOW_TOKEN}"
+          if [ -s prev/sitemap.xml ]; then
+            curl -fsS -X POST -H 'content-type: application/xml' --data-binary @prev/sitemap.xml "https://kpopquiz.org/api/indexnow?token=${INDEXNOW_TOKEN}"
+          else
+            echo "no previous sitemap: recording the baseline, submitting nothing"
+            curl -fsS -X POST --data-binary '' "https://kpopquiz.org/api/indexnow?token=${INDEXNOW_TOKEN}"
+          fi
+      - name: Keep this sitemap for the next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-snapshot
+          path: current/sitemap.xml
+          retention-days: 90

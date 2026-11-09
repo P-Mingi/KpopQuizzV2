@@ -438,7 +438,7 @@ for (const theme of THEMES) {
       const alternates = await page.locator('link[rel="alternate"][hreflang]').evaluateAll((els) => Object.fromEntries(els.map((e) => [e.getAttribute('hreflang'), new URL((e as HTMLLinkElement).href).pathname])));
       expect(alternates, 'the en alternates, nothing added (pt-BR retired 2026-10-23)').toEqual({ en: '/blindtest', 'x-default': '/blindtest' });
       await expect(page.locator('h1')).toHaveCount(1);
-      expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('Name thatK-pop song');
+      expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('K-popblind test');
       await expect(page.locator('.p6-lead')).toHaveText('10 songs. 10 seconds each. Guess the song or the artist from a clip.');
       expect((await page.locator('.p6-acc summary').allTextContents()).map((q) => q.trim())).toEqual([
         'What is a K-pop blind test?', 'How many songs are available?', 'Can I play for just one group?', 'How does a round work?',

@@ -148,8 +148,9 @@ async function main() {
         const m = roster[i];
         const name = m?.name;
         if (!name) continue;
-        // find best WD match by normalized name
-        const hit = wd.find(w => !wdUsed.has(w.qid) && (norm(w.name) === norm(name) || norm(w.name).includes(norm(name)) || norm(name).includes(norm(w.name))));
+        // find the WD member whose normalized name is EXACTLY the roster name (audit 05, R10: a substring match let "in" match Changbin and "han" match Bang Chan,
+        // which swapped the QIDs and the birth dates of 14 and 19). No match means no row values from Wikidata, never a guess.
+        const hit = wd.find(w => !wdUsed.has(w.qid) && norm(w.name) === norm(name));
         const positions = typeof m.position === 'string' ? m.position.split(',').map(x => x.trim()).filter(Boolean) : [];
         const idolRow = {
           group_id: gid, name, photo_url: m.photo_url || null, positions, ord: i, active: true,
