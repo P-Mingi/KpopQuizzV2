@@ -1491,6 +1491,21 @@
       "body": "none"
     },
     {
+      "id": "58",
+      "site": "anime",
+      "route": "/profile",
+      "file": "apps/quiz/src/app/sites/[site]/(anime)/profile/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/profile/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "nothing visible: a redirect to /me (row 16)"
+      ],
+      "allowed": [],
+      "owner": "P1",
+      "body": "none",
+      "notes": "Owner 2026-11-09 (lot o1/next C): the Passport door of the OtakuQuiz chrome (account menu, streak popover). The twin of kpop's /profile: both redirect to /me, the personal passport. Noindex."
+    },
+    {
       "id": "H-0",
       "site": "hub",
       "route": "shell: nav, tab bar, footer",
