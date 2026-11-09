@@ -1,164 +1,95 @@
 {
+  "rule": "A: the group at the end of the debut arc, as the reader knows it then",
   "diffs": [
     {
       "slug": "nico-robin",
       "name": "Nico Robin",
       "debut_arc": "Whiskey Peak",
-      "today": "Straw Hat Pirates",
-      "rule": "Baroque Works",
-      "rule_family": null,
+      "in_215": "Straw Hat Pirates",
+      "rule_a": "Baroque Works",
+      "family": null,
       "source": "https://onepiece.fandom.com/wiki/Nico_Robin",
-      "note": "Met as Miss All Sunday of Baroque Works; the Straw Hats come later. Infobox: Baroque Works (defected)."
-    },
-    {
-      "slug": "jinbe",
-      "name": "Jinbe",
-      "debut_arc": "Impel Down",
-      "today": "Straw Hat Pirates",
-      "rule": "Seven Warlords of the Sea",
-      "rule_family": "pirates",
-      "source": "https://onepiece.fandom.com/wiki/Jinbe",
-      "note": "Met as a Seven Warlord; the Sun Pirates are his crew (former). Infobox: Seven Warlords of the Sea (former)."
+      "reasoning": "Baroque Works: introduced as Miss All Sunday and still in it when Whiskey Peak ends; she joins two arcs later. Family none (round 2)."
     },
     {
       "slug": "franky",
       "name": "Franky",
       "debut_arc": "Water 7",
-      "today": "Straw Hat Pirates",
-      "rule": "Franky Family",
-      "rule_family": null,
+      "in_215": "Straw Hat Pirates",
+      "rule_a": "Franky Family",
+      "family": null,
       "source": "https://onepiece.fandom.com/wiki/Franky",
-      "note": "Met as the head of the Franky Family (house-wreckers gang). Infobox: Franky Family (former)."
+      "reasoning": "Franky Family: introduced as its head, joins the Straw Hats after Water 7 (Enies Lobby). Family none, a gang of house wreckers."
+    },
+    {
+      "slug": "jinbe",
+      "name": "Jinbe",
+      "debut_arc": "Impel Down",
+      "in_215": "Straw Hat Pirates",
+      "rule_a": "Seven Warlords of the Sea",
+      "family": "pirates",
+      "source": "https://onepiece.fandom.com/wiki/Jinbe",
+      "reasoning": "Seven Warlords of the Sea, not Sun Pirates (the audit): he is introduced as a Warlord in Impel Down, the Sun Pirates are former; same group as Kuma and Mihawk."
     },
     {
       "slug": "bartholomew-kuma",
       "name": "Bartholomew Kuma",
       "debut_arc": "Jaya",
-      "today": "Revolutionary Army",
-      "rule": "Seven Warlords of the Sea",
-      "rule_family": "pirates",
+      "in_215": "Revolutionary Army",
+      "rule_a": "Seven Warlords of the Sea",
+      "family": "pirates",
       "source": "https://onepiece.fandom.com/wiki/Bartholomew_Kuma",
-      "note": "Met as a Seven Warlord of the Sea; the Revolutionary Army is revealed later. Infobox: Seven Warlords of the Sea (former)."
+      "reasoning": "Seven Warlords of the Sea when met; the Revolutionary Army is revealed years later."
     },
     {
       "slug": "nefertari-vivi",
       "name": "Nefertari Vivi",
       "debut_arc": "Reverse Mountain / Into the Grand Line",
-      "today": "Arabasta Kingdom",
-      "rule": "Baroque Works",
-      "rule_family": null,
+      "in_215": "Arabasta Kingdom",
+      "rule_a": "Baroque Works",
+      "family": null,
       "source": "https://onepiece.fandom.com/wiki/Nefertari_Vivi",
-      "note": "Met as Miss Wednesday, an undercover agent of Baroque Works; the kingdom is revealed in the same arc. Infobox: Baroque Works (double agent)."
-    },
-    {
-      "slug": "viola",
-      "name": "Viola",
-      "debut_arc": "Dressrosa",
-      "today": "Riku Family",
-      "rule": "Donquixote Pirates",
-      "rule_family": "pirates",
-      "source": "https://onepiece.fandom.com/wiki/Viola",
-      "note": "Met as an officer of the Donquixote Family; the Riku Family is revealed later. Infobox: Donquixote Pirates (defected)."
-    },
-    {
-      "slug": "koby",
-      "name": "Koby",
-      "debut_arc": "Romance Dawn",
-      "today": "Marines",
-      "rule": "Alvida Pirates",
-      "rule_family": "pirates",
-      "source": "https://onepiece.fandom.com/wiki/Koby",
-      "note": "Met as the cabin boy of the Alvida Pirates. Infobox: Alvida Pirates (defected)."
-    },
-    {
-      "slug": "usopp",
-      "name": "Usopp",
-      "debut_arc": "Syrup Village",
-      "today": "Straw Hat Pirates",
-      "rule": "Usopp Pirates",
-      "rule_family": "pirates",
-      "source": "https://onepiece.fandom.com/wiki/Usopp",
-      "note": "Met as the captain of the Usopp Pirates (the village kids). Infobox: Usopp Pirates (disbanded)."
-    },
-    {
-      "slug": "sanji",
-      "name": "Sanji",
-      "debut_arc": "Baratie",
-      "today": "Straw Hat Pirates",
-      "rule": "Baratie",
-      "rule_family": null,
-      "source": "https://onepiece.fandom.com/wiki/Sanji",
-      "note": "Met as a cook of the Baratie restaurant. Infobox: Baratie (resigned)."
-    },
-    {
-      "slug": "brook",
-      "name": "Brook",
-      "debut_arc": "Thriller Bark",
-      "today": "Straw Hat Pirates",
-      "rule": "Rumbar Pirates",
-      "rule_family": "pirates",
-      "source": "https://onepiece.fandom.com/wiki/Brook",
-      "note": "Met as the sole survivor of the Rumbar Pirates. Infobox: Rumbar Pirates (former)."
-    },
-    {
-      "slug": "portgas-d-ace",
-      "name": "Portgas D. Ace",
-      "debut_arc": "Drum Island",
-      "today": "Whitebeard Pirates",
-      "rule": "Spade Pirates",
-      "rule_family": "pirates",
-      "source": "https://onepiece.fandom.com/wiki/Portgas_D._Ace",
-      "note": "Met as the captain of the Spade Pirates; the Whitebeard Pirates are revealed in Alabasta. Infobox: Spade Pirates (former)."
+      "reasoning": "Baroque Works (Miss Wednesday) when the arc ends; the kingdom comes in the next arc."
     },
     {
       "slug": "sabo",
       "name": "Sabo",
       "debut_arc": "Marineford / Paramount War",
-      "today": "Revolutionary Army",
-      "rule": "Dadan Family",
-      "rule_family": null,
+      "in_215": "Revolutionary Army",
+      "rule_a": "Dadan Family",
+      "family": null,
       "source": "https://onepiece.fandom.com/wiki/Sabo",
-      "note": "Met as a child in the flashback, living with the Dadan Family bandits. Low confidence. Infobox: Dadan Family (former)."
+      "reasoning": "Dadan Family: a child in the flashback, the Revolutionary Army only from Dressrosa. Low confidence."
     },
     {
-      "slug": "kyros",
-      "name": "Kyros",
-      "debut_arc": "Dressrosa",
-      "today": "Riku Royal Army",
-      "rule": "Corrida Colosseum",
-      "rule_family": null,
-      "source": "https://onepiece.fandom.com/wiki/Kyros",
-      "note": "Met as a gladiator of the Corrida Colosseum. Low confidence. Infobox: Corrida Colosseum (former)."
+      "slug": "rob-lucci",
+      "name": "Rob Lucci",
+      "debut_arc": "Water 7",
+      "in_215": "Cipher Pol",
+      "rule_a": "CP9",
+      "family": "world-government",
+      "source": "https://onepiece.fandom.com/wiki/Rob_Lucci",
+      "reasoning": "CP9: head of CP9 when Water 7 ends; he also shows as a Galley-La foreman; CP0 comes later."
     },
     {
       "slug": "vegapunk",
       "name": "Vegapunk",
       "debut_arc": "Punk Hazard",
-      "today": null,
-      "rule": "Marines",
-      "rule_family": "marines",
-      "source": null,
-      "note": "Met through the Marines/World Government scientist role (SSG). Today empty (unsourced). Low confidence."
-    }
-  ],
-  "joins": [
-    {
-      "slug": "roronoa-zoro",
-      "name": "Roronoa Zoro",
-      "today": "Straw Hat Pirates",
-      "note": "Romance Dawn: a pirate hunter, no crew shown before he joins"
+      "in_215": null,
+      "rule_a": "MADS",
+      "family": null,
+      "source": "https://onepiece.fandom.com/wiki/Vegapunk",
+      "reasoning": "MADS: the shadowed Punk Hazard flashback shows the MADS lab; the audit proposed World Government, which the infobox does not list. Low confidence."
     },
     {
-      "slug": "nami",
-      "name": "Nami",
-      "today": "Straw Hat Pirates",
-      "note": "Orange Town: a thief on her own (Arlong Pirates is only revealed in the next arc), joins at the end"
-    },
-    {
-      "slug": "tony-tony-chopper",
-      "name": "Tony Tony Chopper",
-      "today": "Straw Hat Pirates",
-      "note": "Drum Island: a lone reindeer doctor, joins at the end"
+      "slug": "kaku",
+      "name": "Kaku",
+      "debut_arc": "Water 7",
+      "in_215": "Cipher Pol",
+      "rule_a": "CP9",
+      "family": "world-government",
+      "source": "https://onepiece.fandom.com/wiki/Kaku",
+      "reasoning": "CP9, as Lucci."
     }
   ]
 }

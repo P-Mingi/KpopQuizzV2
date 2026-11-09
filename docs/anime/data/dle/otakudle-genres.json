@@ -1074,19 +1074,24 @@
   },
   {
     "series": "steins-gate",
-    "wikipedia_title": "Steins;Gate",
-    "revid": "1383046647",
-    "infobox": "Infobox video game (the visual novel)",
+    "wikipedia_title": "Steins;Gate (TV series)",
+    "revid": "1381908034",
+    "infobox": "Infobox anime video (the 2011 TV series)",
     "raw_genres": [
       {
-        "link": "Visual novel",
-        "text": "Visual novel"
+        "link": "Psychological thriller",
+        "text": "Psychological thriller"
+      },
+      {
+        "link": "Science fiction",
+        "text": "Science fiction"
       }
     ],
     "genres": [
-      "visual-novel"
+      "science-fiction",
+      "mystery-thriller"
     ],
-    "note": "The original work is the visual novel; its infobox gives \"Visual novel\", a format, as its only genre: kept as the word \"Visual novel\".",
+    "note": "Owner decision 2026-11-09: the Genre line of the infobox of the anime (the 2011 TV series), not of the visual novel (whose only genre, \"Visual novel\", is a format).",
     "targets": 1
   },
   {

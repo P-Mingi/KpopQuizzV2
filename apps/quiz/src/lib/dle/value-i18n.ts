@@ -43,6 +43,7 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
   'Beautiful Pirates': 'Pirates Beautiful',
   'Riku Royal Army': 'Armée royale de Riku',
   'Riku Family': 'Famille Riku',
+  'Dadan Family': 'Famille Dadan',
   'Caribou Pirates': 'Pirates de Caribou',
   'New Giant Warrior Pirates': 'Nouveaux Pirates Géants',
   'Golden Lion Pirates': 'Pirates du Lion d’or',
@@ -104,12 +105,12 @@ export const GENRE: Readonly<Record<DleLocale, Readonly<Record<string, string>>>
   en: {
     action: 'Action', adventure: 'Adventure', fantasy: 'Fantasy', 'dark-fantasy': 'Dark fantasy', supernatural: 'Supernatural', 'martial-arts': 'Martial arts', 'science-fiction': 'Science fiction',
     comedy: 'Comedy', 'mystery-thriller': 'Mystery and thriller', romance: 'Romance', drama: 'Drama', 'slice-of-life': 'Slice of life', sports: 'Sports', 'post-apocalyptic': 'Post-apocalyptic',
-    historical: 'Historical', 'visual-novel': 'Visual novel',
+    historical: 'Historical',
   },
   fr: {
     action: 'Action', adventure: 'Aventure', fantasy: 'Fantasy', 'dark-fantasy': 'Dark fantasy', supernatural: 'Surnaturel', 'martial-arts': 'Arts martiaux', 'science-fiction': 'Science-fiction',
     comedy: 'Comédie', 'mystery-thriller': 'Mystère et thriller', romance: 'Romance', drama: 'Drame', 'slice-of-life': 'Tranche de vie', sports: 'Sport', 'post-apocalyptic': 'Post-apocalyptique',
-    historical: 'Historique', 'visual-novel': 'Visual novel',
+    historical: 'Historique',
   },
 };
 

@@ -45,10 +45,10 @@ describe('L17: one main affiliation per One Piece character', () => {
     await db.exec(readLaunch('L17-l1-op-affiliation.sql'));
   });
 
-  it('the data: 100 characters, a source for each value, 4 families, one unsourced', () => {
+  it('the data: 100 characters, a source for each value, 4 families, none unsourced', () => {
     expect(DATA).toHaveLength(100);
     expect(DATA.filter((d) => d.affiliation && !d.source?.startsWith('https://onepiece.fandom.com/wiki/'))).toEqual([]);
-    expect(DATA.filter((d) => !d.affiliation).map((d) => d.slug)).toEqual(['vegapunk']);
+    expect(DATA.filter((d) => !d.affiliation).map((d) => d.slug)).toEqual([]);
     expect([...new Set(DATA.map((d) => d.family).filter(Boolean))].sort()).toEqual(['marines', 'pirates', 'revolutionary-army', 'world-government']);
     expect(JSON.stringify(DATA)).not.toMatch(/[–—]/);
   });
@@ -83,13 +83,17 @@ describe('L17: one main affiliation per One Piece character', () => {
     expect(await cell(db, 'Monkey D. Luffy', 'Monkey D. Garp')).toBe('wrong');
     expect(await cell(db, 'Monkey D. Garp', 'Sakazuki')).toBe('correct');
     expect(await cell(db, 'Monkey D. Garp', 'Sabo')).toBe('wrong');
-    expect(await cell(db, 'Sabo', 'Monkey D. Dragon')).toBe('correct');
+    expect(await cell(db, 'Sabo', 'Monkey D. Dragon')).toBe('wrong');
+    expect(await cell(db, 'Monkey D. Dragon', 'Monkey D. Dragon')).toBe('correct');
+    expect(await cell(db, 'Monkey D. Dragon', 'Sakazuki')).toBe('wrong');
     expect(await cell(db, 'Nerona Imu', 'Magellan')).toBe('near');
     expect(await cell(db, 'Nerona Imu', 'Sakazuki')).toBe('wrong');
     expect(await cell(db, 'Carrot', 'Nefertari Vivi')).toBe('wrong');
     expect(await cell(db, 'Carrot', 'Carrot')).toBe('correct');
     expect(await cell(db, 'Carrot', 'Monkey D. Luffy')).toBe('wrong');
-    expect(await cell(db, 'Monkey D. Luffy', 'Vegapunk')).toBe('unknown');
+    expect(await cell(db, 'Monkey D. Luffy', 'Vegapunk')).toBe('wrong');
+    expect(await cell(db, 'Vegapunk', 'Caesar Clown')).toBe('wrong');
+    expect(await cell(db, 'Vegapunk', 'Vegapunk')).toBe('correct');
   });
 
   it('the debut-arc rule (owner 2026-11-08): the affiliation of the arc the game lists, for the named cases', async () => {
@@ -115,14 +119,38 @@ describe('L17: one main affiliation per One Piece character', () => {
     expect(await cell(db, 'Kuzan', 'Buggy')).toBe('wrong');
   });
 
-  it('the other characters the rule would change are listed for the owner, not applied', () => {
+  it('rule A (owner 2026-11-09): the group at the end of the debut arc; the nine characters it changes from PR #215', async () => {
     const f = JSON.parse(readFileSync(path.resolve(MIGRATIONS, '../../anime/data/dle/one-piece-affiliation-rule-diffs.json'), 'utf8')) as {
-      diffs: { slug: string; today: string | null; rule: string }[]; joins: { slug: string }[];
+      diffs: { slug: string; in_215: string | null; rule_a: string; family: string | null }[];
     };
-    expect(f.diffs.map((d) => d.slug).sort()).toEqual(['bartholomew-kuma', 'brook', 'franky', 'jinbe', 'koby', 'kyros', 'nefertari-vivi', 'nico-robin', 'portgas-d-ace', 'sabo', 'sanji', 'usopp', 'vegapunk', 'viola']);
-    for (const d of f.diffs) expect(d.rule, d.slug).not.toBe(DATA.find((x) => x.slug === d.slug)!.affiliation);
-    expect(f.joins.map((j) => j.slug).sort()).toEqual(['nami', 'roronoa-zoro', 'tony-tony-chopper']);
-    expect(JSON.stringify(f)).not.toMatch(/[–—]/);
+    expect(f.diffs.map((d) => d.slug).sort()).toEqual(['bartholomew-kuma', 'franky', 'jinbe', 'kaku', 'nefertari-vivi', 'nico-robin', 'rob-lucci', 'sabo', 'vegapunk']);
+    for (const d of f.diffs) {
+      const x = DATA.find((y) => y.slug === d.slug)!;
+      expect([d.slug, d.rule_a, d.family]).toEqual([d.slug, x.affiliation, x.family]);
+      expect(d.rule_a, d.slug).not.toBe(d.in_215);
+    }
+    // Crew members who join inside their debut arc stay Straw Hats; Ace is a Whitebeard when he is met.
+    for (const s of ['roronoa-zoro', 'usopp', 'sanji', 'tony-tony-chopper', 'brook', 'nami']) expect(DATA.find((x) => x.slug === s)!.affiliation, s).toBe('Straw Hat Pirates');
+    expect(DATA.find((x) => x.slug === 'portgas-d-ace')!.affiliation).toBe('Whitebeard Pirates');
+    const want: Record<string, [string, string | null]> = {
+      'nico-robin': ['Baroque Works', null], franky: ['Franky Family', null], jinbe: ['Seven Warlords of the Sea', 'pirates'], 'bartholomew-kuma': ['Seven Warlords of the Sea', 'pirates'],
+      'nefertari-vivi': ['Baroque Works', null], sabo: ['Dadan Family', null], 'rob-lucci': ['CP9', 'world-government'], kaku: ['CP9', 'world-government'], vegapunk: ['MADS', null],
+    };
+    for (const [slug, [aff, fam]] of Object.entries(want)) {
+      const d = DATA.find((x) => x.slug === slug)!;
+      expect([slug, d.affiliation, d.family]).toEqual([slug, aff, fam]);
+    }
+    // Right, Close, Wrong between them.
+    expect(await cell(db, 'Nico Robin', 'Crocodile')).toBe('correct');
+    expect(await cell(db, 'Nico Robin', 'Nefertari Vivi')).toBe('correct');
+    expect(await cell(db, 'Nico Robin', 'Franky')).toBe('wrong');
+    expect(await cell(db, 'Jinbe', 'Bartholomew Kuma')).toBe('correct');
+    expect(await cell(db, 'Jinbe', 'Monkey D. Luffy')).toBe('near');
+    expect(await cell(db, 'Jinbe', 'Sakazuki')).toBe('wrong');
+    expect(await cell(db, 'Rob Lucci', 'Kaku')).toBe('correct');
+    expect(await cell(db, 'Rob Lucci', 'Nerona Imu')).toBe('near');
+    expect(await cell(db, 'Rob Lucci', 'Smoker')).toBe('wrong');
+    expect(seriesValueLabel('affiliation', 'Dadan Family', 'fr')).toBe('Famille Dadan');
   });
 
   it('a second run changes nothing; the French words exist for every affiliation', async () => {

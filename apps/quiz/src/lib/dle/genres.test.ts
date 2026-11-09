@@ -23,7 +23,7 @@ const GENRES = JSON.parse(readFileSync(path.join(DLE, 'otakudle-genres.json'), '
 }[];
 const MAGAZINE = JSON.parse(readFileSync(path.join(DLE, 'otakudle-magazine.json'), 'utf8')) as { series: string; work_year?: number }[];
 const FIXES = JSON.parse(readFileSync(path.join(DLE, 'otakudle-species-fixes.json'), 'utf8')) as { series: string; character: string; from: string; to: string; source: string }[];
-const WORDS = ['action', 'adventure', 'fantasy', 'dark-fantasy', 'supernatural', 'martial-arts', 'science-fiction', 'comedy', 'mystery-thriller', 'romance', 'drama', 'slice-of-life', 'sports', 'post-apocalyptic', 'historical', 'visual-novel'];
+const WORDS = ['action', 'adventure', 'fantasy', 'dark-fantasy', 'supernatural', 'martial-arts', 'science-fiction', 'comedy', 'mystery-thriller', 'romance', 'drama', 'slice-of-life', 'sports', 'post-apocalyptic', 'historical'];
 
 interface Snap { facts: string; chars: string; series: string; attrs: string; view: string; sources: number; ents: string }
 async function snap(db: PGlite): Promise<Snap> {
@@ -77,15 +77,15 @@ describe('L18: the Genres column of Otakudle', () => {
     after = await snap(db);
   });
 
-  it('the data: 50 series, each with its Wikipedia page, revision id and infobox genres, 1 to 3 words of the closed list of 16, no dash', () => {
+  it('the data: 50 series, each with its Wikipedia page, revision id and infobox genres, 1 to 3 words of the closed list of 15 (Visual novel dropped), no dash', () => {
     expect(GENRES).toHaveLength(50);
     expect(new Set(GENRES.map((d) => d.series)).size).toBe(50);
     expect(GENRES.filter((d) => !/^[0-9]+$/.test(d.revid) || !d.wikipedia_title || !d.infobox || d.raw_genres.length === 0)).toEqual([]);
     expect(GENRES.filter((d) => d.genres.length < 1 || d.genres.length > 3 || d.genres.some((g) => !WORDS.includes(g)))).toEqual([]);
     expect(GENRES.filter((d) => JSON.stringify(d.genres) !== JSON.stringify([...d.genres].sort((a, b) => WORDS.indexOf(a) - WORDS.indexOf(b))))).toEqual([]);
     expect(JSON.stringify(GENRES)).not.toMatch(/[–—]/);
-    // Sourced: the words of a series come from its infobox only, and the three series with one raw genre keep it.
-    expect(GENRES.filter((d) => d.raw_genres.length === 1).map((d) => d.series)).toEqual(['sailor-moon', 'sakamoto-days', 'steins-gate', 'that-time-i-got-reincarnated-as-a-slime']);
+    // Sourced: the words of a series come from its infobox only, and the series with one raw genre keep it.
+    expect(GENRES.filter((d) => d.raw_genres.length === 1).map((d) => d.series)).toEqual(['sailor-moon', 'sakamoto-days', 'that-time-i-got-reincarnated-as-a-slime']);
     expect(execFileSync('node', [path.join(DLE, 'gen-genres.mjs'), '--check'], { encoding: 'utf8' }).trim()).toBe('same');
   });
 
@@ -93,7 +93,7 @@ describe('L18: the Genres column of Otakudle', () => {
     const bySet = new Map<string, string[]>();
     for (const d of GENRES) bySet.set(d.genres.join('+'), [...(bySet.get(d.genres.join('+')) ?? []), d.series]);
     expect(Math.max(...[...bySet.values()].map((v) => v.length))).toBe(3);
-    expect(bySet.size).toBe(41);
+    expect(bySet.size).toBe(40);
     expect(GENRES.reduce((n, d) => n + d.targets, 0)).toBe(185);
   });
 
@@ -156,7 +156,8 @@ describe('L18: the Genres column of Otakudle', () => {
     expect(await cell(db, 'genres', 'Naruto Uzumaki', 'Usagi Tsukino')).toBe('near'); // Fantasy
     // Wrong: nothing in common.
     expect(await cell(db, 'genres', 'Conan Edogawa', 'Satoru Gojo')).toBe('wrong');
-    expect(await cell(db, 'genres', 'Rintaro Okabe', 'Satoru Gojo')).toBe('wrong'); // Visual novel
+    expect(await cell(db, 'genres', 'Rintaro Okabe', 'Satoru Gojo')).toBe('wrong'); // Mystery and thriller + Science fiction (the anime infobox) against Adventure, Dark fantasy, Supernatural
+    expect(await cell(db, 'genres', 'Rintaro Okabe', 'Conan Edogawa')).toBe('near'); // Mystery and thriller shared
     expect(await cell(db, 'genres', 'Shigeo Kageyama', 'Rimuru Tempest')).toBe('wrong'); // Action, Supernatural, Comedy against Fantasy
   });
 
