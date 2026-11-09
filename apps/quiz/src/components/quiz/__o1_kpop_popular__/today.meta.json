@@ -1,4 +1,8 @@
 {
+ "robots": {
+  "index": false,
+  "follow": true
+ },
  "title": "Most Played K-pop Quizzes Today",
  "description": "The K-pop quizzes fans are playing the most right now, from the last 24 hours. Updated every 30 minutes from real plays. Free to play.",
  "openGraph": {

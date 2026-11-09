@@ -11,6 +11,10 @@
   "alternates": {
    "canonical": "/which-bts-member-are-you"
   },
+  "robots": {
+   "index": false,
+   "follow": true
+  },
   "openGraph": {
    "title": "Which BTS member are you? Personality quiz | KpopQuiz",
    "description": "Which BTS member are you? Answer 2 questions about yourself and get the BTS member whose quiz profile is closest. Free, no timer.",
