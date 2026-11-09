@@ -9,7 +9,7 @@ import {
   LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, RETIRED_FAMILIES, RETIRED_PAGES, battleQuizSlug, legacyAnswer,
   legacyNameAllAnswer, retiredFeatureAnswer, PORTUGUESE_PAGES, portugueseAnswer,
   BLINDTEST_PATH, LEGACY_BLIND_TEST_HANDLER, LEGACY_BLIND_TEST_PATH, LEGACY_PATH_HEADER, LEGACY_SEARCH_HEADER,
-  battleQuizRef, blindTestAnswer,
+  battleQuizRef, blindTestAnswer, MERGED_QUIZZES, mergedQuizAnswer,
 } from './legacy-urls';
 
 // SEO (owner, 2026-10-14): the retired URLs Bing reported (docs/seo/bing-2026-10-14,
@@ -375,3 +375,27 @@ describe('/blind-test: 301 only to a /blindtest page that renders, else 410 (own
     for (const flags of [{ v1: false, v12: false }, BOTH]) expect(isKnownRouteWith(LEGACY_BLIND_TEST_HANDLER, flags)).toBe(true);
   });
 });
+
+describe('merged duplicate quizzes (owner, 2026-10-27)', () => {
+  it('sends the duplicate ILLIT quiz 301 to the quiz it duplicated', () => {
+    expect(mergedQuizAnswer('/q/this-is-only-for-true-gllits')).toEqual({ status: 301, location: '/q/this-is-only-for-true-gllits-2' });
+    expect(mergedQuizAnswer('/q/this-is-only-for-true-gllits/')).toEqual({ status: 301, location: '/q/this-is-only-for-true-gllits-2' });
+    expect(legacyAnswer('/q/this-is-only-for-true-gllits', true)).toEqual({ status: 301, location: '/q/this-is-only-for-true-gllits-2' });
+  });
+
+  it('leaves every other quiz URL alone, the kept quiz first', () => {
+    expect(mergedQuizAnswer('/q/this-is-only-for-true-gllits-2')).toBeNull();
+    expect(mergedQuizAnswer('/q/bts-quiz')).toBeNull();
+    expect(mergedQuizAnswer('/this-is-only-for-true-gllits')).toBeNull();
+    expect(legacyAnswer('/q/this-is-only-for-true-gllits-2', true)).toBeNull();
+  });
+
+  it('never chains: no target is itself a merged slug, and no slug points at itself', () => {
+    for (const [from, to] of Object.entries(MERGED_QUIZZES)) {
+      expect(to).not.toBe(from);
+      expect(MERGED_QUIZZES[to]).toBeUndefined();
+      expect(to).toMatch(/^[a-z0-9-]+$/);
+    }
+  });
+});
+
