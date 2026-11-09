@@ -43,7 +43,7 @@ export function QotdRow({ qotd }: { qotd: HomeQotd }): React.ReactElement {
           ))}
         </p>
       </div>
-      <UxButton href={`/q/${qotd.slug}?daily=quiz`} icon="play" className="p1-qd-go" aria-label={`Play the quiz of the day: ${qotd.title}`}>
+      <UxButton href={`/q/${qotd.slug}?daily=quiz&from=home`} icon="play" className="p1-qd-go" aria-label={`Play the quiz of the day: ${qotd.title}`}>
         Play
       </UxButton>
     </section>
