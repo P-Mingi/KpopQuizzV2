@@ -4,6 +4,12 @@
 -- Needs:  019, 023, L04, L13, L18 (series_facts.work_year and the view it replaced; this file replaces the view again starting from L18's text). Apply after L22 (any order works).
 -- WHEN:   apply by the owner after a backup, just after 00:30 UTC, never between 23:50 and 00:30 UTC, never during a build. The file refreshes the snapshot and then reads dle_schedule for today and the next 7 days:
 --         if a scheduled answer (or the answer served today) stopped being a possible answer, the file aborts and nothing is written (none is expected: only studio and year values move).
+-- Verify: select t.anime_start_year from public.series t join public.groups g on g.id = t.group_id and g.site_id = 'anime' where g.slug = 'hunter-x-hunter';   expect 2011
+-- Verify: select t.anime_start_year from public.series t join public.groups g on g.id = t.group_id and g.site_id = 'anime' where g.slug = 'fruits-basket';   expect 2019
+-- Verify: select count(*) from public.entity_sources where entity_type = 'series' and field in ('otakudle.work_year', 'otakudle.first_studios', 'otakudle.anime_start_year');   expect 0
+-- Verify: select t.work_year from public.series_facts t join public.groups g on g.id = t.group_id and g.site_id = 'anime' where g.slug = 'apothecary-diaries';   expect NULL
+-- Verify: select e.attrs -> 'studio' ->> 'v' from public.dle_entities e join public.characters c on c.id::text = e.entity_id where e.game_id = 'otakudle' and c.slug = 'gon-freecss';   expect ["Madhouse"]
+-- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'series_facts' and column_name = 'first_studios';   expect 0
 -- Undo:   L23-l1-otakudle-first-adaptation.sql.
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone.
 

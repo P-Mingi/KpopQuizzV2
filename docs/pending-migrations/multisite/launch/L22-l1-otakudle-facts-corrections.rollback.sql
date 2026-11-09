@@ -6,6 +6,12 @@
 --         (nothing is written) if a character that stops being a possible answer is scheduled there (haise-sasaki); ORCH reads those 7 days in production before the owner applies.
 --         A guess is stored as the entity id only and its colours are computed on every read, so a game in progress is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.
 --         The pool of answers changes (20 characters become possible answers, 1 stops): the next dle_daily_maintenance sees a new pool hash and rebuilds the bank (L18: it keeps today and the 7 days after it).
+-- Verify: select count(*) from public.dle_entities where game_id = 'otakudle' and can_be_target and in_pool;   expect 185
+-- Verify: select count(*) from public.character_facts where featured;   expect 200
+-- Verify: select count(*) from public.character_facts where role_at_debut is not null;   expect 715
+-- Verify: select f.gender from public.character_facts f join public.characters c on c.id = f.character_id where c.slug = 'captain-ginyu';   expect female
+-- Verify: select f.voice_actor_ja from public.character_facts f join public.characters c on c.id = f.character_id where c.slug = 'raditz';   expect Masako Nozawa
+-- Verify: select count(*) from public.character_facts f join public.characters c on c.id = f.character_id where c.slug = 'ken-kaneki';   expect 0
 -- Undo:   L22-l1-otakudle-facts-corrections.sql.
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).
 

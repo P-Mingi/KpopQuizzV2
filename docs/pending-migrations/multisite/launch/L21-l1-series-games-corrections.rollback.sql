@@ -5,6 +5,12 @@
 -- WHEN:   apply by the owner after a backup, just after 00:30 UTC of a day on which no scheduled answer is lost (value corrections on a scheduled answer only fix feedback and are fine; production read of 2026-11-09: Jesus Burgess is the One Piece answer of bank day 4, 2026-11-10, so this file aborts until after that day or until the day is swapped), never between 23:50 and 00:30 UTC, and never during a build. The first statements read dle_schedule for today and the next 7 days and abort
 --         (nothing is written) if a character that leaves the answers is scheduled there. A guess is stored as the entity id only and its colours are computed on every read, so a game in progress
 --         is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.
+-- Verify: select count(*) from public.dle_entities where game_id = 'otakudle-one-piece' and can_be_target and in_pool;   expect 73
+-- Verify: select count(*) from public.character_game_facts where game_id = 'otakudle-one-piece' and attrs -> 'sea_of_origin' ->> 'v' = 'New World';   expect 7
+-- Verify: select count(*) from public.character_game_facts where game_id = 'otakudle-dragon-ball' and attrs -> 'race' ->> 'v' = 'Animal';   expect 0
+-- Verify: select f.attrs -> 'bounty' ->> 'l' from public.character_game_facts f join public.characters c on c.id = f.character_id where f.game_id = 'otakudle-one-piece' and c.slug = 'monkey-d-garp';   expect NULL
+-- Verify: select f.hints ->> 'devil_fruit_name' from public.character_game_facts f join public.characters c on c.id = f.character_id where f.game_id = 'otakudle-one-piece' and c.slug = 'monkey-d-luffy';   expect Gum-Gum Fruit
+-- Verify: select f.attrs -> 'race' ->> 'v' from public.character_game_facts f join public.characters c on c.id = f.character_id where f.game_id = 'otakudle-dragon-ball' and c.slug = 'cell';   expect Saiyan
 -- Undo:   L21-l1-series-games-corrections.sql.
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).
 
