@@ -214,6 +214,14 @@
        "27 March 2012"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: 50th Shogakukan Manga Award, shonen category, 2005; Kodansha, Japan Media Arts Festival Grand Prize and Tezuka Prize are not Bleach awards on the page.",
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+      "revision": 1383591576,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -307,6 +315,14 @@
        "SID"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: \"over 130 million copies in circulation worldwide by 2022\"; 13, 70 and 300 million are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/Bleach_(manga)",
+      "revision": 1383591576,
+      "read_on": "2026-11-09"
      }
     }
    ]
@@ -570,6 +586,14 @@
        "March 2022"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page lead and infobox: 72 volumes (1-27 part I, 28-72 part II, so 27 and 48 are not totals).",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto",
+      "revision": 1384634084,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -599,6 +623,14 @@
        "March 2017"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the English dub aired on Cartoon Network Toonami in the US (September 2005 to January 2009); Disney XD is the Shippuden dub.",
+      "source_url": "https://en.wikipedia.org/wiki/Naruto_(TV_series)",
+      "revision": 1383210738,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -737,22 +769,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
     },
     {
-     "question": "Who performed Yoake no Uta, the ending of season 3?",
+     "question": "Who returned as the sole composer of the second season of the Jujutsu Kaisen anime?",
      "options": [
-      "Jo0ji",
-      "Tatsuya Kitani",
-      "Eve",
-      "Soushi Sakiyama"
+      "Hiroaki Tsutsumi",
+      "Yuki Kajiura",
+      "Yoshimasa Terui",
+      "Hiroyuki Sawano"
      ],
-     "correct": 0,
+     "correct": 2,
      "kind": "music",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "jujutsu-kaisen-ending-themes-005"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
     },
     {
@@ -865,7 +895,26 @@
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
      "options_reordered": true,
-     "position": 6
+     "position": 6,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Behind Jujutsu Kaisen: Directors, Dubs and Songs\" asks \"Which ending, performed by Jo0ji, accompanied season 3?\" (Yoake no Uta): same fact reversed.",
+      "matched": "published: Behind Jujutsu Kaisen: Directors, Dubs and Songs: Which ending, performed by Jo0ji, accompanied season 3?",
+      "original_question": "Who returned as the sole composer of the second season of the Jujutsu Kaisen anime?",
+      "original_options": [
+       "Hiroaki Tsutsumi",
+       "Yuki Kajiura",
+       "Yoshimasa Terui",
+       "Hiroyuki Sawano"
+      ],
+      "original_answer": "Yoshimasa Terui",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Terui returned as the sole composer of the second season.\" No published or draft question asks the JJK composers."
+     }
     },
     {
      "index": 7,
@@ -945,22 +994,20 @@
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
-     "question": "Which act performed No.1, an opening of season 5?",
+     "question": "At which event did the special OVA UA Heroes Battle premiere with an English dub in October 2023?",
      "options": [
-      "Kana-Boon",
-      "Blue Encount",
-      "Dish",
-      "Lenny code fiction"
+      "Anime Expo",
+      "Jump Festa",
+      "Crunchyroll Expo",
+      "New York Comic Con"
      ],
-     "correct": 2,
-     "kind": "music",
+     "correct": 3,
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "anime"
      },
-     "fact_ids": [
-      "my-hero-academia-opening-themes-011"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
@@ -1082,7 +1129,26 @@
      "revision": 1384041392,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 3
+     "position": 3,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"My Hero Academia True or False: Plus Ultra Edition\" states \"Dish performed the opening No.1 in season 5\": same fact as a statement.",
+      "matched": "published: My Hero Academia True or False: Plus Ultra Edition: Dish performed the opening No.1 in season 5.",
+      "original_question": "At which event did the special OVA UA Heroes Battle premiere with an English dub in October 2023?",
+      "original_options": [
+       "Anime Expo",
+       "Jump Festa",
+       "Crunchyroll Expo",
+       "New York Comic Con"
+      ],
+      "original_answer": "New York Comic Con",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"A special OVA episode, titled UA Heroes Battle, premiered with an English dub at the New York Comic Con on October 13, 2023.\" Not asked anywhere (no OVA question for MHA)."
+     }
     },
     {
      "index": 4,
@@ -1110,6 +1176,14 @@
        "Brian the Sun"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the English dub aired on Adult Swim Toonami up to season 6; the other three blocks are not mentioned.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -1220,23 +1294,21 @@
      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba"
     },
     {
-     "question": "Which of these manga is the work of Yoshihiro Togashi?",
+     "question": "Which of these manga did Hideaki Sorachi write and draw?",
      "options": [
-      "Haikyu!!",
-      "Naruto",
-      "Hunter x Hunter",
-      "JoJo's Bizarre Adventure"
+      "Black Clover",
+      "Fairy Tail",
+      "Dr. Stone",
+      "Gintama"
      ],
-     "correct": 2,
-     "kind": "production",
+     "correct": 3,
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "hunter-x-hunter-manga-creator-002"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Gintama"
     },
     {
      "question": "Which of these manga did Haruichi Furudate write and draw?",
@@ -1350,7 +1422,26 @@
      "revision": 1378757391,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 3
+     "position": 3,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Nen Detector: True or False\" states \"Yoshihiro Togashi is the creator of the Hunter x Hunter manga\": same fact. (The whole quiz repeats published \"who wrote and drew\" questions, see extra findings.)",
+      "matched": "published: Nen Detector: True or False: Yoshihiro Togashi is the creator of the Hunter x Hunter manga.",
+      "original_question": "Which of these manga did Hideaki Sorachi write and draw?",
+      "original_options": [
+       "Black Clover",
+       "Fairy Tail",
+       "Dr. Stone",
+       "Gintama"
+      ],
+      "original_answer": "Gintama",
+      "source_url": "https://en.wikipedia.org/wiki/Gintama",
+      "revision": 1383136036,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Gintama is a Japanese manga series written and illustrated by Hideaki Sorachi.\" No question names Sorachi."
+     }
     },
     {
      "index": 4,
@@ -1711,22 +1802,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
     },
     {
-     "question": "Which prize did Hinata win at the fifth Crunchyroll Anime Awards?",
+     "question": "Who illustrated the Haikyubu!! spin-off manga of Haikyu!!?",
      "options": [
-      "Best Boy",
-      "Anime of the Year",
-      "Best Fight Scene",
-      "Best Opening Sequence"
+      "Haruichi Furudate",
+      "Yusuke Murata",
+      "Takeshi Obata",
+      "Kyōhei Miyajima"
      ],
-     "correct": 0,
-     "kind": "production",
+     "correct": 3,
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "haikyu-hinata-best-boy-019"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
     },
     {
@@ -1783,18 +1872,18 @@
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
     },
     {
-     "question": "Which band performed Ah Yeah, the opening of episodes 14 to 25 of the Haikyu!! TV anime?",
+     "question": "In which Shueisha magazine did Haikyu!! first appear, as a one-shot in January 2011?",
      "options": [
-      "Spyair",
-      "Sukima Switch",
-      "Burnout Syndromes",
-      "Nico Touches the Walls"
+      "Jump Next!",
+      "Jump Giga",
+      "Saikyō Jump",
+      "Weekly Young Jump"
      ],
-     "correct": 1,
-     "kind": "music",
+     "correct": 0,
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "anime"
+      "scope": "manga"
      },
      "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!"
@@ -1844,6 +1933,14 @@
        "January 2016"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: aired on MBS from April to September 2014; NHK, Fuji TV and TV Tokyo are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -1862,7 +1959,26 @@
      "revision": 1381740115,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 2
+     "position": 2,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Crows on Court: Who Plays Where?\" asks \"Which award show gave Hinata Best Boy at its fifth edition?\" (Crunchyroll Anime Awards) and \"Net Check\" tests Best Boy at the first edition: same fact (Hinata, Best Boy, fifth Crunchyroll Anime Awards) reversed.",
+      "matched": "published: Crows on Court: Who Plays Where?: Which award show gave Hinata Best Boy at its fifth edition?",
+      "original_question": "Who illustrated the Haikyubu!! spin-off manga of Haikyu!!?",
+      "original_options": [
+       "Haruichi Furudate",
+       "Yusuke Murata",
+       "Takeshi Obata",
+       "Kyōhei Miyajima"
+      ],
+      "original_answer": "Kyōhei Miyajima",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"A spin-off titled Haikyubu!!, illustrated by Kyōhei Miyajima, was released in Shueisha's Shonen Jump+ website from May 13, 2019\". No question on Haikyubu anywhere."
+     }
     },
     {
      "index": 3,
@@ -1890,6 +2006,14 @@
        "12"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: 61st Shogakukan Manga Award, shonen category, 2016; the other prizes are not on the page.",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -1918,6 +2042,14 @@
        "Square Enix"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: second season October 2015 to March 2016, 25 episodes; 13, 10 and 12 are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -1927,7 +2059,13 @@
      "revision": 1381740115,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 5
+     "position": 5,
+     "check3": {
+      "job": "B",
+      "verdict": "KEEP",
+      "note": "False match: the matched question is about the original Dragon Ball manga (finished 1995, taken row \"From 1984 to Daima\"); no published, taken or draft question asks the year the Haikyu!! manga finished in Weekly Shonen Jump. Different series, different fact.",
+      "read_on": "2026-11-09"
+     }
     },
     {
      "index": 6,
@@ -1955,6 +2093,25 @@
        "20 July 2020"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Whistles and Soundtracks: Haikyu!! on Screen\" asks \"Which act performed Ah Yeah, the second opening?\" (Sukima Switch): same fact. The check 2 replacement is factually right (job A CONFIRMED) but repeats a published question.",
+      "matched": "(replacement written by check 2)",
+      "original_question": "In which Shueisha magazine did Haikyu!! first appear, as a one-shot in January 2011?",
+      "original_options": [
+       "Jump Next!",
+       "Jump Giga",
+       "Saikyō Jump",
+       "Weekly Young Jump"
+      ],
+      "original_answer": "Jump Next!",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Haikyu!! was initially published as a one-shot in Shueisha's seasonal Jump Next! on January 8, 2011.\" Not asked anywhere (the published and draft questions ask the Weekly Shonen Jump run, not the one-shot)."
      }
     },
     {
@@ -1983,6 +2140,14 @@
        "*25"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: \"over 75 million copies in circulation\" by December 2025; 7.5, 15 and 300 million are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/Haikyu!!",
+      "revision": 1381740115,
+      "read_on": "2026-11-09"
      }
     }
    ]
@@ -2070,23 +2235,21 @@
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)"
     },
     {
-     "question": "What are Juju Sanpo, which play after the credits from episode 3 of season 1?",
+     "question": "In which month and year did Jujutsu Kaisen 0 premiere in theaters in North America?",
      "options": [
-      "Recap summaries",
-      "Behind-the-scenes interviews",
-      "Sneak peeks of the next episode",
-      "Short slice-of-life clips"
+      "November 2021",
+      "March 2022",
+      "December 2021",
+      "June 2022"
      ],
-     "correct": 3,
-     "kind": "episode",
+     "correct": 1,
+     "kind": "film",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "jujutsu-kaisen-post-credits-shorts-025"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_season_1"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
     },
     {
      "question": "In how many theaters did Jujutsu Kaisen 0 open in Japan?",
@@ -2106,22 +2269,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
     },
     {
-     "question": "On which date did the film Jujutsu Kaisen 0 open in Japanese cinemas?",
+     "question": "Which company distributed Jujutsu Kaisen 0 in Japanese cinemas?",
      "options": [
-      "24 December 2021",
-      "24 December 2020",
-      "3 October 2020",
-      "7 July 2021"
+      "Toei Company",
+      "Shochiku",
+      "Toho",
+      "Kadokawa"
      ],
-     "correct": 0,
-     "kind": "episode",
+     "correct": 2,
+     "kind": "film",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "jujutsu-kaisen-prequel-film-019"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)"
     },
     {
@@ -2224,6 +2385,14 @@
        "2 July 2023"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: Tadashi Hiramatsu designed the characters of season 1 (Seko scripts, Park directed, Goshozono directed season 2).",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+      "revision": 1384504554,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -2233,7 +2402,26 @@
      "revision": 1374276437,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Behind Jujutsu Kaisen: Directors, Dubs and Songs\" asks \"What are the short slice-of-life clips that play after the credits called?\" (Juju Sanpo): same fact reversed.",
+      "matched": "published: Behind Jujutsu Kaisen: Directors, Dubs and Songs: What are the short slice-of-life clips that play after the credits called?",
+      "original_question": "In which month and year did Jujutsu Kaisen 0 premiere in theaters in North America?",
+      "original_options": [
+       "November 2021",
+       "March 2022",
+       "December 2021",
+       "June 2022"
+      ],
+      "original_answer": "March 2022",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)",
+      "revision": 1384516607,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Crunchyroll, in association with Funimation, acquired the rights to the film, which theatrically premiered in North America on March 18, 2022\". No question asks the North American release."
+     }
     },
     {
      "index": 5,
@@ -2262,7 +2450,26 @@
      "revision": 1384516607,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 6
+     "position": 6,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Behind Jujutsu Kaisen: Directors, Dubs and Songs\" asks \"In which year did the film Jujutsu Kaisen 0 open in Japanese cinemas?\" (2021): same fact with a finer answer; the date also appears in the published statement about the box office.",
+      "matched": "published: Behind Jujutsu Kaisen: Directors, Dubs and Songs: In which year did the film Jujutsu Kaisen 0 open in Japanese cinemas?",
+      "original_question": "Which company distributed Jujutsu Kaisen 0 in Japanese cinemas?",
+      "original_options": [
+       "Toei Company",
+       "Shochiku",
+       "Toho",
+       "Kadokawa"
+      ],
+      "original_answer": "Toho",
+      "source_url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)",
+      "revision": 1384516607,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Jujutsu Kaisen 0 was released in Japan on December 24, 2021, by Toho.\" No question asks the distributor."
+     }
     },
     {
      "index": 7,
@@ -2535,6 +2742,14 @@
        "24"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: Code: White released in Japan in December 2023 and in the United States and Canada in April 2024.",
+      "source_url": "https://en.wikipedia.org/wiki/Spy_%C3%97_Family",
+      "revision": 1384497917,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -2571,8 +2786,8 @@
   {
    "date": "2026-11-30",
    "l08_title": "Debt, Devils and Twelve Endings",
-   "title": "Debt, Devils and Twelve Endings",
-   "description": "Manga, anime and music questions on Chainsaw Man, from Denji's debt to Zutomayo.",
+   "title": "Devils, Directors and Twelve Endings",
+   "description": "Manga, anime and music questions on Chainsaw Man, from the director to Zutomayo.",
    "group_slug": "chainsaw-man",
    "quiz_type": "multiple_choice",
    "difficulty": "medium",
@@ -2655,23 +2870,21 @@
      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     },
     {
-     "question": "Who left Denji the huge debt he owes to the yakuza?",
+     "question": "Who directed the first season of the Chainsaw Man TV anime?",
      "options": [
-      "His brother",
-      "His mother",
-      "His old boss",
-      "His father"
+      "Sunghoo Park",
+      "Tetsurō Araki",
+      "Ryū Nakayama",
+      "Shunsuke Nakashige"
      ],
-     "correct": 3,
-     "kind": "character",
+     "correct": 2,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "chainsaw-man-denji-debt-019"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     },
     {
      "question": "In which month and year did the film Chainsaw Man - The Movie: Reze Arc premiere?",
@@ -2710,22 +2923,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man"
     },
     {
-     "question": "Which singer performed the opening theme, Kick Back?",
+     "question": "Who composed the music of the Chainsaw Man TV anime?",
      "options": [
-      "Eve",
-      "Kenshi Yonezu",
-      "Creepy Nuts",
-      "Yoasobi"
+      "Yuki Kajiura",
+      "Hiroyuki Sawano",
+      "Yoko Kanno",
+      "Kensuke Ushio"
      ],
-     "correct": 1,
+     "correct": 3,
      "kind": "music",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "chainsaw-man-opening-theme-015"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)"
     }
    ],
@@ -2804,7 +3015,26 @@
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
      "note": "Verified on the page given in source_url (the originally cited page was not opened).",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Pull the Cord: Chainsaw Man Basics\" asks \"Denji carries a huge debt that his father left to whom?\" (the yakuza): same fact reversed (debt, father, yakuza).",
+      "matched": "published: Pull the Cord: Chainsaw Man Basics: Denji carries a huge debt that his father left to whom?",
+      "original_question": "Who directed the first season of the Chainsaw Man TV anime?",
+      "original_options": [
+       "Sunghoo Park",
+       "Tetsurō Araki",
+       "Ryū Nakayama",
+       "Shunsuke Nakashige"
+      ],
+      "original_answer": "Ryū Nakayama",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+      "revision": 1381105566,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The series was directed by Ryū Nakayama, with series composition and scripts by Hiroshi Seko.\" No question asks the director."
+     }
     },
     {
      "index": 5,
@@ -2831,6 +3061,14 @@
        "115"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the Reze Arc film premiered in Japan on 19 September 2025; the other months are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man",
+      "revision": 1384606027,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -2859,7 +3097,26 @@
      "revision": 1381105566,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 7
+     "position": 7,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Who Sang the Opening? Bands and Singers Across Ten Anime\" asks \"Who performed Kick Back, the opening of the Chainsaw Man anime?\" (Kenshi Yonezu): same fact.",
+      "matched": "published: Who Sang the Opening? Bands and Singers Across Ten Anime: Who performed Kick Back, the opening of the Chainsaw Man anime?",
+      "original_question": "Who composed the music of the Chainsaw Man TV anime?",
+      "original_options": [
+       "Yuki Kajiura",
+       "Hiroyuki Sawano",
+       "Yoko Kanno",
+       "Kensuke Ushio"
+      ],
+      "original_answer": "Kensuke Ushio",
+      "source_url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+      "revision": 1381105566,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The music of the series was composed by Kensuke Ushio.\" No question asks the composer."
+     }
     }
    ]
   },
@@ -2963,22 +3220,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
     },
     {
-     "question": "What did A Cruel Angel's Thesis win in 1996?",
+     "question": "After the failure of Uru in Blue, Anno agreed to a collaboration between Gainax and which record company?",
      "options": [
-      "An Oscar nomination",
-      "A Grammy for best soundtrack",
-      "A Grand Prix at Cannes",
-      "An Animage award for best song"
+      "Victor Entertainment",
+      "King Records",
+      "Sony Music",
+      "Avex"
      ],
-     "correct": 3,
-     "kind": "music",
+     "correct": 1,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "evangelion-opening-cruel-angel-005"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion"
     },
     {
@@ -3046,6 +3301,14 @@
        "*Gainax and Tatsunoko Production"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page infobox: character designer Yoshiyuki Sadamoto; the other three names are not on the page for this role.",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -3083,6 +3346,14 @@
        "1999"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: a 2007 large-scale TV Asahi survey voted Evangelion the second most appreciated anime in Japan.",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -3128,7 +3399,26 @@
      "revision": 1384585127,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 5
+     "position": 5,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Gainax, Khara and Netflix: Evangelion Behind the Screens\" asks \"Which prize did the opening A Cruel Angel's Thesis take from Animage in 1996?\" (Best song): same fact.",
+      "matched": "published: Sync Rate Check: Evangelion True or False: The opening theme, A Cruel Angel's Thesis, is sung by Claire Littley, and it took an Animage award for best song in 1996.",
+      "original_question": "After the failure of Uru in Blue, Anno agreed to a collaboration between Gainax and which record company?",
+      "original_options": [
+       "Victor Entertainment",
+       "King Records",
+       "Sony Music",
+       "Avex"
+      ],
+      "original_answer": "King Records",
+      "source_url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+      "revision": 1384585127,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"after the failure of Uru in Blue, Anno agreed to a collaboration between King Records and Gainax\". Not asked anywhere (no question on King Records or Uru in Blue)."
+     }
     },
     {
      "index": 6,
@@ -3245,23 +3535,21 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
     },
     {
-     "question": "Which of Tanjiro's senses is unusually sharp?",
+     "question": "On which US programming block did the English dub of the Demon Slayer anime air?",
      "options": [
-      "Hearing",
-      "Smell",
-      "Sight",
-      "Taste"
+      "Toonami",
+      "Nickelodeon",
+      "Disney Channel",
+      "Fox Kids"
      ],
-     "correct": 1,
-     "kind": "ability",
+     "correct": 0,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "demon-slayer-tanjiro-smell-027"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
     },
     {
      "question": "On what date did the Demon Slayer manga end in Weekly Shonen Jump?",
@@ -3300,23 +3588,21 @@
      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
     },
     {
-     "question": "In which year did Gurenge win the best theme song prize at the Newtype Anime Awards?",
+     "question": "Which company licenses the Demon Slayer anime in North America?",
      "options": [
-      "2017",
-      "2020",
-      "2022",
-      "2019"
+      "Viz Media",
+      "Aniplex of America",
+      "Yen Press",
+      "Seven Seas"
      ],
-     "correct": 3,
-     "kind": "music",
+     "correct": 1,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "demon-slayer-gurenge-award-018"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/Gurenge"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)"
     }
    ],
    "verdicts": [
@@ -3374,7 +3660,26 @@
      "revision": 1384358046,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Demon Slayer True or False: Blades Out\" states \"Tanjiro's unusually sharp sense of smell helps him track demons\": same fact as a statement.",
+      "matched": "published: Demon Slayer True or False: Blades Out: Tanjiro's unusually sharp sense of smell helps him track demons.",
+      "original_question": "On which US programming block did the English dub of the Demon Slayer anime air?",
+      "original_options": [
+       "Toonami",
+       "Nickelodeon",
+       "Disney Channel",
+       "Fox Kids"
+      ],
+      "original_answer": "Toonami",
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+      "revision": 1383060706,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The English dub of the series aired on Adult Swim's Toonami programming block in the United States.\" No Demon Slayer question asks the dub."
+     }
     },
     {
      "index": 5,
@@ -3413,7 +3718,26 @@
      "revision": 1372196624,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 7
+     "position": 7,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Demon Slayer Credits Roll: Music, Studio and Awards\" asks \"Which prize did LiSA's Gurenge win at the 2019 Newtype Anime Awards?\" (Best theme song): same fact with the year and the prize swapped.",
+      "matched": "published: Demon Slayer Credits Roll: Music, Studio and Awards: Which prize did LiSA's Gurenge win at the 2019 Newtype Anime Awards?",
+      "original_question": "Which company licenses the Demon Slayer anime in North America?",
+      "original_options": [
+       "Viz Media",
+       "Aniplex of America",
+       "Yen Press",
+       "Seven Seas"
+      ],
+      "original_answer": "Aniplex of America",
+      "source_url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+      "revision": 1383060706,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"In North America, the series is licensed by Aniplex of America.\" No Demon Slayer question asks the licensor."
+     }
     }
    ]
   },
@@ -3451,7 +3775,7 @@
      "options": [
       "14 June 2012",
       "4 December 2012",
-      "21 January 2013",
+      "17 September 2012",
       "10 March 2015"
      ],
      "correct": 1,
@@ -3534,22 +3858,20 @@
      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man"
     },
     {
-     "question": "Which group performed the season 1 opening, The Hero!! Ikareru Ken ni Honō o Tsukero?",
+     "question": "Which two services simulcast season 1 of the One-Punch Man anime outside Japan?",
      "options": [
-      "Linked Horizon",
-      "Man with a Mission",
-      "JAM Project",
-      "Creepy Nuts"
+      "Netflix and Prime Video",
+      "Disney+ and Peacock",
+      "Daisuki and Hulu",
+      "YouTube and Twitter"
      ],
      "correct": 2,
-     "kind": "music",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "one-punch-man-themes-season-one-012"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1"
     },
     {
@@ -3608,6 +3930,18 @@
        "Jump Giga"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "WRONG",
+      "note": "Key and claim are right (page: first tankobon volume of the Murata version published December 4, 2012), but the distractor \"21 January 2013\" is the exact date the One-Punch Man page gives for the start in Viz Weekly Shonen Jump, which is the answer (2013) of question 5 of the same quiz: a leak between two questions. Fixed by replacing that single option with a wrong date, 17 September 2012 (no new question needed).",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "revision": 1384356976,
+      "read_on": "2026-11-09",
+      "fix": {
+       "option_from": "21 January 2013",
+       "option_to": "17 September 2012"
+      }
      }
     },
     {
@@ -3672,6 +4006,14 @@
        "Twitter"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: Viz Weekly Shonen Jump (Shonen Jump Alpha) began the series on January 21, 2013, so 2013 is right.",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "revision": 1384356976,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -3699,6 +4041,14 @@
        "*Mumen Rider"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the music was composed by Makoto Miyazaki; Hayashi, Sawano and Tanaka are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man",
+      "revision": 1384356976,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -3709,7 +4059,26 @@
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
      "options_reordered": true,
-     "position": 6
+     "position": 6,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Directors, Studios and Theme Songs: One-Punch Man on Screen\" asks \"Which group performs the opening of season 1?\" (JAM Project) and \"Which title is the opening of season 1?\": same fact.",
+      "matched": "published: Directors, Studios and Theme Songs: One-Punch Man on Screen: Which title is the opening of season 1?",
+      "original_question": "Which two services simulcast season 1 of the One-Punch Man anime outside Japan?",
+      "original_options": [
+       "Netflix and Prime Video",
+       "Disney+ and Peacock",
+       "Daisuki and Hulu",
+       "YouTube and Twitter"
+      ],
+      "original_answer": "Daisuki and Hulu",
+      "source_url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+      "revision": 1376949985,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The season aired from October 5 to December 21, 2015, and was simulcast outside Japan by Daisuki and Hulu.\" No question asks the simulcast."
+     }
     },
     {
      "index": 7,
@@ -3863,22 +4232,20 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
     },
     {
-     "question": "At which festival did Dandadan win the shonen category in 2025?",
+     "question": "Before creating Dandadan, Yukinobu Tatsu worked as an assistant on which manga?",
      "options": [
-      "Anime Expo",
-      "Manga Barcelona",
-      "Seoul Comic-Con",
-      "Jump Festa"
+      "My Hero Academia",
+      "Chainsaw Man",
+      "Haikyu!!",
+      "Black Clover"
      ],
      "correct": 1,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "dandadan-manga-barcelona-007"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Dandadan"
     }
    ],
@@ -3936,6 +4303,14 @@
        "Yen Press"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: broadcast on the Super Animeism Turbo programming block of the JNN affiliates; the other blocks are wrong.",
+      "source_url": "https://en.wikipedia.org/wiki/Dandadan",
+      "revision": 1383634740,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4000,7 +4375,26 @@
      "revision": 1383634740,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 7
+     "position": 7,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Studios, Songs and Premieres: Dandadan on Screen\" asks \"At which festival did the series win the shonen category in 2025?\" (Manga Barcelona): same fact word for word.",
+      "matched": "published: Studios, Songs and Premieres: Dandadan on Screen: At which festival did the series win the shōnen category in 2025?",
+      "original_question": "Before creating Dandadan, Yukinobu Tatsu worked as an assistant on which manga?",
+      "original_options": [
+       "My Hero Academia",
+       "Chainsaw Man",
+       "Haikyu!!",
+       "Black Clover"
+      ],
+      "original_answer": "Chainsaw Man",
+      "source_url": "https://en.wikipedia.org/wiki/Dandadan",
+      "revision": 1383634740,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Prior to creating Dandadan, Yukinobu Tatsu worked as an assistant on Tatsuki Fujimoto's Chainsaw Man and Yuji Kaku's Hell's Paradise: Jigokuraku.\" No question on his assistant work."
+     }
     }
    ]
   },
@@ -4197,6 +4591,14 @@
        "*Askeladd"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: Yutaka Yamada composed the music.",
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+      "revision": 1383317172,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4244,6 +4646,14 @@
        "Entertainment Division"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the first opening of season two is River by Anonymouz; LMYK sang the first ending.",
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+      "revision": 1383317172,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4272,6 +4682,14 @@
        "In a Jomsviking fortress"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: writer Hiroshi Seko on both seasons; Kenta Ihara season 1 only; Yabuta is the director; Yukimura is the manga author.",
+      "source_url": "https://en.wikipedia.org/wiki/Vinland_Saga_(TV_series)",
+      "revision": 1383317172,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4298,7 +4716,7 @@
    "date": "2026-12-06",
    "l08_title": "Forty Volumes of Egoists",
    "title": "Egoists on the Pitch",
-   "description": "Eight questions on the manga numbers, the studio and the songs of Blue Lock.",
+   "description": "Eight questions on the manga, the anime staff, the films and the songs of Blue Lock.",
    "group_slug": "blue-lock",
    "quiz_type": "multiple_choice",
    "difficulty": "easy",
@@ -4322,42 +4740,38 @@
      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
     },
     {
-     "question": "In which year did the Blue Lock manga win the shonen prize at the Kodansha Manga Award?",
+     "question": "Which TV Asahi programming block aired the first season of the Blue Lock anime?",
      "options": [
-      "2019",
-      "2023",
-      "2021",
-      "2017"
+      "IMAnimation",
+      "Noitamina",
+      "Super Animeism",
+      "NUMAnimation"
      ],
-     "correct": 2,
-     "kind": "manga",
-     "spoiler": {
-      "arc": 0,
-      "scope": "manga"
-     },
-     "fact_ids": [
-      "blue-lock-kodansha-award-006"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
-    },
-    {
-     "question": "On what date did a film adapting the Episode Nagi spin-off reach Japanese cinemas?",
-     "options": [
-      "19 April 2024",
-      "26 March 2023",
-      "2 February 2024",
-      "9 October 2022"
-     ],
-     "correct": 0,
-     "kind": "episode",
+     "correct": 3,
+     "kind": "production",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "blue-lock-film-episode-nagi-011"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
+    },
+    {
+     "question": "Which company distributed the Blue Lock: Episode Nagi film in Japanese theaters?",
+     "options": [
+      "Aniplex",
+      "Kadokawa",
+      "Bandai Namco Filmworks",
+      "Shochiku"
      ],
-     "source_url": "https://en.wikipedia.org/wiki/List_of_Blue_Lock_episodes"
+     "correct": 2,
+     "kind": "film",
+     "spoiler": {
+      "arc": 0,
+      "scope": "both"
+     },
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
     },
     {
      "question": "Which song was the first opening of season one?",
@@ -4396,22 +4810,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
     },
     {
-     "question": "Which studio animates Blue Lock?",
+     "question": "Who performed Monstruo, the theme song of the live-action Blue Lock film?",
      "options": [
-      "Madhouse",
-      "Bones",
-      "Science Saru",
-      "Eight Bit"
+      "Ado",
+      "Nissy",
+      "Yoasobi",
+      "Kenshi Yonezu"
      ],
-     "correct": 3,
-     "kind": "production",
+     "correct": 0,
+     "kind": "music",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "blue-lock-anime-studio-director-007"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock"
     },
     {
@@ -4480,6 +4892,14 @@
        "April 2024"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the live-action film premiered in Japan on August 7, 2026 (Toho).",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4489,7 +4909,26 @@
      "revision": 1383987350,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 1
+     "position": 1,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Striker's Handbook\" asks which award the manga won in the shonen category in 2021, \"Blue Lock by the Numbers\" and \"Full Time Mix\" ask the 45th Kodansha Manga Award (2021), and \"Offside Check\" states 45th in 2021: same fact (this one asks the year).",
+      "matched": "published: Blue Lock by the Numbers: Years, Episodes, Volumes and Awards: At which numbered Kodansha Manga Award did Blue Lock win the shonen prize?",
+      "original_question": "Which TV Asahi programming block aired the first season of the Blue Lock anime?",
+      "original_options": [
+       "IMAnimation",
+       "Noitamina",
+       "Super Animeism",
+       "NUMAnimation"
+      ],
+      "original_answer": "NUMAnimation",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The series' first season ran for 24 episodes from October 9, 2022, to March 26, 2023, on TV Asahi's NUMAnimation programming block.\" No question asks the block."
+     }
     },
     {
      "index": 2,
@@ -4498,7 +4937,26 @@
      "revision": 1384090504,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 2
+     "position": 2,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Full Time Mix\" asks the month (April 2024) of the Episode Nagi film, \"Kickoff Dates and Theme Songs\" asks which spin-off the film of April 19, 2024 adapted, and \"Offside Check\" tests April 19, 2023: same fact (this one asks the full date).",
+      "matched": "published: Offside Check: Blue Lock True or False: A film adapting the Episode Nagi spin-off manga reached Japanese cinemas on April 19, 2023.",
+      "original_question": "Which company distributed the Blue Lock: Episode Nagi film in Japanese theaters?",
+      "original_options": [
+       "Aniplex",
+       "Kadokawa",
+       "Bandai Namco Filmworks",
+       "Shochiku"
+      ],
+      "original_answer": "Bandai Namco Filmworks",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The film was distributed by Bandai Namco Filmworks and premiered in Japanese theaters on April 19, 2024.\" No question asks the distributor."
+     }
     },
     {
      "index": 3,
@@ -4535,6 +4993,14 @@
        "66th"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: season two, vs. U-20 Japan, aired October 5 to December 28, 2024; Neo Egoist League is season three.",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4544,7 +5010,26 @@
      "revision": 1383987350,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 5
+     "position": 5,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Striker's Handbook: Blue Lock Basics\" asks \"Which studio animates the series?\" (Eight Bit): same fact.",
+      "matched": "published: Striker's Handbook: Blue Lock Basics: Which studio animates the series?",
+      "original_question": "Who performed Monstruo, the theme song of the live-action Blue Lock film?",
+      "original_options": [
+       "Ado",
+       "Nissy",
+       "Yoasobi",
+       "Kenshi Yonezu"
+      ],
+      "original_answer": "Ado",
+      "source_url": "https://en.wikipedia.org/wiki/Blue_Lock",
+      "revision": 1383987350,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The film's theme song is Monstruo, performed by Ado.\" No question asks the live-action film song."
+     }
     },
     {
      "index": 6,
@@ -4791,6 +5276,14 @@
       ],
       "options_reordered": "options reordered only to break a run of equal answer positions in the quiz",
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page infobox: character designer Hiroki Kanno (the 2003 series page lists Yoshiyuki Ito).",
+      "source_url": "https://en.wikipedia.org/wiki/Fullmetal_Alchemist:_Brotherhood",
+      "revision": 1384606528,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -4852,22 +5345,20 @@
    "category": "music",
    "questions": [
     {
-     "question": "Which singer performed Peace Sign, the second opening?",
+     "question": "Which band performed Rokutōsei, an ending of season 7?",
      "options": [
-      "Masaki Suda",
-      "Yuuri",
-      "Kenshi Yonezu",
-      "Eve"
+      "Omoinotake",
+      "Zarame",
+      "Six Lounge",
+      "Sayuri"
      ],
-     "correct": 2,
+     "correct": 1,
      "kind": "music",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "my-hero-academia-opening-themes-011"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)"
     },
     {
@@ -5004,7 +5495,26 @@
      "revision": 1384041392,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 0
+     "position": 0,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Heroes on the Mic: My Hero Academia Openings and Endings\" asks \"Who performed Peace Sign, the first opening of season 2?\" (Kenshi Yonezu): same song (the second opening overall).",
+      "matched": "published: Heroes on the Mic: My Hero Academia Openings and Endings: Who performed Peace Sign, the first opening of season 2?",
+      "original_question": "Which band performed Rokutōsei, an ending of season 7?",
+      "original_options": [
+       "Omoinotake",
+       "Zarame",
+       "Six Lounge",
+       "Sayuri"
+      ],
+      "original_answer": "Zarame",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"From episode ten onwards, the opening theme is Curtain Call by Yuuri, while the ending theme is Rokutōsei by Zarame.\" No question asks Rokutōsei."
+     }
     },
     {
      "index": 1,
@@ -5094,6 +5604,14 @@
        "Tagatame"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: from episode 14 of season 6 the ending is Kitakaze by Six Lounge.",
+      "source_url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+      "revision": 1384041392,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -5149,7 +5667,7 @@
    "date": "2026-12-09",
    "l08_title": "Pretty Soldier Paper Trail",
    "title": "Pretty Soldier Paper Trail",
-   "description": "Eight questions on the manga, the awards and the first anime of Sailor Moon.",
+   "description": "Eight questions on the manga, its editions and the first anime of Sailor Moon.",
    "group_slug": "sailor-moon",
    "quiz_type": "multiple_choice",
    "difficulty": "easy",
@@ -5232,22 +5750,20 @@
      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
     },
     {
-     "question": "In which year did the manga win the Kodansha Manga Award in the shojo category?",
+     "question": "In 2011, which publisher acquired the English license for the Sailor Moon manga?",
      "options": [
-      "1993",
-      "2001",
-      "2012",
-      "1985"
+      "Kodansha Comics",
+      "Viz Media",
+      "Yen Press",
+      "Seven Seas"
      ],
      "correct": 0,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "sailor-moon-kodansha-award-007"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon"
     },
     {
@@ -5348,7 +5864,26 @@
      "revision": 1383278869,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Before the Transformation: Sailor Moon Basics\" asks \"Which prize did the manga win in the shojo category in 1993?\" (Kodansha Manga Award): same fact reversed.",
+      "matched": "published: Before the Transformation: Sailor Moon Basics: Which prize did the manga win in the shōjo category in 1993?",
+      "original_question": "In 2011, which publisher acquired the English license for the Sailor Moon manga?",
+      "original_options": [
+       "Kodansha Comics",
+       "Viz Media",
+       "Yen Press",
+       "Seven Seas"
+      ],
+      "original_answer": "Kodansha Comics",
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+      "revision": 1383278869,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"In 2011, Kodansha Comics announced that the company had acquired the license for the Sailor Moon manga and its lead-in series, Codename: Sailor V, in English.\" No question asks the English manga publisher."
+     }
     },
     {
      "index": 5,
@@ -5376,6 +5911,14 @@
        "Seiji Mizushima"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: the live-action series Pretty Guardian Sailor Moon aired from 2003 to 2004.",
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+      "revision": 1383278869,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -5404,6 +5947,14 @@
        "4 April 1997"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: Codename: Sailor V was proposed for an anime by Toei, so Takeuchi made Sailor Venus a member of a team.",
+      "source_url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+      "revision": 1383278869,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -5466,22 +6017,20 @@
      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
     },
     {
-     "question": "Which magazine carries the second manga take, drawn by Minoji Kurata?",
+     "question": "Who wrote the first manga adaptation of The Apothecary Diaries, the one illustrated by Nekokurage?",
      "options": [
-      "Weekly Shonen Jump",
-      "Monthly Big Gangan",
-      "Shonen Jump+",
-      "Monthly Sunday Gene-X"
+      "Hyūganatsu",
+      "Touko Shino",
+      "Itsuki Nanao",
+      "Minoji Kurata"
      ],
-     "correct": 3,
+     "correct": 2,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "apothecary-diaries-manga-gene-x-005"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
     },
     {
@@ -5504,41 +6053,37 @@
      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
     },
     {
-     "question": "On what date did the first manga adaptation start in Monthly Big Gangan?",
+     "question": "Which company licenses The Apothecary Diaries light novels digitally in North America?",
      "options": [
-      "22 October 2023",
-      "19 August 2017",
-      "29 August 2014",
-      "25 May 2017"
+      "J-Novel Club",
+      "Yen Press",
+      "Seven Seas",
+      "Viz Media"
      ],
-     "correct": 3,
+     "correct": 0,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "apothecary-diaries-manga-big-gangan-004"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
     },
     {
-     "question": "Counting the light novels and both manga, roughly how many copies were in circulation by August 2026?",
+     "question": "Hyūganatsu first imagined the heroine of The Apothecary Diaries as an adult woman with how many children?",
      "options": [
-      "About 5 million",
-      "More than 57 million",
-      "More than 200 million",
-      "More than 20 million"
+      "One",
+      "Two",
+      "Five",
+      "Three"
      ],
-     "correct": 1,
-     "kind": "manga",
+     "correct": 3,
+     "kind": "lore",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "apothecary-diaries-copies-circulation-010"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries"
     },
     {
@@ -5606,7 +6151,26 @@
      "revision": 1382807323,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 2
+     "position": 2,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Taste Test: Apothecary Diaries True or False\" states \"A second manga take, drawn by Minoji Kurata for Shogakukan's Monthly Sunday Gene-X, launched on August 19, 2017\": same fact.",
+      "matched": "published: Taste Test: Apothecary Diaries True or False: A second manga take, drawn by Minoji Kurata for Shogakukan's Monthly Sunday Gene-X, launched on August 19, 2017.",
+      "original_question": "Who wrote the first manga adaptation of The Apothecary Diaries, the one illustrated by Nekokurage?",
+      "original_options": [
+       "Hyūganatsu",
+       "Touko Shino",
+       "Itsuki Nanao",
+       "Minoji Kurata"
+      ],
+      "original_answer": "Itsuki Nanao",
+      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+      "revision": 1382807323,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"A manga adaptation by Itsuki Nanao and illustrated by Nekokurage began in Square Enix's Monthly Big Gangan on May 25, 2017.\" No question asks Itsuki Nanao."
+     }
     },
     {
      "index": 3,
@@ -5641,7 +6205,26 @@
      "revision": 1382807323,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"From Narō to Season Three: Apothecary Diaries Odds and Ends\" asks \"On which date did Nekokurage's manga adaptation begin in Monthly Big Gangan?\" (May 25, 2017): same fact.",
+      "matched": "published: From Narō to Season Three: Apothecary Diaries Odds and Ends: On which date did Nekokurage's manga adaptation begin in Monthly Big Gangan?",
+      "original_question": "Which company licenses The Apothecary Diaries light novels digitally in North America?",
+      "original_options": [
+       "J-Novel Club",
+       "Yen Press",
+       "Seven Seas",
+       "Viz Media"
+      ],
+      "original_answer": "J-Novel Club",
+      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+      "revision": 1382807323,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The light novels are licensed digitally in North America by J-Novel Club\". No question asks J-Novel Club."
+     }
     },
     {
      "index": 5,
@@ -5650,7 +6233,26 @@
      "revision": 1382807323,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 5
+     "position": 5,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Inside the Rear Palace: Apothecary Diaries Basics\" asks how many copies were in circulation across the light novels and both manga by August 2026 (over 57 million): same fact.",
+      "matched": "published: Inside the Rear Palace: Apothecary Diaries Basics: How many copies were in circulation across the light novels and both manga by August 2026?",
+      "original_question": "Hyūganatsu first imagined the heroine of The Apothecary Diaries as an adult woman with how many children?",
+      "original_options": [
+       "One",
+       "Two",
+       "Five",
+       "Three"
+      ],
+      "original_answer": "Three",
+      "source_url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+      "revision": 1382807323,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Hyūganatsu initially conceived the work as the story of an adult woman with three children in a mining town who begins solving mysteries\". No question asks it."
+     }
     },
     {
      "index": 6,
@@ -5892,6 +6494,14 @@
        "*Stray Kids"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: season two is set on the 20th floor.",
+      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+      "revision": 1373945362,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -5959,6 +6569,14 @@
       ],
       "options_reordered": "options reordered only to break a run of equal answer positions in the quiz",
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: Erika Yoshida worked on the series composition of season two.",
+      "source_url": "https://en.wikipedia.org/wiki/Tower_of_God_season_2",
+      "revision": 1373945362,
+      "read_on": "2026-11-09"
      }
     }
    ]
@@ -5974,16 +6592,14 @@
    "category": "true_false",
    "questions": [
     {
-     "question": "The Death Note anime ran for 37 episodes.",
+     "question": "Death Note was adapted into three live-action films released in Japan.",
      "correct": true,
-     "kind": "episode",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "death-note-anime-run-006"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Death_Note"
     },
     {
@@ -6011,29 +6627,25 @@
      "source_url": "https://en.wikipedia.org/wiki/Death_Note"
     },
     {
-     "question": "The manga ran in Weekly Shonen Jump from 2003 until 2016.",
+     "question": "The online social deduction game Death Note: Killer Within was published by Square Enix.",
      "correct": false,
-     "kind": "manga",
+     "kind": "lore",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "death-note-magazine-run-003"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Death_Note"
     },
     {
-     "question": "The 108 weekly chapters were gathered into twelve volumes.",
+     "question": "A Death Note television drama aired in 2015.",
      "correct": true,
-     "kind": "manga",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "death-note-manga-size-004"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Death_Note"
     },
     {
@@ -6050,29 +6662,25 @@
      "source_url": "https://en.wikipedia.org/wiki/Death_Note_(2006_TV_series)"
     },
     {
-     "question": "The manga had passed fifty million copies by spring 2015.",
+     "question": "The live-action Death Note films were never shown in North American theaters.",
      "correct": false,
-     "kind": "manga",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "death-note-copies-in-print-012"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Death_Note"
     },
     {
-     "question": "Viz Media holds the license for the Death Note books and anime in North America.",
+     "question": "The miniseries Death Note: New Generation was released in 2016.",
      "correct": true,
-     "kind": "manga",
+     "kind": "film",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "death-note-north-america-license-020"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Death_Note"
     }
    ],
@@ -6084,7 +6692,21 @@
      "revision": 1381769893,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 0
+     "position": 0,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Count Them Up: Ten Anime and Manga in Numbers\", \"Name and Face: Death Note True or False\" and \"Nightmare, Hormone and Madhouse\" state or ask the 37 episodes on Nippon Television: same fact.",
+      "matched": "published: Count Them Up: Ten Anime and Manga in Numbers: How many episodes did the Death Note anime run for on Nippon Television?",
+      "original_question": "Death Note was adapted into three live-action films released in Japan.",
+      "original_options": null,
+      "original_answer": true,
+      "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+      "revision": 1381769893,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The series was adapted into three live-action films released in Japan in June, November 2006, and February 2008\". No question counts the live-action films."
+     }
     },
     {
      "index": 2,
@@ -6122,7 +6744,21 @@
      "revision": 1381769893,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 3
+     "position": 3,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Name and Face: Death Note True or False\" states \"The manga appeared in Weekly Shonen Jump between December 2003 and May 2006\" (TRUE): same fact (run years), this draft is the false variant.",
+      "matched": "taken row: Soul Reaper Statements: True or False: Bleach ran in Weekly Shonen Jump from August 2001 until August 2016.",
+      "original_question": "The online social deduction game Death Note: Killer Within was published by Square Enix.",
+      "original_options": null,
+      "original_answer": false,
+      "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+      "revision": 1381769893,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"An online social deduction game, Death Note: Killer Within, was released by Bandai Namco Entertainment ... in 2024\". Not asked anywhere."
+     }
     },
     {
      "index": 4,
@@ -6132,7 +6768,21 @@
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
      "note": "Verified on the page given in source_url (the originally cited page was not opened).",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Name and Face: Death Note True or False\" states 108 weekly chapters gathered into twenty volumes (FALSE) and \"Death Note Basics\" asks the 108 chapters: same fact (volume count), this draft is the true variant.",
+      "matched": "published: Name and Face: Death Note True or False: The 108 weekly chapters were gathered into twenty tankōbon volumes.",
+      "original_question": "A Death Note television drama aired in 2015.",
+      "original_options": null,
+      "original_answer": true,
+      "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+      "revision": 1381769893,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The series was adapted into three live-action films ... and a television drama in 2015.\" No question asks the drama."
+     }
     },
     {
      "index": 5,
@@ -6150,7 +6800,21 @@
      "revision": 1381769893,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 6
+     "position": 6,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"The Notebook Hits the Ground: Death Note Basics\" asks \"By spring 2015, how many copies of the Death Note manga had passed in circulation?\" (more than 30 million) and \"Name and Face\" states it: same fact.",
+      "matched": "published: The Notebook Hits the Ground: Death Note Basics: By spring 2015, how many copies of the Death Note manga had passed in circulation?",
+      "original_question": "The live-action Death Note films were never shown in North American theaters.",
+      "original_options": null,
+      "original_answer": false,
+      "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+      "revision": 1381769893,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The live-action films briefly showed in certain North American theaters in 2008 before receiving home video releases.\" Not asked anywhere."
+     }
     },
     {
      "index": 6,
@@ -6159,7 +6823,21 @@
      "revision": 1381769893,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 7
+     "position": 7,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Nightmare, Hormone and Madhouse\" asks \"Which company holds the North American licence for the Death Note books and anime?\" (Viz Media): same fact.",
+      "matched": "published: Nightmare, Hormone and Madhouse: Death Note Behind the Screen: Which company holds the North American licence for the Death Note books and anime?",
+      "original_question": "The miniseries Death Note: New Generation was released in 2016.",
+      "original_options": null,
+      "original_answer": true,
+      "source_url": "https://en.wikipedia.org/wiki/Death_Note",
+      "revision": 1381769893,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The miniseries Death Note: New Generation and a fourth film were released in 2016.\" Not asked anywhere."
+     }
     }
    ]
   },
@@ -6365,6 +7043,14 @@
        "Shinsei Kamattechan"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page infobox: Wit Studio for seasons 1 to 3, MAPPA for season 4.",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -6413,6 +7099,14 @@
        "Aimer"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: music by Hiroyuki Sawano (with Kohta Yamamoto for season 4).",
+      "source_url": "https://en.wikipedia.org/wiki/Attack_on_Titan_(TV_series)",
+      "revision": 1384442696,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -6705,6 +7399,14 @@
        "120 minutes"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: season three ended with a one-hour special that aired on March 25 (2026).",
+      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+      "revision": 1383733090,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -6752,6 +7454,14 @@
        "The Twins"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: season three premiered on January 14, 2026.",
+      "source_url": "https://en.wikipedia.org/wiki/Oshi_no_Ko_(TV_series)",
+      "revision": 1383733090,
+      "read_on": "2026-11-09"
      }
     }
    ]
@@ -6942,6 +7652,14 @@
        "Brand New World"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page infobox: first aired 1999-10-20 on Fuji Television.",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+      "revision": 1384511323,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -6987,6 +7705,14 @@
        "2029"
       ],
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: produced by Toei Animation (with Fuji Television).",
+      "source_url": "https://en.wikipedia.org/wiki/One_Piece_(1999_TV_series)",
+      "revision": 1384511323,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -7030,8 +7756,8 @@
   {
    "date": "2026-12-16",
    "l08_title": "Monster #8: Awards and Spin-offs",
-   "title": "Monster #8: Awards and Spin-offs",
-   "description": "Eight questions on the titles, the honours and the spin-offs of Kaiju No. 8.",
+   "title": "Monster #8: Editions and Spin-offs",
+   "description": "Eight questions on the apps, the English editions, the spin-offs and the opening song of Kaiju No. 8.",
    "group_slug": "kaiju-no-8",
    "quiz_type": "multiple_choice",
    "difficulty": "medium",
@@ -7057,60 +7783,54 @@
      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters"
     },
     {
-     "question": "Which award did the manga win in 2021?",
+     "question": "In which year did Viz Media start publishing the Kaiju No. 8 manga in print in North America?",
      "options": [
-      "The Harvey Award",
-      "The Kodansha Manga Award",
-      "The Shogakukan Manga Award",
-      "The Next Manga Award for web manga"
+      "2020",
+      "2022",
+      "2021",
+      "2023"
      ],
-     "correct": 3,
+     "correct": 2,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "kaiju-no-8-awards-011"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
     },
     {
-     "question": "For which international award was the manga shortlisted the year after?",
+     "question": "In which year did Naoya Matsumoto write the story outline of Kaiju No. 8?",
      "options": [
-      "The Eisner Award",
-      "The Harvey Award",
-      "The Daruma Award",
-      "The Hugo Award"
+      "2016",
+      "2018",
+      "2019",
+      "2022"
+     ],
+     "correct": 1,
+     "kind": "manga",
+     "spoiler": {
+      "arc": 0,
+      "scope": "manga"
+     },
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
+    },
+    {
+     "question": "Which series did Naoya Matsumoto serialize on Shonen Jump+ before Kaiju No. 8?",
+     "options": [
+      "Pochi Kuro",
+      "Mashle",
+      "Kagurabachi",
+      "Dr. Stone"
      ],
      "correct": 0,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "kaiju-no-8-awards-011"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
-    },
-    {
-     "question": "By September 2026 more than how many copies of the manga were in circulation?",
-     "options": [
-      "80 million",
-      "5 million",
-      "2 million",
-      "20 million"
-     ],
-     "correct": 3,
-     "kind": "manga",
-     "spoiler": {
-      "arc": 0,
-      "scope": "both"
-     },
-     "fact_ids": [
-      "kaiju-no-8-copies-circulation-012"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8"
     },
     {
@@ -7205,7 +7925,26 @@
      "revision": 1383652211,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 1
+     "position": 1,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Suit Up, Rookie: Kaiju No. 8 Basics\" asks \"Which award did the manga win in 2021 in the web manga category?\" (Next Manga Award): same fact word for word.",
+      "matched": "published: Suit Up, Rookie: Kaiju No. 8 Basics: Which award did the manga win in 2021 in the web manga category?",
+      "original_question": "In which year did Viz Media start publishing the Kaiju No. 8 manga in print in North America?",
+      "original_options": [
+       "2020",
+       "2022",
+       "2021",
+       "2023"
+      ],
+      "original_answer": "2021",
+      "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+      "revision": 1383652211,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Viz Media began publishing the series digitally in August 2020 and has published the series in print in North America since December 2021.\" No question asks Viz Media for Kaiju No. 8."
+     }
     },
     {
      "index": 2,
@@ -7214,7 +7953,26 @@
      "revision": 1383652211,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 2
+     "position": 2,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Combat Power Check: Kaiju No. 8 True or False\" states \"The manga took the 2021 Next Manga Award for web manga and was shortlisted for an Eisner Award the year after\" (TRUE): same fact.",
+      "matched": "published: Combat Power Check: Kaiju No. 8 True or False: The manga took the 2021 Next Manga Award for web manga and was shortlisted for an Eisner Award the year after.",
+      "original_question": "In which year did Naoya Matsumoto write the story outline of Kaiju No. 8?",
+      "original_options": [
+       "2016",
+       "2018",
+       "2019",
+       "2022"
+      ],
+      "original_answer": "2018",
+      "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+      "revision": 1383652211,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Matsumoto wrote the outline of the story of Kaiju No. 8 near the end of 2018\". No question asks the outline year. (The film title Kaiju No. 8: The Final Mission was first considered and dropped: a published question already asks it.)"
+     }
     },
     {
      "index": 3,
@@ -7223,7 +7981,26 @@
      "revision": 1383652211,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 3
+     "position": 3,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"From Jump+ to Season Two: Kaiju No. 8 Odds and Ends\" asks \"How many copies of the manga were in circulation by September 2026?\" (over 20 million): same fact.",
+      "matched": "published: From Jump+ to Season Two: Kaiju No. 8 Odds and Ends: How many copies of the manga were in circulation by September 2026?",
+      "original_question": "Which series did Naoya Matsumoto serialize on Shonen Jump+ before Kaiju No. 8?",
+      "original_options": [
+       "Pochi Kuro",
+       "Mashle",
+       "Kagurabachi",
+       "Dr. Stone"
+      ],
+      "original_answer": "Pochi Kuro",
+      "source_url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+      "revision": 1383652211,
+      "read_on": "2026-11-09",
+      "evidence": "Page: Matsumoto published the one-shot Shikai Enbu \"before starting his second serialization, Pochi Kuro, on Shueisha's Shonen Jump+ website\", and Kaiju No. 8 is described as his second series for the magazine. No question mentions Pochi Kuro."
+     }
     },
     {
      "index": 4,
@@ -7270,6 +8047,14 @@
       ],
       "options_reordered": "options reordered only to break a run of equal answer positions in the quiz",
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: on Manga Plus (English) since July 22, 2020, under the title Monster #8.",
+      "source_url": "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_chapters",
+      "revision": 1383652158,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -7294,16 +8079,14 @@
    "category": "true_false",
    "questions": [
     {
-     "question": "The Japanese title literally means Frieren at the Funeral.",
+     "question": "The Frieren manga won the Manga Taishō in 2021.",
      "correct": true,
-     "kind": "lore",
+     "kind": "award",
      "spoiler": {
       "arc": 0,
       "scope": "both"
      },
-     "fact_ids": [
-      "frieren-japanese-title-001"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
@@ -7331,29 +8114,25 @@
      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
-     "question": "The first season of the anime ran for 28 episodes.",
+     "question": "Viz Media licenses the Frieren manga for English release in North America.",
      "correct": true,
-     "kind": "episode",
+     "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "frieren-anime-season-one-008"
-     ],
-     "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
+     "fact_ids": [],
+     "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-     "question": "The first batch of the short episodes called Spell That Does OOO has eleven episodes.",
+     "question": "The English dub of the Frieren anime premiered on Crunchyroll in October 2023.",
      "correct": true,
-     "kind": "episode",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "anime"
      },
-     "fact_ids": [
-      "frieren-spell-shorts-017"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
@@ -7370,9 +8149,9 @@
      "source_url": "https://en.wikipedia.org/wiki/Frieren"
     },
     {
-     "question": "The second season of the Frieren anime aired in 2025.",
+     "question": "Reiko Nagasawa directed the first season of the Frieren anime.",
      "correct": false,
-     "kind": "episode",
+     "kind": "production",
      "spoiler": {
       "arc": 0,
       "scope": "anime"
@@ -7381,16 +8160,14 @@
      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)"
     },
     {
-     "question": "Kanehito Yamada draws the Frieren manga, while Tsukasa Abe writes it.",
+     "question": "In Southeast Asia, the Frieren manga is licensed by Kodansha.",
      "correct": false,
      "kind": "manga",
      "spoiler": {
       "arc": 0,
-      "scope": "both"
+      "scope": "manga"
      },
-     "fact_ids": [
-      "frieren-manga-creators-002"
-     ],
+     "fact_ids": [],
      "source_url": "https://en.wikipedia.org/wiki/Frieren"
     }
    ],
@@ -7402,7 +8179,21 @@
      "revision": 1381436923,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 0
+     "position": 0,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Journey's Beginning: Frieren Basics\" asks \"What does the Japanese title literally mean?\" (Frieren at the Funeral): same fact.",
+      "matched": "published: Journey's Beginning: Frieren Basics: What does the Japanese title literally mean?",
+      "original_question": "The Frieren manga won the Manga Taishō in 2021.",
+      "original_options": null,
+      "original_answer": true,
+      "source_url": "https://en.wikipedia.org/wiki/Frieren",
+      "revision": 1381436923,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"The manga won the 14th Manga Taishō and the 25th annual Tezuka Osamu Cultural Prize's New Creator Prize in 2021\". No Frieren award question exists."
+     }
     },
     {
      "index": 1,
@@ -7423,6 +8214,14 @@
       "read_on": "2026-11-09",
       "before": "Milet performed an ending of the first season of the anime.",
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "A",
+      "verdict": "CONFIRMED",
+      "note": "Page: first season premiered with a two-hour special of the first four episodes on Nippon TV on September 29, 2023.",
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+      "revision": 1384453379,
+      "read_on": "2026-11-09"
      }
     },
     {
@@ -7441,7 +8240,21 @@
      "revision": 1384453379,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 3
+     "position": 3,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Journey's Beginning: Frieren Basics\" asks \"How many episodes did the first anime season run?\" (28): same fact.",
+      "matched": "published: Spotlight Check: Oshi no Ko True or False: The first season ran twelve episodes, from April 12 to June 28, 2023.",
+      "original_question": "Viz Media licenses the Frieren manga for English release in North America.",
+      "original_options": null,
+      "original_answer": true,
+      "source_url": "https://en.wikipedia.org/wiki/Frieren",
+      "revision": 1381436923,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"It is licensed for English release in North America by Viz Media\". No Frieren licence question exists."
+     }
     },
     {
      "index": 4,
@@ -7450,7 +8263,21 @@
      "revision": 1384453379,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 4
+     "position": 4,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Music and Makers: Frieren on Screen\" asks \"How many short episodes were in the first batch of Spell That Does OOO?\" (eleven): same fact.",
+      "matched": "published: Music and Makers: Frieren on Screen: How many short episodes were in the first batch of Spell That Does OOO?",
+      "original_question": "The English dub of the Frieren anime premiered on Crunchyroll in October 2023.",
+      "original_options": null,
+      "original_answer": true,
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+      "revision": 1384453379,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"Crunchyroll licensed the series for streaming outside East Asia, and an English dub directed by Jad Saxton premiered on its streaming platform on October 13, 2023.\" No Frieren dub question exists."
+     }
     },
     {
      "index": 5,
@@ -7481,6 +8308,20 @@
       "read_on": "2026-11-09",
       "before": "Yoasobi performed an opening of the first season of the anime.",
       "replacement": "written and sourced by the second reader from the same series"
+     },
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Season by Season: Frieren Toward the Golden Land\" asks \"When did season 2 air?\" (early 2026) and \"Elf Time Check\" covers seasons: same fact (season 2 aired in 2026, not 2025).",
+      "matched": "(replacement written by check 2)",
+      "original_question": "Reiko Nagasawa directed the first season of the Frieren anime.",
+      "original_options": null,
+      "original_answer": false,
+      "source_url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+      "revision": 1384453379,
+      "read_on": "2026-11-09",
+      "evidence": "Page: the first season \"is directed by Keiichirō Saitō ... with scripts by ... and character designs by Reiko Nagasawa\". No question asks Nagasawa."
      }
     },
     {
@@ -7490,7 +8331,21 @@
      "revision": 1381436923,
      "revision_note": "latest revision of the page when read, 2026-11-09 (en.wikipedia.org/w/index.php?oldid=<revision>)",
      "read_on": "2026-11-09",
-     "position": 7
+     "position": 7,
+     "check3": {
+      "job": "B",
+      "verdict": "DUPLICATE",
+      "new": true,
+      "note": "Published \"Who Made It? Pens, Pencils and Pen Names\" asks \"Kanehito Yamada writes the manga of Frieren. Who draws it?\" (Tsukasa Abe) and \"Journey's Beginning\" asks who writes and who draws: same fact reversed.",
+      "matched": "published: Who Made It? Pens, Pencils and Pen Names: Kanehito Yamada writes the manga of Frieren: Beyond Journey's End. Who draws it?",
+      "original_question": "In Southeast Asia, the Frieren manga is licensed by Kodansha.",
+      "original_options": null,
+      "original_answer": false,
+      "source_url": "https://en.wikipedia.org/wiki/Frieren",
+      "revision": 1381436923,
+      "read_on": "2026-11-09",
+      "evidence": "Page: \"in Southeast Asia by Shogakukan Asia\". No question asks the Southeast Asian licence."
+     }
     }
    ]
   }
@@ -7683,5 +8538,93 @@
    "total": 81
   },
   "extra_findings": 2
+ },
+ "check3": {
+  "reader": "independent third reader (part 3, final pass)",
+  "read_on": "2026-11-09",
+  "method": "Job A: the 39 check 2 replacements were each read again on the pinned Wikipedia revision (API action=query&prop=revisions&revids=<revision>&rvslots=main, full wikitext, generic User-Agent, 8 seconds apart): claim, answer key, every distractor, no self-answer, leaks to or from the other questions of the quiz, then compared with the published, taken and draft questions. Job B: the 34 near-duplicate candidates of check 2 and the 39 replacements were compared word by word with the matched question and searched against all 2,650 published anime questions and the 792 L08 draft questions (token search script). A question is a DUPLICATE when it asks the same fact (same answer, or the same relation reversed, or the same date/year at a finer or coarser grain, or the true/false twin of a published statement); a false match on another series is KEEP. Each new question was written from a page read at a pinned revision, and searched against the same corpus and the rest of the lot before use.",
+  "counts": {
+   "A": {
+    "CONFIRMED": 38,
+    "WRONG": 1
+   },
+   "B": {
+    "KEEP": 1,
+    "DUPLICATE": 35
+   },
+   "new_questions": 35,
+   "option_fixes": 1
+  },
+  "pages": {
+   "Jujutsu_Kaisen_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_(TV_series)",
+    "revision": 1384504554
+   },
+   "My_Hero_Academia_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/My_Hero_Academia_(TV_series)",
+    "revision": 1384041392
+   },
+   "Gintama": {
+    "url": "https://en.wikipedia.org/wiki/Gintama",
+    "revision": 1383136036
+   },
+   "Haikyu!!": {
+    "url": "https://en.wikipedia.org/wiki/Haikyu!!",
+    "revision": 1381740115
+   },
+   "Jujutsu_Kaisen_0_(film)": {
+    "url": "https://en.wikipedia.org/wiki/Jujutsu_Kaisen_0_(film)",
+    "revision": 1384516607
+   },
+   "Chainsaw_Man_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Chainsaw_Man_(TV_series)",
+    "revision": 1381105566
+   },
+   "Neon_Genesis_Evangelion": {
+    "url": "https://en.wikipedia.org/wiki/Neon_Genesis_Evangelion",
+    "revision": 1384585127
+   },
+   "Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_(TV_series)",
+    "revision": 1383060706
+   },
+   "One-Punch_Man_season_1": {
+    "url": "https://en.wikipedia.org/wiki/One-Punch_Man_season_1",
+    "revision": 1376949985
+   },
+   "Dandadan": {
+    "url": "https://en.wikipedia.org/wiki/Dandadan",
+    "revision": 1383634740
+   },
+   "Blue_Lock": {
+    "url": "https://en.wikipedia.org/wiki/Blue_Lock",
+    "revision": 1383987350
+   },
+   "Sailor_Moon": {
+    "url": "https://en.wikipedia.org/wiki/Sailor_Moon",
+    "revision": 1383278869
+   },
+   "The_Apothecary_Diaries": {
+    "url": "https://en.wikipedia.org/wiki/The_Apothecary_Diaries",
+    "revision": 1382807323
+   },
+   "Death_Note": {
+    "url": "https://en.wikipedia.org/wiki/Death_Note",
+    "revision": 1381769893
+   },
+   "Kaiju_No._8": {
+    "url": "https://en.wikipedia.org/wiki/Kaiju_No._8",
+    "revision": 1383652211
+   },
+   "Frieren": {
+    "url": "https://en.wikipedia.org/wiki/Frieren",
+    "revision": 1381436923
+   },
+   "Frieren_(TV_series)": {
+    "url": "https://en.wikipedia.org/wiki/Frieren_(TV_series)",
+    "revision": 1384453379
+   }
+  },
+  "extra_duplicates_not_replaced": 27
  }
 }
