@@ -189,7 +189,7 @@ for (const theme of THEMES) {
       // Portuguese mirror retired (owner, 2026-10-23): no pt-BR alternate any more.
       await expect(page.locator('link[rel="alternate"][hreflang="pt-BR"]')).toHaveCount(0);
       await expect(page.locator('h1')).toHaveCount(1);
-      expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('Name thatK-pop song');
+      expect(await page.locator('h1').evaluate((e) => e.textContent)).toBe('K-popblind test');
       await expect(page.locator('.p6-lead')).toHaveText('10 songs. 10 seconds each. Guess the song or the artist from a clip.');
       const faq = await page.locator('.p6-acc summary').allTextContents();
       expect(faq.map((q) => q.trim())).toEqual([

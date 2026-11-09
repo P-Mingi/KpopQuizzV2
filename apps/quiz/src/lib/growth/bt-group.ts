@@ -9,6 +9,7 @@ import { unstable_cache } from 'next/cache';
 import { CACHE_TTL } from '@/lib/db/cache-policy';
 import { prettyPath } from '@/lib/name-all/round';
 import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
+import { servedWmaSlugs } from '@/lib/personality/wma-groups';
 import { whichMemberPath } from '@/lib/personality/view';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { forSite } from '@/lib/site/scope';
@@ -63,6 +64,7 @@ export function groupBlindtestCopy(name: string, songs: number): { title: string
 export function groupPages(slug: string, name: string, wmaSlugs: readonly string[]): Array<{ href: string; label: string }> {
   const out = [{ href: `/${slug}-quiz`, label: `${name} quizzes` }];
   if ((NAME_ALL_GROUPS as readonly string[]).includes(slug)) out.push({ href: prettyPath(slug), label: `Name all ${name} members` });
-  if (wmaSlugs.includes(slug)) out.push({ href: whichMemberPath(slug), label: `Which ${name} member are you?` });
+  // O1 audit 03 P2-2: link only to a Which member page that is served (a group outside the rewrite list would 301 to its hub).
+  if (servedWmaSlugs(wmaSlugs).includes(slug)) out.push({ href: whichMemberPath(slug), label: `Which ${name} member are you?` });
   return out;
 }

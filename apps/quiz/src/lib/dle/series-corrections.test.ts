@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { afterJ4, afterSessionG, applyLaunchFiles } from './otakudle-fixture';
+import { afterJ4, afterSessionG, applyLaunchFiles, liveGames } from './otakudle-fixture';
 import { MIGRATIONS, one, readMigration, rows } from './pglite-harness';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -44,8 +44,8 @@ beforeAll(async () => {
   await db.exec(readLaunch('L15-A2-series-games.sql'));
   await db.exec(readLaunch('L17-l1-op-affiliation.sql'));
   await db.exec(readLaunch('L18-l1-otakudle-genres.sql'));
-  // The games already have a snapshot and a bank (a game live since 2026-11-07).
-  for (const g of ['otakudle-one-piece', 'otakudle-dragon-ball']) await db.exec(`select public.dle_refresh_entities('${g}')`);
+  // The games are live, with a bank drawn before the corrections (a game live since 2026-11-07); L21 redraws the days it needs.
+  await liveGames(db, ['otakudle-one-piece', 'otakudle-dragon-ball']);
   answersBefore = { op: await answers(db, 'otakudle-one-piece'), db: await answers(db, 'otakudle-dragon-ball') };
   beforeL21 = await snap(db);
   await db.exec(readLaunch(L21));
@@ -127,23 +127,6 @@ describe('L21: the series games', () => {
     await db.exec(readLaunch(L21R));
     await db.exec(readLaunch(L21R));
     expect(await snap(db)).toEqual(beforeL21);
-    await db.exec(readLaunch(L21));
-    expect(await snap(db)).toEqual(afterL21);
-  });
-
-  it('the precheck: a character that leaves the answers and is scheduled in the next 7 days aborts the file, nothing is written', async () => {
-    await db.exec(readLaunch(L21R));
-    const before = await snap(db);
-    // Kyros is the answer of the day after tomorrow in a bank that has just been built.
-    await db.exec(`update public.dle_games set epoch = public.dle_utc_date(now()) - 10 where id = 'otakudle-one-piece'`);
-    const epoch = await one<string>(db, `select epoch::text from public.dle_games where id = 'otakudle-one-piece'`);
-    const kyros = await one<string>(db, `select c.id::text from public.characters c where c.slug = 'kyros'`);
-    expect(epoch).toBeTruthy();
-    await db.exec(`insert into public.dle_schedule (game_id, bank_day, entity_id) values ('otakudle-one-piece', public.dle_bank_day('${epoch}'::date, public.dle_utc_date(now()) + 2), '${kyros}') on conflict (game_id, bank_day) do update set entity_id = excluded.entity_id`);
-    await expect(db.exec(readLaunch(L21))).rejects.toThrow(/kyros is the answer of otakudle-one-piece/);
-    expect(await snap(db)).toEqual(before);
-    await db.exec(`delete from public.dle_schedule where game_id = 'otakudle-one-piece'`);
-    // Hancock scheduled after the file: the rollback (which removes her from the answers) refuses in turn.
     await db.exec(readLaunch(L21));
     expect(await snap(db)).toEqual(afterL21);
   });

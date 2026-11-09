@@ -10,8 +10,7 @@
 --            does not date the web novel, so its year rests on the Fandom page (revision 17930: since 2011 on Shosetsuka ni Naro).
 --         Nothing else: no other series, no kpop row.
 -- Needs:  019, 023, L04, L13, L18 (series_facts.work_year and the view it replaced; this file replaces the view again starting from L18's text). Apply after L22 (any order works).
--- WHEN:   apply by the owner after a backup, just after 00:30 UTC, never between 23:50 and 00:30 UTC, never during a build. The file refreshes the snapshot and then reads dle_schedule for today and the next 7 days:
---         if a scheduled answer (or the answer served today) stopped being a possible answer, the file aborts and nothing is written (none is expected: only studio and year values move).
+-- WHEN:   apply by the owner after a backup, never during a build, never between 23:50 and 00:30 UTC, one launch file at a time, the Verify lines run after it. It changes no answer of the game (only studio and year values move): no calendar change.
 -- Verify: select t.anime_start_year from public.series t join public.groups g on g.id = t.group_id and g.site_id = 'anime' where g.slug = 'hunter-x-hunter';   expect 1999
 -- Verify: select t.anime_start_year from public.series t join public.groups g on g.id = t.group_id and g.site_id = 'anime' where g.slug = 'fruits-basket';   expect 2001
 -- Verify: select count(*) from public.entity_sources where entity_type = 'series' and field in ('otakudle.work_year', 'otakudle.first_studios', 'otakudle.anime_start_year');   expect 8
@@ -135,25 +134,6 @@ where (entity_sources.source_ref, entity_sources.source_url, entity_sources.fetc
 -- The snapshot the players read.
 begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle') then perform public.dle_refresh_entities('otakudle'); end if;
-end;
-
--- Nobody scheduled in the next 7 days, nor today's answer, may have stopped being a possible answer (the whole file is undone if so).
-declare r record;
-begin
-  if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null and to_regclass('public.dle_entities') is not null then
-    for r in
-      select s.game_id, s.entity_id, s.bank_day from public.dle_games g join public.dle_schedule s on s.game_id = g.id
-      join public.dle_entities e on e.game_id = s.game_id and e.entity_id = s.entity_id
-      where g.id = 'otakudle' and g.epoch is not null and not (e.can_be_target and e.in_pool)
-        and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from generate_series(0, 7) as k)
-    loop
-      raise exception 'L23: entity % of % (bank day %) is scheduled in the next 7 days and is no longer a possible answer', r.entity_id, r.game_id, r.bank_day;
-    end loop;
-    if to_regclass('public.dle_daily_stats') is not null and exists (select 1 from public.dle_daily_stats d join public.dle_entities e on e.game_id = d.game_id and e.entity_id = d.entity_id
-       where d.game_id = 'otakudle' and d.play_date >= public.dle_utc_date(now()) and not (e.can_be_target and e.in_pool)) then
-      raise exception 'L23: the answer served today is no longer a possible answer';
-    end if;
-  end if;
 end;
 
 notify pgrst, 'reload schema';

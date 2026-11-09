@@ -11,6 +11,7 @@ import { SITE, SITE_ID } from './src/lib/site/registry';
 import { afterFilesFor, fallbackFor, keyFileBlocksFor, kpopIconRewrites, redirectsFor, rewritesFor } from './src/lib/site/routing';
 import { MFE_APPLICATIONS, cronPathsOf, cronProxyRewrites, deploymentHostNoindexHeaders } from './src/lib/site/zones';
 import { buildUxStylesheet, uxStylesheetVersion } from './src/lib/ux-v1/a0/stylesheet';
+import { quizGoneRewrites, quizMergeRedirects } from './src/lib/seo/quiz-redirects';
 import { privateLaunchHeaders, privateLaunchRewrites, readPrivateLaunch } from './src/lib/private-launch/config';
 
 // V12 (NEXT_PUBLIC_UX_V12, default off, and only together with NEXT_PUBLIC_UX_V1: the
@@ -135,7 +136,8 @@ const nextConfig: NextConfig = {
       },
       { source: '/which-:group-member-are-you/r/:member', destination: '/:group-quiz', permanent: true },
     ];
-    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...fandomRedirects, ...refonteRedirects];
+    // O1 audit 03 P1-9: merged quizzes 301 to the quiz that is kept (lib/seo/quiz-redirects.ts; empty until the owner approves a merge).
+    return [groupRedirect, ...howWellRedirects, ...leaderboardRedirects, ...fandomRedirects, ...refonteRedirects, ...quizMergeRedirects()];
   },
   // V12 pretty URLs (requests run/requests/G6.md R1 and run/requests/G5.md R1). Only
   // with both flags on at build; with a flag off there is no rewrite: the Name them all
@@ -164,7 +166,8 @@ const nextConfig: NextConfig = {
       { source: `/which-:group(${WMA})-member-are-you`, destination: '/personality/:group' },
     ];
     // Its icons are its own (public/brand/kpop/), at the same addresses; the root files stay the bytes anime and hub copy.
-    return { beforeFiles: [...indexNowBlocks, ...kpopIconRewrites()], afterFiles: v12Rewrites };
+    // O1 audit 03 P2-4: a quiz removed with no successor answers 410 (lib/seo/quiz-redirects.ts; empty until the owner lists one).
+    return { beforeFiles: [...indexNowBlocks, ...kpopIconRewrites(), ...quizGoneRewrites()], afterFiles: v12Rewrites };
   },
   images: {
     formats: ['image/avif', 'image/webp'],

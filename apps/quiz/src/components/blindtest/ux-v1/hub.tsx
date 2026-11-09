@@ -149,7 +149,8 @@ export async function BlindtestHubV11({ faq, faqJsonLd, webAppJsonLd }: HubProps
             {Array.from({ length: 10 }, (_, i) => <i key={i} />)}
           </div>
           <BtLiveCountLoader initial={today.value} />
-          <h1 id="p6-h1" className="p6-display">Name that<br /><span>{`${GENRE} ${SITE.vocabulary.song}`}</span></h1>
+          {/* Audit 04 P1-3: on kpopquiz.org the H1 is the primary phrase of the title and description ("K-pop blind test"); the other sites keep "Name that ...". Same tree, only the two strings differ. */}
+          <h1 id="p6-h1" className="p6-display">{IS_KPOP ? 'K-pop' : 'Name that'}<br /><span>{IS_KPOP ? 'blind test' : `${GENRE} ${SITE.vocabulary.song}`}</span></h1>
           <p className="p6-lead">10 songs. 10 seconds each. Guess the song or the artist from a clip.</p>
           <BtSetupLoader />
         </section>

@@ -1,0 +1,159 @@
+[
+  {
+    "site": "kpop",
+    "account": "kpophistory",
+    "group_slug": "general-kpop",
+    "title": "MAMA Awards quiz: past Daesang winners and show facts",
+    "slug": "mama-awards-quiz",
+    "description": "Ten sourced questions on the MAMA Awards: who won the big prizes in past years, and facts about the 2026 MAMA Awards on November 20 and 21 at Kyocera Dome Osaka.",
+    "quiz_type": "multiple_choice",
+    "difficulty": "medium",
+    "language": "en",
+    "title_gives_nothing_away": true,
+    "sources": [
+      {
+        "id": "S1",
+        "title": "CJ Newsroom: 2026 MAMA Awards to take place in Japan from November 20-21 (March 31, 2026)",
+        "url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
+      },
+      {
+        "id": "S2",
+        "title": "Wikipedia: MAMA Award for Artist of the Year (revision 1381566600)",
+        "url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Artist_of_the_Year&oldid=1381566600"
+      },
+      {
+        "id": "S3",
+        "title": "Wikipedia: MAMA Award for Song of the Year (revision 1380497554)",
+        "url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Song_of_the_Year&oldid=1380497554"
+      },
+      {
+        "id": "S4",
+        "title": "Wikipedia: MAMA Award for Album of the Year (revision 1367080494)",
+        "url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Album_of_the_Year&oldid=1367080494"
+      }
+    ],
+    "questions": [
+      {
+        "question": "Who won Artist of the Year at the 2024 MAMA Awards?",
+        "options": [
+          "NewJeans",
+          "Seventeen",
+          "aespa",
+          "Stray Kids"
+        ],
+        "correct": 1,
+        "fun_fact": "NewJeans won the award in 2023 and Seventeen followed in 2024.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Artist_of_the_Year&oldid=1381566600"
+      },
+      {
+        "question": "Which artist won MAMA Artist of the Year every year from 2016 to 2022?",
+        "options": [
+          "EXO",
+          "TWICE",
+          "BLACKPINK",
+          "BTS"
+        ],
+        "correct": 3,
+        "fun_fact": "BTS took Artist of the Year seven years in a row, from 2016 to 2022.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Artist_of_the_Year&oldid=1381566600"
+      },
+      {
+        "question": "Which song won Song of the Year at the 2022 MAMA Awards?",
+        "options": [
+          "Ditto",
+          "Butter",
+          "Love Dive",
+          "Supernova"
+        ],
+        "correct": 2,
+        "fun_fact": "IVE won with Love Dive in 2022, NewJeans with Ditto in 2023 and aespa with Supernova in 2024.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Song_of_the_Year&oldid=1380497554"
+      },
+      {
+        "question": "Which album won Album of the Year at the 2022 MAMA Awards?",
+        "options": [
+          "Be",
+          "Proof",
+          "Map of the Soul: Persona",
+          "Exodus"
+        ],
+        "correct": 1,
+        "fun_fact": "Proof by BTS won in 2022, after Be in 2021 and Map of the Soul: 7 in 2020.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Album_of_the_Year&oldid=1367080494"
+      },
+      {
+        "question": "Which album won Album of the Year at the 2025 MAMA Awards?",
+        "options": [
+          "Spill the Feels",
+          "Odyssey",
+          "Desire: Unleash",
+          "Karma"
+        ],
+        "correct": 3,
+        "fun_fact": "Stray Kids won Album of the Year in 2025 with Karma.",
+        "source_url": "https://en.wikipedia.org/w/index.php?title=MAMA_Award_for_Album_of_the_Year&oldid=1367080494"
+      },
+      {
+        "question": "Where are the 2026 MAMA Awards held?",
+        "options": [
+          "Gocheok Sky Dome",
+          "KINTEX in Ilsan",
+          "Kyocera Dome Osaka",
+          "Kaohsiung National Stadium"
+        ],
+        "correct": 2,
+        "fun_fact": "CJ ENM announced two days in Osaka, Japan, on November 20 and 21, 2026.",
+        "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
+      },
+      {
+        "question": "In which year was the MAMA Awards first launched, according to CJ ENM?",
+        "options": [
+          "1999",
+          "2004",
+          "2009",
+          "2014"
+        ],
+        "correct": 0,
+        "fun_fact": "CJ ENM describes the first ceremony in 1999 as Korea's first music video ceremony.",
+        "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
+      },
+      {
+        "question": "Which CJ ENM music channel first launched the MAMA Awards?",
+        "options": [
+          "Mnet",
+          "tvN",
+          "OCN",
+          "Tooniverse"
+        ],
+        "correct": 0,
+        "fun_fact": "Mnet launched the ceremony in 1999. Mnet Plus is the service that streams it live worldwide today.",
+        "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
+      },
+      {
+        "question": "In which year did the MAMA Awards take place in the United States for the first time?",
+        "options": [
+          "2020",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "correct": 3,
+        "fun_fact": "CJ ENM calls the 2024 edition in the United States a historic milestone.",
+        "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
+      },
+      {
+        "question": "Which service streams the 2026 MAMA Awards live worldwide, according to CJ ENM?",
+        "options": [
+          "Wavve",
+          "Weverse",
+          "1theK",
+          "Mnet Plus"
+        ],
+        "correct": 3,
+        "fun_fact": "The 2026 edition carries the message Music Makes ONE.",
+        "source_url": "https://newsroom.cj.net/2026-mama-awards-to-take-place-in-japan-from-november-20-21/"
+      }
+    ],
+    "notes": "Facts read on 2026-11-09. Past winners from the Wikipedia revisions linked in the sources, show facts from the CJ newsroom."
+  }
+]

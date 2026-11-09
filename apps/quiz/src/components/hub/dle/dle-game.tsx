@@ -4,6 +4,7 @@
 // the title, the steps and the box are in the HTML. The statuses come from dle_guess, never from a comparison here; the pool is the public one of dle_pool; the answer arrives only inside a finished play.
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { analytics } from '@/lib/analytics';
 import { DleError, shareParam } from '@/lib/dle/client';
 import { dleCopy, formatCount, gameCopy, hintValueLabel, valueLabel } from '@/lib/dle/copy';
 import { dleGame, localePath } from '@/lib/dle/games';
@@ -227,7 +228,10 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
       setStreak(universeStreak(history, worldGames, utcDate(new Date())));
       setAllDone(doneAll(history, next.date));
       window.dispatchEvent(new Event('dle:history'));
-      if (live) setJustOver(true);
+      if (live) {
+        setJustOver(true);
+        analytics.gameComplete({ site: 'hub', game: 'dle', mode: 'daily', kind: game, score: next.status === 'won' ? 1 : 0, max: 1 });
+      }
     }
   };
 
@@ -268,7 +272,9 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
     setBusy(true);
     setError('');
     try {
+      const first = guesses.length === 0;
       const next = await client.guess(game, date, e.id);
+      if (first) analytics.gameStart({ site: 'hub', game: 'dle', mode: 'daily', kind: game });
       setFresh(e.id);
       applyPlay(next, true);
       setQuery('');
@@ -287,7 +293,10 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
     setBusy(true);
     setError('');
     try {
-      applyPlay(await client.giveUp(game, date), true);
+      const first = guesses.length === 0;
+      const next = await client.giveUp(game, date);
+      if (first) analytics.gameStart({ site: 'hub', game: 'dle', mode: 'daily', kind: game });
+      applyPlay(next, true);
       setOpen(false);
     } catch (err) {
       setError(messageOf(err));
@@ -329,6 +338,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const preview = play && over ? shareText(g, no ?? 0, guesses, won, previewUrl, locale) : '';
 
   const copy = async (): Promise<void> => {
+    analytics.shareClick('dle_result', 'dle');
     try {
       await navigator.clipboard.writeText(shareBody());
       setCopied(true);
@@ -525,7 +535,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <pre className="hub-dle-num">{preview}</pre>
               <div className="hub-dle-sharebtns">
                 <button type="button" className="hub-dle-btn hub-dle-btn-accent" onClick={() => void copy()}><Ic d={copied ? D.check : D.copy} />{copied ? t.copied : t.copy}</button>
-                {canShare ? <button type="button" className="hub-dle-btn hub-dle-btn-line" onClick={() => { void navigator.share({ text: shareBody() }).catch(() => {}); }}><Ic d={D.share} />{t.share}</button> : null}
+                {canShare ? <button type="button" className="hub-dle-btn hub-dle-btn-line" onClick={() => { analytics.shareClick('dle_result', 'dle'); void navigator.share({ text: shareBody() }).catch(() => {}); }}><Ic d={D.share} />{t.share}</button> : null}
               </div>
             </div>
             <DleAfter locale={locale} game={game} quizHref={quizHref} blindHref={blindHref} parentLabel={targetShown} kpopName={kpopName} allDone={allDone} clockText={clock(left)} />

@@ -19,11 +19,12 @@ section 3): [V] measured, [E] estimated. A blank evidence cell means none was re
 | kpop generations | kpop generations, what gen is X | /articles/kpop-generations-explained | learn K-pop generations | en | about 1,000 Copilot citations [E] | Copilot share | live |
 | kpop trivia | kpop trivia, kpop questions | /trivia | read K-pop facts and questions | en | 254 Copilot citations, 18% share [V] | Copilot share | live |
 | kpop test | kpop test | /kpop-test | test K-pop knowledge | en | 131 Copilot citations, 23% share [V] | Copilot share | planned |
-| blind test kpop | blind test kpop, kpop blind test | /blindtest | play a K-pop blind test | en | 182 Copilot citations, 78% share [V] | Copilot share | live |
+| blind test kpop | blind test kpop, kpop blind test ("guess the song" belongs to /guess-the-kpop-song) | /blindtest | play a K-pop blind test | en | 182 Copilot citations, 78% share [V] | Copilot share | live |
 | guess the kpop song | guess the kpop song | /guess-the-kpop-song | guess K-pop songs from clips | en | | clicks, impressions | live |
 | which {group} member are you | which {group} member are you | /which-{group}-member-are-you | take a member personality quiz | en | "which aespa member" 52 Copilot citations, 22% share [V] | Copilot share | live |
 | name them all | sporcle kpop, name them all, type them all | /name-them-all | name every member against the clock | en | 109 Copilot citations [V] | Copilot citations | planned |
-| kpop groups a-z | kpop groups a-z | /groups | browse K-pop groups | en | 16 Copilot citations [V] | Copilot citations | live |
+| browse kpop quizzes | browse kpop quizzes, kpop quizzes list, all kpop quizzes | /quizzes | browse and filter every K-pop quiz | en | no measured query yet; the page competed with the home for "kpop quiz" [E] | clicks, impressions (the home keeps "kpop quiz") | live |
+| kpop groups a-z | kpop groups a-z, kpop groups list a to z | /groups | browse K-pop groups | en | 16 Copilot citations [V] | Copilot citations | live |
 | {group} quiz | {group} quiz, {group} test | /{group}-quiz | play quizzes about one group | en | hubs at Google positions 5 to 9 [V, September] | clicks, Google position | live |
 | {group} games | {group} games | section "{Group} games" of /{group}-quiz (#games) | play every game of one group | en | "stray kids games" 63 + 70 Copilot citations [V] | Copilot citations | ready (branch seo/m2-kpop-games, not merged) |
 | kuis bts | kuis bts | /id/kuis-bts | play BTS quizzes in Indonesian | id | 17,500 Bing impressions [V] | clicks, impressions | planned |

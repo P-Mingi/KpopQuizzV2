@@ -1,0 +1,12 @@
+{"tag":"before-shot","w":390,"mode":"guest","headH":230,"auth":"out","cls":0.0449,"shifts":[{"v":0.044818127773107945,"t":422,"hadInput":false,"src":["ux-sec ux-sec-lg","H2","p1-qline ux-num","ux-btn ux-btn-primary p1-qd-go","p1-n
+{"tag":"before-shot","w":390,"mode":"member","headH":116,"auth":"in","cls":0.1234,"shifts":[{"v":0.04469047828336844,"t":358,"hadInput":false,"src":["ux-sec ux-sec-lg","H2","p1-qline ux-num","ux-btn ux-btn-primary p1-qd-go","p1-no
+{"tag":"before-shot","w":390,"mode":"member+continue","headH":116,"auth":"in","cls":0.1166,"shifts":[{"v":0.04469047828336844,"t":262,"hadInput":false,"src":["ux-sec ux-sec-lg","H2","p1-qline ux-num","ux-btn ux-btn-primary p1-qd-g
+{"tag":"before-shot","w":1440,"mode":"guest","headH":183,"auth":"out","cls":0.0001,"shifts":[]}
+{"tag":"before-shot","w":1440,"mode":"member","headH":119,"auth":"in","cls":0.0206,"shifts":[{"v":0.02048820301783265,"t":1249,"hadInput":false,"src":["ux-sec ux-sec-lg","p1-qotd","kpop-h2-surprise","ux-nav-r","A"]}]}
+{"tag":"before-shot","w":1440,"mode":"member+continue","headH":119,"auth":"in","cls":0.0356,"shifts":[{"v":0.03548800154320987,"t":3137,"hadInput":false,"src":["ux-sec ux-sec-lg","p1-qotd","kpop-h2-surprise","ux-nav-r","A"]}]}
+{"tag":"after","w":390,"mode":"guest","headH":230,"auth":"out","cls":0.0045,"shifts":[{"v":0.004384481309670055,"t":324,"hadInput":false,"src":["p1-note ux-num"]}]}
+{"tag":"after","w":390,"mode":"member","headH":230,"auth":"in","cls":0.0047,"shifts":[{"v":0.004384481309670055,"t":412,"hadInput":false,"src":["p1-note ux-num"]}]}
+{"tag":"after","w":390,"mode":"member+continue","headH":230,"auth":"in","cls":0.0212,"shifts":[{"v":0.004385297511934731,"t":680,"hadInput":false,"src":["p1-note ux-num"]},{"v":0.016666119532182735,"t":1393,"hadInput":false,"src":
+{"tag":"after","w":1440,"mode":"guest","headH":183,"auth":"out","cls":0.0001,"shifts":[]}
+{"tag":"after","w":1440,"mode":"member","headH":183,"auth":"in","cls":0.001,"shifts":[]}
+{"tag":"after","w":1440,"mode":"member+continue","headH":183,"auth":"in","cls":0.0283,"shifts":[{"v":0.028199867112482853,"t":1033,"hadInput":false,"src":["ux-sec ux-sec-lg","ux-nav-r","A","A","A"]}]}

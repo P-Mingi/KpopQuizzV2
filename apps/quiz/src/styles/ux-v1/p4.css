@@ -303,3 +303,14 @@
   .p4-confetti { display: none; }
   .p4-msc.is-bob, .p4-tring.is-danger { animation: none; }
 }
+
+/* Audit 01 P1-5 / P0-3: the daily ending and the "Quiz of the day" row of Keep playing. */
+.p4-daily { margin: 24px auto 0; max-width: 560px; padding: 20px; border: 1px solid var(--ux-qotd-edge); border-radius: 20px; background: var(--ux-qotd-bg); color: var(--ux-ink); text-align: center; }
+.p4-daily-h { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: -0.015em; }
+.p4-daily-h .ux-ico { width: 20px; height: 20px; color: var(--ux-pink-ink); }
+.p4-daily-l { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--ux-muted); }
+.p4-daily-l b { color: var(--ux-ink); }
+.p4-daily-acts { display: flex; justify-content: center; margin-top: 14px; }
+.p4-daily-sub { margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--ux-muted); text-align: left; }
+.p4-daily .ux-rows { margin-top: 8px; text-align: left; }
+.p4-keep .p4-nextq + .p4-nextq { margin-top: 12px; }

@@ -14,6 +14,7 @@ import { computeMetrics, grantEarnedTiers } from '@/lib/badges/award';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
 import { readPassportGroupStats } from '@/lib/passport';
+import { commonPassportHref } from '@/lib/passport-ui/common-passport';
 import { SITE, SITE_ID } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
 import { createPublicReadClient, createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
@@ -90,7 +91,7 @@ function words(): PassportWords {
 
 /** The link to the whole passport on the network site, a same-origin jump that exists for signed-in members (apis.md 2.1). */
 export function wholePassportHref(): string {
-  return `/auth/passport/out?to=hub&next=${encodeURIComponent('/passport')}&via=${SITE.letter}.pp`;
+  return commonPassportHref();
 }
 
 async function stampCount(supabase: SupabaseClient): Promise<number> {

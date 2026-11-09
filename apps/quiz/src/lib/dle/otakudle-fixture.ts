@@ -139,3 +139,11 @@ export async function runCheck(db: PGlite, file: string): Promise<readonly (read
   const r = results.find((x) => x.rows.length > 0);
   return (r?.rows ?? []).map((row) => Object.values(row as Record<string, string>) as unknown as readonly [string, string, string]);
 }
+
+/** The games as production has them: a snapshot, an epoch ten days back and a bank of 365 days (dle_activate, fixed seed), built from the pool as it stands. */
+export async function liveGames(db: PGlite, games: readonly string[]): Promise<void> {
+  for (const g of games) {
+    await db.exec(`select public.dle_refresh_entities('${g}')`);
+    await db.exec(`select public.dle_activate('${g}', public.dle_utc_date(now()) - 10, 0.5)`);
+  }
+}

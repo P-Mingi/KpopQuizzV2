@@ -566,10 +566,14 @@ export async function getQuizOfTheDay(site: SiteId = SITE.id): Promise<QuizCardD
   return getQuizOfTheDayForDate(today, site);
 }
 
-const getQuizOfTheDayForDate = unstable_cache(
+// Audit 01 P0-4: the published pick of the day is cached for the stats TTL (the cron busts the `quizzes` tag at 23:50 UTC, once
+// tomorrow's quiz is published); the replay FALLBACK is cached for 5 minutes at most, so a pick published late shows up fast and a
+// fallback is never kept for an hour.
+const FALLBACK_TTL = 300;
+
+const getPublishedQotdForDate = unstable_cache(
   async (today: string, site: SiteId): Promise<QuizCardData | null> => {
     const admin = createServiceRoleClient();
-
     const { data, error } = await forSite(admin
       .from('quizzes')
       .select(QUIZ_CARD_SELECT), site)
@@ -577,22 +581,19 @@ const getQuizOfTheDayForDate = unstable_cache(
       .eq('is_quiz_of_the_day', true)
       .eq('quiz_of_the_day_date', today)
       .maybeSingle();
+    if (error) console.error('[getQuizOfTheDay]', error.message);
+    return data ? toQuizCardData(data as unknown as RawQuizRow) : null;
+  },
+  ['db:quizzes:getPublishedQotd:v1'],
+  { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
+);
 
-    if (error) {
-      console.error('[getQuizOfTheDay]', error.message);
-      // fall through to the fallback so a transient DB error doesn't blank out the slot
-    }
-    if (data) return toQuizCardData(data as unknown as RawQuizRow);
-
-    // Fallback: bank empty (or today not published yet). Re-cycle through the
-    // quizzes that were ALREADY published from the original bank (any row with
-    // quiz_of_the_day_date IS NOT NULL is one that was a QOTD at some point).
-    // No new rows are inserted - we read existing catalog quizzes only, so this
-    // never pollutes the /quizzes browse list.
-    //
-    // Ordering: by the original quiz_of_the_day_date ASC so today's pick is the
-    // FIRST bank quiz ever, tomorrow's is the second, etc. Anchored to a fixed
-    // restart date so the rotation stays stable across redeploys.
+const getReplayQotdForDate = unstable_cache(
+  async (today: string, site: SiteId): Promise<QuizCardData | null> => {
+    const admin = createServiceRoleClient();
+    // Fallback: bank empty (or today not published yet). Re-cycle through the quizzes that were ALREADY published from the
+    // original bank (any row with quiz_of_the_day_date IS NOT NULL was a QOTD at some point). No new rows are inserted.
+    // Ordering: by the original quiz_of_the_day_date ASC, anchored to a fixed restart date so the rotation stays stable.
     try {
       const { data: pool, error: poolErr } = await forSite(admin
         .from('quizzes')
@@ -605,18 +606,63 @@ const getQuizOfTheDayForDate = unstable_cache(
       // Day 0 of the restart = 2026-06-18 (the day the original bank ran out).
       const RESTART_ANCHOR_MS = Date.parse('2026-06-18T00:00:00Z');
       const daysSinceAnchor = Math.max(0, Math.floor((Date.parse(`${today}T00:00:00Z`) - RESTART_ANCHOR_MS) / 86_400_000));
-      const pickIdx = daysSinceAnchor % pool.length;
-      const pick = pool[pickIdx];
-      if (!pick) return null;
-      return toQuizCardData(pick as unknown as RawQuizRow);
+      const pick = pool[daysSinceAnchor % pool.length];
+      return pick ? toQuizCardData(pick as unknown as RawQuizRow) : null;
     } catch (err) {
       console.error('[getQuizOfTheDay] fallback failed:', err);
       return null;
     }
   },
-  ['db:quizzes:getQuizOfTheDay:v2'],
+  ['db:quizzes:getReplayQotd:v1'],
+  { revalidate: FALLBACK_TTL, tags: ['quizzes'] },
+);
+
+const getQuizOfTheDayForDate = async (today: string, site: SiteId): Promise<QuizCardData | null> =>
+  (await getPublishedQotdForDate(today, site)) ?? (await getReplayQotdForDate(today, site));
+
+// Audit 01 P1-8: a past quiz of the day, by its UTC date. Read-only, cached with the stats TTL under the `quizzes` tag. Null when that
+// day had no pick (the "Missed yesterday?" line then does not show).
+const getQuizOfDateCached = unstable_cache(
+  async (date: string, site: SiteId): Promise<{ slug: string; title: string } | null> => {
+    const admin = createServiceRoleClient();
+    const { data, error } = await forSite(admin.from('quizzes').select('slug, title'), site)
+      .eq('status', 'published')
+      .eq('is_quiz_of_the_day', true)
+      .eq('quiz_of_the_day_date', date)
+      .limit(1)
+      .maybeSingle();
+    if (error || !data) return null;
+    return data as { slug: string; title: string };
+  },
+  ['db:quizzes:getQuizOfDate:v1'],
   { revalidate: CACHE_TTL.stats, tags: ['quizzes'] },
 );
+
+export async function getQuizOfDate(date: string, site: SiteId = SITE.id): Promise<{ slug: string; title: string } | null> {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  return getQuizOfDateCached(date, site);
+}
+
+// Audit 01 P1-5: the day the quiz of the day started (the oldest pick), for the "Daily #N" of the share text. Null when unknown.
+const getFirstQotdDateCached = unstable_cache(
+  async (site: SiteId): Promise<string | null> => {
+    const admin = createServiceRoleClient();
+    const { data, error } = await forSite(admin.from('quizzes').select('quiz_of_the_day_date'), site)
+      .eq('is_quiz_of_the_day', true)
+      .not('quiz_of_the_day_date', 'is', null)
+      .order('quiz_of_the_day_date', { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (error || !data) return null;
+    return (data as { quiz_of_the_day_date: string | null }).quiz_of_the_day_date;
+  },
+  ['db:quizzes:getFirstQotdDate:v1'],
+  { revalidate: CACHE_TTL.catalog, tags: ['quizzes'] },
+);
+
+export async function getFirstQotdDate(site: SiteId = SITE.id): Promise<string | null> {
+  return getFirstQotdDateCached(site);
+}
 
 // Not scoped on purpose: quizzes.slug is unique across the whole network (one unique index, no site_id in it), so
 // a slug taken by another site is taken here too. A forSite filter would answer "free" and the insert would then

@@ -17,6 +17,8 @@ import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { AnswerFirst } from '@/components/group/answer-first';
 import { getGroupContentDate, formatContentMonth } from '@/lib/db/queries/group-freshness';
 import { atLeast } from '@/lib/stats/site-stats';
+import { groupHubDescription, groupHubTitle } from '@/lib/seo/group-meta';
+import { groupHubHead } from '@/lib/seo/frozen-heads';
 import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
 import { topicList } from '@/lib/hubs/theme-view';
 import { isCategoryGroup } from '@/lib/ux-v1/p3/model';
@@ -82,76 +84,41 @@ export function buildGroupFaqs(
   return faqs;
 }
 
-// CTR sprint: bespoke title + description hook for the highest-impression group
-// pages (worst CTR-vs-position first). Titles use MEMBER counts, which are
-// stable facts verified against each group's published name_all_members game, so
-// the "name all N" promise stays true even as the catalog grows. The quiz count
-// in the description is interpolated live from group.quiz_count (never stale).
-// ILLIT has no name-all game, so its entry makes no member claim (light touch).
-// All other ~80 groups fall through to the formula below. No em dashes (house rule).
-// SEO (owner, 2026-10-14): every title stays within 60 characters with the " | KpopQuiz"
-// suffix (rulebook 2.2; the CTR freeze on these ended 2026-08-31). Five were shortened:
-// "(2026)" dropped where that was enough, Cortis and BABYMONSTER reworded. Pinned by
-// lib/seo/titles.test.ts.
+// Audit 04 P1-1 (owner, 2026-11-09): every hub title and description comes from lib/seo/group-meta.ts, one pattern for all
+// groups ("{Group} Quiz: {atLeast(n)} Free Tests{ for Fandom}, Easy to Hard"): no year, no typed member count, the fandom only
+// when it is a real name, the live count through the shared helper. The nine per-group overrides of the CTR sprint (typed
+// "Name all 13 Members", "(2026)", hard-coded fandoms) are gone; the pattern stays within 49 characters for the page part.
 // SEO Mission 2 part B (owner, 2026-10-14): /bts-quiz is the strengthened hub (lib/hubs/hub-plus.ts).
 // Its title, H1 ("BTS quiz") and description share the primary phrase, and they carry no count,
 // so no number can differ between the metadata and the page. An entry with `description` uses
-// it as is (meta and Open Graph); the others keep the formula below.
-const GROUP_SEO_OVERRIDES: Record<string, { title: string; hook: string; description?: string; ogDescription?: string }> = {
-  seventeen: { title: 'SEVENTEEN Quiz: Can You Name All 13 Members?', hook: 'Name all 13 members, guess the era, and prove you are a real CARAT' },
+// it as is (meta and Open Graph).
+const GROUP_SEO_OVERRIDES: Record<string, { title: string; description: string; ogDescription: string }> = {
   bts: {
     title: 'BTS Quiz: How Well Do You Know BTS? Easy to Hard',
-    hook: 'Pick a quiz by level, from easy member questions to hard era deep cuts, and prove you are a real ARMY',
     description: 'Take a BTS quiz at your level, from easy member questions to hard era deep cuts, ranked by how fans really score. Free, no sign-up, with a sourced BTS profile.',
     ogDescription: 'Pick a BTS quiz by level, ranked by real fan scores. Can you pass them all?',
   },
-  aespa: { title: 'aespa Quiz: Name All 4 Members and More (2026)', hook: 'Name all 4 members, guess the era, and prove you are a real MY' },
-  blackpink: { title: 'BLACKPINK Quiz: Can Every BLINK Name All 4?', hook: 'Name all 4 members, guess the song, and prove you are a real BLINK' },
-  twice: { title: 'TWICE Quiz: Can You Name All 9 Members? (2026)', hook: 'Name all 9 members, guess the era, and prove you are a real ONCE' },
-  'stray-kids': { title: 'Stray Kids Quiz: Name All 8 Members and More', hook: 'Name all 8 members, guess the song, and prove you are a real STAY' },
-  illit: { title: 'ILLIT Quiz: Free Fan-Made Tests for GLLIT (2026)', hook: "Test your knowledge of ILLIT's members, songs, and eras, then prove you are a real GLLIT" },
-  // W2: Cortis is the #1 hub by impressions (freshness weapon). No name-all game
-  // (no member claim) and the DB fandom is a placeholder, so the hook leans on the
-  // 2025 debut angle rather than a member count or fandom name.
-  cortis: { title: 'Cortis Quiz: Test How Well You Know the Rookies', hook: "Test your knowledge of Cortis's members, songs, and 2025 debut" },
-  // W3: BABYMONSTER (816i, YG rookie) had no override. Neutral hook (no specific
-  // member count - the lineup has shifted - and no fandom claim).
-  babymonster: { title: 'BABYMONSTER Quiz: Free Tests for the YG Rookies', hook: "Test your knowledge of BABYMONSTER's members, songs, and eras" },
 };
 
-export function generateGroupQuizMetadata(group: Group): Metadata {
+/** `levels`: the distinct difficulty levels among the group's quizzes (1 when unknown, so "Easy to Hard" is never claimed by default). */
+export function generateGroupQuizMetadata(group: Group, levels = 1): Metadata {
   const override = GROUP_SEO_OVERRIDES[group.slug];
-
-  // CTR sprint W1. The 7 override groups above are inside a live GSC measurement
-  // window (docs/ctr-sprint-baseline.md, re-check 2026-08-24) so they are NOT
-  // touched here. The other 30 groups with quizzes all fell to one generic title
-  // ("<name> Quiz - Test Your Knowledge"): no number, no reason to click. The
-  // default now leads with the LIVE quiz count, so it is true by construction and
-  // updates itself as the catalog grows. Singular groups (8 of them today) get
-  // their own phrasing so we never render "1 Free Fan-Made Tests".
   const n = group.quiz_count;
-  const title = override?.title ?? (n >= 2
-    ? `${group.name} Quiz: ${n} Free Fan-Made Tests`
-    : `${group.name} Quiz: Free Fan-Made Trivia Test`);
+  const input = { name: group.name, fandomName: group.fandom_name, quizCount: n, levels };
 
-  // Bing flagged ~119 pages with meta descriptions under the ~120 char floor.
-  // W2 PART D (owner ruling): `seo_intro` NO LONGER touches the meta description.
-  // It used to win over the formula whenever it was >= 110 chars, which meant
-  // filling it in admin would silently drop the live quiz count that earns the
-  // click, inside a ~150 char budget that cannot absorb an editorial paragraph.
-  // seo_intro is now additive and VISIBLE only: it renders as the intro paragraph
-  // at the top of the page (see `intro` below). The CTR formula always wins here.
+  // W2 PART D (owner ruling): `seo_intro` does not touch the meta description (it is the visible intro paragraph only).
   // SEO phase 1, PR 16: the General K-pop category is not a group (no members, no fandom); its description names
   // its theme pages (the same topic names as the hub's FAQ).
-  const description = override?.description
-    ? override.description
-    : isCategoryGroup(group.slug)
-    ? `Play ${n} free ${group.name} quizzes by topic: ${topicList(GENERAL_THEMES)}. No sign-up.`
-    : override
-    ? `Play ${atLeast(group.quiz_count)} free ${group.name} quizzes made by fans. ${override.hook}. Start now, no sign-up.`
-    : n >= 2
-    ? `Play ${n} free ${group.name} quizzes made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`
-    : `Play the free ${group.name} quiz made by fans. Test your knowledge of ${group.name}'s members, songs, eras, and history, then prove you are a real ${group.fandom_name}.`;
+  const fresh = {
+    title: override?.title ?? groupHubTitle(input),
+    description: override?.description
+      ? override.description
+      : isCategoryGroup(group.slug)
+      ? `Play ${atLeast(n)} free ${group.name} quizzes by topic: ${topicList(GENERAL_THEMES)}. No sign-up.`
+      : groupHubDescription(input),
+  };
+  // Audit 04 section 2.4: a top-clicks page (lib/seo/top-clicks-freeze.ts) keeps main's title and description.
+  const { title, description } = groupHubHead(group, isCategoryGroup(group.slug), topicList(GENERAL_THEMES), fresh);
 
   const ogImage = `https://kpopquiz.org/api/og/group/${group.slug}`;
 

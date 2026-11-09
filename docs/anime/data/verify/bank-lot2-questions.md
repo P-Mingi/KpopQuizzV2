@@ -1,0 +1,244 @@
+# Anime daily bank, lot 2: every question in one line
+
+Format: date #n | verdict | question | options (answer starred) or True/False | source | revision. Verdict OK/FIX = kept draft question, NEW = new question. Generated from bank-lot2.json.
+
+- 2026-12-19 #1 | NEW | Who directed the first two live-action Death Note films from 2006? | Takashi Miike / *Shusuke Kaneko / Hideo Nakata / Kiyoshi Kurosawa | Death_Note | 1381769893
+- 2026-12-19 #2 | NEW | Which Broadway composer wrote the music for Death Note: The Musical? | Jack Murphy / Ivan Menchell / Nick Winston / *Frank Wildhorn | Death_Note | 1381769893
+- 2026-12-19 #3 | NEW | Which award did the Death Note manga win in 2008 as Favourite Manga, as voted by UK fans? | Seiun Award / Tezuka Osamu Cultural Prize / *Eagle Award / Eisner Award | Death_Note | 1381769893
+- 2026-12-19 #4 | NEW | Which company developed and published the 2007 Nintendo DS game Death Note: Kira Game? | Capcom / Sega / *Konami / Square Enix | Death_Note | 1381769893
+- 2026-12-19 #5 | NEW | Who directed the American Death Note film released on Netflix in 2017? | *Adam Wingard / Shusuke Kaneko / Jeremy Slater / Tetsuro Araki | Death_Note | 1381769893
+- 2026-12-19 #6 | NEW | Which studio animated the Death Note television anime? | Bones / Wit Studio / *Madhouse / Production I.G | Death_Note | 1381769893
+- 2026-12-19 #7 | NEW | Which actor portrays Soichiro Yagami in the Death Note film series? | Shunji Fujimura / *Takeshi Kaga / Kensei Mikami / Shugo Oshinari | List_of_Death_Note_characters | 1384673220
+- 2026-12-19 #8 | NEW | Which actor stars as Light Yagami in the 2015 Death Note television drama? | Kento Yamazaki / Kenji Urai / Teppei Koike / *Masataka Kubota | Death_Note | 1381769893
+- 2026-12-20 #1 | NEW | Who voices Levi Ackerman in the original Japanese version of the Attack on Titan anime? | Yuki Kaji / Daisuke Ono / *Hiroshi Kamiya / Yoshimasa Hosoya | Attack_on_Titan_(TV_series) | 1384442696
+- 2026-12-20 #2 | NEW | Who voices Erwin Smith in the English dub of the Attack on Titan anime? | *J. Michael Tatum / Matthew Mercer / Robert McCollum / Bryce Papenbrook | Attack_on_Titan_(TV_series) | 1384442696
+- 2026-12-20 #3 | NEW | Who composed the music of the fourth season of the Attack on Titan anime together with Hiroyuki Sawano? | Yuki Kajiura / Yugo Kanno / Yuki Hayashi / *Kohta Yamamoto | Attack_on_Titan_(TV_series) | 1384442696
+- 2026-12-20 #4 | NEW | What does the title of the second season opening, Shinzo wo Sasageyo!, literally mean? | Crimson Bow and Arrow / *Dedicate Your Heart! / Wings of Freedom / The Last Titan | Attack_on_Titan_(TV_series) | 1384442696
+- 2026-12-20 #5 | NEW | Who wrote the light novel series Attack on Titan: Before the Fall? | Ryo Kawakami / Saki Nakagawa / *Ryo Suzukaze / Thores Shibamoto | Attack_on_Titan | 1384443094
+- 2026-12-20 #6 | NEW | Who illustrated the light novel Attack on Titan: Harsh Mistress of the City? | *Range Murata / Thores Shibamoto / Saki Nakagawa / Hajime Isayama | Attack_on_Titan | 1384443094
+- 2026-12-20 #7 | NEW | Which company developed the Nintendo 3DS action game Attack on Titan: Humanity in Chains? | Omega Force / Capcom / Enish / *Spike Chunsoft | Attack_on_Titan | 1384443094
+- 2026-12-20 #8 | OK | In which year did Hajime Isayama create the 65-page one-shot version of Attack on Titan? | 2009 / *2006 / 2012 / 2014 | Attack_on_Titan | 1384443094
+- 2026-12-21 #1 | NEW | Viz Media licensed the Demon Slayer manga for the North American market. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #2 | NEW | In the Demon Slayer story, demons can be killed by a poison extracted from lavender flowers. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #3 | NEW | Demon Slayer is set in the Taisho era of Japan. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #4 | NEW | The video game The Hinokami Chronicles was developed by Capcom. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #5 | NEW | Koyoharu Gotouge named Dragon Ball as one of the three biggest influences on the series. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #6 | NEW | A booklet called Rengoku Volume 0 was given to theatergoers of the Mugen Train film. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #7 | NEW | Shueisha also published the Demon Slayer manga in English on its Manga Plus service. | True | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-21 #8 | NEW | Koyoharu Gotouge drew the two-chapter spin-off Giyu Tomioka Gaiden. | False | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-22 #1 | NEW | Which song by Official Hige Dandism is the main theme song of the film Spy x Family Code: White? | Mixed Nuts / *Soulsoup / Comedy / Why | Spy_%C3%97_Family_Code:_White | 1384674421
+- 2026-12-22 #2 | NEW | Who composed and produced the music of the Spy x Family anime? | MONACA / Elements Garden / Yoko Kanno / *(K)now Name | Spy_%C3%97_Family_(TV_series) | 1384499588
+- 2026-12-22 #3 | NEW | Who voices Loid Forger in the English dub? | *Alex Organ / Tyler Walker / Takuya Eguchi / Natalie Van Sistine | List_of_Spy_%C3%97_Family_characters | 1373964762
+- 2026-12-22 #4 | NEW | Who voices Anya Forger in the English dub for most of the series? | Natalie Van Sistine / Tyler Walker / *Megan Shipman / Atsumi Tanezaki | List_of_Spy_%C3%97_Family_characters | 1373964762
+- 2026-12-22 #5 | NEW | Who voices Yor Forger in the English dub? | Megan Shipman / *Natalie Van Sistine / Alex Organ / Saori Hayami | List_of_Spy_%C3%97_Family_characters | 1373964762
+- 2026-12-22 #6 | NEW | Which character from the cartoon Spy Wars is Anya's favourite? | *Bondman / Spyman / Agent Strix / Captain Westalis | List_of_Spy_%C3%97_Family_characters | 1373964762
+- 2026-12-22 #7 | NEW | The Spy x Family story is set in an alternate version of which country during the Cold War? | Japan / Austria / Switzerland / *Germany | List_of_Spy_%C3%97_Family_characters | 1373964762
+- 2026-12-22 #8 | NEW | Who directed the film Spy x Family Code: White? | Kazuhiro Furuhashi / Takahiro Harada / *Takashi Katagiri / Ichiro Okouchi | Spy_%C3%97_Family_Code:_White | 1384674421
+- 2026-12-23 #1 | NEW | The Monster anime has more episodes than the 1998 Cardcaptor Sakura anime. | True | Monster_(manga) | 1378133015
+- 2026-12-23 #2 | NEW | The Great Teacher Onizuka manga fills more volumes than the Rurouni Kenshin manga. | False | Great_Teacher_Onizuka | 1383836267
+- 2026-12-23 #3 | NEW | The Nana manga fills fewer volumes than the Monster manga. | False | Nana_(manga) | 1384301307
+- 2026-12-23 #4 | NEW | The Nana anime has more episodes than the Great Teacher Onizuka anime. | True | Nana_(manga) | 1384301307
+- 2026-12-23 #5 | NEW | The Cardcaptor Sakura manga fills more volumes than the Parasyte manga. | True | Cardcaptor_Sakura | 1384648739
+- 2026-12-23 #6 | NEW | The Puella Magi Madoka Magica anime has more episodes than the Steins;Gate anime. | False | Puella_Magi_Madoka_Magica | 1384550254
+- 2026-12-23 #7 | NEW | The Slam Dunk manga fills more volumes than the Eyeshield 21 manga. | False | Slam_Dunk_(manga) | 1379466912
+- 2026-12-23 #8 | NEW | The 1997 Berserk anime has more episodes than the Parasyte anime. | True | Berserk_(1997_TV_series) | 1384596143
+- 2026-12-24 #1 | FIX | Under which imprint did Shueisha collect the Jujutsu Kaisen manga in volumes? | Shonen Magazine Comics / *Jump Comics / Sunday Comics / Young Jump Comics | Jujutsu_Kaisen | 1383558677
+- 2026-12-24 #2 | NEW | Which series did Gege Akutami say influenced the mythological aspects of Jujutsu Kaisen? | Bleach / Death Note / Fullmetal Alchemist / *Neon Genesis Evangelion | Jujutsu_Kaisen | 1383558677
+- 2026-12-24 #3 | NEW | The magic system of Jujutsu Kaisen is largely inspired by which series? | *Hunter x Hunter / One Piece / Bleach / Dragon Ball | Jujutsu_Kaisen | 1383558677
+- 2026-12-24 #4 | NEW | Who created the short manga Jujutsu Kaisen Modulo together with Gege Akutami? | Yusuke Murata / Daisuke Ashihara / *Yuji Iwasaki / Yoshihiro Togashi | Jujutsu_Kaisen | 1383558677
+- 2026-12-24 #5 | NEW | Who wrote the two Jujutsu Kaisen novels released under the Jump J-Books imprint? | Nisio Isin / Gen Urobuchi / *Ballad Kitaguni / Masashi Kishimoto | Jujutsu_Kaisen | 1383558677
+- 2026-12-24 #6 | NEW | On which Shueisha platform was Jujutsu Kaisen published in English at the same time as in Japan from January 2019? | Webtoon / Crunchyroll Manga / Comikey / *Manga Plus | Jujutsu_Kaisen | 1383558677
+- 2026-12-24 #7 | NEW | Whose film script was the novel adaptation of Jujutsu Kaisen 0 based on? | *Hiroshi Seko / Hideaki Anno / Kazuki Nakashima / Mari Okada | Jujutsu_Kaisen_0 | 1379845584
+- 2026-12-24 #8 | NEW | In which year did Gege Akutami publish his first work, the one-shot Kamishiro Sosa? | 2012 / *2014 / 2016 / 2017 | Gege_Akutami | 1381873711
+- 2026-12-25 #1 | NEW | Hiroshi Seko handled the series composition and scripts of the Chainsaw Man TV anime. | True | Chainsaw_Man_(TV_series) | 1381105566
+- 2026-12-25 #2 | NEW | Tatsuya Yoshihara served as the chief episode director of the Chainsaw Man TV anime. | False | Chainsaw_Man_(TV_series) | 1381105566
+- 2026-12-25 #3 | NEW | Kikunosuke Toya voices Denji in the Japanese cast of the Chainsaw Man TV anime. | True | Chainsaw_Man_(TV_series) | 1381105566
+- 2026-12-25 #4 | NEW | Reina Ueda voices Makima in the Japanese cast of the Chainsaw Man TV anime. | False | Chainsaw_Man_(TV_series) | 1381105566
+- 2026-12-25 #5 | NEW | Medialink obtained the licensing of the Chainsaw Man TV anime for North America. | False | Chainsaw_Man_(TV_series) | 1381105566
+- 2026-12-25 #6 | NEW | The novel Chainsaw Man: Buddy Stories was written by Sakaku Hishikawa, with illustrations by Tatsuki Fujimoto. | True | Chainsaw_Man | 1384606027
+- 2026-12-25 #7 | NEW | The second part of the Chainsaw Man manga, the School Arc, was serialized in Weekly Shonen Jump. | False | Chainsaw_Man | 1384606027
+- 2026-12-25 #8 | NEW | Aya Hirano plays Makima in the stage play Chainsaw Man The Stage. | True | Chainsaw_Man | 1384606027
+- 2026-12-26 #1 | NEW | Gurenge is on which studio album by LiSA? | Dark Crow / *Leo-Nine / Lander / 5am | Gurenge | 1372196624
+- 2026-12-26 #2 | NEW | Which song won the grand prize at the 62nd Japan Record Awards in 2020? | *Homura / Gurenge / Zankyosanka / Kizuna no Kiseki | Homura_(song) | 1374274295
+- 2026-12-26 #3 | NEW | Which Aimer song is the ending theme of the Entertainment District Arc? | Shirogane / Koi Kogare / Tokoshie / *Asa ga Kuru | Zanky%C5%8Dsanka/Asa_ga_Kuru | 1367792716
+- 2026-12-26 #4 | NEW | Which singer is featured on Go Shiina's Kamado Tanjiro no Uta? | Aimer / Milet / *Nami Nakagawa / Hyde | Kamado_Tanjiro_no_Uta | 1347912050
+- 2026-12-26 #5 | NEW | The music video for Kizuna no Kiseki mainly takes place atop which landmark? | Tokyo Skytree / *Tokyo Tower / Osaka Castle / Mount Fuji | Kizuna_no_Kiseki | 1374871723
+- 2026-12-26 #6 | NEW | Who is credited as the writer of Kizuna no Kiseki, the opening of season 3? | *Jean-Ken Johnny / Yuki Kajiura / Go Shiina / Kayoko Kusano | Kizuna_no_Kiseki | 1374871723
+- 2026-12-26 #7 | NEW | An instrumental version of Gurenge was played at the closing ceremony of which event? | The 2018 FIFA World Cup / Expo 2025 Osaka / The 2022 Winter Olympics / *The 2020 Summer Olympics | Gurenge | 1372196624
+- 2026-12-26 #8 | NEW | Which song shares a double A-side single with Akeboshi, the opening of the Mugen Train Arc? | Homura / Asa ga Kuru / *Shirogane / Koi Kogare | Akeboshi_(song) | 1355968066
+- 2026-12-27 #1 | NEW | Who composed the music of the Dragon Ball Daima anime? | Hiroyuki Sawano / *Kosuke Yamashita / Shunsuke Kikuchi / Yuki Hayashi | Dragon_Ball_Daima | 1382291508
+- 2026-12-27 #2 | NEW | Who adapted Akira Toriyama's character designs for animation on Dragon Ball Daima? | Tadashi Hiramatsu / Minoru Maeda / Yoshitaka Yashima / *Katsuyoshi Nakatsuru | Dragon_Ball_Daima | 1382291508
+- 2026-12-27 #3 | NEW | Toriyama said the Muscle Tower of the Red Ribbon Army storyline was inspired by which video game? | *Kung-Fu Master (Spartan X in Japan) / Super Mario Bros. / Donkey Kong / Street Fighter II | Dragon_Ball | 1384608321
+- 2026-12-27 #4 | NEW | Who directed the Dragon Ball GT anime? | Daisuke Nishio / Minoru Okazaki / *Osamu Kasai / Shigeyasu Yamauchi | Dragon_Ball_GT | 1373475551
+- 2026-12-27 #5 | NEW | In which magazine was the three-chapter manga Dragon Ball: Episode of Bardock published in 2011? | Weekly Shonen Jump / Saikyo Jump / *V Jump / Shonen Jump+ | Dragon_Ball | 1384608321
+- 2026-12-27 #6 | NEW | Which manga joined Dragon Ball Z and One Piece in the 2013 crossover TV special Dream 9? | *Toriko / Bleach / Fairy Tail / Gintama | Dragon_Ball | 1384608321
+- 2026-12-27 #7 | NEW | Who voices Beerus in the Japanese version of the Dragon Ball Super anime? | Masakazu Morita / Masako Nozawa / *Koichi Yamadera / Hiroki Takahashi | Dragon_Ball | 1384608321
+- 2026-12-27 #8 | NEW | Which of the two directors of Dragon Ball Daima had earlier directed the One Piece TV anime? | Yoshitaka Yashima / *Aya Komaki / Osamu Kasai / Daisuke Nishio | Dragon_Ball_Daima | 1382291508
+- 2026-12-28 #1 | NEW | Which series has the opening theme Butter-Fly, sung by Kōji Wada? | Pokémon / Yu-Gi-Oh! / *Digimon Adventure / Beyblade | Digimon_Adventure_(1999_TV_series) | 1384665438
+- 2026-12-28 #2 | NEW | Which series opens its first episodes with Crossing Field, sung by LiSA? | *Sword Art Online / Accel World / Log Horizon / No Game No Life | Sword_Art_Online_(TV_series) | 1383851012
+- 2026-12-28 #3 | NEW | Which series opens its first fifteen episodes with Sirius, sung by Eir Aoi? | Black Lagoon / Soul Eater / Darker than Black / *Kill la Kill | Kill_la_Kill | 1382024285
+- 2026-12-28 #4 | NEW | Which series has an opening theme called 99? | One-Punch Man / *Mob Psycho 100 / Saiki K. / Gintama | Mob_Psycho_100 | 1380373905
+- 2026-12-28 #5 | NEW | Which series opens with Flyers, sung by Bradio? | *Death Parade / Death Note / Terror in Resonance / Parasyte | Death_Parade | 1373389988
+- 2026-12-28 #6 | NEW | Which series has Inferno, by Mrs. Green Apple, as its first opening theme? | Black Clover / Blue Exorcist / Soul Eater / *Fire Force | Fire_Force | 1380392050
+- 2026-12-28 #7 | NEW | Which series opens with Cagayake! Girls in its first season? | Bocchi the Rock! / *K-On! / Lucky Star / Hyouka | K-On! | 1374276551
+- 2026-12-28 #8 | NEW | Which series has Pre-Parade as its first opening theme? | Clannad / Angel Beats! / *Toradora! / Nana | Toradora! | 1373729757
+- 2026-12-29 #1 | NEW | Eiichiro Oda worked as an assistant to which manga artist when he began writing One Piece? | Masashi Kishimoto / Tite Kubo / *Nobuhiro Watsuki / Hiromu Arakawa | One_Piece | 1383040207
+- 2026-12-29 #2 | NEW | The first Romance Dawn one-shot by Oda, published in August 1996, appeared in which magazine? | *Akamaru Jump / Ribon / CoroCoro Comic / Weekly Shonen Magazine | One_Piece | 1383040207
+- 2026-12-29 #3 | OK | Which opening is a team-up between Hiroshi Kitadani and the group Kishidan? | Hope / *We Can! / Wake Up! / Hands Up! | One_Piece_(1999_TV_series) | 1384511323
+- 2026-12-29 #4 | NEW | Who directed the 2022 film One Piece Film: Red? | Hiroaki Miyamoto / Mamoru Hosoda / Kōnosuke Uda / *Gorō Taniguchi | One_Piece_Film:_Red | 1382814259
+- 2026-12-29 #5 | NEW | Which singer provided the singing voice of Uta in One Piece Film: Red? | *Ado / Aimyon / LiSA / Kenshi Yonezu | One_Piece_Film:_Red | 1382814259
+- 2026-12-29 #6 | NEW | Which pair developed the live-action One Piece series for Netflix? | Hiroyuki Nakano and Marty Adelstein / Jacob Romero and Iñaki Godoy / *Matt Owens and Steven Maeda / Eiichiro Oda and Shinji Shimizu | One_Piece_(2023_TV_series) | 1382222953
+- 2026-12-29 #7 | NEW | Which company licensed the One Piece anime for an English-language release in April 2007? | 4Kids Entertainment / *Funimation / Manga Entertainment / Shueisha | One_Piece_(1999_TV_series) | 1384511323
+- 2026-12-29 #8 | NEW | Which publisher released the first English volumes of the One Piece manga in the United Kingdom, starting in March 2006? | Titan Comics / Madman Entertainment / Tokyopop / *Gollancz Manga | One_Piece | 1383040207
+- 2026-12-30 #1 | NEW | Which studio is announced as the producer of the anime adaptation of Kagurabachi? | MAPPA / *Cypic / Studio Pierrot / Wit Studio | Kagurabachi | 1384509741
+- 2026-12-30 #2 | NEW | Who is announced as the director of the Kagurabachi anime? | Tetsuro Araki / Haruo Sotozaki / Ryu Nakayama / *Tetsuya Takeuchi | Kagurabachi | 1384509741
+- 2026-12-30 #3 | NEW | Memes jokingly called Kagurabachi the heir of the Weekly Shonen Jump Big Three. Which three series are meant? | One Piece, Dragon Ball and Naruto / Naruto, Bleach and Gintama / *One Piece, Naruto and Bleach / One Piece, Bleach and Death Note | Kagurabachi | 1384509741
+- 2026-12-30 #4 | NEW | Kagurabachi volumes have ranked since December 2024 on the monthly Graphic Books and Manga bestseller list of which newspaper? | The Washington Post / *The New York Times / USA Today / The Guardian | Kagurabachi | 1384509741
+- 2026-12-30 #5 | NEW | In 2024, the year it won the Next Manga Award, for which award was Kagurabachi also nominated? | *The 70th Shogakukan Manga Award / The 49th Kodansha Manga Award / The Eisner Award / The Seiun Award | Kagurabachi | 1384509741
+- 2026-12-30 #6 | NEW | Where did Kagurabachi rank on the Kono Manga ga Sugoi! list of the best manga of 2025 for male readers? | First / Third / Tenth / *Sixth | Kagurabachi | 1384509741
+- 2026-12-30 #7 | NEW | Who is announced as the character designer of the Kagurabachi anime? | Kazutaka Sugiyama / Akira Matsushima / *Keigo Sasaki / Kazuaki Shimada | Kagurabachi | 1384509741
+- 2026-12-30 #8 | NEW | In 2025, Kagurabachi was nominated for an Eisner Award in which category? | *Best U.S. Edition of International Material, Asia / Best Continuing Series / Best New Series / Best Publication for Teens | Kagurabachi | 1384509741
+- 2026-12-31 #1 | NEW | In which month and year did the compilation film To the Swordsmith Village premiere in Japan? | February 2024 / April 2023 / *February 2023 / October 2021 | Demon_Slayer:_Kimetsu_no_Yaiba_season_3 | 1381383424
+- 2026-12-31 #2 | NEW | On which date did the compilation film To the Hashira Training get its wide theatrical release in the United States? | *February 23, 2024 / February 2, 2024 / March 29, 2019 / October 16, 2020 | Demon_Slayer:_Kimetsu_no_Yaiba | 1384679970
+- 2026-12-31 #3 | NEW | Which network aired the second season of the Demon Slayer TV anime in Japan? | NHK / TBS / TV Tokyo / *Fuji Television | Demon_Slayer:_Kimetsu_no_Yaiba_season_2 | 1381383275
+- 2026-12-31 #4 | NEW | Besides new music, what did the seven-episode Mugen Train Arc add compared with the 2020 film? | A new ending for the story / *An anime original episode set just before the main story / A different director / An extra Hashira as a main character | Demon_Slayer:_Kimetsu_no_Yaiba_season_2 | 1381383275
+- 2026-12-31 #5 | NEW | Which volumes of the manga does the third season, the Swordsmith Village Arc, adapt? | *The 12th to the 15th / The 1st to the 7th / The 7th to the 11th / The 15th and the 16th | Demon_Slayer:_Kimetsu_no_Yaiba_season_3 | 1381383424
+- 2026-12-31 #6 | NEW | In which month and year did the Hashira Training Arc, the fourth season, begin airing? | April 2024 / October 2023 / February 2024 / *May 2024 | Demon_Slayer:_Kimetsu_no_Yaiba_season_4 | 1372512950
+- 2026-12-31 #7 | NEW | Which service simulcast the first season in Australia and New Zealand? | Netflix / *AnimeLab / Stan / Disney+ | Demon_Slayer:_Kimetsu_no_Yaiba_season_1 | 1374154710
+- 2026-12-31 #8 | NEW | Which company licensed the second season in Asia-Pacific? | Aniplex of America / Funimation / *Muse Communication / Viz Media | Demon_Slayer:_Kimetsu_no_Yaiba_season_2 | 1381383275
+- 2027-01-01 #1 | NEW | Takahiko Abiru designed the characters for the Vinland Saga anime. | True | Vinland_Saga_(TV_series) | 1383317172
+- 2027-01-01 #2 | NEW | Akio Otsuka voices Canute in the Japanese version of the anime. | False | Vinland_Saga_(TV_series) | 1383317172
+- 2027-01-01 #3 | NEW | Naoya Uchida voices Askeladd in the Japanese version of the anime. | True | Vinland_Saga_(TV_series) | 1383317172
+- 2027-01-01 #4 | NEW | In a 2008 interview, Makoto Yukimura said that reading Berserk as a boy inspired him to become a manga artist. | False | Vinland_Saga_(manga) | 1383626696
+- 2027-01-01 #5 | NEW | The two stage plays based on the manga ran in Tokyo in April 2024. | True | Vinland_Saga_(manga) | 1383626696
+- 2027-01-01 #6 | NEW | In the Sentai Filmworks English dub, Thorfinn is voiced by Aleks Le. | False | Vinland_Saga_(TV_series) | 1383317172
+- 2027-01-01 #7 | NEW | Vinland Saga won Best Drama at the 4th Crunchyroll Anime Awards. | True | Vinland_Saga_(TV_series) | 1383317172
+- 2027-01-01 #8 | NEW | Vinland Saga Season 2 won Best Anime Series at the 2023 IGN Awards. | True | Vinland_Saga_(TV_series) | 1383317172
+- 2027-01-02 #1 | NEW | Three of these began in a printed magazine. Which one began as a web novel? | Cardcaptor Sakura / Monster / *KonoSuba / Nana | KonoSuba | 1384421829
+- 2027-01-02 #2 | NEW | Three of these started in a printed magazine. Which one was first posted online as a web novel? | *Overlord / Slam Dunk / Great Teacher Onizuka / Parasyte | Overlord_(novel_series) | 1382190939
+- 2027-01-02 #3 | NEW | Which of these stories was first published online at Shosetsuka ni Naro, not in a printed magazine? | Death Note / Attack on Titan / Demon Slayer / *Mushoku Tensei | Mushoku_Tensei | 1384614694
+- 2027-01-02 #4 | NEW | Three of these began in print. Which one was serialized online as a web novel from 2013 to 2016? | Jujutsu Kaisen / *That Time I Got Reincarnated as a Slime / Vinland Saga / Dragon Ball | That_Time_I_Got_Reincarnated_as_a_Slime | 1381575839
+- 2027-01-02 #5 | NEW | Three of these first appeared in a printed magazine. Which one first appeared as an online novel in 2012? | Cardcaptor Sakura / *The Rising of the Shield Hero / Slam Dunk / Death Note | The_Rising_of_the_Shield_Hero | 1371170534
+- 2027-01-02 #6 | NEW | Which of these started as a web novel, among three print-first manga? | Monster / Great Teacher Onizuka / Jujutsu Kaisen / *Log Horizon | Log_Horizon | 1379469314
+- 2027-01-02 #7 | NEW | Three of these started in a printed magazine. Which one started as a web novel in 2013? | *Ascendance of a Bookworm / Nana / Attack on Titan / Vinland Saga | Ascendance_of_a_Bookworm | 1383856781
+- 2027-01-02 #8 | NEW | Which of these began on a website rather than in a print magazine? | Parasyte / Demon Slayer / *The Eminence in Shadow / Dragon Ball | The_Eminence_in_Shadow | 1380156387
+- 2027-01-03 #1 | NEW | Masashi Kishimoto's one-shot Karakuri was published by Shueisha in 1995. | True | Naruto | 1384634084
+- 2027-01-03 #2 | NEW | The fictional monster King Kong inspired the mythological beasts in Naruto. | False | Naruto | 1384634084
+- 2027-01-03 #3 | NEW | Boruto: Naruto Next Generations was illustrated by Masashi Kishimoto himself. | False | Naruto | 1384634084
+- 2027-01-03 #4 | NEW | The design of Konoha Village drew on the scenery of Kishimoto's hometown in Okayama Prefecture. | True | Naruto | 1384634084
+- 2027-01-03 #5 | NEW | Toshio Masuda produced the soundtracks of Naruto: Shippuden. | False | Naruto_(TV_series) | 1383210738
+- 2027-01-03 #6 | NEW | The hand signs used in Naruto derive from the Chinese zodiac. | True | Naruto | 1384634084
+- 2027-01-03 #7 | NEW | The title Naruto: Shippuden means Hurricane Chronicles. | True | Naruto | 1384634084
+- 2027-01-03 #8 | NEW | The spin-off comedy manga about Rock Lee by Kenji Taira ran in Weekly Shonen Jump. | False | Naruto | 1384634084
+- 2027-01-04 #1 | NEW | Who voices Frieren in the Japanese version of the anime? | Kana Ichinose / Aoi Yuki / *Atsumi Tanezaki / Reina Ueda | Frieren_(TV_series) | 1384453379
+- 2027-01-04 #2 | NEW | Who voices Himmel, the hero of the old party, in the Japanese version of the anime? | *Nobuhiko Okamoto / Chiaki Kobayashi / Hiroki Tōchi / Yōji Ueda | List_of_Frieren_characters | 1372941223
+- 2027-01-04 #3 | NEW | What is the name of the meteor shower that the hero party watches together once every fifty years? | Golden Rain / Hero Stars / Demon Showers / *Era Meteors | Frieren | 1381436923
+- 2027-01-04 #4 | NEW | The Frieren manga won the New Creator Prize of which award in 2021? | Eisner Award / *Tezuka Osamu Cultural Prize / Seiun Award / Kodansha Manga Award | Frieren | 1381436923
+- 2027-01-04 #5 | NEW | How long did the quest of the hero party last before they defeated the Demon King? | Five years / Twenty years / *Ten years / Fifty years | Frieren | 1381436923
+- 2027-01-04 #6 | NEW | Which category did the Frieren anime win at the 9th Crunchyroll Anime Awards? | Anime of the Year / *Best Drama / Best New Series / Best Animation | Frieren_(TV_series) | 1384453379
+- 2027-01-04 #7 | NEW | Which company announced in August 2025 that it had licensed the prequel novel Frieren: Beyond Journey's End -Prelude- for English release? | Seven Seas Entertainment / Kodansha USA / Viz Media / *Yen Press | Frieren | 1381436923
+- 2027-01-04 #8 | NEW | Who voices Frieren in the English dub of the anime? | *Mallorie Rodak / Jill Harris / Brittney Karbowski / Clifford Chapin | Frieren_(TV_series) | 1384453379
+- 2027-01-05 #1 | NEW | The first Dragon Ball anime series adapted the first 194 chapters of the manga. | True | Dragon_Ball | 1384608321
+- 2027-01-05 #2 | NEW | The spin-off manga Dragon Ball: That Time I Got Reincarnated as Yamcha was written and illustrated by Akira Toriyama. | False | Dragon_Ball | 1384608321
+- 2027-01-05 #3 | NEW | Dragon Ball Super was the first all-new Dragon Ball television series in 8 years. | False | Dragon_Ball | 1384608321
+- 2027-01-05 #4 | NEW | The attraction Dragon Ball Z: The Real 4D debuted at Universal Studios Japan in the summer of 2016 with a battle between Goku and Frieza. | True | Dragon_Ball | 1384608321
+- 2027-01-05 #5 | NEW | Dragon Ball Daima had its world premiere at Tokyo Big Sight on 6 October 2024. | True | Dragon_Ball_Daima | 1382291508
+- 2027-01-05 #6 | NEW | The live-action film Dragonball Evolution was produced by Warner Bros. | False | Dragon_Ball | 1384608321
+- 2027-01-05 #7 | NEW | In the manga, Toriyama had Goku lose the first two Tenkaichi Budokai tournaments. | True | Dragon_Ball | 1384608321
+- 2027-01-05 #8 | NEW | Toriyama's short series Neko Majin, a self-parody of Dragon Ball, ran from 1989 to 1995. | False | Dragon_Ball | 1384608321
+- 2027-01-06 #1 | NEW | Who provides the spoken male vocals in the introduction of the opening theme Tank!? | Masato Honda / Yuho Iwasato / *Tim Jensen / Mai Yamane | Music_of_Cowboy_Bebop | 1332452396
+- 2027-01-06 #2 | NEW | Who wrote the lyrics of The Real Folk Blues, the first ending theme? | *Yuho Iwasato / Yoko Kanno / Keiko Nobumoto / Shinichirō Watanabe | Music_of_Cowboy_Bebop | 1332452396
+- 2027-01-06 #3 | NEW | Which album is the second soundtrack album of the series, mixing bluegrass, heavy metal, lounge and swing? | Cowboy Bebop Vitaminless / *Cowboy Bebop No Disc / Cowboy Bebop Blue / Cowboy Bebop | Music_of_Cowboy_Bebop | 1332452396
+- 2027-01-06 #4 | NEW | The track Bad Dog No Biscuits opens with a cover of which Tom Waits composition? | Jockey Full of Bourbon / Downtown Train / Clap Hands / *Midtown | Music_of_Cowboy_Bebop | 1332452396
+- 2027-01-06 #5 | NEW | Which company stepped in to sponsor the series after Bandai's toy division pulled out? | Banpresto / Bandai Entertainment / *Bandai Visual / Bandai Namco Filmworks | Cowboy_Bebop | 1382858966
+- 2027-01-06 #6 | NEW | Who designed the characters of the Cowboy Bebop anime? | *Toshihiro Kawamoto / Kimitoshi Yamane / Keiko Nobumoto / Masahiko Minami | Cowboy_Bebop | 1382858966
+- 2027-01-06 #7 | NEW | In a 2004 Newtype USA reader poll of the top 25 anime of all time, Cowboy Bebop ranked second behind which series? | Akira / Ghost in the Shell / Fullmetal Alchemist / *Neon Genesis Evangelion | Cowboy_Bebop | 1382858966
+- 2027-01-06 #8 | NEW | Both Cowboy Bebop manga adaptations were serialized in which Kadokawa magazine? | Monthly Shonen Ace / *Monthly Asuka Fantasy DX / Dengeki Daioh / Newtype | Cowboy_Bebop | 1382858966
+- 2027-01-07 #1 | NEW | Which manga was written by Kaiu Shirai and illustrated by Posuka Demizu? | Eyeshield 21 / *The Promised Neverland / Cardcaptor Sakura / Fruits Basket | The_Promised_Neverland | 1380160574
+- 2027-01-07 #2 | NEW | Which light novel series was written by Isuna Hasekura and illustrated by Jū Ayakura? | Date A Live / Monogatari / Overlord / *Spice and Wolf | Spice_and_Wolf | 1380971460
+- 2027-01-07 #3 | NEW | Which light novel series did Kōshi Tachibana write, with Tsunako as the illustrator? | *Date A Live / Spice and Wolf / Re:Zero / Overlord | Date_A_Live | 1382208461
+- 2027-01-07 #4 | NEW | Which light novel series has Nisio Isin as its author and Vofan as its illustrator? | Date A Live / Spice and Wolf / *Monogatari / Re:Zero | Monogatari_(series) | 1384460348
+- 2027-01-07 #5 | NEW | Who illustrates the Re:Zero light novels written by Tappei Nagatsuki? | Mikio Ikemoto / Tsukasa Abe / Cain Kuga / *Shinichirou Otsuka | Re:Zero | 1383900035
+- 2027-01-07 #6 | NEW | Which manga was created by the group Clamp? | *Cardcaptor Sakura / The Promised Neverland / Eyeshield 21 / Fruits Basket | Cardcaptor_Sakura | 1384648739
+- 2027-01-07 #7 | NEW | Which manga was written by Riichiro Inagaki and illustrated by Yusuke Murata? | Cardcaptor Sakura / *Eyeshield 21 / The Promised Neverland / Slam Dunk | Eyeshield_21 | 1353437784
+- 2027-01-07 #8 | NEW | Which light novel series did Kugane Maruyama write, with So-bin as the illustrator? | Monogatari / Spice and Wolf / *Overlord / Date A Live | Overlord_(novel_series) | 1382190939
+- 2027-01-08 #1 | FIX | Which band performed Guren, the 15th opening of Naruto: Shippuden? | Kana-Boon / *DOES / Sukima Switch / Nico Touches the Walls | Does_(band) | 1347071489
+- 2027-01-08 #2 | FIX | Which band performed Silhouette, the 16th opening of Naruto: Shippuden? | *Kana-Boon / DOES / Nico Touches the Walls / Sukima Switch | Silhouette_(Kana-Boon_song) | 1379275078
+- 2027-01-08 #3 | NEW | Which band performed Seishun Kyosokyoku, the fifth opening of Naruto? | FLOW / Snowkel / *Sambomaster / HOUND DOG | Sambomaster | 1331817481
+- 2027-01-08 #4 | NEW | Which singer performed Closer, the fourth opening of Naruto: Shippuden? | Ikimonogakari / Akeboshi / Orange Range / *Joe Inoue | Joe_Inoue | 1355737024
+- 2027-01-08 #5 | NEW | Which band performed Distance, the second opening of Naruto: Shippuden? | Aqua Timez / *Long Shot Party / Rythem / Home Made Kazoku | Long_Shot_Party | 1322432688
+- 2027-01-08 #6 | NEW | Which act performed LINE, the 18th opening of Naruto: Shippuden? | TiA / Rythem / Kishidan / *Sukima Switch | Sukima_Switch | 1377073743
+- 2027-01-08 #7 | NEW | Which band performed Kanashimi wo Yasashisa ni, the third opening of Naruto? | *Little by Little / Orange Range / Seamo / Halcali | Little_by_Little_(band) | 1373076632
+- 2027-01-08 #8 | NEW | Which band performed No Boy No Cry, an opening song of Naruto? | DISH// / Aqua Timez / *Stance Punks / Home Made Kazoku | Stance_Punks | 1350831151
+- 2027-01-09 #1 | NEW | Before the television airing, the English dub of the Dandadan anime premiered at which event on August 24, 2024? | Anime Expo / Otakon / *Anime NYC / Crunchyroll Expo | Dandadan_(TV_series) | 1384677610
+- 2027-01-09 #2 | NEW | Who voices Momo Ayase in the English dub of the Dandadan anime? | Kari Wahlgren / Lisa Reimold / Barbara Goodson / *Abby Trott | Dandadan_(TV_series) | 1384677610
+- 2027-01-09 #3 | NEW | Yukinobu Tatsu worked as an assistant to Yuji Kaku on which manga before creating Dandadan? | *Hell's Paradise: Jigokuraku / Jujutsu Kaisen / Sakamoto Days / Spy x Family | Dandadan | 1383634740
+- 2027-01-09 #4 | NEW | Tatsu's habit of adding meal scenes is inspired partly by the films of which director? | Isao Takahata / Makoto Shinkai / *Hayao Miyazaki / Mamoru Hosoda | Dandadan | 1383634740
+- 2027-01-09 #5 | NEW | Who co-directed the second season of the Dandadan anime with Fūga Yamashiro? | *Abel Góngora / Masaaki Yuasa / Mamoru Hosoda / Naoko Yamada | Dandadan_(TV_series) | 1384677610
+- 2027-01-09 #6 | NEW | Who designed the characters of the Dandadan anime? | Kensuke Ushio / Hiroshi Seko / *Naoyuki Onda / Fūga Yamashiro | Dandadan_(TV_series) | 1384677610
+- 2027-01-09 #7 | NEW | Which of these categories did Dandadan Season 2 win at the 10th Crunchyroll Anime Awards? | Anime of the Year / *Best Comedy / Best Romance / Best Action | Dandadan_(TV_series) | 1384677610
+- 2027-01-09 #8 | NEW | In 2022 the Dandadan manga ranked fourth on which Takarajimasha guide to the best manga for male readers? | Manga Taishō / *Kono Manga ga Sugoi! / Next Manga Award / Shogakukan Manga Award | Dandadan | 1383634740
+- 2027-01-10 #1 | NEW | Iñaki Godoy plays Luffy in the Netflix live-action One Piece series. | True | One_Piece_(2023_TV_series) | 1382222953
+- 2027-01-10 #2 | NEW | Taz Skylar plays Zoro in the Netflix live-action One Piece series. | False | One_Piece_(2023_TV_series) | 1382222953
+- 2027-01-10 #3 | NEW | Mayumi Tanaka voices Luffy in the Japanese version of the One Piece anime. | True | One_Piece_(1999_TV_series) | 1384511323
+- 2027-01-10 #4 | NEW | The first season of the Netflix One Piece series has eight episodes. | True | One_Piece_(2023_TV_series) | 1382222953
+- 2027-01-10 #5 | NEW | The Netflix One Piece series was filmed mainly in Japan. | False | One_Piece_(2023_TV_series) | 1382222953
+- 2027-01-10 #6 | NEW | Eiichiro Oda is a creative consultant on the Netflix One Piece series. | True | One_Piece_(2023_TV_series) | 1382222953
+- 2027-01-10 #7 | NEW | The second season of the Netflix One Piece series is titled The Battle of Alabasta. | False | One_Piece_(2023_TV_series) | 1382222953
+- 2027-01-10 #8 | NEW | Kappei Yamaguchi voices Sanji in the Japanese version of the One Piece anime. | False | One_Piece_(1999_TV_series) | 1384511323
+- 2027-01-11 #1 | NEW | Who composed most of the original music for the Evangelion TV series? | Yoko Kanno / Joe Hisaishi / *Shirō Sagisu / Kenji Kawai | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #2 | NEW | In which magazine did the first installment of Yoshiyuki Sadamoto's Evangelion manga appear in December 1994? | *Shōnen Ace / Weekly Shōnen Jump / Newtype / Animage | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #3 | NEW | Which Australian broadcaster aired Evangelion in 1999? | ABC / *Special Broadcasting Service / Nine Network / Network Ten | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #4 | NEW | Which company distributed Evangelion in North America and Europe, releasing English VHS tapes from August 1996? | Funimation / Central Park Media / Media Blasters / *ADV Films | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #5 | NEW | Hideaki Anno worked as an animator on the God Warrior scene of which Miyazaki film, which he named as an inspiration for Evangelion? | Castle in the Sky / My Neighbor Totoro / *Nausicaä of the Valley of the Wind / Princess Mononoke | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #6 | NEW | Who directed the 3D-rendered short film Evangelion: Another Impact? | *Shinji Aramaki / Kazuya Tsurumaki / Masayuki / Yoshiyuki Sadamoto | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #7 | NEW | Which North American distributor announced in October 2020 that it had licensed the Evangelion TV series for home video, theatrical and digital release? | Funimation / Sentai Filmworks / Anime Limited / *GKIDS | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-11 #8 | NEW | How many episodes had the staff completed by the time Evangelion premiered on TV Tokyo? | Six / *Twelve / Eighteen / Twenty-four | Neon_Genesis_Evangelion | 1384585127
+- 2027-01-12 #1 | NEW | Three of these manga ended in 2022. Which one ended in a different year? | *Kuroko's Basketball / Tokyo Revengers / Dr. Stone / Fire Force | Kuroko%27s_Basketball | 1379227908
+- 2027-01-12 #2 | NEW | Three of these anime have 12 episodes. Which one has 13? | Ao Haru Ride / No Game No Life / Death Parade / *Angel Beats! | Angel_Beats! | 1384681993
+- 2027-01-12 #3 | NEW | Three of these anime began airing in 2014. Which one began in 2013? | Noragami / *Kill la Kill / Akame ga Kill! / Your Lie in April | Kill_la_Kill | 1382024285
+- 2027-01-12 #4 | NEW | Three of these anime finished airing in 2007. Which one finished in 2009? | Code Geass: Lelouch of the Rebellion / Gurren Lagann / *Toradora! / Nana | Toradora! | 1373729757
+- 2027-01-12 #5 | NEW | Three of these manga fill fewer than 20 volumes. Which one fills more? | *Kuroko's Basketball / Trigun / Ao Haru Ride / Ouran High School Host Club | Kuroko%27s_Basketball | 1379227908
+- 2027-01-12 #6 | NEW | Three of these manga began serialization in the 1990s. Which one began in 2000? | Rurouni Kenshin / Great Teacher Onizuka / *Nana / Trigun | Nana_(manga) | 1384301307
+- 2027-01-12 #7 | NEW | Three of these anime began airing before 2000. Which one began in 2004? | Berserk / Cardcaptor Sakura / Rurouni Kenshin / *Monster | Monster_(manga) | 1378133015
+- 2027-01-12 #8 | NEW | Three of these anime began airing in 2006. Which one began in 2016? | Code Geass / *Erased / Nana / Ouran High School Host Club | Erased_(manga) | 1378514957
+- 2027-01-13 #1 | NEW | Yuki Kaji voices Eren Yeager in the original Japanese version of the Attack on Titan anime. | True | Attack_on_Titan_(TV_series) | 1384442696
+- 2027-01-13 #2 | NEW | The Attack on Titan live-action miniseries Counter Rockets streamed on Netflix. | False | Attack_on_Titan | 1384443094
+- 2027-01-13 #3 | NEW | Marina Inoue voices Mikasa Ackerman in the original Japanese version of the Attack on Titan anime. | False | Attack_on_Titan_(TV_series) | 1384442696
+- 2027-01-13 #4 | NEW | Attack on Titan: Junior High is a chibi parody spin-off in which the main characters attend junior high school. | True | Attack_on_Titan | 1384443094
+- 2027-01-13 #5 | NEW | The third and fourth seasons of the Attack on Titan anime first aired on NHK General TV. | True | Attack_on_Titan_(TV_series) | 1384442696
+- 2027-01-13 #6 | NEW | Viz Media published the Attack on Titan manga in English in North America. | False | Attack_on_Titan | 1384443094
+- 2027-01-13 #7 | NEW | In 2015 Universal Studios Japan hosted Attack on Titan attractions, including a life-size Eren Titan. | True | Attack_on_Titan | 1384443094
+- 2027-01-13 #8 | NEW | The compilation film Attack on Titan: The Last Attack was released on November 8, 2022. | False | Attack_on_Titan_(TV_series) | 1384442696
+- 2027-01-14 #1 | OK | Which duo sang the last three endings of the 2011 Hunter x Hunter anime? | *Yuzu / Kinki Kids / Kiroro / Ikimono-gakari | Hunter_%C3%97_Hunter_(2011_TV_series) | 1384638666
+- 2027-01-14 #2 | NEW | Who directed the 2011 Hunter x Hunter anime made by Madhouse? | Kazuhiro Furuhashi / Noriyuki Abe / *Hiroshi Kōjina / Satoshi Saga | Hunter_%C3%97_Hunter_(2011_TV_series) | 1384638666
+- 2027-01-14 #3 | NEW | Which studio produced the first Hunter x Hunter TV anime, broadcast on Fuji TV from 1999? | Madhouse / *Nippon Animation / Toei Animation / Bones | Hunter_%C3%97_Hunter_(1999_TV_series) | 1384637549
+- 2027-01-14 #4 | NEW | Who composed the background music of the 2011 Hunter x Hunter anime? | Toshihiko Sahashi / Yuki Kajiura / Joe Hisaishi / *Yoshihisa Hirano | Hunter_%C3%97_Hunter_(2011_TV_series) | 1384638666
+- 2027-01-14 #5 | NEW | Which company released the film Hunter x Hunter: Phantom Rouge in Japanese cinemas in January 2013? | *Toho / Toei / Shochiku / Kadokawa | Hunter_%C3%97_Hunter | 1381097044
+- 2027-01-14 #6 | NEW | Together, how many episodes did the three OVA series that followed the 1999 anime total? | 22 / 38 / *30 / 46 | Hunter_%C3%97_Hunter_(1999_TV_series) | 1384637549
+- 2027-01-14 #7 | NEW | At which event did Viz Media announce its license for the 2011 anime in October 2015? | Anime Expo / San Diego Comic-Con / Anime Boston / *New York Comic Con | Hunter_%C3%97_Hunter_(2011_TV_series) | 1384638666
+- 2027-01-14 #8 | NEW | Who directed the short film adaptation of Hunter x Hunter shown at the 1998 Jump Super Anime Tour? | Hiroshi Kōjina / *Noriyuki Abe / Makoto Sato / Yukihiro Matsushita | Hunter_%C3%97_Hunter | 1381097044
+- 2027-01-15 #1 | NEW | Who illustrated the Solo Leveling webtoon? | Chugong / *Jang Sung-rak (Dubu) / Daul / Tomoko Sudo | Solo_Leveling | 1383622083
+- 2027-01-15 #2 | NEW | Who voices Sung Jin-woo in the Japanese version of the Solo Leveling anime? | Yūki Kaji / Natsuki Hanae / *Taito Ban / Yūichi Nakamura | Solo_Leveling | 1383622083
+- 2027-01-15 #3 | NEW | Who voices Sung Jin-woo in the English dub of the Solo Leveling anime? | *Aleks Le / Zeno Robinson / Kellen Goff / Ray Chase | Solo_Leveling | 1383622083
+- 2027-01-15 #4 | NEW | Who designed the characters of the Solo Leveling anime? | Haruhiko Mikimoto / Kazuto Nakazawa / Akira Yasuda / *Tomoko Sudo | Solo_Leveling | 1383622083
+- 2027-01-15 #5 | NEW | Which Japanese digital comic service published the Solo Leveling webtoon in Japan? | Manga Plus / *Piccoma / ComicWalker / Shonen Jump+ | Solo_Leveling | 1383622083
+- 2027-01-15 #6 | NEW | Which company developed the action role-playing game Solo Leveling: Arise, released in May 2024? | Nexon / NCSoft / *Netmarble / Krafton | Solo_Leveling | 1383622083
+- 2027-01-15 #7 | NEW | Who directs the Solo Leveling anime film Beyond the System? | *Tao Tajima / Shunsuke Nakashige / Yūya Horiuchi / Kōji Furukuwa | Solo_Leveling | 1383622083
+- 2027-01-15 #8 | NEW | Which actor was announced in July 2025 to star as Sung Jin-woo in Netflix's live-action Solo Leveling series? | Lee Jong-suk / Park Seo-joon / Song Joong-ki / *Byeon Woo-seok | Solo_Leveling | 1383622083
+- 2027-01-16 #1 | NEW | The Hyper Projection Engeki stage plays of Haikyu!!, which began in 2015, star Kenta Suga as Hinata. | True | Haikyu!! | 1381740115
+- 2027-01-16 #2 | NEW | Haikyu!! was Haruichi Furudate's first full series in Weekly Shonen Jump. | False | Haruichi_Furudate | 1372759663
+- 2027-01-16 #3 | NEW | The Nintendo 3DS game Haikyu!! Tsunage! Itadaki no Keshiki was released on the PlayStation Vita. | False | Haikyu!! | 1381740115
+- 2027-01-16 #4 | NEW | Haruichi Furudate was a member of a volleyball club during middle school and high school. | True | Haruichi_Furudate | 1372759663
+- 2027-01-16 #5 | NEW | Haikyu!! won Sports Series of the Decade in Funimation's Decade of Anime poll. | True | Haikyu!! | 1381740115
+- 2027-01-16 #6 | NEW | The 16-page special one-shot chapter of 2024 shows a match between Karasuno and Aoba Johsai. | False | Haikyu!! | 1381740115
+- 2027-01-16 #7 | NEW | Viz Media announced its license of the Haikyu!! manga at New York Comic Con. | True | Haikyu!! | 1381740115
+- 2027-01-16 #8 | NEW | Hinagarasu, the mascot character of the series, is a parody of Tobio Kageyama. | False | Haikyu!! | 1381740115
+- 2027-01-17 #1 | NEW | Which series has Seishun Satsubatsu-ron as its first opening theme? | Gintama / *Assassination Classroom / Haikyu!! / Beelzebub | Assassination_Classroom | 1383851608
+- 2027-01-17 #2 | NEW | Which series opens with Sorairo Days, sung by Shoko Nakagawa? | Code Geass / Kill la Kill / Eureka Seven / *Gurren Lagann | Gurren_Lagann | 1382761580
+- 2027-01-17 #3 | NEW | Which series opens with Goya no Machiawase, by Hello Sleepwalkers? | *Noragami / Blue Exorcist / Bungo Stray Dogs / Durarara!! | Noragami | 1377344372
+- 2027-01-17 #4 | NEW | Which series opens its first episodes with Skyreach, sung by Sora Amamiya? | Tokyo Ghoul / Psycho-Pass / *Akame ga Kill! / Parasyte | Akame_ga_Kill! | 1379732409
+- 2027-01-17 #5 | NEW | Which series has Hikaru Nara, by Goose House, as its first opening song? | Clannad / Anohana / Violet Evergarden / *Your Lie in April | Your_Lie_in_April | 1383941761
+- 2027-01-17 #6 | NEW | Which series opens with Re:Re:, performed by Asian Kung-Fu Generation? | *Erased / Steins;Gate / Death Note / Mirai Nikki | Erased_(manga) | 1378514957
+- 2027-01-17 #7 | NEW | Which series has Fantastic Dreamer, by Machico, as its first season opening? | Overlord / Re:Zero / *KonoSuba / Mushoku Tensei | KonoSuba | 1384421829
+- 2027-01-17 #8 | NEW | Which series has This Game, by Konomi Suzuki, as its opening theme? | Sword Art Online / *No Game No Life / Date A Live / Sonic Boom | No_Game_No_Life | 1383872134

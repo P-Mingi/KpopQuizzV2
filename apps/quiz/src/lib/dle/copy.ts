@@ -161,7 +161,7 @@ export const IDOL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, Dl
     birth: { label: 'Birth', help: 'Year, close within 2 years', near: '2 years apart at most', source: 'Wikidata' },
     debut: { label: 'Debut', help: 'Debut year, close within 1 year', near: '1 year apart at most', source: 'MusicBrainz, Wikipedia' },
     generation: { label: 'Generation', help: 'From the group’s debut year', near: 'never, arrow only', source: 'published rule on the debut year' },
-    role: { label: 'Role', help: 'Official leader or maknae', near: 'official leader or maknae', source: 'official site, Wikipedia' },
+    role: { label: 'Role', help: 'Official leader or maknae', source: 'official site, Wikipedia' },
   },
   fr: {
     gender: { label: 'Genre', help: 'Féminin ou masculin' },
@@ -171,7 +171,7 @@ export const IDOL_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, Dl
     birth: { label: 'Naissance', help: 'Année, proche à 2 ans', near: '2 ans d’écart au plus', source: 'Wikidata' },
     debut: { label: 'Début', help: 'Année de début, proche à 1 an', near: '1 an d’écart au plus', source: 'MusicBrainz, Wikipedia' },
     generation: { label: 'Génération', help: 'Selon l’année de début du groupe', near: 'jamais, flèche seulement', source: 'règle publiée sur l’année de début' },
-    role: { label: 'Rôle', help: 'Leader ou maknae officiels', near: 'leader ou maknae officiels', source: 'site officiel, Wikipedia' },
+    role: { label: 'Rôle', help: 'Leader ou maknae officiels', source: 'site officiel, Wikipedia' },
   },
 };
 

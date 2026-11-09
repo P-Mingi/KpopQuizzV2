@@ -9,6 +9,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 const fake = vi.hoisted(() => ({
   user: null as { id: string } | null,
   rows: {} as Record<string, Array<Record<string, unknown>>>,
+  rpc: [] as Array<Record<string, unknown>>,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -30,6 +31,7 @@ function builder(table: string): unknown {
 const client = () => ({
   auth: { getUser: async () => ({ data: { user: fake.user }, error: null }) },
   from: (t: string) => builder(t),
+  rpc: async () => ({ data: fake.rpc, error: null }),
 });
 vi.mock('@/lib/supabase/server', () => ({
   createServerClient: async () => client(),
@@ -43,6 +45,7 @@ const M = (user_id: string, site_id: string, extra: Record<string, unknown> = {}
 
 beforeEach(() => {
   fake.user = null;
+  fake.rpc = [];
   fake.rows = {
     profiles: [
       { id: 'u-1', username: 'mina', banned_at: null },
@@ -68,8 +71,15 @@ describe('/passport on the hub', () => {
     const { passport } = await load();
     expect(await outcome(passport.default())).toBe('REDIRECT /');
   });
-  it('signed in: the passport of the home site (/me), through the registry origin', async () => {
+  it('signed in with a stamp: the common passport renders (no redirect to one site)', async () => {
     fake.user = { id: 'u-1' };
+    fake.rpc = [{ site_id: 'kpop', xp: 1200, plays: 3, daily_streak: 1, activated_at: '2026-01-01T00:00:00Z' }, { site_id: 'anime', xp: 300, plays: 2, daily_streak: 0, activated_at: '2026-02-01T00:00:00Z' }];
+    const { passport } = await load();
+    expect(await outcome(passport.default())).toBe('RENDERED');
+  });
+  it('signed in with no stamp: the home site /me, as before', async () => {
+    fake.user = { id: 'u-1' };
+    fake.rpc = [];
     const { passport, registry } = await load();
     expect(await outcome(passport.default())).toBe(`REDIRECT ${registry.REGISTRY.kpop.url}/me`);
     fake.rows.world_memberships = [M('u-1', 'anime')];
@@ -131,7 +141,7 @@ describe('the files stay small redirects', () => {
   const src = (rel: string) => readFileSync(join(__dirname, rel), 'utf8');
   it('the hub passport page copies and imports no kpop page', () => {
     const s = src('(hub)/passport/page.tsx');
-    expect(s.split('\n').length).toBeLessThan(30);
+    expect(s.split('\n').length).toBeLessThan(40);
     expect(s).not.toMatch(/from '@\/app\/\(site\)/);
     expect(s).not.toMatch(/@\/components\/(profile|verse)/);
   });

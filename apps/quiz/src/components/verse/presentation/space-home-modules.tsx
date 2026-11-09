@@ -44,7 +44,7 @@ export async function GameWidgets({ space }: { space: Space }): Promise<React.Re
   const links = [
     surfaces.quiz && { href: `/${group.slug}-quiz`, label: 'Quizzes', target: 'group-quiz' as CrossPromoTarget },
     surfaces.blindtest && { href: `/blindtest/group-${group.slug}`, label: 'Blind test', target: 'blindtest' as CrossPromoTarget },
-    surfaces.nameAll && { href: `/games/name-all/${group.slug}`, label: 'Name them all', target: 'name-all' as CrossPromoTarget },
+    // O1 audit 03 P2-6: no link to the retired Name them all game URLs (410 or 301, lib/seo/legacy-urls.ts).
     surfaces.personality && { href: `/personality/${group.slug}`, label: 'Which member', target: 'games' as CrossPromoTarget },
   ].filter(Boolean) as { href: string; label: string; target: CrossPromoTarget }[];
   const shelf = await getSpaceQuizzes(group.id, 3);

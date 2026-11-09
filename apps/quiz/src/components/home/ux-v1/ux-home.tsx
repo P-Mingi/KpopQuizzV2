@@ -61,10 +61,11 @@ export async function UxHome({ head, afterHeader }: {
           slot keeps its height so the page does not jump when it fills in. */}
       <div className="p1-ticker"><ActivityTicker /></div>
 
-      <HomeHeader />
+      <HomeHeader {...(qotd ? { daily: { slug: qotd.slug, title: qotd.title } } : {})} />
 
       {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment). */}
-      {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
+      {/* Audit 01 P0-2: on the kpopquiz.org build the quiz of the day comes first, Surprise me after it (Play above the fold on a phone). */}
+      {afterHeader ? (IS_KPOP ? <>{qotdRow}{afterHeader}</> : <>{afterHeader}{qotdRow}</>) : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}

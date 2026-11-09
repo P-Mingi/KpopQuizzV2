@@ -56,6 +56,13 @@
 .p1-qline i { font-style: normal; margin: 0 2px 0 6px; opacity: .55; }
 .p1-qline span { white-space: nowrap; }
 .p1-qd-go { flex: 0 0 auto; }
+/* Audit 01 P0-2: the whole card is the link (a stretched link: one anchor, no nested interactive element). */
+.p1-qotd { position: relative; }
+.p1-qd-go::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.p1-qd-go:focus-visible { outline-offset: 3px; }
+.p1-qotd:has(.p1-qd-go:hover) { border-color: var(--ux-pink-ink); }
+/* The phone chip under the sub line: hidden from 761px up. */
+.p1-dchip { display: none; }
 .p1-qd-go .ux-ico { width: 16px; height: 16px; }
 
 /* ---------- continue playing ---------- */
@@ -173,8 +180,18 @@
   .p1-ticker { min-height: 40px; }
   .p1-ticker > div { height: 40px; padding: 0 14px !important; }
   .p1-ticker [aria-live] > span { font-size: 13px !important; }
-  .p1-hhead { margin: 32px auto 28px; }
-  .p1-hhead .p1-hsub { font-size: 15px; }
+  .p1-hhead { margin: 16px auto 16px; }
+  .p1-hhead .p1-hsub { font-size: 15px; margin-top: 8px; }
+  .p1-hcta { margin-top: 12px; }
+  /* Audit 01 P0-2: the hero buttons turn ghost so the daily Play is the one pink button in view. */
+  .p1-hcta .ux-btn-primary { background: transparent; border-color: var(--ux-edge); color: var(--ux-ink); }
+  .p1-dchip {
+    display: flex; align-items: center; gap: 8px; max-width: 360px; margin: 12px auto 0; padding: 6px 6px 6px 14px; min-height: 44px;
+    border: 1px solid var(--ux-qotd-edge); border-radius: 999px; background: var(--ux-qotd-bg); color: var(--ux-ink); text-decoration: none; text-align: left;
+  }
+  .p1-dchip-k { flex: 0 0 auto; font-size: 12px; font-weight: 600; color: var(--ux-pink-ink); }
+  .p1-dchip-t { flex: 1; min-width: 0; font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .p1-dchip-go { flex: 0 0 auto; padding: 8px 16px; border-radius: 999px; background: var(--ux-pink-fill); color: var(--ux-on-accent); font-size: 14px; font-weight: 600; }
   .p1-qotd { flex-direction: column; align-items: stretch; gap: 16px; padding: 20px; }
   .p1-qotd h2 { font-size: 20px; }
   .p1-qd-go { width: 100%; height: 44px; }
@@ -188,3 +205,14 @@
   .p1-pulse, .p1-eqv i { animation: none; }
   .p1-gav { transition: none; }
 }
+
+/* Audit 02 P1-4 (risk 4): the quiz of the day note gets "New quiz in ..." after hydration; on a narrow screen a replay note then wraps to a second line. The row keeps room for both lines when the server rendered a replay. */
+@media (max-width: 560px) {
+  .p1-qtop[data-replay] { min-height: 54px; align-content: flex-start; }
+}
+@media (max-width: 380px) {
+  .p1-qtop[data-replay] { min-height: 74px; }
+}
+
+/* Audit 01 P1-6: the played state of the quiz of the day card. */
+.p1-qdone { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-size: 12px; font-weight: 600; line-height: 1.6; }

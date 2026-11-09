@@ -1,0 +1,14 @@
+Audit 01 P0-4 (apps/quiz/vercel.json is not owned by L1 or K1: ORCH or the owner applies this).
+Add a second schedule for the same route. KEEP the 00:05 entry: it is the idempotent safety net and the slot of the nightly dle maintenance.
+
+--- a/apps/quiz/vercel.json
++++ b/apps/quiz/vercel.json
+@@ cron list @@
+     {
+       "path": "/api/cron/ensure-daily-quiz",
+       "schedule": "5 0 * * *"
+     },
++    {
++      "path": "/api/cron/ensure-daily-quiz",
++      "schedule": "50 23 * * *"
++    },

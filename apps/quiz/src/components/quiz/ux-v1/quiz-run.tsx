@@ -5,9 +5,9 @@ import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'r
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { useShellMode } from '@/components/ux-v1/use-shell-mode';
 import { refreshUxMe, useUxMe } from '@/components/ux-v1/use-ux-me';
-import { analytics } from '@/lib/analytics';
+import { analytics, quizRunMode, readFrom } from '@/lib/analytics';
 import { getAnonId } from '@/lib/anon-id';
-import { completeDaily } from '@/lib/daily-played';
+import { completeDaily, markDailyScore } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { haptic } from '@/lib/haptics';
 import { SITE } from '@/lib/site/registry';
@@ -24,6 +24,7 @@ import {
 import { P4RunContext } from './run-context';
 import { loadRunUi, runUiNow } from './run-ui';
 
+import type { Mode } from '@/lib/analytics';
 import type { ChallengeOutcome, ChallengePublic } from '@/lib/ux-v1/p4/challenge';
 import type { P4CommentResume } from '@/lib/ux-v1/p4/comments';
 import type { QuestionData, RunState } from '@/lib/ux-v1/p4/engine';
@@ -100,6 +101,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   const savingRef = useRef(false);
   const runRelaxed = useRef(false);
   const runChallenge = useRef<LoadedChallenge | null>(null);
+  // the analytics mode of the run on screen (one game_start and one game_complete per run)
+  const runMode = useRef<Mode>('classic');
   // Restoring a finished run after sign-in: the reducer has no "load result" action on
   // purpose (the result phase only follows a real run), so the restored result lives
   // beside it until the next run starts.
@@ -155,6 +158,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         setRelaxedState(saved.relaxed);
         questionStart.current = Date.now();
         dispatch({ type: 'RESUME', run: saved.run, now: Date.now() });
+        runMode.current = 'resume';
+        analytics.gameStart({ game: 'quiz', mode: 'resume', kind: saved.run.quizType });
         toast(`Back at question ${saved.run.questionIndex + 1}`);
       }
     }
@@ -265,6 +270,8 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
       setRank(null);
       clearContinueRun(quiz.id);
       dispatch({ type: 'START', questions: ch ? ch.questions : data.questions, settings, quizType: ((data.quiz_type as QuizType) ?? quiz.quizType) });
+      runMode.current = quizRunMode({ challenge: Boolean(ch), daily: new URLSearchParams(window.location.search).get('daily') === 'quiz', relaxed: useRelaxed });
+      analytics.gameStart({ game: 'quiz', mode: runMode.current, kind: (data.quiz_type as QuizType) ?? quiz.quizType, from: readFrom() });
       window.scrollTo(0, 0);
     } catch {
       toast("Couldn't load the questions. Try again.");
@@ -340,7 +347,7 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     dispatch({ type: 'SHOW_RESULT', percentile, passRate, timeTaken, xpEarned, leveledUp, newLevel, newLevelName });
     setSaving(false);
     savingRef.current = false;
-    analytics.gameComplete('quiz', state.score, max);
+    analytics.gameComplete({ game: 'quiz', mode: runMode.current, kind: state.quizType, score: state.score, max, from: readFrom() });
     window.scrollTo(0, 0);
     clearContinueRun(quiz.id);
     announce(`Quiz finished. ${state.score} out of ${max}.${percentile !== null ? ` You beat ${percentile} percent of players.` : ''}${outcome ? ` ${outcome.line}` : ''}`);
@@ -355,9 +362,11 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
     });
 
     // quiz-player side effects kept: the daily quiz (?daily=quiz) streak + guest streak
+    let dailyPending: Promise<unknown> | null = null;
     if (new URLSearchParams(window.location.search).get('daily') === 'quiz') {
       recordGuestDaily();
-      void completeDaily('quiz');
+      markDailyScore(state.score, max);
+      dailyPending = completeDaily('quiz', { signedIn });
     }
     // relaxed run: mark the play (v11-p4-relaxed-runs.sql) so the hall of fame leaves it out
     if (relaxedRun && playId) {
@@ -375,8 +384,10 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
         body: JSON.stringify({ sig: ch.sig, score: state.score, perQuestion, timeMs: now - state.startTime }),
       }).catch(() => {});
     }
+    // Audit 01 P1-5: the streak is saved on the server before the profile is read again, or "streak day N saved" could be missed.
+    if (dailyPending) await dailyPending;
     refreshUxMe();
-  }, [state, quiz.id, toast, announce]);
+  }, [state, quiz.id, toast, announce, signedIn]);
 
   const next = useCallback(() => {
     if (state.phase !== 'answered') return;
@@ -442,11 +453,13 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
 
   // ---- share sheet (quiz page, your best, the result)
   const openShare = useCallback((kind: 'quiz' | 'best', opts?: { score: number; total: number }) => {
+    analytics.shareClick(kind === 'quiz' ? 'quiz_page' : 'result', 'quiz');
     setChallengeUrl(null);
     setShare(kind === 'best' && opts ? { kind: 'best', score: opts.score, total: opts.total } : { kind: 'quiz' });
   }, []);
   const openResultShare = useCallback(() => {
     playShare();
+    analytics.shareClick('result', 'quiz');
     setChallengeUrl(null);
     setShare({ kind: 'result' });
   }, []);

@@ -17,8 +17,8 @@ export interface ThumbCandidate { src: string; position: string }
  * close to the viewport, and the tile showed its grey ground until then). A picture
  * that fails to load is dropped for the next candidate (quiz picture, then group
  * photo, then group logo), and with no candidate left the icon alone remains. The
- * picture is a fixed 56 x 56 image (1x and 2x candidates), loaded eagerly: six small
- * files.
+ * picture is a fixed 56 x 56 image (1x and 2x candidates), lazy (audit 02 P2-2): the New quizzes list is
+ * below the first screen, and the icon under the picture keeps the tile from ever showing blank.
  */
 export function NewThumb({ candidates, icon }: { candidates: ThumbCandidate[]; icon: UxIconName }): React.ReactElement {
   const [index, setIndex] = useState(0);
@@ -33,7 +33,7 @@ export function NewThumb({ candidates, icon }: { candidates: ThumbCandidate[]; i
           alt=""
           width={56}
           height={56}
-          loading="eager"
+          loading="lazy"
           className="p1-nimg"
           style={{ objectPosition: pick.position }}
           onError={() => setIndex((i) => i + 1)}

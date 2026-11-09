@@ -31,6 +31,7 @@ export const TARGET_CLUSTERS: readonly TargetCluster[] = [
   { cluster: 'guess the kpop song', url: '/guess-the-kpop-song', intent: 'guess K-pop songs from clips', label: 'Guess the K-pop song', status: 'live' },
   { cluster: 'which {group} member are you', url: '/which-{group}-member-are-you', intent: 'take a member personality quiz', label: 'Which member are you', status: 'live' },
   { cluster: 'name them all', url: '/name-them-all', intent: 'name every member against the clock', label: 'Name them all', status: 'planned' },
+  { cluster: 'browse kpop quizzes', url: '/quizzes', intent: 'browse and filter every K-pop quiz', label: 'Browse K-pop quizzes', status: 'live' },
   { cluster: 'kpop groups a-z', url: '/groups', intent: 'browse K-pop groups', label: 'K-pop groups A to Z', status: 'live' },
   { cluster: '{group} quiz', url: '/{group}-quiz', intent: 'play quizzes about that group, with its games and facts', label: 'Group quiz hubs', status: 'live' },
   { cluster: 'kuis bts', url: '/id/kuis-bts', intent: 'play BTS quizzes in Indonesian', label: 'Kuis BTS', status: 'planned' },

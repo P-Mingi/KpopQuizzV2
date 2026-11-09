@@ -1,0 +1,13 @@
+Audit 01 P2-10 (apps/quiz/vercel.json is not owned by L1 or K1: ORCH or the owner applies this, ONLY when the owner turns the reminders on).
+The route answers { skipped: 'flag_off' } while DAILY_REMINDERS is not 1, and { skipped: 'no_table' } until L27 is applied, so adding the schedule early is harmless.
+The sender allows 100 mails an hour (Resend): the route sends 90 at most per run.
+
+--- a/apps/quiz/vercel.json
++++ b/apps/quiz/vercel.json
+@@ cron list @@
++    {
++      "path": "/api/cron/daily-reminders",
++      "schedule": "0 * * * *"
++    },
+
+Env for the reminders (owner sets with the flag): DAILY_REMINDERS=1 and REMINDER_SECRET (any long random string; the one-click unsubscribe links are an HMAC under it), RESEND_API_KEY (existing).

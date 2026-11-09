@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { isUxV12 } from '@/lib/ux-v12';
 import { checkText } from '@/lib/verse/moderation';
 
@@ -35,6 +36,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'not_authenticated' }, { status: 401 });
+  const teamNo = await teamRefusal(user.id);
+  if (teamNo) return teamNo;
 
   // The RPC does the auth.uid() check, the one-per-day insert, the split, and
   // the activity event. It is granted to authenticated only.

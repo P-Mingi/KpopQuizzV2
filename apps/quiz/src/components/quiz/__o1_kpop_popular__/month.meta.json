@@ -1,4 +1,8 @@
 {
+ "robots": {
+  "index": false,
+  "follow": true
+ },
  "title": "Most Played K-pop Quizzes This Month",
  "description": "The most played K-pop quizzes of the last 30 days, ranked by real plays. A fresh leaderboard of what fans are into. Free to play.",
  "openGraph": {

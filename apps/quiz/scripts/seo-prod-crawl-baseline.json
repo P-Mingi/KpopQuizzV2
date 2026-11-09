@@ -121,18 +121,18 @@
         "description|/u/kpopquizz|under 120",
         "description|/u/light_a_matz|under 120",
         "description|/u/stanloona|under 120",
-        "description|/u/exoplanet99|under 120",
-        "description|/u/kpophistory|under 120",
-        "description|/u/skzrealm|under 120",
-        "description|/u/njeansstan|under 120",
-        "description|/u/joonified|under 120",
+        "description|/u/kpq_exo_shinee|under 120",
+        "description|/u/kpq_history|under 120",
+        "description|/u/kpq_straykids_ateez|under 120",
+        "description|/u/kpq_4thgen|under 120",
+        "description|/u/kpq_bts|under 120",
         "description|/u/mina|under 120",
         "description|/u/mingi|under 120",
-        "description|/u/pinkvelvet|under 120",
+        "description|/u/kpq_pink_rv|under 120",
         "description|/u/mapple|under 120",
-        "description|/u/soojinnie|under 120",
-        "description|/u/twiceland|under 120",
-        "description|/u/caratland|under 120",
+        "description|/u/kpq_girlgroups|under 120",
+        "description|/u/kpq_twice_itzy|under 120",
+        "description|/u/kpq_seventeen|under 120",
         "description|/u/roseeeyh|under 120",
         "description|/u/kpopfan_official|under 120",
         "description|/u/fearnot|under 120",
@@ -187,24 +187,7 @@
       ]
     }
   ],
-  "noindex": [
-    {
-      "reason": "owner decision pending: noindex on purpose? If yes, add the reason to DOCUMENTED_NOINDEX",
-      "keys": [
-        "noindex|/blindtest/ranked|noindex",
-        "noindex|/community|noindex",
-        "noindex|/live|noindex",
-        "noindex|/blindtest/leaderboard|noindex",
-        "noindex|/join|noindex"
-      ]
-    },
-    {
-      "reason": "the general-kpop catch-all trivia page is noindex; owner decision pending: keep it out of the index, then add the reason to DOCUMENTED_NOINDEX",
-      "keys": [
-        "noindex|/general-kpop-trivia|noindex"
-      ]
-    }
-  ],
+  "noindex": [],
   "redirect": [
     {
       "reason": "retired rankings URLs answer 410 since #102 (owner, 2026-10-18) before the next.config redirect to the group hub runs; owner decision pending: drop the dead redirect or the expectation",

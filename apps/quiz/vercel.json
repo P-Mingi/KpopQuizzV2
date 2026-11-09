@@ -12,6 +12,10 @@
   "ignoreCommand": "bash scripts/vercel-ignore-build.sh",
   "crons": [
     {
+      "path": "/api/cron/award-prep",
+      "schedule": "20 6 * * *"
+    },
+    {
       "path": "/api/cron/editorial-publish",
       "schedule": "*/15 * * * *"
     },
@@ -22,6 +26,10 @@
     {
       "path": "/api/cron/ensure-daily-quiz",
       "schedule": "5 0 * * *"
+    },
+    {
+      "path": "/api/cron/ensure-daily-quiz-eve",
+      "schedule": "50 23 * * *"
     },
     {
       "path": "/api/cron/fans-picked",
@@ -82,6 +90,10 @@
     {
       "path": "/api/ranked/cron/nightly",
       "schedule": "20 0 * * *"
+    },
+    {
+      "path": "/api/cron/daily-reminders",
+      "schedule": "0 * * * *"
     }
   ]
 }

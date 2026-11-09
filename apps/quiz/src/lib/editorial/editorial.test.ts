@@ -420,20 +420,36 @@ describe('templates from real data', () => {
     expect(buildWeeklyRecap({ ...week, hardestSong: null, topQuiz: { title: 'BTS era check', slug: 's', plays: 5, perfect: 0 }, splits: [] }, [])).toBeNull();
   });
 
+  // Audit 04 P0-4 (flipped assertions, listed in the report): the row now carries a verified source (L24-l1-comebacks-sources.sql);
+  // without one there is no topic, and the draft's source is the link, no longer "KpopQuiz release calendar" with a null url.
+  const src = { source_url: 'https://www.smentertainment.com/example', source_type: 'official', verified_at: '2026-10-02', status: 'announced' };
   it('comeback topic: from the release calendar row, never by the data account', () => {
-    const t = buildComebackTopic({ id: 412, group_id: 3, artist: 'aespa', title: 'Rich Man', release_date: '2026-10-09', kind: 'ep' }, ACCOUNTS);
+    const t = buildComebackTopic({ id: 412, group_id: 3, artist: 'aespa', title: 'Rich Man', release_date: '2026-10-09', kind: 'ep', ...src }, ACCOUNTS);
     expect(t).toEqual({
       templateKey: 'comeback:412',
       input: {
         account_id: MINA, kind: 'thread', group_id: 3, title: 'aespa comes back with Rich Man: what do you expect?',
         body: 'aespa releases Rich Man (EP) on Oct 9, 2026.\n\nWhat do you want from this comeback? One line.',
-        options: null, sources: [{ label: 'KpopQuiz release calendar: aespa, Rich Man, Oct 9, 2026', url: null }], debate_days: null,
+        options: null, sources: [{ label: 'Official announcement: aespa, Rich Man, Oct 9, 2026', url: 'https://www.smentertainment.com/example' }], debate_days: null,
       },
     });
-    expect(buildComebackTopic({ id: 413, group_id: null, artist: 'ATEEZ', title: 'x', release_date: '2026-10-09', kind: 'album' }, ACCOUNTS)?.input.account_id).toBe(JAE);
-    expect(buildComebackTopic({ id: 1, group_id: null, artist: ' ', title: 'x', release_date: '2026-10-09', kind: 'ep' }, ACCOUNTS)).toBeNull();
-    expect(buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'x', release_date: 'soon', kind: 'ep' }, ACCOUNTS)).toBeNull();
-    expect(buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'x'.repeat(160), release_date: '2026-10-09', kind: 'ep' }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ id: 413, group_id: null, artist: 'ATEEZ', title: 'x', release_date: '2026-10-09', kind: 'album', ...src }, ACCOUNTS)?.input.account_id).toBe(JAE);
+    expect(buildComebackTopic({ id: 1, group_id: null, artist: ' ', title: 'x', release_date: '2026-10-09', kind: 'ep', ...src }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'x', release_date: 'soon', kind: 'ep', ...src }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'x'.repeat(160), release_date: '2026-10-09', kind: 'ep', ...src }, ACCOUNTS)).toBeNull();
+  });
+
+  it('comeback topic: no source, no topic (fail closed, also before the SQL is applied)', () => {
+    const row = { id: 7, group_id: 3, artist: 'aespa', title: 'Rich Man', release_date: '2026-10-09', kind: 'ep' };
+    expect(buildComebackTopic(row, ACCOUNTS)).toBeNull();                                                  // columns absent (SQL not applied)
+    expect(buildComebackTopic({ ...row, source_url: null, source_type: null, verified_at: null, status: null }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ ...row, ...src, status: 'reported' }, ACCOUNTS)).toBeNull();               // a report is not an announcement
+    expect(buildComebackTopic({ ...row, ...src, source_url: null }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ ...row, ...src, source_url: 'http://example.com/a' }, ACCOUNTS)).toBeNull(); // https only
+    expect(buildComebackTopic({ ...row, ...src, source_url: 'https://www.soompi.com/article/1' }, ACCOUNTS)).toBeNull(); // a lead, not a source
+    expect(buildComebackTopic({ ...row, ...src, source_type: 'lead' }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ ...row, ...src, verified_at: null }, ACCOUNTS)).toBeNull();
+    expect(buildComebackTopic({ ...row, ...src, source_type: 'outlet', source_url: 'https://www.koreaherald.com/a' }, ACCOUNTS)).not.toBeNull();
   });
 
   it('helpers', () => {
@@ -446,7 +462,7 @@ describe('templates from real data', () => {
 
   it('no em or en dash in anything a template writes', () => {
     const t = buildWeeklyRecap({ ...week, hardestSong: { title: 'A', artist: 'B', answers: 30, correct: 3 }, topQuiz: { title: 'C', slug: 'c', plays: 9, perfect: 1 }, splits: [{ question: 'q', a: 'x', b: 'y', votesA: 2, votesB: 1 }] }, ACCOUNTS);
-    const c = buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'b', release_date: '2026-10-09', kind: 'mv' }, ACCOUNTS);
+    const c = buildComebackTopic({ id: 1, group_id: null, artist: 'a', title: 'b', release_date: '2026-10-09', kind: 'mv', ...src }, ACCOUNTS);
     expect(JSON.stringify([t, c])).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013, 0x2014)}]`));
   });
 });

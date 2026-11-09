@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  DESCRIPTION_MAX_RENDERED, DESCRIPTION_MIN_RENDERED, REDIRECT_SEEDS, TITLE_MAX_RENDERED, altTexts, applyBaseline, classifyRedirect,
+  DESCRIPTION_MAX_RENDERED, DESCRIPTION_MIN_RENDERED, DOCUMENTED_NOINDEX, REDIRECT_SEEDS, TITLE_MAX_RENDERED, altTexts, applyBaseline, classifyRedirect,
   countH1, dashSnippets, decodeEntities, descriptionProblem, duplicates, extractCanonical, extractMetaDescription,
   extractMetaRobots, extractTitle, findingKey, imagesWithoutAlt, internalLinks, isDisallowed, isGenericRedirect, isNoindex,
   jsonLdDescriptions, jsonLdMismatches, jsonLdStrings, jsonLdVisibleClaims, keyWhere, noindexVerdict, parseBaseline, parseJsonLd,
@@ -110,6 +110,21 @@ describe('noindex allowlist (rulebook 9.2)', () => {
   it('a noindexed hub is allowed only once the data says it is empty', () => {
     expect(noindexVerdict('/tuide-quiz')).toEqual({ allowed: false, hub: { kind: 'quiz', slug: 'tuide' } });
     expect(noindexVerdict('/blindtest/group-bts')).toEqual({ allowed: false, hub: { kind: 'blindtest', slug: 'bts' } });
+  });
+
+  it('O1 P1-4: the utility pages and the pages taken out on purpose carry a written reason', () => {
+    for (const p of ['/community', '/community/post/1', '/live', '/creators', '/credits', '/join', '/join/ABCD', '/blindtest/ranked', '/blindtest/leaderboard', '/news', '/general-kpop-trivia', '/twice-trivia', '/verse']) {
+      const v = noindexVerdict(p);
+      expect(v.allowed, p).toBe(true);
+      expect(v.allowed && v.why.length, p).toBeGreaterThan(10);
+    }
+    expect(DOCUMENTED_NOINDEX.every((d) => d.reason.length > 10)).toBe(true);
+  });
+
+  it('a documented noindex does not cover a neighbour: quizzes, hubs, other verse pages', () => {
+    expect(noindexVerdict('/verse/bts').allowed).toBe(false);
+    expect(noindexVerdict('/bts-quiz').allowed).toBe(false);
+    expect(noindexVerdict('/newsletter').allowed).toBe(false);
   });
 
   it('anything else needs a written reason', () => {

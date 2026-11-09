@@ -8,7 +8,7 @@ import { ThemeCard, ThemeRail } from '@/components/ux-v1/theme-card';
 import { getLandingNumbers, getThemeState } from '@/lib/growth/bt-data';
 import {
   LANDING_COPY, LANDING_LANGS, LANDING_PATH, LANG_NAME, LANG_SWITCH_NAME, SITE,
-  landingAlternates, landingBreadcrumbJsonLd, landingDescription, landingEyebrow, landingFaq, landingFaqJsonLd, landingLead,
+  landingAlternates, landingBreadcrumbJsonLd, landingDescription, landingEyebrow, landingFaq, landingFaqJsonLd, landingIndexable, landingLead,
 } from '@/lib/growth/bt-landing';
 import { BT_STRINGS } from '@/lib/growth/bt-strings';
 import { themeCard, visibleThemes } from '@/lib/growth/bt-themes';
@@ -37,7 +37,8 @@ export function landingMetadata(lang: BtLang): Metadata {
     description,
     alternates: { canonical: copy.path, languages: landingAlternates() },
     openGraph: { title: copy.title, description, url: copy.path, locale: lang, images: [DEFAULT_OG_IMAGE] },
-    robots: { index: true, follow: true },
+    // O1 audit 03 P1-7: noindex,follow until a native reviewer is recorded (lib/growth/bt-landing.ts LANDING_REVIEW).
+    robots: { index: landingIndexable(lang), follow: true },
   };
 }
 

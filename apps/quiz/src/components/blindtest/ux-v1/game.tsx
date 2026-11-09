@@ -96,7 +96,6 @@ export function BtGame({ run, chip, intro, onTap, strings: s = BT_STRINGS_EN }: 
   }, [phase, index]);
 
   const seconds = Math.max(0, Math.ceil(timeLeft));
-  const frac = Math.max(0, timeLeft) / TIMER_S;
   const danger = phase === 'playing' && timeLeft <= 3;
   const artist = q?.question_type === 'artist';
 
@@ -150,7 +149,8 @@ export function BtGame({ run, chip, intro, onTap, strings: s = BT_STRINGS_EN }: 
             <div className={`p6-orb${danger ? ' is-danger' : ''}`}>
               <svg viewBox="0 0 200 200" aria-hidden="true">
                 <circle className="p6-orb-bg" cx="100" cy="100" r={R} />
-                <circle className="p6-orb-fg" cx="100" cy="100" r={R} strokeDasharray={CIRC.toFixed(1)} strokeDashoffset={(CIRC * (1 - (phase === 'playing' ? frac : 1))).toFixed(1)} />
+                {/* The ring drains by a CSS animation (no state per frame); the key restarts it on each song. */}
+                <circle key={`ring${index}`} className={`p6-orb-fg${phase === 'playing' ? ' is-run' : ''}`} cx="100" cy="100" r={R} strokeDasharray={CIRC.toFixed(1)} strokeDashoffset="0" style={{ '--p6-circ': CIRC.toFixed(1), '--p6-dur': `${TIMER_S}s` } as React.CSSProperties} />
               </svg>
               {phase === 'tap' || blocked ? (
                 <button type="button" className="p6-tap" onClick={() => { if (phase !== 'tap') run.resume(); else if (onTap) onTap(); else void run.startDaily(); }}>

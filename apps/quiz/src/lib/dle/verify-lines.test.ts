@@ -1,12 +1,13 @@
 // Owner, 2026-11-09: every launch file carries "-- Verify:" lines (a read-only query and the value it returns). This runs the lines
-// of the headers of L21, L22 and L23 and of their rollbacks, parsed out of the files themselves, on the real chain on PGlite, so the
+// of the headers of L19, L20, L21, L22 and L23 and of their rollbacks, parsed out of the files themselves, on the real chain on PGlite, so the
 // header cannot drift from the file: after each apply the forward header holds, after each rollback the rollback header holds.
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { afterJ4, afterSessionG, applyLaunchFiles } from './otakudle-fixture';
+import { kpopdleWorld, productionCalendar } from './kpopdle-fixture';
+import { afterJ4, afterSessionG, applyLaunchFiles, liveGames } from './otakudle-fixture';
 import { MIGRATIONS, readMigration, rows } from './pglite-harness';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -35,8 +36,8 @@ function verifyOf(file: string): Verify[] {
 
 async function check(db: PGlite, file: string): Promise<void> {
   const list = verifyOf(file);
-  expect(list.length, `${file}: 3 to 6 Verify lines`).toBeGreaterThanOrEqual(3);
-  expect(list.length, `${file}: 3 to 6 Verify lines`).toBeLessThanOrEqual(6);
+  expect(list.length, `${file}: 3 to 12 Verify lines`).toBeGreaterThanOrEqual(3);
+  expect(list.length, `${file}: 3 to 12 Verify lines`).toBeLessThanOrEqual(12);
   for (const v of list) {
     const r = await rows<Record<string, unknown>>(db, v.query.replace(/;$/, ''));
     expect(r.length, v.query).toBe(1);
@@ -53,7 +54,8 @@ beforeAll(async () => {
   await db.exec(readMigration('024-dle-series-games.sql'));
   await applyLaunchFiles(db);
   for (const f of ['L15-A2-series-games.sql', 'L17-l1-op-affiliation.sql', 'L18-l1-otakudle-genres.sql']) await db.exec(readLaunch(f));
-  for (const g of ['otakudle-one-piece', 'otakudle-dragon-ball', 'otakudle']) await db.exec(`select public.dle_refresh_entities('${g}')`);
+  // The three games as production has them: live, with a bank of 365 days drawn from the pool before the corrections.
+  await liveGames(db, ['otakudle-one-piece', 'otakudle-dragon-ball', 'otakudle']);
 });
 
 describe('the Verify lines of the headers hold on the chain', () => {
@@ -82,5 +84,41 @@ describe('the Verify lines of the headers hold on the chain', () => {
 
   it('the forward and the rollback of a file never expect the same values for all their lines', () => {
     for (const f of FILES) expect(verifyOf(f.up).map((v) => v.expect)).not.toEqual(verifyOf(f.down).map((v) => v.expect));
+  });
+});
+
+describe('L19 and L20 (Kpopdle Idol): the Verify lines hold on the chain with the calendar of production', () => {
+  const K = [
+    { name: 'L19', up: 'L19-l1-kpopdle-data-fixes.sql', down: 'L19-l1-kpopdle-data-fixes.rollback.sql' },
+    { name: 'L20', up: 'L20-l1-kpopdle-view.sql', down: 'L20-l1-kpopdle-view.rollback.sql' },
+  ];
+  let kdb: PGlite;
+  beforeAll(async () => {
+    kdb = await kpopdleWorld();
+    await productionCalendar(kdb);
+  });
+
+  it('the headers carry them, with a value each', () => {
+    for (const f of K) for (const file of [f.up, f.down]) expect(verifyOf(file).length, file).toBeGreaterThanOrEqual(3);
+  });
+
+  it('forward: after each apply the Verify lines of that file hold; a second run changes none of them', async () => {
+    for (const f of K) {
+      await kdb.exec(readLaunch(f.up));
+      await check(kdb, f.up);
+    }
+    for (const f of K) await kdb.exec(readLaunch(f.up));
+    for (const f of K) await check(kdb, f.up);
+  });
+
+  it('rollback: after each rollback (L20, then L19) the Verify lines of that rollback hold', async () => {
+    for (const f of [...K].reverse()) {
+      await kdb.exec(readLaunch(f.down));
+      await check(kdb, f.down);
+    }
+  });
+
+  it('the forward and the rollback of a file never expect the same values for all their lines', () => {
+    for (const f of K) expect(verifyOf(f.up).map((v) => v.expect)).not.toEqual(verifyOf(f.down).map((v) => v.expect));
   });
 });

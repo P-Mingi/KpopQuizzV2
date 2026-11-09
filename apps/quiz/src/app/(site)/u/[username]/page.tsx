@@ -1,8 +1,9 @@
 import { jsonLdString } from '@/lib/seo/json-ld';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 import { getProfileByUsername } from '@/lib/db/queries/profiles';
 import { getQuizzesByCreator } from '@/lib/db/queries/quizzes';
+import { renamedTeamHandle } from '@/lib/editorial/team-handles';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
 import { ProfileTabs } from './profile-tabs';
@@ -50,7 +51,12 @@ interface ProfilePageProps {
 async function profileOr404(username: string, label: string): Promise<NonNullable<Awaited<ReturnType<typeof getProfileByUsername>>>> {
   const { profile } = await readAll({ profile: () => read(getProfileByUsername(username), label) });
   if (profile === READ_FAILED) throw new Error(`[u/[username]] the profile of ${username} could not be read after a retry`);
-  if (!profile) notFound();
+  if (!profile) {
+    // A Team account that was renamed (lib/editorial/team-handles.ts): the old URL answers a permanent redirect to the new handle.
+    const next = renamedTeamHandle(username);
+    if (next) permanentRedirect(`/u/${next}`);
+    notFound();
+  }
   return profile;
 }
 

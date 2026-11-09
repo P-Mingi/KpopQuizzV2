@@ -12,6 +12,10 @@ import { safeFetch } from '@/lib/error-handling';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { UX_V1 } from '@/lib/ux-v1';
 
+import { blindtestMeta } from '@/lib/seo/index-pages-meta';
+import { legacyBlindtestHead } from '@/lib/seo/frozen-heads';
+import { isTopClicksFrozen } from '@/lib/seo/top-clicks-freeze';
+
 import type { Metadata } from 'next';
 
 // Owner, 2026-10-14: every count on this page is live (lib/stats/site-stats.ts), the same
@@ -21,13 +25,19 @@ function catalogLine(stats: PublicStats | null): string {
   return stats ? `${atLeast(stats.songs)} songs across ${atLeast(stats.songGroups)} groups` : 'Songs from every K-pop generation';
 }
 
+// Audit 04 P1-3 (owner, 2026-11-09): the title, the description and the H1 share the primary phrase "K-pop blind test" ("guess the
+// song" belongs to /guess-the-kpop-song). The counts are the live ones above, the same in the title, the description, the body and the FAQ.
 export async function generateMetadata(): Promise<Metadata> {
   const stats = await getPublicStatsOrNull();
   const line = catalogLine(stats);
+  const fresh = blindtestMeta(stats ? { songs: atLeast(stats.songs), groups: atLeast(stats.songGroups) } : null);
+  // Audit 04 section 2.4: /blindtest is a top-clicks page, its head stays main's until the owner lifts it (the H1 and the body change).
+  const frozen = isTopClicksFrozen('/blindtest') ? legacyBlindtestHead(line) : null;
+  const title = frozen?.title ?? fresh.title;
+  const description = frozen?.description ?? fresh.description;
   return {
-  title: 'K-pop Blind Test - Guess the Song from a Clip',
-  description:
-    `Play the free K-pop blind test: hear a 10-second clip and guess the song. ${line}, from every generation. No sign-up.`,
+  title,
+  description,
   alternates: {
     canonical: '/blindtest',
     languages: {
@@ -36,10 +46,10 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   },
   openGraph: {
-    title: 'K-pop Blind Test - Guess the Song from a Clip',
-    description: `Listen to a 10-second clip and guess the K-pop song. ${line}, every generation.`,
+    title: frozen?.ogTitle ?? `${title} | KpopQuiz`,
+    description: frozen?.ogDescription ?? `Listen to a 10-second clip and name the K-pop song or artist. ${line}, every generation.`,
     url: '/blindtest',
-    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(`Guess the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
+    images: [{ url: `/api/og/page?title=K-pop+Blind+Test&subtitle=${encodeURIComponent(frozen?.ogImageSubtitle ?? `Name the song from a 10-second clip. ${line}.`)}&accent=%237c5cfc`, width: 1200, height: 630, alt: 'K-pop Blind Test on KpopQuiz' }],
   },
   };
 }

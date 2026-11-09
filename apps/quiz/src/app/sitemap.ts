@@ -1,7 +1,6 @@
+import { dailyHubOn } from '@/lib/daily-hub';
 import { createServiceRoleClient, createPublicReadClient } from '@/lib/supabase/server';
 import { STATIC_MODES } from '@/lib/blind-test-modes';
-import { buildOverriddenFacts, type FactSourceQuiz } from '@/lib/trivia/facts';
-import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { getSourcedTrivia } from '@/lib/trivia/sourced/store';
 import { ARTICLES } from '@/lib/articles/registry';
 import { slugify as verseSlugify } from '@/lib/verse/slug';
@@ -11,7 +10,7 @@ import { quizLastModified, readExplanationDates } from '@/lib/db/queries/quiz-ex
 import { forSite } from '@/lib/site/scope';
 import { LEGAL, legalIsComplete } from '@/lib/legal-notice';
 import { getAdvertisablePlaylists, getPlayableStaticModes } from '@/lib/blind-test-playlists';
-import { LANDING_LANGS, LANDING_PATH } from '@/lib/growth/bt-landing';
+import { LANDING_PATH, indexableLandingLangs } from '@/lib/growth/bt-landing';
 import { isDuplicateMode } from '@/lib/growth/bt-mode-pool';
 import { isThemePage } from '@/lib/growth/bt-themes';
 import { v12GrowthPaths } from '@/lib/growth/sitemap-v12';
@@ -19,6 +18,9 @@ import { getWmaGroupSlugs } from '@/lib/personality/data';
 import { isUxV12 } from '@/lib/ux-v12';
 import { GENERAL_THEMES, THEME_MIN_LISTED } from '@/lib/hubs/general-themes';
 import { themeCounts } from '@/lib/hubs/theme-view';
+
+import { isListNoindex } from '@/lib/seo/list-noindex';
+import { isDemotedPath } from '@/lib/seo/demand-gate';
 
 import type { MetadataRoute } from 'next';
 
@@ -47,45 +49,20 @@ const QUIZZES_LIMIT = 10000;
 const STATIC_DATE = new Date('2026-06-15');
 const TERMS_DATE = new Date('2026-03-27');
 
-// URLs whose content is derived from the live quiz catalogue: their lastmod is
-// the newest quiz created_at, not the deploy time.
-const CATALOG_PATHS = new Set<string>([
-  '', '/groups', '/data/knowledge-report-2026', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
-  '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
-  '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
+// O1 audit 03 P1-1 (rulebook 9.6): a lastmod is the page's OWN content date, or absent.
+// - NEWEST_QUIZ_PATHS list the newest quizzes, so they change when a quiz is created: the newest
+//   quiz's created_at is their real content date.
+// - Every other list or ranking page (popular, trending, most liked, easy, hard, true or false,
+//   trivia hub, leaderboard, stats, the blind test index, the group directory...) moves with play
+//   counts or likes, which must never bump a date: no lastmod. The knowledge report keeps the date
+//   it was written. The 83 blind test group pages have no content date of their own: no lastmod.
+// Until this change 104 entries shared the newest quiz date, which Google learns to ignore.
+const NEWEST_QUIZ_PATHS = new Set<string>(['', '/quizzes', '/new'].map((p) => `${SITE_URL}${p}`));
+const UNDATED_PATHS = new Set<string>([
+  '/groups', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
+  '/trending', '/most-liked', '/trivia', '/leaderboard', '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/stats',
 ].map((p) => `${SITE_URL}${p}`));
-
-/**
- * `-trivia` URLs that will actually render (>=12 facts AFTER the J1 override
- * layer). Runs the SAME buildOverriddenFacts the page/gate uses - not a raw
- * mirror - so the sitemap never advertises a -trivia URL that now 404s.
- */
-function buildTriviaEligibleGroupSet(
-  quizzes: Array<{ group_id: number | null; slug: string; questions: unknown }>,
-  slugByGroupId: Map<number, string>,
-): Set<number> {
-  const quizzesByGroup = new Map<number, FactSourceQuiz[]>();
-  for (const quiz of quizzes) {
-    if (quiz.group_id == null) continue;
-    let arr = quizzesByGroup.get(quiz.group_id);
-    if (!arr) {
-      arr = [];
-      quizzesByGroup.set(quiz.group_id, arr);
-    }
-    arr.push({ slug: quiz.slug, questions: quiz.questions });
-  }
-
-  const eligible = new Set<number>();
-  for (const [groupId, groupQuizzes] of quizzesByGroup) {
-    const slug = slugByGroupId.get(groupId);
-    if (!slug) continue;
-    if (buildOverriddenFacts(slug, groupQuizzes).length >= TRIVIA_MIN_FACTS) {
-      eligible.add(groupId);
-    }
-  }
-  return eligible;
-}
 
 /**
  * Dynamic sitemap. Queries are wrapped in try/catch so a database blip
@@ -109,7 +86,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // W5: the K-pop Knowledge Report. The dataset route beside it is deliberately NOT listed:
     // it is a raw markdown file, not a page competing for a query.
     { url: `${SITE_URL}/data/knowledge-report-2026`, lastModified: new Date('2026-08-17'), changeFrequency: 'yearly', priority: 0.8 },
-    // S2 #3 time-sliced popular index pages (lastmod bumped to contentDate below).
+    // S2 #3 time-sliced popular index pages (P1-1: no lastmod, they move with play counts).
     { url: `${SITE_URL}/quizzes/popular-today`, lastModified: STATIC_DATE, changeFrequency: 'hourly', priority: 0.7 },
     { url: `${SITE_URL}/quizzes/popular-this-week`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/quizzes/popular-this-month`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
@@ -117,6 +94,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/new`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.8 },
     { url: `${SITE_URL}/most-liked`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/trivia`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    // Audit 01 P2-9: the daily hub, listed only while it is a page (DAILY_HUB=1); off, /daily is a redirect and never in the sitemap.
+    ...(dailyHubOn() ? [{ url: `${SITE_URL}/daily`, lastModified: STATIC_DATE, changeFrequency: 'daily' as const, priority: 0.7 }] : []),
     { url: `${SITE_URL}/leaderboard`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/easy-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/hard-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
@@ -141,9 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(legalIsComplete() ? [{ url: `${SITE_URL}/legal`, lastModified: new Date(LEGAL.written), changeFrequency: 'yearly' as const, priority: 0.3 }] : []),
     { url: `${SITE_URL}/dmca`, lastModified: TERMS_DATE, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/articles`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
-    // SEO P0.1 (owner: make /news rank): now indexable (was robots.index=false), so
-    // it joins the sitemap. Curated K-pop headlines, refreshed daily.
-    { url: `${SITE_URL}/news`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.5 },
+    // O1 audit 03 P0-1: /news is noindex,follow (a list of outbound headlines), so it is not listed.
     // Workstream T0 monthly Pulse index. Per-month reports are appended below.
     { url: `${SITE_URL}/data/pulse`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.6 },
 
@@ -180,10 +157,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // V12 (flag only): the four blindtest landings (SYSTEM.md 4), one per language.
-  // The hreflang cluster is in each page's own metadata.
+  // V12 (flag only): the blindtest landings (SYSTEM.md 4), one per language.
+  // The hreflang cluster is in each page's own metadata. O1 audit 03 P1-7 (rulebook 10.3): a localized landing
+  // is listed only once a native review is recorded (bt-landing.ts LANDING_REVIEW); today that is English only.
   const blindTestLandingPages: MetadataRoute.Sitemap = isUxV12()
-    ? LANDING_LANGS.map((l) => ({
+    ? indexableLandingLangs().map((l) => ({
         url: `${SITE_URL}${LANDING_PATH[l]}`,
         lastModified: STATIC_DATE,
         changeFrequency: 'weekly' as const,
@@ -204,7 +182,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getWmaGroupSlugs(),
       new Promise<string[]>((resolve) => setTimeout(() => resolve([]), WMA_TIMEOUT_MS)),
     ]);
-    v12GrowthPages = v12GrowthPaths(wmaSlugs).map((path) => ({
+    // O1 audit 03 P1-6: a variant under the demand bar (rulebook 1.3) is not advertised; the list is empty today.
+    v12GrowthPages = v12GrowthPaths(wmaSlugs).filter((path) => !isDemotedPath(path)).map((path) => ({
       url: `${SITE_URL}${path}`,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
@@ -288,20 +267,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // orphan principle: not worth advertising. It now reads the SAME advertisable set the
     // /blindtest index links, so the sitemap and the page cannot drift apart.
     const btGroupSlugs = advertisablePlaylists.groups.map((g) => g.slug);
-    blindTestGroupPages = btGroupSlugs.map((slug) => ({
+    // P1-1: no lastmod. The page has no content date of its own, and the newest quiz date is not its date.
+    blindTestGroupPages = btGroupSlugs.filter((slug) => !isDemotedPath(`/blindtest/group-${slug}`)).map((slug) => ({
       url: `${SITE_URL}/blindtest/group-${slug}`,
-      lastModified: contentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.5,
     }));
-
-    // Only list `-trivia` URLs for groups that have enough unique fun facts
-    // to actually render the page (matches the `notFound()` gate in
-    // [slug]/page.tsx). Prevents Google from indexing 404s.
-    const slugByGroupId = new Map<number, string>(
-      (groupsResult.data ?? []).map((g) => [g.id as number, g.slug as string]),
-    );
-    const triviaEligibleGroupIds = buildTriviaEligibleGroupSet(quizRows, slugByGroupId);
 
     groupPages = ((groupsResult.data ?? []) as Array<{ id: number; slug: string }>).flatMap((g) => {
       const entries: MetadataRoute.Sitemap = [];
@@ -321,9 +292,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         });
       }
 
-      // general-kpop trivia is noindex until verified (owner, 2026-10-14), so it is not listed.
-      // SEO Mission 2, part E: a sourced trivia page renders whatever the fan facts say, and its
-      // lastmod is the day its fact file was reviewed (the content date), not a quiz date.
+      // O1 audit 03 P0-2: only a trivia page with a sourced fact file is listed. It is the SAME gate
+      // the route uses to pick the sourced (indexable) page; the fan facts derived from our own quizzes
+      // are noindex,follow and never listed. Its lastmod is the day its fact file was reviewed.
       const sourcedTrivia = getSourcedTrivia(g.slug);
       if (sourcedTrivia) {
         entries.push({
@@ -331,13 +302,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: new Date(sourcedTrivia.reviewed),
           changeFrequency: 'monthly' as const,
           priority: 0.6,
-        });
-      } else if (triviaEligibleGroupIds.has(g.id) && g.slug !== 'general-kpop') {
-        entries.push({
-          url: `${SITE_URL}/${g.slug}-trivia`,
-          lastModified: groupDate,
-          changeFrequency: 'weekly' as const,
-          priority: 0.5,
         });
       }
 
@@ -383,10 +347,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
   }
 
-  // Bump catalog-driven static pages to the real newest-content date (honest
-  // lastmod). Evergreen + legal pages keep their stable dates.
+  // Lists of the newest quizzes carry the newest quiz date; ranking and list pages carry none
+  // (P1-1). Evergreen + legal pages keep their stable dates.
   for (const page of staticPages) {
-    if (CATALOG_PATHS.has(page.url)) page.lastModified = contentDate;
+    if (NEWEST_QUIZ_PATHS.has(page.url)) page.lastModified = contentDate;
+    else if (UNDATED_PATHS.has(page.url)) delete page.lastModified;
   }
 
   // Workstream T0: one URL per generated monthly Pulse report. Guarded on its
@@ -462,7 +427,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       seen.add(url);
       versePages.push({ url, lastModified: STATIC_DATE, changeFrequency: freq, priority });
     };
-    push('/verse', 0.8, 'daily');
+    // O1 audit 03 P0-3: the teaser is noindex while the Verse is hidden (verse/page.tsx), so it is listed
+    // only once the Verse is public. The covenant stays.
+    if (!verseHidden()) push('/verse', 0.8, 'daily');
     push('/verse/promises', 0.6, 'monthly'); // V-TRUST: the covenant is a real indexed trust page
     // PUSH-GATE-1: while the Verse is hidden, ONLY the teaser + covenant stay in the sitemap;
     // every other Verse URL is dropped (belt + braces on top of the 302) so Google stops
@@ -546,8 +513,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     versePages = [];
   }
 
+  // O1 audit 03 P1-5: a list page the owner moved to noindex is not advertised (empty list today: nothing changes).
+  const listed = staticPages.filter((p) => !isListNoindex(p.url.replace(SITE_URL, '')));
+
   return [
-    ...staticPages,
+    ...listed,
     ...articlePages,
     ...blindTestModePages,
     ...blindTestLandingPages,

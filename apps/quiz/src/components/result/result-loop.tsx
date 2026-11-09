@@ -64,7 +64,7 @@ type IconName = 'music' | 'versus' | 'people' | 'cards' | 'grid';
 // games it used to point at were removed in REFONTE P1.
 const LOOP_CARDS: Record<LoopGame, LoopCard[]> = {
   blindtest: [
-    { href: '/daily', target: 'daily', icon: 'cards', text: 'Quiz of the day: keep your daily streak alive' },
+    { href: '/daily/play', target: 'daily', icon: 'cards', text: 'Quiz of the day: keep your daily streak alive' },
     { href: '/quizzes', target: 'quizzes', icon: 'grid', text: 'Browse all K-pop quizzes by group and difficulty' },
   ],
 };
@@ -115,7 +115,7 @@ export function ResultLoop({
   // Same pattern as the quiz result: native share when the device offers it,
   // clipboard plus a toast when it does not. A cancelled share is not an error.
   const handleShare = useCallback(async () => {
-    analytics.shareClick(game);
+    analytics.shareClick('result', game);
     const absolute =
       typeof window !== 'undefined' ? `${window.location.origin}${BASE_PATH}${shareUrl}` : shareUrl;
 

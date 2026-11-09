@@ -10,7 +10,7 @@
 // Description: the creator's note when it says something (a note of a few words, like
 // "easy quiz", is not a description); else a sentence built from the quiz's real data.
 
-import { GENRE } from '@/lib/site/genre';
+import { TEAM_AUTHOR_NAME, TEAM_BYLINE } from './team-byline';
 import { SITE } from '@/lib/site/registry';
 import { contentTopics, TOPIC_QUALIFIER } from '@/lib/hubs/topics';
 
@@ -65,37 +65,119 @@ export function quizTitle(title: string, questionCount: number): string {
   return shorten(t, TITLE_MAX);
 }
 
+// ---------------------------------------------------------------------------
+// Audit 04 P1-2 (owner, 2026-11-09): the <title> of a quiz page names the group and says "quiz", which the creator's own title
+// often does not ("are u a real GLLIT?!! · 3 questions"). The creator's words stay (punctuation runs collapsed), then
+// "{Group} quiz, N questions" or "N-question quiz" for whatever is missing. The H1 and the stored title do not change.
+// ---------------------------------------------------------------------------
+
+/** "?!!" becomes "?", "!!!" becomes "!", "~~" becomes "~", "..." stays a clean ellipsis: a run of the same kind of mark is one mark. */
+export function collapsePunctuation(s: string): string {
+  return clean(s)
+    .replace(/([!?])[!?]+/g, '$1')
+    .replace(/([~*_#=+^])\1+/g, '$1')
+    .replace(/\.{4,}/g, '...')
+    .replace(/\s+([!?,.])/g, '$1');
+}
+
+const plural = (n: number): string => `${n} question${n === 1 ? '' : 's'}`;
+
+/** Cut at the last word boundary that fits in `max`, at the end: no ellipsis, no trailing punctuation or dangling separator. */
+export function cutAtWord(text: string, max: number): string {
+  const t = clean(text);
+  if (t.length <= max) return t;
+  const head = t.slice(0, max + 1);
+  const space = t.charAt(max) === ' ' ? max : head.lastIndexOf(' ');
+  const cut = space > 0 ? t.slice(0, space) : t.slice(0, max);
+  return cut.replace(/[\s,;:.\-\u2013\u2014·(\[/&+]+$/, '');
+}
+
+/** The names a creator may use for the group: its name, its slug, the name without spaces; for General K-pop also "K-pop". */
+function groupAliases(name: string, slug?: string | null): string[] {
+  const n = normalizeTitle(name);
+  const out = new Set<string>([n, n.replace(/ /g, '')]);
+  if (slug) out.add(normalizeTitle(slug));
+  if (n === 'general k pop' || n === 'general kpop') { out.add('k pop'); out.add('kpop'); }
+  out.delete('');
+  return [...out];
+}
+
+/**
+ * The title of a quiz page. The creator's words are never shortened to make room for something we add (audit 04 P1-2, ORCH follow-up):
+ *   a. a title that already names the group (or K-pop for General K-pop) and says quiz gets only the count, when it fits;
+ *   b. what is added ("{Group} quiz", "N-question quiz", the group name) is dropped, richest first, when it would pass TITLE_MAX;
+ *   c. only a creator title that is itself over TITLE_MAX is cut, at the last word boundary that fits, at the end, with no ellipsis.
+ */
+export function quizSeoTitle(title: string, questionCount: number, group: { name: string; slug?: string | null }): string {
+  const t = collapsePunctuation(title);
+  if (t.length > TITLE_MAX) return cutAtWord(t, TITLE_MAX);
+  const name = clean(group.name);
+  const norm = normalizeTitle(t);
+  const hasGroup = groupAliases(name, group.slug).some((n) => norm === n || norm.startsWith(`${n} `) || norm.endsWith(` ${n}`) || norm.includes(` ${n} `));
+  const hasQuiz = /\b(quiz|quizz|test|trivia)\b/i.test(t);
+  const join = (suffix: string): string => (/[?!.]$/.test(t) ? `${t} ${suffix}` : `${t} \u00b7 ${suffix}`);
+  const candidates = hasGroup && hasQuiz ? [`${t} \u00b7 ${plural(questionCount)}`]
+    : hasGroup ? [join(`${questionCount}-question quiz`)]
+    : hasQuiz ? [join(`${name}, ${plural(questionCount)}`), join(name)]
+    : [join(`${name} quiz, ${plural(questionCount)}`), join(`${name} quiz`)];
+  return candidates.find((c) => c.length <= TITLE_MAX) ?? t;
+}
+
 export interface QuizDescriptionInput {
   title: string;
   difficulty: string;
   questionCount: number;
   groupName: string;
   creator: string;
+  /** True for an editorial (Team) account: the byline reads "the KpopQuiz Team", never the handle (audit 04 P0-2). */
+  creatorIsTeam?: boolean;
   plays: number;
-  /** averageText() of the quiz average (lib/quiz/quiz-average.ts, from 30 completed plays), else null.
-   *  Passed as text so this module, read by other pages, keeps its imports. */
-  average: string | null;
   creatorNote: string | null;
+  /** quizzes.quiz_type, for the wording of the questions ("odd-one-out"); absent = plain "questions". */
+  quizType?: string;
 }
 
-const article = (word: string): string => (/^[aeiou]/i.test(word) ? 'an' : 'a');
+/** How a Team quiz is signed in search results and in JSON-LD: a Team handle can read like a fan. */
+export { TEAM_AUTHOR_NAME, TEAM_BYLINE };
 
+/** The JSON-LD author of a quiz: the Team as an Organization (link to /about), else the fan creator as a Person. */
+export function quizAuthorJsonLd(creator: string, creatorIsTeam: boolean): Record<string, unknown> {
+  return creatorIsTeam
+    ? { '@type': 'Organization', name: TEAM_AUTHOR_NAME, url: 'https://kpopquiz.org/about' }
+    : { '@type': 'Person', name: creator, url: `https://kpopquiz.org/u/${creator}` };
+}
+
+/** "Played 1,784 times." A play is not a person, so the count never says fans (audit 04 P0-3). */
+export function playedText(plays: number): string {
+  return `Played ${plays.toLocaleString('en-US')} ${plays === 1 ? 'time' : 'times'}.`;
+}
+
+const TYPE_NOUN: Record<string, string> = {
+  multiple_choice: 'multiple-choice', true_false: 'true or false', guess_from_clues: 'guess-from-clues', image: 'picture', intruder: 'odd-one-out',
+};
+
+/**
+ * The meta description of a quiz page: the creator's note when it says something, else a sentence built from the quiz's real data,
+ * 140 to 155 characters. It opens with what the visitor gets ("3 easy odd-one-out questions on ILLIT"), says who made it ("by fan
+ * creator mina", "by the KpopQuiz Team"), how often it was played (plays, never fans) and what it costs (audit 04 P0-3, P1-2).
+ */
 export function quizDescription(q: QuizDescriptionInput): string {
   const note = q.creatorNote ? clean(q.creatorNote) : '';
   if (note.length >= NOTE_MIN) return clipWords(note, DESCRIPTION_MAX);
   const n = q.questionCount;
-  let s = `${clean(q.title)}: ${article(q.difficulty)} ${q.difficulty} ${n}-question ${GENRE} quiz on ${q.groupName}, made by ${q.creator}.`;
-  const plays = q.plays.toLocaleString('en-US');
-  // The facts first; the call to action only when it fits whole (never "Can you beat...").
-  const parts = q.plays <= 0
-    ? [` New on ${SITE.brand.name}: be one of the first to play it.`]
-    : [q.average !== null
-      ? ` ${plays} ${q.plays === 1 ? 'fan has' : 'fans have'} played it: ${q.average}.`
-      : ` Played by ${plays} ${q.plays === 1 ? 'fan' : 'fans'}.`, ' Can you beat them?'];
-  for (const p of parts) if ((s + p).length <= DESCRIPTION_MAX) s += p;
-  const tail = ' Free to play, no sign-up.';
-  if (s.length < DESCRIPTION_MIN && (s + tail).length <= DESCRIPTION_MAX) s += tail;
-  return clipWords(s, DESCRIPTION_MAX);
+  const by = q.creatorIsTeam ? TEAM_BYLINE : `fan creator ${q.creator}`;
+  const title = collapsePunctuation(q.title);
+  const noun = q.quizType ? TYPE_NOUN[q.quizType] : undefined;
+  const kind = noun && noun !== 'multiple-choice' ? `${noun} ` : '';
+  const core = `${title}${/[?!.]$/.test(title) ? '' : ':'} ${n} ${q.difficulty} ${kind}question${n === 1 ? '' : 's'} on ${q.groupName} by ${by}.`;
+  const played = q.plays <= 0 ? [` New on ${SITE.brand.name}: be one of the first to play it.`, ''] : [` ${playedText(q.plays)}`, ''];
+  const closers = [' Free to play, no sign-up needed.', ' Free to play, no sign-up.', ''];
+  let best = '';
+  for (const p of played) for (const c of closers) {
+    const d = `${core}${p}${c}`;
+    if (d.length <= DESCRIPTION_MAX && d.length > best.length) best = d;
+  }
+  return best || clipWords(`${core}${played[0]}${closers[1]}`, DESCRIPTION_MAX);
 }
 
 // ---------------------------------------------------------------------------

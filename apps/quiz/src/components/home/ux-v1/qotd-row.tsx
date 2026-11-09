@@ -5,7 +5,7 @@ import { UxButton } from '@/components/ux-v1/button';
 import { levelOf } from '@/components/ux-v1/quiz-card';
 import { QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
 
-import { QotdNote } from './islands';
+import { QotdNote, QotdStatus } from './islands';
 
 import type { HomeQotd } from '@/lib/ux-v1/p1/home-data';
 
@@ -29,8 +29,9 @@ export function QotdRow({ qotd }: { qotd: HomeQotd }): React.ReactElement {
   return (
     <section className="p1-qotd" aria-labelledby="p1-qotd-t">
       <div className="p1-qd-main">
-        <div className="p1-qtop">
+        <div className="p1-qtop" {...(qotd.featuredDate && qotd.featuredDate !== qotd.servedDate ? { 'data-replay': '1' } : {})}>
           <span className="p1-qlab"><Icon name="zap" />Quiz of the day</span>
+          <QotdStatus />
           <QotdNote featured={qotd.featuredDate} served={qotd.servedDate} />
         </div>
         <h2 id="p1-qotd-t">{qotd.title}</h2>
@@ -43,7 +44,7 @@ export function QotdRow({ qotd }: { qotd: HomeQotd }): React.ReactElement {
           ))}
         </p>
       </div>
-      <UxButton href={`/q/${qotd.slug}?daily=quiz`} icon="play" className="p1-qd-go" aria-label={`Play the quiz of the day: ${qotd.title}`}>
+      <UxButton href={`/q/${qotd.slug}?daily=quiz&from=home`} icon="play" className="p1-qd-go" aria-label={`Play the quiz of the day: ${qotd.title}`}>
         Play
       </UxButton>
     </section>

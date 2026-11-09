@@ -21,7 +21,11 @@ export const TRIVIA_MIN_FACTS = 9;
 export async function hasTriviaPage(groupId: number, groupSlug: string): Promise<boolean> {
   // SEO Mission 2, part E: a group with a sourced fact file has its page whatever the fan facts say.
   if (sourcedTriviaCount(groupSlug) > 0) return true;
-  const facts = await getOverriddenFacts(groupId, groupSlug);
+  // A failed read (getOverriddenFacts throws, P1-3) hides the link for this render; the hub does not fail with it.
+  const facts = await getOverriddenFacts(groupId, groupSlug).catch((err: unknown) => {
+    console.error('[hasTriviaPage] facts read failed:', err instanceof Error ? err.message : err);
+    return [];
+  });
   return facts.length >= TRIVIA_MIN_FACTS;
 }
 
@@ -48,7 +52,12 @@ export async function getTriviaEligibleGroups(): Promise<TriviaEligibleGroup[]> 
     candidates.map(async (group) => {
       const sourced = sourcedTriviaCount(group.slug);
       if (sourced > 0) return { group, factCount: sourced, sourced: true };
-      return { group, factCount: (await getOverriddenFacts(group.id, group.slug)).length, sourced: false };
+      // A group whose read failed is left out of this render (P1-3), not counted as having no facts forever.
+      const facts = await getOverriddenFacts(group.id, group.slug).catch((err: unknown) => {
+        console.error('[getTriviaEligibleGroups] facts read failed:', group.slug, err instanceof Error ? err.message : err);
+        return [];
+      });
+      return { group, factCount: facts.length, sourced: false };
     }),
   );
 

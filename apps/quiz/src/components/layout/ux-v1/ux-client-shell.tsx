@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
-import { VerseFooter } from '@/components/verse/verse-footer';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { flagOn } from '@/lib/site/registry';
 import { isBuilderCanvas, worldForPath } from '@/lib/world';
@@ -14,6 +13,9 @@ import { UxNavActions } from './ux-nav-actions';
 import { UxNavLinks } from './ux-nav-links';
 import { UxProviders } from './ux-providers';
 import { UxTabBar } from './ux-tab-bar';
+
+// Audit 02 P2-1 (risk 8): the Verse footer is only drawn on Verse routes, so its code is a chunk that every other page never fetches (it is still server-rendered where it shows).
+const VerseFooter = dynamic(() => import('@/components/verse/verse-footer').then((m) => m.VerseFooter));
 
 // Run O1 (B6): "Your sites" in the account menu. A separate chunk, fetched only when the flag is on and a signed-in member opens the menu.
 const NetSitesMenu = dynamic(() => import('@/components/network/net-sites-menu').then((m) => m.NetSitesMenu), { ssr: false });

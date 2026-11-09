@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 
 import type { NextRequest } from 'next/server';
 
@@ -24,6 +25,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: 'not_authenticated' }, { status: 401 });
+  const teamNo = await teamRefusal(user.id);
+  if (teamNo) return teamNo;
 
   // Insert the cheer; the (event_id, user_id) PK makes a repeat a silent no-op.
   const { error: insErr } = await supabase

@@ -1,0 +1,15 @@
+diff --git a/apps/quiz/vercel.json b/apps/quiz/vercel.json
+index 6377f95..3f61495 100644
+--- a/apps/quiz/vercel.json
++++ b/apps/quiz/vercel.json
+@@ -11,6 +11,10 @@
+   },
+   "ignoreCommand": "bash scripts/vercel-ignore-build.sh",
+   "crons": [
++    {
++      "path": "/api/cron/award-prep",
++      "schedule": "20 6 * * *"
++    },
+     {
+       "path": "/api/cron/editorial-publish",
+       "schedule": "*/15 * * * *"

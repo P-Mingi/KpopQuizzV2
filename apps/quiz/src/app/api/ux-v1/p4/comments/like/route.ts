@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { UX_V1 } from '@/lib/ux-v1';
 import { checkLikeBody } from '@/lib/ux-v1/p4/comments';
 import { commentStoreLiveNow, isMissingObject, likeCount } from '@/lib/ux-v1/p4/comments-server';
@@ -34,6 +35,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const db = await createServerClient();
   const { data: { user } } = await db.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  const teamNo = await teamRefusal(user.id);
+  if (teamNo) return teamNo;
 
   // the comment or reply must exist (both are public rows)
   const { data: found, error: findError } = await db

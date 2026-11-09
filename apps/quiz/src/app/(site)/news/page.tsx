@@ -14,11 +14,10 @@ export const metadata: Metadata = {
   title: 'K-pop News - Latest Headlines',
   description:
     'Latest K-pop news from allkpop, Soompi, and Koreaboo. Stay up to date and test your knowledge with free fan-made quizzes.',
-  // SEO P0.1 (owner decision: make /news rank): was robots.index=false, which
-  // self-suppressed the whole surface from Google. Now indexable (default). NOTE
-  // for Cowork: /news is a curated-headline aggregator (feed items link out to
-  // allkpop/Soompi/Koreaboo); to actually earn rankings it needs its own crawlable
-  // text/context, not just outbound headlines - flagged in the REPORT.
+  // O1 audit 03 P0-1 (owner, 2026-11-09): /news is a list of outbound headlines from news sites (some
+  // about scandal, health or private life), which the rulebook keeps out of the index (rules 0 and 1.4).
+  // The page stays reachable and its links are followed; it is not in the sitemap.
+  robots: { index: false, follow: true },
   alternates: { canonical: '/news' },
 };
 

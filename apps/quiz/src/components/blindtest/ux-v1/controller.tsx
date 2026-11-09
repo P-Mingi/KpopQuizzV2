@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import dynamic from 'next/dynamic';
 
 import { useAnnounce, useUxToast } from '@/components/ux-v1/toast';
 import { refreshUxMe } from '@/components/ux-v1/use-ux-me';
@@ -10,15 +11,18 @@ import { hasPlayedDaily } from '@/lib/daily-played';
 import { challengeOutcome, CODE_RE } from '@/lib/ux-v1/p6/challenge';
 import { ALL_PICK, groupPick } from '@/lib/ux-v1/p6/playlists';
 
-import { BtGame } from './game';
 import { HubCtx } from './hub-context';
-import { BtResults } from './results';
 import { useBlindtestRun } from './use-run';
 
 import type { HubApi } from './hub-context';
 import type { BoardResponse } from '@/lib/ux-v1/p6/board-types';
 import type { ChallengeView } from '@/lib/ux-v1/p6/challenge';
 import type { BtGroup, BtPick, MixItem } from '@/lib/ux-v1/p6/playlists';
+
+// Audit 02 P2-1 (risk 8): the game and the results screens are client-only (they render after a tap), so they are two chunks the hub
+// does not carry on load; an idle prefetch (below) brings them in right after the page settles, before the first tap in practice.
+const BtGame = dynamic(() => import('./game').then((m) => m.BtGame), { ssr: false });
+const BtResults = dynamic(() => import('./results').then((m) => m.BtResults), { ssr: false });
 
 // Bunnyverse: this build's base path, inlined by Next at build time ('' on kpop and hub, so the code is today's; '/anime' on the anime build).
 const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
@@ -66,6 +70,17 @@ export function BtHubController({ groups, songs, themes, children }: Props): Rea
   const announce = useAnnounce();
   const toast = useUxToast();
   const live = useIsClient();
+  // Warm the game and results chunks once the page is idle, so the first tap finds them loaded.
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    const warm = (): void => { void import('./game'); void import('./results'); };
+    if (typeof w.requestIdleCallback === 'function') {
+      const id = w.requestIdleCallback(warm, { timeout: 4000 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const t = window.setTimeout(warm, 2000);
+    return () => window.clearTimeout(t);
+  }, []);
   const [board, setBoard] = useState<BoardResponse | null>(null);
   const [pick, setPick] = useState<BtPick>(ALL_PICK);
   const [rounds, setRounds] = useState(10);

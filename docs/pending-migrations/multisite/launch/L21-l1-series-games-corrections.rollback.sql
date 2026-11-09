@@ -2,15 +2,18 @@
 --
 -- What:   undoes L21: puts back the values and the sources that L15 wrote, for the rows that still hold the corrected value.
 -- Needs:  024, L15 (the 100 + 70 character_game_facts rows). After L17 (it owns attrs.affiliation of One Piece, never touched here).
--- WHEN:   apply by the owner after a backup, just after 00:30 UTC of a day on which no scheduled answer is lost (value corrections on a scheduled answer only fix feedback and are fine; production read of 2026-11-09: Jesus Burgess is the One Piece answer of bank day 4, 2026-11-10, so this file aborts until after that day or until the day is swapped), never between 23:50 and 00:30 UTC, and never during a build. The first statements read dle_schedule for today and the next 7 days and abort
---         (nothing is written) if a character that leaves the answers is scheduled there. A guess is stored as the entity id only and its colours are computed on every read, so a game in progress
---         is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.
+-- WHEN:   apply by the owner after a backup, never during a build, never between 23:50 and 00:30 UTC, one launch file at a time, the Verify lines run after it. Nothing waits for a date: the file redraws itself the coming days
+--         whose answer it removes (never today, never a served date), after saving the whole bank of each game in dle_schedule_backup; the rollback puts that bank and the pool_hash back. A guess is stored as the entity id only
+--         and its colours are computed on every read, so a game in progress is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.
 -- Verify: select count(*) from public.dle_entities where game_id = 'otakudle-one-piece' and can_be_target and in_pool;   expect 73
 -- Verify: select count(*) from public.character_game_facts where game_id = 'otakudle-one-piece' and attrs -> 'sea_of_origin' ->> 'v' = 'New World';   expect 7
 -- Verify: select count(*) from public.character_game_facts where game_id = 'otakudle-dragon-ball' and attrs -> 'race' ->> 'v' = 'Animal';   expect 0
 -- Verify: select f.attrs -> 'bounty' ->> 'l' from public.character_game_facts f join public.characters c on c.id = f.character_id where f.game_id = 'otakudle-one-piece' and c.slug = 'monkey-d-garp';   expect NULL
 -- Verify: select f.hints ->> 'devil_fruit_name' from public.character_game_facts f join public.characters c on c.id = f.character_id where f.game_id = 'otakudle-one-piece' and c.slug = 'monkey-d-luffy';   expect Gum-Gum Fruit
 -- Verify: select f.attrs -> 'race' ->> 'v' from public.character_game_facts f join public.characters c on c.id = f.character_id where f.game_id = 'otakudle-dragon-ball' and c.slug = 'cell';   expect Saiyan
+-- Verify: select count(*) from public.dle_entities e join public.characters c on c.id::text = e.entity_id where e.game_id = 'otakudle-one-piece' and c.slug in ('kyros', 'jesus-burgess') and e.can_be_target and e.in_pool;   expect 2
+-- Verify: select count(*) from public.dle_schedule s join public.dle_games g on g.id = s.game_id join public.dle_entities e on e.game_id = s.game_id and e.entity_id = s.entity_id where s.game_id in ('otakudle-one-piece', 'otakudle-dragon-ball') and not (e.can_be_target and e.in_pool) and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from generate_series(1, 364) as k);   expect 0
+-- Verify: select count(*) from public.dle_schedule_backup where file = 'L21';   expect 0
 -- Undo:   L21-l1-series-games-corrections.sql.
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).
 
@@ -29,25 +32,116 @@ begin
   end if;
 end;
 
--- Precheck of the next 7 days (AUDITS-COMMON): boa-hancock stops being an answer, so none of them may be today's answer or scheduled in the next 7 days; otherwise the file aborts and is applied after that day.
-declare r record;
+-- Redraw of the scheduled answers a file removes (owner rule 2026-11-09: no waiting for a date). dle_reschedule saves the whole bank of the game and its pool_hash
+-- (dle_schedule_backup, first snapshot kept), then gives every coming day (tomorrow to today + 364; never today, never a date already served) whose entity is no longer a
+-- valid target (can_be_target, in_pool, not excluded) another valid target: the first by md5(game:bank_day:entity) that is scheduled neither in the 30 days after today nor
+-- within 30 days of that date (state as it stands, picks already made included); else the first not scheduled in the 30 days after today; else any valid target.
+-- dle_reschedule_undo puts the saved bank and pool_hash back (except today and the served dates) and deletes the saved rows. Both are locked away from the browser roles.
+create table if not exists public.dle_schedule_backup (
+  file text not null,
+  game_id text not null references public.dle_games(id) on delete cascade,
+  bank_day smallint not null check (bank_day between 1 and 365),
+  entity_id text not null,
+  pool_hash text,
+  saved_at timestamptz not null default now(),
+  primary key (file, game_id, bank_day)
+);
+alter table public.dle_schedule_backup enable row level security;
+revoke all on table public.dle_schedule_backup from public, anon, authenticated;
+
+create or replace function public.dle_reschedule(p_file text, p_game text, p_now timestamptz default now()) returns integer
+language plpgsql set search_path = public
+as $rs$
+declare
+  g public.dle_games;
+  v_today date := public.dle_utc_date(p_now);
+  v_tb integer;
+  v_d date;
+  v_b integer;
+  v_cur text;
+  v_pick text;
+  v_n integer := 0;
 begin
-  if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null then
-    for r in
-      select g.id as game_id, c.slug, s.bank_day
-      from public.dle_games g
-      join public.dle_schedule s on s.game_id = g.id
-      join public.characters c on c.id::text = s.entity_id
-      where g.epoch is not null and (g.id, c.slug) in (('otakudle-one-piece', 'boa-hancock'))
-        and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from generate_series(0, 7) as k)
-      union all
-      select g.id, c.slug, null from public.dle_games g join public.dle_daily_stats d on d.game_id = g.id and d.play_date >= public.dle_utc_date(now())
-      join public.characters c on c.id::text = d.entity_id where (g.id, c.slug) in (('otakudle-one-piece', 'boa-hancock'))
-    loop
-      raise exception 'L21 rollback: % is the answer of % (bank day %) today or in the next 7 days: apply this file after that day', r.slug, r.game_id, coalesce(r.bank_day::text, 'served today');
-    end loop;
+  select * into g from public.dle_games where id = p_game;
+  if not found then
+    raise exception 'dle_unknown_game';
   end if;
+  -- A game that is not live yet has no calendar to protect: its activation will draw from the pool as it is.
+  if g.epoch is null or not exists (select 1 from public.dle_schedule where game_id = p_game) then
+    return 0;
+  end if;
+  insert into public.dle_schedule_backup (file, game_id, bank_day, entity_id, pool_hash)
+  select p_file, s.game_id, s.bank_day, s.entity_id, g.pool_hash from public.dle_schedule s where s.game_id = p_game
+  on conflict (file, game_id, bank_day) do nothing;
+  v_tb := public.dle_bank_day(g.epoch, v_today);
+  for k in 1..364 loop
+    v_d := v_today + k;
+    v_b := public.dle_bank_day(g.epoch, v_d);
+    if v_b = v_tb or exists (select 1 from public.dle_daily_stats d where d.game_id = p_game and d.play_date = v_d) then
+      continue;
+    end if;
+    select s.entity_id into v_cur from public.dle_schedule s where s.game_id = p_game and s.bank_day = v_b;
+    if not found then
+      continue;
+    end if;
+    if exists (select 1 from public.dle_entities e where e.game_id = p_game and e.entity_id = v_cur and e.can_be_target and e.in_pool
+      and not exists (select 1 from public.dle_curation c where c.game_id = p_game and c.entity_id = e.entity_id and c.excluded)) then
+      continue;
+    end if;
+    v_pick := null;
+    for lvl in 1..3 loop
+      select e.entity_id into v_pick from public.dle_entities e
+      where e.game_id = p_game and e.can_be_target and e.in_pool
+        and not exists (select 1 from public.dle_curation c where c.game_id = p_game and c.entity_id = e.entity_id and c.excluded)
+        and (lvl = 3 or not exists (select 1 from public.dle_schedule s where s.game_id = p_game and s.entity_id = e.entity_id
+          and s.bank_day in (select public.dle_bank_day(g.epoch, v_today + j) from generate_series(1, 30) as j)))
+        and (lvl >= 2 or not exists (select 1 from public.dle_schedule s where s.game_id = p_game and s.entity_id = e.entity_id
+          and s.bank_day in (select public.dle_bank_day(g.epoch, v_d + j) from generate_series(-30, 30) as j)))
+      order by md5(p_game || ':' || v_b || ':' || e.entity_id), e.entity_id limit 1;
+      exit when v_pick is not null;
+    end loop;
+    if v_pick is null then
+      raise exception 'dle_reschedule: no valid target for %', p_game;
+    end if;
+    update public.dle_schedule set entity_id = v_pick, drawn_at = p_now where game_id = p_game and bank_day = v_b;
+    v_n := v_n + 1;
+  end loop;
+  return v_n;
 end;
+$rs$;
+
+create or replace function public.dle_reschedule_undo(p_file text, p_game text, p_now timestamptz default now()) returns integer
+language plpgsql set search_path = public
+as $rs$
+declare
+  g public.dle_games;
+  v_tb integer;
+  v_hash text;
+  v_n integer;
+begin
+  select * into g from public.dle_games where id = p_game;
+  if not found then
+    raise exception 'dle_unknown_game';
+  end if;
+  select b.pool_hash into v_hash from public.dle_schedule_backup b where b.file = p_file and b.game_id = p_game limit 1;
+  if not found then
+    return 0;
+  end if;
+  v_tb := public.dle_bank_day(g.epoch, public.dle_utc_date(p_now));
+  update public.dle_schedule s set entity_id = b.entity_id, drawn_at = p_now
+  from public.dle_schedule_backup b
+  where b.file = p_file and b.game_id = p_game and s.game_id = p_game and s.bank_day = b.bank_day and s.entity_id <> b.entity_id
+    and s.bank_day <> v_tb
+    and not exists (select 1 from public.dle_daily_stats d where d.game_id = p_game and d.play_date >= public.dle_utc_date(p_now)
+      and public.dle_bank_day(g.epoch, d.play_date) = s.bank_day);
+  get diagnostics v_n = row_count;
+  update public.dle_games set pool_hash = v_hash where id = p_game;
+  delete from public.dle_schedule_backup where file = p_file and game_id = p_game;
+  return v_n;
+end;
+$rs$;
+
+revoke execute on function public.dle_reschedule(text, text, timestamptz), public.dle_reschedule_undo(text, text, timestamptz) from public, anon, authenticated;
 
 
 declare
@@ -179,23 +273,15 @@ begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle-one-piece') then perform public.dle_refresh_entities('otakudle-one-piece'); end if;
 end;
 
--- Nobody scheduled in the next 7 days may have stopped being a possible answer.
-declare r record;
+-- Put back the coming days of each game that hold an entity the data change removed (never today, never a served date; the bank is saved first).
 begin
-  if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null and to_regclass('public.dle_entities') is not null then
-    for r in
-      select s.game_id, s.entity_id, s.bank_day from public.dle_games g join public.dle_schedule s on s.game_id = g.id
-      join public.dle_entities e on e.game_id = s.game_id and e.entity_id = s.entity_id
-      where g.id in ('otakudle-dragon-ball', 'otakudle-one-piece') and g.epoch is not null and not (e.can_be_target and e.in_pool)
-        and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from generate_series(0, 7) as k)
-    loop
-      raise exception 'L21 rollback: entity % of % (bank day %) is scheduled in the next 7 days and is no longer a possible answer', r.entity_id, r.game_id, r.bank_day;
-    end loop;
-    if to_regclass('public.dle_daily_stats') is not null and exists (select 1 from public.dle_daily_stats d join public.dle_entities e on e.game_id = d.game_id and e.entity_id = d.entity_id
-       where d.game_id in ('otakudle-dragon-ball', 'otakudle-one-piece') and d.play_date >= public.dle_utc_date(now()) and not (e.can_be_target and e.in_pool)) then
-      raise exception 'L21 rollback: the answer served today is no longer a possible answer';
-    end if;
-  end if;
+  perform public.dle_reschedule_undo('L21', 'otakudle-dragon-ball');
+  perform public.dle_reschedule_undo('L21', 'otakudle-one-piece');
+end;
+-- The snapshot again, now that the calendar is back.
+begin
+  if exists (select 1 from public.dle_entities where game_id = 'otakudle-dragon-ball') then perform public.dle_refresh_entities('otakudle-dragon-ball'); end if;
+  if exists (select 1 from public.dle_entities where game_id = 'otakudle-one-piece') then perform public.dle_refresh_entities('otakudle-one-piece'); end if;
 end;
 
 notify pgrst, 'reload schema';

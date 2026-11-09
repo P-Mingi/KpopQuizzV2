@@ -1,0 +1,9 @@
+Audit 01 P2-9. docs/o1/contracts/** is owned by F0s, not by L1 or K1: ORCH or the owner commits this in the same PR.
+/daily became a page (app/(site)/daily/page.tsx), so its redirect handler moved to app/(site)/daily/play/route.ts (git mv, same code plus the `from` forward).
+The contract test src/lib/site/contract.test.ts ("every path exists") fails on rows 10 and 13 until the twin path follows. Exact change in docs/o1/contracts/twins.json, two lines:
+
+  line 407 (row 10) and line 479 (row 13):
+-      "twin": "apps/quiz/src/app/(site)/daily/route.ts",
++      "twin": "apps/quiz/src/app/(site)/daily/play/route.ts",
+
+(docs/o1/contracts/TWINS.md, lines 90 and 93, gets the same replacement.) The anime twin files only name the path in a comment.

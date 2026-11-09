@@ -9,7 +9,7 @@
 // The cron runs every 15 minutes, so the scheduler hands out distinct quarter-hour slots: two quizzes never wait for the same run.
 
 import { ineligible, utcDayBounds } from '../rules';
-import { checkQuizPayload, slugRefusal } from './payload';
+import { checkQuizPayload, publishByMs, slugRefusal } from './payload';
 
 import type { SkipReason } from '../rules';
 import type { QuizDraft } from './types';
@@ -58,7 +58,7 @@ const dayStart = (ms: number): number => Date.parse(utcDayBounds(ms).start);
 
 export type QuizRuleDraft = Pick<QuizDraft, 'id' | 'account_id' | 'group_id' | 'status' | 'scheduled_at' | 'reviewed_by' | 'reviewed_at' | 'published_ref' | 'payload'>;
 
-export type QuizSkipReason = SkipReason | 'no_group' | 'bad_payload' | 'group_mismatch' | 'hub_slug' | 'slug_taken' | 'group_cap';
+export type QuizSkipReason = SkipReason | 'expired' | 'no_group' | 'bad_payload' | 'group_mismatch' | 'hub_slug' | 'slug_taken' | 'group_cap';
 
 export interface QuizPublishContext {
   now: number;
@@ -101,6 +101,9 @@ export function planQuizPublish(drafts: readonly QuizRuleDraft[], ctx: QuizPubli
     if (d.group_id === null) { skipped.push({ id: d.id, reason: 'no_group' }); continue; }
     const parsed = checkQuizPayload(d.payload);
     if (!parsed.ok) { skipped.push({ id: d.id, reason: 'bad_payload' }); continue; }
+    // Audit 04 P1-6: past its publish_by (the show has started) a draft expires: it is never published, and stays approved for the admin to see.
+    const by = parsed.value.publish_by ? publishByMs(parsed.value.publish_by) : null;
+    if (by !== null && ctx.now > by) { skipped.push({ id: d.id, reason: 'expired' }); continue; }
     if (ctx.groupSlugById.get(d.group_id) !== parsed.value.group_slug) { skipped.push({ id: d.id, reason: 'group_mismatch' }); continue; }
     if (slugRefusal(parsed.value.slug, parsed.value.group_slug, (s) => ctx.groupSlugs.has(s))) { skipped.push({ id: d.id, reason: 'hub_slug' }); continue; }
     const owner = ctx.slugOwners.get(parsed.value.slug);
@@ -108,7 +111,9 @@ export function planQuizPublish(drafts: readonly QuizRuleDraft[], ctx: QuizPubli
     if ((groupsToday.get(d.group_id) ?? 0) >= MAX_QUIZ_PER_GROUP_PER_DAY) { skipped.push({ id: d.id, reason: 'group_cap' }); continue; }
     due.push(d);
   }
-  due.sort((a, b) => Date.parse(a.scheduled_at ?? '') - Date.parse(b.scheduled_at ?? '') || a.id - b.id);
+  // Deadline first: a draft with a publish_by goes before the others, the nearest deadline first (audit 04 P1-6).
+  const deadline = (d: QuizRuleDraft): number => { const r = checkQuizPayload(d.payload); return r.ok && r.value.publish_by ? publishByMs(r.value.publish_by) ?? Infinity : Infinity; };
+  due.sort((a, b) => (deadline(a) === deadline(b) ? 0 : deadline(a) < deadline(b) ? -1 : 1) || Date.parse(a.scheduled_at ?? '') - Date.parse(b.scheduled_at ?? '') || a.id - b.id);
   const pick = due[0] ?? null;
   return pick ? { pick, reason: 'ok', skipped } : { pick: null, reason: 'nothing_due', skipped };
 }
@@ -116,7 +121,12 @@ export function planQuizPublish(drafts: readonly QuizRuleDraft[], ctx: QuizPubli
 // ---------------------------------------------------------------------------------------------------------------------
 // The scheduler: random times over N days, both caps honoured, the groups with no published quiz first.
 
-export interface ScheduleItem { id: number; group_id: number | null }
+export interface ScheduleItem {
+  id: number;
+  group_id: number | null;
+  /** Audit 04 P1-6: the instant (ms, UTC) the quiz must be live by. Its slot is drawn before it, and its day is dealt first. */
+  publish_by?: number | null | undefined;
+}
 /** A quiz already on the calendar (an approved draft outside the batch, a quiz published today): it takes a place of its day. */
 export interface ScheduledSlot { group_id: number | null; at: string }
 export interface ScheduleOptions {
@@ -132,7 +142,7 @@ export interface ScheduleOptions {
 }
 export interface SchedulePlan {
   assigned: { id: number; scheduled_at: string }[];
-  unplaced: { id: number; reason: 'no_group' | 'no_room' }[];
+  unplaced: { id: number; reason: 'no_group' | 'no_room' | 'past_deadline' }[];
 }
 
 /** The days a schedule can use, as UTC midnight instants, with the free slot starts of each. */
@@ -166,51 +176,60 @@ function dayCalendar(opts: ScheduleOptions): Array<{ start: number; free: number
 export function planQuizSchedule(items: readonly ScheduleItem[], opts: ScheduleOptions): SchedulePlan {
   const rand = opts.rand ?? Math.random;
   const unplaced: SchedulePlan['unplaced'] = [];
-  const queue: Array<ScheduleItem & { group_id: number }> = [];
+  type Q = ScheduleItem & { group_id: number };
+  const queue: Q[] = [];
   for (const it of items) {
     if (it.group_id === null) unplaced.push({ id: it.id, reason: 'no_group' });
-    else queue.push({ id: it.id, group_id: it.group_id });
+    else queue.push({ ...it, group_id: it.group_id });
   }
-  queue.sort((a, b) => Number(opts.firstGroups.has(b.group_id)) - Number(opts.firstGroups.has(a.group_id)) || a.id - b.id);
+  const dl = (it: Q): number => it.publish_by ?? Infinity;
+  // Deadline first (nearest first), then the groups with no published quiz, then the order of the ids.
+  queue.sort((a, b) => (dl(a) === dl(b) ? 0 : dl(a) < dl(b) ? -1 : 1) || Number(opts.firstGroups.has(b.group_id)) - Number(opts.firstGroups.has(a.group_id)) || a.id - b.id);
 
   const cal = dayCalendar(opts);
+  // A day can take a quiz with a deadline only when one of its free slots is before it.
+  const dayOk = (i: number, it: Q): boolean => dl(it) === Infinity || cal[i]!.free.some((s) => s < dl(it));
   // Room of a day: the day cap minus what is on it, never more than its free slots.
   const room = cal.map((d) => Math.max(0, Math.min(MAX_QUIZ_PER_DAY - d.load, d.free.length)));
   const usable = room.filter((r) => r > 0).length;
   const quota = usable === 0 ? 0 : Math.ceil(queue.length / usable);
   const placedOn: number[] = cal.map(() => 0);
-  const byDay: number[][] = cal.map(() => []);
+  const byDay: Q[][] = cal.map(() => []);
   const groupsOn = cal.map((d) => new Set(d.groups));
-  const putOn = (day: number, it: ScheduleItem & { group_id: number }): void => {
+  const putOn = (day: number, it: Q): void => {
     placedOn[day]!++;
-    byDay[day]!.push(it.id);
+    byDay[day]!.push(it);
     groupsOn[day]!.add(it.group_id);
   };
 
-  // Pass 1 deals the queue day by day up to the quota (the first groups land on the earliest days); pass 2 fills what is left.
-  const left: typeof queue = [];
+  // Pass 1 deals the queue day by day up to the quota (deadlines and the first groups land on the earliest days); pass 2 fills what is left.
+  const left: Q[] = [];
   for (const it of queue) {
-    const day = cal.findIndex((_d, i) => placedOn[i]! < Math.min(quota, room[i]!) && !groupsOn[i]!.has(it.group_id));
+    const day = cal.findIndex((_d, i) => placedOn[i]! < Math.min(quota, room[i]!) && !groupsOn[i]!.has(it.group_id) && dayOk(i, it));
     if (day === -1) left.push(it); else putOn(day, it);
   }
   for (const it of left) {
-    const day = cal.findIndex((_d, i) => placedOn[i]! < room[i]! && !groupsOn[i]!.has(it.group_id));
-    if (day === -1) unplaced.push({ id: it.id, reason: 'no_room' }); else putOn(day, it);
+    const day = cal.findIndex((_d, i) => placedOn[i]! < room[i]! && !groupsOn[i]!.has(it.group_id) && dayOk(i, it));
+    if (day === -1) unplaced.push({ id: it.id, reason: dl(it) !== Infinity && !cal.some((_d, i) => dayOk(i, it)) ? 'past_deadline' : 'no_room' }); else putOn(day, it);
   }
 
   const assigned: SchedulePlan['assigned'] = [];
   cal.forEach((d, i) => {
-    const ids = byDay[i]!;
-    if (!ids.length) return;
+    const day = byDay[i]!;
+    if (!day.length) return;
     const slots = [...d.free];
     for (let k = slots.length - 1; k > 0; k--) { // Fisher-Yates: a random distinct slot for each quiz
       const j = Math.floor(rand() * (k + 1));
       [slots[k], slots[j]] = [slots[j]!, slots[k]!];
     }
-    ids.forEach((id, n) => {
-      const at = slots[n]! + Math.floor(rand() * SLOT_MIN) * MIN;
-      assigned.push({ id, scheduled_at: new Date(at).toISOString() });
-    });
+    // The quizzes with a deadline pick first, among the slots before it.
+    const ordered = [...day].sort((a, b) => (dl(a) === dl(b) ? 0 : dl(a) < dl(b) ? -1 : 1));
+    for (const it of ordered) {
+      const k = slots.findIndex((s) => s < dl(it));
+      if (k === -1) { unplaced.push({ id: it.id, reason: dl(it) === Infinity ? 'no_room' : 'past_deadline' }); continue; }
+      const at = slots.splice(k, 1)[0]! + Math.floor(rand() * SLOT_MIN) * MIN;
+      assigned.push({ id: it.id, scheduled_at: new Date(Math.min(at, dl(it) === Infinity ? at : dl(it) - 1)).toISOString() });
+    }
   });
   assigned.sort((a, b) => a.scheduled_at.localeCompare(b.scheduled_at) || a.id - b.id);
   return { assigned, unplaced: unplaced.sort((a, b) => a.id - b.id) };

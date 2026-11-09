@@ -404,7 +404,7 @@
       "site": "anime",
       "route": "/daily",
       "file": "apps/quiz/src/app/sites/[site]/(anime)/daily/route.ts",
-      "twin": "apps/quiz/src/app/(site)/daily/route.ts",
+      "twin": "apps/quiz/src/app/(site)/daily/play/route.ts",
       "mustImport": [],
       "renders": [
         "the same redirect to /q/{slug}?daily=quiz"
@@ -476,7 +476,7 @@
       "site": "anime",
       "route": "/opening-of-the-day",
       "file": "apps/quiz/src/app/sites/[site]/(anime)/opening-of-the-day/page.tsx",
-      "twin": "apps/quiz/src/app/(site)/daily/route.ts",
+      "twin": "apps/quiz/src/app/(site)/daily/play/route.ts",
       "mustImport": [],
       "renders": [
         "components/blindtest/ux-v1/mode-page.tsx",

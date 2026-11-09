@@ -1,5 +1,6 @@
 // L21-l1-series-games-corrections.sql and its rollback, derived from spec-l21.mjs and the data (node scripts/anime/a2/corrections/gen.mjs).
 import { ASK_L21, L21, READ } from './spec-l21.mjs';
+import { rescheduleCall, rescheduleSetup, rescheduleUndoCall } from '../../sql/dle-reschedule.mjs';
 import { verifyLines } from './verify-l2x.mjs';
 import { toSingleDoBlock } from '../../sql/single-do-block.mjs';
 import { clone, gameContext, gameFacts, jq, q, same, setState, stateOf } from './engine.mjs';
@@ -77,8 +78,7 @@ function body(p, dir, ctx) {
   const total = rows.length;
   const srcs = srcRows(p, dir);
   const tag = dir === 'up' ? 'L21' : 'L21 rollback';
-  const leaving = p.flips.filter((f) => (dir === 'up' ? f.from && !f.to : !f.from && f.to));
-  const protectedList = leaving.map((f) => `(${q(f.game)}, ${q(f.slug)})`);
+  const refreshCall = () => ['do $l21$ begin', ...gameIds(p).map((g) => `  if exists (select 1 from public.dle_entities where game_id = ${q(g)}) then perform public.dle_refresh_entities(${q(g)}); end if;`), 'end $l21$;'].join('\n');
   const lines = [];
   lines.push(
     `do $l21$ begin`,
@@ -90,28 +90,7 @@ function body(p, dir, ctx) {
     `  end if;`,
     `end $l21$;`,
     ``,
-    `-- Precheck of the next 7 days (AUDITS-COMMON): ${leaving.length ? `${leaving.map((f) => f.slug).join(', ')} ${dir === 'up' ? 'stop' : 'stops'} being an answer, so none of them may be today's answer or scheduled in the next 7 days; otherwise the file aborts and is applied after that day.` : 'no character leaves the answers.'}`,
-    `do $l21$`,
-    `declare r record;`,
-    `begin`,
-    `  if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null then`,
-    protectedList.length ? [
-      `    for r in`,
-      `      select g.id as game_id, c.slug, s.bank_day`,
-      `      from public.dle_games g`,
-      `      join public.dle_schedule s on s.game_id = g.id`,
-      `      join public.characters c on c.id::text = s.entity_id`,
-      `      where g.epoch is not null and (g.id, c.slug) in (${protectedList.join(', ')})`,
-      `        and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from generate_series(0, 7) as k)`,
-      `      union all`,
-      `      select g.id, c.slug, null from public.dle_games g join public.dle_daily_stats d on d.game_id = g.id and d.play_date >= public.dle_utc_date(now())`,
-      `      join public.characters c on c.id::text = d.entity_id where (g.id, c.slug) in (${protectedList.join(', ')})`,
-      `    loop`,
-      `      raise exception '${tag}: % is the answer of % (bank day %) today or in the next 7 days: apply this file after that day', r.slug, r.game_id, coalesce(r.bank_day::text, 'served today');`,
-      `    end loop;`,
-    ].join('\n') : `    null;`,
-    `  end if;`,
-    `end $l21$;`,
+    rescheduleSetup(),
     ``,
     ``,
   );
@@ -178,25 +157,10 @@ function body(p, dir, ctx) {
     ...gameIds(p).map((g) => `  if exists (select 1 from public.dle_entities where game_id = ${q(g)}) then perform public.dle_refresh_entities(${q(g)}); end if;`),
     `end $l21$;`,
     ``,
-    `-- Nobody scheduled in the next 7 days may have stopped being a possible answer.`,
-    `do $l21$`,
-    `declare r record;`,
-    `begin`,
-    `  if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null and to_regclass('public.dle_entities') is not null then`,
-    `    for r in`,
-    `      select s.game_id, s.entity_id, s.bank_day from public.dle_games g join public.dle_schedule s on s.game_id = g.id`,
-    `      join public.dle_entities e on e.game_id = s.game_id and e.entity_id = s.entity_id`,
-    `      where g.id in (${gameIds(p).map(q).join(', ')}) and g.epoch is not null and not (e.can_be_target and e.in_pool)`,
-    `        and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from generate_series(0, 7) as k)`,
-    `    loop`,
-    `      raise exception '${tag}: entity % of % (bank day %) is scheduled in the next 7 days and is no longer a possible answer', r.entity_id, r.game_id, r.bank_day;`,
-    `    end loop;`,
-    `    if to_regclass('public.dle_daily_stats') is not null and exists (select 1 from public.dle_daily_stats d join public.dle_entities e on e.game_id = d.game_id and e.entity_id = d.entity_id`,
-    `       where d.game_id in (${gameIds(p).map(q).join(', ')}) and d.play_date >= public.dle_utc_date(now()) and not (e.can_be_target and e.in_pool)) then`,
-    `      raise exception '${tag}: the answer served today is no longer a possible answer';`,
-    `    end if;`,
-    `  end if;`,
-    `end $l21$;`,
+    `-- ${dir === 'up' ? 'Redraw' : 'Put back'} the coming days of each game that hold an entity the data change removed (never today, never a served date; the bank is saved first).`,
+    dir === 'up' ? rescheduleCall('L21', gameIds(p)) : rescheduleUndoCall('L21', gameIds(p)),
+    dir === 'up' ? `` : `-- The snapshot again, now that the calendar is back.`,
+    dir === 'up' ? `` : refreshCall(),
     ``,
     `notify pgrst, 'reload schema';`,
   );
@@ -218,9 +182,9 @@ export function writeL21(D, readDefault) {
     `--`,
     ...what,
     `-- Needs:  024, L15 (the 100 + 70 character_game_facts rows). After L17 (it owns attrs.affiliation of One Piece, never touched here).`,
-    `-- WHEN:   apply by the owner after a backup, just after 00:30 UTC of a day on which no scheduled answer is lost (value corrections on a scheduled answer only fix feedback and are fine; production read of 2026-11-09: Jesus Burgess is the One Piece answer of bank day 4, 2026-11-10, so this file aborts until after that day or until the day is swapped), never between 23:50 and 00:30 UTC, and never during a build. The first statements read dle_schedule for today and the next 7 days and abort`,
-    `--         (nothing is written) if a character that leaves the answers is scheduled there. A guess is stored as the entity id only and its colours are computed on every read, so a game in progress`,
-    `--         is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.`,
+    `-- WHEN:   apply by the owner after a backup, never during a build, never between 23:50 and 00:30 UTC, one launch file at a time, the Verify lines run after it. Nothing waits for a date: the file redraws itself the coming days`,
+    `--         whose answer it removes (never today, never a served date), after saving the whole bank of each game in dle_schedule_backup; the rollback puts that bank and the pool_hash back. A guess is stored as the entity id only`,
+    `--         and its colours are computed on every read, so a game in progress is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.`,
     ...verifyLines('L21', dir),
     undo,
     `-- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).`,
@@ -242,7 +206,7 @@ export function writeL21(D, readDefault) {
     ask,
     `--         Nothing else: no other column, no affiliation of One Piece (L17), no kpop row. updated_at is not touched, so the rollback is exact.`,
   ];
-  const up = [...head('L21-l1-series-games-corrections.sql', what, `-- Undo:   L21-l1-series-games-corrections.rollback.sql (restores the values of L15 and their sources).`, 'up'), body(p, 'up', ctx), ''].join('\n');
+  const up = [...head('L21-l1-series-games-corrections.sql', what, `-- Undo:   L21-l1-series-games-corrections.rollback.sql (restores the values of L15 and their sources, and the saved calendar).`, 'up'), body(p, 'up', ctx), ''].join('\n');
   const downWhat = [`-- What:   undoes L21: puts back the values and the sources that L15 wrote, for the rows that still hold the corrected value.`];
   const down = [...head('L21-l1-series-games-corrections.rollback.sql', downWhat, `-- Undo:   L21-l1-series-games-corrections.sql.`, 'down'), body(p, 'down', ctx), ''].join('\n');
   return { up: toSingleDoBlock(up, 'o1l21'), down: toSingleDoBlock(down, 'o1l21r'), plan: p, before, after };

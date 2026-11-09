@@ -35,9 +35,35 @@ export const LANDING_PATH: Readonly<Record<BtLang, string>> = {
 export const LANG_SWITCH_NAME: Readonly<Record<BtLang, string>> = { en: 'English', fr: 'Français', es: 'Español', id: 'Indonesia' };
 export const LANG_NAME: Readonly<Record<BtLang, string>> = { en: 'English', fr: 'Français', es: 'Español', id: 'Bahasa Indonesia' };
 
-/** hreflang map of the cluster, as Next's `alternates.languages`. */
-export function landingAlternates(): Record<string, string> {
-  return { en: LANDING_PATH.en, fr: LANDING_PATH.fr, es: LANDING_PATH.es, id: LANDING_PATH.id, 'x-default': LANDING_PATH.en };
+/** A native reviewer's sign-off on a localized landing (rulebook 10.3). */
+export interface LandingReview { reviewed_by: string; reviewed_at: string }
+
+/**
+ * O1 audit 03 P1-7 (rulebook 10.3): a localized page is noindex, and out of the sitemap and of the hreflang cluster, until a native
+ * reviewer has approved it. The fr, es and id landings are AI drafts today, so all three are null. To open one, record the reviewer
+ * and the date here (reviewed_by is a name, reviewed_at an ISO date); the page head, the sitemap and the cluster follow together.
+ * English is the source language and needs no review.
+ */
+export const LANDING_REVIEW: Readonly<Record<Exclude<BtLang, 'en'>, LandingReview | null>> = { fr: null, es: null, id: null };
+
+/** True when the landing may be indexed: English, or a localized page with a recorded review. */
+export function landingIndexable(lang: BtLang, review: Readonly<Record<string, LandingReview | null>> = LANDING_REVIEW): boolean {
+  if (lang === 'en') return true;
+  const r = review[lang];
+  return !!r && r.reviewed_by.trim().length > 0 && !Number.isNaN(Date.parse(r.reviewed_at));
+}
+
+/** The languages that are indexable now, in landing order. */
+export function indexableLandingLangs(review: Readonly<Record<string, LandingReview | null>> = LANDING_REVIEW): BtLang[] {
+  return LANDING_LANGS.filter((l) => landingIndexable(l, review));
+}
+
+/** hreflang map of the cluster, as Next's `alternates.languages`: the indexable pages only (true equivalents), x-default English. */
+export function landingAlternates(langs: readonly BtLang[] = indexableLandingLangs()): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const l of langs) out[l] = LANDING_PATH[l];
+  out['x-default'] = LANDING_PATH.en;
+  return out;
 }
 
 export interface LandingNumbers {

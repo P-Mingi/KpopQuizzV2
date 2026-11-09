@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { dayNumber } from '@/lib/daily-rest';
 import { awardDailyStreak } from '@/lib/daily-streak';
 import { getLevelInfo } from '@/lib/constants';
 import { getTitleForLevel } from '@/lib/level-titles';
@@ -15,7 +16,7 @@ import type { NextRequest } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  let body: { kind?: unknown };
+  let body: { kind?: unknown; local_date?: unknown };
   try { body = (await req.json()) as typeof body; } catch { body = {}; }
   const kind = body.kind === 'quiz' || body.kind === 'game' || body.kind === 'blindtest' ? body.kind : null;
   if (!kind) return NextResponse.json({ error: "kind ('quiz'|'game'|'blindtest') required" }, { status: 400 });
@@ -27,7 +28,9 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   // Service role for the profile update + RPC; the auth check above already
   // resolved the user from their session cookies.
   const svc = createServiceRoleClient();
-  const result = await awardDailyStreak(svc, user.id);
+  // Audit 01 P2-11: the browser's own calendar date, accepted only within a day of UTC (a time zone is at most +-14 h away).
+  const localDate = typeof body.local_date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(body.local_date) && Math.abs(dayNumber(body.local_date) - dayNumber(new Date().toISOString().slice(0, 10))) <= 1 ? body.local_date : null;
+  const result = await awardDailyStreak(svc, user.id, undefined, { localDate });
 
   // L2 level-up signal so the client can fire the overlay if a milestone crossed a level boundary.
   let leveledUp = false;

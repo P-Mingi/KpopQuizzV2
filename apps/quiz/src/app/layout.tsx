@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
 
 import localFont from 'next/font/local';
-import { Analytics } from '@vercel/analytics/react';
+import { AnalyticsMount } from '@/components/layout/analytics-mount';
 import { ThemeInit } from '@/components/layout/theme-init';
 import { ToastProvider } from '@/components/ui/toast-provider';
 import { SITE_ID } from '@/lib/site/registry';
@@ -201,7 +201,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
           <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
           <ThemeInit />
           <ToastProvider>{children}</ToastProvider>
-          <Analytics />
+          <AnalyticsMount />
         </body>
       </html>
     );
@@ -212,7 +212,7 @@ export default function RootLayout({ children }: RootLayoutProps): React.ReactEl
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <ThemeInit />
         <ToastProvider>{children}</ToastProvider>
-        <Analytics />
+        <AnalyticsMount />
       </body>
     </html>
   );

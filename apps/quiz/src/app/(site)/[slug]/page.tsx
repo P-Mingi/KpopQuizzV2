@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 
 import { getGroupBySlug } from '@/lib/db/queries/groups';
+import { getQuizzesByGroup } from '@/lib/db/queries/quizzes';
+import { safeFetch } from '@/lib/error-handling';
 import { getOverriddenFacts } from '@/lib/trivia/facts';
 import { TRIVIA_MIN_FACTS } from '@/lib/db/queries/trivia';
 import { GroupQuizPage, generateGroupQuizMetadata } from './group-quiz-page';
@@ -64,7 +66,11 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   const group = await getGroupBySlug(parsed.groupSlug);
   if (!group) return {};
 
-  if (parsed.type === 'quiz') return generateGroupQuizMetadata(group);
+  if (parsed.type === 'quiz') {
+    // Audit 04 P1-1: "Easy to Hard" only when the group has two levels or more. The same cached read the page makes (getQuizzesByGroup popular, 10).
+    const popular = await safeFetch(getQuizzesByGroup(group.id, 'popular', 0, 10), [], '[group-quiz] metadata levels');
+    return generateGroupQuizMetadata(group, new Set(popular.map((q) => q.difficulty)).size);
+  }
 
   // SEO Mission 2, part E: a group with a sourced fact file (enough verified items) gets the
   // question and answer bank at the same URL; the others keep the fun facts page below.

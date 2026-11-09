@@ -4,6 +4,7 @@ import { ensureDailyQuizRpc } from '@/lib/daily-quiz';
 import { runDleMaintenance } from '@/lib/dle/maintenance';
 import { SITE } from '@/lib/site/registry';
 import { forSite } from '@/lib/site/scope';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 import { bankRefillAlert, qotdRotationFixEnabled } from '@/lib/quiz-bank-scheduling';
@@ -63,11 +64,36 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   const supabase = createServiceRoleClient();
   const today = new Date().toISOString().split('T')[0]!;
+  const target = publishTarget(new Date(), today);
 
   try {
-    return await publishDailyQuiz(supabase, today);
+    const res = await publishDailyQuiz(supabase, target.date);
+    // Audit 01 P0-4: the pick is published before the day turns over, so the caches must forget the old one now.
+    if (res.status < 400) bustQotdCaches();
+    return res;
   } finally {
-    await runDleMaintenance(supabase);
+    // The nightly dle maintenance keeps its 00:05 UTC slot (after the games' change of day); the evening run is for the quiz only.
+    if (!target.early) await runDleMaintenance(supabase);
+  }
+}
+
+/**
+ * Audit 01 P0-4: the run of 23:50 UTC publishes TOMORROW's quiz (so 00:00 UTC already has it), the run of 00:05 UTC is the
+ * same publish for today (idempotent: a second run finds the pick). The cut is noon UTC: both runs have a margin of hours.
+ */
+export function publishTarget(now: Date, today: string = now.toISOString().split('T')[0]!): { date: string; early: boolean } {
+  if (now.getUTCHours() < 12) return { date: today, early: false };
+  const next = new Date(now.getTime() + 86_400_000);
+  return { date: next.toISOString().split('T')[0]!, early: true };
+}
+
+function bustQotdCaches(): void {
+  try {
+    revalidateTag('quizzes', { expire: 0 });
+    revalidatePath('/');
+  } catch (err) {
+    // a failed bust never fails the publish: the caches then fall back to their short TTLs
+    console.warn('[ensure-daily-quiz] cache bust failed', err instanceof Error ? err.message : String(err));
   }
 }
 
