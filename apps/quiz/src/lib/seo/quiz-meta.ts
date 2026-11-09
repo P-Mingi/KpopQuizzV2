@@ -11,7 +11,6 @@
 // "easy quiz", is not a description); else a sentence built from the quiz's real data.
 
 import { TEAM_AUTHOR_NAME, TEAM_BYLINE } from './team-byline';
-import { GENRE } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
 import { contentTopics, TOPIC_QUALIFIER } from '@/lib/hubs/topics';
 
@@ -66,6 +65,45 @@ export function quizTitle(title: string, questionCount: number): string {
   return shorten(t, TITLE_MAX);
 }
 
+// ---------------------------------------------------------------------------
+// Audit 04 P1-2 (owner, 2026-11-09): the <title> of a quiz page names the group and says "quiz", which the creator's own title
+// often does not ("are u a real GLLIT?!! · 3 questions"). The creator's words stay (punctuation runs collapsed), then
+// "{Group} quiz, N questions" or "N-question quiz" for whatever is missing. The H1 and the stored title do not change.
+// ---------------------------------------------------------------------------
+
+/** "?!!" becomes "?", "!!!" becomes "!", "~~" becomes "~", "..." stays a clean ellipsis: a run of the same kind of mark is one mark. */
+export function collapsePunctuation(s: string): string {
+  return clean(s)
+    .replace(/([!?])[!?]+/g, '$1')
+    .replace(/([~*_#=+^])\1+/g, '$1')
+    .replace(/\.{4,}/g, '...')
+    .replace(/\s+([!?,.])/g, '$1');
+}
+
+const plural = (n: number): string => `${n} question${n === 1 ? '' : 's'}`;
+
+/** The title of a quiz page with the group and "quiz" when the creator's title lacks them, within TITLE_MAX. */
+export function quizSeoTitle(title: string, questionCount: number, group: { name: string; slug?: string | null }): string {
+  const t = collapsePunctuation(title);
+  const name = clean(group.name);
+  const norm = normalizeTitle(t);
+  const names = [normalizeTitle(name), group.slug ? normalizeTitle(group.slug) : ''].filter(Boolean);
+  const hasGroup = names.some((n) => norm === n || norm.startsWith(`${n} `) || norm.endsWith(` ${n}`) || norm.includes(` ${n} `));
+  const hasQuiz = /\b(quiz|quizz|test|trivia)\b/i.test(t);
+  const join = (suffix: string): string => (/[?!.]$/.test(t) ? `${t} ${suffix}` : `${t} · ${suffix}`);
+  // The essential suffix first (what the title lacks), then the count when it still fits.
+  const essential = hasGroup && hasQuiz ? '' : hasGroup ? `${questionCount}-question quiz` : hasQuiz ? name : `${name} quiz`;
+  const withCount = (e: string): string[] => (!e ? [`${t} · ${plural(questionCount)}`] : e.endsWith('-question quiz') ? [join(e)] : [join(`${e}, ${plural(questionCount)}`), join(e)]);
+  const candidates = [...withCount(essential), t];
+  const fit = candidates.find((c) => c.length <= TITLE_MAX);
+  if (fit && (essential === '' || fit !== t)) return fit;
+  // Too long: keep the essential suffix, shorten the creator's words to make room.
+  const tail = essential ? (/[?!.]$/.test(t) ? ` ${essential}` : ` · ${essential}`) : '';
+  const room = TITLE_MAX - tail.length;
+  if (essential && room >= 12) return `${shorten(t, room)}${tail}`;
+  return t.length <= TITLE_MAX ? t : shorten(t, TITLE_MAX);
+}
+
 export interface QuizDescriptionInput {
   title: string;
   difficulty: string;
@@ -76,6 +114,8 @@ export interface QuizDescriptionInput {
   creatorIsTeam?: boolean;
   plays: number;
   creatorNote: string | null;
+  /** quizzes.quiz_type, for the wording of the questions ("odd-one-out"); absent = plain "questions". */
+  quizType?: string;
 }
 
 /** How a Team quiz is signed in search results and in JSON-LD: a Team handle can read like a fan. */
@@ -88,26 +128,37 @@ export function quizAuthorJsonLd(creator: string, creatorIsTeam: boolean): Recor
     : { '@type': 'Person', name: creator, url: `https://kpopquiz.org/u/${creator}` };
 }
 
-const article = (word: string): string => (/^[aeiou]/i.test(word) ? 'an' : 'a');
-
 /** "Played 1,784 times." A play is not a person, so the count never says fans (audit 04 P0-3). */
 export function playedText(plays: number): string {
   return `Played ${plays.toLocaleString('en-US')} ${plays === 1 ? 'time' : 'times'}.`;
 }
 
+const TYPE_NOUN: Record<string, string> = {
+  multiple_choice: 'multiple-choice', true_false: 'true or false', guess_from_clues: 'guess-from-clues', image: 'picture', intruder: 'odd-one-out',
+};
+
+/**
+ * The meta description of a quiz page: the creator's note when it says something, else a sentence built from the quiz's real data,
+ * 140 to 155 characters. It opens with what the visitor gets ("3 easy odd-one-out questions on ILLIT"), says who made it ("by fan
+ * creator mina", "by the KpopQuiz Team"), how often it was played (plays, never fans) and what it costs (audit 04 P0-3, P1-2).
+ */
 export function quizDescription(q: QuizDescriptionInput): string {
   const note = q.creatorNote ? clean(q.creatorNote) : '';
   if (note.length >= NOTE_MIN) return clipWords(note, DESCRIPTION_MAX);
   const n = q.questionCount;
-  const by = q.creatorIsTeam ? TEAM_BYLINE : q.creator;
-  let s = `${clean(q.title)}: ${article(q.difficulty)} ${q.difficulty} ${n}-question ${GENRE} quiz on ${q.groupName}, made by ${by}.`;
-  // The facts first; the call to action only when it fits whole. No average here (it lives on the page with its denominator).
-  const parts = [
-    q.plays <= 0 ? ` New on ${SITE.brand.name}: be one of the first to play it.` : ` ${playedText(q.plays)}`,
-    ' Free to play, no sign-up.',
-  ];
-  for (const p of parts) if ((s + p).length <= DESCRIPTION_MAX) s += p;
-  return clipWords(s, DESCRIPTION_MAX);
+  const by = q.creatorIsTeam ? TEAM_BYLINE : `fan creator ${q.creator}`;
+  const title = collapsePunctuation(q.title);
+  const noun = q.quizType ? TYPE_NOUN[q.quizType] : undefined;
+  const kind = noun && noun !== 'multiple-choice' ? `${noun} ` : '';
+  const core = `${title}${/[?!.]$/.test(title) ? '' : ':'} ${n} ${q.difficulty} ${kind}question${n === 1 ? '' : 's'} on ${q.groupName} by ${by}.`;
+  const played = q.plays <= 0 ? [` New on ${SITE.brand.name}: be one of the first to play it.`, ''] : [` ${playedText(q.plays)}`, ''];
+  const closers = [' Free to play, no sign-up needed.', ' Free to play, no sign-up.', ''];
+  let best = '';
+  for (const p of played) for (const c of closers) {
+    const d = `${core}${p}${c}`;
+    if (d.length <= DESCRIPTION_MAX && d.length > best.length) best = d;
+  }
+  return best || clipWords(`${core}${played[0]}${closers[1]}`, DESCRIPTION_MAX);
 }
 
 // ---------------------------------------------------------------------------
