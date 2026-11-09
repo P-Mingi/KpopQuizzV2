@@ -8,6 +8,7 @@ import { Mascot } from '@/components/ui/mascot';
 import { ResultLoop } from '@/components/result/result-loop';
 import { useSignedIn } from '@/lib/use-signed-in';
 import { analytics, btRunAnalytics, readFrom } from '@/lib/analytics';
+import { COUNTDOWN_POLL_MS, countdown } from '@/lib/ux-v1/p6/countdown';
 import { hasPlayedDaily, markDailyPlayed, completeDaily } from '@/lib/daily-played';
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { StreakBackup } from '@/components/quiz/streak-backup';
@@ -126,7 +127,6 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
   const [selected, setSelected] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(TIMER);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [eq, setEq] = useState<number[]>([14, 22, 30, 20, 12]);
   const [error, setError] = useState<string | null>(null);
 
   // N4/N5 - Blindtest of the Day mode (?daily=true). Free play ignores all of this.
@@ -163,12 +163,7 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     };
   }, [cleanup]);
 
-  // Equalizer animation while a clip is playing (paused under reduced motion).
-  useEffect(() => {
-    if (phase !== 'playing' || reduceMotion) return;
-    const iv = setInterval(() => setEq(Array.from({ length: 5 }, () => 10 + Math.random() * 28)), 130);
-    return () => clearInterval(iv);
-  }, [phase, reduceMotion]);
+  // The equalizer and the ring are CSS animations (audit 02 P1-4): no state is set per frame.
 
   const stopTimer = useCallback(() => {
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
@@ -200,15 +195,15 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     startRef.current = Date.now();
     stopTimer();
     timerRef.current = setInterval(() => {
-      const remaining = TIMER - (Date.now() - startRef.current) / 1000;
-      if (remaining <= 0) {
+      const { left, done } = countdown(Date.now() - startRef.current, TIMER);
+      if (done) {
         stopTimer();
         setTimeLeft(0);
         if (!answeredRef.current) reveal(null, false);
       } else {
-        setTimeLeft(remaining);
+        setTimeLeft(left); // whole seconds: the same value bails out of the render
       }
-    }, 50);
+    }, COUNTDOWN_POLL_MS);
   }, [audioRef, loadAndPlay, preload, reveal, stopTimer, tracking]);
 
   const finish = useCallback(() => {
@@ -594,7 +589,6 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
     if (!q) return <div />;
     const answered = phase === 'reveal';
     const correctIdx = q.choices.findIndex((c) => c === q.correct_answer);
-    const frac = Math.max(0, timeLeft) / TIMER;
     const danger = !answered && timeLeft <= 3;
     const isCorrect = answered && selected !== null && selected === correctIdx;
 
@@ -626,16 +620,18 @@ export function BlindtestGame({ groups = [], hero }: { groups?: PickerGroup[]; h
                 <svg width="148" height="148" viewBox="0 0 148 148" aria-hidden="true">
                   <circle className="bt-orb-bg" cx="74" cy="74" r={RING_R} />
                   <circle
-                    className="bt-orb-fg"
+                    key={`ring${index}`}
+                    className="bt-orb-fg is-run"
                     cx="74" cy="74" r={RING_R}
                     strokeDasharray={RING_CIRC}
-                    strokeDashoffset={RING_CIRC * (1 - frac)}
+                    strokeDashoffset={0}
+                    style={{ '--bt-circ': RING_CIRC, '--bt-dur': `${TIMER}s` } as React.CSSProperties}
                   />
                 </svg>
                 <div className="bt-orb-inner">
                   <div className="bt-eq" aria-hidden="true">
-                    {eq.map((h, i) => (
-                      <span key={i} className="bt-eq-bar" style={{ height: reduceMotion ? 20 : h }} />
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <span key={i} className="bt-eq-bar" style={reduceMotion ? { height: 20, animation: 'none' } : undefined} />
                     ))}
                   </div>
                   <span className="bt-time" aria-live="polite" aria-label={`${Math.ceil(timeLeft)} seconds left`}>{Math.ceil(timeLeft)}</span>
