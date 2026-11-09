@@ -4,12 +4,15 @@ import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
+import { listRobots } from '@/lib/seo/list-noindex';
+
 import type { Metadata } from 'next';
 
 // ISR: refresh newest quiz list every 5 minutes.
 export const revalidate = 300;
 
 export const metadata: Metadata = {
+  ...listRobots('/new'),
   title: 'New K-pop Quizzes',
   description: 'The newest K-pop quizzes just published by fans, updated as they go live. Fresh trivia about your favorite groups: be the first to play.',
   openGraph: {

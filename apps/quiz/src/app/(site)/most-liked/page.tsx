@@ -3,10 +3,13 @@ import { InfiniteQuizList } from '@/components/home/infinite-quiz-list';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
+import { listRobots } from '@/lib/seo/list-noindex';
+
 import type { Metadata } from 'next';
 
 export const revalidate = 600;
 export const metadata: Metadata = {
+  ...listRobots('/most-liked'),
   title: 'Most Liked K-pop Quizzes',
   description: 'The most loved K-pop quizzes as voted by fans. Play fan-favorite quizzes about BTS, BLACKPINK, Stray Kids, and more.',
   openGraph: {

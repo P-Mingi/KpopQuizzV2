@@ -91,4 +91,24 @@ describe('app/sitemap.ts indexing gates', () => {
     // The evergreen static pages share STATIC_DATE (a stable date, not a fake one); the 104 shared newest-quiz dates are gone.
     for (const [d, n] of counts) expect(n, d).toBeLessThanOrEqual(25);
   });
+
+  it('P1-5: today the six candidate lists are all listed; once decided they leave the sitemap', async () => {
+    const candidates = ['/trending', '/new', '/most-liked', '/quizzes/popular-today', '/quizzes/popular-this-month', '/kpop-quiz-2026'];
+    const before = await urls(false);
+    for (const c of candidates) expect(before, c).toContain(c);
+
+    vi.resetModules();
+    vi.doMock('@/lib/seo/list-noindex', async (orig) => {
+      const real = await orig<typeof import('@/lib/seo/list-noindex')>();
+      const decided = ['/trending', '/quizzes/popular-today'];
+      return { ...real, LIST_NOINDEX_DECIDED: decided, isListNoindex: (p: string) => decided.includes(p) };
+    });
+    try {
+      const after = await urls(false);
+      expect(after).not.toContain('/trending');
+      expect(after).not.toContain('/quizzes/popular-today');
+      expect(after).toContain('/new');
+      expect(after).toContain('/quizzes/popular-this-week');
+    } finally { vi.doUnmock('@/lib/seo/list-noindex'); }
+  });
 });
