@@ -4,8 +4,8 @@
 --         the curation of Taeil (74) and Mark (80), the seven groups.record_label, the position tags, Minji's roster positions, the Go Won link to Loossemble, the seven
 --         debut years and their wikidata / musicbrainz source rows (fetched_at 2026-11-02 12:00 UTC like 021d), the five nationality labels, the ASTRO inception_date;
 --         deletes the entity_sources rows of source wikipedia stamped 2026-11-09 00:00 UTC for those values; refreshes the snapshot of kpopdle-idol.
---         Left in place on purpose: the public.agencies rows L19 added (BigHit Music, Starship Entertainment, KQ Entertainment, ADOR, SM Entertainment): a name with no
---         group is read by nobody, and a name another file already used must stay.
+--         Deletes the public.agencies rows L19 created (stamped created_at 2026-11-09 00:00 UTC: BigHit Music, Starship Entertainment, KQ Entertainment, ADOR,
+--         SM Entertainment, whichever were missing); a row that existed before L19 stays. Removes the Go Won link only when L19 added it.
 -- WHEN:   like L19 (after 00:30 UTC, after a backup). A day that was kept for Taeil or Mark is served again with them as possible answers.
 -- o1-transaction: single (psql --single-transaction). Idempotent.
 
@@ -39,10 +39,12 @@ where i.name = p.name and ((p.idol_id is not null and i.id = p.idol_id) or (p.qi
 update public.idols set positions = array['Leader', 'Vocalist']::text[]
 where id = 34 and name = 'Minji' and positions = array['Vocalist']::text[];
 
--- 4. Go Won leaves Loossemble again.
+-- 4. Go Won leaves Loossemble again, only when L19 added that link (its wikipedia source row exists; a link that was there before has none).
 delete from public.idol_other_groups og
 using public.idols i, public.groups g2
-where i.wikidata_qid = 'Q58825794' and i.name = 'Go Won' and g2.slug = 'loossemble' and og.idol_id = i.id and og.group_id = g2.id;
+where i.wikidata_qid = 'Q58825794' and i.name = 'Go Won' and g2.slug = 'loossemble' and og.idol_id = i.id and og.group_id = g2.id
+  and exists (select 1 from public.entity_sources e where e.entity_type = 'idol' and e.entity_id = i.id::text and e.field = 'group' and e.source = 'wikipedia'
+    and e.fetched_at = timestamptz '2026-11-09 00:00:00+00');
 
 -- 5. Debut years, then the source rows of the old years (the refs 021d wrote).
 update public.idols i set debut_year = y.old_year
@@ -85,7 +87,12 @@ where e.source = 'wikipedia' and e.fetched_at = timestamptz '2026-11-09 00:00:00
      (e.entity_type = 'group' and e.field in ('record_label', 'inception_date'))
   or (e.entity_type = 'idol' and e.field in ('positions', 'group', 'debut_year')));
 
--- 9. The snapshot.
+-- 9. The agency rows L19 created (stamped), unless one has a child. A row that existed before has another created_at and stays.
+delete from public.agencies a
+where a.created_at = timestamptz '2026-11-09 00:00:00+00' and a.name in ('BigHit Music', 'Starship Entertainment', 'KQ Entertainment', 'ADOR', 'SM Entertainment')
+  and not exists (select 1 from public.agencies c where c.parent_id = a.id);
+
+-- 10. The snapshot.
 do $l19$ begin
   if exists (select 1 from public.dle_entities where game_id = 'kpopdle-idol') then
     perform public.dle_refresh_entities('kpopdle-idol');

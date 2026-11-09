@@ -77,7 +77,7 @@ async function fingerprint(db: PGlite): Promise<Record<string, string>> {
     sources: await q(`select row(entity_type, entity_id, field, source, source_ref, source_url, fetched_at)::text from public.entity_sources`),
     curation: await q(`select row(game_id, entity_id, excluded, weight, note)::text from public.dle_curation`),
     links: await q(`select row(idol_id, group_id)::text from public.idol_other_groups`),
-    agencies: await q(`select row(slug, name, parent_id is null, sources)::text from public.agencies where name not in ('HYBE', 'ADOR', 'KQ Entertainment', 'Starship Entertainment', 'BigHit Music', 'Belift Lab', 'Source Music', 'YX LABELS')`),
+    agencies: await q(`select row(slug, name, parent_id, sources, created_at)::text from public.agencies `),
     entities: await q(`select row(entity_id, name, attrs, can_be_target, in_pool)::text from public.dle_entities where game_id = 'kpopdle-idol'`),
     schedule: await q(`select row(bank_day, entity_id)::text from public.dle_schedule where game_id = 'kpopdle-idol'`),
   };
@@ -290,13 +290,39 @@ describe('L19 and L20: Kpopdle Idol data and view (audit 05)', () => {
     await db.exec(L19);
   });
 
-  it('the copy promises only what the data can do until L20 is applied: agency Right only, no Close row for agency or role', () => {
-    for (const l of ['en', 'fr'] as const) {
-      expect(IDOL_COLUMNS[l].agency!.near).toBeUndefined();
-      expect(IDOL_COLUMNS[l].role!.near).toBeUndefined();
-    }
-    expect(IDOL_COLUMNS.en.agency!.help).toBe('Right if same agency');
-    expect(IDOL_COLUMNS.fr.agency!.help).toBe('Juste si même agence');
+  it('the copy: the agency help is the one on main (true once L20 is applied); the role cell has no Close row (R13)', () => {
+    for (const l of ['en', 'fr'] as const) expect(IDOL_COLUMNS[l].role!.near).toBeUndefined();
+    expect(IDOL_COLUMNS.en.agency).toEqual({ label: 'Agency', help: 'Close if same parent company', near: 'same parent company', source: 'Wikidata, official site' });
+    expect(IDOL_COLUMNS.fr.agency!.help).toBe('Proche si même maison mère');
+    expect(IDOL_COLUMNS.fr.agency!.near).toBe('même maison mère');
+  });
+
+  it('exact rollback of agencies and links: rows that existed before stay, a link that was there before stays, rows L19 created go', async () => {
+    const q = async (sql: string) => rows(db, sql);
+    const agencies = `select slug, name, parent_id, sources, created_at::text from public.agencies order by slug`;
+    const links = `select idol_id, group_id from public.idol_other_groups order by 1, 2`;
+    await db.exec(L19_RB);
+    const a0 = await q(agencies);
+    const l0 = await q(links);
+    expect(a0.some((r) => r.name === 'ADOR')).toBe(false);
+    // Case 1: nothing existed. L19 creates ADOR, KQ, Starship, BigHit and the link; the rollback removes exactly those.
+    await db.exec(L19);
+    expect((await q(agencies)).length).toBeGreaterThan(a0.length);
+    await db.exec(L19_RB);
+    expect(await q(agencies)).toEqual(a0);
+    expect(await q(links)).toEqual(l0);
+    // Case 2: ADOR and the Go Won link existed before (other created_at, no L19 source row): both stay.
+    await db.exec('begin');
+    await db.exec(`insert into public.agencies (slug, name) values ('ador', 'ADOR');
+      insert into public.idol_other_groups (idol_id, group_id) select i.id, g.id from public.idols i, public.groups g where i.wikidata_qid = 'Q58825794' and g.slug = 'loossemble'`);
+    const a1 = await q(agencies);
+    const l1 = await q(links);
+    await db.exec(L19);
+    await db.exec(L19_RB);
+    expect(await q(agencies)).toEqual(a1);
+    expect(await q(links)).toEqual(l1);
+    await db.exec('rollback');
+    await db.exec(L19);
   });
 
   describe('L20', () => {

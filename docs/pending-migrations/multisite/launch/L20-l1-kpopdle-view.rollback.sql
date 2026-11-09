@@ -1,8 +1,8 @@
 -- L20-l1-kpopdle-view.rollback.sql (lane kpopdle, run O1): undoes L20-l1-kpopdle-view.sql.
 --
 -- What:   puts 020's view body back byte for byte (the `\mleader\M` roles, the agency without `p`), takes the 6 agencies out from under HYBE (only where the parent is
---         HYBE), resets their `sources` where they hold exactly the URL L20 wrote, deletes the HYBE row when it has no child left and still holds its own source, refreshes the snapshot. The agency rows L20 added stay.
--- WHEN:   like L20. Put copy.ts back to "Close if same parent company" only if you also keep the view of L20.
+--         HYBE), resets their `sources` where they hold exactly the URL L20 wrote, deletes the HYBE row when it has no child left and still holds its own source, refreshes the snapshot. Deletes the agency rows L20 created (stamped created_at 2026-11-09 00:00:01 UTC); rows that existed before stay.
+-- WHEN:   like L20. After this rollback the agency help of copy.ts ("Close if same parent company") is no longer true.
 -- o1-transaction: single (psql --single-transaction). Idempotent.
 
 set lock_timeout = '5s';
@@ -67,9 +67,10 @@ from (values
 ) as p(name, url)
 where a.name = p.name and a.parent_id = (select h.id from public.agencies h where h.name = 'HYBE');
 
-delete from public.agencies h
-where h.name = 'HYBE' and h.slug = 'hybe' and h.sources = array['https://en.wikipedia.org/wiki/Hybe']
-  and not exists (select 1 from public.agencies c where c.parent_id = h.id);
+delete from public.agencies a
+where a.created_at = timestamptz '2026-11-09 00:00:01+00'
+  and a.name in ('HYBE', 'BigHit Music', 'Pledis Entertainment', 'Source Music', 'Belift Lab', 'ADOR', 'YX LABELS')
+  and not exists (select 1 from public.agencies c where c.parent_id = a.id);
 
 do $l20$ begin
   if exists (select 1 from public.dle_entities where game_id = 'kpopdle-idol') then

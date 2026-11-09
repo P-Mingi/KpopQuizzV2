@@ -5,7 +5,7 @@
 --         1. status: dle_curation excluded for Taeil (74) and Mark (80), who left NCT (they stay in idols, active, for the public pages: Part B1 decides that);
 --         2. agency (groups.record_label, the Korean company that formed and manages the group, never a US distribution label): BTS and TXT to BigHit Music,
 --            IVE to Starship Entertainment, ATEEZ to KQ Entertainment, RIIZE and aespa to SM Entertainment, NewJeans to ADOR; the names go into public.agencies
---            (022) with the same strings so the slug matches. TWICE, Stray Kids, ITZY, (G)I-DLE, SEVENTEEN, KATSEYE and CORTIS were read in production on 2026-11-08
+--            (022) with the same strings so the slug matches (only the missing ones, stamped created_at 2026-11-09 00:00 UTC so the rollback deletes exactly those). TWICE, Stray Kids, ITZY, (G)I-DLE, SEVENTEEN, KATSEYE and CORTIS were read in production on 2026-11-08
 --            and are right: not in this file;
 --         3. positions: Maknae added to 10 idols, Leader added to Taeyeon and Junkyu, Leader taken off Minji (NewJeans has no leader on Wikipedia). Hoshi and Woozi
 --            are fixed by the view of L20, not here;
@@ -112,9 +112,10 @@ declare
   n integer;
   skipped text;
 begin
-  insert into public.agencies (slug, name)
-  select distinct on (s.slug) s.slug, s.name
-  from (select distinct l.fixed as name, left(btrim(regexp_replace(lower(btrim(l.fixed)), '[^a-z0-9]+', '-', 'g'), '-'), 60) as slug from l19_labels l) s
+  -- A row this file creates carries created_at 2026-11-09 00:00 UTC and the Wikipedia page of the group that names it in `sources`: the rollback deletes exactly those.
+  insert into public.agencies (slug, name, sources, created_at)
+  select distinct on (s.slug) s.slug, s.name, array[s.url], timestamptz '2026-11-09 00:00:00+00'
+  from (select distinct on (l.fixed) l.fixed as name, l.url, left(btrim(regexp_replace(lower(btrim(l.fixed)), '[^a-z0-9]+', '-', 'g'), '-'), 60) as slug from l19_labels l order by l.fixed, l.group_name) s
   where exists (select 1 from l19_labels l join public.groups g on g.name = l.group_name and g.site_id = 'kpop' and g.record_label = l.wrong and l.fixed = s.name)
   order by s.slug, s.name
   on conflict do nothing;
@@ -183,26 +184,30 @@ select 'idol', '34', 'positions', 'wikipedia', 'rev 1384548282; NewJeans has no 
 from public.idols i where i.id = 34 and i.name = 'Minji' and i.positions = array['Vocalist']::text[]
 on conflict (entity_type, entity_id, field, source) do nothing;
 
--- 4. Group cell: Go Won is in Loossemble as well (Part B4 is the alternative: drop the Loossemble links).
+-- 4. Group cell: Go Won is in Loossemble as well (Part B4 is the alternative: drop the Loossemble links). The source row is written only when this run adds the link,
+--    so the rollback removes the link only when it is this file's.
 do $l19$
 declare
   n integer;
 begin
   insert into l19_log (cat, total) values ('group-cell', 1);
-  insert into public.idol_other_groups (idol_id, group_id)
-  select i.id, g2.id
-  from public.idols i join public.groups g2 on g2.slug = 'loossemble'
-  where i.wikidata_qid = 'Q58825794' and i.name = 'Go Won'
-  on conflict do nothing;
-  get diagnostics n = row_count;
+  with ins as (
+    insert into public.idol_other_groups (idol_id, group_id)
+    select i.id, g2.id
+    from public.idols i join public.groups g2 on g2.slug = 'loossemble'
+    where i.wikidata_qid = 'Q58825794' and i.name = 'Go Won'
+    on conflict do nothing
+    returning idol_id
+  ), src as (
+    insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at)
+    select 'idol', ins.idol_id::text, 'group', 'wikipedia', 'rev 1383791853; Loossemble lists Go Won as a member', 'https://en.wikipedia.org/wiki/Loossemble', timestamptz '2026-11-09 00:00:00+00'
+    from ins
+    on conflict (entity_type, entity_id, field, source) do nothing
+    returning 1
+  )
+  select count(*) into n from ins;
   update l19_log set changed = n where cat = 'group-cell';
 end $l19$;
-
-insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at)
-select 'idol', i.id::text, 'group', 'wikipedia', 'rev 1383791853; Loossemble lists Go Won as a member', 'https://en.wikipedia.org/wiki/Loossemble', timestamptz '2026-11-09 00:00:00+00'
-from public.idols i join public.groups g2 on g2.slug = 'loossemble' join public.idol_other_groups og on og.idol_id = i.id and og.group_id = g2.id
-where i.wikidata_qid = 'Q58825794' and i.name = 'Go Won'
-on conflict (entity_type, entity_id, field, source) do nothing;
 
 -- 5. Debut years. The rows of the old year in entity_sources (refs known from 021d) are replaced by the wikipedia row.
 create temp table l19_years (qid text primary key, name text not null, old_year integer not null, new_year integer not null, old_wd text, old_mb text not null, url text not null, rev text not null, note text not null);

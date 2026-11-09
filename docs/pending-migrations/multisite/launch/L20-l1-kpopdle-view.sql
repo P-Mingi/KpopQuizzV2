@@ -11,8 +11,8 @@
 --         with YX Labels), BigHit_Music 1383772709 (parent Hybe Corporation), Pledis_Entertainment 1383795753 ("parent = Hybe Corporation, since May 2020"), Source_Music
 --         1384475287 ("parent = Hybe Corporation, since 2019"). Not mapped, no source read: KATSEYE's "Hybe UMG", Starship (Kakao), WakeOne (CJ ENM): left without parent, so
 --         their agency is Close to nothing but itself.
---         Until this file is applied the help text must not promise Close for the agency: copy.ts says "Right if same agency" and the role cell has no "Close" (R13).
---         After it is applied, the agency help can say "Close if same parent company" again (one line in IDOL_COLUMNS, listed in the report).
+--         The agency help in copy.ts ("Close if same parent company") is true only once this file is applied: it ships in the same PR and the owner applies it right after the merge.
+--         The role cell has no Close (R13): its `near` text is removed from copy.ts.
 --         The game stays complete for every idol: no value of any column is added or removed, only `p` on agency and the role of unit leaders, so no entity enters or
 --         leaves the targets and no served or kept day changes its answer (no schedule precheck needed). Past days' colours are recomputed on read: a guess of the agency of
 --         one HYBE label against another turns from Wrong to Close, a unit leader's Leader cell from Right to Wrong.
@@ -48,15 +48,15 @@ declare
   n integer;
   missing text;
 begin
-  insert into public.agencies (slug, name, sources) values ('hybe', 'HYBE', array['https://en.wikipedia.org/wiki/Hybe'])
+  insert into public.agencies (slug, name, sources, created_at) values ('hybe', 'HYBE', array['https://en.wikipedia.org/wiki/Hybe'], timestamptz '2026-11-09 00:00:01+00')
   on conflict do nothing;
   select id into hybe_id from public.agencies where name = 'HYBE';
   if hybe_id is null then
     raise exception 'L20: the slug hybe is taken by another agency name; nothing was changed';
   end if;
 
-  insert into public.agencies (slug, name)
-  select distinct on (s.slug) s.slug, s.name
+  insert into public.agencies (slug, name, created_at)
+  select distinct on (s.slug) s.slug, s.name, timestamptz '2026-11-09 00:00:01+00'
   from (select p.child as name, left(btrim(regexp_replace(lower(btrim(p.child)), '[^a-z0-9]+', '-', 'g'), '-'), 60) as slug from l20_parents p
         where exists (select 1 from public.groups g where btrim(g.record_label) = p.child)) s
   order by s.slug, s.name
