@@ -11,6 +11,8 @@ import { GENRE, IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
 
 import type { PopularWindow, PopularResult } from '@/lib/db/queries/popular';
+import { listRobots } from '@/lib/seo/list-noindex';
+
 import type { Metadata } from 'next';
 
 const SITE_URL = SITE.url;
@@ -53,6 +55,7 @@ export function popularMeta(window: PopularWindow): Metadata {
   const c = CONFIG[window];
   const path = `/quizzes/${c.slug}`;
   return {
+    ...listRobots(path),
     title: `${c.title}`,
     description: c.description,
     openGraph: {

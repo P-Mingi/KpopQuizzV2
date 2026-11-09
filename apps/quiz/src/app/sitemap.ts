@@ -19,6 +19,8 @@ import { isUxV12 } from '@/lib/ux-v12';
 import { GENERAL_THEMES, THEME_MIN_LISTED } from '@/lib/hubs/general-themes';
 import { themeCounts } from '@/lib/hubs/theme-view';
 
+import { isListNoindex } from '@/lib/seo/list-noindex';
+
 import type { MetadataRoute } from 'next';
 
 const SITE_URL = 'https://kpopquiz.org';
@@ -508,8 +510,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     versePages = [];
   }
 
+  // O1 audit 03 P1-5: a list page the owner moved to noindex is not advertised (empty list today: nothing changes).
+  const listed = staticPages.filter((p) => !isListNoindex(p.url.replace(SITE_URL, '')));
+
   return [
-    ...staticPages,
+    ...listed,
     ...articlePages,
     ...blindTestModePages,
     ...blindTestLandingPages,

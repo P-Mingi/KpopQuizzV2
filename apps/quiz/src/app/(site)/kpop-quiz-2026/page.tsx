@@ -5,6 +5,8 @@ import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
+import { listRobots } from '@/lib/seo/list-noindex';
+
 import type { Metadata } from 'next';
 
 export const revalidate = 60;
@@ -12,6 +14,7 @@ export const revalidate = 60;
 const YEAR = 2026;
 
 export const metadata: Metadata = {
+  ...listRobots('/kpop-quiz-2026'),
   title: 'K-pop Quizzes 2026 - Latest Comebacks & Events',
   description:
     'The freshest K-pop quizzes of 2026. BTS ARIRANG, new debuts, comebacks, and everything happening in K-pop right now. Updated daily by fans.',
