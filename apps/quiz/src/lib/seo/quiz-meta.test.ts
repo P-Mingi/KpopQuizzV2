@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clipWords, DESCRIPTION_MIN, NOTE_MIN, quizDescription, quizTitle, TITLE_MAX } from './quiz-meta';
+import { clipWords, DESCRIPTION_MIN, NOTE_MIN, quizAuthorJsonLd, quizDescription, quizTitle, TITLE_MAX } from './quiz-meta';
 
 // The title and description of every quiz page (owner, 2026-10-13: SEO). Real titles from
 // the catalogue, including the ones the old middle-cut broke ("Can you guess the IV...rom 3 clues?").
@@ -30,18 +30,26 @@ describe('quiz page title', () => {
 });
 
 describe('quiz page description', () => {
-  const base = { title: 'Ultimate BTS era quiz', difficulty: 'easy', questionCount: 8, groupName: 'BTS', creator: 'mina', plays: 2499, average: '51% average of 2,400 completed plays', creatorNote: null };
-  it('built from real data, with "an" before a vowel, the average with its denominator', () => {
-    expect(quizDescription(base)).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. 2,499 fans have played it: 51% average of 2,400 completed plays. Can you beat them?');
+  const base = { title: 'Ultimate BTS era quiz', difficulty: 'easy', questionCount: 8, groupName: 'BTS', creator: 'mina', plays: 2499, creatorNote: null };
+  it('built from real data, with "an" before a vowel; plays are plays, never fans (audit 04 P0-3)', () => {
+    expect(quizDescription(base)).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. Played 2,499 times. Free to play, no sign-up.');
   });
-  it('without an average (under 30 completed plays) it says how many fans played', () => {
-    expect(quizDescription({ ...base, average: null })).toBe('Ultimate BTS era quiz: an easy 8-question K-pop quiz on BTS, made by mina. Played by 2,499 fans. Can you beat them? Free to play, no sign-up.');
+  it('one play is singular and the meta never carries the average or the word fans', () => {
+    const d = quizDescription({ ...base, plays: 1 });
+    expect(d).toContain('Played 1 time.');
+    expect(quizDescription(base)).not.toMatch(/fans have played|Played by|fans\b|average/i);
   });
-  it('a new quiz never says "Played by 0 fans"', () => {
-    const d = quizDescription({ ...base, difficulty: 'medium', plays: 0, average: null });
+  it('a Team quiz is signed "the KpopQuiz Team", never the handle (audit 04 P0-2)', () => {
+    const d = quizDescription({ ...base, creator: 'njeansstan', creatorIsTeam: true });
+    expect(d).toContain('made by the KpopQuiz Team.');
+    expect(d).not.toContain('njeansstan');
+    expect(quizDescription({ ...base, creator: 'njeansstan' })).toContain('made by njeansstan.');
+  });
+  it('a new quiz never says "Played 0 times"', () => {
+    const d = quizDescription({ ...base, difficulty: 'medium', plays: 0 });
     expect(d).toContain('a medium 8-question');
     expect(d).toContain('be one of the first to play it');
-    expect(d).not.toContain('0 fans');
+    expect(d).not.toContain('0 times');
   });
   it('a few-word creator note is not the description; a real one is', () => {
     expect(quizDescription({ ...base, creatorNote: 'easy quiz' })).toContain('made by mina');
@@ -52,16 +60,23 @@ describe('quiz page description', () => {
   it('never longer than the snippet; the call to action whole or absent', () => {
     const d = quizDescription({ ...base, title: 'The hardest fourth generation girl group and boy group lyrics and choreography deep cut quiz ever made' });
     expect(d.length).toBeLessThanOrEqual(158);
-    expect(d).not.toMatch(/Can you beat\.\.\.$/); // the call to action is whole or absent
+    expect(d).not.toMatch(/Free to play\.\.\.$/); // the call to action is whole or absent
     expect(clipWords('one two three four', 12)).toBe('one two...');
   });
 });
 
 describe('quiz page description floor', () => {
   it('a short description gets a last line, never past the snippet', () => {
-    const d = quizDescription({ title: 'IVE', difficulty: 'easy', questionCount: 5, groupName: 'IVE', creator: 'jo', plays: 0, average: null, creatorNote: null });
+    const d = quizDescription({ title: 'IVE', difficulty: 'easy', questionCount: 5, groupName: 'IVE', creator: 'jo', plays: 0, creatorNote: null });
     expect(d.length).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
     expect(d.length).toBeLessThanOrEqual(158);
     expect(d.endsWith('Free to play, no sign-up.')).toBe(true);
+  });
+});
+
+describe('quiz JSON-LD author (audit 04 P0-2)', () => {
+  it('a Team quiz is authored by the Team organization, a fan quiz by the fan', () => {
+    expect(quizAuthorJsonLd('njeansstan', true)).toEqual({ '@type': 'Organization', name: 'KpopQuiz Team', url: 'https://kpopquiz.org/about' });
+    expect(quizAuthorJsonLd('mina', false)).toEqual({ '@type': 'Person', name: 'mina', url: 'https://kpopquiz.org/u/mina' });
   });
 });

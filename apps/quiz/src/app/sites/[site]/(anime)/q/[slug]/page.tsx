@@ -131,14 +131,13 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const quiz = await quizOr404(slug);
 
   const questionLen = (quiz.questions as unknown[]).length;
-  const average = quizAverage({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
 
   // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
   // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
   const description = quizDescription({
     title: quiz.title, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
-    creator: quiz.creator_username, plays: quiz.play_count, average: average ? averageText(average) : null, creatorNote: creatorNote ?? null,
+    creator: quiz.creator_username, plays: quiz.play_count, creatorNote: creatorNote ?? null,
   });
   const title = quizTitle(quiz.title, questionLen);
   const ogImageUrl = `/api/og/${slug}`;

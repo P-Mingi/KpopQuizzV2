@@ -10,6 +10,7 @@
 // Description: the creator's note when it says something (a note of a few words, like
 // "easy quiz", is not a description); else a sentence built from the quiz's real data.
 
+import { TEAM_AUTHOR_NAME, TEAM_BYLINE } from './team-byline';
 import { GENRE } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
 import { contentTopics, TOPIC_QUALIFIER } from '@/lib/hubs/topics';
@@ -71,30 +72,41 @@ export interface QuizDescriptionInput {
   questionCount: number;
   groupName: string;
   creator: string;
+  /** True for an editorial (Team) account: the byline reads "the KpopQuiz Team", never the handle (audit 04 P0-2). */
+  creatorIsTeam?: boolean;
   plays: number;
-  /** averageText() of the quiz average (lib/quiz/quiz-average.ts, from 30 completed plays), else null.
-   *  Passed as text so this module, read by other pages, keeps its imports. */
-  average: string | null;
   creatorNote: string | null;
 }
 
+/** How a Team quiz is signed in search results and in JSON-LD: a Team handle can read like a fan. */
+export { TEAM_AUTHOR_NAME, TEAM_BYLINE };
+
+/** The JSON-LD author of a quiz: the Team as an Organization (link to /about), else the fan creator as a Person. */
+export function quizAuthorJsonLd(creator: string, creatorIsTeam: boolean): Record<string, unknown> {
+  return creatorIsTeam
+    ? { '@type': 'Organization', name: TEAM_AUTHOR_NAME, url: 'https://kpopquiz.org/about' }
+    : { '@type': 'Person', name: creator, url: `https://kpopquiz.org/u/${creator}` };
+}
+
 const article = (word: string): string => (/^[aeiou]/i.test(word) ? 'an' : 'a');
+
+/** "Played 1,784 times." A play is not a person, so the count never says fans (audit 04 P0-3). */
+export function playedText(plays: number): string {
+  return `Played ${plays.toLocaleString('en-US')} ${plays === 1 ? 'time' : 'times'}.`;
+}
 
 export function quizDescription(q: QuizDescriptionInput): string {
   const note = q.creatorNote ? clean(q.creatorNote) : '';
   if (note.length >= NOTE_MIN) return clipWords(note, DESCRIPTION_MAX);
   const n = q.questionCount;
-  let s = `${clean(q.title)}: ${article(q.difficulty)} ${q.difficulty} ${n}-question ${GENRE} quiz on ${q.groupName}, made by ${q.creator}.`;
-  const plays = q.plays.toLocaleString('en-US');
-  // The facts first; the call to action only when it fits whole (never "Can you beat...").
-  const parts = q.plays <= 0
-    ? [` New on ${SITE.brand.name}: be one of the first to play it.`]
-    : [q.average !== null
-      ? ` ${plays} ${q.plays === 1 ? 'fan has' : 'fans have'} played it: ${q.average}.`
-      : ` Played by ${plays} ${q.plays === 1 ? 'fan' : 'fans'}.`, ' Can you beat them?'];
+  const by = q.creatorIsTeam ? TEAM_BYLINE : q.creator;
+  let s = `${clean(q.title)}: ${article(q.difficulty)} ${q.difficulty} ${n}-question ${GENRE} quiz on ${q.groupName}, made by ${by}.`;
+  // The facts first; the call to action only when it fits whole. No average here (it lives on the page with its denominator).
+  const parts = [
+    q.plays <= 0 ? ` New on ${SITE.brand.name}: be one of the first to play it.` : ` ${playedText(q.plays)}`,
+    ' Free to play, no sign-up.',
+  ];
   for (const p of parts) if ((s + p).length <= DESCRIPTION_MAX) s += p;
-  const tail = ' Free to play, no sign-up.';
-  if (s.length < DESCRIPTION_MIN && (s + tail).length <= DESCRIPTION_MAX) s += tail;
   return clipWords(s, DESCRIPTION_MAX);
 }
 

@@ -37,7 +37,8 @@ import { sanitizeCreatorNote } from '@/lib/quiz/creator-note';
 import { UX_V1 } from '@/lib/ux-v1';
 import { renderUxQuizPage } from './ux-page';
 
-import { qualifiedQuizTitle, quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
+import { playedText, qualifiedQuizTitle, quizAuthorJsonLd, quizDescription, quizTitle, TEAM_BYLINE } from '@/lib/seo/quiz-meta';
+import { isEditorialUser } from '@/lib/editorial/accounts';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
@@ -105,6 +106,15 @@ function shownTitle(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>
   });
 }
 
+/** True when an active editorial (Team) account made the quiz: its search snippet and JSON-LD say "the KpopQuiz Team", never a handle that reads like a fan (audit 04 P0-2). A failed read means "not a Team quiz". */
+async function isTeamQuiz(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>): Promise<boolean> {
+  try {
+    return await isEditorialUser((quiz as { creator_id?: string }).creator_id ?? null);
+  } catch {
+    return false;
+  }
+}
+
 /**
  * The quiz row, or a true 404 when no published quiz has this slug. SEO (owner, 2026-10-13):
  * at request time a failed or slow read is tried once more, then THROWS instead of falling back to null. With the null
@@ -157,7 +167,6 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const quiz = await quizOr404(slug);
 
   const questionLen = (quiz.questions as unknown[]).length;
-  const average = quizAverage({ total_score_sum: quiz.total_score_sum, total_completions: quiz.total_completions, question_count: questionLen, quiz_type: quiz.quiz_type });
 
   // SEO indexguard PART 4 + 2026-10-13: the creator's note when it says something, else a
   // sentence from the quiz's real data; the title never cut inside a word (lib/seo/quiz-meta.ts).
@@ -165,7 +174,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const shown = shownTitle(quiz);
   const description = quizDescription({
     title: shown, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
-    creator: quiz.creator_username, plays: quiz.play_count, average: average ? averageText(average) : null, creatorNote: creatorNote ?? null,
+    creator: quiz.creator_username, creatorIsTeam: await isTeamQuiz(quiz), plays: quiz.play_count, creatorNote: creatorNote ?? null,
   });
   const title = quizTitle(shown, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
@@ -195,6 +204,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   const quiz = await quizOr404(slug);
 
   const questionCount = (quiz.questions as unknown[]).length;
+  const teamQuiz = await isTeamQuiz(quiz);
 
   // SEO-3 U1: extra stats not on the quiz row (fastest time, perfect scores,
   // passing count, total plays-table rows). Only fetched when there is at
@@ -263,7 +273,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     ? await safeFetch(getGroupEntities(quiz.group_id), NO_ENTITIES, '[q/[slug]] entities')
     : NO_ENTITIES;
   const base = buildQuizIntro({
-    groupName: quiz.group_name, quizType: quiz.quiz_type, questionCount, difficulty: quiz.difficulty, creator: quiz.creator_username,
+    groupName: quiz.group_name, quizType: quiz.quiz_type, questionCount, difficulty: quiz.difficulty, creator: teamQuiz ? TEAM_BYLINE : quiz.creator_username,
     texts: seoQuestions
       .filter((q) => typeof q.question === 'string' && !noStatedAnswer(q.question))
       .flatMap((q) => [q.question, ...(q.options ?? []), ...(q.clues ?? [])])
@@ -276,24 +286,24 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     socialProof = 'Be one of the first to take it on and set the score to beat.';
   } else if (plays < RANKING_UNLOCK_VOTES) {
     // Branch B: honest smallness - never fake community activity
-    socialProof = `${plays.toLocaleString('en-US')} ${plays === 1 ? 'player has' : 'players have'} tried it so far.`;
+    socialProof = playedText(plays);
   } else if (plays < 1000) {
     // Branch C: standard social proof (avg is gated by threshold-30 above
-    // AND by perQuestionScore below)
+    // AND by perQuestionScore below). A play is not a person: the count says "played", never "fans" (audit 04 P0-3).
     socialProof = pageAverage
-      ? `${plays.toLocaleString('en-US')} fans have taken it (${averageText(pageAverage)}). Think you can beat that?`
-      : `${plays.toLocaleString('en-US')} fans have already tried it.`;
+      ? `${playedText(plays)} ${averageText(pageAverage)}. Think you can beat that?`
+      : playedText(plays);
   } else {
     // Branch D: popular quiz - vary the framing by score profile.
     // R5: no editorial. State the perfect-count figure without judgement.
     // C4: falls through to the generic arm when perQuestionScore is false,
     // since introAvg and introPerfCount are both suppressed for those types.
     if (introPerfCount > 0 && pageAverage && pageAverage.pct < 60) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have battled it (${averageText(pageAverage)}), and ${introPerfCount.toLocaleString('en-US')} have scored perfect. Join them?`;
+      socialProof = `${playedText(plays)} ${averageText(pageAverage)}, with ${introPerfCount.toLocaleString('en-US')} perfect ${introPerfCount === 1 ? 'score' : 'scores'}.`;
     } else if (pageAverage) {
-      socialProof = `${plays.toLocaleString('en-US')} fans have taken it (${averageText(pageAverage)}). See where you land.`;
+      socialProof = `${playedText(plays)} ${averageText(pageAverage)}. See where you land.`;
     } else {
-      socialProof = `${plays.toLocaleString('en-US')} fans have played it.`;
+      socialProof = playedText(plays);
     }
   }
   const intro = `${base} ${socialProof}`;
@@ -412,6 +422,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     fandomName: quiz.fandom_name,
     creatorId: (quiz as { creator_id?: string }).creator_id ?? null,
     creatorUsername: quiz.creator_username,
+    creatorIsTeam: teamQuiz,
     creatorXp: (quiz as { creator_xp?: number | null }).creator_xp ?? null,
     creatorAvatarUrl: quiz.creator_avatar_url,
     creatorAvatarBg: quiz.creator_avatar_bg,
@@ -448,7 +459,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     '@type': 'Quiz',
     // The H1 (the qualified title for a generic "{group} quiz", else the creator's title).
     name: heading,
-    description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on KpopQuiz`,
+    description: `A ${quiz.group_name} quiz created by ${teamQuiz ? TEAM_BYLINE : quiz.creator_username} on KpopQuiz`,
     educationalAlignment: {
       '@type': 'AlignmentObject',
       alignmentType: 'educationalSubject',
@@ -457,11 +468,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     educationalLevel: quiz.difficulty,
     assesses: quiz.group_name,
     keywords: `${quiz.group_name}, K-pop, ${quiz.difficulty} quiz`,
-    author: {
-      '@type': 'Person',
-      name: quiz.creator_username,
-      url: `https://kpopquiz.org/u/${quiz.creator_username}`,
-    },
+    // Audit 04 P0-2: a Team quiz is authored by the Team (an Organization), never by a handle that reads like a fan.
+    author: quizAuthorJsonLd(quiz.creator_username, teamQuiz),
     dateCreated: quiz.created_at,
     // Not updated_at: record_play bumps it on every play (a play is not an edit). Same value as the sitemap lastmod.
     dateModified: modified,

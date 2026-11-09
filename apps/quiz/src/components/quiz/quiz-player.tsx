@@ -95,6 +95,8 @@ interface QuizIntroData {
   fandomName: string;
   creatorId: string | null;
   creatorUsername: string;
+  /** An active editorial (Team) account: the creator card carries the Team badge, not a fan level (audit 04 P0-2). */
+  creatorIsTeam?: boolean;
   creatorXp?: number | null;
   creatorAvatarUrl: string | null;
   creatorAvatarBg: string;
@@ -749,6 +751,7 @@ export function QuizPlayer({ quiz }: QuizPlayerProps): React.ReactElement {
                   avatarText: quiz.creatorAvatarText,
                   xp: quiz.creatorXp ?? 0,
                   followerCount: 0,
+                  ...(quiz.creatorIsTeam ? { isTeam: true } : {}),
                 }}
                 compact
               />
