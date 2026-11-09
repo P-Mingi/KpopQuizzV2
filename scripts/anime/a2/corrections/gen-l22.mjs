@@ -1,5 +1,6 @@
 // L22-l1-otakudle-facts-corrections.sql and its rollback, derived from spec-l22.mjs and the data (node scripts/anime/a2/corrections/gen.mjs).
 import { readFileSync } from 'node:fs';
+import { toSingleDoBlock } from '../../sql/single-do-block.mjs';
 import path from 'node:path';
 
 import { storedValues, top200Rows } from '../gen-l13.mjs';
@@ -79,8 +80,9 @@ export function plan(D0) {
   return { rows, srcs, flips, inserts };
 }
 
-const jt = (v) => lit(v);
-const fixRow = (r, dir) => `(${q(r.id)}, ${q(r.series)}, ${q(r.slug)}, ${q(r.col)}, ${jt(dir === 'up' ? r.old : r.new)}, ${jt(dir === 'up' ? r.new : r.old)})`;
+// No temp table (owner, 2026-11-09): the corrections, the sources and the new rows are constants of the one DO block, a JSON array with one row per line.
+const jsonArray = (rows) => q(`[\n${rows.map((r) => JSON.stringify(r)).join(',\n')}\n]`);
+const fixRow = (r, dir) => ({ id: r.id, series: r.series, slug: r.slug, col: r.col, old_v: (dir === 'up' ? r.old : r.new) ?? null, new_v: (dir === 'up' ? r.new : r.old) ?? null });
 const fetchedOf = (s, def) => (s.read ? `${s.read}T00:00:00Z` : `${def}T00:00:00Z`);
 function srcRows(p, dir) {
   const out = [];
@@ -91,7 +93,7 @@ function srcRows(p, dir) {
   }
   return out;
 }
-const srcRow = (s) => { const f = s.row; return `(${q(s.id)}, ${q(s.op)}, ${q(s.entity)}, ${q(f.field)}, ${q(f.source)}, ${f.ref ? q(f.ref) : 'null'}, ${q(f.url)}, ${q(fetchedOf(f, FETCHED_DEFAULT))})`; };
+const srcRow = (s) => { const f = s.row; return { id: s.id, op: s.op, entity_id: s.entity, field: f.field, source: f.source, ref: f.ref ? f.ref : null, url: f.url, fetched: fetchedOf(f, FETCHED_DEFAULT) }; };
 
 function body(p, dir, ctx) {
   const tag = dir === 'up' ? 'L22' : 'L22 rollback';
@@ -136,24 +138,18 @@ function body(p, dir, ctx) {
     `  end if;`,
     `end $l22$;`,
     ``,
-    `create temp table l22_fix (id text primary key, series text, slug text, col text, old_v text, new_v text) on commit drop;`,
-    `insert into l22_fix values`,
-    `    ${p.rows.map((r) => fixRow(r, dir)).join(',\n    ')};`,
-    `create temp table l22_src (id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) on commit drop;`,
-  );
-  if (srcs.length) L.push(`insert into l22_src values`, `    ${srcs.map(srcRow).join(',\n    ')};`);
-  L.push(
-    `create temp table l22_new (series text, slug text, gender text, species text, role_at_debut text, first_appearance text, voice_actor_ja text, featured boolean) on commit drop;`,
-  );
-  if (nIns) L.push(`insert into l22_new values`, `    ${p.inserts.map((n) => `(${q(n.series)}, ${q(n.slug)}, ${FIELDS.map((f) => lit(n.vals[f])).join(', ')}, ${n.vals.featured})`).join(',\n    ')};`);
-  L.push(
     ``,
+  );
+  L.push(
     `do $l22$`,
     `declare`,
+    `  fixes constant jsonb := ${jsonArray(p.rows.map((r) => fixRow(r, dir)))};`,
+    `  srcs constant jsonb := ${jsonArray(srcs.map(srcRow))};`,
+    `  news constant jsonb := ${jsonArray(p.inserts.map((n) => ({ series: n.series, slug: n.slug, ...Object.fromEntries(FIELDS.map((f) => [f, n.vals[f] ?? null])), featured: n.vals.featured })))};`,
     `  c record; s record; n record; cid bigint; cur text;`,
     `  n_changed integer := 0; n_already integer := 0; n_drift integer := 0; n_missing integer := 0; n_new integer := 0;`,
     `begin`,
-    `  for c in select * from l22_fix order by id loop`,
+    `  for c in select * from jsonb_to_recordset(fixes) as t(id text, series text, slug text, col text, old_v text, new_v text) order by t.id loop`,
     `    select ch.id into cid from public.characters ch join public.groups g on g.id = ch.group_id and g.site_id = 'anime' and g.slug = c.series`,
     `      join public.character_facts f on f.character_id = ch.id where ch.slug = c.slug;`,
     `    if cid is null then`,
@@ -172,7 +168,7 @@ function body(p, dir, ctx) {
     `      raise warning '${tag} %: % / % holds %, neither % nor %: left alone', c.id, c.series, c.slug, cur, c.old_v, c.new_v;`,
     `      continue;`,
     `    end if;`,
-    `    for s in select * from l22_src w where w.id = c.id loop`,
+    `    for s in select w.* from jsonb_to_recordset(srcs) as w(id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) where w.id = c.id loop`,
     `      if s.op = 'delete' then`,
     `        delete from public.entity_sources where entity_type = 'character' and entity_id = s.entity_id and field = s.field and source = s.source;`,
     `      else`,
@@ -183,7 +179,7 @@ function body(p, dir, ctx) {
     `    end loop;`,
     `  end loop;`,
     `  -- the sources of values that stay (OT-D4: a role that had no external source) and of the new rows: upserted or deleted by key`,
-    `  for s in select * from l22_src w where not exists (select 1 from l22_fix f where f.id = w.id) order by id, field, source loop`,
+    `  for s in select w.* from jsonb_to_recordset(srcs) as w(id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) where not exists (select 1 from jsonb_to_recordset(fixes) as f(id text) where f.id = w.id) order by w.id, w.field, w.source loop`,
     `    if s.op = 'delete' then`,
     `      delete from public.entity_sources where entity_type = 'character' and entity_id = s.entity_id and field = s.field and source = s.source;`,
     `    else`,
@@ -193,7 +189,7 @@ function body(p, dir, ctx) {
     `    end if;`,
     `  end loop;`,
     `  -- a character that had no facts row (Ken Kaneki): ${dir === 'up' ? 'inserted' : 'deleted when it still holds exactly the values of this file'}`,
-    `  for n in select * from l22_new loop`,
+    `  for n in select * from jsonb_to_recordset(news) as t(series text, slug text, gender text, species text, role_at_debut text, first_appearance text, voice_actor_ja text, featured boolean) loop`,
     `    select ch.id into cid from public.characters ch join public.groups g on g.id = ch.group_id and g.site_id = 'anime' and g.slug = n.series where ch.slug = n.slug;`,
     `    if cid is null then`,
     `      raise exception '${tag}: character %/% is missing (apply L04 first)', n.series, n.slug;`,
@@ -222,13 +218,13 @@ function body(p, dir, ctx) {
     `begin`,
     `  if to_regclass('public.dle_curation') is null or not exists (select 1 from public.dle_games where id = ${q(GAME)}) then`,
     `    raise notice '${tag}: no dle_curation or no game ${GAME}: the Hisoka curation is skipped';`,
-    `    return;`,
-    `  end if;`,
+    `  else`,
     `  select ch.id into cid from public.characters ch join public.groups g on g.id = ch.group_id and g.site_id = 'anime' and g.slug = ${q(HISOKA.series)} where ch.slug = ${q(HISOKA.slug)};`,
     `  if cid is null then raise exception '${tag}: ${HISOKA.slug} is missing'; end if;`,
     dir === 'up'
       ? `  insert into public.dle_curation (game_id, entity_id, excluded, note) values (${q(GAME)}, cid::text, true, ${q(HISOKA.note)}) on conflict (game_id, entity_id) do nothing;`
       : `  delete from public.dle_curation where game_id = ${q(GAME)} and entity_id = cid::text and excluded and note = ${q(HISOKA.note)};`,
+    `  end if;`,
     `end $l22$;`,
     ``,
     `-- The snapshot the players read (a game that has none is refreshed by its own activation).`,
@@ -299,5 +295,5 @@ export function writeL22(D) {
   ];
   const up = [...head('L22-l1-otakudle-facts-corrections.sql', what, `-- Undo:   L22-l1-otakudle-facts-corrections.rollback.sql (restores the values of L13 and their sources).`), body(p, 'up', ctx), ''].join('\n');
   const down = [...head('L22-l1-otakudle-facts-corrections.rollback.sql', [`-- What:   undoes L22: puts back the values and the sources that L13 (and L18) wrote, for the rows that still hold the corrected value.`], `-- Undo:   L22-l1-otakudle-facts-corrections.sql.`), body(p, 'down', ctx), ''].join('\n');
-  return { up, down, plan: p };
+  return { up: toSingleDoBlock(up, 'o1l22'), down: toSingleDoBlock(down, 'o1l22r'), plan: p };
 }
