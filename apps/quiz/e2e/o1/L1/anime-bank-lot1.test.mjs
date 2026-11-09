@@ -11,7 +11,7 @@ const REPO = new URL('../../../../../', import.meta.url).pathname;
 const L08 = readFileSync(`${REPO}docs/pending-migrations/multisite/launch/L08-K3-daily-bank.sql`, 'utf8');
 const data = load();
 const { sql, rollback, N } = build(data);
-const FILLED = sql.replace("('{REVIEWER}', '{REVIEW_DATE}')", "('Louis', '2026-11-12')");
+const FILLED = sql.replace("('{REVIEWER}', '{REVIEW_DATE}')", "('Owner', '2026-11-12')");
 const TAKEN = ['Name That Series: Deep Cuts', 'Sessions in the Solar System: True or False', 'Stand Proud: Facts From the Joestar Archive', 'Naruto Endings: Roll the Credits', 'Directors, Awards and Theme Songs', 'Rank E True or False', 'Dragon Ball Jukebox: Openings and Endings', 'One Punch Statements: True or False', 'Closing Credits: Ending Song Quiz', 'Soul Reaper Statements: True or False', 'From Web Novel to Webtoon to Film', 'Name That Series: Studios, Songs and Staff', 'From 1984 to Daima: Dragon Ball by the Calendar', 'Rank E and the Web Novel Behind It'];
 
 async function fresh() {
@@ -59,7 +59,7 @@ test('apply: 27 rows scheduled one a day, the stuck row moved, idempotent, exact
     const q = data.lot.quizzes[i];
     assert.equal(r.title, q.title); assert.equal(r.status, 'scheduled'); assert.ok(r.v);
     assert.deepEqual(r.questions, q.questions);
-    assert.match(r.n, /checked by Louis on 2026-11-12\.$/); assert.doesNotMatch(r.n, /[{]REVIEW/);
+    assert.match(r.n, /checked by Owner on 2026-11-12\.$/); assert.doesNotMatch(r.n, /[{]REVIEW/);
     assert.equal(r.questions.length, 8);
   });
   assert.equal(rows.find((r) => r.d === '2026-12-18').title, 'Name That Series: Deep Cuts');
