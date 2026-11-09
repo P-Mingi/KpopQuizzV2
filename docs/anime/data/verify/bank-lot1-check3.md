@@ -53,3 +53,7 @@ Same fact: same answer, the same relation reversed (who sang X versus which song
 ## Found but not replaced (outside the 73 items of this pass)
 
 The same token search found 27 more questions of the lot that repeat a published question (same fact, reversed or at another grain), all marked OK by the first two readings; the whole 2026-11-25 quiz ("Pen Names") is the reverse of published "who wrote and drew" questions. They are listed in `extra_duplicates_not_replaced` of the JSON with the matched question; the brief of this pass limited the replacements to the 34 candidates and the 39 replacements, so they are still in the lot.
+
+## ORCH check of the new questions (2026-11-09)
+
+ORCH read the uncertain new questions on their pinned revisions. One changed: 2026-12-12 #1, "Death Note was adapted into three live-action films released in Japan" was ambiguous (the same page counts a fourth Japanese film in 2016) and now reads "The second live-action Death Note film was released in Japan in November 2006" (True, rev 1381769893). The other new questions read as their pages state.
