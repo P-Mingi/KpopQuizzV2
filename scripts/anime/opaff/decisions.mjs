@@ -7,7 +7,7 @@ const CP = 'Cipher Pol';
 export const D = {
   'monkey-d-luffy': [SH, 'P', ''], 'roronoa-zoro': [SH, 'P', ''], sanji: [SH, 'P', 'Also Vinsmoke Family (former) and Baratie (resigned); the Straw Hats are what the series shows.'],
   nami: [SH, 'P', ''], 'tony-tony-chopper': [SH, 'P', ''], usopp: [SH, 'P', ''], 'nico-robin': ['Baroque Works', 'N', 'Rule A (Whiskey Peak): she is introduced as Miss All Sunday and the arc ends with her still in Baroque Works; she joins the Straw Hats two arcs later. Infobox: Baroque Works (defected). Family: none (round 2).'],
-  franky: ['Franky Family', 'N', 'Rule A (Water 7): introduced as the head of the Franky Family; he joins the Straw Hats after the arc, in Enies Lobby. Infobox: Franky Family (former). Family: none, a gang of house wreckers.'], brook: [SH, 'P', ''], jinbe: ['Seven Warlords of the Sea', 'P', 'Rule A (Impel Down): introduced as a Seven Warlord (title revoked later, after Marineford); the Sun Pirates are his former crew. Infobox: Seven Warlords of the Sea (former). Family: pirates (round 2).'],
+  franky: ['Franky Family', 'N', 'Rule A (Water 7): introduced as the head of the Franky Family; he joins the Straw Hats after the arc, in Enies Lobby. Infobox: Franky Family (former). Family: none, a gang of house wreckers.'], brook: [SH, 'P', ''], jinbe: ['Sun Pirates', 'P', 'Rule A (Impel Down): still captain of the Sun Pirates when the arc ends (they are active again at Fish-Man Island) and the Warlord title is lost or given up by then; a Warlord with his own crew takes the crew (as Doflamingo). Infobox: Sun Pirates (former), the crew is listed under him. Family: pirates.'],
   shanks: ['Red Hair Pirates', 'P', ''], 'trafalgar-law': ['Heart Pirates', 'P', ''], 'portgas-d-ace': ['Whitebeard Pirates', 'P', 'Also Spade Pirates (former) when first met.'],
   'boa-hancock': ['Kuja Pirates', 'P', 'Infobox: "Kuja (Kuja Pirates)".'],
   buggy: ['Buggy Pirates', 'P', 'Debut-arc rule (Orange Town): the captain of the Buggy Pirates, the crew he leads there. Cross Guild comes after Impel Down. Infobox lists Buggy Pirates.'],
@@ -85,7 +85,7 @@ export const FLAGS = {
   usopp: 'Syrup Village arc ends with him joining the Straw Hats (the Usopp Pirates are the village kids): Straw Hat Pirates.',
   'tony-tony-chopper': 'Drum Island arc ends with him joining: Straw Hat Pirates.',
   brook: 'Thriller Bark arc ends with him joining: Straw Hat Pirates.',
-  jinbe: 'Seven Warlords of the Sea, not Sun Pirates (the audit): he is introduced as a Warlord in Impel Down, the Sun Pirates are former; same group as Kuma and Mihawk.',
+  jinbe: 'Sun Pirates, not Seven Warlords of the Sea (ORCH correction 2026-11-09): still captain of the Sun Pirates when Impel Down ends; a Warlord with his own crew takes the crew (as Doflamingo), without one (Mihawk, Kuma) Seven Warlords of the Sea.',
   buggy: 'Buggy Pirates, he leads them in Orange Town; Cross Guild comes after Impel Down.',
   'donquixote-doflamingo': 'Donquixote Pirates (his own crew, first in the infobox); Seven Warlords of the Sea is the title he holds when met, not his group.',
   crocodile: 'Baroque Works, its boss in Little Garden; Cross Guild comes later.',
