@@ -1,9 +1,8 @@
 // L21-l1-series-games-corrections.sql and its rollback, derived from spec-l21.mjs and the data (node scripts/anime/a2/corrections/gen.mjs).
 import { ASK_L21, L21, READ } from './spec-l21.mjs';
+import { toSingleDoBlock } from '../../sql/single-do-block.mjs';
 import { clone, gameContext, gameFacts, jq, q, same, setState, stateOf } from './engine.mjs';
 
-const TMP_FIX = 'l21_fix';
-const TMP_SRC = 'l21_src';
 
 /** Everything the two files need: the corrections as table rows, the sources to move, the characters that stop (or start) being an answer. */
 export function plan(D) {
@@ -48,9 +47,10 @@ export function plan(D) {
   return { rows, srcs, flips, ctx0 };
 }
 
-const valuesOf = (rows, f) => rows.map(f).join(',\n    ');
-const jsonText = (x) => q(JSON.stringify(x));
-const fixRow = (r, dir) => `(${q(r.id)}, ${q(r.game)}, ${q(r.series)}, ${q(r.slug)}, ${q(r.kind)}, ${q(r.col)}, ${jsonText(dir === 'up' ? r.old : r.new)}, ${jsonText(dir === 'up' ? r.new : r.old)})`;
+// No temp table (owner, 2026-11-09): the corrections and the sources are constants of the one DO block, a JSON array with one row per line.
+// old_v and new_v hold the JSON text of the stored value, so that JSON null (a key holding null) stays different from SQL NULL (no key).
+const jsonArray = (rows) => q(`[\n${rows.map((r) => JSON.stringify(r)).join(',\n')}\n]`);
+const fixRow = (r, dir) => ({ id: r.id, game_id: r.game, series: r.series, slug: r.slug, kind: r.kind, col: r.col, old_v: JSON.stringify(dir === 'up' ? r.old : r.new), new_v: JSON.stringify(dir === 'up' ? r.new : r.old) });
 
 function srcRows(p, dir) {
   // up: the new rows; down: the old rows back, and the new rows that did not exist go away
@@ -66,7 +66,7 @@ const srcRow = (s) => {
   const r = s.row ?? s;
   const x = s.op === 'delete' ? (s.old ?? s) : r;
   const f = (s.row ?? x);
-  return `(${q(s.id)}, ${q(s.op)}, ${q(s.slug)}, ${q(f.field)}, ${q(f.source)}, ${f.ref ? q(f.ref) : 'null'}, ${q(f.url)}, ${q(f.read ? `${f.read}T00:00:00Z` : '__DEFAULT__')})`;
+  return { id: s.id, op: s.op, entity_id: s.slug, field: f.field, source: f.source, ref: f.ref ? f.ref : null, url: f.url, fetched: f.read ? `${f.read}T00:00:00Z` : '__DEFAULT__' };
 };
 
 function gameIds(p) { return [...new Set(p.rows.map((r) => r.game))].sort(); }
@@ -112,22 +112,20 @@ function body(p, dir, ctx) {
     `  end if;`,
     `end $l21$;`,
     ``,
-    `create temp table ${TMP_FIX} (id text primary key, game_id text, series text, slug text, kind text, col text, old_v jsonb, new_v jsonb) on commit drop;`,
-    `insert into ${TMP_FIX} values`,
-    `    ${valuesOf(rows, (r) => fixRow(r, dir === 'up' ? 'up' : 'down'))};`,
-    `create temp table ${TMP_SRC} (id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) on commit drop;`,
-  );
-  if (srcs.length) {
-    lines.push(`insert into ${TMP_SRC} values`, `    ${valuesOf(srcs, srcRow).replaceAll(q('__DEFAULT__'), q(`${ctx.fetchedDefault}T00:00:00Z`))};`);
-  }
-  lines.push(
     ``,
+  );
+  const fixJson = jsonArray(rows.map((r) => fixRow(r, dir)));
+  const srcJson = jsonArray(srcs.map((s) => srcRow(s)).map((r) => ({ ...r, fetched: r.fetched === '__DEFAULT__' ? `${ctx.fetchedDefault}T00:00:00Z` : r.fetched })));
+  lines.push(
     `do $l21$`,
     `declare`,
+    `  fixes constant jsonb := ${fixJson};`,
+    `  srcs constant jsonb := ${srcJson};`,
     `  c record; s record; r record; cur jsonb;`,
     `  n_changed integer := 0; n_already integer := 0; n_drift integer := 0; n_missing integer := 0;`,
     `begin`,
-    `  for c in select * from ${TMP_FIX} order by id loop`,
+    `  for c in select t.id, t.game_id, t.series, t.slug, t.kind, t.col, t.old_v::jsonb as old_v, t.new_v::jsonb as new_v`,
+    `    from jsonb_to_recordset(fixes) as t(id text, game_id text, series text, slug text, kind text, col text, old_v text, new_v text) order by t.id loop`,
     `    select f.character_id, f.attrs, f.hints, f.can_be_target into r`,
     `    from public.character_game_facts f`,
     `    join public.characters ch on ch.id = f.character_id`,
@@ -155,7 +153,7 @@ function body(p, dir, ctx) {
     `      raise warning '${tag} %: % / % holds %, neither % nor %: left alone', c.id, c.game_id, c.slug, cur, c.old_v, c.new_v;`,
     `      continue;`,
     `    end if;`,
-    `    for s in select * from ${TMP_SRC} w where w.id = c.id loop`,
+    `    for s in select w.* from jsonb_to_recordset(srcs) as w(id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) where w.id = c.id loop`,
     `      if s.op = 'delete' then`,
     `        delete from public.entity_sources where entity_type = 'character' and entity_id = s.entity_id and field = s.field and source = s.source;`,
     `      else`,
@@ -245,5 +243,5 @@ export function writeL21(D, readDefault) {
   const up = [...head('L21-l1-series-games-corrections.sql', what, `-- Undo:   L21-l1-series-games-corrections.rollback.sql (restores the values of L15 and their sources).`), body(p, 'up', ctx), ''].join('\n');
   const downWhat = [`-- What:   undoes L21: puts back the values and the sources that L15 wrote, for the rows that still hold the corrected value.`];
   const down = [...head('L21-l1-series-games-corrections.rollback.sql', downWhat, `-- Undo:   L21-l1-series-games-corrections.sql.`), body(p, 'down', ctx), ''].join('\n');
-  return { up, down, plan: p, before, after };
+  return { up: toSingleDoBlock(up, 'o1l21'), down: toSingleDoBlock(down, 'o1l21r'), plan: p, before, after };
 }
