@@ -36,14 +36,14 @@ export function groupsIndexMeta(n: number | null): PageMeta {
   if (n === null || n < 1) {
     return {
       title: 'K-pop Groups A to Z, by Generation',
-      description: 'The K-pop groups with quizzes on KpopQuiz, listed A to Z with its generation where one is recorded. Jump to a group and start playing its quizzes.',
+      description: 'The K-pop groups with quizzes on KpopQuiz, listed A to Z, each with its generation where one is recorded. Jump to a group and start playing its quizzes.',
     };
   }
   return {
     title: fitTitle(`K-pop Groups A to Z: ${n} Groups with Quizzes`, 'K-pop Groups A to Z, by Generation'),
     description: fitDescription(
-      `The K-pop groups with quizzes on KpopQuiz, ${n} in all, listed A to Z with its generation where one is recorded. Jump to a group and start playing.`,
-      `The K-pop groups with quizzes on KpopQuiz, ${n} in all, listed A to Z with its generation where one is recorded.`,
+      `The K-pop groups with quizzes on KpopQuiz, ${n} in all, listed A to Z, each with its generation where one is recorded. Jump to a group and start playing.`,
+      `The K-pop groups with quizzes on KpopQuiz, ${n} in all, listed A to Z, each with its generation where one is recorded.`,
     ),
   };
 }

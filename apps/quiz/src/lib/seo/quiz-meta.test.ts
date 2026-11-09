@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { clipWords, collapsePunctuation, NOTE_MIN, quizAuthorJsonLd, quizDescription, quizSeoTitle, quizTitle, TITLE_MAX } from './quiz-meta';
+import { clipWords, collapsePunctuation, cutAtWord, NOTE_MIN, quizAuthorJsonLd, quizDescription, quizSeoTitle, quizTitle, TITLE_MAX } from './quiz-meta';
 
 // The title and description of every quiz page (owner, 2026-10-13: SEO). Real titles from
 // the catalogue, including the ones the old middle-cut broke ("Can you guess the IV...rom 3 clues?").
@@ -93,11 +93,34 @@ describe('quiz page SEO title (audit 04 P1-2)', () => {
   it('a title with quiz but no group gets the group name', () => {
     expect(T('The hardest idol quiz', 10, 'IVE', 'ive')).toBe('The hardest idol quiz · IVE, 10 questions');
   });
-  it('never longer than TITLE_MAX, never cut inside a word, the group and quiz kept', () => {
-    const t = T('Guess the common song of these legendary K-pop girl group artists (2)', 8, 'IVE', 'ive');
+  it('a title that names the group (or K-pop for General K-pop) and says quiz keeps its words: the real company quiz stays whole', () => {
+    // The parity case: it was "K-pop company... to the label | KpopQuiz" with " · General K-pop" added; it must stay as the creator wrote it.
+    expect(T('K-pop company quiz - match the group to the label', 10, 'General K-pop', 'general-kpop')).toBe('K-pop company quiz - match the group to the label');
+    expect(T('K-pop generation quiz', 10, 'General K-pop', 'general-kpop')).toBe('K-pop generation quiz \u00b7 10 questions');
+  });
+  it('what is added is dropped, never made room for by shortening the creator words', () => {
+    // 41 characters: " IVE quiz, 8 questions" does not fit, " IVE quiz" does (50 > 49 does not): the creator words stay whole either way.
+    const t = T('Which idol belongs to which company today', 8, 'IVE', 'ive');
+    expect(t.startsWith('Which idol belongs to which company today')).toBe(true);
+    expect(t).not.toContain('...');
     expect(t.length).toBeLessThanOrEqual(TITLE_MAX);
-    expect(t).toMatch(/IVE quiz$/);
-    expect(t).not.toMatch(/\w\.\.\.\w/);
+    expect(T('Find the 3rd gen intruder among 4th gen', 10, 'General K-pop', 'general-kpop')).toBe('Find the 3rd gen intruder among 4th gen');
+  });
+  it('only a creator title over TITLE_MAX is cut: at the last word that fits, at the end, no ellipsis, no dangling separator', () => {
+    const t = T('Guess the common song of these legendary K-pop girl group artists (2)', 8, 'IVE', 'ive');
+    expect(t).toBe('Guess the common song of these legendary K-pop');
+    expect(t.length).toBeLessThanOrEqual(TITLE_MAX);
+    expect(cutAtWord('Match the group - to the label of every company on earth', 22)).toBe('Match the group - to');
+    expect(cutAtWord('Alpha beta, gamma: delta epsilon', 17)).toBe('Alpha beta');
+    expect(cutAtWord('short', 49)).toBe('short');
+  });
+  it('no title is ever cut with an ellipsis or ends on a separator', () => {
+    for (const title of ['Ultimate fourth generation K-pop quiz for real fans of the girl groups', 'The hardest fourth generation girl group and boy group lyrics and choreography deep cut quiz ever made', 'A very long title - with a dash - that goes on and on and on forever']) {
+      const t = T(title, 10, 'TXT', 'txt');
+      expect(t.length, t).toBeLessThanOrEqual(TITLE_MAX);
+      expect(t).not.toContain('...');
+      expect(t).not.toMatch(/[\s,;:.\-\u00b7(]$/);
+    }
   });
   it('collapsePunctuation', () => {
     expect(collapsePunctuation('wow!!!  what??!!')).toBe('wow! what?');

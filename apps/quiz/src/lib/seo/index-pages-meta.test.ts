@@ -66,6 +66,16 @@ describe('/groups', () => {
       const m = groupsIndexMeta(n);
       expect(m.title).toBe('K-pop Groups A to Z, by Generation');
       expect(m.description).not.toMatch(/\d/);
+      expect(m.description.length).toBeGreaterThanOrEqual(HUB_DESCRIPTION_MIN);
+      expect(m.description.length).toBeLessThanOrEqual(HUB_DESCRIPTION_MAX);
+    }
+  });
+  it('reads right for plural groups: each with its generation', () => {
+    for (const n of [null, 7, 55, 108]) expect(groupsIndexMeta(n).description).toContain('each with its generation');
+    for (const n of [7, 55, 108]) {
+      const d = groupsIndexMeta(n).description;
+      expect(d.length).toBeGreaterThanOrEqual(HUB_DESCRIPTION_MIN);
+      expect(d.length).toBeLessThanOrEqual(HUB_DESCRIPTION_MAX);
     }
   });
 });
