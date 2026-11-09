@@ -12,13 +12,14 @@
 --         select scheduled_date from public.quiz_bank where site_id = 'anime' and title = 'Name That Series: Deep Cuts';   expect 2026-12-18
 --         select count(*) from public.quiz_bank where site_id = 'anime' and status = 'draft';   expect 58 (the 85 L08 drafts less the 27 filed here, if none was touched before)
 -- Undo:   L29-l1-anime-bank-lot1.rollback.sql (exact L08 values back, refused once one of these rows is published).
+-- Applied: 2026-11-09 12:00 UTC, by the owner, from the Supabase SQL Editor; review recorded as mingi, 2026-11-09. A second Run in the editor raised "relation _l29_review does not exist" (the editor had dropped the temp table) and changed nothing.
 -- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing. A row changed since L08 is left alone and makes the self-check fail.
 
 set lock_timeout = '5s';
 set client_min_messages = warning;
 
 create temp table _l29_review (reviewer text, review_date text) on commit drop;
-insert into _l29_review values ('{REVIEWER}', '{REVIEW_DATE}');
+insert into _l29_review values ('mingi', '2026-11-09');
 
 do $o1l$ begin
   if exists (select 1 from _l29_review where reviewer ~ '[{](REVIEWER|REVIEW_DATE)[}]' or review_date ~ '[{](REVIEWER|REVIEW_DATE)[}]') then
