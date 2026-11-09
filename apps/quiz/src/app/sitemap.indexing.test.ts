@@ -28,6 +28,18 @@ vi.mock('@/lib/supabase/server', async () => {
   return { createPublicReadClient: () => client, createServiceRoleClient: () => client, createServerClient: async () => client };
 });
 
+vi.mock('@/lib/blind-test-playlists', async (orig) => ({
+  ...(await orig<object>()),
+  getAdvertisablePlaylists: async () => ({ groups: [{ slug: 'twice' }, { slug: 'bts' }] }),
+}));
+
+async function entries(): Promise<Array<{ url: string; lastModified?: string | Date }>> {
+  vi.resetModules();
+  delete process.env.VERSE_PUBLIC;
+  const { default: sitemap } = await import('./sitemap');
+  return sitemap() as Promise<Array<{ url: string; lastModified?: string | Date }>>;
+}
+
 async function urls(versePublic: boolean): Promise<string[]> {
   vi.resetModules();
   delete process.env.VERSE_PUBLIC;
@@ -56,5 +68,27 @@ describe('app/sitemap.ts indexing gates', () => {
     expect(hidden).not.toContain('/verse');
     expect(hidden).toContain('/verse/promises');
     expect(await urls(true)).toContain('/verse');
+  });
+
+  it('P1-1: lists of the newest quizzes carry the newest quiz date, ranking pages carry none, the report keeps its own date', async () => {
+    const all = await entries();
+    const by = (path: string) => all.find((e) => e.url === `https://kpopquiz.org${path}`);
+    for (const p of ['/new', '/quizzes', '']) expect(new Date(by(p)!.lastModified!).toISOString(), p).toBe('2026-10-01T00:00:00.000Z');
+    for (const p of ['/trending', '/most-liked', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month', '/blindtest', '/stats', '/groups', '/leaderboard', '/trivia']) {
+      expect(by(p), p).toBeDefined();
+      expect(by(p)!.lastModified, p).toBeUndefined();
+    }
+    expect(new Date(by('/data/knowledge-report-2026')!.lastModified!).toISOString().slice(0, 10)).toBe('2026-08-17');
+  });
+
+  it('P1-1: no blind test group page carries a lastmod, and no date is shared by more than 25 entries', async () => {
+    const all = await entries();
+    const bt = all.filter((x) => x.url.includes('/blindtest/group-'));
+    expect(bt.length).toBe(2);
+    for (const e of bt) expect(e.lastModified).toBeUndefined();
+    const counts = new Map<string, number>();
+    for (const e of all) if (e.lastModified) counts.set(new Date(e.lastModified).toISOString(), (counts.get(new Date(e.lastModified).toISOString()) ?? 0) + 1);
+    // The evergreen static pages share STATIC_DATE (a stable date, not a fake one); the 104 shared newest-quiz dates are gone.
+    for (const [d, n] of counts) expect(n, d).toBeLessThanOrEqual(25);
   });
 });

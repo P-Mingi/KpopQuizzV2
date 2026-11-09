@@ -45,12 +45,18 @@ const QUIZZES_LIMIT = 10000;
 const STATIC_DATE = new Date('2026-06-15');
 const TERMS_DATE = new Date('2026-03-27');
 
-// URLs whose content is derived from the live quiz catalogue: their lastmod is
-// the newest quiz created_at, not the deploy time.
-const CATALOG_PATHS = new Set<string>([
-  '', '/groups', '/data/knowledge-report-2026', '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
-  '/trending', '/new', '/most-liked', '/trivia', '/leaderboard',
-  '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
+// O1 audit 03 P1-1 (rulebook 9.6): a lastmod is the page's OWN content date, or absent.
+// - NEWEST_QUIZ_PATHS list the newest quizzes, so they change when a quiz is created: the newest
+//   quiz's created_at is their real content date.
+// - Every other list or ranking page (popular, trending, most liked, easy, hard, true or false,
+//   trivia hub, leaderboard, stats, the blind test index, the group directory...) moves with play
+//   counts or likes, which must never bump a date: no lastmod. The knowledge report keeps the date
+//   it was written. The 83 blind test group pages have no content date of their own: no lastmod.
+// Until this change 104 entries shared the newest quiz date, which Google learns to ignore.
+const NEWEST_QUIZ_PATHS = new Set<string>(['', '/quizzes', '/new'].map((p) => `${SITE_URL}${p}`));
+const UNDATED_PATHS = new Set<string>([
+  '/groups', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
+  '/trending', '/most-liked', '/trivia', '/leaderboard', '/easy-kpop-quizzes', '/hard-kpop-quizzes', '/kpop-quiz-2026',
   '/guess-the-kpop-idol', '/kpop-true-or-false', '/blindtest', '/stats',
 ].map((p) => `${SITE_URL}${p}`));
 
@@ -76,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // W5: the K-pop Knowledge Report. The dataset route beside it is deliberately NOT listed:
     // it is a raw markdown file, not a page competing for a query.
     { url: `${SITE_URL}/data/knowledge-report-2026`, lastModified: new Date('2026-08-17'), changeFrequency: 'yearly', priority: 0.8 },
-    // S2 #3 time-sliced popular index pages (lastmod bumped to contentDate below).
+    // S2 #3 time-sliced popular index pages (P1-1: no lastmod, they move with play counts).
     { url: `${SITE_URL}/quizzes/popular-today`, lastModified: STATIC_DATE, changeFrequency: 'hourly', priority: 0.7 },
     { url: `${SITE_URL}/quizzes/popular-this-week`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
     { url: `${SITE_URL}/quizzes/popular-this-month`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
@@ -253,9 +259,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // orphan principle: not worth advertising. It now reads the SAME advertisable set the
     // /blindtest index links, so the sitemap and the page cannot drift apart.
     const btGroupSlugs = advertisablePlaylists.groups.map((g) => g.slug);
+    // P1-1: no lastmod. The page has no content date of its own, and the newest quiz date is not its date.
     blindTestGroupPages = btGroupSlugs.map((slug) => ({
       url: `${SITE_URL}/blindtest/group-${slug}`,
-      lastModified: contentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.5,
     }));
@@ -333,10 +339,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('[sitemap] dynamic query failed, returning static pages only:', err);
   }
 
-  // Bump catalog-driven static pages to the real newest-content date (honest
-  // lastmod). Evergreen + legal pages keep their stable dates.
+  // Lists of the newest quizzes carry the newest quiz date; ranking and list pages carry none
+  // (P1-1). Evergreen + legal pages keep their stable dates.
   for (const page of staticPages) {
-    if (CATALOG_PATHS.has(page.url)) page.lastModified = contentDate;
+    if (NEWEST_QUIZ_PATHS.has(page.url)) page.lastModified = contentDate;
+    else if (UNDATED_PATHS.has(page.url)) delete page.lastModified;
   }
 
   // Workstream T0: one URL per generated monthly Pulse report. Guarded on its
