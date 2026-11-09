@@ -19,7 +19,7 @@ Most DROPs are near duplicates of a published or taken question (same fact, same
 | 2026-11-27 | haikyu | multiple_choice | easy | Little Giants and Old Words for Volleyball |
 | 2026-11-28 | jujutsu-kaisen | multiple_choice | medium | Twenty Fingers and a Strongest Sorcerer |
 | 2026-11-29 | spy-x-family | multiple_choice | easy | Forgers, Peanuts and Shonen Jump+ |
-| 2026-11-30 | chainsaw-man | multiple_choice | medium | Debt, Devils and Twelve Endings |
+| 2026-11-30 | chainsaw-man | multiple_choice | medium | Devils, Directors and Twelve Endings |
 | 2026-12-01 | evangelion | multiple_choice | hard | The People Behind Tokyo-3 |
 | 2026-12-02 | demon-slayer | multiple_choice | easy | Boar Masks and Demon Corps |
 | 2026-12-03 | one-punch-man | multiple_choice | medium | One Punch, Many Versions |
@@ -35,7 +35,7 @@ Most DROPs are near duplicates of a published or taken question (same fact, same
 | 2026-12-13 | attack-on-titan | multiple_choice | hard | Songs From Beyond the Walls |
 | 2026-12-14 | oshi-no-ko | multiple_choice | medium | Idols and a Cinema Premiere |
 | 2026-12-15 | one-piece | multiple_choice | easy | Still Sailing: Songs, Records and a Remake |
-| 2026-12-16 | kaiju-no-8 | multiple_choice | medium | Monster #8: Awards and Spin-offs |
+| 2026-12-16 | kaiju-no-8 | multiple_choice | medium | Monster #8: Editions and Spin-offs |
 | 2026-12-17 | frieren | true_false | easy | Elf Mage Statements: True or False |
 
 ## FIX and DROP
@@ -178,3 +178,44 @@ An independent second reader re-read the 81 questions written or fixed by the fi
 - 2026-12-16 #7 REPLACED: Published "From Jump+ to Season Two" asks "On which date did the manga end its run?" (July 18, 2025): same fact. Replaced by the Manga Plus start (chapter list page: Manga Plus since July 22, 2020).
 - 2026-12-17 #2 REPLACED: Published "Elf Time Check" states "Milet sang every ending of the anime" and "Music and Makers" asks who sang every ending: same fact. Replaced by the premiere special (page: first four episodes aired together as a two-hour special on Nippon TV).
 - 2026-12-17 #7 REPLACED: Published "Music and Makers" asks who sings the first opening (Yoasobi) and the draft T/F states it: same fact. Replaced by a false statement on the season 2 year (page: aired January 16 to March 27, 2026).
+
+## Third reading (check 3)
+
+A third reader re-read the 39 replacements written by check 2 on their pinned revisions (38 confirmed, 1 option fixed) and compared them and the near duplicate candidates with the published, taken and draft questions: 35 questions repeated an already asked fact and were replaced by new sourced questions. Full record: `docs/anime/data/verify/bank-lot1-check3.json`, summary `bank-lot1-check3.md`. Applied by `scripts/anime/daily/bank-lot1-check3.mjs`.
+
+- 2026-11-23 #7 REPLACED: Published "Behind Jujutsu Kaisen: Directors, Dubs and Songs" asks "Which ending, performed by Jo0ji, accompanied season 3?" (Yoake no Uta): same fact reversed.
+- 2026-11-24 #4 REPLACED: Published "My Hero Academia True or False: Plus Ultra Edition" states "Dish performed the opening No.1 in season 5": same fact as a statement.
+- 2026-11-25 #4 REPLACED: Published "Nen Detector: True or False" states "Yoshihiro Togashi is the creator of the Hunter x Hunter manga": same fact. (The whole quiz repeats published "who wrote and drew" questions, see extra findings.)
+- 2026-11-27 #3 REPLACED: Published "Crows on Court: Who Plays Where?" asks "Which award show gave Hinata Best Boy at its fifth edition?" (Crunchyroll Anime Awards) and "Net Check" tests Best Boy at the first edition: same fact (Hinata, Best Boy, fifth Crunchyroll Anime Awards) reversed.
+- 2026-11-27 #7 REPLACED: Published "Whistles and Soundtracks: Haikyu!! on Screen" asks "Which act performed Ah Yeah, the second opening?" (Sukima Switch): same fact. The check 2 replacement is factually right (job A CONFIRMED) but repeats a published question.
+- 2026-11-28 #5 REPLACED: Published "Behind Jujutsu Kaisen: Directors, Dubs and Songs" asks "What are the short slice-of-life clips that play after the credits called?" (Juju Sanpo): same fact reversed.
+- 2026-11-28 #7 REPLACED: Published "Behind Jujutsu Kaisen: Directors, Dubs and Songs" asks "In which year did the film Jujutsu Kaisen 0 open in Japanese cinemas?" (2021): same fact with a finer answer; the date also appears in the published statement about the box office.
+- 2026-11-30 #5 REPLACED: Published "Pull the Cord: Chainsaw Man Basics" asks "Denji carries a huge debt that his father left to whom?" (the yakuza): same fact reversed (debt, father, yakuza).
+- 2026-11-30 #8 REPLACED: Published "Who Sang the Opening? Bands and Singers Across Ten Anime" asks "Who performed Kick Back, the opening of the Chainsaw Man anime?" (Kenshi Yonezu): same fact.
+- 2026-12-01 #6 REPLACED: Published "Gainax, Khara and Netflix: Evangelion Behind the Screens" asks "Which prize did the opening A Cruel Angel's Thesis take from Animage in 1996?" (Best song): same fact.
+- 2026-12-02 #5 REPLACED: Published "Demon Slayer True or False: Blades Out" states "Tanjiro's unusually sharp sense of smell helps him track demons": same fact as a statement.
+- 2026-12-02 #8 REPLACED: Published "Demon Slayer Credits Roll: Music, Studio and Awards" asks "Which prize did LiSA's Gurenge win at the 2019 Newtype Anime Awards?" (Best theme song): same fact with the year and the prize swapped.
+- 2026-12-03 #2 FIX: Key and claim are right (page: first tankobon volume of the Murata version published December 4, 2012), but the distractor "21 January 2013" is the exact date the One-Punch Man page gives for the start in Viz Weekly Shonen Jump, which is the answer (2013) of question 5 of the same quiz: a leak between two questions. Fixed by replacing that single option with a wrong date, 17 September 2012 (no new question needed).
+- 2026-12-03 #7 REPLACED: Published "Directors, Studios and Theme Songs: One-Punch Man on Screen" asks "Which group performs the opening of season 1?" (JAM Project) and "Which title is the opening of season 1?": same fact.
+- 2026-12-04 #8 REPLACED: Published "Studios, Songs and Premieres: Dandadan on Screen" asks "At which festival did the series win the shonen category in 2025?" (Manga Barcelona): same fact word for word.
+- 2026-12-06 #2 REPLACED: Published "Striker's Handbook" asks which award the manga won in the shonen category in 2021, "Blue Lock by the Numbers" and "Full Time Mix" ask the 45th Kodansha Manga Award (2021), and "Offside Check" states 45th in 2021: same fact (this one asks the year).
+- 2026-12-06 #3 REPLACED: Published "Full Time Mix" asks the month (April 2024) of the Episode Nagi film, "Kickoff Dates and Theme Songs" asks which spin-off the film of April 19, 2024 adapted, and "Offside Check" tests April 19, 2023: same fact (this one asks the full date).
+- 2026-12-06 #6 REPLACED: Published "Striker's Handbook: Blue Lock Basics" asks "Which studio animates the series?" (Eight Bit): same fact.
+- 2026-12-08 #1 REPLACED: Published "Heroes on the Mic: My Hero Academia Openings and Endings" asks "Who performed Peace Sign, the first opening of season 2?" (Kenshi Yonezu): same song (the second opening overall).
+- 2026-12-09 #5 REPLACED: Published "Before the Transformation: Sailor Moon Basics" asks "Which prize did the manga win in the shojo category in 1993?" (Kodansha Manga Award): same fact reversed.
+- 2026-12-10 #3 REPLACED: Published "Taste Test: Apothecary Diaries True or False" states "A second manga take, drawn by Minoji Kurata for Shogakukan's Monthly Sunday Gene-X, launched on August 19, 2017": same fact.
+- 2026-12-10 #5 REPLACED: Published "From Narō to Season Three: Apothecary Diaries Odds and Ends" asks "On which date did Nekokurage's manga adaptation begin in Monthly Big Gangan?" (May 25, 2017): same fact.
+- 2026-12-10 #6 REPLACED: Published "Inside the Rear Palace: Apothecary Diaries Basics" asks how many copies were in circulation across the light novels and both manga by August 2026 (over 57 million): same fact.
+- 2026-12-12 #1 REPLACED: Published "Count Them Up: Ten Anime and Manga in Numbers", "Name and Face: Death Note True or False" and "Nightmare, Hormone and Madhouse" state or ask the 37 episodes on Nippon Television: same fact.
+- 2026-12-12 #4 REPLACED: Published "Name and Face: Death Note True or False" states "The manga appeared in Weekly Shonen Jump between December 2003 and May 2006" (TRUE): same fact (run years), this draft is the false variant.
+- 2026-12-12 #5 REPLACED: Published "Name and Face: Death Note True or False" states 108 weekly chapters gathered into twenty volumes (FALSE) and "Death Note Basics" asks the 108 chapters: same fact (volume count), this draft is the true variant.
+- 2026-12-12 #7 REPLACED: Published "The Notebook Hits the Ground: Death Note Basics" asks "By spring 2015, how many copies of the Death Note manga had passed in circulation?" (more than 30 million) and "Name and Face" states it: same fact.
+- 2026-12-12 #8 REPLACED: Published "Nightmare, Hormone and Madhouse" asks "Which company holds the North American licence for the Death Note books and anime?" (Viz Media): same fact.
+- 2026-12-16 #2 REPLACED: Published "Suit Up, Rookie: Kaiju No. 8 Basics" asks "Which award did the manga win in 2021 in the web manga category?" (Next Manga Award): same fact word for word.
+- 2026-12-16 #3 REPLACED: Published "Combat Power Check: Kaiju No. 8 True or False" states "The manga took the 2021 Next Manga Award for web manga and was shortlisted for an Eisner Award the year after" (TRUE): same fact.
+- 2026-12-16 #4 REPLACED: Published "From Jump+ to Season Two: Kaiju No. 8 Odds and Ends" asks "How many copies of the manga were in circulation by September 2026?" (over 20 million): same fact.
+- 2026-12-17 #1 REPLACED: Published "Journey's Beginning: Frieren Basics" asks "What does the Japanese title literally mean?" (Frieren at the Funeral): same fact.
+- 2026-12-17 #4 REPLACED: Published "Journey's Beginning: Frieren Basics" asks "How many episodes did the first anime season run?" (28): same fact.
+- 2026-12-17 #5 REPLACED: Published "Music and Makers: Frieren on Screen" asks "How many short episodes were in the first batch of Spell That Does OOO?" (eleven): same fact.
+- 2026-12-17 #7 REPLACED: Published "Season by Season: Frieren Toward the Golden Land" asks "When did season 2 air?" (early 2026) and "Elf Time Check" covers seasons: same fact (season 2 aired in 2026, not 2025).
+- 2026-12-17 #8 REPLACED: Published "Who Made It? Pens, Pencils and Pen Names" asks "Kanehito Yamada writes the manga of Frieren. Who draws it?" (Tsukasa Abe) and "Journey's Beginning" asks who writes and who draws: same fact reversed.
