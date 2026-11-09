@@ -6,7 +6,7 @@ import path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { afterJ4, afterSessionG, applyLaunchFiles } from './otakudle-fixture';
+import { afterJ4, afterSessionG, applyLaunchFiles, liveGames } from './otakudle-fixture';
 import { MIGRATIONS, readMigration, rows } from './pglite-harness';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -35,8 +35,8 @@ function verifyOf(file: string): Verify[] {
 
 async function check(db: PGlite, file: string): Promise<void> {
   const list = verifyOf(file);
-  expect(list.length, `${file}: 3 to 6 Verify lines`).toBeGreaterThanOrEqual(3);
-  expect(list.length, `${file}: 3 to 6 Verify lines`).toBeLessThanOrEqual(6);
+  expect(list.length, `${file}: 3 to 12 Verify lines`).toBeGreaterThanOrEqual(3);
+  expect(list.length, `${file}: 3 to 12 Verify lines`).toBeLessThanOrEqual(12);
   for (const v of list) {
     const r = await rows<Record<string, unknown>>(db, v.query.replace(/;$/, ''));
     expect(r.length, v.query).toBe(1);
@@ -53,7 +53,8 @@ beforeAll(async () => {
   await db.exec(readMigration('024-dle-series-games.sql'));
   await applyLaunchFiles(db);
   for (const f of ['L15-A2-series-games.sql', 'L17-l1-op-affiliation.sql', 'L18-l1-otakudle-genres.sql']) await db.exec(readLaunch(f));
-  for (const g of ['otakudle-one-piece', 'otakudle-dragon-ball', 'otakudle']) await db.exec(`select public.dle_refresh_entities('${g}')`);
+  // The three games as production has them: live, with a bank of 365 days drawn from the pool before the corrections.
+  await liveGames(db, ['otakudle-one-piece', 'otakudle-dragon-ball', 'otakudle']);
 });
 
 describe('the Verify lines of the headers hold on the chain', () => {

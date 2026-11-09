@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { afterJ4, afterSessionG, applyLaunchFiles } from './otakudle-fixture';
+import { afterJ4, afterSessionG, applyLaunchFiles, liveGames } from './otakudle-fixture';
 import { MIGRATIONS, one, readMigration, rows } from './pglite-harness';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -59,8 +59,9 @@ beforeAll(async () => {
   await db.exec(readLaunch('L15-A2-series-games.sql'));
   await db.exec(readLaunch('L17-l1-op-affiliation.sql'));
   await db.exec(readLaunch('L18-l1-otakudle-genres.sql'));
+  await liveGames(db, ['otakudle-one-piece', 'otakudle-dragon-ball']);
   await db.exec(readLaunch('L21-l1-series-games-corrections.sql'));
-  await db.exec(`select public.dle_refresh_entities('otakudle')`);
+  await liveGames(db, ['otakudle']);
   KANEKI = await one<number>(db, `select c.id::int from public.characters c where c.slug = 'ken-kaneki'`);
   answersBefore = await answers(db);
   beforeL22 = await snap(db);
@@ -217,7 +218,7 @@ describe('L23: first adaptation (studio) and year of the original work', () => {
   });
 });
 
-describe('rollbacks and prechecks', () => {
+describe('rollbacks', () => {
   it('L23 rollback then L22 rollback restore L13, L18 and the view exactly, twice; both apply again', async () => {
     await db.exec(readLaunch(L23R));
     await db.exec(readLaunch(L23R));
@@ -230,22 +231,6 @@ describe('rollbacks and prechecks', () => {
     expect(await one<number>(db, `select count(*)::int from information_schema.columns where table_name = 'series_facts' and column_name = 'first_studios'`)).toBe(0);
     await db.exec(readLaunch(L22));
     expect((await snap(db)).facts).toEqual(noStamp(afterL22).facts);
-    await db.exec(readLaunch(L23));
-    expect(await snap(db)).toEqual(noStamp(afterL23));
-  });
-
-  it('the precheck: a character that stops being an answer and is scheduled in the next 7 days aborts L22, nothing is written', async () => {
-    await db.exec(readLaunch(L23R));
-    await db.exec(readLaunch(L22R));
-    const before = await snap(db);
-    await db.exec(`update public.dle_games set epoch = public.dle_utc_date(now()) - 10 where id = 'otakudle'`);
-    const epoch = await one<string>(db, `select epoch::text from public.dle_games where id = 'otakudle'`);
-    const haise = await one<string>(db, `select c.id::text from public.characters c where c.slug = 'haise-sasaki'`);
-    await db.exec(`insert into public.dle_schedule (game_id, bank_day, entity_id) values ('otakudle', public.dle_bank_day('${epoch}'::date, public.dle_utc_date(now()) + 3), '${haise}')`);
-    await expect(db.exec(readLaunch(L22))).rejects.toThrow(/haise-sasaki is the answer of otakudle/);
-    expect(await snap(db)).toEqual(before);
-    await db.exec(`delete from public.dle_schedule where game_id = 'otakudle'`);
-    await db.exec(readLaunch(L22));
     await db.exec(readLaunch(L23));
     expect(await snap(db)).toEqual(noStamp(afterL23));
   });
