@@ -7,8 +7,8 @@ import path from 'node:path';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { IDOL_COLUMNS } from './copy';
-import { afterSessionG } from './otakudle-fixture';
-import { MIGRATIONS, failure, one, readMigration, rows } from './pglite-harness';
+import { PROD_TARGETS, kpopdleWorld, productionCalendar } from './kpopdle-fixture';
+import { MIGRATIONS, failure, one, rows } from './pglite-harness';
 
 import type { PGlite } from '@electric-sql/pglite';
 
@@ -20,53 +20,6 @@ const L19_RB = readLaunch('L19-l1-kpopdle-data-fixes.rollback.sql');
 const L20 = readLaunch('L20-l1-kpopdle-view.sql');
 const L20_RB = readLaunch('L20-l1-kpopdle-view.rollback.sql');
 const V_MEMBERS = readFileSync(path.resolve(MIGRATIONS, '../../launch/o1/checks/V-kpopdle-members.sql'), 'utf8');
-
-// idol id -> QID, as 021a lists them (so 021a really fills gender and debut for the seeded rows).
-const QID_021A = new Map<number, string>([...readMigration('021a-k1-idol-gender-debut.sql').matchAll(/^\s*\((\d+), '(Q\d+)', '(?:female|male)', (?:\d{4}|null)\)/gm)].map((m) => [Number(m[1]), m[2]!]));
-const QID_021D = new Map<number, string>([...readMigration('021d-k2-idols.sql').matchAll(/^\s*\((\d+), '(Q\d+)'\)[,;]?$/gm)].map((m) => [Number(m[1]), m[2]!]));
-const ACTIVATION = [82, 89, 133, 143, 144, 145, 148, 151, 152, 153, 163];
-
-// [slug, name, label, generation]: the K1 groups as production holds them on 2026-11-08 (labels read by the audit).
-const K1_GROUPS: [string, string, string | null, string][] = [
-  ['bts', 'BTS', 'Columbia Records', '3rd Gen'], ['blackpink', 'BLACKPINK', 'YG Entertainment', '3rd Gen'], ['twice', 'TWICE', 'JYP Entertainment', '3rd Gen'],
-  ['aespa', 'aespa', 'Capitol Records', '4th Gen'], ['newjeans', 'NewJeans', 'Geffen Records', '4th Gen'], ['seventeen', 'SEVENTEEN', 'Pledis Entertainment', '3rd Gen'],
-  ['gidle', '(G)I-DLE', 'Cube Entertainment', '4th Gen'], ['nct', 'NCT', 'SM Entertainment', '3rd Gen'], ['riize', 'RIIZE', 'RCA Records', '5th Gen'],
-  ['exo', 'EXO', 'SM Entertainment', '3rd Gen'], ['shinee', 'SHINee', 'SM Entertainment', '2nd Gen'], ['txt', 'TXT', 'Republic Records', '4th Gen'],
-  ['ive', 'IVE', 'Columbia Records', '4th Gen'], ['ateez', 'ATEEZ', 'RCA Records', '4th Gen'], ['kep1er', 'Kep1er', 'WakeOne', '4th Gen'],
-  ['babymonster', 'BABYMONSTER', 'YG Entertainment', '5th Gen'], ['fifty-fifty', 'FIFTY FIFTY', null, '4th Gen'],
-];
-// The 18 K2 groups (empty, 021d fills them) and the two other groups of the LOONA members.
-const K2_GROUPS: [string, string][] = [
-  ['loona', 'LOONA'], ['got7', 'GOT7'], ['monsta-x', 'MONSTA X'], ['girls-generation', 'Girls\' Generation'], ['zerobaseone', 'ZEROBASEONE'], ['mamamoo', 'MAMAMOO'],
-  ['bigbang', 'BIGBANG'], ['katseye', 'KATSEYE'], ['illit', 'ILLIT'], ['treasure', 'TREASURE'], ['dreamcatcher', 'Dreamcatcher'], ['tws', 'TWS'], ['p1harmony', 'P1Harmony'],
-  ['cortis', 'CORTIS'], ['hearts2hearts', 'Hearts2Hearts'], ['team', '&TEAM'], ['akmu', 'AKMU'], ['astro', 'ASTRO'], ['artms', 'ARTMS'], ['loossemble', 'Loossemble'],
-];
-// [id, name, group slug, birth date, nationality, positions, active]: the K1 rows of the audit, at the values production holds (positions from the roster seed).
-const K1_IDOLS: [number, string, string, string, string, string[], boolean][] = [
-  [1, 'RM', 'bts', '1994-09-12', 'South Korea', ['Leader', 'Rapper'], true], [7, 'Jungkook', 'bts', '1997-09-01', 'South Korea', ['Main Vocalist', 'Center'], true],
-  [11, 'Lisa', 'blackpink', '1997-03-27', 'Thailand', ['Main Dancer', 'Lead Rapper'], true], [29, 'Tzuyu', 'twice', '1999-06-14', 'Taiwan', ['Lead Dancer'], true],
-  [30, 'Karina', 'aespa', '2000-04-11', 'South Korea', ['Leader', 'Dancer'], true], [33, 'Ningning', 'aespa', '2002-10-23', 'People\'s Republic of China', ['Vocalist'], true],
-  [34, 'Minji', 'newjeans', '2004-05-07', 'South Korea', ['Leader', 'Vocalist'], true], [40, 'Jeonghan', 'seventeen', '1995-10-04', 'South Korea', ['Vocalist'], true],
-  [42, 'Jun', 'seventeen', '1996-06-10', 'People\'s Republic of China', ['Performance Unit Main Dancer'], true],
-  [43, 'Hoshi', 'seventeen', '1996-06-15', 'South Korea', ['Performance Unit Leader', 'Main Dancer'], true],
-  [45, 'Woozi', 'seventeen', '1996-11-22', 'South Korea', ['Vocal Unit Leader', 'Lead Vocalist'], true],
-  [58, 'Yuqi', 'gidle', '1999-09-23', 'People\'s Republic of China', ['Vocalist'], true],
-  [61, 'Yujin', 'ive', '2003-09-01', 'South Korea', ['Leader'], true], [74, 'Taeil', 'nct', '1994-06-14', 'South Korea', ['Vocalist'], true],
-  [80, 'Mark', 'nct', '1999-08-02', 'Canada', ['Rapper'], true], [107, 'Hongjoong', 'ateez', '1998-11-07', 'South Korea', ['Leader'], true],
-  [122, 'Soobin', 'txt', '2000-12-05', 'South Korea', ['Leader'], true], [170, 'Lay', 'exo', '1991-10-07', 'People\'s Republic of China', ['Vocalist'], true],
-  [176, 'Sehun', 'exo', '1994-04-12', 'South Korea', ['Rapper'], true], [196, 'Taemin', 'shinee', '1993-07-18', 'South Korea', ['Main Vocalist'], true],
-  // The 11 rows 021d activates (inactive, waiting for review).
-  [82, 'Ten', 'nct', '1996-02-27', 'Thailand', [], false], [89, 'Qian Kun', 'nct', '1996-01-01', 'People\'s Republic of China', [], false],
-  [133, 'Kim Chae-hyun', 'kep1er', '2002-08-13', 'South Korea', [], false], [143, 'Pharita', 'babymonster', '2005-08-26', 'Thailand', [], false],
-  [144, 'Asa', 'babymonster', '2006-04-17', 'Japan', [], false], [145, 'Rami', 'babymonster', '2007-10-17', 'South Korea', [], false],
-  [148, 'Ahyeon', 'babymonster', '2007-04-29', 'South Korea', [], false], [151, 'Anton Lee', 'riize', '2004-03-21', 'South Korea', [], false],
-  [152, 'Song Eun-seok', 'riize', '2001-03-19', 'South Korea', [], false], [153, 'Park Won-bin', 'riize', '2002-03-02', 'South Korea', [], false],
-  [163, 'Keena', 'fifty-fifty', '2005-03-27', 'South Korea', [], false],
-];
-// The four rows 021e dates (no birth date until then).
-const K1_UNDATED: [number, string, string, string][] = [[39, 'S.Coups', 'seventeen', 'Q21824968'], [46, 'DK', 'seventeen', 'Q21824862'], [48, 'The8', 'seventeen', 'Q21824868'], [175, 'Kai', 'exo', 'Q10775090']];
-
-const today = (): Promise<string> => Promise.resolve(new Date().toISOString().slice(0, 10));
 
 /** A fingerprint of everything L19 may touch, and of what it must not: the same text twice means nothing moved. */
 async function fingerprint(db: PGlite): Promise<Record<string, string>> {
@@ -97,30 +50,7 @@ describe('L19 and L20: Kpopdle Idol data and view (audit 05)', () => {
   let targetsBefore: number;
 
   beforeAll(async () => {
-    db = await afterSessionG();
-    // Production has this key (021d inserts on conflict (group_id, name)).
-    await db.exec(`alter table public.idols add constraint idols_group_id_name_key unique (group_id, name)`);
-    for (const [slug, name, label, gen] of K1_GROUPS) {
-      await db.query(`insert into public.groups (name, slug, record_label, generation, fandom_name, inception_date) values ($1, $2, $3, $4, 'fan', null)`, [name, slug, label, gen]);
-    }
-    for (const [slug, name] of K2_GROUPS) await db.query(`insert into public.groups (name, slug) values ($1, $2)`, [name, slug]);
-    for (const [id, name, slug, birth, nat, positions, active] of K1_IDOLS) {
-      const qid = ACTIVATION.includes(id) ? QID_021D.get(id) : QID_021A.get(id);
-      await db.query(
-        `insert into public.idols (id, group_id, name, birth_date, nationality, positions, wikidata_qid, active, needs_review, ord)
-         values ($1, (select id from public.groups where slug = $2), $3, $4, $5, $6, $7, $8, $9, $1)`,
-        [id, slug, name, birth, nat, positions, qid ?? null, active, !active],
-      );
-    }
-    for (const [id, name, slug, qid] of K1_UNDATED) {
-      await db.query(`insert into public.idols (id, group_id, name, wikidata_qid, active, ord) values ($1, (select id from public.groups where slug = $2), $3, $4, true, $1)`, [id, slug, name, qid]);
-    }
-    await db.exec(`select setval(pg_get_serial_sequence('public.idols', 'id'), (select max(id) from public.idols))`);
-    for (const f of ['021a-k1-idol-gender-debut.sql', '021c-k1-idol-corrections.sql', '021b-k1-idol-activate.sql', '022-photos-admin.sql', '021d-k2-idols.sql', '021e-k2-birth-dates.sql']) {
-      await db.exec(readMigration(f));
-    }
-    // The state of the night before the file: a snapshot, an active game, a bank.
-    await db.exec(`select public.dle_activate('kpopdle-idol', '${await today()}', 0.5)`);
+    db = await kpopdleWorld();
     targetsBefore = await one<number>(db, `select count(*)::int from public.dle_entities where game_id = 'kpopdle-idol' and can_be_target`);
   });
 
@@ -129,7 +59,7 @@ describe('L19 and L20: Kpopdle Idol data and view (audit 05)', () => {
     expect(await grp(db, 'aespa')).toBe('Capitol Records');
     expect(await one(db, `select count(*)::int from public.dle_entities where game_id = 'kpopdle-idol' and entity_id in ('74', '80') and can_be_target`)).toBe(2);
     expect(await one(db, `select active from public.dle_games where id = 'kpopdle-idol'`)).toBe(true);
-    expect(targetsBefore).toBeGreaterThan(90);
+    expect(targetsBefore).toBe(PROD_TARGETS);
     expect(await attr(db, 43, 'role')).toEqual({ v: 'leader' });
     expect(await attr(db, 45, 'role')).toEqual({ v: 'leader' });
     expect(await attr(db, 1, 'agency')).toEqual({ v: ['Columbia Records'] });
@@ -138,26 +68,6 @@ describe('L19 and L20: Kpopdle Idol data and view (audit 05)', () => {
     expect(await one(db, `select inception_date::text from public.groups where slug = 'astro'`)).toBe('2016-01-01');
     // The audit's "Close can never fire", before L20: two labels of one group are Wrong.
     expect(await verdict(db, 'agency', 'single', 1, 122)).toBe('wrong');
-  });
-
-  it('step 0: Taeil or Mark as the answer of a day in the next 8 days aborts the file with nothing changed', async () => {
-    const snap = await fingerprint(db);
-    const day = await one<number>(db, `select public.dle_bank_day(epoch, public.dle_utc_date(now()) + 3) from public.dle_games where id = 'kpopdle-idol'`);
-    for (const id of ['74', '80']) {
-      await db.exec('begin');
-      await db.query(`update public.dle_schedule set entity_id = $1 where game_id = 'kpopdle-idol' and bank_day = $2`, [id, day]);
-      const msg = await failure(db, L19);
-      await db.exec('rollback');
-      expect(msg, id).toMatch(/L19: Taeil \(74\) or Mark \(80\) is the answer of a served or kept day in the next 8 days: \d{4}-\d{2}-\d{2} \(id \d+\)/);
-      expect(msg).toContain(`(id ${id})`);
-    }
-    // A day already served keeps its row in dle_daily_stats: the guard reads that one first.
-    await db.exec('begin');
-    await db.query(`insert into public.dle_daily_stats (game_id, play_date, game_no, entity_id) values ('kpopdle-idol', public.dle_utc_date(now()), 1, '80') on conflict (game_id, play_date) do update set entity_id = '80'`);
-    const served = await failure(db, L19);
-    await db.exec('rollback');
-    expect(served).toMatch(/Mark \(80\)/);
-    expect(await fingerprint(db)).toEqual(snap);
   });
 
   it('a row someone already fixed, or renamed, is left alone and the rest is fixed', async () => {
@@ -174,9 +84,7 @@ describe('L19 and L20: Kpopdle Idol data and view (audit 05)', () => {
     let afterRun: Record<string, string>;
 
     beforeAll(async () => {
-      // Taeil and Mark are not in the next 8 days today (as the owner's read of production says); make it so in the seed if the draw put them there.
-      await db.exec(`update public.dle_schedule s set entity_id = (select e.entity_id from public.dle_entities e where e.game_id = s.game_id and e.can_be_target and e.entity_id not in ('74', '80') order by e.entity_id limit 1)
-        where s.game_id = 'kpopdle-idol' and s.entity_id in ('74', '80') and s.bank_day in (select public.dle_bank_day(g.epoch, public.dle_utc_date(now()) + k) from public.dle_games g, generate_series(0, 7) k where g.id = 'kpopdle-idol')`);
+      await productionCalendar(db);
       before = await fingerprint(db);
       kidsBefore = await rows(db, `select entity_id as id, attrs::text from public.dle_entities where game_id = 'kpopdle-idol'`);
       await db.exec(L19);

@@ -10,6 +10,10 @@ import { describe, expect, it } from 'vitest';
 import { MIGRATIONS } from './pglite-harness';
 
 const FILES: [file: string, tag: string][] = [
+  ['L19-l1-kpopdle-data-fixes.sql', 'o1l19'],
+  ['L19-l1-kpopdle-data-fixes.rollback.sql', 'o1l19r'],
+  ['L20-l1-kpopdle-view.sql', 'o1l20'],
+  ['L20-l1-kpopdle-view.rollback.sql', 'o1l20r'],
   ['L17-l1-op-affiliation.sql', 'o1l17'],
   ['L17-l1-op-affiliation.rollback.sql', 'o1l17r'],
   ['L18-l1-otakudle-genres.sql', 'o1l18'],
