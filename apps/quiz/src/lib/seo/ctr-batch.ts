@@ -170,7 +170,7 @@ export interface CheckContext {
   reviewedYears?: readonly number[];
 }
 
-const DASH = /[–—]/;
+const DASH = /[\u2013\u2014]/;
 const words = (s: string): string[] => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').split(/[^a-z0-9]+/).filter(Boolean);
 
 /** A typed number: 2 or more digits standing alone, or any number with a plus or a thousands comma ("450+", "4,200"). Ordinals ("5th"), names ("2NE1") and one digit pass. */

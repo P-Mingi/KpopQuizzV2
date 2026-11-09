@@ -101,7 +101,7 @@ describe('checkProposals', () => {
     ['a title over 49 characters', { title: 'BTS Quiz: Test Your Level With A Very Long Title Here' }, 'over 49'],
     ['a short description', { description: 'Too short for a snippet.' }, 'outside 120 to 160'],
     ['a long description', { description: 'x'.repeat(170) }, 'outside 120 to 160'],
-    ['a dash', { title: 'BTS Quiz – Easy to Hard' }, 'dash'],
+    ['a dash', { title: 'BTS Quiz \u2013 Easy to Hard' }, 'dash'],
     ['a typed number', { title: 'BTS Quiz: 450+ Free Tests' }, 'typed number'],
     ['a typed count', { title: 'BTS Quiz: 30 Questions' }, 'typed number'],
     ['an unreviewed year', { title: 'BTS Quiz 2026: Easy to Hard' }, 'year 2026'],

@@ -16,7 +16,7 @@ describe('quizPageTitle', () => {
   it('every override fits, has no dash, no typed number of fans and no unreviewed year', () => {
     for (const [slug, t] of Object.entries(QUIZ_TITLE_OVERRIDES)) {
       expect(t.length, slug).toBeLessThanOrEqual(TITLE_MAX);
-      expect(t, slug).not.toMatch(/[–—]/);
+      expect(t, slug).not.toMatch(/[\u2013\u2014]/);
       expect(t, slug).not.toMatch(/\b20\d\d\b/);
     }
   });
