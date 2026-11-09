@@ -8,6 +8,7 @@
 // anime or hub build pings its own domain with its own key, never kpopquiz.org; and a
 // site still closed to search engines (INDEXING_OPEN false) pings nothing.
 
+import { parseSitemapEntries, type SitemapEntry } from '@/lib/indexnow-diff';
 import { INDEXING_OPEN } from '@/lib/site/indexing';
 import { SITE } from '@/lib/site/registry';
 
@@ -76,4 +77,19 @@ export async function sitemapUrls(): Promise<string[]> {
     if (!isSitemapIndex(childXml)) pages.push(...locs(childXml));
   }
   return pages;
+}
+
+/**
+ * The entries (loc and lastmod) of the live sitemap, with the same index handling as sitemapUrls. O1 audit 03 P1-8: the deploy
+ * submission compares them with the previous sitemap and sends only what changed.
+ */
+export async function sitemapEntries(): Promise<SitemapEntry[]> {
+  const xml = await fetchSitemap(`${ORIGIN}/sitemap.xml`);
+  if (!isSitemapIndex(xml)) return parseSitemapEntries(xml);
+  const out: SitemapEntry[] = [];
+  for (const child of locs(xml).filter((u) => u.startsWith(`${ORIGIN}/`))) {
+    const childXml = await fetchSitemap(child);
+    if (!isSitemapIndex(childXml)) out.push(...parseSitemapEntries(childXml));
+  }
+  return out;
 }
