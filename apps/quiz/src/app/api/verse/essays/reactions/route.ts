@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { verseWriteGate } from '@/lib/verse/api-gate';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { getReactionSummary } from '@/lib/verse/essays';
 
 import type { NextRequest } from 'next/server';
@@ -29,6 +30,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const { data: { user } } = await (await createServerClient()).auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  const teamNo = await teamRefusal(user.id);
+  if (teamNo) return teamNo;
 
   const svc = createServiceRoleClient();
   // The essay must be public (can't react to a draft/unknown essay).

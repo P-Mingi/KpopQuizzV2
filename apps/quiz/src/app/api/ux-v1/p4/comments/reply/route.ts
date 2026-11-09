@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { UX_V1 } from '@/lib/ux-v1';
 import { checkReplyBody, REPLY_RATE } from '@/lib/ux-v1/p4/comments';
 import { commentStoreLiveNow, hydrateReplies, isMissingObject, REPLY_COLUMNS } from '@/lib/ux-v1/p4/comments-server';
@@ -38,6 +39,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const auth = await createServerClient();
   const { data: { user } } = await auth.auth.getUser();
   if (!user) return NextResponse.json({ error: 'sign_in_required' }, { status: 401 });
+  const teamNo = await teamRefusal(user.id);
+  if (teamNo) return teamNo;
 
   // the parent: a top-level quiz comment (replies nest one level)
   const { data: parent, error: parentError } = await auth.from('quiz_comments').select('id, quiz_id').eq('id', commentId).maybeSingle();
