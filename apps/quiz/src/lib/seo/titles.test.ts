@@ -48,7 +48,9 @@ describe('typed titles fit', () => {
     const src = readFileSync(fileURLToPath(new URL('../../app/(site)/[slug]/group-quiz-page.tsx', import.meta.url)), 'utf8');
     const block = src.slice(src.indexOf('const GROUP_SEO_OVERRIDES'), src.indexOf('export function generateGroupQuizMetadata'));
     const titles = [...block.matchAll(/title: '([^']+)'/g)].map((m) => m[1]!);
-    expect(titles.length).toBeGreaterThanOrEqual(9);
+    // Audit 04 P1-1: the nine per-group overrides are replaced by one pattern (lib/seo/group-meta.ts, pinned for every group by
+    // group-meta.test.ts); only the strengthened /bts-quiz hub keeps a literal title.
+    expect(titles.length).toBeGreaterThanOrEqual(1);
     for (const t of titles) expect(t.length, t).toBeLessThanOrEqual(TITLE_MAX);
   });
 });
