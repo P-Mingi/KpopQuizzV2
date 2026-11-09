@@ -367,8 +367,14 @@ export function pickCatalogQotd(
     const recency = Math.max(0, 1 - ageDays / 60);
     return Math.round((likeRatio * 35 + completion * 20 + difficulty * 25 + recency * 20) * 100) / 100;
   };
-  const fresh = eligible.filter((q) => q.group_id == null || !recentGroups.has(q.group_id));
-  const pool = fresh.length > 0 ? fresh : eligible;
+  // Audit 01 P1-7: the catalog fallback takes a quiz of 8 to 10 questions (a daily is about 90 seconds) when one is eligible, and
+  // prefers a general quiz (group_id null) over a single-group one when both are.
+  const sized = eligible.filter((q) => q.question_count >= 8 && q.question_count <= 10);
+  const base = sized.length > 0 ? sized : eligible;
+  const fresh = base.filter((q) => q.group_id == null || !recentGroups.has(q.group_id));
+  const freshOrBase = fresh.length > 0 ? fresh : base;
+  const general = freshOrBase.filter((q) => q.group_id == null);
+  const pool = general.length > 0 ? general : freshOrBase;
   const ranked = pool
     .map((q) => ({ q, s: score(q) }))
     .sort((a, b) => b.s - a.s || b.q.play_count - a.q.play_count || a.q.id.localeCompare(b.q.id));
