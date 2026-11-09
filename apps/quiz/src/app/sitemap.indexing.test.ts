@@ -33,6 +33,15 @@ vi.mock('@/lib/blind-test-playlists', async (orig) => ({
   getAdvertisablePlaylists: async () => ({ groups: [{ slug: 'twice' }, { slug: 'bts' }] }),
 }));
 
+// The real decided lists (demand-gate.ts, list-noindex.ts) are data of the 2026-11-09 triage. These tests prove the sitemap WIRING on
+// the fixture groups (twice, bts), so the gates start neutral here and each test that needs a decision installs its own.
+vi.mock('@/lib/seo/demand-gate', async (orig) => ({ ...(await orig<object>()), isDemotedPath: () => false }));
+vi.mock('@/lib/seo/list-noindex', async (orig) => ({ ...(await orig<object>()), isListNoindex: () => false }));
+function neutralGates(): void {
+  vi.doMock('@/lib/seo/demand-gate', async (orig) => ({ ...(await orig<object>()), isDemotedPath: () => false }));
+  vi.doMock('@/lib/seo/list-noindex', async (orig) => ({ ...(await orig<object>()), isListNoindex: () => false }));
+}
+
 async function entries(): Promise<Array<{ url: string; lastModified?: string | Date }>> {
   vi.resetModules();
   delete process.env.VERSE_PUBLIC;
@@ -109,7 +118,7 @@ describe('app/sitemap.ts indexing gates', () => {
       expect(after).not.toContain('/quizzes/popular-today');
       expect(after).toContain('/new');
       expect(after).toContain('/quizzes/popular-this-week');
-    } finally { vi.doUnmock('@/lib/seo/list-noindex'); }
+    } finally { neutralGates(); }
   });
 
   it('P1-6: a variant page the owner moved under its hub leaves the sitemap; the others stay', async () => {
@@ -123,7 +132,7 @@ describe('app/sitemap.ts indexing gates', () => {
       const after = await urls(false);
       expect(after).not.toContain('/blindtest/group-twice');
       expect(after).toContain('/blindtest/group-bts');
-    } finally { vi.doUnmock('@/lib/seo/demand-gate'); }
+    } finally { neutralGates(); }
     expect(await urls(false)).toContain('/blindtest/group-twice');
   });
 

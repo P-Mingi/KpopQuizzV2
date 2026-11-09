@@ -22,6 +22,10 @@ import { v12GrowthPaths } from './sitemap-v12';
 const SITE = 'https://kpopquiz.org';
 const WMA_SLUGS = ['aespa', 'bts', 'g-i-dle', 'stray-kids'];
 
+// The real decided lists (data of the 2026-11-09 triage) are neutral here: this test proves the V12 URLs on fixture groups.
+vi.mock('@/lib/seo/demand-gate', async (orig) => ({ ...(await orig<object>()), isDemotedPath: () => false }));
+vi.mock('@/lib/seo/list-noindex', async (orig) => ({ ...(await orig<object>()), isListNoindex: () => false }));
+
 const calls = vi.hoisted(() => ({ wma: 0, wmaResult: [] as string[] }));
 
 // One chainable, awaitable query builder: every method returns it, awaiting it gives
