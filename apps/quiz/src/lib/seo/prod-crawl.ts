@@ -12,6 +12,8 @@ export const TITLE_MAX_RENDERED = 60;
 export const DESCRIPTION_MIN_RENDERED = 120;
 export const DESCRIPTION_MAX_RENDERED = 160;
 
+import { QUIZ_GONE, QUIZ_MERGES } from './quiz-redirects';
+
 // ---- HTML basics -----------------------------------------------------------------------
 
 const NAMED_ENTITIES: Readonly<Record<string, string>> = {
@@ -294,6 +296,9 @@ export const REDIRECT_SEEDS: ReadonlyArray<RedirectSeed> = [
   { path: '/games/sort-it', probe: true, why: 'REFONTE P1 game URL' },
   { path: '/tier-list/new', probe: true, why: 'REFONTE P1 tier list maker' },
   { path: '/zz-seo-nightly-probe-not-a-page', status: 404, why: 'rulebook 9.3: a missing page is a real 404' },
+  // O1 audit 03 P1-9 and P2-4: every merged quiz is one hop to the quiz kept, every removed quiz a 410 (tables empty until approved).
+  ...Object.entries(QUIZ_MERGES).map(([from, to]): RedirectSeed => ({ path: `/q/${from}`, to: `/q/${to}`, why: 'quiz-redirects.ts merge' })),
+  ...QUIZ_GONE.map((slug): RedirectSeed => ({ path: `/q/${slug}`, status: 410, why: 'quiz-redirects.ts removed quiz, no successor' })),
 ];
 
 // ---- robots.txt --------------------------------------------------------------------------
