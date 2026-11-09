@@ -1,0 +1,426 @@
+[
+  {
+    "site": "kpop",
+    "width": 375,
+    "auth": "out",
+    "file": "kpop-375-out-before-prod.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 137,
+      "bottom": 413,
+      "h": 276,
+      "visible": true
+    },
+    "cta": {
+      "top": 323,
+      "bottom": 413,
+      "h": 90,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "chip": {
+      "top": 259,
+      "bottom": 311,
+      "h": 52,
+      "visible": true
+    },
+    "surprise": {
+      "top": 647,
+      "bottom": 687,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 429,
+      "bottom": 659,
+      "h": 230,
+      "visible": true
+    },
+    "viewportH": 812,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "phone_play_above_fold": true
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 375,
+    "auth": "in",
+    "file": "kpop-375-in-before-prod.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 137,
+      "bottom": 436,
+      "h": 299,
+      "visible": true
+    },
+    "cta": {
+      "top": 346,
+      "bottom": 436,
+      "h": 90,
+      "visible": false
+    },
+    "ctaLinks": [],
+    "hiddenCopy": true,
+    "chip": {
+      "top": 281,
+      "bottom": 334,
+      "h": 52,
+      "visible": true
+    },
+    "surprise": {
+      "top": 669,
+      "bottom": 709,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 452,
+      "bottom": 681,
+      "h": 230,
+      "visible": true
+    },
+    "viewportH": 812,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": false,
+      "phone_play_above_fold": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 768,
+    "auth": "out",
+    "file": "kpop-768-out-before-prod.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 361,
+      "h": 180,
+      "visible": true
+    },
+    "cta": {
+      "top": 321,
+      "bottom": 361,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 513,
+      "bottom": 553,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 405,
+      "bottom": 533,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 1024,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "phone_play_above_fold": null
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 768,
+    "auth": "in",
+    "file": "kpop-768-in-before-prod.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 385,
+      "h": 204,
+      "visible": true
+    },
+    "cta": {
+      "top": 345,
+      "bottom": 385,
+      "h": 40,
+      "visible": false
+    },
+    "ctaLinks": [],
+    "hiddenCopy": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 537,
+      "bottom": 577,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 429,
+      "bottom": 557,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 1024,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": false,
+      "phone_play_above_fold": null,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1280,
+    "auth": "out",
+    "file": "kpop-1280-out-before-prod.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 364,
+      "h": 183,
+      "visible": true
+    },
+    "cta": {
+      "top": 324,
+      "bottom": 364,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 516,
+      "bottom": 556,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 408,
+      "bottom": 536,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "phone_play_above_fold": null
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1280,
+    "auth": "in",
+    "file": "kpop-1280-in-before-prod.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 388,
+      "h": 207,
+      "visible": true
+    },
+    "cta": {
+      "top": 348,
+      "bottom": 388,
+      "h": 40,
+      "visible": false
+    },
+    "ctaLinks": [],
+    "hiddenCopy": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 540,
+      "bottom": 580,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 432,
+      "bottom": 560,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": false,
+      "phone_play_above_fold": null,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1440,
+    "auth": "out",
+    "file": "kpop-1440-out-before-prod.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 364,
+      "h": 183,
+      "visible": true
+    },
+    "cta": {
+      "top": 324,
+      "bottom": 364,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 516,
+      "bottom": 556,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 408,
+      "bottom": 536,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "phone_play_above_fold": null
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1440,
+    "auth": "in",
+    "file": "kpop-1440-in-before-prod.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 388,
+      "h": 207,
+      "visible": true
+    },
+    "cta": {
+      "top": 348,
+      "bottom": 388,
+      "h": 40,
+      "visible": false
+    },
+    "ctaLinks": [],
+    "hiddenCopy": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 540,
+      "bottom": 580,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 432,
+      "bottom": 560,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": false,
+      "no_overlap_surprise_qotd": false,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": false,
+      "phone_play_above_fold": null,
+      "same_header_height_as_guest": false
+    }
+  }
+]
