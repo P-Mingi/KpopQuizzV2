@@ -60,7 +60,7 @@ export function DailyRitual({ quiz }: Props): React.ReactElement | null {
           eyebrow="Quiz of the day"
           title={quiz.title}
           countdown={countdown}
-          href={`/q/${quiz.slug}?daily=quiz`}
+          href={`/q/${quiz.slug}?daily=quiz&from=hub`}
           played={quizPlayed}
           cta="Play"
           onPlay={() => analytics.crossPromo('community', 'quiz')}

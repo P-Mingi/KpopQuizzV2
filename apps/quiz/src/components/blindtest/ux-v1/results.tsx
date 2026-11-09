@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { DeezerAttribution } from '@/components/deezer-attribution';
 import { Mascot } from '@/components/ui/mascot';
+import { DailyQuizAlsoRow } from '@/components/quiz/ux-v1/daily-done';
 import { UxButton } from '@/components/ux-v1/button';
 import { CoverImg } from '@/components/ux-v1/cover-img';
 import { Icon } from '@/components/ux-v1/icon';
@@ -126,6 +127,9 @@ export function BtResults({ run, board, onAgain, onBoard, kicker, slot, primary,
         {/* Opening the sheet mints the run's challenge link for its block (like P4's result sheet). */}
         <UxButton size="lg" variant="ghost" icon="share" onClick={() => { setShare(true); if (challengeLink) void link.create(); }}>{s.share}</UxButton>
       </div>
+
+      {/* Audit 01 P1-5: the quiz of the day under the buttons, until it is played. */}
+      <DailyQuizAlsoRow />
 
       {challengeLink ? <BtChallengeLink run={run} link={link} strings={s} /> : null}
       {challenge}

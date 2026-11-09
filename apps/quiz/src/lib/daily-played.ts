@@ -92,3 +92,26 @@ export async function completeDaily(kind: DailyKind, opts: CompleteDailyOptions 
   }
   return result;
 }
+
+// Audit 01 P1-6: the score of today's daily quiz, kept in this browser so the home card can say "Done · 8/10". UTC day like the
+// played flag; a number out of a number, nothing else.
+const SCORE_KEY = 'kq_daily_quiz_score';
+
+export function markDailyScore(score: number, max: number): void {
+  if (typeof window === 'undefined' || !Number.isFinite(score) || !Number.isFinite(max) || max <= 0) return;
+  try {
+    localStorage.setItem(SCORE_KEY, JSON.stringify({ day: todayKey(), score, max }));
+  } catch {
+    // storage blocked: the card then shows "Done" without the score
+  }
+}
+
+export function dailyScoreToday(): { score: number; max: number } | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const v = JSON.parse(localStorage.getItem(SCORE_KEY) ?? 'null') as { day?: string; score?: number; max?: number } | null;
+    return v && v.day === todayKey() && typeof v.score === 'number' && typeof v.max === 'number' ? { score: v.score, max: v.max } : null;
+  } catch {
+    return null;
+  }
+}
