@@ -27,6 +27,32 @@ async function readQuizExplanations(quizId: string): Promise<StoredExplanation[]
   return (data ?? []) as StoredExplanation[];
 }
 
+/**
+ * Epoch ms of the newest verified explanation of ONE quiz, or undefined (none yet, or the table does not exist). Same source as
+ * readExplanationDates (the sitemap), so the page's dateModified and the sitemap lastmod are the same value (O1 audit 03 P2-3).
+ */
+async function readQuizExplainedAt(quizId: string): Promise<number | undefined> {
+  const { data, error } = await createPublicReadClient()
+    .from('quiz_explanations')
+    .select('created_at')
+    .eq('quiz_id', quizId)
+    .eq('status', 'verified')
+    .order('created_at', { ascending: false })
+    .limit(1);
+  if (error) {
+    if (MISSING_TABLE.has(error.code ?? '')) return undefined;
+    throw new Error(`quiz explanation date: ${error.message}`);
+  }
+  const t = Date.parse(((data ?? []) as Array<{ created_at: string }>)[0]?.created_at ?? '');
+  return Number.isFinite(t) ? t : undefined;
+}
+
+export const getQuizExplainedAt = unstable_cache(
+  readQuizExplainedAt,
+  ['db:quiz-explained-at:v1', SITE_ID],
+  { revalidate: CACHE_TTL.stats, tags: ['quiz-explanations', 'quizzes'] },
+);
+
 export const getQuizExplanations = unstable_cache(
   readQuizExplanations,
   ['db:quiz-explanations:v1', SITE_ID],

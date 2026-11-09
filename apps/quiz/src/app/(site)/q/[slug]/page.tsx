@@ -13,7 +13,8 @@ import { normalizeFactKey } from '@/lib/trivia/fact-key';
 import { stableIndex } from '@/lib/trivia/pick-fact';
 import { getQuizHallOfFame } from '@/lib/db/queries/community';
 import { getQuizSocialCounts } from '@/lib/db/queries/quiz-social';
-import { getQuizExplanations } from '@/lib/db/queries/quiz-explanations';
+import { getQuizExplanations, getQuizExplainedAt } from '@/lib/db/queries/quiz-explanations';
+import { quizAbout, quizDateModified } from '@/lib/seo/quiz-jsonld';
 import { buildAnswerRows, noStatedAnswer, questionsJsonLd } from '@/lib/quiz/answers';
 import { AboutQuizDrawer, QuizPlayer, EmbedQuizToggle } from '@/components/quiz/legacy-islands';
 import { QuizOwnerActions } from '@/components/quiz/quiz-owner-actions';
@@ -440,6 +441,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   //   completions when total_completions > 0
   // - Multiple crawlable stats already inline in DOM via QuizStatsBlock.
   const heading = shownTitle(quiz);
+  // O1 audit 03 P2-3: dateModified is the sitemap's lastmod for this quiz (creation, or its newest verified explanation when later).
+  const modified = quizDateModified(quiz.created_at, await safeFetch(getQuizExplainedAt(quiz.id), undefined, '[q/[slug]] explained at'));
   const quizJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Quiz',
@@ -460,8 +463,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
       url: `https://kpopquiz.org/u/${quiz.creator_username}`,
     },
     dateCreated: quiz.created_at,
-    // Not updated_at: record_play bumps it on every play (a play is not an edit).
-    dateModified: quiz.created_at,
+    // Not updated_at: record_play bumps it on every play (a play is not an edit). Same value as the sitemap lastmod.
+    dateModified: modified,
     interactionStatistic: [
       {
         '@type': 'InteractionCounter',
@@ -487,11 +490,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
           ]
         : []),
     ],
-    about: {
-      '@type': 'MusicGroup',
-      name: quiz.group_name,
-      url: `https://kpopquiz.org/${quiz.group_slug}-quiz`,
-    },
+    // The General K-pop category is not a music group: no MusicGroup (O1 audit 03 P2-3).
+    ...quizAbout(quiz.group_slug, quiz.group_name),
     hasPart: seoQuestions
       .map((q) => q.question)
       .filter((text): text is string => typeof text === 'string' && text.length > 0)
