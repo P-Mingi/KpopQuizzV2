@@ -357,7 +357,7 @@ describe('the route map of anime and hub', () => {
     for (const p of [
       '/', '/series', '/one-piece-quiz', '/anime-mix-quiz', '/death-note-trivia', '/q/who-is-l',
       '/which-naruto-character-are-you', '/naruto-openings-quiz',
-      '/name-all/naruto/akatsuki', '/daily', '/opening-of-the-day', '/create', '/me', '/u/mina_92',
+      '/name-all/naruto/akatsuki', '/daily', '/opening-of-the-day', '/create', '/me', '/profile', '/u/mina_92',
       '/settings', '/settings/profile', '/login', '/onboarding', '/notifications', '/search',
       '/community', '/community/threads/1', '/about', '/editorial-policy', '/privacy', '/terms',
       '/contact', '/admin', '/admin/review', '/auth/confirm', '/auth/arrive', '/api/n/me',
@@ -380,7 +380,7 @@ describe('the route map of anime and hub', () => {
     for (const p of ['/', '/privacy', '/passport', '/u/mina_92', '/settings', '/settings/worlds', '/login', '/directory', '/auth/arrive', '/api/passport/redeem', '/daily']) {
       expect(isKnownRouteFor('hub', p, flags), p).toBe(true);
     }
-    for (const p of ['/q/anything', '/series', '/one-piece-quiz', '/blindtest', '/create', '/me', '/search']) {
+    for (const p of ['/q/anything', '/series', '/one-piece-quiz', '/blindtest', '/create', '/me', '/profile', '/search']) {
       expect(isKnownRouteFor('hub', p, flags), p).toBe(false);
     }
   });

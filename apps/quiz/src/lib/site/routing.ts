@@ -420,7 +420,7 @@ export const KPOP_ONLY_SAMPLES: readonly string[] = [
   '/data/pulse', '/data/knowledge-report-2026', '/articles', '/news', '/creators',
   '/personality/bts', '/name-all/bts',
   '/bts-name-all-members', '/which-bts-member-are-you', '/tier-list/l/sample', '/build/sample',
-  '/s/sample', '/ux-v1/kit', '/banned', '/profile', '/quiz/sample/edit',
+  '/s/sample', '/ux-v1/kit', '/banned', '/quiz/sample/edit',
 ];
 
 /**
@@ -430,6 +430,8 @@ export const KPOP_ONLY_SAMPLES: readonly string[] = [
 export const TWIN_SAMPLES: readonly string[] = [
   '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
   '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard', '/dmca',
+  // Owner, 2026-11-09: /profile, the Passport door, a redirect to /me on kpop and on anime (moved from KPOP_ONLY_SAMPLES).
+  '/profile',
 ];
 
 /**
