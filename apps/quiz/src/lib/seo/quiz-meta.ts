@@ -82,26 +82,45 @@ export function collapsePunctuation(s: string): string {
 
 const plural = (n: number): string => `${n} question${n === 1 ? '' : 's'}`;
 
-/** The title of a quiz page with the group and "quiz" when the creator's title lacks them, within TITLE_MAX. */
+/** Cut at the last word boundary that fits in `max`, at the end: no ellipsis, no trailing punctuation or dangling separator. */
+export function cutAtWord(text: string, max: number): string {
+  const t = clean(text);
+  if (t.length <= max) return t;
+  const head = t.slice(0, max + 1);
+  const space = t.charAt(max) === ' ' ? max : head.lastIndexOf(' ');
+  const cut = space > 0 ? t.slice(0, space) : t.slice(0, max);
+  return cut.replace(/[\s,;:.\-\u2013\u2014·(\[/&+]+$/, '');
+}
+
+/** The names a creator may use for the group: its name, its slug, the name without spaces; for General K-pop also "K-pop". */
+function groupAliases(name: string, slug?: string | null): string[] {
+  const n = normalizeTitle(name);
+  const out = new Set<string>([n, n.replace(/ /g, '')]);
+  if (slug) out.add(normalizeTitle(slug));
+  if (n === 'general k pop' || n === 'general kpop') { out.add('k pop'); out.add('kpop'); }
+  out.delete('');
+  return [...out];
+}
+
+/**
+ * The title of a quiz page. The creator's words are never shortened to make room for something we add (audit 04 P1-2, ORCH follow-up):
+ *   a. a title that already names the group (or K-pop for General K-pop) and says quiz gets only the count, when it fits;
+ *   b. what is added ("{Group} quiz", "N-question quiz", the group name) is dropped, richest first, when it would pass TITLE_MAX;
+ *   c. only a creator title that is itself over TITLE_MAX is cut, at the last word boundary that fits, at the end, with no ellipsis.
+ */
 export function quizSeoTitle(title: string, questionCount: number, group: { name: string; slug?: string | null }): string {
   const t = collapsePunctuation(title);
+  if (t.length > TITLE_MAX) return cutAtWord(t, TITLE_MAX);
   const name = clean(group.name);
   const norm = normalizeTitle(t);
-  const names = [normalizeTitle(name), group.slug ? normalizeTitle(group.slug) : ''].filter(Boolean);
-  const hasGroup = names.some((n) => norm === n || norm.startsWith(`${n} `) || norm.endsWith(` ${n}`) || norm.includes(` ${n} `));
+  const hasGroup = groupAliases(name, group.slug).some((n) => norm === n || norm.startsWith(`${n} `) || norm.endsWith(` ${n}`) || norm.includes(` ${n} `));
   const hasQuiz = /\b(quiz|quizz|test|trivia)\b/i.test(t);
-  const join = (suffix: string): string => (/[?!.]$/.test(t) ? `${t} ${suffix}` : `${t} · ${suffix}`);
-  // The essential suffix first (what the title lacks), then the count when it still fits.
-  const essential = hasGroup && hasQuiz ? '' : hasGroup ? `${questionCount}-question quiz` : hasQuiz ? name : `${name} quiz`;
-  const withCount = (e: string): string[] => (!e ? [`${t} · ${plural(questionCount)}`] : e.endsWith('-question quiz') ? [join(e)] : [join(`${e}, ${plural(questionCount)}`), join(e)]);
-  const candidates = [...withCount(essential), t];
-  const fit = candidates.find((c) => c.length <= TITLE_MAX);
-  if (fit && (essential === '' || fit !== t)) return fit;
-  // Too long: keep the essential suffix, shorten the creator's words to make room.
-  const tail = essential ? (/[?!.]$/.test(t) ? ` ${essential}` : ` · ${essential}`) : '';
-  const room = TITLE_MAX - tail.length;
-  if (essential && room >= 12) return `${shorten(t, room)}${tail}`;
-  return t.length <= TITLE_MAX ? t : shorten(t, TITLE_MAX);
+  const join = (suffix: string): string => (/[?!.]$/.test(t) ? `${t} ${suffix}` : `${t} \u00b7 ${suffix}`);
+  const candidates = hasGroup && hasQuiz ? [`${t} \u00b7 ${plural(questionCount)}`]
+    : hasGroup ? [join(`${questionCount}-question quiz`)]
+    : hasQuiz ? [join(`${name}, ${plural(questionCount)}`), join(name)]
+    : [join(`${name} quiz, ${plural(questionCount)}`), join(`${name} quiz`)];
+  return candidates.find((c) => c.length <= TITLE_MAX) ?? t;
 }
 
 export interface QuizDescriptionInput {
