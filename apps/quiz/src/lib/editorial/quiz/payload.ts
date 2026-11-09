@@ -37,6 +37,8 @@ export interface QuizDraftPayload {
   title: string;
   slug: string;
   description?: string;
+  /** Audit 04 P1-6: the instant after which the quiz is no longer published (an award show's start). ISO date or date-time, UTC. Absent = no deadline. */
+  publish_by?: string;
   quiz_type: 'multiple_choice';
   difficulty: 'easy' | 'medium' | 'hard';
   language: 'en';
@@ -50,7 +52,7 @@ export type PayloadResult = { ok: true; value: QuizDraftPayload } | { ok: false;
 
 export type QuizPayloadError =
   | 'bad_payload' | 'bad_site' | 'bad_account' | 'bad_group_slug' | 'bad_title' | 'title_is_hub_query' | 'bad_slug' | 'hub_slug'
-  | 'bad_description' | 'bad_quiz_type' | 'bad_difficulty' | 'bad_language' | 'title_gives_something_away' | 'bad_question_count'
+  | 'bad_description' | 'bad_publish_by' | 'bad_quiz_type' | 'bad_difficulty' | 'bad_language' | 'title_gives_something_away' | 'bad_question_count'
   | 'bad_question' | 'bad_sources' | 'blocked_source' | 'image_not_allowed' | 'bad_notes';
 
 const bad = (error: QuizPayloadError, detail: string): { ok: false; error: QuizPayloadError; detail: string } => ({ ok: false, error, detail });
@@ -97,9 +99,20 @@ export function slugRefusal(slug: string, groupSlug: string, isGroupSlug: (s: st
 }
 
 const DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
+/** A publish_by value as an instant (ms, UTC): "2026-11-14" is the start of that day, "2026-11-14T09:00:00Z" is exact. Null when it is neither. */
+export function publishByMs(v: unknown): number | null {
+  if (typeof v !== 'string') return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) {
+    const t = Date.parse(`${v}T00:00:00Z`);
+    return Number.isFinite(t) && new Date(t).toISOString().startsWith(v) ? t : null;
+  }
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?Z$/.test(v)) { const t = Date.parse(v); return Number.isFinite(t) ? t : null; }
+  return null;
+}
+
 const IMAGE_KEYS = /^(image|image_url|img|cover|cover_image_url|photo|picture|thumbnail)$/i;
 const QUESTION_KEYS = new Set(['question', 'options', 'correct', 'fun_fact', 'source_url', 'kind', 'spoiler', 'fact_ids']);
-const TOP_KEYS = new Set(['site', 'account', 'group_slug', 'title', 'slug', 'description', 'quiz_type', 'difficulty', 'language', 'title_gives_nothing_away', 'questions', 'sources', 'notes']);
+const TOP_KEYS = new Set(['site', 'account', 'group_slug', 'title', 'slug', 'description', 'publish_by', 'quiz_type', 'difficulty', 'language', 'title_gives_nothing_away', 'questions', 'sources', 'notes']);
 
 function hasImageKey(v: unknown, depth = 0): boolean {
   if (depth > 4 || v === null || typeof v !== 'object') return false;
@@ -128,6 +141,7 @@ export function checkQuizPayload(raw: unknown): PayloadResult {
   if (refusal === 'hub_slug') return bad('hub_slug', 'The slug is the slug of the group hub ("{group}-quiz", "-test" or "-trivia").');
   if (refusal) return bad('bad_slug', 'The slug is lowercase letters, digits and single hyphens, 80 characters at most.');
   if (p.description !== undefined && (!isPlainText(p.description, 280))) return bad('bad_description', 'The description is one line of 280 characters at most, with no dash and no emoji.');
+  if (p.publish_by !== undefined && publishByMs(p.publish_by) === null) return bad('bad_publish_by', 'publish_by is a UTC date (2026-11-14) or date-time (2026-11-14T09:00:00Z).');
   if (p.quiz_type !== 'multiple_choice') return bad('bad_quiz_type', 'The quiz type is multiple_choice.');
   if (typeof p.difficulty !== 'string' || !(DIFFICULTIES as readonly string[]).includes(p.difficulty)) return bad('bad_difficulty', 'The difficulty is easy, medium or hard.');
   if (p.language !== 'en') return bad('bad_language', 'The language is en.');
@@ -182,6 +196,7 @@ export function checkQuizPayload(raw: unknown): PayloadResult {
     questions, sources,
   };
   if (p.description !== undefined) value.description = p.description as string;
+  if (p.publish_by !== undefined) value.publish_by = p.publish_by as string;
   if (p.notes !== undefined) value.notes = p.notes as string;
   return { ok: true, value };
 }

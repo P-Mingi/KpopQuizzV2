@@ -35,6 +35,7 @@ const ROUTES: Array<[string, () => Promise<{ GET: (r: NextRequest) => Promise<Re
   ['verse-role-decay', () => import('./verse-role-decay/route')],
   ['ranked nightly', () => import('../ranked/cron/nightly/route')],
   ['quiz-corrections', () => import('./quiz-corrections/route')],
+  ['award-prep', () => import('./award-prep/route')],
 ];
 
 async function call(site: string, load: (typeof ROUTES)[number][1]): Promise<Response | Error> {
