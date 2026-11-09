@@ -103,8 +103,8 @@ export async function readWeeklyRecap(now: number, svc: Svc = createServiceRoleC
 /** Active comebacks released from today to 7 days ahead (UTC days). */
 export async function readUpcomingComebacks(now: number, svc: Svc = createServiceRoleClient()): Promise<ComebackRow[]> {
   return soft('comebacks', [], async () => {
-    const { data, error } = await svc.from('comebacks').select('id, group_id, artist, title, release_date, kind')
-      .eq('active', true).gte('release_date', utcDay(now)).lte('release_date', utcDay(now + 7 * DAY)).order('release_date', { ascending: true }).limit(20);
+    const { data, error } = await svc.from('comebacks').select('id, group_id, artist, title, release_date, kind, source_url, source_type, verified_at, status')
+      .eq('active', true).eq('status', 'announced').not('source_url', 'is', null).gte('release_date', utcDay(now)).lte('release_date', utcDay(now + 7 * DAY)).order('release_date', { ascending: true }).limit(20);
     if (error) throw new Error(error.message);
     return (data ?? []) as ComebackRow[];
   });

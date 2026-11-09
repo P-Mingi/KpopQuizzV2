@@ -6,6 +6,8 @@
 //     (no draft is ever padded or invented),
 //   - a template draft is a DRAFT: an admin reads, edits and approves it like any other.
 
+import { isBlockedSource, sourceUrlOf } from './quiz/payload';
+
 import type { DraftInput, DraftSource, EditorialAccount } from './types';
 
 export interface TemplateDraft { templateKey: string; input: DraftInput }
@@ -90,7 +92,28 @@ export function buildWeeklyRecap(data: WeeklyRecapData, accounts: EditorialAccou
 
 /* --------------------------------------------------------- comeback topics --- */
 
-export interface ComebackRow { id: number; group_id: number | null; artist: string; title: string; release_date: string; kind: string }
+export interface ComebackRow {
+  id: number; group_id: number | null; artist: string; title: string; release_date: string; kind: string;
+  /** Audit 04 P0-4 (L24-l1-comebacks-sources.sql): where the date was read. Absent or null before the SQL is applied. */
+  source_url?: string | null;
+  /** 'official' (label notice, verified account of the group), 'outlet' (a bylined outlet) or 'musicbrainz' (after release). Never a lead (Soompi, allkpop). */
+  source_type?: string | null;
+  /** The day the source was read, YYYY-MM-DD. */
+  verified_at?: string | null;
+  /** 'announced' drafts; 'reported' (a lead, an outlet rumour) never does. */
+  status?: string | null;
+}
+
+export const COMEBACK_SOURCE_TYPES = ['official', 'outlet', 'musicbrainz'] as const;
+
+/** The https link of a comeback's source when the row is verified enough to draft from, else null (fail closed). */
+export function comebackSourceUrl(c: ComebackRow): string | null {
+  if (c.status !== 'announced') return null;
+  if (!(COMEBACK_SOURCE_TYPES as readonly string[]).includes(c.source_type ?? '')) return null;
+  if (!c.verified_at || !DAY_RE.test(c.verified_at.slice(0, 10))) return null;
+  const url = sourceUrlOf(c.source_url);
+  return url && !isBlockedSource(url) ? url : null;
+}
 
 const KIND_LABEL: Record<string, string> = { single: 'single', ep: 'EP', album: 'album', mv: 'music video' };
 
@@ -98,6 +121,9 @@ export function buildComebackTopic(c: ComebackRow, accounts: EditorialAccount[])
   const artist = c.artist.trim();
   const name = c.title.trim();
   if (!artist || !name || !DAY_RE.test(c.release_date)) return null;
+  // Audit 04 P0-4: no comeback topic without a verified source_url (the SQL not applied yet means no source, so no topic).
+  const sourceUrl = comebackSourceUrl(c);
+  if (!sourceUrl) return null;
   const title = `${artist} comes back with ${name}: what do you expect?`;
   if (title.length > 160) return null;
   // Everything but the data account takes the comeback topics in turn.
@@ -112,7 +138,7 @@ export function buildComebackTopic(c: ComebackRow, accounts: EditorialAccount[])
       account_id: account.user_id, kind: 'thread', group_id: c.group_id, title,
       body: [`${artist} releases ${name} (${kind}) on ${date}.`, 'What do you want from this comeback? One line.'].join('\n\n'),
       options: null,
-      sources: [{ label: `KpopQuiz release calendar: ${artist}, ${name}, ${date}`, url: null }],
+      sources: [{ label: `${c.source_type === 'official' ? 'Official announcement' : 'Source'}: ${artist}, ${name}, ${date}`, url: sourceUrl }],
       debate_days: null,
     },
   };
