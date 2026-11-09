@@ -64,8 +64,10 @@ export async function UxHome({ head, afterHeader }: {
       <HomeHeader {...(qotd ? { daily: { slug: qotd.slug, title: qotd.title } } : {})} />
 
       {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment). */}
-      {/* Audit 01 P0-2: on the kpopquiz.org build the quiz of the day comes first, Surprise me after it (Play above the fold on a phone). */}
-      {afterHeader ? (IS_KPOP ? <>{qotdRow}{afterHeader}</> : <>{afterHeader}{qotdRow}</>) : qotdRow}
+      {/* Owner, 2026-11-09: Surprise me first, then the quiz of the day, on both sites (the kpop-first order of audit 01 P0-2 is
+          undone; on a phone the header's "Today's quiz" chip keeps Play above the fold). The block sits right under the header,
+          the place its negative top margin is made for: after the quiz of the day that margin slid it under the card. */}
+      {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}
