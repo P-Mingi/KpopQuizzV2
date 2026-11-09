@@ -6,22 +6,24 @@
 --         (nothing is written) if a character that leaves the answers is scheduled there. A guess is stored as the entity id only and its colours are computed on every read, so a game in progress
 --         is recoloured at once; the snapshot dle_entities is refreshed in the same transaction.
 -- Undo:   L21-l1-series-games-corrections.sql.
--- o1-transaction: single (psql --single-transaction). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).
+-- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing; a row that already moved to another value is left alone (warning).
 
-set lock_timeout = '5s';
-set client_min_messages = warning;
+do $o1l21r$
+begin
+perform set_config('lock_timeout', '5s', true);
+perform set_config('client_min_messages', 'warning', true);
 
-do $l21$ begin
+
+begin
   if to_regclass('public.character_game_facts') is null or to_regclass('public.entity_sources') is null then
     raise exception 'L21 rollback: 024 and L15 must be applied first';
   end if;
   if (select count(*) from public.character_game_facts where game_id = 'otakudle-one-piece') < 100 or (select count(*) from public.character_game_facts where game_id = 'otakudle-dragon-ball') < 70 then
     raise exception 'L21 rollback: the 100 + 70 facts of L15 are not all there (apply L15 first)';
   end if;
-end $l21$;
+end;
 
 -- Precheck of the next 7 days (AUDITS-COMMON): boa-hancock stops being an answer, so none of them may be today's answer or scheduled in the next 7 days; otherwise the file aborts and is applied after that day.
-do $l21$
 declare r record;
 begin
   if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null then
@@ -39,86 +41,86 @@ begin
       raise exception 'L21 rollback: % is the answer of % (bank day %) today or in the next 7 days: apply this file after that day', r.slug, r.game_id, coalesce(r.bank_day::text, 'served today');
     end loop;
   end if;
-end $l21$;
+end;
 
-create temp table l21_fix (id text primary key, game_id text, series text, slug text, kind text, col text, old_v jsonb, new_v jsonb) on commit drop;
-insert into l21_fix values
-    ('OP1', 'otakudle-one-piece', 'one-piece', 'monkey-d-garp', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":3000000000}'),
-    ('OP2', 'otakudle-one-piece', 'one-piece', 'borsalino', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":3000000000}'),
-    ('OP3', 'otakudle-one-piece', 'one-piece', 'issho', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":3000000000}'),
-    ('OP4', 'otakudle-one-piece', 'one-piece', 'aramaki', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":3000000000}'),
-    ('OP5', 'otakudle-one-piece', 'one-piece', 'koby', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":500000000}'),
-    ('OP6', 'otakudle-one-piece', 'one-piece', 'kin-emon', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":100000000}'),
-    ('OP12', 'otakudle-one-piece', 'one-piece', 'kin-emon', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP10', 'otakudle-one-piece', 'one-piece', 'kin-emon', 'hint', 'devil_fruit_name', '"Garb-Garb Fruit"', '"Garb-Garb Jutsu"'),
-    ('OP7', 'otakudle-one-piece', 'one-piece', 'rebecca', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":100000000}'),
-    ('OP8', 'otakudle-one-piece', 'one-piece', 'viola', 'attr', 'bounty', '{"v":0,"l":"No bounty"}', '{"v":100000000}'),
-    ('OP9', 'otakudle-one-piece', 'one-piece', 'kyros', 'attr', 'bounty', '{"v":null}', '{"v":200000000}'),
-    ('OP13', 'otakudle-one-piece', 'one-piece', 'kyros', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP9-target', 'otakudle-one-piece', 'one-piece', 'kyros', 'target', 'can_be_target', 'false', 'true'),
-    ('OP16', 'otakudle-one-piece', 'one-piece', 'jesus-burgess', 'attr', 'bounty', '{"v":null}', '{"v":20000000}'),
-    ('OP16-target', 'otakudle-one-piece', 'one-piece', 'jesus-burgess', 'target', 'can_be_target', 'false', 'true'),
-    ('OP11', 'otakudle-one-piece', 'one-piece', 'charlotte-linlin', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP14', 'otakudle-one-piece', 'one-piece', 'kozuki-hiyori', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP15a', 'otakudle-one-piece', 'one-piece', 'kozuki-oden', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP15b', 'otakudle-one-piece', 'one-piece', 'carrot', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP15c', 'otakudle-one-piece', 'one-piece', 'charlotte-pudding', 'attr', 'sea_of_origin', '{"v":"Grand Line"}', '{"v":"New World"}'),
-    ('OP18', 'otakudle-one-piece', 'one-piece', 'boa-hancock', 'attr', 'sea_of_origin', '{"v":"Calm Belt"}', '{"v":null}'),
-    ('OP18-target', 'otakudle-one-piece', 'one-piece', 'boa-hancock', 'target', 'can_be_target', 'true', 'false'),
-    ('OP17', 'otakudle-one-piece', 'one-piece', 'monkey-d-luffy', 'hint', 'devil_fruit_name', '"Human-Human Fruit, Model: Nika"', '"Gum-Gum Fruit"'),
-    ('DB1', 'otakudle-dragon-ball', 'dragon-ball', 'cell', 'attr', 'race', '{"v":"Android"}', '{"v":"Saiyan"}'),
-    ('DB3', 'otakudle-dragon-ball', 'dragon-ball', 'emperor-pilaf', 'attr', 'race', '{"v":"Monster"}', '{"v":"Human"}'),
-    ('DB7-emperor-pilaf', 'otakudle-dragon-ball', 'dragon-ball', 'emperor-pilaf', 'attr', 'affiliation', '{"v":["Pilaf Gang","Mifan Army","Dragon Team","Capsule Corporation"]}', '{"v":["Pilaf Gang","Mifan Army","Pilaf-Buggy Evil Alliance","Dragon Team","Capsule  Corporation"]}'),
-    ('DB4', 'otakudle-dragon-ball', 'dragon-ball', 'dr-gero', 'attr', 'race', '{"v":"Android"}', '{"v":"Human"}'),
-    ('DB7-dr-gero', 'otakudle-dragon-ball', 'dragon-ball', 'dr-gero', 'attr', 'affiliation', '{"v":["Red Ribbon Army","Pilaf Gang"]}', '{"v":["Red Ribbon Army","Pilaf Gang","Dr. Gero Sky Pirates"]}'),
-    ('DB10a', 'otakudle-dragon-ball', 'dragon-ball', 'oolong', 'attr', 'race', '{"v":"Animal"}', '{"v":"Human"}'),
-    ('DB10b', 'otakudle-dragon-ball', 'dragon-ball', 'puar', 'attr', 'race', '{"v":"Animal"}', '{"v":"Human"}'),
-    ('DB10c', 'otakudle-dragon-ball', 'dragon-ball', 'korin', 'attr', 'race', '{"v":"Animal"}', '{"v":"Cat"}'),
-    ('DB5', 'otakudle-dragon-ball', 'dragon-ball', 'king-piccolo', 'hint', 'signature_technique', '"Explosive Demon Wave"', '"Evil Containment Wave"'),
-    ('DB8', 'otakudle-dragon-ball', 'dragon-ball', 'raditz', 'hint', 'voice_actor_ja', '"Shigeru Chiba"', '"Masako Nozawa"'),
-    ('DB7-raditz', 'otakudle-dragon-ball', 'dragon-ball', 'raditz', 'attr', 'affiliation', '{"v":["Frieza Force"]}', '{"v":["Frieza Force","Dragon Team"]}'),
-    ('DB9', 'otakudle-dragon-ball', 'dragon-ball', 'zamasu', 'hint', 'voice_actor_ja', '"Shin-ichiro Miki"', '"Masako Nozawa"'),
-    ('DB7-nappa', 'otakudle-dragon-ball', 'dragon-ball', 'nappa', 'attr', 'affiliation', '{"v":["Frieza Force","King Vegeta''s Warriors"]}', '{"v":["Frieza Force","King Vegeta''s Warriors","Team Beerus","Dragon Team"]}'),
-    ('DB7-bardock', 'otakudle-dragon-ball', 'dragon-ball', 'bardock', 'attr', 'affiliation', '{"v":["Frieza Force","Saiyan Army"]}', '{"v":["Frieza Force","Saiyan Army","Dark Empire","Time Patrol","Team Beerus","Resistance faction"]}'),
-    ('DB7-vegeta', 'otakudle-dragon-ball', 'dragon-ball', 'vegeta', 'attr', 'affiliation', '{"v":["Dragon Team","Team Universe 7","Galactic Patrol"]}', '{"v":["Dragon Team","Vegeta Sky Pirates","Team Universe 7","Team Universe 6","Galactic Patrol"]}'),
-    ('DB7-goten', 'otakudle-dragon-ball', 'dragon-ball', 'goten', 'attr', 'affiliation', '{"v":["Dragon Team","MIR","Kikoukenjutsu Sword School"]}', '{"v":["Dragon Team","MIR","Kikoukenjutsu Sword School","Team Universe 6"]}'),
-    ('DB7-dabura', 'otakudle-dragon-ball', 'dragon-ball', 'dabura', 'attr', 'affiliation', '{"v":["Organization of Babidi","Team 6"]}', '{"v":["Organization of Babidi","Dark Empire","Team 6","Berserkers","Dragon Team"]}'),
-    ('DB7-dende', 'otakudle-dragon-ball', 'dragon-ball', 'dende', 'attr', 'affiliation', '{"v":["Dragon Clan","Dragon Team"]}', '{"v":["Dragon Clan","Dragon Team","Dark Empire"]}'),
-    ('DB7-uub', 'otakudle-dragon-ball', 'dragon-ball', 'uub', 'attr', 'affiliation', '{"v":["Dragon Team"]}', '{"v":["Dragon Team","Frieza Force"]}'),
-    ('DB7-king-kai', 'otakudle-dragon-ball', 'dragon-ball', 'king-kai', 'attr', 'affiliation', '{"v":["Dragon Team"]}', '{"v":["Dragon Team","Time Patrol","Dragon Ball: The Breakers"]}'),
-    ('DB7-baby', 'otakudle-dragon-ball', 'dragon-ball', 'baby', 'attr', 'affiliation', '{"v":["Tuffle Parasites"]}', '{"v":["Tuffle Parasites","Kings of Destruction","Berserkers"]}'),
-    ('DB7-syn-shenron', 'otakudle-dragon-ball', 'dragon-ball', 'syn-shenron', 'attr', 'affiliation', '{"v":["Shadow Dragon"]}', '{"v":["Shadow Dragon","Mastermind''s group"]}');
-create temp table l21_src (id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) on commit drop;
-insert into l21_src values
-    ('OP1', 'upsert', 'monkey-d-garp', 'one-piece.bounty', 'fandom', '2027092', 'https://onepiece.fandom.com/wiki/Monkey_D._Garp', '2026-11-02T00:00:00Z'),
-    ('OP2', 'upsert', 'borsalino', 'one-piece.bounty', 'fandom', '2026269', 'https://onepiece.fandom.com/wiki/Borsalino', '2026-11-02T00:00:00Z'),
-    ('OP3', 'upsert', 'issho', 'one-piece.bounty', 'fandom', '2026891', 'https://onepiece.fandom.com/wiki/Issho', '2026-11-02T00:00:00Z'),
-    ('OP4', 'upsert', 'aramaki', 'one-piece.bounty', 'fandom', '2024050', 'https://onepiece.fandom.com/wiki/Aramaki', '2026-11-02T00:00:00Z'),
-    ('OP5', 'upsert', 'koby', 'one-piece.bounty', 'fandom', '2027299', 'https://onepiece.fandom.com/wiki/Koby', '2026-11-02T00:00:00Z'),
-    ('OP6', 'upsert', 'kin-emon', 'one-piece.bounty', 'fandom', '2021891', 'https://onepiece.fandom.com/wiki/Bounty/List', '2026-11-02T00:00:00Z'),
-    ('OP12', 'upsert', 'kin-emon', 'one-piece.sea_of_origin', 'fandom', '2021891', 'https://onepiece.fandom.com/wiki/Wano_Country', '2026-11-02T00:00:00Z'),
-    ('OP7', 'upsert', 'rebecca', 'one-piece.bounty', 'fandom', '2025077', 'https://onepiece.fandom.com/wiki/Bounty/List', '2026-11-02T00:00:00Z'),
-    ('OP8', 'upsert', 'viola', 'one-piece.bounty', 'fandom', '2026682', 'https://onepiece.fandom.com/wiki/Bounty/List', '2026-11-02T00:00:00Z'),
-    ('OP9', 'upsert', 'kyros', 'one-piece.bounty', 'fandom', '2026200', 'https://onepiece.fandom.com/wiki/Bounty/List', '2026-11-02T00:00:00Z'),
-    ('OP13', 'upsert', 'kyros', 'one-piece.sea_of_origin', 'fandom', '2026200', 'https://onepiece.fandom.com/wiki/Dressrosa', '2026-11-02T00:00:00Z'),
-    ('OP16', 'upsert', 'jesus-burgess', 'one-piece.bounty', 'fandom', '2021473', 'https://onepiece.fandom.com/wiki/Bounty/List', '2026-11-02T00:00:00Z'),
-    ('OP15a', 'upsert', 'kozuki-oden', 'one-piece.sea_of_origin', 'fandom', '2026324', 'https://onepiece.fandom.com/wiki/Wano_Country', '2026-11-02T00:00:00Z'),
-    ('OP15b', 'upsert', 'carrot', 'one-piece.sea_of_origin', 'fandom', '2021692', 'https://onepiece.fandom.com/wiki/Mokomo_Dukedom', '2026-11-02T00:00:00Z'),
-    ('OP15c', 'upsert', 'charlotte-pudding', 'one-piece.sea_of_origin', 'fandom', '2021804', 'https://onepiece.fandom.com/wiki/Totto_Land', '2026-11-02T00:00:00Z'),
-    ('OP18', 'delete', 'boa-hancock', 'one-piece.sea_of_origin', 'fandom', '2024695', 'https://onepiece.fandom.com/wiki/Boa_Hancock', '2026-11-02T00:00:00Z'),
-    ('DB10c', 'upsert', 'korin', 'dragon-ball.race', 'fandom', '2261398', 'https://dragonball.fandom.com/wiki/Korin', '2026-11-02T00:00:00Z'),
-    ('DB10c', 'upsert', 'korin', 'dragon-ball.race', 'wikipedia', null, 'https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters#Korin', '2026-11-02T00:00:00Z'),
-    ('DB5', 'upsert', 'king-piccolo', 'dragon-ball.signature_technique', 'fandom', '2273193', 'https://dragonball.fandom.com/wiki/King_Piccolo', '2026-11-02T00:00:00Z'),
-    ('DB8', 'upsert', 'raditz', 'dragon-ball.voice_actor_ja', 'fandom', null, 'https://dragonball.fandom.com/wiki/Masako_Nozawa', '2026-11-02T00:00:00Z'),
-    ('DB9', 'upsert', 'zamasu', 'dragon-ball.voice_actor_ja', 'wikipedia', null, 'https://en.wikipedia.org/wiki/Zamasu', '2026-11-02T00:00:00Z'),
-    ('DB9', 'delete', 'zamasu', 'dragon-ball.voice_actor_ja', 'fandom', '2257308', 'https://dragonball.fandom.com/wiki/Zamasu', '2026-11-09T00:00:00Z');
 
-do $l21$
 declare
+  fixes constant jsonb := '[
+{"id":"OP1","game_id":"otakudle-one-piece","series":"one-piece","slug":"monkey-d-garp","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":3000000000}"},
+{"id":"OP2","game_id":"otakudle-one-piece","series":"one-piece","slug":"borsalino","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":3000000000}"},
+{"id":"OP3","game_id":"otakudle-one-piece","series":"one-piece","slug":"issho","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":3000000000}"},
+{"id":"OP4","game_id":"otakudle-one-piece","series":"one-piece","slug":"aramaki","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":3000000000}"},
+{"id":"OP5","game_id":"otakudle-one-piece","series":"one-piece","slug":"koby","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":500000000}"},
+{"id":"OP6","game_id":"otakudle-one-piece","series":"one-piece","slug":"kin-emon","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":100000000}"},
+{"id":"OP12","game_id":"otakudle-one-piece","series":"one-piece","slug":"kin-emon","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP10","game_id":"otakudle-one-piece","series":"one-piece","slug":"kin-emon","kind":"hint","col":"devil_fruit_name","old_v":"\"Garb-Garb Fruit\"","new_v":"\"Garb-Garb Jutsu\""},
+{"id":"OP7","game_id":"otakudle-one-piece","series":"one-piece","slug":"rebecca","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":100000000}"},
+{"id":"OP8","game_id":"otakudle-one-piece","series":"one-piece","slug":"viola","kind":"attr","col":"bounty","old_v":"{\"v\":0,\"l\":\"No bounty\"}","new_v":"{\"v\":100000000}"},
+{"id":"OP9","game_id":"otakudle-one-piece","series":"one-piece","slug":"kyros","kind":"attr","col":"bounty","old_v":"{\"v\":null}","new_v":"{\"v\":200000000}"},
+{"id":"OP13","game_id":"otakudle-one-piece","series":"one-piece","slug":"kyros","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP9-target","game_id":"otakudle-one-piece","series":"one-piece","slug":"kyros","kind":"target","col":"can_be_target","old_v":"false","new_v":"true"},
+{"id":"OP16","game_id":"otakudle-one-piece","series":"one-piece","slug":"jesus-burgess","kind":"attr","col":"bounty","old_v":"{\"v\":null}","new_v":"{\"v\":20000000}"},
+{"id":"OP16-target","game_id":"otakudle-one-piece","series":"one-piece","slug":"jesus-burgess","kind":"target","col":"can_be_target","old_v":"false","new_v":"true"},
+{"id":"OP11","game_id":"otakudle-one-piece","series":"one-piece","slug":"charlotte-linlin","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP14","game_id":"otakudle-one-piece","series":"one-piece","slug":"kozuki-hiyori","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP15a","game_id":"otakudle-one-piece","series":"one-piece","slug":"kozuki-oden","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP15b","game_id":"otakudle-one-piece","series":"one-piece","slug":"carrot","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP15c","game_id":"otakudle-one-piece","series":"one-piece","slug":"charlotte-pudding","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Grand Line\"}","new_v":"{\"v\":\"New World\"}"},
+{"id":"OP18","game_id":"otakudle-one-piece","series":"one-piece","slug":"boa-hancock","kind":"attr","col":"sea_of_origin","old_v":"{\"v\":\"Calm Belt\"}","new_v":"{\"v\":null}"},
+{"id":"OP18-target","game_id":"otakudle-one-piece","series":"one-piece","slug":"boa-hancock","kind":"target","col":"can_be_target","old_v":"true","new_v":"false"},
+{"id":"OP17","game_id":"otakudle-one-piece","series":"one-piece","slug":"monkey-d-luffy","kind":"hint","col":"devil_fruit_name","old_v":"\"Human-Human Fruit, Model: Nika\"","new_v":"\"Gum-Gum Fruit\""},
+{"id":"DB1","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"cell","kind":"attr","col":"race","old_v":"{\"v\":\"Android\"}","new_v":"{\"v\":\"Saiyan\"}"},
+{"id":"DB3","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"emperor-pilaf","kind":"attr","col":"race","old_v":"{\"v\":\"Monster\"}","new_v":"{\"v\":\"Human\"}"},
+{"id":"DB7-emperor-pilaf","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"emperor-pilaf","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Pilaf Gang\",\"Mifan Army\",\"Dragon Team\",\"Capsule Corporation\"]}","new_v":"{\"v\":[\"Pilaf Gang\",\"Mifan Army\",\"Pilaf-Buggy Evil Alliance\",\"Dragon Team\",\"Capsule  Corporation\"]}"},
+{"id":"DB4","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"dr-gero","kind":"attr","col":"race","old_v":"{\"v\":\"Android\"}","new_v":"{\"v\":\"Human\"}"},
+{"id":"DB7-dr-gero","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"dr-gero","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Red Ribbon Army\",\"Pilaf Gang\"]}","new_v":"{\"v\":[\"Red Ribbon Army\",\"Pilaf Gang\",\"Dr. Gero Sky Pirates\"]}"},
+{"id":"DB10a","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"oolong","kind":"attr","col":"race","old_v":"{\"v\":\"Animal\"}","new_v":"{\"v\":\"Human\"}"},
+{"id":"DB10b","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"puar","kind":"attr","col":"race","old_v":"{\"v\":\"Animal\"}","new_v":"{\"v\":\"Human\"}"},
+{"id":"DB10c","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"korin","kind":"attr","col":"race","old_v":"{\"v\":\"Animal\"}","new_v":"{\"v\":\"Cat\"}"},
+{"id":"DB5","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"king-piccolo","kind":"hint","col":"signature_technique","old_v":"\"Explosive Demon Wave\"","new_v":"\"Evil Containment Wave\""},
+{"id":"DB8","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"raditz","kind":"hint","col":"voice_actor_ja","old_v":"\"Shigeru Chiba\"","new_v":"\"Masako Nozawa\""},
+{"id":"DB7-raditz","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"raditz","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Frieza Force\"]}","new_v":"{\"v\":[\"Frieza Force\",\"Dragon Team\"]}"},
+{"id":"DB9","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"zamasu","kind":"hint","col":"voice_actor_ja","old_v":"\"Shin-ichiro Miki\"","new_v":"\"Masako Nozawa\""},
+{"id":"DB7-nappa","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"nappa","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Frieza Force\",\"King Vegeta''s Warriors\"]}","new_v":"{\"v\":[\"Frieza Force\",\"King Vegeta''s Warriors\",\"Team Beerus\",\"Dragon Team\"]}"},
+{"id":"DB7-bardock","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"bardock","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Frieza Force\",\"Saiyan Army\"]}","new_v":"{\"v\":[\"Frieza Force\",\"Saiyan Army\",\"Dark Empire\",\"Time Patrol\",\"Team Beerus\",\"Resistance faction\"]}"},
+{"id":"DB7-vegeta","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"vegeta","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Dragon Team\",\"Team Universe 7\",\"Galactic Patrol\"]}","new_v":"{\"v\":[\"Dragon Team\",\"Vegeta Sky Pirates\",\"Team Universe 7\",\"Team Universe 6\",\"Galactic Patrol\"]}"},
+{"id":"DB7-goten","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"goten","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Dragon Team\",\"MIR\",\"Kikoukenjutsu Sword School\"]}","new_v":"{\"v\":[\"Dragon Team\",\"MIR\",\"Kikoukenjutsu Sword School\",\"Team Universe 6\"]}"},
+{"id":"DB7-dabura","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"dabura","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Organization of Babidi\",\"Team 6\"]}","new_v":"{\"v\":[\"Organization of Babidi\",\"Dark Empire\",\"Team 6\",\"Berserkers\",\"Dragon Team\"]}"},
+{"id":"DB7-dende","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"dende","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Dragon Clan\",\"Dragon Team\"]}","new_v":"{\"v\":[\"Dragon Clan\",\"Dragon Team\",\"Dark Empire\"]}"},
+{"id":"DB7-uub","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"uub","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Dragon Team\"]}","new_v":"{\"v\":[\"Dragon Team\",\"Frieza Force\"]}"},
+{"id":"DB7-king-kai","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"king-kai","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Dragon Team\"]}","new_v":"{\"v\":[\"Dragon Team\",\"Time Patrol\",\"Dragon Ball: The Breakers\"]}"},
+{"id":"DB7-baby","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"baby","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Tuffle Parasites\"]}","new_v":"{\"v\":[\"Tuffle Parasites\",\"Kings of Destruction\",\"Berserkers\"]}"},
+{"id":"DB7-syn-shenron","game_id":"otakudle-dragon-ball","series":"dragon-ball","slug":"syn-shenron","kind":"attr","col":"affiliation","old_v":"{\"v\":[\"Shadow Dragon\"]}","new_v":"{\"v\":[\"Shadow Dragon\",\"Mastermind''s group\"]}"}
+]';
+  srcs constant jsonb := '[
+{"id":"OP1","op":"upsert","entity_id":"monkey-d-garp","field":"one-piece.bounty","source":"fandom","ref":"2027092","url":"https://onepiece.fandom.com/wiki/Monkey_D._Garp","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP2","op":"upsert","entity_id":"borsalino","field":"one-piece.bounty","source":"fandom","ref":"2026269","url":"https://onepiece.fandom.com/wiki/Borsalino","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP3","op":"upsert","entity_id":"issho","field":"one-piece.bounty","source":"fandom","ref":"2026891","url":"https://onepiece.fandom.com/wiki/Issho","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP4","op":"upsert","entity_id":"aramaki","field":"one-piece.bounty","source":"fandom","ref":"2024050","url":"https://onepiece.fandom.com/wiki/Aramaki","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP5","op":"upsert","entity_id":"koby","field":"one-piece.bounty","source":"fandom","ref":"2027299","url":"https://onepiece.fandom.com/wiki/Koby","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP6","op":"upsert","entity_id":"kin-emon","field":"one-piece.bounty","source":"fandom","ref":"2021891","url":"https://onepiece.fandom.com/wiki/Bounty/List","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP12","op":"upsert","entity_id":"kin-emon","field":"one-piece.sea_of_origin","source":"fandom","ref":"2021891","url":"https://onepiece.fandom.com/wiki/Wano_Country","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP7","op":"upsert","entity_id":"rebecca","field":"one-piece.bounty","source":"fandom","ref":"2025077","url":"https://onepiece.fandom.com/wiki/Bounty/List","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP8","op":"upsert","entity_id":"viola","field":"one-piece.bounty","source":"fandom","ref":"2026682","url":"https://onepiece.fandom.com/wiki/Bounty/List","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP9","op":"upsert","entity_id":"kyros","field":"one-piece.bounty","source":"fandom","ref":"2026200","url":"https://onepiece.fandom.com/wiki/Bounty/List","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP13","op":"upsert","entity_id":"kyros","field":"one-piece.sea_of_origin","source":"fandom","ref":"2026200","url":"https://onepiece.fandom.com/wiki/Dressrosa","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP16","op":"upsert","entity_id":"jesus-burgess","field":"one-piece.bounty","source":"fandom","ref":"2021473","url":"https://onepiece.fandom.com/wiki/Bounty/List","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP15a","op":"upsert","entity_id":"kozuki-oden","field":"one-piece.sea_of_origin","source":"fandom","ref":"2026324","url":"https://onepiece.fandom.com/wiki/Wano_Country","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP15b","op":"upsert","entity_id":"carrot","field":"one-piece.sea_of_origin","source":"fandom","ref":"2021692","url":"https://onepiece.fandom.com/wiki/Mokomo_Dukedom","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP15c","op":"upsert","entity_id":"charlotte-pudding","field":"one-piece.sea_of_origin","source":"fandom","ref":"2021804","url":"https://onepiece.fandom.com/wiki/Totto_Land","fetched":"2026-11-02T00:00:00Z"},
+{"id":"OP18","op":"delete","entity_id":"boa-hancock","field":"one-piece.sea_of_origin","source":"fandom","ref":"2024695","url":"https://onepiece.fandom.com/wiki/Boa_Hancock","fetched":"2026-11-02T00:00:00Z"},
+{"id":"DB10c","op":"upsert","entity_id":"korin","field":"dragon-ball.race","source":"fandom","ref":"2261398","url":"https://dragonball.fandom.com/wiki/Korin","fetched":"2026-11-02T00:00:00Z"},
+{"id":"DB10c","op":"upsert","entity_id":"korin","field":"dragon-ball.race","source":"wikipedia","ref":null,"url":"https://en.wikipedia.org/wiki/List_of_Dragon_Ball_characters#Korin","fetched":"2026-11-02T00:00:00Z"},
+{"id":"DB5","op":"upsert","entity_id":"king-piccolo","field":"dragon-ball.signature_technique","source":"fandom","ref":"2273193","url":"https://dragonball.fandom.com/wiki/King_Piccolo","fetched":"2026-11-02T00:00:00Z"},
+{"id":"DB8","op":"upsert","entity_id":"raditz","field":"dragon-ball.voice_actor_ja","source":"fandom","ref":null,"url":"https://dragonball.fandom.com/wiki/Masako_Nozawa","fetched":"2026-11-02T00:00:00Z"},
+{"id":"DB9","op":"upsert","entity_id":"zamasu","field":"dragon-ball.voice_actor_ja","source":"wikipedia","ref":null,"url":"https://en.wikipedia.org/wiki/Zamasu","fetched":"2026-11-02T00:00:00Z"},
+{"id":"DB9","op":"delete","entity_id":"zamasu","field":"dragon-ball.voice_actor_ja","source":"fandom","ref":"2257308","url":"https://dragonball.fandom.com/wiki/Zamasu","fetched":"2026-11-09T00:00:00Z"}
+]';
   c record; s record; r record; cur jsonb;
   n_changed integer := 0; n_already integer := 0; n_drift integer := 0; n_missing integer := 0;
 begin
-  for c in select * from l21_fix order by id loop
+  for c in select t.id, t.game_id, t.series, t.slug, t.kind, t.col, t.old_v::jsonb as old_v, t.new_v::jsonb as new_v
+    from jsonb_to_recordset(fixes) as t(id text, game_id text, series text, slug text, kind text, col text, old_v text, new_v text) order by t.id loop
     select f.character_id, f.attrs, f.hints, f.can_be_target into r
     from public.character_game_facts f
     join public.characters ch on ch.id = f.character_id
@@ -146,7 +148,7 @@ begin
       raise warning 'L21 rollback %: % / % holds %, neither % nor %: left alone', c.id, c.game_id, c.slug, cur, c.old_v, c.new_v;
       continue;
     end if;
-    for s in select * from l21_src w where w.id = c.id loop
+    for s in select w.* from jsonb_to_recordset(srcs) as w(id text, op text, entity_id text, field text, source text, ref text, url text, fetched text) where w.id = c.id loop
       if s.op = 'delete' then
         delete from public.entity_sources where entity_type = 'character' and entity_id = s.entity_id and field = s.field and source = s.source;
       else
@@ -163,16 +165,15 @@ begin
     raise exception 'L21 rollback: % rows changed, expected 0 or 45', n_changed;
   end if;
   raise notice 'L21 rollback: % changed, % already as wanted, % left alone', n_changed, n_already, n_drift;
-end $l21$;
+end;
 
 -- The snapshot the players read (a game that has none is refreshed by its own activation).
-do $l21$ begin
+begin
   if exists (select 1 from public.dle_entities where game_id = 'otakudle-dragon-ball') then perform public.dle_refresh_entities('otakudle-dragon-ball'); end if;
   if exists (select 1 from public.dle_entities where game_id = 'otakudle-one-piece') then perform public.dle_refresh_entities('otakudle-one-piece'); end if;
-end $l21$;
+end;
 
 -- Nobody scheduled in the next 7 days may have stopped being a possible answer.
-do $l21$
 declare r record;
 begin
   if to_regclass('public.dle_schedule') is not null and to_regclass('public.dle_games') is not null and to_regclass('public.dle_entities') is not null then
@@ -189,6 +190,8 @@ begin
       raise exception 'L21 rollback: the answer served today is no longer a possible answer';
     end if;
   end if;
-end $l21$;
+end;
 
 notify pgrst, 'reload schema';
+
+end $o1l21r$;
