@@ -29,7 +29,7 @@ export function QotdRow({ qotd }: { qotd: HomeQotd }): React.ReactElement {
   return (
     <section className="p1-qotd" aria-labelledby="p1-qotd-t">
       <div className="p1-qd-main">
-        <div className="p1-qtop">
+        <div className="p1-qtop" {...(qotd.featuredDate && qotd.featuredDate !== qotd.servedDate ? { 'data-replay': '1' } : {})}>
           <span className="p1-qlab"><Icon name="zap" />Quiz of the day</span>
           <QotdNote featured={qotd.featuredDate} served={qotd.servedDate} />
         </div>

@@ -43,6 +43,11 @@ export function HomeHeader(): React.ReactElement {
           {signedIn.name ? <>{signedIn.greeting}, <em>{signedIn.name}</em></> : signedIn.greeting}
         </h1>
         <p className="p1-hsub">{signedIn.line}</p>
+        {/* Keeps the height of the guest header's two buttons (a client-only render, so never in the server HTML): the header does not shrink when /api/auth/me answers, and nothing below it moves (audit 02 P1-4, risk 4). */}
+        <div className="p1-hcta" aria-hidden="true" style={{ visibility: 'hidden' }}>
+          <UxButton icon="play" tabIndex={-1}>{`Browse ${GENRE} quizzes`}</UxButton>
+          <UxButton variant="ghost" icon="plus" tabIndex={-1}>Create a quiz</UxButton>
+        </div>
       </header>
     );
   }

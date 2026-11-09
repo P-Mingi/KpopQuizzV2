@@ -8,6 +8,7 @@ import { completeDaily, hasPlayedDaily, markDailyPlayed } from '@/lib/daily-play
 import { recordGuestDaily } from '@/lib/guest-streak';
 import { btChallengeCodeHere, btLocale, btPlaylistId, btSourceHere, newBtRunId, trackBtRun } from '@/lib/tracking/bt';
 import { summarizeRun } from '@/lib/ux-v1/p6/points';
+import { COUNTDOWN_POLL_MS, countdown } from '@/lib/ux-v1/p6/countdown';
 import { generateBody } from '@/lib/ux-v1/p6/playlists';
 
 import type { BtAnswer, BtMode, BtPhase, BtQuestion } from './types';
@@ -249,15 +250,15 @@ export function useBlindtestRun(opts: {
     const run = runRef.current;
     const handle = setInterval(() => {
       if (runRef.current !== run) { clearInterval(handle); return; }
-      const remaining = TIMER_S - (Date.now() - startRef.current) / 1000;
-      if (remaining <= 0) {
+      const { left, done } = countdown(Date.now() - startRef.current, TIMER_S);
+      if (done) {
         stopTimer();
         setTimeLeft(0);
         if (!answeredRef.current) reveal(null, false);
       } else {
-        setTimeLeft(remaining);
+        setTimeLeft(left); // whole seconds: the same value bails out of the render, the ring is CSS
       }
-    }, 50);
+    }, COUNTDOWN_POLL_MS);
     timerRef.current = handle;
     // Autoplay refused (no gesture, or the browser blocked it): the element stays paused.
     blockedRef.current = setTimeout(() => {

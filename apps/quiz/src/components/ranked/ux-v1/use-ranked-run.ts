@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useAudioPlayer } from '@/components/blind-test/use-audio-player';
 import { analytics } from '@/lib/analytics';
+import { COUNTDOWN_POLL_MS, countdown } from '@/lib/ux-v1/p6/countdown';
 import { btLocale, btPlaylistId, btSourceHere, newBtRunId, trackBtRun } from '@/lib/tracking/bt';
 
 import { RankedApiError, rankedApi, withRetry } from './api';
@@ -296,8 +297,8 @@ export function useRankedRun(opts: {
     const run = runRef.current;
     const handle = setInterval(() => {
       if (runRef.current !== run) { clearInterval(handle); return; }
-      const remaining = RANKED_TIMER_S - (Date.now() - startRef.current) / 1000;
-      if (remaining <= 0) {
+      const { left, done } = countdown(Date.now() - startRef.current, RANKED_TIMER_S);
+      if (done) {
         stopTimer();
         setTimeLeft(0);
         if (!answeredRef.current) {
@@ -306,9 +307,9 @@ export function useRankedRun(opts: {
           void lock(round, q.question_type, null, null);
         }
       } else {
-        setTimeLeft(remaining);
+        setTimeLeft(left); // whole seconds: the same value bails out of the render, the ring is CSS
       }
-    }, 50);
+    }, COUNTDOWN_POLL_MS);
     timerRef.current = handle;
     blockedRef.current = setTimeout(() => {
       const a = audioRef.current;

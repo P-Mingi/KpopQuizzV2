@@ -188,3 +188,11 @@
   .p1-pulse, .p1-eqv i { animation: none; }
   .p1-gav { transition: none; }
 }
+
+/* Audit 02 P1-4 (risk 4): the quiz of the day note gets "New quiz in ..." after hydration; on a narrow screen a replay note then wraps to a second line. The row keeps room for both lines when the server rendered a replay. */
+@media (max-width: 560px) {
+  .p1-qtop[data-replay] { min-height: 54px; align-content: flex-start; }
+}
+@media (max-width: 380px) {
+  .p1-qtop[data-replay] { min-height: 74px; }
+}

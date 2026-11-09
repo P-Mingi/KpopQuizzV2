@@ -2,6 +2,7 @@ import { P4QuizPage } from '@/components/quiz/ux-v1/quiz-page';
 import { P4EmbedButton } from '@/components/quiz/ux-v1/embed-island';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
+import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { averagePct } from '@/lib/ux-v1/p4/engine';
 import { parseResultLevels } from '@/lib/quiz/result-levels';
@@ -67,6 +68,8 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
 
   const groupPhoto = groupPhotoUrl(quiz.group_slug);
   const cover = quiz.cover_image_url ?? groupPhoto;
+  // Like the card: a cover from a host next/image does not accept (it would throw during render) falls back to the group photo (audit 02 P2-1, risk 7).
+  const shownCover = cover && isConfiguredImageHost(cover) ? cover : groupPhoto;
   const settings = quiz.settings ?? { timer: true, timer_seconds: 15, shuffle: false, show_answers: true };
   const prompts = a.seoQuestions
     .map((q) => (typeof q.question === 'string' ? q.question.trim() : ''))
@@ -88,7 +91,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     groupName: quiz.group_name,
     groupSlug: quiz.group_slug,
     // photocard + share preview: the group photo (prototype), else the quiz cover
-    photo: groupPhoto ?? cover,
+    photo: groupPhoto ?? shownCover,
     groupPhoto,
     creatorUsername: quiz.creator_username,
     averagePct: averagePct(quiz.total_score_sum, quiz.total_completions, a.questionCount, quiz.quiz_type),
@@ -136,7 +139,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
         creatorUsername: quiz.creator_username,
         creatorXp: quiz.creator_xp ?? 0,
         creatorAvatarUrl: quiz.creator_avatar_url,
-        cover,
+        cover: shownCover,
       }}
       crumbs={a.breadcrumbItems}
       breadcrumbJsonLd={breadcrumbJsonLd}

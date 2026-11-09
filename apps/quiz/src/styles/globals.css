@@ -4776,7 +4776,11 @@ blockquote.ped-body { border-left: 2.5px solid var(--verse-accent); padding-left
 .bt-orb.danger .bt-orb-fg { stroke: var(--wrong); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--wrong) 45%, transparent)); }
 .bt-orb-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
 .bt-eq { display: flex; align-items: flex-end; gap: 4px; height: 36px; }
-.bt-eq-bar { width: 5px; min-height: 6px; border-radius: 3px; background: var(--brand); transition: height 110ms ease; }
+.bt-eq-bar { width: 5px; min-height: 6px; height: 14px; border-radius: 3px; background: var(--brand); animation: bt-eq 1.1s ease-in-out infinite; }
+.bt-eq-bar:nth-child(2) { animation-delay: -.2s; } .bt-eq-bar:nth-child(3) { animation-delay: -.4s; } .bt-eq-bar:nth-child(4) { animation-delay: -.1s; } .bt-eq-bar:nth-child(5) { animation-delay: -.3s; }
+@keyframes bt-eq { 0%, 100% { height: 10px; } 50% { height: 36px; } }
+.bt-orb-fg.is-run { animation: bt-drain var(--bt-dur, 10s) linear forwards; }
+@keyframes bt-drain { from { stroke-dashoffset: 0; } to { stroke-dashoffset: var(--bt-circ, 339.3); } }
 .bt-orb.danger .bt-eq-bar { background: var(--wrong); }
 .bt-time { font-family: var(--font-display); font-weight: 800; font-size: 26px; color: var(--txt1); font-variant-numeric: tabular-nums; }
 .bt-orb.danger .bt-time { color: var(--wrong); }
@@ -4849,7 +4853,7 @@ blockquote.ped-body { border-left: 2.5px solid var(--verse-accent); padding-left
 
 @media (prefers-reduced-motion: reduce) {
   .bt-orb-fg { transition: none; }
-  .bt-eq-bar { transition: none; }
+  .bt-eq-bar { animation: none; height: 20px; }
   .bt-audio-dot.on { animation: none; opacity: 1; }
   .bt-reveal-head { animation: none; }
   .bt-progress-fill { transition: none; }
