@@ -477,7 +477,10 @@ signedInTest.describe('home signed in (test user, read only)', () => {
       await expect(h1.locator('em')).toHaveText(name);
       // The streak rule as it is (C2-002, A0's popover words): only the daily quiz or the daily blindtest.
       await expect(page.locator('.p1-hhead p.p1-hsub')).toHaveText(/^(Your quiz of the day is ready\. Play the daily quiz or the daily blindtest today to (start a streak|keep your \d+-day streak)\.|Streak saved: \d+ days?\. Come back tomorrow to make it \d+\.)$/);
-      await expect(page.locator('.p1-hcta'), 'no CTAs for a signed-in fan').toHaveCount(0);
+      // Owner, 2026-11-09 (lot o1/next A): a signed-in fan gets the two hero buttons too, real links under the streak line.
+      await expect(page.locator('.p1-hcta'), 'the two CTAs for a signed-in fan').toHaveCount(1);
+      await expect(page.locator('.p1-hcta a[href="/quizzes"]')).toHaveText('Browse K-pop quizzes');
+      await expect(page.locator('.p1-hcta a[href="/create"]')).toHaveText('Create a quiz');
 
       if (runSlug) {
         const cont = page.locator('section[aria-labelledby="p1-cont-h"]');
