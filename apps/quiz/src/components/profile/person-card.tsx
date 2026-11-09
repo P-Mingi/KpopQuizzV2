@@ -1,3 +1,5 @@
+import { TeamTag } from '@/components/ux-v1/team';
+import { TEAM_BYLINE } from '@/lib/seo/team-byline';
 import { WorldLink } from '@/components/layout/world-link';
 
 import { UserAvatar } from '@/components/ui/user-avatar';
@@ -39,6 +41,8 @@ export interface PersonCardData {
   pinnedBadgeId?: string | null;   // slot rendered now; real badge art arrives M1.15
   avatarKind?: AvatarKind | null;
   avatarRef?: string | null;
+  /** An editorial (Team) account: the Team badge and "by the KpopQuiz Team" replace the fan level line. */
+  isTeam?: boolean;
 }
 
 function AvatarSlot({ person, size }: { person: PersonCardData; size: number }): React.ReactElement {
@@ -130,12 +134,14 @@ export function PersonCard({
         </div>
         <div style={{ minWidth: 0 }}>
           <div style={{ fontSize: compact ? 13 : 15, fontWeight: 700, color: accentColor, fontFamily, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {name}
+            {name}{person.isTeam ? <> <TeamTag /></> : null}
           </div>
           <div style={{ fontSize: compact ? 11 : 12, color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            Lv {level} {'·'} {title}
-            {person.bias && person.bias.trim() ? ` · bias ${person.bias.trim()}` : ''}
-            {!compact && <> {'·'} {formatCount(person.followerCount)} {person.followerCount === 1 ? 'follower' : 'followers'}</>}
+            {person.isTeam ? `by ${TEAM_BYLINE}` : <>
+              Lv {level} {'·'} {title}
+              {person.bias && person.bias.trim() ? ` · bias ${person.bias.trim()}` : ''}
+              {!compact && <> {'·'} {formatCount(person.followerCount)} {person.followerCount === 1 ? 'follower' : 'followers'}</>}
+            </>}
           </div>
           {!compact && ults.length > 0 && (
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 6 }}>
