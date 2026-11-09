@@ -183,8 +183,9 @@
   .p1-hhead { margin: 16px auto 16px; }
   .p1-hhead .p1-hsub { font-size: 15px; margin-top: 8px; }
   .p1-hcta { margin-top: 12px; }
-  /* Audit 01 P0-2: the hero buttons turn ghost so the daily Play is the one pink button in view. */
-  .p1-hcta .ux-btn-primary { background: transparent; border-color: var(--ux-edge); color: var(--ux-ink); }
+  /* Owner, 2026-11-09: on a phone the hero keeps "Create a quiz" only; "Browse <genre> quizzes" (the primary button) is not shown
+     (it stays in the HTML, and the Quizzes tab of the tab bar leads to the same page). */
+  .p1-hcta .ux-btn-primary { display: none; }
   .p1-dchip {
     display: flex; align-items: center; gap: 8px; max-width: 360px; margin: 12px auto 0; padding: 6px 6px 6px 14px; min-height: 44px;
     border: 1px solid var(--ux-qotd-edge); border-radius: 999px; background: var(--ux-qotd-bg); color: var(--ux-ink); text-decoration: none; text-align: left;
@@ -193,6 +194,9 @@
   .p1-dchip-t { flex: 1; min-width: 0; font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .p1-dchip-go { flex: 0 0 auto; padding: 8px 16px; border-radius: 999px; background: var(--ux-pink-fill); color: var(--ux-on-accent); font-size: 14px; font-weight: 600; }
   .p1-qotd { flex-direction: column; align-items: stretch; gap: 16px; padding: 20px; }
+  /* Owner, 2026-11-09: on a phone the quiz of the day shows once, as the header's "Today's quiz" chip (same width rule as the chip,
+     and both come from the same quiz: no quiz of the day, neither shows). The card stays in the HTML for wider screens. */
+  .p1-home .p1-qotd { display: none; }
   .p1-qotd h2 { font-size: 20px; }
   .p1-qd-go { width: 100%; height: 44px; }
   .p1-cont { grid-template-columns: 1fr; }
