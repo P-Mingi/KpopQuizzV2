@@ -861,6 +861,7 @@
    "lib/personality/rosters.ts",
    "lib/personality/view.ts",
    "lib/quiz/scoring.ts",
+   "lib/seo/demand-gate.ts",
    "lib/seo/json-ld.ts",
    "lib/seo/og.ts",
    "lib/site/registry.ts",
