@@ -7,14 +7,14 @@
     "headerAuth": "out",
     "header": {
       "top": 137,
-      "bottom": 413,
-      "h": 276,
+      "bottom": 363,
+      "h": 226,
       "visible": true
     },
     "cta": {
       "top": 323,
-      "bottom": 413,
-      "h": 90,
+      "bottom": 363,
+      "h": 40,
       "visible": true
     },
     "ctaLinks": [
@@ -28,6 +28,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": false,
+    "createVisible": true,
     "chip": {
       "top": 259,
       "bottom": 311,
@@ -35,25 +38,25 @@
       "visible": true
     },
     "surprise": {
-      "top": 417,
-      "bottom": 457,
+      "top": 367,
+      "bottom": 407,
       "h": 40,
       "visible": true
     },
     "qotd": {
-      "top": 485,
-      "bottom": 742,
-      "h": 257,
-      "visible": true
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
     },
     "viewportH": 812,
     "checks": {
-      "order_surprise_before_qotd": true,
-      "no_overlap_surprise_qotd": true,
+      "one_quiz_of_the_day": true,
+      "chip_play_above_fold": true,
+      "no_browse_button": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": true
+      "no_hidden_copy": true
     }
   },
   {
@@ -64,14 +67,14 @@
     "headerAuth": "in",
     "header": {
       "top": 137,
-      "bottom": 436,
-      "h": 299,
+      "bottom": 386,
+      "h": 249,
       "visible": true
     },
     "cta": {
       "top": 346,
-      "bottom": 436,
-      "h": 90,
+      "bottom": 386,
+      "h": 40,
       "visible": true
     },
     "ctaLinks": [
@@ -85,6 +88,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": false,
+    "createVisible": true,
     "chip": {
       "top": 281,
       "bottom": 334,
@@ -92,25 +98,25 @@
       "visible": true
     },
     "surprise": {
-      "top": 440,
-      "bottom": 480,
+      "top": 390,
+      "bottom": 430,
       "h": 40,
       "visible": true
     },
     "qotd": {
-      "top": 508,
-      "bottom": 765,
-      "h": 257,
-      "visible": true
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
     },
     "viewportH": 812,
     "checks": {
-      "order_surprise_before_qotd": true,
-      "no_overlap_surprise_qotd": true,
+      "one_quiz_of_the_day": true,
+      "chip_play_above_fold": true,
+      "no_browse_button": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": true,
+      "no_hidden_copy": true,
       "same_header_height_as_guest": false
     }
   },
@@ -143,6 +149,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": {
       "top": 0,
       "bottom": 0,
@@ -167,8 +176,7 @@
       "no_overlap_surprise_qotd": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": null
+      "two_real_buttons": true
     }
   },
   {
@@ -200,6 +208,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": {
       "top": 0,
       "bottom": 0,
@@ -225,7 +236,6 @@
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
       "two_real_buttons": true,
-      "phone_play_above_fold": null,
       "same_header_height_as_guest": false
     }
   },
@@ -258,6 +268,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": {
       "top": 0,
       "bottom": 0,
@@ -282,8 +295,7 @@
       "no_overlap_surprise_qotd": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": null
+      "two_real_buttons": true
     }
   },
   {
@@ -315,6 +327,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": {
       "top": 0,
       "bottom": 0,
@@ -340,7 +355,6 @@
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
       "two_real_buttons": true,
-      "phone_play_above_fold": null,
       "same_header_height_as_guest": false
     }
   },
@@ -373,6 +387,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": {
       "top": 0,
       "bottom": 0,
@@ -397,8 +414,7 @@
       "no_overlap_surprise_qotd": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": null
+      "two_real_buttons": true
     }
   },
   {
@@ -430,6 +446,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": {
       "top": 0,
       "bottom": 0,
@@ -455,7 +474,6 @@
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
       "two_real_buttons": true,
-      "phone_play_above_fold": null,
       "same_header_height_as_guest": false
     }
   },
@@ -467,14 +485,14 @@
     "headerAuth": "out",
     "header": {
       "top": 137,
-      "bottom": 349,
-      "h": 212,
+      "bottom": 299,
+      "h": 162,
       "visible": true
     },
     "cta": {
       "top": 259,
-      "bottom": 349,
-      "h": 90,
+      "bottom": 299,
+      "h": 40,
       "visible": true
     },
     "ctaLinks": [
@@ -488,22 +506,25 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": false,
+    "createVisible": true,
     "chip": null,
     "surprise": {
-      "top": 353,
-      "bottom": 393,
+      "top": 303,
+      "bottom": 343,
       "h": 40,
       "visible": true
     },
     "qotd": null,
     "viewportH": 812,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "one_quiz_of_the_day": null,
+      "chip_play_above_fold": null,
+      "no_browse_button": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": false
+      "no_hidden_copy": true
     }
   },
   {
@@ -514,14 +535,14 @@
     "headerAuth": "in",
     "header": {
       "top": 137,
-      "bottom": 349,
-      "h": 212,
+      "bottom": 299,
+      "h": 162,
       "visible": true
     },
     "cta": {
       "top": 259,
-      "bottom": 349,
-      "h": 90,
+      "bottom": 299,
+      "h": 40,
       "visible": true
     },
     "ctaLinks": [
@@ -535,22 +556,25 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": false,
+    "createVisible": true,
     "chip": null,
     "surprise": {
-      "top": 353,
-      "bottom": 393,
+      "top": 303,
+      "bottom": 343,
       "h": 40,
       "visible": true
     },
     "qotd": null,
     "viewportH": 812,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "one_quiz_of_the_day": null,
+      "chip_play_above_fold": null,
+      "no_browse_button": true,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": false,
+      "no_hidden_copy": true,
       "same_header_height_as_guest": true
     }
   },
@@ -583,6 +607,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": null,
     "surprise": {
       "top": 385,
@@ -593,12 +620,11 @@
     "qotd": null,
     "viewportH": 1024,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": null
+      "two_real_buttons": true
     }
   },
   {
@@ -630,6 +656,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": null,
     "surprise": {
       "top": 409,
@@ -640,12 +669,11 @@
     "qotd": null,
     "viewportH": 1024,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
       "two_real_buttons": true,
-      "phone_play_above_fold": null,
       "same_header_height_as_guest": false
     }
   },
@@ -678,6 +706,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": null,
     "surprise": {
       "top": 388,
@@ -688,12 +719,11 @@
     "qotd": null,
     "viewportH": 900,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": null
+      "two_real_buttons": true
     }
   },
   {
@@ -725,6 +755,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": null,
     "surprise": {
       "top": 412,
@@ -735,12 +768,11 @@
     "qotd": null,
     "viewportH": 900,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
       "two_real_buttons": true,
-      "phone_play_above_fold": null,
       "same_header_height_as_guest": false
     }
   },
@@ -773,6 +805,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": null,
     "surprise": {
       "top": 388,
@@ -783,12 +818,11 @@
     "qotd": null,
     "viewportH": 900,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
-      "two_real_buttons": true,
-      "phone_play_above_fold": null
+      "two_real_buttons": true
     }
   },
   {
@@ -820,6 +854,9 @@
       }
     ],
     "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
     "chip": null,
     "surprise": {
       "top": 412,
@@ -830,12 +867,11 @@
     "qotd": null,
     "viewportH": 900,
     "checks": {
-      "order_surprise_before_qotd": false,
-      "no_overlap_surprise_qotd": false,
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
       "no_overlap_cta_surprise": true,
       "header_state_as_asked": true,
       "two_real_buttons": true,
-      "phone_play_above_fold": null,
       "same_header_height_as_guest": false
     }
   }

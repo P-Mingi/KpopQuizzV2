@@ -48,20 +48,31 @@ async function shoot(site, url, [w, hgt], auth) {
       headerAuth: document.querySelector('header.p1-hhead')?.getAttribute('data-auth') ?? null,
       header: r('header.p1-hhead'), cta: r('header.p1-hhead .p1-hcta'), ctaLinks: cta,
       hiddenCopy: !!document.querySelector('.p1-hcta[aria-hidden="true"]'),
+      qotdShown: !!document.querySelector('.p1-qotd'),
+      browseVisible: (() => { const a = document.querySelector('header.p1-hhead .p1-hcta a[href$="/quizzes"]'); return !!a && getComputedStyle(a).display !== 'none' && a.getBoundingClientRect().height > 0; })(),
+      createVisible: (() => { const a = document.querySelector('header.p1-hhead .p1-hcta a[href$="/create"]'); return !!a && getComputedStyle(a).display !== 'none' && a.getBoundingClientRect().height > 0; })(),
       chip: r('.p1-dchip'), surprise: r('.kpop-h2-surprise') ?? r('.anime-h2-surprise'), qotd: r('.p1-qotd'),
       viewportH: innerHeight,
     };
   });
   const s = geo.surprise, q = geo.qotd, c = geo.cta;
-  geo.checks = {
-    order_surprise_before_qotd: !!(s && q && s.top < q.top),
-    no_overlap_surprise_qotd: !!(s && q && s.bottom <= q.top),
+  const phone = w <= 760;
+  geo.checks = phone ? {
+    // Owner, 2026-11-09: on a phone the quiz of the day shows once (the chip), and no Browse button.
+    one_quiz_of_the_day: geo.qotdShown ? !!(geo.chip?.visible) !== !!(q?.visible) : null,
+    chip_play_above_fold: geo.qotdShown ? !!(geo.chip && geo.chip.visible && geo.chip.bottom <= geo.viewportH) : null,
+    no_browse_button: !geo.browseVisible && geo.createVisible,
     no_overlap_cta_surprise: !!(c && s && c.bottom <= s.top),
     header_state_as_asked: geo.headerAuth === auth,
-    two_real_buttons: geo.ctaLinks.length === 2 && !geo.hiddenCopy,
-    phone_play_above_fold: w < 768 ? !!(geo.chip && geo.chip.visible && geo.chip.bottom <= geo.viewportH) : null,
+    no_hidden_copy: !geo.hiddenCopy,
+  } : {
+    order_surprise_before_qotd: geo.qotdShown ? !!(s && q && s.top < q.top) : null,
+    no_overlap_surprise_qotd: geo.qotdShown ? !!(s && q && s.bottom <= q.top) : null,
+    no_overlap_cta_surprise: !!(c && s && c.bottom <= s.top),
+    header_state_as_asked: geo.headerAuth === auth,
+    two_real_buttons: geo.ctaLinks.length === 2 && !geo.hiddenCopy && geo.browseVisible && geo.createVisible,
   };
-  const bottom = Math.max(hgt, (q?.bottom ?? 0) + 40);
+  const bottom = Math.max(hgt, ((q?.visible ? q.bottom : s?.bottom) ?? 0) + 40);
   const file = `${outDir}/${site}-${w}-${auth}-${tag}.png`;
   await page.screenshot({ path: file, fullPage: true, clip: { x: 0, y: 0, width: w, height: bottom } });
   report.push({ site, width: w, auth, file, ...geo });
