@@ -2543,6 +2543,21 @@
    "why": "part 1 defect: the stored value is the character name in Japanese script; no cast source names the actor, so it becomes null",
    "src": null,
    "toNull": true
+  },
+  {
+   "id": "DB-Za",
+   "series": "dragon-ball",
+   "slug": "zamasu",
+   "col": "voice_actor_ja",
+   "old": "Masako Nozawa",
+   "new": "Shin-ichiro Miki",
+   "why": "part 1 fixed the data of the Dragon Ball game (DB9); the Otakudle row of L13 still holds Masako Nozawa, who voices Goku Black",
+   "src": {
+    "url": "https://dragonball.fandom.com/wiki/Zamasu",
+    "ref": "2257308",
+    "read": "2026-11-09",
+    "raw": "Voice actors, Japanese: Shin-ichiro Miki"
+   }
   }
  ],
  "featuredOn": [

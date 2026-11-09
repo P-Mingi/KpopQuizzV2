@@ -42,6 +42,8 @@ export function plan(D0) {
     const vo = storedValues(co.fields);
     const vn = storedValues(cn.fields);
     const items = L22.filter((i) => `${i.series}/${i.slug}` === key);
+    // the table holds what L13 wrote, also a value in Japanese script (storedValues now stores it as null)
+    for (const it of items.filter((x) => !x.srcOnly)) vo[it.col] = it.old;
     const featOld = newKeys.has(key) ? false : isTop(key);
     const featNew = FEATURED_ON.includes(key) ? true : FEATURED_OFF.includes(key) ? false : featOld;
     if (FEATURED_ON.includes(key) && featOld) throw new Error(`${key} is already featured`);

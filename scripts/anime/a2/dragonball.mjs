@@ -68,7 +68,7 @@ async function buildSagas() {
 }
 
 // ---------------------------------------------------------------- races
-const RACE_PRIORITY = ['Saiyan', 'Namekian', 'Frieza Race', 'Majin', 'Android', 'Angel', 'God', 'Human', 'Demon', 'Dragon']
+const RACE_PRIORITY = ['Saiyan', 'Namekian', 'Frieza Race', 'Majin', 'Android', 'Angel', 'God', 'Monster', 'Animal', 'Human', 'Demon', 'Dragon']
 const RACE_ALIAS = new Map(Object.entries({
   saiyan: 'Saiyan', saiyans: 'Saiyan', 'half saiyan': 'Saiyan', 'saiyan human hybrid': 'Saiyan', 'saiyan army': 'Saiyan',
   human: 'Human', humans: 'Human', earthling: 'Human', earthlings: 'Human',
@@ -80,6 +80,7 @@ const RACE_ALIAS = new Map(Object.entries({
   glind: 'God', "beerus s race": 'God', 'beerus race': 'God', god: 'God', gods: 'God', deity: 'God', deities: 'God', kai: 'God', 'supreme kai': 'God', 'god of destruction': 'God', shinjin: 'God', 'supreme kais': 'God', kaioshin: 'God',
   demon: 'Demon', demons: 'Demon', 'demon clan': 'Demon', 'demon realm': 'Demon',
   dragon: 'Dragon', dragons: 'Dragon',
+  monster: 'Monster', monsters: 'Monster', animal: 'Animal', animals: 'Animal',
 }))
 export function raceOf(labels) {
   const found = []
@@ -94,8 +95,10 @@ const titleCase = (s) => s.split(' ').map((w) => w[0].toUpperCase() + w.slice(1)
 export function raceFromInfobox(raw) {
   // only the first line of the box: the next lines list the other races a character was (Cell has cells of several)
   const text = stripRefs(stripComments(raw ?? '')).split(/<br\s*\/?\s*>|\n/i)[0] ?? ''
-  const labels = [...wikiLinks(text).flatMap((l) => [l.target, l.label])]
-  const word = plain(text).split('\n')[0]?.replace(/\(.*?\)/g, ' ').trim()
+  // what is in parentheses is not the race of the character (Cell: "Bio-Android (contains Saiyan, Namekian ... cells)", Dr. Gero: "(former)"): audit 06
+  const outer = text.replace(/\([^)]*\)/g, ' ')
+  const labels = [...wikiLinks(outer).flatMap((l) => [l.target, l.label])]
+  const word = plain(outer).split('\n')[0]?.trim()
   const known = raceOf([...labels, ...(word ? [word, ...word.split(/[\s/,-]+/)] : [])])
   if (known) return known
   const first = (wikiLinks(text)[0]?.label ?? word ?? '').replace(/['\u2019]s\b/g, "'s").trim()

@@ -32,7 +32,8 @@ const BOUNTY = { norm: (v) => (typeof v === 'string' && /^(no bounty|unknown)$/.
 export const SEA = { norm: normText, same: (a, b) => a === b || [a, b].sort().join('|') === 'grand line|new world' }
 
 export const FIELDS = ['gender', 'affiliation', 'devil_fruit_type', 'devil_fruit_name', 'haki', 'bounty', 'height_cm', 'sea_of_origin', 'debut_arc', 'debut_chapter', 'debut_episode']
-const SEAS = ['East Blue', 'West Blue', 'North Blue', 'South Blue', 'Grand Line', 'New World', 'Red Line', 'Sky Island', 'unknown']
+// "Grand Line" covers the New World and "Calm Belt" is a sea (audit 06 D-6, D-7): Fandom's own word is kept
+const SEAS = ['East Blue', 'West Blue', 'North Blue', 'South Blue', 'Calm Belt', 'Grand Line', 'Red Line', 'Sky Island', 'unknown']
 // the category names changed over the years (Kenbunshoku/Busoshoku/Haoshoku became Observation/Armament/Supreme King)
 const HAKI_CATEGORY = [[/^(Observation|Kenbunshoku) Haki Users$/i, 'observation'], [/^(Armament|Busoshoku) Haki Users$/i, 'armament'], [/^(Supreme King|Haoshoku|Conqueror'?s?) Haki Users$/i, 'conqueror']]
 const WP_LISTS = ['List of One Piece characters', 'List of One Piece pirates', 'List of One Piece marines', 'World Government (One Piece)', 'Four Emperors (One Piece)', 'Revolutionary Army (One Piece)']
@@ -42,12 +43,12 @@ export function seaFromText(text) {
   const t = String(text ?? '').toLowerCase()
   if (!t.trim()) return null
   const hit = SEAS.find((s) => t.includes(s.toLowerCase()) && s !== 'unknown')
-  if (/new world/.test(t)) return 'New World'
+  if (/new world/.test(t)) return 'Grand Line'
   if (/red line|mary geoise|marijoa|pangaea castle/.test(t)) return 'Red Line'
   if (/sky island|skypiea|\bsky\b|angel island/.test(t)) return 'Sky Island'
   if (hit) return hit
   if (/paradise|grand line/.test(t)) return 'Grand Line'
-  if (/unknown|calm belt/.test(t)) return 'unknown'
+  if (/unknown/.test(t)) return 'unknown'
   return null
 }
 
@@ -83,16 +84,18 @@ export function fruitTypeOf(raw, cutoffChapter) {
 }
 
 // Last known bounty of a box: the newest line (the first) that holds an amount, struck out or not (a deceased or arrested pirate
-// keeps the last bounty), also an amount in parentheses (the bounty equivalent of an admiral). "At least N" is only a bound.
+// keeps the last bounty). Only World Government bounties count (audit 06 D-1): an amount in parentheses or with the star symbol ({{B|s}}) is a
+// Cross Guild rank reward or another issuer's reward, not a bounty. "At least N" is only a bound, so it is unknown.
 export function parseBountyBox(raw, cutoffChapter) {
   for (const line of String(raw ?? '').split(/<br\s*\/?\s*>|\n/i)) {
     const chap = line.match(/chap=(\d+)/)
     const clean = dropQref(line)
     if (/at least/i.test(clean)) continue
-    const m = clean.match(/\{\{\s*B(?:\|[^{}]*)?\s*\}\}\s*(?:<s>)?\s*([\d,]{2,})/)
+    const m = clean.match(/\{\{\s*B(?:\|([^{}]*))?\s*\}\}\s*(?:<s>)?\s*([\d,]{2,})/)
     if (!m) continue
+    if (/(^|\|)\s*s\s*(\||$)/.test(m[1] ?? '') || /\(\s*(?:<s>)?\s*$/.test(clean.slice(0, m.index))) continue
     if (chap && +chap[1] > cutoffChapter) continue
-    return { berries: parseBerries(m[1]), chapter: chap ? +chap[1] : null }
+    return { berries: parseBerries(m[2]), chapter: chap ? +chap[1] : null }
   }
   return null
 }
@@ -478,8 +481,6 @@ async function main() {
         { source: 'fandom_place_page', url: viaPlace?.url ?? (place ? fandomUrl(WIKI, place) : null), raw: place ?? null, value: viaPlace?.sea ?? null },
         { source: 'fandom_location_categories', url: pageUrl, raw: catSeas.length ? catSeas.map((x) => x.sea).join(', ') : null, value: catValue },
       ], SEA)
-      // the more precise name wins when sources agree (New World is the second half of the Grand Line)
-      if (f.sea_of_origin.status === 'agree' && f.sea_of_origin.sources.some((x) => x.value === 'New World')) f.sea_of_origin.value = 'New World'
       if (f.sea_of_origin.status === 'none') f.sea_of_origin.value = 'unknown'
     }
 

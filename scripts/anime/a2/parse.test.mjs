@@ -5,11 +5,11 @@ import { arcsNamed, baseFruitTypes, parseBountyBox, parseFirst, pickHeight, pars
 import { firstRange, pickHeightDb, raceFromInfobox, seriesFromAppears } from './dragonball.mjs'
 import { parseAffiliations, splitEntries } from './fandomparse.mjs'
 
-test('seaFromText: seas, New World before Grand Line, Calm Belt unknown', () => {
+test('seaFromText: seas, the New World is the Grand Line, Calm Belt is a sea (audit 06 D-6, D-7)', () => {
   assert.equal(seaFromText('East Blue (Foosha Village)'), 'East Blue')
-  assert.equal(seaFromText('Grand Line (Mokomo Dukedom, New World)'), 'New World')
+  assert.equal(seaFromText('Grand Line (Mokomo Dukedom, New World)'), 'Grand Line')
   assert.equal(seaFromText('Paradise Residents'), 'Grand Line')
-  assert.equal(seaFromText('Calm Belt (Amazon Lily)'), 'unknown')
+  assert.equal(seaFromText('Calm Belt (Amazon Lily)'), 'Calm Belt')
   assert.equal(seaFromText(''), null)
 })
 
@@ -18,10 +18,13 @@ test('parseFirst: chapter and episode of a debut box', () => {
   assert.deepEqual(parseFirst('[[Episode 54]]'), { chapter: null, episode: 54 })
 })
 
-test('parseBountyBox: newest amount, struck or in parentheses, nested Qref, at least', () => {
+test('parseBountyBox: newest World Government amount, struck out, nested Qref; parentheses and star amounts are not bounties (D-1); at least', () => {
   assert.equal(parseBountyBox('{{B}}3,000,000,000{{Qref|chap=1053|x}}<br>{{B}}<s>1,500,000,000</s>', 1125).berries, 3_000_000_000)
   assert.equal(parseBountyBox('<s>{{B}}550,000,000</s>{{Qref|a=1|y {{B|s}}100,000,000.}}', 1125).berries, 550_000_000)
-  assert.equal(parseBountyBox('({{B|s}}3,000,000,000){{Qref|chap=1087}}', 1125).berries, 3_000_000_000)
+  assert.equal(parseBountyBox('({{B|s}}3,000,000,000){{Qref|chap=1087}}', 1125), null)
+  assert.equal(parseBountyBox('({{B}}3,000,000,000)', 1125), null)
+  assert.equal(parseBountyBox('{{B|s}}100,000,000', 1125), null)
+  assert.equal(parseBountyBox('{{B|s}}100,000,000<br>{{B}}30,000,000', 1125).berries, 30_000_000)
   assert.equal(parseBountyBox('{{B}}Unknown', 1125), null)
   assert.equal(parseBountyBox('{{B}}5,000{{Qref|chap=1200|x}}', 1125), null)
 })
@@ -82,4 +85,11 @@ test('all-series readers: gender, species, first appearance, voice names, role, 
   assert.equal(m.demographicOf('Nakayoshi'), 'shojo')
   assert.equal(m.SERIES.length, 50)
   assert.equal(m.SERIES.reduce((n, s) => n + s.pool, 0), 752)
+})
+
+test('raceFromInfobox: what is in parentheses is not the race (Cell, Dr. Gero), Monster and Animal are races (audit 06)', () => {
+  assert.equal(raceFromInfobox("Bio-Android (contains Saiyan, Namekian, Frieza Clan, Earthling and several other life-forms' cells)"), 'Android')
+  assert.equal(raceFromInfobox('Human-type Earthling (former); Mechanical Type Android'), 'Android')
+  assert.equal(raceFromInfobox('Monster-Type Earthling'), 'Monster')
+  assert.equal(raceFromInfobox('Animal-Type Earthling'), 'Animal')
 })

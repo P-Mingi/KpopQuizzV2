@@ -37,7 +37,8 @@ export function storedValues(fields) {
     species: species && /^[a-z][a-z0-9-]{0,39}$/.test(species) ? species : null,
     role_at_debut: role && ROLES.has(role) ? role : null,
     first_appearance: text(fields.first_appearance?.value, 80),
-    voice_actor_ja: text(fields.voice_actor_ja?.value, 80),
+    // a Japanese voice actor is written in Latin script: a value in kanji or kana is the character's own native name (audit 06, part 1), not an actor
+    voice_actor_ja: ((v) => (v !== null && /[\u3040-\u30ff\u4e00-\u9fff]/.test(v) ? null : v))(text(fields.voice_actor_ja?.value, 80)),
   };
 }
 
@@ -49,7 +50,7 @@ export function top200Rows(md) {
   });
 }
 
-export function build({ all, top, l04, demographics }) {
+export function build({ all, top, l04, demographics, featuredAdd = [], featuredDrop = [] }) {
   const bySeriesTitle = new Map(all.series.map((s) => [s.title, s]));
   const featured = new Set();
   for (const r of top) {
@@ -59,6 +60,9 @@ export function build({ all, top, l04, demographics }) {
     featured.add(`${s.slug}/${hits[0].slug}`);
   }
   if (featured.size !== top.length) throw new Error(`TOP200 holds ${top.length} rows and ${featured.size} distinct characters`);
+  // The owner's hand additions and replacements (audit 06 OT-D2, OT-D3; corrections/spec-l22.json): 'series/character' keys.
+  for (const k of featuredAdd) featured.add(k);
+  for (const k of featuredDrop) featured.delete(k);
 
   const slugCount = new Map();
   for (const s of all.series) for (const c of s.characters) slugCount.set(c.slug, (slugCount.get(c.slug) ?? 0) + 1);
@@ -203,7 +207,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const a1 = JSON.parse(readFileSync(path.join(ROOT, 'scripts/anime/a1/data/a1-facts.json'), 'utf8'));
   const inPool = new Set(all.series.map((s) => s.slug));
   const demographics = a1.series.filter((s) => inPool.has(s.slug)).sort((x, y) => (x.slug < y.slug ? -1 : 1));
-  const out = build({ all, top, l04, demographics });
+  const spec = await import('./corrections/spec-l22.mjs').catch((e) => (e.code === 'ERR_MODULE_NOT_FOUND' ? null : Promise.reject(e)));
+  const out = build({ all, top, l04, demographics, featuredAdd: spec?.FEATURED_ON ?? [], featuredDrop: spec?.FEATURED_OFF ?? [] });
   console.log(JSON.stringify(out.counts).replace(/"waiting":\[[^\]]*\]/, `"waiting":${out.counts.waiting.length}`));
   if (!process.argv.includes('--check')) {
     const dir = arg('out', path.join(ROOT, 'docs/pending-migrations/multisite/launch'));

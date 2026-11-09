@@ -29436,6 +29436,15 @@
          "value": "Shin-ichiro Miki",
          "ref": "2257308",
          "read": "2026-11-09"
+        },
+        {
+         "source": "correction",
+         "id": "DB-Za",
+         "url": "https://dragonball.fandom.com/wiki/Zamasu",
+         "raw": "Voice actors, Japanese: Shin-ichiro Miki",
+         "value": "Shin-ichiro Miki",
+         "ref": "2257308",
+         "read": "2026-11-09"
         }
        ],
        "sources_agreeing": [
@@ -29454,6 +29463,12 @@
          "from": "Masako Nozawa",
          "to": "Shin-ichiro Miki",
          "why": "Masako Nozawa voices Goku Black; Zamasu is Shin-ichiro Miki"
+        },
+        {
+         "id": "DB-Za",
+         "from": "Masako Nozawa",
+         "to": "Shin-ichiro Miki",
+         "why": "part 1 fixed the data of the Dragon Ball game (DB9); the Otakudle row of L13 still holds Masako Nozawa, who voices Goku Black"
         }
        ]
       }
