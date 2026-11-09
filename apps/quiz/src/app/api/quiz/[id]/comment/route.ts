@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { COMMUNITY_FEATURES_ENABLED } from '@/lib/features';
 import { notifyComment } from '@/lib/notifications';
 
@@ -140,6 +141,8 @@ export async function POST(
   if (!user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
+  const teamNo = await teamRefusal(user.id);
+  if (teamNo) return teamNo;
 
   const { data: profile } = await supabase
     .from('profiles')

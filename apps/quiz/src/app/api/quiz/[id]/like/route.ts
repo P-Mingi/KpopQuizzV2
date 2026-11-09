@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
+import { teamRefusal } from '@/lib/editorial/team-refusal';
 
 import type { NextRequest } from 'next/server';
 
@@ -66,6 +67,8 @@ export async function POST(
   }
 
   const { data: { user } } = await supabase.auth.getUser();
+  const teamNo = await teamRefusal(user?.id);
+  if (teamNo) return teamNo;
 
   // XP handed to the liker on this click (0 when unliking, anon, a repeat, a
   // self-like, or before migration 115 lands). The client uses it to float "+X".
