@@ -10,28 +10,23 @@
 // server-backed, and it ends when site data is cleared, which is exactly why the
 // backup line is honest rather than a scare.
 
+import { advanceStreak, localDate, streakAlive } from '@/lib/daily-rest';
+
 const KEY = 'nq_guest_streak';
 const MILESTONE_KEY = 'nq_streak_milestone_seen';
 
 /** Milestones the backup line may appear at. Nothing in between, ever. */
 export const STREAK_MILESTONES = [3, 7, 14] as const;
 
-type Stored = { last: string; count: number };
+type Stored = { last: string; count: number; rest?: string | null };
 
-const todayUTC = (now: Date): string => now.toISOString().slice(0, 10);
-const dayBefore = (iso: string): string => {
-  const d = new Date(`${iso}T00:00:00Z`);
-  d.setUTCDate(d.getUTCDate() - 1);
-  return d.toISOString().slice(0, 10);
-};
-
-/** Pure core, so the day maths can be tested without a browser. */
+/**
+ * Pure core, so the day maths can be tested without a browser. `now` is read on the browser's own calendar (audit 01 P2-11:
+ * the streak runs on the player's local days) and one missed day in 7 is covered by the free rest day (P1-6).
+ */
 export function nextStreak(stored: Stored | null, now: Date): Stored {
-  const today = todayUTC(now);
-  if (!stored) return { last: today, count: 1 };
-  if (stored.last === today) return stored; // same day never double counts
-  if (stored.last === dayBefore(today)) return { last: today, count: stored.count + 1 };
-  return { last: today, count: 1 }; // a gap resets, honestly
+  const next = advanceStreak(stored, localDate(now));
+  return { last: next.last, count: next.count, rest: next.rest };
 }
 
 function read(): Stored | null {
@@ -60,6 +55,15 @@ export function recordGuestDaily(now = new Date()): number {
 export function guestStreak(): number {
   if (typeof window === 'undefined') return 0;
   return read()?.count ?? 0;
+}
+
+/** The streak a guest can still keep today (0 when it ended): what the home line and the nav pill show from day 2 (audit 01 P1-6). */
+export function guestLiveStreak(now: Date = new Date()): { count: number; playedToday: boolean } {
+  if (typeof window === 'undefined') return { count: 0, playedToday: false };
+  const s = read();
+  const today = localDate(now);
+  if (!s || !streakAlive(s, today)) return { count: 0, playedToday: false };
+  return { count: s.count, playedToday: s.last === today };
 }
 
 /**
