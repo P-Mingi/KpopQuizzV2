@@ -64,6 +64,10 @@ describe('the Références personnages screen', () => {
     expect(html).toContain('Valider et publier');
     for (const l of ['CC0', 'Domaine public', 'CC BY', 'CC BY-SA', 'Oeuvre du propriétaire', 'Commande avec droits écrits', 'Autre licence libre']) expect(html, l).toContain(l);
   });
+  it('has the link field and its button in the free picture box of every character', () => {
+    expect(html.match(/Ou colle le lien de l&#x27;image/g)).toHaveLength(4);
+    expect(html.match(/>Charger</g)).toHaveLength(4);
+  });
   it('shows the picture published today with its licence', () => {
     expect(html).toContain('https://cdn.example/kagura.webp');
     expect(html).toContain('CC BY, vérifiée');
