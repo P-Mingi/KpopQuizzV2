@@ -1,0 +1,165 @@
+{
+ "viewport": {
+  "w": 390,
+  "h": 844
+ },
+ "bandOrder": [
+  {
+   "tag": "H1",
+   "text": "Quizzes and daily games for K-pop and an",
+   "top": 188
+  },
+  {
+   "tag": "H2",
+   "text": "Today",
+   "top": 1292
+  },
+  {
+   "tag": "H2",
+   "text": "Hot right now",
+   "top": 1808
+  },
+  {
+   "tag": "H2",
+   "text": "60 seconds",
+   "top": 2584
+  },
+  {
+   "tag": "H2",
+   "text": "When K-pop meets anime",
+   "top": 3201
+  },
+  {
+   "tag": "H2",
+   "text": "Your passport, @o1_dual",
+   "top": 4408
+  },
+  {
+   "tag": "H2",
+   "text": "What is Bunnyverse?",
+   "top": 4611
+  }
+ ],
+ "topLevelBands": [
+  {
+   "id": null,
+   "heading": "Quizzes and daily games for K-pop and an",
+   "top": 159,
+   "height": 1079
+  },
+  {
+   "id": "hot",
+   "heading": "Hot right now",
+   "top": 1808,
+   "height": 728
+  },
+  {
+   "id": null,
+   "heading": "When K-pop meets anime",
+   "top": 3201,
+   "height": 1136
+  },
+  {
+   "id": null,
+   "heading": "What is Bunnyverse?",
+   "top": 4574,
+   "height": 642
+  }
+ ],
+ "todayHeadingTop": 1292,
+ "todayHeadingOnFirstScreen": false,
+ "solidButtonsPerBand": [
+  {
+   "band": "Quizzes and daily games for K-",
+   "solid": []
+  },
+  {
+   "band": "Hot right now",
+   "solid": []
+  },
+  {
+   "band": "When K-pop meets anime",
+   "solid": []
+  },
+  {
+   "band": "What is Bunnyverse?",
+   "solid": []
+  }
+ ],
+ "solidButtonsFirstScreen": [
+  "Home"
+ ],
+ "smallestTarget": {
+  "t": "All K-pop quizzes on KpopQui",
+  "w": 229,
+  "h": 18
+ },
+ "targetsUnder44": [
+  {
+   "t": "All K-pop quizzes on KpopQui",
+   "w": 229,
+   "h": 18
+  },
+  {
+   "t": "All anime quizzes on OtakuQu",
+   "w": 234,
+   "h": 18
+  },
+  {
+   "t": "Dle games",
+   "w": 81,
+   "h": 18
+  },
+  {
+   "t": "OtakuQuiz",
+   "w": 81,
+   "h": 18
+  },
+  {
+   "t": "Privacy",
+   "w": 128,
+   "h": 18
+  },
+  {
+   "t": "Legal notice",
+   "w": 128,
+   "h": 18
+  },
+  {
+   "t": "Your passport, @o1_dual",
+   "w": 183,
+   "h": 20
+  },
+  {
+   "t": "Open the Dle games",
+   "w": 150,
+   "h": 36
+  },
+  {
+   "t": "All",
+   "w": 56,
+   "h": 36
+  },
+  {
+   "t": "KpopQuiz",
+   "w": 102,
+   "h": 36
+  },
+  {
+   "t": "OtakuQuiz",
+   "w": 107,
+   "h": 36
+  },
+  {
+   "t": "Start easy",
+   "w": 105,
+   "h": 36
+  }
+ ],
+ "targetsUnder44Count": 19,
+ "targetCount": 40,
+ "horizontalOverflow": 0,
+ "pageHeight": 5619,
+ "playNextVisible": null,
+ "smallestFont": null
+}
