@@ -117,6 +117,15 @@ describe('/admin?tab=photos on bunnyverse.org/anime', () => {
     expect(stickers).toContain('Les stickers restent dans les espaces vides et se cachent sous 1 240 px de large');
   });
 
+  it('has the Références personnages tab, deep-linked, and says so when the list cannot be read', async () => {
+    auth.user = { id: 'admin-1' };
+    const html = await open({ tab: 'photos', kind: 'refs' });
+    expect(html).toContain('>Références personnages <');
+    expect(html.match(/<h1/g)).toHaveLength(1);
+    expect(html).toContain('Pour chaque personnage : la référence privée');
+    expect(html).toContain('n&#x27;a pas pu être lue');
+  });
+
   it('keeps the other tabs as they were', async () => {
     auth.user = { id: 'admin-1' };
     expect(await open({})).toContain('data-testid="images-admin"');

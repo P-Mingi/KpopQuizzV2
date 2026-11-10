@@ -150,7 +150,7 @@ function importedBody(text: string, name: string, file: string): string | null {
 
 describe('every route under api/admin is guarded, method by method', () => {
   it('finds the 45 routes of ADMIN-0, the MFA route and the catch-all, all under api/admin (a route in a page tree would need its own review)', () => {
-    expect(adminRoutes.length).toBe(47);
+    expect(adminRoutes.length).toBe(48);
     expect(adminRoutes.filter((f) => !f.startsWith(`${API_ADMIN}/`))).toEqual([]);
   });
 
@@ -293,7 +293,7 @@ const ORIGIN_CHECK = /\bsameOrigin\(|\bforbidden\(\)|\.get\(\s*['"](?:origin|ref
 const ANY_GUARD = /\brequireAdmin\(|\badminGate\(\)/;
 const FUNCTION_START = /^(?:export )?(?:default )?(?:async )?function\b|^(?:export )?const \w+(?:: [^=\n]+)? = (?:async )?(?:\([^)\n]*\)|\w+)(?:: [^=\n]+)? =>/gm;
 const IMAGE_ROUTES = ['delete-handler.ts', 'focal/route.ts', 'import/route.ts', 'upload/route.ts'].map((f) => `${API_ADMIN}/images/${f}`);
-const PHOTO_ROUTES = ['route.ts', 'assets/route.ts', 'fetch/route.ts'].map((f) => `${API_ADMIN}/photos/${f}`);
+const PHOTO_ROUTES = ['route.ts', 'assets/route.ts', 'fetch/route.ts', 'refs/route.ts'].map((f) => `${API_ADMIN}/photos/${f}`);
 
 /** The source cut at the start of each top-level function, so an order is read inside one function. */
 function functionsOf(text: string): string[] {
