@@ -7,6 +7,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { deviceStore, useDleClient } from '@/components/hub/dle/dle-hooks';
+import { HubMeAvatar } from '@/components/hub/hub-me-avatar';
 import { utcDate } from '@/lib/dle/day';
 import { gamesLeftToday, readHistory, recordPlay } from '@/lib/dle/local';
 
@@ -205,7 +206,7 @@ export function HomeYourDay(p: YourDayProps): React.ReactElement {
   return (
     <aside aria-labelledby="yd-h" className="hub-h2-card hub-h2-yd">
       <div className="hub-h2-yd-top">
-        <span aria-hidden="true" className="hub-h2-av hub-h2-av-lg">{p.username.charAt(0).toUpperCase()}</span>
+        <span aria-hidden="true" className="hub-h2-av hub-h2-av-lg"><HubMeAvatar initial={p.username.charAt(0).toUpperCase()} size={48} /></span>
         <h2 id="yd-h" className="hub-h2-h3">{p.labels.title}</h2>
       </div>
       {p.streaks.length > 0 ? (

@@ -1,0 +1,164 @@
+[
+ {
+  "mode": "photo",
+  "width": 1280,
+  "nav": {
+   "w": 34,
+   "h": 34,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": {
+    "src": "https://avatar.fixture.test/fan.png",
+    "alt": "",
+    "w": 34,
+    "h": 34,
+    "loaded": true
+   },
+   "text": ""
+  },
+  "yourDay": {
+   "w": 48,
+   "h": 48,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": {
+    "src": "https://avatar.fixture.test/fan.png",
+    "alt": "",
+    "w": 48,
+    "h": 48,
+    "loaded": true
+   },
+   "text": ""
+  },
+  "html": true
+ },
+ {
+  "mode": "photo",
+  "width": 390,
+  "nav": {
+   "w": 34,
+   "h": 34,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": {
+    "src": "https://avatar.fixture.test/fan.png",
+    "alt": "",
+    "w": 34,
+    "h": 34,
+    "loaded": true
+   },
+   "text": ""
+  },
+  "yourDay": {
+   "w": 40,
+   "h": 40,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": {
+    "src": "https://avatar.fixture.test/fan.png",
+    "alt": "",
+    "w": 40,
+    "h": 40,
+    "loaded": true
+   },
+   "text": ""
+  },
+  "html": true
+ },
+ {
+  "mode": "none",
+  "width": 1280,
+  "nav": {
+   "w": 34,
+   "h": 34,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "yourDay": {
+   "w": 48,
+   "h": 48,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "html": false
+ },
+ {
+  "mode": "none",
+  "width": 390,
+  "nav": {
+   "w": 34,
+   "h": 34,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "yourDay": {
+   "w": 40,
+   "h": 40,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "html": false
+ },
+ {
+  "mode": "broken",
+  "width": 1280,
+  "nav": {
+   "w": 34,
+   "h": 34,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "yourDay": {
+   "w": 48,
+   "h": 48,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "html": false
+ },
+ {
+  "mode": "broken",
+  "width": 390,
+  "nav": {
+   "w": 34,
+   "h": 34,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "yourDay": {
+   "w": 40,
+   "h": 40,
+   "radius": "50%",
+   "overflow": "hidden",
+   "img": null,
+   "text": "O"
+  },
+  "html": false
+ },
+ {
+  "mode": "photo",
+  "page": "/passport",
+  "pass": {
+   "w": 48,
+   "img": {
+    "alt": "",
+    "loaded": true
+   },
+   "text": ""
+  }
+ }
+]
