@@ -49,3 +49,35 @@ describe('iconsOf', () => {
     for (const s of ICON_SLOTS) expect(parseIconSettings(s.defaults)).toEqual(s.defaults);
   });
 });
+
+describe('the step icon of a series', () => {
+  const own = { mode: 'icon', icon: 'heart', circle: true, color: 'k' } as const;
+  const shared = { mode: 'icon', icon: 'star', circle: false, color: 'ink' } as const;
+
+  it('keeps its own default until anything is saved', () => {
+    const icons = iconsOf([]);
+    expect(icons['o-by-one-piece']).toEqual({ id: 'o-by-one-piece', cfg: { mode: 'icon', icon: 'books', circle: true, color: 'a' }, png: null, live: false });
+    expect(icons['o-by-dragon-ball']!.cfg.icon).toBe('sparkle');
+  });
+
+  it('falls back to what the owner saved on "Par série" (o-by), so a save is never lost', () => {
+    const icons = iconsOf([row(iconKey('o-by'), shared)]);
+    expect(icons['o-by-one-piece']).toEqual({ id: 'o-by-one-piece', cfg: shared, png: null, live: true });
+    expect(icons['o-by-dragon-ball']!.cfg).toEqual(shared);
+    expect(icons['o-by']!.id).toBe('o-by');
+  });
+
+  it('prefers its own row to the shared one, and a PNG of the shared one keeps its file', () => {
+    const icons = iconsOf([row(iconKey('o-by'), shared), row(iconKey('o-by-dragon-ball'), own)]);
+    expect(icons['o-by-dragon-ball']!.cfg).toEqual(own);
+    expect(icons['o-by-one-piece']!.cfg).toEqual(shared);
+    const png = iconsOf([row(iconKey('o-by'), { ...shared, mode: 'png' }, { thumb: 'https://x.test/s-96.webp' })]);
+    expect(png['o-by-one-piece']!.png).toBe('https://x.test/s-96.webp');
+  });
+
+  it('does not let a kpopdle slot borrow a fallback it does not have', () => {
+    const icons = iconsOf([row(iconKey('o-by'), shared)]);
+    expect(icons['k-idol']!.live).toBe(false);
+  });
+});
+

@@ -7,6 +7,8 @@
 // (site_assets) or, until there is one, an icon on the colour of its site.
 // Review fix: the progress line and the badge of the Burrow tab count the same rows (todayCounts): the playable dailies, i.e. the quizzes
 // of the day plus Kpopdle and Otakudle while the Burrow is open; the debate is a vote and counts in neither.
+import { IconMark } from '@/components/photos/icon-mark';
+import { HOME_TODAY_ICON } from '@/lib/photos/slots';
 import { BURROW_PATHS } from '@/lib/site/hub/daily-guess';
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
@@ -19,6 +21,7 @@ import { SlotImage } from './home-ui';
 import { siteName } from './home-names';
 import { siteClass } from './site-class';
 
+import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { HomeAssetKey, HomeAssets } from '@/lib/site/hub/home-assets';
 import type { HomeDone, HomeSite, HomeToday as HomeTodayData, HomeViewer } from '@/lib/site/hub/home-types';
 
@@ -83,15 +86,31 @@ function days(n: number): string {
   return n === 1 ? ht('hp.today.day1') : ht('hp.today.days', { n });
 }
 
-function Row({ row, assets }: { row: TodayRow; assets: HomeAssets }): React.ReactElement {
+/** The icon slot of the admin for each row (lib/photos/slots.ts HOME_TODAY_ICON). */
+const ICON_SLOT_OF: Readonly<Record<HomeAssetKey, string | undefined>> = {
+  kpopdle: HOME_TODAY_ICON.kpopdle, otakudle: HOME_TODAY_ICON.otakudle, qotdK: HOME_TODAY_ICON.qotdK, qotdA: HOME_TODAY_ICON.qotdA, debate: HOME_TODAY_ICON.debate,
+  siteK: undefined, siteA: undefined, cross1: undefined, cross2: undefined, cross3: undefined,
+};
+
+/** The owner's icon of a row once saved in the admin, else null (the row then draws its picture or the icon it always had). */
+function savedMark(icons: LiveIcons | undefined, id: string | undefined, size: number, glyph: number): React.ReactElement | null {
+  const i = id ? icons?.[id] : undefined;
+  return id && i && i.live ? <IconMark cfg={i.cfg} png={i.png} state="done" size={size} glyph={glyph} slot={id} /> : null;
+}
+
+function Row({ row, assets, icons }: { row: TodayRow; assets: HomeAssets; icons?: LiveIcons | undefined }): React.ReactElement {
   const image = assets[row.key];
   const tone = row.site ? siteClass(row.site) : 'hub-h2-s-n';
+  // A row draws the owner's picture when its image slot is filled, else the owner's icon once saved, else the icon it always had.
+  const mark = image ? null : savedMark(icons, ICON_SLOT_OF[row.key], 42, 19);
   return (
     <li>
       <a href={row.href} className={`hub-h2-line ${tone}`}>
-        <span className="hub-h2-th hub-h2-th-row">
-          {image ? <SlotImage asset={image} width={42} height={42} className="hub-h2-th-img" /> : <RowIcon d={row.icon} />}
-        </span>
+        {mark ?? (
+          <span className="hub-h2-th hub-h2-th-row">
+            {image ? <SlotImage asset={image} width={42} height={42} className="hub-h2-th-img" /> : <RowIcon d={row.icon} />}
+          </span>
+        )}
         <span className="hub-h2-tbody">
           <span className="hub-h2-tname">{row.name}</span>
           <span className="hub-h2-tdesc hub-h2-clamp">{row.desc}</span>
@@ -106,7 +125,7 @@ function Row({ row, assets }: { row: TodayRow; assets: HomeAssets }): React.Reac
   );
 }
 
-export function HomeToday({ today, viewer, done, assets, burrow }: { today: HomeTodayData; viewer: HomeViewer | null; done: HomeDone; assets: HomeAssets; burrow: boolean }): React.ReactElement {
+export function HomeToday({ today, viewer, done, assets, burrow, icons }: { today: HomeTodayData; viewer: HomeViewer | null; done: HomeDone; assets: HomeAssets; burrow: boolean; icons?: LiveIcons | undefined }): React.ReactElement {
   const bt = today.blindtest;
   const quizzes = [...quizRows(today, done), ...debateRows(today)];
   const { done: doneN, total: tracked } = todayCounts(today, done, burrow);
@@ -139,19 +158,20 @@ export function HomeToday({ today, viewer, done, assets, burrow }: { today: Home
       {burrow ? (
         <div>
           <p className="hub-h2-glabel">{ht('hp.today.groupBurrow')}</p>
-          <ul className="hub-h2-lines">{burrowRows().map((r) => <Row key={r.key} row={r} assets={assets} />)}</ul>
+          <ul className="hub-h2-lines">{burrowRows().map((r) => <Row key={r.key} row={r} assets={assets} icons={icons} />)}</ul>
           <a href={BURROW_PATHS.burrow} className="hub-h2-tlink">{ht('hp.today.openBurrow')}<ArrowIcon /></a>
         </div>
       ) : null}
       {quizzes.length > 0 ? (
         <div>
           <p className="hub-h2-glabel">{ht('hp.today.groupQuizzes')}</p>
-          <ul className="hub-h2-lines">{quizzes.map((r) => <Row key={r.key} row={r} assets={assets} />)}</ul>
+          <ul className="hub-h2-lines">{quizzes.map((r) => <Row key={r.key} row={r} assets={assets} icons={icons} />)}</ul>
         </div>
       ) : null}
       {bt ? (
         <div className={`hub-h2-btwrap ${siteClass(bt.site)}`}>
           <HomeBlindtest
+            mark={savedMark(icons, HOME_TODAY_ICON.blindtest, 22, 13)}
             songs={bt.songs}
             seconds={bt.seconds}
             previewUrl={bt.previewUrl}

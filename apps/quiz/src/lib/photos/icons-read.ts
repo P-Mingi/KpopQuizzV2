@@ -14,7 +14,7 @@ export interface LiveIcon {
   readonly cfg: IconSettings;
   /** The 96 px file of a PNG icon; null for an icon of the library. */
   readonly png: string | null;
-  /** True when the owner saved this slot (a live row), false for the defaults. */
+  /** True when the owner saved this slot, or the slot it falls back to (a live row); false for the defaults. */
   readonly live: boolean;
 }
 
@@ -23,14 +23,20 @@ export type LiveIcons = Readonly<Record<string, LiveIcon>>;
 
 export function iconsOf(live: readonly LiveAsset[]): LiveIcons {
   const byKey = new Map(live.filter((a) => a.type === 'icon').map((a) => [a.key, a]));
+  const own = (id: string): LiveIcon | null => {
+    const a = byKey.get(iconKey(id));
+    const saved = a ? parseIconSettings(a.settings) : null;
+    if (!saved) return null;
+    // A PNG icon draws its 96 px file (the size of these marks); with no file it falls back to the icon of its settings.
+    const png = saved.mode === 'png' ? a?.thumb ?? a?.large ?? null : null;
+    return { id, cfg: saved.mode === 'png' && !png ? { ...saved, mode: 'icon' } : saved, png, live: true };
+  };
   const out: Record<string, LiveIcon> = {};
   for (const slot of ICON_SLOTS) {
-    const a = byKey.get(iconKey(slot.id));
-    const saved = a ? parseIconSettings(a.settings) : null;
-    const cfg = saved ?? slot.defaults;
-    // A PNG icon draws its 96 px file (the size of these marks); with no file it falls back to the icon of its settings.
-    const png = cfg.mode === 'png' ? a?.thumb ?? a?.large ?? null : null;
-    out[slot.id] = { id: slot.id, cfg: cfg.mode === 'png' && !png ? { ...cfg, mode: 'icon' } : cfg, png, live: saved !== null };
+    // Its own row, else the row of the slot it falls back to (a series step takes what the owner saved on "Par série": a save is never lost),
+    // else its defaults. The answer keeps the id of the slot that was asked.
+    const saved = own(slot.id) ?? (slot.fallback ? own(slot.fallback) : null);
+    out[slot.id] = saved ? { ...saved, id: slot.id } : { id: slot.id, cfg: slot.defaults, png: null, live: false };
   }
   return out;
 }

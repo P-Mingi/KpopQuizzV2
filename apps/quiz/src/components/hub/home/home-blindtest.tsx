@@ -9,6 +9,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface HomeBlindtestProps {
+  /** The owner's icon of the row (admin, Icônes du jeu: today-blindtest), drawn before the name once saved; absent: the row is as it always was. */
+  readonly mark?: React.ReactNode;
   readonly songs: number;
   readonly seconds: number;
   /** The preview of the first song of the day (about 30 seconds long; the player plays the first `seconds`). */
@@ -30,7 +32,7 @@ interface HomeBlindtestProps {
   };
 }
 
-export function HomeBlindtest({ songs, seconds, previewUrl, href, labels }: HomeBlindtestProps): React.ReactElement {
+export function HomeBlindtest({ songs, seconds, previewUrl, href, labels, mark }: HomeBlindtestProps): React.ReactElement {
   const [playing, setPlaying] = useState(false);
   const [sec, setSec] = useState(0);
   const timer = useRef<number | null>(null);
@@ -103,7 +105,7 @@ export function HomeBlindtest({ songs, seconds, previewUrl, href, labels }: Home
         )}
       </button>
       <span className="hub-h2-btbody">
-        <span className="hub-h2-tname">{labels.title}</span>
+        {mark ? <span className="hub-h2-tname hub-h2-tname-mark">{mark}{labels.title}</span> : <span className="hub-h2-tname">{labels.title}</span>}
         <span className="hub-h2-btbar"><span className="hub-h2-btbar-in" style={{ width: `${(sec / seconds) * 100}%` }} /></span>
         <span className="hub-h2-btlabel hub-h2-num">{label}</span>
       </span>

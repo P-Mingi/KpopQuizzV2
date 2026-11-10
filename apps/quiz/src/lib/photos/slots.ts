@@ -4,6 +4,7 @@
 // (022) for the banners, card images, icons and stickers of the pages of bunnyverse.org.
 
 import { FREE_LICENSES, LICENSES } from '@/lib/entity-images/constants';
+import { DLE_SERIES, SERIES_ICON_FALLBACK, SERIES_MODE_FALLBACK, seriesBannerKey, seriesIconId, seriesModeKey } from '@/lib/dle/series';
 
 import type { FreeLicense, ImageLicense } from '@/lib/entity-images/constants';
 
@@ -113,7 +114,8 @@ export const IMAGE_SLOTS: readonly ImageSlot[] = [
   { key: 'banner:kpopdle', type: 'banner', page: 'kpopdle', name: 'Kpopdle', where: 'bunnyverse.org/kpopdle', bg: K_BG, accent: K_ACC, ratio: '16 / 5' },
   { key: 'banner:otakudle', type: 'banner', page: 'otakudle', name: 'Otakudle', where: 'bunnyverse.org/otakudle', bg: A_BG, accent: A_ACC, ratio: '16 / 5' },
   { key: 'banner:daily', type: 'banner', page: 'daily', name: 'Jeux dle', where: 'bunnyverse.org/daily', bg: 'linear-gradient(120deg, #F1EFEA 0%, #FCE8EF 50%, #FFF1E6 100%)', accent: '#1F1B17', ratio: '16 / 5' },
-  { key: 'banner:otakudle/one-piece', type: 'banner', page: 'otakudle/one-piece', name: 'Otakudle One Piece', where: 'bunnyverse.org/otakudle/one-piece', bg: 'linear-gradient(120deg, #FFF1E6 0%, #F7CBA8 100%)', accent: A_ACC, ratio: '16 / 5', fallback: 'banner:otakudle' },
+  // One banner per series of lib/dle/series.ts (banner:otakudle/<id>), each falling back to Otakudle's.
+  ...DLE_SERIES.map((x): ImageSlot => ({ key: seriesBannerKey(x.id), type: 'banner', page: `otakudle/${x.id}`, name: `Otakudle ${x.name}`, where: `bunnyverse.org/otakudle/${x.id}`, bg: 'linear-gradient(120deg, #FFF1E6 0%, #F7CBA8 100%)', accent: A_ACC, ratio: '16 / 5', fallback: 'banner:otakudle' })),
   { key: 'home:kpopdle', type: 'card_image', page: 'home', name: 'Image de la carte Kpopdle', where: 'homepage, Jeux dle', bg: 'linear-gradient(160deg, #FCE8EF 0%, #F3BFD1 100%)', accent: K_ACC, ratio: '4 / 3' },
   { key: 'home:otakudle', type: 'card_image', page: 'home', name: 'Image de la carte Otakudle', where: 'homepage, Jeux dle', bg: 'linear-gradient(160deg, #FFF1E6 0%, #F7CBA8 100%)', accent: A_ACC, ratio: '4 / 3' },
   { key: 'home:site-k', type: 'card_image', page: 'home', name: 'Image du site KpopQuiz', where: 'homepage, rangée 1', bg: K_BG, accent: K_ACC, ratio: '3 / 2' },
@@ -131,7 +133,9 @@ export const IMAGE_SLOTS: readonly ImageSlot[] = [
   { key: 'daily:mode-hidden', type: 'card_image', page: 'daily', name: 'Mode Membres cachés', where: 'Jeux dle, pastille et ligne', bg: K_BG, accent: K_ACC, ratio: '1 / 1' },
   { key: 'daily:mode-char', type: 'card_image', page: 'daily', name: 'Mode Personnage du jour', where: 'Jeux dle, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
   { key: 'daily:mode-series', type: 'card_image', page: 'daily', name: 'Mode Série du jour', where: 'Jeux dle, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
-  { key: 'daily:mode-byseries', type: 'card_image', page: 'daily', name: 'Mode Un Otakudle par série', where: 'Jeux dle, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
+  { key: SERIES_MODE_FALLBACK, type: 'card_image', page: 'daily', name: 'Mode Un Otakudle par série (toutes les séries)', where: 'Jeux dle, pastille et ligne des séries sans image propre', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
+  // One small square per series (daily:mode-byseries-<id>), each falling back to the one above.
+  ...DLE_SERIES.map((x): ImageSlot => ({ key: seriesModeKey(x.id), type: 'card_image', page: 'daily', name: `Mode ${x.name} du jour`, where: 'Jeux dle, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1', fallback: SERIES_MODE_FALLBACK })),
 ];
 
 /** The site_assets key of each image slot of the home v3 (lib/site/hub/home-assets.ts reads them through site_assets_public). */
@@ -186,7 +190,15 @@ export interface IconSettings {
   readonly color: IconColor;
 }
 
-export interface IconSlot { readonly id: string; readonly name: string; readonly where: string; readonly page: string; readonly defaults: IconSettings }
+export interface IconSlot {
+  readonly id: string;
+  readonly name: string;
+  readonly where: string;
+  readonly page: string;
+  readonly defaults: IconSettings;
+  /** The icon slot a page reads when this one has no row of its own (a series step falls back to "Par série", then to its defaults). */
+  readonly fallback?: string;
+}
 
 /** The 11 places of the board (4 steps of Kpopdle, 3 of Otakudle, 2 links at the foot, 2 titles), then the daily rows of the home, with their defaults. */
 export const ICON_GROUPS: readonly { readonly title: string; readonly items: readonly IconSlot[] }[] = [
@@ -199,7 +211,7 @@ export const ICON_GROUPS: readonly { readonly title: string; readonly items: rea
   { title: 'Otakudle, étapes', items: [
     { id: 'o-char', name: 'Personnage', where: 'Étape 1', page: 'otakudle', defaults: { mode: 'icon', icon: 'char', circle: true, color: 'a' } },
     { id: 'o-series', name: 'Série du jour', where: 'Étape 2', page: 'otakudle', defaults: { mode: 'icon', icon: 'tv', circle: true, color: 'a' } },
-    { id: 'o-by', name: 'Par série', where: 'Étape 3', page: 'otakudle', defaults: { mode: 'icon', icon: 'books', circle: true, color: 'a' } },
+    { id: SERIES_ICON_FALLBACK, name: 'Par série (toutes les séries)', where: 'Étape 3, séries sans icône propre', page: 'otakudle', defaults: { mode: 'icon', icon: 'books', circle: true, color: 'a' } },
   ] },
   { title: 'Liens en bas de page', items: [
     { id: 'link-o', name: 'Vers Otakudle', where: 'Bas de la page Kpopdle', page: 'kpopdle', defaults: { mode: 'icon', icon: 'eye', circle: true, color: 'a' } },
@@ -220,6 +232,10 @@ export const ICON_GROUPS: readonly { readonly title: string; readonly items: rea
     { id: 'today-debate', name: 'Débat du jour', where: 'Accueil, débat', page: 'home', defaults: { mode: 'icon', icon: 'vote', circle: true, color: 'ink' } },
     { id: 'today-blindtest', name: 'Blind test du jour', where: 'Accueil, ligne blind test', page: 'home', defaults: { mode: 'icon', icon: 'song', circle: true, color: 'ink' } },
   ] },
+  // o1/slots (owner, 2026-11-10): one step icon per series of lib/dle/series.ts, with no code per series. Each falls back to "Par série" above.
+  { title: 'Otakudle, une étape par série', items: DLE_SERIES.map((x): IconSlot => (
+    { id: seriesIconId(x.id), name: x.name, where: `Étape ${x.name}`, page: 'otakudle', defaults: { mode: 'icon', icon: x.icon, circle: true, color: 'a' }, fallback: SERIES_ICON_FALLBACK }
+  )) },
 ];
 
 /** The icon slot of each daily row of the home (lib/photos/icons-read.ts gives its live settings). */

@@ -27,6 +27,7 @@ import { HomeSeo } from './home-seo';
 import { HomeToday, todayLeft } from './home-today';
 
 import type { HotCard } from './home-hot';
+import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { HomeAssets } from '@/lib/site/hub/home-assets';
 import type {
   HomeCrossover as HomeCrossoverData, HomeDone, HomeDoor, HomeFans, HomeHot as HomeHotData, HomeQuick as HomeQuickData, HomeQuiz, HomeSurprise,
@@ -44,6 +45,8 @@ export interface HomeData {
   readonly crossover: HomeCrossoverData | null;
   readonly fans: HomeFans;
   readonly assets: HomeAssets;
+  /** The icon slots of the admin (lib/photos/icons-read.ts): a row of Today draws the owner's icon once saved. Absent: every row keeps its own. */
+  readonly icons?: LiveIcons | undefined;
   /** The Burrow (Kpopdle and Otakudle) is open: the dailyGuess flag is on and the hub has its pages (lib/site/hub/daily-guess.ts). */
   readonly burrow: boolean;
 }
@@ -90,7 +93,7 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
           <Row
             first
             left={<HomeHero doors={data.doors} pool={surprisePool(data.surprise)} playedIds={data.surprise.playedIds} assets={assets} />}
-            right={today ? <HomeToday today={today} viewer={viewer} done={data.done} assets={assets} burrow={burrow} /> : null}
+            right={today ? <HomeToday today={today} viewer={viewer} done={data.done} assets={assets} burrow={burrow} icons={data.icons} /> : null}
           />
           <Row
             left={hot && lists ? (

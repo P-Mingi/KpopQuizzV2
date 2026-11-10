@@ -6,6 +6,7 @@
 // site_assets (empty until step 2), the quizzes of the day the fan finished today from their plays, the Burrow stays hidden until the
 // dailyGuess flag is on and its pages exist.
 import { HomePage } from '@/components/hub/home/home-page';
+import { getLiveIcons } from '@/lib/photos/icons-read';
 import { ht } from '@/lib/site/hub/copy';
 import { burrowOpen } from '@/lib/site/hub/daily-guess';
 import { loadHomeAssets } from '@/lib/site/hub/home-assets';
@@ -46,9 +47,9 @@ export default async function HubHome(): Promise<React.ReactElement> {
   // Any error of the account reads as signed out, and a block whose data fails is null: the page never fails because the database is down.
   const session = await loadHomeSession();
   const userId = session?.userId ?? null;
-  const [doors, today, quick, hot, crossover, fans, surprise, assets] = await Promise.all([
-    loadHomeDoors(), loadHomeToday(), loadHomeQuick(), loadHomeHot(), loadHomeCrossover(), loadHomeTopFans(), loadHomeSurprise(userId), loadHomeAssets(),
+  const [doors, today, quick, hot, crossover, fans, surprise, assets, icons] = await Promise.all([
+    loadHomeDoors(), loadHomeToday(), loadHomeQuick(), loadHomeHot(), loadHomeCrossover(), loadHomeTopFans(), loadHomeSurprise(userId), loadHomeAssets(), getLiveIcons(),
   ]);
   const done = await loadHomeDone(userId, today);
-  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, burrow: burrowOpen() }} />;
+  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, icons, burrow: burrowOpen() }} />;
 }

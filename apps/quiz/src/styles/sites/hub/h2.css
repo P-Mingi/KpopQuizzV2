@@ -162,6 +162,7 @@ html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-tlink { display: inline-flex; a
 html.ux-v1[data-site="hub"] .hub-h2-btwrap { border-top: 1px solid var(--hub-row); }
 html.ux-v1[data-site="hub"] .hub-h2-btrow { margin-top: 0; }
 html.ux-v1[data-site="hub"] .hub-h2-btbtn { flex: none; width: 42px; height: 42px; border-radius: 12px; border: 0; background: var(--ux-ink); color: var(--ux-page); display: grid; place-items: center; cursor: pointer; }
+html.ux-v1[data-site="hub"] .hub-h2-tname-mark { display: flex; align-items: center; gap: 7px; }
 html.ux-v1[data-site="hub"] .hub-h2-btbody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 html.ux-v1[data-site="hub"] .hub-h2-btbar { display: block; height: 4px; border-radius: 4px; background: var(--ux-surface-2); overflow: hidden; }
 html.ux-v1[data-site="hub"] .hub-h2-btbar-in { display: block; height: 100%; background: var(--hub-k); transition: width .9s linear; }
