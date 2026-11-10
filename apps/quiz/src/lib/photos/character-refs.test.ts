@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { ImageError } from '@/lib/entity-images/errors';
 
 import {
-  candidateBase, candidatePaths, filterRefs, hashOfCandidatePath, hashOfReferencePath, isFandomUrl, licenseOfText, parseRefCredit, prefillOf, sameLicense,
+  candidateBase, candidatePaths, filterRefs, hashOfCandidatePath, foundByLabel, hashOfReferencePath, isReferenceSourceUrl, licenseOfText, referenceTitle, sourceNameOf, parseRefCredit, prefillOf, sameLicense,
 } from './character-refs';
 import { discardCandidate, loadCharacterRefs, publishCandidate, saveCandidate, signPreviews } from './character-refs-store';
 import { characterFiles, hex12, pictureBytes, putReference, refsFakeDb } from './character-refs-test-support';
@@ -37,12 +37,89 @@ describe('the Fandom address rule', () => {
       'https://inuyasha.fandom.com/wiki/Kohaku', 'https://fandom.com/x', 'https://WWW.FANDOM.COM/x', 'https://naruto.wikia.com/wiki/A', 'https://wikia.com',
       'https://static.wikia.nocookie.net/inuyasha/images/a/ab/K.png/revision/latest', 'https://images.nocookie.net/x.png', 'https://a.b.fandom.com./x', 'https://x.fandom.com:443/y',
       'https://user@inuyasha.fandom.com/x', 'https://web.archive.org/web/2020/https://inuyasha.fandom.com/wiki/Kohaku', 'https://evil.example/?u=https%3A%2F%2Fa.wikia.com%2Fx',
-    ]) expect(isFandomUrl(u), u).toBe(true);
+    ]) expect(isReferenceSourceUrl(u), u).toBe(true);
   });
   it('lets other addresses through', () => {
     for (const u of ['https://commons.wikimedia.org/wiki/File:A.png', 'https://notfandom.com/x', 'https://fandom.com.example.org/x', 'https://creativecommons.org/licenses/by/4.0/', '']) {
-      expect(isFandomUrl(u), u).toBe(false);
+      expect(isReferenceSourceUrl(u), u).toBe(false);
     }
+  });
+});
+
+const ANILIST: Record<string, unknown> = {
+  reference_page_url: 'https://anilist.co/character/12345', reference_image_url: 'https://s4.anilist.co/file/anilistcdn/character/large/b12345-x.png',
+  reference_file_page_url: null, reference_author: 'AniList (character image, rights holder of the series)',
+  reference_license: '© the rights holder of the series, via AniList: not a free licence', reference_found_by: 'anilist: media list',
+};
+
+describe('the refused sources (AniList, MyAnimeList, Fandom, the reference row)', () => {
+  it('refuses anilist.co, s4.anilist.co, myanimelist.net, cdn.myanimelist.net, wikia.org, in any case, and any subdomain', () => {
+    for (const u of [
+      'https://anilist.co/character/12345', 'https://s4.anilist.co/file/anilistcdn/character/large/b1.png', 'https://myanimelist.net/character/1/Kohaku',
+      'https://cdn.myanimelist.net/images/characters/1/2.jpg', 'https://CDN.MyAnimeList.NET/x.jpg', 'https://naruto.wikia.org/wiki/A', 'https://graphql.anilist.co./x',
+    ]) expect(isReferenceSourceUrl(u), u).toBe(true);
+    for (const u of ['https://notanilist.co/x', 'https://anilist.co.example.org/x', 'https://commons.wikimedia.org/wiki/File:A.png']) expect(isReferenceSourceUrl(u), u).toBe(false);
+  });
+  it('refuses the hosts of the row itself, whatever they are', () => {
+    expect(isReferenceSourceUrl('https://gallery.example.net/a.png')).toBe(false);
+    expect(isReferenceSourceUrl('https://gallery.example.net/a.png', ['gallery.example.net'])).toBe(true);
+    expect(isReferenceSourceUrl('https://img.gallery.example.net/a.png', ['gallery.example.net'])).toBe(true);
+  });
+  it('names the source from the host of the reference page, and reads "found by" in French', () => {
+    expect(sourceNameOf('https://anilist.co/character/1')).toBe('AniList');
+    expect(sourceNameOf('https://inuyasha.fandom.com/wiki/K')).toBe('Fandom');
+    expect(sourceNameOf('https://static.wikia.nocookie.net/x')).toBe('Fandom');
+    expect(sourceNameOf('https://example.org/x')).toBe('la source');
+    expect(sourceNameOf(null)).toBe('la source');
+    expect(referenceTitle('https://anilist.co/character/1')).toBe('Référence AniList');
+    expect(referenceTitle('https://example.org/x')).toBe('Référence');
+    expect(foundByLabel('anilist: media list')).toBe('liste de la série');
+    expect(foundByLabel('anilist: alternative name')).toBe('nom alternatif');
+    expect(foundByLabel('anilist: character search')).toBe('recherche par nom');
+    expect(foundByLabel('anilist: checked by hand')).toBe('vérifié à la main');
+    expect(foundByLabel(null)).toBeNull();
+  });
+  it('refuses at publication: an AniList page, an s4.anilist.co image, a MyAnimeList page and a cdn.myanimelist.net image, as source or as licence address', async () => {
+    const { db } = await withCandidate();
+    Object.assign(rowOf(db, 'inuyasha', 'kohaku')!, ANILIST);
+    for (const bad of [
+      'https://anilist.co/character/99', 'https://s4.anilist.co/file/anilistcdn/character/large/b99.png', 'https://myanimelist.net/character/99/Kohaku', 'https://cdn.myanimelist.net/images/characters/9/9.jpg',
+    ]) {
+      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, source_url: bad }, userId: 'u' })), bad).toBe('ref_source');
+      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, license: 'other', license_url: bad }, userId: 'u' })), bad).toBe('ref_license_url');
+    }
+    expect(db.tables.entity_images).toEqual([]);
+    expect(rowOf(db, 'inuyasha', 'kohaku')?.status).toBe('candidate');
+  });
+  it('refuses the host of the row own page and image, even if it is not a known source', async () => {
+    const { db } = await withCandidate();
+    Object.assign(rowOf(db, 'inuyasha', 'kohaku')!, { reference_page_url: 'https://wiki.example.net/k', reference_image_url: 'https://img.example.net/k.png' });
+    for (const bad of ['https://wiki.example.net/other', 'https://img.example.net/k2.png']) {
+      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, source_url: bad }, userId: 'u' })), bad).toBe('ref_source');
+    }
+  });
+  it('the pre-filled form of an AniList reference (its page and its licence text) submitted as is is refused', async () => {
+    const { db } = await withCandidate({ credit: { source_url: '', author: '', license: '', license_url: '' } });
+    Object.assign(rowOf(db, 'inuyasha', 'kohaku')!, ANILIST);
+    const view = (await loadCharacterRefs(db)).rows.find((r) => r.series === 'inuyasha' && r.character === 'kohaku')!;
+    const asIs = prefillOf({ reference: view.reference, candidate: null });
+    expect(asIs).toMatchObject({ source_url: 'https://anilist.co/character/12345', author: 'AniList (character image, rights holder of the series)', license: '' });
+    expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: asIs, userId: 'u' }))).toBe('ref_source');
+    // the source fixed, the licence still empty: refused again
+    expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...asIs, source_url: FREE.source_url }, userId: 'u' }))).toBe('bad_license');
+    expect(db.tables.entity_images).toEqual([]);
+  });
+  it('shows "Pas de référence" (no reference) for a row whose reference columns a check pass emptied', async () => {
+    const db = refsFakeDb();
+    putReference(db, 'inuyasha', 'kohaku', await pictureBytes({ r: 1, g: 1, b: 1 }, 'jpeg'), { ...ANILIST, reference_path: null });
+    const row = (await loadCharacterRefs(db)).rows.find((r) => r.series === 'inuyasha' && r.character === 'kohaku')!;
+    expect(row.reference).toBeNull();
+    expect(row.status).toBe('reference');
+  });
+  it('words the refusals with the source of the row (AniList, not Fandom)', async () => {
+    const { db } = await withCandidate({ sameFile: true });
+    Object.assign(rowOf(db, 'inuyasha', 'kohaku')!, ANILIST);
+    await expect(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: FREE, userId: 'u' })).rejects.toThrow(/référence AniList/);
   });
 });
 
@@ -152,7 +229,7 @@ describe('"Valider et publier" refuses', () => {
     const view = (await loadCharacterRefs(db)).rows.find((r) => r.series === 'inuyasha' && r.character === 'kohaku')!;
     const asIs = prefillOf({ reference: view.reference, candidate: null });
     expect(asIs).toMatchObject({ source_url: 'https://inuyasha.fandom.com/wiki/File:kohaku.jpg', author: 'FandomUser', license: 'cc_by_sa' });
-    expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: asIs, userId: 'u' }))).toBe('fandom_source');
+    expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: asIs, userId: 'u' }))).toBe('ref_source');
     // only the Fandom address fixed: the licence is still the reference's
     expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...asIs, source_url: 'https://commons.wikimedia.org/wiki/File:K.png' }, userId: 'u' }))).toBe('same_license');
     expect(db.tables.entity_images).toEqual([]);
@@ -162,8 +239,8 @@ describe('"Valider et publier" refuses', () => {
   it('a Fandom source, a Fandom licence address, in any of the three hosts', async () => {
     const { db } = await withCandidate();
     for (const bad of ['https://inuyasha.fandom.com/wiki/File:K.jpg', 'https://naruto.wikia.com/wiki/File:K.jpg', 'https://static.wikia.nocookie.net/inuyasha/images/a/ab/K.jpg']) {
-      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, source_url: bad }, userId: 'u' })), bad).toBe('fandom_source');
-      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, license: 'other', license_url: bad }, userId: 'u' })), bad).toBe('fandom_license_url');
+      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, source_url: bad }, userId: 'u' })), bad).toBe('ref_source');
+      expect(await code(publishCandidate(db, { series: 'inuyasha', character: 'kohaku', credit: { ...FREE, license: 'other', license_url: bad }, userId: 'u' })), bad).toBe('ref_license_url');
     }
     expect(db.tables.entity_images).toEqual([]);
   });
@@ -302,7 +379,7 @@ describe('no public route reads the table or the bucket', () => {
   // The only modules that may name the table or the bucket: the admin ones (and the tests).
   const ALLOWED = [
     'lib/photos/character-refs.ts', 'lib/photos/character-refs-store.ts', 'app/api/admin/photos/refs/route.ts',
-    'components/admin/photos/character-refs-panel.tsx',
+    'components/admin/photos/character-refs-panel.tsx', 'components/admin/photos/photos-admin.tsx', 'components/admin/photos/photos-admin-page.tsx',
   ];
 
   it('names character_reference_images and character-refs only in the admin modules', () => {

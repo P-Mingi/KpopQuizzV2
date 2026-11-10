@@ -191,8 +191,8 @@ const CODE_WORDS: Readonly<Record<ImageErrorCode | 'not_found', string>> = {
   // the character references screen (Photos tab) has its own words; these only keep the table complete
   no_candidate: 'There is no free picture to publish yet.',
   same_picture: 'This is the same picture as the reference. Choose a free one.',
-  fandom_source: 'A Fandom address cannot be the source of a published picture.',
-  fandom_license_url: 'A Fandom address cannot be the address of a licence.',
+  ref_source: 'The address of a reference (AniList, MyAnimeList, Fandom) cannot be the source of a published picture.',
+  ref_license_url: 'The address of a reference cannot be the address of a licence.',
   bad_license: 'Choose a licence from the list.',
   same_license: 'This is the licence of the reference, not a free one.',
   refs_missing: 'The references table is not there yet.',

@@ -1,8 +1,9 @@
-// Owner, 2026-11-10 (lane charrefs, L32): the admin screen of the Fandom character references. This file is PURE (no I/O, no server code):
+// Owner, 2026-11-10 (lane charrefs, L32): the admin screen of the character references (AniList since the owner's decision of the same day,
+// Fandom before; the source is named from the host of the reference page, nothing says Fandom by itself). This file is PURE (no I/O, no server code):
 // the names of the private store, the licence list the owner picks from, the rules that refuse a publication, the pre-fill of the form and
 // the paths of the private files. The server side is character-refs-store.ts, the screen is components/admin/photos/character-refs-panel.tsx.
 //
-// A reference (a Fandom picture) is PRIVATE and never published: it is shown to the owner only, through short signed URLs. The owner replaces
+// A reference (a picture of the series' rights holder, found on AniList) is PRIVATE and never published: it is shown to the owner only, through short signed URLs. The owner replaces
 // it with a free picture (the candidate, private too until the owner validates it); "Valider et publier" sends the CANDIDATE through the
 // pipeline of the Images tab (lib/photos/store.ts savePhoto) and deletes the reference.
 import { ImageError } from '@/lib/entity-images/errors';
@@ -56,7 +57,7 @@ export const REF_LICENSE_OPTIONS: readonly { readonly value: ImageLicense; reado
 
 export const isRefLicense = (v: unknown): v is ImageLicense => typeof v === 'string' && REF_LICENSE_OPTIONS.some((o) => o.value === v);
 
-/** The licence code a free text names (the licence a Fandom page states), or null when the text names none of the list. */
+/** The licence code a free text names (the licence a reference page states), or null when the text names none of the list. */
 export function licenseOfText(text: string | null | undefined): ImageLicense | null {
   const t = (text ?? '').toLowerCase();
   if (!t.trim()) return null;
@@ -85,34 +86,78 @@ export function sameLicense(chosen: string, chosenNote: string | null | undefine
   return chosen === 'other' && note !== '' && squash(ref) === squash(note);
 }
 
-// ---- Fandom addresses ---------------------------------------------------------------------------------------------------------------
+// ---- the addresses a free picture cannot come from ---------------------------------------------------------------------------------
 
-/** The hosts of Fandom's content, with any subdomain: fandom.com, wikia.com (and wikia.org), static.wikia.nocookie.net (nocookie.net). */
-export const FANDOM_HOSTS: readonly string[] = ['fandom.com', 'wikia.com', 'wikia.org', 'nocookie.net'];
+/**
+ * Hosts that can never be the source or the licence address of the free picture, with any subdomain (cdn.myanimelist.net is under
+ * myanimelist.net, s4.anilist.co under anilist.co, static.wikia.nocookie.net under nocookie.net): the sources of the references. The hosts of
+ * the row's own reference_page_url and reference_image_url are refused too (see isReferenceSourceUrl).
+ */
+export const REFUSED_SOURCE_HOSTS: readonly string[] = ['anilist.co', 'myanimelist.net', 'fandom.com', 'wikia.com', 'wikia.org', 'nocookie.net'];
 
 const hostIs = (host: string, domain: string): boolean => host === domain || host.endsWith(`.${domain}`);
 
+/** The lower-case host of an address (no trailing dot), or null when the text is not an address. */
+export function hostOfUrl(raw: string | null | undefined): string | null {
+  const v = (raw ?? '').trim();
+  if (!v) return null;
+  try { return new URL(v).hostname.toLowerCase().replace(/\.$/, '') || null; } catch { return null; }
+}
+
 /**
- * True when an address is on Fandom: its host is fandom.com, wikia.com or nocookie.net or a subdomain of one (any case, a trailing dot, a
- * port, a user name in front are all read by the URL parser), or when it is a copy of such a page (a web archive address that carries the Fandom
- * address in its path or query). A text that is not an address is checked as text.
+ * True when an address is on a refused source: its host is one of REFUSED_SOURCE_HOSTS or of `ownHosts` (the hosts of the reference row) or a
+ * subdomain of one (any case, a trailing dot, a port, a user name in front are all read by the URL parser), or when it is a copy of such a page
+ * (a web archive address that carries the refused address in its path or query). A text that is not an address is checked as text.
  */
-export function isFandomUrl(raw: string | null | undefined): boolean {
+export function isReferenceSourceUrl(raw: string | null | undefined, ownHosts: readonly string[] = []): boolean {
   const v = (raw ?? '').trim();
   if (!v) return false;
+  const domains = [...REFUSED_SOURCE_HOSTS, ...ownHosts.map((h) => h.toLowerCase().replace(/\.$/, '')).filter(Boolean)];
   let parsed: URL | null = null;
   try { parsed = new URL(v); } catch { parsed = null; }
   const inside = (text: string): boolean => {
     const lower = text.toLowerCase();
-    return FANDOM_HOSTS.some((d) => new RegExp(`(^|[^a-z0-9-])([a-z0-9-]+\\.)*${d.replace(/\./g, '\\.')}([^a-z0-9-]|$)`).test(lower));
+    return domains.some((d) => new RegExp(`(^|[^a-z0-9-])([a-z0-9-]+\\.)*${d.replace(/\./g, '\\.')}([^a-z0-9-]|$)`).test(lower));
   };
   if (!parsed) return inside(v);
   const host = parsed.hostname.toLowerCase().replace(/\.$/, '');
-  if (FANDOM_HOSTS.some((d) => hostIs(host, d))) return true;
+  if (domains.some((d) => hostIs(host, d))) return true;
   let rest = `${parsed.pathname}${parsed.search}${parsed.hash}`;
   try { rest = decodeURIComponent(rest); } catch { /* keep the raw text */ }
   return inside(rest);
 }
+
+/** The words that name where a reference comes from, read from the host of its page: AniList, Fandom, or "la source" for anything else. */
+export function sourceNameOf(pageUrl: string | null | undefined): string {
+  const host = hostOfUrl(pageUrl);
+  if (host && hostIs(host, 'anilist.co')) return 'AniList';
+  if (host && ['fandom.com', 'wikia.com', 'wikia.org', 'nocookie.net'].some((d) => hostIs(host, d))) return 'Fandom';
+  return 'la source';
+}
+
+/** "la référence AniList", "la référence Fandom", "la référence" when the source is unknown. */
+export const referenceWords = (pageUrl: string | null | undefined): string => {
+  const n = sourceNameOf(pageUrl);
+  return n === 'la source' ? 'la référence' : `la référence ${n}`;
+};
+
+/** "Référence AniList" (title of box 1), "Référence" when the source is unknown. */
+export const referenceTitle = (pageUrl: string | null | undefined): string => {
+  const n = sourceNameOf(pageUrl);
+  return n === 'la source' ? 'Référence' : `Référence ${n}`;
+};
+
+/** How the reference was found (reference_found_by), in French; the stored words for anything unknown. */
+export const FOUND_BY_LABEL: Readonly<Record<string, string>> = {
+  'anilist: media list': 'liste de la série',
+  'anilist: alternative name': 'nom alternatif',
+  'anilist: character search': 'recherche par nom',
+  'anilist: checked by hand': 'vérifié à la main',
+};
+export const foundByLabel = (v: string | null | undefined): string | null => {
+  const t = (v ?? '').trim();
+  return t ? (FOUND_BY_LABEL[t.toLowerCase()] ?? t) : null;
+};
 
 // ---- the credit of the candidate ----------------------------------------------------------------------------------------------------
 
@@ -134,7 +179,7 @@ export function readCreditFields(get: (name: string) => unknown): RefCreditField
   return { source_url: text(get('source_url')), author: text(get('author')), license: text(get('license')), license_url: text(get('license_url')) };
 }
 
-/** What a candidate may hold before it is published: bounded text only (the pre-filled form may carry a Fandom address on purpose). */
+/** What a candidate may hold before it is published: bounded text only (the pre-filled form may carry the reference's address on purpose). */
 export function checkDraftCredit(c: RefCreditFields): void {
   if (c.source_url.length > MAX_SOURCE_URL || c.license_url.length > MAX_SOURCE_URL) throw new ImageError('bad_meta', 400, 'Une adresse est trop longue.');
   if (c.author.length > MAX_AUTHOR || CONTROL.test(c.author)) throw new ImageError('bad_meta', 400, 'L\'auteur n\'est pas valide (200 caractères au plus, pas de caractère de contrôle).');
@@ -149,28 +194,35 @@ function httpsAddress(raw: string, what: string): string {
 }
 
 /**
- * The credit that "Valider et publier" accepts, or the refusal in plain words. The checks, in this order: the licence is chosen and in the
- * list; the source address is https and NOT on Fandom; the licence address (when given) is https and NOT on Fandom; the author is given;
- * "autre licence libre" carries its link; the licence is not the one the reference states. Returns the credit as entity_images stores it.
+ * The credit that "Valider et publier" accepts, or the refusal in plain words. The checks, in this order: the source address is given, https and
+ * NOT on a refused source (AniList, MyAnimeList, Fandom, and the hosts of the reference row: `referenceUrls`, its page and its image); the licence
+ * address (when given) is https and NOT on a refused source; the licence is chosen and in the list; the author is given; "autre licence libre"
+ * carries its link; the licence is not the one the reference states. Returns the credit as entity_images stores it.
  */
-export function parseRefCredit(c: RefCreditFields, referenceLicense: string | null | undefined): ImageMeta {
-  if (!c.license) throw new ImageError('bad_license', 422, 'Choisis la licence de l\'image libre : sans licence, rien n\'est publié.');
-  if (!isRefLicense(c.license)) throw new ImageError('bad_license', 422, 'Cette licence n\'est pas dans la liste.');
+export function parseRefCredit(
+  c: RefCreditFields,
+  referenceLicense: string | null | undefined,
+  referenceUrls: readonly (string | null | undefined)[] = [],
+): ImageMeta {
+  const own = referenceUrls.map(hostOfUrl).filter((h): h is string => h !== null);
+  const words = referenceWords(referenceUrls[0]);
   if (!c.source_url) throw new ImageError('bad_meta', 422, 'Indique l\'adresse de la page source de l\'image libre (https://).');
-  if (isFandomUrl(c.source_url)) {
-    throw new ImageError('fandom_source', 422, 'La page source est sur Fandom (fandom.com, wikia.com, nocookie.net) : une image de Fandom ne se publie pas. Donne la page de l\'image libre.');
+  if (isReferenceSourceUrl(c.source_url, own)) {
+    throw new ImageError('ref_source', 422, 'La page source est celle d\'une référence (AniList, MyAnimeList, Fandom ou la page de la référence) : une image de référence ne se publie pas. Donne la page de l\'image libre.');
   }
   const source = httpsAddress(c.source_url, 'La page source');
-  if (c.license_url && isFandomUrl(c.license_url)) {
-    throw new ImageError('fandom_license_url', 422, 'L\'adresse de la licence est sur Fandom : donne celle de la licence libre elle-même.');
+  if (c.license_url && isReferenceSourceUrl(c.license_url, own)) {
+    throw new ImageError('ref_license_url', 422, 'L\'adresse de la licence est celle d\'une référence : donne celle de la licence libre elle-même.');
   }
   const licenseUrl = c.license_url ? httpsAddress(c.license_url, 'L\'adresse de la licence') : null;
+  if (!c.license) throw new ImageError('bad_license', 422, 'Choisis la licence de l\'image libre : sans licence, rien n\'est publié.');
+  if (!isRefLicense(c.license)) throw new ImageError('bad_license', 422, 'Cette licence n\'est pas dans la liste.');
   if (!c.author) throw new ImageError('bad_meta', 422, 'Indique l\'auteur de l\'image libre.');
   if (c.author.length > MAX_AUTHOR || CONTROL.test(c.author)) throw new ImageError('bad_meta', 422, 'L\'auteur n\'est pas valide (200 caractères au plus).');
   if (c.license === 'other' && !licenseUrl) throw new ImageError('bad_meta', 422, 'Pour une autre licence libre, donne l\'adresse du texte de la licence.');
   const note = c.license === 'other' ? `Licence libre : ${licenseUrl}`.slice(0, MAX_NOTE) : null;
   if (sameLicense(c.license, note, referenceLicense)) {
-    throw new ImageError('same_license', 422, 'La licence est celle de la référence Fandom : ce n\'est pas une image libre. Remplace-la par la licence propre à ton image.');
+    throw new ImageError('same_license', 422, `La licence est celle de ${words} : ce n'est pas une image libre. Remplace-la par la licence propre à ton image.`);
   }
   return { source_url: source, author: c.author, license: c.license, license_note: note, license_url: licenseUrl };
 }
@@ -228,13 +280,18 @@ export interface RefListRow {
   readonly character: string;
   readonly name: string;
   readonly status: RefStatus;
-  /** The reference with its Fandom credits, or null when the character has no reference row (or its file is gone). */
+  /**
+   * The reference with its credits as its source gives them, or null when there is nothing to show: no row, or a row whose reference_path is
+   * empty (a check pass emptied it, or the reference was deleted at publication). The screen says "Pas de référence" then.
+   */
   readonly reference: {
     readonly hasFile: boolean;
     readonly pageUrl: string | null;
+    readonly imageUrl: string | null;
     readonly filePageUrl: string | null;
     readonly author: string | null;
     readonly license: string | null;
+    readonly foundBy: string | null;
   } | null;
   readonly candidate: {
     readonly hasFiles: boolean;

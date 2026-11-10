@@ -16,7 +16,7 @@ import { publicUrl } from '@/lib/entity-images/store';
 
 import {
   CANDIDATE_ORIGINAL_MAX, HASH_LEN, REFS_BUCKET, REFS_SITE, REFS_TABLE, SIGNED_URL_SECONDS, baseOfCandidatePath, candidateBase, candidatePaths,
-  checkDraftCredit, hashOfCandidatePath, hashOfReferencePath, parseRefCredit, slugOf,
+  checkDraftCredit, hashOfCandidatePath, hashOfReferencePath, parseRefCredit, referenceWords, slugOf,
 } from './character-refs';
 import { assertPhotoEntity, checkPhotoFiles, savePhoto } from './store';
 
@@ -28,12 +28,13 @@ const DB_FAILED = (): ImageError => new ImageError('db_failed', 500, 'La base n\
 export const sha256Hex = (bytes: Uint8Array): string => createHash('sha256').update(bytes).digest('hex');
 
 /** The columns of the table the screen reads. */
-const REF_COLUMNS = 'series_slug, character_slug, status, reference_path, reference_page_url, reference_file_page_url, reference_author, reference_license, '
+const REF_COLUMNS = 'series_slug, character_slug, status, reference_path, reference_page_url, reference_image_url, reference_file_page_url, reference_author, reference_license, reference_found_by, '
   + 'candidate_path, candidate_source_url, candidate_author, candidate_license, candidate_license_url, published_at';
 
 interface RefDbRow {
   series_slug: string; character_slug: string; status: RefStatus; reference_path: string | null; reference_page_url: string | null;
-  reference_file_page_url: string | null; reference_author: string | null; reference_license: string | null; candidate_path: string | null;
+  reference_image_url: string | null; reference_file_page_url: string | null; reference_author: string | null; reference_license: string | null;
+  reference_found_by: string | null; candidate_path: string | null;
   candidate_source_url: string | null; candidate_author: string | null; candidate_license: string | null; candidate_license_url: string | null;
   published_at: string | null;
 }
@@ -89,8 +90,12 @@ export async function loadCharacterRefs(db: Db): Promise<CharacterRefsData> {
     rows.push({
       series: g.slug, seriesName: g.name, character: c.slug, name: c.name,
       status: r?.status ?? 'reference',
-      reference: r && (r.reference_path || r.reference_page_url || r.reference_file_page_url || r.reference_author || r.reference_license)
-        ? { hasFile: Boolean(r.reference_path), pageUrl: r.reference_page_url, filePageUrl: r.reference_file_page_url, author: r.reference_author, license: r.reference_license }
+      // A row whose reference_path is empty (emptied by a check pass, or deleted at publication) is "Pas de référence", like a character with no row.
+      reference: r && r.reference_path
+        ? {
+          hasFile: true, pageUrl: r.reference_page_url, imageUrl: r.reference_image_url, filePageUrl: r.reference_file_page_url,
+          author: r.reference_author, license: r.reference_license, foundBy: r.reference_found_by,
+        }
         : null,
       candidate: r && (r.candidate_path || r.candidate_source_url || r.candidate_author || r.candidate_license)
         ? { hasFiles: Boolean(r.candidate_path), sourceUrl: r.candidate_source_url, author: r.candidate_author, license: r.candidate_license, licenseUrl: r.candidate_license_url }
@@ -201,7 +206,7 @@ export async function saveCandidate(db: Db, a: SaveCandidateInput): Promise<{ re
     if (error) throw DB_FAILED();
     return { hash: hashOfCandidatePath(row.candidate_path) };
   }
-  if (!a.original || a.original.length === 0) throw new ImageError('bad_request', 400, 'Le fichier d\'origine manque : il sert à vérifier que l\'image n\'est pas celle de Fandom.');
+  if (!a.original || a.original.length === 0) throw new ImageError('bad_request', 400, 'Le fichier d\'origine manque : il sert à vérifier que l\'image n\'est pas celle de la référence.');
   if (a.original.length > CANDIDATE_ORIGINAL_MAX) throw new ImageError('too_large', 413, `Le fichier d'origine dépasse ${Math.round(CANDIDATE_ORIGINAL_MAX / 1048576)} Mo : réduis-le avant de le glisser.`);
   if (a.original.length > MAX_SOURCE_BYTES || !sniffImage(a.original)) throw new ImageError('unsupported_type', 415, 'Le fichier d\'origine n\'est pas une image (JPEG, PNG, WebP, GIF ou AVIF).');
   const checked = checkPhotoFiles('character', a.files);
@@ -260,7 +265,7 @@ export interface Published {
 
 /**
  * "Valider et publier". REFUSES (nothing is stored, nothing is deleted) when: the character has no candidate; the candidate is the reference
- * (same hash); the source address or the licence address is on Fandom; the licence is empty, outside the list or the reference's own. Otherwise
+ * (same hash); the source address or the licence address is a refused source (AniList, MyAnimeList, Fandom, the reference's own hosts); the licence is empty, outside the list or the reference's own. Otherwise
  * the CANDIDATE (never the reference) goes through the pipeline of the Images tab (savePhoto: the WebP files and the 96 px square in entity-images,
  * the entity_images row under <series>/<character> with its licence and license_verified = true), the reference and the candidate files leave
  * the private bucket, and the row becomes published with its published_at.
@@ -281,12 +286,12 @@ export async function publishCandidate(db: Db, a: PublishInput): Promise<Publish
     const bytes = await downloadPrivate(db, row.reference_path);
     if (bytes) hashes.add(sha256Hex(bytes).slice(0, HASH_LEN));
     if (hashes.has(candidateHash)) {
-      throw new ImageError('same_picture', 422, 'Le candidat est exactement l\'image de la référence Fandom (même empreinte) : choisis une image libre.');
+      throw new ImageError('same_picture', 422, `Le candidat est exactement l'image de ${referenceWords(row.reference_page_url)} (même empreinte) : choisis une image libre.`);
     }
   }
 
-  // 2. The credit: Fandom addresses, the list, the reference's licence.
-  const meta = parseRefCredit(a.credit, row.reference_license);
+  // 2. The credit: the refused sources, the list, the reference's licence.
+  const meta = parseRefCredit(a.credit, row.reference_license, [row.reference_page_url, row.reference_image_url, row.reference_file_page_url]);
 
   // 3. The candidate's files, from the private bucket.
   const paths = candidatePaths(baseOfCandidatePath(row.candidate_path));

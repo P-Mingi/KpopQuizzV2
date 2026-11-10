@@ -13,7 +13,7 @@ import type { NextRequest, NextResponse } from 'next/server';
 //   action 'sign'      slugs (JSON array of "<series>/<character>", 60 at most): short signed URLs of the private reference and candidate files.
 //   action 'candidate' series, character, the credit (source_url, author, license, license_url) and, for a new picture, original (the file as
 //                      chosen, hashed here and not stored) with x1, x2, thumb (the WebP files the browser made). Nothing is published.
-//   action 'publish'   series, character, the credit: "Valider et publier" (refused on a Fandom address, the reference's picture or licence,
+//   action 'publish'   series, character, the credit: "Valider et publier" (refused on the address of a reference source, the reference's picture or licence,
 //                      a missing licence or candidate); sends the CANDIDATE through the pipeline of the Images tab and deletes the reference.
 //   action 'discard'   series, character: removes the candidate.
 // Admin only on the anime build (requireAdmin through adminGate, 404 otherwise); same-origin writes only; no public route reads the table or the bucket.

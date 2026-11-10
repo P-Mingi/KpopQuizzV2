@@ -5,6 +5,7 @@
 import { dmMono, dmSans } from '@/components/hub/home/home-font';
 import { UxPage } from '@/components/ux-v1/page';
 import { loadPhotosAdmin } from '@/lib/photos/admin-data';
+import { loadCharacterRefs } from '@/lib/photos/character-refs-store';
 import { tabOf } from '@/lib/photos/slots';
 import { withBasePath } from '@/lib/site/base-path';
 import { createServiceRoleClient } from '@/lib/supabase/server';
@@ -13,13 +14,21 @@ import { PhotosAdmin } from './photos-admin';
 
 import type { AdminNavItem } from './photos-admin';
 import type { PhotosAdminData } from '@/lib/photos/admin-data';
+import type { CharacterRefsData } from '@/lib/photos/character-refs';
 
 export async function PhotosAdminPage({ nav, kind }: { nav: readonly AdminNavItem[]; kind?: string | string[] | undefined }): Promise<React.ReactElement> {
   let data: PhotosAdminData | null = null;
+  let refs: CharacterRefsData | null = null;
   try {
     data = await loadPhotosAdmin(createServiceRoleClient());
   } catch (err) {
     console.error('[photos-admin] read failed:', (err as Error)?.message ?? err);
+  }
+  // The character references tab (L32): read apart, so a failure there never hides the other tabs (it says so in its own tab).
+  try {
+    refs = await loadCharacterRefs(createServiceRoleClient());
+  } catch (err) {
+    console.error('[photos-admin] references read failed:', (err as Error)?.message ?? err);
   }
   const fonts = `${dmSans.variable} ${dmMono.variable}`;
   if (!data) {
@@ -36,6 +45,7 @@ export async function PhotosAdminPage({ nav, kind }: { nav: readonly AdminNavIte
       <div data-testid="photos-admin">
         <PhotosAdmin
           data={data}
+          refs={refs}
           nav={nav}
           initialTab={tabOf(typeof kind === 'string' ? kind : undefined)}
           // The "now" of the server render, so the live, scheduled and draft versions read the same on the server and in the browser.

@@ -7,6 +7,7 @@ export const PHOTO_API = {
   save: `${BASE_PATH}/api/admin/photos`,
   assets: `${BASE_PATH}/api/admin/photos/assets`,
   fetch: `${BASE_PATH}/api/admin/photos/fetch`,
+  refs: `${BASE_PATH}/api/admin/photos/refs`,
 } as const;
 
 /** What the server read on Wikimedia Commons for a pasted address (CR-021): to pre-fill the form; the save asks Commons again. */
