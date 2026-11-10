@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { pickSurprise } from '@/lib/site/hub/data/surprise-pick';
 
 import { HomeBlindtest } from './home-blindtest';
-import { clockText, HomeCountdown, secondsToReset } from './home-countdown';
+import { clockText, HomeCountdown, secondsToReset, wordsText } from './home-countdown';
 import { HomeFans } from './home-fans';
 import { HomeFilterProvider, HomeSearch, searchSite, searchTarget } from './home-filter';
 import { HomeHot, hotChips } from './home-hot';
@@ -106,6 +106,13 @@ describe('the countdown to the rotation (00:05 UTC)', () => {
     expect(() => secondsToReset(at('2026-07-01T00:00:00Z'), 'not a date')).toThrow();
   });
 
+  it('writes the time as hours and minutes on the home ("14 h 08 min"), the minutes rounded up (home v4: no per-second motion)', () => {
+    expect(wordsText(at('2026-07-01T10:05:00Z'), NEXT)).toBe('14 h 00 min');
+    expect(wordsText(at('2026-07-01T15:17:48Z'), NEXT)).toBe('8 h 48 min');
+    expect(wordsText(at('2026-07-02T00:04:30Z'), NEXT)).toBe('1 min');
+    expect(wordsText(at('2026-07-01T23:27:00Z'), NEXT)).toBe('38 min');
+  });
+
   it('prints the words of the server before the clock takes over', () => {
     const html = renderToStaticMarkup(createElement(HomeCountdown, { template: 'New picks in {time}', fallback: 'a few hours', nextAt: NEXT }));
     expect(html).toBe('<span class="hub-h2-countdown">New picks in a few hours</span>');
@@ -115,14 +122,15 @@ describe('the countdown to the rotation (00:05 UTC)', () => {
 describe('the blindtest player', () => {
   it('starts on "press play" with a full labelled button and an empty bar, and loads no sound', () => {
     const html = renderToStaticMarkup(createElement(HomeBlindtest, {
-      songs: 10, seconds: 10, previewUrl: 'https://cdn.test/first.mp3', href: 'https://k.test/blindtest?daily=true',
+      songs: 10, seconds: 10, previewUrl: 'https://cdn.test/first.mp3', href: 'https://k.test/blindtest?daily=true', mark: null,
       labels: { title: 'Blind test of the day', playAria: 'Play a 10 second preview', pauseAria: 'Pause the preview', press: 'KpopQuiz · 10 songs, 10 s each', playing: 'x {sec}', done: 'y {rest}', all: 'All 10 songs' },
     }));
     expect(html).toContain('aria-label="Play a 10 second preview"');
     expect(html).toContain('Blind test of the day');
     expect(html).toContain('KpopQuiz · 10 songs, 10 s each');
     expect(html).toContain('style="width:0%"');
-    expect(html).toContain('<a href="https://k.test/blindtest?daily=true" class="hub-h2-btall">All 10 songs</a>');
+    // Home v4: the way to the whole set is a text link with an arrow, in the foot of the tile, after the play button and the bar
+    expect(html).toMatch(/<a href="https:\/\/k\.test\/blindtest\?daily=true" class="hub-h2-tl">All 10 songs<svg/);
     expect(html).toContain('<path d="M7 4.5v15l13-7.5z"></path>');
     // the preview address is not in the markup (an audio element is made on the first press only)
     expect(html).not.toContain('first.mp3');
@@ -137,7 +145,7 @@ describe('the question', () => {
   };
   it('prints four answers as rows lettered A to D, and no result before a pick', () => {
     const html = renderToStaticMarkup(createElement(HomeQuestion, props));
-    expect(html.match(/<button type="button" class="hub-h2-line hub-h2-opt">/g)).toHaveLength(4);
+    expect(html.match(/<button type="button" class="hub-h2-opt">/g)).toHaveLength(4);
     expect([...html.matchAll(/<span aria-hidden="true" class="hub-h2-key">([A-D])<\/span>/g)].map((m) => m[1])).toEqual(['A', 'B', 'C', 'D']);
     expect(html).toContain('<span class="hub-h2-optl">Third</span>');
     expect(html).not.toContain('role="status"');
@@ -149,58 +157,61 @@ describe('Hot right now', () => {
   const card = (n: number, site: 'kpop' | 'anime', cover: string | null = null): HotCard => ({
     site, tile: `T${n}`, title: `Quiz ${n}`, href: `https://x.test/${n}`, line: `Site · G${n} · Easy`, plays: site === 'kpop' ? '1k plays' : '', isNew: site === 'anime', cover,
   });
-  const labels = { title: 'Hot', sub: 'Sub', filter: 'Filter', all: 'All', kpop: 'KpopQuiz', anime: 'OtakuQuiz', easy: 'Start easy', newLabel: 'New' };
+  const labels = { title: 'Hot', sub: 'Sub', filter: 'Filter', all: 'All', kpop: 'KpopQuiz', anime: 'OtakuQuiz', newLabel: 'New' };
   const links = [{ site: 'kpop' as const, href: 'https://x.test/k', label: 'All K-pop' }, { site: 'anime' as const, href: 'https://x.test/a', label: 'All anime' }];
-  it('starts on All, with four chips, the rows (rank, image or initials, title, line, plays or New) and the two ways to every quiz of a site', () => {
+  it('starts on All, with three chips (Start easy is gone, home v4), the rows (rank, image or initials, title, line, plays or New) and the two ways to every quiz of a site', () => {
     const lists = { all: [card(1, 'kpop', 'https://img.test/1.jpg'), card(2, 'anime')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] };
     const html = renderToStaticMarkup(createElement(HomeHot, { lists, labels, allLinks: links }));
-    expect(html).toContain('<section id="hot" aria-labelledby="hot-h" class="hub-h2-hot">');
-    expect([...html.matchAll(/aria-pressed="(true|false)" class="hub-h2-segbtn"><span aria-hidden="true" class="[^"]+"><\/span>([^<]+)</g)].map((m) => [m[1], m[2]]))
-      .toEqual([['true', 'All'], ['false', 'KpopQuiz'], ['false', 'OtakuQuiz'], ['false', 'Start easy']]);
-    expect(html.match(/class="hub-h2-line hub-h2-hrow /g)).toHaveLength(2);
-    expect(html).toContain('<img src="https://img.test/1.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
-    expect(html).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-hthumb">T2</span>');
-    expect(html).toContain('<span class="hub-h2-hplays hub-h2-num">1k plays</span>');
-    expect(html).toContain('<span class="hub-h2-newpill">New</span>');
+    expect(html).toContain('<h2 id="hot-h" class="hub-h2-h2">Hot</h2>');
+    expect([...html.matchAll(/aria-pressed="(true|false)" class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)</g)].map((m) => [m[1], m[2]]))
+      .toEqual([['true', 'All'], ['false', 'KpopQuiz'], ['false', 'OtakuQuiz']]);
+    expect(html).not.toContain('Start easy');
+    expect(html.match(/class="hub-h2-rr /g)).toHaveLength(2);
+    expect(html).toContain('<img src="https://img.test/1.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
+    expect(html).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-th-48">T2</span>');
+    expect(html).toContain('<span class="hub-h2-meta hub-h2-num hub-h2-hplays">1k plays</span>');
+    expect(html).toContain('<span class="hub-h2-chip hub-h2-chip-s hub-h2-hplays">New</span>');
     expect(html).toContain('Site · G1 · Easy');
     expect(html).toMatch(/>All K-pop<svg/);
   });
 
-  it('leaves the Start easy chip out when there is no easy quiz', () => {
-    const lists = { all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [] };
+  it('never draws a Start easy chip, with an easy list or without one (home v4: the filter is the site only)', () => {
+    const lists = { all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] };
     const html = renderToStaticMarkup(createElement(HomeHot, { lists, labels, allLinks: links }));
     expect(html).not.toContain('Start easy');
-    expect(html.match(/class="hub-h2-segbtn"/g)).toHaveLength(3);
+    expect(html.match(/class="hub-h2-fchip"/g)).toHaveLength(3);
+    expect(hotChips(lists, labels).map((c) => c.id)).toEqual(['all', 'kpop', 'anime']);
   });
 
   it('leaves a site chip out when its list is empty (review fix), and never shows another list under a chip', () => {
-    const chipsOf = (html: string): string[] => [...html.matchAll(/class="hub-h2-segbtn"><span aria-hidden="true" class="[^"]+"><\/span>([^<]+)</g)].map((m) => m[1]!);
+    const chipsOf = (html: string): string[] => [...html.matchAll(/class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)</g)].map((m) => m[1]!);
     const noAnime = { all: [card(1, 'kpop'), card(3, 'kpop')], kpop: [card(1, 'kpop'), card(3, 'kpop')], anime: [], easy: [] };
     let html = renderToStaticMarkup(createElement(HomeHot, { lists: noAnime, labels, allLinks: links }));
     expect(chipsOf(html)).toEqual(['All', 'KpopQuiz']);
     expect(html).not.toContain('OtakuQuiz');
     const noKpop = { all: [card(2, 'anime')], kpop: [], anime: [card(2, 'anime')], easy: [card(2, 'anime')] };
     html = renderToStaticMarkup(createElement(HomeHot, { lists: noKpop, labels, allLinks: links }));
-    expect(chipsOf(html)).toEqual(['All', 'OtakuQuiz', 'Start easy']);
+    expect(chipsOf(html)).toEqual(['All', 'OtakuQuiz']);
     // the first render shows the All list itself
-    expect(html.match(/class="hub-h2-line hub-h2-hrow /g)).toHaveLength(1);
+    expect(html.match(/class="hub-h2-rr /g)).toHaveLength(1);
     expect(hotChips({ all: [card(1, 'kpop')], kpop: [], anime: [], easy: [] }, labels).map((c) => c.id)).toEqual(['all']);
     expect(hotChips({ all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] }, labels).map((c) => c.id))
-      .toEqual(['all', 'kpop', 'anime', 'easy']);
+      .toEqual(['all', 'kpop', 'anime']);
   });
 });
 
 describe('Top fans', () => {
   const fan = (handle: string, level: number | null) => ({ handle, level });
-  const labels = { title: 'Top fans this week', group: 'Leaderboard site', kpop: 'K-pop', anime: 'Anime', lv: 'Lv {level}' };
+  const labels = { title: 'Top fans this week', group: 'Leaderboard site', kpop: 'K-pop', anime: 'Anime', lv: 'Lv {level}', you: 'You' };
   it('starts on the K-pop board, with the two tabs, the rows linked to each fan\'s page on the hub, and the fan\'s own row marked', () => {
     const html = renderToStaticMarkup(createElement(HomeFans, { fans: { kpop: [fan('ann', 9), fan('me', 4), fan('cal', null)], anime: [fan('dee', 7)] }, me: 'me', labels }));
     expect([...html.matchAll(/aria-pressed="(true|false)"[^>]*>(K-pop|Anime)</g)].map((m) => [m[1], m[2]])).toEqual([['true', 'K-pop'], ['false', 'Anime']]);
     expect([...html.matchAll(/<a href="([^"]+)"/g)].map((m) => m[1])).toEqual(['/u/ann', '/u/me', '/u/cal']);
-    expect(html).toContain('class="hub-h2-line hub-h2-fan hub-h2-fan-me"');
-    expect(html.match(/hub-h2-fan-me/g)).toHaveLength(1);
-    expect(html).toContain('hub-h2-fan-av hub-h2-fan-av-top');
-    expect(html.match(/class="hub-h2-fan-lv hub-h2-num"/g)).toHaveLength(2);
+    expect(html).toContain('class="hub-h2-frow hub-h2-frow-me"');
+    expect(html.match(/hub-h2-frow-me/g)).toHaveLength(1);
+    expect(html).toContain('>You</span>');
+    expect(html).toContain('hub-h2-av hub-h2-av-sm hub-h2-av-top');
+    expect(html.match(/class="hub-h2-meta hub-h2-num">Lv /g)).toHaveLength(2);
     expect(html).toContain('>Lv 9<');
     expect(html).not.toContain('dee');
   });
@@ -209,6 +220,6 @@ describe('Top fans', () => {
     const html = renderToStaticMarkup(createElement(HomeFans, { fans: { kpop: [], anime: [fan('dee', 7)] }, me: null, labels }));
     expect(html).not.toContain('role="group"');
     expect(html).toContain('/u/dee');
-    expect(html).not.toContain('hub-h2-fan-me');
+    expect(html).not.toContain('hub-h2-frow-me');
   });
 });

@@ -110,6 +110,8 @@ describe('AA contrast of the design colours (4.5 for text, in both themes)', () 
     ['ux-on-ok', 'ux-ok'], ['ux-on-ok', 'ux-no'],
     // review fix: the pressed chip of a filter has its own ground (--hub-seg-on): the label of Hot right now, the site ink of a Top fans tab.
     ['ux-ink', 'hub-seg-on'], ['hub-k-ink', 'hub-seg-on'], ['hub-a-ink', 'hub-seg-on'],
+    // home v4: the About band is on --ux-surface (the SEO text), the countdown of a finished day sits on the soft green.
+    ['hub-ink-3', 'ux-surface'], ['ux-muted', 'ux-ok-soft'],
   ];
   for (const [theme, map] of [['light', light], ['dark', dark]] as const) {
     it(`draws the pressed chip of a filter on a ground other than its track, in the ${theme} theme`, () => {

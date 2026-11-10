@@ -34,10 +34,19 @@ export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<Rea
     // A game of one series knows its slug: its quiz link never waits for the read of the series titles.
     if (group) Object.assign(quizLinks, quizLinksOf(g.universe, [group], g.series ? { [group]: g.series.slug } : g.universe === 'anime' ? animeSlugs : kpopSlugs));
   }
+  const banner = images['banner:daily'];
   const label = new Intl.DateTimeFormat(locale === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date());
   return (
     <DleChrome locale={locale} enPath={DAILY_PATH} current showCredits={showCredits}>
       <DleJsonLd data={[burrowGamesJsonLd(locale), breadcrumbJsonLd([{ name: t.navBurrow, path: localePath(DAILY_PATH, locale) }])]} />
+      {banner ? (
+        // The owner's banner of the page (admin slot banner:daily), above the hero; no slot filled, no banner: the page is as it always was.
+        <figure className="hub-dle-banner hub-dle-banner-img">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={banner.src} srcSet={banner.mid ? `${banner.mid} 400w, ${banner.src} 1920w` : undefined} sizes="100vw" alt="" fetchPriority="high" decoding="async" style={{ objectPosition: banner.position }} />
+          <span aria-hidden="true" className="hub-dle-banner-fade" />
+        </figure>
+      ) : null}
       <BurrowBoard locale={locale} dateLabel={label.charAt(0).toUpperCase() + label.slice(1)} facts={facts} images={images} quizLinks={quizLinks} />
     </DleChrome>
   );

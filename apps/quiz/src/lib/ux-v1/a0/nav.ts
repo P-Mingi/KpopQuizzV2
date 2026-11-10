@@ -40,7 +40,7 @@ const NAV_FEATURE: Record<NavKey, keyof typeof SITE.features | null> = {
 const HUB_NAV: NavItem<NavKey>[] = [
   { key: 'home', label: 'Home', href: '/', icon: 'home' },
   { key: 'quizzes', label: 'Quizzes', href: '/#hot', icon: 'layers' },
-  { key: 'community', label: 'Community', href: '/#fans', icon: 'msg' },
+  { key: 'community', label: 'Community', href: '/#community', icon: 'msg' },
 ];
 
 export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {

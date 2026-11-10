@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { pickSurprise } from '@/lib/site/hub/data/surprise-pick';
 
-import { ShuffleIcon } from './home-icons';
+import { ArrowIcon, ShuffleIcon } from './home-icons';
 import { siteClass } from './site-class';
 
 export interface SurprisePick {
@@ -40,8 +40,10 @@ interface HomeSurpriseProps {
   /** Quiz ids the signed-in fan played. */
   readonly playedIds: readonly string[];
   /** "Pick your side, or play both.": the line the button sits beside. */
-  readonly lede: string;
+  readonly lede: React.ReactNode;
   readonly labels: { readonly button: string; readonly play: string; readonly another: string };
+  /** Home v4: the main button of the hero ("Play today's games"), drawn before Surprise me, only on the hub home. Absent, the markup is what it was. */
+  readonly primary?: { readonly href: string; readonly label: string };
   /** The prefix of every class: hub-h2 (the default, the hub home), anime-h2 (the OtakuQuiz home) or kpop-h2 (the kpopquiz.org home). */
   readonly prefix?: 'hub-h2' | 'anime-h2' | 'kpop-h2';
 }
@@ -73,20 +75,26 @@ export function PickPhotoTile({ tile, photo, className, imgClassName }: { tile: 
   );
 }
 
-export function HomeSurprise({ pool, playedIds, lede, labels, prefix = 'hub-h2' }: HomeSurpriseProps): React.ReactElement {
+export function HomeSurprise({ pool, playedIds, lede, labels, primary, prefix = 'hub-h2' }: HomeSurpriseProps): React.ReactElement {
   const [shown, setShown] = useState<SurprisePick | null>(null);
   const surprise = (): void => setShown((cur) => pickSurprise(pool, { playedIds, lastSite: cur?.site ?? null }));
   // The classes as the hub writes them; with another prefix, the same names under it.
   const cx = (classes: string): string => (prefix === 'hub-h2' ? classes : classes.replace(/\bhub-h2-/g, `${prefix}-`));
+  const surpriseButton = pool.length > 0 ? (
+    <button type="button" onClick={surprise} className={cx('hub-h2-ghost hub-h2-btn')}>
+      <ShuffleIcon />{labels.button}
+    </button>
+  ) : null;
   return (
     <>
-      <div className={cx('hub-h2-lede-row')}>
+      <div className={cx(primary ? 'hub-h2-lede-row hub-h2-lede-col' : 'hub-h2-lede-row')}>
         <p className={cx('hub-h2-lede')}>{lede}</p>
-        {pool.length > 0 ? (
-          <button type="button" onClick={surprise} className={cx('hub-h2-ghost hub-h2-btn')}>
-            <ShuffleIcon />{labels.button}
-          </button>
-        ) : null}
+        {primary ? (
+          <div className={cx('hub-h2-actions-row')}>
+            <a href={primary.href} className={cx('hub-h2-cta hub-h2-cta-ink hub-h2-btn')}>{primary.label}<ArrowIcon /></a>
+            {surpriseButton}
+          </div>
+        ) : surpriseButton}
       </div>
       {shown ? (
         <div role="status" className={cx(`hub-h2-pick hub-h2-rise ${siteClass(shown.site)}`)}>

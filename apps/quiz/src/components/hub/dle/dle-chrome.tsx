@@ -46,8 +46,7 @@ export function DleChrome({ locale, enPath, current, tools, className, showCredi
             <a href={withBasePath('/')} className="hub-dle-tab">{t.navHome}</a>
             <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-dle-tab hub-dle-tab-on" aria-current={current ? 'page' : 'true'}>{t.navBurrow}<DleLeftBadge locale={locale} /></a>
             <a href={withBasePath('/#hot')} className="hub-dle-tab">{t.navQuizzes}</a>
-            <a href={withBasePath('/#today')} className="hub-dle-tab">{t.navBlind}</a>
-            <a href={withBasePath('/#fans')} className="hub-dle-tab">{t.navCommunity}</a>
+            <a href={withBasePath('/#community')} className="hub-dle-tab">{t.navCommunity}</a>
           </div>
           <div className="hub-dle-actions">
             {tools}

@@ -8,7 +8,7 @@ import { dleCopy, formatCount, gameCopy } from '@/lib/dle/copy';
 import { utcDate } from '@/lib/dle/day';
 import { builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
-import { DLE_WORLDS, liveGame, liveModes, worldHref } from '@/lib/dle/worlds';
+import { DLE_WORLDS, liveGame, liveModes, modeImage, worldHref } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
 import { Avatar, firstValue, parentName } from './dle-avatar';
@@ -125,7 +125,7 @@ export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks }: Bur
             <span className="hub-dle-dots">
               {w.modes.map((m) => {
                 const s = stateOf(m, plays);
-                const img = images[m.slot];
+                const img = modeImage(images, m);
                 return (
                   <span key={m.id} title={m.name[locale]} className={`hub-dle-mdot hub-dle-mdot-${s.kind}`}>
                     {img ? (
@@ -197,7 +197,7 @@ export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks }: Bur
                   {w.modes.map((m) => {
                     const g = liveGame(m);
                     const s = stateOf(m, plays);
-                    const img = images[m.slot];
+                    const img = modeImage(images, m);
                     const inner = (
                       <>
                         <span className={`hub-dle-th${img ? ' hub-dle-th-img' : ''}`}>

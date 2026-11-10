@@ -30,14 +30,14 @@ export function HomeQuestion(props: HomeQuestionProps): React.ReactElement {
   const answered = answer !== null;
   return (
     <>
-      <p className="hub-h2-qtext">{props.text}</p>
-      <ul className="hub-h2-lines">
+      <p className="hub-h2-rt hub-h2-qtext">{props.text}</p>
+      <ul className="hub-h2-answers">
         {options.map((label, i) => {
           const state = !answered ? '' : i === correct ? ' hub-h2-opt-ok' : i === answer ? ' hub-h2-opt-no' : ' hub-h2-opt-dim';
           const mark = answered && i === correct ? labels.markRight : answered && i === answer ? labels.markPick : '';
           return (
             <li key={label}>
-              <button type="button" className={`hub-h2-line hub-h2-opt${state}`} onClick={() => { if (answer === null) setAnswer(i); }}>
+              <button type="button" className={`hub-h2-opt${state}`} onClick={() => { if (answer === null) setAnswer(i); }}>
                 <span aria-hidden="true" className="hub-h2-key">{KEYS.charAt(i)}</span>
                 <span className="hub-h2-optl">{label}</span>
                 <span className="hub-h2-mark">{mark}</span>
@@ -51,7 +51,7 @@ export function HomeQuestion(props: HomeQuestionProps): React.ReactElement {
           <strong className={`hub-h2-result-t ${answer === correct ? 'hub-h2-result-t-ok' : 'hub-h2-result-t-no'}`}>{answer === correct ? labels.right : labels.wrong}</strong>
           {props.explain ? <span className="hub-h2-result-x">{props.explain}</span> : null}
           <span className="hub-h2-result-act">
-            <a href={props.href} className="hub-h2-full">{labels.full}</a>
+            <a href={props.href} className="hub-h2-tl">{labels.full}</a>
             <button type="button" className="hub-h2-again" onClick={() => setAnswer(null)}>{labels.again}</button>
           </span>
         </div>

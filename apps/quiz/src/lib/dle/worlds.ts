@@ -2,6 +2,7 @@
 // brand, its colour family, the image slots of site_assets, its modes in order. Pure, no I/O. A mode links to its page only when its game
 // is built (games.ts); until then the row, the dot and the step say "soon". Series of the day comes after the launch, the two series games of CR-024 are built: each is one game here, a line of DLE_BUILT_GAMES (registry.ts), its words (copy.ts), its SEO row (seo.ts) and its one page.
 import { DAILY_PATH, dleGame, localePath } from './games';
+import { DLE_SERIES, SERIES_MODE_FALLBACK, seriesIconId, seriesModeKey } from './series';
 
 import type { DleGameDef, DleGameId } from './games';
 import type { DleLocale } from './types';
@@ -17,6 +18,10 @@ export interface DleMode {
   readonly icon: string;
   /** Its site_assets key (the small round image and the square of its row). */
   readonly slot: string;
+  /** The key read when `slot` has no image of its own (a series falls back to the shared "by series" square); absent for the other modes. */
+  readonly slotFallback?: string;
+  /** Its icon slot of the admin (lib/photos/slots.ts ICON_SLOTS): the step icon on the game pages. */
+  readonly iconSlot: string;
   readonly name: L10n;
   /** The word of the step icons on the game page. */
   readonly step: L10n;
@@ -37,6 +42,8 @@ export interface DleWorld {
   readonly vertical: { readonly text: string; readonly lang: 'ko' | 'ja' };
   /** A name of ICON_LIBRARY: its door at the foot of the other game's page. */
   readonly hopIcon: string;
+  /** The icon slot of that door (link-o: the door to Otakudle, at the foot of Kpopdle; link-k: the door to Kpopdle). */
+  readonly hopIconSlot: string;
   readonly what: L10n;
   readonly sub: L10n;
   /** Yesterday's answer stays hidden until a click (anime spoilers). */
@@ -48,34 +55,41 @@ export const DLE_WORLDS: readonly DleWorld[] = [
   {
     id: 'kpopdle', brand: 'Kpopdle', universe: 'kpop', tone: 'k', wordmarkHead: 'Kpop', coverSlot: 'home:kpopdle', bannerSlot: 'banner:kpopdle',
     vertical: { text: '오늘의 아이돌', lang: 'ko' },
-    hopIcon: 'idol',
+    hopIcon: 'idol', hopIconSlot: 'link-k',
     what: { en: 'Guess today’s K-pop idol', fr: 'Devine l’idol K-pop du jour' },
     sub: { en: 'Unlimited guesses', fr: 'Essais illimités' },
     spoiler: false,
     modes: [
-      { id: 'idol', game: 'kpopdle-idol', icon: 'idol', slot: 'daily:mode-idol', name: { en: 'Idol of the day', fr: 'Idol du jour' }, step: { en: 'Idol', fr: 'Idol' } },
-      { id: 'group', game: 'kpopdle-group', icon: 'group', slot: 'daily:mode-group', name: { en: 'Group of the day', fr: 'Groupe du jour' }, step: { en: 'Group', fr: 'Groupe' } },
-      { id: 'song', game: 'kpopdle-song', icon: 'song', slot: 'daily:mode-song', name: { en: 'Song of the day', fr: 'Chanson du jour' }, step: { en: 'Song', fr: 'Chanson' } },
-      { id: 'hidden', game: null, icon: 'hidden', slot: 'daily:mode-hidden', name: { en: 'Hidden members', fr: 'Membres cachés' }, step: { en: 'Members', fr: 'Membres' } },
+      { id: 'idol', game: 'kpopdle-idol', icon: 'idol', slot: 'daily:mode-idol', iconSlot: 'k-idol', name: { en: 'Idol of the day', fr: 'Idol du jour' }, step: { en: 'Idol', fr: 'Idol' } },
+      { id: 'group', game: 'kpopdle-group', icon: 'group', slot: 'daily:mode-group', iconSlot: 'k-group', name: { en: 'Group of the day', fr: 'Groupe du jour' }, step: { en: 'Group', fr: 'Groupe' } },
+      { id: 'song', game: 'kpopdle-song', icon: 'song', slot: 'daily:mode-song', iconSlot: 'k-song', name: { en: 'Song of the day', fr: 'Chanson du jour' }, step: { en: 'Song', fr: 'Chanson' } },
+      { id: 'hidden', game: null, icon: 'hidden', slot: 'daily:mode-hidden', iconSlot: 'k-hidden', name: { en: 'Hidden members', fr: 'Membres cachés' }, step: { en: 'Members', fr: 'Membres' } },
     ],
   },
   {
     id: 'otakudle', brand: 'Otakudle', universe: 'anime', tone: 'a', wordmarkHead: 'Otaku', coverSlot: 'home:otakudle', bannerSlot: 'banner:otakudle',
     vertical: { text: 'オタクドル', lang: 'ja' },
-    hopIcon: 'eye',
+    hopIcon: 'eye', hopIconSlot: 'link-o',
     what: { en: 'Guess today’s anime character', fr: 'Devine le personnage d’anime du jour' },
     sub: { en: 'One anime character a day, the same for everyone', fr: 'Un personnage d’anime par jour, le même pour tout le monde' },
     spoiler: true,
     modes: [
-      { id: 'char', game: 'otakudle', icon: 'char', slot: 'daily:mode-char', name: { en: 'Character of the day', fr: 'Personnage du jour' }, step: { en: 'Character', fr: 'Personnage' } },
-      { id: 'series', game: null, icon: 'tv', slot: 'daily:mode-series', name: { en: 'Series of the day', fr: 'Série du jour' }, step: { en: 'Series', fr: 'Série' } },
-      // The per-series games (024, CR-024) take the place of "One Otakudle per series", in the order of the chain: Otakudle, then One Piece, then Dragon Ball (Plan.dc.html, link 8). Both use the card image of
-      // the "by series" slot: the admin has no slot of its own for them.
-      { id: 'one-piece', game: 'otakudle-one-piece', icon: 'books', slot: 'daily:mode-byseries', name: { en: 'One Piece character', fr: 'Personnage One Piece' }, step: { en: 'One Piece', fr: 'One Piece' } },
-      { id: 'dragon-ball', game: 'otakudle-dragon-ball', icon: 'sparkle', slot: 'daily:mode-byseries', name: { en: 'Dragon Ball character', fr: 'Personnage Dragon Ball' }, step: { en: 'Dragon Ball', fr: 'Dragon Ball' } },
+      { id: 'char', game: 'otakudle', icon: 'char', slot: 'daily:mode-char', iconSlot: 'o-char', name: { en: 'Character of the day', fr: 'Personnage du jour' }, step: { en: 'Character', fr: 'Personnage' } },
+      { id: 'series', game: null, icon: 'tv', slot: 'daily:mode-series', iconSlot: 'o-series', name: { en: 'Series of the day', fr: 'Série du jour' }, step: { en: 'Series', fr: 'Série' } },
+      // The per-series games (024, CR-024) take the place of "One Otakudle per series", in the order of the chain: Otakudle, then One Piece, then Dragon Ball (Plan.dc.html, link 8).
+      // One mode per series of lib/dle/series.ts: its square and its step icon are its own slots in the admin, falling back to the shared "by series" ones.
+      ...DLE_SERIES.map((x): DleMode => ({
+        id: x.id, game: `otakudle-${x.id}` as DleGameId, icon: x.icon, slot: seriesModeKey(x.id), slotFallback: SERIES_MODE_FALLBACK, iconSlot: seriesIconId(x.id),
+        name: { en: `${x.name} character`, fr: `Personnage ${x.name}` }, step: { en: x.name, fr: x.name },
+      })),
     ],
   },
 ];
+
+/** The image of a mode's square: its own slot, else the slot it falls back to (a series without a square of its own shows the shared one). */
+export function modeImage<T>(images: Readonly<Record<string, T>>, mode: DleMode): T | undefined {
+  return images[mode.slot] ?? (mode.slotFallback ? images[mode.slotFallback] : undefined);
+}
 
 /** The game of a mode when it has a page, else null. */
 export function liveGame(mode: DleMode): DleGameDef | null {

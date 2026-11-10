@@ -12,7 +12,7 @@ import { HubWordmark, RabbitMark } from './home-ui';
 export function HomeFooter({ burrow }: { burrow: boolean }): React.ReactElement {
   return (
     <footer className="hub-h2-foot">
-      <div className="hub-h2-foot-in">
+      <div className="hub-h2-foot-in hub-h2-wrap">
         <div className="hub-h2-foot-brand">
           <span className="hub-h2-foot-name"><RabbitMark size={28} className="hub-h2-foot-mk" /><HubWordmark className="hub-h2-foot-word" /></span>
           <span className="hub-h2-foot-tag">{ht('hp.foot.tag')}</span>

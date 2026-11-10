@@ -1,6 +1,8 @@
 // Daily games step 4: the small stroke icons of the Terrier and the game (the paths of the boards; the library is lib/photos/slots.ts). Decorative: the words are beside them.
 import { ICON_LIBRARY } from '@/lib/photos/slots';
 
+import type { LiveIcon, LiveIcons } from '@/lib/photos/icons-read';
+
 export const D = {
   clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2',
   arrowRight: 'M5 12h14M13 6l6 6-6 6',
@@ -39,4 +41,13 @@ export function Spark({ size = 13 }: { size?: number }): React.ReactElement {
 
 export function libraryIcon(name: string): string {
   return ICON_LIBRARY[name] ?? ICON_LIBRARY.star!;
+}
+
+/**
+ * The icon the owner saved for a slot of the admin's "Icônes du jeu" (lib/photos/icons-read.ts), or null: a slot with nothing saved keeps the
+ * drawing the page always had, so the pages are byte for byte what they were until a row exists. Type-only import: this file also ships to the browser.
+ */
+export function savedIcon(icons: LiveIcons | undefined, id: string): LiveIcon | null {
+  const i = icons?.[id];
+  return i && i.live ? i : null;
 }

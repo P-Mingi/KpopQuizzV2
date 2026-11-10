@@ -17,9 +17,12 @@ import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
 import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks';
-import { D, Flame, Ic, Spark, libraryIcon } from './dle-icons';
+import { IconMark } from '@/components/photos/icon-mark';
+
+import { D, Flame, Ic, Spark, libraryIcon, savedIcon } from './dle-icons';
 import { Avatar, firstValue, parentName } from './dle-avatar';
 
+import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { LocalHistory } from '@/lib/dle/local';
 import type { DlePicture } from '@/lib/dle/read';
 import type { DleGameCopy } from '@/lib/dle/copy';
@@ -40,6 +43,8 @@ export interface DleGameProps {
   readonly kpopName: string;
   /** The name of yesterday's answer (lib/dle/yesterday.ts), or null: the line under the input is then absent. */
   readonly yesterday?: string | null;
+  /** The icon slots of the admin (lib/photos/icons-read.ts): a step, or the title of the hints, draws the owner's icon once a row is saved. Read on the server. */
+  readonly icons?: LiveIcons;
 }
 
 const CONFETTI: Readonly<Record<'k' | 'a', readonly string[]>> = {
@@ -174,11 +179,13 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName, yesterday = null }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName, yesterday = null, icons }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
+  // The slot "Indices" belongs to the Kpopdle page of the admin's board (its colour is Kpopdle's); Otakudle keeps its own drawing.
+  const hintsMark = world.id === 'kpopdle' ? savedIcon(icons, 'hints') : null;
   const client = useDleClient();
   const left = useResetCountdown();
 
@@ -388,12 +395,21 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               const isHere = m.game === game;
               const state = isHere ? (over && won ? 'done' : 'current') : live ? 'next' : 'soon';
               const line = isHere ? (over ? (won ? w.stepDone : t.gaveUp) : t.stepNow) : live ? '' : t.soon;
+              // The owner's icon of this step once saved in the admin (its colour, circle or PNG); else the page's own drawing.
+              const mine = savedIcon(icons, m.iconSlot);
               const inner = (
                 <>
-                  <span className={`hub-dle-stepic hub-dle-stepic-${state}`}>
-                    <Ic d={libraryIcon(m.icon)} size={24} width={1.9} />
-                    {state === 'done' ? <span aria-hidden="true" className="hub-dle-stepchk"><Ic d={D.check} size={10} width={4} /></span> : null}
-                  </span>
+                  {mine ? (
+                    <span className={`hub-dle-stepmark hub-dle-stepmark-${state}`}>
+                      <IconMark cfg={mine.cfg} png={mine.png} state={state === 'soon' ? 'next' : state} size={56} glyph={24} slot={m.iconSlot} />
+                      {state === 'done' ? <span aria-hidden="true" className="hub-dle-stepchk"><Ic d={D.check} size={10} width={4} /></span> : null}
+                    </span>
+                  ) : (
+                    <span className={`hub-dle-stepic hub-dle-stepic-${state}`}>
+                      <Ic d={libraryIcon(m.icon)} size={24} width={1.9} />
+                      {state === 'done' ? <span aria-hidden="true" className="hub-dle-stepchk"><Ic d={D.check} size={10} width={4} /></span> : null}
+                    </span>
+                  )}
                   <span className={`hub-dle-steplabel hub-dle-steplabel-${state}`}>{m.step[locale]}</span>
                   <span className={`hub-dle-stepstate hub-dle-stepstate-${state}`}>{line || ' '}</span>
                 </>
@@ -413,7 +429,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
 
       {g.hints.length ? (
         <section aria-labelledby="dle-hints" className="hub-dle-z2 hub-dle-hints">
-          <h2 id="dle-hints"><Ic d={D.bulb} /> {t.hintsTitle}<span>{t.hintsAfter(g.hints.map((h, i) => (i === g.hints.length - 1 ? (locale === 'fr' ? `et ${h.after}` : `and ${h.after}`) : `${h.after}${i === g.hints.length - 2 ? '' : ','}`)).join(' '))}</span></h2>
+          <h2 id="dle-hints">{hintsMark ? <IconMark cfg={hintsMark.cfg} png={hintsMark.png} state="done" size={18} glyph={18} slot="hints" /> : <Ic d={D.bulb} />} {t.hintsTitle}<span>{t.hintsAfter(g.hints.map((h, i) => (i === g.hints.length - 1 ? (locale === 'fr' ? `et ${h.after}` : `and ${h.after}`) : `${h.after}${i === g.hints.length - 2 ? '' : ','}`)).join(' '))}</span></h2>
           <div className={`hub-dle-hintgrid${g.hints.length === 2 ? ' hub-dle-hintgrid-2' : ''}`}>
             {g.hints.map((h) => {
               // The server opens a hint by the errors counted, also on a finished play: a hint it did not open stays closed, its value is not on this page.

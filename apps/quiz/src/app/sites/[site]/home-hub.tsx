@@ -2,6 +2,7 @@
 // composition of components/hub/home/*; each block reads its data from one loader of lib/site/hub/home-*.ts (lot H2c: the real data of
 // lib/site/hub/data/, a block with no data is left out). The one indexable page of the hub: title, description and canonical from the copy and the registry, JSON-LD WebSite
 // and the Hot now ItemList. Styles: styles/sites/hub/h2.css (classes hub-h2-*).
+// Home v4 (2026-11-10): bands, the icon slots of the daily rows (getLiveIcons, defaults on any failure); the metadata and the JSON-LD are untouched.
 // Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): two columns, images first; the images of the slots come from
 // site_assets (empty until step 2), the quizzes of the day the fan finished today from their plays, the Burrow stays hidden until the
 // dailyGuess flag is on and its pages exist.
@@ -18,6 +19,8 @@ import { loadHomeToday } from '@/lib/site/hub/home-today';
 import { loadHomeTopFans } from '@/lib/site/hub/home-topfans';
 import { loadHomeSession } from '@/lib/site/hub/home-viewer';
 import { loadHomeSurprise } from '@/lib/site/hub/home-surprise';
+import { getLiveIcons, iconsOf } from '@/lib/photos/icons-read';
+import { safeBlock } from '@/lib/site/hub/home-safe';
 import { robotsFor } from '@/lib/site/indexing';
 import { NETWORK, SITE } from '@/lib/site/registry';
 
@@ -46,9 +49,11 @@ export default async function HubHome(): Promise<React.ReactElement> {
   // Any error of the account reads as signed out, and a block whose data fails is null: the page never fails because the database is down.
   const session = await loadHomeSession();
   const userId = session?.userId ?? null;
-  const [doors, today, quick, hot, crossover, fans, surprise, assets] = await Promise.all([
+  const [doors, today, quick, hot, crossover, fans, surprise, assets, icons] = await Promise.all([
     loadHomeDoors(), loadHomeToday(), loadHomeQuick(), loadHomeHot(), loadHomeCrossover(), loadHomeTopFans(), loadHomeSurprise(userId), loadHomeAssets(),
+    // The icon slots fail closed to the defaults of each slot: a row always draws an icon.
+    safeBlock('icons', () => getLiveIcons(), iconsOf([])),
   ]);
   const done = await loadHomeDone(userId, today);
-  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, burrow: burrowOpen() }} />;
+  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, icons, burrow: burrowOpen() }} />;
 }

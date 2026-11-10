@@ -54,16 +54,16 @@ const CSS = `
 .p1-kd-off { background: var(--ux-edge); }
 .p1-kd-main { flex: 1; min-width: 0; }
 .p1-kd-no { font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ux-pink-ink); }
-.p1-kd-main h3 { font-size: 21px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; margin-top: 2px; }
+.p1-kd-main h3 { font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; margin-top: 2px; }
 .p1-kd-line { font-size: 14px; line-height: 1.6; color: var(--ux-muted); margin-top: 4px; }
-.p1-kd-go { flex: 0 0 auto; height: 44px; }
+.p1-kd-go { flex: 0 0 auto; height: 44px; justify-content: center; }
 .p1-kd-go svg { width: 14px; height: 14px; }
 .p1-kd-foot { margin-top: 12px; }
 @media (max-width: 760px) {
-  .p1-kd-card { flex-wrap: wrap; gap: 16px; padding: 16px; }
-  .p1-kd-main { flex-basis: 150px; }
-  .p1-kd-main h3 { font-size: 19px; }
-  .p1-kd-go { width: 100%; }
+  /* The same stack as the Daily games cards of OtakuQuiz (anime-daily-home.tsx): tiles, text, then the full-width button. */
+  .p1-kd-card { flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; }
+  .p1-kd-main { flex: 1 1 auto; width: 100%; }
+  .p1-kd-go { width: 100%; box-sizing: border-box; }
 }
 `;
 

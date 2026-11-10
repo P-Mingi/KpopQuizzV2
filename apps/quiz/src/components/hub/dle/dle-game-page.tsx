@@ -1,7 +1,9 @@
 // Daily games step 4: a game's page (board Kpopdle.dc.html, v2 sections 6 and 11.3): the banner, the marquee, the game, then the guide Google reads: yesterday's answer, how to play and the columns in a fold kept in the HTML, the answer
 // block, the pool in clear, the hop to the other game. Server component. A game with no pool (off, or a failed read) keeps the guide and says it is not available; the metadata then says noindex.
+import { IconMark } from '@/components/photos/icon-mark';
 import { siteHasCredits } from '@/lib/credits/site-credits';
 import { jsonLdString } from '@/lib/seo/json-ld';
+import { getLiveIcons } from '@/lib/photos/icons-read';
 import { blindLinksOf, getAnimeSeriesSlugs, getBlindtestSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
 import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
@@ -15,10 +17,12 @@ import { firstValue, parentName } from './dle-avatar';
 import { DleChrome } from './dle-chrome';
 import { dleMarquee } from './dle-font';
 import { DleGame } from './dle-game';
-import { D, Ic, Spark, libraryIcon } from './dle-icons';
+import { D, Ic, Spark, libraryIcon, savedIcon } from './dle-icons';
 import { DleGameTools } from './dle-tools';
 
 import type { DleGameId } from '@/lib/dle/games';
+import type { DleMode } from '@/lib/dle/worlds';
+import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { DleLocale, DlePool } from '@/lib/dle/types';
 
 /** The pool in clear, by group (v2 section 11.3): a real table, one row per group, in the HTML. */
@@ -40,15 +44,27 @@ export function DleJsonLd({ data }: { data: readonly Record<string, unknown>[] }
   return <>{data.map((d, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(d) }} />)}</>;
 }
 
+/** The square of a series tile on the page of Otakudle: the owner's step icon of that series once saved, else the library icon on the solid square it always had. */
+function SeriesTileMark({ mode, icons }: { mode: DleMode | undefined; icons: LiveIcons }): React.ReactElement {
+  const mine = mode ? savedIcon(icons, mode.iconSlot) : null;
+  if (mode && mine) {
+    return <span aria-hidden="true" className="hub-dle-seriestile-live"><IconMark cfg={mine.cfg} png={mine.png} state="current" size={56} glyph={28} slot={mode.iconSlot} /></span>;
+  }
+  return <span aria-hidden="true" className="hub-dle-seriestile-ic"><Ic d={libraryIcon(mode?.icon ?? 'star')} size={28} width={1.9} /></span>;
+}
+
 export async function DleGamePage({ game, locale }: { game: DleGameId; locale: DleLocale }): Promise<React.ReactElement> {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  const [day, pool, images, pictures, slugs, blindSlugs, showCredits] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits()]);
+  const [day, pool, images, icons, pictures, slugs, blindSlugs, showCredits] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getLiveIcons(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits()]);
   // The banner of the page's own slot when the admin has one (banner:otakudle/one-piece), else the world's.
   const banner = images[`banner:${g.path.slice(1)}`] ?? images[world.bannerSlot];
   const other = otherWorld(world);
+  const hopMark = savedIcon(icons, other.hopIconSlot);
+  // The slot "Comment jouer" belongs to the Kpopdle page of the admin's board; Otakudle keeps its own drawing.
+  const howtoMark = world.id === 'kpopdle' ? savedIcon(icons, 'howto') : null;
   const hop = worldHref(other, locale);
   const words = w.marquee(day?.game_no ?? 0).filter((x) => day || !/\b0\b/.test(x));
   const groups = pool ? poolByGroup(pool, w.subKey, w.poolOther, (x) => valueLabel(w.subKey, x, locale, g.series ? { series: true } : undefined)) : [];
@@ -97,7 +113,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
       <main id="main" tabIndex={-1} className="hub-dle-main">
         <DleGame
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
-          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)}
+          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} icons={icons}
         />
         {seriesGames.length ? (
           <nav aria-labelledby="dle-series-h" className="hub-dle-seriesnav">
@@ -106,7 +122,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
               {seriesGames.map((x) => (
                 <li key={x.id}>
                   <a href={withBasePath(localePath(x.path, locale))} className="hub-dle-seriestile">
-                    <span aria-hidden="true" className="hub-dle-seriestile-ic"><Ic d={libraryIcon(world.modes.find((m) => m.game === x.id)?.icon ?? 'star')} size={28} width={1.9} /></span>
+                    <SeriesTileMark mode={world.modes.find((m) => m.game === x.id)} icons={icons} />
                     <span className="hub-dle-seriestile-text"><strong>{x.series!.name}</strong><small>{x.guess[locale]}</small></span>
                     <Ic d={D.arrowRight} size={20} width={2.2} />
                   </a>
@@ -133,7 +149,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
           )) : null}
           <details className="hub-dle-howto">
             <summary>
-              <span><Ic d={D.help} size={20} /><h2>{w.howTitle}</h2></span>
+              <span>{howtoMark ? <IconMark cfg={howtoMark.cfg} png={howtoMark.png} state="done" size={20} glyph={20} slot="howto" /> : <Ic d={D.help} size={20} />}<h2>{w.howTitle}</h2></span>
               <Ic d={D.chev} size={20} className="hub-dle-chev" />
             </summary>
             <div>
@@ -168,7 +184,9 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
         {hop ? (
           <nav aria-label={t.gamesLabel} className="hub-dle-hopnav">
             <a href={withBasePath(hop)} className={`hub-dle-hop hub-dle-${other.tone}`}>
-              <span aria-hidden="true" className="hub-dle-hop-ic"><Ic d={libraryIcon(other.hopIcon)} size={30} width={1.9} /></span>
+              {hopMark
+                ? <span aria-hidden="true" className="hub-dle-hop-live"><IconMark cfg={hopMark.cfg} png={hopMark.png} state="current" size={64} glyph={30} slot={other.hopIconSlot} /></span>
+                : <span aria-hidden="true" className="hub-dle-hop-ic"><Ic d={libraryIcon(other.hopIcon)} size={30} width={1.9} /></span>}
               <strong>{other.brand}</strong>
               <small>{other.what[locale]}</small>
             </a>

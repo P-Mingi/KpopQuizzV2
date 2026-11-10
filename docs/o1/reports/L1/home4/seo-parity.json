@@ -1,0 +1,175 @@
+{
+ "method": "curl of the server HTML from next dev (hub build, o1-dev data), before = dddb441, after = this branch; title, meta description/robots/og/twitter, canonical, hreflang, h1 text, every JSON-LD block",
+ "pages": {
+  "/": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 3
+  },
+  "/burrow": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 0
+  },
+  "/credits": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 0
+  },
+  "/daily": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 3
+  },
+  "/fr/credits": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 0
+  },
+  "/fr/daily": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 3
+  },
+  "/fr/kpopdle": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 4
+  },
+  "/fr/otakudle": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 4
+  },
+  "/kpopdle": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 4
+  },
+  "/legal": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 1
+  },
+  "/otakudle": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 4
+  },
+  "/passport": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 0
+  },
+  "/privacy": {
+   "identical": true,
+   "fields": {
+    "status": "identical",
+    "title": "identical",
+    "metas": "identical",
+    "canonical": "identical",
+    "hreflang": "identical",
+    "h1": "identical",
+    "jsonld": "identical"
+   },
+   "jsonld_blocks": 1
+  }
+ },
+ "allIdentical": true
+}

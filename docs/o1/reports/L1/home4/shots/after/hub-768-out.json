@@ -1,0 +1,164 @@
+{
+ "viewport": {
+  "w": 768,
+  "h": 900
+ },
+ "bandOrder": [
+  {
+   "tag": "H1",
+   "text": "Quizzes and daily games for K-pop and an",
+   "top": 173
+  },
+  {
+   "tag": "H2",
+   "text": "One account for both sites",
+   "top": 562
+  },
+  {
+   "tag": "H2",
+   "text": "Today's games",
+   "top": 1056
+  },
+  {
+   "tag": "H2",
+   "text": "Pick your side",
+   "top": 1974
+  },
+  {
+   "tag": "H2",
+   "text": "Popular this week",
+   "top": 2626
+  },
+  {
+   "tag": "H2",
+   "text": "When K-pop meets anime",
+   "top": 3926
+  },
+  {
+   "tag": "H2",
+   "text": "Community",
+   "top": 4623
+  },
+  {
+   "tag": "H2",
+   "text": "What is Bunnyverse?",
+   "top": 5037
+  }
+ ],
+ "topLevelBands": [
+  {
+   "id": null,
+   "heading": "Quizzes and daily games for K-pop and an",
+   "top": 125,
+   "height": 786
+  },
+  {
+   "id": "today",
+   "heading": "Today's games",
+   "top": 975,
+   "height": 935
+  },
+  {
+   "id": null,
+   "heading": "Pick your side",
+   "top": 1974,
+   "height": 587
+  },
+  {
+   "id": "hot",
+   "heading": "Popular this week",
+   "top": 2626,
+   "height": 1237
+  },
+  {
+   "id": null,
+   "heading": "When K-pop meets anime",
+   "top": 3926,
+   "height": 633
+  },
+  {
+   "id": "community",
+   "heading": "Community",
+   "top": 4623,
+   "height": 285
+  },
+  {
+   "id": null,
+   "heading": "What is Bunnyverse?",
+   "top": 4972,
+   "height": 623
+  }
+ ],
+ "todayHeadingTop": 1056,
+ "todayHeadingOnFirstScreen": false,
+ "solidButtonsPerBand": [
+  {
+   "band": "Quizzes and daily games for K-",
+   "solid": [
+    "Play today's games"
+   ]
+  },
+  {
+   "band": "Today's games",
+   "solid": [
+    "Play Kpopdle",
+    "Play Otakudle"
+   ]
+  },
+  {
+   "band": "Pick your side",
+   "solid": [
+    "Browse K-pop quizzes",
+    "Browse anime quizzes"
+   ]
+  },
+  {
+   "band": "Popular this week",
+   "solid": []
+  },
+  {
+   "band": "When K-pop meets anime",
+   "solid": []
+  },
+  {
+   "band": "Community",
+   "solid": []
+  },
+  {
+   "band": "What is Bunnyverse?",
+   "solid": []
+  }
+ ],
+ "solidButtonsFirstScreen": [
+  "Home",
+  "Sign in",
+  "Play today's games"
+ ],
+ "smallestTarget": {
+  "t": "K-pop quiz of the day",
+  "w": 560,
+  "h": 22
+ },
+ "targetsUnder44": [
+  {
+   "t": "K-pop quiz of the day",
+   "w": 560,
+   "h": 22
+  },
+  {
+   "t": "Skip to content",
+   "w": 141,
+   "h": 40
+  }
+ ],
+ "targetsUnder44Count": 2,
+ "targetCount": 46,
+ "horizontalOverflow": 0,
+ "pageHeight": 5980,
+ "playNextVisible": {
+  "text": "Play Kpopdle",
+  "top": 1286,
+  "onFirstScreen": false
+ },
+ "smallestFont": null
+}

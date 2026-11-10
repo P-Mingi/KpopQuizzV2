@@ -1,0 +1,153 @@
+{
+ "viewport": {
+  "w": 390,
+  "h": 844
+ },
+ "bandOrder": [
+  {
+   "tag": "H1",
+   "text": "Dle games",
+   "top": 165
+  },
+  {
+   "tag": "H2",
+   "text": "Kpopdle",
+   "top": 549
+  },
+  {
+   "tag": "H2",
+   "text": "Otakudle",
+   "top": 1035
+  },
+  {
+   "tag": "H2",
+   "text": "Your day",
+   "top": 1359
+  },
+  {
+   "tag": "H2",
+   "text": "Yesterday’s answers",
+   "top": 1882
+  },
+  {
+   "tag": "H2",
+   "text": "What are the Dle games?",
+   "top": 2193
+  }
+ ],
+ "topLevelBands": [
+  {
+   "id": null,
+   "heading": "Dle games",
+   "top": 113,
+   "height": 211
+  },
+  {
+   "id": null,
+   "heading": "Kpopdle",
+   "top": 324,
+   "height": 983
+  }
+ ],
+ "todayHeadingTop": null,
+ "todayHeadingOnFirstScreen": null,
+ "solidButtonsPerBand": [
+  {
+   "band": "Dle games",
+   "solid": []
+  },
+  {
+   "band": "Kpopdle",
+   "solid": [
+    "Play",
+    "Play"
+   ]
+  },
+  {
+   "band": "Your day",
+   "solid": []
+  },
+  {
+   "band": "Yesterday’s answers",
+   "solid": []
+  }
+ ],
+ "solidButtonsFirstScreen": [
+  "Daily games4 left today",
+  "Sign in",
+  "Play"
+ ],
+ "smallestTarget": {
+  "t": "aespa quiz",
+  "w": 68,
+  "h": 21
+ },
+ "targetsUnder44": [
+  {
+   "t": "aespa quiz",
+   "w": 68,
+   "h": 21
+  },
+  {
+   "t": "Daily games",
+   "w": 92,
+   "h": 24
+  },
+  {
+   "t": "OtakuQuiz",
+   "w": 92,
+   "h": 24
+  },
+  {
+   "t": "Privacy",
+   "w": 137,
+   "h": 24
+  },
+  {
+   "t": "Legal notice",
+   "w": 137,
+   "h": 24
+  },
+  {
+   "t": "Show",
+   "w": 60,
+   "h": 34
+  },
+  {
+   "t": "Show",
+   "w": 60,
+   "h": 34
+  },
+  {
+   "t": "Show",
+   "w": 60,
+   "h": 34
+  },
+  {
+   "t": "Bunnyverse",
+   "w": 152,
+   "h": 36
+  },
+  {
+   "t": "FR",
+   "w": 40,
+   "h": 36
+  },
+  {
+   "t": "EN",
+   "w": 40,
+   "h": 36
+  },
+  {
+   "t": "Skip to content",
+   "w": 141,
+   "h": 40
+  }
+ ],
+ "targetsUnder44Count": 17,
+ "targetCount": 27,
+ "horizontalOverflow": 0,
+ "pageHeight": 2639,
+ "playNextVisible": null,
+ "smallestFont": null
+}

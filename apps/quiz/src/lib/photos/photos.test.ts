@@ -52,8 +52,14 @@ describe('slots', () => {
   it('has the eight tabs of the board, the 11 icons, the six image cards of the board then the home slots', () => {
     expect(tabOf('banners')).toBe('banners');
     expect(tabOf('nope')).toBe('idols');
-    expect(ICON_SLOTS).toHaveLength(11);
-    expect(IMAGE_SLOTS.slice(0, 6).map((s) => s.key)).toEqual(['banner:kpopdle', 'banner:otakudle', 'banner:daily', 'banner:otakudle/one-piece', 'home:kpopdle', 'home:otakudle']);
+    // o1/slots (2026-11-10): the 11 icons of the board first, unchanged, then the 6 daily rows of the home (was: 11 in all).
+    expect(ICON_SLOTS.slice(0, 11).map((s) => s.id)).toEqual(['k-idol', 'k-group', 'k-song', 'k-hidden', 'o-char', 'o-series', 'o-by', 'link-o', 'link-k', 'hints', 'howto']);
+    expect(ICON_SLOTS.filter((s) => s.page === 'home').map((s) => s.id)).toEqual(['today-kpopdle', 'today-otakudle', 'today-qotd-k', 'today-qotd-a', 'today-debate', 'today-blindtest']);
+    // o1/slots (2026-11-10): one step icon per series of lib/dle/series.ts after the home rows (was: 17 in all).
+    expect(ICON_SLOTS).toHaveLength(19);
+    expect(ICON_SLOTS.slice(17).map((s) => s.id)).toEqual(['o-by-one-piece', 'o-by-dragon-ball']);
+    // The banner of each series now comes from lib/dle/series.ts: One Piece, then Dragon Ball (was: One Piece only, then the home slots).
+    expect(IMAGE_SLOTS.slice(0, 7).map((s) => s.key)).toEqual(['banner:kpopdle', 'banner:otakudle', 'banner:daily', 'banner:otakudle/one-piece', 'banner:otakudle/dragon-ball', 'home:kpopdle', 'home:otakudle']);
     // every slot of the home v3 has its site_assets key, lower case (022's key check)
     for (const k of HOME_ASSET_KEYS) {
       expect(IMAGE_SLOTS.some((s) => s.key === HOME_SLOT_KEY[k])).toBe(true);

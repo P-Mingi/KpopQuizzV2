@@ -16,7 +16,7 @@ describe('the hub navigation', () => {
     expect(navItemsFor(REGISTRY.hub).map((it) => [it.key, it.label, it.href, it.icon])).toEqual([
       ['home', 'Home', '/', 'home'],
       ['quizzes', 'Quizzes', '/#hot', 'layers'],
-      ['community', 'Community', '/#fans', 'msg'],
+      ['community', 'Community', '/#community', 'msg'],
     ]);
   });
 
@@ -24,7 +24,7 @@ describe('the hub navigation', () => {
     expect(tabItemsFor(REGISTRY.hub).map((it) => [it.key, it.label, it.href, it.icon])).toEqual([
       ['home', 'Home', '/', 'home'],
       ['quizzes', 'Quizzes', '/#hot', 'layers'],
-      ['community', 'Community', '/#fans', 'users'],
+      ['community', 'Community', '/#community', 'users'],
       ['you', 'You', '/passport', 'user'],
     ]);
   });

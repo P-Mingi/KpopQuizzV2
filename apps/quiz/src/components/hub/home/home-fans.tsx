@@ -14,7 +14,7 @@ interface HomeFansProps {
   /** The signed-in fan's handle, or null. */
   readonly me: string | null;
   /** `lv` holds `{level}`. */
-  readonly labels: { readonly title: string; readonly group: string; readonly kpop: string; readonly anime: string; readonly lv: string };
+  readonly labels: { readonly title: string; readonly group: string; readonly kpop: string; readonly anime: string; readonly lv: string; readonly you: string };
 }
 
 export function HomeFans({ fans, me, labels }: HomeFansProps): React.ReactElement {
@@ -24,7 +24,7 @@ export function HomeFans({ fans, me, labels }: HomeFansProps): React.ReactElemen
   return (
     <>
       <div className="hub-h2-fans-h">
-        <h2 id="top-h" className="hub-h2-h2">{labels.title}</h2>
+        <h3 id="top-h" className="hub-h2-h3">{labels.title}</h3>
         {sites.length > 1 ? (
           <div role="group" aria-label={labels.group} className="hub-h2-seg">
             {sites.map((s) => (
@@ -35,17 +35,23 @@ export function HomeFans({ fans, me, labels }: HomeFansProps): React.ReactElemen
           </div>
         ) : null}
       </div>
-      <ol className={`hub-h2-lines ${siteClass(site)}`}>
-        {board.map((f, i) => (
-          <li key={f.handle}>
-            <a href={`/u/${encodeURIComponent(f.handle)}`} className={`hub-h2-line hub-h2-fan${me !== null && f.handle === me ? ' hub-h2-fan-me' : ''}`}>
-              <span className="hub-h2-fan-rank hub-h2-num">{i + 1}</span>
-              <span aria-hidden="true" className={`hub-h2-th hub-h2-fan-av${i === 0 ? ' hub-h2-fan-av-top' : ''}`}>{f.handle.charAt(0).toUpperCase()}</span>
-              <span className="hub-h2-fan-name">@{f.handle}</span>
-              {f.level !== null ? <span className="hub-h2-fan-lv hub-h2-num">{labels.lv.replace('{level}', String(f.level))}</span> : null}
-            </a>
-          </li>
-        ))}
+      <ol className={`hub-h2-rows ${siteClass(site)}`}>
+        {board.map((f, i) => {
+          const mine = me !== null && f.handle === me;
+          return (
+            <li key={f.handle}>
+              <a href={`/u/${encodeURIComponent(f.handle)}`} className={`hub-h2-frow${mine ? ' hub-h2-frow-me' : ''}`}>
+                <span className="hub-h2-fan-rank hub-h2-num">{i + 1}</span>
+                <span aria-hidden="true" className={`hub-h2-av hub-h2-av-sm${i === 0 ? ' hub-h2-av-top' : ''}`}>{f.handle.charAt(0).toUpperCase()}</span>
+                <span className="hub-h2-fan-name">
+                  <span className="hub-h2-rt hub-h2-fan-handle">@{f.handle}</span>
+                  {f.level !== null ? <span className="hub-h2-meta hub-h2-num">{labels.lv.replace('{level}', String(f.level))}</span> : null}
+                </span>
+                {mine ? <span className="hub-h2-chip hub-h2-chip-ink">{labels.you}</span> : null}
+              </a>
+            </li>
+          );
+        })}
       </ol>
     </>
   );
