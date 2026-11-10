@@ -75,7 +75,7 @@ describe('the Références personnages screen', () => {
     expect(html).toContain('2 / 1116 publiés');
   });
   it('has no dash and no preview (signed URL) until the server gave one', () => {
-    expect(html).not.toMatch(/[–—]/);
+    expect(html).not.toMatch(/[\u2013\u2014]/);
     expect(html).toContain('Aperçu en cours');
   });
   it('says so when the list could not be read, and when the table is not there', () => {
