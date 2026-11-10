@@ -165,6 +165,8 @@ export const ICON_LIBRARY: Readonly<Record<string, string>> = {
   mic: 'M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3',
   crown: 'M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z',
   light: 'M12 2a4 4 0 0 1 4 4c0 2.2-1.8 4-4 4s-4-1.8-4-4a4 4 0 0 1 4-4zM12 10v12M9 22h6',
+  // o1/slots (2026-11-10): the speech bubble of the debate row of the home (components/hub/home/home-icons.tsx ROW_ICONS.vote).
+  vote: 'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z',
 };
 
 /** The colours of the circle: [ink, soft ground, name]. */
@@ -186,7 +188,7 @@ export interface IconSettings {
 
 export interface IconSlot { readonly id: string; readonly name: string; readonly where: string; readonly page: string; readonly defaults: IconSettings }
 
-/** The 11 places of the board (4 steps of Kpopdle, 3 of Otakudle, 2 links at the foot, 2 titles), with the board's defaults. */
+/** The 11 places of the board (4 steps of Kpopdle, 3 of Otakudle, 2 links at the foot, 2 titles), then the daily rows of the home, with their defaults. */
 export const ICON_GROUPS: readonly { readonly title: string; readonly items: readonly IconSlot[] }[] = [
   { title: 'Kpopdle, étapes', items: [
     { id: 'k-idol', name: 'Idol', where: 'Étape 1, au-dessus de la saisie', page: 'kpopdle', defaults: { mode: 'icon', icon: 'idol', circle: true, color: 'k' } },
@@ -207,7 +209,23 @@ export const ICON_GROUPS: readonly { readonly title: string; readonly items: rea
     { id: 'hints', name: 'Indices', where: 'Titre au-dessus des indices', page: 'kpopdle', defaults: { mode: 'icon', icon: 'bulb', circle: false, color: 'k' } },
     { id: 'howto', name: 'Comment jouer', where: 'Titre du toggle', page: 'kpopdle', defaults: { mode: 'icon', icon: 'help', circle: false, color: 'k' } },
   ] },
+  // o1/slots (owner, 2026-11-10): the icon of each daily row of the home of bunnyverse.org. A row draws the owner's card image when its image
+  // slot (home:kpopdle, home:qotd-k...) is filled, else this icon. The two games take the symbols of the dle pages (idol, char), so a symbol
+  // means the same thing everywhere (HOME-AUDIT P1-8).
+  { title: 'Accueil, jeux du jour', items: [
+    { id: 'today-kpopdle', name: 'Kpopdle', where: 'Accueil, carte Kpopdle', page: 'home', defaults: { mode: 'icon', icon: 'idol', circle: true, color: 'k' } },
+    { id: 'today-otakudle', name: 'Otakudle', where: 'Accueil, carte Otakudle', page: 'home', defaults: { mode: 'icon', icon: 'char', circle: true, color: 'a' } },
+    { id: 'today-qotd-k', name: 'Quiz K-pop du jour', where: 'Accueil, ligne quiz K-pop', page: 'home', defaults: { mode: 'icon', icon: 'help', circle: true, color: 'k' } },
+    { id: 'today-qotd-a', name: 'Quiz anime du jour', where: 'Accueil, ligne quiz anime', page: 'home', defaults: { mode: 'icon', icon: 'help', circle: true, color: 'a' } },
+    { id: 'today-debate', name: 'Débat du jour', where: 'Accueil, débat', page: 'home', defaults: { mode: 'icon', icon: 'vote', circle: true, color: 'ink' } },
+    { id: 'today-blindtest', name: 'Blind test du jour', where: 'Accueil, ligne blind test', page: 'home', defaults: { mode: 'icon', icon: 'song', circle: true, color: 'ink' } },
+  ] },
 ];
+
+/** The icon slot of each daily row of the home (lib/photos/icons-read.ts gives its live settings). */
+export const HOME_TODAY_ICON = {
+  kpopdle: 'today-kpopdle', otakudle: 'today-otakudle', qotdK: 'today-qotd-k', qotdA: 'today-qotd-a', debate: 'today-debate', blindtest: 'today-blindtest',
+} as const;
 
 export const ICON_SLOTS: readonly IconSlot[] = ICON_GROUPS.flatMap((g) => g.items);
 export const iconKey = (id: string): string => `icon:${id}`;

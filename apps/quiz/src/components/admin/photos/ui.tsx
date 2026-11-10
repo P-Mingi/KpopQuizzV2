@@ -4,12 +4,12 @@
 // the icon of the library, the licence fields, the live version of a slot.
 import { useRef, useState } from 'react';
 
-import { ICON_COLORS, ICON_LIBRARY, isFreeLicense } from '@/lib/photos/slots';
+import { isFreeLicense } from '@/lib/photos/slots';
 
 import s from './photos-admin.module.css';
 
 import type { AssetVersion } from '@/lib/photos/admin-data';
-import type { Focal, IconSettings, ImageLicense } from '@/lib/photos/slots';
+import type { Focal, ImageLicense } from '@/lib/photos/slots';
 
 export const UPLOAD_ICON = 'M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3';
 export const PHOTO_ICON = 'M4 6h16v13H4zM8 13l3-3 5 5M14 12l2-2 4 4';
@@ -75,28 +75,8 @@ export function FocalFrame({ src, focal, onFocal, className, style, label, child
   );
 }
 
-/** The style of an icon in one of its three states (the board's icStyle). */
-export function iconBox(cfg: IconSettings, state: 'current' | 'done' | 'next', size: number): React.CSSProperties {
-  const c = ICON_COLORS[cfg.color];
-  const white = c[0] === '#FFFFFF';
-  if (!cfg.circle) return { display: 'grid', placeItems: 'center', width: size, height: size, color: state === 'next' ? '#57514B' : white ? '#1F1B17' : c[0], flex: 'none' };
-  const bg = state === 'current' ? c[0] : state === 'done' ? c[1] : '#FFFFFF';
-  const fg = state === 'current' ? (white ? '#1F1B17' : '#FFFFFF') : state === 'done' ? (white ? '#1F1B17' : c[0]) : '#57514B';
-  return { display: 'grid', placeItems: 'center', width: size, height: size, borderRadius: '50%', background: bg, color: fg, flex: 'none', ...(state === 'next' ? { boxShadow: 'inset 0 0 0 1.5px #E5E0DA' } : {}) };
-}
-
-/** An icon (the library's path, or a PNG) inside its state box. */
-export function IconMark({ cfg, png, state, size, glyph }: { cfg: IconSettings; png: string | null; state: 'current' | 'done' | 'next'; size: number; glyph: number }): React.ReactElement {
-  const img = cfg.circle ? Math.round(size * 0.62) : Math.round(size * 0.86);
-  return (
-    <span style={iconBox(cfg, state, size)}>
-      {cfg.mode === 'png' && png
-        // eslint-disable-next-line @next/next/no-img-element -- a small PNG preview of the admin
-        ? <img src={png} alt="" style={{ width: img, height: img, objectFit: 'contain', opacity: state === 'next' && !cfg.circle ? 0.45 : 1 }} />
-        : <Svg d={ICON_LIBRARY[cfg.icon] ?? ICON_LIBRARY.idol!} size={glyph} />}
-    </span>
-  );
-}
+// The icon of a slot (box and mark) is shared with the public pages: components/photos/icon-mark.tsx.
+export { iconBox, IconMark } from '@/components/photos/icon-mark';
 
 export interface MetaState { source: string; author: string; license: ImageLicense | ''; note: string }
 
