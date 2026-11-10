@@ -1,4 +1,5 @@
-// Owner feedback 2026-11-08, item 1: Right is green, Close is red with the stripes, Wrong is grey, on every dle game and in both themes. This reads the stylesheet the games ship
+// Owner, 2026-11-10 (was 2026-11-08: Close red, Wrong grey): Right is green, Close is ORANGE with the same stripes, Wrong is RED, on every dle game and in both
+// themes. This reads the stylesheet the games ship
 // (styles/sites/hub/dle.css), so a change of a token fails here, and proves the text of every cell is AA (4.5:1) on the colour under it (the lighter and the darker stripe for Close).
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -29,7 +30,7 @@ const DARK_AUTO = { ...LIGHT, ...tokens('  html.ux-v1[data-site="hub"]:not(.ligh
 
 describe('the cell colours, in the stylesheet', () => {
   const rule = (sel: string): string => CSS.split('\n').find((l) => l.includes(`${sel} {`)) ?? '';
-  it('Right paints with the green tokens, Close with the stripes of the red tokens, Wrong stays grey', () => {
+  it('Right paints with the green tokens, Close with the stripes of the orange tokens, Wrong with the red tokens', () => {
     expect(rule('.hub-dle-t-correct')).toContain('background: var(--hub-dle-right)');
     expect(rule('.hub-dle-t-correct')).toContain('color: var(--hub-dle-right-ink)');
     expect(rule('.hub-dle-sw-correct')).toContain('background: var(--hub-dle-right)');
@@ -43,7 +44,7 @@ describe('the cell colours, in the stylesheet', () => {
     expect(overrides).toEqual([]);
   });
 
-  it('the green is green and the stripes are red, in both themes', () => {
+  it('the green is green, the stripes are orange and Wrong is red, in both themes', () => {
     const hue = (hex: string): number => {
       const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number];
       const max = Math.max(r, g, b); const min = Math.min(r, g, b); const d = max - min;
@@ -54,15 +55,20 @@ describe('the cell colours, in the stylesheet', () => {
     for (const t of [LIGHT, DARK, DARK_AUTO]) {
       expect(hue(t['hub-dle-right']!)).toBeGreaterThan(90);
       expect(hue(t['hub-dle-right']!)).toBeLessThan(160);
+      // was: every near token red (hue under 15 or over 345); now the stripes, their ink and their edge are orange (15 to 45)
       for (const k of ['hub-dle-near-1', 'hub-dle-near-2', 'hub-dle-near-ink', 'hub-dle-near-edge']) {
         const h = hue(t[k]!);
-        expect(h === -1 || h < 15 || h > 345, `${k} ${t[k]}`).toBe(true);
+        expect(h >= 15 && h <= 45, `${k} ${t[k]}`).toBe(true);
       }
+      // was: Wrong grey; now red, with white text
+      const w = hue(t['hub-dle-wrong']!);
+      expect(w >= 0 && (w < 10 || w > 350), `hub-dle-wrong ${t['hub-dle-wrong']}`).toBe(true);
+      expect(t['hub-dle-wrong-ink']).toBe('#FFFFFF');
     }
   });
 });
 
-describe('Close reads as clearly red, not pale pink (owner 2026-11-08)', () => {
+describe('Close reads as a clear orange, never a pastel (owner 2026-11-08, orange since 2026-11-10)', () => {
   const sat = (hex: string): { s: number; l: number } => {
     const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number];
     const max = Math.max(r, g, b); const min = Math.min(r, g, b); const l = (max + min) / 2;
@@ -77,12 +83,19 @@ describe('Close reads as clearly red, not pale pink (owner 2026-11-08)', () => {
       }
     });
   }
-  it('the kpopquiz.org Kpopdle module stripes use the strong red, not the soft tint', () => {
-    const mod = readFileSync(join(__dirname, '../../components/home/ux-v1/kpopdle-home.tsx'), 'utf8');
-    const line = mod.split('\n').find((l) => l.startsWith('.p1-kd-near')) ?? '';
-    expect(line).toContain('repeating-linear-gradient(135deg, var(--ux-no) 0 3px');
-    expect(line).not.toContain('--ux-no-soft');
-  });
+  // The two home modules draw a row of clues as decoration: Close with the games' orange stripes, Wrong red (was: the red stripes, Wrong grey).
+  for (const [file, prefix] of [['kpopdle-home.tsx', '.p1-kd'], ['anime-daily-home.tsx', '.p5-ad']] as const) {
+    it(`the ${file} module: Close with the orange stripes of the games, Wrong red`, () => {
+      const mod = readFileSync(join(__dirname, `../../components/home/ux-v1/${file}`), 'utf8');
+      const line = (cls: string): string => mod.split('\n').find((l) => l.startsWith(`${prefix}-${cls} `)) ?? '';
+      expect(line('near')).toContain('repeating-linear-gradient(135deg, var(--ux-close-2) 0 3px, var(--ux-close) 3px 6px)');
+      // the two site tokens are the games' own orange stripes (styles/ux-v1/a0.css, every theme)
+      const a0 = readFileSync(join(__dirname, '../../styles/ux-v1/a0.css'), 'utf8');
+      expect(a0.match(/--ux-close: (#[0-9A-F]{6}); --ux-close-2: (#[0-9A-F]{6});/g)).toEqual(Array(3).fill(`--ux-close: ${LIGHT['hub-dle-near-2']}; --ux-close-2: ${LIGHT['hub-dle-near-1']};`));
+      expect(line('off')).toContain('background: var(--ux-no)');
+      expect(line('t')).toContain('background: var(--ux-ok)');
+    });
+  }
 });
 
 describe('the text of every cell is AA (4.5:1), computed', () => {
@@ -107,5 +120,12 @@ describe('the text of every cell is AA (4.5:1), computed', () => {
     const [a, b, ink] = [...near.matchAll(/#[0-9A-F]{6}/g)].map((m) => m[0]);
     expect(ratio(ink!, a!)).toBeGreaterThanOrEqual(4.5);
     expect(ratio(ink!, b!)).toBeGreaterThanOrEqual(4.5);
+    // the colour-blind option keeps Wrong grey (blue, orange, grey: as the owner kept it), AA in every theme
+    const wrong = lines.find((l) => l.includes('.hub-dle-t-wrong'))!;
+    expect(wrong).toContain('background: var(--hub-dle-cb-wrong); color: var(--hub-dle-cb-wrong-ink)');
+    for (const t of Object.values(themes)) {
+      expect(t['hub-dle-cb-wrong']).toMatch(/^#(DCD6CD|3A3631)$/);
+      expect(ratio(t['hub-dle-cb-wrong-ink']!, t['hub-dle-cb-wrong']!)).toBeGreaterThanOrEqual(4.5);
+    }
   });
 });

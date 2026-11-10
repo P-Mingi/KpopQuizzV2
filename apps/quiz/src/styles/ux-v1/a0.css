@@ -37,7 +37,7 @@ html.ux-v1,
   --ux-ink: #1F1B17; --ux-muted: #6B655E;
   --ux-pink: #E8457A; --ux-pink-fill: #D13A6E; --ux-pink-fill-h: #BE2F62; --ux-pink-ink: #C43565;
   --ux-pink-soft: #FCE8EF; --ux-pink-soft-ink: #B3305C;
-  --ux-ok: #257547; --ux-ok-soft: #E9F4EC; --ux-no: #B83A34; --ux-no-soft: #FBECEA; --ux-warn: #9A5B0F;
+  --ux-ok: #257547; --ux-ok-soft: #E9F4EC; --ux-no: #B83A34; --ux-no-soft: #FBECEA; --ux-warn: #9A5B0F; --ux-close: #F97316; --ux-close-2: #FB923C;
   --ux-on-ok: #FFFFFF; --ux-knob-off: #FFFFFF;
   --ux-on-accent: #FFFFFF;
   --ux-nav-bg: rgba(250, 248, 245, .94); --ux-tabbar-bg: rgba(255, 255, 255, .94);
@@ -70,7 +70,7 @@ html.ux-v1.dark,
   --ux-input: #6E6A64;
   --ux-ink: #F3F0EB; --ux-muted: #A8A198;
   --ux-pink-ink: #FF7AA5; --ux-pink-soft: #3A2129; --ux-pink-soft-ink: #FF9DBC;
-  --ux-ok: #4FC07F; --ux-ok-soft: #16261C; --ux-no: #FF7A70; --ux-no-soft: #2E1917; --ux-warn: #E3A24A;
+  --ux-ok: #4FC07F; --ux-ok-soft: #16261C; --ux-no: #FF7A70; --ux-no-soft: #2E1917; --ux-warn: #E3A24A; --ux-close: #F97316; --ux-close-2: #FB923C;
   --ux-on-ok: #141312; --ux-knob-off: #A8A198;
   --ux-on-accent: #FFFFFF;
   --ux-nav-bg: rgba(20, 19, 18, .84); --ux-tabbar-bg: rgba(20, 19, 18, .84);
@@ -97,7 +97,7 @@ html.ux-v1.dark,
     --ux-input: #6E6A64;
     --ux-ink: #F3F0EB; --ux-muted: #A8A198;
     --ux-pink-ink: #FF7AA5; --ux-pink-soft: #3A2129; --ux-pink-soft-ink: #FF9DBC;
-    --ux-ok: #4FC07F; --ux-ok-soft: #16261C; --ux-no: #FF7A70; --ux-no-soft: #2E1917; --ux-warn: #E3A24A;
+    --ux-ok: #4FC07F; --ux-ok-soft: #16261C; --ux-no: #FF7A70; --ux-no-soft: #2E1917; --ux-warn: #E3A24A; --ux-close: #F97316; --ux-close-2: #FB923C;
     --ux-on-ok: #141312; --ux-knob-off: #A8A198;
     --ux-on-accent: #FFFFFF;
     --ux-nav-bg: rgba(20, 19, 18, .84); --ux-tabbar-bg: rgba(20, 19, 18, .84);

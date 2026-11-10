@@ -1,20 +1,20 @@
 /* Daily games step 4: the Terrier and the game pages (boards docs/strategy/o1/dle/prototype/Main.dc.html, Kpopdle.dc.html, Reglages.dc.html). Every selector starts with the site scope and names only hub-dle-* classes. The boards are light; the dark values
-   follow the hub's dark theme, like the home. Colours of the cells: the board's, in --hub-dle-* tokens; the colour family of a game is hub-dle-k or hub-dle-a. Motion stops for prefers-reduced-motion and for the setting (hub-dle-still). */
+   follow the hub's dark theme, like the home. Colours of the cells (owner, 2026-11-10): Right green, Close orange with the stripes, Wrong red, in --hub-dle-* tokens; the colour-blind option keeps blue, orange and grey; the colour family of a game is hub-dle-k or hub-dle-a. Motion stops for prefers-reduced-motion and for the setting (hub-dle-still). */
 html.ux-v1[data-site="hub"] {
-  --hub-dle-wrong: #DCD6CD; --hub-dle-wrong-ink: #33302C; --hub-dle-card: #FFFFFF; --hub-dle-line: #ECE8E3; --hub-dle-line-2: #D9D3CB; --hub-dle-muted: #6B655E; --hub-dle-text: #4A443E; --hub-dle-field: #FFFFFF;
+  --hub-dle-wrong: #DC2626; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #DCD6CD; --hub-dle-cb-wrong-ink: #33302C; --hub-dle-card: #FFFFFF; --hub-dle-line: #ECE8E3; --hub-dle-line-2: #D9D3CB; --hub-dle-muted: #6B655E; --hub-dle-text: #4A443E; --hub-dle-field: #FFFFFF;
   --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #BBF7D0;
-  --hub-dle-near-1: #F87171; --hub-dle-near-2: #EB5252; --hub-dle-near-ink: #3B0707; --hub-dle-near-edge: #B91C1C; --hub-dle-hint-edge: #FCC9C9; --hub-dle-dark: #1F1B17; --hub-dle-dark-ink: #FAF8F5; --hub-dle-marq-ink: #F59BBB;
+  --hub-dle-near-1: #FB923C; --hub-dle-near-2: #F97316; --hub-dle-near-ink: #451A03; --hub-dle-near-edge: #C2410C; --hub-dle-hint-edge: #FCC9C9; --hub-dle-dark: #1F1B17; --hub-dle-dark-ink: #FAF8F5; --hub-dle-marq-ink: #F59BBB;
 }
 html.ux-v1.dark[data-site="hub"] {
-  --hub-dle-wrong: #3A3631; --hub-dle-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
+  --hub-dle-wrong: #B91C1C; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #3A3631; --hub-dle-cb-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
   --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #14532D;
-  --hub-dle-near-1: #8B1D1D; --hub-dle-near-2: #B42323; --hub-dle-near-ink: #FFFFFF; --hub-dle-near-edge: #F87171; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
+  --hub-dle-near-1: #FB923C; --hub-dle-near-2: #F97316; --hub-dle-near-ink: #451A03; --hub-dle-near-edge: #FDBA74; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
 }
 @media (prefers-color-scheme: dark) {
   html.ux-v1[data-site="hub"]:not(.light) {
-    --hub-dle-wrong: #3A3631; --hub-dle-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
+    --hub-dle-wrong: #B91C1C; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #3A3631; --hub-dle-cb-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
     --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #14532D;
-  --hub-dle-near-1: #8B1D1D; --hub-dle-near-2: #B42323; --hub-dle-near-ink: #FFFFFF; --hub-dle-near-edge: #F87171; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
+  --hub-dle-near-1: #FB923C; --hub-dle-near-2: #F97316; --hub-dle-near-ink: #451A03; --hub-dle-near-edge: #FDBA74; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
   }
 }
 html.ux-v1[data-site="hub"] .hub-dle-root { position: relative; flex: 1 1 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--ux-page); color: var(--ux-ink); font-family: var(--font-dm-sans), "DM Sans", "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
@@ -324,6 +324,7 @@ html.ux-v1[data-site="hub"] .hub-dle-t-unknown { background: var(--hub-dle-card)
 html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-correct, html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-correct { background: #1D4ED8; color: #FFFFFF; }
 html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-near { background: repeating-linear-gradient(135deg, #FFEDD5 0 6px, #FED7AA 6px 12px); color: #7C2D12; box-shadow: inset 0 0 0 1.5px #FB923C; }
 html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-near { background: repeating-linear-gradient(135deg, #FFEDD5 0 3px, #FED7AA 3px 6px); box-shadow: inset 0 0 0 1px #FB923C; }
+html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-wrong, html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-wrong { background: var(--hub-dle-cb-wrong); color: var(--hub-dle-cb-wrong-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-mark { position: absolute; top: 6px; right: 7px; display: block; }
 html.ux-v1[data-site="hub"] .hub-dle-approx { font-size: 14px; line-height: 1; }
 html.ux-v1[data-site="hub"] .hub-dle-flip { animation: hub-dle-flip .42s cubic-bezier(.2, .7, .2, 1) both; }
