@@ -43,6 +43,11 @@ describe('the page of the dle games has its new name', () => {
   it('the hub home: its tab, its group, its link and its footer', () => {
     const texts = strings(H1_COPY);
     expect(texts.filter((x) => OLD.test(x))).toEqual([]);
-    expect(H1_COPY['hp.nav.burrow']).toBe('Dle games');
+    // Home v4 (2026-11-10): the tab of the home and its footer line say "Daily games" (the words live in these two keys and in navTab only);
+    // the page's own names (navBurrow: breadcrumb and links, burrowH1, its title) are what they were, so the head and the JSON-LD of every dle page are untouched.
+    expect(H1_COPY['hp.nav.burrow']).toBe('Daily games');
+    expect(H1_COPY['hp.foot.burrow']).toBe('Daily games');
+    expect(dleCopy('en').navTab).toBe('Daily games');
+    expect(dleCopy('fr').navTab).toBe('Jeux du jour');
   });
 });

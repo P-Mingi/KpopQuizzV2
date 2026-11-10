@@ -218,7 +218,8 @@ describe('point 5: the sites you joined line', () => {
     expect(src('components/hub/hub-shares.tsx')).toContain('SHARES_SEES');
     expect(src('components/hub/hub-privacy.tsx')).toContain('<HubShares />');
     // lot H2a: the home reads the block in the look of the new design, from the same component and the same keys
-    expect(src('components/hub/home/home-community.tsx')).toContain('<HubShares variant="home" />');
+    // home v4: the account card of the hero (home-hero.tsx) holds it
+    expect(src('components/hub/home/home-hero.tsx')).toContain('<HubShares variant="home" />');
   });
   it('is printed on the page', async () => {
     const { text } = await render();

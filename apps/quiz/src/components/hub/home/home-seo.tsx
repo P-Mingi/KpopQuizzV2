@@ -1,3 +1,5 @@
+// Home v4 (2026-11-10, HOME-AUDIT.md S7): the same words, the same table and the same order, now the last band of the page on its own full-width ground
+// (hub-h2-seo, styles only). Nothing in the text, the table or the headings changed.
 // Home v3 (2026-10-29, Home.dc.html): the block under the rows, in the server HTML: "What is Bunnyverse?" (the answer block of the page, SEO
 // rule 3.1) and the table of the daily games. It says only what is true today: the Burrow, Kpopdle and Otakudle and how they work appear
 // once the Burrow is open (lib/site/hub/daily-guess.ts); the quiz and the blind test of the day take their numbers from today's data, and a
@@ -66,6 +68,7 @@ export function HomeSeo({ today, burrow }: { today: HomeToday | null; burrow: bo
   ];
   return (
     <section aria-labelledby="what-h" className="hub-h2-seo">
+      <div className="hub-h2-wrap hub-h2-seo-in">
       <div className="hub-h2-seo-text">
         <h2 id="what-h" className="hub-h2-h2">{ht('hp.seo.title')}</h2>
         <p className="hub-h2-seo-p">{whatIsText(today, burrow)}</p>
@@ -85,6 +88,7 @@ export function HomeSeo({ today, burrow }: { today: HomeToday | null; burrow: bo
           </table>
         </div>
       ) : null}
+      </div>
     </section>
   );
 }

@@ -6,17 +6,21 @@
 // to "press play".
 // Home v3 (2026-10-29, Home.dc.html): the player is one row of Today: the round play button, the name, the bar and the line, and the way to
 // the whole set on its own site.
+// Home v4 (2026-11-10): a tile of "Also today": its icon (the icon slot), the name and the line on top, the play button, the bar and the way to
+// the whole set below. The countdown of the clip stays; the markup of the tile around it is the home's.
 import { useEffect, useRef, useState } from 'react';
 
+import { ArrowIcon } from './home-icons';
+
 interface HomeBlindtestProps {
-  /** The owner's icon of the row (admin, Icônes du jeu: today-blindtest), drawn before the name once saved; absent: the row is as it always was. */
-  readonly mark?: React.ReactNode;
   readonly songs: number;
   readonly seconds: number;
   /** The preview of the first song of the day (about 30 seconds long; the player plays the first `seconds`). */
   readonly previewUrl: string;
   /** The blind test of the day on its own site. */
   readonly href: string;
+  /** The drawn icon of the row (its icon slot), server drawn. */
+  readonly mark: React.ReactNode;
   readonly labels: {
     readonly title: string;
     readonly playAria: string;
@@ -32,7 +36,7 @@ interface HomeBlindtestProps {
   };
 }
 
-export function HomeBlindtest({ songs, seconds, previewUrl, href, labels, mark }: HomeBlindtestProps): React.ReactElement {
+export function HomeBlindtest({ songs, seconds, previewUrl, href, mark, labels }: HomeBlindtestProps): React.ReactElement {
   const [playing, setPlaying] = useState(false);
   const [sec, setSec] = useState(0);
   const timer = useRef<number | null>(null);
@@ -96,20 +100,25 @@ export function HomeBlindtest({ songs, seconds, previewUrl, href, labels, mark }
       ? labels.playing.replace('{sec}', sec < 10 ? `0${sec}` : String(sec))
       : labels.press;
   return (
-    <div className="hub-h2-line hub-h2-btrow">
-      <button type="button" onClick={toggle} aria-label={playing ? labels.pauseAria : labels.playAria} className="hub-h2-btbtn hub-h2-btn">
-        {playing ? (
-          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4.5" width="4" height="15" rx="1" /><rect x="14" y="4.5" width="4" height="15" rx="1" /></svg>
-        ) : (
-          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z" /></svg>
-        )}
-      </button>
-      <span className="hub-h2-btbody">
-        {mark ? <span className="hub-h2-tname hub-h2-tname-mark">{mark}{labels.title}</span> : <span className="hub-h2-tname">{labels.title}</span>}
-        <span className="hub-h2-btbar"><span className="hub-h2-btbar-in" style={{ width: `${(sec / seconds) * 100}%` }} /></span>
-        <span className="hub-h2-btlabel hub-h2-num">{label}</span>
-      </span>
-      <a href={href} className="hub-h2-btall">{labels.all}</a>
-    </div>
+    <>
+      <div className="hub-h2-dt-head">
+        <span aria-hidden="true" className="hub-h2-th hub-h2-th-48">{mark}</span>
+        <span className="hub-h2-dt-body">
+          <span className="hub-h2-rt">{labels.title}</span>
+          <span className="hub-h2-meta hub-h2-num">{label}</span>
+        </span>
+      </div>
+      <div className="hub-h2-dt-foot hub-h2-bt-foot">
+        <button type="button" onClick={toggle} aria-label={playing ? labels.pauseAria : labels.playAria} className="hub-h2-btbtn hub-h2-btn">
+          {playing ? (
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4.5" width="4" height="15" rx="1" /><rect x="14" y="4.5" width="4" height="15" rx="1" /></svg>
+          ) : (
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z" /></svg>
+          )}
+        </button>
+        <span aria-hidden="true" className="hub-h2-btbar"><span className="hub-h2-btbar-in" style={{ width: `${(sec / seconds) * 100}%` }} /></span>
+        <a href={href} className="hub-h2-tl">{labels.all}<ArrowIcon /></a>
+      </div>
+    </>
   );
 }

@@ -8,7 +8,7 @@ import type { DleLocale } from './types';
 
 export interface DleCopy {
   readonly skip: string;
-  readonly navMain: string; readonly navHome: string; readonly navBurrow: string; readonly navQuizzes: string; readonly navBlind: string; readonly navCommunity: string;
+  readonly navMain: string; readonly navHome: string; readonly navBurrow: string; readonly navTab: string; readonly navQuizzes: string; readonly navBlind: string; readonly navCommunity: string;
   readonly left: string;
   readonly langLabel: string; readonly signIn: string; readonly signInTitle: string; readonly signInSub: string; readonly passport: string;
   readonly help: string; readonly stats: string; readonly settings: string; readonly close: string;
@@ -57,7 +57,7 @@ export const formatCount = num;
 
 const EN: DleCopy = {
   skip: 'Skip to content',
-  navMain: 'Main', navHome: 'Home', navBurrow: 'Dle games', navQuizzes: 'Quizzes', navBlind: 'Blind test', navCommunity: 'Community',
+  navMain: 'Main', navHome: 'Home', navBurrow: 'Dle games', navTab: 'Daily games', navQuizzes: 'Quizzes', navBlind: 'Blind test', navCommunity: 'Community',
   left: 'left today',
   langLabel: 'Language', signIn: 'Sign in', signInTitle: 'Sign in to Bunnyverse', signInSub: 'Keep your plays on every device.', passport: 'My passport',
   help: 'How to play', stats: 'Statistics', settings: 'Settings and language', close: 'Close',
@@ -103,7 +103,7 @@ const EN: DleCopy = {
 
 const FR: DleCopy = {
   skip: 'Aller au contenu',
-  navMain: 'Principal', navHome: 'Accueil', navBurrow: 'Jeux dle', navQuizzes: 'Quiz', navBlind: 'Blind test', navCommunity: 'Communauté',
+  navMain: 'Principal', navHome: 'Accueil', navBurrow: 'Jeux dle', navTab: 'Jeux du jour', navQuizzes: 'Quiz', navBlind: 'Blind test', navCommunity: 'Communauté',
   left: 'à jouer aujourd’hui',
   langLabel: 'Langue', signIn: 'Se connecter', signInTitle: 'Connecte-toi à Bunnyverse', signInSub: 'Retrouve tes parties sur tous tes appareils.', passport: 'Mon passport',
   help: 'Comment jouer', stats: 'Statistiques', settings: 'Réglages et langue', close: 'Fermer',

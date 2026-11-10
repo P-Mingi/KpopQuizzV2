@@ -7,6 +7,8 @@
 // left out when there is none). A quiz without its own cover shows the initials of its group on the colour of its site.
 // Owner decision 2026-10-30: a quiz without its own cover shows the photo of its group or series when its own site shows one
 // (lib/site/hub/home-photo.ts, given here as `cover`); the initials are left for the others.
+// Home v4 (2026-11-10, HOME-AUDIT.md S4 and P2-4, validated prototype): "Popular this week". The filter is one dimension, the site (All, KpopQuiz,
+// OtakuQuiz): Start easy is gone from the chips (its list is no longer built here). A row is the whole link to its quiz.
 // Review fix: a site chip whose list is empty is left out too, like Start easy; a chip is only drawn over a list that has quizzes.
 import { useHotFilter } from './home-filter';
 import { ArrowIcon } from './home-icons';
@@ -39,7 +41,6 @@ interface HomeHotProps {
     readonly all: string;
     readonly kpop: string;
     readonly anime: string;
-    readonly easy: string;
     readonly newLabel: string;
   };
 }
@@ -48,10 +49,9 @@ interface HomeHotProps {
  *  to an empty list). */
 export function hotChips(lists: HomeHotProps['lists'], labels: HomeHotProps['labels']): { id: HotFilterId; label: string; dot: string }[] {
   const all: { id: HotFilterId; label: string; dot: string }[] = [
-    { id: 'all', label: labels.all, dot: 'hub-h2-segdot' },
-    { id: 'kpop', label: labels.kpop, dot: 'hub-h2-segdot hub-h2-segdot-k' },
-    { id: 'anime', label: labels.anime, dot: 'hub-h2-segdot hub-h2-segdot-a' },
-    { id: 'easy', label: labels.easy, dot: 'hub-h2-segdot hub-h2-segdot-e' },
+    { id: 'all', label: labels.all, dot: '' },
+    { id: 'kpop', label: labels.kpop, dot: 'hub-h2-sdot hub-h2-sdot-k' },
+    { id: 'anime', label: labels.anime, dot: 'hub-h2-sdot hub-h2-sdot-a' },
   ];
   return all.filter((c) => c.id === 'all' || lists[c.id].length > 0);
 }
@@ -60,43 +60,44 @@ export function HomeHot({ lists, allLinks, labels }: HomeHotProps): React.ReactE
   // The filter is shared with the search button of the top bar (home-filter.tsx).
   const { filter, setFilter } = useHotFilter();
   const chips = hotChips(lists, labels);
-  const shown = lists[filter];
+  const shown = lists[filter] ?? lists.all;
   return (
-    <section id="hot" aria-labelledby="hot-h" className="hub-h2-hot">
-      <div className="hub-h2-hot-head">
-        <div className="hub-h2-hot-title">
+    <div className="hub-h2-hot">
+      <div className="hub-h2-bhead">
+        <div>
           <h2 id="hot-h" className="hub-h2-h2">{labels.title}</h2>
-          <p className="hub-h2-sub">{labels.sub}</p>
-        </div>
-        <div role="group" aria-label={labels.filter} className="hub-h2-seg">
-          {chips.map((c) => (
-            <button key={c.id} type="button" aria-pressed={filter === c.id ? 'true' : 'false'} className="hub-h2-segbtn" onClick={() => setFilter(c.id)}>
-              <span aria-hidden="true" className={c.dot} />{c.label}
-            </button>
-          ))}
+          <p className="hub-h2-body">{labels.sub}</p>
         </div>
       </div>
-      <ol className="hub-h2-lines hub-h2-hot-list">
+      <div role="group" aria-label={labels.filter} className="hub-h2-fchips">
+        {chips.map((c) => (
+          <button key={c.id} type="button" aria-pressed={filter === c.id ? 'true' : 'false'} className="hub-h2-fchip" onClick={() => setFilter(c.id)}>
+            {c.dot ? <span aria-hidden="true" className={c.dot} /> : null}{c.label}
+          </button>
+        ))}
+      </div>
+      <ol className="hub-h2-rows">
         {shown.map((q, i) => (
           <li key={q.href}>
-            <a href={q.href} className={`hub-h2-line hub-h2-hrow ${siteClass(q.site)}`}>
+            <a href={q.href} className={`hub-h2-rr ${siteClass(q.site)}`}>
               <span className="hub-h2-rank hub-h2-num">{i + 1}</span>
-              <span aria-hidden="true" className="hub-h2-th hub-h2-hthumb">
+              <span aria-hidden="true" className="hub-h2-th hub-h2-th-48">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {q.cover ? <img src={q.cover} alt="" width={52} height={52} loading="lazy" decoding="async" className="hub-h2-th-img" /> : q.tile}
+                {q.cover ? <img src={q.cover} alt="" width={48} height={48} loading="lazy" decoding="async" className="hub-h2-th-img" /> : q.tile}
               </span>
               <span className="hub-h2-hbody">
-                <span className="hub-h2-htitle hub-h2-clamp">{q.title}</span>
-                <span className="hub-h2-hmeta"><span aria-hidden="true" className="hub-h2-hdot" />{q.line}</span>
+                <span className="hub-h2-rt hub-h2-hclamp">{q.title}</span>
+                <span className="hub-h2-meta hub-h2-hmeta"><span aria-hidden="true" className="hub-h2-sdot hub-h2-sdot-s" />{q.line}</span>
               </span>
-              {q.plays ? <span className="hub-h2-hplays hub-h2-num">{q.plays}</span> : q.isNew ? <span className="hub-h2-newpill">{labels.newLabel}</span> : null}
+              {q.plays ? <span className="hub-h2-meta hub-h2-num hub-h2-hplays">{q.plays}</span> : q.isNew ? <span className="hub-h2-chip hub-h2-chip-s hub-h2-hplays">{labels.newLabel}</span> : null}
+              <span aria-hidden="true" className="hub-h2-chev"><ArrowIcon /></span>
             </a>
           </li>
         ))}
       </ol>
       <div className="hub-h2-all">
-        {allLinks.map((l) => <a key={l.site} href={l.href} className={`hub-h2-alllink ${siteClass(l.site)}`}>{l.label}<ArrowIcon /></a>)}
+        {allLinks.map((l) => <a key={l.site} href={l.href} className="hub-h2-tl">{l.label}<ArrowIcon /></a>)}
       </div>
-    </section>
+    </div>
   );
 }

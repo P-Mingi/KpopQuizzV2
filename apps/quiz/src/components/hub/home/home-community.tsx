@@ -1,72 +1,64 @@
 // Run O1, lot H2a: "Top fans this week" and the passport, which says what the other sites see and never see (HubShares, the same block as
 // the privacy page) and opens the sign-in sheet, or, signed in, shows the passport of the fan.
 // Lot H2c: the board is left out while no fan has made a profile public; the passport then takes the column.
-// Home v3 (2026-10-29, Home.dc.html): the right column of the third row. Top fans per site, as rows (rank, initial, handle, level when it is
-// public), with K-pop and Anime tabs and the fan's own row marked; then the passport: signed out, the rabbit, the promise and Sign in (the
-// block of what other sites see and never see stays one click away, word for word the privacy page's); signed in, the level of each site
-// the fan joined and the way to the next one; its heading is the link to the fan's passport page (/passport).
-import { HubShares } from '@/components/hub/hub-shares';
+// Home v4 (2026-11-10, HOME-AUDIT.md S6, validated prototype): the Community band (id "community"): the debate of the day and Top fans this week,
+// two cards. The passport left this block: the account card (guest) and "Your day" (signed in) are in the hero. A card whose data is missing
+// is left out, and the band with it when both are (its tab then leaves the top bar too). The debate is a link to its page on its site; the
+// prototype's Agree and Disagree buttons do not exist as data, so the card offers "Vote" there.
 import { ht } from '@/lib/site/hub/copy';
+import { homeUrl } from '@/lib/site/hub/home-types';
 
 import { HomeFans } from './home-fans';
-import { HomeSignIn } from './home-signin';
-import { RabbitMark } from './home-ui';
-import { PASSPORT_PATH, siteName } from './home-names';
-import { siteClass } from './site-class';
+import { ArrowIcon } from './home-icons';
+import { Mark } from './home-today';
+import { PASSPORT_PATH } from './home-names';
 
-import type { HomeFans as HomeFansData, HomeViewer } from '@/lib/site/hub/home-types';
+import type { LiveIcons } from '@/lib/photos/icons-read';
+import type { HomeAssets } from '@/lib/site/hub/home-assets';
+import type { HomeDebate, HomeFans as HomeFansData, HomeViewer } from '@/lib/site/hub/home-types';
 
-function Passport({ viewer, heading }: { viewer: HomeViewer | null; heading: 'h2' | 'h3' }): React.ReactElement {
-  const H = heading;
-  if (!viewer) {
-    return (
-      <div id="passport" className="hub-h2-pass">
-        <div className="hub-h2-pass-out">
-          <RabbitMark size={48} className="hub-h2-pass-mk" />
-          <span className="hub-h2-pass-body">
-            <H className="hub-h2-pass-h">{ht('hp.pass.title')}</H>
-            <span className="hub-h2-pass-p">{ht('hp.pass.lede')}</span>
-          </span>
-          <HomeSignIn label={ht('hp.pass.cta')} sheetTitle={ht('home.signInSheetTitle')} sheetSub={ht('home.signInSheetSub')} className="hub-h2-pass-cta hub-h2-btn" />
-        </div>
-        <details className="hub-h2-pass-shares">
-          <summary className="hub-h2-pass-sum">{ht('hp.pass.shares')}</summary>
-          <HubShares variant="home" />
-        </details>
-      </div>
-    );
-  }
-  const sites = (['kpop', 'anime'] as const).filter((s) => viewer.sites[s]);
-  return (
-    <div id="passport" className="hub-h2-pass hub-h2-pass-in">
-      <H className="hub-h2-pass-h"><a href={PASSPORT_PATH} className="hub-h2-pass-link">{ht('hp.pass.mine', { name: viewer.username })}</a></H>
-      {sites.map((s) => {
-        const lv = viewer.sites[s]!;
-        return (
-          <div key={s} className={`hub-h2-pass-site ${siteClass(s)}`}>
-            <span className="hub-h2-pass-row">
-              <span className="hub-h2-pass-name">{ht('hp.pass.site', { name: siteName(s), level: lv.level })}</span>
-              <span className="hub-h2-pass-next">{ht('hp.pass.toNext', { pct: lv.progress, next: lv.level + 1 })}</span>
-            </span>
-            <span aria-hidden="true" className="hub-h2-bar"><span className="hub-h2-bar-in" style={{ width: `${lv.progress}%` }} /></span>
-          </div>
-        );
-      })}
-    </div>
-  );
+/** What the band shows: its sentence follows what it has. */
+export function communitySub(hasDebate: boolean, hasFans: boolean): string | null {
+  return hasDebate && hasFans ? ht('hp.comm.subBoth') : hasDebate ? ht('hp.comm.subDebate') : hasFans ? ht('hp.comm.subFans') : null;
 }
 
-export function HomeCommunity({ fans, viewer, hasFans }: { fans: HomeFansData; viewer: HomeViewer | null; hasFans: boolean }): React.ReactElement {
+export function HomeCommunity({ fans, viewer, debate, assets, icons }: { fans: HomeFansData; viewer: HomeViewer | null; debate: HomeDebate | null; assets: HomeAssets; icons: LiveIcons }): React.ReactElement | null {
+  const hasFans = fans.kpop.length > 0 || fans.anime.length > 0;
+  const sub = communitySub(debate !== null, hasFans);
+  if (sub === null) return null;
   return (
-    <aside id="fans" aria-labelledby={hasFans ? 'top-h' : undefined} aria-label={hasFans ? undefined : ht('hp.pass.title')} className="hub-h2-fans">
-      {hasFans ? (
-        <HomeFans
-          fans={fans}
-          me={viewer?.username ?? null}
-          labels={{ title: ht('hp.top.title'), group: ht('hp.top.site'), kpop: ht('hp.top.kpop'), anime: ht('hp.top.anime'), lv: ht('hp.top.lv', { level: '{level}' }) }}
-        />
-      ) : null}
-      <Passport viewer={viewer} heading={hasFans ? 'h3' : 'h2'} />
-    </aside>
+    <section id="community" aria-labelledby="community-h" className="hub-h2-band hub-h2-wrap">
+      <div className="hub-h2-bhead">
+        <div>
+          <h2 id="community-h" className="hub-h2-h2">{ht('hp.comm.title')}</h2>
+          <p className="hub-h2-body">{sub}</p>
+        </div>
+      </div>
+      <div className="hub-h2-comm">
+        {debate ? (
+          <article aria-labelledby="debate-h" className="hub-h2-card hub-h2-debate">
+            <div className="hub-h2-debate-top">
+              <span aria-hidden="true" className="hub-h2-th hub-h2-th-48"><Mark assetKey="debate" assets={assets} icons={icons} size={48} /></span>
+              <div>
+                <h3 id="debate-h" className="hub-h2-h3">{ht('hp.today.debate')}</h3>
+                <p className="hub-h2-meta">{ht('hp.comm.debateSub')}</p>
+              </div>
+            </div>
+            <p className="hub-h2-quote">{debate.title}</p>
+            <a href={homeUrl(debate)} className="hub-h2-cta hub-h2-cta-line hub-h2-btn">{ht('hp.today.vote')}<ArrowIcon /></a>
+          </article>
+        ) : null}
+        {hasFans ? (
+          <article aria-labelledby="top-h" className="hub-h2-card hub-h2-fans">
+            <HomeFans
+              fans={fans}
+              me={viewer?.username ?? null}
+              labels={{ title: ht('hp.top.title'), group: ht('hp.top.site'), kpop: ht('hp.top.kpop'), anime: ht('hp.top.anime'), lv: ht('hp.top.lv', { level: '{level}' }), you: ht('hp.top.you') }}
+            />
+            {viewer ? <a href={PASSPORT_PATH} className="hub-h2-tl">{ht('hp.comm.fansOpen')}<ArrowIcon /></a> : null}
+          </article>
+        ) : null}
+      </div>
+    </section>
   );
 }
