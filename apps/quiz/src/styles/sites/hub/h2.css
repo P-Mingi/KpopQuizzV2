@@ -78,7 +78,9 @@ html.ux-v1[data-site="hub"] .hub-h2-actions { display: flex; align-items: center
 html.ux-v1[data-site="hub"] .hub-h2-iconbtn { width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--ux-edge); background: var(--ux-raised); display: grid; place-items: center; cursor: pointer; color: var(--ux-ink); text-decoration: none; box-sizing: border-box; }
 html.ux-v1[data-site="hub"] .hub-h2-solid { min-height: 44px; padding: 0 20px; border-radius: 999px; border: 0; background: var(--ux-ink); color: var(--ux-page); font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; }
 html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-me { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 14px 4px 4px; border-radius: 999px; border: 1px solid var(--ux-line); background: var(--ux-raised); text-decoration: none; color: var(--ux-ink); font-weight: 700; font-size: 15px; }
-html.ux-v1[data-site="hub"] .hub-h2-me-av { width: 34px; height: 34px; border-radius: 50%; background: var(--ux-ink); color: var(--ux-page); display: grid; place-items: center; font-size: 15px; }
+html.ux-v1[data-site="hub"] .hub-h2-me-av { width: 34px; height: 34px; border-radius: 50%; background: var(--ux-ink); color: var(--ux-page); display: grid; place-items: center; font-size: 15px; overflow: hidden; }
+/* the signed-in fan's photo (components/hub/hub-me-avatar.tsx) fills the round box of the initial */
+html.ux-v1[data-site="hub"] .hub-h2-me-av img, html.ux-v1[data-site="hub"] .hub-h2-av img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 
 html.ux-v1[data-site="hub"] .hub-h2-main { display: block; }
 
@@ -122,7 +124,7 @@ html.ux-v1[data-site="hub"] .hub-h2-card { background: var(--ux-raised); border:
 html.ux-v1[data-site="hub"] .hub-h2-th { flex: none; display: grid; place-items: center; overflow: hidden; font-family: var(--font-dm-mono), "DM Mono", ui-monospace, monospace; font-weight: 500; background: var(--hub-s-soft); color: var(--hub-s-ink); }
 html.ux-v1[data-site="hub"] .hub-h2-th-48 { width: 48px; height: 48px; border-radius: 12px; font-size: 15px; }
 html.ux-v1[data-site="hub"] .hub-h2-th-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-html.ux-v1[data-site="hub"] .hub-h2-av { display: inline-grid; place-items: center; flex: none; border-radius: 50%; font-weight: 700; line-height: 1; background: var(--hub-s-soft, var(--ux-surface)); color: var(--hub-s-ink, var(--ux-ink)); }
+html.ux-v1[data-site="hub"] .hub-h2-av { display: inline-grid; place-items: center; flex: none; overflow: hidden; border-radius: 50%; font-weight: 700; line-height: 1; background: var(--hub-s-soft, var(--ux-surface)); color: var(--hub-s-ink, var(--ux-ink)); }
 html.ux-v1[data-site="hub"] .hub-h2-av-lg { width: 48px; height: 48px; font-size: 20px; background: var(--ux-ink); color: var(--ux-page); }
 html.ux-v1[data-site="hub"] .hub-h2-av-sm { width: 32px; height: 32px; font-size: 13px; }
 html.ux-v1[data-site="hub"] .hub-h2-av-top { background: var(--hub-s); color: var(--hub-white); }

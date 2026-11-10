@@ -11,7 +11,7 @@ COLLISION-MAP 1.7 and row 18.
 
 ## 1. The frozen names
 
-### 1.1 Existing names: every `--ux-*` name a0.css declares on its token blocks (75)
+### 1.1 Existing names: every `--ux-*` name a0.css declares on its token blocks (77)
 
 Token blocks are the rules whose every selector is `html.ux-v1`, `html.ux-v1.dark`, `html.ux-v1:not(.light)` (inside
 the system dark media query), `.ux-theme-light` or `.ux-theme-dark`, in the A0 part and the v12 part of the file.
@@ -24,6 +24,7 @@ In file order:
 | text | `ink`, `muted` |
 | accent (anime orange and hub accent live here, so no kpop rule changes) | `pink`, `pink-fill`, `pink-fill-h`, `pink-ink`, `pink-soft`, `pink-soft-ink` |
 | feedback | `ok`, `ok-soft`, `no`, `no-soft`, `warn`, `on-ok`, `knob-off` |
+| dle states (owner, 2026-11-10: Close is orange with stripes; the modules of the homes draw them) | `close`, `close-2` |
 | glass, depth | `nav-bg`, `tabbar-bg`, `photo-edge`, `shadow-card`, `shadow-ov`, `scrim` |
 | decorative grounds | `theme-band`, `qotd-bg`, `qotd-edge`, `bt-bg`, `lav-soft`, `lav-ink`, `hl`, `bulb`, `bulb-fill` |
 | category accents | `acc-pink`, `acc-purple`, `acc-blue`, `acc-teal`, `acc-amber`, `acc-coral` |

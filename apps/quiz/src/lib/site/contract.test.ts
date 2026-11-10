@@ -265,7 +265,8 @@ describe('theme token names (tokens.md 1)', () => {
     const declared = tokenBlockNames(a0);
     for (const n of UX_TOKEN_NAMES) expect(declared, n).toContain(n);
     expect(declared.filter((n) => !(UX_TOKEN_NAMES as readonly string[]).includes(n) && n !== 'on-accent')).toEqual([]);
-    expect(UX_TOKEN_NAMES).toHaveLength(75);
+    // was 75: the owner added `close` and `close-2` on 2026-11-10 (the orange of the Close state of the dle games)
+    expect(UX_TOKEN_NAMES).toHaveLength(77);
   });
 
   it('kpop sheets never declare or read a site-only token', () => {

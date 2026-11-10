@@ -5,6 +5,8 @@
 // noindex); the signed-in fan's own row is marked. The first fan's initial sits on the colour of the board's site.
 import { useState } from 'react';
 
+import { HubMeAvatar } from '@/components/hub/hub-me-avatar';
+
 import { siteClass } from './site-class';
 
 import type { HomeFans as HomeFansData, HomeSite } from '@/lib/site/hub/home-types';
@@ -42,7 +44,7 @@ export function HomeFans({ fans, me, labels }: HomeFansProps): React.ReactElemen
             <li key={f.handle}>
               <a href={`/u/${encodeURIComponent(f.handle)}`} className={`hub-h2-frow${mine ? ' hub-h2-frow-me' : ''}`}>
                 <span className="hub-h2-fan-rank hub-h2-num">{i + 1}</span>
-                <span aria-hidden="true" className={`hub-h2-av hub-h2-av-sm${i === 0 ? ' hub-h2-av-top' : ''}`}>{f.handle.charAt(0).toUpperCase()}</span>
+                <span aria-hidden="true" className={`hub-h2-av hub-h2-av-sm${i === 0 ? ' hub-h2-av-top' : ''}`}>{mine ? <HubMeAvatar initial={f.handle.charAt(0).toUpperCase()} size={32} /> : f.handle.charAt(0).toUpperCase()}</span>
                 <span className="hub-h2-fan-name">
                   <span className="hub-h2-rt hub-h2-fan-handle">@{f.handle}</span>
                   {f.level !== null ? <span className="hub-h2-meta hub-h2-num">{labels.lv.replace('{level}', String(f.level))}</span> : null}

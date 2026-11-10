@@ -14,6 +14,8 @@ import { BURROW_PATHS } from '@/lib/site/hub/daily-guess';
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
+import { HubMeAvatar } from '@/components/hub/hub-me-avatar';
+
 import { HomeNavBadge } from './home-day';
 import { HomeSearch } from './home-filter';
 import { PASSPORT_PATH, siteName } from './home-names';
@@ -58,7 +60,7 @@ export function HomeNav({ viewer, sections, burrow }: { viewer: HomeViewer | nul
           />
           {viewer ? (
             <a href={PASSPORT_PATH} aria-label={levelsAria ? ht('hp.nav.levelAria', { levels: levelsAria }) : undefined} className="hub-h2-me">
-              <span aria-hidden="true" className="hub-h2-me-av">{viewer.username.charAt(0).toUpperCase()}</span>{ht('hp.nav.level', { level: viewer.level })}
+              <span aria-hidden="true" className="hub-h2-me-av"><HubMeAvatar initial={viewer.username.charAt(0).toUpperCase()} size={34} /></span>{ht('hp.nav.level', { level: viewer.level })}
             </a>
           ) : (
             <HomeSignIn label={ht('hp.nav.signIn')} sheetTitle={ht('home.signInSheetTitle')} sheetSub={ht('home.signInSheetSub')} className="hub-h2-solid hub-h2-btn" />

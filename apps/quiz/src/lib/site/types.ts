@@ -212,6 +212,8 @@ export const UX_TOKEN_NAMES = [
   'lt-a', 'lt-b', 'lt-c', 'lt-d',
   'th-hits26', 'th-hits25', 'th-gen5', 'th-gen4', 'th-viral', 'th-kpdh', 'th-title', 'th-ink',
   'host-bg', 'good', 'good-soft',
+  // owner, 2026-11-10: the Close state of the dle games (orange, with the stripes), for the modules of the homes; declared in a0.css next to `warn`
+  'close', 'close-2',
 ] as const;
 
 /**
