@@ -332,6 +332,9 @@ html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-foot-a:hover { color: var(--ux-
 html.ux-v1[data-site="hub"] .hub-h2-foot-mail { display: inline-flex; align-items: center; min-height: 32px; color: var(--ux-muted); }
 
 @media (max-width: 980px) {
+  html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-foot-a, html.ux-v1[data-site="hub"] .hub-h2-foot-mail, html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-ql { min-height: 44px; }
+  html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-site-link { display: inline-flex; align-items: center; min-height: 44px; }
+  html.ux-v1[data-site="hub"] .hub-h2-brand { min-height: 44px; }
   html.ux-v1[data-site="hub"] .hub-h2-hero-text { flex-basis: 100%; max-width: none; }
   html.ux-v1[data-site="hub"] .hub-h2-hero-card { flex-basis: 100%; }
 }
@@ -393,7 +396,6 @@ html.ux-v1[data-site="hub"] .hub-h2-foot-mail { display: inline-flex; align-item
   html.ux-v1[data-site="hub"] .hub-h2-debate, html.ux-v1[data-site="hub"] .hub-h2-fans { padding: 16px; }
   html.ux-v1[data-site="hub"] .hub-h2-seo-in { padding-top: 48px; padding-bottom: 48px; gap: 32px; }
   html.ux-v1[data-site="hub"] .hub-h2-foot-in { padding-top: 32px; padding-bottom: 32px; }
-  html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-foot-a, html.ux-v1[data-site="hub"] .hub-h2-foot-mail, html.ux-v1[data-site="hub"] .hub-h2-home .hub-h2-ql { min-height: 44px; }
   html.ux-v1[data-site="hub"] .hub-h2-nav { padding: 8px 16px; gap: 4px 12px; }
   html.ux-v1[data-site="hub"] .hub-h2-actions { margin-left: auto; }
   html.ux-v1[data-site="hub"] .hub-h2-tabs { order: 3; flex: 1 1 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
