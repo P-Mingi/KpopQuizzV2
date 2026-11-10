@@ -188,6 +188,14 @@ const CODE_WORDS: Readonly<Record<ImageErrorCode | 'not_found', string>> = {
   not_free: 'This file is not under a free licence, so it cannot be used. Choose another file.',
   commons_missing: 'That file does not exist on Wikimedia Commons. Check the address.',
   commons_failed: 'Wikimedia Commons did not answer. Try again in a moment.',
+  // the character references screen (Photos tab) has its own words; these only keep the table complete
+  no_candidate: 'There is no free picture to publish yet.',
+  same_picture: 'This is the same picture as the reference. Choose a free one.',
+  fandom_source: 'A Fandom address cannot be the source of a published picture.',
+  fandom_license_url: 'A Fandom address cannot be the address of a licence.',
+  bad_license: 'Choose a licence from the list.',
+  same_license: 'This is the licence of the reference, not a free one.',
+  refs_missing: 'The references table is not there yet.',
 };
 
 const KNOWN_CODES = CODE_WORDS as Readonly<Record<string, string>>;

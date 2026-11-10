@@ -5,7 +5,9 @@ export type ImageErrorCode =
   | 'too_large' | 'unsupported_type' | 'invalid_image' | 'image_too_small'
   | 'bad_url' | 'blocked_address' | 'dns_failed' | 'too_many_redirects' | 'timeout' | 'fetch_failed'
   | 'storage_failed' | 'db_failed' | 'server_error' | 'forbidden'
-  | 'not_free' | 'commons_missing' | 'commons_failed';
+  | 'not_free' | 'commons_missing' | 'commons_failed'
+  // the screen of the character references (lane charrefs, L32)
+  | 'no_candidate' | 'same_picture' | 'fandom_source' | 'fandom_license_url' | 'bad_license' | 'same_license' | 'refs_missing';
 
 export class ImageError extends Error {
   readonly code: ImageErrorCode;
