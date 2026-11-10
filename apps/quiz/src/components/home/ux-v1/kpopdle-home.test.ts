@@ -214,6 +214,23 @@ describe('what keeps the flag-off home byte-identical (read from the sources)', 
   });
 });
 
+describe('the same look as the Daily games module of OtakuQuiz (o1/slots, 2026-11-10)', () => {
+  const src = (f: string): string => readFileSync(new URL(f, import.meta.url), 'utf8');
+  const kp = src('./kpopdle-home.tsx');
+  const an = src('./anime-daily-home.tsx');
+
+  it('draws the title size and the button the same way (the near stripes stay the strong red, owner 2026-11-08: state-colours.test.ts)', () => {
+    expect(kp).toContain('.p1-kd-main h3 { font-size: 20px;');
+    expect(an).toContain('.p5-ad-main h3 { font-size: 20px;');
+    expect(kp).toContain('justify-content: center');
+  });
+
+  it('stacks the tiles, the text and a full-width button on a phone, as the OtakuQuiz cards do', () => {
+    expect(kp).toContain('.p1-kd-card { flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; }');
+    expect(kp).toContain('.p1-kd-go { width: 100%; box-sizing: border-box; }');
+  });
+});
+
 describe('ink floor: the tokens the module writes with, on the card, both themes', () => {
   const lum = (hex: string): number => {
     const v = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));

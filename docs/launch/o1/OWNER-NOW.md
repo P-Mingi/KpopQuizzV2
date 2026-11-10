@@ -606,6 +606,7 @@ Vercel, `kpopquiz` seulement, Production : la clé ci-dessous, valeur `1`. Redé
 ```
 NET_KPOPDLE_HOME
 ```
+C'est aussi la deuxième ligne de la liste « Ouvrir au public » de [PRIVATE-LAUNCH.md](PRIVATE-LAUNCH.md), à côté de `PRIVATE_LAUNCH=0` : le bloc mène au hub, qui reste fermé tant que `PRIVATE_LAUNCH` vaut 1. Les deux se font le même jour, dans cet ordre.
 Vérif (worker) : RUNBOOK L3c (un seul lien vers `/kpopdle` dans le HTML de l'accueil, un seul H1, aucun nom d'idol, V1 : seule `/` change). Retour : retire la clé, redéploie `kpopquiz`.
 
 ### 61 ter. La ligne Kpopdle en fin de quiz et la carte sur les pages de groupe, le jour J

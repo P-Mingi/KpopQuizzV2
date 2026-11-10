@@ -33,7 +33,10 @@ Pour retirer l'accès de ce navigateur : bunnyverse.org/auth/private-launch/leav
 
 ## Ouvrir au public
 
-`PRIVATE_LAUNCH=0` (la variable partagée, ou celle de chaque projet), puis Redeploy de fandomverse et d'otakuquiz. Rien d'autre.
+1. `PRIVATE_LAUNCH=0` (la variable partagée, ou celle de chaque projet), puis Redeploy de fandomverse et d'otakuquiz.
+2. `NET_KPOPDLE_HOME=1` sur le projet `kpopquiz` seulement (Production), puis Redeploy de `kpopquiz`. Raison : le bloc Kpopdle de l'accueil de kpopquiz.org mène à bunnyverse.org, fermé tant que `PRIVATE_LAUNCH` vaut 1. Il reste donc éteint (variable absente) jusqu'à l'ouverture. Retour : retire la clé, redéploie `kpopquiz`. Détail : RUNBOOK L3c.
+
+Rien d'autre.
 (`PRIVATE_LAUNCH_ALLOW` et `PRIVATE_LAUNCH_KEY` peuvent rester, ils ne servent plus.)
 
 ## Vérifier, dans cet ordre
