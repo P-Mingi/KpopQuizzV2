@@ -220,6 +220,8 @@ const ANIME: SiteConfig = {
       '/which-{series}-character-are-you', '/{series}-openings-quiz',
       '/name-all/{series}/{set}', '/daily', '/opening-of-the-day',
       '/create/**', '/me', '/u/{username}', '/settings/**', '/login', '/onboarding/**',
+      // Owner, 2026-11-09: the Passport door of the chrome, a redirect to /me as on kpopquiz.org (app/sites/[site]/(anime)/profile).
+      '/profile',
       '/notifications', '/search', '/community/**', '/about', '/editorial-policy', '/privacy',
       '/terms', '/contact', '/admin/**', '/legal',
       // CR-001 (rule 18): the twins of the browse, help and board pages (TWINS rows 31 to 36).

@@ -24,6 +24,8 @@ const FILES: [file: string, tag: string][] = [
   ['L22-l1-otakudle-facts-corrections.rollback.sql', 'o1l22r'],
   ['L23-l1-otakudle-first-adaptation.sql', 'o1l23'],
   ['L23-l1-otakudle-first-adaptation.rollback.sql', 'o1l23r'],
+  ['L28-l1-quiz-merges.sql', 'o1l28'],
+  ['L28-l1-quiz-merges.rollback.sql', 'o1l28r'],
 ];
 
 describe('launch files the owner may run from the Supabase SQL Editor are one DO block', () => {

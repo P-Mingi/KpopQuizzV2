@@ -1,0 +1,878 @@
+[
+  {
+    "site": "kpop",
+    "width": 375,
+    "auth": "out",
+    "file": "kpop-375-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 137,
+      "bottom": 363,
+      "h": 226,
+      "visible": true
+    },
+    "cta": {
+      "top": 323,
+      "bottom": 363,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": false,
+    "createVisible": true,
+    "chip": {
+      "top": 259,
+      "bottom": 311,
+      "h": 52,
+      "visible": true
+    },
+    "surprise": {
+      "top": 367,
+      "bottom": 407,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "viewportH": 812,
+    "checks": {
+      "one_quiz_of_the_day": true,
+      "chip_play_above_fold": true,
+      "no_browse_button": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "no_hidden_copy": true
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 375,
+    "auth": "in",
+    "file": "kpop-375-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 137,
+      "bottom": 386,
+      "h": 249,
+      "visible": true
+    },
+    "cta": {
+      "top": 346,
+      "bottom": 386,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": false,
+    "createVisible": true,
+    "chip": {
+      "top": 281,
+      "bottom": 334,
+      "h": 52,
+      "visible": true
+    },
+    "surprise": {
+      "top": 390,
+      "bottom": 430,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "viewportH": 812,
+    "checks": {
+      "one_quiz_of_the_day": true,
+      "chip_play_above_fold": true,
+      "no_browse_button": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "no_hidden_copy": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 768,
+    "auth": "out",
+    "file": "kpop-768-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 361,
+      "h": 180,
+      "visible": true
+    },
+    "cta": {
+      "top": 321,
+      "bottom": 361,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 385,
+      "bottom": 425,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 469,
+      "bottom": 597,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 1024,
+    "checks": {
+      "order_surprise_before_qotd": true,
+      "no_overlap_surprise_qotd": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 768,
+    "auth": "in",
+    "file": "kpop-768-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 385,
+      "h": 204,
+      "visible": true
+    },
+    "cta": {
+      "top": 345,
+      "bottom": 385,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 409,
+      "bottom": 449,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 493,
+      "bottom": 621,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 1024,
+    "checks": {
+      "order_surprise_before_qotd": true,
+      "no_overlap_surprise_qotd": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1280,
+    "auth": "out",
+    "file": "kpop-1280-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 364,
+      "h": 183,
+      "visible": true
+    },
+    "cta": {
+      "top": 324,
+      "bottom": 364,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 388,
+      "bottom": 428,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 472,
+      "bottom": 600,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": true,
+      "no_overlap_surprise_qotd": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1280,
+    "auth": "in",
+    "file": "kpop-1280-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 388,
+      "h": 207,
+      "visible": true
+    },
+    "cta": {
+      "top": 348,
+      "bottom": 388,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 412,
+      "bottom": 452,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 496,
+      "bottom": 624,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": true,
+      "no_overlap_surprise_qotd": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1440,
+    "auth": "out",
+    "file": "kpop-1440-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 364,
+      "h": 183,
+      "visible": true
+    },
+    "cta": {
+      "top": 324,
+      "bottom": 364,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 388,
+      "bottom": 428,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 472,
+      "bottom": 600,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": true,
+      "no_overlap_surprise_qotd": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true
+    }
+  },
+  {
+    "site": "kpop",
+    "width": 1440,
+    "auth": "in",
+    "file": "kpop-1440-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 388,
+      "h": 207,
+      "visible": true
+    },
+    "cta": {
+      "top": 348,
+      "bottom": 388,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/quizzes",
+        "text": "Browse K-pop quizzes"
+      },
+      {
+        "href": "/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": true,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": {
+      "top": 0,
+      "bottom": 0,
+      "h": 0,
+      "visible": false
+    },
+    "surprise": {
+      "top": 412,
+      "bottom": 452,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": {
+      "top": 496,
+      "bottom": 624,
+      "h": 128,
+      "visible": true
+    },
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": true,
+      "no_overlap_surprise_qotd": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "anime",
+    "width": 375,
+    "auth": "out",
+    "file": "anime-375-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 137,
+      "bottom": 299,
+      "h": 162,
+      "visible": true
+    },
+    "cta": {
+      "top": 259,
+      "bottom": 299,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": false,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 303,
+      "bottom": 343,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 812,
+    "checks": {
+      "one_quiz_of_the_day": null,
+      "chip_play_above_fold": null,
+      "no_browse_button": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "no_hidden_copy": true
+    }
+  },
+  {
+    "site": "anime",
+    "width": 375,
+    "auth": "in",
+    "file": "anime-375-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 137,
+      "bottom": 299,
+      "h": 162,
+      "visible": true
+    },
+    "cta": {
+      "top": 259,
+      "bottom": 299,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": false,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 303,
+      "bottom": 343,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 812,
+    "checks": {
+      "one_quiz_of_the_day": null,
+      "chip_play_above_fold": null,
+      "no_browse_button": true,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "no_hidden_copy": true,
+      "same_header_height_as_guest": true
+    }
+  },
+  {
+    "site": "anime",
+    "width": 768,
+    "auth": "out",
+    "file": "anime-768-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 361,
+      "h": 180,
+      "visible": true
+    },
+    "cta": {
+      "top": 321,
+      "bottom": 361,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 385,
+      "bottom": 425,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 1024,
+    "checks": {
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true
+    }
+  },
+  {
+    "site": "anime",
+    "width": 768,
+    "auth": "in",
+    "file": "anime-768-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 385,
+      "h": 204,
+      "visible": true
+    },
+    "cta": {
+      "top": 345,
+      "bottom": 385,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 409,
+      "bottom": 449,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 1024,
+    "checks": {
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "anime",
+    "width": 1280,
+    "auth": "out",
+    "file": "anime-1280-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 364,
+      "h": 183,
+      "visible": true
+    },
+    "cta": {
+      "top": 324,
+      "bottom": 364,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 388,
+      "bottom": 428,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true
+    }
+  },
+  {
+    "site": "anime",
+    "width": 1280,
+    "auth": "in",
+    "file": "anime-1280-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 388,
+      "h": 207,
+      "visible": true
+    },
+    "cta": {
+      "top": 348,
+      "bottom": 388,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 412,
+      "bottom": 452,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "same_header_height_as_guest": false
+    }
+  },
+  {
+    "site": "anime",
+    "width": 1440,
+    "auth": "out",
+    "file": "anime-1440-out-after.png",
+    "headerAuth": "out",
+    "header": {
+      "top": 181,
+      "bottom": 364,
+      "h": 183,
+      "visible": true
+    },
+    "cta": {
+      "top": 324,
+      "bottom": 364,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 388,
+      "bottom": 428,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true
+    }
+  },
+  {
+    "site": "anime",
+    "width": 1440,
+    "auth": "in",
+    "file": "anime-1440-in-after.png",
+    "headerAuth": "in",
+    "header": {
+      "top": 181,
+      "bottom": 388,
+      "h": 207,
+      "visible": true
+    },
+    "cta": {
+      "top": 348,
+      "bottom": 388,
+      "h": 40,
+      "visible": true
+    },
+    "ctaLinks": [
+      {
+        "href": "/anime/quizzes",
+        "text": "Browse anime quizzes"
+      },
+      {
+        "href": "/anime/create",
+        "text": "Create a quiz"
+      }
+    ],
+    "hiddenCopy": false,
+    "qotdShown": false,
+    "browseVisible": true,
+    "createVisible": true,
+    "chip": null,
+    "surprise": {
+      "top": 412,
+      "bottom": 452,
+      "h": 40,
+      "visible": true
+    },
+    "qotd": null,
+    "viewportH": 900,
+    "checks": {
+      "order_surprise_before_qotd": null,
+      "no_overlap_surprise_qotd": null,
+      "no_overlap_cta_surprise": true,
+      "header_state_as_asked": true,
+      "two_real_buttons": true,
+      "same_header_height_as_guest": false
+    }
+  }
+]

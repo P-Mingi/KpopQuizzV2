@@ -6,7 +6,7 @@ import { NAME_ALL_GROUPS } from '@/lib/name-all/spellings';
 import { prettyPath } from '@/lib/name-all/round';
 import { isKnownRouteWith } from '@/lib/route-allowlist';
 import {
-  LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, RETIRED_FAMILIES, RETIRED_PAGES, battleQuizSlug, legacyAnswer,
+  CLICKED_LEGACY_REDIRECTS, LEGACY_GROUP_ALIASES, LEGACY_NAME_ALL_PREFIX, RETIRED_FAMILIES, RETIRED_PAGES, battleQuizSlug, clickedLegacyAnswer, legacyAnswer,
   legacyNameAllAnswer, retiredFeatureAnswer, PORTUGUESE_PAGES, portugueseAnswer,
   BLINDTEST_PATH, LEGACY_BLIND_TEST_HANDLER, LEGACY_BLIND_TEST_PATH, LEGACY_PATH_HEADER, LEGACY_SEARCH_HEADER,
   battleQuizRef, blindTestAnswer,
@@ -158,10 +158,14 @@ const RETIRED_URLS = [
 ];
 
 describe('retired features: 410, never a generic page (owner, 2026-10-15)', () => {
-  it.each(RETIRED_URLS)('%s answers 410', (p) => {
+  // Owner, 2026-11-09: the retired URLs that still earned clicks (CLICKED_LEGACY_REDIRECTS, below) answer their 301 first; their
+  // families stay 410 (retiredFeatureAnswer is unchanged for every URL of the list).
+  it.each(RETIRED_URLS)('%s answers 410 (or its clicked 301)', (p) => {
     expect(retiredFeatureAnswer(p)).toEqual({ status: 410 });
-    expect(legacyAnswer(p, LIVE)).toEqual({ status: 410 });
-    expect(legacyAnswer(p, false)).toEqual({ status: 410 });
+    const clicked = CLICKED_LEGACY_REDIRECTS[p];
+    const want = clicked ? { status: 301, location: clicked } : { status: 410 };
+    expect(legacyAnswer(p, LIVE)).toEqual(want);
+    expect(legacyAnswer(p, false)).toEqual(want);
   });
 
   it('every family root and page is in the list above', () => {
@@ -373,5 +377,56 @@ describe('/blind-test: 301 only to a /blindtest page that renders, else 410 (own
     const handler = fileURLToPath(new URL(`../../app${LEGACY_BLIND_TEST_HANDLER}/route.ts`, import.meta.url));
     expect(readFileSync(handler, 'utf8')).toContain('blindTestAnswer');
     for (const flags of [{ v1: false, v12: false }, BOTH]) expect(isKnownRouteWith(LEGACY_BLIND_TEST_HANDLER, flags)).toBe(true);
+  });
+});
+
+// Owner, 2026-11-09 (audit 03 triage of Search Console, 90 days): the 14 retired URLs that still earned clicks go 301, one hop, to the
+// page that serves them today (the 15th, /q/only-real-monstiez, is a quiz merge: quiz-redirects.ts). The table is frozen here.
+describe('retired URLs with clicks: one 301 to the page of today (owner, 2026-11-09)', () => {
+  const CLICKED: Array<[string, string]> = [
+    ['/games', '/kpop-games'],
+    ['/games/this-or-that', '/kpop-games'],
+    ['/games/name-them-all/name-all-kpop-groups', '/kpop-games'],
+    ['/tier-list', '/kpop-games'],
+    ['/games/match-up/song-title-halves', '/guess-the-kpop-song'],
+    ['/games/match-up/song-to-group', '/guess-the-kpop-song'],
+    ['/games/name-all/name-all-babymonster', '/babymonster-quiz'],
+    ['/games/name-all/name-all-nmixx', '/nmixx-quiz'],
+    ['/games/name-all/name-top-5-aespa-songs', '/aespa-quiz'],
+    ['/games/sort-it/3rd-gen-or-4th-gen', '/articles/kpop-generations-explained'],
+    ['/rankings/general/4th-gen-groups', '/articles/kpop-generations-explained'],
+    ['/rankings/general/girl-groups', '/groups'],
+    ['/tier-list/l/aespa-members', '/aespa-quiz'],
+    ['/tier-list/l/bts-members-2', '/bts-quiz'],
+  ];
+
+  it('is exactly the approved table', () => {
+    expect(Object.entries(CLICKED_LEGACY_REDIRECTS)).toEqual(CLICKED);
+  });
+
+  it.each(CLICKED)('%s answers 301 to %s in both flag states, with or without a trailing slash', (from, to) => {
+    expect(legacyAnswer(from, LIVE)).toEqual({ status: 301, location: to });
+    expect(legacyAnswer(from, false)).toEqual({ status: 301, location: to });
+    expect(clickedLegacyAnswer(`${from}/`)).toEqual({ status: 301, location: to });
+  });
+
+  it('one hop to a served page: every target is a route, never the home page, answered by no legacy rule and no next.config redirect', async () => {
+    const redirects = await nextConfig.redirects!();
+    for (const [, to] of CLICKED) {
+      expect(to, to).not.toBe('/');
+      expect(isKnownRouteWith(to, BOTH), to).toBe(true);
+      expect(legacyAnswer(to, LIVE), to).toBeNull();
+      expect(redirects.some((r) => getPathMatch(r.source)(to) !== false), to).toBe(false);
+    }
+  });
+
+  it('their families keep their answers: the other URLs stay 410 (or their own 301)', () => {
+    for (const p of ['/games/sort-it', '/games/match-up', '/games/this-or-that/all', '/games/name-them-all', '/tier-list/new',
+      '/tier-list/l/some-list', '/rankings', '/rankings/general/boy-groups', '/games/name-all/name-top-10-bts-songs',
+      '/games/name-all/name-all-got7']) {
+      expect(legacyAnswer(p, LIVE), p).toEqual({ status: 410 });
+    }
+    expect(legacyAnswer('/games/name-all/name-all-aespa', LIVE)).toEqual({ status: 301, location: '/aespa-name-all-members' });
+    for (const p of ['/gamesx', '/games-quiz', '/constructor', '/__proto__', '/toString']) expect(clickedLegacyAnswer(p), p).toBeNull();
   });
 });

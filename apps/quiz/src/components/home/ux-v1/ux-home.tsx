@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { ActivityTicker } from '@/components/home/activity-ticker';
+import { Icon } from '@/components/ux-v1/icon';
 import { UxPage } from '@/components/ux-v1/page';
 import { UxQuizCard, UxQuizGrid } from '@/components/ux-v1/quiz-card';
 import { SectionHeader } from '@/components/ux-v1/section-header';
@@ -64,8 +65,10 @@ export async function UxHome({ head, afterHeader }: {
       <HomeHeader {...(qotd ? { daily: { slug: qotd.slug, title: qotd.title } } : {})} />
 
       {/* The quiz of the day. With an afterHeader block, the two share this one place of the tree (a fragment). */}
-      {/* Audit 01 P0-2: on the kpopquiz.org build the quiz of the day comes first, Surprise me after it (Play above the fold on a phone). */}
-      {afterHeader ? (IS_KPOP ? <>{qotdRow}{afterHeader}</> : <>{afterHeader}{qotdRow}</>) : qotdRow}
+      {/* Owner, 2026-11-09: Surprise me first, then the quiz of the day, on both sites (the kpop-first order of audit 01 P0-2 is
+          undone; on a phone the header's "Today's quiz" chip keeps Play above the fold). The block sits right under the header,
+          the place its negative top margin is made for: after the quiz of the day that margin slid it under the card. */}
+      {afterHeader ? <>{afterHeader}{qotdRow}</> : qotdRow}
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}
@@ -81,12 +84,6 @@ export async function UxHome({ head, afterHeader }: {
             action={groups.visibleGroups > 0 ? { href: TOPICS_HREF, label: `All ${groups.visibleGroups} ${SITE.vocabulary.topicPlural}` } : { href: TOPICS_HREF, label: `All ${SITE.vocabulary.topicPlural}` }}
           />
           <GroupsRail groups={groups.groups} />
-          {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor (Run O1: a kpop page, so kpop only). */}
-          {IS_KPOP ? (
-            <p className="p1-note" style={{ marginTop: 12 }}>
-              <Link href={GENERATIONS_HUB_PATH}>K-pop generations</Link>: which era each group belongs to, with sources.
-            </p>
-          ) : null}
         </section>
       ) : null}
 
@@ -131,6 +128,16 @@ export async function UxHome({ head, afterHeader }: {
         <SectionHeader id="p1-comm-h" icon="msg" title="From the community" action={{ href: '/community', label: 'Open community' }} />
         <CommunityRows rows={community.rows} verse={community.verse} />
       </section>
+
+      {/* SEO Mission 2, part C: the generations hub, linked with its cluster anchor "K-pop generations" (Run O1: a kpop page, so
+          kpop only). Owner, 2026-11-09: no longer a muted note under the groups, a real link at the foot of the home, right before the
+          footer, in the link colour of "All N groups" (ux-lnk). Always rendered, like the community section above it. */}
+      {IS_KPOP ? (
+        <p className="p1-note p1-gen">
+          <Link className="ux-lnk" href={GENERATIONS_HUB_PATH}>Explore K-pop generations<Icon name="arrow" size="sm" /></Link>{' '}
+          Which era each group belongs to, with sources.
+        </p>
+      ) : null}
     </UxPage>
   );
 }

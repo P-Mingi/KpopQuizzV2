@@ -21,6 +21,7 @@ import { themeCounts } from '@/lib/hubs/theme-view';
 
 import { isListNoindex } from '@/lib/seo/list-noindex';
 import { isDemotedPath } from '@/lib/seo/demand-gate';
+import { QUIZ_GONE, QUIZ_MERGES } from '@/lib/seo/quiz-redirects';
 
 import type { MetadataRoute } from 'next';
 
@@ -317,7 +318,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // it just leaves the sitemap. This runs in the periodically generated sitemap, so
     // it adds no per-request cost.
     const bestByTitle = new Map<string, (typeof quizRows)[number]>();
+    // O1 audit 03 P1-9 (owner, 2026-11-09): a quiz merged into another (301) or removed (410) is never listed, even while its row is
+    // still published (before L28 runs): the sitemap lists final URLs only (lib/seo/quiz-redirects.ts).
+    const redirectedQuiz = new Set<string>([...Object.keys(QUIZ_MERGES), ...QUIZ_GONE]);
     for (const q of quizRows) {
+      if (redirectedQuiz.has(q.slug)) continue;
       const key = `${q.title}\u0000${q.question_count ?? ''}`;
       const cur = bestByTitle.get(key);
       const better =

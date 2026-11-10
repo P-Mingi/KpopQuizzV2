@@ -15,7 +15,7 @@ import { greetingFor } from '@/lib/ux-v1/p1/format';
 // (owner-locked for SEO): H1 "K-pop Quiz / Are you a real fan?", H2 sub line, the
 // two CTAs with the exact-match "Browse K-pop quizzes" anchor. The home reads no
 // cookie on the server (static/ISR), so a signed-in fan's greeting ("Good evening,
-// Mingi" + one streak line, no CTAs) swaps in on the client from /api/auth/me.
+// Mingi" + one streak line, then the same two CTAs) swaps in on the client from /api/auth/me.
 
 // The streak only moves on the daily quiz or the daily blindtest (lib/daily-streak.ts,
 // C2-002), said with the words of A0's streak popover.
@@ -62,6 +62,14 @@ export function HomeHeader({ daily = null }: { daily?: HomeDaily | null }): Reac
     </Link>
   ) : null;
 
+  // The two hero buttons, with the exact-match "Browse K-pop quizzes" anchor (owner-locked), for the guest and the signed-in fan alike.
+  const heroButtons = (
+    <div className="p1-hcta">
+      <UxButton href="/quizzes" icon="play" aria-label={`Browse ${GENRE} quizzes`}>{`Browse ${GENRE} quizzes`}</UxButton>
+      <UxButton href="/create" variant="ghost" icon="plus" aria-label="Create a quiz">Create a quiz</UxButton>
+    </div>
+  );
+
   // Phone only (CSS): the daily one tap away, above the fold (audit 01 P0-2). The desktop card is already in view.
   // Both headers carry it, so the signed-in swap does not change the height.
   if (signedIn) {
@@ -73,11 +81,9 @@ export function HomeHeader({ daily = null }: { daily?: HomeDaily | null }): Reac
         </h1>
         <p className="p1-hsub">{linkWords(signedIn.line, daily)}</p>
         {chip}
-        {/* Keeps the height of the guest header's two buttons (a client-only render, so never in the server HTML): the header does not shrink when /api/auth/me answers, and nothing below it moves (audit 02 P1-4, risk 4). */}
-        <div className="p1-hcta" aria-hidden="true" style={{ visibility: 'hidden' }}>
-          <UxButton icon="play" tabIndex={-1}>{`Browse ${GENRE} quizzes`}</UxButton>
-          <UxButton variant="ghost" icon="plus" tabIndex={-1}>Create a quiz</UxButton>
-        </div>
+        {/* Owner, 2026-11-09: a signed-in fan gets the two buttons too, as real links under the streak line. The same block as the
+            guest header, so the header keeps its height when /api/auth/me answers and nothing below it moves (audit 02 P1-4, risk 4). */}
+        {heroButtons}
       </header>
     );
   }
@@ -90,10 +96,7 @@ export function HomeHeader({ daily = null }: { daily?: HomeDaily | null }): Reac
       </h1>
       <h2 className="p1-hsub">{`Prove it. Play ${GENRE} quizzes and see where you rank.`}</h2>
       {chip}
-      <div className="p1-hcta">
-        <UxButton href="/quizzes" icon="play" aria-label={`Browse ${GENRE} quizzes`}>{`Browse ${GENRE} quizzes`}</UxButton>
-        <UxButton href="/create" variant="ghost" icon="plus" aria-label="Create a quiz">Create a quiz</UxButton>
-      </div>
+      {heroButtons}
     </header>
   );
 }

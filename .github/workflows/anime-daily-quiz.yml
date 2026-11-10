@@ -5,11 +5,15 @@ name: Anime daily quiz
 # route through the group (bunnyverse.org/anime/...), which reaches otakuquiz. Delete this file once #213 is merged.
 #
 # The route is idempotent: a second call on the same UTC day publishes nothing new.
+# Two runs, both off the top of the hour (owner, 2026-11-10): GitHub may delay or drop a scheduled run under load, mostly around
+# :00, and the run of 00:07 UTC on 2026-11-10 never started. The second run is the safety net; when the first one worked it finds
+# the quiz already published. Both are before noon UTC, so the route publishes the quiz of the same UTC day.
 # Secret: ANIME_CRON_SECRET (repository secret) holds otakuquiz's CRON_SECRET. It only ever goes through env, never on
 # the command line, and nothing prints it. No pull_request trigger: the repository is public.
 on:
   schedule:
-    - cron: '7 0 * * *' # 00:07 UTC, after the day change (00:00 UTC) and the kpop cron (00:05 UTC)
+    - cron: '23 0 * * *' # 00:23 UTC, after the day change (00:00 UTC) and the kpop cron (00:05 UTC)
+    - cron: '47 1 * * *' # 01:47 UTC, the safety net (nothing new when the first run worked)
   workflow_dispatch: {}
 
 permissions: {}

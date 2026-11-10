@@ -12,6 +12,7 @@ export const TITLE_MAX_RENDERED = 60;
 export const DESCRIPTION_MIN_RENDERED = 120;
 export const DESCRIPTION_MAX_RENDERED = 160;
 
+import { CLICKED_LEGACY_REDIRECTS } from './legacy-urls';
 import { QUIZ_GONE, QUIZ_MERGES } from './quiz-redirects';
 
 // ---- HTML basics -----------------------------------------------------------------------
@@ -298,6 +299,8 @@ export const REDIRECT_SEEDS: ReadonlyArray<RedirectSeed> = [
   { path: '/zz-seo-nightly-probe-not-a-page', status: 404, why: 'rulebook 9.3: a missing page is a real 404' },
   // O1 audit 03 P1-9 and P2-4: every merged quiz is one hop to the quiz kept, every removed quiz a 410 (tables empty until approved).
   ...Object.entries(QUIZ_MERGES).map(([from, to]): RedirectSeed => ({ path: `/q/${from}`, to: `/q/${to}`, why: 'quiz-redirects.ts merge' })),
+  // Owner, 2026-11-09: the retired URLs that still earned clicks, one 301 each to the page of today (legacy-urls.ts).
+  ...Object.entries(CLICKED_LEGACY_REDIRECTS).map(([path, to]): RedirectSeed => ({ path, to, why: 'legacy-urls.ts clicked retired URL' })),
   ...QUIZ_GONE.map((slug): RedirectSeed => ({ path: `/q/${slug}`, status: 410, why: 'quiz-redirects.ts removed quiz, no successor' })),
 ];
 

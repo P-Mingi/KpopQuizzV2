@@ -27,16 +27,14 @@ function locationPath(location: string | undefined): string {
 }
 
 // Killed hubs, mini games, maker surfaces and group-scoped pages: no successor, 410.
+// Owner, 2026-11-09: /games, /games/this-or-that and /tier-list left this list: they earned clicks, so they answer a 301 (CLICKED below).
 const GONE = [
-  '/games',
   '/games/sort-it',
   '/games/match-up',
   '/games/name-them-all',
-  '/games/this-or-that',
   '/pt/games',
   '/rankings',
   '/rankings/bts/best-song',
-  '/tier-list',
   '/tier-list/new',
   '/tier-list/create',
   '/tier-list/share',
@@ -65,6 +63,39 @@ test.describe('Retired /games/name-all/* without a successor answer 410', () => 
     test(`${path} -> 410`, async ({ request }) => {
       const res = await request.get(path, { maxRedirects: 0 });
       expect(res.status(), `${path} status`).toBe(410);
+    });
+  }
+});
+
+// Owner, 2026-11-09 (audit 03 triage, Search Console 90 days): the retired URLs that still earned clicks answer one 301 to the page
+// that serves them today (lib/seo/legacy-urls.ts CLICKED_LEGACY_REDIRECTS, middleware), and the two merged quizzes one 301 to the quiz
+// kept (lib/seo/quiz-redirects.ts, next.config). The query string is dropped.
+const CLICKED: Array<[string, string]> = [
+  ['/games', '/kpop-games'],
+  ['/games/this-or-that', '/kpop-games'],
+  ['/games/name-them-all/name-all-kpop-groups?daily=game', '/kpop-games'],
+  ['/tier-list', '/kpop-games'],
+  ['/games/match-up/song-title-halves?daily=game', '/guess-the-kpop-song'],
+  ['/games/match-up/song-to-group', '/guess-the-kpop-song'],
+  ['/games/name-all/name-all-babymonster', '/babymonster-quiz'],
+  ['/games/name-all/name-all-nmixx', '/nmixx-quiz'],
+  ['/games/name-all/name-top-5-aespa-songs', '/aespa-quiz'],
+  ['/games/sort-it/3rd-gen-or-4th-gen', '/articles/kpop-generations-explained'],
+  ['/rankings/general/4th-gen-groups', '/articles/kpop-generations-explained'],
+  ['/rankings/general/girl-groups', '/groups'],
+  ['/tier-list/l/aespa-members', '/aespa-quiz'],
+  ['/tier-list/l/bts-members-2', '/bts-quiz'],
+  ['/q/this-is-only-for-true-gllits', '/q/this-is-only-for-true-gllits-2'],
+  ['/q/only-real-monstiez', '/q/babymonster-quiz'],
+];
+
+test.describe('Retired URLs with clicks and merged quizzes: one 301 to the page of today (owner, 2026-11-09)', () => {
+  for (const [path, dest] of CLICKED) {
+    test(`${path} -> 301 ${dest}`, async ({ request }) => {
+      const res = await request.get(path, { maxRedirects: 0 });
+      expect(res.status(), `${path} status`).toBe(301);
+      expect(locationPath(res.headers()['location'])).toBe(dest);
+      expect(new URL(res.headers()['location'] ?? '', 'http://localhost:3021').search, `${path} query`).toBe('');
     });
   }
 });

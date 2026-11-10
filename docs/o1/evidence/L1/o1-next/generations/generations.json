@@ -1,0 +1,90 @@
+[
+  {
+    "width": 375,
+    "auth": "out",
+    "file": "kpop-375-out-generations.png",
+    "headerAuth": "out",
+    "linkText": "Explore K-pop generations",
+    "href": "/articles/kpop-generations-explained",
+    "linkColor": "rgb(196, 53, 101)",
+    "groupsLinkColor": "rgb(196, 53, 101)",
+    "lastOfPage": true,
+    "noteUnderGroups": false,
+    "top": 3426,
+    "bottom": 3472,
+    "footerTop": 3536,
+    "checks": {
+      "header_state_as_asked": true,
+      "exact_anchor_in_link": true,
+      "same_colour_as_all_groups": true,
+      "last_block_before_footer": true,
+      "gone_from_groups": true
+    }
+  },
+  {
+    "width": 375,
+    "auth": "in",
+    "file": "kpop-375-in-generations.png",
+    "headerAuth": "in",
+    "linkText": "Explore K-pop generations",
+    "href": "/articles/kpop-generations-explained",
+    "linkColor": "rgb(196, 53, 101)",
+    "groupsLinkColor": "rgb(196, 53, 101)",
+    "lastOfPage": true,
+    "noteUnderGroups": false,
+    "top": 3448,
+    "bottom": 3495,
+    "footerTop": 3559,
+    "checks": {
+      "header_state_as_asked": true,
+      "exact_anchor_in_link": true,
+      "same_colour_as_all_groups": true,
+      "last_block_before_footer": true,
+      "gone_from_groups": true
+    }
+  },
+  {
+    "width": 1280,
+    "auth": "out",
+    "file": "kpop-1280-out-generations.png",
+    "headerAuth": "out",
+    "linkText": "Explore K-pop generations",
+    "href": "/articles/kpop-generations-explained",
+    "linkColor": "rgb(196, 53, 101)",
+    "groupsLinkColor": "rgb(196, 53, 101)",
+    "lastOfPage": true,
+    "noteUnderGroups": false,
+    "top": 3038,
+    "bottom": 3062,
+    "footerTop": 3174,
+    "checks": {
+      "header_state_as_asked": true,
+      "exact_anchor_in_link": true,
+      "same_colour_as_all_groups": true,
+      "last_block_before_footer": true,
+      "gone_from_groups": true
+    }
+  },
+  {
+    "width": 1280,
+    "auth": "in",
+    "file": "kpop-1280-in-generations.png",
+    "headerAuth": "in",
+    "linkText": "Explore K-pop generations",
+    "href": "/articles/kpop-generations-explained",
+    "linkColor": "rgb(196, 53, 101)",
+    "groupsLinkColor": "rgb(196, 53, 101)",
+    "lastOfPage": true,
+    "noteUnderGroups": false,
+    "top": 3062,
+    "bottom": 3086,
+    "footerTop": 3198,
+    "checks": {
+      "header_state_as_asked": true,
+      "exact_anchor_in_link": true,
+      "same_colour_as_all_groups": true,
+      "last_block_before_footer": true,
+      "gone_from_groups": true
+    }
+  }
+]

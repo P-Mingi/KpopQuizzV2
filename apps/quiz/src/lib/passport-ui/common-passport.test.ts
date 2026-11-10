@@ -1,5 +1,6 @@
 // The passport doors of the three builds (owner bug 2026-11-09: on OtakuQuiz the passport of the account menu was a 404).
-// Cause: the shared chrome linked /profile, a kpop-only path (KPOP_ONLY_SAMPLES), which is /anime/profile on the anime build.
+// Cause: the shared chrome linked /profile, a kpop-only path then (KPOP_ONLY_SAMPLES), which is /anime/profile on the anime build.
+// Owner, 2026-11-09 (lot o1/next C): OtakuQuiz now serves its own /profile (a redirect to /me, as kpop), and its doors open it.
 // One test per link source: the href each build renders. Then: no build renders a passport link to a path it does not serve.
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
@@ -26,7 +27,7 @@ afterEach(() => { vi.unstubAllEnvs(); });
 const BRIDGE = (letter: string): string => `/auth/passport/out?to=hub&amp;next=%2Fpassport&amp;via=${letter}.pp`;
 const EXPECTED: Record<SiteId, { href: string; letter: string }> = {
   kpop: { href: '/profile', letter: 'k' },
-  anime: { href: BRIDGE('a'), letter: 'a' },
+  anime: { href: '/profile', letter: 'a' },
   hub: { href: '/passport', letter: 'f' },
 };
 
@@ -103,15 +104,30 @@ describe('no build renders a passport link to a path it does not serve', () => {
     });
   }
 
-  it('the kpop-only paths (/profile) are never linked by the anime and hub chrome; /anime/passport is linked nowhere', async () => {
+  it('the hub never links /profile (a path it does not serve); anime serves and links its own /profile; /anime/passport is linked nowhere', async () => {
     for (const site of ['anime', 'hub'] as const) {
       const { nav, routing, registry } = await loadSite(site);
-      expect(routing.isKnownRouteFor(site, '/profile', { v1: true, v12: true })).toBe(false);
+      const served = site === 'anime';
+      expect(routing.isKnownRouteFor(site, '/profile', { v1: true, v12: true })).toBe(served);
       const html = renderToString(h(nav.AccountBody, { profile: PROFILE, close: () => undefined, onSignOut: () => undefined }));
-      expect(hrefsOf(html)).not.toContain('/profile');
+      if (served) expect(hrefsOf(html)).toContain('/profile');
+      else expect(hrefsOf(html)).not.toContain('/profile');
       expect(html).not.toContain('/anime/passport');
       expect(routing.isKnownRouteFor('anime', '/passport', { v1: true, v12: true })).toBe(false);
       expect(registry.SITE.id).toBe(site);
     }
+  });
+
+  it('anime: /profile is the OtakuQuiz passport, a noindex redirect to /me (as kpop /profile), and /me always links the Bunnyverse passport', async () => {
+    const fs = await import('node:fs');
+    const page = fs.readFileSync('src/app/sites/[site]/(anime)/profile/page.tsx', 'utf8');
+    expect(page).toContain("redirect('/me')");
+    expect(page).toContain('robots: { index: false, follow: false }');
+    const me = fs.readFileSync('src/app/sites/[site]/(anime)/me/page.tsx', 'utf8');
+    expect(me).toContain("footer={<p className=\"ux-help\"><Link className=\"ux-lnk\" href={wholePassportHref()} prefetch={false}>{p1('me.wholePassport')}</Link></p>}");
+    expect(me).not.toContain('me.multiSite ?');
+    await loadSite('anime');
+    const { wholePassportHref } = await import('./world-data');
+    expect(wholePassportHref()).toBe(BRIDGE('a').replace(/&amp;/g, '&'));
   });
 });

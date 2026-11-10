@@ -18,10 +18,12 @@ export function generateMetadata(): Metadata {
 export default async function MyPassportPage(): Promise<React.ReactElement> {
   const me = await loadWorldMe();
   if (me.kind === 'guest') return <UxPassportGuest words={me.words} />;
+  // Owner, 2026-11-09: the OtakuQuiz passport always links the common Bunnyverse passport (bunnyverse.org/passport), member of one
+  // site or of several.
   return (
     <UxPassport
       {...me.props}
-      footer={me.multiSite ? <p className="ux-help"><Link className="ux-lnk" href={wholePassportHref()} prefetch={false}>{p1('me.wholePassport')}</Link></p> : undefined}
+      footer={<p className="ux-help"><Link className="ux-lnk" href={wholePassportHref()} prefetch={false}>{p1('me.wholePassport')}</Link></p>}
     />
   );
 }

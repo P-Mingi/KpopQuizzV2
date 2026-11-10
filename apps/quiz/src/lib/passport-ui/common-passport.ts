@@ -14,10 +14,15 @@ export function commonPassportHref(site: { readonly id: SiteId; readonly letter:
 }
 
 /**
- * The props of the "Passport" doors of the shared chrome (account menu, streak popover). kpop keeps today's `/profile` (its own
- * passport page; the markup and the Flight shape of its menu are pinned by __o1_kpop_nav__, so no new prop there). Every other build
- * goes to the common passport: `/profile` is a kpop-only path and a 404 on anime and on the hub.
+ * The props of the "Passport" doors of the shared chrome (account menu, streak popover).
+ *  - kpop keeps today's `/profile` (its own passport page; the markup and the Flight shape of its menu are pinned by __o1_kpop_nav__,
+ *    so no new prop there).
+ *  - anime (owner, 2026-11-09): its own `/profile` too, the OtakuQuiz passport (app/sites/[site]/(anime)/profile redirects to /me as
+ *    kpop's /profile does; a next/link adds /anime). That page links the common Bunnyverse passport.
+ *  - the hub: the common passport, its own page `/passport`.
  */
 export function passportDoorProps(site: { readonly id: SiteId; readonly letter: string } = SITE): { href: string; prefetch?: false } {
-  return site.id === 'kpop' ? { href: '/profile' } : { href: commonPassportHref(site), prefetch: false };
+  if (site.id === 'kpop') return { href: '/profile' };
+  if (site.id === 'anime') return { href: '/profile', prefetch: false };
+  return { href: commonPassportHref(site), prefetch: false };
 }
