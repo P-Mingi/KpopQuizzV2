@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { ImageError } from '@/lib/entity-images/errors';
 
 import {
-  candidateBase, candidatePaths, filterRefs, hashOfCandidatePath, foundByLabel, hashOfReferencePath, isReferenceSourceUrl, licenseOfText, referenceTitle, sourceNameOf, parseRefCredit, prefillOf, sameLicense,
+  CANDIDATE_ORIGINAL_MAX, STILL_TOO_BIG, candidateBase, candidatePaths, filterRefs, planOriginal, hashOfCandidatePath, foundByLabel, hashOfReferencePath, isReferenceSourceUrl, licenseOfText, referenceTitle, sourceNameOf, parseRefCredit, prefillOf, sameLicense,
 } from './character-refs';
 import { discardCandidate, loadCharacterRefs, publishCandidate, saveCandidate, signPreviews } from './character-refs-store';
 import { characterFiles, hex12, pictureBytes, putReference, refsFakeDb } from './character-refs-test-support';
@@ -405,5 +405,23 @@ describe('no public route reads the table or the bucket', () => {
     }
     expect(importers).toContain('app/api/admin/photos/refs/route.ts');
     expect(importers.every((p) => p.startsWith('app/api/admin/') || p.startsWith('components/admin/') || p.startsWith('lib/photos/'))).toBe(true);
+  });
+});
+
+describe('the free picture over 3 MB: shrunk in the browser, refused only if still too big', () => {
+  const MB = 1024 * 1024;
+  it('sends a picture of 3 MB or less as it is (the 40 KB AniList references are never compressed)', () => {
+    expect(planOriginal(40 * 1024)).toBe('send');
+    expect(planOriginal(CANDIDATE_ORIGINAL_MAX)).toBe('send');
+  });
+  it('compresses a picture over 3 MB instead of refusing it', () => {
+    expect(planOriginal(CANDIDATE_ORIGINAL_MAX + 1)).toBe('compress');
+    expect(planOriginal(7 * MB)).toBe('compress');
+  });
+  it('sends the compressed picture when it fits, refuses it when it is still over 3 MB', () => {
+    expect(planOriginal(7 * MB, 900 * 1024)).toBe('send');
+    expect(planOriginal(7 * MB, CANDIDATE_ORIGINAL_MAX)).toBe('send');
+    expect(planOriginal(7 * MB, CANDIDATE_ORIGINAL_MAX + 1)).toBe('refuse');
+    expect(STILL_TOO_BIG).toMatch(/3 Mo/);
   });
 });

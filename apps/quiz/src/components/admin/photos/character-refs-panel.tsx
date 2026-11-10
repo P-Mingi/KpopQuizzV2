@@ -11,9 +11,9 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import {
-  CANDIDATE_ORIGINAL_MAX, NO_LICENSE_WORDS, REF_LICENSE_OPTIONS, REF_STATUSES, SIGN_BATCH, STATUS_LABEL, filterRefs, foundByLabel, prefillOf, referenceTitle,
+  NO_LICENSE_WORDS, STILL_TOO_BIG, REF_LICENSE_OPTIONS, REF_STATUSES, SIGN_BATCH, STATUS_LABEL, filterRefs, foundByLabel, planOriginal, prefillOf, referenceTitle,
 } from '@/lib/photos/character-refs';
-import { decode, makePhotoFiles } from '@/lib/photos/resize';
+import { decode, makeAssetFiles, makePhotoFiles } from '@/lib/photos/resize';
 
 import { PHOTO_API, postForm } from './api';
 import { DropZone } from './ui';
@@ -130,15 +130,20 @@ function CandidateBox({ row, preview, onSaved }: { row: RefListRow; preview: Pre
 
   // The free picture: the browser makes the three WebP files (like the other panels) and keeps the original only to be hashed on the server.
   const take = async (file: File): Promise<void> => {
-    if (file.size > CANDIDATE_ORIGINAL_MAX) { setError(`Le fichier dépasse ${Math.round(CANDIDATE_ORIGINAL_MAX / 1048576)} Mo : réduis-le avant de le glisser.`); return; }
     setBusy(true);
     setError(null);
     try {
       const bitmap = await decode(file);
       try {
         const files = await makePhotoFiles(bitmap, 'character', { x: 50, y: 50 });
+        // Over 3 MB (one request is 4.5 MB at most): shrunk to WebP like the Images tab, refused only if still over 3 MB after that.
+        let original: Blob = file;
+        if (planOriginal(file.size) === 'compress') {
+          original = (await makeAssetFiles(bitmap, 'banner')).large;
+          if (planOriginal(file.size, original.size) === 'refuse') throw new Error(STILL_TOO_BIG);
+        }
         const form = body('candidate');
-        form.set('original', file, 'original');
+        form.set('original', original, 'original');
         form.set('x1', files.x1, 'x1.webp');
         form.set('x2', files.x2, 'x2.webp');
         form.set('thumb', files.thumb, 'thumb.webp');

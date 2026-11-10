@@ -36,6 +36,23 @@ export const SIGN_BATCH = 60;
  */
 export const CANDIDATE_ORIGINAL_MAX = 3 * 1024 * 1024;
 
+export type OriginalPlan = 'send' | 'compress' | 'refuse';
+
+/**
+ * What the browser does with the picture the owner drops (pure, so it is tested): at most 3 MB it is sent as it is; a bigger one is first
+ * shrunk to WebP like the Images tab does (resize.ts makeAssetFiles), and `compressedSize` (null until that is done) decides again: still
+ * over 3 MB after the compression, it is refused. The server still hashes the bytes it receives and still refuses a picture identical to the
+ * reference: the AniList references are about 40 KB, never compressed, so their bytes are sent untouched and that check still catches them.
+ * The server keeps its own 3 MB check (character-refs-store.ts).
+ */
+export function planOriginal(size: number, compressedSize: number | null = null): OriginalPlan {
+  if (compressedSize === null) return size <= CANDIDATE_ORIGINAL_MAX ? 'send' : 'compress';
+  return compressedSize <= CANDIDATE_ORIGINAL_MAX ? 'send' : 'refuse';
+}
+
+/** The French refusal of a picture still over the limit after the compression. */
+export const STILL_TOO_BIG = `Même réduite, l'image dépasse ${Math.round(CANDIDATE_ORIGINAL_MAX / 1048576)} Mo : choisis-en une plus simple ou plus petite.`;
+
 // ---- the licence list of the owner --------------------------------------------------------------------------------------------------
 
 /**
