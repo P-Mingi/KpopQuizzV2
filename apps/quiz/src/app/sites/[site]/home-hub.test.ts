@@ -59,6 +59,23 @@ vi.mock('@/lib/site/hub/daily-guess', async (importOriginal) => {
   };
 });
 
+// Home v4: the live rows of site_assets_public (the image slots and the icon slots of the admin), empty by default (no slot filled).
+const assetRows = vi.hoisted(() => ({ rows: [] as unknown[] }));
+vi.mock('@/lib/photos/public-read', async (importOriginal) => {
+  const real = await importOriginal<typeof import('@/lib/photos/public-read')>();
+  return { ...real, getLiveAssets: async () => assetRows.rows };
+});
+/** A live image of an image slot (its three sizes under https://img.test), and a live icon of an icon slot. */
+const imageRow = (key: string): Record<string, unknown> => ({
+  key, type: 'card_image', page: 'home', settings: { focal: { x: 50, y: 50 } },
+  large: `https://img.test/${key.replace(':', '-')}-1920.webp`, mid: `https://img.test/${key.replace(':', '-')}-400.webp`, thumb: `https://img.test/${key.replace(':', '-')}-96.webp`,
+  width: 1920, height: 1080, sourceUrl: null, author: null, license: null, licenseNote: null, publishedAt: null,
+});
+const iconRow = (id: string): Record<string, unknown> => ({
+  key: `icon:${id}`, type: 'icon', page: 'home', settings: { mode: 'icon', icon: 'star', circle: false, color: 'ink' },
+  large: null, mid: null, thumb: null, width: null, height: null, sourceUrl: null, author: null, license: null, licenseNote: null, publishedAt: null,
+});
+
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const fake = vi.hoisted(() => ({
@@ -165,6 +182,7 @@ beforeEach(() => {
   burrowSwitch.open = false;
   burrowSwitch.features = null;
   burrowSwitch.noHubPages = false;
+  assetRows.rows = [];
 });
 afterEach(() => { vi.unstubAllEnvs(); });
 
@@ -177,14 +195,17 @@ describe('the top bar', () => {
     // the board's wordmark: "Bunny" in ink, "verse" in the accent, split from the registry name
     expect(nav).toContain('<span class="hub-h2-brand-name">Bunny<span class="hub-h2-brand-tail">verse</span></span>');
     expect(nav).toContain('<a href="/" class="hub-h2-tab hub-h2-tab-on" aria-current="page">Home</a>');
-    for (const [href, label] of [['#hot', 'Quizzes'], ['#fans', 'Community']] as const) {
+    for (const [href, label] of [['#hot', 'Quizzes'], ['#community', 'Community']] as const) {
       expect(nav).toContain(`<a href="${href}" class="hub-h2-tab">${label}</a>`);
     }
     // owner, 2026-11-07: no Blind test tab, even with the blind test of the day on the page (it stays in Today)
     expect(nav).not.toContain('href="#today"');
     expect(nav).not.toContain('>Blind test<');
-    // launch day: the Burrow is open (dailyGuess on, its pages in the map), its tab leads to /daily with the games left today; no language switch yet
-    expect(nav).toContain('<a href="/daily" class="hub-h2-tab">Dle games<span class="hub-h2-badge hub-h2-num">4<span class="hub-h2-sr"> left today</span></span></a>');
+    // launch day: the Burrow is open (dailyGuess on, its pages in the map), its tab leads to /daily; no language switch yet.
+    // Home v4: the tab is "Daily games" (the copy key hp.nav.burrow); its badge is the count of the dle games left on THIS device, so the server
+    // draws none (the browser reads it, home-day.tsx HomeNavBadge, the same count as the badge of every other hub page).
+    expect(nav).toContain('<a href="/daily" class="hub-h2-tab">Daily games</a>');
+    expect(nav).not.toContain('hub-h2-badge');
     expect(nav).not.toContain('lang="fr"');
     // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), named after that site (review fix)
     expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn">/);
@@ -207,33 +228,67 @@ describe('the top bar', () => {
     const { getLevelInfo } = await import('@/lib/constants');
     const nav = block(html, '<header class="hub-h2-head"', 'header');
     // review fix: a signed-in fan keeps a real way to /passport (a route of the hub) from the home
-    expect(nav).toMatch(/<a href="\/passport" class="hub-h2-me">.*M<\/span>Lv \d+<\/a>/);
-    expect(nav).not.toContain('href="#fans" class="hub-h2-me"');
+    // home v4: the chip keeps "Lv N" and is named after the passport, a level per site (HOME-AUDIT.md P2-5)
+    expect(nav).toMatch(/<a href="\/passport" aria-label="Your passport, KpopQuiz level \d+, OtakuQuiz level \d+" class="hub-h2-me">.*M<\/span>Lv \d+<\/a>/);
+    expect(nav).not.toContain('href="#community" class="hub-h2-me"');
     expect(nav).toContain(`Lv ${getLevelInfo(90080, 'hub').level}`);
     expect(nav).not.toContain('>Sign in<');
   });
 });
 
-describe('the grid', () => {
-  it('has three rows of two columns, in reading order: the title and the sites, then Today; Hot, then 60 seconds; Crossover, then Top fans', async () => {
+describe('the bands', () => {
+  it('are in the order of the audit, one column of full-width bands, in reading order: hero, Today\'s games, Pick your side, Popular beside the Quick question, Crossover, Community, About', async () => {
     const html = await renderHome();
-    const rows = [...html.matchAll(/<div class="(hub-h2-cols[^"]*)">/g)].map((m) => m[1]);
-    expect(rows).toEqual(['hub-h2-cols hub-h2-row1', 'hub-h2-cols hub-h2-row', 'hub-h2-cols hub-h2-row']);
-    const order = ['aria-labelledby="hero-h"', '<aside id="today"', '<section id="hot"', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', '<aside id="fans"', 'aria-labelledby="what-h"']
+    const order = ['aria-labelledby="hero-h"', '<section id="today"', 'aria-labelledby="sides-h"', '<section id="hot"', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', '<section id="community"', 'aria-labelledby="what-h"']
       .map((m) => html.indexOf(m));
     expect(order.every((i) => i > -1)).toBe(true);
     expect([...order].sort((a, b) => a - b)).toEqual(order);
+    // the old two-column rows are gone; every band is a section (Today is no longer an aside, audit P1-9)
+    expect(html).not.toContain('hub-h2-cols');
+    expect(html).not.toContain('<aside id="today"');
+    // the page ends: About (the SEO block), then the footer
+    expect(html.indexOf('aria-labelledby="what-h"')).toBeLessThan(html.indexOf('<footer class="hub-h2-foot"'));
+  });
+
+  it('the headings: one h1, then h2 bands (Today\'s games, Pick your side, Popular this week, When K-pop meets anime, Community, What is Bunnyverse?), h3 inside', async () => {
+    const html = await renderHome();
+    const h2 = [...html.matchAll(/<h2 [^>]*>([^<]*)<\/h2>/g)].map((m) => m[1]);
+    expect(h2).toEqual(['One account for both sites', 'Today&#x27;s games', 'Pick your side', 'Popular this week', 'When K-pop meets anime', 'Community', 'What is Bunnyverse?']);
+    const h3 = [...html.matchAll(/<h3 [^>]*>(?:<a [^>]*>)?([^<]*)/g)].map((m) => m[1]);
+    for (const name of ['Kpop', 'Otaku', 'Quick question', 'Did you know?', 'Debate of the day', 'Top fans this week', 'How do the daily games work?']) expect(h3.some((t) => t!.startsWith(name)), name).toBe(true);
+  });
+
+  it('has one primary (solid) action per band: the hero\'s ink button, a game card each in Today, a site button each, none in Popular and Quick question', async () => {
+    const html = await renderHome();
+    const solid = (b: string): number => count(b, /class="hub-h2-cta hub-h2-cta-(?:ink|site)[ "]/g);
+    expect(solid(block(html, '<section aria-labelledby="hero-h"', 'section'))).toBe(1);
+    expect(solid(block(html, '<section id="today"', 'section'))).toBe(2);
+    expect(solid(block(html, '<section aria-labelledby="sides-h"', 'section'))).toBe(2);
+    expect(solid(block(html, '<section id="hot"', 'section'))).toBe(0);
+    expect(solid(block(html, '<section aria-labelledby="cross-h"', 'section'))).toBe(0);
+    expect(solid(block(html, '<section id="community"', 'section'))).toBe(0);
   });
 });
 
-describe('row 1: the title and the two sites', () => {
-  it('has one h1, the eyebrow, the line and Surprise me beside it', async () => {
+describe('the hero and Pick your side', () => {
+  it('has one h1 (unchanged), no eyebrow, the line, and for a guest the main button then Surprise me', async () => {
     const html = await renderHome();
     expect(count(html, /<h1\b/g)).toBe(1);
     expect(html).toContain('<h1 id="hero-h" class="hub-h2-h1">Quizzes and daily games for K-pop and anime fans</h1>');
-    expect(html).toContain('>Two fandoms, one passport, every day</p>');
-    expect(html).toMatch(/<p class="hub-h2-lede">Pick your side, or play both\.<\/p><button type="button" class="hub-h2-ghost hub-h2-btn">.*Surprise me<\/button>/);
+    expect(html).not.toContain('Two fandoms, one passport, every day');
+    expect(html).not.toContain('hub-h2-eyebrow">Two');
+    // flipped: the line is "Start with today's puzzles, or pick any quiz." and the row holds the main button (down to Today) and Surprise me
+    expect(html).toMatch(/<p class="hub-h2-lede">Start with today&#x27;s puzzles, or pick any quiz\.<\/p><div class="hub-h2-actions-row"><a href="#today" class="hub-h2-cta hub-h2-cta-ink hub-h2-btn">Play today&#x27;s games<svg[^>]*>.*<\/svg><\/a><button type="button" class="hub-h2-ghost hub-h2-btn">.*Surprise me<\/button><\/div>/);
     expect(html).not.toContain('role="status"');
+  });
+
+  it('signed in: the line welcomes the fan and Surprise me stays; the main button is the one of the Your day card (no second one in the row)', async () => {
+    fake.user = { id: 'u-1' };
+    const html = await renderHome();
+    const hero = block(html, '<section aria-labelledby="hero-h"', 'section');
+    expect(hero).toMatch(/<p class="hub-h2-lede">Welcome back, @mingi\.<\/p><button type="button" class="hub-h2-ghost hub-h2-btn">/);
+    expect(hero).not.toContain('hub-h2-actions-row');
+    expect(hero).not.toContain('Play today&#x27;s games</a><button');
   });
 
   it('says what Bunnyverse is and who it is for, in one sentence right under the H1, in the server HTML (owner, 2026-10-29: rule 3.1)', async () => {
@@ -241,7 +296,7 @@ describe('row 1: the title and the two sites', () => {
     const { registry } = await load();
     const h1 = '<h1 id="hero-h" class="hub-h2-h1">Quizzes and daily games for K-pop and anime fans</h1>';
     // the element right after the H1, before the line and Surprise me (DOM order = reading order)
-    const m = /<\/h1><p class="hub-h2-def">([^<]*)<\/p><div class="hub-h2-lede-row"><p class="hub-h2-lede">/.exec(html);
+    const m = /<\/h1><p class="hub-h2-def">([^<]*)<\/p><div class="hub-h2-lede-row hub-h2-lede-col"><p class="hub-h2-lede">/.exec(html);
     expect(m, 'the definition right under the H1').not.toBeNull();
     const at = { h1: html.indexOf(h1), def: html.indexOf('<p class="hub-h2-def">'), lede: html.indexOf('<p class="hub-h2-lede">') };
     expect(at.h1).toBeGreaterThan(-1);
@@ -263,66 +318,120 @@ describe('row 1: the title and the two sites', () => {
     expect(html.split(def).length - 1).toBe(1);
   });
 
-  it('has the two sites side by side, in the network order, each card the link to its site', async () => {
+  it('has the two sites side by side, in the network order, each name the link to its site and its quiz of the moment its own link', async () => {
     const html = await renderHome();
     const { registry } = await load();
-    const cards = [...html.matchAll(/<a href="([^"]+)" class="hub-h2-site hub-h2-rise hub-h2-s-([ka])">/g)].map((m) => [m[1], m[2]]);
-    expect(cards).toEqual([[`${registry.REGISTRY.kpop.url}/`, 'k'], [registry.REGISTRY.anime.url, 'a']]);
-    expect(html).toContain('<span class="hub-h2-site-name">Kpop<span class="hub-h2-site-tail">Quiz</span></span>');
-    expect(html).toContain('<span class="hub-h2-site-name">Otaku<span class="hub-h2-site-tail">Quiz</span></span>');
+    const sites = block(html, '<section aria-labelledby="sides-h"', 'section');
+    expect(sites).toContain('<h2 id="sides-h" class="hub-h2-h2">Pick your side</h2>');
+    expect(sites).toContain('Two quiz sites. One account for both.');
+    const cards = [...sites.matchAll(/<article class="hub-h2-card hub-h2-site hub-h2-s-([ka])">/g)].map((m) => m[1]);
+    expect(cards).toEqual(['k', 'a']);
+    // the card is no longer one big link: the H3 name and the button are the links to the site, the quiz line is a link to the quiz
+    expect([...sites.matchAll(/<h3 class="hub-h2-h3"><a href="([^"]+)" class="hub-h2-site-link">/g)].map((m) => m[1])).toEqual([`${registry.REGISTRY.kpop.url}/`, registry.REGISTRY.anime.url]);
+    expect(sites).toContain('<a href="https://kpopquiz.org/" class="hub-h2-site-link">Kpop<span class="hub-h2-tail">Quiz</span></a>');
+    expect(sites).toContain('class="hub-h2-site-link">Otaku<span class="hub-h2-tail">Quiz</span></a>');
     // the real counts, rounded down by the shared helper of the public counts (482 and 138 in the module)
-    expect(html).toContain('<span class="hub-h2-site-count hub-h2-num">480+ quizzes</span>');
-    expect(html).toContain('<span class="hub-h2-site-count hub-h2-num">130+ quizzes</span>');
-    expect(html).toContain('Groups, eras, members, songs');
-    expect(html).toContain('Series, arcs, characters, openings');
-    expect(html).toContain('>Top now</span>');
-    expect(html).toContain('>Just added</span>');
-    expect(html).toContain('Enter KpopQuiz');
-    expect(html).toContain('Enter OtakuQuiz');
+    expect(sites).toContain('<span class="hub-h2-meta hub-h2-num">480+ quizzes</span>');
+    expect(sites).toContain('<span class="hub-h2-meta hub-h2-num">130+ quizzes</span>');
+    expect(sites).toContain('Groups, eras, members, songs');
+    expect(sites).toContain('Series, arcs, characters, openings');
+    // flipped words: "Top now" is "Popular now", "Just added" is "New"; each quiz of the moment is a link to its canonical page
+    expect(sites).toContain('>Popular now</span>');
+    expect(sites).toContain('>New</span>');
+    expect(sites).not.toContain('Top now');
+    expect(sites).not.toContain('Just added');
+    expect(count(sites, /class="hub-h2-ql"/g)).toBe(2);
+    // flipped: "Enter {name}" is a descriptive button, with the address it opens (SEO rule 8.1, rule 16: a contextual link)
+    expect(sites).toContain('>Browse K-pop quizzes<svg');
+    expect(sites).toContain('>Browse anime quizzes<svg');
+    expect(sites).not.toContain('Enter KpopQuiz');
+    expect(sites).toContain('>kpopquiz.org</span>');
+    expect(sites).toContain('>bunnyverse.org/anime</span>');
   });
 
-  it('keeps each image slot in the colours of its site while site_assets has no image: the name written down the side, no image, no placeholder text', async () => {
+  it('draws an image area for a site ONLY when its admin slot is filled; empty, a flat tile with the name down the side, no placeholder panel', async () => {
     const html = await renderHome();
-    expect(html).toContain('<span aria-hidden="true" lang="ko" class="hub-h2-vt">케이팝 퀴즈</span>');
-    expect(html).toContain('<span aria-hidden="true" lang="ja" class="hub-h2-vt">オタククイズ</span>');
-    for (const ph of html.match(/<span class="hub-h2-ph hub-h2-ph-site">[\s\S]*?<\/span><\/span>/g) ?? []) expect(ph).not.toContain('<img');
+    expect(html).toContain('<span lang="ko" class="hub-h2-vt">케이팝 퀴즈</span>');
+    expect(html).toContain('<span lang="ja" class="hub-h2-vt">オタククイズ</span>');
+    const sites = block(html, '<section aria-labelledby="sides-h"', 'section');
+    expect(sites).not.toContain('<img');
+    expect(sites).not.toContain('hub-h2-ph ');
+    expect(sites).not.toContain('hub-h2-site-media-img');
     expect(html.toLowerCase()).not.toContain('admin');
+  });
+
+  it('a filled site slot draws the owner\'s image in place of the tile (home:site-k only here), the other site keeps its flat tile', async () => {
+    assetRows.rows = [imageRow('home:site-k')];
+    const sites = block(await renderHome(), '<section aria-labelledby="sides-h"', 'section');
+    expect(count(sites, /<img /g)).toBe(1);
+    expect(sites).toContain('<img src="https://img.test/home-site-k-1920.webp" alt="" width="120" height="216" loading="lazy" decoding="async" class="hub-h2-ph-img" style="object-position:50% 50%"/>');
+    expect(sites).toContain('hub-h2-site-media hub-h2-site-media-img');
+    expect(sites).not.toContain('케이팝 퀴즈');
+    expect(sites).toContain('オタククイズ');
   });
 });
 
-describe('Today', () => {
-  it('has the countdown, the quizzes of the day and the debate as rows, and the blind test playable in its row', async () => {
+describe('Today\'s games', () => {
+  it('is a section with the ribbon, the header, the two games, then "Also today" with the quizzes of the day and the blind test playable in its tile', async () => {
     const html = await renderHome();
-    const today = block(html, '<aside id="today"', 'aside');
+    const today = block(html, '<section id="today"', 'section');
     expect(today).toContain('aria-labelledby="today-h"');
-    expect(today).toContain('<span class="hub-h2-countdown">New picks in a few hours</span>');
-    expect(today).toContain('>Quizzes</p>');
-    expect(today).toContain('>K-pop quiz of the day</span>');
-    expect(today).toContain('>Anime quiz of the day</span>');
+    expect(today).toContain('<h2 id="today-h" class="hub-h2-h2">Today&#x27;s games</h2>');
+    expect(today).toContain('Same puzzles for everyone. Each clue tells you how close you are.');
+    expect(today).toContain('<span class="hub-h2-countdown">New puzzles in a few hours</span>');
+    expect(today).toContain('<a href="/daily" class="hub-h2-tl">All daily games<svg');
+    // tier 1: the two games, each an article with an H3, its state, one call to action in the colour of its site
+    expect(count(today, /<article class="hub-h2-game /g)).toBe(2);
+    expect(today).toContain('<h3 id="game-kpopdle" class="hub-h2-h3">Kpop<span class="hub-h2-tail">dle</span></h3>');
+    expect(today).toContain('<h3 id="game-otakudle" class="hub-h2-h3">Otaku<span class="hub-h2-tail">dle</span></h3>');
+    expect(today).toContain('Guess today&#x27;s K-pop idol');
+    expect(today).toContain('Guess today&#x27;s anime character');
+    expect(count(today, />Not started</g)).toBe(2);
+    expect(count(today, />Unlimited tries</g)).toBe(2);
+    expect(today).toMatch(/<a href="\/kpopdle" class="hub-h2-cta hub-h2-cta-site hub-h2-btn">Play Kpopdle<svg/);
+    expect(today).toMatch(/<a href="\/otakudle" class="hub-h2-cta hub-h2-cta-site hub-h2-btn">Play Otakudle<svg/);
+    // tier 2: "Also today", the quizzes of the day as tiles (the title is the link), the blind test
+    expect(today).toContain('<h3 class="hub-h2-rt hub-h2-also">Also today</h3>');
+    expect(today).toContain('>K-pop quiz of the day</a>');
+    expect(today).toContain('>Anime quiz of the day</a>');
     expect(today).toContain('ZEROBASEONE: From Boys Planet to In Bloom');
     expect(today).toContain('Journey&#x27;s Beginning: Frieren Basics');
     // the real slug of each bank, entering the daily run (?daily=quiz), never the /daily redirect
     expect(today).toContain('href="https://kpopquiz.org/q/zerobaseone-from-boys-planet-to-in-bloom?daily=quiz"');
     expect(today).toContain('href="https://bunnyverse.org/anime/q/journeys-beginning-frieren-basics?daily=quiz"');
-    expect(today).toContain('<a href="https://kpopquiz.org/community" class="hub-h2-line hub-h2-s-n">');
-    expect(today).toContain('Debate of the day');
-    expect(today).toContain('Best title track of 2025 so far?');
-    // launch day: the rows of Kpopdle and Otakudle join the two quizzes of the day, each with its Play
-    expect(today).toContain('>Kpopdle</span>');
-    expect(today).toContain('>Otakudle</span>');
-    expect(count(today, />Play<\/span>/g)).toBe(4);
-    expect(count(today, />Vote<\/span>/g)).toBe(1);
+    expect(count(today, /<span class="hub-h2-verb">Play quiz<svg/g)).toBe(2);
+    // the debate left Today for the Community band
+    expect(today).not.toContain('Debate of the day');
+    expect(today).not.toContain('>Vote<');
     // the blind test: the real size of the set (10 songs), the 10 second preview, the way to the whole set
     expect(today).toContain('Blind test of the day');
     expect(today).toContain('aria-label="Play a 10 second preview"');
-    expect(today).toContain('KpopQuiz · 10 songs, 10 s each');
-    expect(today).toContain('<a href="https://kpopquiz.org/blindtest?daily=true" class="hub-h2-btall">All 10 songs</a>');
-    // a row with no image from the admin shows its icon on the colour of its site (the two Burrow rows have none)
-    expect(count(today, /<span class="hub-h2-th hub-h2-th-row"><svg/g)).toBe(5);
+    expect(today).toContain('10 songs, 10 seconds each · KpopQuiz');
+    expect(today).toMatch(/<a href="https:\/\/kpopquiz\.org\/blindtest\?daily=true" class="hub-h2-tl">Play all 10 songs<svg/);
+    // no label "Dle games · daily puzzles", no "Quizzes" micro-label, no Open the Dle games
+    expect(today).not.toContain('daily puzzles');
+    expect(today).not.toContain('Open the Dle games');
+  });
+
+  it('draws the icon slot of each row (a row always has an icon) and the owner\'s image of its slot when it is filled, never both', async () => {
+    let today = block(await renderHome(), '<section id="today"', 'section');
+    for (const id of ['today-kpopdle', 'today-otakudle', 'today-qotd-k', 'today-qotd-a', 'today-blindtest']) expect(today, id).toContain(`data-slot-icon="${id}"`);
+    expect(today).not.toContain('<img');
+    assetRows.rows = [imageRow('home:kpopdle'), imageRow('home:qotd-k'), iconRow('today-otakudle')];
+    today = block(await renderHome(), '<section id="today"', 'section');
+    // filled: the image (the 96 px file) and no icon of that slot
+    expect(today).toContain('<img src="https://img.test/home-kpopdle-96.webp" alt="" width="64" height="64"');
+    expect(today).toContain('<img src="https://img.test/home-qotd-k-96.webp" alt="" width="48" height="48"');
+    expect(today).not.toContain('data-slot-icon="today-kpopdle"');
+    expect(today).not.toContain('data-slot-icon="today-qotd-k"');
+    // not filled, an icon row of the slot saved by the owner (the library's star, not the default)
+    expect(today).toContain('data-slot-icon="today-otakudle"');
+    expect(today).toContain('data-slot-icon="today-qotd-a"');
+    expect(count(today, /<img /g)).toBe(2);
   });
 
   it('hides the Burrow (Kpopdle and Otakudle) while the registry feature dailyGuess is off or missing, and while the hub has no page for it even with it on; shows it with it on (launch day)', async () => {
-    const WORDS = ['Kpopdle', 'Otakudle', 'Dle games', 'Open the Dle games', 'href="/daily"', 'href="/kpopdle"'];
+    const WORDS = ['Kpopdle', 'Otakudle', 'Dle games', 'All daily games', 'href="/daily"', 'href="/kpopdle"'];
     for (const feature of [undefined, false]) {
       const html = await renderHomeWithDailyGuess(feature);
       for (const word of WORDS) expect(html, `${String(feature)} ${word}`).not.toContain(word);
@@ -345,63 +454,68 @@ describe('Today', () => {
     }
   });
 
-  it('with the Burrow open: the progress and the badge of its tab count the same rows, the playable dailies (never the debate)', async () => {
-    burrowSwitch.open = true;
-    // signed out: four games left (Kpopdle, Otakudle, the two quizzes of the day); the debate of the sample is not one of them
-    let html = await renderHome();
-    let nav = block(html, '<header class="hub-h2-head"', 'header');
-    expect(nav).toContain('<a href="/daily" class="hub-h2-tab">Dle games<span class="hub-h2-badge hub-h2-num">4<span class="hub-h2-sr"> left today</span></span></a>');
-    let today = block(html, '<aside id="today"', 'aside');
-    expect(today).toContain('>Kpopdle</span>');
-    expect(today).toContain('>Otakudle</span>');
-    expect(today).toContain('Debate of the day');
-    // signed in, with the K-pop quiz of the day done: 1 of 4 in the progress, 3 on the badge
+  it('closed, the band still has the quizzes of the day and no game card; the tab and the hero button follow what is there', async () => {
+    const closed = await renderHomeWithDailyGuess(false);
+    const today = block(closed, '<section id="today"', 'section');
+    expect(count(today, /<article class="hub-h2-game /g)).toBe(0);
+    expect(today).toContain('>K-pop quiz of the day</a>');
+    expect(block(closed, '<header class="hub-h2-head"', 'header')).not.toContain('Daily games');
+  });
+
+  it('the counter is honest: "x of y played today" counts the two games (finished on this device) and the quizzes of the day (finished on their sites), so it can reach y of y', async () => {
     fake.user = { id: 'u-1' };
+    // the server draws the games not started (their state is this device's, read in the browser); the quizzes it knows
     fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }];
-    html = await renderHome();
-    nav = block(html, '<header class="hub-h2-head"', 'header');
-    today = block(html, '<aside id="today"', 'aside');
-    expect(today).toContain('1 of 4 done');
-    expect(nav).toContain('>3<span class="hub-h2-sr"> left today</span>');
-    // without the debate nothing changes in the count
-    blocks.values.getDebate = null;
-    html = await renderHome();
-    expect(block(html, '<aside id="today"', 'aside')).toContain('1 of 4 done');
-    expect(block(html, '<header class="hub-h2-head"', 'header')).toContain('>3<span class="hub-h2-sr"> left today</span>');
-  });
-
-  it('the progress counts only the playable dailies: with the Burrow closed, the two quizzes of the day, not the debate; open (launch day), the four games', async () => {
-    fake.user = { id: 'u-1' };
+    let yd = block(await renderHome(), '<aside aria-labelledby="yd-h"', 'aside');
+    expect(yd).toContain('1 of 4 played today');
+    // the Burrow closed: only what the server knows, and both quizzes finished is 2 of 2
     fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }, { quiz_id: 'anime:journeys-beginning-frieren-basics' }];
-    const closed = block(await renderHomeWithDailyGuess(false), '<aside id="today"', 'aside');
-    expect(closed).toContain('2 of 2 done');
-    expect(closed).toContain('Debate of the day');
-    const today = block(await renderHome(), '<aside id="today"', 'aside');
-    expect(today).toContain('2 of 4 done');
-    expect(today).toContain('Debate of the day');
+    yd = block(await renderHomeWithDailyGuess(false), '<aside aria-labelledby="yd-h"', 'aside');
+    expect(yd).toContain('2 of 2 played today');
+    // the debate is a vote: it counts in neither
+    blocks.values.getDebate = null;
+    yd = block(await renderHomeWithDailyGuess(false), '<aside aria-labelledby="yd-h"', 'aside');
+    expect(yd).toContain('2 of 2 played today');
+    // and the badge of the tab is the device's, not the server's: no number drawn by the server
+    expect(block(await renderHome(), '<header class="hub-h2-head"', 'header')).not.toContain('hub-h2-badge');
   });
 
-  it('signed out: one line offers sign in to keep the streaks, no progress', async () => {
-    const today = block(await renderHome(), '<aside id="today"', 'aside');
-    expect(today).toMatch(/Same puzzles for everyone\. <button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button> to keep your streaks\./);
-    expect(today).not.toContain('hub-h2-progress');
+  it('signed out: a line says playing is free and offers sign in, no counter, no Your day card', async () => {
+    const html = await renderHome();
+    const today = block(html, '<section id="today"', 'section');
+    expect(today).toMatch(/Playing is free\. <button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button> to keep your streak on both sites\./);
+    expect(html).not.toContain('played today');
+    expect(html).not.toContain('Your day');
+    expect(html).not.toContain('aria-labelledby="yd-h"');
   });
 
-  it('signed in: the progress of the day from the fan\'s plays of today, and the streak of each site joined', async () => {
+  it('signed in: the Your day card (streak of each site joined, the counter, the main button, the passport), a quiz done is marked Played', async () => {
     fake.user = { id: 'u-1' };
-    let today = block(await renderHome(), '<aside id="today"', 'aside');
-    // launch day: Kpopdle and Otakudle count with the two quizzes of the day
-    expect(today).toContain('0 of 4 done</span> · streaks K-pop 6 days, anime 2 days');
-    expect(today).not.toContain('Same puzzles for everyone');
+    let html = await renderHome();
+    let yd = block(html, '<aside aria-labelledby="yd-h"', 'aside');
+    expect(yd).toContain('<h2 id="yd-h" class="hub-h2-h3">Your day, @mingi</h2>');
+    expect(yd).toContain('>Streak</span>');
+    expect(yd).toContain('>K-pop 6 days</span>');
+    expect(yd).toContain('>Anime 2 days</span>');
+    expect(yd).toContain('0 of 4 played today');
+    // before the browser has read the device, the main button leads to the games; after, it names the next one (home-day-logic.ts)
+    expect(yd).toMatch(/<a href="#today" class="hub-h2-cta hub-h2-cta-ink hub-h2-btn">Play today&#x27;s games<svg/);
+    expect(yd).toMatch(/<a href="\/passport" aria-label="Open your passport: KpopQuiz level \d+, OtakuQuiz level \d+"[^>]*>Open your passport<svg/);
+    expect(yd).toMatch(/>KpopQuiz Lv \d+ · OtakuQuiz Lv \d+<\/span>/);
+    expect(html).not.toContain('Playing is free');
     // the page asks for the fan's plays of today on the two quizzes of the day, and nothing else
     expect(fake.playsAsked.at(-1)).toMatchObject({
       select: 'quiz_id', 'eq:player_id': 'u-1', 'in:quiz_id': ['kpop:zerobaseone-from-boys-planet-to-in-bloom', 'anime:journeys-beginning-frieren-basics'], 'gte:created_at': `${TODAY}T00:00:00Z`,
     });
     fake.playsToday = [{ quiz_id: 'kpop:zerobaseone-from-boys-planet-to-in-bloom' }];
-    today = block(await renderHome(), '<aside id="today"', 'aside');
-    expect(today).toContain('1 of 4 done');
-    expect(today).toMatch(/<span class="hub-h2-tstate hub-h2-tstate-done"><svg[^>]*>.*<\/svg>Done<\/span>/);
-    expect(count(today, />Play<\/span>/g)).toBe(3);
+    html = await renderHome();
+    yd = block(html, '<aside aria-labelledby="yd-h"', 'aside');
+    expect(yd).toContain('1 of 4 played today');
+    const today = block(html, '<section id="today"', 'section');
+    expect(today).toMatch(/<span class="hub-h2-chip hub-h2-chip-done"><svg[^>]*>.*<\/svg>Played<\/span>/);
+    expect(count(today, /<span class="hub-h2-verb">Play quiz<svg/g)).toBe(1);
+    // the line of the hero says the same, from the same count, once the browser knows; the server draws the first sentence alone
+    expect(block(html, '<section aria-labelledby="hero-h"', 'section')).toContain('Welcome back, @mingi.</p>');
   });
 
   it('signed out: the plays are never read', async () => {
@@ -410,24 +524,26 @@ describe('Today', () => {
   });
 });
 
-describe('60 seconds and Did you know', () => {
-  it('has the question with its four answers as rows A to D, and the two sourced facts', async () => {
+describe('Quick question and Did you know', () => {
+  it('has the question with its four answers as rows A to D, and the two sourced facts, under H3 headings of the Popular band', async () => {
     const html = await renderHome();
     const quick = block(html, '<aside aria-labelledby="quick-h"', 'aside');
-    expect(quick).toContain('<h2 id="quick-h" class="hub-h2-h2">60 seconds</h2>');
+    expect(quick).toContain('<h3 id="quick-h" class="hub-h2-h3">Quick question</h3>');
+    expect(quick).toContain('Tap an answer. No sign-in needed.');
+    expect(quick).not.toContain('60 seconds');
     expect(quick).toContain('ITZY&#x27;s 2022 single Cheshire borrows the concept of a famous cat from which story?');
-    expect(count(quick, /<button type="button" class="hub-h2-line hub-h2-opt">/g)).toBe(4);
+    expect(count(quick, /<button type="button" class="hub-h2-opt">/g)).toBe(4);
     for (const a of ['Puss in Boots', 'The Jungle Book', 'Alice in Wonderland', 'The Wizard of Oz']) expect(quick).toContain(a);
     expect(quick).toContain('From K-pop Songs About Magic');
     expect(quick).not.toContain('role="status"');
-    expect(quick).toContain('>Did you know</p>');
+    expect(quick).toContain('>Did you know?</h3>');
     // each source is a visible link beside its fact (SEO rules 3.8 and 5.5), https only, nofollow noopener (review fix)
     expect(count(quick, /<span class="hub-h2-fsrc">Source: <a href="https:\/\/en\.wikipedia\.org\/wiki\/[A-Za-z_]+" rel="nofollow noopener" class="hub-h2-srclink">Wikipedia<\/a><\/span>/g)).toBe(2);
     expect(quick).toContain('href="https://en.wikipedia.org/wiki/In_Bloom"');
     expect(quick).toContain('href="https://en.wikipedia.org/wiki/Frieren"');
     // each fact names its subject, the group or series it is about (review fix)
-    expect(quick).toContain('<span class="hub-h2-fact-subj"><span aria-hidden="true" class="hub-h2-fdot"></span>ZEROBASEONE</span>');
-    expect(quick).toContain('<span class="hub-h2-fact-subj"><span aria-hidden="true" class="hub-h2-fdot"></span>Frieren: Beyond Journey&#x27;s End</span>');
+    expect(quick).toContain('<span class="hub-h2-meta hub-h2-fact-subj"><span aria-hidden="true" class="hub-h2-sdot hub-h2-sdot-s"></span>ZEROBASEONE</span>');
+    expect(quick).toContain('<span class="hub-h2-meta hub-h2-fact-subj"><span aria-hidden="true" class="hub-h2-sdot hub-h2-sdot-s"></span>Frieren: Beyond Journey&#x27;s End</span>');
     expect(quick).toContain('Sōsō no Furīren');
   });
 });
@@ -452,7 +568,7 @@ describe('the sources of the facts (review fix: SEO rules 3.8 and 5.5)', () => {
     const cross = block(await renderHome(), '<section aria-labelledby="cross-h"', 'section');
     expect(cross).not.toContain('IVE sang');
     expect(cross).not.toContain('hub-h2-srclink');
-    expect(count(cross, /class="hub-h2-xt /g)).toBe(3);
+    expect(count(cross, /class="hub-h2-card hub-h2-xt /g)).toBe(3);
   });
 
   it('escapes the source at the sink: a name or an address with markup in it stays text', async () => {
@@ -464,21 +580,37 @@ describe('the sources of the facts (review fix: SEO rules 3.8 and 5.5)', () => {
   });
 });
 
-describe('Hot right now', () => {
-  it('leaves a site chip out when that site has no hot quiz (review fix), as Start easy already was', async () => {
+describe('Popular this week', () => {
+  const popular = (html: string): string => block(html, '<div class="hub-h2-hot"', 'div');
+
+  it('is the band of the ranked list: the heading, its line, the filter by site, no Start easy chip (one dimension, audit P2-4)', async () => {
+    const html = await renderHome();
+    const band = block(html, '<section id="hot"', 'section');
+    expect(band).toContain('aria-labelledby="hot-h"');
+    const hot = popular(html);
+    expect(hot).toContain('<h2 id="hot-h" class="hub-h2-h2">Popular this week</h2>');
+    expect(hot).toContain('Ranked by plays this week on KpopQuiz and OtakuQuiz.');
+    expect(hot).not.toContain('Hot right now');
+    expect(hot).toContain('<div role="group" aria-label="Filter" class="hub-h2-fchips">');
+    const chips = (h: string): string[] => [...h.matchAll(/<button type="button" aria-pressed="(true|false)" class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)<\/button>/g)].map((m) => `${m[1]} ${m[2]}`);
+    expect(chips(hot)).toEqual(['true All', 'false KpopQuiz', 'false OtakuQuiz']);
+    expect(hot).not.toContain('Start easy');
+  });
+
+  it('leaves a site chip out when that site has no hot quiz (review fix)', async () => {
     const s = await import('@/lib/site/hub/home-samples.test-support');
     const h = s.sampleHot();
     blocks.values.getHot = { ...h, anime: [], all: h.kpop, easy: h.easy!.filter((c) => c.site === 'kpop') };
-    const hot = block(await renderHome(), '<section id="hot"', 'section');
-    const chips = [...hot.matchAll(/class="hub-h2-segbtn"><span aria-hidden="true" class="[^"]+"><\/span>([^<]+)<\/button>/g)].map((m) => m[1]);
-    expect(chips).toEqual(['All', 'KpopQuiz', 'Start easy']);
+    const hot = popular(await renderHome());
+    const chips = [...hot.matchAll(/class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)<\/button>/g)].map((m) => m[1]);
+    expect(chips).toEqual(['All', 'KpopQuiz']);
   });
 
   it('lists six quizzes, three of each site alternating, each linked to its own site', async () => {
     const html = await renderHome();
-    const hot = block(html, '<section id="hot"', 'section');
-    const ol = block(hot, '<ol class="hub-h2-lines hub-h2-hot-list"', 'ol');
-    const hrefs = [...ol.matchAll(/<a href="([^"]+)" class="hub-h2-line hub-h2-hrow/g)].map((m) => m[1]!);
+    const hot = popular(html);
+    const ol = block(hot, '<ol class="hub-h2-rows"', 'ol');
+    const hrefs = [...ol.matchAll(/<a href="([^"]+)" class="hub-h2-rr/g)].map((m) => m[1]!);
     expect(hrefs).toHaveLength(6);
     // OtakuQuiz lives in the folder /anime of bunnyverse.org (2026-10-28): the site of a link is its registry url, folder included.
     const siteOf = (h: string): string => (h.startsWith('https://kpopquiz.org/') ? 'kpop' : h.startsWith('https://bunnyverse.org/anime/') ? 'anime' : h);
@@ -487,23 +619,23 @@ describe('Hot right now', () => {
     expect(hot).toContain('Name and Face: Death Note True or False');
     expect(hot).toContain('KpopQuiz · BTS · Medium');
     expect(hot).toContain('OtakuQuiz · Death Note · Medium · True or false');
-    expect(count(hot, /class="hub-h2-newpill"/g)).toBe(3);
-    expect(hot).toContain('<span class="hub-h2-hplays hub-h2-num">2.7k plays</span>');
+    expect(count(hot, /class="hub-h2-chip hub-h2-chip-s hub-h2-hplays"/g)).toBe(3);
+    expect(hot).toContain('<span class="hub-h2-meta hub-h2-num hub-h2-hplays">2.7k plays</span>');
     expect(hot).toMatch(/>All K-pop quizzes on KpopQuiz<svg/);
     expect(hot).toMatch(/>All anime quizzes on OtakuQuiz<svg/);
   });
 
   it('shows the quiz\'s own cover when it has one, else its group\'s photo as its own site shows it (owner, 2026-10-30), else the initials of its group on the colour of its site', async () => {
-    const hot = block(await renderHome(), '<section id="hot"', 'section');
+    const hot = popular(await renderHome());
     const { SAMPLE_COVER } = await import('@/lib/site/hub/home-samples.test-support');
-    expect(hot).toContain(`<img src="${SAMPLE_COVER}" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/>`);
+    expect(hot).toContain(`<img src="${SAMPLE_COVER}" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>`);
     // Owner decision 2026-10-30 (was: one image, the cover): BLACKPINK has no cover of its own and shows the group photo kpopquiz.org
     // shows (public/idols, groupPhotoUrl), with no credit, as there. Exactly these two images, in the order of the rows.
-    expect(hot).toContain('<img src="/idols/BLACKPINK.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
+    expect(hot).toContain('<img src="/idols/BLACKPINK.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
     expect([...hot.matchAll(/<img src="([^"]+)"/g)].map((m) => m[1])).toEqual([SAMPLE_COVER, '/idols/BLACKPINK.jpg']);
     expect(count(hot, /<img /g)).toBe(2);
     // No photo under the group or series of the others: the initials, as before.
-    for (const tile of ['DN', 'SK', 'OP', 'CM']) expect(hot).toContain(`<span aria-hidden="true" class="hub-h2-th hub-h2-hthumb">${tile}</span>`);
+    for (const tile of ['DN', 'SK', 'OP', 'CM']) expect(hot).toContain(`<span aria-hidden="true" class="hub-h2-th hub-h2-th-48">${tile}</span>`);
   });
 
   it('shows the photo OtakuQuiz shows for a series (its free photo), never the initials over it (owner, 2026-10-30)', async () => {
@@ -511,69 +643,105 @@ describe('Hot right now', () => {
     const h = s.sampleHot();
     const frieren = h.anime.find((c) => c.group === 'Frieren')!;
     blocks.values.getHot = { ...h, all: [h.kpop[1]!, frieren] };
-    const hot = block(await renderHome(), '<section id="hot"', 'section');
-    expect(hot).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-hthumb"><img src="/series/frieren.webp" alt="" width="52" height="52" loading="lazy" decoding="async" class="hub-h2-th-img"/></span>');
-    expect(hot).not.toContain('class="hub-h2-th hub-h2-hthumb">Fr</span>');
-    expect(hot).toContain('class="hub-h2-th hub-h2-hthumb">SK</span>');
+    const hot = popular(await renderHome());
+    expect(hot).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-th-48"><img src="/series/frieren.webp" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/></span>');
+    expect(hot).not.toContain('class="hub-h2-th hub-h2-th-48">Fr</span>');
+    expect(hot).toContain('class="hub-h2-th hub-h2-th-48">SK</span>');
   });
 
-  it('has the filter group with four chips, All pressed and Start easy last; no Start easy chip without an easy list', async () => {
-    let hot = block(await renderHome(), '<section id="hot"', 'section');
-    expect(hot).toContain('<div role="group" aria-label="Filter" class="hub-h2-seg">');
-    const chips = (h: string): string[] => [...h.matchAll(/<button type="button" aria-pressed="(true|false)" class="hub-h2-segbtn"><span aria-hidden="true" class="[^"]+"><\/span>([^<]+)<\/button>/g)].map((m) => `${m[1]} ${m[2]}`);
-    expect(chips(hot)).toEqual(['true All', 'false KpopQuiz', 'false OtakuQuiz', 'false Start easy']);
-    const s = await import('@/lib/site/hub/home-samples.test-support');
-    blocks.values.getHot = { ...s.sampleHot(), easy: [] };
-    hot = block(await renderHome(), '<section id="hot"', 'section');
-    expect(chips(hot)).toEqual(['true All', 'false KpopQuiz', 'false OtakuQuiz']);
+  it('the structured data keeps its own name: the ItemList is "Hot right now" though the heading is "Popular this week" (a point for the owner)', async () => {
+    const html = await renderHome();
+    expect(html).toContain('Popular this week');
+    const list = [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)].map((m) => JSON.parse(m[1]!.replace(/&quot;/g, '"')) as Record<string, unknown>)[1]!;
+    expect(list.name).toBe('Hot right now');
+    expect(COPY['hp.hot.listName']).toBe('Hot right now');
   });
 });
 
 describe('When K-pop meets anime', () => {
-  it('is a light row of three tiles, image first, with the fact', async () => {
+  it('is a band of three tiles of one pattern, with the fact as its line; no image area while the slots are empty', async () => {
     const html = await renderHome();
     const cross = block(html, '<section aria-labelledby="cross-h"', 'section');
     expect(cross).toContain('When K-pop meets anime');
-    expect(count(cross, /class="hub-h2-xt /g)).toBe(3);
-    expect([...cross.matchAll(/class="hub-h2-ph hub-h2-xph (hub-h2-xph-\d)"/g)].map((m) => m[1])).toEqual(['hub-h2-xph-1', 'hub-h2-xph-2', 'hub-h2-xph-3']);
+    expect(count(cross, /class="hub-h2-card hub-h2-xt /g)).toBe(3);
     expect(cross).not.toContain('<img');
+    expect(cross).not.toContain('hub-h2-xph');
     expect(cross).toContain('IVE sang Will, the opening theme of Pok');
     // the fact names its source beside it (SEO rule 3.8), the name a link to the source (rule 5.5, review fix)
-    expect(cross).toContain('<span class="hub-h2-cross-src">Source: <a href="https://en.wikipedia.org/wiki/IVE" rel="nofollow noopener" class="hub-h2-srclink">Wikipedia</a></span>');
-    expect(cross).toContain('href="https://kpopquiz.org/kpop-demon-hunters-quiz"');
+    expect(cross).toContain('<span class="hub-h2-meta">Source: <a href="https://en.wikipedia.org/wiki/IVE" rel="nofollow noopener" class="hub-h2-srclink">Wikipedia</a></span>');
+    // each tile: the title is the link (an H3), then "Play quiz"
+    expect(cross).toContain('<h3 class="hub-h2-h3"><a href="https://kpopquiz.org/kpop-demon-hunters-quiz" class="hub-h2-stretch">');
     expect(cross).toContain('Six questions · The animated film and its songs');
     expect(cross).toContain('href="https://bunnyverse.org/anime/q/one-opening-many-endings-chainsaw-man-theme-songs"');
+    expect(count(cross, /<span class="hub-h2-verb">Play quiz<svg/g)).toBe(3);
+  });
+
+  it('draws a 3:2 image on a tile ONLY when its slot is filled (home:cross-2 here); the other two stay compact', async () => {
+    assetRows.rows = [imageRow('home:cross-2')];
+    const cross = block(await renderHome(), '<section aria-labelledby="cross-h"', 'section');
+    expect(count(cross, /<img /g)).toBe(1);
+    expect(count(cross, /class="hub-h2-xph"/g)).toBe(1);
+    expect(cross).toContain('src="https://img.test/home-cross-2-400.webp"');
+    // the filled tile is the second one
+    expect(cross.indexOf('hub-h2-xph')).toBeGreaterThan(cross.indexOf('kpop-demon-hunters-quiz'));
   });
 });
 
-describe('Top fans and the passport', () => {
+describe('Community: the debate of the day and Top fans', () => {
+  const community = (html: string): string => block(html, '<section id="community"', 'section');
+
+  it('is a band with the debate (an article, its question, Vote) and Top fans, each a card; the debate left Today', async () => {
+    const comm = community(await renderHome());
+    expect(comm).toContain('<h2 id="community-h" class="hub-h2-h2">Community</h2>');
+    expect(comm).toContain('Vote on the debate of the day and see this week&#x27;s top fans.');
+    expect(comm).toContain('<h3 id="debate-h" class="hub-h2-h3">Debate of the day</h3>');
+    expect(comm).toContain('Best title track of 2025 so far?');
+    expect(comm).toMatch(/<a href="https:\/\/kpopquiz\.org\/community" class="hub-h2-cta hub-h2-cta-line hub-h2-btn">Vote<svg/);
+    // the debate row draws its icon slot, or the owner's image of home:debate when it is filled
+    expect(comm).toContain('data-slot-icon="today-debate"');
+  });
+
+  it('draws the image of home:debate in the debate card when its slot is filled, in place of the icon', async () => {
+    assetRows.rows = [imageRow('home:debate')];
+    const comm = community(await renderHome());
+    expect(comm).toContain('<img src="https://img.test/home-debate-96.webp" alt="" width="48" height="48"');
+    expect(comm).not.toContain('data-slot-icon="today-debate"');
+  });
+
   it('top fans: the K-pop board first, five rows linked to each fan\'s page on the hub, with the K-pop and Anime tabs', async () => {
-    const html = await renderHome();
-    const fans = block(html, '<aside id="fans"', 'aside');
-    expect(fans).toContain('<h2 id="top-h" class="hub-h2-h2">Top fans this week</h2>');
+    const fans = block(community(await renderHome()), '<article aria-labelledby="top-h"', 'article');
+    expect(fans).toContain('<h3 id="top-h" class="hub-h2-h3">Top fans this week</h3>');
     expect(fans).toContain('<div role="group" aria-label="Leaderboard site" class="hub-h2-seg">');
-    expect(count(fans, /class="hub-h2-line hub-h2-fan/g)).toBe(5);
+    expect(count(fans, /class="hub-h2-frow/g)).toBe(5);
     expect([...fans.matchAll(/<a href="(\/u\/[^"]+)"/g)].map((m) => m[1])).toEqual(['/u/sunbae_mira', '/u/tteok_rider', '/u/mingi', '/u/hallyu_bean', '/u/dalgona_pop']);
     expect(fans).toContain('>Lv 42<');
     expect(fans).not.toContain('kenjiro_k');
-    expect(fans).not.toContain('hub-h2-fan-me');
+    expect(fans).not.toContain('hub-h2-frow-me');
+    // real data only: a handle and a level, no invented play counts
+    expect(fans).not.toContain('plays');
   });
 
-  it('signed in: the fan is marked on the board', async () => {
+  it('signed in: the fan is marked on the board ("You") and the card leads to the passport', async () => {
     fake.user = { id: 'u-1' };
-    const fans = block(await renderHome(), '<aside id="fans"', 'aside');
-    expect(fans).toMatch(/hub-h2-fan hub-h2-fan-me"><span class="hub-h2-fan-rank hub-h2-num">3<\/span>.*@mingi/);
+    const fans = block(community(await renderHome()), '<article aria-labelledby="top-h"', 'article');
+    expect(fans).toMatch(/hub-h2-frow hub-h2-frow-me"><span class="hub-h2-fan-rank hub-h2-num">3<\/span>.*@mingi.*<span class="hub-h2-chip hub-h2-chip-ink">You<\/span>/);
+    expect(fans).toContain('<a href="/passport" class="hub-h2-tl">Open your passport<svg');
   });
+});
 
+describe('the account card of a guest and Your day of a fan', () => {
   it('signed out: the promise and sign in, and what other sites see and never see, the same words as the privacy page, one click away', async () => {
     const { home, privacy } = await load();
     const homeHtml = renderToStaticMarkup(await home.default());
-    const passport = block(homeHtml, '<div id="passport"', 'div');
-    expect(passport).toContain('<h3 class="hub-h2-pass-h">One passport for both sites</h3>');
-    expect(passport).toContain('Your level and streaks follow you. Your email never does.');
-    expect(passport).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
-    expect(passport).toContain('<details class="hub-h2-pass-shares"><summary class="hub-h2-pass-sum">What other sites see, and never see</summary>');
-    const shares = lines(block(passport, '<div class="hub-h2-shares-cols"', 'div'));
+    const card = block(homeHtml, '<aside aria-labelledby="acc-h"', 'aside');
+    expect(card).toContain('<h2 id="acc-h" class="hub-h2-h3">One account for both sites</h2>');
+    expect(card).toContain('Your level and streaks follow you. Your email never does.');
+    expect(card).toContain('Keep your daily streak');
+    expect(card).toContain('Level up on KpopQuiz and OtakuQuiz');
+    expect(card).toContain('No password needed');
+    expect(card).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
+    expect(card).toContain('<details id="passport" class="hub-h2-pass-shares"><summary class="hub-h2-pass-sum">What other sites see, and never see</summary>');
+    const shares = lines(block(card, '<div class="hub-h2-shares-cols"', 'div'));
     const policy = renderToStaticMarkup(privacy.default());
     const policyShares = lines(block(policy, '<div class="hub-h1-shares"', 'div'));
     // the same keys, in the same order: the titles and the lines of the block
@@ -582,30 +750,30 @@ describe('Top fans and the passport', () => {
       COPY['shares.seesTitle'], COPY['shares.seesUsername'], COPY['shares.seesAvatar'], COPY['shares.seesLevel'], COPY['shares.seesSites'],
       COPY['shares.hidesTitle'], COPY['shares.hidesEmail'], COPY['shares.hidesSignIn'], COPY['shares.hidesHistory'],
     ]);
+    // a guest and a fan differ only in this card, the line, the main button of the row and the counters (structure identical)
+    expect(card).not.toContain('Your day');
   });
 
-  it('signed in: the passport of the fan, with the level of each site joined and the way to the next one', async () => {
+  it('signed in: the level of each site joined, the streak of each, and the way to the passport', async () => {
     fake.user = { id: 'u-1' };
     const html = await renderHome();
-    const passport = block(html, '<div id="passport"', 'div');
+    const yd = block(html, '<aside aria-labelledby="yd-h"', 'aside');
     const { getLevelInfo } = await import('@/lib/constants');
     const k = getLevelInfo(90000, 'kpop');
     const a = getLevelInfo(80, 'anime');
-    expect(passport).toContain('Your passport, @mingi');
-    // review fix: the heading of the card is the link to the fan's passport page
-    expect(passport).toContain('<h3 class="hub-h2-pass-h"><a href="/passport" class="hub-h2-pass-link">Your passport, @mingi</a></h3>');
-    expect(passport).toContain(`KpopQuiz · Lv ${k.level}`);
-    expect(passport).toContain(`${k.progress}% to ${k.level + 1}`);
-    expect(passport).toContain(`OtakuQuiz · Lv ${a.level}`);
-    expect(passport).not.toContain('>Sign in<');
+    expect(yd).toContain(`KpopQuiz Lv ${k.level} · OtakuQuiz Lv ${a.level}`);
+    expect(yd).toContain('Your day, @mingi');
+    expect(yd).not.toContain('>Sign in<');
+    expect(html).not.toContain('One account for both sites');
   });
 
   it('signed in with one site joined: that site only', async () => {
     fake.user = { id: 'u-1' };
     fake.memberships = { data: [MEMBERSHIPS[0]], error: null };
-    const passport = block(await renderHome(), '<div id="passport"', 'div');
-    expect(passport).toContain('KpopQuiz · Lv');
-    expect(passport).not.toContain('OtakuQuiz');
+    const yd = block(await renderHome(), '<aside aria-labelledby="yd-h"', 'aside');
+    expect(yd).toContain('KpopQuiz Lv');
+    expect(yd).not.toContain('OtakuQuiz');
+    expect(yd).not.toContain('Anime ');
   });
 });
 
@@ -716,7 +884,8 @@ describe('the footer', () => {
     expect(foot).toContain('>hello@kpopquiz.org</span>');
     expect(foot).toContain('mascot-default.png');
     // launch day (RUNBOOK K8c): the Burrow's line, to the hub's own /daily
-    expect(foot).toContain('<a href="/daily" class="hub-h2-foot-a">Dle games</a>');
+    // home v4: the line says "Daily games" (the copy key hp.foot.burrow)
+    expect(foot).toContain('<a href="/daily" class="hub-h2-foot-a">Daily games</a>');
   });
 });
 
@@ -738,7 +907,7 @@ describe('every link is the canonical page of its own site', () => {
       expect(hrefs, b).toContain(b);
       expect(isKnownRouteFor('hub', b, { v1: true, v12: true }), b).toBe(true);
     }
-    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#fans', '#main', ...burrow]);
+    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#community', '#main', ...burrow]);
     expect(hrefs).toContain('https://kpopquiz.org/search');
     for (const h of hrefs) {
       if (h.startsWith('/_next') || own.has(h) || /^\/u\/[a-z0-9_]+$/.test(h)) continue;
@@ -803,37 +972,37 @@ describe('the account state', () => {
   });
 });
 
-describe('a block with no data leaves the page, and its grid adapts', () => {
+describe('a block with no data leaves the page, and the bands around it keep their place', () => {
   const none = async (...names: string[]): Promise<string> => {
     for (const n of names) blocks.values[n] = null;
     return renderHome();
   };
 
-  it('every module null: the page still renders the title, the passport, the SEO block and the footer, in one column', async () => {
+  it('every module null: the page still renders the title, the account card, the games, the SEO block and the footer', async () => {
     const html = await none('getDoors', 'getDailyQuizzes', 'getBlindtest', 'getDebate', 'getSixtySeconds', 'getDidYouKnow', 'getHot', 'getCrossover', 'getTopFans', 'getSurprise');
     expect(count(html, /<h1\b/g)).toBe(1);
-    expect(html).toContain('<div id="passport"');
+    expect(html).toContain('<aside aria-labelledby="acc-h"');
     expect(html).toContain('<footer class="hub-h2-foot"');
     expect(html).toContain('aria-labelledby="what-h"');
-    for (const gone of ['<aside id="today"', '<section id="hot"', 'hub-h2-site ', 'hub-h2-ghost', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', 'id="top-h"']) {
+    for (const gone of ['<section id="hot"', 'hub-h2-site ', 'hub-h2-ghost', 'aria-labelledby="quick-h"', 'aria-labelledby="cross-h"', 'id="top-h"', '<section id="community"', 'hub-h2-ribbon', 'Also today', 'Play today&#x27;s games</a>']) {
       expect(html, gone).not.toContain(gone);
     }
-    // launch day (RUNBOOK K8c): the table of the daily games keeps the two games of the Burrow, which read no module; nothing of the modules is left in it
+    // launch day (RUNBOOK K8c): the two games of the Burrow read no module, so Today keeps them (no ribbon: no rotation instant)
+    const today = block(html, '<section id="today"', 'section');
+    expect(count(today, /<article class="hub-h2-game /g)).toBe(2);
+    // and the table of the daily games keeps the two games of the Burrow; nothing of the modules is left in it
     const table = block(html, '<table class="hub-h2-seo-table"', 'table');
     expect(table).toContain('<td class="hub-h2-seo-game">Kpopdle</td>');
     expect(table).toContain('<td class="hub-h2-seo-game">Otakudle</td>');
     expect(table).not.toContain('Quiz of the day');
     expect(table).not.toContain('Blind test of the day');
-    // closed (a revert), no table at all
-    expect(await renderHomeWithDailyGuess(false)).not.toContain('<table');
-    // the rows that are left take the whole width
-    expect([...html.matchAll(/<div class="(hub-h2-cols[^"]*)">/g)].map((m) => m[1])).toEqual(['hub-h2-cols hub-h2-row1 hub-h2-cols-one', 'hub-h2-cols hub-h2-row hub-h2-cols-one']);
-    // the tabs to blocks that are not there go with them; Community stays (the passport is always there)
+    // closed (a revert), no table at all, and no Today band: nothing to show in it
+    const closed = await renderHomeWithDailyGuess(false);
+    expect(closed).not.toContain('<table');
+    expect(closed).not.toContain('<section id="today"');
+    // the tabs to blocks that are not there go with them
     const nav = block(html, '<header class="hub-h2-head"', 'header');
-    for (const a of ['#hot', '#today']) expect(nav).not.toContain(`href="${a}"`);
-    expect(nav).toContain('href="#fans"');
-    // with no board the passport is the heading of its column
-    expect(html).toContain('<h2 class="hub-h2-pass-h">One passport for both sites</h2>');
+    for (const a of ['#hot', '#today', '#community']) expect(nav).not.toContain(`href="${a}"`);
     expect(count(html, /application\/ld\+json/g)).toBe(1);
   });
 
@@ -845,64 +1014,76 @@ describe('a block with no data leaves the page, and its grid adapts', () => {
     quiet.mockRestore();
     expect(html).not.toContain('<section id="hot"');
     expect(html).not.toContain('hub-h2-site ');
-    expect(html).toContain('<aside id="today"');
+    expect(html).toContain('<section id="today"');
   });
 
-  it('Today: a row goes when its data goes, and with all three the column goes', async () => {
-    const noBt = block(await none('getBlindtest'), '<aside id="today"', 'aside');
-    expect(noBt).not.toContain('Blind test of the day');
-    expect(noBt).toContain('Debate of the day');
-    expect(count(noBt, /quiz of the day</g)).toBe(2);
+  it('Today: a tile goes when its data goes; the debate lives in Community, not in Today', async () => {
+    const noBt = await none('getBlindtest');
+    expect(block(noBt, '<section id="today"', 'section')).not.toContain('Blind test of the day');
+    expect(count(block(noBt, '<section id="today"', 'section'), /quiz of the day</g)).toBe(2);
+    expect(block(noBt, '<section id="community"', 'section')).toContain('Debate of the day');
     blocks.values = {};
-    expect(block(await none('getBlindtest'), '<header class="hub-h2-head"', 'header')).not.toContain('href="#today"');
-    blocks.values = {};
-    const noDebate = block(await none('getDebate'), '<aside id="today"', 'aside');
+    const noDebate = await none('getDebate');
+    expect(block(noDebate, '<section id="today"', 'section')).toContain('Blind test of the day');
     expect(noDebate).not.toContain('Debate of the day');
-    expect(noDebate).toContain('Blind test of the day');
+    // the Community band stays for the fans, and its line follows what it has
+    expect(block(noDebate, '<section id="community"', 'section')).toContain('See this week&#x27;s top fans.');
     blocks.values = { getDailyQuizzes: { kpop: null, anime: (await import('@/lib/site/hub/home-samples.test-support')).sampleDaily().anime } };
-    const oneQuiz = block(await renderHome(), '<aside id="today"', 'aside');
+    const oneQuiz = block(await renderHome(), '<section id="today"', 'section');
     expect(count(oneQuiz, /quiz of the day</g)).toBe(1);
     expect(oneQuiz).toContain('Frieren');
     blocks.values = {};
     const html = await none('getDailyQuizzes', 'getBlindtest', 'getDebate');
-    expect(html).not.toContain('<aside id="today"');
-    expect(html).toContain('hub-h2-cols hub-h2-row1 hub-h2-cols-one');
+    const today = block(html, '<section id="today"', 'section');
+    expect(today).not.toContain('Also today');
+    expect(today).not.toContain('hub-h2-ribbon');
+    expect(count(today, /<article class="hub-h2-game /g)).toBe(2);
   });
 
-  it('60 seconds: the question and the facts are independent, and with none the column goes', async () => {
+  it('Quick question: the question and the facts are independent, and with none the band keeps Popular, alone', async () => {
     const noQuestion = block(await none('getSixtySeconds'), '<aside aria-labelledby="quick-h"', 'aside');
-    expect(noQuestion).toContain('<h2 id="quick-h" class="hub-h2-h2">Did you know</h2>');
-    expect(noQuestion).not.toContain('60 seconds');
+    expect(noQuestion).toContain('<h3 id="quick-h" class="hub-h2-h3">Did you know?</h3>');
+    expect(noQuestion).not.toContain('Quick question');
     blocks.values = {};
     const noFacts = block(await none('getDidYouKnow'), '<aside aria-labelledby="quick-h"', 'aside');
-    expect(noFacts).toContain('60 seconds');
+    expect(noFacts).toContain('Quick question');
     expect(noFacts).not.toContain('Did you know');
     blocks.values = {};
     const html = await none('getSixtySeconds', 'getDidYouKnow');
     expect(html).not.toContain('aria-labelledby="quick-h"');
-    expect(html).toContain('<div class="hub-h2-cols hub-h2-row hub-h2-cols-one"><section id="hot"');
+    expect(html).toContain('<div class="hub-h2-split hub-h2-split-one"><div class="hub-h2-hot">');
+    // Popular missing: the Quick question takes the band alone and its heading is the band's H2
+    blocks.values = {};
+    const noHot = await none('getHot');
+    expect(noHot).toContain('<section aria-labelledby="quick-h" class="hub-h2-band hub-h2-wrap">');
+    expect(noHot).toContain('<h2 id="quick-h" class="hub-h2-h3">Quick question</h2>');
+    expect(noHot).not.toContain('<section id="hot"');
   });
 
-  it('Crossover: without the sourced fact the line goes, the tiles stay; without picks Top fans takes the row', async () => {
+  it('Crossover: without the sourced fact the line goes, the tiles stay; without picks the band goes', async () => {
     const s = await import('@/lib/site/hub/home-samples.test-support');
     blocks.values.getCrossover = { ...s.sampleCrossover(), fact: null };
     const cross = block(await renderHome(), '<section aria-labelledby="cross-h"', 'section');
     expect(cross).not.toContain('IVE sang');
-    expect(cross).not.toContain('hub-h2-cross-src');
-    expect(count(cross, /class="hub-h2-xt /g)).toBe(3);
+    expect(cross).not.toContain('hub-h2-srclink');
+    expect(count(cross, /class="hub-h2-card hub-h2-xt /g)).toBe(3);
     blocks.values = {};
-    expect(await none('getCrossover')).toContain('<div class="hub-h2-cols hub-h2-row hub-h2-cols-one"><aside id="fans"');
+    expect(await none('getCrossover')).not.toContain('aria-labelledby="cross-h"');
   });
 
-  it('Top fans: no public fan, no board; the passport stays; a site with no public fan has no tab', async () => {
+  it('Community: no public fan, no board (the debate stays); no debate and no fan, no band and no tab; a site with no public fan has no tab', async () => {
     const html = await none('getTopFans');
     expect(html).not.toContain('id="top-h"');
-    expect(html).toContain('<div id="passport"');
+    expect(block(html, '<section id="community"', 'section')).toContain('Vote on the debate of the day.');
+    blocks.values = {};
+    const bare = await none('getTopFans', 'getDebate');
+    expect(bare).not.toContain('<section id="community"');
+    expect(block(bare, '<header class="hub-h2-head"', 'header')).not.toContain('Community');
     blocks.values = {};
     const s = await import('@/lib/site/hub/home-samples.test-support');
     const top = s.sampleTopFans();
     blocks.values.getTopFans = { ...top, bySite: { kpop: top.bySite!.kpop, anime: [] } };
-    const fans = block(await renderHome(), '<aside id="fans"', 'aside');
+    const fans = block(await renderHome(), '<article aria-labelledby="top-h"', 'article');
     expect(fans).toContain('Top fans this week');
     expect(fans).not.toContain('role="group"');
   });
@@ -911,17 +1092,17 @@ describe('a block with no data leaves the page, and its grid adapts', () => {
     const s = await import('@/lib/site/hub/home-samples.test-support');
     const top = s.sampleTopFans();
     blocks.values.getTopFans = { ...top, bySite: { ...top.bySite!, kpop: top.bySite!.kpop.map((f, i) => (i === 0 ? { ...f, level: null } : f)) } };
-    const fans = block(await renderHome(), '<aside id="fans"', 'aside');
-    expect(count(fans, /class="hub-h2-fan-lv hub-h2-num"/g)).toBe(4);
+    const fans = block(await renderHome(), '<article aria-labelledby="top-h"', 'article');
+    expect(count(fans, /class="hub-h2-meta hub-h2-num">Lv /g)).toBe(4);
   });
 
-  it('a site with no featured quiz has no Top now line', async () => {
+  it('a site with no featured quiz has no quiz line', async () => {
     const s = await import('@/lib/site/hub/home-samples.test-support');
     const doors = s.sampleDoors();
     blocks.values.getDoors = { ...doors, anime: { ...doors.anime, featured: null } };
-    const html = await renderHome();
-    expect(count(html, /class="hub-h2-site-spot"/g)).toBe(1);
-    expect(html).not.toContain('>Just added</span>');
+    const sites = block(await renderHome(), '<section aria-labelledby="sides-h"', 'section');
+    expect(count(sites, /class="hub-h2-spot"/g)).toBe(1);
+    expect(sites).not.toContain('>New</span>');
   });
 });
 
@@ -933,7 +1114,8 @@ describe('the sites tell the real counts', () => {
     const html = await renderHome();
     expect(html).toContain('>470+ quizzes</span>');
     expect(html).toContain('>47 quizzes</span>');
-    expect(html).not.toContain('>Just added</span>');
+    // both sites are "Popular now" once OtakuQuiz has its days of data
+    expect(count(block(html, '<section aria-labelledby="sides-h"', 'section'), />Popular now<\/span>/g)).toBe(2);
   });
 });
 
@@ -951,7 +1133,7 @@ describe('Surprise me', () => {
     blocks.values.getSurprise = null;
     const html = await renderHome();
     expect(html).not.toContain('Surprise me');
-    expect(html).toContain('Pick your side, or play both.');
+    expect(html).toContain('Start with today&#x27;s puzzles, or pick any quiz.');
   });
 });
 
