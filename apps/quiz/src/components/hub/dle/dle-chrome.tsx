@@ -44,9 +44,8 @@ export function DleChrome({ locale, enPath, current, tools, className, showCredi
           </a>
           <div className="hub-dle-tabs">
             <a href={withBasePath('/')} className="hub-dle-tab">{t.navHome}</a>
-            <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-dle-tab hub-dle-tab-on" aria-current={current ? 'page' : 'true'}>{t.navTab}<DleLeftBadge locale={locale} /></a>
+            <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-dle-tab hub-dle-tab-on" aria-current={current ? 'page' : 'true'}>{t.navBurrow}<DleLeftBadge locale={locale} /></a>
             <a href={withBasePath('/#hot')} className="hub-dle-tab">{t.navQuizzes}</a>
-            <a href={withBasePath('/#today')} className="hub-dle-tab">{t.navBlind}</a>
             <a href={withBasePath('/#community')} className="hub-dle-tab">{t.navCommunity}</a>
           </div>
           <div className="hub-dle-actions">
@@ -66,7 +65,7 @@ export function DleChrome({ locale, enPath, current, tools, className, showCredi
           <div className="hub-h2-foot-cols">
             <div className="hub-h2-foot-col">
               <span className="hub-h2-foot-h">{REGISTRY.hub.brand.name}</span>
-              <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-h2-foot-a">{t.navTab}</a>
+              <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-h2-foot-a">{t.navBurrow}</a>
               <a href={homeUrl({ site: 'anime', path: '/' })} className="hub-h2-foot-a">{REGISTRY.anime.brand.name}</a>
             </div>
             <div className="hub-h2-foot-col">

@@ -45,7 +45,7 @@ export function HomeNav({ viewer, sections, burrow }: { viewer: HomeViewer | nul
           {burrow ? (
             <a href={BURROW_PATHS.burrow} className="hub-h2-tab">
               {ht('hp.nav.burrow')}
-              <HomeNavBadge srLabel={ht('hp.nav.burrowLeft')} />
+              <HomeNavBadge srLabel={ht('hp.nav.burrowLeft', { n: '{n}' })} srLabel1={ht('hp.nav.burrowLeft1')} />
             </a>
           ) : null}
           {sections.hot ? <a href="#hot" className="hub-h2-tab">{ht('hp.nav.quizzes')}</a> : null}

@@ -68,7 +68,8 @@ export function useDay(): DayValue {
 
 // ---- the badge of the Daily games tab: the same count as the badge of every other hub page (DleLeftBadge of the dle pages) ----
 
-export function HomeNavBadge({ srLabel }: { srLabel: string }): React.ReactElement | null {
+/** `srLabel` is the screen reader label with `{n}` ("{n} daily games left"), `srLabel1` its singular. */
+export function HomeNavBadge({ srLabel, srLabel1 }: { srLabel: string; srLabel1: string }): React.ReactElement | null {
   const [left, setLeft] = useState<number | null>(null);
   useEffect(() => {
     const read = (): void => setLeft(gamesLeftToday(readHistory(deviceStore()), utcDate(new Date())));
@@ -77,7 +78,7 @@ export function HomeNavBadge({ srLabel }: { srLabel: string }): React.ReactEleme
     return () => window.removeEventListener('dle:history', read);
   }, []);
   if (left === null || left === 0) return null;
-  return <span className="hub-h2-badge hub-h2-num">{left}<span className="hub-h2-sr"> {srLabel}</span></span>;
+  return <span className="hub-h2-badge hub-h2-num"><span aria-hidden="true">{left}</span><span className="hub-h2-sr"> {left === 1 ? srLabel1 : srLabel.replace('{n}', String(left))}</span></span>;
 }
 
 // ---- the cards of the two games ----

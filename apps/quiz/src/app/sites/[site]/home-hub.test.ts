@@ -431,7 +431,9 @@ describe('Today\'s games', () => {
   });
 
   it('hides the Burrow (Kpopdle and Otakudle) while the registry feature dailyGuess is off or missing, and while the hub has no page for it even with it on; shows it with it on (launch day)', async () => {
-    const WORDS = ['Kpopdle', 'Otakudle', 'Dle games', 'All daily games', 'href="/daily"', 'href="/kpopdle"'];
+    // the tab and the footer link say "Daily games" (was "Dle games"); the bare words also name the table of the About band ("Daily games on Bunnyverse"),
+    // which stays whatever the switch, so the check reads the end of the link
+    const WORDS = ['Kpopdle', 'Otakudle', '>Daily games</a>', 'our daily games', 'All daily games', 'href="/daily"', 'href="/kpopdle"'];
     for (const feature of [undefined, false]) {
       const html = await renderHomeWithDailyGuess(feature);
       for (const word of WORDS) expect(html, `${String(feature)} ${word}`).not.toContain(word);
@@ -784,7 +786,7 @@ describe('the SEO block', () => {
     expect(seo).toContain('<h2 id="what-h" class="hub-h2-h2">What is Bunnyverse?</h2>');
     const answer = lines(block(seo, '<p class="hub-h2-seo-p"', 'p'))[0]!;
     // launch day (RUNBOOK K8c): the Burrow is open, so the answer names its games
-    expect(answer).toBe('Bunnyverse is a free website of daily games and quizzes for K-pop and anime fans. It hosts OtakuQuiz and our Dle games, Kpopdle and Otakudle, and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site, a K-pop blind test and a debate. One passport keeps your levels and streaks on every site.');
+    expect(answer).toBe('Bunnyverse is a free website of daily games and quizzes for K-pop and anime fans. It hosts OtakuQuiz and our daily games, Kpopdle and Otakudle, and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site, a K-pop blind test and a debate. One passport keeps your levels and streaks on every site.');
     // SEO rule 3.1: an answer block of 40 to 60 words
     const words = answer.split(/\s+/).length;
     expect(words).toBeGreaterThanOrEqual(40);
@@ -834,7 +836,7 @@ describe('the SEO block', () => {
     const seo = block(await (async () => { blocks.values.getBlindtest = null; blocks.values.getDebate = null; return renderHome(); })(), '<section aria-labelledby="what-h"', 'section');
     const answer = lines(block(seo, '<p class="hub-h2-seo-p"', 'p'))[0]!;
     // launch day: the answer with the Burrow
-    expect(answer).toBe('Bunnyverse is a free website of daily games and quizzes for K-pop and anime fans. It hosts OtakuQuiz and our Dle games, Kpopdle and Otakudle, and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site. One passport keeps your levels and streaks on every site.');
+    expect(answer).toBe('Bunnyverse is a free website of daily games and quizzes for K-pop and anime fans. It hosts OtakuQuiz and our daily games, Kpopdle and Otakudle, and links to KpopQuiz on kpopquiz.org. Each day brings a new quiz on each site. One passport keeps your levels and streaks on every site.');
     expect(answer.split(/\s+/).length).toBeGreaterThanOrEqual(40);
     expect(seo).not.toContain('Blind test of the day');
   });

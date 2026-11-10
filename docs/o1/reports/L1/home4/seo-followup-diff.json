@@ -1,0 +1,127 @@
+{
+ "method": "seo.py on the hub dev server (o1-dev), the pushed head 06f8008 (seo-after.json of the lane) against the follow-up head",
+ "pages": {
+  "/daily": [
+   {
+    "field": "h1[0]",
+    "before": "Dle games",
+    "after": "Daily games"
+   },
+   {
+    "field": "jsonld[1].name",
+    "before": "Dle games: daily K-pop and anime games",
+    "after": "Daily games: K-pop and anime puzzles"
+   },
+   {
+    "field": "jsonld[2].itemListElement[0].name",
+    "before": "Dle games",
+    "after": "Daily games"
+   },
+   {
+    "field": "metas[0]",
+    "before": "<meta name=\"description\" content=\"The Dle games gather our daily K-pop and anime games: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.\"/>",
+    "after": "<meta name=\"description\" content=\"The daily games gather our K-pop and anime puzzles: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.\"/>"
+   },
+   {
+    "field": "metas[12]",
+    "before": "<meta property=\"og:title\" content=\"Dle games: daily K-pop and anime games | Bunnyverse\"/>",
+    "after": "<meta property=\"og:title\" content=\"Daily games: K-pop and anime puzzles | Bunnyverse\"/>"
+   },
+   {
+    "field": "metas[3]",
+    "before": "<meta name=\"twitter:description\" content=\"The Dle games gather our daily K-pop and anime games: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.\"/>",
+    "after": "<meta name=\"twitter:description\" content=\"The daily games gather our K-pop and anime puzzles: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.\"/>"
+   },
+   {
+    "field": "metas[5]",
+    "before": "<meta name=\"twitter:title\" content=\"Dle games: daily K-pop and anime games | Bunnyverse\"/>",
+    "after": "<meta name=\"twitter:title\" content=\"Daily games: K-pop and anime puzzles | Bunnyverse\"/>"
+   },
+   {
+    "field": "metas[6]",
+    "before": "<meta property=\"og:description\" content=\"The Dle games gather our daily K-pop and anime games: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.\"/>",
+    "after": "<meta property=\"og:description\" content=\"The daily games gather our K-pop and anime puzzles: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.\"/>"
+   },
+   {
+    "field": "title[0]",
+    "before": "Dle games: daily K-pop and anime games | Bunnyverse",
+    "after": "Daily games: K-pop and anime puzzles | Bunnyverse"
+   }
+  ],
+  "/fr/daily": [
+   {
+    "field": "h1[0]",
+    "before": "Jeux dle",
+    "after": "Jeux du jour"
+   },
+   {
+    "field": "jsonld[1].name",
+    "before": "Jeux dle : les jeux K-pop et anime du jour",
+    "after": "Jeux du jour : les énigmes K-pop et anime"
+   },
+   {
+    "field": "jsonld[2].itemListElement[0].name",
+    "before": "Jeux dle",
+    "after": "Jeux du jour"
+   },
+   {
+    "field": "metas[0]",
+    "before": "<meta name=\"description\" content=\"Les jeux dle réunissent nos jeux K-pop et anime du jour : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.\"/>",
+    "after": "<meta name=\"description\" content=\"Les jeux du jour réunissent nos énigmes K-pop et anime : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.\"/>"
+   },
+   {
+    "field": "metas[12]",
+    "before": "<meta property=\"og:title\" content=\"Jeux dle : les jeux K-pop et anime du jour | Bunnyverse\"/>",
+    "after": "<meta property=\"og:title\" content=\"Jeux du jour : les énigmes K-pop et anime | Bunnyverse\"/>"
+   },
+   {
+    "field": "metas[3]",
+    "before": "<meta name=\"twitter:description\" content=\"Les jeux dle réunissent nos jeux K-pop et anime du jour : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.\"/>",
+    "after": "<meta name=\"twitter:description\" content=\"Les jeux du jour réunissent nos énigmes K-pop et anime : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.\"/>"
+   },
+   {
+    "field": "metas[5]",
+    "before": "<meta name=\"twitter:title\" content=\"Jeux dle : les jeux K-pop et anime du jour | Bunnyverse\"/>",
+    "after": "<meta name=\"twitter:title\" content=\"Jeux du jour : les énigmes K-pop et anime | Bunnyverse\"/>"
+   },
+   {
+    "field": "metas[6]",
+    "before": "<meta property=\"og:description\" content=\"Les jeux dle réunissent nos jeux K-pop et anime du jour : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.\"/>",
+    "after": "<meta property=\"og:description\" content=\"Les jeux du jour réunissent nos énigmes K-pop et anime : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.\"/>"
+   },
+   {
+    "field": "title[0]",
+    "before": "Jeux dle : les jeux K-pop et anime du jour | Bunnyverse",
+    "after": "Jeux du jour : les énigmes K-pop et anime | Bunnyverse"
+   }
+  ],
+  "/fr/kpopdle": [
+   {
+    "field": "jsonld[2].itemListElement[0].name",
+    "before": "Jeux dle",
+    "after": "Jeux du jour"
+   }
+  ],
+  "/fr/otakudle": [
+   {
+    "field": "jsonld[2].itemListElement[0].name",
+    "before": "Jeux dle",
+    "after": "Jeux du jour"
+   }
+  ],
+  "/kpopdle": [
+   {
+    "field": "jsonld[2].itemListElement[0].name",
+    "before": "Dle games",
+    "after": "Daily games"
+   }
+  ],
+  "/otakudle": [
+   {
+    "field": "jsonld[2].itemListElement[0].name",
+    "before": "Dle games",
+    "after": "Daily games"
+   }
+  ]
+ }
+}

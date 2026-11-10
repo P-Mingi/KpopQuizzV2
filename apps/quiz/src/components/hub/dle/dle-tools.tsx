@@ -101,7 +101,7 @@ export function DleLeftBadge({ locale }: { locale: DleLocale }): React.ReactElem
     return () => window.removeEventListener('dle:history', read);
   }, []);
   if (left === null || left === 0) return null;
-  return <span className="hub-dle-badge hub-dle-num">{left}<span className="hub-dle-sr"> {t.left}</span></span>;
+  return <span className="hub-dle-badge hub-dle-num"><span aria-hidden="true">{left}</span><span className="hub-dle-sr"> {t.left(left)}</span></span>;
 }
 
 function useHistory(): LocalHistory {

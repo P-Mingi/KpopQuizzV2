@@ -19,7 +19,8 @@ export const COPY = {
   'hp.nav.main': 'Main',
   'hp.nav.home': 'Home',
   'hp.nav.burrow': 'Daily games',
-  'hp.nav.burrowLeft': 'left today',
+  'hp.nav.burrowLeft': '{n} daily games left',
+  'hp.nav.burrowLeft1': '1 daily game left',
   'hp.nav.quizzes': 'Quizzes',
   'hp.nav.community': 'Community',
   // The search button opens the search page of one site (the one the Hot filter names): its name says which.
@@ -146,7 +147,7 @@ export const COPY = {
   'hp.seo.whatIs': '{network} is a free website of quizzes and daily games for K-pop and anime fans.',
   'hp.seo.whatIsBurrow': '{network} is a free website of daily games and quizzes for K-pop and anime fans.',
   'hp.seo.hosts': 'It hosts {animeName} and links to {kpopName} on {kpopDomain}.',
-  'hp.seo.hostsBurrow': 'It hosts {animeName} and our Dle games, Kpopdle and Otakudle, and links to {kpopName} on {kpopDomain}.',
+  'hp.seo.hostsBurrow': 'It hosts {animeName} and our daily games, Kpopdle and Otakudle, and links to {kpopName} on {kpopDomain}.',
   'hp.seo.day': 'Each day brings {list}.',
   'hp.seo.dayQuizzes': 'a new quiz on each site',
   'hp.seo.dayQuiz': 'a new quiz on {name}',
