@@ -1,11 +1,12 @@
-// o1/slots: the rows of Today draw the owner's icon (admin, Icônes du jeu) once a row is saved: the image slot first, then the icon, then the
-// icon the row always had. The blind test row gets a mark beside its name only when its icon is saved.
+// o1/slots, then home v4: each tile of Today's games draws the owner's image slot when it is filled, else its icon slot (admin, Icônes du
+// jeu), whose defaults are the icons the rows always had. Home v4 draws the mark of every tile, the blind test included, so the slots lane's
+// "no mark until saved" case of the old Today column became "the defaults of the slot" (ORCH, reconciliation of o1/slots and o1/home4).
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
 import { iconsOf } from '@/lib/photos/icons-read';
-import { iconKey } from '@/lib/photos/slots';
+import { ICON_LIBRARY, iconKey } from '@/lib/photos/slots';
 
 import { HomeToday } from './home-today';
 
@@ -27,23 +28,24 @@ const TODAY: HomeTodayData = {
   rotation: { nextAt: '2026-11-11T00:00:00.000Z', parisTime: '1:00' },
 };
 const DONE = { kpop: false, anime: false } as const;
-const html = (icons: ReturnType<typeof iconsOf> | undefined, assets = {}): string =>
+const html = (icons: ReturnType<typeof iconsOf>, assets = {}): string =>
   renderToStaticMarkup(createElement(HomeToday, { today: TODAY, viewer: null, done: DONE, assets, burrow: true, icons }));
+const TILES = ['today-kpopdle', 'today-otakudle', 'today-qotd-k', 'today-qotd-a', 'today-blindtest'] as const;
 
-describe('the icons of the rows of Today', () => {
-  it('keeps every row as it was when nothing is saved, or when no icons are given', () => {
-    expect(html(iconsOf([]))).toBe(html(undefined));
-    expect(html(undefined)).not.toContain('data-slot-icon');
+describe('the icons of the tiles of Today', () => {
+  it('draws the defaults of each icon slot when nothing is saved', () => {
+    const out = html(iconsOf([]));
+    for (const id of TILES) expect(out, id).toContain(`data-slot-icon="${id}" data-slot-mode="icon"`);
+    expect(out).toContain(`d="${ICON_LIBRARY.idol}"`);
+    expect(out).toContain(`d="${ICON_LIBRARY.char}"`);
+    expect(out).toContain(`d="${ICON_LIBRARY.song}"`);
   });
 
-  it('draws the saved icon of each row, the six of them, the blind test beside its name', () => {
-    const saved = ['today-kpopdle', 'today-otakudle', 'today-qotd-k', 'today-qotd-a', 'today-debate', 'today-blindtest']
-      .map((id) => row(id, { mode: 'icon', icon: 'star', circle: true, color: 'ink' }));
-    const out = html(iconsOf(saved));
-    for (const id of ['today-kpopdle', 'today-otakudle', 'today-qotd-k', 'today-qotd-a', 'today-debate', 'today-blindtest']) {
-      expect(out, id).toContain(`data-slot-icon="${id}" data-slot-mode="icon"`);
-    }
-    expect(out).toContain('hub-h2-tname hub-h2-tname-mark');
+  it('draws the saved icon of each tile', () => {
+    const out = html(iconsOf(TILES.map((id) => row(id, { mode: 'icon', icon: 'star', circle: true, color: 'ink' }))));
+    for (const id of TILES) expect(out, id).toContain(`data-slot-icon="${id}" data-slot-mode="icon"`);
+    expect(out.split(`d="${ICON_LIBRARY.star}"`).length - 1).toBe(TILES.length);
+    expect(out).not.toContain(`d="${ICON_LIBRARY.idol}"`);
   });
 
   it('draws a PNG icon with its file, and lets a filled image slot win over the icon', () => {
@@ -54,9 +56,5 @@ describe('the icons of the rows of Today', () => {
     const withImage = html(icons, { otakudle: { src: 'https://x.test/o.webp', position: '50% 50%' } });
     expect(withImage).not.toContain('data-slot-icon="today-otakudle"');
     expect(withImage).toContain('https://x.test/o.webp');
-  });
-
-  it('leaves the blind test row with no mark until its icon is saved', () => {
-    expect(html(iconsOf([row('today-kpopdle', { mode: 'icon', icon: 'star', circle: true, color: 'k' })]))).not.toContain('hub-h2-tname-mark');
   });
 });
