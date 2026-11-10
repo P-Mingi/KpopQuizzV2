@@ -451,6 +451,10 @@ describe('the free picture from a link (decideLink, applyLink)', () => {
     const typed = { ...REF_FORM, author: 'Moi', license: 'cc0' };
     expect(applyLink(typed, 'https://example.org/x.png', null, [REF_FORM])).toEqual({ ...typed, source_url: 'https://example.org/x.png' });
   });
+  it('a plain link empties the reference author and licence address the screen pre-filled, and keeps the licence', () => {
+    const pre: RefCreditFields = { ...REF_FORM, license: 'cc0', license_url: 'https://anilist.co/character/12345' };
+    expect(applyLink(pre, 'https://example.org/x.png', null, [pre])).toEqual({ source_url: 'https://example.org/x.png', author: '', license: 'cc0', license_url: '' });
+  });
   it('never overwrites what the owner typed by hand', () => {
     const typed: RefCreditFields = { source_url: 'https://example.org/page', author: 'Moi', license: 'cc0', license_url: 'https://example.org/lic' };
     expect(applyLink(typed, 'https://upload.wikimedia.org/x.png', commons, [REF_FORM])).toEqual(typed);

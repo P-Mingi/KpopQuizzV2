@@ -285,8 +285,8 @@ export interface LinkCommons {
 
 /**
  * The form after a link was loaded. Commons answered: source = the Commons file page, author and licence as Commons gives them (the licence is
- * one of the list), licence address when Commons gives one. No Commons answer: only the source changes, it becomes the link itself; the author
- * and the licence stay, the owner types them. A field is replaced only when it is empty or still holds a value the screen put there itself
+ * one of the list), licence address when Commons gives one. No Commons answer: the source becomes the link itself, the author and the licence
+ * address the screen pre-filled are emptied and the licence stays, the owner types them. A field is replaced only when it is empty or still holds a value the screen put there itself
  * (`machine`: the pre-filled credits of the reference); what the owner typed by hand is never overwritten. Commons gives no author: a machine
  * value (the reference's author) is cleared, a typed one is kept.
  */
@@ -298,6 +298,11 @@ export function applyLink(current: RefCreditFields, url: string, commons: LinkCo
     if (free('author')) next.author = commons.author?.trim() ?? '';
     if (free('license') && isRefLicense(commons.license)) next.license = commons.license;
     if (free('license_url')) next.license_url = commons.licenseUrl ?? '';
+  } else {
+    // a plain link: the reference's author and licence address the screen put there can never be the free picture's, so they are emptied
+    // for the owner to type (a value typed by hand stays)
+    if (free('author')) next.author = '';
+    if (free('license_url')) next.license_url = '';
   }
   return next;
 }
