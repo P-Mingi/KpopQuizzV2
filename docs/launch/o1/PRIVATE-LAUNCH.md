@@ -36,18 +36,15 @@ Pour retirer l'accès de ce navigateur : bunnyverse.org/auth/private-launch/leav
 1. `PRIVATE_LAUNCH=0` (la variable partagée, ou celle de chaque projet), puis Redeploy de fandomverse et d'otakuquiz.
 2. `NET_KPOPDLE_HOME=1` sur le projet `kpopquiz` seulement (Production), puis Redeploy de `kpopquiz`. Raison : le bloc Kpopdle de l'accueil de kpopquiz.org mène à bunnyverse.org, fermé tant que `PRIVATE_LAUNCH` vaut 1. Il reste donc éteint (variable absente) jusqu'à l'ouverture. Retour : retire la clé, redéploie `kpopquiz`. Détail : RUNBOOK L3c.
 
-3. **Avant** de mettre `PRIVATE_LAUNCH=0` : vérifie que les références des personnages (écran « Références personnages » de l'admin, images d'AniList) sont toujours privées. Dans le SQL Editor de Supabase, colle chaque ligne (les six viennent de l'en-tête de `docs/pending-migrations/multisite/launch/L32-l1-character-refs.sql`) et compare avec la valeur attendue. Une seule différence : n'ouvre pas, dis-le à Claude.
+3. **Avant** de mettre `PRIVATE_LAUNCH=0` : les références des personnages (images d'AniList et de Fandom) n'existent plus. Décision du proprio le 2026-11-11 : les 1 075 fichiers du bucket `character-refs`, le bucket lui-même et les 1 075 lignes de la table `character_reference_images` ont été supprimés, l'écran « Références personnages » est retiré de l'admin. Si `docs/pending-migrations/multisite/launch/L32-l1-character-refs.rollback.sql` n'a pas encore été passé, colle-le dans le SQL Editor de Supabase (il supprime la table vide). Puis colle chaque ligne et compare avec la valeur attendue. Une seule différence : n'ouvre pas, dis-le à Claude.
 
 ```sql
-select public from storage.buckets where id = 'character-refs';   -- attendu : false
-select relrowsecurity from pg_class where oid = 'public.character_reference_images'::regclass;   -- attendu : true
-select count(*) from pg_policies where schemaname = 'public' and tablename = 'character_reference_images';   -- attendu : 0
-select count(*) from pg_policies where schemaname = 'storage' and (coalesce(qual, '') || coalesce(with_check, '')) like '%character-refs%';   -- attendu : 0
-select has_table_privilege('anon', 'public.character_reference_images', 'SELECT');   -- attendu : false
-select has_table_privilege('authenticated', 'public.character_reference_images', 'SELECT');   -- attendu : false
+select to_regclass('public.character_reference_images');   -- attendu : NULL
+select count(*) from storage.buckets where id = 'character-refs';   -- attendu : 0
+select count(*) from storage.objects where bucket_id = 'character-refs';   -- attendu : 0
 ```
 
-Le bucket `character-refs` public, ou la table lisible sans le service role, montrerait au public des images dont nous n'avons pas les droits. Aucune page du site ne lit cette table ni ce bucket (un test le vérifie), et rien de tout cela ne change avec `PRIVATE_LAUNCH=0`.
+Les images publiques des personnages (table `entity_images`, bucket public `entity-images`) ne changent pas.
 
 Rien d'autre.
 (`PRIVATE_LAUNCH_ALLOW` et `PRIVATE_LAUNCH_KEY` peuvent rester, ils ne servent plus.)

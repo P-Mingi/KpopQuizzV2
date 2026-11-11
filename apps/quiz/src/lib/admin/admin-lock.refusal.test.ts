@@ -180,7 +180,7 @@ describe('the kpop admin layout: its nav and its title never reach a refused vis
 
 describe('admin routes: the admin 404 JSON for every method, before any read', () => {
   it('covers every route under api/admin, the catch-all included', () => {
-    expect(ROUTES.length).toBe(48);
+    expect(ROUTES.length).toBe(47);
   });
 
   for (const [name, auth, enrol] of REFUSED) {

@@ -1,6 +1,9 @@
 -- L32-l1-character-refs.sql (lane charrefs, run O1, owner 2026-11-10)
 -- o1-transaction: single, ONE DO block
 --
+-- UNDONE (owner, 2026-11-11): every reference was deleted and the bucket removed; L32-l1-character-refs.rollback.sql drops the table.
+--         Do not run this file again: it refuses at once.
+--
 -- What:   the PRIVATE store of the Fandom reference pictures of the OtakuQuiz characters, for the owner's admin screen only:
 --           - storage bucket "character-refs", public = false, images only (png, jpeg, webp, gif), 10 MB at most per file, and NO policy on
 --             storage.objects for anon or authenticated (only the service role, which bypasses RLS, reads or writes it);
@@ -25,6 +28,7 @@
 
 do $o1l32$
 begin
+  raise exception 'L32 is undone (owner, 2026-11-11: the character references are deleted). Do not run it again.';
   perform set_config('lock_timeout', '5s', true);
   perform set_config('client_min_messages', 'warning', true);
 
