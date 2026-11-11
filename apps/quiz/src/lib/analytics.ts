@@ -251,6 +251,12 @@ export function buildEvent(name: string, input: Record<string, unknown>): Props 
       if (!oneOf(SITES, site) || !oneOf(CROSS_FROM, input.from) || !oneOf(CROSS_TARGETS, input.to)) return null;
       return { site, from: input.from, to: input.to };
     }
+    case 'debate_vote': {
+      // A debate vote and where it was cast (the result screen is `result`). Enum only, no debate id.
+      const site = (input.site ?? currentSite()) as unknown;
+      if (!oneOf(SITES, site) || !oneOf(FROMS, input.from)) return null;
+      return { site, from: input.from };
+    }
     case 'claim_funnel': {
       const site = (input.site ?? currentSite()) as unknown;
       if (!oneOf(SITES, site) || !oneOf(CLAIM_STEPS, input.step) || !oneOf(CLAIM_SURFACES, input.surface)) return null;
@@ -295,6 +301,9 @@ export const analytics = {
   // `from` also accepts 'community' so the community page can attribute its
   // war-map CTA and daily cards without a new event name.
   crossPromo: (from: GameType | 'community' | 'verse', to: CrossPromoTarget): boolean => ev('cross_promo_click', { from, to }),
+
+  /** A vote of the daily debate, and the surface it came from (the quiz result screen is `result`). */
+  debateVote: (from: From): boolean => ev('debate_vote', { from }),
 
   signinClick: (game: Game): boolean => ev('result_signin_click', { game }),
 

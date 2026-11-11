@@ -37,3 +37,24 @@
   .ux-toto, .ux-toto-fill { transition: none; }
   .ux-toto:hover { transform: none; }
 }
+
+/* The debate block under a quiz result: the same card as the bonus. Final size from first paint:
+   the two options keep one height before and after the vote (the split goes inside them), and the
+   status line keeps room for two lines so the card never grows. */
+.ux-rdb .ux-rdb-g { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: stretch; margin-top: 18px; }
+.ux-rdb-o { position: relative; display: flex; align-items: center; min-height: 72px; padding: 14px 64px 14px 16px; border-radius: 18px; background: var(--ux-raised); border: 1px solid var(--ux-line); color: var(--ux-ink); font: inherit; text-align: left; overflow: hidden; cursor: pointer; transition: border-color .15s; }
+.ux-rdb-o:hover { border-color: var(--ux-pink-line); }
+.ux-rdb-o b { position: relative; font-size: 17px; font-weight: 700; overflow-wrap: anywhere; }
+.ux-rdb-pc { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 20px; font-weight: 800; }
+.ux-rdb-fill { position: absolute; left: 0; bottom: 0; height: 6px; width: 0; background: var(--ux-pink); transition: width .6s var(--ux-ease); }
+.ux-rdb-g.is-voted .ux-rdb-o { cursor: default; }
+.ux-rdb-g.is-voted .ux-rdb-o:hover { border-color: var(--ux-line); }
+.ux-rdb-o[aria-disabled="true"] { cursor: default; }
+.ux-rdb-o.is-picked, .ux-rdb-g.is-voted .ux-rdb-o.is-picked:hover { border-color: var(--ux-pink); box-shadow: inset 0 0 0 1px var(--ux-pink); }
+.ux-rdb-f { min-height: 48px; align-items: flex-start; }
+@media (max-width: 760px) {
+  .ux-rdb .ux-rdb-g { grid-template-columns: 1fr; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ux-rdb-fill { transition: none; }
+}

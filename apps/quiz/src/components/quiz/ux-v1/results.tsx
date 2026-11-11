@@ -15,6 +15,7 @@ import { SectionHeader } from '@/components/ux-v1/section-header';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { useUxMe } from '@/components/ux-v1/use-ux-me';
 import { haptic } from '@/lib/haptics';
+import { decideResultDebate, peekResultDebate, readShownThisVisit, readVotedOnDevice } from '@/lib/result-debate/decide';
 import { getResultLabel } from '@/lib/korean-moments';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { levelFor } from '@/lib/quiz/result-levels';
@@ -33,6 +34,7 @@ import { P4Comments } from './comments';
 import { DailyDone, DailyKeepRow } from './daily-done';
 import { QuizEndBridge } from './quiz-end-bridge';
 import { P4ReportButton } from './report';
+import { ResultDebate } from './result-debate';
 
 import type { P4CommentResume } from '@/lib/ux-v1/p4/comments';
 import type { RunState } from '@/lib/ux-v1/p4/engine';
@@ -105,6 +107,19 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
   const [standingDone, setStandingDone] = useState(false);
   const [pieces] = useState(() => Array.from({ length: 40 }, (_, k) => ({ left: Math.random() * 100, delay: Math.random() * 0.5, rot: Math.random() * 180, color: CONFETTI[k % CONFETTI.length] })));
   const h1 = useRef<HTMLHeadingElement>(null);
+  // The debate block: decided ONCE, at the first render, from what the prefetch already holds (lib/result-debate). The
+  // block either mounts at once with its question, or never: nothing appears late, so nothing above it or below moves.
+  const [debate] = useState(() => {
+    if (!isUxV12()) return null;
+    const slot = peekResultDebate();
+    const open = slot?.debate ?? null;
+    const show = decideResultDebate({
+      rand: Math.random(), site: SITE.id, slot,
+      votedOnDevice: open ? readVotedOnDevice(open.date) : false,
+      shownThisVisit: readShownThisVisit(),
+    });
+    return show ? open : null;
+  });
 
   useEffect(() => { h1.current?.focus({ preventScroll: true }); }, []);
 
@@ -229,6 +244,8 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         {isDailyRun || good ? [shareBtn, againBtn] : [againBtn, shareBtn]}
         <P4LikePill quizId={quiz.id} initial={quiz.likeCount} />
       </div>
+      {/* O1: the daily debate, one result in three, once per visit, only if not yet voted (lib/result-debate). */}
+      {debate ? <ResultDebate debate={debate} /> : null}
       {/* EXISTS (quiz-player.tsx K2 + K7, WIRING-MAP R117): the Discord line, and Brag on a good
           result (70% and up); BragButton hides itself while the flex webhook is unset. */}
       {/* Run C1: the Discord server of that line is the K-pop one, so only kpop shows it. */}
