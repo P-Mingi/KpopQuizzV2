@@ -118,9 +118,9 @@ export function P4Run({ quiz, children }: { quiz: P4RunQuiz; children: React.Rea
   const [ui, setUi] = useState<RunUi | null>(runUiNow);
 
   // The debate block under the result is decided at result time from this answer, so ask for it now, while the quiz is
-  // played (one cheap read per visit, signed-in fans of the K-pop site only). Late or failed: no block, never a late one.
+  // played (one cheap read per visit, K-pop site only, guests included: signedIn is false for a guest, null only while unknown). Late or failed: no block, never a late one.
   useEffect(() => {
-    if (signedIn === true && SITE.id === 'kpop' && isUxV12()) prefetchResultDebate(BASE_PATH);
+    if (signedIn !== null && SITE.id === 'kpop' && isUxV12()) prefetchResultDebate(BASE_PATH);
   }, [signedIn]);
 
   const inGame = state.phase === 'playing' || state.phase === 'answered';

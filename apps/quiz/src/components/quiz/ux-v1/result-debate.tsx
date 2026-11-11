@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { Icon } from '@/components/ux-v1/icon';
-import { markShownThisVisit } from '@/lib/result-debate/decide';
+import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
+import { markShownThisVisit, resultDebateSignInRequest } from '@/lib/result-debate/decide';
 import { castResultDebateVote } from '@/lib/result-debate/vote';
 
 import type { ResultDebateOpen } from '@/lib/result-debate/decide';
@@ -19,10 +20,11 @@ type Side = 'a' | 'b';
  * (the percent sits inside each), and the status line keeps its two-line room: nothing around it moves.
  * The vote is the normal debate vote (POST /api/debate/vote, one per day, no XP, no streak), measured from=result.
  */
-export function ResultDebate({ debate }: { debate: ResultDebateOpen }): React.ReactElement {
+export function ResultDebate({ debate, guest = false }: { debate: ResultDebateOpen; guest?: boolean }): React.ReactElement {
   const [side, setSide] = useState<Side | null>(null);
   const [pct, setPct] = useState<[number, number] | null>(null);
   const [state, setState] = useState<'open' | 'sending' | 'ok' | 'failed'>('open');
+  const signIn = useSignIn();
   const first = useRef<HTMLButtonElement>(null);
 
   // once per visit: the block counts as shown from the moment it is on screen
@@ -67,6 +69,30 @@ export function ResultDebate({ debate }: { debate: ResultDebateOpen }): React.Re
       </button>
     );
   };
+
+  if (guest) {
+    // A guest cannot vote (the API is for signed-in fans): the question, and ONE button where the two sides would be.
+    // Same card, same reserved heights (the button takes the option height, the status line its room): no jump.
+    return (
+      <section className="ux-tot ux-rdb" data-testid="result-debate" data-state="guest" aria-labelledby="rdb-h">
+        <span className="ux-kicker"><Icon name="debate" />Daily debate</span>
+        <h2 id="rdb-h">{debate.question}</h2>
+        <div className="ux-rdb-g ux-rdb-gst">
+          <button
+            type="button"
+            className="ux-rdb-o ux-rdb-signin"
+            data-testid="result-debate-signin"
+            onClick={() => signIn(resultDebateSignInRequest(debate.date))}
+          >
+            <b>Sign in to vote</b>
+          </button>
+        </div>
+        <div className="ux-tot-f ux-rdb-f">
+          <span role="status" data-testid="result-debate-msg">{debate.sideA} or {debate.sideB}? One vote a day.</span>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="ux-tot ux-rdb" data-testid="result-debate" data-state={done ? 'voted' : 'open'} aria-labelledby="rdb-h">

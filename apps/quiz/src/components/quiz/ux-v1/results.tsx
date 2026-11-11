@@ -120,6 +120,7 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
     });
     return show ? open : null;
   });
+  const slotGuest = peekResultDebate()?.signedIn === false;
 
   useEffect(() => { h1.current?.focus({ preventScroll: true }); }, []);
 
@@ -245,7 +246,7 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         <P4LikePill quizId={quiz.id} initial={quiz.likeCount} />
       </div>
       {/* O1: the daily debate, one result in three, once per visit, only if not yet voted (lib/result-debate). */}
-      {debate ? <ResultDebate debate={debate} /> : null}
+      {debate ? <ResultDebate debate={debate} guest={slotGuest} /> : null}
       {/* EXISTS (quiz-player.tsx K2 + K7, WIRING-MAP R117): the Discord line, and Brag on a good
           result (70% and up); BragButton hides itself while the flex webhook is unset. */}
       {/* Run C1: the Discord server of that line is the K-pop one, so only kpop shows it. */}

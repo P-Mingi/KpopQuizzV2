@@ -8,10 +8,22 @@ import type { Site } from '@/lib/analytics';
 export const RESULT_DEBATE_ODDS = 1 / 3;
 
 /**
- * THE guest switch. The vote API answers 401 to a guest, so today a guest sees nothing.
- * If the owner wants a "sign in to vote" version for guests, flip this and render it in the component.
+ * THE guest switch (owner, run O1 #227): true, a guest gets the same block with one "Sign in to vote" button in place
+ * of the two sides (the vote API is for signed-in fans only). False: a guest sees nothing.
  */
-export const RESULT_DEBATE_FOR_GUESTS = false;
+export const RESULT_DEBATE_FOR_GUESTS = true;
+
+const DEBATE_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Where a guest lands after signing in from the block: the community page, whose Daily debate panel is today's debate
+ * with its two vote buttons (GET /community; /community/debate/<id> is the fan-debate page, not the daily one).
+ * A fixed same-site path, so there is nothing to redirect through. The date only has to be a real YYYY-MM-DD for the
+ * guest button to exist at all; anything else gives null and the block does not offer a sign-in.
+ */
+export function resultDebateSignInReturn(date: string): string | null {
+  return DEBATE_DATE.test(date) ? '/community' : null;
+}
 
 /** localStorage key of a voted debate: the same lock the community debate surfaces use (kq_debate_<date>). */
 export function debateDeviceKey(date: string): string {
@@ -53,7 +65,7 @@ export interface ResultDebateInput {
 export function decideResultDebate(i: ResultDebateInput): boolean {
   if (i.site !== 'kpop') return false; // the debates are the K-pop ones: never on the anime or hub site
   if (!i.slot || !i.slot.debate) return false; // not arrived in time, or no open debate
-  if (!i.slot.signedIn && !RESULT_DEBATE_FOR_GUESTS) return false;
+  if (!i.slot.signedIn && (!RESULT_DEBATE_FOR_GUESTS || resultDebateSignInReturn(i.slot.debate.date) === null)) return false;
   if (i.slot.voted || i.votedOnDevice) return false;
   if (i.shownThisVisit) return false;
   return i.rand < RESULT_DEBATE_ODDS;
@@ -112,4 +124,10 @@ export function noteResultDebateVoted(): void {
 export function resetResultDebatePrefetch(): void {
   pending = null;
   current = null;
+}
+
+/** What the guest button asks of the shared sign-in sheet (useSignIn): the words, and the return to the debate. */
+export function resultDebateSignInRequest(date: string): { title: string; sub: string; returnTo?: string } {
+  const back = resultDebateSignInReturn(date);
+  return { title: 'Sign in to vote', sub: 'One vote per fan per day. No password needed.', ...(back ? { returnTo: back } : {}) };
 }

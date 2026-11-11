@@ -58,3 +58,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ux-rdb-fill { transition: none; }
 }
+/* Guest variant: one sign-in button across the width where the two sides (and the "or") would be: same option height */
+.ux-rdb .ux-rdb-gst { grid-template-columns: minmax(0, 1fr); }
+.ux-rdb-signin { padding-right: 16px; justify-content: center; border-color: var(--ux-pink-line); }
+.ux-rdb-signin b { text-align: center; }

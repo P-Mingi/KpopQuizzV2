@@ -72,12 +72,29 @@ describe('decideResultDebate', () => {
     expect(m.readShownThisVisit()).toBe(false);
     expect(() => { m.markShownThisVisit(); m.markVotedOnDevice('d', 'a'); }).not.toThrow();
   });
-  it('nothing when there is no open debate, no answer yet, or a guest', async () => {
-    const { decideResultDebate, RESULT_DEBATE_FOR_GUESTS } = await import('./decide');
+  it('nothing when there is no open debate or no answer yet, for a fan or a guest', async () => {
+    const { decideResultDebate } = await import('./decide');
     expect(decideResultDebate({ ...base, slot: { signedIn: true, voted: false, debate: null } })).toBe(false);
+    expect(decideResultDebate({ ...base, slot: { signedIn: false, voted: false, debate: null } })).toBe(false);
     expect(decideResultDebate({ ...base, slot: null })).toBe(false);
-    expect(RESULT_DEBATE_FOR_GUESTS).toBe(false);
-    expect(decideResultDebate({ ...base, slot: { signedIn: false, voted: false, debate } })).toBe(false);
+  });
+  it('a guest follows the same rule: one in three, once per visit, not after a vote on the device', async () => {
+    const m = await import('./decide');
+    expect(m.RESULT_DEBATE_FOR_GUESTS).toBe(true); // flipped from false by the owner (#227)
+    const g = { ...base, slot: { signedIn: false, voted: false, debate } };
+    expect(m.decideResultDebate({ ...g, rand: 0 })).toBe(true);
+    expect(m.decideResultDebate({ ...g, rand: 1 / 3 - 1e-9 })).toBe(true);
+    expect(m.decideResultDebate({ ...g, rand: 1 / 3 })).toBe(false);
+    expect(m.decideResultDebate({ ...g, shownThisVisit: true })).toBe(false);
+    localStorage.setItem(`kq_debate_${debate.date}`, 'a'); // voted earlier on this device while signed in
+    expect(m.decideResultDebate({ ...g, votedOnDevice: m.readVotedOnDevice(debate.date) })).toBe(false);
+    expect(m.decideResultDebate({ ...g, slot: { signedIn: false, voted: false, debate: { ...debate, date: 'not-a-date' } } })).toBe(false);
+  });
+  it('the sign-in button leads to sign-in with the return to the debate: the exact path', async () => {
+    const m = await import('./decide');
+    expect(m.resultDebateSignInRequest(debate.date)).toEqual({ title: 'Sign in to vote', sub: 'One vote per fan per day. No password needed.', returnTo: '/community' });
+    expect(m.resultDebateSignInReturn('2026-11-11')).toBe('/community');
+    for (const bad of ['', '2026-11-1', '//evil.test', 'https://evil.test', '2026-11-11/../x', '2026-11-11\n']) expect(m.resultDebateSignInReturn(bad)).toBeNull();
   });
   it('nothing on the anime or hub site, even with a debate in hand', async () => {
     const { decideResultDebate } = await import('./decide');
@@ -158,11 +175,35 @@ describe('the block at first paint (no layout jump)', () => {
   });
 });
 
+describe('the guest block at first paint', () => {
+  it('shows the question and one sign-in button, no vote buttons, in the same card', async () => {
+    const { ResultDebate } = await import('@/components/quiz/ux-v1/result-debate');
+    const html = renderToStaticMarkup(createElement(ResultDebate, { debate, guest: true }));
+    expect(html).toContain(debate.question);
+    expect(html).toContain('Sign in to vote');
+    expect(html).toContain('data-testid="result-debate-signin"');
+    expect(html).not.toContain('data-side=');
+    expect(html).not.toContain('aria-pressed');
+    expect(html.match(/<button/g)).toHaveLength(1);
+    expect(html).toContain('ux-tot ux-rdb');
+    expect(html).toContain('ux-rdb-f');
+  });
+  it('the sign-in button and the vote options share the reserved height, and the status line the same room', () => {
+    const css = readFileSync(new URL('../../styles/ux-v12/g7.css', import.meta.url), 'utf8');
+    // the sign-in button IS an .ux-rdb-o (min-height 72px) and overrides only padding and alignment, never the height
+    expect(css).toMatch(/\.ux-rdb-o \{[^}]*min-height: 72px/);
+    expect(css).not.toMatch(/\.ux-rdb-signin \{[^}]*(min-)?height/);
+    expect(css).toMatch(/\.ux-rdb-f \{[^}]*min-height: 48px/);
+    const src = readFileSync(new URL('../../components/quiz/ux-v1/result-debate.tsx', import.meta.url), 'utf8');
+    expect(src).toContain('className="ux-rdb-o ux-rdb-signin"');
+  });
+});
+
 describe('the result screen wiring', () => {
   const results = readFileSync(new URL('../../components/quiz/ux-v1/results.tsx', import.meta.url), 'utf8');
   it('decides once in a lazy state initializer and renders the block only when decided', () => {
     expect(results).toMatch(/const \[debate\] = useState\(\(\) => \{/);
-    expect(results).toContain('{debate ? <ResultDebate debate={debate} /> : null}');
+    expect(results).toContain('{debate ? <ResultDebate debate={debate} guest={slotGuest} /> : null}');
     expect(results).toContain('if (!isUxV12()) return null;');
   });
   it('the block and its vote touch no score, XP, streak or play endpoint', () => {
@@ -172,9 +213,9 @@ describe('the result screen wiring', () => {
       expect(src).not.toMatch(/xpEarned|recordGuestDaily|completeDaily|markDailyScore|streakView|guest-streak/);
     }
   });
-  it('the prefetch is asked from the run page, signed-in, K-pop, v12 only', () => {
+  it('the prefetch is asked from the run page, once the sign-in state is known (guest or fan), K-pop, v12 only', () => {
     const run = readFileSync(new URL('../../components/quiz/ux-v1/quiz-run.tsx', import.meta.url), 'utf8');
-    expect(run).toContain("if (signedIn === true && SITE.id === 'kpop' && isUxV12()) prefetchResultDebate(BASE_PATH);");
+    expect(run).toContain("if (signedIn !== null && SITE.id === 'kpop' && isUxV12()) prefetchResultDebate(BASE_PATH);");
   });
 });
 
@@ -210,8 +251,15 @@ describe('GET /api/debate/open', () => {
     const { GET } = await import('@/app/api/debate/open/route');
     expect(((await (await GET()).json()) as { voted: boolean }).voted).toBe(true);
   });
-  it('no debate today, a guest, or the anime site: debate null', async () => {
-    for (const o of [{ user: true, today: false, voted: false, siteId: 'kpop' }, { user: false, today: true, voted: false, siteId: 'kpop' }, { user: true, today: true, voted: false, siteId: 'anime' }]) {
+  it('a guest gets today\'s debate too, signedIn false and voted false', async () => {
+    mockDb({ user: false, today: true, voted: true, siteId: 'kpop' });
+    const { GET } = await import('@/app/api/debate/open/route');
+    const res = await GET();
+    expect(res.headers.get('Cache-Control')).toBe('no-store');
+    expect(await res.json()).toEqual({ signedIn: false, voted: false, debate: { date: new Date().toISOString().slice(0, 10), question: 'Q?', sideA: 'A', sideB: 'B' } });
+  });
+  it('no debate today, or the anime or hub site (a fan or a guest): debate null', async () => {
+    for (const o of [{ user: true, today: false, voted: false, siteId: 'kpop' }, { user: false, today: false, voted: false, siteId: 'kpop' }, { user: true, today: true, voted: false, siteId: 'anime' }, { user: false, today: true, voted: false, siteId: 'anime' }, { user: false, today: true, voted: false, siteId: 'hub' }]) {
       vi.resetModules();
       mockDb(o);
       const { GET } = await import('@/app/api/debate/open/route');
