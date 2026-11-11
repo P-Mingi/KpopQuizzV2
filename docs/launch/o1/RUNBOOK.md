@@ -32,6 +32,8 @@ Rewritten on 2026-10-28 for the owner's Bunnyverse decisions (section "Owner dec
   checks and reads Vercel. The live proofs with a real account (B5, B7, D2, D3, K6, K7, K9) stay the owner's: no agent signs in or creates an account in production.
 - Times are UTC. The crons are the `crons` list of `apps/quiz/vercel.json` (18 entries on 2026-10-28). Daily ones fire at 00:05 (`ensure-daily-quiz`), 00:10, 00:20,
   03:30, 03:40, 03:50, 03:55, 04:00, 04:15, 05:00 and 09:30; `editorial-publish` every 15 minutes, `live-expire` every 30 minutes; the rest weekly or monthly.
+  STOPGAP: the hub publishes the OtakuQuiz quiz of the day itself (`/api/cron/ensure-anime-daily-quiz` at 00:23 and `-eve` at 23:50; today, plus tomorrow after 12:00 UTC),
+  because Vercel does not call otakuquiz's crons and the GitHub workflow `anime-daily-quiz.yml` runs hours late. Once PR #213 (`vercel.ts`) is merged and otakuquiz's own crons are seen running, delete both routes, their two `vercel.json` entries and the workflow.
   Never run SQL between 23:50 and 00:30. Do the SQL steps in your quietest hour; `lock_timeout` makes a file fail instead of waiting,
   and every file can simply be run again.
 - No dates. The table below says what each phase waits for. If a step fails and the cause is not obvious, stop at that step

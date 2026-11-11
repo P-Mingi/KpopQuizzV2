@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { ImageError } from '@/lib/entity-images/errors';
 
 import {
-  CANDIDATE_ORIGINAL_MAX, STILL_TOO_BIG, candidateBase, candidatePaths, filterRefs, planOriginal, hashOfCandidatePath, foundByLabel, hashOfReferencePath, isReferenceSourceUrl, licenseOfText, referenceTitle, sourceNameOf, parseRefCredit, prefillOf, sameLicense,
+  CANDIDATE_ORIGINAL_MAX, STILL_TOO_BIG, candidateBase, candidatePaths, filterRefs, planOriginal, hashOfCandidatePath, foundByLabel, hashOfReferencePath, isReferenceSourceUrl, licenseOfText, referenceTitle, sourceNameOf, parseRefCredit, prefillOf, sameLicense, decideLink, applyLink, linkChoiceWords, LINK_IS_REFERENCE, LINK_NOT_HTTPS, LINK_EMPTY,
 } from './character-refs';
 import { discardCandidate, loadCharacterRefs, publishCandidate, saveCandidate, signPreviews } from './character-refs-store';
 import { characterFiles, hex12, pictureBytes, putReference, refsFakeDb } from './character-refs-test-support';
@@ -423,5 +423,50 @@ describe('the free picture over 3 MB: shrunk in the browser, refused only if sti
     expect(planOriginal(7 * MB, CANDIDATE_ORIGINAL_MAX)).toBe('send');
     expect(planOriginal(7 * MB, CANDIDATE_ORIGINAL_MAX + 1)).toBe('refuse');
     expect(STILL_TOO_BIG).toMatch(/3 Mo/);
+  });
+});
+
+describe('the free picture from a link (decideLink, applyLink)', () => {
+  const REF_FORM: RefCreditFields = { source_url: 'https://anilist.co/character/12345', author: 'AniList (character image)', license: '', license_url: '' };
+  const commons = { pageUrl: 'https://commons.wikimedia.org/wiki/File:Kohaku.png', license: 'cc_by_sa', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/', author: 'Jane Doe' };
+
+  it('refuses at once a link on a reference host, its subdomains and the hosts of the row', () => {
+    expect(decideLink('https://s4.anilist.co/file/x.png')).toEqual({ ok: false, error: LINK_IS_REFERENCE });
+    expect(decideLink('https://static.wikia.nocookie.net/a/b.png')).toEqual({ ok: false, error: LINK_IS_REFERENCE });
+    expect(decideLink('https://cdn.myanimelist.net/images/x.jpg')).toEqual({ ok: false, error: LINK_IS_REFERENCE });
+    expect(decideLink('https://example.org/x.png', ['example.org'])).toEqual({ ok: false, error: LINK_IS_REFERENCE });
+  });
+  it('refuses an empty or non https link with its own words, and accepts a plain link trimmed', () => {
+    expect(decideLink('  ')).toEqual({ ok: false, error: LINK_EMPTY });
+    expect(decideLink('http://example.org/x.png')).toEqual({ ok: false, error: LINK_NOT_HTTPS });
+    expect(decideLink('pas un lien')).toEqual({ ok: false, error: LINK_NOT_HTTPS });
+    expect(decideLink('  https://upload.wikimedia.org/x.png ')).toEqual({ ok: true, url: 'https://upload.wikimedia.org/x.png' });
+  });
+  it('Commons: source, author, licence and licence address replace the credits of the reference', () => {
+    expect(applyLink(REF_FORM, 'https://upload.wikimedia.org/x.png', commons, [REF_FORM])).toEqual({
+      source_url: commons.pageUrl, author: 'Jane Doe', license: 'cc_by_sa', license_url: commons.licenseUrl,
+    });
+  });
+  it('a plain link only sets the source and keeps the rest', () => {
+    const typed = { ...REF_FORM, author: 'Moi', license: 'cc0' };
+    expect(applyLink(typed, 'https://example.org/x.png', null, [REF_FORM])).toEqual({ ...typed, source_url: 'https://example.org/x.png' });
+  });
+  it('a plain link empties the reference author and licence address the screen pre-filled, and keeps the licence', () => {
+    const pre: RefCreditFields = { ...REF_FORM, license: 'cc0', license_url: 'https://anilist.co/character/12345' };
+    expect(applyLink(pre, 'https://example.org/x.png', null, [pre])).toEqual({ source_url: 'https://example.org/x.png', author: '', license: 'cc0', license_url: '' });
+  });
+  it('never overwrites what the owner typed by hand', () => {
+    const typed: RefCreditFields = { source_url: 'https://example.org/page', author: 'Moi', license: 'cc0', license_url: 'https://example.org/lic' };
+    expect(applyLink(typed, 'https://upload.wikimedia.org/x.png', commons, [REF_FORM])).toEqual(typed);
+  });
+  it('Commons without an author clears the reference author, keeps a typed one', () => {
+    const none = { ...commons, author: null, licenseUrl: null };
+    expect(applyLink(REF_FORM, 'u', none, [REF_FORM]).author).toBe('');
+    expect(applyLink({ ...REF_FORM, author: 'Moi' }, 'u', none, [REF_FORM]).author).toBe('Moi');
+  });
+  it('says what was chosen, without any dash', () => {
+    expect(linkChoiceWords(commons)).toBe('Page source : la page Commons du fichier, licence CC BY-SA, auteur Jane Doe.');
+    expect(linkChoiceWords(null)).toContain('le lien lui-même');
+    expect(`${LINK_IS_REFERENCE}${LINK_EMPTY}${LINK_NOT_HTTPS}`).not.toMatch(/[\u2013\u2014]/);
   });
 });

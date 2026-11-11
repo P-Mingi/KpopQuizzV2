@@ -20,6 +20,14 @@
       "schedule": "*/15 * * * *"
     },
     {
+      "path": "/api/cron/ensure-anime-daily-quiz",
+      "schedule": "23 0 * * *"
+    },
+    {
+      "path": "/api/cron/ensure-anime-daily-quiz-eve",
+      "schedule": "50 23 * * *"
+    },
+    {
       "path": "/api/cron/ensure-daily-debate",
       "schedule": "10 0 * * *"
     },

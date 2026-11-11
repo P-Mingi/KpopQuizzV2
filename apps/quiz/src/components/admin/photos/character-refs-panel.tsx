@@ -11,11 +11,11 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import {
-  NO_LICENSE_WORDS, STILL_TOO_BIG, REF_LICENSE_OPTIONS, REF_STATUSES, SIGN_BATCH, STATUS_LABEL, filterRefs, foundByLabel, planOriginal, prefillOf, referenceTitle,
+  NO_LICENSE_WORDS, STILL_TOO_BIG, REF_LICENSE_OPTIONS, REF_STATUSES, SIGN_BATCH, STATUS_LABEL, applyLink, decideLink, filterRefs, foundByLabel, hostOfUrl, linkChoiceWords, planOriginal, prefillOf, referenceTitle,
 } from '@/lib/photos/character-refs';
 import { decode, makeAssetFiles, makePhotoFiles } from '@/lib/photos/resize';
 
-import { PHOTO_API, postForm } from './api';
+import { PHOTO_API, fetchPicture, lookupCommons, postForm } from './api';
 import { DropZone } from './ui';
 import s from './photos-admin.module.css';
 
@@ -99,18 +99,21 @@ function CandidateBox({ row, preview, onSaved }: { row: RefListRow; preview: Pre
   const [credit, setCredit] = useState<RefCreditFields>(() => prefillOf({ reference: row.reference, candidate: row.candidate }));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [link, setLink] = useState('');
+  // What the screen put in the form itself (the reference's credits): only these may be replaced when a link is loaded.
+  const [machine] = useState<readonly RefCreditFields[]>(() => [prefillOf({ reference: row.reference, candidate: row.candidate })]);
   const hasCandidate = Boolean(row.candidate?.hasFiles);
   const set = (patch: Partial<RefCreditFields>): void => setCredit({ ...credit, ...patch });
 
-  const body = (action: string): FormData => {
+  const body = (action: string, fields: RefCreditFields = credit): FormData => {
     const form = new FormData();
     form.set('action', action);
     form.set('series', row.series);
     form.set('character', row.character);
-    form.set('source_url', credit.source_url);
-    form.set('author', credit.author);
-    form.set('license', credit.license);
-    form.set('license_url', credit.license_url);
+    form.set('source_url', fields.source_url);
+    form.set('author', fields.author);
+    form.set('license', fields.license);
+    form.set('license_url', fields.license_url);
     return form;
   };
 
@@ -129,7 +132,7 @@ function CandidateBox({ row, preview, onSaved }: { row: RefListRow; preview: Pre
   };
 
   // The free picture: the browser makes the three WebP files (like the other panels) and keeps the original only to be hashed on the server.
-  const take = async (file: File): Promise<void> => {
+  const take = async (file: Blob, fields: RefCreditFields = credit, note = ''): Promise<void> => {
     setBusy(true);
     setError(null);
     try {
@@ -142,14 +145,14 @@ function CandidateBox({ row, preview, onSaved }: { row: RefListRow; preview: Pre
           original = (await makeAssetFiles(bitmap, 'banner')).large;
           if (planOriginal(file.size, original.size) === 'refuse') throw new Error(STILL_TOO_BIG);
         }
-        const form = body('candidate');
+        const form = body('candidate', fields);
         form.set('original', original, 'original');
         form.set('x1', files.x1, 'x1.webp');
         form.set('x2', files.x2, 'x2.webp');
         form.set('thumb', files.thumb, 'thumb.webp');
         const res = await postForm(PHOTO_API.refs, form);
         if (!res.ok) throw new Error(res.error);
-        onSaved(`${row.name} : image libre gardée en privé. Corrige le crédit, puis « Valider et publier ».`);
+        onSaved(`${row.name} : image libre gardée en privé. ${note ? `${note} ` : ''}Corrige le crédit, puis « Valider et publier ».`);
       } finally {
         bitmap.close();
       }
@@ -158,6 +161,31 @@ function CandidateBox({ row, preview, onSaved }: { row: RefListRow; preview: Pre
     } finally {
       setBusy(false);
     }
+  };
+
+  // The same path as a dropped file; the bytes come from the guarded download of the Images tab (https, public addresses, 10 s, 8 MB).
+  const fromLink = async (): Promise<void> => {
+    const own = [row.reference?.pageUrl, row.reference?.imageUrl, row.reference?.filePageUrl].map(hostOfUrl).filter((h): h is string => h !== null);
+    const decision = decideLink(link, own);
+    if (!decision.ok) { setError(decision.error); return; }
+    setBusy(true);
+    setError(null);
+    let blob: Blob;
+    let next: RefCreditFields;
+    let words: string;
+    try {
+      const found = await lookupCommons(decision.url);
+      blob = await fetchPicture(decision.url);
+      next = applyLink(credit, decision.url, found, machine);
+      words = linkChoiceWords(found);
+    } catch (e) {
+      setError((e as Error).message);
+      setBusy(false);
+      return;
+    }
+    setCredit(next);
+    setLink('');
+    await take(blob, next, words);
   };
 
   const publish = (): void => {
@@ -180,6 +208,12 @@ function CandidateBox({ row, preview, onSaved }: { row: RefListRow; preview: Pre
       {preview?.candidate ? <SizedPicture src={preview.candidate} alt={`Image libre de ${row.name}`} />
         : <DropZone title="Glisse une image libre" hint="3 Mo au plus" small onFile={(f) => { void take(f); }} button="Remplacer par une image libre" />}
       {preview?.candidate ? <DropZone title="Une autre image" small onFile={(f) => { void take(f); }} button="Remplacer par une image libre" /> : null}
+      <div className={s.fld}>
+        <label htmlFor={`${id}-link`}>Ou colle le lien de l&apos;image</label>
+        <input id={`${id}-link`} type="url" value={link} onChange={(e) => setLink(e.target.value)} placeholder="https://" disabled={busy}
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); void fromLink(); } }} />
+        <button type="button" className={s.small} disabled={busy || !link.trim()} onClick={() => { void fromLink(); }}>Charger</button>
+      </div>
       {!hasCandidate && row.reference ? <p className={s.note}>Le formulaire reprend les crédits de la référence : remplace-les par ceux de ton image libre.</p> : null}
       <div className={`${s.fld} ${s.refForm}`}>
         <div className={s.fld}>

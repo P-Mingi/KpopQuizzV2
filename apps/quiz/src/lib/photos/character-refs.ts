@@ -257,6 +257,63 @@ export function prefillOf(row: {
   return { source_url: ref.filePageUrl ?? ref.pageUrl ?? '', author: ref.author ?? '', license: licenseOfText(ref.license) ?? '', license_url: '' };
 }
 
+// ---- the free picture from a link ---------------------------------------------------------------------------------------------------
+
+/** The French refusals of a pasted link, shown at once in the box (nothing is asked from the network). */
+export const LINK_IS_REFERENCE = 'Ce lien est celui d\'une référence (AniList, MyAnimeList, Fandom ou la page de la référence) : une image de référence ne se publie pas. Colle le lien d\'une image libre.';
+export const LINK_EMPTY = 'Colle le lien de l\'image (https://).';
+export const LINK_NOT_HTTPS = 'Le lien doit commencer par https://.';
+
+/** What the box does with a pasted link before any request: refused with the words to show, or accepted as the trimmed address. */
+export function decideLink(raw: string, ownHosts: readonly string[] = []): { readonly ok: true; readonly url: string } | { readonly ok: false; readonly error: string } {
+  const url = raw.trim();
+  if (!url) return { ok: false, error: LINK_EMPTY };
+  let parsed: URL | null = null;
+  try { parsed = new URL(url); } catch { parsed = null; }
+  if (!parsed || parsed.protocol !== 'https:') return { ok: false, error: LINK_NOT_HTTPS };
+  if (isReferenceSourceUrl(url, ownHosts)) return { ok: false, error: LINK_IS_REFERENCE };
+  return { ok: true, url };
+}
+
+/** The part of what the server read on Wikimedia Commons that the form uses (api.ts CommonsInfo has it all). */
+export interface LinkCommons {
+  readonly pageUrl: string;
+  readonly license: string;
+  readonly licenseUrl: string | null;
+  readonly author: string | null;
+}
+
+/**
+ * The form after a link was loaded. Commons answered: source = the Commons file page, author and licence as Commons gives them (the licence is
+ * one of the list), licence address when Commons gives one. No Commons answer: the source becomes the link itself, the author and the licence
+ * address the screen pre-filled are emptied and the licence stays, the owner types them. A field is replaced only when it is empty or still holds a value the screen put there itself
+ * (`machine`: the pre-filled credits of the reference); what the owner typed by hand is never overwritten. Commons gives no author: a machine
+ * value (the reference's author) is cleared, a typed one is kept.
+ */
+export function applyLink(current: RefCreditFields, url: string, commons: LinkCommons | null, machine: readonly RefCreditFields[]): RefCreditFields {
+  const free = (k: keyof RefCreditFields): boolean => current[k].trim() === '' || machine.some((m) => m[k] === current[k]);
+  const next: { -readonly [K in keyof RefCreditFields]: string } = { ...current };
+  if (free('source_url')) next.source_url = commons ? commons.pageUrl : url;
+  if (commons) {
+    if (free('author')) next.author = commons.author?.trim() ?? '';
+    if (free('license') && isRefLicense(commons.license)) next.license = commons.license;
+    if (free('license_url')) next.license_url = commons.licenseUrl ?? '';
+  } else {
+    // a plain link: the reference's author and licence address the screen put there can never be the free picture's, so they are emptied
+    // for the owner to type (a value typed by hand stays)
+    if (free('author')) next.author = '';
+    if (free('license_url')) next.license_url = '';
+  }
+  return next;
+}
+
+/** One French sentence that says what was chosen from the link. */
+export function linkChoiceWords(commons: LinkCommons | null): string {
+  if (!commons) return 'Page source : le lien lui-même. Indique l\'auteur et la licence.';
+  const label = REF_LICENSE_OPTIONS.find((o) => o.value === commons.license)?.label ?? commons.license;
+  return `Page source : la page Commons du fichier, licence ${label}${commons.author ? `, auteur ${commons.author}` : ''}.`;
+}
+
 // ---- hashes and private paths -------------------------------------------------------------------------------------------------------
 
 /** 12 hex characters of a sha256, the length fetch-refs.mjs puts in the name of a reference file. */
