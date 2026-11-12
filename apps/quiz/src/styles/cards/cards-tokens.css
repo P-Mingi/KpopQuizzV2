@@ -1,6 +1,5 @@
 /* Bunnyverse Cards, tokens (the kpopquiz.org kit on a light ground, the rarity colours). Ported from docs/design/cards/bunnyverse-cards-prototype-v4.html by scoping every rule under .bvc (the prototype styled the whole page). */
 @font-face{font-family:"BVC DM Sans";src:url("/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
-@font-face{font-family:"BVC Mono";src:url("/fonts/SplineSansMono-500-latin.woff2") format("woff2");font-weight:400 500;font-style:normal;font-display:swap}
 .bvc{
   color-scheme:light;
   --bg:#FAF8F5; --surface:#FFFFFF; --surface-alt:#F3F1ED; --surface-2:#ECE8E2;
@@ -16,8 +15,9 @@
   /* rarity, inside the dark cards (unchanged) */
   --r-c:#C9CEDB; --r-u:#4BE3A3; --r-r:#5DB2FF; --r-sr:#BE92FF; --r-ur:#FFC94D; --r-l:#FF76B6;
   --f-ui:"BVC DM Sans","DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-card:"Archivo","Arial Narrow",system-ui,sans-serif;
-  --f-mono:"BVC Mono","Martian Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  /* Archivo and Martian Mono: next/font variables set on this same root by the Cards layout (owner go 2026-11-12) */
+  --f-card:var(--font-bvc-card,"Archivo"),"Arial Narrow",system-ui,sans-serif;
+  --f-mono:var(--font-bvc-mono,"Martian Mono"),ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --white:#FFFFFF; --tone-sr:#F5EEFC; --tone-ur:#FFF6DF; --tone-l:#FFEFF5;
   --binder-ground:#E9E4DC; --ring-a:#FFFFFF; --ring-b:#B9B3AA; --ring-c:#EDE9E3; --star-on:#D99A00; --star-edge:#A87400;
   --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.56,.64,1);

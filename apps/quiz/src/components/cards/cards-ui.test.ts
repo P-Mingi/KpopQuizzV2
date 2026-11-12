@@ -12,6 +12,8 @@ vi.mock('@/lib/site/registry', async (orig) => {
   const real = await orig<typeof import('@/lib/site/registry')>();
   return { ...real, get SITE_ID() { return site.id; } };
 });
+// next/font only runs inside the Next compiler: the font module is replaced by the one field the layout reads (owner go 2026-11-12).
+vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' } }));
 vi.mock('next/navigation', () => ({
   usePathname: () => '/cards', useRouter: () => ({ replace: () => undefined }), useSearchParams: () => new URLSearchParams(),
   notFound: () => { throw new Error('NEXT_HTTP_ERROR_FALLBACK;404'); },
