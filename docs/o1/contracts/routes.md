@@ -157,6 +157,8 @@ Bunnyverse Cards (owner mission 2026-11-12, hub build only, 404 elsewhere and wi
 `POST /api/cards/report` (no sign-in), `GET /api/cards/catalog` (public, cached 5 minutes), `POST /api/admin/cards/photos`
 (`requireAdmin`, works while NET_CARDS is off so the owner can review first), and on the kpop and hub builds
 `GET /api/cards-bridge/me` (NET_CARDS_BRIDGES).
+Its pages, hub build only, behind NET_CARDS (`hubRouteAllow` adds `CARDS_PATHS`; off: a 404 like any unknown URL), noindex and out of the
+sitemap: `/cards`, `/cards/binder`, `/cards/c/{num}` (`BV1-0001` style), `/cards/report`; the existing hub `/credits` gains a Cards section.
 
 ## 3. Route map per site
 

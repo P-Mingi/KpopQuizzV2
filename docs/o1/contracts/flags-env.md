@@ -48,7 +48,9 @@ kpopquiz.org is byte-identical (parity).
 | `NET_KPOPDLE_GROUP` | server | H1 | kpopquiz.org, a group page: the card "The 9 members of TWICE are in the Kpopdle" with a Play link (`lib/passerelles/group-line.ts`, CR-025), only for a group that has members in the pool of the game, while the hub's `dailyGuess` is on and the pool answers. Any failure hides the card, never the page. Ignored on the anime and hub builds | no card, no read, no style: the group pages keep their bytes |
 | `EDITORIAL_QUIZ` | server | E1b | kpopquiz.org: the quiz lane of the editorial pipeline (owner decisions of 2026-11-03). `/admin/editorial` shows the Quizzes panel (paste drafts of kind `quiz`, review batches, approve, spread over N days) and the cron `editorial-publish` also publishes at most one approved quiz per run under its active Team account: at most 10 quizzes a UTC day and 1 per group a day, on top of (and never counted in) the 3 a day of threads, debates and blogs, between 06:00 and 22:00 UTC, never 23:50 to 00:30. The quiz is written through the create route's insert (`create_quiz_bypass`) and its post-publish hooks (revalidation, IndexNow, followers). Inert until SQL 012 is applied (503 `quiz_not_live`, the cron answers `quiz_not_live`). Ignored on the anime and hub builds | nothing of the lane reads, writes or renders; the admin page, the admin routes and the cron answer as before and no public page changes |
 | `NET_CARDS` | server | ORCH | Bunnyverse Cards on the hub build: `/cards`, `/cards/binder`, `/cards/c/[num]`, `/cards/report`, the Cards part of `/credits`, `/api/cards/*` (`lib/cards/flags.ts` `cardsOpen()`). Still behind PRIVATE_LAUNCH | every Cards URL and API route is a 404 like any unknown URL. Default |
+| `NEXT_PUBLIC_NET_CARDS` | public | ORCH | the public twin of NET_CARDS, set together with it: the Cards entry of the hub top bar and mobile tab bar (`lib/ux-v1/a0/nav.ts`, client code) | no Cards entry in the hub navigation |
 | `NET_CARDS_BRIDGES` | server | ORCH | with NET_CARDS, on the kpop and hub builds: the kpopquiz.org home block, the group block, the quiz-end and Kpopdle-win bonus packs (`bonusLeft` and the `bonus` source), the profile link and the passport section (`cardsBridgesOn()`); its public twin `NEXT_PUBLIC_NET_CARDS_BRIDGES` shows the Binder link of the account menu | none of them; the bonus allowance reads 0 |
+| `NEXT_PUBLIC_NET_CARDS_BRIDGES` | public | ORCH | the public twin of NET_CARDS_BRIDGES, set together with it: the Binder link of the account menu, the quiz-end and Kpopdle-win lines (client code) | they compile to nothing |
 | `NET_CARDS_ADS` | server | ORCH | with NET_CARDS, hub only: `POST /api/cards/ad/ticket` and `/ad/grant` (`cardsAdsOn()`; also needs `CARDS_ADS_PER_DAY` above 0) | both answer 409 `disabled`. Default |
 | `NEXT_PUBLIC_NET_CARDS_ADS` | public | ORCH | hub only: the rewarded ad button, the binder banner, the consent banner (`cardsAdsPublicOn()`) | no ad UI, no ad script. kpopquiz.org never loads one whatever the value |
 
@@ -75,8 +77,8 @@ Every other variable the app reads today (`NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_B
 Spotify, YouTube and Reddit keys, `UX_P4_CHALLENGE_SECRET`, `INDEXNOW_TRIGGER_TOKEN`, `SUPABASE_SERVICE_ROLE_KEY`)
 keeps its meaning on kpop. The anime and hub projects set only what their routes read (L1 lists them per project).
 Bunnyverse Cards adds settings that are not switches: `CARDS_ADS_PER_DAY` (server, default 10, 0 turns ads off, at most 100),
-`CARDS_BONUS_PER_DAY` (server, default 3 until the owner rules, 0 turns bonus packs off, at most 20), the public twin
-`NEXT_PUBLIC_NET_CARDS_BRIDGES` (the Binder link of the account menu), and the AdSense names `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT`,
+`CARDS_BONUS_PER_DAY` (server, default 3 until the owner rules, 0 turns bonus packs off, at most 20), the development-only
+`CARDS_UI_FIXTURE` (never honoured in a production build), and the AdSense names `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT`,
 `NEXT_PUBLIC_CARDS_BANNER_SLOT` and `NEXT_PUBLIC_CARDS_ADS_TEST` (empty: no ad script loads).
 `NEXT_PUBLIC_SITE_URL` stays a kpop override: anime and hub take their canonical origin from the registry.
 
