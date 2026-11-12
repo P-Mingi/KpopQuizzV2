@@ -48,3 +48,8 @@ This amendment WINS over the contract and the briefs wherever they differ. Every
   function, `cards_bonus_record` (decision 28).
 - Bonus packs come from Kpopdle wins only (decision 28); rewarded ad tickets open a pack from 10 seconds to 1 hour after
   issue (decision 29).
+- The owner's card file script is tracked at `apps/quiz/scripts/cards/publish-card-files.mjs` (out/ is git-ignored, so a script
+  there would never reach the owner's checkout). It writes its preview under `out/cards-tool/preview/` (ignored). The project
+  address comes from `CARDS_SUPABASE_URL`, else `NEXT_PUBLIC_SUPABASE_URL`, else `apps/quiz/.env.local`; the service key is typed
+  at the prompt for `--publish` only. `cards_photos.file_url` is the Commons address of the original file (no project host in the
+  repository); the site shows the bucket copy through `source_path`.
