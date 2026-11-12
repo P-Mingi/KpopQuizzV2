@@ -78,13 +78,10 @@ Each file is one DO block with Verify lines and its `.rollback.sql`; undo runs i
 ## Checks
 
 - **tsc:** clean.
-- **Unit, full suite:** 10,126 passed. 6 load timeouts that pass alone, and 1 failure already on main (`lib/ux-v1/p10/passport-render.test.ts` "band modes").
+- **Unit, full suite (with #228 merged in):** 10,015 passed. 5 load timeouts that pass alone, and 1 failure already on main (`lib/ux-v1/p10/passport-render.test.ts` "band modes").
 - **Route gate:** green.
 - **Builds:** kpop and hub production builds green.
-- **kpopquiz.org parity, every flag off:** `scripts/o1/parity.sh 5a661a8 490ed5e`, top 20 list, 70 pages: 68 identical. The 2 others are not this PR:
-  - `/groups`: a Flight module id shifted by one (`$L1c` against `$L1d`), the known harness noise.
-  - `/q/illit-quiz`: its rotating "more quizzes" cards changed between the two recordings, at the 14:00 UTC turn. The same page was identical in the run 20 minutes earlier, and no Cards file reaches quiz pages.
-  - Two earlier runs caught real changes, now fixed: a test id `p-1` and the word `grayscale` in a TypeScript style string each made Tailwind add one rule to the shared stylesheet.
+- **kpopquiz.org parity, every flag off:** `scripts/o1/parity.sh 5a661a8 b726b7e` (the reviewed branch, #228 included), top 20 list, 70 pages: 69 identical. The other, `/groups`, differs only by a Flight module id shifted by one (`$L1c` against `$L1d`), the known harness noise. Earlier runs caught two real changes, now fixed: a test id `p-1` and the word `grayscale` in a TypeScript style string each made Tailwind add one rule to the shared stylesheet.
 - **Twins check:** one violation, already on main (`blindtest/ux-v1/use-run.ts`).
 - **Secrets check:** no secret; one false positive, the local test origin `http://localhost:3021`, already in a test on main.
 
