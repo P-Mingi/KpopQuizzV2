@@ -2,8 +2,9 @@
 // the tests share them: what to cut for a subject, the age rule, and the exact-name matcher of the bucket cleanup.
 import { MIN_2X, cardBox, halves, pairBox, partSuffix } from './card-geometry.mjs';
 
-/** A subject that fails the age rule (a person in the photo under 18 today or on the photo date) is never cut and never kept. A missing `age` is ok. */
-export const ageOk = (s) => s?.age?.ok !== false;
+/** Only a subject that PASSED the age rule (every person in the photo 18 or older today and on the photo date) is cut and kept. No verdict
+ *  (the age check was not run) fails closed, like gen-rebuild-sql.mts, which writes no card without one. */
+export const ageOk = (s) => s?.age?.ok === true;
 
 /** A person is `idol`; anything else is a group (a pair of cards). */
 export const isGroup = (s) => s.kind !== 'idol';

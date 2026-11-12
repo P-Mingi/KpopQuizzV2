@@ -10,7 +10,7 @@
 // wide in the original (no upscaled 2x file). Files: a person <stem>-1x.webp / -2x.webp, a group <stem>-h1-1x.webp / -h1-2x.webp / -h2-1x.webp
 // / -h2-2x.webp, with stem = <slug>-<fx>-<fy>. The geometry is scripts/cards/card-geometry.mjs, the pure rules scripts/cards/card-files.mjs.
 // A subject that fails the age rule (subjects.json `age.ok` false: a person in the photo under 18 today or on the photo date) is never cut
-// and never uploaded, and its files leave the bucket (see the cleanup below). A missing `age` counts as ok.
+// and never uploaded, and its files leave the bucket (see the cleanup below). No verdict (the age check was not run) counts as a failure.
 //   node apps/quiz/scripts/cards/publish-card-files.mjs
 //       preview: downloads the originals from Commons (one at a time, with a User-Agent naming the project), cuts them around the default
 //       focal point, writes WebP 1x and 2x and a contact sheet to out/cards-tool/preview/index.html (a pair is shown as its two halves side
@@ -217,15 +217,14 @@ async function publish() {
   console.log(`\nuploaded ${done}, skipped ${skipped}`);
 
   // Cleanup: propose to delete what is not a file of a current stem of an included subject. Nothing is deleted without typing: delete
+  // A subject without a live photo row is not in the catalog (left out at apply time, or its photo refused): its files are dead too.
   const current = new Map();
-  const skip = new Set();
   for (const s of subjects) {
     const row = bySlug.get(s.slug);
     if (row) current.set(s.slug, { group: isGroup(s), fx: row.focal_x, fy: row.focal_y });
-    else skip.add(s.slug);
   }
   const names = await listBucket(origin, H);
-  const { keep, remove } = planRemovals(names, { known: allSubjects.map((s) => s.slug), current, only: ONLY, skip });
+  const { keep, remove } = planRemovals(names, { known: allSubjects.map((s) => s.slug), current, only: ONLY });
   console.log(`\nbucket cards: ${names.length} objects, ${keep.length} current files kept, ${remove.length} proposed for deletion${ONLY ? ` (only ${[...ONLY].join(', ')})` : ''}`);
   if (remove.length === 0) return;
   for (const r of remove) console.log(`  ${r.name}  (${r.why})`);

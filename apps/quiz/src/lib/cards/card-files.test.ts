@@ -49,8 +49,9 @@ describe('card geometry, pair window and halves', () => {
     expect(partFileName('x-50-30', 0, '1x')).toBe('x-50-30-1x.webp');
     expect(partFileName('x-50-30', 2, '2x')).toBe('x-50-30-h2-2x.webp');
   });
-  it('the age rule: a missing age is ok, only ok false leaves', () => {
-    expect(ageOk({})).toBe(true);
+  it('the age rule: only a passed verdict is kept, no verdict fails closed', () => {
+    expect(ageOk({})).toBe(false);
+    expect(ageOk({ age: null })).toBe(false);
     expect(ageOk({ age: { ok: true, reason: null } })).toBe(true);
     expect(ageOk({ age: { ok: false, reason: 'under 18' } })).toBe(false);
   });
