@@ -77,7 +77,11 @@ file script.
   keeps, a refused photo, a second run, the rollbacks), the age rule (18 cases: today, the photo date, lineups, a single source), the exact
   odds of the draw with pairs, the binder pairs, the card page, the drop rates, the file script's geometry and its cleanup matcher, the admin
   halves.
-- Full suite, hub production build and kpopquiz.org parity: below.
+- Full suite: 10,164 tests, 10,161 passed in the run; the 3 others: the pinned file list (updated, see below) and two load timeouts
+  (`admin-lock.refusal`, the Kpopdle bank sizes), which pass alone.
+- Hub production build (`NEXT_PUBLIC_SITE_ID=hub NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1`, offline database): green, 228 pages.
+- kpopquiz.org parity, main 65c0210 against 47c15ab, 70 pages: 69 identical. `/groups` differs only by the order of the `IconMark` client
+  reference in the Flight data (renumbered ids, the known noise); the base build had 7 live reads over the 5 s cap, the head none.
 - Checked on screen with a development fixture of pairs (`CARDS_UI_FIXTURE_PAIRS=1`, off by default): the binder pages and grid, the card
   page of a half.
 
