@@ -1,0 +1,25 @@
+/* Bunnyverse Cards, tokens (the kpopquiz.org kit on a light ground, the rarity colours). Ported from docs/design/cards/bunnyverse-cards-prototype-v4.html by scoping every rule under .bvc (the prototype styled the whole page). */
+@font-face{font-family:"BVC DM Sans";src:url("/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:"BVC Mono";src:url("/fonts/SplineSansMono-500-latin.woff2") format("woff2");font-weight:400 500;font-style:normal;font-display:swap}
+.bvc{
+  color-scheme:light;
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-alt:#F3F1ED; --surface-2:#ECE8E2;
+  --txt1:#1A1714; --txt2:#6B6560; --txt3:#77716A;
+  --border:rgba(26,23,20,.10); --border-h:rgba(26,23,20,.20);
+  --brand:#E8457A; --brand-btn:#D13A6E; --brand-btn-h:#B5345F; --brand-light:#FCE8EF; --brand-ink:#B5345F;
+  --ok:#166534; --ok-bg:#DCFCE7; --amber:#92400E; --amber-bg:#FEF3C7; --amber-line:#FCD34D;
+  --shadow-card:0 1px 0 rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.04);
+  --shadow-lift:0 8px 24px rgba(232,69,122,.10),0 2px 8px rgba(0,0,0,.06);
+  /* rarity, on light UI (gem fill, text) */
+  --g-c:#8B93A7; --g-u:#12A877; --g-r:#2F80ED; --g-sr:#9B59D9; --g-ur:#D99A00; --g-l:#E8457A;
+  --t-c:#55607A; --t-u:#0B7A54; --t-r:#1D62C4; --t-sr:#7B3FA8; --t-ur:#8A5A00; --t-l:#B5345F;
+  /* rarity, inside the dark cards (unchanged) */
+  --r-c:#C9CEDB; --r-u:#4BE3A3; --r-r:#5DB2FF; --r-sr:#BE92FF; --r-ur:#FFC94D; --r-l:#FF76B6;
+  --f-ui:"BVC DM Sans","DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-card:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-mono:"BVC Mono","Martian Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --white:#FFFFFF; --tone-sr:#F5EEFC; --tone-ur:#FFF6DF; --tone-l:#FFEFF5;
+  --binder-ground:#E9E4DC; --ring-a:#FFFFFF; --ring-b:#B9B3AA; --ring-c:#EDE9E3; --star-on:#D99A00; --star-edge:#A87400;
+  --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.56,.64,1);
+}
+@property --spin{syntax:"<angle>";inherits:false;initial-value:0deg}
