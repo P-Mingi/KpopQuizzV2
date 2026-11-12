@@ -145,7 +145,29 @@ function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): Pool
     x -= KIND_WEIGHTS[k];
   }
   const list = byKey.get(`${kind}|${rarity}`) as PoolCard[];
-  return list[rng(list.length)] as PoolCard;
+  // Lot 2: a subject first, then one of its cards of that rarity (a group's two halves), so a pair does not double a group's chance.
+  // With one card per subject this is exactly the former uniform pick (same rng calls, same card).
+  const subjects = subjectsOf(list);
+  const cards = subjects[rng(subjects.length)] as PoolCard[];
+  return (cards.length === 1 ? cards[0] : cards[rng(cards.length)]) as PoolCard;
+}
+
+const SUBJECTS = new WeakMap<readonly PoolCard[], PoolCard[][]>();
+
+/** The cards of a list grouped by subject, in the order of each subject's first card (a card without an entity is its own subject). */
+export function subjectsOf(list: readonly PoolCard[]): PoolCard[][] {
+  const hit = SUBJECTS.get(list);
+  if (hit) return hit;
+  const by = new Map<string, PoolCard[]>();
+  for (const c of list) {
+    const k = c.entity ?? `#${c.n}`;
+    const l = by.get(k);
+    if (l) l.push(c);
+    else by.set(k, [c]);
+  }
+  const out = [...by.values()];
+  SUBJECTS.set(list, out);
+  return out;
 }
 
 /**
@@ -164,11 +186,20 @@ export function computeOdds(pool: readonly PoolCard[] | Map<string, PoolCard[]>)
   const available = card.map(([r]) => r);
   const weightTotal = card.reduce((s, [, w]) => s + w, 0) / 1000;
   const kinds = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
+  const subjects = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
+  const cards = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
   for (const r of RARITIES) {
     const ks = KINDS.filter((k) => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0);
     const tot = ks.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
     kinds[r] = {};
-    for (const k of ks) kinds[r][k] = (KIND_WEIGHTS[k] / tot) * 100;
+    subjects[r] = {};
+    cards[r] = {};
+    for (const k of ks) {
+      const list = byKey.get(`${k}|${r}`) as PoolCard[];
+      kinds[r][k] = (KIND_WEIGHTS[k] / tot) * 100;
+      subjects[r][k] = subjectsOf(list).length;
+      cards[r][k] = list.length;
+    }
   }
   return {
     available,
@@ -177,6 +208,8 @@ export function computeOdds(pool: readonly PoolCard[] | Map<string, PoolCard[]>)
     card: pct(card),
     fifth: pct(tableOf(byKey, true)),
     kinds,
+    subjects,
+    cards,
   };
 }
 

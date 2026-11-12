@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: the shapes the pages read, built on lane C's types (types.ts). The catalog API of lane C gives CatalogCard
 // without the crop and the file of the photo, and does not name the entities' lock reasons: this file says what the pages need on
 // top (all optional, so a CatalogCard from the API is still a UiCard). Requests to lane C: docs/o1/requests/CARDS-U.md.
-import type { CatalogCard, CatalogOdds, LockReason, PhotoCredit, Rarity } from './types';
+import type { CardPart, CatalogCard, CatalogOdds, LockReason, PhotoCredit, Rarity } from './types';
 
 /**
  * A photo credit plus what the card art needs. Amendment 1: the card file is the WebP the owner's script cut at the focal point (1x 320x495,
@@ -75,6 +75,10 @@ export interface SlimCard {
   fy: number;
   /** Event type when known (events), for the meta line. */
   sub: string | null;
+  /** Lot 2: 1 or 2 for the left or right half of a group photo (the pair's window is 11:8.5), 0 for a whole card. */
+  part?: CardPart;
+  /** Lot 2: the card number of the other half of the pair, null for a whole card or when the other half is not in packs. */
+  pairN?: number | null;
 }
 
 /** One pocket of the binder: a card, or an edition that cannot exist yet. */

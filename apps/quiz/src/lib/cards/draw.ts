@@ -1,5 +1,6 @@
 // Bunnyverse Cards: the server draw. The odds and the kind weights are in rules.ts (pure, testable with a seeded rng); here the
 // randomness is crypto.randomInt (never the non-crypto generator) and the pool is cards_catalog where in_packs, cached for 5 minutes.
+// Lot 2: each card carries its subject (entity_id), so the draw picks a subject and then one of its halves (rules.ts drawOne).
 // Server only: the service role reads the catalog, and the pack never leaves the server before cards_apply_pack stores it.
 import { randomInt } from 'node:crypto';
 
@@ -21,6 +22,7 @@ let cached: { at: number; index: PoolIndex; size: number } | null = null;
 interface PoolRow {
   card_no: number;
   rarity: PoolCard['rarity'];
+  entity_id: string;
   cards_entities: { kind: PoolCard['kind']; active: boolean } | { kind: PoolCard['kind']; active: boolean }[] | null;
 }
 
@@ -30,7 +32,7 @@ export async function readPool(): Promise<PoolCard[]> {
   const rows = await fetchAllRows<PoolRow>(() =>
     db
       .from('cards_catalog')
-      .select('card_no, rarity, cards_entities!inner(kind, active)')
+      .select('card_no, rarity, entity_id, cards_entities!inner(kind, active)')
       .eq('in_packs', true)
       .eq('cards_entities.active', true)
       .order('card_no', { ascending: true }),
@@ -38,7 +40,7 @@ export async function readPool(): Promise<PoolCard[]> {
   const pool: PoolCard[] = [];
   for (const r of rows) {
     const e = Array.isArray(r.cards_entities) ? r.cards_entities[0] : r.cards_entities;
-    if (e?.active) pool.push({ n: r.card_no, kind: e.kind, rarity: r.rarity });
+    if (e?.active) pool.push({ n: r.card_no, kind: e.kind, rarity: r.rarity, entity: r.entity_id });
   }
   return pool;
 }
