@@ -24,6 +24,10 @@ export function slimCard(c: UiCard, entityType: string | null = null): SlimCard 
   };
 }
 
+/** The group line of a person without one (decision 18, review 1 finding 12): 101 gives a person a group line only when the idols row sits
+ *  in another group, so none means a soloist. */
+export const SOLOIST = 'Soloist';
+
 const slug = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const EVENTS_SECTION = 'events';
 

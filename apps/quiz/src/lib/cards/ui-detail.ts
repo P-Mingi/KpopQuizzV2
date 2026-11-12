@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: what the page of one card needs, from the catalog, a card number and the optional ?lock=<rarity>. Pure.
 // Unknown number: null (the page answers 404). A ?lock for an edition that does not exist yet shows that edition's lock sentence.
 import { EDITIONS, LOCK_SENTENCES, RARITIES, RARITY_NAMES, creditLine } from './rules';
-import { ladderRarities, lockReasonOf, slimCard } from './ui-model';
+import { SOLOIST, ladderRarities, lockReasonOf, slimCard } from './ui-model';
 
 import type { Rarity } from './types';
 import type { DetailProps, Rung } from '@/components/cards/card-detail';
@@ -36,14 +36,17 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const locked = !!missing;
   const shown: Rarity = locked ? (lockR as Rarity) : card.rarity;
   const edition = `${EDITIONS[card.rarity].name} · ${RARITY_NAMES[card.rarity]}`;
-  // A fact the database does not hold (no group line, no debut year) is left out, never shown empty (no invented value either).
+  // A fact the database does not hold (no debut year) is left out, never shown empty (no invented value either). A person without a group
+  // line is a soloist (decision 18, review 1 finding 12: 101 gives a person a group line only when the idols row sits in another group);
+  // a soloist's debut year is the solo debut, so it is not "with the group".
   const year = entity.debutYear ?? null;
+  const groupLine = entity.group || SOLOIST;
   const allFacts: [string, string | null][] =
-    entity.kind === 'idol' ? [['Group', entity.group || null], ['Debut', year !== null ? `${year}, with the group` : null], ['Edition', edition], ['Number', card.num]]
+    entity.kind === 'idol' ? [['Group', groupLine], ['Debut', year !== null ? (entity.group ? `${year}, with the group` : String(year)) : null], ['Edition', edition], ['Number', card.num]]
     : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]]
     : [['Type', entity.eventType ?? 'Event'], ['Year', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]];
   const facts = allFacts.filter((f): f is [string, string] => f[1] !== null && f[1] !== '');
-  const subParts = entity.kind === 'idol' ? [entity.group || null, year !== null ? `debut ${year}` : null]
+  const subParts = entity.kind === 'idol' ? [groupLine, year !== null ? `debut ${year}` : null]
     : entity.kind === 'group' ? ['Group', year !== null ? `debut ${year}` : null] : [entity.eventType ?? 'Event', year !== null ? String(year) : null];
   const sub = subParts.filter((x): x is string => !!x).join(' · ');
   const missingRungs = ladder.filter((x) => !x.card);

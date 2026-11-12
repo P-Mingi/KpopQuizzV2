@@ -5,6 +5,7 @@
 import { EDITIONS } from '@/lib/cards/rules';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
+import { SOLOIST } from '@/lib/cards/ui-model';
 import { eventShort, monogram, nameSize, paletteFor } from '@/lib/cards/ui-palette';
 
 import type { Rarity } from '@/lib/cards/types';
@@ -92,7 +93,7 @@ function Art({ card }: { card: SlimCard }): React.ReactElement {
 }
 
 export function metaLine(card: SlimCard): string {
-  if (card.kind === 'idol') return `${card.group ?? ''}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
+  if (card.kind === 'idol') return `${card.group ?? SOLOIST}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
   if (card.kind === 'group') return card.debutYear ? `Debut ${card.debutYear}` : 'Group';
   return `${card.sub ?? 'Event'}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
 }

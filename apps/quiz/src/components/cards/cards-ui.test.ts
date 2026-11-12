@@ -236,3 +236,28 @@ describe('review 1 finding 4: the card face draws the photo of a group card', ()
     expect(html).not.toContain('c-photo');
   });
 });
+
+describe('review 1 finding 12: a soloist is "Soloist" on the card face and the card page (decision 18)', () => {
+  const idol = { n: 1, num: 'BV1-0001', entity: 'idol:iu', kind: 'idol' as const, rarity: 'C' as Rarity, edition: 'std' as const, name: 'IU', debutYear: 2008, img: null, fx: 50, fy: 30, sub: null };
+  it('the card face', async () => {
+    const { CardFront, metaLine } = await import('./card-art');
+    expect(metaLine({ ...idol, group: null })).toBe('Soloist · 2008');
+    expect(metaLine({ ...idol, group: null, debutYear: null })).toBe('Soloist');
+    expect(metaLine({ ...idol, group: 'BLACKPINK', debutYear: 2016 })).toBe('BLACKPINK · 2016');
+    expect(renderToStaticMarkup(createElement(CardFront, { card: { ...idol, group: null } }))).toContain('<span>Soloist · 2008</span>');
+  });
+  it('the card page: the group fact, the sub line, and a debut that is not "with the group"', () => {
+    const c = structuredClone(cat);
+    const solo = c.entities.find((e) => e.kind === 'idol')!;
+    solo.group = null;
+    solo.debutYear = 2008;
+    const card = c.cards.find((x) => x.entity === solo.id)!;
+    const d = buildDetail(c, card.num, null)!;
+    expect(d.props.facts.slice(0, 2)).toEqual([['Group', 'Soloist'], ['Debut', '2008']]);
+    expect(d.props.sub).toBe('Soloist · debut 2008');
+    const member = c.entities.find((e) => e.kind === 'idol' && e.id !== solo.id && e.group)!;
+    member.debutYear = 2016;
+    const m = buildDetail(c, c.cards.find((x) => x.entity === member.id)!.num, null)!;
+    expect(m.props.facts.slice(0, 2)).toEqual([['Group', member.group], ['Debut', '2016, with the group']]);
+  });
+});
