@@ -12,8 +12,13 @@ begin
   perform set_config('lock_timeout', '5s', true);
   perform set_config('client_min_messages', 'warning', true);
 
-  drop trigger if exists cards_photos_retire on public.cards_photos;
-  drop trigger if exists cards_reports_close on public.cards_reports;
+  -- A trigger only when its table exists (001's rollback may have run first), so a second run changes nothing.
+  if to_regclass('public.cards_photos') is not null then
+    drop trigger if exists cards_photos_retire on public.cards_photos;
+  end if;
+  if to_regclass('public.cards_reports') is not null then
+    drop trigger if exists cards_reports_close on public.cards_reports;
+  end if;
   drop function if exists public.cards_photo_retire();
   drop function if exists public.cards_report_close();
   drop function if exists public.cards_issue_ticket(uuid, timestamptz, integer);
