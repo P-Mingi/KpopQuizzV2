@@ -19,17 +19,26 @@ vi.mock('@/lib/site/registry', async (original) => {
   return { ...real, get SITE_ID() { return process.env.NEXT_PUBLIC_SITE_ID || 'kpop'; }, get SITE() { return real.REGISTRY[(process.env.NEXT_PUBLIC_SITE_ID || 'kpop') as 'kpop' | 'hub']; } };
 });
 
-function env(flag: string | null, site: 'kpop' | 'hub' = 'kpop'): void {
+function env(flag: string | null, site: 'kpop' | 'hub' = 'kpop', cards = true): void {
   vi.resetModules();
   vi.unstubAllEnvs();
   if (site !== 'kpop') vi.stubEnv('NEXT_PUBLIC_SITE_ID', site);
   if (flag !== null) vi.stubEnv('NET_CARDS_BRIDGES', flag);
+  if (flag !== null && cards) vi.stubEnv('NET_CARDS', '1');
 }
 
 beforeEach(() => { rpc.mockReset(); useMe.mockReset(); vi.spyOn(console, 'error').mockImplementation(() => undefined); });
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.restoreAllMocks(); });
 
 describe('flags', () => {
+  it('NET_CARDS off keeps every bridge off even with NET_CARDS_BRIDGES on (the bridges lead to the Cards pages)', async () => {
+    env('1', 'kpop', false);
+    let f = await import('./flags');
+    expect([f.cardsBridgesKpopOn(), f.cardsBridgesHubOn(), f.cardsBridgesOn(), f.cardsAdsOn()]).toEqual([false, false, false, false]);
+    env('1', 'hub', false);
+    f = await import('./flags');
+    expect([f.cardsBridgesKpopOn(), f.cardsBridgesHubOn(), f.cardsBridgesOn(), f.cardsAdsOn()]).toEqual([false, false, false, false]);
+  });
   for (const v of [null, '', '0', 'false', 'yes']) {
     it(`NET_CARDS_BRIDGES=${String(v)}: every switch off`, async () => {
       env(v);
