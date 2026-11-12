@@ -36,12 +36,26 @@ import type { FactOverrides } from './factrail';
 export interface DocBody { version: 1; blocks: DocBlock[]; factOverrides?: FactOverrides }
 
 const cap = (s: unknown, n: number): string => (typeof s === 'string' ? s : '').slice(0, n);
-const isSlug = (s: string): boolean => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s);
-const safeHref = (s: string): string | null => {
-  const v = s.trim();
-  if (v.startsWith('/') && !v.startsWith('//')) return v.slice(0, 300);        // site-relative
-  try { return new URL(v).protocol === 'https:' ? v.slice(0, 300) : null; } catch { return null; }
-};
+export const isSlug = (s: string): boolean => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s);
+
+// FLAW-2 (integrator fix, 2026-11-12): the ONE href rule of the tree pages, used at the save (clampRun) and
+// again at every sink (the editor's DOM builder, the reader). An https link comes back NORMALISED (new URL
+// .href: a double quote, a space, < and > are percent-encoded, so the value cannot close an attribute); a
+// site-relative link keeps only path characters (letters, digits, - . _ ~ / and a percent-encoded byte: no
+// query, no fragment, no quote). Refused: any backslash, a leading // or /\ (another host in disguise),
+// javascript:, data:, http: and every other scheme. Over HREF_MAX the link is refused, never cut.
+const HREF_MAX = 300;
+const SITE_PATH = /^\/(?:[A-Za-z0-9\-._~/]|%[0-9A-Fa-f]{2})*$/;
+export function safeHref(raw: unknown): string | null {
+  if (typeof raw !== 'string') return null;
+  const v = raw.trim();
+  if (!v || v.includes('\\') || v.startsWith('//') || v.startsWith('/\\')) return null;
+  if (v.startsWith('/')) return v.length <= HREF_MAX && SITE_PATH.test(v) ? v : null;
+  let url: URL;
+  try { url = new URL(v); } catch { return null; }
+  if (url.protocol !== 'https:') return null;
+  return url.href.length <= HREF_MAX ? url.href : null;
+}
 
 function clampRun(raw: unknown): Run | null {
   if (raw == null || typeof raw !== 'object') return null;
@@ -53,7 +67,7 @@ function clampRun(raw: unknown): Run | null {
   if (r.link && typeof r.link === 'object') {
     const l = r.link as Record<string, unknown>;
     if (typeof l.toSlug === 'string' && isSlug(l.toSlug)) out.link = { toSlug: l.toSlug };
-    else if (typeof l.href === 'string') { const h = safeHref(l.href); if (h) out.link = { href: h }; }
+    else { const h = safeHref(l.href); if (h) out.link = { href: h }; }
   }
   return text || out.link ? out : null;   // an empty run with no link is dropped
 }
@@ -100,8 +114,9 @@ function clampBlock(raw: unknown): DocBlock | null {
       return rows.length ? { id, type, rows } : null;
     }
     case 'link': {
+      // FLAW-2 sweep (2026-11-12): the block page link keeps a real page slug only, the rule of the inline link.
       const to = cap(b.to_slug, 80);
-      return to ? { id, type, to_slug: to, label: cap(b.label, 200) || to } : null;
+      return to && isSlug(to) ? { id, type, to_slug: to, label: cap(b.label, 200) || to } : null;
     }
     default: return null;
   }

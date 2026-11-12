@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { VerseTocRail } from './toc-rail';
 import { FactStrip, factStripRows } from './fact-strip';
 import { extractToc, headingAnchors } from '@/lib/verse/tree/toc';
+import { isSlug, safeHref } from '@/lib/verse/tree/blocks';
 import { templateSections } from '@/lib/verse/tree/templates';
 import type { PageRow, PageBlock } from '@/lib/verse/tree/types';
 import type { FactSection } from '@/lib/verse/tree/factrail';
@@ -240,20 +241,29 @@ function blockRuns(block: PageBlock): Run[] {
 }
 // Render one inline run: React escapes the TEXT; marks + link wrap it in a FIXED set of tags.
 // There is no HTML string anywhere, so this is XSS-safe by construction (the sink law).
+// FLAW-2 (integrator fix, 2026-11-12): the stored link is checked AGAIN here (stored data is never
+// trusted, law 8): a page link needs a real slug, an external one an href safeHref accepts (https,
+// normalised, or a clean /path). Anything else renders as plain text, unlinked.
 function RunSpan({ run, spaceSlug, existing }: { run: Run; spaceSlug: string; existing: Set<string> }): React.ReactElement {
-  let node: React.ReactNode = run.text;
-  const m = run.marks ?? [];
+  let node: React.ReactNode = typeof run.text === 'string' ? run.text : '';
+  const m = Array.isArray(run.marks) ? run.marks : [];
   if (m.includes('mark')) node = <mark>{node}</mark>;
   if (m.includes('u')) node = <u>{node}</u>;
   if (m.includes('i')) node = <em>{node}</em>;
   if (m.includes('b')) node = <strong>{node}</strong>;
   if (run.link?.toSlug) {
-    node = existing.has(run.link.toSlug)
-      ? <Link href={`/verse/${spaceSlug}/${run.link.toSlug}`}>{node}</Link>
-      : <Link className="vdoc-ghost" href={`/verse/${spaceSlug}/new?slug=${encodeURIComponent(run.link.toSlug)}`}>{node}</Link>;
+    const slug = typeof run.link.toSlug === 'string' && isSlug(run.link.toSlug) ? run.link.toSlug : null;
+    if (slug) {
+      node = existing.has(slug)
+        ? <Link href={`/verse/${spaceSlug}/${slug}`}>{node}</Link>
+        : <Link className="vdoc-ghost" href={`/verse/${spaceSlug}/new?slug=${encodeURIComponent(slug)}`}>{node}</Link>;
+    }
   } else if (run.link?.href) {
-    const ext = !run.link.href.startsWith('/');
-    node = <a href={run.link.href} {...(ext ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>{node}</a>;
+    const href = safeHref(run.link.href);
+    if (href) {
+      const ext = !href.startsWith('/');
+      node = <a href={href} {...(ext ? { target: '_blank', rel: 'noopener noreferrer nofollow' } : {})}>{node}</a>;
+    }
   }
   return <>{node}</>;
 }
@@ -309,7 +319,8 @@ function BodyBlock({ block, anchor, lead, spaceSlug, existing }: { block: PageBl
     }
     case 'link': {
       // C6 block-level page link: solid if the target exists, dashed ghost -> create if not.
-      const toSlug = typeof block.to_slug === 'string' ? block.to_slug : '';
+      // FLAW-2 sweep (2026-11-12): a stored slug that is not a page slug renders nothing (stored data is not trusted).
+      const toSlug = typeof block.to_slug === 'string' && isSlug(block.to_slug) ? block.to_slug : '';
       const label = typeof block.label === 'string' && block.label.trim() ? block.label : toSlug;
       if (!toSlug) return null;
       if (existing.has(toSlug)) return <p><Link href={`/verse/${spaceSlug}/${toSlug}`}>{label}</Link></p>;
