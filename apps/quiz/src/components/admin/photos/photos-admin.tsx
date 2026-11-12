@@ -11,7 +11,6 @@ import { ICON_SLOTS, IMAGE_SLOTS, TABS } from '@/lib/photos/slots';
 
 import { BannersPanel } from './banners-panel';
 import { CardsPanel } from './cards-panel';
-import { CharacterRefsPanel } from './character-refs-panel';
 import { IconsPanel } from './icons-panel';
 import { PhotoDrawer } from './photo-drawer';
 import { StickersPanel } from './stickers-panel';
@@ -19,19 +18,17 @@ import { PHOTO_ICON, Svg, liveVersion } from './ui';
 import s from './photos-admin.module.css';
 
 import type { AdminRow, PhotosAdminData } from '@/lib/photos/admin-data';
-import type { CharacterRefsData } from '@/lib/photos/character-refs';
 import type { PhotoFilter, PhotoKind, TabId } from '@/lib/photos/slots';
 
-type PhotoTab = Exclude<TabId, 'refs' | 'banners' | 'icons' | 'stickers' | 'cards'>;
+type PhotoTab = Exclude<TabId, 'banners' | 'icons' | 'stickers' | 'cards'>;
 
 const PAGE = 50;
 
-const TITLE: Readonly<Record<'photos' | 'refs' | 'banners' | 'icons' | 'stickers' | 'cards', string>> = {
-  cards: 'Photos des cartes', photos: 'Photos à compléter', refs: 'Références personnages', banners: 'Bannières et images', icons: 'Icônes du jeu', stickers: 'Stickers',
+const TITLE: Readonly<Record<'photos' | 'banners' | 'icons' | 'stickers' | 'cards', string>> = {
+  cards: 'Photos des cartes', photos: 'Photos à compléter', banners: 'Bannières et images', icons: 'Icônes du jeu', stickers: 'Stickers',
 };
-const INTRO: Readonly<Record<'photos' | 'refs' | 'banners' | 'icons' | 'stickers' | 'cards', string>> = {
+const INTRO: Readonly<Record<'photos' | 'banners' | 'icons' | 'stickers' | 'cards', string>> = {
   cards: 'Une photo libre par sujet de carte. Choisis le point focal du cadrage 5,5 x 8,5 : le site recoupe la photo sur ce point tout de suite, et le fichier WebP se refait avec ton script. Une photo trop petite pour le 2x est signalée.',
-  refs: 'Pour chaque personnage : la référence privée (jamais publiée), ton image libre avec son crédit, et l\'image publiée aujourd\'hui. « Valider et publier » envoie l\'image libre sur le site et supprime la référence.',
   photos: 'Chaque photo garde sa source, son auteur et sa licence. Elle s\'affiche dans les suggestions, les lignes d\'essais et l\'écran de résultat, jamais comme indice de jeu.',
   banners: 'Choisis l\'image en haut de chaque page de jeu. Elle passe en WebP aux bonnes tailles toute seule, avec ton crédit affiché en bas à droite.',
   icons: 'Chaque icône des jeux du jour se change ici : une icône de la bibliothèque ou ton propre PNG, avec ou sans cercle. Les trois états (en cours, fait, à venir) se mettent à jour tout seuls.',
@@ -82,8 +79,8 @@ export function blockedOf(tab: TabId, data: PhotosAdminData): string | null {
 
 export interface AdminNavItem { readonly label: string; readonly href: string; readonly current: boolean }
 
-export function PhotosAdmin({ data, refs = null, nav, initialTab, now, logo, emptyArt }: {
-  data: PhotosAdminData; refs?: CharacterRefsData | null; nav: readonly AdminNavItem[]; initialTab: TabId; now: number; logo: string; emptyArt: string;
+export function PhotosAdmin({ data, nav, initialTab, now, logo, emptyArt }: {
+  data: PhotosAdminData; nav: readonly AdminNavItem[]; initialTab: TabId; now: number; logo: string; emptyArt: string;
 }): React.ReactElement {
   const router = useRouter();
   const [tab, setTab] = useState<TabId>(initialTab);
@@ -93,7 +90,7 @@ export function PhotosAdmin({ data, refs = null, nav, initialTab, now, logo, emp
   const [sel, setSel] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const isPhotos = tab !== 'refs' && tab !== 'banners' && tab !== 'icons' && tab !== 'stickers' && tab !== 'cards';
+  const isPhotos = tab !== 'banners' && tab !== 'icons' && tab !== 'stickers' && tab !== 'cards';
   const photoTab = (isPhotos ? tab : 'idols') as PhotoTab;
   const all = data.rows[photoTab];
   const rows = useMemo(() => filterRows(all, filter, query), [all, filter, query]);
@@ -108,14 +105,14 @@ export function PhotosAdmin({ data, refs = null, nav, initialTab, now, logo, emp
     labels: data.rows.labels.filter((r) => pictureState(r) === 'none').length,
     chars: data.rows.chars.filter((r) => pictureState(r) === 'none').length,
     series: data.rows.series.filter((r) => pictureState(r) === 'none').length,
-    refs: refs ? refs.total - refs.published : 0, banners: IMAGE_SLOTS.length, icons: ICON_SLOTS.length, stickers: 0, cards: 0,
+    banners: IMAGE_SLOTS.length, icons: ICON_SLOTS.length, stickers: 0, cards: 0,
   };
   const stickerKeys = new Set(data.assets.filter((a) => a.type === 'sticker').map((a) => a.key));
   counts.stickers = [...stickerKeys].filter((k) => liveVersion(data.assets, k, now)?.url).length;
 
   const pick = (t: TabId): void => { setTab(t); setFilter('none'); setQuery(''); setSel(null); setShown(PAGE); setMessage(null); };
   const saved = (m: string): void => { setMessage(m); router.refresh(); };
-  const mode = isPhotos ? 'photos' : (tab as 'refs' | 'banners' | 'icons' | 'stickers' | 'cards');
+  const mode = isPhotos ? 'photos' : (tab as 'banners' | 'icons' | 'stickers' | 'cards');
 
   const head = (
     <>
@@ -156,7 +153,6 @@ export function PhotosAdmin({ data, refs = null, nav, initialTab, now, logo, emp
       </header>
       <main className={s.main}>
         {tab === 'cards' ? <CardsPanel head={head} onSaved={saved} />
-          : tab === 'refs' ? <CharacterRefsPanel head={head} data={refs} onSaved={saved} />
           : tab === 'banners' ? <BannersPanel head={head} assets={data.assets} now={now} blocked={blocked} onSaved={saved} />
           : tab === 'icons' ? <IconsPanel head={head} assets={data.assets} now={now} blocked={blocked} onSaved={saved} />
           : tab === 'stickers' ? <StickersPanel head={head} assets={data.assets} now={now} blocked={blocked} onSaved={saved} />
