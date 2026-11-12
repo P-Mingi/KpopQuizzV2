@@ -5,7 +5,10 @@ import { spawn } from 'node:child_process';
 import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { vi, afterAll, beforeAll, describe, expect, it } from 'vitest';
+
+// pglite runs every SQL file per test: slow under a full suite on a busy machine (the dle pglite proofs do the same).
+vi.setConfig({ testTimeout: 120_000, hookTimeout: 120_000 });
 
 import { PG_BIN, psqlCommand, psqlFile, startCluster, workDir } from '../../../scripts/o1/contract/pg';
 import { BASE, CARDS_SQL, SCHEMA_FILES } from './sql-harness';

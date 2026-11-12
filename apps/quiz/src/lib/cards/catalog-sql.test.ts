@@ -5,7 +5,10 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { beforeAll, describe, expect, it } from 'vitest';
+import { vi, beforeAll, describe, expect, it } from 'vitest';
+
+// pglite runs every SQL file per test: slow under a full suite on a busy machine (the dle pglite proofs do the same).
+vi.setConfig({ testTimeout: 120_000, hookTimeout: 120_000 });
 
 import { CARDS_SQL, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 
