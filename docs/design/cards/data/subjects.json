@@ -911,8 +911,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1127,8 +1127,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1181,8 +1181,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1397,8 +1397,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1559,8 +1559,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1667,8 +1667,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1775,11 +1775,13 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
-    "disbanded": null
+    "disbanded": {
+      "year": 2024
+    }
   },
   {
     "slug": "miss-a",
@@ -1885,8 +1887,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -1993,8 +1995,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -2047,8 +2049,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -2101,8 +2103,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -2155,11 +2157,13 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
-    "disbanded": null
+    "disbanded": {
+      "year": 2025
+    }
   },
   {
     "slug": "rescene",
@@ -2319,8 +2323,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -2590,7 +2594,7 @@
     },
     "age": {
       "ok": false,
-      "reason": "unknown_birth_date",
+      "reason": "minor_today",
       "checked_on": "2026-11-12"
     },
     "disbanded": null
@@ -2913,8 +2917,8 @@
       ]
     },
     "age": {
-      "ok": false,
-      "reason": "unknown_birth_date",
+      "ok": true,
+      "reason": null,
       "checked_on": "2026-11-12"
     },
     "disbanded": null

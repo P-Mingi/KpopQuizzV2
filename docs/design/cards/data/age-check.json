@@ -109,8 +109,8 @@
     },
     {
       "slug": "astro",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "billlie",
@@ -129,13 +129,13 @@
     },
     {
       "slug": "day6",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "dreamcatcher",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "fifty-fifty",
@@ -154,8 +154,8 @@
     },
     {
       "slug": "ikon",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "illit",
@@ -169,8 +169,8 @@
     },
     {
       "slug": "katseye",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "kickflip",
@@ -179,8 +179,8 @@
     },
     {
       "slug": "kiss-of-life",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "loona",
@@ -189,8 +189,8 @@
     },
     {
       "slug": "loossemble",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "miss-a",
@@ -199,8 +199,8 @@
     },
     {
       "slug": "monsta-x",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "nct",
@@ -209,23 +209,23 @@
     },
     {
       "slug": "nct-wish",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "p1harmony",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "pentagon",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "purple-kiss",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "rescene",
@@ -239,8 +239,8 @@
     },
     {
       "slug": "stayc",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     },
     {
       "slug": "t-ara",
@@ -265,7 +265,7 @@
     {
       "slug": "tuide",
       "ok": false,
-      "reason": "unknown_birth_date"
+      "reason": "minor_today"
     },
     {
       "slug": "tws",
@@ -294,8 +294,8 @@
     },
     {
       "slug": "zerobaseone",
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
     }
   ]
 }

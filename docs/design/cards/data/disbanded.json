@@ -3,8 +3,16 @@
     "slug": "miss-a",
     "year": 2017,
     "sources": [
-      { "kind": "en.wikipedia", "url": "https://en.wikipedia.org/wiki/Miss_A", "says": "years active 2010 to 2017; JYP announced the disbandment in December 2017" },
-      { "kind": "ko.wikipedia", "url": "https://ko.wikipedia.org/wiki/%EB%AF%B8%EC%93%B0%EC%97%90%EC%9D%B4", "says": "disbanded on 2017-12-27" }
+      {
+        "kind": "en.wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Miss_A",
+        "says": "years active 2010 to 2017; JYP announced the disbandment in December 2017"
+      },
+      {
+        "kind": "ko.wikipedia",
+        "url": "https://ko.wikipedia.org/wiki/%EB%AF%B8%EC%93%B0%EC%97%90%EC%9D%B4",
+        "says": "disbanded on 2017-12-27"
+      }
     ],
     "note": "Wikidata Q284740 has no dissolution date (P576); its end of the work period (P2032) is 2018. The two Wikipedias agree on 2017."
   },
@@ -12,8 +20,60 @@
     "slug": "sistar",
     "year": 2017,
     "sources": [
-      { "kind": "wikidata", "url": "https://www.wikidata.org/wiki/Q223048", "says": "dissolved (P576) 2017-05-31" },
-      { "kind": "en.wikipedia", "url": "https://en.wikipedia.org/wiki/Sistar", "says": "years active 2010 to 2017; disbanded after the final single of 31 May 2017" }
+      {
+        "kind": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q223048",
+        "says": "dissolved (P576) 2017-05-31"
+      },
+      {
+        "kind": "en.wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Sistar",
+        "says": "years active 2010 to 2017; disbanded after the final single of 31 May 2017"
+      }
     ]
+  },
+  {
+    "slug": "loossemble",
+    "year": 2024,
+    "sources": [
+      {
+        "kind": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q121975741",
+        "says": "end of the work period (P2032) 2024"
+      },
+      {
+        "kind": "en.wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Loossemble",
+        "says": "years active 2023 to 2024"
+      },
+      {
+        "kind": "ko.wikipedia",
+        "url": "https://ko.wikipedia.org/wiki/%EB%A3%A8%EC%85%88%EB%B8%94",
+        "says": "in the category of the music groups disbanded in 2024"
+      }
+    ],
+    "note": "Same treatment as miss A and SISTAR (owner decision 2026-11-12), applied by ORCH to a disbanded group that passed the age rule once its second sources were found."
+  },
+  {
+    "slug": "purple-kiss",
+    "year": 2025,
+    "sources": [
+      {
+        "kind": "wikidata",
+        "url": "https://www.wikidata.org/wiki/Q97780109",
+        "says": "end of the work period (P2032) 2025"
+      },
+      {
+        "kind": "en.wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Purple_Kiss",
+        "says": "years active 2020 to 2025; the final lineup before disbanding had six members"
+      },
+      {
+        "kind": "ko.wikipedia",
+        "url": "https://ko.wikipedia.org/wiki/%ED%8D%BC%ED%94%8C%ED%82%A4%EC%8A%A4",
+        "says": "members active until 2025-11-16"
+      }
+    ],
+    "note": "Same treatment as miss A and SISTAR (owner decision 2026-11-12), applied by ORCH to a disbanded group that passed the age rule once its second sources were found."
   }
 ]

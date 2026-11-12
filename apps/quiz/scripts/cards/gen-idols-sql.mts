@@ -56,8 +56,6 @@ const SOLOISTS = new Set(['iu', 'psy', 'sunmi', 'zico', 'chungha', 'heize', 'hyu
 /** Disbanded groups kept in the game (owner decision 2026-11-12, docs/design/cards/data/disbanded.json): no current member, so their members
  *  enter idols as FORMER members (active false): out of every public read and of Kpopdle, read by 102 for its adult check. */
 const DISBANDED = new Map((JSON.parse(readFileSync(path.join(REPO, 'docs/design/cards/data/disbanded.json'), 'utf8')) as Array<{ slug: string; year: number }>).map((d) => [d.slug, d.year]));
-/** Groups the research found disbanded that are not in disbanded.json: nothing is written for them (no current member, no owner decision). */
-const DISBANDED_UNRULED = new Set(['purple-kiss', 'loossemble']);
 
 type Member = { name: string; qid: string; birth_date: string | null; ord: number; active: boolean };
 type Row = { slug: string; kind: 'idol' | 'group'; disbanded: number | null; members: Member[] };
@@ -68,10 +66,6 @@ for (const l of lineups) {
   if (!v) throw new Error(`${l.slug}: no verdict in age-check.json (run age-check.mts first)`);
   if (!v.ok) {
     console.log(`out: ${l.slug} (${v.reason})`);
-    continue;
-  }
-  if (DISBANDED_UNRULED.has(l.slug)) {
-    console.log(`skipped: ${l.slug} (disbanded, no current member, not in disbanded.json)`);
     continue;
   }
   const disbanded = DISBANDED.get(l.slug) ?? null;
