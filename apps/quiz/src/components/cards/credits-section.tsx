@@ -2,6 +2,7 @@
 // the sections). Every photo used by a card, once: a thumbnail, the cards that carry it, the author, the licence and the source page as
 // links, what was changed, and "Report a photo" beside each. Same classes as the other sections (styles/sites/hub/credits.css).
 // Server component, no hook; every link is an https address (safeHref).
+import { withBasePath } from '@/lib/site/base-path';
 import { SOURCE_NAMES, reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
 
 import type { CardCreditRow } from '@/lib/cards/ui-credit';
@@ -38,7 +39,7 @@ export function CardsCreditsSection({ rows }: { rows: readonly CardCreditRow[] }
                 </p>
                 <p className={`${p}-meta`}>Changed: {r.photo.modified}.{sa ? ` The cards are shared under ${sa}.` : ''}</p>
                 <p className={`${p}-meta`}>
-                  Cards: {r.cards.map((c, i) => <span key={c.num}>{i ? ', ' : ''}<a href={`/cards/c/${c.num}`}>{c.name} {c.edition}</a></span>)}
+                  Cards: {r.cards.map((c, i) => <span key={c.num}>{i ? ', ' : ''}<a href={withBasePath(`/cards/c/${c.num}`)}>{c.name} {c.edition}</a></span>)}
                 </p>
                 <p className={`${p}-meta`}><a href={reportHref({ photoId: r.photo.id })}>Report a photo</a></p>
               </div>

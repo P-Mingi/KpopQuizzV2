@@ -6,6 +6,8 @@
 // the site shows) is flagged "trop petite pour le 2x". The size is read from the picture itself once it has loaded.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { withBasePath } from '@/lib/site/base-path';
+
 import s from './photos-admin.module.css';
 
 export const CARD_RATIO = 55 / 85;
@@ -35,7 +37,7 @@ const clamp = (v: number): number => Math.max(0, Math.min(100, Math.round(v)));
 
 async function api<T>(body: Record<string, unknown>): Promise<T | null> {
   try {
-    const r = await fetch('/api/admin/cards/photos', { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
+    const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
     return r.ok ? ((await r.json()) as T) : null;
   } catch { return null; }
 }

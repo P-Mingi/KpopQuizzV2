@@ -12,7 +12,8 @@ import { CardFront, Gem, LOCK_ICON } from './card-art';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
 import { attachTilt } from './fx';
-import { MASCOT_SRC } from '@/lib/cards/ui-logo';
+import { withBasePath } from '@/lib/site/base-path';
+import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 
 import type { LockReason, Rarity } from '@/lib/cards/types';
 import type { SlimCard } from '@/lib/cards/ui-types';
@@ -69,7 +70,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
                 <div className="fr"><CardFront card={card} /></div>
                 <div className="bk" aria-hidden="true">
                   <div className="d-back">
-                    <div className="bh">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={MASCOT_SRC} alt="" width={64} height={64} />{p.entityName}</div>
+                    <div className="bh">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={withBasePath(MASCOT_PATH)} alt="" width={64} height={64} />{p.entityName}</div>
                     <dl>{p.facts.map(([k, v]) => <Fragment key={k}><dt>{k}</dt><dd>{v}</dd></Fragment>)}</dl>
                     {p.backCredit ? <div className="lic"><b>Photo credit</b>{p.backCredit}</div> : null}
                   </div>

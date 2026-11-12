@@ -4,6 +4,8 @@
 // (no sign-in needed). The page says a reported photo is removed within 48 hours.
 import { useState } from 'react';
 
+import { withBasePath } from '@/lib/site/base-path';
+
 export const REPORT_ROLES: { value: 'person' | 'photographer' | 'agency' | 'other'; label: string }[] = [
   { value: 'person', label: 'I am the person shown' },
   { value: 'photographer', label: 'I am the photographer' },
@@ -32,7 +34,7 @@ export function ReportForm({ photoId, cardNo, cardLabel }: Props): React.ReactEl
       if (photoId !== null) body.photoId = photoId;
       if (cardNo !== null) body.n = cardNo;
       if (contact.trim()) body.contact = contact.trim();
-      const res = await fetch('/api/cards/report', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), credentials: 'same-origin' });
+      const res = await fetch(withBasePath('/api/cards/report'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), credentials: 'same-origin' });
       if (res.ok) { setState('done'); return; }
       setErr(res.status === 429 ? 'Too many reports from this connection. Try again a bit later.' : 'The report could not be sent. Try again.');
       setState('error');

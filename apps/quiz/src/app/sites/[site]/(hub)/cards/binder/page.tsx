@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 export default async function CardsBinderPage(): Promise<React.ReactElement> {
   const ads = await readAdsContext();
   // useSearchParams needs a boundary; the fallback is the same empty frame the page draws before the browser has mounted.
-  return <Suspense fallback={<div className="wrap page"><h1 className="h1">Binder</h1></div>}><BinderView ads={ads} /></Suspense>;
+  return <Suspense fallback={<div className="wrap page" aria-busy="true"><p className="lede">Loading the binder.</p></div>}><BinderView ads={ads} /></Suspense>;
 }

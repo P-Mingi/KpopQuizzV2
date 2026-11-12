@@ -1,6 +1,8 @@
 // Bunnyverse Cards, lane U: the browser's side of the contract (section 3): GET /api/cards/state and the POSTs. One interface, two
 // implementations: the real fetch calls (httpApi) and, on a development server with the fixture switch, an in-browser stand-in
 // (ui-mock-api.ts, loaded only then). Every answer is the shape of types.ts.
+import { withBasePath } from '@/lib/site/base-path';
+
 import type { OpenResult, PackSource, WalletState } from './types';
 
 export type ApiError = { error: string };
@@ -20,7 +22,7 @@ async function call<T>(path: string, body?: unknown): Promise<T | ApiError> {
   try {
     const init: RequestInit = { cache: 'no-store', credentials: 'same-origin' };
     if (body !== undefined) Object.assign(init, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
-    const res = await fetch(path, init);
+    const res = await fetch(withBasePath(path), init);
     if (res.status === 401) return { error: 'signin' };
     const j = (await res.json().catch(() => null)) as (T & { error?: string }) | null;
     if (!res.ok || !j) return { error: j?.error ?? (res.status === 403 ? 'forbidden' : 'failed') };

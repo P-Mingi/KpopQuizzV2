@@ -3,7 +3,8 @@
 // styles/cards/cards-art.css, keyed by the classes ed-* and k-*. A card with a photo shows it as a cover crop at its focal point; a card
 // without one (events, groups, an idol whose file is not uploaded yet) keeps the drawn figure.
 import { EDITIONS } from '@/lib/cards/rules';
-import { MASCOT_SRC } from '@/lib/cards/ui-logo';
+import { withBasePath } from '@/lib/site/base-path';
+import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 import { eventShort, monogram, nameSize, paletteFor } from '@/lib/cards/ui-palette';
 
 import type { Rarity } from '@/lib/cards/types';
@@ -113,7 +114,7 @@ export function CardBack(): React.ReactElement {
       <span className="bm">
         {/* The real mascot (public/mascot), not a redrawn emblem. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={MASCOT_SRC} alt="" width={128} height={128} />
+        <img src={withBasePath(MASCOT_PATH)} alt="" width={128} height={128} />
       </span>
       <span className="bt">BUNNYVERSE</span>
     </div>

@@ -22,10 +22,11 @@ function fresh(example: boolean): Saved {
     const cards = fixtureCatalog().cards;
     let seed = 23;
     const rnd = (): number => { seed = (Math.imul(seed, 1103515245) + 12345) >>> 0; return seed / 4294967296; };
-    const want: Record<string, number> = { C: 44, U: 16, R: 6, SR: 2, UR: 1 };
+    const want: Record<string, number> = { C: 14, U: 8, R: 4, UR: 1 };
     let i = 0;
     for (const [rar, count] of Object.entries(want)) {
       const list = cards.filter((c) => c.rarity === rar);
+      if (list.length === 0) continue;
       let got = 0;
       let guard = 0;
       while (got < count && guard++ < 900) {

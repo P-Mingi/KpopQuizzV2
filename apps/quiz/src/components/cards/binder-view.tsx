@@ -291,7 +291,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
             </div>
             <div className="b-nav">
               <button type="button" className="btn-quiet" aria-label="Previous pages" onClick={() => turn(-1)} disabled={pg <= 0}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg></button>
-              <span className="pg" aria-live="polite">{single ? `Page ${pg + 1} of ${pc}` : `Pages ${pg + 1}–${Math.min(pc, pg + 2)} of ${pc}`}</span>
+              <span className="pg" aria-live="polite">{single ? `Page ${pg + 1} of ${pc}` : `Pages ${pg + 1} and ${Math.min(pc, pg + 2)} of ${pc}`}</span>
               <button type="button" className="btn-quiet" aria-label="Next pages" onClick={() => turn(1)} disabled={pg + step >= pc}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
             </div>
             <BinderBanner ctx={ads} />

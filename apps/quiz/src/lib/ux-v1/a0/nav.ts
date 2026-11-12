@@ -43,12 +43,13 @@ const HUB_NAV: NavItem<NavKey>[] = [
   { key: 'community', label: 'Community', href: '/#community', icon: 'msg' },
 ];
 
-// Bunnyverse Cards (lane U): the hub gets a Cards entry only with NET_CARDS on; off, HUB_NAV itself (the same array) is returned.
+// Bunnyverse Cards (lane U): the hub gets a Cards entry only with NEXT_PUBLIC_NET_CARDS on (the public twin of NET_CARDS: the navigation is client code, so a server flag would not match;
+// docs/o1/requests/CARDS-U.md asks ORCH to register it); off, HUB_NAV itself (the same array) is returned.
 const HUB_NAV_CARDS: NavItem<NavKey>[] = [...HUB_NAV, { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }];
 
 export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {
   if (site.id === 'kpop') return NAV_ITEMS;
-  if (site.id === 'hub') return flagOn(process.env.NET_CARDS) ? HUB_NAV_CARDS : HUB_NAV;
+  if (site.id === 'hub') return flagOn(process.env.NEXT_PUBLIC_NET_CARDS) ? HUB_NAV_CARDS : HUB_NAV;
   const topic = site.vocabulary.topicPlural;
   return NAV_ITEMS
     .map((it) => (it.key === 'groups' ? { ...it, label: topic.charAt(0).toUpperCase() + topic.slice(1), href: '/series' } : it))
@@ -82,7 +83,7 @@ const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'car
 
 export function tabItemsFor(site: typeof SITE = SITE): NavItem<TabKey>[] {
   if (site.id === 'kpop') return TAB_ITEMS;
-  if (site.id === 'hub') return flagOn(process.env.NET_CARDS) ? HUB_TABS_CARDS : HUB_TABS;
+  if (site.id === 'hub') return flagOn(process.env.NEXT_PUBLIC_NET_CARDS) ? HUB_TABS_CARDS : HUB_TABS;
   const id = site.id;
   return TAB_ITEMS
     .map((it) => (it.key === 'you' ? { ...it, href: YOU_HREF[id] } : it))

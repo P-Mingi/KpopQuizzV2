@@ -1,0 +1,175 @@
+// Bunnyverse Cards, lane U: render tests of the Cards pages (renderToStaticMarkup, as components/admin/photos/photos-admin.test.ts):
+// one H1 a page, the exact odds lines of the real catalog, the five lock sentences, the credit on every card page, noindex, a 404 with the
+// flag off, nothing on kpopquiz.org or OtakuQuiz, and no raw colour outside the card art sheet.
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+const site = vi.hoisted(() => ({ id: 'hub' as string }));
+vi.mock('@/lib/site/registry', async (orig) => {
+  const real = await orig<typeof import('@/lib/site/registry')>();
+  return { ...real, get SITE_ID() { return site.id; } };
+});
+vi.mock('next/navigation', () => ({
+  usePathname: () => '/cards', useRouter: () => ({ replace: () => undefined }), useSearchParams: () => new URLSearchParams(),
+  notFound: () => { throw new Error('NEXT_HTTP_ERROR_FALLBACK;404'); },
+}));
+
+import { CardsProvider } from './cards-provider';
+import { CardDetail } from './card-detail';
+import { CreditBlock } from './credit-block';
+import { DropRates } from './drop-rates';
+import { PacksView } from './packs-view';
+import { BinderView } from './binder-view';
+import { ReportForm } from './report-form';
+import { LOCK_SENTENCES, RARITIES } from '@/lib/cards/rules';
+import { buildDetail } from '@/lib/cards/ui-detail';
+import { buildFixtureCatalog } from '@/lib/cards/ui-fixture';
+import { buildSlim } from '@/lib/cards/ui-model';
+import { catalogOdds } from '@/lib/cards/ui-odds';
+import { cardCreditRows } from '@/lib/cards/ui-credit';
+
+import type { LockReason } from '@/lib/cards/types';
+import type { AdsContext } from '@/lib/cards/ads';
+
+const NOT_FOUND = /NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/;
+const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, childDirected: false, consentRequired: true, test: false };
+const cat = buildFixtureCatalog();
+const slim = buildSlim(cat);
+const h1s = (html: string): number => (html.match(/<h1[\s>]/g) ?? []).length;
+const wrap = (el: React.ReactElement): string => renderToStaticMarkup(createElement(CardsProvider, { catalog: slim, fixture: false, children: el }));
+
+beforeEach(() => { site.id = 'hub'; vi.stubEnv('NET_CARDS', '1'); vi.stubEnv('CARDS_UI_FIXTURE', '1'); });
+afterEach(() => { vi.unstubAllEnvs(); });
+
+describe('one H1 a page', () => {
+  it('Packs, Binder, a card page and the report form each have exactly one', () => {
+    expect(h1s(wrap(createElement(PacksView, { rates: createElement(DropRates, { rarities: ['C', 'U', 'R', 'UR'] }), ads: ADS_OFF })))).toBe(1);
+    expect(h1s(wrap(createElement(BinderView, { ads: ADS_OFF })))).toBe(1);
+    const d = buildDetail(cat, 'BV1-0001', null)!;
+    expect(h1s(wrap(createElement(CardDetail, { ...d.props, credit: createElement(CreditBlock, { photo: d.photo, num: 'BV1-0001' }) })))).toBe(1);
+    expect(h1s(renderToStaticMarkup(createElement(ReportForm, { photoId: null, cardNo: null, cardLabel: null })))).toBe(0);
+  });
+});
+
+describe('the drop rates', () => {
+  it('prints the odds of the real catalog (C, U, R, UR), both lines, with the calculation in words', () => {
+    const html = renderToStaticMarkup(createElement(DropRates, { rarities: ['C', 'U', 'R', 'UR'] }));
+    expect(html).toContain('Only Common, Uncommon, Rare and Ultra Rare cards exist so far, so their odds from the plan (60, 24, 10 and 1.2) are scaled to 100: 60 / 95.2 = 63.03%, 24 / 95.2 = 25.21%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
+    expect(html).toContain('The fifth card is drawn the same way, and a Common there becomes an Uncommon: (24 + 60) / 95.2 = 88.24%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
+    expect(html).toContain('Not in packs yet: Super Rare, Legendary.');
+    expect(html).not.toContain('4.5%');
+  });
+  it('lists only the rarities that have a card', () => {
+    const t = catalogOdds(['C', 'U', 'R', 'UR']);
+    expect(t.present).toEqual(['C', 'U', 'R', 'UR']);
+    expect(t.each.SR).toBeUndefined();
+    expect(t.fifth.C).toBeUndefined();
+    expect(Object.values(t.each).reduce((s, v) => s + (v ?? 0), 0)).toBeCloseTo(100, 6);
+    expect(Object.values(t.fifth).reduce((s, v) => s + (v ?? 0), 0)).toBeCloseTo(100, 6);
+  });
+  it('with all six rarities the plan odds apply unchanged and the fifth card is the plan fifth line', () => {
+    const t = catalogOdds(RARITIES);
+    expect(t.each.C).toBeCloseTo(60, 6);
+    expect(t.fifth.U).toBeCloseTo(84, 6);
+    expect(t.fifth.L).toBeCloseTo(0.3, 6);
+  });
+});
+
+describe('the lock sentences', () => {
+  for (const reason of Object.keys(LOCK_SENTENCES) as LockReason[]) {
+    it(`shows "${reason}" on the locked edition page`, () => {
+      const c = { ...cat, entities: cat.entities.map((e) => (e.id === cat.entities[0]!.id ? { ...e, lockReasons: { SR: reason, L: reason } } : e)) };
+      const num = c.cards.find((x) => x.entity === c.entities[0]!.id)!.num;
+      const d = buildDetail(c, num, 'SR')!;
+      expect(d.locked).toBe(true);
+      const html = wrap(createElement(CardDetail, { ...d.props, credit: null }));
+      expect(html).toContain(LOCK_SENTENCES[reason].replace(/'/g, '&#x27;'));
+    });
+  }
+  it('an unknown number has no page', () => {
+    expect(buildDetail(cat, 'BV1-9999', null)).toBeNull();
+    expect(buildDetail(cat, 'nope', null)).toBeNull();
+  });
+});
+
+describe('the credit', () => {
+  it('is on the page of every card, with the photo number, the author, the licence and the source as links, and says cropped', () => {
+    for (const c of cat.cards) {
+      const html = renderToStaticMarkup(createElement(CreditBlock, { photo: c.photo, num: c.num }));
+      expect(html).toContain('Photo 1 of this idol');
+      expect(html).toContain(c.photo!.author);
+      expect(html).toContain(`href="${c.photo!.licenceUrl}"`);
+      expect(html).toContain(`href="${c.photo!.sourcePage}"`);
+      expect(html).toContain('cropped');
+      expect(html).toContain('Report a photo');
+      if (c.photo!.shareAlike) expect(html).toContain('This card is shared under CC BY-SA');
+    }
+  });
+  it('also sits on the back of the card and on /credits (every photo once, with a report link)', () => {
+    const d = buildDetail(cat, 'BV1-0001', null)!;
+    expect(d.props.backCredit).toMatch(/^Photo 1 by .*, via Wikimedia Commons, cropped/);
+    const rows = cardCreditRows(cat);
+    expect(rows.length).toBe(new Set(cat.cards.map((c) => c.photo!.id)).size);
+  });
+});
+
+describe('the flag and the sites', () => {
+  it('cardsOn is true only on the hub with NET_CARDS on', async () => {
+    const { cardsOn } = await import('@/lib/cards/ui-flag');
+    expect(cardsOn()).toBe(true);
+    vi.stubEnv('NET_CARDS', '');
+    expect(cardsOn()).toBe(false);
+    vi.stubEnv('NET_CARDS', '1'); site.id = 'kpop';
+    expect(cardsOn()).toBe(false);
+    site.id = 'anime';
+    expect(cardsOn()).toBe(false);
+  });
+  it('the layout and the card page answer 404 with the flag off, and on the other sites', async () => {
+    const layout = (await import('../../app/sites/[site]/(hub)/cards/layout')).default;
+    const page = (await import('../../app/sites/[site]/(hub)/cards/c/[num]/page')).default;
+    vi.stubEnv('NET_CARDS', '');
+    await expect(layout({ children: null })).rejects.toThrow(NOT_FOUND);
+    await expect(page({ params: Promise.resolve({ num: 'BV1-0001' }), searchParams: Promise.resolve({}) })).rejects.toThrow(NOT_FOUND);
+    vi.stubEnv('NET_CARDS', '1'); site.id = 'anime';
+    await expect(layout({ children: null })).rejects.toThrow(NOT_FOUND);
+  });
+  it('an unknown card number is a 404 with the flag on', async () => {
+    const page = (await import('../../app/sites/[site]/(hub)/cards/c/[num]/page')).default;
+    await expect(page({ params: Promise.resolve({ num: 'BV1-9999' }), searchParams: Promise.resolve({}) })).rejects.toThrow(NOT_FOUND);
+  });
+  it('the navigation has a Cards entry only with the public flag on', async () => {
+    const { navItemsFor } = await import('@/lib/ux-v1/a0/nav');
+    const { REGISTRY } = await import('@/lib/site/registry');
+    expect(navItemsFor(REGISTRY.hub).map((i) => i.key)).not.toContain('cards');
+  });
+});
+
+describe('noindex', () => {
+  it('Packs, Binder, the report page and a card page are never indexed', async () => {
+    const packs = await import('../../app/sites/[site]/(hub)/cards/page');
+    const binder = await import('../../app/sites/[site]/(hub)/cards/binder/page');
+    const report = await import('../../app/sites/[site]/(hub)/cards/report/page');
+    const card = await import('../../app/sites/[site]/(hub)/cards/c/[num]/page');
+    for (const m of [packs.metadata, binder.metadata, report.metadata]) expect(m.robots).toEqual({ index: false, follow: false });
+    const meta = await card.generateMetadata({ params: Promise.resolve({ num: 'BV1-0001' }), searchParams: Promise.resolve({}) });
+    expect(meta.robots).toEqual({ index: false, follow: false });
+  });
+});
+
+describe('the style sheets', () => {
+  const dir = join(__dirname, '../../styles/cards');
+  it('hold no raw hex colour outside the tokens and the card art sheets', () => {
+    const css = readFileSync(join(dir, 'cards-ui.css'), 'utf8');
+    expect(css.match(/#[0-9a-fA-F]{3,8}\b/g)).toBeNull();
+  });
+  it('every Cards source file is free of the em and en dash', () => {
+    const roots = [dir, __dirname, join(__dirname, '../../lib/cards'), join(__dirname, '../../app/sites/[site]/(hub)/cards')];
+    const walk = (d: string): string[] => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]));
+    for (const f of roots.flatMap(walk).filter((x) => /\.(tsx?|css)$/.test(x) && !/ui-logo|\.test\.ts$/.test(x) && /\/ui-|cards|styles\/cards/.test(x))) {
+      expect(/[–—]/.test(readFileSync(f, 'utf8')), f).toBe(false);
+    }
+  });
+});
