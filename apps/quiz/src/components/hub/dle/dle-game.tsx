@@ -28,11 +28,14 @@ import type { DlePicture } from '@/lib/dle/read';
 import type { DleGameCopy } from '@/lib/dle/copy';
 import type { DleGameDef, DleGameId, DleHintDef } from '@/lib/dle/games';
 import type { DleCell, DleGuess, DleLocale, DlePlayState, DlePool, DlePoolEntity, DlePublicEntity, DleStats } from '@/lib/dle/types';
-import { BonusPackLine } from '@/components/cards-bridge/bonus-pack-line';
+import dynamic from 'next/dynamic';
+
 import { flagOn } from '@/lib/site/registry';
 
-// Bunnyverse Cards (lane B, NEXT_PUBLIC_NET_CARDS_BRIDGES, off by default): a constant false at build when off, so the Kpopdle result is today's.
+// Bunnyverse Cards (lane B, NEXT_PUBLIC_NET_CARDS_BRIDGES, off by default): the bonus pack line of a Kpopdle win, loaded only with the public
+// flag on (review 1 finding 13: a dynamic import, so the game ships none of its code while the flag is off and the result is today's).
 const CARDS_BONUS = flagOn(process.env.NEXT_PUBLIC_NET_CARDS_BRIDGES);
+const BonusPackLine = CARDS_BONUS ? dynamic(() => import('@/components/cards-bridge/bonus-pack-line').then((m) => m.BonusPackLine), { ssr: false }) : null;
 
 export interface DleGameProps {
   readonly locale: DleLocale;
@@ -539,7 +542,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <p className="hub-dle-eyebrow">{won ? w.found ?? t.found : t.answerWas}</p>
               <h2 id="dle-win">{target.name}{targetGroup ? <span> {g.series ? targetGroup : valueLabel(w.subKey, targetGroup, locale)}</span> : null}</h2>
               <p>{won ? t.wonLine(guesses.length, stats ? formatCount(stats.wins, locale) : null) : t.gaveUpLine(guesses.length, label)}</p>
-              {CARDS_BONUS && won && world.id === 'kpopdle' ? <BonusPackLine /> : null}
+              {BonusPackLine && won && world.id === 'kpopdle' ? <BonusPackLine /> : null}
             </div>
             {streak > 0 ? (
               <div className="hub-dle-floatup hub-dle-chips">
