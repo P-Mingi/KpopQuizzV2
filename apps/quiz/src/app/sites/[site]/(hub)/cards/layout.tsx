@@ -28,7 +28,11 @@ export default async function CardsLayout({ children }: { children: React.ReactN
           {children}
         </CardsProvider>
       ) : (
-        <div className="wrap page"><p className="page-note" role="status">The cards are not available right now. Try again in a few minutes.</p></div>
+        <div className="wrap page">
+          {/* Review 1 finding 17: the fallback is a page of its own, so it carries the one H1 the children would have given. */}
+          <h1 className="h1">Bunnyverse Cards</h1>
+          <p className="page-note" role="status">The cards are not available right now. Try again in a few minutes.</p>
+        </div>
       )}
       <div className="wrap"><CardsFooter /></div>
     </UxPage>

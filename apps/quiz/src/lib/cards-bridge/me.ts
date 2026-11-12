@@ -7,8 +7,8 @@ import { NextResponse } from 'next/server';
 import { isEditorialUser } from '@/lib/editorial/accounts';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
+import { adsPerDay, bonusPerDay } from '@/lib/cards/flags';
 import { privateLaunchBars, privateLaunchOn } from '@/lib/cards/private';
-import { ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT } from '@/lib/cards/rules';
 
 import { cardsBridgesOn } from './flags';
 import { parseWallet } from './parse';
@@ -48,7 +48,8 @@ export function defaultSource(): MeSource {
     async wallet(userId, now) {
       const { data, error } = await createServiceRoleClient().rpc('cards_wallet', {
         p_user: userId, p_now: now.toISOString(),
-        p_ads_limit: envInt(process.env.CARDS_ADS_PER_DAY, ADS_PER_DAY_DEFAULT), p_bonus_cap: cardsBridgesOn() ? envInt(process.env.CARDS_BONUS_PER_DAY, BONUS_PER_DAY_DEFAULT) : 0,
+        // Review 1 finding 17: the settings of the hub (lib/cards/flags.ts), so the same caps apply: at most 100 ads and 20 bonus packs.
+        p_ads_limit: adsPerDay(), p_bonus_cap: cardsBridgesOn() ? bonusPerDay() : 0,
       });
       return error ? null : data;
     },

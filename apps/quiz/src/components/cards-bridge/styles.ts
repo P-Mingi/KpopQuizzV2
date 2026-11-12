@@ -6,7 +6,7 @@ export const CARDS_BRIDGE_CSS = `
 .cb-home .cb-big { font-size: 18px; font-weight: 700; color: var(--ux-ink); }
 .cb-home .ux-btn { align-self: flex-start; }
 .cb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; list-style: none; padding: 0; margin: 0; }
-.cb-card { aspect-ratio: 5 / 7; border-radius: 10px; border: 1px solid var(--ux-line); overflow: hidden; background: var(--ux-sunken, var(--ux-raised)); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; line-height: 1.2; padding: 4px; color: var(--ux-muted); }
+.cb-card { aspect-ratio: 55 / 85; border-radius: 10px; border: 1px solid var(--ux-line); overflow: hidden; background: var(--ux-sunken, var(--ux-raised)); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 11px; line-height: 1.2; padding: 4px; color: var(--ux-muted); }
 .cb-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cb-card.is-missing { filter: grayscale(1); opacity: .75; }
 .cb-links { display: flex; flex-wrap: wrap; gap: 14px; }

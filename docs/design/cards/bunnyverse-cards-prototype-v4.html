@@ -1373,7 +1373,7 @@ function renderSpread(){
   page=Math.max(0,Math.min(page,pagesCount()-1)); if(!single) page-=page%2;
   sp.innerHTML=single?pageHTML(page):pageHTML(page)+pageHTML(page+1)+'<div class="spine"><i></i><i></i><i></i></div>';
   var pc=pagesCount();
-  $("pg-label").textContent=single?"Page "+(page+1)+" of "+pc:"Pages "+(page+1)+"–"+Math.min(pc,page+2)+" of "+pc;
+  $("pg-label").textContent=single?"Page "+(page+1)+" of "+pc:"Pages "+(page+1)+"-"+Math.min(pc,page+2)+" of "+pc;
   $("pg-prev").disabled=page<=0; $("pg-next").disabled=page+step()>=pc;
   var first=curPages[page];
   document.querySelectorAll("#idx button").forEach(function(b){ b.setAttribute("aria-current",first&&b.dataset.sec===first.sec?"true":"false"); });
