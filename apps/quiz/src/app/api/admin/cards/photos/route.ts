@@ -1,6 +1,7 @@
 // Bunnyverse Cards (owner's mission of 2026-11-12): POST /api/admin/cards/photos, the photo review of the card game: list the pending photos,
 // approve, reject or remove one, set its crop point, set a lock reason (including 'hiatus'), list and close reports. The actions are in
-// lib/cards/admin-photos.ts; the guard is ADMIN-1's (requireAdmin('api') first, the admin 404 for anyone it refuses). Hub build only.
+// lib/cards/admin-photos.ts; the guard is ADMIN-1's (requireAdmin('api') first, the admin 404 for anyone it refuses). The hub and anime builds
+// (the photos admin is bunnyverse.org/anime's), 404 on kpopquiz.org.
 import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
 import { handleAdminPhotos } from '@/lib/cards/admin-photos';
 

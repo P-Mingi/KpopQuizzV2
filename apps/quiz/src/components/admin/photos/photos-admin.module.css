@@ -210,3 +210,10 @@
 .focalCross { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px #1F1B17, 0 2px 8px rgba(0, 0, 0, 0.4); pointer-events: none; }
 .cardCrop { width: min(220px, 60%); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(26, 23, 20, 0.25); }
 @media (max-width: 900px) { .cardsEd { grid-template-columns: minmax(0, 1fr); } .cardsEdSide { position: static; } }
+/* The reports inbox of the Cartes tab (Bunnyverse Cards, review 1 finding 6). */
+.reports { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.report { display: flex; align-items: flex-start; gap: 14px; padding: 14px; border-radius: 18px; background: #FFFFFF; border: 1px solid #ECE8E3; flex-wrap: wrap; }
+.reportImg { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; display: block; flex: none; }
+.reportBody { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.reportHead { margin: 0; font-size: 15px; }
+.reportMsg { margin: 0; font-size: 15px; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
