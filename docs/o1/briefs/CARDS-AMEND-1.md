@@ -39,3 +39,12 @@ This amendment WINS over the contract and the briefs wherever they differ. Every
    preview contact sheet, and with `--publish` uploads to the public bucket `cards` and records which focal point each
    file was cut at. Until a file exists for the current focal point, the site shows the source photo cropped in CSS
    (`object-fit: cover`, `object-position` from the focal point), so nothing is ever broken.
+
+## After adversarial review 1 (ORCH, 2026-11-12)
+
+- SQL files for the owner, in this order: `001-schema.sql`, `002-functions.sql`, `003-rls.sql`, `101-catalog.sql` (undo in
+  reverse with each `.rollback.sql`). The `100-bucket-cards.sql` of lane D's second brief is deleted: 003 creates the
+  bucket `cards` (public, WebP only, 2 MB a file). 001 now creates a ninth table, `cards_bonus_earned`, and 002 a tenth
+  function, `cards_bonus_record` (decision 28).
+- Bonus packs come from Kpopdle wins only (decision 28); rewarded ad tickets open a pack from 10 seconds to 1 hour after
+  issue (decision 29).
