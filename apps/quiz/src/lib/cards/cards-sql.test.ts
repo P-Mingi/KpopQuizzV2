@@ -296,14 +296,15 @@ describe('cards_apply_pack: shards', () => {
 });
 
 describe('cards_apply_pack: rewarded ads', () => {
+  const AD_MIN = 10_000; // review 1 finding 9: the youngest ticket that opens a pack
   const ticket = (u: string, now: number, ads = 10) => one<string | null>(db, 'select public.cards_issue_ticket($1, $2::timestamptz, $3)', [u, iso(now), ads]);
   it('a ticket opens one pack, does not touch the stack, and a second use is refused', async () => {
     const t = (await ticket(U1, T0)) as string;
     expect(t).toMatch(/^[0-9a-f-]{36}$/);
-    const p = await open(db, U1, 'ad', PACK, T0, t);
+    const p = await open(db, U1, 'ad', PACK, T0 + AD_MIN, t);
     expect(p.cards).toHaveLength(5);
-    expect(await wallet(db, U1, T0)).toMatchObject({ stock: 5, ads_today: 1, ads_left: 9 });
-    expect(await failure(db, `select public.cards_apply_pack('${U1}', 'ad', '{1,7,9,3,2}', '${t}', '${iso(T0 + 1)}')`)).toMatch(/cards: ticket/);
+    expect(await wallet(db, U1, T0 + AD_MIN)).toMatchObject({ stock: 5, ads_today: 1, ads_left: 9 });
+    expect(await failure(db, `select public.cards_apply_pack('${U1}', 'ad', '{1,7,9,3,2}', '${t}', '${iso(T0 + AD_MIN + 1)}')`)).toMatch(/cards: ticket/);
     expect(await one(db, `select count(*)::int from public.cards_packs`)).toBe(1);
   });
   it('a ticket of another user, an unknown ticket and no ticket are refused', async () => {
@@ -312,12 +313,12 @@ describe('cards_apply_pack: rewarded ads', () => {
     expect(await failure(db, `select public.cards_apply_pack('${U1}', 'ad', '{1,7,9,3,2}', '99999999-9999-9999-9999-999999999999', '${iso(T0)}')`)).toMatch(/cards: ticket/);
     expect(await failure(db, `select public.cards_apply_pack('${U1}', 'ad', '{1,7,9,3,2}', null, '${iso(T0)}')`)).toMatch(/cards: ticket/);
     // the ticket is still good for its owner
-    await open(db, U1, 'ad', PACK, T0, t);
+    await open(db, U1, 'ad', PACK, T0 + AD_MIN, t);
   });
   it('the ad limit: 10 a day by default, no 11th ticket, and a new Paris day starts again', async () => {
     for (let i = 0; i < 10; i++) {
       const t = (await ticket(U1, T0 + i * 1000)) as string;
-      await open(db, U1, 'ad', PACK, T0 + i * 1000, t);
+      await open(db, U1, 'ad', PACK, T0 + i * 1000 + AD_MIN, t);
     }
     expect(await ticket(U1, T0 + 20_000)).toBeNull();
     expect(await wallet(db, U1, T0 + 20_000)).toMatchObject({ ads_today: 10, ads_left: 0 });
@@ -327,6 +328,18 @@ describe('cards_apply_pack: rewarded ads', () => {
     expect(await failure(db, `select public.cards_apply_pack('${U2}', 'ad', '{1,7,9,3,2}', '${t}', '${iso(T0)}')`)).toMatch(/cards: ad_limit/);
     const next = nextParisMidnight(T0) + 1000;
     expect(await ticket(U1, next)).not.toBeNull();
+  });
+  it('review 1 finding 9: a ticket opens a pack only from 10 seconds to 1 hour after it was issued, and a refusal does not spend it', async () => {
+    const t = (await ticket(U1, T0)) as string;
+    const at = (ms: number) => failure(db, `select public.cards_apply_pack('${U1}', 'ad', '{1,7,9,3,2}', '${t}', '${iso(ms)}')`);
+    expect(await at(T0)).toMatch(/cards: ticket/);
+    expect(await at(T0 + AD_MIN - 1)).toMatch(/cards: ticket/);
+    expect(await at(T0 + 3600_000 + 1)).toMatch(/cards: ticket/);
+    expect(await one(db, `select count(*)::int from public.cards_packs`)).toBe(0);
+    expect(await at(T0 + AD_MIN)).toBeNull();
+    const old = (await ticket(U1, T0 + 1000)) as string;
+    expect(await failure(db, `select public.cards_apply_pack('${U1}', 'ad', '{1,7,9,3,2}', '${old}', '${iso(T0 + 1000 + 3600_000)}')`)).toBeNull(); // exactly 1 hour: still good
+    expect(await one(db, `select count(*)::int from public.cards_packs where source = 'ad'`)).toBe(2);
   });
   it('a custom limit (CARDS_ADS_PER_DAY) is honoured, unused tickets count against it, abandoned ones expire after an hour', async () => {
     expect(await ticket(U1, T0, 2)).not.toBeNull();

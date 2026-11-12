@@ -19,6 +19,7 @@
 --         pack is earned by a Kpopdle win only (owner decision), recorded by cards_bonus_record from the server route after its checks; a
 --         quiz completion of kpopquiz.org earns nothing (its score is reported by the browser). With p_bonus_cap <= 0 nothing is read.
 -- Errors: a refusal is an exception whose message starts with 'cards: ' and one word: empty, shards, bonus, ad_limit, ticket, source, pack.
+-- Ads:    a ticket opens a pack only between 10 seconds and 1 hour after it was issued (review 1 finding 9, owner decision on the 10 s).
 -- Every p_now defaults to now(); the proofs inject it. A new wallet starts with a full stack (decision 16 of CARDS-DECISIONS.md).
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cards\_%';   expect 10
 -- Verify: select bool_or(has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute')) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'cards\_%';   expect f
@@ -198,8 +199,11 @@ begin
       v_stock := v_stock - 1;
     elsif p_source = 'ad' then
       if v_ads >= p_ads_limit then raise exception 'cards: ad_limit'; end if;
+      -- Review 1 finding 9: only a ticket issued at least 10 seconds and at most 1 hour before (no rewarded ad is shorter; an older ticket
+      -- is dropped). A ticket refused for its age is not spent. Google's rewarded event itself cannot be checked on the server.
       update public.cards_ad_tickets set used_at = p_now
        where id = p_ticket and user_id = p_user and used_at is null
+         and issued_at <= p_now - interval '10 seconds' and issued_at >= p_now - interval '1 hour'
       returning id into v_t;
       if v_t is null then raise exception 'cards: ticket'; end if;
       v_ads := v_ads + 1;

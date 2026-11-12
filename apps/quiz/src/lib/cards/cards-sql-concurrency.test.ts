@@ -81,7 +81,8 @@ describe.skipIf(!HAVE_PG)('cards_apply_pack under concurrency (throwaway Postgre
   it('two sessions use one ad ticket at once: one wins, the replay is refused', async () => {
     const t = psqlCommand(cluster.conn('cards'), `select public.cards_issue_ticket('${U}', '${NOW}')`, 'ticket').trim();
     expect(t).toMatch(/^[0-9a-f-]{36}$/);
-    const call = `select public.cards_apply_pack('${U}', 'ad', '{1,7,1,1,2}', '${t}', '${NOW}')`;
+    // review 1 finding 9: a ticket opens a pack from 10 seconds after it was issued
+    const call = `select public.cards_apply_pack('${U}', 'ad', '{1,7,1,1,2}', '${t}', '2026-11-12T10:00:10Z')`;
     const a = psqlAsync(cluster.port, 'cards', `begin; ${call}; select pg_sleep(1.5); commit;`);
     await new Promise((r) => setTimeout(r, 400));
     const b = psqlAsync(cluster.port, 'cards', call);
