@@ -99,8 +99,9 @@ function Art({ card }: { card: SlimCard }): React.ReactElement {
 
 export function metaLine(card: SlimCard): string {
   if (card.kind === 'idol') return `${card.group ?? SOLOIST}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
-  // Lot 2 (owner decision 2026-11-12): a disbanded group kept in the game says so, with the year it disbanded.
-  if (card.kind === 'group' && card.endYear) return card.debutYear ? `${card.debutYear} · Disbanded ${card.endYear}` : `Disbanded ${card.endYear}`;
+  // Lot 2 (owner decision 2026-11-12): a disbanded group kept in the game says so, with the year it disbanded. The debut year stays on the
+  // card page: both do not fit the card's meta line (the year would be cut).
+  if (card.kind === 'group' && card.endYear) return `Disbanded ${card.endYear}`;
   if (card.kind === 'group') return card.debutYear ? `Debut ${card.debutYear}` : 'Group';
   return `${card.sub ?? 'Event'}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
 }
