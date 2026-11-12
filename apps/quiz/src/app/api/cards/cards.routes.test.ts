@@ -349,7 +349,7 @@ describe('GET /api/cards/catalog', () => {
     expect(body.cards).toEqual([{
       n: 1, num: 'BV1-0001', entity: 'idol:Q1', kind: 'idol', rarity: 'C', edition: 'std', name: 'Idol', group: 'GRP', debutYear: 2015,
       photo: { id: 5, slot: 1, author: 'A', authorUrl: null, licence: 'CC BY 4.0', licenceUrl: 'https://l', source: 'commons', sourcePage: 'https://c/x', shareAlike: false, modified: 'cropped, frame and text added' },
-      image: { url: expect.stringMatching(/\/public\/cards\/q1-1x\.webp$/), url2x: expect.stringMatching(/\/public\/cards\/q1-2x\.webp$/), css: false, small2x: false, focalX: 40, focalY: 30 },
+      image: { url: expect.stringMatching(/\/public\/cards\/q1-1x\.webp$/), url2x: expect.stringMatching(/\/public\/cards\/q1-2x\.webp$/), css: false, small2x: false, focalX: 40, focalY: 30, fileFocalX: 40, fileFocalY: 30, sourceUrl: expect.stringMatching(/\/public\/images\/group-photos\/idol\.jpg$/) },
     }]);
     expect(body.odds.available).toEqual(['C']);
     expect(body.entities.find((e: { id: string }) => e.id === 'idol:Q1')).toMatchObject({ group: 'GRP', lockReasons: { SR: 'one' } });

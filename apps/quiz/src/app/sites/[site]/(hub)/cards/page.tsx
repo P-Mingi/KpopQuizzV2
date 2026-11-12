@@ -16,6 +16,5 @@ export const metadata: Metadata = {
 
 export default async function CardsPacksPage(): Promise<React.ReactElement> {
   const cat = await loadCatalog();
-  const rarities = [...new Set((cat?.cards ?? []).map((c) => c.rarity))];
-  return <PacksView rates={<DropRates rarities={rarities} />} ads={await readAdsContext()} />;
+  return <PacksView rates={<DropRates odds={cat?.odds ?? null} />} ads={await readAdsContext()} />;
 }

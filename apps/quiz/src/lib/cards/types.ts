@@ -37,6 +37,11 @@ export interface CardImage {
   /** object-position of the cover crop, 0 to 100. */
   focalX: number;
   focalY: number;
+  /** The focal point the published files were cut at (null when no file was published). The pages serve the files only while it equals focalX/focalY. */
+  fileFocalX: number | null;
+  fileFocalY: number | null;
+  /** The public URL of the source photo (bucket images/group-photos/<slug>.jpg), null without a source_path. */
+  sourceUrl: string | null;
 }
 
 export interface CatalogCard {

@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: the shapes the pages read, built on lane C's types (types.ts). The catalog API of lane C gives CatalogCard
 // without the crop and the file of the photo, and does not name the entities' lock reasons: this file says what the pages need on
 // top (all optional, so a CatalogCard from the API is still a UiCard). Requests to lane C: docs/o1/requests/CARDS-U.md.
-import type { CatalogCard, LockReason, PhotoCredit, Rarity } from './types';
+import type { CatalogCard, CatalogOdds, LockReason, PhotoCredit, Rarity } from './types';
 
 /**
  * A photo credit plus what the card art needs. Amendment 1: the card file is the WebP the owner's script cut at the focal point (1x 320x495,
@@ -12,7 +12,7 @@ export interface UiPhoto extends PhotoCredit {
   /** The cropped WebP at 1x and 2x, null until uploaded. */
   url?: string | null;
   url2x?: string | null;
-  /** The focal point the files were cut at; absent: the files are taken as current. */
+  /** The focal point the files were cut at; null: no file was cut, so the source photo is shown. */
   fileFocalX?: number | null | undefined;
   fileFocalY?: number | null | undefined;
   /** The source photo, uncropped. */
@@ -52,6 +52,8 @@ export interface UiEntity {
 }
 
 export interface UiCatalog {
+  /** The odds of the real catalog, computed by the server (rules.ts computeOdds); null when no card is in packs. */
+  odds: CatalogOdds | null;
   cards: UiCard[];
   entities: UiEntity[];
 }

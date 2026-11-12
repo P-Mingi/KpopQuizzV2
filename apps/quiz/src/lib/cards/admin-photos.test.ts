@@ -6,6 +6,7 @@ const h = vi.hoisted(() => ({
   ops: [] as Array<{ table: string; op: string; arg?: unknown; filters: Array<[string, unknown]> }>,
   updateError: null as { code: string } | null,
   row: null as unknown,
+  list: [{ id: 3 }] as unknown[],
 }));
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return h.site; } }));
 vi.mock('@/lib/supabase/server', () => ({
@@ -18,7 +19,7 @@ vi.mock('@/lib/supabase/server', () => ({
       b.update = (a: unknown) => { rec.op = 'update'; rec.arg = a; return b; };
       for (const m of ['eq', 'gt']) b[m] = (c: string, v: unknown) => { rec.filters.push([c, v]); return b; };
       b.order = () => b;
-      b.limit = () => Promise.resolve({ data: [{ id: 3 }], error: null });
+      b.limit = () => Promise.resolve({ data: h.list, error: null });
       b.maybeSingle = async () => ({ data: rec.op === 'update' && h.updateError ? null : (h.row ?? { id: 1 }), error: rec.op === 'update' ? h.updateError : null });
       return b;
     },
@@ -32,7 +33,7 @@ const post = (body: unknown) =>
     method: 'POST', headers: { host: 'localhost', origin: 'http://localhost', 'content-type': 'application/json' }, body: JSON.stringify(body),
   }));
 
-beforeEach(() => { h.site = 'hub'; h.ops = []; h.updateError = null; h.row = null; });
+beforeEach(() => { h.site = 'hub'; h.ops = []; h.updateError = null; h.row = null; h.list = [{ id: 3 }]; });
 
 describe('admin photo review', () => {
   it('404 off the hub', async () => {
@@ -54,6 +55,14 @@ describe('admin photo review', () => {
     await post({ action: 'list', small2x: true });
     expect(h.ops[1]!.filters).toContainEqual(['small_2x', true]);
     expect((await post({ action: 'list', small2x: 'yes' })).status).toBe(400);
+  });
+  it('list answers file_url as the public address of the source photo, and keeps the stored one without a source_path', async () => {
+    vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://x.supabase.co/');
+    h.list = [{ id: 1, file_url: 'https://commons.example/a.jpg', source_path: 'images/group-photos/jennie.jpg' }, { id: 2, file_url: 'https://commons.example/b.jpg', source_path: null }];
+    const j = await (await post({ action: 'list' })).json();
+    expect(j.rows[0].file_url).toBe('https://x.supabase.co/storage/v1/object/public/images/group-photos/jennie.jpg');
+    expect(j.rows[1].file_url).toBe('https://commons.example/b.jpg');
+    vi.unstubAllEnvs();
   });
   it('approve, reject and remove set the status; a second live photo in the slot is 409', async () => {
     await post({ action: 'approve', id: 2, note: 'ok' });

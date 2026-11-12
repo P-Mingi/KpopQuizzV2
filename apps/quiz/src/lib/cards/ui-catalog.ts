@@ -7,16 +7,14 @@ import { cardsFixtureOn } from './ui-flag';
 import type { CatalogPayload } from './types';
 import type { UiCatalog, UiPhoto } from './ui-types';
 
-/** Extra fields lane C may add to a card's image (the file's focal point, the 2x file, the source photo); read when present. */
-interface ImageExtras { url2x?: string | null; fileFocalX?: number | null; fileFocalY?: number | null; sourceUrl?: string | null }
-
 export function fromPayload(p: CatalogPayload): UiCatalog {
   return {
+    odds: p.odds,
     entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons })),
     cards: p.cards.map((c) => {
-      const x = (c.image ?? {}) as Partial<NonNullable<typeof c.image>> & ImageExtras;
+      const i = c.image;
       const photo: UiPhoto | null = c.photo
-        ? { ...c.photo, url: x.url ?? null, url2x: x.url2x ?? null, fileFocalX: x.fileFocalX ?? undefined, fileFocalY: x.fileFocalY ?? undefined, sourceUrl: x.sourceUrl ?? null, focalX: x.focalX ?? 50, focalY: x.focalY ?? 30 }
+        ? { ...c.photo, url: i?.url ?? null, url2x: i?.url2x ?? null, fileFocalX: i?.fileFocalX ?? null, fileFocalY: i?.fileFocalY ?? null, sourceUrl: i?.sourceUrl ?? null, focalX: i?.focalX ?? 50, focalY: i?.focalY ?? 30 }
         : null;
       return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo };
     }),
@@ -24,7 +22,7 @@ export function fromPayload(p: CatalogPayload): UiCatalog {
 }
 
 export async function loadCatalog(): Promise<UiCatalog | null> {
-  if (cardsFixtureOn()) return (await import('./ui-fixture')).fixtureCatalog();
+  if (process.env.NODE_ENV !== 'production' && cardsFixtureOn()) return (await import('./ui-fixture')).fixtureCatalog();
   try {
     const { loadCatalog: read } = await import('./catalog');
     return fromPayload(await read());

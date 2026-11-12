@@ -1,7 +1,8 @@
 // Bunnyverse Cards, lane U: the credit of a card, printed under the card on its page (never behind a flip): the photo's number for that
 // idol, the author, the licence and the source page, each a link, what was changed, "This card is shared under CC BY-SA" when it is, and
 // "Report a photo". Server component. A card with no photo says its art is drawn.
-import { SOURCE_NAMES, reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
+import { SOURCE_NAMES } from '@/lib/cards/rules';
+import { reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
 
 import type { UiPhoto } from '@/lib/cards/ui-types';
 

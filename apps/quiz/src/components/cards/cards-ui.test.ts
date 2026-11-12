@@ -24,14 +24,13 @@ import { DropRates } from './drop-rates';
 import { PacksView } from './packs-view';
 import { BinderView } from './binder-view';
 import { ReportForm } from './report-form';
-import { LOCK_SENTENCES, RARITIES } from '@/lib/cards/rules';
+import { LOCK_SENTENCES, RARITIES, computeOdds } from '@/lib/cards/rules';
 import { buildDetail } from '@/lib/cards/ui-detail';
 import { buildFixtureCatalog } from '@/lib/cards/ui-fixture';
-import { buildSlim } from '@/lib/cards/ui-model';
-import { catalogOdds } from '@/lib/cards/ui-odds';
+import { buildSlim, oddsView } from '@/lib/cards/ui-model';
 import { cardCreditRows } from '@/lib/cards/ui-credit';
 
-import type { LockReason } from '@/lib/cards/types';
+import type { CardKind, LockReason, Rarity } from '@/lib/cards/types';
 import type { AdsContext } from '@/lib/cards/ads';
 
 const NOT_FOUND = /NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/;
@@ -39,6 +38,9 @@ const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, co
 const cat = buildFixtureCatalog();
 const slim = buildSlim(cat);
 const h1s = (html: string): number => (html.match(/<h1[\s>]/g) ?? []).length;
+/** The odds the server sends: computeOdds over a catalog that holds these rarities (idol and group cards). */
+const oddsOf = (rarities: readonly Rarity[]): ReturnType<typeof computeOdds> =>
+  computeOdds(rarities.flatMap((rarity, i) => (['idol', 'group'] as CardKind[]).map((kind, j) => ({ n: i * 2 + j + 1, kind, rarity }))));
 const wrap = (el: React.ReactElement): string => renderToStaticMarkup(createElement(CardsProvider, { catalog: slim, fixture: false, children: el }));
 
 beforeEach(() => { site.id = 'hub'; vi.stubEnv('NET_CARDS', '1'); vi.stubEnv('CARDS_UI_FIXTURE', '1'); });
@@ -46,7 +48,7 @@ afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('one H1 a page', () => {
   it('Packs, Binder, a card page and the report form each have exactly one', () => {
-    expect(h1s(wrap(createElement(PacksView, { rates: createElement(DropRates, { rarities: ['C', 'U', 'R', 'UR'] }), ads: ADS_OFF })))).toBe(1);
+    expect(h1s(wrap(createElement(PacksView, { rates: createElement(DropRates, { odds: oddsOf(['C', 'U', 'R', 'UR']) }), ads: ADS_OFF })))).toBe(1);
     expect(h1s(wrap(createElement(BinderView, { ads: ADS_OFF })))).toBe(1);
     const d = buildDetail(cat, 'BV1-0001', null)!;
     expect(h1s(wrap(createElement(CardDetail, { ...d.props, credit: createElement(CreditBlock, { photo: d.photo, num: 'BV1-0001' }) })))).toBe(1);
@@ -56,22 +58,38 @@ describe('one H1 a page', () => {
 
 describe('the drop rates', () => {
   it('prints the odds of the real catalog (C, U, R, UR), both lines, with the calculation in words', () => {
-    const html = renderToStaticMarkup(createElement(DropRates, { rarities: ['C', 'U', 'R', 'UR'] }));
+    const html = renderToStaticMarkup(createElement(DropRates, { odds: oddsOf(['C', 'U', 'R', 'UR']) }));
     expect(html).toContain('Only Common, Uncommon, Rare and Ultra Rare cards exist so far, so their odds from the plan (60, 24, 10 and 1.2) are scaled to 100: 60 / 95.2 = 63.03%, 24 / 95.2 = 25.21%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
     expect(html).toContain('The fifth card is drawn the same way, and a Common there becomes an Uncommon: (24 + 60) / 95.2 = 88.24%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
     expect(html).toContain('Not in packs yet: Super Rare, Legendary.');
     expect(html).not.toContain('4.5%');
   });
   it('lists only the rarities that have a card', () => {
-    const t = catalogOdds(['C', 'U', 'R', 'UR']);
+    const t = oddsView(oddsOf(['C', 'U', 'R', 'UR']));
     expect(t.present).toEqual(['C', 'U', 'R', 'UR']);
     expect(t.each.SR).toBeUndefined();
     expect(t.fifth.C).toBeUndefined();
     expect(Object.values(t.each).reduce((s, v) => s + (v ?? 0), 0)).toBeCloseTo(100, 6);
     expect(Object.values(t.fifth).reduce((s, v) => s + (v ?? 0), 0)).toBeCloseTo(100, 6);
   });
+  it('the numbers shown are those of computeOdds for the catalog (63.03, 25.21, 10.50, 1.26; fifth 88.24, 10.50, 1.26), nothing typed', () => {
+    const odds = oddsOf(['C', 'U', 'R', 'UR']);
+    const html = renderToStaticMarkup(createElement(DropRates, { odds }));
+    expect(odds.card.C).toBeCloseTo(63.03, 2);
+    const cells = [...html.matchAll(/<td>(\d+\.\d\d)%<\/td><td[^>]*>(\d+\.\d\d)%<\/td>/g)].map((m) => [m[1], m[2]]);
+    expect(cells).toEqual((['C', 'U', 'R', 'UR'] as Rarity[]).map((r) => [odds.card[r].toFixed(2), odds.fifth[r].toFixed(2)]));
+    expect(cells.map((c) => c[0])).toEqual(['63.03', '25.21', '10.50', '1.26']);
+    expect(cells.map((c) => c[1])).toEqual(['0.00', '88.24', '10.50', '1.26']);
+  });
+  it('an absent rarity is never listed as drawable, and with no odds nothing is', () => {
+    const html = renderToStaticMarkup(createElement(DropRates, { odds: oddsOf(['C', 'U', 'R', 'UR']) }));
+    expect(html).not.toContain('Super Rare</span>');
+    expect(html).not.toContain('Legendary</span>');
+    expect(oddsView(null).present).toEqual([]);
+    expect(renderToStaticMarkup(createElement(DropRates, { odds: null }))).toContain('No card is in packs yet.');
+  });
   it('with all six rarities the plan odds apply unchanged and the fifth card is the plan fifth line', () => {
-    const t = catalogOdds(RARITIES);
+    const t = oddsView(oddsOf(RARITIES));
     expect(t.each.C).toBeCloseTo(60, 6);
     expect(t.fifth.U).toBeCloseTo(84, 6);
     expect(t.fifth.L).toBeCloseTo(0.3, 6);

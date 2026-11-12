@@ -3,7 +3,8 @@
 // links, what was changed, and "Report a photo" beside each. Same classes as the other sections (styles/sites/hub/credits.css).
 // Server component, no hook; every link is an https address (safeHref).
 import { withBasePath } from '@/lib/site/base-path';
-import { SOURCE_NAMES, reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
+import { SOURCE_NAMES } from '@/lib/cards/rules';
+import { reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
 
 import type { CardCreditRow } from '@/lib/cards/ui-credit';
 

@@ -41,13 +41,15 @@ export function publicObjectUrl(bucketPath: string, base: string | undefined = p
  */
 export function cardImage(p: PhotoRow, base?: string): CardImage {
   const cut = p.storage_path !== null && p.file_focal_x === p.focal_x && p.file_focal_y === p.focal_y;
+  const sourceUrl = p.source_path ? publicObjectUrl(p.source_path, base) : null;
+  const common = {
+    small2x: p.small_2x, focalX: p.focal_x, focalY: p.focal_y, sourceUrl,
+    fileFocalX: p.storage_path !== null ? p.file_focal_x : null, fileFocalY: p.storage_path !== null ? p.file_focal_y : null,
+  };
   if (cut) {
-    return {
-      url: cardImageUrl(`${p.storage_path}-1x.webp`, base), url2x: p.small_2x ? null : cardImageUrl(`${p.storage_path}-2x.webp`, base),
-      css: false, small2x: p.small_2x, focalX: p.focal_x, focalY: p.focal_y,
-    };
+    return { url: cardImageUrl(`${p.storage_path}-1x.webp`, base), url2x: p.small_2x ? null : cardImageUrl(`${p.storage_path}-2x.webp`, base), css: false, ...common };
   }
-  return { url: p.source_path ? publicObjectUrl(p.source_path, base) : null, url2x: null, css: true, small2x: p.small_2x, focalX: p.focal_x, focalY: p.focal_y };
+  return { url: sourceUrl, url2x: null, css: true, ...common };
 }
 
 /** Builds the payload from the three table reads (pure, tested without a database). */

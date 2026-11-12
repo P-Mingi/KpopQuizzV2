@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: A TEST FIXTURE. It stands in for the catalog while the pages are built and tested, with invented groups, invented
 // stage names and neutral placeholder pictures (a gradient and a silhouette, drawn here). It is read only when cardsFixtureOn() is true
 // (a development server with CARDS_UI_FIXTURE=1, or a test); the production build never reaches it.
-import { EDITIONS } from './rules';
+import { EDITIONS, computeOdds } from './rules';
 import { paletteFor } from './ui-palette';
 
 import type { PhotoSource, Rarity } from './types';
@@ -75,7 +75,7 @@ export function buildFixtureCatalog(): UiCatalog {
     entities.push(ge);
     push(ge);
   });
-  return { cards, entities };
+  return { odds: computeOdds(cards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity }))), cards, entities };
 }
 
 let memo: UiCatalog | null = null;

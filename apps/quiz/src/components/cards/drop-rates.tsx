@@ -1,17 +1,17 @@
 // Bunnyverse Cards, lane U: the drop rates, both lines: each card, and the fifth card of every pack, with the calculation in plain
-// words. Server component, no state. The percentages are those of the real catalog (lib/cards/ui-odds.ts): only the rarities that have
+// words. Server component, no state. The percentages are those of the real catalog (the server's computeOdds of lib/cards/rules.ts, sent with the catalog): only the rarities that have
 // a card are listed, because an edition with no card can never come out.
 import { EDITIONS, RARITY_NAMES } from '@/lib/cards/rules';
-import { catalogOdds } from '@/lib/cards/ui-odds';
+import { oddsView } from '@/lib/cards/ui-model';
 
 import { Gem } from './card-art';
 
-import type { Rarity } from '@/lib/cards/types';
+import type { CatalogOdds } from '@/lib/cards/types';
 
 const pct = (v: number | undefined): string => `${(v ?? 0).toFixed(2)}%`;
 
-export function DropRates({ rarities }: { rarities: readonly Rarity[] }): React.ReactElement {
-  const t = catalogOdds(rarities);
+export function DropRates({ odds }: { odds: CatalogOdds | null }): React.ReactElement {
+  const t = oddsView(odds);
   return (
     <details className="rates" id="rates">
       <summary>

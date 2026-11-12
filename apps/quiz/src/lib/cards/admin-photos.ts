@@ -1,6 +1,7 @@
 // Bunnyverse Cards: the owner's photo review, POST /api/admin/cards/photos (ADMIN-1: the route calls requireAdmin('api') first and
 // only then this module). JSON { action, ... }:
-//   list         { status?, small2x?, limit?, after? }   photos by id (default status pending), with the subject; small2x true lists only the
+//   list         { status?, small2x?, limit?, after? }   photos by id (default status pending), with the subject; file_url is the public
+//                                              address of the source photo (source_path in the images bucket) when there is one; small2x true lists only the
 //                                              photos whose 5.5:8.5 crop is too small for 2x (small_2x)
 //   approve      { id, note? }                 status approved (a second live photo in the same slot is refused: 409 slot_taken)
 //   reject       { id, note? }                 status rejected; its cards leave the packs (trigger cards_photo_retire)
@@ -16,6 +17,7 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 import { SITE_ID } from '@/lib/site/registry';
 
 import { NO_STORE, readJson, ownSite } from './api';
+import { publicObjectUrl } from './catalog';
 import { LOCK_SENTENCES, RARITIES } from './rules';
 
 import { NextResponse } from 'next/server';
@@ -68,7 +70,9 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
           .select('id, photo_id, card_no, role, message, contact, created_at, status')
           .eq('status', status).gt('id', after).order('id', { ascending: true }).limit(limit);
     if (error) return fail('server', 500);
-    const rows = (data ?? []) as { id: number }[];
+    let rows = (data ?? []) as { id: number; source_path?: string | null; file_url?: string | null }[];
+    // The Cartes tab shows the source photo: file_url becomes the public address of the bucket copy (images/group-photos/<slug>.jpg).
+    if (list) rows = rows.map((r) => (r.source_path ? { ...r, file_url: publicObjectUrl(r.source_path) } : r));
     return reply({ ok: true, rows, next: rows.length === limit ? (rows[rows.length - 1]?.id ?? null) : null });
   }
 

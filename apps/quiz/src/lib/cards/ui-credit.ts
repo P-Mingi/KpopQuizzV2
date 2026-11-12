@@ -3,15 +3,7 @@
 import { EDITIONS } from './rules';
 import { photoPicture } from './ui-model';
 
-import type { PhotoSource } from './types';
 import type { UiCatalog, UiPhoto } from './ui-types';
-
-export const SOURCE_NAMES: Record<PhotoSource, string> = {
-  commons: 'Wikimedia Commons',
-  koreanet: 'Korea.net on Flickr',
-  flickr: 'Flickr',
-  dvids: 'DVIDS',
-};
 
 /** 'CC BY-SA 4.0' from the licence string of a share-alike photo, else null. */
 export function shareAlikeName(licence: string, shareAlike: boolean): string | null {

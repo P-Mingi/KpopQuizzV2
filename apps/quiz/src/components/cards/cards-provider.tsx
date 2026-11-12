@@ -59,7 +59,8 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
   useEffect(() => {
     let alive = true;
     void (async () => {
-      const a = fixture ? (await import('@/lib/cards/ui-mock-api')).createMockApi() : httpApi;
+      // NODE_ENV is inlined by the build: in production this branch (and the mock with its fixture) is dead code and leaves the bundle.
+      const a = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/cards/ui-mock-api')).createMockApi() : httpApi;
       if (!alive) return;
       setApi(a);
       const r = await a.state();

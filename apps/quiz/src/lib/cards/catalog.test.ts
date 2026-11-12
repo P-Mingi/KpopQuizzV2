@@ -16,16 +16,22 @@ describe('the art of a card', () => {
     expect(cardImage(photo, base)).toEqual({
       url: `${base}/storage/v1/object/public/cards/jennie-1x.webp`, url2x: `${base}/storage/v1/object/public/cards/jennie-2x.webp`,
       css: false, small2x: false, focalX: 50, focalY: 30,
+      fileFocalX: 50, fileFocalY: 30, sourceUrl: `${base}/storage/v1/object/public/images/group-photos/jennie.jpg`,
     });
   });
   it('falls back to the source photo cropped in CSS as soon as the focal point moved, so nothing is ever broken', () => {
     expect(cardImage({ ...photo, focal_x: 60 }, base)).toEqual({
       url: `${base}/storage/v1/object/public/images/group-photos/jennie.jpg`, url2x: null, css: true, small2x: false, focalX: 60, focalY: 30,
+      fileFocalX: 50, fileFocalY: 30, sourceUrl: `${base}/storage/v1/object/public/images/group-photos/jennie.jpg`,
     });
   });
   it('falls back too when no file was published or its focal point is unknown', () => {
     expect(cardImage({ ...photo, storage_path: null }, base).css).toBe(true);
     expect(cardImage({ ...photo, file_focal_x: null, file_focal_y: null }, base).css).toBe(true);
+  });
+  it('carries the file focal point and the source URL so the page can decide, and no file focal without a file', () => {
+    expect(cardImage({ ...photo, storage_path: null }, base)).toMatchObject({ fileFocalX: null, fileFocalY: null, sourceUrl: `${base}/storage/v1/object/public/images/group-photos/jennie.jpg` });
+    expect(cardImage({ ...photo, source_path: null }, base).sourceUrl).toBeNull();
   });
   it('a photo too small for 2x offers no 2x file', () => {
     const i = cardImage({ ...photo, small_2x: true }, base);

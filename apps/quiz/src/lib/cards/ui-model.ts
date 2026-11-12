@@ -4,14 +4,14 @@
 import { RARITIES, RARITY_NAMES, SHARDS } from './rules';
 import { paletteFor } from './ui-palette';
 
-import type { CardKind, LockReason, OwnedEntry, Rarity } from './types';
+import type { CardKind, CatalogOdds, LockReason, OwnedEntry, Rarity } from './types';
 import type { BinderItem, BinderSection, CardPicture, SlimCard, SlimCatalog, UiCard, UiCatalog, UiPhoto } from './ui-types';
 
 /** The picture of a card (amendment 1, point 7): the cropped WebP while it was cut at the current focal point, else the source photo. */
 export function photoPicture(photo: UiPhoto | null): CardPicture | null {
   if (!photo) return null;
   if (photo.src) return { src: photo.src, srcSet: null, cut: false };
-  const fresh = photo.fileFocalX === undefined || photo.fileFocalY === undefined || (photo.fileFocalX === (photo.focalX ?? 50) && photo.fileFocalY === (photo.focalY ?? 50));
+  const fresh = photo.fileFocalX != null && photo.fileFocalY != null && photo.fileFocalX === (photo.focalX ?? 50) && photo.fileFocalY === (photo.focalY ?? 50);
   if (photo.url && fresh) return { src: photo.url, srcSet: photo.url2x ? `${photo.url} 1x, ${photo.url2x} 2x` : null, cut: true };
   if (photo.sourceUrl) return { src: photo.sourceUrl, srcSet: null, cut: false };
   return null;
@@ -194,4 +194,41 @@ export function fmtHours(ms: number): string {
 /** The accessible name of a card: name, edition, rarity. */
 export function cardLabel(c: SlimCard, editionName: string): string {
   return `${c.name}, ${editionName}, ${RARITY_NAMES[c.rarity]}`;
+}
+
+/** What the Drop rates box prints, taken from the server's odds (rules.ts computeOdds over the real catalog). Nothing is typed here. */
+export interface OddsView {
+  /** Rarities with a card in packs, in the plan's order. */
+  present: Rarity[];
+  /** Rarities with no card yet: never drawable, never listed in the table. */
+  absent: Rarity[];
+  each: Partial<Record<Rarity, number>>;
+  fifth: Partial<Record<Rarity, number>>;
+  eachWords: string;
+  fifthWords: string;
+}
+
+const num = (v: number): string => String(Number(v.toFixed(4)));
+const pct = (v: number): string => `${v.toFixed(2)}%`;
+const list = (xs: string[]): string => (xs.length <= 1 ? (xs[0] ?? '') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
+
+export function oddsView(odds: CatalogOdds | null): OddsView {
+  const present = odds ? RARITIES.filter((r) => odds.available.includes(r)) : [];
+  const absent = RARITIES.filter((r) => !present.includes(r));
+  if (!odds || present.length === 0) return { present: [], absent: [...RARITIES], each: {}, fifth: {}, eachWords: 'No card is in packs yet.', fifthWords: '' };
+  const w = odds.planWeights;
+  const total = odds.availableWeightTotal;
+  const each: OddsView['each'] = {};
+  const fifth: OddsView['fifth'] = {};
+  for (const r of present) { each[r] = odds.card[r]; if (odds.fifth[r] > 0) fifth[r] = odds.fifth[r]; }
+  const hasC = present.includes('C');
+  const lift = hasC ? present.find((r) => r !== 'C') : undefined;
+  const eachWords = absent.length === 0
+    ? `Every rarity has cards, so the plan's odds apply as they are: ${present.map((r) => `${RARITY_NAMES[r]} ${num(w[r])}`).join(', ')} (a total of ${num(total)}).`
+    : `Only ${list(present.map((r) => RARITY_NAMES[r]))} cards exist so far, so their odds from the plan (${list(present.map((r) => num(w[r])))}) are scaled to 100: ${present.map((r) => `${num(w[r])} / ${num(total)} = ${pct(each[r] as number)}`).join(', ')}.`;
+  const parts = present.filter((r) => fifth[r] !== undefined).map((r) => `${r === lift ? `(${num(w[r])} + ${num(w.C)})` : num(w[r])} / ${num(total)} = ${pct(fifth[r] as number)}`);
+  const fifthWords = lift
+    ? `The fifth card is drawn the same way, and a Common there becomes ${lift === 'U' ? 'an Uncommon' : `a ${RARITY_NAMES[lift]}`}: ${parts.join(', ')}.`
+    : 'The fifth card is drawn the same way.';
+  return { present, absent, each, fifth, eachWords, fifthWords };
 }

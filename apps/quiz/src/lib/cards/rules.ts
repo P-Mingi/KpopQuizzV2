@@ -66,10 +66,10 @@ export const EDITIONS: Record<Rarity, EditionInfo> = {
   L: { edition: 'full', name: 'Full Art', photoSlot: 3 },
 };
 
-/** The rarities a kind exists in (idol: all six; group: C U R SR; event: C U R). */
+/** The rarities a kind can exist in (idol: all six; group: C U R UR, amendment 1; event: C U R). The binder also shows the locked Era and Full Art pockets (ui-model ladderRarities). */
 export const KIND_RARITIES: Record<CardKind, readonly Rarity[]> = {
   idol: ['C', 'U', 'R', 'SR', 'UR', 'L'],
-  group: ['C', 'U', 'R', 'SR'],
+  group: ['C', 'U', 'R', 'UR'],
   event: ['C', 'U', 'R'],
 };
 
@@ -82,7 +82,7 @@ export const LOCK_SENTENCES: Record<LockReason, string> = {
   crop: 'Only appears in group shots, too small to crop for Full Art.',
 };
 
-const SOURCE_NAMES: Record<PhotoSource, string> = {
+export const SOURCE_NAMES: Record<PhotoSource, string> = {
   commons: 'Wikimedia Commons',
   koreanet: 'Korea.net on Flickr',
   flickr: 'Flickr',
