@@ -16,6 +16,7 @@ begin
 
 declare
   v_n bigint := 0;
+  v_t text;
 begin
   if to_regclass('storage.objects') is not null then
     execute 'select count(*) from storage.objects where bucket_id = ''cards''' into v_n;
@@ -27,16 +28,12 @@ begin
   perform set_config('storage.allow_delete_query', 'true', true);
   delete from storage.buckets where id = 'cards';
 
-  if to_regclass('public.cards_wallets') is not null then
-    alter table public.cards_entities disable row level security;
-    alter table public.cards_photos disable row level security;
-    alter table public.cards_catalog disable row level security;
-    alter table public.cards_wallets disable row level security;
-    alter table public.cards_owned disable row level security;
-    alter table public.cards_packs disable row level security;
-    alter table public.cards_ad_tickets disable row level security;
-    alter table public.cards_reports disable row level security;
-    alter table public.cards_bonus_earned disable row level security;
-  end if;
+  -- Each table only when it exists (a table 001 added later may be missing on an older schema), so a second run changes nothing.
+  for v_t in select unnest(array['cards_entities', 'cards_photos', 'cards_catalog', 'cards_wallets', 'cards_owned', 'cards_packs',
+                                 'cards_ad_tickets', 'cards_reports', 'cards_bonus_earned']) loop
+    if to_regclass('public.' || v_t) is not null then
+      execute format('alter table public.%I disable row level security', v_t);
+    end if;
+  end loop;
 end;
 end $c003r$;
