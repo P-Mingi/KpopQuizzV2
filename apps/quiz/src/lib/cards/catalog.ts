@@ -39,7 +39,10 @@ export function publicObjectUrl(bucketPath: string, base: string | undefined = p
  * 640x989) when the owner's script cut it at the current focal point (file_focal equals focal); otherwise the source photo with the
  * focal point, to crop in CSS. Never broken: with neither a file nor a source, url is null.
  */
-export function cardImage(p: PhotoRow, base?: string): CardImage {
+/** The photo columns cardImage reads (lib/cards-bridge/group.ts reads only these). */
+export type ImagePhotoRow = Pick<PhotoRow, 'focal_x' | 'focal_y' | 'storage_path' | 'source_path' | 'file_focal_x' | 'file_focal_y' | 'small_2x'>;
+
+export function cardImage(p: ImagePhotoRow, base?: string): CardImage {
   const cut = p.storage_path !== null && p.file_focal_x === p.focal_x && p.file_focal_y === p.focal_y;
   const sourceUrl = p.source_path ? publicObjectUrl(p.source_path, base) : null;
   const common = {

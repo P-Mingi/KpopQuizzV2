@@ -239,28 +239,76 @@ describe('wallet call', () => {
 });
 
 describe('group block (bridge 2)', () => {
-  const fakeDb = (): never => {
-    const q = (rows: unknown): unknown => {
+  // Review 1 finding 3: a stand-in that honours the filters it receives (eq, or, in, order, limit), so a read by the wrong key finds nothing.
+  type Row = Record<string, unknown>;
+  const TABLES: Record<string, Row[]> = {
+    cards_entities: [
+      { id: 'group:blackpink', name: 'BLACKPINK', group_id: null, active: true },
+      { id: 'idol:jennie', name: 'Jennie', group_id: 'group:blackpink', active: true },
+      { id: 'idol:rose', name: 'Rose', group_id: 'group:blackpink', active: true },
+      { id: 'idol:lisa-old', name: 'Lisa', group_id: 'group:blackpink', active: false },
+      { id: 'group:btob', name: 'BTOB', group_id: null, active: true },
+      { id: 'idol:iu', name: 'IU', group_id: null, active: true },
+    ],
+    cards_catalog: [
+      { card_no: 1, num: 'BV1-0001', entity_id: 'idol:jennie', rarity: 'C', photo_id: 10, in_packs: true },
+      { card_no: 2, num: 'BV1-0002', entity_id: 'idol:jennie', rarity: 'U', photo_id: 10, in_packs: true },
+      { card_no: 5, num: 'BV1-0005', entity_id: 'idol:rose', rarity: 'C', photo_id: 11, in_packs: true },
+      { card_no: 6, num: 'BV1-0006', entity_id: 'idol:rose', rarity: 'U', photo_id: 11, in_packs: false },
+      { card_no: 9, num: 'BV1-0009', entity_id: 'group:btob', rarity: 'C', photo_id: 12, in_packs: true },
+      { card_no: 13, num: 'BV1-0013', entity_id: 'idol:iu', rarity: 'C', photo_id: 13, in_packs: true },
+      { card_no: 20, num: 'BV1-0020', entity_id: 'idol:lisa-old', rarity: 'C', photo_id: 14, in_packs: true },
+    ],
+    cards_photos: [
+      // cut at the current focal point: the card file
+      { id: 10, status: 'approved', focal_x: 50, focal_y: 30, storage_path: 'jennie-50-30', source_path: 'images/group-photos/jennie.jpg', file_focal_x: 50, file_focal_y: 30, small_2x: false },
+      // no file yet: the source photo, cropped in CSS at the focal point
+      { id: 11, status: 'approved', focal_x: 40, focal_y: 20, storage_path: null, source_path: 'images/group-photos/rose.jpg', file_focal_x: null, file_focal_y: null, small_2x: false },
+      { id: 12, status: 'removed', focal_x: 50, focal_y: 50, storage_path: null, source_path: 'images/group-photos/btob.jpg', file_focal_x: null, file_focal_y: null, small_2x: true },
+      { id: 13, status: 'approved', focal_x: 50, focal_y: 30, storage_path: null, source_path: 'images/group-photos/iu.jpg', file_focal_x: null, file_focal_y: null, small_2x: false },
+      { id: 14, status: 'approved', focal_x: 50, focal_y: 30, storage_path: null, source_path: 'images/group-photos/lisa.jpg', file_focal_x: null, file_focal_y: null, small_2x: false },
+    ],
+  };
+  const fakeDb = (): never => ({
+    from: (t: string) => {
+      let rows = [...(TABLES[t] ?? [])];
       const o: Record<string, unknown> = {};
-      for (const k of ['select', 'eq', 'or', 'in', 'order', 'limit']) o[k] = () => o;
+      o.select = () => o;
+      o.eq = (k: string, v: unknown) => { rows = rows.filter((r) => r[k] === v); return o; };
+      o.in = (k: string, vs: unknown[]) => { rows = rows.filter((r) => vs.includes(r[k])); return o; };
+      o.or = (expr: string) => {
+        const alts = expr.split(',').map((x) => { const m = /^(\w+)\.eq\.(.+)$/.exec(x); if (!m) throw new Error(`bad or: ${x}`); return [m[1]!, m[2]!] as const; });
+        rows = rows.filter((r) => alts.some(([k, v]) => r[k] === v));
+        return o;
+      };
+      o.order = (k: string) => { rows.sort((a, b) => Number(a[k]) - Number(b[k])); return o; };
+      o.limit = (n: number) => { rows = rows.slice(0, n); return o; };
       o.then = (res: (v: unknown) => void) => res({ data: rows, error: null });
       return o;
-    };
-    return { from: (t: string) => q(t === 'cards_entities' ? [{ id: 'group:Q1', name: 'BLACKPINK' }, { id: 'idol:Q2', name: 'Lisa' }]
-      : t === 'cards_catalog' ? [{ card_no: 1, num: 'BV1-0001', entity_id: 'idol:Q2', rarity: 'C', photo_id: 10 }, { card_no: 2, num: 'BV1-0002', entity_id: 'group:Q1', rarity: 'U', photo_id: 11 }]
-      : [{ id: 10, storage_path: 'a/b.webp' }]) } as never;
-  };
-  it('a card whose photo is not approved is retired; the photo URL is the public bucket', async () => {
+    },
+  }) as never;
+  it('review 1 finding 3: the cards of the group and of the people whose group line it is, by slug, with the art of cardImage()', async () => {
+    env('1');
+    const { readGroupCards } = await import('./group');
+    const cards = await readGroupCards('blackpink', fakeDb(), 'https://p.supabase.co');
+    expect(cards).toEqual([
+      { n: 1, num: 'BV1-0001', name: 'Jennie', rarity: 'C', photoUrl: 'https://p.supabase.co/storage/v1/object/public/cards/jennie-50-30-1x.webp', focalX: 50, focalY: 30 },
+      { n: 2, num: 'BV1-0002', name: 'Jennie', rarity: 'U', photoUrl: 'https://p.supabase.co/storage/v1/object/public/cards/jennie-50-30-1x.webp', focalX: 50, focalY: 30 },
+      { n: 5, num: 'BV1-0005', name: 'Rose', rarity: 'C', photoUrl: 'https://p.supabase.co/storage/v1/object/public/images/group-photos/rose.jpg', focalX: 40, focalY: 20 },
+    ]);
+  });
+  it("a soloist's own page has the soloist's cards; a card whose photo was removed is retired", async () => {
+    env('1');
+    const { readGroupCards } = await import('./group');
+    expect((await readGroupCards('iu', fakeDb(), 'https://p.supabase.co')).map((c) => c.num)).toEqual(['BV1-0013']);
+    expect(await readGroupCards('btob', fakeDb(), 'https://p.supabase.co')).toEqual([]);
+  });
+  it('a slug with no card, or that is not a slug, has no cards', async () => {
     env('1');
     const { readGroupCards, photoPublicUrl } = await import('./group');
-    const slugs = Object.keys((await import('@/data/wikidata-groups.json') as { default: { groups: Record<string, unknown> } }).default.groups);
-    const cards = await readGroupCards(slugs[0]!, fakeDb(), 'https://p.supabase.co');
-    expect(cards).toEqual([{ n: 1, num: 'BV1-0001', name: 'Lisa', rarity: 'C', photoUrl: 'https://p.supabase.co/storage/v1/object/public/cards/a/b.webp' }]);
+    expect(await readGroupCards('no-such-group', fakeDb())).toEqual([]);
+    expect(await readGroupCards('x,id.neq.0', fakeDb())).toEqual([]);
     expect(photoPublicUrl('https://p.co', '../x')).toBeNull();
-  });
-  it('a group with no Wikidata id has no cards', async () => {
-    env('1');
-    expect(await (await import('./group')).readGroupCards('no-such-group', fakeDb())).toEqual([]);
   });
   it('off: null, the module file is never loaded', async () => {
     env(null);
@@ -273,7 +321,7 @@ describe('group block (bridge 2)', () => {
   it('the grid: guest sees backs and the total, a fan sees owned in colour', async () => {
     env('1');
     const { CardsGroupGrid } = await import('@/components/cards-bridge/cards-group-grid');
-    const cards = [{ n: 1, num: 'BV1-0001', name: 'Lisa', rarity: 'C', photoUrl: 'https://p/x.webp' }, { n: 2, num: 'BV1-0002', name: 'Rose', rarity: 'U', photoUrl: 'https://p/y.webp' }];
+    const cards = [{ n: 1, num: 'BV1-0001', name: 'Lisa', rarity: 'C', photoUrl: 'https://p/x.webp', focalX: 50, focalY: 30 }, { n: 2, num: 'BV1-0002', name: 'Rose', rarity: 'U', photoUrl: 'https://p/y.webp', focalX: 50, focalY: 30 }];
     useMe.mockReturnValue(null);
     let html = renderToStaticMarkup(h(CardsGroupGrid, { cards }));
     expect(html).toContain('2 cards');
@@ -283,6 +331,7 @@ describe('group block (bridge 2)', () => {
     expect(html).toContain('1 of 2 owned');
     expect(html.match(/<img/g)?.length).toBe(1);
     expect(html).toContain('https://p/x.webp');
+    expect(html).toContain('object-position:50% 30%');
     expect(html).not.toContain('https://p/y.webp');
   });
 });

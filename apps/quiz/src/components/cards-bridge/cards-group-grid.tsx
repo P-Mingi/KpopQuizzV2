@@ -21,7 +21,7 @@ export function CardsGroupGrid({ cards }: { cards: readonly GroupCard[] }): Reac
           return mine && c.photoUrl ? (
             <li key={c.n} className="cb-card" data-owned="1" title={`${c.name} ${c.num}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={c.photoUrl} alt={`${c.name}, card ${c.num}`} loading="lazy" width={84} height={118} />
+              <img src={c.photoUrl} alt={`${c.name}, card ${c.num}`} loading="lazy" width={84} height={118} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
             </li>
           ) : (
             <li key={c.n} className="cb-card is-missing" data-owned="0"><span>{c.num}</span></li>
