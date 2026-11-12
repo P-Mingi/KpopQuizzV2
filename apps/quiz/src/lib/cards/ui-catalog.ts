@@ -10,7 +10,7 @@ import type { UiCatalog, UiPhoto } from './ui-types';
 export function fromPayload(p: CatalogPayload): UiCatalog {
   return {
     odds: p.odds,
-    entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons })),
+    entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear ? { endYear: e.endYear } : {}) })),
     cards: p.cards.map((c) => {
       const i = c.image;
       const photo: UiPhoto | null = c.photo
@@ -18,7 +18,7 @@ export function fromPayload(p: CatalogPayload): UiCatalog {
         : null;
       // Lot 2: a half of a group photo keeps its part and the number of its other half.
       const half = c.part === 1 || c.part === 2 ? { part: c.part, pairN: c.pairN ?? null } : {};
-      return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo, ...half };
+      return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo, ...half, ...(c.endYear ? { endYear: c.endYear } : {}) };
     }),
   };
 }

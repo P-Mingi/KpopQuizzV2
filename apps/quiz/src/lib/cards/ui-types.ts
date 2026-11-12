@@ -44,6 +44,8 @@ export interface UiEntity {
   /** Group name for an idol. */
   group: string | null;
   debutYear: number | null;
+  /** Lot 2: the year a disbanded group disbanded. */
+  endYear?: number | null;
   sortKey: string;
   /** Why an edition is missing: {"SR":"one","L":"crop"}. */
   lockReasons: Partial<Record<Rarity, LockReason>>;
@@ -69,6 +71,8 @@ export interface SlimCard {
   name: string;
   group: string | null;
   debutYear: number | null;
+  /** Lot 2: the year a disbanded group disbanded (owner decision 2026-11-12: the card says it). */
+  endYear?: number | null;
   /** The photo, null: the drawn placeholder figure. */
   img: CardPicture | null;
   fx: number;

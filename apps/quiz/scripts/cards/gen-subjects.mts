@@ -51,6 +51,8 @@ export interface Subject {
   /** Lot 2: the verdict of the age rule (docs/design/cards/data/age-check.json, scripts/cards/age-check.mts); null until it was run,
    *  and a subject without a verdict never gets a card. */
   age: { ok: boolean; reason: string | null; checked_on: string } | null;
+  /** A disbanded group kept in the game (owner decision 2026-11-12): the year from docs/design/cards/data/disbanded.json (two sources). */
+  disbanded: { year: number } | null;
 }
 
 export function cropWidth(width: number, height: number): number {
@@ -60,6 +62,7 @@ export function cropWidth(width: number, height: number): number {
 interface OriginalRow { slug: string; page: string; url: string; width: number; height: number; mime: string; sha1: string; licenceMatches: boolean }
 const ORIGINALS_JSON = path.join(REPO, 'docs/design/cards/data/originals.json');
 const AGE_JSON = path.join(REPO, 'docs/design/cards/data/age-check.json');
+const DISBANDED_JSON = path.join(REPO, 'docs/design/cards/data/disbanded.json');
 
 /** The pair of a group photo of this size (the focal point moves the window, never its size). */
 export function pairOf(width: number, height: number): NonNullable<Subject['pair']> {
@@ -98,6 +101,14 @@ export function build(): { subjects: Subject[]; mismatches: string[] } {
     : null;
   const ageOf = new Map((age?.subjects ?? []).map((a) => [a.slug, a]));
   if (age) for (const s of bySlug.keys()) if (!ageOf.has(s)) mismatches.push(`${s}: no verdict in age-check.json`);
+  const disbanded = new Map(
+    (existsSync(DISBANDED_JSON) ? (JSON.parse(readFileSync(DISBANDED_JSON, 'utf8')) as Array<{ slug: string; year: number; sources: unknown[] }>) : [])
+      .map((d) => [d.slug, d]),
+  );
+  for (const [slug, d] of disbanded) {
+    if (!bySlug.has(slug)) mismatches.push(`${slug}: in disbanded.json, not a subject`);
+    if (!Number.isInteger(d.year) || d.sources.length < 2) mismatches.push(`${slug}: disbanded.json needs a year and two sources`);
+  }
   const people = new Set<string>(PEOPLE);
   const order = [...PEOPLE, ...rows.map((r) => r.slug).filter((s) => !people.has(s)).sort()];
   const subjects: Subject[] = [];
@@ -122,6 +133,7 @@ export function build(): { subjects: Subject[]; mismatches: string[] } {
       crop_width: cw, small_2x: cw < MIN_2X_WIDTH,
       ...(pair ? { pair } : {}),
       age: a && age ? { ok: a.ok, reason: a.reason, checked_on: age.checked_on } : null,
+      disbanded: kind === 'group' && disbanded.has(slug) ? { year: (disbanded.get(slug) as { year: number }).year } : null,
     });
   }
   return { subjects, mismatches };

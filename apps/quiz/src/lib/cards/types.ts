@@ -65,6 +65,8 @@ export interface CatalogCard {
   /** Group name for an idol card, null otherwise. */
   group: string | null;
   debutYear: number | null;
+  /** Lot 2: the year a disbanded group disbanded (cards_entities.end_year, file 102), null otherwise. Optional for older payloads. */
+  endYear?: number | null;
   photo: PhotoCredit | null;
   /** Added by lane C after the first commit; optional so older fixtures still type-check. */
   image?: CardImage | null;
@@ -83,6 +85,8 @@ export interface CatalogEntity {
   groupId: string | null;
   group: string | null;
   debutYear: number | null;
+  /** Lot 2: the year a disbanded group disbanded, null otherwise. */
+  endYear?: number | null;
   sortKey: string;
   /** {"SR":"one","L":"crop"}: why a missing edition is missing. */
   lockReasons: Partial<Record<Rarity, LockReason>>;

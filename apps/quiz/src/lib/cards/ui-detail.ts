@@ -49,11 +49,11 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const groupLine = entity.group || SOLOIST;
   const allFacts: [string, string | null][] =
     entity.kind === 'idol' ? [['Group', groupLine], ['Debut', year !== null ? (entity.group ? `${year}, with the group` : String(year)) : null], ['Edition', edition], ['Number', card.num]]
-    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Edition', edition], ...(half ? [['Part', `${half === 1 ? 'Left' : 'Right'} half, ${half} of 2`] as [string, string]] : []), ['Number', card.num]]
+    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Disbanded', entity.endYear ? String(entity.endYear) : null], ['Edition', edition], ...(half ? [['Part', `${half === 1 ? 'Left' : 'Right'} half, ${half} of 2`] as [string, string]] : []), ['Number', card.num]]
     : [['Type', entity.eventType ?? 'Event'], ['Year', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]];
   const facts = allFacts.filter((f): f is [string, string] => f[1] !== null && f[1] !== '');
   const subParts = entity.kind === 'idol' ? [groupLine, year !== null ? `debut ${year}` : null]
-    : entity.kind === 'group' ? ['Group', year !== null ? `debut ${year}` : null] : [entity.eventType ?? 'Event', year !== null ? String(year) : null];
+    : entity.kind === 'group' ? ['Group', year !== null ? `debut ${year}` : null, entity.endYear ? `disbanded ${entity.endYear}` : null] : [entity.eventType ?? 'Event', year !== null ? String(year) : null];
   const sub = subParts.filter((x): x is string => !!x).join(' · ');
   const missingRungs = ladder.filter((x) => !x.card);
   let why: DetailProps['why'] = null;

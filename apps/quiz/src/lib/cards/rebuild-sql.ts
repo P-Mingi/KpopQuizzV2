@@ -13,6 +13,8 @@ export interface Subject {
   small_2x: boolean;
   pair?: { window_width: number; halves: Array<{ part: 1 | 2; crop_width: number; small_2x: boolean }> };
   age: { ok: boolean; reason: string | null; checked_on: string } | null;
+  /** A disbanded group kept in the game (owner decision 2026-11-12, docs/design/cards/data/disbanded.json): the year it disbanded. */
+  disbanded?: { year: number } | null;
 }
 
 export interface RebuildSql { sql: string; rollback: string; kept: Subject[]; left: Array<{ slug: string; reason: string }> }
@@ -26,6 +28,7 @@ export function build(subjects: Subject[]): RebuildSql {
   const people = kept.filter((s) => s.kind === 'idol').length;
   const groups = kept.length - people;
   const allSlugs = subjects.map((s) => `'${s.slug}'`).join(', ');
+  const disbandedList = kept.filter((s) => s.disbanded).map((s) => `${s.slug} ${s.disbanded?.year}`).join(', ');
   const leftEntities = left.map((l) => `'${subjects.find((s) => s.slug === l.slug)?.kind === 'group' ? 'group' : 'idol'}:${l.slug}'`).join(', ');
 
   // One object per line, only what the SQL reads; dollar-quoted, so an apostrophe in a name needs no escape.
@@ -33,7 +36,7 @@ export function build(subjects: Subject[]): RebuildSql {
     .map((s) => {
       const halves = s.pair?.halves ?? [];
       return `  ${JSON.stringify({
-        slug: s.slug, kind: s.kind, small_2x: s.small_2x,
+        slug: s.slug, kind: s.kind, small_2x: s.small_2x, end_year: s.disbanded?.year ?? null,
         small_2x_h1: s.kind === 'group' ? (halves.find((h) => h.part === 1)?.small_2x ?? true) : null,
         small_2x_h2: s.kind === 'group' ? (halves.find((h) => h.part === 2)?.small_2x ?? true) : null,
         url: s.photo.url, bucket: s.photo.bucket, path: s.photo.path, width: s.photo.width, height: s.photo.height,
@@ -54,7 +57,9 @@ export function build(subjects: Subject[]): RebuildSql {
 --         2. a group photo gives a PAIR of cards per edition: part 1 the left half and part 2 the right half of its 11:8.5 window, with
 --            consecutive numbers (C 1/2, C 2/2, U 1/2, U 2/2, R 1/2, R 2/2, UR 1/2, UR 2/2). A person keeps one card per edition (part 0).
 --         Adds to cards_catalog: part (0, 1, 2) and small_2x (per card: each half of a pair is checked for 2x on its own), and replaces the
---         unique key (entity_id, rarity) with (entity_id, rarity, part).
+--         unique key (entity_id, rarity) with (entity_id, rarity, part). Adds to cards_entities: end_year, the year a disbanded group
+--         disbanded (owner decision 2026-11-12: ${disbandedList || 'none'}), which the card prints; such a group needs no active member: its adult
+--         check reads all its idols rows, former members included (099 writes them as active false).
 -- How:    names, debut years, group lines and the adult check resolve AT APPLY TIME by slug from public.groups and public.idols, exactly as
 --         101 did (decisions 2, 17, 18; review 1 finding 11). Numbers start again at BV1-0001: the subjects in, ordered by section name A to Z,
 --         the people of a section before its group, 4 numbers a person (C, U, R, UR) and 8 a group (each edition 1/2 then 2/2).
@@ -146,6 +151,10 @@ begin
   -- 1. The columns of the pairs (idempotent).
   alter table public.cards_catalog add column if not exists part smallint not null default 0;
   alter table public.cards_catalog add column if not exists small_2x boolean not null default false;
+  alter table public.cards_entities add column if not exists end_year integer;
+  if not exists (select 1 from pg_constraint where conname = 'cards_entities_end_year_check' and conrelid = 'public.cards_entities'::regclass) then
+    alter table public.cards_entities add constraint cards_entities_end_year_check check (end_year is null or end_year between 1900 and 2100);
+  end if;
   if not exists (select 1 from pg_constraint where conname = 'cards_catalog_part_check' and conrelid = 'public.cards_catalog'::regclass) then
     alter table public.cards_catalog add constraint cards_catalog_part_check check (part between 0 and 2);
   end if;
@@ -197,9 +206,11 @@ begin
     elsif g.id is null then
       v_reason := 'no_groups_row';
     elsif v_kind = 'group' then
+      -- A disbanded group has no active member: every row of the group is read (its former members); any other group, its active rows.
       select count(*), count(x.birth_date), count(*) filter (where x.birth_date <= v_cutoff)
-        into v_n, v_known, v_adult from public.idols x where x.group_id = g.id and x.active;
-      if v_n = 0 then v_reason := 'no_active_member';
+        into v_n, v_known, v_adult from public.idols x
+       where x.group_id = g.id and (x.active or (sj.v ->> 'end_year') is not null);
+      if v_n = 0 then v_reason := case when (sj.v ->> 'end_year') is not null then 'no_member' else 'no_active_member' end;
       elsif v_known < v_n then v_reason := 'unknown_birth_date';
       elsif v_adult < v_n then v_reason := 'minor_member';
       end if;
@@ -259,9 +270,9 @@ begin
           from jsonb_array_elements(v_in) y) x;
 
   -- 6. Entities: the group cards, the group lines of the people (no cards of their own), then the people.
-  insert into public.cards_entities (id, kind, name, group_id, debut_year, qid, sort_key, lock_reasons, active)
+  insert into public.cards_entities (id, kind, name, group_id, debut_year, qid, sort_key, lock_reasons, active, end_year)
   select x ->> 'entity', 'group', x ->> 'name', null, nullif(x ->> 'debut_year', '')::integer, null,
-         lower(x ->> 'section') || '|1|' || lower(x ->> 'name'), '{"SR":"one","L":"one"}'::jsonb, true
+         lower(x ->> 'section') || '|1|' || lower(x ->> 'name'), '{"SR":"one","L":"one"}'::jsonb, true, nullif(x ->> 'end_year', '')::integer
     from jsonb_array_elements(v_in) x where x ->> 'kind' = 'group';
   insert into public.cards_entities (id, kind, name, group_id, debut_year, qid, sort_key, lock_reasons, active)
   select distinct on (l ->> 'id') l ->> 'id', 'group', l ->> 'name', null, nullif(l ->> 'debut_year', '')::integer, null,
@@ -326,6 +337,9 @@ begin
     raise notice '102-catalog-rebuild: % cards of part % (0 a whole card, 1 a left half, 2 a right half)', r.n, r.part;
   end loop;
   raise notice '102-catalog-rebuild: % people kept their published files; the groups need their halves cut (publish-card-files.mjs)', v_kept_files;
+  for r in select x.value ->> 'slug' as slug, x.value ->> 'end_year' as y from jsonb_array_elements(v_in) x where x.value ->> 'end_year' is not null order by 1 loop
+    raise notice '102-catalog-rebuild: % is in as a disbanded group (%)', r.slug, r.y;
+  end loop;
   for r in select x.value ->> 'slug' as slug, x.value ->> 'reason' as reason from jsonb_array_elements(v_left_by_age) x loop
     raise notice '102-catalog-rebuild: left out % (age rule: %)', r.slug, r.reason;
   end loop;
@@ -343,12 +357,12 @@ end $c102$;
 
   const rollback = `-- 102-catalog-rebuild.rollback.sql (undo of 102-catalog-rebuild.sql)
 --
--- What:   empties cards_catalog, cards_photos and cards_entities, then gives cards_catalog back the shape of 001: drops part and small_2x,
+-- What:   empties cards_catalog, cards_photos and cards_entities, then gives them back the shape of 001: drops part, small_2x and end_year,
 --         and the unique key (entity_id, rarity, part) returns to (entity_id, rarity). The catalog stays EMPTY: 101 is not re-run here,
 --         because 101 predates the age rule of lot 2 (it would bring back the subjects that rule leaves out). Apply 102 again to refill it.
 -- Refuses: while a player owns a card (cards_owned) or has opened a pack (cards_packs).
 -- Verify: select count(*) from public.cards_catalog;   expect 0
--- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_catalog' and column_name in ('part', 'small_2x');   expect 0
+-- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name in ('cards_catalog', 'cards_entities') and column_name in ('part', 'small_2x', 'end_year');   expect 0
 -- o1-transaction: single, ONE DO block. Idempotent.
 
 do $c102r$
@@ -374,6 +388,8 @@ begin
   alter table public.cards_catalog drop constraint if exists cards_catalog_part_check;
   alter table public.cards_catalog drop column if exists part;
   alter table public.cards_catalog drop column if exists small_2x;
+  alter table public.cards_entities drop constraint if exists cards_entities_end_year_check;
+  alter table public.cards_entities drop column if exists end_year;
   if not exists (select 1 from pg_constraint where conname = 'cards_catalog_entity_rarity_key' and conrelid = 'public.cards_catalog'::regclass) then
     alter table public.cards_catalog add constraint cards_catalog_entity_rarity_key unique (entity_id, rarity);
   end if;

@@ -22,6 +22,7 @@ export function slimCard(c: UiCard, entityType: string | null = null): SlimCard 
     n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear,
     img: photoPicture(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
     part: c.part === 1 || c.part === 2 ? c.part : 0, pairN: c.part === 1 || c.part === 2 ? (c.pairN ?? null) : null,
+    ...(c.endYear ? { endYear: c.endYear } : {}),
   };
 }
 

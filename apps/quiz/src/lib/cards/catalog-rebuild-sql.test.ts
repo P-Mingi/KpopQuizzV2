@@ -219,3 +219,44 @@ describe('gen-rebuild-sql.mts', () => {
     expect(SQL.rollback).not.toMatch(/[–—]/);
   });
 });
+
+describe('102-catalog-rebuild.sql: a disbanded group kept in the game (owner decision 2026-11-12)', () => {
+  const D = build([
+    { ...pick('sistar', true), disbanded: { year: 2017 } },
+    { ...pick('miss-a', true), disbanded: { year: 2017 } },
+    { ...pick('winner', true), disbanded: null },
+  ]);
+  const DFIX = `
+create table public.groups (id serial primary key, name text not null unique, slug text not null unique, inception_date date);
+create table public.idols (
+  id serial primary key, group_id integer not null references public.groups(id), name text not null, birth_date date,
+  wikidata_qid text, active boolean not null default true, ord integer not null default 0);
+create function gid(s text) returns integer language sql as $$ select id from public.groups where slug = s $$;
+insert into public.groups (name, slug, inception_date) values ('SISTAR', 'sistar', '2010-06-03'), ('miss A', 'miss-a', '2010-07-01'), ('WINNER', 'winner', '2014-08-17');
+-- former members only: adults (SISTAR), one of them without a birth date (miss A); WINNER is not disbanded and has former members only
+insert into public.idols (group_id, name, birth_date, active) values
+  (gid('sistar'), 'One', current_date - interval '35 years', false), (gid('sistar'), 'Two', current_date - interval '34 years', false),
+  (gid('miss-a'), 'Three', current_date - interval '33 years', false), (gid('miss-a'), 'Four', null, false),
+  (gid('winner'), 'Five', current_date - interval '31 years', false);
+`;
+  it('needs no active member, reads its former members, and stores the year the card prints', async () => {
+    const db = await freshCardsDb();
+    await db.exec(DFIX);
+    const notices = await run(db, D.sql);
+    expect(await rows(db, `select id, end_year from cards_entities order by id`)).toEqual([{ id: 'group:sistar', end_year: 2017 }]);
+    expect(await one(db, `select count(*)::int from cards_catalog where entity_id = 'group:sistar'`)).toBe(8);
+    expect(notices).toContain('102-catalog-rebuild: sistar is in as a disbanded group (2017)');
+    // the adult check still holds: a former member without a birth date leaves miss A out
+    expect(notices).toContain('102-catalog-rebuild: left out miss-a (unknown_birth_date)');
+    // a group that did not disband still needs active members
+    expect(notices).toContain('102-catalog-rebuild: left out winner (no_active_member)');
+  });
+
+  it('drops end_year in its rollback', async () => {
+    const db = await freshCardsDb();
+    await db.exec(DFIX);
+    await run(db, D.sql);
+    await run(db, D.rollback);
+    expect(await one(db, `select count(*)::int from information_schema.columns where table_name = 'cards_entities' and column_name = 'end_year'`)).toBe(0);
+  });
+});

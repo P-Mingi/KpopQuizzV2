@@ -77,7 +77,7 @@ export function buildFixtureCatalog(opts: { pairs?: boolean } = {}): UiCatalog {
           n += 1;
           cards.push({
             n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name,
-            group: e.group, debutYear: e.debutYear, photo, part, pairN: part === 1 ? n + 1 : n - 1,
+            group: e.group, debutYear: e.debutYear, photo, part, pairN: part === 1 ? n + 1 : n - 1, ...(e.endYear ? { endYear: e.endYear } : {}),
           });
         }
       }
@@ -94,7 +94,9 @@ export function buildFixtureCatalog(opts: { pairs?: boolean } = {}): UiCatalog {
       entities.push(e);
       push(e);
     }
-    const ge: UiEntity = { id: `group:Q${gi}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${g.name}|~`, lockReasons: lockAll };
+    // Lot 2, pairs only: one invented group is disbanded, so the card shows its year (owner decision 2026-11-12).
+    const end = opts.pairs && g.name === 'Harbor Moth' ? { endYear: 2023 } : {};
+    const ge: UiEntity = { id: `group:Q${gi}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${g.name}|~`, lockReasons: lockAll, ...end };
     entities.push(ge);
     push(ge);
   });

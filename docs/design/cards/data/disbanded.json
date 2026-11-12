@@ -1,0 +1,19 @@
+[
+  {
+    "slug": "miss-a",
+    "year": 2017,
+    "sources": [
+      { "kind": "en.wikipedia", "url": "https://en.wikipedia.org/wiki/Miss_A", "says": "years active 2010 to 2017; JYP announced the disbandment in December 2017" },
+      { "kind": "ko.wikipedia", "url": "https://ko.wikipedia.org/wiki/%EB%AF%B8%EC%93%B0%EC%97%90%EC%9D%B4", "says": "disbanded on 2017-12-27" }
+    ],
+    "note": "Wikidata Q284740 has no dissolution date (P576); its end of the work period (P2032) is 2018. The two Wikipedias agree on 2017."
+  },
+  {
+    "slug": "sistar",
+    "year": 2017,
+    "sources": [
+      { "kind": "wikidata", "url": "https://www.wikidata.org/wiki/Q223048", "says": "dissolved (P576) 2017-05-31" },
+      { "kind": "en.wikipedia", "url": "https://en.wikipedia.org/wiki/Sistar", "says": "years active 2010 to 2017; disbanded after the final single of 31 May 2017" }
+    ]
+  }
+]

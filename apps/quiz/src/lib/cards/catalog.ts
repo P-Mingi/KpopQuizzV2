@@ -15,9 +15,10 @@ interface CardRow {
   card_no: number; num: string; entity_id: string; rarity: Rarity; edition: Edition; photo_id: number | null;
   part?: number | null; small_2x?: boolean | null;
 }
+/** end_year comes with file 102 (lot 2): absent before it. */
 interface EntityRow {
   id: string; kind: CardKind; name: string; group_id: string | null; debut_year: number | null; sort_key: string;
-  lock_reasons: Record<string, string> | null;
+  lock_reasons: Record<string, string> | null; end_year?: number | null;
 }
 interface PhotoRow {
   id: number; slot: number; source: PhotoSource; source_page: string; author: string; author_url: string | null; licence: string;
@@ -84,7 +85,7 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
     for (const [k, v] of Object.entries(e.lock_reasons ?? {})) if (RAR.has(k) && LOCKS.has(v)) lockReasons[k as Rarity] = v as LockReason;
     return {
       id: e.id, kind: e.kind, name: e.name, groupId: e.group_id, group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : null,
-      debutYear: e.debut_year, sortKey: e.sort_key, lockReasons,
+      debutYear: e.debut_year, sortKey: e.sort_key, lockReasons, ...(typeof e.end_year === 'number' ? { endYear: e.end_year } : {}),
     };
   });
   const outCards: CatalogCard[] = [];
@@ -105,7 +106,7 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
     outCards.push({
       n: c.card_no, num: c.num, entity: c.entity_id, kind: e.kind, rarity: c.rarity, edition: c.edition, name: e.name,
       group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : e.kind === 'group' ? e.name : null,
-      debutYear: e.debut_year, photo: credit,
+      debutYear: e.debut_year, ...(typeof e.end_year === 'number' ? { endYear: e.end_year } : {}), photo: credit,
       image: p ? cardImage(p, base, c) : null,
       ...(part !== 0 ? { part, pairN: halves.get(`${c.entity_id}|${c.rarity}|${part === 1 ? 2 : 1}`) ?? null } : {}),
     });
@@ -124,7 +125,8 @@ export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayl
       // '*': part and small_2x exist only once file 102 is applied; before it every card reads as a whole card.
       db.from('cards_catalog').select('*').eq('in_packs', true).order('card_no', { ascending: true })),
     fetchAllRows<EntityRow>(() =>
-      db.from('cards_entities').select('id, kind, name, group_id, debut_year, sort_key, lock_reasons').eq('active', true).order('id', { ascending: true })),
+      // '*': end_year exists only once file 102 is applied.
+      db.from('cards_entities').select('*').eq('active', true).order('id', { ascending: true })),
     fetchAllRows<PhotoRow>(() =>
       db.from('cards_photos')
         .select('id, slot, source, source_page, author, author_url, licence, licence_url, share_alike, modified, focal_x, focal_y, storage_path, source_path, file_focal_x, file_focal_y, small_2x')

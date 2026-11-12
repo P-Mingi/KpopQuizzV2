@@ -35,7 +35,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "chungha",
@@ -73,7 +74,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "heize",
@@ -111,7 +113,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "hwasa",
@@ -149,7 +152,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "hyuna",
@@ -187,7 +191,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "iu",
@@ -225,7 +230,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "jay-park",
@@ -263,7 +269,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "jennie",
@@ -301,7 +308,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "jeon-somi",
@@ -339,7 +347,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "jimin",
@@ -377,7 +386,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "jungkook",
@@ -415,7 +425,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "psy",
@@ -453,7 +464,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "rose",
@@ -491,7 +503,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "sunmi",
@@ -529,7 +542,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "taeyang",
@@ -567,7 +581,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "taeyeon",
@@ -605,7 +620,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "v-bts",
@@ -643,7 +659,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "zico",
@@ -681,7 +698,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "akmu",
@@ -734,7 +752,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "apink",
@@ -787,7 +806,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "artms",
@@ -840,7 +860,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "astro",
@@ -893,7 +914,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "billlie",
@@ -946,7 +968,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "btob",
@@ -999,7 +1022,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "cortis",
@@ -1052,7 +1076,8 @@
       "ok": false,
       "reason": "minor_today",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "day6",
@@ -1105,7 +1130,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "dreamcatcher",
@@ -1158,7 +1184,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "fifty-fifty",
@@ -1211,7 +1238,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "fromis-9",
@@ -1264,7 +1292,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "hearts2hearts",
@@ -1317,7 +1346,8 @@
       "ok": false,
       "reason": "minor_today",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "ikon",
@@ -1370,7 +1400,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "illit",
@@ -1423,7 +1454,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "kara",
@@ -1476,7 +1508,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "katseye",
@@ -1529,7 +1562,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "kickflip",
@@ -1582,7 +1616,8 @@
       "ok": false,
       "reason": "unknown_lineup",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "kiss-of-life",
@@ -1635,7 +1670,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "loona",
@@ -1688,7 +1724,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "loossemble",
@@ -1741,7 +1778,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "miss-a",
@@ -1794,6 +1832,9 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
+    },
+    "disbanded": {
+      "year": 2017
     }
   },
   {
@@ -1847,7 +1888,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "nct",
@@ -1900,7 +1942,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "nct-wish",
@@ -1953,7 +1996,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "p1harmony",
@@ -2006,7 +2050,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "pentagon",
@@ -2059,7 +2104,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "purple-kiss",
@@ -2112,7 +2158,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "rescene",
@@ -2165,7 +2212,8 @@
       "ok": false,
       "reason": "minor_today",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "sistar",
@@ -2218,6 +2266,9 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
+    },
+    "disbanded": {
+      "year": 2017
     }
   },
   {
@@ -2271,7 +2322,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "t-ara",
@@ -2324,7 +2376,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "team",
@@ -2377,7 +2430,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "the-boyz",
@@ -2430,7 +2484,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "triples",
@@ -2483,7 +2538,8 @@
       "ok": false,
       "reason": "minor_today",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "tuide",
@@ -2536,7 +2592,8 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "tws",
@@ -2589,7 +2646,8 @@
       "ok": false,
       "reason": "minor_at_photo",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "viviz",
@@ -2642,7 +2700,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "winner",
@@ -2695,7 +2754,8 @@
       "ok": true,
       "reason": null,
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "xikers",
@@ -2748,7 +2808,8 @@
       "ok": false,
       "reason": "unknown_lineup",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "young-posse",
@@ -2801,7 +2862,8 @@
       "ok": false,
       "reason": "minor_today",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   },
   {
     "slug": "zerobaseone",
@@ -2854,6 +2916,7 @@
       "ok": false,
       "reason": "unknown_birth_date",
       "checked_on": "2026-11-12"
-    }
+    },
+    "disbanded": null
   }
 ]
