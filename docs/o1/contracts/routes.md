@@ -152,6 +152,11 @@ answer with the site's title and no K-pop string.
 | `/admin/**` | `**` only as the last segment: the path itself and anything below (`/admin`, `/admin/review/1`) |
 
 The shared prefixes `/api/` and `/auth/` and the per-site root files are known on every site without a pattern.
+Bunnyverse Cards (owner mission 2026-11-12, hub build only, 404 elsewhere and with NET_CARDS off): `GET /api/cards/state`,
+`POST /api/cards/open`, `POST /api/cards/ad/ticket`, `POST /api/cards/ad/grant`, `POST /api/cards/recycle`, `POST /api/cards/favorite`,
+`POST /api/cards/report` (no sign-in), `GET /api/cards/catalog` (public, cached 5 minutes), `POST /api/admin/cards/photos`
+(`requireAdmin`, works while NET_CARDS is off so the owner can review first), and on the kpop and hub builds
+`GET /api/cards-bridge/me` (NET_CARDS_BRIDGES).
 
 ## 3. Route map per site
 
