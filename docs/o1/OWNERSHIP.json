@@ -44,7 +44,8 @@
       "C1",
       "C2",
       "C3",
-      "RPT"
+      "RPT",
+      "CARDS"
     ]
   },
   "ORCH": [
@@ -506,6 +507,15 @@
     "scripts/o1/prod-proxy/**",
     "scripts/o1/parity.sh",
     "scripts/o1/parity/**"
+  ],
+  "CARDS": [
+    "apps/quiz/src/**",
+    "apps/quiz/scripts/cards/**",
+    "apps/quiz/e2e/o1/CARDS/**",
+    "docs/pending-migrations/cards/**",
+    "docs/design/cards/**",
+    "docs/o1/evidence/cards/**",
+    "docs/o1/reports/CARDS/**"
   ],
   "_sequenced": [
     [
