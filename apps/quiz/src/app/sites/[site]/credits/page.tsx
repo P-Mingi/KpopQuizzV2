@@ -20,6 +20,10 @@ import { CREDITS_DESCRIPTION as HUB_DESCRIPTION, CREDITS_TITLE as HUB_TITLE, Hub
 import { getCreditNames, getOwnerCreditRows } from '@/lib/anime/entity-images-read';
 import { SERIES_IMAGE_CREDITS } from '@/lib/anime/series-images.generated';
 import { getLiveAssets, getPublicPictures } from '@/lib/photos/public-read';
+import { CardsCreditsSection } from '@/components/cards/credits-section';
+import { loadCatalog } from '@/lib/cards/ui-catalog';
+import { cardCreditRows } from '@/lib/cards/ui-credit';
+import { cardsOn } from '@/lib/cards/ui-flag';
 import { dleAlternates } from '@/lib/dle/seo';
 import { dailyGuessOn } from '@/lib/site/hub/daily-guess';
 import { robotsFor } from '@/lib/site/indexing';
@@ -40,6 +44,13 @@ async function hubSections(): Promise<ReturnType<typeof creditSections>> {
   return creditSections(pictures, assets, names.character, names.series);
 }
 
+/** The photos of the cards (Bunnyverse Cards), listed on the hub's page once NET_CARDS is on; none when it is off or the catalog cannot be read. */
+async function cardCredits(): Promise<ReturnType<typeof cardCreditRows>> {
+  if (!cardsOn()) return [];
+  const cat = await loadCatalog().catch(() => null);
+  return cat ? cardCreditRows(cat) : [];
+}
+
 /** What OtakuQuiz's page lists: the owner's images that need a credit, and the bundled photos that do and that he has not replaced. Both empty: no page. */
 async function animeCredits(): Promise<{ owner: Awaited<ReturnType<typeof getOwnerCreditRows>>; credits: typeof SERIES_IMAGE_CREDITS }> {
   const all = await getOwnerCreditRows();
@@ -56,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return { title: ANIME_TITLE, description: ANIME_DESCRIPTION, robots: robotsFor(true), alternates: { canonical: CREDITS_PATH } };
   }
   if (SITE_ID !== 'hub') notFound();
-  const listed = (await hubSections()).length > 0;
+  const listed = (await hubSections()).length > 0 || (await cardCredits()).length > 0;
   if (!listed) notFound();
   return {
     title: HUB_TITLE,
@@ -73,7 +84,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Credits(): Promise<React.ReactElement> {
   if (SITE_ID === 'anime') return CreditsPage(await animeCredits());
   if (SITE_ID !== 'hub') notFound();
-  const sections = await hubSections();
-  if (sections.length === 0) notFound();
-  return <HubCreditsPage sections={sections} />;
+  const [sections, cards] = await Promise.all([hubSections(), cardCredits()]);
+  if (sections.length === 0 && cards.length === 0) notFound();
+  return <HubCreditsPage sections={sections} extra={cards.length > 0 ? <CardsCreditsSection rows={cards} /> : null} />;
 }

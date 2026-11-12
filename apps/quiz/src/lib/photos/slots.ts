@@ -58,7 +58,7 @@ export function photoFolder(kind: PhotoKind, slug: string): string {
 
 // ---- the admin's tabs, as the board names them ----------------------------------------------------------------------------------
 
-export type TabId = 'idols' | 'groups' | 'labels' | 'chars' | 'series' | 'refs' | 'banners' | 'icons' | 'stickers';
+export type TabId = 'idols' | 'groups' | 'labels' | 'chars' | 'series' | 'refs' | 'banners' | 'icons' | 'stickers' | 'cards';
 
 export const TABS: readonly { readonly id: TabId; readonly label: string; readonly kind?: PhotoKind }[] = [
   { id: 'idols', label: 'Idols', kind: 'idol' },
@@ -70,6 +70,7 @@ export const TABS: readonly { readonly id: TabId; readonly label: string; readon
   { id: 'banners', label: 'Bannières et images' },
   { id: 'icons', label: 'Icônes du jeu' },
   { id: 'stickers', label: 'Stickers' },
+  { id: 'cards', label: 'Cartes' },
 ];
 
 export function tabOf(raw: unknown): TabId {

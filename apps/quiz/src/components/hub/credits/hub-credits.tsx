@@ -184,15 +184,17 @@ function Credit({ item, locale, prefix }: { item: CreditItem; locale: DleLocale;
 }
 
 /** The class prefix of the hub's page (styles/sites/hub/credits.css); kpopquiz.org passes its own (styles/kpop/credits.css) and its own words. */
-export function HubCreditsPage({ sections, locale = 'en', prefix = 'hub-credits', words }: {
+export function HubCreditsPage({ sections, locale = 'en', prefix = 'hub-credits', words, extra = null }: {
   sections: readonly CreditSection[]; locale?: DleLocale; prefix?: string; words?: { readonly title: string; readonly lede: string };
+  /** A section the page appends after the others (the Cards section of bunnyverse.org, behind NET_CARDS); absent: the page is as before. */
+  extra?: React.ReactNode;
 }): React.ReactElement {
   const copy = { ...WORDS[locale], ...words };
   return (
     <UxPage width="text" className={prefix}>
       <h1 className="ux-h1">{copy.title}</h1>
       <p className={`${prefix}-lede`}>{copy.lede}</p>
-      {sections.length === 0 ? (
+      {sections.length === 0 && !extra ? (
         <p className={`${prefix}-empty`} data-testid="credits-empty">{copy.empty}</p>
       ) : sections.map((s) => (
         <section key={s.id} className={`${prefix}-section`} aria-labelledby={`cr-${s.id}`}>
@@ -203,6 +205,7 @@ export function HubCreditsPage({ sections, locale = 'en', prefix = 'hub-credits'
           </ul>
         </section>
       ))}
+      {extra}
     </UxPage>
   );
 }
