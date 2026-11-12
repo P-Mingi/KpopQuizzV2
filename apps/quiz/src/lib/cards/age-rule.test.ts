@@ -108,3 +108,22 @@ describe('the age rule: a group photo is its lineup on the photo date', () => {
     expect(ageVerdict(group('2010-01-01', [person('1990-01-01', { joined: '2015-01-01' })]), TODAY)).toEqual({ ok: false, reason: 'unknown_lineup' });
   });
 });
+
+describe('the age rule: two agreeing sources (integrator, 2026-11-12)', () => {
+  it('never keeps a subject on a birth date that has a single source', () => {
+    expect(ageVerdict(solo('1990-01-01', '2020-01-01', { birth_confirmed: false }), TODAY)).toEqual({ ok: false, reason: 'unknown_birth_date' });
+    const lineup = [person('1990-01-01'), person('1992-01-01', { birth_confirmed: false })];
+    expect(ageVerdict(group('2020-01-01', lineup), TODAY)).toEqual({ ok: false, reason: 'unknown_birth_date' });
+  });
+
+  it('lets a single source leave a subject out when it shows a minor, and names that reason first', () => {
+    expect(ageVerdict(solo('2002-01-01', '2018-01-01', { birth_confirmed: false }), TODAY)).toEqual({ ok: false, reason: 'minor_at_photo' });
+    const lineup = [person(null), person('2010-01-01', { birth_confirmed: false })];
+    expect(ageVerdict(group('2025-01-01', lineup), TODAY)).toEqual({ ok: false, reason: 'minor_today' });
+  });
+
+  it('ignores the source count of a former member who is not in the photo', () => {
+    const lineup = [person('1990-01-01'), person('1991-01-01', { birth_confirmed: false, left: '2015-01-01', current: false })];
+    expect(ageVerdict(group('2020-01-01', lineup), TODAY)).toEqual({ ok: true });
+  });
+});

@@ -43,13 +43,16 @@ export function check(research: ResearchRow[], subjects: Array<{ slug: string; k
     if (r.kind !== s.kind) problems.push(`${s.slug}: kind ${r.kind} in the research file, ${s.kind} in subjects.json`);
     // The photo date is subjects.json's (group-photos.json of the October run), never another one.
     if (r.photo_date !== s.photo.date) problems.push(`${s.slug}: photo date ${String(r.photo_date)} in the research file, ${s.photo.date} in subjects.json`);
-    const v = ageVerdict({ ...r, kind: s.kind, photo_date: s.photo.date, photo_precision: 'day' }, today);
+    // `agree` false (one source only, or the two sources differ on this person) makes the birth date unconfirmed: it can show a minor,
+    // never prove an adult (two agreeing sources, integrator 2026-11-12).
+    const people = r.people.map((p) => ({ ...p, birth_confirmed: (p as { agree?: boolean }).agree !== false }));
+    const v = ageVerdict({ ...r, people, kind: s.kind, photo_date: s.photo.date, photo_precision: 'day' }, today);
     return { slug: s.slug, ok: v.ok, reason: v.ok ? null : v.reason };
   });
   return {
     file: {
       checked_on: today,
-      sources: 'Wikidata membership (P463, P527 with start and end times) and birth dates (P569), each checked against the English Wikipedia article; any disagreement or unknown date leaves the subject out',
+      sources: 'Wikidata membership (P463, P527 with start and end times) and birth dates (P569), each checked against the English Wikipedia article; a birth date with one source, a disagreement or an unknown date leaves the subject out',
       subjects: rows,
     },
     problems,

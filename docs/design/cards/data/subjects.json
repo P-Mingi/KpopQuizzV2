@@ -31,7 +31,11 @@
     },
     "crop_width": 1378,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "chungha",
@@ -65,7 +69,11 @@
     },
     "crop_width": 2795,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "heize",
@@ -99,7 +107,11 @@
     },
     "crop_width": 580,
     "small_2x": true,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "hwasa",
@@ -133,7 +145,11 @@
     },
     "crop_width": 680,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "hyuna",
@@ -167,7 +183,11 @@
     },
     "crop_width": 814,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "iu",
@@ -201,7 +221,11 @@
     },
     "crop_width": 873,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "jay-park",
@@ -235,7 +259,11 @@
     },
     "crop_width": 2299,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "jennie",
@@ -269,7 +297,11 @@
     },
     "crop_width": 931,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "jeon-somi",
@@ -303,7 +335,11 @@
     },
     "crop_width": 1222,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "jimin",
@@ -337,7 +373,11 @@
     },
     "crop_width": 465,
     "small_2x": true,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "jungkook",
@@ -371,7 +411,11 @@
     },
     "crop_width": 1300,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "psy",
@@ -405,7 +449,11 @@
     },
     "crop_width": 1387,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "rose",
@@ -439,7 +487,11 @@
     },
     "crop_width": 672,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "sunmi",
@@ -473,7 +525,11 @@
     },
     "crop_width": 698,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "taeyang",
@@ -507,7 +563,11 @@
     },
     "crop_width": 618,
     "small_2x": true,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "taeyeon",
@@ -541,7 +601,11 @@
     },
     "crop_width": 1194,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "v-bts",
@@ -575,7 +639,11 @@
     },
     "crop_width": 1110,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "zico",
@@ -609,7 +677,11 @@
     },
     "crop_width": 2259,
     "small_2x": false,
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "akmu",
@@ -658,7 +730,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "apink",
@@ -707,7 +783,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "artms",
@@ -756,7 +836,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "astro",
@@ -805,7 +889,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "billlie",
@@ -854,7 +942,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "btob",
@@ -903,7 +995,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "cortis",
@@ -952,7 +1048,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "day6",
@@ -1001,7 +1101,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "dreamcatcher",
@@ -1050,7 +1154,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "fifty-fifty",
@@ -1099,7 +1207,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "fromis-9",
@@ -1148,7 +1260,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "hearts2hearts",
@@ -1197,7 +1313,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "ikon",
@@ -1246,7 +1366,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "illit",
@@ -1295,7 +1419,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "kara",
@@ -1344,7 +1472,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "katseye",
@@ -1393,7 +1525,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "kickflip",
@@ -1442,7 +1578,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_lineup",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "kiss-of-life",
@@ -1491,7 +1631,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "loona",
@@ -1540,7 +1684,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "loossemble",
@@ -1589,7 +1737,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "miss-a",
@@ -1638,7 +1790,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "monsta-x",
@@ -1687,7 +1843,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "nct",
@@ -1736,7 +1896,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "nct-wish",
@@ -1785,7 +1949,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "p1harmony",
@@ -1834,7 +2002,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "pentagon",
@@ -1883,7 +2055,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "purple-kiss",
@@ -1932,7 +2108,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "rescene",
@@ -1981,7 +2161,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "sistar",
@@ -2030,7 +2214,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "stayc",
@@ -2079,7 +2267,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "t-ara",
@@ -2128,7 +2320,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "team",
@@ -2177,7 +2373,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "the-boyz",
@@ -2226,7 +2426,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "triples",
@@ -2275,7 +2479,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "tuide",
@@ -2324,7 +2532,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "tws",
@@ -2373,7 +2585,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "viviz",
@@ -2422,7 +2638,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "winner",
@@ -2471,7 +2691,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "xikers",
@@ -2520,7 +2744,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_lineup",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "young-posse",
@@ -2569,7 +2797,11 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    }
   },
   {
     "slug": "zerobaseone",
@@ -2618,6 +2850,10 @@
         }
       ]
     },
-    "age": null
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    }
   }
 ]

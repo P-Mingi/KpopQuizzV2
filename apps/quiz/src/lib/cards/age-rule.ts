@@ -11,6 +11,9 @@ export type DatePrecision = 'day' | 'month' | 'year';
 export interface LineupPerson {
   birth_date: string | null;
   birth_precision: DatePrecision | null;
+  /** False when only one source gives the birth date (or the two sources disagree on this person): such a date can leave a subject out
+   *  (it shows a minor) but never keep one in (integrator: two agreeing sources). Absent: confirmed. */
+  birth_confirmed?: boolean;
   /** First day of membership; null means a member from the start. */
   joined: string | null;
   joined_precision?: DatePrecision | null;
@@ -37,7 +40,7 @@ export type AgeVerdict = { ok: true } | { ok: false; reason: AgeReason };
 export const AGE_REASON_TEXT: Record<AgeReason, string> = {
   unknown_photo_date: 'the photo date is unknown',
   unknown_lineup: 'the sources do not say who was in the group on the photo date',
-  unknown_birth_date: 'a birth date of a person in the photo or of a current member is unknown',
+  unknown_birth_date: 'a birth date of a person in the photo or of a current member is unknown or has a single source',
   minor_today: 'a person in the photo or a current member is under 18 today',
   minor_at_photo: 'a person in the photo was under 18 on the photo date',
 };
@@ -83,11 +86,13 @@ export function eighteenthBirthday(birthDay: number): number {
   return d > lastDayOfMonth(y, m) ? dayNumber(y, m + 1, 1) : dayNumber(y, m, d);
 }
 
-/** Adult on every day of [from, ...): the latest possible birth date already 18 years back on `from`. */
+/** Adult on every day of [from, ...): the latest possible birth date already 18 years back on `from`. An unconfirmed date that says
+ *  adult answers null (unknown): one source can show a minor, never prove an adult. */
 function adultOn(person: LineupPerson, from: number): boolean | null {
   const r = dateRange(person.birth_date, person.birth_precision);
   if (!r) return null;
-  return eighteenthBirthday(r[1]) <= from;
+  const adult = eighteenthBirthday(r[1]) <= from;
+  return adult && person.birth_confirmed === false ? null : adult;
 }
 
 /** In the photo when the membership could overlap the photo date at all (doubt counts as in). */
@@ -116,9 +121,12 @@ export function ageVerdict(input: AgeInput, today: string): AgeVerdict {
   const current = input.kind === 'idol' ? [] : input.people.filter((p) => p.current);
   const everyone = [...new Set([...inPhoto, ...current])];
 
-  if (everyone.some((p) => adultOn(p, t[0]) === null)) return { ok: false, reason: 'unknown_birth_date' };
+  // A minor shown by any source names the reason first; an unknown or unconfirmed date leaves the subject out after that.
   if (everyone.some((p) => adultOn(p, t[0]) === false)) return { ok: false, reason: 'minor_today' };
   // the earliest day the photo can have been taken: the person must already be 18 then
   if (inPhoto.some((p) => adultOn(p, photo[0]) === false)) return { ok: false, reason: 'minor_at_photo' };
+  if (everyone.some((p) => adultOn(p, t[0]) === null) || inPhoto.some((p) => adultOn(p, photo[0]) === null)) {
+    return { ok: false, reason: 'unknown_birth_date' };
+  }
   return { ok: true };
 }
