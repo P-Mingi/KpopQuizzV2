@@ -1,15 +1,16 @@
 ## What this PR does
 
-Bunnyverse Cards, lot 2 (integrator brief of 2026-11-12, one PR, the owner merges). **Everything stays off**: the Cards flags stay off
-and the hub stays behind PRIVATE_LAUNCH. Nothing is written to production by this PR: two SQL files the owner applies, and the owner's
-file script.
+Bunnyverse Cards, lot 2 (integrator brief of 2026-11-12 and its review the same day; one PR, the owner merges). **Everything stays off**:
+the Cards flags stay off and the hub stays behind PRIVATE_LAUNCH. Nothing is written to production by this PR: two SQL files the owner
+applies, and the owner's file script.
 
 1. **The age rule, stricter, first** (`lib/cards/age-rule.ts`, decision 32). A card exists only when every person in its photo is 18 or
    older today AND was 18 or older on the photo date (`group-photos.json`). For a group, the people in the photo are its lineup on that
    date; every current member must also be an adult today. Any doubt excludes:
    - a member whose join or leave date is unknown counts as in the photo;
    - an unsure birth date counts as its latest possible day;
-   - a birth date held by one source only can show a minor, never keep a subject in (two agreeing sources: Wikidata and English Wikipedia).
+   - a birth date counts only when two permitted sources give it to the day (Wikidata, Korean or English Wikipedia, MusicBrainz, the
+     agency's page; never a fan wiki). One source alone can show a minor, never keep a subject in.
    The research file (members, dates) stays on the ORCH machine: it holds birth dates of minors. The repository keeps the verdicts only:
    `docs/design/cards/data/age-check.json` (slug, in or out, reason). At apply time, file 102 also runs decision 17 again on `public.idols`.
 2. **The group photo in two cards** (owner idea, decision 33). A group gives a pair per edition: 1/2 the left half and 2/2 the right half of
@@ -20,70 +21,101 @@ file script.
    - **Card page:** a half says which half it is, links its other half, and shows both side by side.
    - **Draw:** the subject first, then one of its halves, so a pair never makes a group come out more often (the plan's kind weights are
      unchanged). The drop rates now print the steps of the draw and the chance of one given card, computed from the catalog.
-   - **small_2x per half:** 21 pairs have both halves under 640 px (no 2x file for them).
    - **Admin Cartes tab:** a group shows its pair window at the focal point and the two halves, each with its own 2x flag; one focal control.
    - **kpopquiz.org group block** (behind the bridge flags): a half renders as a half.
-3. **File 099** (`099-idols-members.sql`, decision 36): the current members of the subjects that had no active `idols` row, from Wikidata
-   with English Wikipedia as the second source. 15 subjects, 33 people, each with the birth date both sources give to the day. Only where
-   the group has no active `idols` row when the owner applies it; the ten soloists of the brief in their own groups row; nothing for a
-   subject the age rule leaves out, nothing for a disbanded group, nothing for the eight people who belong to another group.
-4. **File 102** (`102-catalog-rebuild.sql`, decision 34): rebuilds `cards_entities`, `cards_photos` and `cards_catalog` with the age rule
-   and the pairs. Refused, with nothing changed, while a card is owned, a pack was opened or a photo report is open. Adds
-   `cards_catalog.part` (0, 1, 2) and `small_2x` (per card) and the key (entity, rarity, part). A person keeps its published files; a group
-   keeps its focal point and gets its halves cut by the script; a photo the owner refused or removed stays out. The rollback leaves the
-   catalog empty (101 predates the age rule and would bring back the subjects it leaves out).
-5. **The owner's file script** (`publish-card-files.mjs`, decision 35): cuts the halves; no age verdict, no file; after the uploads it
+3. **Disbanded groups** (owner decision 2026-11-12, decision 37): miss A and SISTAR stay. All adults on the photo date; their members enter
+   `idols` as former members (active false), 102 checks them without asking for an active member, and the card says it: "Disbanded 2017"
+   on the card, both years on its page (`cards_entities.end_year`). PURPLE KISS (2025) and Loossemble (2024) get the same treatment: they
+   passed the age rule once their second sources were found, and they disbanded. Every year comes from two sources
+   (`docs/design/cards/data/disbanded.json`); Wikidata has no dissolution date for miss A, the English and Korean Wikipedias agree on 2017.
+4. **File 099** (`099-idols-members.sql`, decision 36): the members of the subjects that had no active `idols` row. 31 subjects, 120 people,
+   every birth date from two sources. Only where the group has no active `idols` row when the owner applies it; the ten soloists of the
+   brief in their own groups row; the four disbanded groups as former members; nothing for a subject the age rule leaves out, nothing for
+   the eight people who belong to another group.
+5. **Kpopdle** (integrator review, point 1): **the active rows of 099 stay out of Kpopdle until their clues are filled.** Gender,
+   nationality, debut year and the leader or maknae role are not in Wikidata in a form the game can trust (the role has no source at all),
+   and an empty or "none" role would be a wrong clue. So 099 writes them with `needs_review` true and the reason "Kpopdle clues not filled
+   yet (gender, nationality, debut year, leader or maknae)": the Kpopdle source view reads only rows without `needs_review`. They show in
+   the admin list of flagged idols; the owner clears the flag once the columns are filled. They still count as members for the cards, Name
+   them all, the quiz entities and the member counts. 099 counts the Kpopdle source view before and after and refuses, with nothing
+   written, if it moved.
+6. **File 102** (`102-catalog-rebuild.sql`, decision 34): rebuilds `cards_entities`, `cards_photos` and `cards_catalog` with the age rule,
+   the pairs and the disbanded groups. Refused, with nothing changed, while a card is owned, a pack was opened or a photo report is open.
+   Adds `cards_catalog.part` (0, 1, 2), `cards_catalog.small_2x` (per card), the key (entity, rarity, part) and `cards_entities.end_year`. A
+   person keeps its published files; a group keeps its focal point and gets its halves cut by the script; a photo the owner refused or
+   removed stays out. The rollback leaves the catalog empty (101 predates the age rule and would bring back the subjects it leaves out).
+7. **The owner's file script** (`publish-card-files.mjs`, decision 35): cuts the halves; no age verdict, no file; after the uploads it
    proposes to delete every file of the bucket `cards` that is not a current one (subjects left out, a group's old whole cards, an old
    focal point), matched by exact name, and deletes only when the owner types `delete`.
 
-## The age rule: who is in, who is out (reasons only)
+## The final catalog
 
-- **In (25):** the 18 people of the run (BIBI, Chungha, Heize, Hwasa, HyunA, IU, Jay Park, Jennie, JEON SOMI, Jimin, Jungkook, PSY, ROSE,
-  Sunmi, Taeyang, Taeyeon, V, Zico) and 7 groups (Apink, ARTMS, BTOB, miss A, SISTAR, VIVIZ, WINNER).
-- **Out, a person of the photo under 18 today (5):** Cortis, Hearts2Hearts, RESCENE, tripleS, Young posse.
-- **Out, a person of the photo under 18 on the photo date (10):** AKMU, Billlie, fromis_9, ILLIT, KARA, LOONA, NCT (the 2018 photo), TWS;
-  and FIFTY FIFTY and T-ARA, where it comes from a member whose join or leave date is unknown and who therefore counts as in the photo.
-- **Out, a birth date unknown or held by one source only (17):** ASTRO, DAY6, Dreamcatcher, iKON, KATSEYE, KISS OF LIFE, Loossemble,
-  MONSTA X, NCT WISH, P1Harmony, PENTAGON, PURPLE KISS, STAYC, &TEAM, THE BOYZ, TUIDE, ZEROBASEONE.
-- **Out, the lineup is not in the sources (2):** KickFlip, XIKERS.
+- **39 subjects in (age rule):** the 18 people of the run (BIBI, Chungha, Heize, Hwasa, HyunA, IU, Jay Park, Jennie, JEON SOMI, Jimin,
+  Jungkook, PSY, ROSE, Sunmi, Taeyang, Taeyeon, V, Zico) and 21 groups (Apink, ARTMS, ASTRO, BTOB, DAY6, Dreamcatcher, iKON, KATSEYE,
+  KISS OF LIFE, MONSTA X, NCT WISH, P1Harmony, PENTAGON, STAYC, VIVIZ, WINNER, ZEROBASEONE; disbanded: Loossemble 2024, miss A 2017,
+  PURPLE KISS 2025, SISTAR 2017).
+- **Cards: 240 at most** (18 x 4 + 21 x 8); the exact count is the notice of 102 (a subject whose `idols` rows fail the apply-time check is
+  left out and named).
+- **Odds** (computed by the game's own code over that catalog): each card Common 63.03%, Uncommon 25.21%, Rare 10.50%, Ultra Rare 1.26%;
+  the fifth card Uncommon 88.24%, Rare 10.50%, Ultra Rare 1.26% (no Super Rare or Legendary card exists). Inside a rarity, soloists and
+  members 83.33%, groups 16.67% (the plan's kind weights). One given card: Common 2.92% for a person, 0.25% for a half of a group;
+  Uncommon 1.17% and 0.10%; Rare 0.49% and 0.04%; Ultra Rare 0.06% and 0.01%.
+- **No 2x file:** both halves of BTOB, DAY6, iKON, KISS OF LIFE, MONSTA X, NCT WISH, PENTAGON, SISTAR and WINNER; the cards of Heize,
+  Jimin and Taeyang.
+- **Out (20), reasons only:**
+  - a person of the photo under 18 today (6): Cortis, Hearts2Hearts, RESCENE, tripleS, TUIDE, Young posse;
+  - a person of the photo under 18 on the photo date (10): AKMU, Billlie, FIFTY FIFTY (two members who joined before the photo), fromis_9,
+    ILLIT, KARA, LOONA, NCT (the 2018 photo), TWS, and T-ARA (a planned member announced in 2012 has no membership date in any source,
+    so counts as in the photo, and would have been under 18 then);
+  - two sources disagree on a birth date (2): &TEAM, THE BOYZ;
+  - the lineup is not in the sources (2): KickFlip, XIKERS.
 
-**Two choices for the owner or the integrator** (the code does the strict thing until then):
-- **miss A and SISTAR** pass the age rule, but both disbanded in 2017: they have no current member, so 099 adds none, and 102 leaves them
-  out (`no_active_member`) unless `public.idols` already has active members for them.
-- **The 17 groups out for a single source** could come back with a second source for the missing birth dates (an official agency profile
-  is an allowed source); no other source was searched.
+## What changes for Kpopdle
+
+Nothing until the owner fills the clues. On PGlite, the real Kpopdle files (011 to 021e, the production state of
+`lib/dle/kpopdle-fixture.ts`, then L20) with the subjects' groups rows, before and after 099 and a refresh of the pool: 217 entities in the
+pool, 212 possible answers, 5 guessable entities with an empty clue (all already there), the same numbers after; 86 rows added to `idols`
+(66 active and waiting, 20 former members; the other 34 rows of the file skipped because the replayed database already has members for
+those groups), none in the pool. Clearing the wait too
+early would add those 66 to the pool with empty clues: the test shows it, then puts the wait back.
 
 ## Steps for the owner, in this order (after a backup, no build running, never between 23:50 and 00:30 UTC)
 
-1. `099-idols-members.sql`, then its Verify lines (the notices list the rows added per subject).
-2. `102-catalog-rebuild.sql`, then its Verify lines (the notices give the people and groups in, the cards per part, every subject left out
-   and why).
+1. `099-idols-members.sql`, then its Verify lines (the notices list the rows added per subject, and the Kpopdle source count before and
+   after).
+2. `102-catalog-rebuild.sql`, then its Verify lines (the notices give the people and groups in, the cards per part, the disbanded groups,
+   every subject left out and why).
 3. `CARDS_SUPABASE_URL=https://<project>.supabase.co node apps/quiz/scripts/cards/publish-card-files.mjs` for the preview, then the same
    with `--publish`: it cuts the groups' halves, then lists the files to delete (the subjects left out among the 23 already sent, the old
    whole cards of the groups) and deletes them only if you type `delete`.
 4. Admin Cartes tab: check the pair window of each group (one focal point per pair), then run the script again for the groups you move.
+5. Later, for Kpopdle: fill gender, nationality, debut year and positions of the flagged rows, then clear `needs_review`.
 
 ## What changes for kpopquiz.org
 
 - The group block of the bridge (flags off) reads `cards_catalog` with `*` and draws a half as a half.
-- **File 099 adds rows to `public.idols`, which kpopquiz.org reads too:** the Name them all game and the quiz entity matching of those groups,
-  and the member count list of the article on the groups hardest to memorize (active rows per group). The Verse pages stay hidden. The groups
-  it can complete: Apink, ARTMS, BTOB, VIVIZ, WINNER (only those without an active row today), and the ten soloists' own groups rows.
+- **File 099 adds active rows to `public.idols`, which kpopquiz.org reads too:** the Name them all game and the quiz entity matching of
+  those groups, and the member count list of the article on the groups hardest to memorize (active rows per group). Only groups without an
+  active row today get any. The former members of the disbanded groups are invisible to every public read (active false). The Verse pages
+  stay hidden.
 - No page, title, sitemap entry or redirect changes in this PR.
 
 ## Checks
 
-- `tsc --noEmit` clean. Cards tests: 22 pglite proofs of 099 and 102 (the guard, the numbering, the pairs, small_2x per half, what a person
-  keeps, a refused photo, a second run, the rollbacks), the age rule (18 cases: today, the photo date, lineups, a single source), the exact
-  odds of the draw with pairs, the binder pairs, the card page, the drop rates, the file script's geometry and its cleanup matcher, the admin
-  halves.
-- Full suite: 10,164 tests, 10,161 passed in the run; the 3 others: the pinned file list (updated, see below) and two load timeouts
-  (`admin-lock.refusal`, the Kpopdle bank sizes), which pass alone.
+- `tsc --noEmit` clean. Cards tests: the pglite proofs of 099 and 102 (the guard, the numbering, the pairs, small_2x per half, what a
+  person keeps, a refused photo, the disbanded groups, a second run, the rollbacks), the Kpopdle pool before and after 099, the age rule
+  (18 cases: today, the photo date, lineups, a single source), the exact odds of the draw with pairs, the binder pairs, the card page, the
+  card line of a disbanded group, the drop rates, the file script's geometry and its cleanup matcher, the admin halves.
+- Full suite (no offline wrapper): 10,172 tests, 10,169 passed in the run; the 3 others are file walks over the 5 s limit under load
+  (`o1-o2-seam`, `admin-lock.static`), which pass alone (281 of 281).
 - Hub production build (`NEXT_PUBLIC_SITE_ID=hub NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1`, offline database): green, 228 pages.
-- kpopquiz.org parity, main 65c0210 against 47c15ab, 70 pages: 69 identical. `/groups` differs only by the order of the `IconMark` client
-  reference in the Flight data (renumbered ids, the known noise); the base build had 7 live reads over the 5 s cap, the head none.
+- kpopquiz.org parity, main 65c0210 against 26414d0 (the code of this push, the docs aside), 70 pages: 67 identical. The 3 others come from the base
+  build, which had 26 live reads over the 5 s cap (the head none): `/` (the home groups, community and band reads timed out), one quiz page
+  (its extra stats and hall of fame timed out) and `/leaderboard` ("1h ago" against "2h ago"). An earlier run on 47c15ab, with 7 base
+  timeouts, gave 69 of 70 (the `IconMark` Flight order on `/groups`, the known noise).
 - Checked on screen with a development fixture of pairs (`CARDS_UI_FIXTURE_PAIRS=1`, off by default): the binder pages and grid, the card
-  page of a half.
+  page of a half, the card of a disbanded group (with both years on the card the year was cut: it now reads "Disbanded 2023" in the
+  fixture).
 
 ## Exact values changed
 
@@ -94,5 +126,6 @@ file script.
 
 ## Not in this PR
 
+- The Kpopdle clues of the 099 rows (the owner fills them; the rows wait out of the game until then).
 - The essays/reactions counter of the Verse (backlog, integrator 2026-11-12).
 - The pack opening's accessible names do not say "left half" (the card itself says 1/2).
