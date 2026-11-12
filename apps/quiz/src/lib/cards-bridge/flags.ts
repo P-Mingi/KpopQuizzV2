@@ -5,7 +5,7 @@
 import { cardsAdsOn as cardsAdsOnCore } from '@/lib/cards/flags';
 import { flagOn, SITE_ID } from '@/lib/site/registry';
 
-/** Bridges on the kpopquiz.org build only (home block, group block, quiz-end line, Collection of /me). */
+/** Bridges on the kpopquiz.org build only (home block, group block, Collection of /me; a quiz end earns no bonus pack, review 1 finding 1). */
 export function cardsBridgesKpopOn(): boolean {
   return SITE_ID === 'kpop' && flagOn(process.env.NET_CARDS) && flagOn(process.env.NET_CARDS_BRIDGES);
 }

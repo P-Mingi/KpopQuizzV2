@@ -1,5 +1,6 @@
 // Bunnyverse Cards, lane B: GET /api/cards-bridge/me, the one same-origin read of the bridge islands (home block, group block,
-// quiz-end and Kpopdle-win line). kpopquiz.org pages are cached, so the per-fan numbers are asked after hydration, never in the page.
+// Collection). The Kpopdle-win line asks POST /api/cards-bridge/bonus instead (review 1 finding 1). kpopquiz.org pages are cached, so the
+// per-fan numbers are asked after hydration, never in the page.
 // Flag off: 404 like any unknown URL. A guest, a Team account or any failure answers `{ signedIn: false }`: the islands show their
 // guest line or nothing. Read only: cards_wallet is the STABLE function of lane C; nothing is written or granted here.
 import { NextResponse } from 'next/server';

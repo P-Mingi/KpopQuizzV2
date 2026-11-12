@@ -1,8 +1,8 @@
 // Bunnyverse Cards: the switches (docs/o1/briefs/CARDS-CONTRACT.md section 4), all off by default, modelled on dleOpen() of
 // lib/site/hub/daily-guess.ts: the hub build AND the flag. Off, a Cards URL is a 404 like any unknown one.
-// Everything also stays behind PRIVATE_LAUNCH on the hub (the hub's own gate, not read here).
+// Everything also stays behind PRIVATE_LAUNCH on the hub: the pages by the gate's rewrites, the API by lib/cards/private.ts (review 1 finding 10).
 //   NET_CARDS                  server, hub    /cards, /cards/binder, /cards/c/[num], the Cards part of /credits, /api/cards/*
-//   NET_CARDS_BRIDGES          server, kpop and hub   the kpopquiz.org home block, the group block, the quiz-end and Kpopdle-win bonus,
+//   NET_CARDS_BRIDGES          server, kpop and hub   the kpopquiz.org home block, the group block, the Kpopdle-win bonus (review 1 finding 1),
 //                              the profile link and the passport section
 //   NET_CARDS_ADS              server, hub    the rewarded ad (ticket and grant routes)
 //   NEXT_PUBLIC_NET_CARDS_ADS  public, hub    the ad button, the binder banner, the consent banner (inlined at build)
