@@ -20,6 +20,9 @@ const VerseFooter = dynamic(() => import('@/components/verse/verse-footer').then
 // Run O1 (B6): "Your sites" in the account menu. A separate chunk, fetched only when the flag is on and a signed-in member opens the menu.
 const NetSitesMenu = dynamic(() => import('@/components/network/net-sites-menu').then((m) => m.NetSitesMenu), { ssr: false });
 const NET_MENU = flagOn(process.env.NEXT_PUBLIC_NET_MENU);
+// Bunnyverse Cards (lane B, NEXT_PUBLIC_NET_CARDS_BRIDGES, off by default): the "Binder" link of the account menu. Off, the menu is what it was.
+const CardsMenuLink = dynamic(() => import('@/components/cards-bridge/cards-menu-link').then((m) => m.CardsMenuLink), { ssr: false });
+const CARDS_MENU = flagOn(process.env.NEXT_PUBLIC_NET_CARDS_BRIDGES);
 
 export interface UxClientShellProps {
   children: React.ReactNode;
@@ -73,7 +76,9 @@ export function UxClientShell({ children, showFandoms, year, bare, barePaths }: 
             <div className="ux-wrap ux-nav-in">
               <UxBrand />
               <UxNavLinks />
-              <UxNavActions {...(NET_MENU ? { accountExtra: () => <NetSitesMenu /> } : {})} />
+              <UxNavActions {...(CARDS_MENU
+                ? { accountExtra: (close: () => void) => <>{CardsMenuLink ? <CardsMenuLink close={close} /> : null}{NET_MENU ? <NetSitesMenu /> : null}</> }
+                : NET_MENU ? { accountExtra: () => <NetSitesMenu /> } : {})} />
             </div>
           </header>
           <UxNavScroll />

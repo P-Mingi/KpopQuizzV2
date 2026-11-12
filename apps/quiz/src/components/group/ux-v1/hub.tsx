@@ -28,6 +28,7 @@ import { GENERAL_THEMES } from '@/lib/hubs/general-themes';
 import { themeCounts, topicList } from '@/lib/hubs/theme-view';
 import { monthYear, pooledScore, rankByMeasuredScore } from '@/lib/hubs/hub-scores';
 import { getTitleForLevel } from '@/lib/level-titles';
+import { loadCardsGroup } from '@/lib/cards-bridge/group';
 import { loadKpopdleGroup } from '@/lib/passerelles/group-line';
 import { joinSiteUrl } from '@/lib/site/base-path';
 import { RELATED_GROUPS } from '@/lib/related-groups';
@@ -155,6 +156,8 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
   const memberCount = nameAllGame?.count ?? null;
   // P5 (CR-025), link 3: the Kpopdle card of the group (kpopquiz.org only, NET_KPOPDLE_GROUP, off by default). Not a health read: a Kpopdle that is down hides the card, never costs the page.
   const kpopdleCard = slots || category ? null : await loadKpopdleGroup(g, memberCount);
+  // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): "<group> cards". Null while off: the tree below is today's.
+  const cardsCard = slots || category ? null : await loadCardsGroup(g);
   // The full published list (read fail-closed): its length is the real count.
   const published = quizzes.length;
   // SEO phase 1 (PR 15): the category hub links its 10 theme pages, each with its count of listed quizzes.
@@ -425,6 +428,14 @@ export async function GroupHubV11({ group, slots }: { group: Group; slots?: HubS
             <div className="p3-low-main">
               {slots.main}
               {aboutSection}
+              {faqSection}
+            </div>
+          ) : cardsCard ? (
+            // With the Cards block (lane B, off by default) it sits after the Kpopdle card; a page without it keeps the branches below.
+            <div className="p3-low-main">
+              {aboutSection}
+              {kpopdleCard}
+              {cardsCard}
               {faqSection}
             </div>
           ) : kpopdleCard ? (
