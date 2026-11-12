@@ -1,6 +1,6 @@
 -- 003-rls.rollback.sql (Bunnyverse Cards, lane CORE): undo of 003-rls.sql.
 --
--- What:   turns row level security off on the 8 cards tables and removes the 'cards' bucket row. The table privileges are not restored.
+-- What:   turns row level security off on the 9 cards tables and removes the 'cards' bucket row. The table privileges are not restored.
 -- Why:    leaves the schema as 001 made it. Refused, with nothing changed, while the bucket holds files (storage.objects): empty it in the
 --         dashboard or with the Storage API first. The bucket row is deleted with storage.allow_delete_query set for this transaction only.
 -- Rows:   1 bucket row deleted when empty.
@@ -36,6 +36,7 @@ begin
     alter table public.cards_packs disable row level security;
     alter table public.cards_ad_tickets disable row level security;
     alter table public.cards_reports disable row level security;
+    alter table public.cards_bonus_earned disable row level security;
   end if;
 end;
 end $c003r$;

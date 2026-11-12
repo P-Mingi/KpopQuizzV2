@@ -20,7 +20,7 @@ import { getResultLabel } from '@/lib/korean-moments';
 import { getTitleForLevel } from '@/lib/level-titles';
 import { levelFor } from '@/lib/quiz/result-levels';
 import { playPerfect } from '@/lib/sounds';
-import { flagOn, SITE } from '@/lib/site/registry';
+import { SITE } from '@/lib/site/registry';
 import { formatCount } from '@/lib/utils';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { QUIZ_TYPE_ICON, QUIZ_TYPE_LABEL } from '@/lib/ux-v1/a0/icons';
@@ -33,10 +33,6 @@ import { isUxV12 } from '@/lib/ux-v12';
 import { P4Comments } from './comments';
 import { DailyDone, DailyKeepRow } from './daily-done';
 import { QuizEndBridge } from './quiz-end-bridge';
-import { BonusPackLine } from '@/components/cards-bridge/bonus-pack-line';
-
-// Bunnyverse Cards (lane B, NEXT_PUBLIC_NET_CARDS_BRIDGES, off by default): the bonus pack line. A constant false at build when off: the tree is today's.
-const CARDS_BONUS = flagOn(process.env.NEXT_PUBLIC_NET_CARDS_BRIDGES);
 import { P4ReportButton } from './report';
 import { ResultDebate } from './result-debate';
 
@@ -285,7 +281,6 @@ export function P4Results({ quiz, result, extras, signedIn, claimed, onShare, on
         ) : null}
         {/* P5 (CR-025), links 2 and 13: the daily game, right under "Next quiz". Only when the quiz page gave it. */}
         {quiz.bridge ? <div className="ux-rows"><QuizEndBridge bridge={quiz.bridge} /></div> : null}
-        {CARDS_BONUS ? <BonusPackLine /> : null}
         <div className="ux-rows">
           {rest.map((q) => (
             <Link key={q.slug} className="ux-row" href={`/q/${q.slug}`}>

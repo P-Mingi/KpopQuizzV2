@@ -1,16 +1,17 @@
 'use client';
 
-// Bunnyverse Cards, lane B, bridge 3: "+1 pack, open it on Bunnyverse", at the end of a quiz (kpopquiz.org) and after a Kpopdle win (hub).
-// Shown only for a signed-in fan whose bonus allowance of the day is above 0 (contract section 1); a guest, a failed read or an allowance of 0
-// shows nothing. It is a link: the pack is opened on bunnyverse.org/cards and nothing is granted from here.
+// Bunnyverse Cards, lane B, bridge 3: "+1 pack, open it on Bunnyverse", after a Kpopdle win (hub). Shown only once the server has recorded an
+// earned bonus pack for the day and the allowance is still above 0 (review 1 finding 1); a guest, a failed call, nothing earned or an allowance
+// of 0 shows nothing. It is a link: the pack is opened on bunnyverse.org/cards. The end of a kpopquiz.org quiz has no line: a quiz completion
+// is a score the browser reports, so it earns no bonus pack until the owner rules (docs/o1/requests/CARDS.md).
 import { bonusLine } from '@/lib/cards-bridge/copy';
 import { CARDS_PATH, cardsHref } from '@/lib/cards-bridge/links';
 
-import { useCardsMe } from './use-cards-me';
+import { useCardsBonus } from './use-cards-bonus';
 
 export function BonusPackLine(): React.ReactElement | null {
-  const me = useCardsMe();
-  const text = me?.signedIn && me.wallet ? bonusLine(me.wallet.bonusLeft) : null;
+  const a = useCardsBonus();
+  const text = a?.signedIn && (a.earned ?? 0) > 0 ? bonusLine(a.bonusLeft ?? 0) : null;
   if (!text) return null;
   return (
     <p className="cb-bonus" data-testid="cards-bonus">

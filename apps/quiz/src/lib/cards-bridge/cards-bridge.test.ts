@@ -7,12 +7,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const rpc = vi.fn();
 const useMe = vi.fn();
+const useBonus = vi.fn();
 
 vi.mock('@/lib/supabase/server', () => ({
   createServiceRoleClient: () => ({ rpc }),
   createServerClient: async () => ({ auth: { getUser: async () => ({ data: { user: null } }) } }),
 }));
 vi.mock('@/components/cards-bridge/use-cards-me', () => ({ useCardsMe: (...a: unknown[]) => useMe(...a) }));
+vi.mock('@/components/cards-bridge/use-cards-bonus', () => ({ useCardsBonus: (...a: unknown[]) => useBonus(...a) }));
 vi.mock('@/lib/editorial/accounts', () => ({ isEditorialUser: async () => false }));
 vi.mock('@/lib/site/registry', async (original) => {
   const real = await original<typeof import('@/lib/site/registry')>();
@@ -27,7 +29,7 @@ function env(flag: string | null, site: 'kpop' | 'hub' = 'kpop', cards = true): 
   if (flag !== null && cards) vi.stubEnv('NET_CARDS', '1');
 }
 
-beforeEach(() => { rpc.mockReset(); useMe.mockReset(); vi.spyOn(console, 'error').mockImplementation(() => undefined); });
+beforeEach(() => { rpc.mockReset(); useMe.mockReset(); useBonus.mockReset(); vi.spyOn(console, 'error').mockImplementation(() => undefined); });
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.restoreAllMocks(); });
 
 describe('flags', () => {
@@ -89,24 +91,91 @@ describe('home block (bridge 1)', () => {
 });
 
 describe('bonus line (bridge 3)', () => {
-  const render = async (me: unknown): Promise<string> => {
+  const render = async (answer: unknown): Promise<string> => {
     env('1');
-    useMe.mockReturnValue(me);
+    useBonus.mockReturnValue(answer);
     const { BonusPackLine } = await import('@/components/cards-bridge/bonus-pack-line');
     return renderToStaticMarkup(h(BonusPackLine));
   };
-  it('shown while the allowance is above 0', async () => {
-    const html = await render({ signedIn: true, wallet: { stock: 0, cap: 5, nextAt: null, midnightAt: null, bonusLeft: 1 } });
+  it('shown once the server recorded an earned bonus pack and the allowance is above 0', async () => {
+    const html = await render({ signedIn: true, earned: 1, bonusLeft: 1 });
     expect(html).toContain('+1 pack, open it on Bunnyverse');
   });
   it('hidden at 0, for a guest and while loading', async () => {
-    expect(await render({ signedIn: true, wallet: { stock: 0, cap: 5, nextAt: null, midnightAt: null, bonusLeft: 0 } })).toBe('');
+    expect(await render({ signedIn: true, earned: 1, bonusLeft: 0 })).toBe('');
     expect(await render({ signedIn: false })).toBe('');
     expect(await render(null)).toBe('');
+  });
+  it('review 1 finding 1: hidden while the server recorded nothing, whatever the wallet says', async () => {
+    useMe.mockReturnValue({ signedIn: true, wallet: { stock: 0, cap: 5, nextAt: null, midnightAt: null, bonusLeft: 3 } });
+    expect(await render({ signedIn: true, earned: 0, bonusLeft: 3 })).toBe('');
+    expect(await render({ signedIn: true, bonusLeft: 3 })).toBe('');
   });
   it('the line grants nothing: it is a link and no code of it posts', () => {
     const src = readFileSync('src/components/cards-bridge/bonus-pack-line.tsx', 'utf8');
     expect(src).not.toMatch(/fetch\(|POST/);
+  });
+});
+
+describe('POST /api/cards-bridge/bonus (review 1 finding 1)', () => {
+  const ORIGIN = 'https://bunnyverse.test';
+  const post = (body: unknown, headers: Record<string, string> = {}): Request => new Request(`${ORIGIN}/api/cards-bridge/bonus`, {
+    method: 'POST', headers: { host: 'bunnyverse.test', origin: ORIGIN, 'content-type': 'application/json', ...headers }, body: JSON.stringify(body),
+  });
+  const src = (over: Partial<import('./bonus').BonusSource> = {}): import('./bonus').BonusSource => ({
+    userId: async () => 'u1', isTeam: async () => false, record: vi.fn(async () => 1),
+    wallet: async () => ({ stock: 5, next_at: null, midnight_at: '2026-11-12T23:00:00Z', bonus_left: 1 }), ...over,
+  });
+  it('404 while the bridges are off, nothing read or recorded', async () => {
+    env(null);
+    const s = src();
+    expect((await (await import('./bonus')).handleBonus(post({ source: 'kpopdle' }), s)).status).toBe(404);
+    expect(s.record).not.toHaveBeenCalled();
+  });
+  it('a cross-site call is 403 and a source other than kpopdle is 400 (a quiz earns nothing), before any record', async () => {
+    env('1', 'hub');
+    const { handleBonus } = await import('./bonus');
+    const s = src();
+    expect((await handleBonus(post({ source: 'kpopdle' }, { origin: 'https://evil.example' }), s)).status).toBe(403);
+    for (const b of [{ source: 'quiz' }, {}, { source: 'kpopdle-idol' }]) expect((await handleBonus(post(b), s)).status).toBe(400);
+    expect(s.record).not.toHaveBeenCalled();
+  });
+  it('records for the session user, then answers what was earned and what is left', async () => {
+    env('1', 'hub');
+    const { handleBonus } = await import('./bonus');
+    const s = src();
+    const res = await handleBonus(post({ source: 'kpopdle', user: 'someone-else' }), s, new Date('2026-11-12T10:00:00Z'));
+    expect(res.headers.get('cache-control')).toBe('private, no-store');
+    expect(await res.json()).toEqual({ signedIn: true, earned: 1, bonusLeft: 1 });
+    expect(s.record).toHaveBeenCalledWith('u1', new Date('2026-11-12T10:00:00Z'));
+  });
+  it('a guest and a Team account record nothing; a failed record says signedIn false', async () => {
+    env('1', 'hub');
+    const { handleBonus } = await import('./bonus');
+    for (const s of [src({ userId: async () => null }), src({ isTeam: async () => true })]) {
+      expect(await (await handleBonus(post({ source: 'kpopdle' }), s)).json()).toEqual({ signedIn: false });
+      expect(s.record).not.toHaveBeenCalled();
+    }
+    expect(await (await handleBonus(post({ source: 'kpopdle' }), src({ record: async () => null }))).json()).toEqual({ signedIn: false });
+  });
+  it('a bonus cap of 0 records nothing', async () => {
+    env('1', 'hub');
+    vi.stubEnv('CARDS_BONUS_PER_DAY', '0');
+    const s = src({ wallet: async () => ({ stock: 5, bonus_left: 0 }) });
+    expect(await (await (await import('./bonus')).handleBonus(post({ source: 'kpopdle' }), s)).json()).toEqual({ signedIn: true, earned: 0, bonusLeft: 0 });
+    expect(s.record).not.toHaveBeenCalled();
+  });
+  it('the default source calls cards_bonus_record with the session user and the wallet with the capped settings', async () => {
+    env('1', 'hub');
+    vi.stubEnv('CARDS_BONUS_PER_DAY', '50');
+    rpc.mockResolvedValue({ data: 2, error: null });
+    const d = (await import('./bonus')).defaultBonusSource();
+    expect(await d.record('u1', new Date('2026-11-12T10:00:00Z'))).toBe(2);
+    expect(rpc.mock.calls[0]).toEqual(['cards_bonus_record', { p_user: 'u1', p_now: '2026-11-12T10:00:00.000Z' }]);
+    await d.wallet('u1', new Date('2026-11-12T10:00:00Z'));
+    expect(rpc.mock.calls[1]![1]).toMatchObject({ p_bonus_cap: 20 });
+    rpc.mockResolvedValue({ data: null, error: { message: 'x' } });
+    expect(await d.record('u1', new Date())).toBeNull();
   });
 });
 
@@ -247,9 +316,12 @@ describe('the account menu and the surfaces', () => {
     expect(cardsHref('/cards/binder', real.REGISTRY.hub)).toBe('/cards/binder');
   });
   it('the surfaces read the public twin flag as a build constant, nothing else', () => {
-    for (const f of ['src/components/quiz/ux-v1/results.tsx', 'src/components/hub/dle/dle-game.tsx', 'src/components/layout/ux-v1/ux-client-shell.tsx']) {
+    for (const f of ['src/components/hub/dle/dle-game.tsx', 'src/components/layout/ux-v1/ux-client-shell.tsx']) {
       expect(readFileSync(f, 'utf8')).toContain('NEXT_PUBLIC_NET_CARDS_BRIDGES');
     }
+  });
+  it('review 1 finding 1: the end of a kpopquiz.org quiz ships no Cards code (a quiz completion earns no bonus pack)', () => {
+    expect(readFileSync('src/components/quiz/ux-v1/results.tsx', 'utf8')).not.toMatch(/cards-bridge|NET_CARDS|BonusPackLine/);
   });
 });
 

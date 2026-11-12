@@ -91,15 +91,16 @@ beforeEach(async () => {
 });
 
 describe('schema, RLS and grants', () => {
-  it('8 tables, RLS on, no policy, no browser grant, the bucket', async () => {
-    expect(await one(db, `select count(*)::int from information_schema.tables where table_schema='public' and table_name like 'cards\\_%'`)).toBe(8);
-    expect(await one(db, `select count(*)::int from pg_tables where schemaname='public' and tablename like 'cards\\_%' and rowsecurity`)).toBe(8);
+  it('9 tables, RLS on, no policy, no browser grant, the bucket', async () => {
+    expect(await one(db, `select count(*)::int from information_schema.tables where table_schema='public' and table_name like 'cards\\_%'`)).toBe(9);
+    expect(await one(db, `select count(*)::int from pg_tables where schemaname='public' and tablename like 'cards\\_%' and rowsecurity`)).toBe(9);
+    expect(await one(db, `select count(*)::int from pg_indexes where schemaname='public' and tablename like 'cards\\_%'`)).toBe(24); // the Verify line of 001
     expect(await one(db, `select count(*)::int from pg_policies where schemaname='public' and tablename like 'cards\\_%'`)).toBe(0);
     expect(await one(db, `select count(*)::int from information_schema.role_table_grants where table_schema='public' and table_name like 'cards\\_%' and grantee in ('anon','authenticated')`)).toBe(0);
     expect(await rows(db, `select id, public, file_size_limit::int as lim from storage.buckets where id='cards'`)).toEqual([{ id: 'cards', public: true, lim: 1048576 }]);
   });
-  it('9 functions, executable by service_role only', async () => {
-    expect(await one(db, `select count(*)::int from pg_proc where pronamespace='public'::regnamespace and proname like 'cards\\_%'`)).toBe(9);
+  it('10 functions, executable by service_role only', async () => {
+    expect(await one(db, `select count(*)::int from pg_proc where pronamespace='public'::regnamespace and proname like 'cards\\_%'`)).toBe(10);
     expect(await one(db, `select bool_or(has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute')) from pg_proc p where p.pronamespace='public'::regnamespace and p.proname like 'cards\\_%'`)).toBe(false);
     expect(await one(db, `select bool_and(has_function_privilege('service_role', p.oid, 'execute')) from pg_proc p where p.pronamespace='public'::regnamespace and p.proname like 'cards\\_%'`)).toBe(true);
   });
@@ -319,21 +320,48 @@ describe('cards_apply_pack: bonus packs', () => {
     await db.query(`insert into public.quizzes (id, site_id) values ($1, $2) on conflict (id) do nothing`, [quiz, site]);
     await db.query(`insert into public.plays (quiz_id, player_id, created_at) values ($1, $2, $3::timestamptz)`, [quiz, user, at]);
   }
+  async function dle(user: string, game: string, status: string, finishedAt: string | null, playDate = '2026-11-12') {
+    return one<number>(db, `insert into public.dle_plays (game_id, play_date, user_id, status, finished_at) values ($1, $2::date, $3, $4, $5::timestamptz) returning id::int`,
+      [game, playDate, user, status, finishedAt]);
+  }
+  const record = (u: string, now: number) => one<number>(db, 'select public.cards_bonus_record($1, $2::timestamptz)', [u, iso(now)]);
   const q = (n: number) => `00000000-0000-0000-0000-00000000000${n}`;
   it('nothing is granted without a play of the day', async () => {
     expect(await wallet(db, U1, T0)).toMatchObject({ bonus_left: 0 });
     expect(await failure(db, `select public.cards_apply_pack('${U1}', 'bonus', '{1,7,9,3,2}', null, '${iso(T0)}')`)).toMatch(/cards: bonus/);
   });
-  it('the allowance is min(cap, quizzes + Kpopdle wins) minus the bonus packs opened', async () => {
-    await quizPlay(U1, '2026-11-12T08:00:00Z', q(1));
-    await quizPlay(U1, '2026-11-12T08:30:00Z', q(1)); // a replay of the same quiz counts once
-    await quizPlay(U1, '2026-11-12T09:00:00Z', q(2));
-    await db.exec(`insert into public.dle_plays (game_id, play_date, user_id, status, finished_at) values ('kpopdle-idol', '2026-11-12', '${U1}', 'won', '2026-11-12T09:30:00Z')`);
-    await db.exec(`insert into public.dle_plays (game_id, play_date, user_id, status, finished_at) values ('otakudle-character', '2026-11-12', '${U1}', 'won', '2026-11-12T09:31:00Z')`);
-    await db.exec(`insert into public.dle_plays (game_id, play_date, user_id, status, finished_at) values ('kpopdle-idol', '2026-11-11', '${U1}', 'given_up', '2026-11-12T09:32:00Z')`);
-    await quizPlay(U1, '2026-11-12T09:40:00Z', q(3), 'anime'); // another site does not count
-    await quizPlay(U2, '2026-11-12T09:40:00Z', q(4));
-    // 2 quizzes + 1 Kpopdle win = 3, cap 3
+  it('review 1 finding 1: a play written straight into public.plays (anonymous insert, record_play with any player id) earns nothing', async () => {
+    for (let i = 1; i <= 4; i++) await quizPlay(U1, '2026-11-12T08:00:00Z', q(i));
+    expect((await wallet(db, U1, T0)).bonus_left).toBe(0);
+    expect(await record(U1, T0)).toBe(0);
+    expect((await wallet(db, U1, T0)).bonus_left).toBe(0);
+    expect(await failure(db, `select public.cards_apply_pack('${U1}', 'bonus', '{1,7,9,3,2}', null, '${iso(T0)}')`)).toMatch(/cards: bonus/);
+    // a Kpopdle win the database decided, and no record yet: still nothing (the server route records it)
+    await dle(U1, 'kpopdle-idol', 'won', '2026-11-12T09:30:00Z');
+    expect((await wallet(db, U1, T0)).bonus_left).toBe(0);
+  });
+  it('cards_bonus_record keeps one row per won Kpopdle play of the Paris day, for that player only', async () => {
+    const won = await dle(U1, 'kpopdle-idol', 'won', '2026-11-12T09:30:00Z');
+    await dle(U1, 'otakudle-character', 'won', '2026-11-12T09:31:00Z'); // another game
+    await dle(U1, 'kpopdle-idol', 'given_up', '2026-11-12T09:32:00Z', '2026-11-10'); // not a win
+    await dle(U1, 'kpopdle-idol', 'playing', null, '2026-11-09'); // not finished
+    await dle(U1, 'kpopdle-idol', 'won', '2026-11-11T21:00:00Z', '2026-11-11'); // 22:00 Paris on the 11th: another day
+    await dle(U2, 'kpopdle-idol', 'won', '2026-11-12T09:40:00Z'); // another player
+    expect(await record(U1, T0)).toBe(1);
+    expect(await record(U1, T0 + 1000)).toBe(1); // a second call adds nothing
+    expect(await rows(db, `select user_id, paris_day::text, source, play_ref from public.cards_bonus_earned`)).toEqual([
+      { user_id: U1, paris_day: '2026-11-12', source: 'kpopdle', play_ref: `dle_plays:${won}` }]);
+    // a win that finished after p_now is not counted yet (U2 won at 09:40 UTC)
+    expect(await record(U2, Date.parse('2026-11-12T09:39:00Z'))).toBe(0);
+    expect(await record(U2, T0)).toBe(1);
+    expect(await one(db, `select count(*)::int from public.cards_bonus_earned`)).toBe(2);
+    expect(await failure(db, `select public.cards_bonus_record(null, '${iso(T0)}')`)).toMatch(/cards: user/);
+  });
+  it('the allowance is min(cap, bonus packs earned) minus the bonus packs opened', async () => {
+    // three won plays (three play dates) that all finished on the Paris day of the 12th; the stand-in has no unique key, the real table does
+    for (const [i, at] of ['2026-11-12T08:00:00Z', '2026-11-12T08:30:00Z', '2026-11-12T09:00:00Z'].entries()) await dle(U1, 'kpopdle-idol', 'won', at, `2026-11-${10 + i}`);
+    await quizPlay(U1, '2026-11-12T09:40:00Z', q(3));
+    expect(await record(U1, T0)).toBe(3);
     expect((await wallet(db, U1, T0)).bonus_left).toBe(3);
     expect((await wallet(db, U1, T0, 10, 2)).bonus_left).toBe(2);
     await open(db, U1, 'bonus', PACK, T0);
@@ -342,25 +370,36 @@ describe('cards_apply_pack: bonus packs', () => {
     await open(db, U1, 'bonus', PACK, T0 + 2);
     expect(await failure(db, `select public.cards_apply_pack('${U1}', 'bonus', '{1,7,9,3,2}', null, '${iso(T0 + 3)}')`)).toMatch(/cards: bonus/);
     expect((await wallet(db, U1, T0 + 3)).bonus_left).toBe(0);
-    expect((await wallet(db, U2, T0)).bonus_left).toBe(1);
+    expect((await wallet(db, U2, T0)).bonus_left).toBe(0);
   });
   it('a custom cap is honoured and the day is the Paris day (00:30 Paris is the 12th, 23:30 Paris of the 11th is not)', async () => {
-    await quizPlay(U1, '2026-11-11T23:30:00Z', q(1)); // 00:30 Paris on the 12th
-    await quizPlay(U1, '2026-11-11T22:30:00Z', q(2)); // 23:30 Paris on the 11th
+    await dle(U1, 'kpopdle-idol', 'won', '2026-11-11T23:30:00Z', '2026-11-11'); // 00:30 Paris on the 12th
+    await dle(U1, 'kpopdle-idol', 'won', '2026-11-11T22:30:00Z', '2026-11-10'); // 23:30 Paris on the 11th
+    expect(await record(U1, T0)).toBe(1);
+    expect(await record(U1, Date.parse('2026-11-11T22:45:00Z'))).toBe(1);
     expect((await wallet(db, U1, T0)).bonus_left).toBe(1);
-    expect((await wallet(db, U1, Date.parse('2026-11-11T21:00:00Z'))).bonus_left).toBe(1);
-    await quizPlay(U1, '2026-11-12T10:00:00Z', q(5));
-    await quizPlay(U1, '2026-11-12T10:01:00Z', q(6));
-    expect((await wallet(db, U1, T0, 10, 3)).bonus_left).toBe(3);
+    expect((await wallet(db, U1, Date.parse('2026-11-11T22:50:00Z'))).bonus_left).toBe(1);
+    await dle(U1, 'kpopdle-idol', 'won', '2026-11-12T09:58:00Z');
+    expect(await record(U1, T0)).toBe(2);
+    expect((await wallet(db, U1, T0, 10, 3)).bonus_left).toBe(2);
     expect((await wallet(db, U1, T0, 10, 1)).bonus_left).toBe(1);
     expect((await wallet(db, U1, T0, 10, 0)).bonus_left).toBe(0);
   });
   it('the bonus counter restarts at midnight Paris', async () => {
-    await quizPlay(U1, '2026-11-12T09:00:00Z', q(1));
+    await dle(U1, 'kpopdle-idol', 'won', '2026-11-12T01:00:00Z', '2026-11-11'); // yesterday's game, in its 3 hour grace, 02:00 Paris on the 12th
+    await record(U1, T0);
     await open(db, U1, 'bonus', PACK, T0);
-    const next = nextParisMidnight(T0) + 60_000;
-    await quizPlay(U1, iso(next), q(2));
+    const next = nextParisMidnight(T0) + 60_000; // 00:01 Paris on the 13th, still the 12th in UTC
+    await dle(U1, 'kpopdle-idol', 'won', iso(next), '2026-11-12');
+    expect(await wallet(db, U1, next)).toMatchObject({ bonus_today: 0, bonus_left: 0 });
+    expect(await record(U1, next)).toBe(1);
     expect(await wallet(db, U1, next)).toMatchObject({ bonus_today: 0, bonus_left: 1 });
+  });
+  it('cards_bonus_earned holds no browser grant and no policy, and RLS is on', async () => {
+    expect(await one(db, `select relrowsecurity from pg_class where oid = 'public.cards_bonus_earned'::regclass`)).toBe(true);
+    expect(await one(db, `select count(*)::int from information_schema.role_table_grants where table_name = 'cards_bonus_earned' and grantee in ('anon', 'authenticated', 'PUBLIC')`)).toBe(0);
+    expect(await one(db, `select count(*)::int from pg_policies where tablename = 'cards_bonus_earned'`)).toBe(0);
+    expect(await one(db, `select has_function_privilege('authenticated', 'public.cards_bonus_record(uuid, timestamptz)', 'execute')`)).toBe(false);
   });
 });
 
@@ -438,7 +477,7 @@ describe('constants shared with the TypeScript twin', () => {
   });
 });
 
-describe('a database without the Kpopdle table (019 not applied)', () => {
+describe('a database without the Kpopdle tables (019 not applied)', () => {
   it.each([[0], [3]])('the wallet and a stock pack work with the bonus cap %i', async (cap) => {
     const d = await freshCardsDb(undefined, BASE_NO_DLE);
     await seed(d);
@@ -446,10 +485,11 @@ describe('a database without the Kpopdle table (019 not applied)', () => {
     expect(await wallet(d, U1, T0, 10, cap)).toMatchObject({ stock: 5, bonus_left: 0 });
     await open(d, U1, 'stock', PACK, T0, null, 10, cap);
     expect(await wallet(d, U1, T0, 10, cap)).toMatchObject({ stock: 4, bonus_today: 0 });
-    // quizzes alone count when the cap allows
+    // a quiz play never counts (review 1 finding 1), and without the Kpopdle tables nothing is recorded
     await d.query(`insert into public.quizzes (id, site_id) values ('00000000-0000-0000-0000-000000000001', 'kpop')`);
     await d.query(`insert into public.plays (quiz_id, player_id, created_at) values ('00000000-0000-0000-0000-000000000001', $1, $2::timestamptz)`, [U1, '2026-11-12T08:00:00Z']);
-    expect((await wallet(d, U1, T0, 10, cap)).bonus_left).toBe(cap === 0 ? 0 : 1);
+    expect(await one(d, `select public.cards_bonus_record($1, $2::timestamptz)`, [U1, iso(T0)])).toBe(0);
+    expect((await wallet(d, U1, T0, 10, cap)).bonus_left).toBe(0);
   });
   it('with the bonus cap 0 the bonus function is never called, even without the play tables', async () => {
     const d = await freshCardsDb(undefined, BASE_NO_DLE.slice(0, BASE_NO_DLE.indexOf('create table public.quizzes')));

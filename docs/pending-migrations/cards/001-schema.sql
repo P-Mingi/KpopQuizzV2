@@ -1,16 +1,16 @@
 -- 001-schema.sql (Bunnyverse Cards, lane CORE, 2026-11-12; the tables of the card game)
 --
 -- What:   creates the 8 tables of the contract (docs/o1/briefs/CARDS-CONTRACT.md section 2): cards_entities, cards_photos, cards_catalog,
---         cards_wallets, cards_owned, cards_packs, cards_ad_tickets, cards_reports, with their keys, checks and indexes. Empty. 002 adds the
---         functions, 003 the RLS, the grants and the storage bucket.
+--         cards_wallets, cards_owned, cards_packs, cards_ad_tickets, cards_reports, and cards_bonus_earned (the bonus packs earned, review 1
+--         finding 1), with their keys, checks and indexes. Empty. 002 adds the functions, 003 the RLS, the grants and the storage bucket.
 -- Why:    docs/design/cards/CARDS-PLAN-v3.md: a stack of 5 packs, a refill every 10 minutes, 5 cards a pack, shards, a rewarded ad per pack,
 --         a binder per account, and a credit and licence for every photo. Every value a player sees is read from these tables.
--- Rows:   0 rows. 8 tables, 11 indexes besides the keys. Additive: no existing table is touched. No XP, level, streak or badge is read or written.
+-- Rows:   0 rows. 9 tables, 12 indexes besides the keys. Additive: no existing table is touched. No XP, level, streak or badge is read or written.
 -- Needs:  auth.users (always there). The catalog is filled by the 1xx files of the DATA lane, after this file.
 -- Notes:  the wallet row of a player is created by his first pack (cards_apply_pack); until then cards_wallet reads a virtual full stack.
 --         User tables cascade on auth.users, so the account deletion removes the collection, the packs and the tickets with the account.
--- Verify: select count(*) from information_schema.tables where table_schema = 'public' and table_name like 'cards\_%';   expect 8
--- Verify: select count(*) from pg_indexes where schemaname = 'public' and tablename like 'cards\_%';   expect 21
+-- Verify: select count(*) from information_schema.tables where table_schema = 'public' and table_name like 'cards\_%';   expect 9
+-- Verify: select count(*) from pg_indexes where schemaname = 'public' and tablename like 'cards\_%';   expect 24
 -- Verify: select count(*) from public.cards_catalog;   expect 0
 -- Undo:   001-schema.rollback.sql (refused while a player owns a card or opened a pack).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
@@ -148,7 +148,21 @@ begin
   );
   create index if not exists cards_reports_status_idx on public.cards_reports (status, created_at);
 
-  if (select count(*) from information_schema.tables where table_schema = 'public' and table_name like 'cards\_%') <> 8 then
-    raise exception '001-schema: the 8 cards tables are not all there';
+  -- The bonus packs a player earned (decision 1, review 1 finding 1): one row per server-checked play, never twice. Written only by
+  -- cards_bonus_record (002), which the server route POST /api/cards-bridge/bonus calls; the allowance of a Paris day counts these rows.
+  -- A browser role can neither read nor write it (RLS on, no policy, nothing granted).
+  create table if not exists public.cards_bonus_earned (
+    id bigint generated always as identity constraint cards_bonus_earned_pkey primary key,
+    user_id uuid not null constraint cards_bonus_earned_user_id_fkey references auth.users(id) on delete cascade,
+    paris_day date not null,
+    source text not null constraint cards_bonus_earned_source_check check (source in ('quiz', 'kpopdle')),
+    play_ref text not null constraint cards_bonus_earned_play_ref_check check (length(play_ref) between 1 and 100),
+    earned_at timestamptz not null default now(),
+    constraint cards_bonus_earned_play_key unique (source, play_ref)
+  );
+  create index if not exists cards_bonus_earned_user_day_idx on public.cards_bonus_earned (user_id, paris_day);
+
+  if (select count(*) from information_schema.tables where table_schema = 'public' and table_name like 'cards\_%') <> 9 then
+    raise exception '001-schema: the 9 cards tables are not all there';
   end if;
 end $c001$;

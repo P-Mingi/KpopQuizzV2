@@ -38,15 +38,18 @@ $p$;
 create trigger protect_buckets_delete before delete on storage.buckets for each statement execute function storage.protect_delete();
 create trigger protect_objects_delete before delete on storage.objects for each statement execute function storage.protect_delete();
 
--- Stand-ins for the play tables the bonus allowance reads (production columns used by cards_bonus_plays only).
+-- Stand-ins for the play tables: plays and quizzes (written by a browser, never counted: the proof of review 1 finding 1), dle_plays and
+-- dle_games (the production columns cards_bonus_record reads).
 create table public.quizzes (id uuid primary key default gen_random_uuid(), site_id text not null default 'kpop');
 create table public.plays (id uuid primary key default gen_random_uuid(), quiz_id uuid not null references public.quizzes(id),
   player_id uuid, created_at timestamptz not null default now());
 create table public.dle_plays (id bigint generated always as identity primary key, game_id text not null, play_date date not null,
   user_id uuid, status text not null default 'playing', finished_at timestamptz);
+create table public.dle_games (id text primary key);
+insert into public.dle_games (id) values ('kpopdle-idol'), ('otakudle-character');
 `;
 
-/** BASE without the Kpopdle table (a database where docs/pending-migrations/multisite/019-dle-core.sql is not applied). */
+/** BASE without the Kpopdle tables (a database where docs/pending-migrations/multisite/019-dle-core.sql is not applied). */
 export const BASE_NO_DLE = BASE.slice(0, BASE.indexOf('create table public.dle_plays'));
 
 /** A fresh database: the stand-ins, then the given cards files in order. */

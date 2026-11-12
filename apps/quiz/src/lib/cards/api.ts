@@ -28,7 +28,7 @@ export const closed = (): NextResponse => json({ error: 'not_found' }, 404);
  * A write must come from the page's own site: an Origin header's host must be the request's host; without one the browser's own
  * Sec-Fetch-Site must say same-origin (a caller that sends neither is refused).
  */
-export function ownSite(req: NextRequest): boolean {
+export function ownSite(req: Pick<NextRequest, 'headers'>): boolean {
   const origin = req.headers.get('origin');
   if (!origin) return req.headers.get('sec-fetch-site') === 'same-origin';
   const host = req.headers.get('x-forwarded-host') ?? req.headers.get('host');
@@ -57,7 +57,7 @@ export async function guard(req: NextRequest, opts: { write: boolean }): Promise
 }
 
 /** Reads a small JSON object body (at most 4 KB). Null when it is not one. */
-export async function readJson(req: NextRequest, maxBytes = 4096): Promise<Record<string, unknown> | null> {
+export async function readJson(req: Pick<NextRequest, 'headers' | 'text'>, maxBytes = 4096): Promise<Record<string, unknown> | null> {
   const declared = Number(req.headers.get('content-length') ?? '0');
   if (Number.isFinite(declared) && declared > maxBytes) return null;
   let text: string;

@@ -1,6 +1,6 @@
 -- 003-rls.sql (Bunnyverse Cards, lane CORE, 2026-11-12; RLS, grants and the public photo bucket)
 --
--- What:   turns row level security on for the 8 cards tables and gives them NO policy for anon or authenticated: the browser roles read and
+-- What:   turns row level security on for the 9 cards tables and gives them NO policy for anon or authenticated: the browser roles read and
 --         write nothing directly. Every read and write goes through the server (lib/cards, the service role) or the security definer
 --         functions of 002. Revokes the default table privileges of anon and authenticated, grants all to service_role. Creates the public
 --         storage bucket 'cards' (WebP, 1 MB a file) that the owner's upload script fills with the cropped card photos.
@@ -8,7 +8,7 @@
 --         GET /api/cards/catalog (cached), the wallet and the binder by /api/cards/state; nothing needs a direct browser read.
 -- Rows:   0 rows in the tables. 1 bucket row.
 -- Needs:  001.
--- Verify: select count(*) from pg_tables where schemaname = 'public' and tablename like 'cards\_%' and rowsecurity;   expect 8
+-- Verify: select count(*) from pg_tables where schemaname = 'public' and tablename like 'cards\_%' and rowsecurity;   expect 9
 -- Verify: select count(*) from pg_policies where schemaname = 'public' and tablename like 'cards\_%';   expect 0
 -- Verify: select count(*) from information_schema.role_table_grants where table_schema = 'public' and table_name like 'cards\_%' and grantee in ('anon', 'authenticated');   expect 0
 -- Verify: select id, public, file_size_limit from storage.buckets where id = 'cards';   expect cards, t, 1048576
@@ -32,11 +32,12 @@ begin
   alter table public.cards_packs enable row level security;
   alter table public.cards_ad_tickets enable row level security;
   alter table public.cards_reports enable row level security;
+  alter table public.cards_bonus_earned enable row level security;
 
   revoke all on public.cards_entities, public.cards_photos, public.cards_catalog, public.cards_wallets, public.cards_owned,
-    public.cards_packs, public.cards_ad_tickets, public.cards_reports from public, anon, authenticated;
+    public.cards_packs, public.cards_ad_tickets, public.cards_reports, public.cards_bonus_earned from public, anon, authenticated;
   grant all on public.cards_entities, public.cards_photos, public.cards_catalog, public.cards_wallets, public.cards_owned,
-    public.cards_packs, public.cards_ad_tickets, public.cards_reports to service_role;
+    public.cards_packs, public.cards_ad_tickets, public.cards_reports, public.cards_bonus_earned to service_role;
 
   -- A public bucket serves its files by URL without a policy; without an insert, update or delete policy only the service role writes.
   insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

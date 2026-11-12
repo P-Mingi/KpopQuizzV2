@@ -2,7 +2,8 @@
 --
 -- What:   creates the functions of the contract section 2, all security definer, search_path public, EXECUTE for service_role only:
 --           cards_roll(...)                the refill and the Paris midnight on a row (the SQL twin of lib/cards/rules.ts walletAt)
---           cards_bonus_plays(user, day)   quizzes completed on kpopquiz.org plus Kpopdle wins of a Paris day
+--           cards_bonus_plays(user, day)   the bonus packs earned on a Paris day (the rows of cards_bonus_earned)
+--           cards_bonus_record(user, now)  records the Kpopdle wins of the Paris day in cards_bonus_earned, once per play
 --           cards_wallet(user, now, ...)   STABLE, read only: the wallet after the refill, nothing written (the home block of kpopquiz.org reads it)
 --           cards_apply_pack(user, source, cards, ticket, now, ...)   spends the source, checks the 5 cards, stores them, in one transaction
 --           cards_recycle(user, now)       every copy above one becomes shards, all at once
@@ -11,13 +12,15 @@
 --         and two triggers: a refused or removed photo retires its cards from the packs; closing a report erases its contact.
 -- Why:    the draw itself stays in TypeScript (crypto.randomInt, lib/cards/draw.ts); the database only checks and stores. The rules are the
 --         prototype's sync(): 5 packs at most, 1 pack per 10 minutes, a Paris midnight tops the stack up to 5 and restarts the day counters.
--- Rows:   0 rows. 9 functions, 2 triggers.
--- Needs:  001. For the bonus pack: public.plays, public.quizzes (site_id) and public.dle_plays (019), read inside cards_bonus_plays only and only when they exist (to_regclass); with p_bonus_cap <= 0 it is not called.
--- Bonus:  the allowance of a Paris day = min(p_bonus_cap, distinct quizzes of kpopquiz.org completed that day + Kpopdle wins that day) minus the
---         bonus packs already opened that day. A replay of the same quiz that day counts once (a distinct quiz is the unit, so a quiz cannot be farmed).
+-- Rows:   0 rows. 10 functions, 2 triggers.
+-- Needs:  001. For the bonus pack: public.dle_plays and public.dle_games (019), read inside cards_bonus_record only and only when they exist
+--         (to_regclass). public.plays is never read: a browser can write it (review 1 finding 1).
+-- Bonus:  the allowance of a Paris day = min(p_bonus_cap, bonus packs earned that day) minus the bonus packs already opened that day. A bonus
+--         pack is earned by a Kpopdle win only (owner decision), recorded by cards_bonus_record from the server route after its checks; a
+--         quiz completion of kpopquiz.org earns nothing (its score is reported by the browser). With p_bonus_cap <= 0 nothing is read.
 -- Errors: a refusal is an exception whose message starts with 'cards: ' and one word: empty, shards, bonus, ad_limit, ticket, source, pack.
 -- Every p_now defaults to now(); the proofs inject it. A new wallet starts with a full stack (decision 16 of CARDS-DECISIONS.md).
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cards\_%';   expect 9
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cards\_%';   expect 10
 -- Verify: select bool_or(has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute')) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'cards\_%';   expect f
 -- Verify: select bool_and(has_function_privilege('service_role', p.oid, 'execute')) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'cards\_%';   expect t
 -- Verify: select (public.cards_wallet('00000000-0000-0000-0000-000000000000', '2026-11-12 10:00+00')) ->> 'stock';   expect 5
@@ -29,7 +32,7 @@ begin
   perform set_config('lock_timeout', '5s', true);
   perform set_config('client_min_messages', 'warning', true);
 
-  if to_regclass('public.cards_wallets') is null or to_regclass('public.cards_catalog') is null then
+  if to_regclass('public.cards_wallets') is null or to_regclass('public.cards_catalog') is null or to_regclass('public.cards_bonus_earned') is null then
     raise exception '002-functions: run 001-schema.sql first';
   end if;
 
@@ -70,28 +73,40 @@ begin
   end
   $f$;
 
+  -- The bonus packs earned on a Paris day: the rows of cards_bonus_earned, which only cards_bonus_record writes (review 1 finding 1). A row
+  -- a browser can write (public.plays accepts an anonymous insert, record_play takes any player id) never counts.
   create or replace function public.cards_bonus_plays(p_user uuid, p_day date)
     returns integer
-    language plpgsql stable security definer set search_path = public
+    language sql stable security definer set search_path = public
+    as $f$
+      select count(*)::integer from public.cards_bonus_earned where user_id = p_user and paris_day = p_day
+    $f$;
+
+  -- Records the Kpopdle wins of the player's Paris day as earned bonus packs, one row per won play (dle_plays.id), never twice, and returns
+  -- the bonus packs earned that day. The win is decided in the database by dle_guess (019-dle-core.sql: dle_plays holds no browser grant
+  -- and no policy, the answer never reaches the browser). Called by the server route POST /api/cards-bridge/bonus after its own checks
+  -- (session, Team account, flags). A quiz of kpopquiz.org earns nothing: its completion is a client-reported score (owner decision).
+  -- A play's date is its UTC day or the day before (dle_playable), so a Paris day reads at most the three play dates up to it.
+  create or replace function public.cards_bonus_record(p_user uuid, p_now timestamptz default now())
+    returns integer
+    language plpgsql security definer set search_path = public
     as $f$
   declare
-    v_quiz integer;
-    v_dle integer;
+    v_today date := (p_now at time zone 'Europe/Paris')::date;
   begin
-    -- A table that does not exist on this database counts as 0 plays (the guards keep the wallet working without it).
-    if to_regclass('public.plays') is not null and to_regclass('public.quizzes') is not null then
-      select count(distinct p.quiz_id)::integer into v_quiz
-        from public.plays p join public.quizzes q on q.id = p.quiz_id
-       where p.player_id = p_user and q.site_id = 'kpop'
-         and (p.created_at at time zone 'Europe/Paris')::date = p_day;
-    end if;
-    if to_regclass('public.dle_plays') is not null then
-      select count(*)::integer into v_dle
+    if p_user is null then raise exception 'cards: user'; end if;
+    -- A database without the daily games (019 not applied) records nothing.
+    if to_regclass('public.dle_plays') is not null and to_regclass('public.dle_games') is not null then
+      insert into public.cards_bonus_earned (user_id, paris_day, source, play_ref, earned_at)
+      select p_user, v_today, 'kpopdle', 'dle_plays:' || d.id::text, p_now
         from public.dle_plays d
-       where d.user_id = p_user and d.status = 'won' and d.game_id like 'kpopdle%'
-         and (d.finished_at at time zone 'Europe/Paris')::date = p_day;
+       where d.game_id = any (array(select g.id from public.dle_games g where g.id like 'kpopdle%'))
+         and d.play_date between v_today - 2 and v_today
+         and d.user_id = p_user and d.status = 'won'
+         and d.finished_at <= p_now and (d.finished_at at time zone 'Europe/Paris')::date = v_today
+      on conflict on constraint cards_bonus_earned_play_key do nothing;
     end if;
-    return coalesce(v_quiz, 0) + coalesce(v_dle, 0);
+    return public.cards_bonus_plays(p_user, v_today);
   end
   $f$;
 
@@ -318,6 +333,7 @@ begin
 
   revoke all on function public.cards_roll(integer, timestamptz, date, integer, integer, timestamptz) from public, anon, authenticated;
   revoke all on function public.cards_bonus_plays(uuid, date) from public, anon, authenticated;
+  revoke all on function public.cards_bonus_record(uuid, timestamptz) from public, anon, authenticated;
   revoke all on function public.cards_wallet(uuid, timestamptz, integer, integer) from public, anon, authenticated;
   revoke all on function public.cards_apply_pack(uuid, text, integer[], uuid, timestamptz, integer, integer) from public, anon, authenticated;
   revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;
@@ -327,6 +343,7 @@ begin
   revoke all on function public.cards_report_close() from public, anon, authenticated;
   grant execute on function public.cards_roll(integer, timestamptz, date, integer, integer, timestamptz) to service_role;
   grant execute on function public.cards_bonus_plays(uuid, date) to service_role;
+  grant execute on function public.cards_bonus_record(uuid, timestamptz) to service_role;
   grant execute on function public.cards_wallet(uuid, timestamptz, integer, integer) to service_role;
   grant execute on function public.cards_apply_pack(uuid, text, integer[], uuid, timestamptz, integer, integer) to service_role;
   grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;
