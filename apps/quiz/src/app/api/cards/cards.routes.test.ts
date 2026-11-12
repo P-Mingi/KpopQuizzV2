@@ -76,7 +76,7 @@ const WALLET = {
   stock: 3, anchor: '2026-11-12T10:00:00+00:00', paris_day: '2026-11-12', ads_today: 2, bonus_today: 0, shards: 12, ads_left: 8, bonus_left: 1,
   next_at: '2026-11-12T10:10:00+00:00', midnight_at: '2026-11-12T23:00:00+00:00',
 };
-const PACK = { id: 'p-1', source: 'stock', cards: [1, 7, 9, 3, 2].map((n, i) => ({ n, isNew: i !== 1 })) };
+const PACK = { id: 'pack-1', source: 'stock', cards: [1, 7, 9, 3, 2].map((n, i) => ({ n, isNew: i !== 1 })) };
 const UUID = '11111111-2222-3333-4444-555555555555';
 
 beforeEach(() => {
@@ -235,7 +235,7 @@ describe('POST /api/cards/open', () => {
     const res = await open(req('/api/cards/open', { source: 'stock' }));
     expect(res.status).toBe(200);
     const body = await res.json();
-    expect(body.pack).toEqual({ id: 'p-1', cards: [{ n: 1, isNew: true }, { n: 7, isNew: false }, { n: 9, isNew: true }, { n: 3, isNew: true }, { n: 2, isNew: true }] });
+    expect(body.pack).toEqual({ id: 'pack-1', cards: [{ n: 1, isNew: true }, { n: 7, isNew: false }, { n: 9, isNew: true }, { n: 3, isNew: true }, { n: 2, isNew: true }] });
     expect(body.state.stock).toBe(3);
     expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_apply_pack', args: { p_user: 'u1', p_source: 'stock', p_cards: [1, 7, 9, 3, 2], p_ticket: null } });
   });
@@ -296,7 +296,7 @@ describe('the rewarded ad', () => {
     h.rpcResult.cards_apply_pack = { data: { ...PACK, source: 'ad' } };
     const res = await grant(req('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
     expect(res.status).toBe(200);
-    expect((await res.json()).pack.id).toBe('p-1');
+    expect((await res.json()).pack.id).toBe('pack-1');
     expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_apply_pack', args: { p_source: 'ad', p_ticket: UUID } });
   });
   it('grant: a replayed, foreign or unknown ticket is 409, a malformed one too, and the limit is 409 limit', async () => {
