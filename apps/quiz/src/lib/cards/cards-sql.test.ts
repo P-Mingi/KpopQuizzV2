@@ -97,7 +97,7 @@ describe('schema, RLS and grants', () => {
     expect(await one(db, `select count(*)::int from pg_indexes where schemaname='public' and tablename like 'cards\\_%'`)).toBe(24); // the Verify line of 001
     expect(await one(db, `select count(*)::int from pg_policies where schemaname='public' and tablename like 'cards\\_%'`)).toBe(0);
     expect(await one(db, `select count(*)::int from information_schema.role_table_grants where table_schema='public' and table_name like 'cards\\_%' and grantee in ('anon','authenticated')`)).toBe(0);
-    expect(await rows(db, `select id, public, file_size_limit::int as lim from storage.buckets where id='cards'`)).toEqual([{ id: 'cards', public: true, lim: 1048576 }]);
+    expect(await rows(db, `select id, public, file_size_limit::int as lim, allowed_mime_types as mime from storage.buckets where id='cards'`)).toEqual([{ id: 'cards', public: true, lim: 2097152, mime: ['image/webp'] }]);
   });
   it('10 functions, executable by service_role only', async () => {
     expect(await one(db, `select count(*)::int from pg_proc where pronamespace='public'::regnamespace and proname like 'cards\\_%'`)).toBe(10);
@@ -118,6 +118,23 @@ describe('schema, RLS and grants', () => {
     expect(await failure(db, readCardsSql('001-schema.rollback.sql'))).toMatch(/owned card rows exist/);
     await db.exec(`delete from public.cards_owned; delete from public.cards_packs;`);
     await db.exec(readCardsSql('001-schema.rollback.sql'));
+    expect(await one(db, `select count(*)::int from information_schema.tables where table_schema='public' and table_name like 'cards\\_%'`)).toBe(0);
+  });
+  it('review 1 finding 15: 003 leaves a bucket cards that already exists as it is', async () => {
+    const d = await freshCardsDb([], `${BASE}\ninsert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types) values ('cards', 'cards', false, 5242880, array['image/png']);`);
+    const notices: string[] = [];
+    for (const f of ['001-schema.sql', '002-functions.sql']) await d.exec(readCardsSql(f));
+    await d.exec(readCardsSql('003-rls.sql'), { onNotice: (n) => notices.push(n.message ?? '') });
+    expect(await rows(d, `select public, file_size_limit::int as lim, allowed_mime_types as mime from storage.buckets where id='cards'`)).toEqual([{ public: false, lim: 5242880, mime: ['image/png'] }]);
+    expect(notices).toContain('003-rls: bucket cards public false, 5242880 bytes a file, types {image/png}');
+  });
+  it('review 1 finding 15: the 001 rollback refuses while a report is open, and passes once it is closed', async () => {
+    await db.exec(readCardsSql('003-rls.rollback.sql'));
+    await db.exec(readCardsSql('002-functions.rollback.sql'));
+    await db.exec(`insert into public.cards_reports (role, message) values ('person', 'please remove')`);
+    expect(await failure(db, readCardsSql('001-schema.rollback.sql'))).toMatch(/1 open reports exist, refusing/);
+    await db.exec(`update public.cards_reports set status = 'closed'`);
+    expect(await failure(db, readCardsSql('001-schema.rollback.sql'))).toBeNull();
     expect(await one(db, `select count(*)::int from information_schema.tables where table_schema='public' and table_name like 'cards\\_%'`)).toBe(0);
   });
   it('the catalog checks: edition follows rarity, one card per entity and rarity', async () => {

@@ -9,7 +9,7 @@ Nothing else is used (amendment 1).
 - The final count after the adult rule (decision 17) is the Verify output of `docs/pending-migrations/cards/101-catalog.sql`
   ("N subjects in", cards per edition, the highest number, each left-out slug with its reason). It is read from `groups` and `idols` at apply time.
 - Focal point: 50/30 for a person, 50/50 for a group (`subjects.json`, `101-catalog.sql`).
-- Apply order after 001 to 003: `100-bucket-cards.sql`, `101-catalog.sql`.
+- Apply order: `001-schema.sql`, `002-functions.sql`, `003-rls.sql` (it creates the bucket `cards`, WebP only, 2 MB), `101-catalog.sql`.
 
 ## small_2x (41 of 59): the widest 5.5:8.5 crop of the 1,200 px file is under 640 px
 
@@ -19,4 +19,4 @@ jay-park, sunmi, apink, artms, astro, billlie, btob, cortis, day6, dreamcatcher,
 
 bibi (776), chungha (776), heize (652), hwasa (776), hyuna (776), iu (776), jennie (776), jeon-somi (776), jimin (776), jungkook (776), psy (693), rose (776), taeyang (776), taeyeon (776), v-bts (776), zico (748), akmu (651), sistar (673)
 
-Files: `subjects.json` (written by `apps/quiz/scripts/cards/gen-subjects.mts`), `100` and `101` SQL (written by `gen-catalog-sql.mts`).
+Files: `subjects.json` (written by `apps/quiz/scripts/cards/gen-subjects.mts`), the `101` SQL (written by `gen-catalog-sql.mts`).

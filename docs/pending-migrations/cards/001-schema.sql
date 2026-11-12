@@ -16,7 +16,7 @@
 -- Verify: select count(*) from pg_tables where schemaname = 'public' and tablename like 'cards\_%' and rowsecurity;   expect 9
 -- Verify: select count(*) from information_schema.role_table_grants where table_schema = 'public' and table_name like 'cards\_%' and grantee in ('anon', 'authenticated');   expect 0
 -- Verify: select count(*) from public.cards_catalog;   expect 0
--- Undo:   001-schema.rollback.sql (refused while a player owns a card or opened a pack).
+-- Undo:   001-schema.rollback.sql (refused while a player owns a card or opened a pack, or a report is open).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
 
 do $c001$

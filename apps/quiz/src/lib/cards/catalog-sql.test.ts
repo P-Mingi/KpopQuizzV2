@@ -1,4 +1,5 @@
-// Bunnyverse Cards, lane DATA: pglite proof of docs/pending-migrations/cards/100 and 101. The real schema files 001 to 003 are run, then
+// Bunnyverse Cards, lane DATA: pglite proof of docs/pending-migrations/cards/101 (the bucket file 100 is gone: 003 creates the bucket, review 1
+// finding 15). The real schema files 001 to 003 are run, then
 // 101-catalog.sql on fixture groups and idols rows, and the rules of the brief are checked: adult rule (decision 17), group line (18),
 // contiguous numbers in the order of decision 2, 4 cards per subject, the Verify notices, idempotence, the rollback.
 import { readFileSync } from 'node:fs';
@@ -150,6 +151,12 @@ describe('101-catalog.sql on fixture groups and idols', () => {
     expect(second).toContain('101-catalog: 0 subjects in, 54 left out, 5 already there');
   });
 
+  it('review 1 finding 15: the file set is 001, 002, 003 and 101, each with its rollback (no bucket file 100)', async () => {
+    const { readdirSync } = await import('node:fs');
+    expect(readdirSync(CARDS_SQL).filter((f) => f.endsWith('.sql')).sort()).toEqual([
+      '001-schema.rollback.sql', '001-schema.sql', '002-functions.rollback.sql', '002-functions.sql', '003-rls.rollback.sql', '003-rls.sql',
+      '101-catalog.rollback.sql', '101-catalog.sql']);
+  });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
     const d2 = await fixtureDb();
     await run101(d2);
@@ -216,22 +223,8 @@ describe('review 1 finding 2: 101 fills a catalog that holds its own subjects on
   });
 });
 
-describe('100-bucket-cards.sql', () => {
-  it('sets the bucket to WebP only, 2 MB, public, idempotently, and the rollback restores 1 MB', async () => {
-    const db = await freshCardsDb();
-    await db.exec(readCardsSql('100-bucket-cards.sql'));
-    await db.exec(readCardsSql('100-bucket-cards.sql'));
-    const b = await rows<{ public: boolean; file_size_limit: string; allowed_mime_types: string[] }>(db, `select public, file_size_limit, allowed_mime_types from storage.buckets where id = 'cards'`);
-    expect(b.length).toBe(1);
-    expect(b[0]).toMatchObject({ public: true, allowed_mime_types: ['image/webp'] });
-    expect(Number(b[0]!.file_size_limit)).toBe(2097152);
-    await db.exec(readCardsSql('100-bucket-cards.rollback.sql'));
-    expect(Number(await one(db, `select file_size_limit from storage.buckets where id = 'cards'`))).toBe(1048576);
-  });
-});
-
 describe('the new cards files are ONE DO block each', () => {
-  it.each([['100-bucket-cards.sql', 'c100'], ['100-bucket-cards.rollback.sql', 'c100r'], ['101-catalog.sql', 'c101'], ['101-catalog.rollback.sql', 'c101r']])('%s', (file, tag) => {
+  it.each([['101-catalog.sql', 'c101'], ['101-catalog.rollback.sql', 'c101r']])('%s', (file, tag) => {
     const sql = readFileSync(path.join(CARDS_SQL, file), 'utf8');
     const outer = `$${tag}$`;
     const code = sql.split('\n').filter((l) => !l.startsWith('--')).join('\n').trim();
