@@ -20,3 +20,9 @@ instead of inventing. ORCH keeps this file.
 | 14 | A photo below 600 px on its short side | Not auto-approved: it goes to the owner's review with the note "small" | D |
 | 15 | What the group page block on kpopquiz.org shows | The group's cards (owned in colour, missing as backs), a count, a link to the binder and to the photo credits | B |
 | 13 | Duplicates into shards: automatic at the pack, or only with "Recycle extras"? | Only with "Recycle extras", as in the approved prototype | C, U |
+| 16 | Card files: crop the 1,200 px bucket copies, or take the same 59 Commons files at full size (no new search)? | The bucket copies (amendment 1). 41 of the 59 crops are then narrower than 640 px and flagged "too small for 2x" | D |
+| 17 | "Adult subjects only" for a group photo | A group is in only when all its active members have a known birth date at least 18 years back; unknown means out | D |
+| 18 | The group line of a soloist's card | The person's group from the `idols` row when it is another group (Jennie: BLACKPINK), else "Soloist" | D, U |
+| 19 | Card shape | 5.5:8.5 (owner, 2026-11-12), the prototype drew 63:88 | U |
+| 20 | kpopquiz.org per-fan numbers (home, group page) | Read in the browser from `GET /api/cards-bridge/me` because those pages are cached (lane B) | B |
+| 21 | Analytics target for the bridges | None: `cross_promo_click` has no Cards target, a new value is the owner's call | B |
