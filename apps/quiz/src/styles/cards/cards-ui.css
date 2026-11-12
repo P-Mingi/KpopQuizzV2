@@ -447,3 +447,16 @@
 .bvc a.rung{text-decoration:none}
 .bvc .line.ad-line:not(:has([data-testid="cards-ad-button"])){display:none}
 .bvc [data-testid="cards-banner"]{margin-top:28px}
+
+/* Lot 2: the two halves of a group pair sit side by side, flush, two cells of one row (the pages) or two columns (the grid), and read as one picture. */
+.bvc .pocket-li.pair{grid-column:span 2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.bvc .pocket-li.pair .pocket:first-child,.bvc .pocket-li.pair .pw:first-child .pocket,.bvc .pocket-li.pair .pw:first-child .card,.bvc .pocket-li.pair .half-1{border-top-right-radius:0;border-bottom-right-radius:0}
+.bvc .pocket-li.pair .pocket:last-child,.bvc .pocket-li.pair .pw:last-child .pocket,.bvc .pocket-li.pair .pw:last-child .card,.bvc .pocket-li.pair .half-2{border-top-left-radius:0;border-bottom-left-radius:0}
+.bvc .pocket-li.pair .pocket::after{display:none}
+.bvc .d-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;max-width:520px;margin:0 auto}
+.bvc .d-pair .pocket{display:block}
+.bvc .d-mate{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:14px;font-weight:700}
+.bvc .rung .mini.pairmini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+.bvc .rung{grid-column:auto}
+.bvc .rates .draw{margin:10px 0 0;padding-left:20px;font-size:14px;line-height:1.5}
+.bvc .rates .draw li{margin:2px 0}

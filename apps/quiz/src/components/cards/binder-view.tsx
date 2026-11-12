@@ -11,7 +11,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { EDITIONS, LOCK_SENTENCES, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
-import { NO_FILTERS, SORTS, countByKind, extras, filterItems, ownedCount, paginate, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, isPairStart, ownedCount, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
@@ -46,10 +46,11 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   const d = item.card;
   const o = owned.get(d.n);
   const ed = EDITIONS[d.rarity].name;
+  const half = partWord(d) ? `, ${partWord(d)} of the group photo` : '';
   if (o) {
     return (
       <div className="pw">
-        <Link className="pocket" href={`/cards/c/${d.num}`} onClick={() => clearNew(d.n)} aria-label={`${d.name}, ${ed}, ${RARITY_NAMES[d.rarity]}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}`}>
+        <Link className="pocket" href={`/cards/c/${d.num}`} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${RARITY_NAMES[d.rarity]}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}`}>
           {newSet.has(d.n) ? <span className="newb">New</span> : null}
           {o.copies > 1 ? <span className="cnt">&times;{o.copies}</span> : null}
           <CardFront card={d} />
@@ -59,14 +60,30 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
     );
   }
   return (
-    <Link className="pocket" href={`/cards/c/${d.num}`} aria-label={`${d.name}, ${ed}, missing`}>
+    <Link className="pocket" href={`/cards/c/${d.num}`} aria-label={`${d.name}${half}, ${ed}, missing`}>
       <span className="miss">
         <span className="mno">{d.num}</span>
         <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
-        <span><span className="mnm">{d.name}</span><span className="med">{ed} &middot; {RARITY_NAMES[d.rarity]}</span></span>
+        <span><span className="mnm">{d.name}</span><span className="med">{ed} &middot; {RARITY_NAMES[d.rarity]}{d.part ? <> &middot; {d.part}/2</> : null}</span></span>
       </span>
     </Link>
   );
+}
+
+/** The pockets of a run of cells, in reading order: the two halves of a pair in one two-cell item (flush, so they read as one picture),
+ *  the others as one cell each. A null cell is an empty pocket. */
+function Cells({ cells }: { cells: readonly (BinderItem | null)[] }): React.ReactElement {
+  const out: React.ReactElement[] = [];
+  for (let k = 0; k < cells.length; k++) {
+    const a = cells[k] ?? null;
+    if (!a) { out.push(<li key={`e${k}`} className="pocket-li"><span className="pocket empty" /></li>); continue; }
+    const b = cells[k + 1];
+    if (isPairStart(a, b)) {
+      out.push(<li key={a.i} className="pocket-li pair" data-pair={a.i}><Pocket item={a} /><Pocket item={b!} /></li>);
+      k++;
+    } else out.push(<li key={a.i} className="pocket-li"><Pocket item={a} /></li>);
+  }
+  return <>{out}</>;
 }
 
 function PageOf({ page, index, sections }: { page: ReturnType<typeof paginate>[number] | undefined; index: number; sections: Map<string, { name: string; color: string }> }): React.ReactElement {
@@ -86,7 +103,8 @@ function PageOf({ page, index, sections }: { page: ReturnType<typeof paginate>[n
         <span>Page {index + 1}</span>
       </div>
       <ul className="pockets">
-        {Array.from({ length: PER_PAGE }, (_, i) => (page.items[i] ? <li key={page.items[i]!.i} className="pocket-li"><Pocket item={page.items[i]!} /></li> : <li key={`e${i}`} className="pocket-li"><span className="pocket empty" /></li>))}
+        <Cells cells={page.cells} />
+        {Array.from({ length: Math.max(0, PER_PAGE - page.cells.length) }, (_, i) => <li key={`f${i}`} className="pocket-li"><span className="pocket empty" /></li>)}
       </ul>
     </div>
   );
@@ -127,7 +145,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
   const sections = useMemo(() => new Map(catalog.sections.map((s) => [s.id, { name: s.name, color: s.color }])), [catalog.sections]);
   const list = useMemo(() => filterItems(catalog.items, f, owned), [catalog.items, f, owned]);
   const pages = useMemo(() => paginate(list, PER_PAGE), [list]);
-  const sorted = useMemo(() => (view === 'grid' ? sortItems(list, sort, owned) : []), [list, sort, owned, view]);
+  const gridList = useMemo(() => (view === 'grid' ? gridPages(sortItems(list, sort, owned), GRID_PER_PAGE) : []), [list, sort, owned, view]);
   const total = catalog.cards.length;
   const own = ownedCount(catalog.cards, owned);
   const pct = total ? Math.round((own / total) * 1000) / 10 : 0;
@@ -137,7 +155,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
   const pc = Math.max(1, pages.length);
   const step = single ? 1 : 2;
   const pg = Math.max(0, Math.min(single ? page : page - (page % 2), pc - 1));
-  const gpc = Math.max(1, Math.ceil(list.length / GRID_PER_PAGE));
+  const gpc = Math.max(1, gridList.length);
   const gp = Math.max(0, Math.min(gpage, gpc - 1));
 
   const refilter = (next: Filters): void => { setF(next); setPage(0); setGpage(0); };
@@ -270,7 +288,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
             <Pager id="pg-top" />
           </div>
           <ul className="grid" id="grid">
-            {sorted.length ? sorted.slice(gp * GRID_PER_PAGE, gp * GRID_PER_PAGE + GRID_PER_PAGE).map((it) => <li key={it.i} className="pocket-li"><Pocket item={it} /></li>) : <li className="g-empty">No card matches these filters.</li>}
+            {gridList.length ? <Cells cells={gridList[gp] ?? []} /> : <li className="g-empty">No card matches these filters.</li>}
           </ul>
           <Pager id="pg-bot" bottom />
           <BinderBanner ctx={ads} />

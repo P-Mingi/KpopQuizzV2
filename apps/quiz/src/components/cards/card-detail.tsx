@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { EDITIONS, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
+import { partWord } from '@/lib/cards/ui-model';
 
 import { CardFront, Gem, LOCK_ICON } from './card-art';
 import { useCards } from './cards-provider';
@@ -18,7 +19,8 @@ import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 import type { LockReason, Rarity } from '@/lib/cards/types';
 import type { SlimCard } from '@/lib/cards/ui-types';
 
-export interface Rung { rarity: Rarity; card: SlimCard | null; reason: LockReason | null; anchor: string }
+/** `mate`: the other half of a group pair (the rung shows both halves side by side). */
+export interface Rung { rarity: Rarity; card: SlimCard | null; mate?: SlimCard; reason: LockReason | null; anchor: string }
 
 export interface DetailProps {
   /** The card shown, or null when the page shows an edition that cannot exist yet. */
@@ -34,6 +36,8 @@ export interface DetailProps {
   /** Why this entity has fewer editions: a title, the sentences and what is needed. */
   why: { title: string; sentences: string[]; need: string } | null;
   lockSentence: string | null;
+  /** Lot 2: set for a half of a group photo: which side it is, and the other half (null when that half is not in packs). */
+  pair?: { side: 'left' | 'right'; mate: SlimCard | null } | null;
   /** The credit block, rendered on the server. */
   credit: React.ReactNode;
 }
@@ -77,6 +81,18 @@ export function CardDetail(p: DetailProps): React.ReactElement {
                 </div>
               </div>
               <p className="d-hint">Tap the card to see its back</p>
+              {p.pair && p.pair.mate && card ? (
+                <div className="d-pair" aria-label="The two halves of the group photo">
+                  {(card.part === 1 ? [card, p.pair.mate] : [p.pair.mate, card]).map((h) => {
+                    const ho = owned.get(h.n);
+                    return (
+                      <Link key={h.n} className={`pocket${h.n === card.n ? ' cur' : ''}${ho || h.n === card.n ? '' : ' unowned'}`} href={`/cards/c/${h.num}`} aria-label={`${h.name}, ${partWord(h)}, ${h.num}`} aria-current={h.n === card.n ? 'page' : undefined}>
+                        <CardFront card={h} />
+                      </Link>
+                    );
+                  })}
+                </div>
+              ) : null}
               {p.credit}
             </>
           ) : (
@@ -96,12 +112,20 @@ export function CardDetail(p: DetailProps): React.ReactElement {
             {card && o ? <FavStar n={card.n} name={card.name} edition={ed.name} className="in" /> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
-          <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_NAMES[rarity]}</span>{card ? <span className="tag num">{card.num}</span> : null}</div>
+          <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_NAMES[rarity]}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && p.pair ? <span className="tag">{p.pair.side === 'left' ? 'Left' : 'Right'} half {card.part}/2</span> : null}</div>
           <p className="d-sub" style={{ marginTop: 10 }}>
             {card
               ? <>{ed.name} edition, card {card.num}. {status === 'ready' ? (o ? (o.copies > 1 ? `You have ${o.copies} copies.` : 'You have 1 copy.') : "You don't have it yet.") : ''}</>
               : <>{ed.name} edition, not issued yet.</>}
           </p>
+          {card && p.pair ? (
+            <p className="d-sub" id="d-half">
+              This card is the {p.pair.side} half of the group photo.{' '}
+              {p.pair.mate
+                ? <>The {p.pair.side === 'left' ? 'right' : 'left'} half is <Link className="d-mate" href={`/cards/c/${p.pair.mate.num}`}>card {p.pair.mate.num}</Link>. Own both to see the whole picture.</>
+                : 'Its other half is not in packs.'}
+            </p>
+          ) : null}
           {p.lockSentence ? (
             <div className="reason" role="note">
               <b><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16.5v.5" /></svg>Why this edition is not issued</b>
@@ -121,10 +145,11 @@ export function CardDetail(p: DetailProps): React.ReactElement {
                   </Link>
                 );
               }
-              const eo = owned.get(rung.card.n);
+              const eo = owned.get(rung.card.n) ?? (rung.mate ? owned.get(rung.mate.n) : undefined);
+              const isCur = !!card && (rung.card.n === card.n || rung.mate?.n === card.n);
               return (
-                <Link key={r} className={`rung ${eo ? 'owned' : 'missing'}${card && rung.card.n === card.n ? ' cur' : ''}`} href={`/cards/c/${rung.card.num}`} aria-label={`${edName}, ${eo ? `you have ${eo.copies}` : 'missing'}`} aria-current={card && rung.card.n === card.n ? 'page' : undefined}>
-                  <span className="mini"><CardFront card={rung.card} /></span>
+                <Link key={r} className={`rung ${eo ? 'owned' : 'missing'}${isCur ? ' cur' : ''}`} href={`/cards/c/${rung.card.num}`} aria-label={`${edName}, ${eo ? `you have ${eo.copies}` : 'missing'}`} aria-current={isCur ? 'page' : undefined}>
+                  <span className={`mini${rung.mate ? ' pairmini' : ''}`}><CardFront card={rung.card} />{rung.mate ? <CardFront card={rung.mate} /> : null}</span>
                   <span className="rn"><Gem r={r} className={`gem gc-${r}`} />{edName}</span>
                   <span className="st">{status !== 'ready' ? '' : eo ? `×${eo.copies}` : 'Missing'}</span>
                 </Link>

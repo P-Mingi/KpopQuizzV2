@@ -38,13 +38,18 @@ const CROWD = [72, 86, 94, 86, 72];
 
 /** The photo of a card: a plain img, the cover crop of the stored file centred on its focal point (no image optimiser on this path). */
 function Photo({ card, img }: { card: SlimCard; img: NonNullable<SlimCard['img']> }): React.ReactElement {
-  return (
+  const el = (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       className="c-photo" src={img.src} srcSet={img.srcSet ?? undefined} sizes={img.srcSet ? '320px' : undefined} alt="" loading="lazy" decoding="async" draggable={false}
       style={{ objectPosition: `${card.fx}% ${card.fy}%` }}
     />
   );
+  // Lot 2: a half of a group photo from the source photo (no cut file yet): the 11:8.5 window of the pair is a box twice as wide as the
+  // card, cover-cropped at the focal point; half 1 shows its left side (offset 0), half 2 its right side (offset -100%). A cut half is its
+  // own file and shows as is.
+  if ((card.part === 1 || card.part === 2) && !img.cut) return <span className={`c-pair c-half${card.part}`} data-part={card.part}>{el}</span>;
+  return el;
 }
 
 function Art({ card }: { card: SlimCard }): React.ReactElement {
@@ -98,15 +103,22 @@ export function metaLine(card: SlimCard): string {
   return `${card.sub ?? 'Event'}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
 }
 
+/** The kind tag of a group or event card: a half of a group photo says which half of the pair it is ("Group · 1/2"). */
+export function kindTag(card: Pick<SlimCard, 'kind' | 'part'>): string | null {
+  if (card.kind === 'group') return card.part === 1 || card.part === 2 ? `Group · ${card.part}/2` : 'Group';
+  return card.kind === 'event' ? 'Event' : null;
+}
+
 /** The front of a card. */
 export function CardFront({ card, className = '' }: { card: SlimCard; className?: string }): React.ReactElement {
   const p = paletteFor(card.entity);
   const ed = EDITIONS[card.rarity];
+  const tag = kindTag(card);
   return (
-    <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
+    <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${card.part === 1 || card.part === 2 ? ` half half-${card.part}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
       <div className="c-in">
         <div className="c-art"><Art card={card} /><i className="c-foil" /></div>
-        {card.kind === 'group' ? <span className="c-kind">Group</span> : card.kind === 'event' ? <span className="c-kind">Event</span> : null}
+        {tag ? <span className="c-kind">{tag}</span> : null}
         <span className="c-ed">{ed.name}</span>
         <div className="c-plate">
           <b className="c-name" style={{ '--nf': `${nameSize(card.name)}cqi` } as Vars}>{card.name}</b>

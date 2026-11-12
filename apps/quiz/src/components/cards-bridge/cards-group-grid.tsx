@@ -21,10 +21,17 @@ export function CardsGroupGrid({ cards }: { cards: readonly GroupCard[] }): Reac
           return mine && c.photoUrl ? (
             <li key={c.n} className="cb-card" data-owned="1" title={`${c.name} ${c.num}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={c.photoUrl} alt={`${c.name}, card ${c.num}`} loading="lazy" width={84} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
+              {c.part && c.css ? (
+                // Lot 2: a half from the whole source photo: a box twice the tile wide, offset to its side.
+                <span className="cb-pair" data-part={c.part} style={{ left: c.part === 1 ? 0 : '-100%' }}>
+                  <img src={c.photoUrl} alt={`${c.name}, card ${c.num}, ${c.part === 1 ? 'left' : 'right'} half`} loading="lazy" width={168} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
+                </span>
+              ) : (
+                <img src={c.photoUrl} alt={`${c.name}, card ${c.num}${c.part ? `, ${c.part === 1 ? 'left' : 'right'} half` : ''}`} loading="lazy" width={84} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
+              )}
             </li>
           ) : (
-            <li key={c.n} className="cb-card is-missing" data-owned="0"><span>{c.num}</span></li>
+            <li key={c.n} className="cb-card is-missing" data-owned="0"><span>{c.num}{c.part ? ` · ${c.part}/2` : ''}</span></li>
           );
         })}
       </ul>
