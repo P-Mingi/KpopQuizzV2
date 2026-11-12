@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('@/lib/supabase/server', () => ({ createServiceRoleClient: () => ({}) }));
 
 import { POOL_TTL_MS, drawServerPack, loadPool, resetPoolCache, serverRng } from './draw';
-import { FIFTH_ODDS, KIND_WEIGHTS, ODDS, PACK_SIZE, RARITIES, drawPack, indexPool } from './rules';
+import { FIFTH_ODDS, KIND_WEIGHTS, ODDS, PACK_SIZE, RARITIES, computeOdds, drawPack, indexPool } from './rules';
 
 import type { PoolCard, Rarity } from './types';
 
@@ -99,6 +99,51 @@ describe('the large draw (seeded rng, 200,000 packs = 1,000,000 cards)', () => {
         const total = kinds.get(`${r}|${k}`) ?? 0;
         for (const c of cards) expect(within(perCard.get(c.n) ?? 0, total, 1 / cards.length, 5), `${r} ${k} #${c.n}`).toBe(true);
       }
+    }
+  });
+});
+
+describe('the large draw on the real catalog shape (C, U, R, UR only, no event): 200,000 packs', () => {
+  const pool: PoolCard[] = [];
+  let n = 1;
+  for (const r of ['C', 'U', 'R', 'UR'] as Rarity[]) {
+    for (let i = 0; i < 40; i++) pool.push({ n: n++, kind: 'idol', rarity: r });
+    for (let i = 0; i < 12; i++) pool.push({ n: n++, kind: 'group', rarity: r });
+  }
+  const byN = new Map(pool.map((c) => [c.n, c]));
+  const index = indexPool(pool);
+  const odds = computeOdds(index);
+  const PACKS = 200_000;
+  const rng = mulberry(777);
+  const first4: Record<Rarity, number> = { C: 0, U: 0, R: 0, SR: 0, UR: 0, L: 0 };
+  const fifth: Record<Rarity, number> = { C: 0, U: 0, R: 0, SR: 0, UR: 0, L: 0 };
+  const kindCount = new Map<string, number>();
+  for (let p = 0; p < PACKS; p++) {
+    const pack = drawPack(index, rng);
+    pack.forEach((x, i) => {
+      const c = byN.get(x) as PoolCard;
+      (i === 4 ? fifth : first4)[c.rarity]++;
+      kindCount.set(`${c.rarity}|${c.kind}`, (kindCount.get(`${c.rarity}|${c.kind}`) ?? 0) + 1);
+    });
+  }
+  const within = (count: number, total: number, p: number, se: number) => Math.abs(count - total * p) <= se * Math.sqrt(total * p * (1 - p));
+  it('an absent edition (SR, L) is never drawn', () => {
+    expect(first4.SR + first4.L + fifth.SR + fifth.L).toBe(0);
+  });
+  it('each rarity is within 4 standard errors of the renormalised odds', () => {
+    for (const r of RARITIES) {
+      expect(within(first4[r], PACKS * 4, odds.card[r] / 100, 4), `${r} ${first4[r]}`).toBe(true);
+      expect(within(fifth[r], PACKS, odds.fifth[r] / 100, 4), `fifth ${r} ${fifth[r]}`).toBe(true);
+    }
+    expect(fifth.C).toBe(0);
+    expect(fifth.U / PACKS).toBeGreaterThan(0.878);
+    expect(fifth.U / PACKS).toBeLessThan(0.887);
+  });
+  it('idol 75 and group 15 among the kinds present', () => {
+    for (const r of ['C', 'U', 'R', 'UR'] as Rarity[]) {
+      const idol = kindCount.get(`${r}|idol`) ?? 0;
+      const group = kindCount.get(`${r}|group`) ?? 0;
+      expect(within(idol, idol + group, 75 / 90, 4), r).toBe(true);
     }
   });
 });

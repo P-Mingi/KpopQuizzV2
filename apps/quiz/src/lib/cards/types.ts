@@ -26,7 +26,14 @@ export interface PhotoCredit {
 
 /** The picture of a card: the public URL of the cropped WebP (null until the owner's script has uploaded it) and the crop. */
 export interface CardImage {
+  /** The 1x card file (320 x 495 WebP) when it was cut at the current focal point, else the source photo (crop it in CSS). */
   url: string | null;
+  /** The 2x file (640 x 989), only with a matching 1x file. */
+  url2x?: string | null;
+  /** True when `url` is the uncropped source photo: show it with object-fit: cover and object-position from the focal point. */
+  css?: boolean;
+  /** The 5.5:8.5 crop is narrower than 640 px: no honest 2x. */
+  small2x?: boolean;
   /** object-position of the cover crop, 0 to 100. */
   focalX: number;
   focalY: number;
@@ -69,6 +76,7 @@ export interface CatalogEntity {
 /** GET /api/cards/catalog. */
 export interface CatalogPayload {
   generatedAt: string;
+  odds: CatalogOdds | null;
   cards: CatalogCard[];
   entities: CatalogEntity[];
 }
@@ -95,6 +103,8 @@ export interface WalletState {
   shards: number;
   bonusLeft: number;
   owned: OwnedEntry[];
+  /** The odds of the real catalog (null while the catalog is empty). */
+  odds?: CatalogOdds | null;
 }
 
 export interface OpenedCard {
@@ -140,3 +150,19 @@ export interface PoolCard {
 
 /** An integer in [0, maxExclusive). The server passes crypto.randomInt; the tests pass a seeded generator. */
 export type Rng = (maxExclusive: number) => number;
+
+/** The odds of the real catalog (computeOdds in rules.ts), in percent: the plan's weights of the rarities with a card in packs, renormalised. */
+export interface CatalogOdds {
+  /** Rarities with at least one card in packs, in order. */
+  available: Rarity[];
+  /** The plan's weights in percent (C 60, U 24, R 10, SR 4.5, UR 1.2, L 0.3): the inputs of the calculation. */
+  planWeights: Record<Rarity, number>;
+  /** The sum of the plan's weights of the available rarities (95.2 with C, U, R and UR). */
+  availableWeightTotal: number;
+  /** Each card: percent per rarity, 0 for a rarity that is not in packs. */
+  card: Record<Rarity, number>;
+  /** The fifth card: a Common becomes an Uncommon. */
+  fifth: Record<Rarity, number>;
+  /** Kind weights in percent among the kinds that have a card of that rarity. */
+  kinds: Record<Rarity, Partial<Record<CardKind, number>>>;
+}

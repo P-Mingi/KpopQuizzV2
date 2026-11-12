@@ -1,10 +1,12 @@
 // Bunnyverse Cards: the owner's photo review, POST /api/admin/cards/photos (ADMIN-1: the route calls requireAdmin('api') first and
 // only then this module). JSON { action, ... }:
-//   list         { status?, limit?, after? }   photos by id (default status pending), with the idol, group and the cards they feed
+//   list         { status?, small2x?, limit?, after? }   photos by id (default status pending), with the subject; small2x true lists only the
+//                                              photos whose 5.5:8.5 crop is too small for 2x (small_2x)
 //   approve      { id, note? }                 status approved (a second live photo in the same slot is refused: 409 slot_taken)
 //   reject       { id, note? }                 status rejected; its cards leave the packs (trigger cards_photo_retire)
 //   remove       { id, note? }                 status removed (the 48 hour answer to a report); same retirement
-//   focal        { id, x, y }                  the crop point, 0 to 100
+//   focal        { id, x, y }                  the crop point, 0 to 100. Writes focal_x and focal_y ONLY: the published files keep their own
+//                                              file_focal_x/y, so the site shows the CSS crop until the owner's script recuts them
 //   lock         { entity, rarity, reason }    why a missing edition is missing; reason null clears it. 'hiatus' is set here only (decision 4)
 //   reports      { status?, limit?, after? }   the reports of "Report a photo"
 //   close_report { id }                        closes a report (the trigger erases its contact)
@@ -54,10 +56,14 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     const limit = body.limit === undefined ? 50 : posInt(body.limit);
     const after = body.after === undefined ? 0 : typeof body.after === 'number' && Number.isInteger(body.after) && body.after >= 0 ? body.after : null;
     if (limit === null || limit > 200 || after === null) return fail('bad_request', 400);
+    const small = body.small2x;
+    if (small !== undefined && typeof small !== 'boolean') return fail('bad_request', 400);
+    let photoQuery = db.from('cards_photos')
+      .select('id, entity_id, slot, source, source_page, file_url, author, author_url, licence, licence_url, share_alike, checked_at, event_name, event_date, focal_x, focal_y, source_path, source_width, source_height, storage_path, file_focal_x, file_focal_y, small_2x, status, review_note, modified, cards_entities(name, group_id)')
+      .eq('status', status);
+    if (small === true) photoQuery = photoQuery.eq('small_2x', true);
     const { data, error } = list
-      ? await db.from('cards_photos')
-          .select('id, entity_id, slot, source, source_page, file_url, author, author_url, licence, licence_url, share_alike, checked_at, event_name, event_date, focal_x, focal_y, storage_path, status, review_note, modified, cards_entities(name, group_id)')
-          .eq('status', status).gt('id', after).order('id', { ascending: true }).limit(limit)
+      ? await photoQuery.gt('id', after).order('id', { ascending: true }).limit(limit)
       : await db.from('cards_reports')
           .select('id, photo_id, card_no, role, message, contact, created_at, status')
           .eq('status', status).gt('id', after).order('id', { ascending: true }).limit(limit);

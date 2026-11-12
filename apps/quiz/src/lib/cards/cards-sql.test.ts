@@ -126,6 +126,19 @@ describe('schema, RLS and grants', () => {
   });
 });
 
+describe('cards_photos columns of amendment 1', () => {
+  it('source, file focal point, small_2x and the 50/30 default exist', async () => {
+    await db.exec(`insert into public.cards_photos (id, entity_id, slot, source, source_page, file_url, author, licence, licence_url, share_alike, checked_at)
+      values (1, 'idol:Q1', 1, 'commons', 'p', 'f', 'A', 'CC0', 'l', false, '2026-11-01')`);
+    expect(await rows(db, `select focal_x, focal_y, file_focal_x, file_focal_y, small_2x, source_path, source_width from public.cards_photos`)).toEqual([
+      { focal_x: 50, focal_y: 30, file_focal_x: null, file_focal_y: null, small_2x: false, source_path: null, source_width: null }]);
+    expect(await failure(db, `update public.cards_photos set file_focal_x = 101`)).toMatch(/file_focal_x_check/);
+    expect(await failure(db, `update public.cards_photos set source_width = 0`)).toMatch(/source_width_check/);
+    await db.exec(`update public.cards_photos set focal_x = 10, focal_y = 90 where id = 1`);
+    expect(await one(db, `select file_focal_x from public.cards_photos`)).toBeNull(); // moving the focal point clears nothing else
+  });
+});
+
 describe('cards_wallet (read only)', () => {
   it('a player without a row sees a full stack and writes nothing', async () => {
     const w = await wallet(db, U1, T0);
