@@ -36,15 +36,20 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const locked = !!missing;
   const shown: Rarity = locked ? (lockR as Rarity) : card.rarity;
   const edition = `${EDITIONS[card.rarity].name} · ${RARITY_NAMES[card.rarity]}`;
-  const facts: [string, string][] =
-    entity.kind === 'idol' ? [['Group', entity.group ?? ''], ['Debut', `${entity.debutYear ?? ''}, with the group`], ['Edition', edition], ['Number', card.num]]
-    : entity.kind === 'group' ? [['Debut', String(entity.debutYear ?? '')], ['Edition', edition], ['Number', card.num]]
-    : [['Type', entity.eventType ?? 'Event'], ['Year', String(entity.debutYear ?? '')], ['Edition', edition], ['Number', card.num]];
-  const sub = entity.kind === 'idol' ? `${entity.group ?? ''} · debut ${entity.debutYear ?? ''}`
-    : entity.kind === 'group' ? `Group · debut ${entity.debutYear ?? ''}` : `${entity.eventType ?? 'Event'} · ${entity.debutYear ?? ''}`;
+  // A fact the database does not hold (no group line, no debut year) is left out, never shown empty (no invented value either).
+  const year = entity.debutYear ?? null;
+  const allFacts: [string, string | null][] =
+    entity.kind === 'idol' ? [['Group', entity.group || null], ['Debut', year !== null ? `${year}, with the group` : null], ['Edition', edition], ['Number', card.num]]
+    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]]
+    : [['Type', entity.eventType ?? 'Event'], ['Year', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]];
+  const facts = allFacts.filter((f): f is [string, string] => f[1] !== null && f[1] !== '');
+  const subParts = entity.kind === 'idol' ? [entity.group || null, year !== null ? `debut ${year}` : null]
+    : entity.kind === 'group' ? ['Group', year !== null ? `debut ${year}` : null] : [entity.eventType ?? 'Event', year !== null ? String(year) : null];
+  const sub = subParts.filter((x): x is string => !!x).join(' · ');
   const missingRungs = ladder.filter((x) => !x.card);
   let why: DetailProps['why'] = null;
-  if (entity.kind === 'idol' && missingRungs.length > 0) {
+  // Amendment 1: a group has locked Era and Full Art pockets too, for the same reason, so it gets the same explanation.
+  if ((entity.kind === 'idol' || entity.kind === 'group') && missingRungs.length > 0) {
     const sentences = [...new Set(missingRungs.map((x) => (x.reason ? LOCK_SENTENCES[x.reason] : null)).filter((s): s is string => !!s))];
     const noSr = missingRungs.some((x) => x.rarity === 'SR');
     const noL = missingRungs.some((x) => x.rarity === 'L');

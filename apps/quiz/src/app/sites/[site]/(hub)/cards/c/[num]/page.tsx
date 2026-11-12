@@ -33,5 +33,5 @@ export default async function CardPage({ params, searchParams }: Props): Promise
   const cat = await loadCatalog();
   const d = cat ? buildDetail(cat, num, lockOf(q.lock)) : null;
   if (!d) notFound();
-  return <CardDetail {...d.props} credit={<CreditBlock photo={d.photo} num={d.card.num} />} />;
+  return <CardDetail {...d.props} credit={<CreditBlock photo={d.photo} num={d.card.num} kind={d.entity.kind} />} />;
 }

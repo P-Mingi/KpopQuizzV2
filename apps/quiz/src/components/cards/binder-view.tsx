@@ -237,7 +237,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
         </div>
         <label className="search">
           <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
-          <input type="search" placeholder="Search an idol, group or event" aria-label="Search cards" value={f.q} onChange={(e) => refilter({ ...f, q: e.target.value })} />
+          <input type="search" placeholder={catalog.cards.some((c) => c.kind === 'event') ? 'Search an idol, group or event' : 'Search an idol or group'} aria-label="Search cards" value={f.q} onChange={(e) => refilter({ ...f, q: e.target.value })} />
         </label>
         <div className="b-actions">
           <button type="button" className="btn-outline" onClick={() => void recycle()} disabled={!ex.n || !state}>{ex.n ? `Recycle ${ex.n} extras (+${ex.shards} shards)` : 'No extras to recycle'}</button>

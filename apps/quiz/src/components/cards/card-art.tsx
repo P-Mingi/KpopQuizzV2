@@ -80,7 +80,7 @@ function Art({ card }: { card: SlimCard }): React.ReactElement {
 
 export function metaLine(card: SlimCard): string {
   if (card.kind === 'idol') return `${card.group ?? ''}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
-  if (card.kind === 'group') return `Debut ${card.debutYear ?? ''}`.trim();
+  if (card.kind === 'group') return card.debutYear ? `Debut ${card.debutYear}` : 'Group';
   return `${card.sub ?? 'Event'}${card.debutYear ? ` · ${card.debutYear}` : ''}`;
 }
 

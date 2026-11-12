@@ -191,3 +191,30 @@ describe('the style sheets', () => {
     }
   });
 });
+
+describe('a card page never prints an empty fact (ORCH, real catalog on o1-scratch: "· debut" with no year)', () => {
+  it('leaves out the group line and the debut year the database does not hold, for an idol and a group', () => {
+    const c = structuredClone(cat);
+    for (const e of c.entities) { e.debutYear = null; if (e.kind === 'idol') e.group = null; }
+    for (const kind of ['idol', 'group'] as const) {
+      const card = c.cards.find((x) => x.kind === kind)!;
+      const d = buildDetail(c, card.num, null)!;
+      expect(d.props.sub).not.toMatch(/debut|·\s*$|^\s*·/);
+      expect(d.props.facts.every(([, v]) => v.trim().length > 0)).toBe(true);
+      expect(d.props.facts.map(([k]) => k)).not.toContain('Debut');
+    }
+  });
+  it('explains the locked Era and Full Art pockets of a group too (amendment 1: the same reason)', () => {
+    const c = structuredClone(cat);
+    const g = c.entities.find((e) => e.kind === 'group')!;
+    g.lockReasons = { SR: 'one', L: 'one' };
+    c.cards = c.cards.filter((x) => !(x.entity === g.id && (x.rarity === 'SR' || x.rarity === 'L')));
+    const card = c.cards.find((x) => x.entity === g.id)!;
+    const d = buildDetail(c, card.num, null)!;
+    expect(d.props.why?.sentences).toContain('Only one free photo of this idol exists so far.');
+  });
+  it('the credit names the subject kind', () => {
+    const d = buildDetail(cat, cat.cards.find((x) => x.kind === 'group' && x.photo)!.num, null)!;
+    expect(renderToStaticMarkup(createElement(CreditBlock, { photo: d.photo, num: d.card.num, kind: 'group' }))).toContain('of this group:');
+  });
+});

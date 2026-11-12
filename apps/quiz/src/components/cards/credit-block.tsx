@@ -6,7 +6,7 @@ import { reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
 
 import type { UiPhoto } from '@/lib/cards/ui-types';
 
-export function CreditBlock({ photo, num }: { photo: UiPhoto | null; num: string }): React.ReactElement {
+export function CreditBlock({ photo, num, kind = 'idol' }: { photo: UiPhoto | null; num: string; kind?: 'idol' | 'group' | 'event' }): React.ReactElement {
   if (!photo) {
     return <p className="credit" data-testid="card-credit">The art of this card is drawn. No photo is used on it. <a href={reportHref({ num })}>Report a problem</a></p>;
   }
@@ -16,7 +16,7 @@ export function CreditBlock({ photo, num }: { photo: UiPhoto | null; num: string
   const sa = shareAlikeName(photo.licence, photo.shareAlike);
   return (
     <p className="credit" data-testid="card-credit">
-      <b>Photo {photo.slot} of this idol:</b>{' '}
+      <b>Photo {photo.slot} of this {kind}:</b>{' '}
       {author ? <a href={author} rel="noopener noreferrer nofollow" target="_blank">{photo.author}</a> : photo.author}
       {' · '}
       {lic ? <a href={lic} rel="noopener noreferrer" target="_blank">{photo.licence}</a> : photo.licence}
