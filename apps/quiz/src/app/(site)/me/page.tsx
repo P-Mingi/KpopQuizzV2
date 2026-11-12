@@ -18,6 +18,7 @@ import { PassportView, type PassportTopGroup, type PassportNearGap, type Passpor
 import { SpaceMembershipsCard } from '@/components/verse/space-memberships-card';
 import { ContributionGraph } from '@/components/verse/contribution-graph';
 import { BadgeShelf } from '@/components/profile/badge-shelf';
+import { loadCollectionKpop } from '@/lib/cards-bridge/collection';
 
 import type { Metadata } from 'next';
 import type { BadgeDefinition } from '@/lib/db/types';
@@ -190,6 +191,8 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
     return <UxPassport {...props} />;
   }
 
+  // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the Collection section. Null while off: the tree below is today's.
+  const cardsCollection = await loadCollectionKpop(user.id);
   return (
     // One 520 column for the whole passport (matches PassportView's own width), so
     // the Quizzes/Liked tabs and the share row align with the passport instead of
@@ -269,7 +272,7 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
           card keeps its own maxWidth:520 + margin-auto and fills the passport
           column, aligned with everything else. */}
       <SpaceMembershipsCard userId={user.id} />
-      <ContributionGraph userId={user.id} />
+      {cardsCollection ? <><ContributionGraph userId={user.id} />{cardsCollection}</> : <ContributionGraph userId={user.id} />}
       <div style={{ marginTop: 18 }}>
         <ProfileTabs profileUsername={profile.username} initialQuizzes={createdQuizzes} creatorId={user.id} />
       </div>

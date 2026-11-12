@@ -6,7 +6,7 @@ import { passportWords as ht } from '@/lib/site/hub/passport-page';
 
 import type { CommonPassport } from '@/lib/site/hub/passport-page';
 
-export function HubPassport({ passport }: { passport: CommonPassport }): React.ReactElement {
+export function HubPassport({ passport, collection }: { passport: CommonPassport; collection?: React.ReactElement }): React.ReactElement {
   return (
     <UxPage width="text" className="hub-h1-pass">
       <div className="hub-h1-pass-top">
@@ -26,6 +26,7 @@ export function HubPassport({ passport }: { passport: CommonPassport }): React.R
           </li>
         ))}
       </ul>
+      {collection ?? null}
     </UxPage>
   );
 }
