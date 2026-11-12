@@ -235,6 +235,6 @@ describe('the new cards files are ONE DO block each', () => {
     expect(code.endsWith(`end ${outer};`)).toBe(true);
     expect(code.split(outer).length).toBe(3);
     expect(sql).not.toMatch(/\bcreate\s+(local\s+|global\s+)?temp(orary)?\b/i);
-    expect(sql).not.toMatch(/[–—]/);
+    expect(sql).not.toMatch(/[\u2013\u2014]/);
   });
 });

@@ -187,7 +187,7 @@ describe('the style sheets', () => {
     const roots = [dir, __dirname, join(__dirname, '../../lib/cards'), join(__dirname, '../../app/sites/[site]/(hub)/cards')];
     const walk = (d: string): string[] => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]));
     for (const f of roots.flatMap(walk).filter((x) => /\.(tsx?|css)$/.test(x) && !/ui-logo|\.test\.ts$/.test(x) && /\/ui-|cards|styles\/cards/.test(x))) {
-      expect(/[–—]/.test(readFileSync(f, 'utf8')), f).toBe(false);
+      expect(/[\u2013\u2014]/.test(readFileSync(f, 'utf8')), f).toBe(false);
     }
   });
 });
