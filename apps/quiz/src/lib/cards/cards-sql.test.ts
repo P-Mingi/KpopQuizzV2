@@ -480,6 +480,14 @@ describe('triggers', () => {
     await db.exec(ins(2, 'pending'));
     expect(await failure(db, ins(3, 'auto'))).toMatch(/live_slot/);
   });
+  it('review 1 finding 8: a general report (no photo, no card) and a report on a removed photo are stored', async () => {
+    await db.exec(`insert into public.cards_photos (id, entity_id, slot, source, source_page, file_url, author, licence, licence_url, share_alike, checked_at, status)
+      values (1, 'idol:Q1', 1, 'commons', 'p', 'f', 'A', 'CC0', 'l', false, '2026-11-01', 'removed')`);
+    await db.exec(`insert into public.cards_reports (role, message) values ('other', 'general')`);
+    await db.exec(`insert into public.cards_reports (photo_id, role, message) values (1, 'person', 'removed photo')`);
+    expect(await rows(db, `select photo_id, card_no, status from public.cards_reports order by id`)).toEqual([
+      { photo_id: null, card_no: null, status: 'open' }, { photo_id: 1, card_no: null, status: 'open' }]);
+  });
   it('closing a report erases the contact', async () => {
     await db.exec(`insert into public.cards_reports (role, message, contact) values ('person', 'please remove', 'me@example.org')`);
     expect(await one(db, `select contact from public.cards_reports`)).toBe('me@example.org');

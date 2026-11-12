@@ -307,11 +307,11 @@ describe('POST /api/cards/report', () => {
     await report(req('/api/cards/report', { photoId: 9, role: 'person', message: 'remove', contact: 'me@example.org' }));
     expect(h.inserts[1]?.row).toMatchObject({ photo_id: 9, card_no: null, contact: 'me@example.org' });
   });
-  it('validates: role, message, a photo or a card, contact length', async () => {
+  it('validates: role, message, contact length, a well-formed photo or card when one is named', async () => {
     const bad: unknown[] = [
       { n: 4, role: 'x', message: 'm' }, { n: 4, role: 'person', message: '' }, { n: 4, role: 'person', message: 'a'.repeat(2001) },
-      { role: 'person', message: 'm' }, { n: -1, role: 'person', message: 'm' }, { n: 4, role: 'person', message: 'm', contact: 'c'.repeat(201) },
-      { n: 4, role: 'person', message: 'm', contact: 5 }, [1],
+      { role: 'person', message: '   ' }, { n: -1, role: 'person', message: 'm' }, { n: 4, role: 'person', message: 'm', contact: 'c'.repeat(201) },
+      { n: 4, role: 'person', message: 'm', contact: 5 }, [1], { photoId: 'x', role: 'person', message: 'm' }, { photoId: 0, role: 'person', message: 'm' },
     ];
     for (const b of bad) {
       resetReportLimit(); // every attempt counts against the limit, valid or not
@@ -324,6 +324,19 @@ describe('POST /api/cards/report', () => {
     for (let i = 0; i < 5; i++) expect((await report(req('/api/cards/report', ok, { 'x-forwarded-for': '203.0.113.7' }))).status).toBe(200);
     expect((await report(req('/api/cards/report', ok, { 'x-forwarded-for': '203.0.113.7' }))).status).toBe(429);
     expect((await report(req('/api/cards/report', ok, { 'x-forwarded-for': '203.0.113.8' }))).status).toBe(200);
+  });
+  it('review 1 finding 8: a general report (the footer link: no card, no photo) is accepted; the message is required', async () => {
+    h.user = null;
+    const res = await report(req('/api/cards/report', { role: 'other', message: 'The credit of a card is wrong.' }));
+    expect(res.status).toBe(200);
+    expect(h.inserts).toEqual([{ table: 'cards_reports', row: { photo_id: null, card_no: null, role: 'other', message: 'The credit of a card is wrong.', contact: null } }]);
+    expect((await report(req('/api/cards/report', { role: 'other' }))).status).toBe(400);
+  });
+  it('a retired photo (refused or removed: its row stays) is still accepted', async () => {
+    h.maybe.cards_catalog = { photo_id: 12 }; // the card of a removed photo keeps its photo_id
+    expect((await report(req('/api/cards/report', { photoId: 12, role: 'person', message: 'still there?' }))).status).toBe(200);
+    expect((await report(req('/api/cards/report', { n: 40, role: 'person', message: 'still there?' }))).status).toBe(200);
+    expect(h.inserts.map((i) => i.row.photo_id)).toEqual([12, 12]);
   });
   it('a report that names no known photo is a 400, not a 500', async () => {
     h.insertError = { code: '23503', message: 'fk' };

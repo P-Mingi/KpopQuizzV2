@@ -43,7 +43,11 @@ export interface ReportInput {
   contact: string | null;
 }
 
-/** Validates the body; null when it is not acceptable. A report must name a photo or a card. */
+/**
+ * Validates the body; null when it is not acceptable. The message is required; the photo and the card are optional (review 1 finding 8:
+ * the footer link "Report a photo" names neither, so a general report is accepted). A named photo must exist (a retired one does: a
+ * refused or removed photo keeps its row), else the insert answers 400.
+ */
 export function parseReport(body: Record<string, unknown>): ReportInput | null {
   const role = body.role;
   if (typeof role !== 'string' || !(ROLES as readonly string[]).includes(role)) return null;
@@ -52,7 +56,6 @@ export function parseReport(body: Record<string, unknown>): ReportInput | null {
   const photoId = body.photoId === undefined || body.photoId === null ? null : posInt(body.photoId);
   const n = body.n === undefined || body.n === null ? null : posInt(body.n);
   if ((body.photoId !== undefined && body.photoId !== null && photoId === null) || (body.n !== undefined && body.n !== null && n === null)) return null;
-  if (photoId === null && n === null) return null;
   let contact: string | null = null;
   if (body.contact !== undefined && body.contact !== null && body.contact !== '') {
     if (typeof body.contact !== 'string') return null;
