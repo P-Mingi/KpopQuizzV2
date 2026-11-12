@@ -130,8 +130,8 @@ function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
   return (table[table.length - 1] as [Rarity, number])[0];
 }
 
-/** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. */
-function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): PoolCard {
+/** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. Exported for the tests. */
+export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): PoolCard {
   const rarity = rollFrom(tableOf(byKey, fifth), rng);
   const kinds = KINDS.filter((k) => (byKey.get(`${k}|${rarity}`)?.length ?? 0) > 0);
   const total = kinds.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
