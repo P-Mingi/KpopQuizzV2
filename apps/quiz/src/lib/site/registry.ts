@@ -463,6 +463,12 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'NET_KPOPDLE_QUIZEND', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_GROUP', scope: 'server', lane: 'H1', reserved: false },
   { name: 'EDITORIAL_QUIZ', scope: 'server', lane: 'E1b', reserved: false },
+  // Bunnyverse Cards (docs/o1/briefs/CARDS-CONTRACT.md section 4): all off by default. The lane column reads ORCH because the CARDS lanes
+  // are not in LANES.md yet; CARDS_ADS_PER_DAY and CARDS_BONUS_PER_DAY are numeric settings, not switches (lib/cards/flags.ts).
+  { name: 'NET_CARDS', scope: 'server', lane: 'ORCH', reserved: false },
+  { name: 'NET_CARDS_BRIDGES', scope: 'server', lane: 'ORCH', reserved: false },
+  { name: 'NET_CARDS_ADS', scope: 'server', lane: 'ORCH', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_CARDS_ADS', scope: 'public', lane: 'ORCH', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */

@@ -24,6 +24,14 @@ export interface PhotoCredit {
   modified: string;
 }
 
+/** The picture of a card: the public URL of the cropped WebP (null until the owner's script has uploaded it) and the crop. */
+export interface CardImage {
+  url: string | null;
+  /** object-position of the cover crop, 0 to 100. */
+  focalX: number;
+  focalY: number;
+}
+
 export interface CatalogCard {
   /** card_no, the integer key. */
   n: number;
@@ -40,6 +48,29 @@ export interface CatalogCard {
   group: string | null;
   debutYear: number | null;
   photo: PhotoCredit | null;
+  /** Added by lane C after the first commit; optional so older fixtures still type-check. */
+  image?: CardImage | null;
+}
+
+/** An idol, a group or an event, with the reasons its missing editions are missing (LOCK_SENTENCES keys). */
+export interface CatalogEntity {
+  id: string;
+  kind: CardKind;
+  name: string;
+  /** cards_entities.id of the group, for an idol. */
+  groupId: string | null;
+  group: string | null;
+  debutYear: number | null;
+  sortKey: string;
+  /** {"SR":"one","L":"crop"}: why a missing edition is missing. */
+  lockReasons: Partial<Record<Rarity, LockReason>>;
+}
+
+/** GET /api/cards/catalog. */
+export interface CatalogPayload {
+  generatedAt: string;
+  cards: CatalogCard[];
+  entities: CatalogEntity[];
 }
 
 /** One line of the player's binder as the API returns it. */
