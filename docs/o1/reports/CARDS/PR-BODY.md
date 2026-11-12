@@ -1,6 +1,6 @@
 ## What this PR does
 
-Bunnyverse Cards, the collectible card game of bunnyverse.org, end to end, from the owner-approved plan v3 and prototype v4
+Bunnyverse Cards, the collectible card game of bunnyverse.org, end to end, **with PR #228 merged in** (o1/norefs: the private character references screen goes; one merge for the owner, who closes #228), from the owner-approved plan v3 and prototype v4
 (2026-11-06, `docs/design/cards/`) and the owner's photo decision of 2026-11-12 (`docs/o1/briefs/CARDS-AMEND-1.md`).
 **Everything stays off**: every Cards flag is off by default, and the hub also stays behind PRIVATE_LAUNCH. Nothing is
 written to production by this PR: the database changes are four SQL files the owner applies.
@@ -38,8 +38,15 @@ written to production by this PR: the database changes are four SQL files the ow
 - **Editions:** 4 per subject: Standard C, Stage U, Holo R and Gold UR. Era SR and Full Art L are locked pockets with the plan's sentence "Only one free photo of this idol exists so far."
 - **Size:** at most 236 cards, `BV1-0001` to `BV1-0236`.
 - **Resolved when applied:** `101-catalog.sql` reads names, debut years and ages from `groups` and `idols`, keeps adult subjects only (a group needs all its active members adult), numbers them with no gap, and prints the real counts in its Verify notices.
-- **Too small for 2x:** 41 of the 59 photos, whose widest 5.5:8.5 crop of the 1,200 px bucket copy is under 640 px. Most are landscape group photos.
+- **Card files:** cut by the owner's script from the Commons ORIGINALS of the same 59 photos (same page, same licence, full size, checked by sha1; `docs/design/cards/data/originals.json`), never from the 1,200 px bucket copies.
+- **Too small for 2x:** 24 of the 59, whose widest 5.5:8.5 crop of the original is under 640 px. It was 41 on the bucket copies, 13 of which had been enlarged in October.
 - **Odds shown** (computed from the catalog, not typed): each card C 63.03, U 25.21, R 10.50, UR 1.26; the fifth card U 88.24, R 10.50, UR 1.26.
+
+## Card files (the owner's script)
+
+`apps/quiz/scripts/cards/publish-card-files.mjs`: with no flag, a preview from the Commons originals (`out/cards-tool/preview/`, reads Commons only). With `--publish` it refuses unless `CARDS_SUPABASE_URL` is set explicitly, prints the project host and asks to type it back, then asks for the service key (never shown or written), uploads to the bucket `cards` and records the focal point each file was cut at.
+
+The SQL of #228 also stays to run: `docs/pending-migrations/multisite/launch/L32-l1-character-refs.rollback.sql` and its three Verify lines (NULL, 0, 0).
 
 ## SQL for the owner (in this order, after a backup, no build running, never 23:50 to 00:30 UTC)
 
@@ -83,7 +90,8 @@ Each file is one DO block with Verify lines and its `.rollback.sql`; undo runs i
 
 ## Exact values of existing tests changed (the owner's new mission)
 
-- `lib/admin/admin-lock.static.test.ts` and `admin-lock.refusal.test.ts`: 48 to 49 admin routes (the owner's photo review route), plus that test's title. PR #228 (still open) takes the same count from 48 to 47: whichever of the two merges second needs this value set to 48.
+- `lib/admin/admin-lock.static.test.ts` and `admin-lock.refusal.test.ts`: 48 admin routes, unchanged from main in number: #228, merged in here, removes one (references) and Cards adds one (the owner's photo review), plus that test's title.
+- `lib/cards/subjects-credits.test.ts` (new in this PR): 41 to 24 photos too small for 2x, from the Commons originals (integrator review); each flag is now recomputed from the original's size in the test.
 - `lib/site/contract.test.ts`: the lanes list adds `ADDED_LANES = ['CARDS']`; the BACKLOG list is unchanged.
 - `lib/site/routing.test.ts`: extended with the Cards family closed by `NET_CARDS`; nothing removed.
 

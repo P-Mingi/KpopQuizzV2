@@ -37,8 +37,10 @@ export interface Subject {
     source: 'commons'; bucket: string; path: string; url: string; width: number; height: number; commons_page: string; file: string; author: string;
     licence: string; licence_url: string; share_alike: boolean; date: string;
   };
+  /** The Commons ORIGINAL of the same photo (same page), full size: the card files are cut from it (integrator review 2026-11-12). */
+  original: { url: string; width: number; height: number; mime: string; sha1: string };
   focal: { x: number; y: number };
-  /** Width in px of the widest 5.5:8.5 crop of the bucket file. */
+  /** Width in px of the widest 5.5:8.5 crop of the Commons original. */
   crop_width: number;
   /** The crop is narrower than 640 px: no honest 2x file. */
   small_2x: boolean;
@@ -48,8 +50,12 @@ export function cropWidth(width: number, height: number): number {
   return Math.floor(Math.min(width, height * CARD_RATIO));
 }
 
+interface OriginalRow { slug: string; page: string; url: string; width: number; height: number; mime: string; sha1: string; licenceMatches: boolean }
+const ORIGINALS_JSON = path.join(REPO, 'docs/design/cards/data/originals.json');
+
 export function build(): { subjects: Subject[]; mismatches: string[] } {
   const rows = JSON.parse(readFileSync(PHOTOS_JSON, 'utf8')) as Row[];
+  const originals = new Map((JSON.parse(readFileSync(ORIGINALS_JSON, 'utf8')) as OriginalRow[]).map((o) => [o.slug, o]));
   const mismatches: string[] = [];
   const bySlug = new Map(rows.map((r) => [r.slug, r]));
   if (rows.length !== 59 || bySlug.size !== 59) mismatches.push(`group-photos.json has ${rows.length} rows, ${bySlug.size} slugs (expected 59)`);
@@ -65,6 +71,10 @@ export function build(): { subjects: Subject[]; mismatches: string[] } {
     if (c.license !== r.license) mismatches.push(`${r.slug}: licence differs (json "${r.license}", credits "${c.license}")`);
     if (c.licenseUrl !== r.license_url) mismatches.push(`${r.slug}: licence url differs (json ${r.license_url}, credits ${c.licenseUrl})`);
     if (c.page !== r.commons_page) mismatches.push(`${r.slug}: Commons page differs (json ${r.commons_page}, credits ${c.page})`);
+    const o = originals.get(r.slug);
+    if (!o) mismatches.push(`${r.slug}: no Commons original in originals.json (run fetch-originals.mts)`);
+    else if (o.page !== r.commons_page) mismatches.push(`${r.slug}: the original is not the same Commons page`);
+    else if (!o.licenceMatches) mismatches.push(`${r.slug}: the licence on Commons is no longer the recorded one`);
   }
   const people = new Set<string>(PEOPLE);
   const order = [...PEOPLE, ...rows.map((r) => r.slug).filter((s) => !people.has(s)).sort()];
@@ -73,7 +83,9 @@ export function build(): { subjects: Subject[]; mismatches: string[] } {
     const r = bySlug.get(slug);
     if (!r) continue;
     const kind = people.has(slug) ? 'idol' : 'group';
-    const cw = cropWidth(r.width, r.height);
+    const o = originals.get(slug);
+    if (!o) continue;
+    const cw = cropWidth(o.width, o.height);
     subjects.push({
       slug, name: r.name, kind,
       photo: {
@@ -81,6 +93,7 @@ export function build(): { subjects: Subject[]; mismatches: string[] } {
         commons_page: r.commons_page, file: r.file, author: r.author, licence: r.license, licence_url: r.license_url,
         share_alike: /\bSA\b/.test(r.license), date: r.date,
       },
+      original: { url: o.url, width: o.width, height: o.height, mime: o.mime, sha1: o.sha1 },
       focal: kind === 'idol' ? { x: 50, y: 30 } : { x: 50, y: 50 },
       crop_width: cw, small_2x: cw < MIN_2X_WIDTH,
     });

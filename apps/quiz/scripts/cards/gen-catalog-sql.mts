@@ -45,7 +45,7 @@ const catalog = `-- 101-catalog.sql (Bunnyverse Cards, lane DATA, 2026-11-12; th
 --         - numbering (decision 2): the included subjects are ordered by section name A to Z (a person's section is its group line, a
 --           soloist's its own name); inside a section the people, then the group card; each subject takes 4 consecutive numbers in the
 --           order C, U, R, UR, BV1-0001 onward (after the highest number already there, so a second run adds nothing).
---         - focal point: 50/30 for a person, 50/50 for a group; small_2x true when the widest 5.5:8.5 crop of the 1,200 px file is under
+--         - focal point: 50/30 for a person, 50/50 for a group; small_2x true when the widest 5.5:8.5 crop of the Commons original is under
 --           640 px (${small} of ${subjects.length}).
 --         Entity ids are 'idol:<slug>' and 'group:<slug>' (the Wikidata id, when the idols row has one, goes to qid).
 -- Why:    amendment 1: the photos of the October run are the only photos of the game. docs/design/cards/CARDS-PLAN-v3.md for the rest.

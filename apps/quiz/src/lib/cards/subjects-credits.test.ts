@@ -41,7 +41,31 @@ describe('subjects.json', () => {
     expect(s.small_2x).toBe(s.crop_width < 640);
   });
 
-  it('flags 41 photos as too small for 2x', () => {
-    expect(subjects.filter((s) => s.small_2x).length).toBe(41);
+  it('flags 24 photos as too small for 2x, from the Commons originals (integrator review 2026-11-12; 41 from the 1,200 px bucket copies)', () => {
+    expect(subjects.filter((s) => s.small_2x).length).toBe(24);
+    for (const s of subjects) {
+      const o = (s as unknown as { original: { url: string; width: number; height: number; sha1: string } }).original;
+      expect(o.url, s.slug).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
+      expect(o.sha1, s.slug).toMatch(/^[0-9a-f]{40}$/);
+      const crop = Math.floor(Math.min(o.width, o.height * (5.5 / 8.5)));
+      expect(s.small_2x, s.slug).toBe(crop < 640);
+    }
+  });
+});
+
+describe('originals.json (integrator review 2026-11-12: the card files are cut from the Commons originals)', () => {
+  it('holds the same Commons page and a licence still equal to the recorded one for each of the 59 photos', async () => {
+    const { readFileSync } = await import('node:fs');
+    const path = await import('node:path');
+    const originals = JSON.parse(readFileSync(path.resolve(__dirname, '../../../../../docs/design/cards/data/originals.json'), 'utf8')) as { slug: string; page: string; licenceMatches: boolean; sha1: string }[];
+    expect(originals).toHaveLength(59);
+    const bySlug = new Map(originals.map((o) => [o.slug, o]));
+    for (const s of subjects) {
+      const o = bySlug.get(s.slug);
+      expect(o, s.slug).toBeDefined();
+      expect(o!.page, s.slug).toBe(s.photo.commons_page);
+      expect(o!.licenceMatches, s.slug).toBe(true);
+      expect((s as unknown as { original: { sha1: string } }).original.sha1, s.slug).toBe(o!.sha1);
+    }
   });
 });
