@@ -22,10 +22,14 @@ export interface GroupCard {
   /** object-position of the cover crop, 0 to 100 (the photo's focal point). */
   focalX: number;
   focalY: number;
+  /** Lot 2: 1 or 2 for a half of a group photo (absent for a whole card). */
+  part?: 1 | 2;
+  /** Lot 2: with `part`, true when photoUrl is the whole source photo (no half file cut yet): the tile shows its half of the 11:8.5 window in CSS. */
+  css?: boolean;
 }
 
 interface EntityRow { id: string; name: string }
-interface CatalogRow { card_no: number; num: string; entity_id: string; rarity: string; photo_id: number | null }
+interface CatalogRow { card_no: number; num: string; entity_id: string; rarity: string; photo_id: number | null; part?: number | null; small_2x?: boolean | null }
 type PhotoRow = ImagePhotoRow & { id: number };
 
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
@@ -43,7 +47,7 @@ export async function readGroupCards(slug: string, db: SupabaseClient = createSe
   if (ents.error || !ents.data?.length) return [];
   const entities = ents.data as EntityRow[];
   const names = new Map(entities.map((e) => [e.id, e.name]));
-  const cat = await db.from('cards_catalog').select('card_no,num,entity_id,rarity,photo_id').eq('in_packs', true).in('entity_id', [...names.keys()]).order('card_no').limit(1000);
+  const cat = await db.from('cards_catalog').select('*').eq('in_packs', true).in('entity_id', [...names.keys()]).order('card_no').limit(1000);
   if (cat.error || !cat.data?.length) return [];
   const rows = cat.data as CatalogRow[];
   const ids = [...new Set(rows.flatMap((r) => (r.photo_id === null ? [] : [r.photo_id])))];
@@ -57,8 +61,9 @@ export async function readGroupCards(slug: string, db: SupabaseClient = createSe
   return rows.flatMap((r) => {
     const p = r.photo_id === null ? undefined : photos.get(r.photo_id);
     if (!p) return [];
-    const img = cardImage(p, base);
-    return [{ n: r.card_no, num: r.num, name: names.get(r.entity_id) ?? '', rarity: r.rarity, photoUrl: img.url, focalX: img.focalX, focalY: img.focalY }];
+    const img = cardImage(p, base, r);
+    // '*' so part and small_2x come once file 102 is applied; before it every row is a whole card.
+    return [{ n: r.card_no, num: r.num, name: names.get(r.entity_id) ?? '', rarity: r.rarity, photoUrl: img.url, focalX: img.focalX, focalY: img.focalY, ...(img.part === 1 || img.part === 2 ? { part: img.part, css: img.css === true } : {}) }];
   });
 }
 
