@@ -2046,6 +2046,8 @@ const BACKLOG_LANES = [
 ] as const;
 /** The run's splits of a BACKLOG lane (OWNERSHIP.json): Q0 in three (Q0c: LEDGER D-028), E1 in two, F0 with its never-merged spike. */
 const LANE_SPLITS: Readonly<Record<string, readonly string[]>> = { Q0: ['Q0a', 'Q0b', 'Q0c'], E1: ['E1a', 'E1b'], F0: ['F0', 'F0s'] };
+/** Lanes the owner added after BACKLOG: CARDS (Bunnyverse Cards, owner mission of 2026-11-12, docs/o1/briefs/CARDS-CONTRACT.md). */
+const ADDED_LANES = ['CARDS'] as const;
 /** The files every lane cites (LANES.md 1). */
 const CITED_BY_ALL = ['CONTRACT.md', 'naming.md', 'LANES.md', 'defaults.md'];
 /** Readers named in CONTRACT.md's column that are not lanes. */
@@ -2140,7 +2142,7 @@ export function checkLanes(src: LaneSources): string[] {
   const s1 = tableRows(sectionOrEmpty(src.lanesMd, '## 1. Lanes and the files they cite'));
   const lanes = s1.map((r) => r[0]!);
   if (new Set(lanes).size !== lanes.length) p.push('section 1: a lane listed twice');
-  const expected = BACKLOG_LANES.flatMap((l) => LANE_SPLITS[l] ?? [l]);
+  const expected = [...BACKLOG_LANES.flatMap((l) => LANE_SPLITS[l] ?? [l]), ...ADDED_LANES];
   if (!sameSet(lanes, expected)) p.push(`section 1: lanes ${lanes.join(' ')}; BACKLOG section 1 with the run's splits gives ${expected.join(' ')}`);
   const owned = Object.keys(src.ownership).filter((k) => !k.startsWith('_') && k !== 'DUMMY');
   if (!sameSet(lanes, owned)) p.push(`section 1: lanes differ from OWNERSHIP.json (${owned.join(' ')})`);
