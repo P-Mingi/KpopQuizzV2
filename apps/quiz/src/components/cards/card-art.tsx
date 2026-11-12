@@ -42,7 +42,10 @@ function Art({ card }: { card: SlimCard }): React.ReactElement {
         {card.img ? (
           // A plain img: the cover crop of the stored file, centred on its focal point (no image optimiser on this path).
           // eslint-disable-next-line @next/next/no-img-element
-          <img className="c-photo" src={card.img} alt="" loading="lazy" decoding="async" draggable={false} style={{ objectPosition: `${card.fx}% ${card.fy}%` }} />
+          <img
+            className="c-photo" src={card.img.src} srcSet={card.img.srcSet ?? undefined} sizes={card.img.srcSet ? '320px' : undefined} alt="" loading="lazy" decoding="async" draggable={false}
+            style={{ objectPosition: `${card.fx}% ${card.fy}%` }}
+          />
         ) : (
           <>
             <span className="c-mono">{monogram(card.name)}</span>

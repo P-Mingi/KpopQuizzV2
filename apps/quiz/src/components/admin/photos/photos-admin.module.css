@@ -201,3 +201,12 @@
 @media (max-width: 900px) {
   .refBoxes { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* The Cartes tab (Bunnyverse Cards): the list, and beside it the focal point editor with the live 5.5:8.5 crop. */
+.cardsEd { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start; }
+.cardsEdSide { display: grid; gap: 12px; position: sticky; top: 16px; }
+.focalFrame { position: relative; border-radius: 14px; overflow: hidden; touch-action: none; cursor: crosshair; background: #ECE8E2; outline-offset: 2px; }
+.focalImg { display: block; width: 100%; height: auto; user-select: none; }
+.focalCross { position: absolute; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 2px #1F1B17, 0 2px 8px rgba(0, 0, 0, 0.4); pointer-events: none; }
+.cardCrop { width: min(220px, 60%); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(26, 23, 20, 0.25); }
+@media (max-width: 900px) { .cardsEd { grid-template-columns: minmax(0, 1fr); } .cardsEdSide { position: static; } }

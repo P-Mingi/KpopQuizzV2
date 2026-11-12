@@ -9,9 +9,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { analytics } from '@/lib/analytics';
 import { CAP, PERIOD_MS, PERIOD_S, SHARD_PACK_COST } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
-import { getRewardedAd, onRewardedAdChange } from '@/lib/cards/ui-ads';
 import { fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
 import { PACK_LOGO_SRC } from '@/lib/cards/ui-logo';
+import { RewardedAdButton } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
 import { CardFront } from './card-art';
@@ -20,6 +20,7 @@ import { FavStar } from './fav-star';
 import { attachTilt } from './fx';
 import { PackOpening } from './pack-opening';
 
+import type { AdsContext } from '@/lib/cards/ads';
 import type { OpenedCard, OpenResult, PackSource } from '@/lib/cards/types';
 
 interface Opening { cards: OpenedCard[]; source: PackSource }
@@ -29,16 +30,14 @@ const ERRORS: Record<string, string> = {
   conflict: 'That ad was already used.', forbidden: 'This account cannot open packs.', network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', bonus: 'No bonus pack to open.',
 };
 
-export function PacksView({ rates }: { rates: React.ReactNode }): React.ReactElement {
+export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsContext }): React.ReactElement {
   const c = useCards();
   const { status, state, now, catalog, owned, lastPack, byN, api, toast } = c;
   const signIn = useSignIn();
   const [opening, setOpening] = useState<Opening | null>(null);
   const [busy, setBusy] = useState(false);
-  const [adLayer, setAdLayer] = useState(getRewardedAd());
   const [packEl, setPackEl] = useState<HTMLButtonElement | null>(null);
 
-  useEffect(() => { setAdLayer(getRewardedAd()); return onRewardedAdChange(() => setAdLayer(getRewardedAd())); }, []);
   useEffect(() => attachTilt(packEl, 12), [packEl]);
 
   const ready = status === 'ready' && state !== null;
@@ -46,7 +45,6 @@ export function PacksView({ rates }: { rates: React.ReactNode }): React.ReactEle
   const total = catalog.cards.length;
   const own = useMemo(() => ownedCount(catalog.cards, owned), [catalog.cards, owned]);
   const stock = state?.stock ?? 0;
-  const adOk = ready && !!adLayer && adLayer.available() && state.adsEnabled && state.adsLeft > 0;
   const nextMs = state?.nextAt && now !== null ? Math.max(0, Date.parse(state.nextAt) - now) : 0;
   const midMs = state && now !== null ? Math.max(0, Date.parse(state.midnightAt) - now) : 0;
   const full = ready && stock >= state.cap;
@@ -70,31 +68,16 @@ export function PacksView({ rates }: { rates: React.ReactNode }): React.ReactEle
     begin(r, source);
   }, [api, begin, busy, signIn, toast]);
 
-  const watchAd = useCallback(async (): Promise<void> => {
-    if (busy || !api || !adLayer) return;
-    setBusy(true);
-    const t = await api.adTicket();
-    if (isError(t)) { setBusy(false); toast(ERRORS[t.error] ?? ERRORS.failed!); return; }
-    const watched = await adLayer.show();
-    if (!watched) { setBusy(false); toast('The ad was closed before the end, so no pack this time.'); return; }
-    const r = await api.adGrant(t.ticket);
-    setBusy(false);
-    if (isError(r)) { toast(ERRORS[r.error] ?? ERRORS.failed!); return; }
-    begin(r, 'ad');
-  }, [adLayer, api, begin, busy, toast]);
-
   const primary = (): void => {
     if (guest) { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); return; }
     if (!ready) return;
     if (stock > 0) void openWith('stock');
-    else if (adOk) void watchAd();
     else toast(`No pack left. The next one comes in ${fmtClock(nextMs)}.`);
   };
 
-  const closeOpening = (then: 'none' | 'stock' | 'ad'): void => {
+  const closeOpening = (then: 'none' | 'stock'): void => {
     setOpening(null);
     if (then === 'stock') setTimeout(() => void openWith('stock'), 80);
-    if (then === 'ad') setTimeout(() => void watchAd(), 80);
   };
 
   const last = useMemo(() => {
@@ -102,9 +85,9 @@ export function PacksView({ rates }: { rates: React.ReactNode }): React.ReactEle
     return [...owned.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 5).map((o) => ({ card: byN.get(o.n), isNew: false })).filter((x) => x.card);
   }, [lastPack, owned, byN]);
 
-  const openLabel = guest ? 'Sign in to open' : !ready ? 'Open a pack' : stock > 0 ? 'Open a pack' : adOk ? 'Open now with an ad' : `Next pack in ${fmtClock(nextMs)}`;
-  const openDisabled = busy || (!guest && (!ready || (stock <= 0 && !adOk)));
-  const sub = guest ? 'Packs belong to your account.' : !ready ? '' : stock > 0 ? 'You can also tap the pack.' : adOk ? `Or wait ${fmtClock(nextMs)} for a free pack.` : 'No ads left today. The refill keeps going.';
+  const openLabel = guest ? 'Sign in to open' : !ready ? 'Open a pack' : stock > 0 ? 'Open a pack' : `Next pack in ${fmtClock(nextMs)}`;
+  const openDisabled = busy || (!guest && (!ready || stock <= 0));
+  const sub = guest ? 'Packs belong to your account.' : !ready ? '' : stock > 0 ? 'You can also tap the pack.' : `The next free pack comes in ${fmtClock(nextMs)}.`;
   const shards = state?.shards ?? 0;
 
   return (
@@ -190,11 +173,12 @@ export function PacksView({ rates }: { rates: React.ReactNode }): React.ReactEle
             <div className="box">
               <h2 className="h2">Can&rsquo;t wait?</h2>
               <ul className="lines">
-                {adOk ? (
-                  <li className="line">
+                {state.adsEnabled && state.adsLeft > 0 ? (
+                  // Lane B's button draws itself only when an ad can play now (consent, fill, publisher id); until it does the row stays hidden.
+                  <li className="line ad-line">
                     <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M10 9.5v5l4.5-2.5z" /></svg>
                     <div className="ltxt"><b>Watch an ad</b><span>Opens a pack right away &middot; {state.adsLeft} left today</span></div>
-                    <button type="button" className="btn-outline sm" onClick={() => void watchAd()} disabled={busy}>Watch</button>
+                    <RewardedAdButton ctx={ads} className="btn-outline sm" onGranted={(r) => begin(r, 'ad')} />
                   </li>
                 ) : null}
                 {state.bonusLeft > 0 ? (
@@ -226,7 +210,7 @@ export function PacksView({ rates }: { rates: React.ReactNode }): React.ReactEle
         </aside>
       </div>
 
-      {opening ? <PackOpening cards={opening.cards} source={opening.source} onClose={closeOpening} adAvailable={adOk} /> : null}
+      {opening ? <PackOpening cards={opening.cards} source={opening.source} onClose={closeOpening} /> : null}
     </div>
   );
 }

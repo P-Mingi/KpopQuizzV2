@@ -1,29 +1,44 @@
 // Bunnyverse Cards, lane U: the pure model of the pages. From the catalog (cards and entities) it builds the slim cards, the pockets of
 // the binder (a card, or an edition that cannot exist yet with its reason sentence), the sections, and the numbers the pages print.
 // Nothing here invents a number: every count is taken from the catalog and from the player's state.
-import { KIND_RARITIES, RARITIES, RARITY_NAMES, SHARDS } from './rules';
+import { RARITIES, RARITY_NAMES, SHARDS } from './rules';
 import { paletteFor } from './ui-palette';
 
 import type { CardKind, LockReason, OwnedEntry, Rarity } from './types';
-import type { BinderItem, BinderSection, SlimCard, SlimCatalog, UiCard, UiCatalog, UiPhoto } from './ui-types';
+import type { BinderItem, BinderSection, CardPicture, SlimCard, SlimCatalog, UiCard, UiCatalog, UiPhoto } from './ui-types';
 
-/** The address of a photo: the ready one (fixture) or the file in the public `cards` bucket. */
-export function photoSrc(photo: UiPhoto | null, base: string | null = process.env.NEXT_PUBLIC_SUPABASE_URL ?? null): string | null {
+/** The picture of a card (amendment 1, point 7): the cropped WebP while it was cut at the current focal point, else the source photo. */
+export function photoPicture(photo: UiPhoto | null): CardPicture | null {
   if (!photo) return null;
-  if (photo.src) return photo.src;
-  if (photo.storagePath && base) return `${base.replace(/\/$/, '')}/storage/v1/object/public/cards/${photo.storagePath.replace(/^\//, '')}`;
+  if (photo.src) return { src: photo.src, srcSet: null, cut: false };
+  const fresh = photo.fileFocalX === undefined || photo.fileFocalY === undefined || (photo.fileFocalX === (photo.focalX ?? 50) && photo.fileFocalY === (photo.focalY ?? 50));
+  if (photo.url && fresh) return { src: photo.url, srcSet: photo.url2x ? `${photo.url} 1x, ${photo.url2x} 2x` : null, cut: true };
+  if (photo.sourceUrl) return { src: photo.sourceUrl, srcSet: null, cut: false };
   return null;
 }
 
 export function slimCard(c: UiCard, entityType: string | null = null): SlimCard {
   return {
     n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear,
-    img: photoSrc(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 25, sub: entityType,
+    img: photoPicture(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
   };
 }
 
 const slug = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const EVENTS_SECTION = 'events';
+
+/**
+ * The editions a subject has a pocket for. Amendment 1: a person or a group has all six pockets (C, U, R, UR exist, Era and Full Art are
+ * locked while the subject has one free photo); an event, if the catalog ever has one, keeps C, U, R.
+ */
+export function ladderRarities(kind: CardKind): readonly Rarity[] {
+  return kind === 'event' ? RARITIES.slice(0, 3) : RARITIES;
+}
+
+/** The reason an edition is missing: the catalog's, else the plan's "one free photo" for Era and Full Art. */
+export function lockReasonOf(lockReasons: Partial<Record<Rarity, LockReason>>, r: Rarity): LockReason | null {
+  return lockReasons[r] ?? (r === 'SR' || r === 'L' ? 'one' : null);
+}
 
 /** Builds the slim catalog: ordered pockets (idols, then the group cards, per group, then the events), the sections and the locks. */
 export function buildSlim(cat: UiCatalog): SlimCatalog {
@@ -51,14 +66,14 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     }
     const have = new Map((byEntity.get(e.id) ?? []).map((c) => [c.rarity, c]));
     const lk: Partial<Record<Rarity, LockReason | null>> = {};
-    for (const r of KIND_RARITIES[e.kind]) {
+    for (const r of ladderRarities(e.kind)) {
       const c = have.get(r);
       if (c) {
         items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null) });
         sections.find((x) => x.id === sec)!.ns.push(c.n);
       }
       else {
-        const reason = e.lockReasons[r] ?? null;
+        const reason = lockReasonOf(e.lockReasons, r);
         lk[r] = reason;
         const anchor = (byEntity.get(e.id) ?? [])[0]?.num ?? null;
         items.push({ i: items.length, sec, locked: true, entity: e.id, name: e.name, group: e.kind === 'idol' ? e.group : e.kind === 'group' ? e.name : null, rarity: r, reason, anchor });

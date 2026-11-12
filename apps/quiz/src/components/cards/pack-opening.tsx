@@ -26,8 +26,7 @@ export interface OpeningProps {
   cards: OpenedCard[];
   source: PackSource;
   /** Called when the player leaves the screen; `then` says what comes next. */
-  onClose: (then: 'none' | 'stock' | 'ad') => void;
-  adAvailable: boolean;
+  onClose: (then: 'none' | 'stock') => void;
 }
 
 function zig(y: number, teeth: number, top: boolean): string {
@@ -43,7 +42,7 @@ function zig(y: number, teeth: number, top: boolean): string {
   return `polygon(${pts.join(',')})`;
 }
 
-export function PackOpening({ cards, source, onClose, adAvailable }: OpeningProps): React.ReactElement {
+export function PackOpening({ cards, source, onClose }: OpeningProps): React.ReactElement {
   const ctx = useCards();
   const rows = useMemo(() => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew })).filter((r) => r.card), [cards, ctx.byN]);
   const len = rows.length;
@@ -230,7 +229,7 @@ export function PackOpening({ cards, source, onClose, adAvailable }: OpeningProp
   };
 
   /* ---- leaving ---- */
-  const fly = (then: 'none' | 'stock' | 'ad'): void => {
+  const fly = (then: 'none' | 'stock'): void => {
     if (leaving) return;
     setLeaving(true);
     const target = document.getElementById('bvc-tab-binder');
@@ -352,8 +351,7 @@ export function PackOpening({ cards, source, onClose, adAvailable }: OpeningProp
         {phase === 'summary' ? (
           <>
             <button type="button" ref={addRef} className="btn-primary lg" onClick={() => fly('none')} disabled={leaving}>Add to binder</button>
-            {stockLeft > 0 ? <button type="button" className="btn-outline again" onClick={() => fly('stock')} disabled={leaving}>Open another ({stockLeft} left)</button>
-              : adAvailable ? <button type="button" className="btn-outline again" onClick={() => fly('ad')} disabled={leaving}>Open another with an ad</button> : null}
+            {stockLeft > 0 ? <button type="button" className="btn-outline again" onClick={() => fly('stock')} disabled={leaving}>Open another ({stockLeft} left)</button> : null}
           </>
         ) : null}
       </div>

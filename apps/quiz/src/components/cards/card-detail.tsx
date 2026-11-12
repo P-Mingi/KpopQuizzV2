@@ -6,7 +6,7 @@
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
-import { EDITIONS, ODDS, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
+import { EDITIONS, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
 
 import { CardFront, Gem, LOCK_ICON } from './card-art';
 import { useCards } from './cards-provider';
@@ -98,7 +98,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
           <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_NAMES[rarity]}</span>{card ? <span className="tag num">{card.num}</span> : null}</div>
           <p className="d-sub" style={{ marginTop: 10 }}>
             {card
-              ? <>{ed.name} edition, card {card.num}, {ODDS[rarity]}% of a normal card. {status === 'ready' ? (o ? (o.copies > 1 ? `You have ${o.copies} copies.` : 'You have 1 copy.') : "You don't have it yet.") : ''}</>
+              ? <>{ed.name} edition, card {card.num}. {status === 'ready' ? (o ? (o.copies > 1 ? `You have ${o.copies} copies.` : 'You have 1 copy.') : "You don't have it yet.") : ''}</>
               : <>{ed.name} edition, not issued yet.</>}
           </p>
           {p.lockSentence ? (

@@ -1,34 +1,30 @@
 // Bunnyverse Cards, lane U: A TEST FIXTURE. It stands in for the catalog while the pages are built and tested, with invented groups, invented
 // stage names and neutral placeholder pictures (a gradient and a silhouette, drawn here). It is read only when cardsFixtureOn() is true
 // (a development server with CARDS_UI_FIXTURE=1, or a test); the production build never reaches it.
-import { EDITIONS, KIND_RARITIES, RARITIES } from './rules';
+import { EDITIONS } from './rules';
 import { paletteFor } from './ui-palette';
 
-import type { LockReason, PhotoSource, Rarity } from './types';
+import type { PhotoSource, Rarity } from './types';
 import type { UiCard, UiCatalog, UiEntity, UiPhoto } from './ui-types';
 
-interface FxGroup { name: string; debut: number; members: [string, 1 | 2 | 3, LockReason?][] }
+// Amendment 1: one free photo per subject, so 4 editions (Standard, Stage, Holo, Gold); Era and Full Art are locked pockets. No events.
+interface FxGroup { name: string; debut: number; members: string[] }
 
 const GROUPS: FxGroup[] = [
-  { name: 'Aurora Nine', debut: 2014, members: [['Mira', 3], ['Juno', 3], ['Sol', 3], ['Hana Park', 3], ['Revi', 3], ['Tae', 3]] },
-  { name: 'Blue Lantern', debut: 2016, members: [['Eun', 3], ['Dalia', 3], ['Nori', 3], ['Kaya', 3]] },
-  { name: 'Cinder Hall', debut: 2018, members: [['Ash', 3], ['Pell', 3], ['Rowan', 3], ['Ivo', 3], ['Lune', 3]] },
-  { name: 'Delta Bloom', debut: 2020, members: [['Ari', 3], ['Moa', 3], ['Zen', 3], ['Yui Ko', 3]] },
-  { name: 'Ember Ridge', debut: 2022, members: [['Tess', 2, 'newg'], ['Odin', 2, 'newg'], ['Pia', 2, 'newg'], ['Rex', 1, 'hiatus']] },
-  { name: 'Foxglove', debut: 2021, members: [['Vale', 2, 'sameday'], ['Nia', 2, 'sameday'], ['Bo', 2, 'sameday'], ['Quill', 1, 'one'], ['Sera', 1, 'one']] },
-  { name: 'Glass Orchard', debut: 2023, members: [['Lio', 1, 'newg'], ['Maru', 1, 'newg'], ['Cleo', 2, 'newg']] },
-  { name: 'Harbor Moth', debut: 2019, members: [['Jae-min', 3], ['Suri', 3], ['Dov', 3], ['Echo', 2, 'crop']] },
+  { name: 'Aurora Nine', debut: 2014, members: ['Mira', 'Juno', 'Sol Han'] },
+  { name: 'Blue Lantern', debut: 2016, members: ['Eun', 'Dalia'] },
+  { name: 'Cinder Hall', debut: 2018, members: ['Ash Park', 'Pell', 'Rowan'] },
+  { name: 'Delta Bloom', debut: 2020, members: ['Ari', 'Moa'] },
+  { name: 'Ember Ridge', debut: 2022, members: ['Tess', 'Odin'] },
+  { name: 'Foxglove', debut: 2021, members: ['Vale', 'Nia', 'Quill'] },
+  { name: 'Glass Orchard', debut: 2023, members: ['Lio'] },
+  { name: 'Harbor Moth', debut: 2019, members: ['Jae-min', 'Suri'] },
 ];
 
-const EVENTS: { name: string; year: number; type: string }[] = [
-  { name: 'Lantern Music Awards', year: 2018, type: 'Award show' },
-  { name: 'Golden Reel Awards', year: 2018, type: 'Award show' },
-  { name: 'Harvest Stage Festival', year: 2017, type: 'Festival' },
-  { name: 'Riverside Live Concert', year: 2019, type: 'Concert' },
-  { name: 'Night Market Fest', year: 2023, type: 'Festival' },
-];
+/** The editions that exist: the plan's four (C, U, R, UR). SR and L stay locked pockets. */
+const FIXTURE_RARITIES: readonly Rarity[] = ['C', 'U', 'R', 'UR'];
 
-const SOURCES: PhotoSource[] = ['commons', 'commons', 'koreanet', 'flickr', 'commons', 'dvids'];
+const SOURCES: PhotoSource[] = ['commons'];
 const LICENCES: [string, string, boolean][] = [
   ['CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/', true],
   ['CC BY 2.0', 'https://creativecommons.org/licenses/by/2.0/', false],
@@ -45,49 +41,40 @@ export function placeholderPicture(entityId: string, slot: number): string {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-function photoFor(entityId: string, slot: 1 | 2 | 3, serial: number): UiPhoto {
+function photoFor(entityId: string, serial: number): UiPhoto {
   const lic = LICENCES[serial % LICENCES.length]!;
   return {
-    id: serial, slot, author: `Photographer ${serial}`, authorUrl: serial % 3 ? `https://example.org/people/${serial}` : null,
+    id: serial, slot: 1, author: `Photographer ${serial}`, authorUrl: serial % 3 ? `https://example.org/people/${serial}` : null,
     licence: lic[0], licenceUrl: lic[1], source: SOURCES[serial % SOURCES.length]!,
     sourcePage: `https://commons.wikimedia.org/wiki/File:Example-${serial}.jpg`, shareAlike: lic[2], modified: 'cropped, frame and text added',
-    focalX: 40 + (serial * 7) % 25, focalY: 18 + (serial * 5) % 14, src: placeholderPicture(entityId, slot), eventName: `Example event ${serial}`,
+    focalX: 50, focalY: 30, src: placeholderPicture(entityId, 1), 
   };
 }
 
-/** The whole fixture catalog: the numbers go groups A to Z (idols, then the group cards), events last, as decision 2 of the plan. */
+/** The whole fixture catalog: the numbers go groups A to Z (the people, then the group card), 4 numbers a subject in the order C, U, R, UR. */
 export function buildFixtureCatalog(): UiCatalog {
   const entities: UiEntity[] = [];
   const cards: UiCard[] = [];
   let n = 0;
   let serial = 100;
-  const push = (e: UiEntity, rarities: readonly Rarity[]): void => {
-    for (const r of rarities) {
-      const info = EDITIONS[r];
+  const lockAll: UiEntity['lockReasons'] = { SR: 'one', L: 'one' };
+  const push = (e: UiEntity): void => {
+    serial += 1;
+    for (const r of FIXTURE_RARITIES) {
       n += 1;
-      const photo = e.kind === 'event' ? null : photoFor(e.id, info.photoSlot, ++serial + (info.photoSlot - 1) * 17);
-      cards.push({ n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: info.edition, name: e.name, group: e.group, debutYear: e.debutYear, photo });
+      cards.push({ n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name, group: e.group, debutYear: e.debutYear, photo: photoFor(e.id, serial) });
     }
   };
   [...GROUPS].sort((a, b) => a.name.localeCompare(b.name)).forEach((g, gi) => {
-    for (const [name, photos, reason] of g.members) {
-      const have = RARITIES.filter((r) => (r === 'SR' ? photos >= 2 : r === 'L' ? photos >= 3 : true));
-      const locks: UiEntity['lockReasons'] = {};
-      if (photos < 3) locks.L = reason ?? 'crop';
-      if (photos < 2) locks.SR = reason ?? 'one';
-      const e: UiEntity = { id: `idol:Q${gi}${name}`, kind: 'idol', name, group: g.name, debutYear: g.debut, sortKey: `${g.name}|${name}`, lockReasons: locks };
+    for (const name of g.members) {
+      const e: UiEntity = { id: `idol:Q${gi}${name}`, kind: 'idol', name, group: g.name, debutYear: g.debut, sortKey: `${g.name}|${name}`, lockReasons: lockAll };
       entities.push(e);
-      push(e, have);
+      push(e);
     }
-    const ge: UiEntity = { id: `group:Q${gi}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${g.name}|~`, lockReasons: {} };
+    const ge: UiEntity = { id: `group:Q${gi}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${g.name}|~`, lockReasons: lockAll };
     entities.push(ge);
-    push(ge, KIND_RARITIES.group);
+    push(ge);
   });
-  for (const ev of EVENTS) {
-    const e: UiEntity = { id: `event:${ev.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`, kind: 'event', name: ev.name, group: null, debutYear: ev.year, sortKey: `~|${ev.name}`, lockReasons: {}, eventType: ev.type };
-    entities.push(e);
-    push(e, KIND_RARITIES.event);
-  }
   return { cards, entities };
 }
 

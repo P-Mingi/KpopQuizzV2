@@ -2,6 +2,7 @@
 // while the hub is private (decision 5).
 import { Suspense } from 'react';
 
+import { readAdsContext } from '@/lib/cards/ads-server';
 import { BinderView } from '@/components/cards/binder-view';
 import { robotsFor } from '@/lib/site/indexing';
 
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
   robots: robotsFor(false),
 };
 
-export default function CardsBinderPage(): React.ReactElement {
+export default async function CardsBinderPage(): Promise<React.ReactElement> {
+  const ads = await readAdsContext();
   // useSearchParams needs a boundary; the fallback is the same empty frame the page draws before the browser has mounted.
-  return <Suspense fallback={<div className="wrap page"><h1 className="h1">Binder</h1></div>}><BinderView /></Suspense>;
+  return <Suspense fallback={<div className="wrap page"><h1 className="h1">Binder</h1></div>}><BinderView ads={ads} /></Suspense>;
 }

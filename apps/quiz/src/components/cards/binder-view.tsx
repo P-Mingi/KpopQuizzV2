@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EDITIONS, LOCK_SENTENCES, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
 import { NO_FILTERS, SORTS, countByKind, extras, filterItems, ownedCount, paginate, sortItems } from '@/lib/cards/ui-model';
+import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
 import { CardFront, Gem, LOCK_ICON } from './card-art';
@@ -19,6 +20,7 @@ import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
 import { reducedMotion } from './fx';
 
+import type { AdsContext } from '@/lib/cards/ads';
 import type { Filters, SortKey } from '@/lib/cards/ui-model';
 import type { BinderItem } from '@/lib/cards/ui-types';
 import type { CardKind, Rarity } from '@/lib/cards/types';
@@ -90,7 +92,7 @@ function PageOf({ page, index, sections }: { page: ReturnType<typeof paginate>[n
   );
 }
 
-export function BinderView(): React.ReactElement {
+export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
   const c = useCards();
   const { status, state, catalog, owned, toast } = c;
   const router = useRouter();
@@ -219,7 +221,7 @@ export function BinderView(): React.ReactElement {
           <div className="lbl"><span><b className="num">{own}</b> of <b className="num">{total}</b> cards</span><span className="num">{pct}%</span></div>
           <span className="bar"><i style={{ width: `${pct}%` }} /></span>
           <div className="b-kinds">
-            {(['idol', 'group', 'event'] as CardKind[]).map((k) => `${({ idol: 'Idols', group: 'Groups', event: 'Events' })[k]} ${kinds[k].own}/${kinds[k].all}`).join(' · ')}
+            {(['idol', 'group', 'event'] as CardKind[]).filter((k) => kinds[k].all > 0).map((k) => `${({ idol: 'Idols', group: 'Groups', event: 'Events' })[k]} ${kinds[k].own}/${kinds[k].all}`).join(' · ')}
             {lockedCount ? ` · ${lockedCount} editions not issued yet` : ''}
           </div>
         </div>
@@ -242,7 +244,7 @@ export function BinderView(): React.ReactElement {
         </div>
         <span className="brk" aria-hidden="true" />
         <div className="fgroup" role="group" aria-label="Type">
-          {kindBtns.map(([v, t]) => <button key={v} type="button" className="fpill" aria-pressed={f.kind === v} onClick={() => refilter({ ...f, kind: v })}>{t}</button>)}
+          {kindBtns.filter(([v]) => v === 'all' || kinds[v].all > 0).map(([v, t]) => <button key={v} type="button" className="fpill" aria-pressed={f.kind === v} onClick={() => refilter({ ...f, kind: v })}>{t}</button>)}
         </div>
         <span className="fdiv" aria-hidden="true" />
         <div className="fgroup" role="group" aria-label="Rarity">
@@ -271,6 +273,7 @@ export function BinderView(): React.ReactElement {
             {sorted.length ? sorted.slice(gp * GRID_PER_PAGE, gp * GRID_PER_PAGE + GRID_PER_PAGE).map((it) => <li key={it.i} className="pocket-li"><Pocket item={it} /></li>) : <li className="g-empty">No card matches these filters.</li>}
           </ul>
           <Pager id="pg-bot" bottom />
+          <BinderBanner ctx={ads} />
         </div>
       ) : (
         <div className="b-body" id="b-body">
@@ -291,6 +294,7 @@ export function BinderView(): React.ReactElement {
               <span className="pg" aria-live="polite">{single ? `Page ${pg + 1} of ${pc}` : `Pages ${pg + 1}–${Math.min(pc, pg + 2)} of ${pc}`}</span>
               <button type="button" className="btn-quiet" aria-label="Next pages" onClick={() => turn(1)} disabled={pg + step >= pc}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
             </div>
+            <BinderBanner ctx={ads} />
           </div>
           <nav className="idx" id="idx" aria-label="Binder sections">
             {catalog.sections.map((s) => {

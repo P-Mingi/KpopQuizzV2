@@ -171,7 +171,7 @@
 @keyframes bvc-fly{to{transform:translate(70%,-180%) rotate(28deg);opacity:0}}
 @keyframes bvc-drop{to{transform:translateY(55%) scale(.92);opacity:0}}
 @keyframes bvc-flash{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(3)}}
-.bvc .pile{position:relative;width:min(290px,62vw);aspect-ratio:63/88}
+.bvc .pile{position:relative;width:min(290px,62vw);aspect-ratio:55/85}
 @media (max-height:700px){
 .bvc .pile{width:min(230px,54vw)}
 }
@@ -192,7 +192,7 @@
 .bvc .pop{animation:bvc-pop .45s var(--spring)}
 @keyframes bvc-pop{0%{transform:scale(.6);opacity:0}}
 .bvc .pulled{position:relative;z-index:2;display:grid;grid-template-columns:repeat(5,minmax(0,60px));gap:8px;justify-content:center;min-height:86px}
-.bvc .pulled .slot{aspect-ratio:63/88;border-radius:6px;border:1.5px dashed var(--border-h)}
+.bvc .pulled .slot{aspect-ratio:55/85;border-radius:6px;border:1.5px dashed var(--border-h)}
 .bvc .ov-actions{position:relative;z-index:2;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;min-height:56px;align-items:center}
 .bvc .fan{position:relative;width:min(760px,100%);height:min(320px,48vh);display:flex;justify-content:center;align-items:flex-end}
 .bvc .fan .fc{position:absolute;bottom:0;width:min(165px,29vw);transform-origin:50% 120%;transition:transform .7s var(--spring)}
@@ -280,7 +280,7 @@
 @media (max-width:520px){
 .bvc .pockets{gap:8px}
 }
-.bvc .pocket{position:relative;aspect-ratio:63/88;border-radius:5.2% / 3.8%;background:var(--surface-alt);box-shadow:inset 0 0 0 1px rgba(26,23,20,.08);border:0;padding:0;cursor:pointer;display:block;width:100%;transition:transform .2s var(--ease)}
+.bvc .pocket{position:relative;aspect-ratio:55/85;border-radius:5.2% / 3.8%;background:var(--surface-alt);box-shadow:inset 0 0 0 1px rgba(26,23,20,.08);border:0;padding:0;cursor:pointer;display:block;width:100%;transition:transform .2s var(--ease)}
 .bvc .pocket:hover{transform:translateY(-2px)}
 .bvc .pocket::after{content:"";position:absolute;inset:-3px;border-radius:7% / 5%;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.55),rgba(255,255,255,0) 26%,rgba(255,255,255,0) 72%,rgba(255,255,255,.3));box-shadow:inset 0 0 0 1px rgba(26,23,20,.07);z-index:8}
 .bvc .pocket .card{box-shadow:0 1px 3px rgba(0,0,0,.25)}
@@ -367,7 +367,7 @@
 .bvc .rung .mini{width:100%;position:relative}
 .bvc .rung.missing .mini .card{filter:grayscale(1) brightness(.75) contrast(.8);opacity:.55}
 .bvc .rung.cur .mini{outline:2px solid var(--brand-btn);outline-offset:3px;border-radius:7px}
-.bvc .rung .lk{width:100%;aspect-ratio:63/88;border-radius:5.2% / 3.8%;border:1.5px dashed var(--border-h);display:grid;place-items:center;color:var(--txt3);background:repeating-linear-gradient(135deg,rgba(26,23,20,.035) 0 6px,transparent 6px 12px)}
+.bvc .rung .lk{width:100%;aspect-ratio:55/85;border-radius:5.2% / 3.8%;border:1.5px dashed var(--border-h);display:grid;place-items:center;color:var(--txt3);background:repeating-linear-gradient(135deg,rgba(26,23,20,.035) 0 6px,transparent 6px 12px)}
 .bvc .rung .lk .ico{width:20px;height:20px}
 .bvc .rung .rn{display:inline-flex;align-items:center;gap:4px;font-weight:700;color:var(--txt1);white-space:nowrap}
 .bvc .rung .st{font-size:12px;white-space:nowrap}
@@ -445,3 +445,5 @@
 .bvc .d-front-locked{width:100%}
 .bvc .d-front-locked .pocket{cursor:default}
 .bvc a.rung{text-decoration:none}
+.bvc .line.ad-line:not(:has([data-testid="cards-ad-button"])){display:none}
+.bvc [data-testid="cards-banner"]{margin-top:28px}

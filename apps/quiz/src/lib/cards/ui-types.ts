@@ -3,16 +3,35 @@
 // top (all optional, so a CatalogCard from the API is still a UiCard). Requests to lane C: docs/o1/requests/CARDS-U.md.
 import type { CatalogCard, LockReason, PhotoCredit, Rarity } from './types';
 
-/** A photo credit plus what the card art needs: where the file is and where to centre the crop. */
+/**
+ * A photo credit plus what the card art needs. Amendment 1: the card file is the WebP the owner's script cut at the focal point (1x 320x495,
+ * 2x 640x989) in the public `cards` bucket; until a file exists for the CURRENT focal point, the page shows the source photo
+ * (bucket `images/group-photos/<slug>.jpg`) cropped in CSS (object-fit: cover, object-position from the focal point).
+ */
 export interface UiPhoto extends PhotoCredit {
-  /** Path in the public `cards` bucket, set once the owner's script has uploaded the file. */
-  storagePath?: string | null;
-  /** object-position of the cover crop, percent. */
+  /** The cropped WebP at 1x and 2x, null until uploaded. */
+  url?: string | null;
+  url2x?: string | null;
+  /** The focal point the files were cut at; absent: the files are taken as current. */
+  fileFocalX?: number | null | undefined;
+  fileFocalY?: number | null | undefined;
+  /** The source photo, uncropped. */
+  sourceUrl?: string | null;
+  /** The crop point of the card now, percent (object-position). */
   focalX?: number;
   focalY?: number;
   /** A ready address of the picture (only the test fixture sets it, with a neutral placeholder). */
   src?: string | null;
   eventName?: string | null;
+}
+
+/** The picture a card shows. */
+export interface CardPicture {
+  src: string;
+  /** '<1x> 1x, <2x> 2x' for the cropped files. */
+  srcSet: string | null;
+  /** True for a cropped file (already 5.5:8.5), false for the source photo that CSS crops. */
+  cut: boolean;
 }
 
 export type UiCard = Omit<CatalogCard, 'photo'> & { photo: UiPhoto | null };
@@ -48,8 +67,8 @@ export interface SlimCard {
   name: string;
   group: string | null;
   debutYear: number | null;
-  /** Picture address, null: the drawn placeholder figure. */
-  img: string | null;
+  /** The photo, null: the drawn placeholder figure. */
+  img: CardPicture | null;
   fx: number;
   fy: number;
   /** Event type when known (events), for the meta line. */

@@ -2,6 +2,8 @@
 // (owner decision 5 of the Cards plan: indexing of /cards waits for the owner); robotsFor(false) keeps it so whatever NET_INDEXING says.
 import { DropRates } from '@/components/cards/drop-rates';
 import { PacksView } from '@/components/cards/packs-view';
+import { readAdsContext } from '@/lib/cards/ads-server';
+import { loadCatalog } from '@/lib/cards/ui-catalog';
 import { robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
@@ -12,6 +14,8 @@ export const metadata: Metadata = {
   robots: robotsFor(false),
 };
 
-export default function CardsPacksPage(): React.ReactElement {
-  return <PacksView rates={<DropRates />} />;
+export default async function CardsPacksPage(): Promise<React.ReactElement> {
+  const cat = await loadCatalog();
+  const rarities = [...new Set((cat?.cards ?? []).map((c) => c.rarity))];
+  return <PacksView rates={<DropRates rarities={rarities} />} ads={await readAdsContext()} />;
 }

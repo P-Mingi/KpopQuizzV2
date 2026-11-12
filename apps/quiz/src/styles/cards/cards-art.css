@@ -25,7 +25,7 @@
 .bvc .pk-count{position:absolute;bottom:11%;left:0;right:0;text-align:center;font-family:var(--f-card);font-weight:800;font-stretch:70%;font-size:12px;letter-spacing:.22em;color:rgba(255,255,255,.9);z-index:2}
 .bvc .pack[aria-disabled="true"]{cursor:default}
 .bvc .pack[aria-disabled="true"] .pk-face{filter:saturate(.35) brightness(.85)}
-.bvc .card{--a:#888;--b:#222;--c:#ccc;--rx:0deg;--ry:0deg;--mx:50%;--my:40%;--go:0;container-type:inline-size;position:relative;display:block;width:100%;aspect-ratio:63/88;border-radius:5.2% / 3.8%;color:#fff;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .45s var(--ease),box-shadow .3s;box-shadow:0 2px 3px rgba(0,0,0,.35),0 12px 26px rgba(0,0,0,.45)}
+.bvc .card{--a:#888;--b:#222;--c:#ccc;--rx:0deg;--ry:0deg;--mx:50%;--my:40%;--go:0;container-type:inline-size;position:relative;display:block;width:100%;aspect-ratio:55/85;border-radius:5.2% / 3.8%;color:#fff;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .45s var(--ease),box-shadow .3s;box-shadow:0 2px 3px rgba(0,0,0,.35),0 12px 26px rgba(0,0,0,.45)}
 .bvc .card.tilting{transition:transform .08s linear}
 .bvc .c-in{position:absolute;inset:0;border-radius:inherit;overflow:hidden;background:#100C1C;isolation:isolate}
 .bvc .c-art{position:absolute;inset:0;overflow:hidden}
@@ -87,7 +87,7 @@
 .bvc .k-event .c-stagefloor{position:absolute;left:0;right:0;bottom:22%;height:6%;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent)}
 .bvc .k-event .c-heads{position:absolute;left:-4%;right:-4%;bottom:-2%;height:22%;background:radial-gradient(circle at 6% 100%,#0A0714 0 9cqi,transparent 9.4cqi),radial-gradient(circle at 20% 100%,#0A0714 0 8cqi,transparent 8.4cqi),radial-gradient(circle at 34% 100%,#0A0714 0 10cqi,transparent 10.4cqi),radial-gradient(circle at 50% 100%,#0A0714 0 8.5cqi,transparent 8.9cqi),radial-gradient(circle at 64% 100%,#0A0714 0 10cqi,transparent 10.4cqi),radial-gradient(circle at 80% 100%,#0A0714 0 8cqi,transparent 8.4cqi),radial-gradient(circle at 95% 100%,#0A0714 0 9.5cqi,transparent 9.9cqi)}
 .bvc .k-event .c-sticks{position:absolute;left:0;right:0;bottom:12%;height:14%;background-image:radial-gradient(circle,var(--c) 0 1cqi,transparent 1.6cqi);background-size:9cqi 7cqi;opacity:.9;filter:drop-shadow(0 0 1cqi var(--c))}
-.bvc .cback{position:relative;width:100%;aspect-ratio:63/88;border-radius:5.2% / 3.8%;overflow:hidden;container-type:inline-size;background:#140C28;box-shadow:0 2px 3px rgba(0,0,0,.35),0 12px 26px rgba(0,0,0,.45)}
+.bvc .cback{position:relative;width:100%;aspect-ratio:55/85;border-radius:5.2% / 3.8%;overflow:hidden;container-type:inline-size;background:#140C28;box-shadow:0 2px 3px rgba(0,0,0,.35),0 12px 26px rgba(0,0,0,.45)}
 .bvc .cback::before{content:"";position:absolute;inset:3.2cqi;border-radius:3.6cqi;border:.5cqi solid rgba(255,255,255,.22);background:
   radial-gradient(circle at 50% 46%,rgba(255,77,141,.55),transparent 40%),
   repeating-conic-gradient(from 0deg at 50% 46%,#24124A 0 7.5deg,#1A0D38 7.5deg 15deg)}
