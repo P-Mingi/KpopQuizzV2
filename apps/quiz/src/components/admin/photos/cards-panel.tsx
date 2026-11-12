@@ -4,6 +4,9 @@
 // focal point of its 5.5:8.5 crop by clicking or dragging on the photo, sees the card crop live, and saves it through lane C's admin
 // route (POST /api/admin/cards/photos, action "focal"). A photo whose crop is narrower than 640 px (twice the 320 px card, the largest
 // the site shows) is flagged "trop petite pour le 2x". The size is read from the picture itself once it has loaded.
+// Lot 2 (owner idea, 2026-11-12): a GROUP photo gives a PAIR of cards, the 11:8.5 window at the one focal point split in two halves (1/2 left,
+// 2/2 right). For a group the tab shows that window and its two halves side by side, with one focal control for the pair (the same "focal"
+// action, writing focal_x and focal_y only) and a "trop petite pour le 2x" flag per half (row.halves, from the cards_catalog rows of the photo).
 // Review 1 finding 6: the tab also holds the reports inbox (the open reports with their card, photo and message, and a button to close each),
 // removing a photo (its cards leave the packs, the copies already won stay) and the lock reason of the Era and Full Art pockets, hiatus
 // included (decision 4: the owner sets it here). The tab lives in the admin of bunnyverse.org/anime, which lib/cards/admin-photos.ts serves.
@@ -27,11 +30,35 @@ export function tooSmallFor2x(w: number, h: number): boolean {
   return w > 0 && h > 0 && cropWidth(w, h) < TWO_X_WIDTH;
 }
 
+export const PAIR_RATIO = 110 / 85;
+
+/** A group photo gives a pair of cards (lot 2). */
+export function isGroupPhoto(row: Pick<CardPhotoRow, 'entity_id' | 'cards_entities'>): boolean {
+  const e = row.cards_entities;
+  const one = Array.isArray(e) ? e[0] : e;
+  return one?.kind === 'group' || row.entity_id.startsWith('group:');
+}
+/** The width of each half of the 11:8.5 window of a picture (half 1 is the floor, half 2 the rest: the smaller is half 1). */
+export function halfCropWidth(w: number, h: number): number {
+  return Math.floor(Math.min(w, h * PAIR_RATIO) / 2);
+}
+/** Per half: true when that half is too narrow for its 2x file. The flags of the database when there are some, else read from the picture. */
+export function halvesTooSmall(row: Pick<CardPhotoRow, 'halves'>, dims: [number, number] | undefined): [boolean, boolean] {
+  if (row.halves && row.halves.length > 0) {
+    const f = (p: 1 | 2): boolean => row.halves?.find((x) => x.part === p)?.small_2x === true;
+    return [f(1), f(2)];
+  }
+  const small = dims ? dims[0] > 0 && dims[1] > 0 && halfCropWidth(dims[0], dims[1]) < TWO_X_WIDTH : false;
+  return [small, small];
+}
+
 interface EntityRef { name: string; kind?: string; lock_reasons?: Record<string, string> | null }
 
 export interface CardPhotoRow {
   id: number; entity_id: string; slot: number; file_url: string | null; storage_path: string | null; author: string; licence: string; status: string; focal_x: number; focal_y: number;
   cards_entities?: EntityRef | EntityRef[] | null;
+  /** Group photos only: the small_2x flag of each half of the pair (the admin route). */
+  halves?: { part: 1 | 2; small_2x: boolean }[];
 }
 
 /** One report of "Report a photo", as the admin route answers it (with its card and photo when it names them). */
@@ -251,7 +278,9 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
 
   const src = row ? sourceSrc(row) : null;
   const d = row ? dims[row.id] : undefined;
-  const small = d ? tooSmallFor2x(d[0], d[1]) : false;
+  const group = row ? isGroupPhoto(row) : false;
+  const [small1, small2] = row && group ? halvesTooSmall(row, d) : [false, false];
+  const small = group ? small1 || small2 : d ? tooSmallFor2x(d[0], d[1]) : false;
   const pill = (v: typeof status, label: string): React.ReactElement => <button type="button" className={s.pill} aria-pressed={view === 'photos' && status === v} onClick={() => { setView('photos'); setStatus(v); }}>{label}</button>;
 
   if (view === 'reports') {
@@ -295,7 +324,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
                         {u ? <img src={u} alt="" width={44} height={44} className={s.phImg} loading="lazy" onLoad={(e) => { const im = e.currentTarget; setDims((x) => ({ ...x, [r.id]: [im.naturalWidth, im.naturalHeight] })); }} /> : null}
                       </td>
                       <td className={s.cellName}><button type="button" className={s.outline} onClick={() => setSel(r.id)} aria-pressed={r.id === sel}>{r.entity_id}</button></td>
-                      <td>{dm && tooSmallFor2x(dm[0], dm[1]) ? <span className={s.flagReview}>Trop petite pour le 2x</span> : <span className={s.flagOk}>{r.storage_path ? 'Fichier carte envoyé' : 'Photo source seule'}</span>}</td>
+                      <td>{(isGroupPhoto(r) ? halvesTooSmall(r, dm).some(Boolean) : dm && tooSmallFor2x(dm[0], dm[1])) ? <span className={s.flagReview}>Trop petite pour le 2x</span> : <span className={s.flagOk}>{r.storage_path ? 'Fichier carte envoyé' : 'Photo source seule'}</span>}</td>
                     </tr>
                   );
                 })}
@@ -305,7 +334,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
           {row ? (
             <aside className={s.cardsEdSide} aria-label="Point focal">
               <p className={s.asideTitle}>{row.entity_id}</p>
-              <p className={s.note}>Clique ou fais glisser sur la photo : le point choisi reste au centre du cadrage de la carte (5,5 x 8,5).</p>
+              <p className={s.note}>Clique ou fais glisser sur la photo : {group ? 'le point choisi place la fenêtre de la paire (11 x 8,5, deux cartes côte à côte).' : 'le point choisi reste au centre du cadrage de la carte (5,5 x 8,5).'}</p>
               {src ? (
                 <div
                   ref={frame} className={s.focalFrame} role="group" aria-label="Photo source" tabIndex={0}
@@ -327,14 +356,33 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
                   <span className={s.focalCross} style={{ left: `${pos[0]}%`, top: `${pos[1]}%` }} aria-hidden="true" />
                 </div>
               ) : <p className={s.statusErr}>Pas d&apos;adresse de photo source pour cette fiche.</p>}
-              {src ? (
+              {src && group ? (
+                <div aria-label="Cadrage de la paire">
+                  <div className={s.cardCrop} aria-label="Fenêtre de la paire" style={{ aspectRatio: '110 / 85' }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element -- live preview of the pair window */}
+                    <img src={src} alt="" draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%`, display: 'block' }} />
+                  </div>
+                  <div style={{ display: 'flex', gap: 2, marginTop: 6 }}>
+                    {([1, 2] as const).map((part) => (
+                      <figure key={part} style={{ flex: 1, margin: 0 }} aria-label={`Carte ${part}/2`}>
+                        <div className={s.cardCrop} style={{ aspectRatio: '55 / 85', position: 'relative', overflow: 'hidden' }}>
+                          {/* eslint-disable-next-line @next/next/no-img-element -- live preview of one half */}
+                          <img src={src} alt="" draggable={false} style={{ position: 'absolute', top: 0, left: part === 1 ? 0 : '-100%', width: '200%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%` }} />
+                        </div>
+                        <figcaption className={s.note}>{part}/2{(part === 1 ? small1 : small2) ? <> &middot; <span className={s.flagReview}>trop petite pour le 2x</span></> : null}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+              {src && !group ? (
                 <div className={s.cardCrop} aria-label="Cadrage de la carte" style={{ aspectRatio: '55 / 85' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- live preview of the crop */}
                   <img src={src} alt="" draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%`, display: 'block' }} />
                 </div>
               ) : null}
-              <p className={s.note}>Point focal : <span className={s.num}>{pos[0]} / {pos[1]}</span>{d ? <> &middot; photo <span className={s.num}>{d[0]} x {d[1]}</span>, cadrage <span className={s.num}>{Math.round(cropWidth(d[0], d[1]))} px</span> de large</> : null}</p>
-              {small ? <p className={s.flagReview} role="status">Trop petite pour le 2x : le cadrage fait moins de {TWO_X_WIDTH} px de large.</p> : null}
+              <p className={s.note}>Point focal : <span className={s.num}>{pos[0]} / {pos[1]}</span>{d ? <> &middot; photo <span className={s.num}>{d[0]} x {d[1]}</span>, {group ? 'chaque carte de la paire' : 'cadrage'} <span className={s.num}>{group ? halfCropWidth(d[0], d[1]) : Math.round(cropWidth(d[0], d[1]))} px</span> de large</> : null}</p>
+              {small ? <p className={s.flagReview} role="status">{group ? `Trop petite pour le 2x : ${small1 && small2 ? 'les deux cartes' : `la carte ${small1 ? '1/2' : '2/2'}`} de la paire font moins de ${TWO_X_WIDTH} px de large.` : `Trop petite pour le 2x : le cadrage fait moins de ${TWO_X_WIDTH} px de large.`}</p> : null}
               <button type="button" className={s.primary} onClick={() => void save()} disabled={saving || (pos[0] === row.focal_x && pos[1] === row.focal_y)}>{saving ? 'Enregistrement' : 'Enregistrer le point focal'}</button>
               <LockEditor lockReasons={entityOf(row)?.lock_reasons} busy={saving} onSet={(r, why) => void setLock(r, why)} />
               <RemovePhoto busy={saving} onRemove={() => void remove()} />
