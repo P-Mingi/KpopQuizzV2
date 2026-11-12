@@ -66,7 +66,7 @@ export function pairOf(width: number, height: number): NonNullable<Subject['pair
   const box = pairBox(width, height, 50, 50);
   return {
     window_width: box.width,
-    halves: halves(box).map((h: { part: 1 | 2; width: number }) => ({ part: h.part, crop_width: h.width, small_2x: h.width < MIN_2X_WIDTH })),
+    halves: halves(box).map((h: { part: number; width: number }) => ({ part: h.part === 1 ? 1 : 2, crop_width: h.width, small_2x: h.width < MIN_2X_WIDTH })),
   };
 }
 

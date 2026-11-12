@@ -10,13 +10,16 @@ import { vi, beforeAll, describe, expect, it } from 'vitest';
 
 vi.setConfig({ testTimeout: 120_000, hookTimeout: 120_000 });
 
-import { build } from '../../../scripts/cards/gen-rebuild-sql.mts';
-import { SUBJECTS_JSON, type Subject } from '../../../scripts/cards/gen-subjects.mts';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { build, type Subject } from './rebuild-sql';
 
 import { failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 
 import type { PGlite } from '@electric-sql/pglite';
 
+const SUBJECTS_JSON = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../../docs/design/cards/data/subjects.json');
 const ALL = JSON.parse(readFileSync(SUBJECTS_JSON, 'utf8')) as Subject[];
 const pick = (slug: string, ok: boolean, reason: string | null = null): Subject => {
   const s = ALL.find((x) => x.slug === slug);
