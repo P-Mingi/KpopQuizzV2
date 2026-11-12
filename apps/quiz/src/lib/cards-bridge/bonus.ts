@@ -11,6 +11,7 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 
 import { ownSite, readJson } from '@/lib/cards/api';
 import { adsPerDay, bonusPerDay } from '@/lib/cards/flags';
+import { privateLaunchBars } from '@/lib/cards/private';
 
 import { cardsBridgesOn } from './flags';
 import { parseWallet } from './parse';
@@ -63,6 +64,8 @@ export async function handleBonus(request: Request, source: BonusSource = defaul
   if (body?.source !== 'kpopdle') return answer({ error: 'bad_request' }, 400);
   try {
     const id = await source.userId();
+    // Review 1 finding 10: while the hub's private launch is on, only an allowed account is answered (kpopquiz.org never has one).
+    if (privateLaunchBars(id)) return new NextResponse(null, { status: 404 });
     if (!id || (await source.isTeam(id))) return answer({ signedIn: false });
     const earned = bonusPerDay() > 0 ? await source.record(id, now) : 0;
     if (earned === null) return answer({ signedIn: false });

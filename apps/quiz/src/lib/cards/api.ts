@@ -9,6 +9,7 @@ import { createServerClient, createServiceRoleClient } from '@/lib/supabase/serv
 
 import { loadPool } from './draw';
 import { adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, cardsOpen } from './flags';
+import { privateLaunchBars, privateLaunchOn } from './private';
 import { CAP, computeOdds } from './rules';
 
 import type { NextRequest } from 'next/server';
@@ -43,12 +44,32 @@ export type Guard =
   | { readonly ok: true; readonly userId: string; readonly db: ServiceDb }
   | { readonly ok: false; readonly res: NextResponse };
 
-/** 404 unless the hub build has NET_CARDS on; 401 without a session; 403 for a Team account; 403 for a cross-site write. */
+/** The session's user id, or null (signed out, or the auth server did not answer). */
+export async function sessionUserId(): Promise<string | null> {
+  const supabase = await createServerClient();
+  const { data } = await supabase.auth.getUser();
+  return data?.user?.id ?? null;
+}
+
+/**
+ * The private launch of the hub (review 1 finding 10): off, null and no read; on, the 404 of a closed URL for a guest or an account the
+ * private launch does not allow, else null. For the routes that need no sign-in (the catalog, the report).
+ */
+export async function privateGate(): Promise<NextResponse | null> {
+  if (!privateLaunchOn()) return null;
+  return privateLaunchBars(await sessionUserId()) ? closed() : null;
+}
+
+/**
+ * 404 unless the hub build has NET_CARDS on; 404 while the private launch is on for a guest or an account it does not allow; 401 without
+ * a session; 403 for a Team account; 403 for a cross-site write.
+ */
 export async function guard(req: NextRequest, opts: { write: boolean }): Promise<Guard> {
   if (!cardsOpen()) return { ok: false, res: closed() };
   const supabase = await createServerClient();
   const { data } = await supabase.auth.getUser();
   const user = data?.user ?? null;
+  if (privateLaunchBars(user?.id ?? null)) return { ok: false, res: closed() };
   if (!user) return { ok: false, res: json({ error: 'unauthorized' }, 401) };
   const team = await teamRefusal(user.id);
   if (team) return { ok: false, res: team };

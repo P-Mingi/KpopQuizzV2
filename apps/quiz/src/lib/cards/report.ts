@@ -5,7 +5,7 @@
 import { clientIp, ipHash } from '@/lib/passport/ticket';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
-import { closed, json, readJson, ownSite } from './api';
+import { closed, json, privateGate, readJson, ownSite } from './api';
 import { cardsOpen } from './flags';
 
 import type { NextRequest, NextResponse } from 'next/server';
@@ -68,6 +68,8 @@ export function parseReport(body: Record<string, unknown>): ReportInput | null {
 
 export async function handleReport(req: NextRequest, now: number = Date.now()): Promise<NextResponse> {
   if (!cardsOpen()) return closed();
+  const gated = await privateGate();
+  if (gated) return gated;
   if (!ownSite(req)) return json({ error: 'origin' }, 403);
   const hash = ipHash(clientIp(req.headers)) ?? 'no-salt';
   if (!reportUnderLimit(hash, now)) return json({ error: 'rate_limited' }, 429);

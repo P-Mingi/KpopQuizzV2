@@ -157,6 +157,45 @@ describe('the session', () => {
   });
 });
 
+describe('review 1 finding 10: the hub private launch', () => {
+  const ALLOWED = 'aaaaaaaa-1111-2222-3333-444444444444';
+  beforeEach(() => {
+    vi.stubEnv('PRIVATE_LAUNCH', '1');
+    vi.stubEnv('PRIVATE_LAUNCH_ALLOW', ALLOWED);
+    vi.stubEnv('PRIVATE_LAUNCH_KEY', 'ab'.repeat(32));
+    h.maybe.cards_catalog = { photo_id: 77 };
+  });
+  it.each(ROUTES)('%s answers 404 to a guest and to an account the private launch does not allow, before any read', async (_n, call) => {
+    for (const user of [null, { id: 'bbbbbbbb-1111-2222-3333-444444444444' }]) {
+      h.user = user;
+      h.serviceMade = 0;
+      expect((await call()).status).toBe(404);
+      expect(h.serviceMade).toBe(0);
+      expect(h.rpcCalls).toEqual([]);
+      expect(h.inserts).toEqual([]);
+    }
+  });
+  it.each(ROUTES)('%s works for an allowed account', async (_n, call) => {
+    h.user = { id: ALLOWED };
+    h.rpcResult.cards_issue_ticket = { data: UUID };
+    h.rpcResult.cards_recycle = { data: { recycled: 0, shards_gained: 0, shards: 12 } };
+    expect((await call()).status).toBe(200);
+  });
+  it('the catalog is never put in a shared cache while the gate is on; off, it is public again', async () => {
+    h.user = { id: ALLOWED };
+    expect((await catalog()).headers.get('cache-control')).toBe('no-store');
+    vi.stubEnv('PRIVATE_LAUNCH', '0');
+    h.user = null;
+    resetCatalogCache();
+    expect((await catalog()).headers.get('cache-control')).toMatch(/^public/);
+  });
+  it('a gate that fails closed (no key) lets nobody in', async () => {
+    vi.stubEnv('PRIVATE_LAUNCH_KEY', '');
+    h.user = { id: ALLOWED };
+    expect((await state(req('/api/cards/state'))).status).toBe(404);
+  });
+});
+
 describe('GET /api/cards/state', () => {
   it('returns the wallet from the database and the binder', async () => {
     const res = await state(req('/api/cards/state'));

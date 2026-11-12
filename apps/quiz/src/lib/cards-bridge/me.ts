@@ -7,6 +7,7 @@ import { NextResponse } from 'next/server';
 import { isEditorialUser } from '@/lib/editorial/accounts';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
+import { privateLaunchBars, privateLaunchOn } from '@/lib/cards/private';
 import { ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT } from '@/lib/cards/rules';
 
 import { cardsBridgesOn } from './flags';
@@ -77,6 +78,8 @@ export async function buildMe(source: MeSource, wantOwned: boolean, now: Date = 
 
 export async function handleMe(request: Request, source: MeSource = defaultSource()): Promise<NextResponse> {
   if (!cardsBridgesOn()) return new NextResponse(null, { status: 404 });
+  // Review 1 finding 10: while the hub's private launch is on, only an allowed account is answered (kpopquiz.org never has one).
+  if (privateLaunchOn() && privateLaunchBars(await source.userId().catch(() => null))) return new NextResponse(null, { status: 404 });
   const wantOwned = new URL(request.url).searchParams.get('owned') === '1';
   return NextResponse.json(await buildMe(source, wantOwned), { headers: HEADERS });
 }

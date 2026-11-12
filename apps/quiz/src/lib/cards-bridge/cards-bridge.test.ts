@@ -179,6 +179,38 @@ describe('POST /api/cards-bridge/bonus (review 1 finding 1)', () => {
   });
 });
 
+describe('review 1 finding 10: the bridge routes on the hub follow its private launch; kpopquiz.org never has one', () => {
+  const ALLOWED = 'aaaaaaaa-1111-2222-3333-444444444444';
+  const gate = (): void => {
+    vi.stubEnv('PRIVATE_LAUNCH', '1');
+    vi.stubEnv('PRIVATE_LAUNCH_ALLOW', ALLOWED);
+    vi.stubEnv('PRIVATE_LAUNCH_KEY', 'ab'.repeat(32));
+  };
+  const me = (id: string | null): import('./me').MeSource => ({ userId: async () => id, isTeam: async () => false, wallet: async () => ({ stock: 1 }), owned: async () => [] });
+  const bonus = (id: string | null): import('./bonus').BonusSource => ({ userId: async () => id, isTeam: async () => false, record: vi.fn(async () => 1), wallet: async () => ({ stock: 1, bonus_left: 1 }) });
+  const post = (): Request => new Request('https://b.test/api/cards-bridge/bonus', { method: 'POST', headers: { host: 'b.test', origin: 'https://b.test', 'content-type': 'application/json' }, body: '{"source":"kpopdle"}' });
+  it('hub: a guest or an account not allowed gets 404 from me and bonus, nothing recorded; an allowed account is answered', async () => {
+    env('1', 'hub');
+    gate();
+    const { handleMe } = await import('./me');
+    const { handleBonus } = await import('./bonus');
+    for (const id of [null, 'bbbbbbbb-1111-2222-3333-444444444444']) {
+      expect((await handleMe(new Request('https://b.test/api/cards-bridge/me'), me(id))).status).toBe(404);
+      const s = bonus(id);
+      expect((await handleBonus(post(), s)).status).toBe(404);
+      expect(s.record).not.toHaveBeenCalled();
+    }
+    expect((await handleMe(new Request('https://b.test/api/cards-bridge/me'), me(ALLOWED))).status).toBe(200);
+    expect(await (await handleBonus(post(), bonus(ALLOWED))).json()).toEqual({ signedIn: true, earned: 1, bonusLeft: 1 });
+  });
+  it('kpopquiz.org: the same variables change nothing', async () => {
+    env('1', 'kpop');
+    gate();
+    const { handleMe } = await import('./me');
+    expect(await (await handleMe(new Request('https://k.test/api/cards-bridge/me'), me('u1'))).json()).toMatchObject({ signedIn: true });
+  });
+});
+
 describe('the wallet read passes the bonus cap', () => {
   it('p_bonus_cap is 0 with the bridges off and the setting with them on', async () => {
     rpc.mockResolvedValue({ data: {}, error: null });
