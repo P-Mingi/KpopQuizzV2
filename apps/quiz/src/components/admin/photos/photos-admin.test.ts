@@ -117,13 +117,13 @@ describe('/admin?tab=photos on bunnyverse.org/anime', () => {
     expect(stickers).toContain('Les stickers restent dans les espaces vides et se cachent sous 1 240 px de large');
   });
 
-  it('has the Références personnages tab, deep-linked, and says so when the list cannot be read', async () => {
+  it('has no Références personnages tab any more (owner, 2026-11-11: the private references are deleted); the old link opens the first photo tab', async () => {
     auth.user = { id: 'admin-1' };
     const html = await open({ tab: 'photos', kind: 'refs' });
-    expect(html).toContain('>Références personnages <');
+    expect(html).not.toContain('Références personnages');
+    expect(html).not.toContain('la référence privée');
     expect(html.match(/<h1/g)).toHaveLength(1);
-    expect(html).toContain('Pour chaque personnage : la référence privée');
-    expect(html).toContain('n&#x27;a pas pu être lue');
+    expect(html).toContain('Photos à compléter');
   });
 
   it('keeps the other tabs as they were', async () => {

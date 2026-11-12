@@ -47,9 +47,17 @@ export function LinkPreviews({ groupSlug, scopeSelector = '.verse-prose' }: {
       const title = p.missing ? 'This page does not exist yet' : (p.title ?? '');
       if (!title) return;
       const sub = p.missing ? 'Create this page from here' : [p.kind, p.fanWritten ? 'fan-written' : null].filter(Boolean).join(' · ');
-      card.innerHTML = `<div style="font-weight:700;color:var(--text-primary,#111)">${title.replace(/</g, '&lt;')}</div>`
-        + (sub ? `<div style="margin-top:2px;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary,#888)">${sub.replace(/</g, '&lt;')}</div>` : '')
-        + (p.excerpt ? `<div style="margin-top:5px">${p.excerpt.replace(/</g, '&lt;')}</div>` : '');
+      // FLAW-2 sweep (2026-11-12): title, kind and excerpt are stored page data, so the card is BUILT
+      // (createElement + textContent) instead of an innerHTML string that only escaped `<`.
+      const line = (css: string, text: string): HTMLDivElement => {
+        const d = document.createElement('div');
+        d.style.cssText = css;
+        d.textContent = text;
+        return d;
+      };
+      card.replaceChildren(line('font-weight:700;color:var(--text-primary,#111)', title));
+      if (sub) card.appendChild(line('margin-top:2px;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary,#888)', sub));
+      if (p.excerpt) card.appendChild(line('margin-top:5px', p.excerpt));
       const r = a.getBoundingClientRect();
       card.style.display = 'block';
       const top = r.bottom + 8 + 210 > window.innerHeight ? Math.max(8, r.top - card.offsetHeight - 8) : r.bottom + 8;

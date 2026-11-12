@@ -9,7 +9,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { PageEditor } from './page-editor';
-import { substanceOf } from '@/lib/verse/tree/blocks';
+import { isSlug, substanceOf } from '@/lib/verse/tree/blocks';
 import { runsPlain } from '@/lib/verse/tree/runs';
 import type { FactSection, FactOverrides } from '@/lib/verse/tree/factrail';
 
@@ -246,7 +246,7 @@ function PreviewDoc({ blocks, spaceSlug }: { blocks: EB[]; spaceSlug: string }):
         if (b.type === 'list') return <ul key={b.id} className="vdoc-list">{(b.items ?? []).map((it, j) => <li key={j}>{runsPlain(it)}</li>)}</ul>;
         if (b.type === 'divider') return <hr key={b.id} className="vdoc-hr" />;
         if (b.type === 'table') { const rows = b.rows ?? []; const [head, ...body] = rows; return <table key={b.id} className="vdoc-table">{head ? <thead><tr>{head.map((c, j) => <th key={j}>{c}</th>)}</tr></thead> : null}<tbody>{body.map((row, j) => <tr key={j}>{row.map((c, k) => <td key={k}>{c}</td>)}</tr>)}</tbody></table>; }
-        if (b.type === 'link' && b.to_slug) return <p key={b.id}><a href={`/verse/${spaceSlug}/${b.to_slug}`}>{b.label ?? b.to_slug}</a></p>;
+        if (b.type === 'link' && b.to_slug && isSlug(b.to_slug)) return <p key={b.id}><a href={`/verse/${spaceSlug}/${b.to_slug}`}>{b.label ?? b.to_slug}</a></p>;
         return null;
       })}
     </div>

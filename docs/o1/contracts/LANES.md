@@ -56,6 +56,7 @@ Every lane cites `CONTRACT.md`, `naming.md`, `LANES.md` and `defaults.md`. `cont
 | C2 | 4 | checker (no build) | n/a | `CONTRACT.md`, `naming.md`, `schema.sql`, `manifest.md`, `rpcs.md`, `apis.md`, `cookies.md`, `flags-env.md`, `LANES.md`, `defaults.md` |
 | C3 | 4 | code (checker) | n/a | `CONTRACT.md`, `naming.md`, `registry.md`, `routes.md`, `flags-env.md`, `link-allowlist.md`, `LANES.md`, `defaults.md`, `TWINS.md` |
 | RPT | 4 | docs | n/a | `CONTRACT.md`, `naming.md`, `manifest.md`, `LANES.md`, `defaults.md` |
+| CARDS | 4 | code + docs | owner-facing | `CONTRACT.md`, `naming.md`, `LANES.md`, `defaults.md` |
 
 ## 2. What the files assign to each lane
 
@@ -66,7 +67,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 
 | lane | SQL files | TWINS rows | copy namespaces | endpoints | modules | flags | formats written |
 |---|---|---|---|---|---|---|---|
-| ORCH | D01, D03, 018, 019, 020, 022, 023, 024, L13, L14, L15 | none | none | none | none | none | none |
+| ORCH | D01, D03, 018, 019, 020, 022, 023, 024, L13, L14, L15 | none | none | none | none | NET_CARDS, NEXT_PUBLIC_NET_CARDS, NET_CARDS_BRIDGES, NEXT_PUBLIC_NET_CARDS_BRIDGES, NET_CARDS_ADS, NEXT_PUBLIC_NET_CARDS_ADS | none |
 | F0 | none | none | none | none | none | none | none |
 | F0s | none | none | none | none | none | none | none |
 | Q0a | none | none | none | none | none | none | none |
@@ -92,7 +93,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | O5 | 013 | 14, 15 | anime.o5 | none | none | none | none |
 | O6 | 014 | 11, 12, 13 | anime.o6 | /api/cron/ensure-daily-opening | none | none | none |
 | P1 | none | 16, 17, 18, 19, 20, 58 | anime.p1 | none | none | none | none |
-| H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8, H-10, H-11, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 26d | hub.h1 | none | none | NEXT_PUBLIC_NET_PRIVACY, NET_KPOPDLE_HOME, NET_KPOPDLE_QUIZEND, NET_KPOPDLE_GROUP | none |
+| H1 | none | H-0, H-1, H-2, H-3, H-4, H-5, H-6, H-7, H-8, H-10, H-11, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 26d, 59, 60, 61, 62, 63 | hub.h1 | none | none | NEXT_PUBLIC_NET_PRIVACY, NET_KPOPDLE_HOME, NET_KPOPDLE_QUIZEND, NET_KPOPDLE_GROUP | none |
 | E1b | 012 | 29 | anime.e1b | none | none | EDITORIAL_QUIZ | none |
 | X1 | L11 | none | kpop.x1, anime.x1 | none | CrossoverFact | NEXT_PUBLIC_NET_FACTS | quiz draft |
 | L1 | L12 | none | kpop.l1 | /admin/network | none | NET_INDEXING | none |
@@ -100,6 +101,7 @@ counts for both); flags are flags-env.md 3; formats are the "written by" column 
 | C2 | none | none | none | none | none | none | none |
 | C3 | none | none | none | none | none | none | none |
 | RPT | none | none | none | none | none | none | none |
+| CARDS | none | none | none | none | none | none | none |
 
 Not in the table, because no file gives them one owner: `getLevelInfo` (rpcs.md 3, no owner yet: request F0-12),
 the rows 8, 23 and 23b blocks built by a second lane (the owner cell's parenthesis: O5's This or that bonus on row
@@ -204,3 +206,4 @@ section numbers, and `schema.sql` is cited by its `@file` sections.
 - **C3**: `registry.md` (`routes.allow`, SEO fields), `routes.md` 3 to 5, `flags-env.md` 1 and 2,
   `link-allowlist.md`, `TWINS.md` 1.
 - **RPT**: `manifest.md` 2 (the exact SQL order for the owner).
+- **CARDS**: nothing beyond the four; its own contract is `docs/o1/briefs/CARDS-CONTRACT.md` and `CARDS-AMEND-1.md` (Bunnyverse Cards, owner mission of 2026-11-12; its four flags are listed under ORCH).

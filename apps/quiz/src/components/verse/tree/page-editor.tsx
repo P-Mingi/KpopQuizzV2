@@ -8,9 +8,15 @@
 // (blocks.ts) - the DOM is only the live edit surface; autosave serializes DOM -> runs ->
 // the F1 CRUD save rail (a revision per save, C3). The frame (TOC/meter/history/rail/publish)
 // is Phase 4; this file is the editing core it wraps.
+//
+// FLAW-2 (integrator fix, 2026-11-12): no HTML string reaches the DOM here any more. A block's stored
+// content (text, list rows, table cells) is BUILT by lib/verse/tree/runs (createElement, setAttribute,
+// text nodes), and the toolbar Link, the highlight and the [[ page picker build their <a> / <mark> the
+// same way (no innerHTML, no dangerouslySetInnerHTML, no insertHTML, no createLink). A link keeps only an
+// href safeHref accepts or a page slug, the rules of the save.
 import { createElement, useCallback, useEffect, useRef, useState } from 'react';
 
-import { htmlFromRuns, runsFromEl } from '@/lib/verse/tree/runs';
+import { appendListItems, appendRuns, appendTableRows, linkElement, runsFromEl } from '@/lib/verse/tree/runs';
 import type { Run } from '@/lib/verse/tree/blocks';
 
 type Kind = 'paragraph' | 'heading' | 'list' | 'quote' | 'callout' | 'divider' | 'image' | 'table' | 'link';
@@ -20,6 +26,25 @@ let SEQ = 0;
 const nid = (): string => `b${Date.now().toString(36)}${(SEQ += 1)}`;
 const TEXT_KINDS: Kind[] = ['paragraph', 'heading', 'quote', 'callout'];
 const isText = (t: Kind): boolean => TEXT_KINDS.includes(t);
+
+// the live selection when it sits inside one editable block (the toolbar and the picker act only there).
+function blockRange(): Range | null {
+  const s = getSelection(); if (!s || s.rangeCount === 0) return null;
+  const r = s.getRangeAt(0);
+  const at = r.commonAncestorContainer;
+  const el = at.nodeType === Node.ELEMENT_NODE ? (at as Element) : at.parentElement;
+  return el?.closest('[data-eb]') ? r : null;
+}
+// put the caret just after a node the editor inserted.
+function caretAfter(node: Node): void {
+  const s = getSelection(); if (!s) return;
+  const r = document.createRange(); r.setStartAfter(node); r.collapse(true);
+  s.removeAllRanges(); s.addRange(r);
+}
+// replace a selection with a built node (a link or a highlight): nothing is parsed from a string.
+function placeNode(r: Range, node: Node): void {
+  r.insertNode(node); caretAfter(node);
+}
 
 const PALETTE: { t: Kind | 'x'; ic: string; l: string; d: string; lock?: boolean; level?: 2 | 3 }[] = [
   { t: 'paragraph', ic: '¶', l: 'Text', d: 'Body prose' },
@@ -50,6 +75,7 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
   const [picker, setPicker] = useState<{ id: string; x: number; y: number; q: string; hits: { slug: string; title: string }[] } | null>(null);
   const [toolbar, setToolbar] = useState<{ x: number; y: number } | null>(null);
   const [toast, setToast] = useState<{ msg: string; undo?: () => void } | null>(null);
+  const pickRange = useRef<Range | null>(null);   // the selection the [[ picker links (its input takes the focus)
 
   // serialize the live DOM of every text block back into the block model.
   const serialize = useCallback((): EB[] => {
@@ -68,14 +94,17 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
     saveT.current = setTimeout(() => onBlocksChange(serialize()), 600);
   }, [serialize, onBlocksChange]);
 
-  // set a block's contenteditable initial HTML once per (id) mount.
+  // build a block's editable content once per (id) mount, from the stored runs / rows (never an HTML string).
   const bindEl = useCallback((id: string, kind: Kind, el: HTMLElement | null) => {
     if (!el) { els.current.delete(id); return; }
     els.current.set(id, el);
     if (el.dataset.init === '1') return;
     el.dataset.init = '1';
     const b = blocks.find((x) => x.id === id);
-    if (b && isText(kind)) el.innerHTML = htmlFromRuns(b.content);
+    if (!b) return;
+    if (isText(kind)) { el.replaceChildren(); appendRuns(el, b.content); }
+    else if (kind === 'list') { el.replaceChildren(); appendListItems(el, b.items); }
+    else if (kind === 'table') { const body = el.querySelector('tbody'); if (body) { body.replaceChildren(); appendTableRows(body, b.rows); } }
   }, [blocks]);
 
   const focusBlock = useCallback((id: string, toEnd = true) => {
@@ -179,7 +208,7 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
       [/^> $/, () => turnInto(b.id, 'quote')],
       [/^---$/, () => { turnInto(b.id, 'divider'); insertAfter(b.id, 'paragraph'); }],
     ];
-    for (const [re, act] of md) { if (b.type === 'paragraph' && re.test(t)) { el.innerHTML = ''; act(); return; } }
+    for (const [re, act] of md) { if (b.type === 'paragraph' && re.test(t)) { el.replaceChildren(); act(); return; } }
     if (slash && slash.id === b.id) { const q = t.replace(/^\//, ''); setSlash({ ...slash, q, sel: 0 }); }
     scheduleSave();
   }, [turnInto, insertAfter, slash, scheduleSave]);
@@ -198,12 +227,29 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
   }, []);
 
   const fmt = (cmd: 'bold' | 'italic' | 'underline' | 'hl'): void => {
-    if (cmd === 'hl') { document.execCommand('insertHTML', false, `<mark>${getSelection()?.toString() ?? ''}</mark>`); }
+    if (cmd === 'hl') {
+      // a <mark> holding the selection's TEXT (insertHTML used to parse that text as HTML).
+      const r = blockRange(); if (!r) return;
+      const m = document.createElement('mark'); m.textContent = r.toString();
+      r.deleteContents(); placeNode(r, m);
+    }
     else document.execCommand(cmd);
     scheduleSave();
   };
+  const note = (msg: string): void => { setToast({ msg }); setTimeout(() => setToast((t) => (t && t.msg === msg ? null : t)), 6000); };
+  // the toolbar Link: the selection (marks included) moves inside a built <a>, refused unless safeHref accepts the url.
+  const addLink = (): void => {
+    const r = blockRange()?.cloneRange(); if (!r) return;   // kept across the prompt
+    const url = prompt('Link URL (https or /path):'); if (!url) return;
+    const a = linkElement(document, { href: url });
+    if (!a) { note('Link not added: use an https address or a /path on this site.'); return; }
+    if (r.collapsed) a.textContent = a.getAttribute('href') ?? '';
+    else a.appendChild(r.extractContents());
+    placeNode(r, a); scheduleSave();
+  };
   const openPageLink = (): void => {
     const s = getSelection(); if (!s || s.rangeCount === 0) return;
+    pickRange.current = blockRange()?.cloneRange() ?? null;
     const r = s.getRangeAt(0).getBoundingClientRect();
     setPicker({ id: '', x: r.left, y: r.bottom + 6, q: s.toString(), hits: [] });
   };
@@ -218,8 +264,17 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
     return () => clearTimeout(t);
   }, [picker?.q, groupId]);
 
+  // the [[ picker: the saved selection becomes a built page link whose label is TEXT (a stored page title
+  // used to go through insertHTML). A slug that is not a page slug leaves the label as plain text.
   const applyPageLink = (slug: string, label: string): void => {
-    document.execCommand('insertHTML', false, `<a data-slug="${slug}" class="ed-link">${label}</a>`);
+    const r = pickRange.current;
+    if (r) {
+      const a = linkElement(document, { toSlug: slug });
+      const node: Node = a ?? document.createTextNode(label);
+      if (a) a.textContent = label;
+      r.deleteContents(); placeNode(r, node);
+    }
+    pickRange.current = null;
     setPicker(null); scheduleSave();
   };
 
@@ -227,7 +282,7 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
   const slashItems = slash ? PALETTE.filter((it) => it.l.toLowerCase().includes(slash.q.toLowerCase())) : [];
   const runSlash = useCallback((it: typeof PALETTE[number]) => {
     if (!slash || it.lock || it.t === 'x') return;
-    const el = els.current.get(slash.id); if (el) el.innerHTML = '';
+    const el = els.current.get(slash.id); if (el) el.replaceChildren();
     if (it.t === 'paragraph' || (it.t === 'heading' && el)) turnInto(slash.id, it.t as Kind, it.level);
     else if (isText(it.t as Kind) || it.t === 'list') turnInto(slash.id, it.t as Kind, it.level);
     else { insertAfter(slash.id, it.t as Kind); }
@@ -264,7 +319,7 @@ export function PageEditor({ groupId, initialBlocks, onBlocksChange }: {
           <button onClick={() => fmt('underline')} title="Underline"><u>U</u></button>
           <button onClick={() => fmt('hl')} title="Highlight">{'✎'}</button>
           <span className="sep" />
-          <button className="txt" onClick={() => { const url = prompt('Link URL (https or /path):'); if (url) { document.execCommand('createLink', false, url); scheduleSave(); } }}>{'\u{1F517}'} Link</button>
+          <button className="txt" onClick={addLink}>{'\u{1F517}'} Link</button>
           <button className="txt" onClick={openPageLink}>[[ Page</button>
         </div>
       ) : null}
@@ -347,9 +402,9 @@ function BlockRow({ b, bindEl, onKeyDown, onInput, onGrip, onAdd, groupId, onIma
         : b.type === 'heading' ? ce(b.level === 3 ? 'h3' : 'h2')
         : b.type === 'quote' ? ce('blockquote')
         : b.type === 'callout' ? <div className="ped-callout"><span className="ic">{b.icon ?? '\u{1F4A1}'}</span>{ce('div')}</div>
-        : b.type === 'list' ? <ul data-eb={b.id} ref={(el) => bindEl(b.id, 'list', el)} className="ped-body ped-ul" contentEditable suppressContentEditableWarning onKeyDown={(e) => onKeyDown(e, b)} onInput={() => onInput(b)} dangerouslySetInnerHTML={{ __html: (b.items && b.items.length ? b.items : [[]]).map((it) => `<li>${htmlFromRuns(it)}</li>`).join('') }} />
+        : b.type === 'list' ? <ul data-eb={b.id} ref={(el) => bindEl(b.id, 'list', el)} className="ped-body ped-ul" contentEditable suppressContentEditableWarning onKeyDown={(e) => onKeyDown(e, b)} onInput={() => onInput(b)} />
         : b.type === 'divider' ? <hr className="ped-hr" />
-        : b.type === 'table' ? <table data-eb={b.id} ref={(el) => bindEl(b.id, 'table', el)} className="ped-tbl" onInput={() => onInput(b)}><tbody dangerouslySetInnerHTML={{ __html: (b.rows && b.rows.length ? b.rows : [['', ''], ['', '']]).map((r, ri) => `<tr>${r.map((c) => `<${ri === 0 ? 'th' : 'td'} contenteditable="true">${c.replace(/</g, '&lt;')}</${ri === 0 ? 'th' : 'td'}>`).join('')}</tr>`).join('') }} /></table>
+        : b.type === 'table' ? <table data-eb={b.id} ref={(el) => bindEl(b.id, 'table', el)} className="ped-tbl" onInput={() => onInput(b)}><tbody /></table>
         : b.type === 'image' ? <ImageBlock groupId={groupId} path={b.path} onPick={onImagePath} />
         : b.type === 'link' ? <div className="ped-linkblk">{b.to_slug ? <span>[[ {b.label ?? b.to_slug}</span> : <span className="dim">Empty page link</span>}</div>
         : null}

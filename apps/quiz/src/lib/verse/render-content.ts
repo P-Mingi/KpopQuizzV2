@@ -19,9 +19,15 @@ const esc = (s: string): string =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // Only same-origin or http(s) hrefs; no javascript: etc.
+// FLAW-2 sweep (integrator fix, 2026-11-12): a browser reads a backslash as a slash and drops tabs and
+// line breaks inside a URL, so `/\host`, `/<tab>/host` and `//host` all open ANOTHER host while looking
+// like a site path. Any backslash, tab or line break refuses the link, and a site path may not start with
+// `//`. Every other link renders exactly as before.
 function safeHref(href: unknown): string | null {
   const s = String(href ?? '');
-  if (/^https?:\/\//i.test(s) || s.startsWith('/')) return s;
+  if (/[\\\t\n\r]/.test(s)) return null;
+  if (/^https?:\/\//i.test(s)) return s;
+  if (s.startsWith('/') && !s.startsWith('//')) return s;
   return null;
 }
 

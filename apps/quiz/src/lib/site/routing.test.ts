@@ -657,7 +657,15 @@ describe('middleware step and the sites/[site] guard', () => {
       '/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball',
       '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
     ]));
-    for (const p of pages.filter((q) => !closed.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
+    // Bunnyverse Cards (lane U) is the second family closed by a flag: NET_CARDS off, its pages answer as any unknown URL; on, each public address is in the map.
+    const cards = new Set(['/cards', '/cards/binder', '/cards/c/xnum', '/cards/report']);
+    for (const p of cards) {
+      expect(pages, `cards page ${p}`).toContain(p);
+      expect(middlewareStep('hub', p), `hub ${p} with NET_CARDS off`).toBe('not-found');
+    }
+    expect(hubRouteAllow({ dailyGuess: true }, false)).not.toContain('/cards');
+    expect(hubRouteAllow({ dailyGuess: true }, true)).toEqual(expect.arrayContaining(['/cards', '/cards/binder', '/cards/c/{num}', '/cards/report']));
+    for (const p of pages.filter((q) => !closed.has(q) && !cards.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
   });
 
   it('a session path is a protected path of today\'s middleware and a route of the site', () => {

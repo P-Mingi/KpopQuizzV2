@@ -68,7 +68,7 @@ export interface AgencyOption { readonly id: number; readonly name: string }
 
 export interface PhotosAdminData {
   readonly schema: PhotoSchema;
-  readonly rows: Readonly<Record<Exclude<TabId, 'refs' | 'banners' | 'icons' | 'stickers'>, readonly AdminRow[]>>;
+  readonly rows: Readonly<Record<Exclude<TabId, 'banners' | 'icons' | 'stickers' | 'cards'>, readonly AdminRow[]>>;
   readonly assets: readonly AssetVersion[];
   readonly agencies: readonly AgencyOption[];
 }

@@ -1987,6 +1987,107 @@
       "owner": "H1",
       "body": "local",
       "notes": "The French Otakudle Dragon Ball, same components as row 56. Noindex until the owner reviewed the French. A 404 with the flag off (CR-024)."
+    },
+    {
+      "id": "59",
+      "site": "hub",
+      "route": "/cards (layout, with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/cards/layout.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/cards/cards-bar.tsx",
+        "components/cards/cards-provider.tsx",
+        "components/cards/card-art.tsx",
+        "components/cards/cards-footer.tsx",
+        "components/ux-v1/page.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The frame of every Bunnyverse Cards page (owner mission 2026-11-12, docs/o1/briefs/CARDS-CONTRACT.md): the Cards bar, the wallet provider, the footer with the photo credits and the report link. A 404 with NET_CARDS off."
+    },
+    {
+      "id": "60",
+      "site": "hub",
+      "route": "/cards (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/cards/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/cards/drop-rates.tsx",
+        "components/cards/packs-view.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Packs (prototype v4, amendment 1): the pack, the stack, the timers, the last pull, the odds of the real catalog. noindex while the hub is private (decision 5). A 404 with NET_CARDS off."
+    },
+    {
+      "id": "61",
+      "site": "hub",
+      "route": "/cards/binder (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/cards/binder/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/cards/binder-view.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The binder: pages of 9 pockets or the grid of 36, sorts, filters, favorites, Recycle extras. noindex. A 404 with NET_CARDS off."
+    },
+    {
+      "id": "62",
+      "site": "hub",
+      "route": "/cards/c/[num] (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/cards/c/[num]/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/cards/card-detail.tsx",
+        "components/cards/credit-block.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "One card with its credit under it, always noindex. A 404 with NET_CARDS off or an unknown number."
+    },
+    {
+      "id": "63",
+      "site": "hub",
+      "route": "/cards/report (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/cards/report/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/cards/report-form.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "Report a photo: removal within 48 hours, noindex. A 404 with NET_CARDS off."
     }
   ]
 }

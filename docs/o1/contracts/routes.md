@@ -152,6 +152,13 @@ answer with the site's title and no K-pop string.
 | `/admin/**` | `**` only as the last segment: the path itself and anything below (`/admin`, `/admin/review/1`) |
 
 The shared prefixes `/api/` and `/auth/` and the per-site root files are known on every site without a pattern.
+Bunnyverse Cards (owner mission 2026-11-12, hub build only, 404 elsewhere and with NET_CARDS off): `GET /api/cards/state`,
+`POST /api/cards/open`, `POST /api/cards/ad/ticket`, `POST /api/cards/ad/grant`, `POST /api/cards/recycle`, `POST /api/cards/favorite`,
+`POST /api/cards/report` (no sign-in), `GET /api/cards/catalog` (public, cached 5 minutes, no-store while the private launch is on), `POST /api/admin/cards/photos`
+(`requireAdmin`, served by the anime and hub builds, works while NET_CARDS is off so the owner can review first), and on the kpop and hub builds
+`GET /api/cards-bridge/me` and `POST /api/cards-bridge/bonus` (NET_CARDS and NET_CARDS_BRIDGES, same origin, no-store). While the hub's private launch is on, every Cards and hub bridge route answers only the accounts it allows.
+Its pages, hub build only, behind NET_CARDS (`hubRouteAllow` adds `CARDS_PATHS`; off: a 404 like any unknown URL), noindex and out of the
+sitemap: `/cards`, `/cards/binder`, `/cards/c/{num}` (`BV1-0001` style), `/cards/report`; the existing hub `/credits` gains a Cards section.
 
 ## 3. Route map per site
 

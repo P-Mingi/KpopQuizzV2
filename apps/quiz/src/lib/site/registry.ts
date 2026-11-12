@@ -287,6 +287,9 @@ export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: str
   { id: 'otakudle-one-piece', path: '/otakudle/one-piece' }, { id: 'otakudle-dragon-ball', path: '/otakudle/dragon-ball' },
 ];
 
+/** The public pages of Bunnyverse Cards on the hub (behind NET_CARDS). */
+export const CARDS_PATHS: readonly string[] = ['/cards', '/cards/binder', '/cards/c/{num}', '/cards/report'];
+
 /** Every page of the Terrier that exists, in both locales, the French credits with them. */
 export function dleLivePaths(): readonly string[] {
   const en = ['/daily', ...DLE_BUILT_GAMES.map((g) => g.path)];
@@ -297,10 +300,12 @@ export function dleLivePaths(): readonly string[] {
  * The route map of the hub. Daily games step 2: /credits, the licensed photos of the site (the footer's Credits link appears where the
  * route exists). Daily games step 4: the pages of the Terrier join it only with the flag on; with it off, the map is the one it always was.
  */
-export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>): readonly RoutePattern[] {
+export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>, cards: boolean = flagOn(process.env.NET_CARDS)): readonly RoutePattern[] {
   return [
     '/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits',
     ...(features.dailyGuess === true ? dleLivePaths() : []),
+    // Bunnyverse Cards (lane U): the pages are in the map only with NET_CARDS on; off, they answer as any unknown URL.
+    ...(cards ? CARDS_PATHS : []),
   ];
 }
 
@@ -458,6 +463,14 @@ export const O1_FLAGS: readonly O1Flag[] = [
   { name: 'NET_KPOPDLE_QUIZEND', scope: 'server', lane: 'H1', reserved: false },
   { name: 'NET_KPOPDLE_GROUP', scope: 'server', lane: 'H1', reserved: false },
   { name: 'EDITORIAL_QUIZ', scope: 'server', lane: 'E1b', reserved: false },
+  // Bunnyverse Cards (docs/o1/briefs/CARDS-CONTRACT.md section 4): all off by default. The lane column reads ORCH because the CARDS lanes
+  // are not in LANES.md yet; CARDS_ADS_PER_DAY and CARDS_BONUS_PER_DAY are numeric settings, not switches (lib/cards/flags.ts).
+  { name: 'NET_CARDS', scope: 'server', lane: 'ORCH', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_CARDS', scope: 'public', lane: 'ORCH', reserved: false },
+  { name: 'NET_CARDS_BRIDGES', scope: 'server', lane: 'ORCH', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_CARDS_BRIDGES', scope: 'public', lane: 'ORCH', reserved: false },
+  { name: 'NET_CARDS_ADS', scope: 'server', lane: 'ORCH', reserved: false },
+  { name: 'NEXT_PUBLIC_NET_CARDS_ADS', scope: 'public', lane: 'ORCH', reserved: false },
 ];
 
 /** Existing switches the run never changes (BACKLOG 5.1 "untouched"). */
