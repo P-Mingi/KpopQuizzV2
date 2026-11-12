@@ -55,9 +55,20 @@ begin
     checked_at date not null,
     event_name text,
     event_date date,
+    -- Default 50/30 for a person; the catalog files set 50/50 for a group.
     focal_x integer not null default 50 constraint cards_photos_focal_x_check check (focal_x between 0 and 100),
-    focal_y integer not null default 50 constraint cards_photos_focal_y_check check (focal_y between 0 and 100),
+    focal_y integer not null default 30 constraint cards_photos_focal_y_check check (focal_y between 0 and 100),
+    -- Amendment 1: the source photo is the public bucket file 'images/group-photos/<slug>.jpg' (bucket/path), at most 1,200 px wide, not cropped.
+    source_path text,
+    source_width integer constraint cards_photos_source_width_check check (source_width is null or source_width > 0),
+    source_height integer constraint cards_photos_source_height_check check (source_height is null or source_height > 0),
+    -- The published card files live in the public bucket 'cards': storage_path is their stem, files <stem>-1x.webp (320x495) and <stem>-2x.webp (640x989).
+    -- file_focal_* is the focal point those files were cut at (written by the owner's script); the site uses them only while it equals focal_*.
     storage_path text,
+    file_focal_x integer constraint cards_photos_file_focal_x_check check (file_focal_x is null or file_focal_x between 0 and 100),
+    file_focal_y integer constraint cards_photos_file_focal_y_check check (file_focal_y is null or file_focal_y between 0 and 100),
+    -- The 5.5:8.5 crop is narrower than 640 px: no honest 2x file.
+    small_2x boolean not null default false,
     status text not null default 'pending' constraint cards_photos_status_check check (status in ('auto', 'pending', 'approved', 'rejected', 'removed')),
     review_note text,
     modified text not null default 'cropped, frame and text added'

@@ -4,7 +4,9 @@
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
-import type { CardKind, CatalogCard, CatalogEntity, CatalogPayload, Edition, LockReason, PhotoCredit, PhotoSource, Rarity } from './types';
+import { computeOdds } from './rules';
+
+import type { CardImage, CardKind, CatalogCard, CatalogEntity, CatalogPayload, Edition, LockReason, PhotoCredit, PhotoSource, Rarity } from './types';
 
 export const CATALOG_TTL_MS = 5 * 60 * 1000;
 
@@ -16,6 +18,7 @@ interface EntityRow {
 interface PhotoRow {
   id: number; slot: number; source: PhotoSource; source_page: string; author: string; author_url: string | null; licence: string;
   licence_url: string; share_alike: boolean; modified: string; focal_x: number; focal_y: number; storage_path: string | null;
+  source_path: string | null; file_focal_x: number | null; file_focal_y: number | null; small_2x: boolean;
 }
 
 const LOCKS = new Set<string>(['one', 'sameday', 'newg', 'hiatus', 'crop']);
@@ -24,6 +27,27 @@ const RAR = new Set<string>(['C', 'U', 'R', 'SR', 'UR', 'L']);
 /** The public URL of a file of the 'cards' bucket (003-rls.sql). */
 export function cardImageUrl(path: string, base: string | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL): string {
   return `${(base ?? '').replace(/\/+$/, '')}/storage/v1/object/public/cards/${path}`;
+}
+
+/** The public URL of a file of any public bucket, given 'bucket/path' (cards_photos.source_path, e.g. images/group-photos/jennie.jpg). */
+export function publicObjectUrl(bucketPath: string, base: string | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL): string {
+  return `${(base ?? '').replace(/\/+$/, '')}/storage/v1/object/public/${bucketPath}`;
+}
+
+/**
+ * The art of a card (amendment 1): the 'cards' bucket WebP (storage_path is the stem, files <stem>-1x.webp 320x495 and <stem>-2x.webp
+ * 640x989) when the owner's script cut it at the current focal point (file_focal equals focal); otherwise the source photo with the
+ * focal point, to crop in CSS. Never broken: with neither a file nor a source, url is null.
+ */
+export function cardImage(p: PhotoRow, base?: string): CardImage {
+  const cut = p.storage_path !== null && p.file_focal_x === p.focal_x && p.file_focal_y === p.focal_y;
+  if (cut) {
+    return {
+      url: cardImageUrl(`${p.storage_path}-1x.webp`, base), url2x: p.small_2x ? null : cardImageUrl(`${p.storage_path}-2x.webp`, base),
+      css: false, small2x: p.small_2x, focalX: p.focal_x, focalY: p.focal_y,
+    };
+  }
+  return { url: p.source_path ? publicObjectUrl(p.source_path, base) : null, url2x: null, css: true, small2x: p.small_2x, focalX: p.focal_x, focalY: p.focal_y };
 }
 
 /** Builds the payload from the three table reads (pure, tested without a database). */
@@ -53,10 +77,11 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
       n: c.card_no, num: c.num, entity: c.entity_id, kind: e.kind, rarity: c.rarity, edition: c.edition, name: e.name,
       group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : e.kind === 'group' ? e.name : null,
       debutYear: e.debut_year, photo: credit,
-      image: p ? { url: p.storage_path ? cardImageUrl(p.storage_path, base) : null, focalX: p.focal_x, focalY: p.focal_y } : null,
+      image: p ? cardImage(p, base) : null,
     });
   }
-  return { generatedAt, cards: outCards, entities: outEntities };
+  const pool = outCards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity }));
+  return { generatedAt, odds: pool.length > 0 ? computeOdds(pool) : null, cards: outCards, entities: outEntities };
 }
 
 let cached: { at: number; payload: CatalogPayload } | null = null;
@@ -71,7 +96,7 @@ export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayl
       db.from('cards_entities').select('id, kind, name, group_id, debut_year, sort_key, lock_reasons').eq('active', true).order('id', { ascending: true })),
     fetchAllRows<PhotoRow>(() =>
       db.from('cards_photos')
-        .select('id, slot, source, source_page, author, author_url, licence, licence_url, share_alike, modified, focal_x, focal_y, storage_path')
+        .select('id, slot, source, source_page, author, author_url, licence, licence_url, share_alike, modified, focal_x, focal_y, storage_path, source_path, file_focal_x, file_focal_y, small_2x')
         .in('status', ['auto', 'approved']).order('id', { ascending: true })),
   ]);
   const payload = buildCatalog(cards, entities, photos, new Date(now).toISOString());

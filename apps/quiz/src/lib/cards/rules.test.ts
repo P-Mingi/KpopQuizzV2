@@ -9,6 +9,7 @@ import {
   PERIOD_MS,
   RARITIES,
   SHARDS,
+  computeOdds,
   creditLine,
   drawPack,
   nextParisMidnight,
@@ -197,3 +198,61 @@ describe('walletAt (the twin of the prototype sync)', () => {
 });
 
 export type { Rarity };
+
+describe('computeOdds: the odds of the real catalog (amendment 1)', () => {
+  // The real catalog today: idols and groups in C, U, R and UR only (no SR, no L, no event).
+  const real: PoolCard[] = [];
+  let m = 1;
+  for (const r of ['C', 'U', 'R', 'UR'] as Rarity[]) {
+    for (let i = 0; i < 3; i++) real.push({ n: m++, kind: 'idol', rarity: r });
+    real.push({ n: m++, kind: 'group', rarity: r });
+  }
+  it('renormalises the plan weights over the rarities that exist: C 63.03, U 25.21, R 10.50, UR 1.26', () => {
+    const o = computeOdds(real);
+    expect(o.available).toEqual(['C', 'U', 'R', 'UR']);
+    expect(o.availableWeightTotal).toBeCloseTo(95.2, 9);
+    expect(o.card.C).toBeCloseTo((60 / 95.2) * 100, 9);
+    expect(o.card.U).toBeCloseTo((24 / 95.2) * 100, 9);
+    expect(o.card.R).toBeCloseTo((10 / 95.2) * 100, 9);
+    expect(o.card.UR).toBeCloseTo((1.2 / 95.2) * 100, 9);
+    expect(o.card.SR).toBe(0);
+    expect(o.card.L).toBe(0);
+    expect(Object.values(o.card).reduce((a, b) => a + b, 0)).toBeCloseTo(100, 9);
+    expect(o.card.C.toFixed(2)).toBe('63.03');
+    expect(o.card.UR.toFixed(2)).toBe('1.26');
+  });
+  it('the fifth card: a Common becomes an Uncommon, U 88.24, R 10.50, UR 1.26', () => {
+    const o = computeOdds(real);
+    expect(o.fifth.C).toBe(0);
+    expect(o.fifth.U).toBeCloseTo((84 / 95.2) * 100, 9);
+    expect(o.fifth.U.toFixed(2)).toBe('88.24');
+    expect(o.fifth.R.toFixed(2)).toBe('10.50');
+    expect(o.fifth.UR.toFixed(2)).toBe('1.26');
+    expect(Object.values(o.fifth).reduce((a, b) => a + b, 0)).toBeCloseTo(100, 9);
+  });
+  it('kinds: idol 75 and group 15 among the kinds that have a card of the rarity', () => {
+    const o = computeOdds(real);
+    expect(o.kinds.C.idol).toBeCloseTo(83.3333333, 5);
+    expect(o.kinds.C.group).toBeCloseTo(16.6666667, 5);
+    expect(o.kinds.C.event).toBeUndefined();
+    expect(o.kinds.SR).toEqual({});
+  });
+  it('with all six rarities it is the plan itself', () => {
+    const full: PoolCard[] = RARITIES.map((r, i) => ({ n: i + 1, kind: 'idol', rarity: r }));
+    const o = computeOdds(full);
+    for (const r of RARITIES) expect(o.card[r]).toBeCloseTo(ODDS[r], 9);
+    for (const r of RARITIES) expect(o.fifth[r]).toBeCloseTo(FIFTH_ODDS[r], 9);
+  });
+  it('an absent edition is never drawn, in the first four cards or the fifth', () => {
+    const byN = new Map(real.map((c) => [c.n, c]));
+    const rng = seeded(99);
+    for (let i = 0; i < 20000; i++) {
+      for (const n of drawPack(real, rng)) expect(['C', 'U', 'R', 'UR']).toContain(byN.get(n)!.rarity);
+    }
+  });
+  it('without Commons the fifth card is the plain renormalised table (nothing moves)', () => {
+    const o = computeOdds([{ n: 1, kind: 'idol', rarity: 'U' }, { n: 2, kind: 'idol', rarity: 'R' }]);
+    expect(o.card.U).toBeCloseTo((24 / 34) * 100, 9);
+    expect(o.fifth.U).toBeCloseTo((24 / 34) * 100, 9);
+  });
+});

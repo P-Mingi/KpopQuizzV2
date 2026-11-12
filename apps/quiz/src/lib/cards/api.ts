@@ -7,11 +7,12 @@ import { fetchAllRows } from '@/lib/db/fetch-all';
 import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
+import { loadPool } from './draw';
 import { adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, cardsOpen } from './flags';
-import { CAP } from './rules';
+import { CAP, computeOdds } from './rules';
 
 import type { NextRequest } from 'next/server';
-import type { OwnedEntry, WalletState } from './types';
+import type { CatalogOdds, OwnedEntry, WalletState } from './types';
 
 type ServiceDb = ReturnType<typeof createServiceRoleClient>;
 
@@ -98,6 +99,15 @@ export function limits(): { ads: number; bonus: number } {
 
 const iso = (v: string | null): string | null => (v === null ? null : new Date(v).toISOString());
 
+/** The odds of the real catalog, from the cached pool; null while the catalog is empty or unreadable. */
+async function oddsOrNull(): Promise<CatalogOdds | null> {
+  try {
+    return computeOdds(await loadPool());
+  } catch {
+    return null;
+  }
+}
+
 /** GET /api/cards/state: the wallet after the refill and the Paris midnight (read only), and the binder. */
 export async function loadState(db: ServiceDb, userId: string, now: Date = new Date()): Promise<WalletState> {
   const lim = limits();
@@ -118,6 +128,7 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
     shards: w.shards,
     bonusLeft: w.bonus_left,
     owned,
+    odds: await oddsOrNull(),
   };
 }
 

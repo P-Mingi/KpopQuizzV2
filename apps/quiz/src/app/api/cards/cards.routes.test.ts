@@ -17,7 +17,13 @@ const h = vi.hoisted(() => ({
 
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return h.site; } }));
 vi.mock('@/lib/editorial/accounts', () => ({ isEditorialUser: async () => h.team }));
-vi.mock('@/lib/cards/draw', () => ({ drawServerPack: async () => [1, 7, 9, 3, 2], resetPoolCache: () => undefined }));
+vi.mock('@/lib/cards/draw', () => ({
+  drawServerPack: async () => [1, 7, 9, 3, 2],
+  resetPoolCache: () => undefined,
+  loadPool: async () => (await import('@/lib/cards/rules')).indexPool([
+    { n: 1, kind: 'idol', rarity: 'C' }, { n: 2, kind: 'idol', rarity: 'U' }, { n: 3, kind: 'idol', rarity: 'R' }, { n: 4, kind: 'idol', rarity: 'UR' },
+  ]),
+}));
 
 function builder(table: string): unknown {
   const b: Record<string, unknown> = {};
@@ -158,7 +164,11 @@ describe('GET /api/cards/state', () => {
     expect(await res.json()).toEqual({
       stock: 3, cap: 5, nextAt: '2026-11-12T10:10:00.000Z', midnightAt: '2026-11-12T23:00:00.000Z', adsLeft: 8, adsEnabled: true,
       shards: 12, bonusLeft: 1, owned: [{ n: 4, copies: 2, fav: true, at: '2026-11-12T09:00:00.000Z' }],
+      odds: expect.objectContaining({ available: ['C', 'U', 'R', 'UR'] }),
     });
+    const odds = (await (await state(req('/api/cards/state'))).json()).odds;
+    expect(odds.card.C).toBeCloseTo((60 / 95.2) * 100, 9);
+    expect(odds.fifth.U).toBeCloseTo((84 / 95.2) * 100, 9);
     expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_wallet', args: { p_user: 'u1', p_ads_limit: 10, p_bonus_cap: 3 } });
   });
   it('the settings flow through, bonus packs are 0 while the bridges are off, adsEnabled follows NET_CARDS_ADS', async () => {
@@ -330,7 +340,7 @@ describe('GET /api/cards/catalog', () => {
         { id: 'group:Q2', kind: 'group', name: 'GRP', group_id: null, debut_year: 2015, sort_key: 'a', lock_reasons: {} },
         { id: 'idol:Q1', kind: 'idol', name: 'Idol', group_id: 'group:Q2', debut_year: 2015, sort_key: 'a1', lock_reasons: { SR: 'one', L: 'bogus', XX: 'one' } },
       ],
-      cards_photos: [{ id: 5, slot: 1, source: 'commons', source_page: 'https://c/x', author: 'A', author_url: null, licence: 'CC BY 4.0', licence_url: 'https://l', share_alike: false, modified: 'cropped, frame and text added', focal_x: 40, focal_y: 30, storage_path: 'q1/1.webp' }],
+      cards_photos: [{ id: 5, slot: 1, source: 'commons', source_page: 'https://c/x', author: 'A', author_url: null, licence: 'CC BY 4.0', licence_url: 'https://l', share_alike: false, modified: 'cropped, frame and text added', focal_x: 40, focal_y: 30, storage_path: 'q1', source_path: 'images/group-photos/idol.jpg', file_focal_x: 40, file_focal_y: 30, small_2x: false }],
     };
     const res = await catalog();
     expect(res.status).toBe(200);
@@ -339,8 +349,9 @@ describe('GET /api/cards/catalog', () => {
     expect(body.cards).toEqual([{
       n: 1, num: 'BV1-0001', entity: 'idol:Q1', kind: 'idol', rarity: 'C', edition: 'std', name: 'Idol', group: 'GRP', debutYear: 2015,
       photo: { id: 5, slot: 1, author: 'A', authorUrl: null, licence: 'CC BY 4.0', licenceUrl: 'https://l', source: 'commons', sourcePage: 'https://c/x', shareAlike: false, modified: 'cropped, frame and text added' },
-      image: { url: expect.stringMatching(/\/storage\/v1\/object\/public\/cards\/q1\/1\.webp$/), focalX: 40, focalY: 30 },
+      image: { url: expect.stringMatching(/\/public\/cards\/q1-1x\.webp$/), url2x: expect.stringMatching(/\/public\/cards\/q1-2x\.webp$/), css: false, small2x: false, focalX: 40, focalY: 30 },
     }]);
+    expect(body.odds.available).toEqual(['C']);
     expect(body.entities.find((e: { id: string }) => e.id === 'idol:Q1')).toMatchObject({ group: 'GRP', lockReasons: { SR: 'one' } });
     const before = h.serviceMade;
     await catalog();

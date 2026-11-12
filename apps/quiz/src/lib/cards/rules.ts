@@ -9,6 +9,7 @@ import type {
   PoolCard,
   Rarity,
   Rng,
+  CatalogOdds,
   WalletClock,
   WalletRow,
 } from './types';
@@ -33,15 +34,14 @@ export const RARITY_NAMES: Record<Rarity, string> = {
   L: 'Legendary',
 };
 
-/** Odds in percent (the odds page shows these). */
+/** The PLAN's odds in percent when all six rarities exist. The odds a page shows are computeOdds(pool): the real catalog's. */
 export const ODDS: Record<Rarity, number> = { C: 60, U: 24, R: 10, SR: 4.5, UR: 1.2, L: 0.3 };
 
-/** The fifth card: same table, a Common becomes an Uncommon (prototype rollR(min)). */
+/** The PLAN's fifth card table (all six rarities): a Common becomes an Uncommon (prototype rollR(min)). */
 export const FIFTH_ODDS: Record<Rarity, number> = { C: 0, U: 84, R: 10, SR: 4.5, UR: 1.2, L: 0.3 };
 
 /** Odds in thousandths of a percent, so every table is an exact integer out of 100000. */
 const ODDS_UNITS: Record<Rarity, number> = { C: 60000, U: 24000, R: 10000, SR: 4500, UR: 1200, L: 300 };
-const UNITS_TOTAL = 100000;
 
 /** Shards a duplicate is worth in "Recycle extras". */
 export const SHARDS: Record<Rarity, number> = { C: 1, U: 2, R: 5, SR: 12, UR: 30, L: 80 };
@@ -101,51 +101,86 @@ export function creditLine(photo: PhotoCredit, idolPhotoNumber: number = photo.s
   return `${base}. This card is shared under ${sa}.`;
 }
 
-/** Rarity roll for one card. `fifth` turns a Common into an Uncommon. */
-export function rollRarity(rng: Rng, fifth: boolean): Rarity {
-  let x = rng(UNITS_TOTAL);
-  let pick: Rarity = 'C';
-  for (const r of RARITIES) {
-    if (x < ODDS_UNITS[r]) {
-      pick = r;
+/** The plan's weights (thousandths of a percent) of the rarities that have at least one card in the pool, in rarity order. */
+function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity, number]> {
+  const has = (r: Rarity): boolean => KINDS.some((k) => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0);
+  const t: Array<[Rarity, number]> = RARITIES.filter(has).map((r) => [r, ODDS_UNITS[r]]);
+  if (fifth) {
+    // A Common becomes an Uncommon: its weight moves to the lowest available rarity above C (nothing moves when C is not in packs).
+    const c = t.findIndex(([r]) => r === 'C');
+    if (c >= 0) {
+      const [, w] = t[c] as [Rarity, number];
+      t.splice(c, 1);
+      if (t.length === 0) return t;
+      (t[0] as [Rarity, number])[1] += w;
+    }
+  }
+  return t;
+}
+
+/** Rarity roll for one card among the rarities that have a card (renormalised); `fifth` turns a Common into an Uncommon. */
+function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
+  const total = table.reduce((s, [, w]) => s + w, 0);
+  if (total <= 0) throw new Error('cards: the pool has no card for this draw');
+  let x = rng(total);
+  for (const [r, w] of table) {
+    if (x < w) return r;
+    x -= w;
+  }
+  return (table[table.length - 1] as [Rarity, number])[0];
+}
+
+/** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. */
+function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): PoolCard {
+  const rarity = rollFrom(tableOf(byKey, fifth), rng);
+  const kinds = KINDS.filter((k) => (byKey.get(`${k}|${rarity}`)?.length ?? 0) > 0);
+  const total = kinds.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
+  let x = rng(total);
+  let kind = kinds[kinds.length - 1] as CardKind;
+  for (const k of kinds) {
+    if (x < KIND_WEIGHTS[k]) {
+      kind = k;
       break;
     }
-    x -= ODDS_UNITS[r];
+    x -= KIND_WEIGHTS[k];
   }
-  return fifth && pick === 'C' ? 'U' : pick;
+  const list = byKey.get(`${kind}|${rarity}`) as PoolCard[];
+  return list[rng(list.length)] as PoolCard;
 }
 
 /**
- * One card of the pack. A rarity with no active card falls back to the next lower rarity that has some
- * (never below U on the fifth card); the catalog is built so this does not happen, it only keeps the draw total.
+ * The odds of the REAL catalog (amendment 1): the plan's weights of the rarities with at least one card in packs, renormalised to 100,
+ * for a card and for the fifth card, with the inputs, so a page can write the calculation. Percentages are numbers, never typed.
  */
-function drawOne(
-  byKey: Map<string, PoolCard[]>,
-  rng: Rng,
-  fifth: boolean,
-): PoolCard {
-  let ri = RARITIES.indexOf(rollRarity(rng, fifth));
-  const floor = fifth ? 1 : 0;
-  for (; ri >= floor; ri--) {
-    const rarity = RARITIES[ri];
-    const kinds = KINDS.filter((k) => (byKey.get(`${k}|${rarity}`)?.length ?? 0) > 0);
-    if (kinds.length === 0) continue;
-    const total = kinds.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
-    let x = rng(total);
-    let kind = kinds[kinds.length - 1];
-    for (const k of kinds) {
-      if (x < KIND_WEIGHTS[k]) {
-        kind = k;
-        break;
-      }
-      x -= KIND_WEIGHTS[k];
-    }
-    const list = byKey.get(`${kind}|${rarity}`) as PoolCard[];
-    return list[rng(list.length)] as PoolCard;
+export function computeOdds(pool: readonly PoolCard[] | Map<string, PoolCard[]>): CatalogOdds {
+  const byKey = pool instanceof Map ? pool : indexPool(pool);
+  const pct = (table: Array<[Rarity, number]>): Record<Rarity, number> => {
+    const total = table.reduce((s, [, w]) => s + w, 0);
+    const out = { C: 0, U: 0, R: 0, SR: 0, UR: 0, L: 0 } as Record<Rarity, number>;
+    for (const [r, w] of table) out[r] = total > 0 ? (w / total) * 100 : 0;
+    return out;
+  };
+  const card = tableOf(byKey, false);
+  const available = card.map(([r]) => r);
+  const weightTotal = card.reduce((s, [, w]) => s + w, 0) / 1000;
+  const kinds = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
+  for (const r of RARITIES) {
+    const ks = KINDS.filter((k) => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0);
+    const tot = ks.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
+    kinds[r] = {};
+    for (const k of ks) kinds[r][k] = (KIND_WEIGHTS[k] / tot) * 100;
   }
-  throw new Error('cards: the pool has no card for this draw');
+  return {
+    available,
+    planWeights: { ...ODDS },
+    availableWeightTotal: weightTotal,
+    card: pct(card),
+    fifth: pct(tableOf(byKey, true)),
+    kinds,
+  };
 }
 
+/** A pack of PACK_SIZE cards (card numbers). The pool must only hold active, in-pack cards. */
 /** Index a pool once; reuse it for many packs. */
 export function indexPool(pool: readonly PoolCard[]): Map<string, PoolCard[]> {
   const byKey = new Map<string, PoolCard[]>();
@@ -158,7 +193,6 @@ export function indexPool(pool: readonly PoolCard[]): Map<string, PoolCard[]> {
   return byKey;
 }
 
-/** A pack of PACK_SIZE cards (card numbers). The pool must only hold active, in-pack cards. */
 export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rng: Rng): number[] {
   const byKey = pool instanceof Map ? pool : indexPool(pool);
   const out: number[] = [];
