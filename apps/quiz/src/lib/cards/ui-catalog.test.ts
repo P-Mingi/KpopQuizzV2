@@ -50,3 +50,23 @@ describe('rules shared with the UI', () => {
     expect(Object.keys(SOURCE_NAMES).sort()).toEqual(['commons', 'dvids', 'flickr', 'koreanet']);
   });
 });
+
+describe('review 1 finding 5: an entity with no card has no pocket', () => {
+  it('the group line of a person (BLACKPINK for Jennie) gets no locked pocket, no section of its own and no binder page', async () => {
+    const { paginate } = await import('./ui-model');
+    const cat = fromPayload(buildCatalog(
+      [1, 2, 3, 4].map((n, i) => ({ card_no: n, num: `BV1-000${n}`, entity_id: 'idol:jennie', rarity: (['C', 'U', 'R', 'UR'] as const)[i]!, edition: (['std', 'stage', 'holo', 'gold'] as const)[i]!, photo_id: 1 })),
+      [
+        { id: 'group:blackpink', kind: 'group', name: 'BLACKPINK', group_id: null, debut_year: 2016, sort_key: 'blackpink|1|blackpink', lock_reasons: {} },
+        { id: 'group:twice', kind: 'group', name: 'TWICE', group_id: null, debut_year: 2015, sort_key: 'twice|1|twice', lock_reasons: {} },
+        { id: 'idol:jennie', kind: 'idol', name: 'Jennie', group_id: 'group:blackpink', debut_year: 2016, sort_key: 'blackpink|0|jennie', lock_reasons: { SR: 'one', L: 'one' } },
+      ],
+      [ph()], '2026-11-12T00:00:00Z', BASE));
+    const slim = buildSlim(cat);
+    expect(slim.items.filter((it) => it.locked && it.entity !== 'idol:jennie')).toEqual([]);
+    expect(slim.items.map((it) => (it.locked ? `lock:${it.rarity}` : it.card.num))).toEqual(['BV1-0001', 'BV1-0002', 'BV1-0003', 'lock:SR', 'BV1-0004', 'lock:L']);
+    expect(slim.sections.map((x) => [x.name, x.ns])).toEqual([['BLACKPINK', [1, 2, 3, 4]]]);
+    expect(Object.keys(slim.locks)).toEqual(['idol:jennie']);
+    expect(paginate(slim.items).length).toBe(1);
+  });
+});

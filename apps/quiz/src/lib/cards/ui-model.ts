@@ -40,7 +40,8 @@ export function lockReasonOf(lockReasons: Partial<Record<Rarity, LockReason>>, r
   return lockReasons[r] ?? (r === 'SR' || r === 'L' ? 'one' : null);
 }
 
-/** Builds the slim catalog: ordered pockets (idols, then the group cards, per group, then the events), the sections and the locks. */
+/** Builds the slim catalog: ordered pockets (idols, then the group cards, per group, then the events), the sections and the locks. Only the
+ *  entities that have at least one card get pockets. */
 export function buildSlim(cat: UiCatalog): SlimCatalog {
   const byEntity = new Map<string, UiCard[]>();
   for (const c of cat.cards) {
@@ -58,6 +59,9 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
   const editions: SlimCatalog['editions'] = {};
   const seen = new Set<string>();
   for (const e of entities) {
+    // Review 1 finding 5: an entity with no card (the group line of a person, BLACKPINK for Jennie and Rose) has no pocket and no section
+    // of its own; its name is only the group line of its people.
+    if (!byEntity.has(e.id)) continue;
     const secName = e.kind === 'event' ? 'Events' : e.kind === 'group' ? e.name : (e.group ?? e.name);
     const sec = e.kind === 'event' ? EVENTS_SECTION : slug(secName);
     if (!seen.has(sec)) {
