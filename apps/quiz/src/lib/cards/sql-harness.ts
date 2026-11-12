@@ -26,6 +26,17 @@ grant usage on schema auth to anon, authenticated, service_role;
 create schema storage;
 create table storage.buckets (id text primary key, name text, public boolean, file_size_limit bigint, allowed_mime_types text[]);
 create table storage.objects (id bigserial primary key, bucket_id text);
+-- Supabase's storage.protect_delete: a statement-level trigger that refuses any SQL delete unless storage.allow_delete_query is 'true'.
+create function storage.protect_delete() returns trigger language plpgsql as $p$
+begin
+  if coalesce(current_setting('storage.allow_delete_query', true), 'false') <> 'true' then
+    raise exception 'Direct deletion from storage tables is not allowed. Use the Storage API instead.';
+  end if;
+  return null;
+end
+$p$;
+create trigger protect_buckets_delete before delete on storage.buckets for each statement execute function storage.protect_delete();
+create trigger protect_objects_delete before delete on storage.objects for each statement execute function storage.protect_delete();
 
 -- Stand-ins for the play tables the bonus allowance reads (production columns used by cards_bonus_plays only).
 create table public.quizzes (id uuid primary key default gen_random_uuid(), site_id text not null default 'kpop');
@@ -35,10 +46,13 @@ create table public.dle_plays (id bigint generated always as identity primary ke
   user_id uuid, status text not null default 'playing', finished_at timestamptz);
 `;
 
+/** BASE without the Kpopdle table (a database where docs/pending-migrations/multisite/019-dle-core.sql is not applied). */
+export const BASE_NO_DLE = BASE.slice(0, BASE.indexOf('create table public.dle_plays'));
+
 /** A fresh database: the stand-ins, then the given cards files in order. */
-export async function freshCardsDb(files: readonly string[] = SCHEMA_FILES): Promise<PGlite> {
+export async function freshCardsDb(files: readonly string[] = SCHEMA_FILES, base: string = BASE): Promise<PGlite> {
   const db = new PGlite();
-  await db.exec(BASE);
+  await db.exec(base);
   for (const f of files) await db.exec(readCardsSql(f));
   return db;
 }

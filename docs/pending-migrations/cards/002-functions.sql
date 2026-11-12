@@ -12,7 +12,7 @@
 -- Why:    the draw itself stays in TypeScript (crypto.randomInt, lib/cards/draw.ts); the database only checks and stores. The rules are the
 --         prototype's sync(): 5 packs at most, 1 pack per 10 minutes, a Paris midnight tops the stack up to 5 and restarts the day counters.
 -- Rows:   0 rows. 9 functions, 2 triggers.
--- Needs:  001. For the bonus pack: public.plays, public.quizzes (site_id) and public.dle_plays (019), read inside cards_bonus_plays only.
+-- Needs:  001. For the bonus pack: public.plays, public.quizzes (site_id) and public.dle_plays (019), read inside cards_bonus_plays only and only when they exist (to_regclass); with p_bonus_cap <= 0 it is not called.
 -- Bonus:  the allowance of a Paris day = min(p_bonus_cap, distinct quizzes of kpopquiz.org completed that day + Kpopdle wins that day) minus the
 --         bonus packs already opened that day. A replay of the same quiz that day counts once (a distinct quiz is the unit, so a quiz cannot be farmed).
 -- Errors: a refusal is an exception whose message starts with 'cards: ' and one word: empty, shards, bonus, ad_limit, ticket, source, pack.
@@ -78,14 +78,19 @@ begin
     v_quiz integer;
     v_dle integer;
   begin
-    select count(distinct p.quiz_id)::integer into v_quiz
-      from public.plays p join public.quizzes q on q.id = p.quiz_id
-     where p.player_id = p_user and q.site_id = 'kpop'
-       and (p.created_at at time zone 'Europe/Paris')::date = p_day;
-    select count(*)::integer into v_dle
-      from public.dle_plays d
-     where d.user_id = p_user and d.status = 'won' and d.game_id like 'kpopdle%'
-       and (d.finished_at at time zone 'Europe/Paris')::date = p_day;
+    -- A table that does not exist on this database counts as 0 plays (the guards keep the wallet working without it).
+    if to_regclass('public.plays') is not null and to_regclass('public.quizzes') is not null then
+      select count(distinct p.quiz_id)::integer into v_quiz
+        from public.plays p join public.quizzes q on q.id = p.quiz_id
+       where p.player_id = p_user and q.site_id = 'kpop'
+         and (p.created_at at time zone 'Europe/Paris')::date = p_day;
+    end if;
+    if to_regclass('public.dle_plays') is not null then
+      select count(*)::integer into v_dle
+        from public.dle_plays d
+       where d.user_id = p_user and d.status = 'won' and d.game_id like 'kpopdle%'
+         and (d.finished_at at time zone 'Europe/Paris')::date = p_day;
+    end if;
     return coalesce(v_quiz, 0) + coalesce(v_dle, 0);
   end
   $f$;
@@ -109,7 +114,7 @@ begin
     r := public.cards_roll(w.stock, w.anchor, w.paris_day, w.ads_today, w.bonus_today, p_now);
     v_stock := (r ->> 'stock')::integer;
     v_anchor := (r ->> 'anchor')::timestamptz;
-    v_bonus_seen := public.cards_bonus_plays(p_user, v_today);
+    v_bonus_seen := case when p_bonus_cap <= 0 then 0 else public.cards_bonus_plays(p_user, v_today) end;
     return jsonb_build_object(
       'stock', v_stock,
       'anchor', v_anchor,
@@ -187,7 +192,7 @@ begin
       if v_shards < 50 then raise exception 'cards: shards'; end if;
       v_shards := v_shards - 50;
     else
-      if v_bonus >= least(p_bonus_cap, public.cards_bonus_plays(p_user, v_today)) then raise exception 'cards: bonus'; end if;
+      if p_bonus_cap <= 0 or v_bonus >= least(p_bonus_cap, public.cards_bonus_plays(p_user, v_today)) then raise exception 'cards: bonus'; end if;
       v_bonus := v_bonus + 1;
     end if;
 

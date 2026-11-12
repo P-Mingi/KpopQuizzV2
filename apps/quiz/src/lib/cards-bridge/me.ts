@@ -47,7 +47,7 @@ export function defaultSource(): MeSource {
     async wallet(userId, now) {
       const { data, error } = await createServiceRoleClient().rpc('cards_wallet', {
         p_user: userId, p_now: now.toISOString(),
-        p_ads_limit: envInt(process.env.CARDS_ADS_PER_DAY, ADS_PER_DAY_DEFAULT), p_bonus_cap: envInt(process.env.CARDS_BONUS_PER_DAY, BONUS_PER_DAY_DEFAULT),
+        p_ads_limit: envInt(process.env.CARDS_ADS_PER_DAY, ADS_PER_DAY_DEFAULT), p_bonus_cap: cardsBridgesOn() ? envInt(process.env.CARDS_BONUS_PER_DAY, BONUS_PER_DAY_DEFAULT) : 0,
       });
       return error ? null : data;
     },

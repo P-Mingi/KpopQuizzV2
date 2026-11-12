@@ -6,7 +6,7 @@ import path from 'node:path';
 
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { CARDS_SQL, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
+import { BASE_NO_DLE, CARDS_SQL, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 import { CAP, PERIOD_MS, SHARDS, nextParisMidnight, walletAt } from './rules';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -435,5 +435,42 @@ describe('constants shared with the TypeScript twin', () => {
     expect(PERIOD_MS).toBe(600_000);
     expect(sql).toMatch(/v_stock >= 5/);
     expect(sql).toMatch(/\/ 600\)/);
+  });
+});
+
+describe('a database without the Kpopdle table (019 not applied)', () => {
+  it.each([[0], [3]])('the wallet and a stock pack work with the bonus cap %i', async (cap) => {
+    const d = await freshCardsDb(undefined, BASE_NO_DLE);
+    await seed(d);
+    expect(await one(d, `select to_regclass('public.dle_plays') is null`)).toBe(true);
+    expect(await wallet(d, U1, T0, 10, cap)).toMatchObject({ stock: 5, bonus_left: 0 });
+    await open(d, U1, 'stock', PACK, T0, null, 10, cap);
+    expect(await wallet(d, U1, T0, 10, cap)).toMatchObject({ stock: 4, bonus_today: 0 });
+    // quizzes alone count when the cap allows
+    await d.query(`insert into public.quizzes (id, site_id) values ('00000000-0000-0000-0000-000000000001', 'kpop')`);
+    await d.query(`insert into public.plays (quiz_id, player_id, created_at) values ('00000000-0000-0000-0000-000000000001', $1, $2::timestamptz)`, [U1, '2026-11-12T08:00:00Z']);
+    expect((await wallet(d, U1, T0, 10, cap)).bonus_left).toBe(cap === 0 ? 0 : 1);
+  });
+  it('with the bonus cap 0 the bonus function is never called, even without the play tables', async () => {
+    const d = await freshCardsDb(undefined, BASE_NO_DLE.slice(0, BASE_NO_DLE.indexOf('create table public.quizzes')));
+    await seed(d);
+    expect(await wallet(d, U1, T0, 10, 0)).toMatchObject({ stock: 5, bonus_left: 0 });
+    await open(d, U1, 'stock', PACK, T0, null, 10, 0);
+    expect(await failure(d, `select public.cards_apply_pack('${U1}', 'bonus', '{1,7,9,3,2}', null, '${iso(T0)}', 10, 0)`)).toMatch(/cards: bonus/);
+    expect(await wallet(d, U1, T0, 10, 3)).toMatchObject({ bonus_left: 0 });
+  });
+});
+
+describe('the rollback of the bucket under Supabase storage.protect_delete', () => {
+  it('003-rls.rollback refuses while the bucket holds files, then deletes the empty bucket row', async () => {
+    await db.exec(`insert into storage.objects (bucket_id) values ('cards')`);
+    expect(await failure(db, readCardsSql('003-rls.rollback.sql'))).toMatch(/holds 1 files.*empty it/);
+    await db.exec(`set storage.allow_delete_query = 'true'; delete from storage.objects; reset storage.allow_delete_query;`);
+    expect(await failure(db, readCardsSql('003-rls.rollback.sql'))).toBeNull();
+    expect(await one(db, `select count(*)::int from storage.buckets where id='cards'`)).toBe(0);
+    expect(await one(db, `select coalesce(current_setting('storage.allow_delete_query', true), '') <> 'true'`)).toBe(true);
+  });
+  it('the mocked trigger really refuses a plain delete (so the proof fails on a file that skips the setting)', async () => {
+    expect(await failure(db, `delete from storage.buckets where id = 'cards'`)).toMatch(/Direct deletion from storage tables/);
   });
 });

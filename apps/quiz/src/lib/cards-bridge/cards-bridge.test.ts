@@ -101,6 +101,20 @@ describe('bonus line (bridge 3)', () => {
   });
 });
 
+describe('the wallet read passes the bonus cap', () => {
+  it('p_bonus_cap is 0 with the bridges off and the setting with them on', async () => {
+    rpc.mockResolvedValue({ data: {}, error: null });
+    env(null);
+    vi.stubEnv('CARDS_BONUS_PER_DAY', '2');
+    await (await import('./me')).defaultSource().wallet('u1', new Date('2026-11-12T10:00:00Z'));
+    expect(rpc.mock.calls[0]![1]).toMatchObject({ p_bonus_cap: 0 });
+    env('1');
+    vi.stubEnv('CARDS_BONUS_PER_DAY', '2');
+    await (await import('./me')).defaultSource().wallet('u1', new Date('2026-11-12T10:00:00Z'));
+    expect(rpc.mock.calls[1]![1]).toMatchObject({ p_bonus_cap: 2 });
+  });
+});
+
 describe('API route /api/cards-bridge/me', () => {
   const src = (over: Partial<import('./me').MeSource> = {}): import('./me').MeSource => ({
     userId: async () => 'u1', isTeam: async () => false,
