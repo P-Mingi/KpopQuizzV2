@@ -164,6 +164,34 @@ describe('101-catalog.sql on fixture groups and idols', () => {
   });
 });
 
+describe('review 1 finding 11: 101 never guesses between two people', () => {
+  it('prints which idols row each person of the run is', async () => {
+    const d = await fixtureDb();
+    const notices = await run101(d);
+    const ids = Object.fromEntries((await rows<{ name: string; id: number }>(d, `select name, id from public.idols where active and name in ('IU', 'Jennie', 'Jimin', 'Hwasa')`)).map((r) => [r.name, r.id]));
+    expect(notices.filter((n) => n.startsWith('101-catalog: person '))).toEqual([
+      `101-catalog: person hwasa is idols.id ${ids.Hwasa}`, `101-catalog: person iu is idols.id ${ids.IU}`,
+      `101-catalog: person jennie is idols.id ${ids.Jennie}`, `101-catalog: person jimin is idols.id ${ids.Jimin}`]);
+  });
+  it('two active idols under the name (another Jennie in another group) leave the person out as ambiguous', async () => {
+    const d = await fixtureDb();
+    await d.exec(`insert into public.groups (name, slug, inception_date) values ('OTHER', 'other', '2020-01-01');
+      insert into public.idols (group_id, name, birth_date) values (currentval_g('other'), 'JENNIE ', current_date - interval '25 years');`);
+    const notices = await run101(d);
+    expect(notices).toContain('101-catalog: left out jennie (ambiguous)');
+    expect(notices).toContain('101-catalog: 4 subjects in, 55 left out, 0 already there');
+    expect(await one(d, `select count(*)::int from cards_entities where id = 'idol:jennie'`)).toBe(0);
+  });
+  it('two active rows in the person own group are ambiguous too; an inactive second row is not', async () => {
+    const d = await fixtureDb();
+    await d.exec(`insert into public.idols (group_id, name, birth_date, active) values (currentval_g('iu'), 'IU (old row)', current_date - interval '30 years', false);`);
+    expect(await run101(d)).not.toContain('101-catalog: left out iu (ambiguous)');
+    const d2 = await fixtureDb();
+    await d2.exec(`insert into public.idols (group_id, name, birth_date) values (currentval_g('iu'), 'Another', current_date - interval '30 years');`);
+    expect(await run101(d2)).toContain('101-catalog: left out iu (ambiguous)');
+  });
+});
+
 describe('review 1 finding 2: 101 fills a catalog that holds its own subjects only', () => {
   it('refuses, with nothing changed, while cards_entities holds another id', async () => {
     const d = await fixtureDb();

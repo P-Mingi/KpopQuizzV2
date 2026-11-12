@@ -8,8 +8,9 @@
 --         - a group: its groups row (official name); the debut year from the database (a debut_year or debut_date column of groups if
 --           it has one, else the year of inception_date). IN only when ALL its active idols rows have a known birth date at least 18 years
 --           before today (current_date - interval '18 years'); no active member, an unknown date or a minor means OUT (decision 17).
---         - a soloist or member: the idols row = the active row of the person's own group with the lowest ord, else the active idol of
---           another group whose name equals the group's name. IN only when its birth_date is known and at least 18 years back.
+--         - a soloist or member: the idols row = the one active row of the person's own group, else the one active idol of another group
+--           whose name equals the group's name; two or more candidates on that path leave it OUT as ambiguous (review 1 finding 11). IN
+--           only when its birth_date is known and at least 18 years back.
 --           Its group line is that other group when it is one (its entity is created without cards when it is not a subject), else none
 --           ("Soloist", decision 18); the debut year is the group line's.
 --         - numbering (decision 2): the included subjects are ordered by section name A to Z (a person's section is its group line, a
@@ -21,7 +22,8 @@
 -- Why:    amendment 1: the photos of the October run are the only photos of the game. docs/design/cards/CARDS-PLAN-v3.md for the rest.
 -- Rows:   at most 236 cards (59 subjects x 4), the same number of entities and 59 photos at most, plus the group-line entities of
 --         the soloists. The real counts are the Verify output below (Messages tab): subjects in, cards per edition, the highest number, and
---         every left-out slug with its reason (no_groups_row, no_active_member, no_idol_row, unknown_birth_date, minor_member, minor).
+--         every left-out slug with its reason (no_groups_row, no_active_member, no_idol_row, ambiguous, unknown_birth_date, minor_member,
+--         minor), and for every person of the run the idols row it is bound to ("person <slug> is idols.id <id>").
 -- Needs:  001 to 003 (with the photo columns of amendment 1) and the tables public.groups and public.idols.
 -- Verify: select count(*) from public.cards_catalog;   expect 4 x the subjects in (the notice "101-catalog: N subjects in")
 -- Verify: select rarity, count(*) from public.cards_catalog group by rarity order by rarity;   expect C, R, U, UR with the same count each
@@ -178,6 +180,8 @@ begin
     v_reason := null;
     v_qid := null;
     g := null; i := null; lg := null;
+    -- i starts as an all-null row of the idols columns (a record a select has not filled cannot be read)
+    select x.id, x.name, x.group_id, x.birth_date, x.wikidata_qid into i from public.idols x where false;
 
     select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = v_slug;
     if g.id is null then
@@ -190,14 +194,21 @@ begin
       elsif v_adult < v_n then v_reason := 'minor_member';
       end if;
     else
-      select x.id, x.name, x.group_id, x.birth_date, x.wikidata_qid into i
-        from public.idols x where x.group_id = g.id and x.active order by x.ord, x.id limit 1;
-      if i.id is null then
+      -- Review 1 finding 11: the person must be ONE active idols row: of the person's own group, else of another group under the same
+      -- name. Two or more candidates on the path taken leave the subject out as ambiguous (never a guess between two people).
+      select count(*) into v_n from public.idols x where x.group_id = g.id and x.active;
+      if v_n = 0 then
+        select count(*) into v_n from public.idols x where x.group_id <> g.id and x.active and lower(btrim(x.name)) = lower(btrim(g.name));
+        if v_n = 1 then
+          select x.id, x.name, x.group_id, x.birth_date, x.wikidata_qid into i
+            from public.idols x where x.group_id <> g.id and x.active and lower(btrim(x.name)) = lower(btrim(g.name));
+        end if;
+      elsif v_n = 1 then
         select x.id, x.name, x.group_id, x.birth_date, x.wikidata_qid into i
-          from public.idols x where x.group_id <> g.id and x.active and lower(btrim(x.name)) = lower(btrim(g.name))
-          order by x.ord, x.id limit 1;
+          from public.idols x where x.group_id = g.id and x.active;
       end if;
-      if i.id is null then v_reason := 'no_idol_row';
+      if v_n > 1 then v_reason := 'ambiguous';
+      elsif i.id is null then v_reason := 'no_idol_row';
       elsif i.birth_date is null then v_reason := 'unknown_birth_date';
       elsif i.birth_date > v_cutoff then v_reason := 'minor';
       end if;
@@ -233,7 +244,8 @@ begin
     end if;
 
     v_in := v_in || jsonb_build_array(sj.v || jsonb_build_object(
-      'entity', v_ent, 'name', v_name, 'section', v_section, 'group_entity', v_group_ent, 'debut_year', v_year, 'qid', v_qid));
+      'entity', v_ent, 'name', v_name, 'section', v_section, 'group_entity', v_group_ent, 'debut_year', v_year, 'qid', v_qid,
+      'idol_id', case when v_kind = 'group' then null else i.id end));
   end loop;
 
   -- 2. Order and number (decision 2): section A to Z, the people of a section before its group card, then the slug.
@@ -297,5 +309,9 @@ begin
   raise notice '101-catalog: highest number BV1-%', lpad(v_max::text, 4, '0');
   for r in select o.value ->> 'slug' as slug, o.value ->> 'reason' as reason from jsonb_array_elements(v_out) o loop
     raise notice '101-catalog: left out % (%)', r.slug, r.reason;
+  end loop;
+  -- Review 1 finding 11: which idols row each person of this run is (for the owner to check against the subject).
+  for r in select e.value ->> 'slug' as slug, e.value ->> 'idol_id' as idol from jsonb_array_elements(v_in) e where e.value ->> 'kind' = 'idol' order by e.value ->> 'slug' loop
+    raise notice '101-catalog: person % is idols.id %', r.slug, r.idol;
   end loop;
 end $c101$;
