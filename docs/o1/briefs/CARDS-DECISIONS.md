@@ -26,3 +26,7 @@ instead of inventing. ORCH keeps this file.
 | 19 | Card shape | 5.5:8.5 (owner, 2026-11-12), the prototype drew 63:88 | U |
 | 20 | kpopquiz.org per-fan numbers (home, group page) | Read in the browser from `GET /api/cards-bridge/me` because those pages are cached (lane B) | B |
 | 21 | Analytics target for the bridges | None: `cross_promo_click` has no Cards target, a new value is the owner's call | B |
+| 22 | A new player's first wallet | A full stack of 5 (as after a Paris midnight); the row is created by the first pack | C |
+| 23 | Which plays earn a bonus pack | Distinct quizzes of kpopquiz.org that day (`plays` joined to `quizzes.site_id = 'kpop'`, a replay of the same quiz counts once) plus Kpopdle wins (`dle_plays` won, `game_id like 'kpopdle%'`), by Paris day | C |
+| 24 | An unused ad ticket | Dropped after one hour; an issued ticket counts against the day's ad limit even if the ad is not watched | C |
+| 25 | Extras lane C added (not in the plan) | A same-site origin check on every write route, ticket expiry, admin actions `remove`, `reports`, `close_report` | C |
