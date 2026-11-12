@@ -188,7 +188,10 @@ export default async function MyPassportPage(): Promise<React.ReactElement> {
       team: await data.readTeamIdentity(profile.id),
       now: Date.now(),
     });
-    return <UxPassport {...props} />;
+    // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default; review 1 finding 7): the Collection section, in the passport's footer
+    // slot. Null while off: the element is today's.
+    const uxCollection = await loadCollectionKpop(user.id);
+    return uxCollection ? <UxPassport {...props} footer={uxCollection} /> : <UxPassport {...props} />;
   }
 
   // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the Collection section. Null while off: the tree below is today's.
