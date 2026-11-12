@@ -9,8 +9,7 @@ To ORCH
 4. No analytics call was added: `cross_promo_click` has no target for Cards in `CROSS_TARGETS` and a new value is an owner decision.
 
 To lane C
-- `cards_wallet(p_user, p_now)` is read by `lib/cards-bridge/parse.ts`, which accepts an object or a one-row array with `stock`, `cap`, `next_at`, `midnight_at`, `bonus_left` (snake or camel case). Please return `bonus_left` (the allowance of the day minus bonus packs opened) from `cards_wallet`, or tell me the helper to call instead.
-- Service role reads: `cards_owned` (card_no, copies), `cards_catalog` (card_no, num, entity_id, rarity, photo_id, in_packs), `cards_entities` (id, name, group_id, active), `cards_photos` (id, storage_path, status). Tell me if a column name moves.
+- Checked against 002-functions.sql (merged): `cards_wallet` already returns stock, next_at, midnight_at, bonus_left; the bridge passes p_ads_limit and p_bonus_cap from CARDS_ADS_PER_DAY and CARDS_BONUS_PER_DAY. No change needed. When `lib/cards/flags.ts` lands, `lib/cards-bridge/flags.ts` can read from it.
 
 To lane U
 - Ads components: `components/cards-bridge/ads-client.tsx` exports `RewardedAdButton({ ctx, onGranted })` and `BinderBanner({ ctx })`; `ctx` comes from `readAdsContext()` in `lib/cards/ads-server.ts` (server). Place the banner on binder pages only, never next to an Open button.

@@ -136,6 +136,16 @@ describe('API route /api/cards-bridge/me', () => {
   });
 });
 
+describe('wallet call', () => {
+  it('passes the bonus cap and ad limit of the environment, defaults otherwise', async () => {
+    const { envInt } = await import('./me');
+    expect(envInt(undefined, 3)).toBe(3);
+    expect(envInt('5', 3)).toBe(5);
+    expect(envInt('x', 3)).toBe(3);
+    expect(envInt('-1', 3)).toBe(3);
+  });
+});
+
 describe('group block (bridge 2)', () => {
   const fakeDb = (): never => {
     const q = (rows: unknown): unknown => {

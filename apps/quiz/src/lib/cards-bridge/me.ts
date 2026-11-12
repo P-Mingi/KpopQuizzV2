@@ -7,12 +7,20 @@ import { NextResponse } from 'next/server';
 import { isEditorialUser } from '@/lib/editorial/accounts';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
+import { ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT } from '@/lib/cards/rules';
+
 import { cardsBridgesOn } from './flags';
 import { parseWallet } from './parse';
 
 import type { BridgeWallet } from './parse';
 
 const HEADERS = { 'Cache-Control': 'private, no-store' } as const;
+
+/** A positive integer from the environment (CARDS_BONUS_PER_DAY, CARDS_ADS_PER_DAY), else the default of the rules. */
+export function envInt(raw: string | undefined, fallback: number): number {
+  const n = Number(raw);
+  return raw !== undefined && Number.isInteger(n) && n >= 0 ? n : fallback;
+}
 
 export interface BridgeMe {
   signedIn: boolean;
@@ -37,7 +45,10 @@ export function defaultSource(): MeSource {
     },
     isTeam: (id) => isEditorialUser(id),
     async wallet(userId, now) {
-      const { data, error } = await createServiceRoleClient().rpc('cards_wallet', { p_user: userId, p_now: now.toISOString() });
+      const { data, error } = await createServiceRoleClient().rpc('cards_wallet', {
+        p_user: userId, p_now: now.toISOString(),
+        p_ads_limit: envInt(process.env.CARDS_ADS_PER_DAY, ADS_PER_DAY_DEFAULT), p_bonus_cap: envInt(process.env.CARDS_BONUS_PER_DAY, BONUS_PER_DAY_DEFAULT),
+      });
       return error ? null : data;
     },
     async owned(userId) {
