@@ -2,7 +2,10 @@
 // only then this module). JSON { action, ... }:
 //   list         { status?, small2x?, limit?, after? }   photos by id (default status pending), with the subject; file_url is the public
 //                                              address of the source photo (source_path in the images bucket) when there is one; small2x true lists only the
-//                                              photos whose 5.5:8.5 crop is too small for 2x (small_2x)
+//                                              photos whose 5.5:8.5 crop is too small for 2x (small_2x). Lot 2: a GROUP photo gives a pair of cards (the
+//                                              11:8.5 window at the one focal point, two halves), so its row carries halves: [{ part: 1, small_2x },
+//                                              { part: 2, small_2x }], read from the cards_catalog rows of that photo (select *, so a database without
+//                                              file 102 still answers) and falling back to the photo's own small_2x
 //   approve      { id, note? }                 status approved (a second live photo in the same slot is refused: 409 slot_taken)
 //   reject       { id, note? }                 status rejected; its cards leave the packs (trigger cards_photo_retire)
 //   remove       { id, note? }                 status removed (the 48 hour answer to a report); same retirement
@@ -47,6 +50,36 @@ function photosOf(db: Db, status: string, small2x: boolean) {
     .select('id, entity_id, slot, source, source_page, file_url, author, author_url, licence, licence_url, share_alike, checked_at, event_name, event_date, focal_x, focal_y, source_path, source_width, source_height, storage_path, file_focal_x, file_focal_y, small_2x, status, review_note, modified, cards_entities(name, kind, group_id, lock_reasons)')
     .eq('status', status);
   return small2x ? q.eq('small_2x', true) : q;
+}
+
+interface CatalogHalf { photo_id: number | null; part?: number | null; small_2x?: boolean | null }
+export interface HalfFlag { part: 1 | 2; small_2x: boolean }
+
+/** A group photo (the entity is a group) gives a pair of cards. */
+const isGroupRow = (r: PhotoListRow): boolean => {
+  const e = Array.isArray(r.cards_entities) ? r.cards_entities[0] : r.cards_entities;
+  return e?.kind === 'group' || (typeof r.entity_id === 'string' && r.entity_id.startsWith('group:'));
+};
+interface PhotoListRow { id: number; entity_id?: string; small_2x?: boolean | null; cards_entities?: { kind?: string } | { kind?: string }[] | null }
+
+/**
+ * The per half small_2x flags of the group photos of a list: each half's own flag from its cards_catalog row (part and small_2x, columns of file
+ * 102), else the photo's small_2x. One read for the whole list, only when it holds a group photo. A failed read is not an error: the fallback answers.
+ */
+export function halvesOf(photo: PhotoListRow, catalog: readonly CatalogHalf[]): HalfFlag[] {
+  const own = (part: 1 | 2): boolean => {
+    const flags = catalog.filter((c) => c.photo_id === photo.id && c.part === part && typeof c.small_2x === 'boolean').map((c) => c.small_2x as boolean);
+    return flags.length > 0 ? flags.some(Boolean) : photo.small_2x === true;
+  };
+  return [{ part: 1, small_2x: own(1) }, { part: 2, small_2x: own(2) }];
+}
+
+async function withHalves<T extends PhotoListRow>(db: Db, rows: T[]): Promise<Array<T | (T & { halves: HalfFlag[] })>> {
+  const groups = rows.filter(isGroupRow);
+  if (groups.length === 0) return rows;
+  const res = await db.from('cards_catalog').select('*').in('photo_id', groups.map((r) => r.id));
+  const catalog = res.error ? [] : ((res.data ?? []) as CatalogHalf[]);
+  return rows.map((r) => (isGroupRow(r) ? { ...r, halves: halvesOf(r, catalog) } : r));
 }
 
 /** The card and the photo a report names, for the reports inbox: two reads by key, whatever the number of reports. Null on a failed read. */
@@ -106,7 +139,10 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     if (error) return fail('server', 500);
     let rows = (data ?? []) as { id: number; source_path?: string | null; file_url?: string | null }[];
     // The Cartes tab shows the source photo: file_url becomes the public address of the bucket copy (images/group-photos/<slug>.jpg).
-    if (list) rows = rows.map((r) => (r.source_path ? { ...r, file_url: publicObjectUrl(r.source_path) } : r));
+    if (list) {
+      rows = rows.map((r) => (r.source_path ? { ...r, file_url: publicObjectUrl(r.source_path) } : r));
+      rows = (await withHalves(db, rows as PhotoListRow[] as (PhotoListRow & { source_path?: string | null; file_url?: string | null })[])) as typeof rows;
+    }
     else {
       const withRefs = await reportRefs(db, rows as ReportRow[]);
       if (!withRefs) return fail('server', 500);
