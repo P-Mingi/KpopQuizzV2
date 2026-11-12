@@ -133,17 +133,19 @@ There is nothing to write in the database.
   - a bad parent or missing tag id is a 403.
 - Not tried in a real browser: the repo has no DOM library, so the editor's builders run in tests against a small
   fake document.
-- Left for the owner: `essays/reactions` GET gives the reaction count of any essay id, drafts included (a count only).
+- Backlog (integrator, 2026-11-12), not in this PR: `essays/reactions` GET gives the reaction count of any essay id, drafts included (a count only).
 
 ## Checks
 
 - **tsc:** clean.
-- **Unit, full suite (with #228 merged in and the Verse fix):** 10,078 tests, 10,065 passed. The other 13 are load timeouts under the full run: their 9 files pass alone (446 tests). The earlier failure already on main (`lib/ux-v1/p10/passport-render.test.ts` "band modes") passed in this run.
+- **Unit, full suite (with #228 merged in, the Verse fix and the fonts):** 10,081 passed, none failed. The earlier failure already on main (`lib/ux-v1/p10/passport-render.test.ts` "band modes") passed in this run.
+- **Hub production build with Cards on:** green; the font CSS holds Archivo (width 62% to 125%) and Martian Mono (75% to 112.5%), and only the Cards routes load it.
 - **Route gate:** green.
 - **Builds:** kpop and hub production builds green.
 - **kpopquiz.org parity, every flag off:** `scripts/o1/parity.sh 5a661a8 <head>`, top 20 list, 70 pages. The stylesheet is identical on every page it compared.
   - Before the Verse fix (`2af206b`): 68 identical. `/groups` differs only by a Flight module id shifted by one (`$L1c` against `$L1d`), the known harness noise; `/` by a relative time ("22 hours ago" against "23 hours ago").
   - With the Verse fix (`e1bec27`), two runs: 64 then 66 identical. Every extra difference is on the BASE side (main, unchanged code), on a page whose base build logged a 5 s `safeFetch` timeout (6 in the first run, 146 in the second; the head build had none). The base page then shows the fallback: an empty hall of fame, no "perfect scores" line, the home lists. The rest is the same noise: Flight ids, and "9h ago" against "10h ago" on `/leaderboard`. No difference touches a Verse output.
+  - With the fonts (`bd0c9e3`, the pushed head): 67 identical, no build timeout. The 3 others are the same noise: a relative time on `/` ("just now" against "3 minutes ago") and Flight module ids on `/groups` and `/which-bts-member-are-you`.
   - The community pages, the only kpopquiz.org pages that use the changed TipTap renderer, are outside the harness list (their GET writes the daily debate). There, only a link of the disguised kind changes (unit tests above).
   - Earlier runs caught two real changes, now fixed: a test id `p-1` and the word `grayscale` in a TypeScript style string each made Tailwind add one rule to the shared stylesheet.
 - **Twins check:** one violation, already on main (`blindtest/ux-v1/use-run.ts`).
@@ -155,6 +157,7 @@ There is nothing to write in the database.
 - `lib/cards/subjects-credits.test.ts` (new in this PR): 41 to 24 photos too small for 2x, from the Commons originals (integrator review); each flag is now recomputed from the original's size in the test.
 - `lib/site/contract.test.ts`: the lanes list adds `ADDED_LANES = ['CARDS']`; the BACKLOG list is unchanged.
 - `lib/site/routing.test.ts`: extended with the Cards family closed by `NET_CARDS`; nothing removed.
+- `components/cards/cards-layout.test.ts` and `cards-ui.test.ts` (new in this PR): each mocks the new font module, as the hub home and Kpopdle tests do (next/font runs only inside the Next compiler); no assertion changed.
 
 ## What changes for search
 
@@ -169,9 +172,8 @@ Nothing while the flags are off: kpopquiz.org is identical (parity above). With 
 - **Rewarded ad:** Google's rewarded event runs in the browser and cannot be checked by the server. A ticket opens a pack only 10 s to 1 h after issue, once (decision 29).
 - **Google parameters to confirm in the AdSense console:** three names in `lib/cards/ads.ts` (`UNCONFIRMED_FOR_OWNER`): the child-directed attribute, the test attribute, and the CMP script base.
 - **Group cards:** a 5.5:8.5 crop of a landscape group photo shows 1 to 3 members (decision 26).
-- **Not built:**
-  - the PWA notification: no PWA yet;
-  - the prototype's fonts (Archivo, Martian Mono), which are not in the repo (decision 30).
+- **Fonts (owner go 2026-11-12, decision 30):** the card lettering is Archivo and the card meta Martian Mono, as in the prototype, both through `next/font/google` with their width axis (self-hosted at build, no font file added by hand). Only the Cards pages load them; the page text stays in DM Sans.
+- **Not built:** the PWA notification: no PWA yet.
 - **Not exercised in a browser:** the signed-in flows (agents never sign in). They are covered by the SQL scenario on the real branch and the route tests.
 
 Not merged. The owner merges.
