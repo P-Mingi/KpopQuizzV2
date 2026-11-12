@@ -30,3 +30,5 @@ instead of inventing. ORCH keeps this file.
 | 23 | Which plays earn a bonus pack | Distinct quizzes of kpopquiz.org that day (`plays` joined to `quizzes.site_id = 'kpop'`, a replay of the same quiz counts once) plus Kpopdle wins (`dle_plays` won, `game_id like 'kpopdle%'`), by Paris day | C |
 | 24 | An unused ad ticket | Dropped after one hour; an issued ticket counts against the day's ad limit even if the ad is not watched | C |
 | 25 | Extras lane C added (not in the plan) | A same-site origin check on every write route, ticket expiry, admin actions `remove`, `reports`, `close_report` | C |
+| 26 | Group cards: the 5.5:8.5 crop of a wide group photo (most of the 41 are landscape) shows 1 to 3 members, never the group | A cover crop around the focal point (amendment 1); the alternative is the whole photo fitted inside the card art, with the card colours around it | D, U |
+| 27 | A person whose group has no photo among the 59 (Jennie, Rosé: BLACKPINK) | A card-less group entity carries the group line; the binder section is the group's name with only the person's cards | D, U |
