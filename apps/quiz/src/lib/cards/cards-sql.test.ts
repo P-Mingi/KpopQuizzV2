@@ -8,6 +8,10 @@ import { beforeEach, describe, expect, it } from 'vitest';
 
 import { BASE, BASE_NO_DLE, CARDS_SQL, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 import { CAP, PERIOD_MS, SHARDS, nextParisMidnight, walletAt } from './rules';
+import { extras } from './ui-model';
+
+import type { Rarity } from './types';
+import type { SlimCard } from './ui-types';
 
 import type { PGlite } from '@electric-sql/pglite';
 
@@ -466,6 +470,20 @@ describe('cards_recycle and cards_favorite', () => {
     expect((await wallet(db, U1, T0 + 2)).shards).toBe(16);
     expect(await one(db, `select public.cards_recycle('${U1}', '${iso(T0 + 3)}')`)).toEqual({ recycled: 0, shards_gained: 0, shards: 16 });
     expect(await one(db, `select public.cards_recycle('${U2}')`)).toEqual({ recycled: 0, shards_gained: 0, shards: 0 });
+  });
+  it('review 1 finding 16: only the catalog cards are recycled, exactly the extras the binder button counts', async () => {
+    // card 2 retired with its photo (out of packs), card 10 of an inactive entity: both keep their copies
+    await db.exec(`insert into public.cards_owned (user_id, card_no, copies) values ('${U1}', 1, 3), ('${U1}', 2, 4), ('${U1}', 5, 2), ('${U1}', 10, 5)`);
+    await setWallet(db, U1, { stock: 5, anchor: T0, day: '2026-11-12' });
+    await db.exec(`update public.cards_catalog set in_packs = false where card_no = 2`);
+    const catalog = await rows<{ n: number; rarity: Rarity }>(db, `select c.card_no as n, c.rarity from public.cards_catalog c join public.cards_entities e on e.id = c.entity_id where c.in_packs and e.active`);
+    const owned = await rows<{ n: number; copies: number }>(db, `select card_no as n, copies from public.cards_owned where user_id = '${U1}'`);
+    const estimate = extras(catalog as unknown as SlimCard[], new Map(owned.map((o) => [o.n, { n: o.n, copies: o.copies, fav: false, at: '' }])));
+    const r = await one<{ recycled: number; shards_gained: number }>(db, `select public.cards_recycle('${U1}', '${iso(T0)}')`);
+    expect(estimate).toEqual({ n: 2 + 1, shards: 2 * SHARDS.C + 1 * SHARDS.UR });
+    expect({ n: Number(r.recycled), shards: Number(r.shards_gained) }).toEqual(estimate);
+    expect(await rows(db, `select card_no, copies from public.cards_owned where user_id='${U1}' order by card_no`)).toEqual([
+      { card_no: 1, copies: 1 }, { card_no: 2, copies: 4 }, { card_no: 5, copies: 1 }, { card_no: 10, copies: 5 }]);
   });
   it('the SQL shard values equal SHARDS of rules.ts', async () => {
     const per: Record<string, number> = {};

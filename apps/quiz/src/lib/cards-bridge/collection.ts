@@ -8,10 +8,16 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 export interface Collection { owned: number; total: number }
 
+/**
+ * Owned of total, both among the cards of the catalog (in packs, entity active: the cards the binder shows). Review 1 finding 16: a card
+ * retired with its photo stays owned but leaves both counts, so the line never says 61 of 60.
+ */
 export async function readCollection(userId: string, db: SupabaseClient = createServiceRoleClient()): Promise<Collection | null> {
   const [owned, total] = await Promise.all([
-    db.from('cards_owned').select('card_no', { count: 'exact', head: true }).eq('user_id', userId).gt('copies', 0),
-    db.from('cards_catalog').select('card_no', { count: 'exact', head: true }).eq('in_packs', true),
+    db.from('cards_owned').select('card_no, cards_catalog!inner(in_packs, cards_entities!inner(active))', { count: 'exact', head: true })
+      .eq('user_id', userId).gt('copies', 0).eq('cards_catalog.in_packs', true).eq('cards_catalog.cards_entities.active', true),
+    db.from('cards_catalog').select('card_no, cards_entities!inner(active)', { count: 'exact', head: true })
+      .eq('in_packs', true).eq('cards_entities.active', true),
   ]);
   if (owned.error || total.error || owned.count === null || total.count === null || total.count < 1) return null;
   return { owned: owned.count, total: total.count };

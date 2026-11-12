@@ -368,6 +368,29 @@ describe('group block (bridge 2)', () => {
   });
 });
 
+describe('review 1 finding 16: the Collection counts owned cards among the catalog cards only', () => {
+  it('both counts join the catalog (in packs) and its entity (active)', async () => {
+    env('1');
+    const { readCollection } = await import('./collection');
+    const calls: Array<{ table: string; cols: string; filters: Array<[string, unknown]> }> = [];
+    const db = { from: (table: string) => {
+      const rec = { table, cols: '', filters: [] as Array<[string, unknown]> };
+      calls.push(rec);
+      const o: Record<string, unknown> = {};
+      o.select = (cols: string) => { rec.cols = cols; return o; };
+      for (const k of ['eq', 'gt']) o[k] = (c: string, v: unknown) => { rec.filters.push([c, v]); return o; };
+      o.then = (r: (v: unknown) => void) => r({ count: table === 'cards_owned' ? 3 : 10, error: null });
+      return o;
+    } } as never;
+    expect(await readCollection('u1', db)).toEqual({ owned: 3, total: 10 });
+    const [own, all] = calls;
+    expect(own).toMatchObject({ table: 'cards_owned', cols: 'card_no, cards_catalog!inner(in_packs, cards_entities!inner(active))' });
+    expect(own!.filters).toEqual([['user_id', 'u1'], ['copies', 0], ['cards_catalog.in_packs', true], ['cards_catalog.cards_entities.active', true]]);
+    expect(all).toMatchObject({ table: 'cards_catalog', cols: 'card_no, cards_entities!inner(active)' });
+    expect(all!.filters).toEqual([['in_packs', true], ['cards_entities.active', true]]);
+  });
+});
+
 describe('Collection (bridge 4)', () => {
   it('off: null and no read', async () => {
     env(null);

@@ -6,7 +6,7 @@
 --           cards_bonus_record(user, now)  records the Kpopdle wins of the Paris day in cards_bonus_earned, once per play
 --           cards_wallet(user, now, ...)   STABLE, read only: the wallet after the refill, nothing written (the home block of kpopquiz.org reads it)
 --           cards_apply_pack(user, source, cards, ticket, now, ...)   spends the source, checks the 5 cards, stores them, in one transaction
---           cards_recycle(user, now)       every copy above one becomes shards, all at once
+--           cards_recycle(user, now)       every copy above one of a card of the catalog becomes shards, all at once
 --           cards_favorite(user, card_no, on)
 --           cards_issue_ticket(user, now, ...)   the single-use ticket handed out before a rewarded ad
 --         and two triggers: a refused or removed photo retires its cards from the packs; closing a report erases its contact.
@@ -248,13 +248,17 @@ begin
     if not found then
       return jsonb_build_object('recycled', 0, 'shards_gained', 0, 'shards', 0);
     end if;
+    -- Review 1 finding 16: only the cards of the catalog (in packs, entity active), the cards the binder shows and counts in its "Recycle N
+    -- extras (+S shards)" button, so the estimate is exactly what is recycled. A card retired with its photo keeps its copies.
     select coalesce(sum(o.copies - 1), 0), coalesce(sum((o.copies - 1) * case c.rarity
              when 'C' then 1 when 'U' then 2 when 'R' then 5 when 'SR' then 12 when 'UR' then 30 else 80 end), 0)
       into v_n, v_sh
-      from public.cards_owned o join public.cards_catalog c on c.card_no = o.card_no
-     where o.user_id = p_user and o.copies > 1;
+      from public.cards_owned o join public.cards_catalog c on c.card_no = o.card_no join public.cards_entities e on e.id = c.entity_id
+     where o.user_id = p_user and o.copies > 1 and c.in_packs and e.active;
     if v_n > 0 then
-      update public.cards_owned set copies = 1 where user_id = p_user and copies > 1;
+      update public.cards_owned o set copies = 1
+        from public.cards_catalog c, public.cards_entities e
+       where o.user_id = p_user and o.copies > 1 and c.card_no = o.card_no and e.id = c.entity_id and c.in_packs and e.active;
       update public.cards_wallets set shards = shards + v_sh, version = version + 1, updated_at = p_now where user_id = p_user;
     end if;
     return jsonb_build_object('recycled', v_n, 'shards_gained', v_sh, 'shards', w.shards + v_sh);
