@@ -21,7 +21,8 @@ export const PEOPLE = [
 export const CARD_RATIO = 5.5 / 8.5;
 export const MIN_2X_WIDTH = 640;
 export const BUCKET = 'images';
-export const SOURCE_BASE = 'https://rdkgouofytwfdpbxbzio.supabase.co/storage/v1/object/public';
+/** The Commons address of the original file (a stable redirect to it): the photo's real source, and no project host in the repository. */
+export const commonsFileUrl = (file: string): string => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file.replace(/ /g, '_'))}`;
 
 interface Row {
   slug: string; name: string; url: string; width: number; height: number; commons_page: string; file: string; author: string;
@@ -76,7 +77,7 @@ export function build(): { subjects: Subject[]; mismatches: string[] } {
     subjects.push({
       slug, name: r.name, kind,
       photo: {
-        source: 'commons', bucket: BUCKET, path: `group-photos/${slug}.jpg`, url: r.url, width: r.width, height: r.height,
+        source: 'commons', bucket: BUCKET, path: `group-photos/${slug}.jpg`, url: commonsFileUrl(r.file), width: r.width, height: r.height,
         commons_page: r.commons_page, file: r.file, author: r.author, licence: r.license, licence_url: r.license_url,
         share_alike: /\bSA\b/.test(r.license), date: r.date,
       },
