@@ -103,6 +103,7 @@ const catalog = `-- 101-catalog.sql (Bunnyverse Cards, lane DATA, 2026-11-12; th
 -- Verify: select rarity, count(*) from public.cards_catalog group by rarity order by rarity;   expect C, R, U, UR with the same count each
 -- Verify: select min(card_no), max(card_no), count(*) from public.cards_catalog;   expect 1, 4N, 4N (contiguous)
 -- Verify: select s from unnest(array[${slugList}]) s where not exists (select 1 from public.cards_photos p where p.source_path = 'images/group-photos/' || s || '.jpg');   expect exactly the slugs of the "left out" notices
+-- Refuses: while cards_entities, cards_catalog or cards_photos holds a row that is not one of these subjects (review 1 finding 2).
 -- Undo:   101-catalog.rollback.sql (refused while a player owns a card or opened a pack).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
 
@@ -136,6 +137,7 @@ declare
   v_base integer;
   v_total integer;
   v_max integer;
+  v_ids text[];
 begin
   perform set_config('lock_timeout', '5s', true);
   perform set_config('client_min_messages', 'notice', true);
@@ -148,6 +150,31 @@ begin
   end if;
   if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'cards_photos' and column_name = 'source_path') then
     raise exception '101-catalog: cards_photos has no source_path (001 without the photo columns of amendment 1)';
+  end if;
+
+  -- Review 1 finding 2: this file fills a catalog that holds its own subjects only. Refused, with nothing changed, while cards_entities,
+  -- cards_catalog or cards_photos holds a row of anything else: an id outside its slug list (a group line it made for one of its people
+  -- excepted) or a photo outside images/group-photos/.
+  select array_agg(case when e.value ->> 'kind' = 'group' then 'group:' else 'idol:' end || (e.value ->> 'slug')) into v_ids
+    from jsonb_array_elements(v_subjects) e;
+  select count(*) into v_n from public.cards_entities e
+   where e.id <> all (v_ids)
+     and not (e.kind = 'group' and not exists (select 1 from public.cards_catalog c where c.entity_id = e.id)
+              and exists (select 1 from public.cards_entities x where x.group_id = e.id and x.id = any (v_ids)));
+  if v_n > 0 then
+    raise exception '101-catalog: cards_entities holds % rows that are not subjects of this file, refusing', v_n;
+  end if;
+  select count(*) into v_n from public.cards_catalog c
+   where c.entity_id <> all (v_ids)
+      or (c.photo_id is not null and not exists (
+            select 1 from public.cards_photos p where p.id = c.photo_id and p.source_path like 'images/group-photos/%'));
+  if v_n > 0 then
+    raise exception '101-catalog: cards_catalog holds % cards that are not subjects of this file, refusing', v_n;
+  end if;
+  select count(*) into v_n from public.cards_photos p
+   where p.entity_id <> all (v_ids) or p.source_path is null or p.source_path not like 'images/group-photos/%';
+  if v_n > 0 then
+    raise exception '101-catalog: cards_photos holds % photos of another subject or outside images/group-photos/, refusing', v_n;
   end if;
 
   -- The debut year of a group, from the database: a debut column when groups has one, else the year of inception_date.

@@ -164,6 +164,30 @@ describe('101-catalog.sql on fixture groups and idols', () => {
   });
 });
 
+describe('review 1 finding 2: 101 fills a catalog that holds its own subjects only', () => {
+  it('refuses, with nothing changed, while cards_entities holds another id', async () => {
+    const d = await fixtureDb();
+    await d.exec(`insert into public.cards_entities (id, kind, name, sort_key) values ('idol:Q999', 'idol', 'Someone', 'x')`);
+    await expect(run101(d)).rejects.toThrow(/cards_entities holds 1 rows that are not subjects of this file/);
+    expect(await one(d, `select count(*)::int from cards_catalog`)).toBe(0);
+    expect(await one(d, `select count(*)::int from cards_entities`)).toBe(1);
+  });
+  it('refuses while cards_photos holds a photo outside images/group-photos/, even for one of its subjects', async () => {
+    const d = await fixtureDb();
+    await d.exec(`insert into public.cards_entities (id, kind, name, sort_key) values ('idol:iu', 'idol', 'IU', 'iu|0|iu');
+      insert into public.cards_photos (entity_id, slot, source, source_page, file_url, author, licence, licence_url, share_alike, checked_at, source_path, status)
+      values ('idol:iu', 2, 'commons', 'https://commons.wikimedia.org/wiki/File:x.jpg', 'https://x/y.jpg', 'A', 'CC BY 4.0', 'https://creativecommons.org/', false, '2026-11-01', 'idols/iu.jpg', 'pending')`);
+    await expect(run101(d)).rejects.toThrow(/cards_photos holds 1 photos of another subject or outside images\/group-photos\//);
+    expect(await one(d, `select count(*)::int from cards_catalog`)).toBe(0);
+  });
+  it('a second run over its own rows (subjects and the group lines of its people) is not refused', async () => {
+    const d = await fixtureDb();
+    await run101(d);
+    expect(await one(d, `select count(*)::int from cards_entities where kind = 'group' and id not in (select entity_id from cards_catalog)`)).toBe(2);
+    await expect(run101(d)).resolves.toContain('101-catalog: 0 subjects in, 54 left out, 5 already there');
+  });
+});
+
 describe('100-bucket-cards.sql', () => {
   it('sets the bucket to WebP only, 2 MB, public, idempotently, and the rollback restores 1 MB', async () => {
     const db = await freshCardsDb();

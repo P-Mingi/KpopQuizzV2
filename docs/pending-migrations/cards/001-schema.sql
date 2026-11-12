@@ -2,7 +2,9 @@
 --
 -- What:   creates the 8 tables of the contract (docs/o1/briefs/CARDS-CONTRACT.md section 2): cards_entities, cards_photos, cards_catalog,
 --         cards_wallets, cards_owned, cards_packs, cards_ad_tickets, cards_reports, and cards_bonus_earned (the bonus packs earned, review 1
---         finding 1), with their keys, checks and indexes. Empty. 002 adds the functions, 003 the RLS, the grants and the storage bucket.
+--         finding 1), with their keys, checks and indexes. Empty. Each table gets row level security and loses every browser grant right
+--         after its create (review 1 finding 2: Supabase grants a new table to anon and authenticated by default, so no table is open between
+--         this file and 003). 002 adds the functions, 003 restates the RLS, grants the service role and creates the storage bucket.
 -- Why:    docs/design/cards/CARDS-PLAN-v3.md: a stack of 5 packs, a refill every 10 minutes, 5 cards a pack, shards, a rewarded ad per pack,
 --         a binder per account, and a credit and licence for every photo. Every value a player sees is read from these tables.
 -- Rows:   0 rows. 9 tables, 12 indexes besides the keys. Additive: no existing table is touched. No XP, level, streak or badge is read or written.
@@ -11,6 +13,8 @@
 --         User tables cascade on auth.users, so the account deletion removes the collection, the packs and the tickets with the account.
 -- Verify: select count(*) from information_schema.tables where table_schema = 'public' and table_name like 'cards\_%';   expect 9
 -- Verify: select count(*) from pg_indexes where schemaname = 'public' and tablename like 'cards\_%';   expect 24
+-- Verify: select count(*) from pg_tables where schemaname = 'public' and tablename like 'cards\_%' and rowsecurity;   expect 9
+-- Verify: select count(*) from information_schema.role_table_grants where table_schema = 'public' and table_name like 'cards\_%' and grantee in ('anon', 'authenticated');   expect 0
 -- Verify: select count(*) from public.cards_catalog;   expect 0
 -- Undo:   001-schema.rollback.sql (refused while a player owns a card or opened a pack).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
@@ -22,6 +26,9 @@ begin
 
   if to_regclass('auth.users') is null then
     raise exception '001-schema: auth.users is missing';
+  end if;
+  if not exists (select 1 from pg_roles where rolname = 'anon') or not exists (select 1 from pg_roles where rolname = 'authenticated') then
+    raise exception '001-schema: the roles anon and authenticated are missing';
   end if;
 
   create table if not exists public.cards_entities (
@@ -37,6 +44,8 @@ begin
     constraint cards_entities_id_check check (
       (kind = 'idol' and id like 'idol:%') or (kind = 'group' and id like 'group:%') or (kind = 'event' and id like 'event:%'))
   );
+  alter table public.cards_entities enable row level security;
+  revoke all on table public.cards_entities from public, anon, authenticated;
   create index if not exists cards_entities_group_idx on public.cards_entities (group_id) where group_id is not null;
   create index if not exists cards_entities_sort_idx on public.cards_entities (sort_key);
 
@@ -73,6 +82,8 @@ begin
     review_note text,
     modified text not null default 'cropped, frame and text added'
   );
+  alter table public.cards_photos enable row level security;
+  revoke all on table public.cards_photos from public, anon, authenticated;
   create index if not exists cards_photos_entity_idx on public.cards_photos (entity_id, slot);
   create index if not exists cards_photos_status_idx on public.cards_photos (status);
   -- One live photo (script-approved or owner-approved) per idol slot; candidates and refused photos can be many.
@@ -91,6 +102,8 @@ begin
       or (rarity = 'SR' and edition = 'era') or (rarity = 'UR' and edition = 'gold') or (rarity = 'L' and edition = 'full')),
     constraint cards_catalog_entity_rarity_key unique (entity_id, rarity)
   );
+  alter table public.cards_catalog enable row level security;
+  revoke all on table public.cards_catalog from public, anon, authenticated;
   create index if not exists cards_catalog_packs_idx on public.cards_catalog (rarity) where in_packs;
   create index if not exists cards_catalog_photo_idx on public.cards_catalog (photo_id) where photo_id is not null;
 
@@ -105,6 +118,8 @@ begin
     version integer not null default 0,
     updated_at timestamptz not null default now()
   );
+  alter table public.cards_wallets enable row level security;
+  revoke all on table public.cards_wallets from public, anon, authenticated;
 
   create table if not exists public.cards_owned (
     user_id uuid not null constraint cards_owned_user_id_fkey references auth.users(id) on delete cascade,
@@ -115,6 +130,8 @@ begin
     favorite boolean not null default false,
     constraint cards_owned_pkey primary key (user_id, card_no)
   );
+  alter table public.cards_owned enable row level security;
+  revoke all on table public.cards_owned from public, anon, authenticated;
   create index if not exists cards_owned_last_idx on public.cards_owned (user_id, last_at desc);
 
   create table if not exists public.cards_packs (
@@ -124,6 +141,8 @@ begin
     cards integer[] not null constraint cards_packs_cards_check check (cardinality(cards) = 5),
     opened_at timestamptz not null default now()
   );
+  alter table public.cards_packs enable row level security;
+  revoke all on table public.cards_packs from public, anon, authenticated;
   create index if not exists cards_packs_user_idx on public.cards_packs (user_id, opened_at desc);
 
   create table if not exists public.cards_ad_tickets (
@@ -132,6 +151,8 @@ begin
     issued_at timestamptz not null default now(),
     used_at timestamptz
   );
+  alter table public.cards_ad_tickets enable row level security;
+  revoke all on table public.cards_ad_tickets from public, anon, authenticated;
   create index if not exists cards_ad_tickets_user_idx on public.cards_ad_tickets (user_id, issued_at desc);
 
   create table if not exists public.cards_reports (
@@ -146,6 +167,8 @@ begin
     status text not null default 'open' constraint cards_reports_status_check check (status in ('open', 'closed')),
     closed_at timestamptz
   );
+  alter table public.cards_reports enable row level security;
+  revoke all on table public.cards_reports from public, anon, authenticated;
   create index if not exists cards_reports_status_idx on public.cards_reports (status, created_at);
 
   -- The bonus packs a player earned (decision 1, review 1 finding 1): one row per server-checked play, never twice. Written only by
@@ -160,9 +183,20 @@ begin
     earned_at timestamptz not null default now(),
     constraint cards_bonus_earned_play_key unique (source, play_ref)
   );
+  alter table public.cards_bonus_earned enable row level security;
+  revoke all on table public.cards_bonus_earned from public, anon, authenticated;
   create index if not exists cards_bonus_earned_user_day_idx on public.cards_bonus_earned (user_id, paris_day);
 
   if (select count(*) from information_schema.tables where table_schema = 'public' and table_name like 'cards\_%') <> 9 then
     raise exception '001-schema: the 9 cards tables are not all there';
+  end if;
+  -- Review 1 finding 2: no cards table is ever open to a browser role, not even between this file and 003 (Supabase grants every new table
+  -- to anon and authenticated by default).
+  if exists (select 1 from pg_tables where schemaname = 'public' and tablename like 'cards\_%' and not rowsecurity) then
+    raise exception '001-schema: a cards table has row level security off';
+  end if;
+  if exists (select 1 from information_schema.role_table_grants where table_schema = 'public' and table_name like 'cards\_%'
+             and grantee in ('anon', 'authenticated', 'PUBLIC')) then
+    raise exception '001-schema: a cards table is granted to a browser role';
   end if;
 end $c001$;

@@ -6,7 +6,7 @@ import path from 'node:path';
 
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { BASE_NO_DLE, CARDS_SQL, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
+import { BASE, BASE_NO_DLE, CARDS_SQL, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 import { CAP, PERIOD_MS, SHARDS, nextParisMidnight, walletAt } from './rules';
 
 import type { PGlite } from '@electric-sql/pglite';
@@ -124,6 +124,27 @@ describe('schema, RLS and grants', () => {
     expect(await failure(db, `insert into public.cards_catalog values (20, 'BV1-0020', 'idol:Q1', 'C', 'gold', null, true)`)).toMatch(/edition_rarity/);
     expect(await failure(db, `insert into public.cards_catalog values (21, 'BV1-0021', 'idol:Q1', 'C', 'std', null, true)`)).toMatch(/entity_rarity/);
     expect(await failure(db, `insert into public.cards_catalog values (22, 'bad', 'idol:Q1', 'UR', 'gold', null, true)`)).toMatch(/num_check/);
+  });
+});
+
+describe('review 1 finding 2: no table is open between 001 and 003', () => {
+  it('under Supabase default grants, 001 alone leaves every cards table with RLS on and no browser grant', async () => {
+    const d = await freshCardsDb(['001-schema.sql'], `${BASE}\nalter default privileges in schema public grant all on tables to anon, authenticated, service_role;`);
+    expect(await one(d, `select count(*)::int from pg_tables where schemaname='public' and tablename like 'cards\\_%'`)).toBe(9);
+    expect(await one(d, `select count(*)::int from pg_tables where schemaname='public' and tablename like 'cards\\_%' and not rowsecurity`)).toBe(0);
+    expect(await one(d, `select count(*)::int from information_schema.role_table_grants where table_schema='public' and table_name like 'cards\\_%' and grantee in ('anon','authenticated','PUBLIC')`)).toBe(0);
+    const asRole = async (role: string, sql: string): Promise<string | null> => {
+      await d.exec(`set role ${role}`);
+      try {
+        return await failure(d, sql);
+      } finally {
+        await d.exec('reset role');
+      }
+    };
+    for (const role of ['anon', 'authenticated']) {
+      expect(await asRole(role, `select count(*) from public.cards_wallets`), role).toMatch(/permission denied/);
+      expect(await asRole(role, `insert into public.cards_bonus_earned (user_id, paris_day, source, play_ref) values (gen_random_uuid(), current_date, 'kpopdle', 'x')`), role).toMatch(/permission denied/);
+    }
   });
 });
 
