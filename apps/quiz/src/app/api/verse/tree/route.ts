@@ -8,6 +8,7 @@ import {
   revertToRevision, listRevisions, recentChanges,
 } from '@/lib/verse/tree/data';
 import { wantedPages, orphanPages } from '@/lib/verse/tree/links';
+import { entitySpaceId, pageInSpace, rowId } from '@/lib/verse/tree/ownership';
 
 import type { NextRequest } from 'next/server';
 import type { PageBody } from '@/lib/verse/tree/types';
@@ -17,30 +18,50 @@ import type { PageBody } from '@/lib/verse/tree/types';
 // (lib/verse/tree/data), which appends history (C3), writes redirects on rename (C2),
 // and never hard-deletes (trash only, C3). Reads here are the curator surfaces
 // (recent-changes, revision history); public page reads happen server-side in Phase C.
+//
+// FLAW-1 (integrator fix, 2026-11-12): the group_id a caller sends only NAMES a space; it is never the
+// authority for a page. Every action that carries a page_id reads the page first, takes its space from the
+// row, and checks the caller's curator role on THAT space. A page that does not exist, or that lives in
+// another space than the one named, is a 403 (the same answer as a caller who curates nothing, so the
+// reply never tells which ids exist elsewhere). A parent (create, move) and a bound entity (create) must be
+// in the same space too.
 export const dynamic = 'force-dynamic';
 
-async function gate(groupId: number): Promise<{ uid: string } | { error: NextResponse }> {
+const FORBIDDEN = (): NextResponse => NextResponse.json({ error: 'Not authorized' }, { status: 403 });
+const PAGE_ACTIONS = new Set(['save', 'rename', 'move', 'publish', 'trash', 'restore', 'revert']);
+
+type Svc = ReturnType<typeof createServiceRoleClient>;
+
+/** The caller's uid and the space it acts on, or the 400 / 403 to send. `spaceOf` (a page action) reads
+ * the row the request names and returns its space, or null when the row is missing or in another space. */
+async function gate(groupId: number, spaceOf?: () => Promise<number | null>): Promise<{ uid: string; spaceId: number } | { error: NextResponse }> {
   if (!groupId) return { error: NextResponse.json({ error: 'A space is required.' }, { status: 400 }) };
   const c = await createServerClient();
   const { data: { user } } = await c.auth.getUser();
-  if (!user || !(await canCurateSpace(user.id, groupId))) {
-    return { error: NextResponse.json({ error: 'Not authorized' }, { status: 403 }) };
-  }
-  return { uid: user.id };
+  if (!user) return { error: FORBIDDEN() };
+  const spaceId = spaceOf ? await spaceOf() : groupId;
+  if (spaceId === null || !(await canCurateSpace(user.id, spaceId))) return { error: FORBIDDEN() };
+  return { uid: user.id, spaceId };
 }
+
+/** The space of the page `pageId` when it lives in the space the caller named; null otherwise. */
+const pageSpace = (svc: Svc, pageId: number, groupId: number) => async (): Promise<number | null> =>
+  (await pageInSpace(svc, pageId, groupId))?.space_id ?? null;
 
 // GET ?group_id=N&kind=recent            -> recent-changes feed (C3)
 //     ?group_id=N&kind=revisions&page_id=P -> a page's revision history
 export async function GET(req: NextRequest): Promise<NextResponse> {
   const url = new URL(req.url);
   const groupId = Number(url.searchParams.get('group_id') ?? 0);
-  const g = await gate(groupId);
-  if ('error' in g) return g.error;
   const svc = createServiceRoleClient();
   const kind = url.searchParams.get('kind') ?? 'recent';
+  const pageId = rowId(url.searchParams.get('page_id'));
+  // a page's history is that page's: the role is checked on the space of the page row.
+  const onPage = kind === 'revisions' && pageId !== null;
+  const g = await gate(groupId, onPage ? pageSpace(svc, pageId, groupId) : undefined);
+  if ('error' in g) return g.error;
   if (kind === 'revisions') {
-    const pageId = Number(url.searchParams.get('page_id') ?? 0);
-    if (!pageId) return NextResponse.json({ error: 'page_id required' }, { status: 400 });
+    if (!onPage) return NextResponse.json({ error: 'page_id required' }, { status: 400 });
     return NextResponse.json({ revisions: await listRevisions(svc, pageId) });
   }
   if (kind === 'search') {
@@ -69,19 +90,27 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   if (gated) return gated;
   const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
   const groupId = Number(body.group_id ?? 0);
-  const g = await gate(groupId);
-  if ('error' in g) return g.error;
   const svc = createServiceRoleClient();
   const action = String(body.action ?? '');
-  const pageId = Number(body.page_id ?? 0);
+  const id = rowId(body.page_id);
+  const onPage = PAGE_ACTIONS.has(action) && id !== null;
+  const g = await gate(groupId, onPage ? pageSpace(svc, id, groupId) : undefined);
+  if ('error' in g) return g.error;
+  if (PAGE_ACTIONS.has(action) && !onPage) return NextResponse.json({ error: 'page_id required' }, { status: 400 });
+  const pageId = id ?? 0;
 
   switch (action) {
     case 'create': {
+      // the parent and the bound entity are read too: both must belong to the space the page is born in.
+      const parent = body.parent_id != null ? await pageInSpace(svc, body.parent_id, g.spaceId) : null;
+      if (body.parent_id != null && !parent) return FORBIDDEN();
+      const bound = body.entity_kind != null || body.entity_id != null;
+      if (bound && (await entitySpaceId(svc, body.entity_kind, body.entity_id)) !== g.spaceId) return FORBIDDEN();
       const input: Parameters<typeof createPage>[1] = {
-        spaceId: groupId, type: String(body.type ?? ''), title: String(body.title ?? ''), createdBy: g.uid,
-        parentId: body.parent_id != null ? Number(body.parent_id) : null,
-        entityKind: body.entity_kind != null ? String(body.entity_kind) : null,
-        entityId: body.entity_id != null ? Number(body.entity_id) : null,
+        spaceId: g.spaceId, type: String(body.type ?? ''), title: String(body.title ?? ''), createdBy: g.uid,
+        parentId: parent ? parent.id : null,
+        entityKind: bound ? String(body.entity_kind) : null,
+        entityId: bound ? rowId(body.entity_id) : null,
       };
       if (body.slug != null) input.slug = String(body.slug);
       const res = await createPage(svc, input);
@@ -90,7 +119,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ page: res.page });
     }
     case 'save': {
-      if (!pageId) return NextResponse.json({ error: 'page_id required' }, { status: 400 });
       const patch: { title?: string; blocks?: PageBody } = {};
       if (body.title != null) patch.title = String(body.title);
       if (body.blocks != null) patch.blocks = body.blocks as PageBody;
@@ -102,7 +130,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       return res.error ? NextResponse.json({ error: res.error }, { status: 400 }) : NextResponse.json({ page: res.page, redirected: res.redirected });
     }
     case 'move': {
-      const res = await movePage(svc, pageId, body.parent_id != null ? Number(body.parent_id) : null);
+      // the new parent (null = the root) must exist and live in the page's own space.
+      const parent = body.parent_id != null ? await pageInSpace(svc, body.parent_id, g.spaceId) : null;
+      if (body.parent_id != null && !parent) return FORBIDDEN();
+      const res = await movePage(svc, pageId, parent ? parent.id : null);
       return res.error ? NextResponse.json({ error: res.error }, { status: 400 }) : NextResponse.json({ page: res.page });
     }
     case 'publish': { const r = await publishPage(svc, pageId); return r.error ? NextResponse.json({ error: r.error }, { status: 400 }) : NextResponse.json({ page: r.page }); }
