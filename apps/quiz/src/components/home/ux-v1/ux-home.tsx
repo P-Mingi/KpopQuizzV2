@@ -11,6 +11,7 @@ import { getHomeBand, getHomeCommunity, getHomeGroups, getHomeLists, getHomeQotd
 import { IS_KPOP, titleCase } from '@/lib/site/genre';
 import { SITE } from '@/lib/site/registry';
 import { loadAnimeDailyHome } from '@/lib/ux-v1/p1/anime-daily-home';
+import { loadCardsHome } from '@/lib/cards-bridge/home';
 import { loadKpopdleHome } from '@/lib/ux-v1/p1/kpopdle-home';
 import { RenderHealth, settleRender } from '@/lib/ux-v1/p1/render-health';
 
@@ -53,7 +54,10 @@ export async function UxHome({ head, afterHeader }: {
   // Not a health.read: a Kpopdle that is down hides its module, it never costs the home its cache (CR-018).
   // P5 (CR-025), link 10: on the OtakuQuiz build the same place holds the Daily games module instead (the two loaders are closed on the other site, so each build gets at most one).
   const kpopdle = (await loadKpopdleHome()) ?? (await loadAnimeDailyHome());
-  const qotdRow = qotd ? <QotdRow qotd={qotd} /> : null;
+  // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the "Your packs" block rides in the quiz-of-the-day slot, right under it. Null while off: the row is today's.
+  const cardsHome = await loadCardsHome();
+  const qotdOnly = qotd ? <QotdRow qotd={qotd} /> : null;
+  const qotdRow = cardsHome ? <>{qotdOnly}{cardsHome}</> : qotdOnly;
 
   return (
     <UxPage width="wide" className="p1-home">

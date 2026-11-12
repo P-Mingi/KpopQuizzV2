@@ -3,6 +3,7 @@
 // lives; a fan with no stamp yet is sent to /me on their home site as before (lib/site/hub/redirects.ts).
 import { redirect } from 'next/navigation';
 
+import { loadCollectionHub } from '@/lib/cards-bridge/collection';
 import { HubPassport } from '@/components/hub/hub-passport';
 import { readCommonPassport } from '@/lib/site/hub/passport-page';
 import { ownPageTarget } from '@/lib/site/hub/redirects';
@@ -18,6 +19,11 @@ export const metadata: Metadata = { title: 'Your passport', robots: { index: fal
 export default async function PassportPage(): Promise<React.ReactElement> {
   const supabase = (await createServerClient()) as unknown as SupabaseClient;
   const passport = await readCommonPassport(supabase);
-  if (passport) return <HubPassport passport={passport} />;
+  if (passport) {
+    // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the Collection section. Off, the page is rendered as before.
+    const { data } = await supabase.auth.getUser();
+    const collection = data.user ? await loadCollectionHub(data.user.id) : null;
+    return collection ? <HubPassport passport={passport} collection={collection} /> : <HubPassport passport={passport} />;
+  }
   redirect(await ownPageTarget(supabase, '/me', { NEXT_PUBLIC_NET_ORIGINS: process.env.NEXT_PUBLIC_NET_ORIGINS, VERCEL_ENV: process.env.VERCEL_ENV }));
 }
