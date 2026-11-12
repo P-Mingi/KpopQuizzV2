@@ -35,6 +35,20 @@ describe('context', () => {
     expect(ATTR_CHILD_DIRECTED in scriptAttributes(jp)!).toBe(false);
     expect(scriptAttributes(jp)!.src).toBe('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456');
   });
+  it('review 1 finding 14: an unknown country is child-directed (fail closed), and the tag says so', () => {
+    for (const c of [null, undefined, '', 'XYZ', '1']) {
+      const u = adsContext(ENV, c, 'hub');
+      expect(u.country, String(c)).toBeNull();
+      expect(u.childDirected, String(c)).toBe(true);
+      expect(scriptAttributes(u)![ATTR_CHILD_DIRECTED], String(c)).toBe('1');
+    }
+  });
+  it('review 1 finding 14: the unconfirmed names stay in one place each, listed for the owner', async () => {
+    const { UNCONFIRMED_FOR_OWNER } = await import('./ads');
+    const src = (await import('node:fs')).readFileSync('src/lib/cards/ads.ts', 'utf8');
+    expect(UNCONFIRMED_FOR_OWNER).toEqual(['data-tag-for-child-directed-treatment', 'data-adbreak-test', 'https://fundingchoicesmessages.google.com/i/']);
+    for (const v of UNCONFIRMED_FOR_OWNER) expect(src.split(`'${v}'`).length - 1, v).toBe(1);
+  });
   it('consent regions: EEA, UK, Switzerland and an unknown country need the CMP; the US and Japan do not', () => {
     for (const c of ['FR', 'DE', 'NO', 'IS', 'GB', 'CH', null]) expect(adsContext(ENV, c, 'hub').consentRequired, String(c)).toBe(true);
     for (const c of ['US', 'JP', 'KR', 'BR']) expect(adsContext(ENV, c, 'hub').consentRequired, c).toBe(false);

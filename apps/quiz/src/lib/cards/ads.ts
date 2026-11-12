@@ -15,6 +15,8 @@ export const AD_SCRIPT_BASE = 'https://pagead2.googlesyndication.com/pagead/js/a
 export const ATTR_CHILD_DIRECTED = 'data-tag-for-child-directed-treatment';
 export const ATTR_TEST = 'data-adbreak-test';
 export const CMP_BASE = 'https://fundingchoicesmessages.google.com/i/';
+/** The three values the owner checks against his AdSense console before NET_CARDS_ADS goes on (review 1 finding 14, docs/o1/requests/CARDS.md). */
+export const UNCONFIRMED_FOR_OWNER: readonly string[] = [ATTR_CHILD_DIRECTED, ATTR_TEST, CMP_BASE];
 
 export const PUBLISHER_RE = /^ca-pub-\d{10,20}$/;
 export const SLOT_RE = /^\d{6,20}$/;
@@ -51,8 +53,9 @@ export function normalizeCountry(raw: string | null | undefined): string | null 
   return /^[A-Z]{2}$/.test(c) ? c : null;
 }
 
-/** US visitors: ad requests are marked child-directed (plan v3, no age question). */
-export const isChildDirected = (country: string | null): boolean => country === 'US';
+/** US visitors: ad requests are marked child-directed (plan v3, no age question). An unknown country counts as the US (fail closed, review 1
+ *  finding 14): a request that cannot be placed is marked child-directed. */
+export const isChildDirected = (country: string | null): boolean => country === null || country === 'US';
 /** Unknown country counts as a consent region (fail closed). */
 export const consentRequired = (country: string | null): boolean => country === null || CONSENT_COUNTRIES.includes(country);
 
