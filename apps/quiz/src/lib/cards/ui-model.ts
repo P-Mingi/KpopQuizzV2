@@ -165,7 +165,10 @@ export function sortItems(list: readonly BinderItem[], sort: SortKey, owned: Map
   const rank = (it: BinderItem): number => RARITIES.indexOf(it.locked ? it.rarity : it.card.rarity);
   const own = (it: BinderItem): number => (!it.locked && owned.has(it.card.n) ? 1 : 0);
   const at = (it: BinderItem): number => (it.locked ? -Infinity : Date.parse(owned.get(it.card.n)?.at ?? '') || -Infinity);
-  if (sort === 'rarity') out.sort((a, b) => own(b) - own(a) || rank(b) - rank(a) || a.i - b.i);
+  // The prototype's rule (owned first, then rarity, Legendary first), with the locked pockets after the issued cards: in a catalog where
+  // every Era and Full Art is locked (amendment 1) the grid would otherwise open on pages of empty pockets (decision 31).
+  const locked = (it: BinderItem): number => (it.locked ? 1 : 0);
+  if (sort === 'rarity') out.sort((a, b) => own(b) - own(a) || locked(a) - locked(b) || rank(b) - rank(a) || a.i - b.i);
   else if (sort === 'newest') out.sort((a, b) => { const ta = at(a); const tb = at(b); return ta !== tb ? (tb > ta ? 1 : -1) : a.i - b.i; });
   return out;
 }

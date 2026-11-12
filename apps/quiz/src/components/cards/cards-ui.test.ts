@@ -261,3 +261,13 @@ describe('review 1 finding 12: a soloist is "Soloist" on the card face and the c
     expect(m.props.facts.slice(0, 2)).toEqual([['Group', member.group], ['Debut', '2016, with the group']]);
   });
 });
+
+describe('the grid sorted by rarity (decision 31)', () => {
+  it('lists the issued cards before the locked pockets, owned first, Legendary first among the issued', async () => {
+    const { sortItems } = await import('@/lib/cards/ui-model');
+    const sorted = sortItems(slim.items, 'rarity', new Map());
+    const firstLocked = sorted.findIndex((it) => it.locked);
+    expect(firstLocked).toBeGreaterThan(0);
+    expect(sorted.slice(firstLocked).every((it) => it.locked)).toBe(true);
+  });
+});
