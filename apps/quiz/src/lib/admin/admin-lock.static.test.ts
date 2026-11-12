@@ -149,8 +149,8 @@ function importedBody(text: string, name: string, file: string): string | null {
 }
 
 describe('every route under api/admin is guarded, method by method', () => {
-  it('finds the 45 routes of ADMIN-0, the MFA route and the catch-all, all under api/admin (a route in a page tree would need its own review)', () => {
-    expect(adminRoutes.length).toBe(48);
+  it('finds the 45 routes of ADMIN-0, the MFA route, the catch-all and the Cards photo review (2026-11-12), all under api/admin (a route in a page tree would need its own review)', () => {
+    expect(adminRoutes.length).toBe(49);
     expect(adminRoutes.filter((f) => !f.startsWith(`${API_ADMIN}/`))).toEqual([]);
   });
 
