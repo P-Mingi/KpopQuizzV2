@@ -5,6 +5,9 @@ Bunnyverse Cards, the collectible card game of bunnyverse.org, end to end, **wit
 **Everything stays off**: every Cards flag is off by default, and the hub also stays behind PRIVATE_LAUNCH. Nothing is
 written to production by this PR: the database changes are four SQL files the owner applies.
 
+It also closes **two security flaws of the Verse** found in the relaunch audit, in two separate commits (see
+"Verse security fix" below). They are live on main today for anyone holding a curator role in one space.
+
 - **Hub pages:**
   - `/cards`: the packs, tap to rip, the reveal, the stack of 5 and the two timers, the last pull, shards, and the drop rates.
   - `/cards/binder`: pages of 9 pockets by group, or the grid of 36 with sorts, filters, favorites, search and Recycle extras.
@@ -75,13 +78,74 @@ Each file is one DO block with Verify lines and its `.rollback.sql`; undo runs i
   - **Two defects found there and fixed:** the wallet needed `dle_plays` even with bonuses off; a rollback deleted the bucket by SQL, which Supabase refuses.
 - **Adversarial review:** a separate reviewer found 8 major and 9 minor defects, no blocker (`docs/o1/reviews/CARDS-REVIEW-1.md`). All 17 are fixed, each with a test that failed first.
 
+## Verse security fix (integrator go, 2026-11-12)
+
+The integrator read the database: no tree page changed since 2026-08-10, no link stored in a page, no payload.
+There is nothing to write in the database.
+
+**FLAW 1, one space reaching into another** (commit `verse: a curator of one space can no longer write or read another space`):
+- Before: `/api/verse/tree` and `/api/verse/tags` checked the curator role on the `group_id` the caller sent, then acted on
+  `page_id` or `tag_id` alone. A curator of one space could save, rename, move, publish, trash, restore or revert any page
+  of another space, read its revisions, and tag, untag, merge or rename its tags.
+- Now (`lib/verse/tree/ownership.ts`): every id is read first and its space comes from the row. The role is checked on
+  that space. A missing row or a row of another space is a 403, the same answer as a caller with no role, so the reply
+  never tells which ids exist.
+  - move: the new parent must be in the same space.
+  - create: the parent and the bound entity (idol, album, track, era, award) must be in the space.
+  - attach and detach: the page and the tag must both be in the checked space; merge needs both tags there, rename the tag.
+  - `/api/verse/eras/color` reads the era first too. It was already harmless (the update was filtered by space), but it
+    answered `ok` while changing nothing.
+- Every other `/api/verse/*` and `/api/admin/verse/*` route that takes an id was read; each already reads the row and
+  checks the role on the row's space, is the caller's own data, is open to any signed-in user with no curator power,
+  or is admin only. None changed.
+- Test: `app/api/verse/space-ownership.routes.test.ts`, 30 tests. For every action, a curator of another space is
+  refused and a curator of the right space is accepted. The 15 refusals fail on the old code.
+
+**FLAW 2, a stored link breaking out of the editor** (commit `verse: the tree editor builds links with the DOM, a stored href can no longer break out`):
+- Before: the tree editor wrote `<a href="${esc(href)}">` into `innerHTML`, with an escaper that left quotes alone, so
+  a stored `https://x/"onmouseover="...` became an attribute for whoever opened the page in the editor.
+- Now:
+  - `safeHref` (`lib/verse/tree/blocks.ts`), used at the save and at every render:
+    - an https link comes back as `new URL(v).href`;
+    - a site path keeps only path characters (no query, no fragment, no quote);
+    - refused: any backslash, a leading `//` or `/\`, `javascript:`, `data:`, `http:` and every other scheme, and a
+      link over 300 characters.
+  - The editor builds no HTML string any more (`lib/verse/tree/runs.ts`): text, list rows, table cells, the toolbar
+    Link, the highlight and the `[[` page picker are built with `createElement`, `setAttribute` and text nodes. Its
+    `innerHTML`, `dangerouslySetInnerHTML`, `insertHTML` and `createLink` are gone, and so are the HTML builder and its
+    escaper, which nothing uses now.
+  - The reader checks the stored href and slug again. The link hover card is built with `textContent`.
+  - A block page link keeps a real page slug only.
+  - The TipTap renderer (`lib/verse/render-content.ts`: the public Verse pages and the community posts) already
+    escaped quotes. A link with a backslash, a tab or a line break, or a site path starting with `//`, now renders
+    as plain text. Every other link renders as before.
+  - Every other HTML sink under `components/verse` and `app/(site)/verse` is a static string, JSON-LD through
+    `jsonLdString`, or that renderer.
+- Tests, with the attack strings on the save side and the render side:
+  - `lib/verse/tree/xss.test.ts` (17);
+  - `components/verse/tree/document-page.xss.test.ts` (5);
+  - `lib/verse/render-content.links.test.ts` (3);
+  - `components/verse/html-sinks.test.ts` (2): it pins every HTML sink of the two Verse folders and fails on a new one.
+- Not changed: no existing test or expected value. Behaviour changes:
+  - an https link is normalised;
+  - a site path with `?`, `#` or a quote is dropped;
+  - a tree action with no `page_id` is a 400;
+  - a bad parent or missing tag id is a 403.
+- Not tried in a real browser: the repo has no DOM library, so the editor's builders run in tests against a small
+  fake document.
+- Left for the owner: `essays/reactions` GET gives the reaction count of any essay id, drafts included (a count only).
+
 ## Checks
 
 - **tsc:** clean.
-- **Unit, full suite (with #228 merged in):** 10,015 passed. 5 load timeouts that pass alone, and 1 failure already on main (`lib/ux-v1/p10/passport-render.test.ts` "band modes").
+- **Unit, full suite (with #228 merged in and the Verse fix):** 10,078 tests, 10,065 passed. The other 13 are load timeouts under the full run: their 9 files pass alone (446 tests). The earlier failure already on main (`lib/ux-v1/p10/passport-render.test.ts` "band modes") passed in this run.
 - **Route gate:** green.
 - **Builds:** kpop and hub production builds green.
-- **kpopquiz.org parity, every flag off:** `scripts/o1/parity.sh 5a661a8 b726b7e` (the reviewed branch, #228 included), top 20 list, 70 pages: 69 identical. The other, `/groups`, differs only by a Flight module id shifted by one (`$L1c` against `$L1d`), the known harness noise. Earlier runs caught two real changes, now fixed: a test id `p-1` and the word `grayscale` in a TypeScript style string each made Tailwind add one rule to the shared stylesheet.
+- **kpopquiz.org parity, every flag off:** `scripts/o1/parity.sh 5a661a8 <head>`, top 20 list, 70 pages. The stylesheet is identical on every page it compared.
+  - Before the Verse fix (`2af206b`): 68 identical. `/groups` differs only by a Flight module id shifted by one (`$L1c` against `$L1d`), the known harness noise; `/` by a relative time ("22 hours ago" against "23 hours ago").
+  - With the Verse fix (`e1bec27`), two runs: 64 then 66 identical. Every extra difference is on the BASE side (main, unchanged code), on a page whose base build logged a 5 s `safeFetch` timeout (6 in the first run, 146 in the second; the head build had none). The base page then shows the fallback: an empty hall of fame, no "perfect scores" line, the home lists. The rest is the same noise: Flight ids, and "9h ago" against "10h ago" on `/leaderboard`. No difference touches a Verse output.
+  - The community pages, the only kpopquiz.org pages that use the changed TipTap renderer, are outside the harness list (their GET writes the daily debate). There, only a link of the disguised kind changes (unit tests above).
+  - Earlier runs caught two real changes, now fixed: a test id `p-1` and the word `grayscale` in a TypeScript style string each made Tailwind add one rule to the shared stylesheet.
 - **Twins check:** one violation, already on main (`blindtest/ux-v1/use-run.ts`).
 - **Secrets check:** no secret; one false positive, the local test origin `http://localhost:3021`, already in a test on main.
 
