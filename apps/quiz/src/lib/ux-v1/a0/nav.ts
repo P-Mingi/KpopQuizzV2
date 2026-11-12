@@ -2,14 +2,14 @@
 // server-rendered nav, the tab bar and the tests agree on one route map. Every
 // item is a real <a href> (16.5): crawlers and keyboards see the real paths.
 
-import { SITE } from '@/lib/site/registry';
+import { SITE, flagOn } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { UxIconName } from './icons';
 
-export type NavKey = 'home' | 'quizzes' | 'groups' | 'blindtest' | 'community' | 'leaderboard';
-export type TabKey = 'home' | 'quizzes' | 'blindtest' | 'community' | 'you';
+export type NavKey = 'home' | 'quizzes' | 'groups' | 'blindtest' | 'community' | 'leaderboard' | 'cards';
+export type TabKey = 'home' | 'quizzes' | 'blindtest' | 'community' | 'you' | 'cards';
 
 export interface NavItem<K extends string> {
   key: K;
@@ -30,7 +30,7 @@ export const NAV_ITEMS: NavItem<NavKey>[] = [
 // Run O1: the top bar of another site names its own topic (Series) and shows only the doors the site has: the feature is on
 // and the route map of the site knows the path. On kpop it is NAV_ITEMS itself, the same array, as today.
 const NAV_FEATURE: Record<NavKey, keyof typeof SITE.features | null> = {
-  home: null, quizzes: 'quizzes', groups: 'topicHubs', blindtest: 'blindTest', community: 'community', leaderboard: 'leaderboards',
+  home: null, quizzes: 'quizzes', groups: 'topicHubs', blindtest: 'blindTest', community: 'community', leaderboard: 'leaderboards', cards: null,
 };
 
 // The hub (home v3, 2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the tabs of its home on every hub page. Its sections live on
@@ -43,9 +43,12 @@ const HUB_NAV: NavItem<NavKey>[] = [
   { key: 'community', label: 'Community', href: '/#community', icon: 'msg' },
 ];
 
+// Bunnyverse Cards (lane U): the hub gets a Cards entry only with NET_CARDS on; off, HUB_NAV itself (the same array) is returned.
+const HUB_NAV_CARDS: NavItem<NavKey>[] = [...HUB_NAV, { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }];
+
 export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {
   if (site.id === 'kpop') return NAV_ITEMS;
-  if (site.id === 'hub') return HUB_NAV;
+  if (site.id === 'hub') return flagOn(process.env.NET_CARDS) ? HUB_NAV_CARDS : HUB_NAV;
   const topic = site.vocabulary.topicPlural;
   return NAV_ITEMS
     .map((it) => (it.key === 'groups' ? { ...it, label: topic.charAt(0).toUpperCase() + topic.slice(1), href: '/series' } : it))
@@ -66,7 +69,7 @@ export const TAB_ITEMS: NavItem<TabKey>[] = [
 // Run C1: the mobile tab bar of another site shows only the doors the site has, like the top bar above. On kpop it is TAB_ITEMS
 // itself, the same array, as today. "You" goes to the site's own passport page: /me on anime, /passport on the hub.
 const TAB_FEATURE: Record<TabKey, keyof typeof SITE.features | null> = {
-  home: null, quizzes: 'quizzes', blindtest: 'blindTest', community: 'community', you: null,
+  home: null, quizzes: 'quizzes', blindtest: 'blindTest', community: 'community', you: null, cards: null,
 };
 const YOU_HREF: Record<'anime' | 'hub', string> = { anime: '/me', hub: '/passport' };
 
@@ -75,9 +78,11 @@ const HUB_TABS: NavItem<TabKey>[] = [
   { key: 'you', label: 'You', href: YOU_HREF.hub, icon: 'user' },
 ];
 
+const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
+
 export function tabItemsFor(site: typeof SITE = SITE): NavItem<TabKey>[] {
   if (site.id === 'kpop') return TAB_ITEMS;
-  if (site.id === 'hub') return HUB_TABS;
+  if (site.id === 'hub') return flagOn(process.env.NET_CARDS) ? HUB_TABS_CARDS : HUB_TABS;
   const id = site.id;
   return TAB_ITEMS
     .map((it) => (it.key === 'you' ? { ...it, href: YOU_HREF[id] } : it))
@@ -144,6 +149,7 @@ export function activeNav(pathname: string, v12: boolean = isUxV12(), member: st
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community')) return 'community';
   if (under(p, '/leaderboard')) return 'leaderboard';
+  if (under(p, '/cards')) return 'cards';
   return null;
 }
 
@@ -158,6 +164,7 @@ export function activeTab(pathname: string, v12: boolean = isUxV12(), member: st
   if (under(p, '/quizzes') || under(p, '/q') || under(p, '/groups') || under(p, '/group') || isHub(p)) return 'quizzes';
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community') || under(p, '/leaderboard')) return 'community';
+  if (under(p, '/cards')) return 'cards';
   if (under(p, '/profile') || under(p, '/passport') || under(p, '/me') || under(p, '/u') || under(p, '/settings') || under(p, '/notifications')) return 'you';
   return null;
 }

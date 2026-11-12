@@ -287,6 +287,9 @@ export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: str
   { id: 'otakudle-one-piece', path: '/otakudle/one-piece' }, { id: 'otakudle-dragon-ball', path: '/otakudle/dragon-ball' },
 ];
 
+/** The public pages of Bunnyverse Cards on the hub (behind NET_CARDS). */
+export const CARDS_PATHS: readonly string[] = ['/cards', '/cards/binder', '/cards/c/{num}', '/cards/report'];
+
 /** Every page of the Terrier that exists, in both locales, the French credits with them. */
 export function dleLivePaths(): readonly string[] {
   const en = ['/daily', ...DLE_BUILT_GAMES.map((g) => g.path)];
@@ -297,10 +300,12 @@ export function dleLivePaths(): readonly string[] {
  * The route map of the hub. Daily games step 2: /credits, the licensed photos of the site (the footer's Credits link appears where the
  * route exists). Daily games step 4: the pages of the Terrier join it only with the flag on; with it off, the map is the one it always was.
  */
-export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>): readonly RoutePattern[] {
+export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>, cards: boolean = flagOn(process.env.NET_CARDS)): readonly RoutePattern[] {
   return [
     '/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits',
     ...(features.dailyGuess === true ? dleLivePaths() : []),
+    // Bunnyverse Cards (lane U): the pages are in the map only with NET_CARDS on; off, they answer as any unknown URL.
+    ...(cards ? CARDS_PATHS : []),
   ];
 }
 

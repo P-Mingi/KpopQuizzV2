@@ -118,3 +118,5 @@
 .bvc .d-back dd{margin:0}
 .bvc .d-back .lic{margin-top:auto;border-top:1px solid rgba(255,255,255,.18);padding-top:3cqi;font-size:4.1cqi;color:#D9D3EE;line-height:1.4}
 .bvc .d-back .lic b{display:block;font-family:var(--f-mono);font-stretch:80%;font-weight:500;font-size:3.6cqi;letter-spacing:.1em;text-transform:uppercase;color:#A9A2C4;margin-bottom:1cqi}
+.bvc .c-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+.bvc .c-photo + .c-foil{z-index:2}

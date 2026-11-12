@@ -383,3 +383,65 @@
 @media (prefers-reduced-motion: reduce){
 .bvc *,.bvc *::before,.bvc *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+/* ---------- the Cards bar under the hub chrome, the footer and the pages that are not in the prototype ---------- */
+.bvc .bar-cards{display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap;padding:10px 0 12px;border-bottom:1px solid var(--border)}
+.bvc .bar-cards .tabs{display:flex}
+.bvc .bar-cards .wallet{margin-left:auto}
+@media (max-width:760px){.bvc .bar-cards .pill .lbl{display:inline}.bvc .bar-cards .pill{height:34px;padding:0 10px;font-size:13px}}
+@media (max-width:400px){.bvc .bar-cards .pill .lbl{display:none}}
+.bvc .shell{padding-bottom:96px}
+.bvc a.btn-primary,.bvc a.btn-outline,.bvc a.btn-quiet{text-decoration:none}
+.bvc a.btn-primary{color:var(--white)}
+.bvc .foot a{color:var(--txt1)}
+.bvc .gate{margin-top:22px;padding:28px 30px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.bvc .gate p{font-size:16px;color:var(--txt2);max-width:52ch}
+.bvc .gate b{color:var(--txt1)}
+.bvc .page-note{margin-top:18px;padding:16px 18px;border-radius:14px;background:var(--surface-alt);color:var(--txt2);font-size:15px;max-width:60ch}
+.bvc .rates .cols3{display:grid;grid-template-columns:minmax(0,1fr) 64px 64px;gap:0 8px;align-items:center}
+.bvc .rates th{font-size:12.5px;font-weight:700;color:var(--txt2);text-align:right;padding:6px 0 2px}
+.bvc .rates th:first-child{text-align:left}
+.bvc .rates td:nth-child(2){text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.bvc .rates td.dim{color:var(--txt3);font-weight:500}
+.bvc .rates .fifth{margin-top:10px;color:var(--txt1)}
+.bvc .form{margin-top:22px;display:grid;gap:18px;max-width:640px}
+.bvc .form fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
+.bvc .form legend{font-weight:700;margin-bottom:6px;padding:0}
+.bvc .form label.opt{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--border-h);background:var(--surface);cursor:pointer}
+.bvc .form label.opt:has(input:checked){border-color:var(--brand-btn);background:var(--brand-light)}
+.bvc .form textarea,.bvc .form input[type="text"],.bvc .form input[type="email"]{width:100%;font:inherit;color:var(--txt1);background:var(--surface);border:1px solid var(--border-h);border-radius:12px;padding:10px 14px}
+.bvc .form textarea{min-height:120px;resize:vertical}
+.bvc .form .hint{margin-top:-4px}
+.bvc .form .err{color:var(--amber);font-weight:600}
+.bvc .cred-list{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.bvc .cred-item{display:flex;gap:14px;align-items:flex-start;padding:12px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.bvc .cred-item .thumb{flex:none;width:48px;height:48px;border-radius:10px;overflow:hidden;background:var(--surface-alt)}
+.bvc .cred-item .thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.bvc .cred-item h3{font-size:16px;font-weight:700}
+.bvc .cred-item p{font-size:14.5px;color:var(--txt2);margin-top:2px}
+.bvc .cred-item a{color:var(--txt1)}
+.bvc .cred-item .rep{margin-left:auto;flex:none;font-size:13.5px}
+.bvc .d-page{padding-top:28px;padding-bottom:64px}
+.bvc .d-page .sheet{box-shadow:var(--shadow-lift);animation:none}
+.bvc .d-page .back-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;text-decoration:none}
+.bvc .credit .sa{display:block;margin-top:6px}
+.bvc .d-credit{margin-top:22px;padding:14px 16px;border-radius:14px;background:var(--surface-alt);font-size:14.5px;color:var(--txt2)}
+.bvc .d-credit b{color:var(--txt1)}
+.bvc .d-credit a{color:var(--txt1)}
+.bvc .d-credit .links{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:8px}
+.bvc .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.bvc .pw .pocket{text-decoration:none}
+.bvc a.pocket{text-decoration:none;color:inherit}
+.bvc .btn-outline.again{min-height:54px;padding:0 24px;font-size:16px}
+.bvc .fc a.fc-b{text-decoration:none;color:inherit}
+.bvc ul.pockets{list-style:none;padding:0;margin:0}
+.bvc ul.grid{list-style:none;padding:0;margin:18px 0 0}
+.bvc .pocket-li{display:block;min-width:0}
+
+.bvc .d-info h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.05;padding-right:0}
+.bvc .d-title h1{min-width:0}
+.bvc .d-info .why{margin-top:16px}
+.bvc .d-info .why p + p{margin-top:6px}
+.bvc .d-front-locked{width:100%}
+.bvc .d-front-locked .pocket{cursor:default}
+.bvc a.rung{text-decoration:none}
