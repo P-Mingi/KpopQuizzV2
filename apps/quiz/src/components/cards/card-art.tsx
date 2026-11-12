@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: the card, its back and the small marks, ported from the approved prototype v4 (cardHTML, backHTML, the gem sprite).
 // Server-safe: no hook, no state. The finishes (silver keyline, spotlight beams, holo film, era, gold foil, full art) are CSS, in
-// styles/cards/cards-art.css, keyed by the classes ed-* and k-*. A card with a photo shows it as a cover crop at its focal point; a card
-// without one (events, groups, an idol whose file is not uploaded yet) keeps the drawn figure.
+// styles/cards/cards-art.css, keyed by the classes ed-* and k-*. A card with a photo (an idol or a group) shows it as a cover crop at its
+// focal point; a card without one (an event, a subject whose photo is not readable) keeps the drawn figure.
 import { EDITIONS } from '@/lib/cards/rules';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
@@ -35,19 +35,23 @@ export function CardsSprite(): React.ReactElement {
 
 const CROWD = [72, 86, 94, 86, 72];
 
+/** The photo of a card: a plain img, the cover crop of the stored file centred on its focal point (no image optimiser on this path). */
+function Photo({ card, img }: { card: SlimCard; img: NonNullable<SlimCard['img']> }): React.ReactElement {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className="c-photo" src={img.src} srcSet={img.srcSet ?? undefined} sizes={img.srcSet ? '320px' : undefined} alt="" loading="lazy" decoding="async" draggable={false}
+      style={{ objectPosition: `${card.fx}% ${card.fy}%` }}
+    />
+  );
+}
+
 function Art({ card }: { card: SlimCard }): React.ReactElement {
   if (card.kind === 'idol') {
     return (
       <>
         <i className="c-bg" />
-        {card.img ? (
-          // A plain img: the cover crop of the stored file, centred on its focal point (no image optimiser on this path).
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            className="c-photo" src={card.img.src} srcSet={card.img.srcSet ?? undefined} sizes={card.img.srcSet ? '320px' : undefined} alt="" loading="lazy" decoding="async" draggable={false}
-            style={{ objectPosition: `${card.fx}% ${card.fy}%` }}
-          />
-        ) : (
+        {card.img ? <Photo card={card} img={card.img} /> : (
           <>
             <span className="c-mono">{monogram(card.name)}</span>
             <i className="c-fig" />
@@ -57,6 +61,15 @@ function Art({ card }: { card: SlimCard }): React.ReactElement {
     );
   }
   if (card.kind === 'group') {
+    // Review 1 finding 4: a group card shows its photo like an idol card; the drawn crowd is only the fallback without one.
+    if (card.img) {
+      return (
+        <>
+          <i className="c-bg" />
+          <Photo card={card} img={card.img} />
+        </>
+      );
+    }
     const n = Math.min(5, Math.max(3, 4));
     return (
       <>

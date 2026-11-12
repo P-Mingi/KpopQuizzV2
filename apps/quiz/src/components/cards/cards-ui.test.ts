@@ -218,3 +218,21 @@ describe('a card page never prints an empty fact (ORCH, real catalog on o1-scrat
     expect(renderToStaticMarkup(createElement(CreditBlock, { photo: d.photo, num: d.card.num, kind: 'group' }))).toContain('of this group:');
   });
 });
+
+describe('review 1 finding 4: the card face draws the photo of a group card', () => {
+  const base = { n: 9, num: 'BV1-0009', entity: 'group:btob', rarity: 'C' as Rarity, edition: 'std' as const, name: 'BTOB', group: 'BTOB', debutYear: 2012, fx: 50, fy: 50, sub: null };
+  it('a group card with a photo shows it, cropped at its focal point, and no drawn crowd', async () => {
+    const { CardFront } = await import('./card-art');
+    const html = renderToStaticMarkup(createElement(CardFront, { card: { ...base, kind: 'group', img: { src: 'https://p.test/images/group-photos/btob.jpg', srcSet: null, cut: false }, fx: 50, fy: 40 } }));
+    expect(html).toContain('class="c-photo" src="https://p.test/images/group-photos/btob.jpg"');
+    expect(html).toContain('object-position:50% 40%');
+    expect(html).not.toContain('c-crowd');
+    expect(html).not.toContain('c-mono');
+  });
+  it('without a photo the drawing stays the fallback', async () => {
+    const { CardFront } = await import('./card-art');
+    const html = renderToStaticMarkup(createElement(CardFront, { card: { ...base, kind: 'group', img: null } }));
+    expect(html).toContain('c-crowd');
+    expect(html).not.toContain('c-photo');
+  });
+});
