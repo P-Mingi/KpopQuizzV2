@@ -36,3 +36,14 @@ export interface ShowcaseCard { n: number }
 export interface RankRowView { pos: number; nickname: string; pct: number; level: number; title: string; me: boolean; showcase: number[] }
 export interface BadgeView { id: string; label: string }
 export interface MeCardView { nickname: string; level: number; title: string; pct: number; showcase: number[]; badges: BadgeView[] }
+
+/** The week of the lobby state (contract WeekMini) as the list the boxes draw. */
+export function weekOf(w: { endsAt: string; items: { key: string; label: string; value: number; goal: number }[]; done: boolean; claimed: boolean; rewardPacks?: number; rewardShards?: number }, now: number): WeekView {
+  const days = Math.max(0, Math.ceil((Date.parse(w.endsAt) - now) / 86400000));
+  return {
+    items: w.items.map((x) => ({ key: x.key, label: x.label, value: x.value, target: x.goal })),
+    leftLabel: days <= 1 ? 'Starts over tonight' : `${days} days left`,
+    done: w.done, claimed: w.claimed,
+    rewardLabel: `+${w.rewardPacks ?? 2} packs and ${w.rewardShards ?? 25} shards`,
+  };
+}

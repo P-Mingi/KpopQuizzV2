@@ -660,13 +660,17 @@ describe('middleware step and the sites/[site] guard', () => {
       '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
     ]));
     // Bunnyverse Cards (lane U) is the second family closed by a flag: NET_CARDS off, its pages answer as any unknown URL; on, each public address is in the map.
-    const cards = new Set(['/cards', '/cards/binder', '/cards/c/xnum', '/cards/help', '/cards/report']);
+    // KpopCards lives under /kpopcards; the old /cards tree is one catch-all page that redirects (308) to it (lib/cards/kc-paths.ts).
+    const cards = new Set([
+      '/kpopcards', '/kpopcards/open/xtheme', '/kpopcards/open/focus/xgroup', '/kpopcards/collection', '/kpopcards/collection/xgroup', '/kpopcards/c/xnum', '/kpopcards/idol/xname',
+      '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/xnickname', '/kpopcards/odds', '/kpopcards/help', '/kpopcards/report', '/cards/x[...rest]',
+    ]);
     for (const p of cards) {
       expect(pages, `cards page ${p}`).toContain(p);
-      expect(middlewareStep('hub', p), `hub ${p} with NET_CARDS off`).toBe('not-found');
+      expect(middlewareStep('hub', p.replace('xtheme', 'all').replace('xgroup', 'twice').replace('xnum', 'BV1-0001').replace('xname', 'jennie').replace('xnickname', 'mingi').replace('x[...rest]', 'binder')), `hub ${p} with NET_CARDS off`).toBe('not-found');
     }
-    expect(hubRouteAllow({ dailyGuess: true }, false)).not.toContain('/cards');
-    expect(hubRouteAllow({ dailyGuess: true }, true)).toEqual(expect.arrayContaining(['/cards', '/cards/binder', '/cards/c/{num}', '/cards/help', '/cards/report']));
+    expect(hubRouteAllow({ dailyGuess: true }, false)).not.toContain('/kpopcards');
+    expect(hubRouteAllow({ dailyGuess: true }, true)).toEqual(expect.arrayContaining(['/kpopcards', '/kpopcards/collection/{group}', '/kpopcards/c/{num}', '/kpopcards/help', '/kpopcards/report', '/cards', '/cards/**']));
     for (const p of pages.filter((q) => !closed.has(q) && !cards.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
   });
 

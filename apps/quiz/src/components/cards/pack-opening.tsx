@@ -513,16 +513,16 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
   const slots = multi ? [] : rows;
 
   return (
-    <div ref={root} className="ov" role="dialog" aria-modal="true" aria-label="Pack opening">
+    <div ref={root} id="ov" className="ov" role="dialog" aria-modal="true" aria-label="Pack opening">
       <div className="stagefx" aria-hidden="true"><i className="glow" /><i className="rays" /><i className="ring r1" /><i className="ring r2" /><i className="ring r3" /><i className="flash" /></div>
       <div className="ov-top">
-        <span className="ov-step"><span className="ov-path">{path}</span><span>{stepText}</span></span>
-        {phase !== 'summary' ? <button type="button" className="btn-quiet skip" onClick={skip}>Reveal all</button> : <span />}
+        <span className="ov-step"><span className="ov-path" id="ov-path">{path}</span><span id="ov-step">{stepText}</span></span>
+        {phase !== 'summary' ? <button type="button" id="ov-skip" className="btn-quiet skip" onClick={skip}>Reveal all</button> : <span />}
       </div>
-      <div className={`ov-mid${phase === 'grid' || (phase === 'summary' && multi) ? ' scroll' : ''}`} onClick={multi && phase !== 'summary' ? () => skipAnim() : undefined}>
+      <div id="ov-mid" className={`ov-mid${phase === 'grid' || (phase === 'summary' && multi) ? ' scroll' : ''}`} onClick={multi && phase !== 'summary' ? () => skipAnim() : undefined}>
         {phase === 'multi' ? (
           <>
-            <div className="ov-hint" aria-live="polite">{hint}</div>
+            <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
             <div className={`mpacks${warn ? ` warn warn-${warn}` : ''}${ripped ? ' rip' : ''}`} id="mpacks">
               {Array.from({ length: packs }, (_, i) => <div key={i} className="mp" style={{ '--i': i } as Vars}><PackFace id={`mpk${i}`} look={look} golden={false} dealt /></div>)}
             </div>
@@ -530,7 +530,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
         ) : null}
         {phase === 'pack' || phase === 'tearing' || phase === 'torn' ? (
           <>
-            <div className="ov-hint" aria-live="polite">{hint}</div>
+            <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
             <div ref={zoneRef} className={`tearzone${warn ? ` warn warn-${warn}` : ''}`}>
                 <button
                   type="button" id="opk" ref={packRef} className={`pack${golden ? ' golden' : ''}`} aria-label="Open the pack. Press Enter to rip it."
@@ -545,13 +545,13 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                   <span className="pk-count">5 CARDS</span>
                   <i className="burst" />
                 </button>
-              <i className="cutline" ref={cutRef as React.RefObject<HTMLElement>} />
+              <i className="cutline" id="cut" ref={cutRef as React.RefObject<HTMLElement>} />
             </div>
           </>
         ) : null}
         {phase === 'reveal' ? (
           <>
-            <div className="ov-hint" aria-live="polite">{hint}</div>
+            <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
             <div
               className="pile" id="pile" ref={pileRef} role="button" tabIndex={0}
               aria-label={flipped ? 'Send this card down and see the next' : 'Reveal the next card'}
@@ -575,7 +575,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
               })}
               {stamp ? <div className="stamp"><b>FULL ART</b>{stampOdds ? <span>{stampOdds}</span> : null}</div> : null}
             </div>
-            <div className="rlabel" aria-live="polite">
+            <div className="rlabel" id="rlabel" aria-live="polite">
               {label && current && label.idx === idx ? (
                 <>
                   <span className="rtag pop"><Gem r={current.card.rarity} className={`gem gc-${current.card.rarity}`} />{RARITY_LABEL[current.card.rarity]}</span>
@@ -657,20 +657,20 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
           </>
         ) : null}
       </div>
-      <div className="pulled" ref={pulledRef}>
+      <div className="pulled" id="pulled" ref={pulledRef}>
         {phase === 'summary' || multi ? null : slots.map((x, i) => (i < idx ? <div key={x.card.n} className="pop" style={{ position: 'relative' }}><CardFront card={x.card} /></div> : <i key={x.card.n} className="slot" />))}
       </div>
-      <div className="ov-actions">
+      <div className="ov-actions" id="ov-actions">
         {phase === 'summary' && demo ? (
           <>
-            <button type="button" ref={addRef} className="btn-primary lg" onClick={demo.onSignIn}>Sign in to keep these cards</button>
-            <button type="button" className="btn-outline again" onClick={() => onClose('none')}>Close</button>
+            <button type="button" ref={addRef} id="ov-in" className="btn-primary lg" onClick={demo.onSignIn}>Sign in to keep these cards</button>
+            <button type="button" id="ov-later" className="btn-outline again" onClick={() => onClose('none')}>Close</button>
           </>
         ) : null}
         {phase === 'summary' && !demo ? (
           <>
-            <button type="button" ref={addRef} className="btn-primary lg" onClick={() => fly('none')} disabled={leaving}>Add to collection</button>
-            {stockLeft > 0 ? <button type="button" className="btn-outline again" onClick={() => fly(multi && stockLeft >= 5 ? 'stock5' : 'stock')} disabled={leaving}>{againLabel}</button> : null}
+            <button type="button" ref={addRef} id="ov-add" className="btn-primary lg" onClick={() => fly('none')} disabled={leaving}>Add to collection</button>
+            {stockLeft > 0 ? <button type="button" id={multi && stockLeft >= 5 ? 'ov-again5' : 'ov-again'} className="btn-outline again" onClick={() => fly(multi && stockLeft >= 5 ? 'stock5' : 'stock')} disabled={leaving}>{againLabel}</button> : null}
           </>
         ) : null}
       </div>
