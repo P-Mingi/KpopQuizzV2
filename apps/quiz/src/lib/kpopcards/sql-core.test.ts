@@ -324,6 +324,22 @@ describe('the themes, the pack of the day, the focus pack and the shards pack', 
     const nextG = await one<string>(db, "select public.cards_daily_group('2026-11-13')");
     expect(nextG).toBe(dailyGroup(fixtureWorldForSql(), '2026-11-13'));
   });
+  it('the pack of the day follows the Paris day: used at 23:59 Paris, free again at 00:00, also on the 25 hour day of 25 October 2026', async () => {
+    const db = await coreDb();
+    const pick = async (at: string): Promise<number[]> => {
+      const g = await one<string>(db, 'select public.cards_daily_group(($1::timestamptz at time zone \'Europe/Paris\')::date)', [at]);
+      return g === 'group:G1' ? [1, 2, 6, 3, 7] : g === 'group:G2' ? [8, 12, 13, 10, 14] : g === 'group:G3' ? [15, 16, 15, 16, 16] : [17, 18, 19, 18, 19];
+    };
+    const u = await newUser(db);
+    await openSql(db, u, { source: 'daily', draws: [{ c: await pick('2026-11-12T22:59:00Z') }], at: '2026-11-12T22:59:00Z' });
+    expect(await tryOpen(db, u, { source: 'daily', draws: [{ c: await pick('2026-11-12T22:59:30Z') }], at: '2026-11-12T22:59:30Z' })).toMatch(/cards: daily_used/);
+    expect(await tryOpen(db, u, { source: 'daily', draws: [{ c: await pick('2026-11-12T23:00:00Z') }], at: '2026-11-12T23:00:00Z' })).toBeNull();
+    // 25 October 2026: Paris midnight of the 24th to the 25th is 22:00Z, of the 25th to the 26th 23:00Z (a 25 hour day).
+    const v = await newUser(db);
+    await openSql(db, v, { source: 'daily', draws: [{ c: await pick('2026-10-25T00:30:00Z') }], at: '2026-10-25T00:30:00Z' });
+    expect(await tryOpen(db, v, { source: 'daily', draws: [{ c: await pick('2026-10-25T22:30:00Z') }], at: '2026-10-25T22:30:00Z' })).toMatch(/cards: daily_used/);
+    expect(await tryOpen(db, v, { source: 'daily', draws: [{ c: await pick('2026-10-25T23:00:00Z') }], at: '2026-10-25T23:00:00Z' })).toBeNull();
+  });
   it('the pack of the day rotates over the groups with a card in packs by the day number, and a group with no card is never picked', async () => {
     const db = await coreDb();
     const seen = new Set<string>();
