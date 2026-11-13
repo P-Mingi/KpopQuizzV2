@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { control, finishOpening, go, TARGET } from './helpers/target';
+import { control, go, TARGET } from './helpers/target';
 import { record } from './helpers/results';
 import { SCREENS } from './helpers/screens';
 

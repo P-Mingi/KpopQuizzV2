@@ -25,6 +25,7 @@ export async function diffPngs(browser: Browser, a: Buffer, b: Buffer, threshold
         const og = out.getContext('2d')!; const od = og.createImageData(W, H);
         const maxDelta = 35215 * threshold * threshold;
         const blend = (c: number, a: number) => 255 + (c - 255) * a;
+        const px = (d: Uint8ClampedArray, i: number): number => d[i] ?? 0;
         let diff = 0;
         for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
           const o = (y * W + x) * 4;
@@ -32,9 +33,9 @@ export async function diffPngs(browser: Browser, a: Buffer, b: Buffer, threshold
           let bad = false, gray = 255;
           if (inA && inB) {
             const ia = (y * A.w + x) * 4, ib = (y * B.w + x) * 4;
-            const aa = A.d[ia + 3] / 255, ba = B.d[ib + 3] / 255;
-            const r1 = blend(A.d[ia], aa), g1 = blend(A.d[ia + 1], aa), b1 = blend(A.d[ia + 2], aa);
-            const r2 = blend(B.d[ib], ba), g2 = blend(B.d[ib + 1], ba), b2 = blend(B.d[ib + 2], ba);
+            const aa = px(A.d, ia + 3) / 255, ba = px(B.d, ib + 3) / 255;
+            const r1 = blend(px(A.d, ia), aa), g1 = blend(px(A.d, ia + 1), aa), b1 = blend(px(A.d, ia + 2), aa);
+            const r2 = blend(px(B.d, ib), ba), g2 = blend(px(B.d, ib + 1), ba), b2 = blend(px(B.d, ib + 2), ba);
             const y1 = r1 * 0.29889531 + g1 * 0.58662247 + b1 * 0.11448223, y2 = r2 * 0.29889531 + g2 * 0.58662247 + b2 * 0.11448223;
             const i1 = r1 * 0.59597799 - g1 * 0.2741761 - b1 * 0.32180189, i2 = r2 * 0.59597799 - g2 * 0.2741761 - b2 * 0.32180189;
             const q1 = r1 * 0.21147017 - g1 * 0.52261711 + b1 * 0.31114694, q2 = r2 * 0.21147017 - g2 * 0.52261711 + b2 * 0.31114694;
@@ -47,7 +48,7 @@ export async function diffPngs(browser: Browser, a: Buffer, b: Buffer, threshold
           od.data[o + 3] = 255;
         }
         og.putImageData(od, 0, 0);
-        return { W, H, diff, sa: [A.w, A.h], sb: [B.w, B.h], png: out.toDataURL('image/png').split(',')[1] };
+        return { W, H, diff, sa: [A.w, A.h], sb: [B.w, B.h], png: out.toDataURL('image/png').split(',')[1] ?? '' };
       },
       { a64: a.toString('base64'), b64: b.toString('base64'), threshold },
     );
@@ -80,9 +81,10 @@ export async function measure(page: Page, sels: string[], cap = 12): Promise<Rec
 export function compareBoxes(proto: Record<string, Box[]>, app: Record<string, Box[]>): BoxRow[] {
   const rows: BoxRow[] = [];
   for (const sel of Object.keys(proto)) {
-    const n = Math.max(proto[sel].length, (app[sel] || []).length);
+    const pl = proto[sel] ?? [], al = app[sel] ?? [];
+    const n = Math.max(pl.length, al.length);
     for (let i = 0; i < n; i++) {
-      const p = proto[sel][i] || null, a = (app[sel] || [])[i] || null;
+      const p = pl[i] ?? null, a = al[i] ?? null;
       if (!p || !a) { rows.push({ sel, idx: i, proto: p, app: a, dx: 0, dy: 0, dw: 0, dh: 0, off: 999 }); continue; }
       const dx = +(a.x - p.x).toFixed(1), dy = +(a.y - p.y).toFixed(1), dw = +(a.w - p.w).toFixed(1), dh = +(a.h - p.h).toFixed(1);
       rows.push({ sel, idx: i, proto: p, app: a, dx, dy, dw, dh, off: Math.max(Math.abs(dx), Math.abs(dy), Math.abs(dw), Math.abs(dh)) });

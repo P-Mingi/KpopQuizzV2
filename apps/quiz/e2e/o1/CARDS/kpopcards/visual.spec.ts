@@ -45,7 +45,7 @@ for (const vp of VIEWPORTS) {
       const row: Record<string, unknown> = { kind: 'visual', screen: s.id, vp: vp.name, mask: MASK_DESCRIPTION };
       try {
         if (process.env.KC_SELF) await openProto(app, s.hash); // harness self-check: the prototype against itself
-        else await openApp(app, s.app, { state: s.needs });
+        else await openApp(app, s.app, s.needs ? { state: s.needs } : {});
         if (s.steps) await s.steps(app, process.env.KC_SELF ? 'proto' : 'app');
         await app.waitForSelector(s.ready, { timeout: 45_000 });
         await injectMask(app);
@@ -62,7 +62,7 @@ for (const vp of VIEWPORTS) {
         expect.soft(d.ratio, `${s.id}@${vp.name} pixels different`).toBeLessThanOrEqual(MAX_DIFF_RATIO);
         expect.soft(bad.length, `${s.id}@${vp.name} boxes off by more than ${BOX_TOLERANCE}px`).toBe(0);
       } catch (e) {
-        Object.assign(row, { pass: false, error: String((e as Error).message).split('\n')[0].slice(0, 240) });
+        Object.assign(row, { pass: false, error: String((e as Error).message).split('\n')[0]?.slice(0, 240) });
         record(row);
         throw e;
       } finally {

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { finishOpening, go, TARGET } from './helpers/target';
+import { go, TARGET } from './helpers/target';
 import { record } from './helpers/results';
 import { SCREENS } from './helpers/screens';
 
@@ -35,7 +35,8 @@ async function audit(page: Page) {
       let name = e.getAttribute('aria-label') || '';
       if (!name) { const by = e.getAttribute('aria-labelledby'); if (by) name = by.split(' ').map((i) => document.getElementById(i)?.textContent || '').join(' '); }
       if (!name) name = (e.textContent || '').trim();
-      if (!name && el.labels && el.labels.length) name = el.labels[0].textContent || '';
+      const lab0 = el.labels?.[0];
+      if (!name && lab0) name = lab0.textContent || '';
       if (!name) name = e.getAttribute('title') || e.getAttribute('placeholder') || (e.querySelector('img[alt]') as HTMLImageElement | null)?.alt || '';
       if (!name.trim()) noName.push(label(e));
     }
