@@ -73,7 +73,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
   const down = useRef<{ x: number; y: number; moved: boolean } | null>(null);
   const toggle = (): void => setFlipped((v) => !v);
   return (
-    <div className="wrap d-page">
+    <div className="wrap d-page" id="dt">
       <Link className="back-link" href={kcPath.collection}><span aria-hidden="true">&larr;</span> Collection</Link>
       <div className="sheet">
         <div className="d-card">

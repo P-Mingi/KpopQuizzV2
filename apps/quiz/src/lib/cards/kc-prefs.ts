@@ -1,40 +1,21 @@
 'use client';
 
-// KpopCards: the two switches of the profile panel, Sound and Vibration (separate, both on by default, as in the v6 prototype). Kept in this browser
-// (localStorage, never the account) until the prefs file 107 of the contract is applied; the opening (agent C's sound and vibration) reads them
-// through readPrefs(). A change is announced with the `kc-prefs` event so every mounted reader updates at once.
+// KpopCards: the two switches of the profile panel, Sound and Vibration (separate, both on by default), as React state over agent C's store
+// (lib/cards/opening-prefs.ts), which the opening reads and which is saved to the account through syncPrefs (components/cards/opening-prefs-sync.ts).
 import { useEffect, useState } from 'react';
 
-export interface KcPrefs { sound: boolean; vibration: boolean }
-export const PREFS_KEY = 'kpopcards-prefs';
-export const PREFS_EVENT = 'kc-prefs';
-const DEFAULTS: KcPrefs = { sound: true, vibration: true };
+import { getPrefs, setPref, subscribePrefs } from './opening-prefs';
 
-export function readPrefs(): KcPrefs {
-  try {
-    const j = JSON.parse(localStorage.getItem(PREFS_KEY) ?? 'null') as Partial<KcPrefs> | null;
-    return { sound: typeof j?.sound === 'boolean' ? j.sound : DEFAULTS.sound, vibration: typeof j?.vibration === 'boolean' ? j.vibration : DEFAULTS.vibration };
-  } catch {
-    return { ...DEFAULTS };
-  }
-}
+import type { OpeningPrefs } from './opening-prefs';
 
-export function writePrefs(patch: Partial<KcPrefs>): KcPrefs {
-  const next = { ...readPrefs(), ...patch };
-  try { localStorage.setItem(PREFS_KEY, JSON.stringify(next)); } catch { /* private mode: the switch still works for this visit */ }
-  try { window.dispatchEvent(new CustomEvent(PREFS_EVENT, { detail: next })); } catch { /* no CustomEvent */ }
-  return next;
-}
+export type KcPrefs = OpeningPrefs;
 
-/** The switches as React state, read after mount (so the server and the first client paint agree on the defaults). */
+/** The switches after mount (so the server and the first client paint agree on the defaults). */
 export function useKcPrefs(): [KcPrefs, (patch: Partial<KcPrefs>) => void] {
-  const [p, setP] = useState<KcPrefs>(DEFAULTS);
+  const [p, setP] = useState<KcPrefs>({ sound: true, vibration: true });
   useEffect(() => {
-    setP(readPrefs());
-    const on = (): void => setP(readPrefs());
-    window.addEventListener(PREFS_EVENT, on);
-    window.addEventListener('storage', on);
-    return () => { window.removeEventListener(PREFS_EVENT, on); window.removeEventListener('storage', on); };
+    setP(getPrefs());
+    return subscribePrefs(setP);
   }, []);
-  return [p, (patch) => setP(writePrefs(patch))];
+  return [p, (patch) => { for (const k of ['sound', 'vibration'] as const) if (patch[k] !== undefined) setPref(k, patch[k]!); }];
 }

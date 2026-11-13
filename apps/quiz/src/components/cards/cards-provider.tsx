@@ -9,6 +9,8 @@ import { isError } from '@/lib/cards/ui-api';
 import { createHttpApi } from '@/lib/kpopcards/http-api';
 import { legacyApi } from '@/lib/kpopcards/legacy';
 import { setKcApi } from '@/lib/kpopcards/registry';
+
+import { syncPrefs } from './opening-prefs-sync';
 import { ownedMap } from '@/lib/cards/ui-model';
 
 import { clearPendingDemo, deviceId, pendingDemo } from './demo-store';
@@ -72,13 +74,14 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
     let alive = true;
     void (async () => {
       // NODE_ENV is inlined by the build: in production this branch (and the mock with its fixture) is dead code and leaves the bundle.
-      const k = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/kpopcards/mock-api')).createMockApi({ example: true, nickname: 'mingi' }) : createHttpApi();
+      const k = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/kpopcards/mock-api')).createMockApi({ example: new URLSearchParams(window.location.search).get('kcstate') !== 'empty', nickname: 'mingi' }) : createHttpApi();
       if (!alive) return;
       setKcApi(k);
       setKc(k);
       const a = legacyApi(k);
       setApi(a);
-      const r = await a.state();
+      // Development fixture only: ?kcstate=guest shows the signed-out lobby (the QA harness and the prototype's guest view).
+      const r = process.env.NODE_ENV !== 'production' && fixture && new URLSearchParams(window.location.search).get('kcstate') === 'guest' ? null : await a.state();
       if (!alive) return;
       if (r === null) setStatus('guest');
       else if (isError(r)) setStatus('error');
@@ -92,6 +95,10 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
+
+  const prefSound = (state as LobbyState | null)?.prefs?.sound;
+  const prefVibration = (state as LobbyState | null)?.prefs?.vibration;
+  useEffect(() => syncPrefs(kc, prefSound === undefined || prefVibration === undefined ? null : { sound: prefSound, vibration: prefVibration }), [kc, prefSound, prefVibration]);
 
   const refresh = useCallback(async (): Promise<void> => {
     if (!api) return;

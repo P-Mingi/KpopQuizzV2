@@ -13,6 +13,7 @@ import { newKey } from '@/lib/kpopcards/registry';
 import { Gem, Ico } from './card-art';
 import { useCards } from './cards-provider';
 import { WeekList } from './lobby-view';
+import { flyReward } from './reward-fly';
 
 import type { MissionSet, MissionsState } from '@/lib/kpopcards/contract';
 
@@ -41,6 +42,9 @@ export function MissionsView(): React.ReactElement {
     setBusy(null);
     if (isApiError(r)) { toast('Could not claim that reward. Try again.'); return; }
     setM(r.missions);
+    const pill = (id: string): HTMLElement | null => document.getElementById(id);
+    if (r.packs > 0) flyReward(pill('pill-packs'), r.packs, document.activeElement);
+    if (r.shards > 0) window.setTimeout(() => flyReward(pill('pill-shards'), r.shards), 350);
     toast(target === 'week' ? `Weekly reward claimed: ${week?.rewardLabel ?? ''}.` : `${label} claimed: +${packs} pack${packs > 1 ? 's' : ''}.`);
     void refresh();
   };
@@ -71,7 +75,7 @@ export function MissionsView(): React.ReactElement {
             <div className="set-row">
               <span><b style={{ color: 'var(--txt1)' }}>{s.owned}</b> of {s.total} cards</span>
               {s.claimed ? <span className="claimed"><Ico name="check" />Claimed</span>
-                : s.ready ? <button type="button" className="btn-primary" disabled={busy !== null} onClick={() => void claim(s.id, s.name, s.packs)}>Claim +{s.packs} pack{s.packs > 1 ? 's' : ''}</button>
+                : s.ready ? <button type="button" className="btn-primary" data-claim={s.id} disabled={busy !== null} onClick={() => void claim(s.id, s.name, s.packs)}>Claim +{s.packs} pack{s.packs > 1 ? 's' : ''}</button>
                 : <span className="rw"><PackIco />+{s.packs} pack{s.packs > 1 ? 's' : ''}</span>}
             </div>
           </div>
