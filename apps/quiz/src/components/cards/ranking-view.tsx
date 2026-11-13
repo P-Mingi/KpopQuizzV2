@@ -61,8 +61,8 @@ export function RankingView(): React.ReactElement {
       <div className="rk-layout">
         <div>
           <div className="seg" id="rk-tab" role="group" aria-label="Who">
-            <button type="button" aria-pressed={!all} onClick={() => setAll(false)}>Friends</button>
-            <button type="button" aria-pressed={all} onClick={() => setAll(true)}>Everyone</button>
+            <button type="button" data-v="friends" aria-pressed={!all} onClick={() => setAll(false)}>Friends</button>
+            <button type="button" data-v="all" aria-pressed={all} onClick={() => setAll(true)}>Everyone</button>
           </div>
           <ol className="rank" id="rank">
             {(rows ?? []).map((x) => (

@@ -12,6 +12,7 @@ import { analytics } from '@/lib/analytics';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { isApiError as isKcError } from '@/lib/kpopcards/contract';
 import { newKey } from '@/lib/kpopcards/registry';
+import { openingInput } from '@/lib/cards/opening-input';
 import { packLook } from '@/lib/cards/kc-themes';
 import { paletteFor } from '@/lib/cards/ui-palette';
 import { isError } from '@/lib/cards/ui-api';
@@ -22,6 +23,7 @@ import { PackOpening } from './pack-opening';
 
 import type { ThemeId } from '@/lib/kpopcards/contract';
 import type { OpenSpec } from '@/lib/cards/kc-open';
+import type { OpeningInput } from '@/lib/cards/opening-input';
 import type { OpenedCard, PackSource } from '@/lib/cards/types';
 
 const ERRORS: Record<string, string> = {
@@ -29,7 +31,7 @@ const ERRORS: Record<string, string> = {
   network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', focus_used: 'Today’s focus pack is already opened.',
 };
 
-interface Dealt { cards: OpenedCard[]; source: PackSource; demo: boolean }
+interface Dealt { cards: OpenedCard[]; source: PackSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
 
 export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement | null {
   const c = useCards();
@@ -53,7 +55,7 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
         const r = await api.demoDraw();
         if (isError(r)) { back(ERRORS[r.error] ?? ERRORS.failed); return; }
         markDemoUsed(r.token);
-        setDealt({ cards: r.cards, source: 'stock', demo: true });
+        setDealt({ cards: r.cards, source: 'stock', demo: true, extra: {} });
         return;
       }
       if (status === 'guest') { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); back(); return; }
@@ -74,9 +76,12 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
       analytics.gameStart({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard' });
       const last = r.packs[r.packs.length - 1]!;
       c.applyResult({ pack: { id: last.id, cards: last.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair })), newCount: last.newCount, packNo: last.packNo }, state: r.state });
-      const cards: OpenedCard[] = r.packs.flatMap((p) => p.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair })));
+      const inp = openingInput(r);
+      const cards = inp.cards as unknown as OpenedCard[];
       const source: PackSource = spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
-      setDealt({ cards, source, demo: false });
+      setDealt({ cards, source, demo: false, extra: { goldenPacks: inp.goldenPacks, finished: inp.finished, headline: inp.headline, copiesShards: inp.copiesShards } });
+      return;
+
     })();
   }, [status, api, kc, key, spec, router, signIn, toast, c, catalog.items]);
 
@@ -89,11 +94,17 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
 
   if (!dealt) return <div className="wrap page" aria-busy="true"><p className="lede" role="status">Getting your pack.</p></div>;
   // `look` and `packs` are the opening's extra props (see scratchpad B-mounts.md); the existing ones are cards, source, onClose and demo.
-  const extra = { look, packs: spec.kind === 'theme' ? spec.packs : 1 };
+  const faRate = catalog.cards.find((x) => x.rate)?.rate;
+  const extra = { look, packs: spec.kind === 'theme' ? spec.packs : 1, ...dealt.extra, fullArtOdds: faRate ? Number.parseFloat(faRate) : null };
+  const theme = spec.kind === 'theme' ? spec.theme : 'all';
   return (
     <PackOpening
       cards={dealt.cards} source={dealt.source} {...extra}
-      onClose={(then) => { if (then === 'stock') router.replace(kcPath.open(spec.kind === 'theme' ? (spec.theme as 'all') : 'all')); else router.push(kcPath.lobby); }}
+      onClose={(then) => {
+        if (then === 'stock') router.replace(spec.kind === 'theme' ? kcPath.open(theme as ThemeId) : kcPath.open('all'));
+        else if (then === 'stock5') router.replace(kcPath.open('all', 5));
+        else router.push(kcPath.lobby);
+      }}
       {...(dealt.demo ? { demo: { onSignIn: () => { router.push(kcPath.lobby); signIn({ title: 'Sign in to keep your cards', sub: 'Your demo pack is added to your binder.' }); } } } : {})}
     />
   );

@@ -5,7 +5,7 @@
 // cards come from /api/cards. The opening itself is /kpopcards/open/<theme> (agent C's PackOpening, mounted by OpeningMount).
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { RewardedAdButton } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
@@ -25,6 +25,7 @@ import { pushState, turnOff, turnOn } from '@/lib/cards/push-client';
 import { CardFront, Gem, Ico } from './card-art';
 import { useCards } from './cards-provider';
 import { PocketFoot } from './fav-star';
+import { flyReward } from './reward-fly';
 import { tilt } from './kc-tilt';
 import { OddsBox } from './odds-box';
 import { OpenDemo } from './open-demo';
@@ -35,6 +36,9 @@ import type { PushState } from '@/lib/cards/push-client';
 import type { Rarity } from '@/lib/cards/types';
 import type { WeekView } from '@/lib/cards/kc-views';
 import type { CatalogOdds } from '@/lib/cards/types';
+
+// The prototype controls exist in a development fixture only: the lazy import sits behind the production check, so a production build drops it.
+const ProtoControls = process.env.NODE_ENV !== 'production' ? lazy(() => import('./proto-controls').then((m) => ({ default: m.ProtoControls }))) : null;
 
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
@@ -168,7 +172,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       {guest ? (
         <div className="guest" id="guest">
           <p id="guest-t">{guestText}</p>
-          {c.demo ? <OpenDemo className="btn-primary" /> : null}
+          {c.demo ? <OpenDemo className="btn-primary" id="guest-demo" /> : null}
           <button type="button" className="btn-quiet" id="guest-in" onClick={() => signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' })}>Sign in</button>
         </div>
       ) : null}
@@ -249,7 +253,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
               <p id="ad-s">{adsLeft > 0 ? `${adsLeft} left today. Two ads open a pack.` : 'No ads left today. More after midnight.'}</p>
               <div className="t-act">
                 {adsLeft > 0 ? (
-                  <RewardedAdButton ctx={ads} className="btn-ad" buttonRef={adBtn} onAvailable={setAdReady} onGranted={(r) => { toast(`+${r.gained} shards from the ad.`); void c.refresh(); }} label={<><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></>} />
+                  <RewardedAdButton ctx={ads} className="btn-ad" buttonRef={adBtn} onAvailable={setAdReady} onGranted={(r) => { toast(`+${r.gained} shards from the ad.`); flyReward(document.getElementById('pill-shards'), r.gained, adBtn.current); void c.refresh(); }} label={<><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></>} />
                 ) : <button type="button" className="btn-ad" disabled><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Back at midnight</span></button>}
               </div>
             </div>
@@ -262,13 +266,13 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
             <p id="sh-s">{canShards ? (shards >= SHARD_PACK_COST * 2 ? `Enough for ${Math.floor(shards / SHARD_PACK_COST)} packs` : 'Ready to open a pack') : `${SHARD_PACK_COST - shards} more to open a pack`}</p>
             <div className="t-act"><button type="button" className="btn-sh" id="buy-btn" disabled={!ready || !canShards} onClick={() => goOpen('shards')}>{canShards ? 'Open a pack' : 'Not enough shards yet'}</button></div>
           </div>
-          {push !== 'unsupported' ? (
+          {push !== 'unsupported' || c.fixture ? (
             <div className={`tile nt${hl ? ' hl' : ''}`} id="tile-nt">
               {hl ? <span className="rec" id="nt-rec">Suggested</span> : null}
               <span className="t-ico"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z" /><path d="M10 20a2 2 0 0 0 4 0" /></svg></span>
               <h3>Notify me</h3>
               <p>One notification when your {cap} packs are ready. Never between 22:00 and 08:00.</p>
-              <div className="t-act"><button type="button" className="btn-nt" id="notify" aria-pressed={push === 'on'} disabled={busy || push === 'denied' || !ready} onClick={() => void togglePush()}><Ico name="check" /><span id="nt-lbl">{push === 'denied' ? 'Blocked' : push === 'on' ? 'On' : 'Turn on'}</span></button></div>
+              <div className="t-act"><button type="button" className="btn-nt" id="notify" aria-pressed={push === 'on'} disabled={busy || push === 'denied' || push === 'unsupported' || !ready} onClick={() => void togglePush()}><Ico name="check" /><span id="nt-lbl">{push === 'denied' ? 'Blocked' : push === 'on' ? 'On' : 'Turn on'}</span></button></div>
             </div>
           ) : null}
         </div>
@@ -364,6 +368,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
         ) : null}
       </div>
 
+      {ProtoControls && c.fixture ? <Suspense fallback={null}><ProtoControls /></Suspense> : null}
       <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><Link href={kcPath.odds}>Odds</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
     </div>
   );

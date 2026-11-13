@@ -14,6 +14,7 @@ import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 
 import { Ico } from './card-art';
+import { previewTick } from './opening-output';
 import { useCards } from './cards-provider';
 
 
@@ -38,7 +39,7 @@ export function tabOf(path: string): TabId | null {
 }
 
 export function KcShell({ children }: { children: React.ReactNode }): React.ReactElement {
-  const { status, lobby: w, newSet, kc } = useCards();
+  const { status, lobby: w, newSet } = useCards();
   const path = usePathname() ?? '';
   const tab = tabOf(path);
   const me = useMe();
@@ -88,7 +89,7 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
           </Link>
           <nav className="tabs" aria-label="KpopCards">
             {TABS.map((t) => (
-              <Link key={t.id} href={t.href} aria-current={tab === t.id ? 'page' : undefined}><Ico name={t.icon} />{t.label}{t.id === 'collection' || t.id === 'missions' ? <> {badge(t.id)}</> : null}</Link>
+              <Link key={t.id} href={t.href} {...(t.id === 'collection' ? { 'data-kc-target': 'collection' } : {})} aria-current={tab === t.id ? 'page' : undefined}><Ico name={t.icon} />{t.label}{t.id === 'collection' || t.id === 'missions' ? <> {badge(t.id)}</> : null}</Link>
             ))}
           </nav>
           <div className="wallet">
@@ -124,8 +125,8 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
                     <small className="me-next" id="me-next">{lv.nextLabel}</small>
                   </>
                 ) : null}
-                <label className="srow"><span><b>Sound</b><small>Rip, flip and reveal sounds</small></span><input type="checkbox" className="switch" id="o-snd" checked={prefs.sound} onChange={(e) => { setPrefs({ sound: e.target.checked }); void kc?.prefs({ sound: e.target.checked }); }} /></label>
-                <label className="srow"><span><b>Vibration</b><small>On phones that support it</small></span><input type="checkbox" className="switch" id="o-hap" checked={prefs.vibration} onChange={(e) => { setPrefs({ vibration: e.target.checked }); void kc?.prefs({ vibration: e.target.checked }); }} /></label>
+                <label className="srow"><span><b>Sound</b><small>Rip, flip and reveal sounds</small></span><input type="checkbox" className="switch" id="o-snd" checked={prefs.sound} onChange={(e) => { setPrefs({ sound: e.target.checked }); if (e.target.checked) previewTick(); }} /></label>
+                <label className="srow"><span><b>Vibration</b><small>On phones that support it</small></span><input type="checkbox" className="switch" id="o-hap" checked={prefs.vibration} onChange={(e) => setPrefs({ vibration: e.target.checked })} /></label>
                 {signedIn ? (
                   <Link className="srow linkrow" href={kcPath.ranking}><span><b>Your profile and ranking</b><small>Showcase, badges, friends</small></span><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></Link>
                 ) : null}
@@ -138,7 +139,7 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
       <div className="kc-main" id="kc-main">{children}</div>
       <nav className="bottomnav" aria-label="KpopCards">
         {TABS.map((t) => (
-          <Link key={t.id} href={t.href} aria-current={tab === t.id ? 'page' : undefined}><Ico name={t.icon} />{t.label}{t.id === 'collection' || t.id === 'missions' ? badge(t.id) : null}</Link>
+          <Link key={t.id} href={t.href} {...(t.id === 'collection' ? { 'data-kc-target': 'collection' } : {})} aria-current={tab === t.id ? 'page' : undefined}><Ico name={t.icon} />{t.label}{t.id === 'collection' || t.id === 'missions' ? badge(t.id) : null}</Link>
         ))}
       </nav>
     </>

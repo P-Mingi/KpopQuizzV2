@@ -22,6 +22,7 @@ import { useCards } from './cards-provider';
 import { PocketFoot } from './fav-star';
 import { WishHeart } from './wish-toggle';
 import { reducedMotion } from './fx';
+import { flyReward } from './reward-fly';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { Filters, SortKey } from '@/lib/cards/ui-model';
@@ -245,6 +246,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const recycle = async (): Promise<void> => {
     const r = await c.recycle();
     if (isError(r)) { toast('Could not recycle. Try again.'); return; }
+    flyReward(document.getElementById('pill-shards'), r.shards, document.getElementById('recycle'));
     toast(`Recycled ${r.recycled} extras for ${r.shards} shards. One copy of each card stays in your binder.`);
   };
 
@@ -290,8 +292,8 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
 
       <div className="b-tools">
         <div className="seg" id="f-view" role="group" aria-label="View">
-          <button type="button" aria-pressed={view === 'pages'} onClick={() => setUrl({ view: null })}>Binder</button>
-          <button type="button" aria-pressed={view === 'grid'} onClick={() => setUrl({ view: 'grid' })}>Grid</button>
+          <button type="button" data-v="binder" aria-pressed={view === 'pages'} onClick={() => setUrl({ view: null })}>Binder</button>
+          <button type="button" data-v="grid" aria-pressed={view === 'grid'} onClick={() => setUrl({ view: 'grid' })}>Grid</button>
         </div>
         <label className="search">
           <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
