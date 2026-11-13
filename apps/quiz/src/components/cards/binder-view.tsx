@@ -20,6 +20,7 @@ import { useCards } from './cards-provider';
 import { PocketFoot } from './fav-star';
 import { WishHeart } from './wish-toggle';
 import { reducedMotion } from './fx';
+import { SetBadge, SetCheck, useCompleteSections } from './set-badge';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { Filters, SortKey } from '@/lib/cards/ui-model';
@@ -90,7 +91,7 @@ function Cells({ cells }: { cells: readonly (BinderItem | null)[] }): React.Reac
   return <>{out}</>;
 }
 
-function PageOf({ page, index, sections }: { page: ReturnType<typeof paginate>[number] | undefined; index: number; sections: Map<string, { name: string; color: string }> }): React.ReactElement {
+function PageOf({ page, index, sections, complete }: { page: ReturnType<typeof paginate>[number] | undefined; index: number; sections: Map<string, { name: string; color: string }>; complete: ReadonlySet<string> }): React.ReactElement {
   if (!page) {
     return (
       <div className="page2" aria-hidden="true">
@@ -103,7 +104,7 @@ function PageOf({ page, index, sections }: { page: ReturnType<typeof paginate>[n
   return (
     <div className="page2" data-p={index}>
       <div className="p-head">
-        <b>{sec ? <><i style={{ background: sec.color }} />{sec.name}{page.cont ? <> <small>continued</small></> : null}</> : 'No card matches these filters'}</b>
+        <b>{sec ? <><i style={{ background: sec.color }} />{sec.name}{page.cont ? <> <small>continued</small></> : null}{complete.has(page.sec) ? <> <SetBadge /></> : null}</> : 'No card matches these filters'}</b>
         <span>Page {index + 1}</span>
       </div>
       <ul className="pockets">
@@ -148,6 +149,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
     router.replace(`${path}${s ? `?${s}` : ''}`, { scroll: false });
   }, [params, path, router]);
 
+  const complete = useCompleteSections();
   const sections = useMemo(() => new Map(catalog.sections.map((s) => [s.id, { name: s.name, color: s.color }])), [catalog.sections]);
   const wishSet = useMemo(() => new Set(state?.wishlist ?? []), [state?.wishlist]);
   const list = useMemo(() => {
@@ -313,8 +315,8 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
               onPointerUp={(e) => { if (swipe.current === null) return; const dx = e.clientX - swipe.current; swipe.current = null; if (Math.abs(dx) > 60) turn(dx < 0 ? 1 : -1); }}
             >
               <div className={`spread${single ? ' single' : ''}`} ref={spreadRef} id="spread">
-                <PageOf page={pages[pg]} index={pg} sections={sections} />
-                {single ? null : <PageOf page={pages[pg + 1]} index={pg + 1} sections={sections} />}
+                <PageOf page={pages[pg]} index={pg} sections={sections} complete={complete} />
+                {single ? null : <PageOf page={pages[pg + 1]} index={pg + 1} sections={sections} complete={complete} />}
                 {single ? null : <div className="spine" aria-hidden="true"><i /><i /><i /></div>}
               </div>
             </div>
@@ -330,7 +332,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
               const o = s.ns.filter((n) => owned.has(n)).length;
               return (
                 <button key={s.id} type="button" data-sec={s.id} style={{ '--t': s.color } as React.CSSProperties} aria-current={firstSec === s.id ? 'true' : 'false'} onClick={() => goSection(s.id)}>
-                  <i /><span>{s.name}</span><small>{o}/{s.ns.length}</small>
+                  <i /><span>{s.name}</span>{complete.has(s.id) ? <SetCheck name={s.name} /> : null}<small>{o}/{s.ns.length}</small>
                 </button>
               );
             })}

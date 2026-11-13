@@ -1,6 +1,7 @@
 // Bunnyverse Cards, lot 3 C1: POST /api/cards/craft { card_no } -> { card: { n, rarity, cost }, state }: spends CRAFT_COST[rarity] shards and
 // stores a MISSING card, in one transaction (cards_craft). A refusal is 409 { error: 'shards' | 'owned' | 'card' | 'no_craft' }.
 import { guard, json, loadState, readJson, refusalOf } from '@/lib/cards/api';
+import { finishedOf } from '@/lib/cards/goals';
 
 import type { NextRequest, NextResponse } from 'next/server';
 
@@ -18,9 +19,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     if (why === 'shards' || why === 'owned' || why === 'card' || why === 'no_craft') return json({ error: why }, 409);
     return json({ error: 'server' }, 500);
   }
-  const r = data as { card_no: number; rarity: string; cost: number };
+  const r = data as { card_no: number; rarity: string; cost: number; finished?: unknown };
+  const finished = finishedOf(r.finished);
   try {
-    return json({ card: { n: Number(r.card_no), rarity: r.rarity, cost: Number(r.cost) }, state: await loadState(g.db, g.userId) });
+    return json({ card: { n: Number(r.card_no), rarity: r.rarity, cost: Number(r.cost), ...(finished.length > 0 ? { finished } : {}) }, state: await loadState(g.db, g.userId) });
   } catch {
     return json({ error: 'server' }, 500);
   }

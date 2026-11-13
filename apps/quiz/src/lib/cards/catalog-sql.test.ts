@@ -162,7 +162,7 @@ describe('101-catalog.sql on fixture groups and idols', () => {
       '099-idols-members.rollback.sql', '099-idols-members.sql', '099b-idols-returning.rollback.sql', '099b-idols-returning.sql',
       '101-catalog.rollback.sql', '101-catalog.sql',
       '102-catalog-rebuild.rollback.sql', '102-catalog-rebuild.sql', '103-catalog-photos.rollback.sql', '103-catalog-photos.sql',
-      '104-economy.rollback.sql', '104-economy.sql', '106-demo.rollback.sql', '106-demo.sql', '108-push.rollback.sql', '108-push.sql']);
+      '104-economy.rollback.sql', '104-economy.sql', '105-goals.rollback.sql', '105-goals.sql', '106-demo.rollback.sql', '106-demo.sql', '108-push.rollback.sql', '108-push.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
     const d2 = await fixtureDb();

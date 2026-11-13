@@ -55,6 +55,8 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { GET as catalog } from './catalog/route';
 import { POST as craft } from './craft/route';
+import { GET as goals } from './goals/route';
+import { POST as goalsClaim } from './goals/claim/route';
 import { POST as favorite } from './favorite/route';
 import { POST as grant } from './ad/grant/route';
 import { POST as ticket } from './ad/ticket/route';
@@ -82,6 +84,11 @@ const WALLET = {
   next_at: '2026-11-12T10:10:00+00:00', midnight_at: '2026-11-12T23:00:00+00:00',
 };
 const PACK = { id: 'pack-1', source: 'stock', cards: [1, 7, 9, 3, 2].map((n, i) => ({ n, isNew: i !== 1 })) };
+const GOALS = {
+  reward_packs: 2, finished: [],
+  week: { week_start: '2026-11-09', ends_at: '2026-11-15T23:00:00+00:00', packs_opened: 21, kpopdle_wins: 3, new_cards: 10, goal_packs: 20, goal_wins: 3, goal_cards: 10, reward_packs: 2, reward_shards: 25, done: true, claimed: false },
+  sets: [{ id: 'group:G1', kind: 'group', name: 'Group One', packs: 1, total: 6, owned: 6, claimed: true }, { id: 'holo', kind: 'holo', name: null, packs: 3, total: 4, owned: 2, claimed: false }],
+};
 const UUID = '11111111-2222-3333-4444-555555555555';
 
 beforeEach(() => {
@@ -98,6 +105,8 @@ beforeEach(() => {
     cards_wallet: { data: WALLET }, cards_apply_pack: { data: PACK },
     // Lots 3 and 4: the ad shards, the craft and the wishlist answer something by default (the private-launch test calls every route).
     cards_ad_grant: { data: { gained: 25, shards: 37, ads_today: 3 } }, cards_craft: { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12 } }, cards_wish: { data: { on: true, count: 1 } },
+    // Lots 3 and 4 (Goals).
+    cards_goals_sync: { data: GOALS }, cards_week_claim: { data: { packs: 2, shards: 25, reward_packs: 2, shards_total: 37 } },
   };
   vi.stubEnv('NET_CARDS', '1');
   vi.stubEnv('NET_CARDS_BRIDGES', '1');
@@ -115,6 +124,8 @@ const ROUTES: Array<[string, () => Promise<Response>]> = [
   ['ad/grant', () => grant(req('/api/cards/ad/grant', { ticket: UUID }))],
   ['craft', () => craft(req('/api/cards/craft', { card_no: 3 }))],
   ['wish', () => wish(req('/api/cards/wish', { card_no: 3, on: true }))],
+  ['goals', () => goals(req('/api/cards/goals'))],
+  ['goals/claim', () => goalsClaim(req('/api/cards/goals/claim', {}))],
   ['recycle', () => recycle(req('/api/cards/recycle', {}))],
   ['favorite', () => favorite(req('/api/cards/favorite', { n: 4, on: true }))],
   ['report', () => report(req('/api/cards/report', { n: 4, role: 'person', message: 'x' }))],
@@ -489,5 +500,66 @@ describe('GET /api/cards/catalog', () => {
     const before = h.serviceMade;
     await catalog();
     expect(h.serviceMade).toBe(before); // served from the 5 minute cache
+  });
+});
+
+describe('Goals (lots 3 and 4, lane GOALS)', () => {
+  it('GET goals settles, reads and answers the sets, the week and the packs waiting', async () => {
+    const res = await goals(req('/api/cards/goals'));
+    expect(res.status).toBe(200);
+    expect(res.headers.get('cache-control')).toBe('no-store');
+    const body = await res.json();
+    expect(body).toMatchObject({ rewardPacks: 2, finished: [], week: { weekStart: '2026-11-09', packsOpened: 21, kpopdleWins: 3, newCards: 10, goalPacks: 20, done: true, claimed: false } });
+    expect(body.sets).toEqual([
+      { id: 'group:G1', kind: 'group', name: 'Group One', packs: 1, total: 6, owned: 6, claimed: true },
+      { id: 'holo', kind: 'holo', name: null, packs: 3, total: 4, owned: 2, claimed: false },
+    ]);
+    expect(h.rpcCalls.map((c) => c.fn)).toEqual(['cards_goals_sync']);
+    expect(h.rpcCalls[0]?.args).toMatchObject({ p_user: 'u1' });
+  });
+  it('GET goals: a database error is a 500 and no body of the database', async () => {
+    h.rpcResult.cards_goals_sync = { error: { message: 'boom secret' } };
+    const res = await goals(req('/api/cards/goals'));
+    expect([res.status, await res.json()]).toEqual([500, { error: 'server' }]);
+  });
+  it('claim: the week is claimed once, the answer carries the new Goals state', async () => {
+    const res = await goalsClaim(req('/api/cards/goals/claim', {}));
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ packs: 2, shards: 25, goals: { rewardPacks: 2 } });
+    expect(h.rpcCalls.map((c) => c.fn)).toEqual(['cards_week_claim', 'cards_goals_sync']);
+  });
+  it.each([['cards: claimed', 'claimed'], ['cards: goal', 'goal']])('claim refusal "%s" is 409 %s', async (message, error) => {
+    h.rpcResult.cards_week_claim = { error: { message } };
+    const res = await goalsClaim(req('/api/cards/goals/claim', {}));
+    expect([res.status, await res.json()]).toEqual([409, { error }]);
+    expect(h.rpcCalls.map((c) => c.fn)).toEqual(['cards_week_claim']);
+  });
+  it('claim: a cross-site POST is refused and claims nothing', async () => {
+    const res = await goalsClaim(req('/api/cards/goals/claim', {}, { origin: 'https://evil.example' }));
+    expect(res.status).toBe(403);
+    expect(h.rpcCalls).toEqual([]);
+  });
+  it('a Team account earns nothing: goals and claim answer 403 before any database call', async () => {
+    h.team = true;
+    expect((await goals(req('/api/cards/goals'))).status).toBe(403);
+    expect((await goalsClaim(req('/api/cards/goals/claim', {}))).status).toBe(403);
+    expect(h.rpcCalls).toEqual([]);
+  });
+  it('open accepts the source reward, sends it to cards_apply_pack and tells the sets the pack finished', async () => {
+    h.rpcResult.cards_apply_pack = { data: { ...PACK, source: 'reward', finished: [{ id: 'group:G1', kind: 'group', name: 'Group One', packs: 1 }] } };
+    const res = await open(req('/api/cards/open', { source: 'reward' }));
+    expect(res.status).toBe(200);
+    expect(applyCall()?.args).toMatchObject({ p_source: 'reward', p_focus: null });
+    expect((await res.json()).pack.finished).toEqual([{ id: 'group:G1', kind: 'group', name: 'Group One', packs: 1 }]);
+  });
+  it('open: no reward pack waiting is 409 reward', async () => {
+    h.rpcResult.cards_apply_pack = { error: { message: 'cards: reward' } };
+    const res = await open(req('/api/cards/open', { source: 'reward' }));
+    expect([res.status, await res.json()]).toEqual([409, { error: 'reward' }]);
+  });
+  it('craft tells the sets the craft finished', async () => {
+    h.rpcResult.cards_craft = { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12, finished: [{ id: 'holo', kind: 'holo', name: null, packs: 3 }] } };
+    const body = await (await craft(req('/api/cards/craft', { card_no: 3 }))).json();
+    expect(body.card).toEqual({ n: 3, rarity: 'R', cost: 50, finished: [{ id: 'holo', kind: 'holo', name: null, packs: 3 }] });
   });
 });
