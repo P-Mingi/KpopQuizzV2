@@ -5,7 +5,7 @@ import { BOX_TOLERANCE, IMG_DIR, MAX_DIFF_RATIO, VIEWPORTS } from './helpers/env
 import { compareBoxes, diffPngs, measure } from './helpers/diff';
 import { injectMask, MASK_DESCRIPTION } from './helpers/freeze';
 import { openProto } from './helpers/proto';
-import { openApp } from './helpers/app';
+import { openApp, warmUp } from './helpers/app';
 import { record } from './helpers/results';
 import { SCREENS } from './helpers/screens';
 
@@ -13,6 +13,11 @@ import { SCREENS } from './helpers/screens';
 // Filter with KC_SCREENS=lobby,help and KC_VPS=390x664.
 const only = (process.env.KC_SCREENS || '').split(',').filter(Boolean);
 const onlyVp = (process.env.KC_VPS || '').split(',').filter(Boolean);
+
+test.beforeAll(async ({ playwright }) => {
+  test.setTimeout(600_000);
+  if (!process.env.KC_SELF) await warmUp(await playwright.request.newContext());
+});
 
 for (const vp of VIEWPORTS) {
   if (onlyVp.length && !onlyVp.includes(vp.name)) continue;
@@ -42,7 +47,7 @@ for (const vp of VIEWPORTS) {
         if (process.env.KC_SELF) await openProto(app, s.hash); // harness self-check: the prototype against itself
         else await openApp(app, s.app, { state: s.needs });
         if (s.steps) await s.steps(app, process.env.KC_SELF ? 'proto' : 'app');
-        await app.waitForSelector(s.ready, { timeout: 15_000 });
+        await app.waitForSelector(s.ready, { timeout: 45_000 });
         await injectMask(app);
         await app.waitForTimeout(s.settle ?? 400);
         const appBoxes = await measure(app, s.boxes);

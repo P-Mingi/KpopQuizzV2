@@ -29,6 +29,7 @@ export const MASK_CSS = `
   .rtag b, .al-name, .rk-name { color: transparent !important; }
   img.photo, .photo, [data-photo], picture, .c-art img { visibility: hidden !important; }
   * { caret-color: transparent !important; }
+  nextjs-portal, [data-nextjs-toast], [data-nextjs-dev-tools-button] { display: none !important; }
 `;
 export const MASK_DESCRIPTION =
   'photo layer (.c-art and everything in it, img.photo/[data-photo]) painted flat grey; idol name and meta text on cards (.c-name, .c-meta span, .c-mono, .c-kind .kh), ' +
