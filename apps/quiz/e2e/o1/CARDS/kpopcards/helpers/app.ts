@@ -1,0 +1,17 @@
+import type { Page } from '@playwright/test';
+import { APP_BASE, APP_ROOT } from './env';
+import { freeze } from './freeze';
+
+/** Opens a KpopCards page of the app (dev server, fixture mode with the seeded mock of agent A), seeded and
+ *  frozen exactly like the prototype. `sub` is the path under /kpopcards ('' = the lobby). */
+export async function openApp(page: Page, sub = '', opts: { state?: string } = {}) {
+  await freeze(page);
+  const qs = opts.state ? `${sub.includes('?') ? '&' : '?'}kcstate=${encodeURIComponent(opts.state)}` : '';
+  await page.goto(`${APP_BASE}${APP_ROOT}${sub}${qs}`, { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => document.fonts && document.fonts.ready);
+}
+
+/** Next dev compiles a route on its first request: hit every route once, with a long timeout, before the specs measure anything. */
+export async function warmUp(request: import('@playwright/test').APIRequestContext, subs = ['', '/collection', '/missions', '/ranking', '/help', '/open/all', '/odds']) {
+  for (const sub of subs) await request.get(`${APP_BASE}${APP_ROOT}${sub}`, { timeout: 180_000, failOnStatusCode: false }).catch(() => {});
+}
