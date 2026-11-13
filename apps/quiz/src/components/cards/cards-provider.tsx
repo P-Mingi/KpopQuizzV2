@@ -84,6 +84,9 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
       const k = mock && world ? mock.createMockApi({ world, example: new URLSearchParams(window.location.search).get('kcstate') !== 'empty', nickname: 'mingi' }) : createHttpApi();
       const example = new URLSearchParams(window.location.search).get('kcstate') !== 'empty';
       if (mock && fx && ex && example && 'data' in k && ex.applyProtoExample((k as { data: Parameters<typeof ex.applyProtoExample>[0] }).data, fx.fixtureCatalog().cards, Date.now())) setProtoExample(true);
+      // Development fixture only: the prototype controls on window.__kcMock and the ?kcpack= pattern of the next pack (agent A's
+      // installDevHooks), so the QA harness opens the same pack as the prototype's seed. Dead code in production, like the mock.
+      if (mock && world) mock.installDevHooks(k as Parameters<typeof mock.installDevHooks>[0], window as unknown as Record<string, unknown>, window.location.search);
       if (!alive) return;
       setKcApi(k);
       setKc(k);

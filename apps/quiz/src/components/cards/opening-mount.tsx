@@ -32,7 +32,7 @@ const ERRORS: Record<string, string> = {
   network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', focus_used: 'Today’s focus pack is already opened.',
 };
 
-interface Dealt { cards: OpenedCard[]; source: PackSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
+interface Dealt { cards: OpenedCard[]; source: PackSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'golden' | 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
 
 export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement | null {
   const c = useCards();
@@ -80,18 +80,18 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
       const inp = openingInput(r);
       const cards = inp.cards as unknown as OpenedCard[];
       const source: PackSource = spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
-      setDealt({ cards, source, demo: false, extra: { goldenPacks: inp.goldenPacks, finished: inp.finished, headline: inp.headline, copiesShards: inp.copiesShards } });
+      setDealt({ cards, source, demo: false, extra: { golden: inp.golden, goldenPacks: inp.goldenPacks, finished: inp.finished, headline: inp.headline, copiesShards: inp.copiesShards } });
       return;
 
     })();
   }, [status, api, kc, key, spec, router, signIn, toast, c, catalog.items]);
 
   const look = useMemo(() => {
-    const golden = w?.golden.next === true;
+    const golden = dealt ? dealt.extra.golden === true : w?.golden.next === true;
     if (spec.kind === 'daily') return packLook({ daily: w ? (() => { const p = paletteFor(`group:${w.daily.group.name}`); return { name: w.daily.group.name, a: p.a, c: p.c }; })() : null, golden });
     if (spec.kind === 'focus') { const g = catalog.sections.find((s) => s.id === spec.group); return packLook({ focus: { slug: spec.group, name: g?.name ?? spec.group, color: g?.color ?? '#FF3E86' }, golden }); }
     return packLook({ theme: spec.kind === 'theme' ? spec.theme : 'all', golden });
-  }, [spec, catalog, now, w?.golden.next]);
+  }, [spec, catalog, now, w?.golden.next, dealt]);
 
   if (!dealt) return <div className="wrap page" aria-busy="true"><p className="lede" role="status">Getting your pack.</p></div>;
   // `look` and `packs` are the opening's extra props (see scratchpad B-mounts.md); the existing ones are cards, source, onClose and demo.
