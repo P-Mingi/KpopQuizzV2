@@ -61,18 +61,20 @@ export function placeholderGroupPicture(entityId: string): string {
 
 /** The whole fixture catalog: the numbers go groups A to Z (the people, then the group card), 4 numbers a subject in the order C, U, R, UR.
  *  Lot 2: with `pairs`, a group gives a pair per edition (8 numbers, 1/2 then 2/2) on a wide placeholder; off by default, so the existing
- *  tests read the same catalog. A development server turns it on with CARDS_UI_FIXTURE_PAIRS=1. */
-export function buildFixtureCatalog(opts: { pairs?: boolean } = {}): UiCatalog {
+ *  tests read the same catalog. A development server turns it on with CARDS_UI_FIXTURE_PAIRS=1. With `full` (CARDS_UI_FIXTURE_FULL=1) the Era and Full Art editions exist too. */
+export function buildFixtureCatalog(opts: { pairs?: boolean; full?: boolean } = {}): UiCatalog {
+  // With `full` the six editions exist (Era and Full Art too), so the screen comparisons and the Full Art control have a Full Art card to show.
+  const RARITIES: readonly Rarity[] = opts.full ? ['C', 'U', 'R', 'SR', 'UR', 'L'] : FIXTURE_RARITIES;
   const entities: UiEntity[] = [];
   const cards: UiCard[] = [];
   let n = 0;
   let serial = 100;
-  const lockAll: UiEntity['lockReasons'] = { SR: 'one', L: 'one' };
+  const lockAll: UiEntity['lockReasons'] = opts.full ? {} : { SR: 'one', L: 'one' };
   const push = (e: UiEntity): void => {
     serial += 1;
     if (opts.pairs && e.kind === 'group') {
       const photo: UiPhoto = { ...photoFor(e.id, serial), focalY: 50, src: placeholderGroupPicture(e.id) };
-      for (const r of FIXTURE_RARITIES) {
+      for (const r of RARITIES) {
         for (const part of [1, 2] as const) {
           n += 1;
           cards.push({
@@ -83,7 +85,7 @@ export function buildFixtureCatalog(opts: { pairs?: boolean } = {}): UiCatalog {
       }
       return;
     }
-    for (const r of FIXTURE_RARITIES) {
+    for (const r of RARITIES) {
       n += 1;
       cards.push({ n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name, group: e.group, debutYear: e.debutYear, photo: photoFor(e.id, serial) });
     }
@@ -170,6 +172,6 @@ export function fixtureThemes(cat: UiCatalog): Map<string, 'girls' | 'boys' | 's
 let memo: UiCatalog | null = null;
 export function fixtureCatalog(): UiCatalog {
   if (process.env.NODE_ENV === 'development' && process.env.CARDS_UI_FIXTURE_SHAPE !== 'small') return (memo ??= buildProtoCatalog());
-  memo ??= buildFixtureCatalog({ pairs: process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_PAIRS === '1' });
+  memo ??= buildFixtureCatalog({ pairs: process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_PAIRS === '1', full: process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_FULL === '1' });
   return memo;
 }

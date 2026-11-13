@@ -36,6 +36,8 @@ export const KC = {
   OPEN_MANY: 5,
   /** A pack bought with shards. */
   SHARD_PACK: 50,
+  /** Kpopdle bonus packs a Paris day (CARDS_BONUS_PER_DAY, default 3), each earned by one won Kpopdle play. */
+  BONUS_PER_DAY: 3,
   AD_SHARDS: 25,
   ADS_PER_DAY: 10,
   /** One level every 10 distinct cards. */
@@ -68,7 +70,7 @@ export type ErrorCode =
   | 'bad_request' | 'unauthorized' | 'not_found' | 'origin' | 'editorial_account' | 'rate_limited' | 'server'
   | 'idem_conflict' | 'idem_missing'
   // packs
-  | 'empty' | 'stack_short' | 'shards' | 'daily_used' | 'focus_used' | 'focus' | 'pack' | 'source'
+  | 'bonus' | 'empty' | 'stack_short' | 'shards' | 'daily_used' | 'focus_used' | 'focus' | 'pack' | 'source'
   // ads
   | 'ad_limit' | 'ticket'
   // collection
@@ -87,7 +89,7 @@ export type ErrorCode =
 export const ERROR_STATUS: Record<ErrorCode, number> = {
   bad_request: 400, unauthorized: 401, not_found: 404, origin: 403, editorial_account: 403, rate_limited: 429, server: 500,
   idem_conflict: 409, idem_missing: 400,
-  empty: 409, stack_short: 409, shards: 409, daily_used: 409, focus_used: 409, focus: 400, pack: 409, source: 400,
+  bonus: 409, empty: 409, stack_short: 409, shards: 409, daily_used: 409, focus_used: 409, focus: 400, pack: 409, source: 400,
   ad_limit: 409, ticket: 409,
   card: 404, owned: 409, no_craft: 409, wish_limit: 409, locked: 409, not_owned: 409,
   confirm_required: 400, nothing_to_recycle: 409, last_copy: 409,
@@ -217,6 +219,13 @@ export interface LobbyState extends WalletState {
   canBuyPack: boolean;
   /** The "still there?" check (quiet): when due, the timer is paused until the player confirms. Nothing is ever taken. */
   stillThere: { due: boolean; since: string | null };
+  /** The bridges to kpopquiz.org (the lobby box "On kpopquiz.org +1 pack each"). Kpopdle: a win decided in the database earns a pack (at most perDay a Paris day);
+   *  the page that shows the win posts to ROUTES.bonusRecord so the server records it, and the pack is opened with source 'bonus'. Quiz of the day: NOT a source
+   *  of packs (decision 28: its completion is a score the browser reports, so it could be farmed); `enabled` is false and the box must not promise a pack for it. */
+  bridges: {
+    kpopdle: { enabled: boolean; earnedToday: number; left: number; perDay: number };
+    quizOfDay: { enabled: false; reason: string };
+  };
   /** The player's own nickname (profiles.username), null when none is set (ranking and friends need one). */
   nickname: string | null;
   /** Server clock at the answer, so a screen can correct its countdowns. */
@@ -229,9 +238,9 @@ export interface OpenRequest {
   /** UUID, one per intention (Idempotency-Key header or this field). */
   key: string;
   /** 'stock' a pack of the stack (theme), 'daily' the pack of the day (free once a Paris day), 'focus' a focus pack from the stack,
-   *  'shards' a pack bought with 50 shards. */
-  source: 'stock' | 'daily' | 'focus' | 'shards';
-  /** The theme, for 'stock' and 'shards'; default: the player's saved theme. */
+   *  'shards' a pack bought with 50 shards, 'bonus' the pack a Kpopdle win earned (LobbyState.bridges.kpopdle.left > 0; not from the stack). */
+  source: 'stock' | 'daily' | 'focus' | 'shards' | 'bonus';
+  /** The theme, for 'stock', 'shards' and 'bonus'; default: the player's saved theme. */
   theme?: ThemeId;
   /** The group (cards_entities id 'group:...'), for 'focus'. */
   focus?: string;
@@ -256,7 +265,7 @@ export interface OpenedPack {
   id: string;
   /** The player's pack number (every pack counts, whatever its source). */
   packNo: number;
-  source: 'stock' | 'daily' | 'focus' | 'shards';
+  source: 'stock' | 'daily' | 'focus' | 'shards' | 'bonus';
   theme: PackKind;
   /** The group of a daily or focus pack. */
   group: GroupRef | null;
@@ -491,6 +500,20 @@ export interface OddsState {
 
 /* ------------------------------------------------------------------ prefs, locks, wishlist, favorites, seen */
 
+/** GET /api/cards/card/{n}: "The moment" of the card view (lot 4 B3). */
+export interface CardMoment {
+  n: number;
+  /** The event the free photo was taken at (cards_photos.event_name, event_date). null hides the line. `precision` says how much of the date is known. */
+  event: { name: string; date: string | null; precision: 'day' | 'month' | 'year' | null } | null;
+  /** The player's own history of the card, null while he does not own it: when it first came, in which of his packs, or crafted. */
+  yours: { firstAt: string; packNo: number | null; how: 'pack' | 'craft' | 'demo'; copies: number } | null;
+  /** The quiz page on kpopquiz.org of the idol, else of its group, when one exists (a kpopquiz.org groups row has that slug). null hides the link. */
+  quiz: { title: string; url: string } | null;
+}
+
+/** POST /api/cards-bridge/bonus { source: 'kpopdle' } (sent by the Kpopdle win line; the server reads the wins itself): the bonus packs recorded for the Paris day. */
+export interface BonusAnswer { signedIn: boolean; earned?: number; bonusLeft?: number }
+
 export interface PrefsRequest { sound?: boolean; vibration?: boolean; theme?: ThemeId; focus?: string | null }
 export interface PrefsResponse { prefs: Prefs }
 
@@ -574,6 +597,7 @@ export interface KpopCardsApi {
   friendRemove(req: FriendRemoveRequest): Promise<ApiResult<FriendsState>>;
   idol(slug: string): Promise<ApiResult<IdolPage>>;
   odds(): Promise<ApiResult<OddsState>>;
+  card(n: number): Promise<ApiResult<CardMoment>>;
   prefs(req: PrefsRequest): Promise<ApiResult<PrefsResponse>>;
   lock(req: LockRequest): Promise<ApiResult<LockResponse>>;
   wish(req: WishRequest): Promise<ApiResult<WishResponse>>;
@@ -607,6 +631,7 @@ export const ROUTES = {
   friendRemove: { method: 'POST', path: '/api/cards/friends/remove', write: true },
   idol: { method: 'GET', path: '/api/cards/idol/{slug}' },
   odds: { method: 'GET', path: '/api/cards/odds' },
+  card: { method: 'GET', path: '/api/cards/card/{n}' },
   prefs: { method: 'POST', path: '/api/cards/prefs', write: true },
   lock: { method: 'POST', path: '/api/cards/lock', write: true },
   wish: { method: 'POST', path: '/api/cards/wish', write: true },

@@ -10,7 +10,7 @@ import { indexPool } from './draw';
 import type { PoolCard, Rarity } from '../cards/types';
 import type { UiCard, UiEntity } from '../cards/ui-types';
 import type {
-  AlmostItem, AlmostState, BellItem, IdolPage, CardRef, CollectionGroup, CollectionItem, CollectionQuery, CollectionState, DailyPack, GroupRef, LevelState,
+  AlmostItem, AlmostState, BellItem, CardMoment, IdolPage, CardRef, CollectionGroup, CollectionItem, CollectionQuery, CollectionState, DailyPack, GroupRef, LevelState,
   LobbyState, MissionSet, MissionsState, OddsPack, OddsRow, OddsState, PlayerPage, Prefs, RankRow, RecyclePreview, ThemeId, ThemeInfo, WeekItem, WeekMini,
 } from './contract';
 
@@ -72,7 +72,7 @@ export const groupRef = (s: Section): GroupRef => ({ id: s.id, slug: s.slug, nam
 
 /* ------------------------------------------------------------------ the player */
 
-export interface OwnedRow { copies: number; fav: boolean; locked: boolean; seen: boolean; firstAt: number; lastAt: number }
+export interface OwnedRow { copies: number; fav: boolean; locked: boolean; seen: boolean; firstAt: number; lastAt: number; packNo?: number | null; how?: 'pack' | 'craft' | 'demo' }
 
 export interface PlayerData {
   nickname: string | null;
@@ -90,6 +90,9 @@ export interface PlayerData {
   opened: number;
   /** Packs in a row with no Gold and no Full Art, newest first. */
   sinceGold: number;
+  /** Kpopdle bonus packs earned on the Paris day (cards_bonus_earned) and already opened (cards_wallets.bonus_today). */
+  bonusEarned: number;
+  bonusUsed: number;
   /** Paris day the pack of the day / a focus pack was last opened. */
   dailyDay: string | null;
   focusDay: string | null;
@@ -109,7 +112,7 @@ export const STILL_THERE_AFTER_MS = 2 * 3600 * 1000;
 export function emptyPlayer(now: number, nickname: string | null = null): PlayerData {
   return {
     nickname, createdAt: now, owned: new Map(), wishlist: new Set(), shards: 0, stock: KC.STACK_CAP, anchor: now, timerToday: 0, parisDay: parisDayOf(now), adsToday: 0,
-    opened: 0, sinceGold: 0, dailyDay: null, focusDay: null, claimedSets: new Set(), week: { id: weekStartOf(now), packs: 0, dle: 0, newc: 0, claimed: false },
+    opened: 0, sinceGold: 0, bonusEarned: 0, bonusUsed: 0, dailyDay: null, focusDay: null, claimedSets: new Set(), week: { id: weekStartOf(now), packs: 0, dle: 0, newc: 0, claimed: false },
     prefs: { sound: true, vibration: true, theme: 'all', focus: null }, lastSeen: now, recent: [], last: null, friends: [], code: null,
   };
 }
@@ -278,7 +281,7 @@ export function missionsState(w: World, p: PlayerData, now: number): MissionsSta
 
 /* ------------------------------------------------------------------ lobby */
 
-export interface LobbyInput { w: World; p: PlayerData; now: number; timerCap?: number; adsPerDay?: number; adShards?: number; adsEnabled?: boolean; odds?: boolean }
+export interface LobbyInput { w: World; p: PlayerData; now: number; bonusPerDay?: number; timerCap?: number; adsPerDay?: number; adShards?: number; adsEnabled?: boolean; odds?: boolean }
 
 export function lobbyState(i: LobbyInput): LobbyState {
   const { w, p, now } = i;
@@ -304,11 +307,13 @@ export function lobbyState(i: LobbyInput): LobbyState {
   const paused = wal.paused;
   if (paused) bell.push({ id: 'still_there', href: '/kpopcards', title: 'Still there?', text: 'Tap to restart your pack timer' });
   const last = p.last;
+  const bonusCap = i.bonusPerDay ?? 0;
+  const bonusLeft = Math.max(0, Math.min(bonusCap, p.bonusEarned) - p.bonusUsed);
   const canBuy = wal.stock < 1 && p.shards >= KC.SHARD_PACK;
   const adsPer = i.adsPerDay ?? KC.ADS_PER_DAY;
   return {
     stock: wal.stock, cap: KC.STACK_CAP, nextAt: wal.nextAt === null ? null : new Date(wal.nextAt).toISOString(), midnightAt: new Date(wal.midnightAt).toISOString(),
-    adsLeft: Math.max(0, adsPer - wal.adsToday), adsEnabled: i.adsEnabled ?? true, shards: p.shards, bonusLeft: 0, owned: [...p.owned].map(([n, o]) => ({ n, copies: o.copies, fav: o.fav, at: new Date(o.lastAt).toISOString() })),
+    adsLeft: Math.max(0, adsPer - wal.adsToday), adsEnabled: i.adsEnabled ?? true, shards: p.shards, bonusLeft, owned: [...p.owned].map(([n, o]) => ({ n, copies: o.copies, fav: o.fav, at: new Date(o.lastAt).toISOString() })),
     timerCap, timerUsed: wal.timerToday, timerLeft: Math.max(0, timerCap - wal.timerToday), pityLeft: guarantee.left, focusUsed: p.focusDay === day, wishlist: [...p.wishlist].sort((a, b) => a - b),
     adShards: i.adShards ?? KC.AD_SHARDS,
     recent: p.recent.slice(0, 10).map((r) => ({ at: new Date(r.at).toISOString(), best: EDITIONS[r.best].edition, source: r.source, newCount: r.newCount })),
@@ -316,6 +321,10 @@ export function lobbyState(i: LobbyInput): LobbyState {
     theme: p.prefs.theme, themes: themeInfos(w), daily, golden, guarantee, level: levelState(ownedCount), prefs: p.prefs, bell, week, claimable: ms.claimable, newCards,
     last: last ? { at: new Date(last.at).toISOString(), packNo: last.packNo, cards: last.cards } : null,
     canBuyPack: canBuy, stillThere: { due: paused, since: paused ? new Date(p.lastSeen + STILL_THERE_AFTER_MS).toISOString() : null },
+    bridges: {
+      kpopdle: { enabled: bonusCap > 0, earnedToday: p.bonusEarned, left: bonusLeft, perDay: bonusCap },
+      quizOfDay: { enabled: false, reason: 'A quiz result is a score the browser reports, so it cannot be checked on the server. Only a Kpopdle win earns a pack.' },
+    },
     nickname: p.nickname, serverNow: new Date(now).toISOString(),
   };
 }
@@ -544,4 +553,16 @@ export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null
     editions: unlocked ? cs.map((c) => ({ edition: c.edition, n: c.n, owned: p.owned.has(c.n), copies: p.owned.get(c.n)?.copies ?? 0 })) : [],
     quizzes: unlocked ? quizzes : [],
   };
+}
+
+/* ------------------------------------------------------------------ the moment of a card */
+
+/** The quiz link of a card: the idol's own page, else its group's, from the slug the database found (cards_moment) or, in the mock, from the entity. */
+export function momentQuiz(w: World, n: number, slug: string | null): CardMoment['quiz'] {
+  if (!slug) return null;
+  const card = w.cards.find((c) => c.n === n);
+  const e = card ? w.entities.find((x) => x.id === card.entity) : undefined;
+  const bySlug = w.entities.find((x) => x.id.replace(/^[a-z]+:/, '') === slug);
+  const name = bySlug?.name ?? e?.name ?? slug;
+  return { title: `${name} quizzes on kpopquiz.org`, url: `${QUIZ_BASE}/${slug}` };
 }

@@ -11,7 +11,8 @@
 --                    cards_in_pool(card, kind, group)   true when a card is in packs, with an active entity, and in the pool of a pack kind
 --                    cards_pool_has(kind, group, rarities)  true when that pool has a card of one of the rarities
 --                    cards_daily_group(day)             the pack of the day: one group a day, by the Paris day number
---                    cards_open(...)                    ONE function, ONE transaction: 1 or 5 packs, wallet locked, idempotency key, audit
+--                    cards_open(...)                    ONE function, ONE transaction: 1 or 5 packs, wallet locked, idempotency key, audit; sources stock, daily, focus,
+--                                                       shards and bonus (the Kpopdle bonus pack of 002, still earned by a win decided in the database)
 --                    cards_recycle(user, key, n, now, timer_cap)   bulk (locked cards and Gold and Full Art extras never) or one extra copy
 --                    cards_lock(user, card, on, now)    lock or unlock an owned card
 --                    cards_seen(user, cards)            clears the New badge
@@ -35,7 +36,7 @@
 -- Rows:   0 rows changed except 3 backfills of new columns (packs_opened and seq from the player's packs, created_at from the first card), all
 --         idempotent. 1 table, 9 columns, 10 new functions, 5 replaced, 1 dropped. No XP, level, streak or badge of kpopquiz.org is touched.
 -- Needs:  001, 002, 102 (cards_catalog.part), 104, 105 (ledgers) and 107 (preferences).
--- Errors: words after "cards: ": empty, stack_short, shards, daily_used, focus_used, focus, pack, source, theme, key, idem_conflict, locked,
+-- Errors: words after "cards: ": bonus (no Kpopdle bonus pack to open), empty, stack_short, shards, daily_used, focus_used, focus, pack, source, theme, key, idem_conflict, locked,
 --         lastcopy, nothing, notowned, owned, card, no_craft, ad_limit, ticket, user.
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_theme_of', 'cards_in_pool', 'cards_pool_has', 'cards_daily_group', 'cards_open', 'cards_recycle', 'cards_lock', 'cards_seen', 'cards_still_there', 'cards_player');   expect 10
 -- Verify: select proname, count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_roll', 'cards_wallet', 'cards_pity_count', 'cards_craft', 'cards_ad_grant', 'cards_open') group by proname order by proname;   expect each 1
@@ -330,6 +331,8 @@ begin
       'week', public.cards_week_progress(p_user, p_now),
       'prefs', public.cards_prefs_get(p_user),
       'recent', public.cards_recent_packs(p_user, 10),
+      'bonus_earned', public.cards_bonus_plays(p_user, v_today),
+      'bonus_today', case when w.paris_day = v_today then w.bonus_today else 0 end,
       'daily_used', exists (select 1 from public.cards_packs p where p.user_id = p_user and p.source = 'daily'
                              and p.opened_at >= v_today::timestamp at time zone 'Europe/Paris' and p.opened_at < (v_today + 1)::timestamp at time zone 'Europe/Paris'),
       'focus_used', public.cards_focus_used(p_user, p_now),
@@ -401,11 +404,11 @@ begin
   begin
     if p_user is null then raise exception 'cards: user'; end if;
     if p_key is null or length(p_key) not between 8 and 64 then raise exception 'cards: key'; end if;
-    if p_source is null or p_source not in ('stock', 'daily', 'focus', 'shards') then raise exception 'cards: source'; end if;
+    if p_source is null or p_source not in ('stock', 'daily', 'focus', 'shards', 'bonus') then raise exception 'cards: source'; end if;
     if p_draws is null or jsonb_typeof(p_draws) <> 'array' then raise exception 'cards: pack'; end if;
     v_n := jsonb_array_length(p_draws);
     if v_n not in (1, 5) or (v_n = 5 and p_source <> 'stock') then raise exception 'cards: pack'; end if;
-    v_theme := case when p_source in ('stock', 'shards') then coalesce(p_theme, 'all') else null end;
+    v_theme := case when p_source in ('stock', 'shards', 'bonus') then coalesce(p_theme, 'all') else null end;
     if v_theme is not null and v_theme not in ('all', 'girls', 'boys', 'solo') then raise exception 'cards: theme'; end if;
     v_op := 'open:' || p_source || ':' || v_n || ':' || coalesce(v_theme, '') || ':' || coalesce(p_focus, '');
 
@@ -435,6 +438,13 @@ begin
     elsif p_source = 'shards' then
       if v_shards < 50 then raise exception 'cards: shards'; end if;
       v_shards := v_shards - 50;
+      v_kind := v_theme;
+    elsif p_source = 'bonus' then
+      -- The Kpopdle bonus pack (002's rule, unchanged): earned by a win decided in the database and recorded once per play in cards_bonus_earned,
+      -- at most p_bonus_cap a Paris day (CARDS_BONUS_PER_DAY; 0 while the bridges are off). It does not touch the stack.
+      if v_n <> 1 then raise exception 'cards: pack'; end if;
+      if p_bonus_cap <= 0 or v_bonus >= least(p_bonus_cap, public.cards_bonus_plays(p_user, v_today)) then raise exception 'cards: bonus'; end if;
+      v_bonus := v_bonus + 1;
       v_kind := v_theme;
     elsif p_source = 'daily' then
       if exists (select 1 from public.cards_packs p where p.user_id = p_user and p.source = 'daily'

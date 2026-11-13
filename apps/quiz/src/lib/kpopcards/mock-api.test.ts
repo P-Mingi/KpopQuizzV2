@@ -85,4 +85,57 @@ describe('the seeded mock of the KpopCards contract', () => {
     if (isApiError(e)) throw new Error('x');
     expect([e.stock, e.owned.length, e.golden.opened]).toEqual([3, 0, 0]);
   });
+  it('the Kpopdle bonus pack: a win earns one, it is opened apart from the stack, and the quiz of the day earns none', async () => {
+    const a = createMockApi({ world: WORLD, seed: 9, now: () => T0 });
+    expect(await a.open({ key: k(30), source: 'bonus' })).toEqual({ error: 'bonus' });
+    a.addDleWin();
+    const st = await a.state();
+    if (isApiError(st)) throw new Error('x');
+    expect(st.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 1, left: 1, perDay: 3 });
+    expect(st.bridges.quizOfDay.enabled).toBe(false);
+    const r = await a.open({ key: k(31), source: 'bonus' });
+    if (isApiError(r)) throw new Error(r.error);
+    expect(r.packs[0]!.source).toBe('bonus');
+    expect(r.state.stock).toBe(st.stock);
+    expect(r.state.bridges.kpopdle.left).toBe(0);
+    expect(await a.open({ key: k(32), source: 'bonus' })).toEqual({ error: 'bonus' });
+  });
+  it('the example player mirrors the prototype v6: counts, stack, shards, history, bell, week, ranking', async () => {
+    const a = createMockApi({ world: WORLD, seed: 1, now: () => T0, start: 'example' });
+    const st = await a.state();
+    if (isApiError(st)) throw new Error('x');
+    expect([st.stock, st.shards, st.timerUsed, st.golden.opened, st.nickname]).toEqual([7, 34, 14, 48, 'mingi']);
+    expect((st.recent ?? []).map((r) => r.best)).toEqual(['holo', 'std', 'stage', 'era', 'stage', 'holo']);
+    expect((st.recent ?? []).map((r) => r.newCount)).toEqual([2, 1, 3, 2, 0, 4]);
+    expect(st.owned.filter((o) => o.fav)).toHaveLength(3);
+    expect(st.wishlist).toHaveLength(3);
+    expect(st.week.items.map((i) => i.value)).toEqual([12, 1, 7]);
+    expect(st.newCards).toBe(4);
+    const byEd = (ed: string): number => st.owned.filter((o) => WORLD.cards.find((c) => c.n === o.n)!.edition === ed).length;
+    // 44 Standard + 16 Stage + 6 Holo + 1 Gold outside the complete group, plus that group's own cards.
+    expect(byEd('std') + byEd('stage') + byEd('holo') + byEd('gold')).toBeGreaterThan(30);
+    const rk = await a.ranking('friends');
+    if (isApiError(rk)) throw new Error('x');
+    expect(rk.rows.map((r) => r.nickname)).toContain('neon.bunny');
+    const again = createMockApi({ world: WORLD, seed: 1, now: () => T0, start: 'example' });
+    expect(await again.state()).toEqual(st);
+    const empty = createMockApi({ world: WORLD, seed: 1, now: () => T0, start: 'empty' });
+    const es = await empty.state();
+    if (isApiError(es)) throw new Error('x');
+    expect(es.owned).toHaveLength(0);
+  });
+  it('forceFullArt does something even when the catalog holds no Full Art card, and the moment of a card is told', async () => {
+    const a = createMockApi({ world: WORLD, seed: 11, now: () => T0 });
+    a.forceFullArt();
+    const r = await a.open({ key: k(40), source: 'stock' });
+    if (isApiError(r)) throw new Error(r.error);
+    expect(['gold', 'full']).toContain(r.packs[0]!.cards[2]!.edition);
+    const mine = r.packs[0]!.cards[0]!.n;
+    const m = await a.card(mine);
+    if (isApiError(m)) throw new Error('x');
+    expect(m.yours).toMatchObject({ how: 'pack' });
+    expect(m.event?.precision).toBe('day');
+    expect(m.quiz?.url).toMatch(/^https:\/\/kpopquiz\.org\//);
+    expect(await a.card(999999)).toEqual({ error: 'card' });
+  });
 });
