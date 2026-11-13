@@ -4,6 +4,9 @@ import { permanentRedirect } from 'next/navigation';
 
 import { oldCardsTarget } from '@/lib/cards/kc-paths';
 
+// The [site] layout sets dynamicParams = false (O1 guard); a dynamic segment without generateStaticParams needs true or it never matches (the catch-all answers 404).
+export const dynamicParams = true;
+
 interface Props { params: Promise<{ rest?: string[] }>; searchParams: Promise<Record<string, string | string[] | undefined>> }
 
 export default async function OldCardsRedirect({ params, searchParams }: Props): Promise<never> {

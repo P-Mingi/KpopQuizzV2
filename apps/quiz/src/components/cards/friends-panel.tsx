@@ -79,7 +79,15 @@ export function FriendsPanel({ onChange }: { onChange?: () => void }): React.Rea
   const code = data?.code ?? null;
   return (
     <>
-      <button type="button" className="btn-outline sm" id="friends-open" onClick={() => setOpen(true)}><Ico name="goals" />Friends</button>
+      <div className="fr-inline">
+        <form className="fr-add" onSubmit={(e) => { e.preventDefault(); void redeem(); }}>
+          <label className="sr-only" htmlFor="friend-in-top">Add a friend with their code</label>
+          <input id="friend-in-top" className="search-in" value={typed} onChange={(e) => setTyped(e.target.value)} placeholder="Friend's code" autoComplete="off" autoCapitalize="characters" spellCheck={false} maxLength={32} />
+          <button type="submit" className="btn-outline" disabled={busy || !typed.trim()}>Add</button>
+        </form>
+        <button type="button" className="btn-outline" id="friends-open" onClick={() => setOpen(true)}><Ico name="goals" />Friends</button>
+      </div>
+      {msg && !open ? <p className="fr-err" role="alert" style={{ flexBasis: '100%' }}>{msg}</p> : null}
       {open ? (
         <div className="dt" id="friends-dt" role="dialog" aria-modal="true" aria-label="Friends" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}>
           <div className="adbox fr-box">

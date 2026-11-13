@@ -1281,7 +1281,7 @@ html.rm .bvc .c-rim{animation:none}
 
 /* the lock of an owned card, beside its star in the card view */
 .bvc .d-marks{display:inline-flex;align-items:center;gap:6px;flex:none}
-.bvc .lockb{position:relative;flex:none;width:40px;height:40px;padding:0;border-radius:50%;background:#fff;border:1px solid var(--border-h);box-shadow:0 1px 3px rgba(26,23,20,.16);display:grid;place-items:center;color:var(--txt2);cursor:pointer}
+.bvc .lockb{position:relative;flex:none;width:44px;height:44px;padding:0;border-radius:50%;background:#fff;border:1px solid var(--border-h);box-shadow:0 1px 3px rgba(26,23,20,.16);display:grid;place-items:center;color:var(--txt2);cursor:pointer}
 .bvc .lockb::before{content:"";position:absolute;inset:-2px;border-radius:50%}
 .bvc .lockb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .bvc .lockb:hover{color:var(--txt1)}
@@ -1308,3 +1308,8 @@ html.rm .bvc .c-rim{animation:none}
 .bvc .fr-row small{color:var(--txt2);font-size:13px}
 .bvc .fr-wish{font-size:13.5px;color:var(--txt2)}
 .bvc .fr-wish b{color:var(--txt1)}
+.bvc .fr-inline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bvc .fr-inline .fr-add input{width:150px}
+.bvc .brand,.bvc .brand.kc{min-height:44px}
+.bvc .ux-skip{height:44px}
+@media (max-width:900px){.bvc .fr-inline .fr-add{display:none}}
