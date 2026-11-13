@@ -2,6 +2,7 @@
 // the stand-in API of the fixture needs no change; the pages that use these refresh the wallet from GET /api/cards/state afterwards.
 import { withBasePath } from '@/lib/site/base-path';
 
+import type { FinishedSet } from './goals';
 import type { OpenResult } from './types';
 
 export type EconError = { error: string };
@@ -22,7 +23,7 @@ async function post<T>(path: string, body: unknown): Promise<T | EconError> {
 
 export const isEconError = <T extends object>(r: T | EconError): r is EconError => typeof r === 'object' && r !== null && 'error' in r;
 
-export const craftCard = (n: number): Promise<{ card: { n: number; rarity: string; cost: number } } | EconError> => post('/api/cards/craft', { card_no: n });
+export const craftCard = (n: number): Promise<{ card: { n: number; rarity: string; cost: number; finished?: FinishedSet[] } } | EconError> => post('/api/cards/craft', { card_no: n });
 export const wishCard = (n: number, on: boolean): Promise<{ on: boolean; count: number } | EconError> => post('/api/cards/wish', { card_no: n, on });
 export const openFocus = (group: string): Promise<OpenResult | EconError> => post('/api/cards/open', { source: 'stock', focus: group });
 

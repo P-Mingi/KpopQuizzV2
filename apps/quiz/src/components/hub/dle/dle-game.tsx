@@ -16,11 +16,14 @@ import { yesterdayWasText } from '@/lib/dle/yesterday';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
-import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks';
+import { clock, deviceStore, useDleClient, useDlePreview, useResetCountdown } from './dle-hooks';
 import { IconMark } from '@/components/photos/icon-mark';
 
 import { D, Flame, Ic, Spark, libraryIcon, savedIcon } from './dle-icons';
 import { Avatar, firstValue, parentName } from './dle-avatar';
+import { DleCard } from './dle-card';
+
+import type { AvatarLook } from './dle-avatar';
 
 import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { LocalHistory } from '@/lib/dle/local';
@@ -53,6 +56,10 @@ export interface DleGameProps {
   readonly yesterday?: string | null;
   /** The icon slots of the admin (lib/photos/icons-read.ts): a step, or the title of the hints, draws the owner's icon once a row is saved. Read on the server. */
   readonly icons?: LiveIcons;
+  /** Lot 3 DLE (E3): the public path of the series photo already in place on the anime pages, by series name, for the tiles and the card of a character. Empty for a K-pop game. */
+  readonly seriesArt?: Readonly<Record<string, string>>;
+  /** Lot 3 DLE (E2): true only when this build may offer the owner's private preview (PRIVATE_LAUNCH=1 on the hub). A boolean, never an address: the pictures are asked for after the page, by the admin routes. */
+  readonly ownerPreview?: boolean;
 }
 
 const CONFETTI: Readonly<Record<'k' | 'a', readonly string[]>> = {
@@ -143,9 +150,11 @@ export function subText(g: DleGameDef, e: DlePoolEntity, subKey: string, locale:
 interface GridWords { right: string; near: string; wrong: string; unknown: string; up: string; down: string }
 
 /** The table of the guesses, newest first: a header per column of the pool (8 for a game of one series), a row per guess. */
-export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words }: {
+export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words, look }: {
   readonly locale: DleLocale; readonly game: DleGameId; readonly pool: DlePool | null; readonly guesses: readonly DleGuess[];
   readonly byId: ReadonlyMap<string, DlePoolEntity>; readonly wonId: string | null; readonly fresh: string | null; readonly words: GridWords;
+  /** What a tile draws behind a name when the character has no licensed photo (series photo, owner's preview). */
+  readonly look?: (e: DlePoolEntity) => AvatarLook;
 }): React.ReactElement {
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -169,7 +178,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
               <tr key={row.id}>
                 <th scope="row">
                   <span className={`hub-dle-rowhead${isTarget ? ' hub-dle-rowhead-win' : ''}${isNew ? ' hub-dle-rowin' : ''}`}>
-                    {e ? <Avatar entity={e} tone={sub} size={44} radius={12} font={14} /> : null}
+                    {e ? <Avatar entity={e} tone={sub} size={44} radius={12} font={14} look={look?.(e)} /> : null}
                     <span className="hub-dle-rowname"><strong>{e?.name ?? row.id}</strong><small>{e ? subText(g, e, w.subKey, locale) : ''}</small></span>
                   </span>
                 </th>
@@ -187,7 +196,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName, yesterday = null, icons }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -196,6 +205,13 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const hintsMark = world.id === 'kpopdle' ? savedIcon(icons, 'hints') : null;
   const client = useDleClient();
   const left = useResetCountdown();
+  // The owner's private preview (E2): asked for after the page, Otakudle only, only when the server said this build may offer it.
+  const pv = useDlePreview(ownerPreview && g.universe === 'anime');
+  /** What stands behind a name with no licensed photo: the preview (the owner's session only), then the series photo; the card of the result takes the large preview. */
+  const lookOf = (e: Pick<DlePublicEntity, 'id' | 'attrs'>, size: 'tile' | 'full' = 'tile'): AvatarLook => ({
+    art: seriesArt?.[parentName(g, w.subKey, e.attrs)] ?? null,
+    preview: (size === 'full' ? pv?.full(e.id) : pv?.tile(e.id)) ?? null,
+  });
 
   const [date, setDate] = useState<string | null>(null);
   const [no, setNo] = useState<number | null>(gameNo);
@@ -490,7 +506,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
                     return (
                       <li key={e.id} id={`dle-opt-${e.id}`} role="option" aria-selected={i === active}>
                         <button type="button" tabIndex={-1} className={i === active ? 'hub-dle-opt-active' : ''} onClick={() => void send(e)}>
-                          <Avatar entity={e} tone={sub} size={40} radius={10} font={13} />
+                          <Avatar entity={e} tone={sub} size={40} radius={10} font={13} look={lookOf(e)} />
                           <span className="hub-dle-sugg-text">
                             <span className="hub-dle-sugg-name">{e.name}{native ? <span lang={w.nativeLang ?? undefined}> {native}</span> : null}</span>
                             <span className="hub-dle-sugg-sub">{[g.series ? subText(g, e, w.subKey, locale) : sub, second].filter(Boolean).join(' · ')}</span>
@@ -529,7 +545,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               // eslint-disable-next-line @next/next/no-img-element
               <img src={picture.url} alt={target.name} style={{ objectPosition: picture.position }} />
             ) : (
-              <div aria-hidden="true" className="hub-dle-photo-ini"><Avatar entity={target} tone={targetTone} fill /></div>
+              <DleCard name={target.name} sub={targetShown} tone={targetTone} look={lookOf(target, 'full')} />
             )}
             <span aria-hidden="true" className="hub-dle-shine" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -581,7 +597,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
         {guesses.length ? (
           <DleGrid
             locale={locale} game={game} pool={pool} guesses={guesses} byId={byId} wonId={play?.status === 'won' ? play.target?.id ?? null : null} fresh={fresh}
-            words={words}
+            words={words} look={lookOf}
           />
         ) : (
           <div className="hub-dle-empty">
