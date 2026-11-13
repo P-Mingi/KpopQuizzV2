@@ -5,6 +5,7 @@ import { createMockApi } from '../kpopcards/mock-api';
 import { legacyApi } from '../kpopcards/legacy';
 import { setKcApi } from '../kpopcards/registry';
 
+import { CARDS_PATHS } from '../site/registry';
 import { KC_ROUTE_PATTERNS, kcPath, oldCardsTarget } from './kc-paths';
 import { findIdol, slugOf } from './kc-idol';
 import { specOf } from './kc-open';
@@ -17,6 +18,7 @@ describe('addresses', () => {
     expect(kcPath.open('girls', 5)).toBe('/kpopcards/open/girls?packs=5');
     expect(kcPath.focus('twice')).toBe('/kpopcards/open/focus/twice');
     expect(kcPath.player('dalgom_daisy')).toBe('/kpopcards/u/dalgom_daisy');
+    expect([...CARDS_PATHS]).toEqual([...KC_ROUTE_PATTERNS]);
     for (const p of ['/kpopcards', '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/{nickname}', '/kpopcards/odds', '/kpopcards/idol/{name}', '/cards/**']) expect(KC_ROUTE_PATTERNS).toContain(p);
   });
   it('an old /cards path goes to its new address, an unknown one to the lobby', () => {

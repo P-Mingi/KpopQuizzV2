@@ -336,7 +336,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           <div className="mx m-rank">
             <div className="mx-head"><span className="mx-ico"><Ico name="trophy" /></span><h2 className="h2">Friends</h2><span className="mx-aside">By completion</span></div>
             <ol className="rk-mini" id="rk-mini">
-              {friends.map((x) => <li key={x.nickname} className={x.me ? 'me' : undefined}><span className="pos">{x.pos}</span><span className="av sm">{x.nickname.charAt(0).toUpperCase()}</span><b>{x.me ? 'You' : x.nickname}</b><span className="num">{x.pct}%</span></li>)}
+              {friends.map((x) => <li key={`${x.pos}-${x.nickname}`} className={x.me ? 'me' : undefined}><span className="pos">{x.pos}</span><span className="av sm">{x.nickname.charAt(0).toUpperCase()}</span><b>{x.me ? 'You' : x.nickname}</b><span className="num">{x.pct}%</span></li>)}
             </ol>
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
           </div>

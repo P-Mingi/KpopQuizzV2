@@ -16,7 +16,7 @@ import type { CardRef, PlayerPage, RankRow } from '@/lib/kpopcards/contract';
 
 function Showcase({ refs }: { refs: readonly CardRef[] }): React.ReactElement {
   const { byN } = useCards();
-  return <>{refs.map((r) => { const d = byN.get(r.n); return d ? <span key={r.n}><CardFront card={d} /></span> : null; })}</>;
+  return <>{refs.map((r, i) => { const d = byN.get(r.n); return d ? <span key={`${r.n}-${i}`}><CardFront card={d} /></span> : null; })}</>;
 }
 
 interface MeView { nickname: string; level: number; title: string; pct: number; showcase: CardRef[]; badges: string[] }
@@ -66,7 +66,7 @@ export function RankingView(): React.ReactElement {
           </div>
           <ol className="rank" id="rank">
             {(rows ?? []).map((x) => (
-              <li key={x.nickname} className={x.me ? 'me' : undefined}>
+              <li key={`${x.pos}-${x.nickname}`} className={x.me ? 'me' : undefined}>
                 <span className="pos">{x.pos}</span>
                 <span className="av">{x.nickname.charAt(0).toUpperCase()}</span>
                 <span className="who"><b><Link href={kcPath.player(x.nickname)}>{x.nickname}</Link>{x.me ? <small className="you">You</small> : null}</b><small>Level {x.level} {'·'} {x.title}</small><span className="bar"><i style={{ width: `${x.pct}%` }} /></span></span>

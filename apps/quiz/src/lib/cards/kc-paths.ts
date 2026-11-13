@@ -24,7 +24,7 @@ export const kcPath = {
 } as const;
 
 /**
- * The route patterns of the hub for KpopCards (lib/site/registry.ts hubRouteAllow reads this). The old /cards tree is in too: its pages only
+ * The route patterns of the hub (the same list as CARDS_PATHS of lib/site/registry.ts; lib/cards/kc-pages.test.ts keeps the two equal) for KpopCards (lib/site/registry.ts hubRouteAllow reads this). The old /cards tree is in too: its pages only
  * redirect (permanently) to the address above, so the old links and bookmarks keep working.
  */
 export const KC_ROUTE_PATTERNS: readonly string[] = [
