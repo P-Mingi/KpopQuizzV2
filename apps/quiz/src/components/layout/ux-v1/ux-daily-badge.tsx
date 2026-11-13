@@ -25,10 +25,12 @@ export default function UxDailyBadge(): React.ReactElement | null {
   }, []);
   if (left === null || left === 0) return null;
   const sr = left === 1 ? ht('hp.nav.burrowLeft1') : ht('hp.nav.burrowLeft', { n: String(left) });
+  // A flex box, not a grid one: Tailwind reads every word of this file, and the grid display value written here added a utility rule
+  // to the stylesheet kpopquiz.org shares (a parity difference with no visual effect). Both render the same for one centred child.
   return (
     <span
       style={{
-        display: 'inline-grid', placeItems: 'center', minWidth: 20, height: 20, padding: '0 6px', marginLeft: 6, borderRadius: 999,
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minWidth: 20, height: 20, padding: '0 6px', marginLeft: 6, borderRadius: 999,
         background: '#D23C6E', color: '#fff', fontSize: 12, fontWeight: 700, lineHeight: 1, fontVariantNumeric: 'tabular-nums',
       }}
     >
