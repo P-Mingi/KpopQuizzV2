@@ -6,6 +6,7 @@
 // The `ovopen` class on <html> (the pages behind the opening are hidden) is PackOpening's own (agent C).
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { analytics } from '@/lib/analytics';
@@ -97,7 +98,8 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
   const faRate = catalog.cards.find((x) => x.rate)?.rate;
   const extra = { look, packs: spec.kind === 'theme' ? spec.packs : 1, ...dealt.extra, fullArtOdds: faRate ? Number.parseFloat(faRate) : null };
   const theme = spec.kind === 'theme' ? spec.theme : 'all';
-  return (
+  // The opening sits in the `.bvc` root, OUTSIDE `.kc-main`: while it is open the page area is hidden (visibility), so inside it nothing would show.
+  return createPortal(
     <PackOpening
       cards={dealt.cards} source={dealt.source} {...extra}
       onClose={(then) => {
@@ -106,6 +108,7 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
         else router.push(kcPath.lobby);
       }}
       {...(dealt.demo ? { demo: { onSignIn: () => { router.push(kcPath.lobby); signIn({ title: 'Sign in to keep your cards', sub: 'Your demo pack is added to your binder.' }); } } } : {})}
-    />
+    />,
+    document.querySelector('.bvc') ?? document.body,
   );
 }

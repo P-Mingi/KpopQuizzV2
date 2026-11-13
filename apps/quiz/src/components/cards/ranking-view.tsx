@@ -11,6 +11,7 @@ import { isApiError } from '@/lib/kpopcards/contract';
 
 import { CardFront, Ico } from './card-art';
 import { useCards } from './cards-provider';
+import { FriendsPanel, wishText } from './friends-panel';
 
 import type { CardRef, PlayerPage, RankRow } from '@/lib/kpopcards/contract';
 
@@ -41,13 +42,14 @@ export function RankingView(): React.ReactElement {
   const [rows, setRows] = useState<RankRow[] | null>(null);
   const [me, setMe] = useState<MeView | null>(null);
   const [failed, setFailed] = useState(false);
+  const [reload, setReload] = useState(0);
   useEffect(() => {
     let live = true;
     setRows(null);
     if (!kc) return undefined;
     void kc.ranking(all ? 'all' : 'friends').then((r) => { if (!live) return; if (!isApiError(r)) { setRows(r.rows); setFailed(false); } else setFailed(true); });
     return () => { live = false; };
-  }, [all, kc]);
+  }, [all, kc, reload]);
   useEffect(() => {
     if (!kc || !lobby?.nickname) return;
     void kc.player(lobby.nickname).then((r) => { if (!isApiError(r)) setMe(r); });
@@ -60,9 +62,12 @@ export function RankingView(): React.ReactElement {
       {status === 'guest' ? <p className="page-note" role="status">Sign in with your Bunnyverse passport to see where you stand.</p> : null}
       <div className="rk-layout">
         <div>
-          <div className="seg" id="rk-tab" role="group" aria-label="Who">
-            <button type="button" data-v="friends" aria-pressed={!all} onClick={() => setAll(false)}>Friends</button>
-            <button type="button" data-v="all" aria-pressed={all} onClick={() => setAll(true)}>Everyone</button>
+          <div className="rk-top">
+            <div className="seg" id="rk-tab" role="group" aria-label="Who">
+              <button type="button" data-v="friends" aria-pressed={!all} onClick={() => setAll(false)}>Friends</button>
+              <button type="button" data-v="all" aria-pressed={all} onClick={() => setAll(true)}>Everyone</button>
+            </div>
+            {status === 'ready' ? <FriendsPanel onChange={() => setReload((v) => v + 1)} /> : null}
           </div>
           <ol className="rank" id="rank">
             {(rows ?? []).map((x) => (
@@ -96,7 +101,7 @@ export function PlayerView({ nickname }: { nickname: string }): React.ReactEleme
       <h1 className="h1" id="t-player">{nickname}</h1>
       <p className="lede">A KpopCards collector. Only the nickname, the level, three starred cards and the badges are public.</p>
       <div style={{ maxWidth: 420, marginTop: 22 }}>
-        {me ? <MeCard me={me} own={me.me} /> : me === null ? <p className="emptyline">This player is not here, or keeps their page private.</p> : <aside className="me-card" aria-busy="true" />}
+        {me ? <><MeCard me={me} own={me.me} />{me.wishlist ? <div className="moment" id="player-wish"><h3>{me.me ? 'Your wishlist' : `${me.nickname} wants`}</h3><p className="fr-wish" style={{ marginTop: 8 }}>{me.wishlist.length ? wishText(me.wishlist) : 'The wishlist is empty.'}</p></div> : null}</> : me === null ? <p className="emptyline">This player is not here, or keeps their page private.</p> : <aside className="me-card" aria-busy="true" />}
       </div>
     </div>
   );

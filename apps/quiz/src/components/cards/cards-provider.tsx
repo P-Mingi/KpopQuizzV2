@@ -35,6 +35,8 @@ export interface CardsCtx {
   kc: KpopCardsApi | null;
   lobby: LobbyState | null;
   fixture: boolean;
+  /** Development fixture only: the prototype's example binder is in place and nothing was opened yet (the prototype shows a line about it). */
+  protoExample: boolean;
   /** Point A18: the server can draw a demo pack for a signed-out visitor (a secret is set); false: the sign-in call to action only. */
   demo: boolean;
   lastPack: OpenedCard[] | null;
@@ -61,6 +63,7 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
   const [status, setStatus] = useState<CardsStatus>('loading');
   const [state, setState] = useState<WalletState | null>(null);
   const [now, setNow] = useState<number | null>(null);
+  const [protoExample, setProtoExample] = useState(false);
   const [lastPack, setLastPack] = useState<OpenedCard[] | null>(null);
   const [newSet, setNewSet] = useState<ReadonlySet<number>>(new Set());
   const [toastMsg, setToastMsg] = useState('');
@@ -80,7 +83,7 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
       if (world && themes) for (const [id, t] of themes) world.themeOf.set(id, t);
       const k = mock && world ? mock.createMockApi({ world, example: new URLSearchParams(window.location.search).get('kcstate') !== 'empty', nickname: 'mingi' }) : createHttpApi();
       const example = new URLSearchParams(window.location.search).get('kcstate') !== 'empty';
-      if (mock && fx && ex && example && 'data' in k) ex.applyProtoExample((k as { data: Parameters<typeof ex.applyProtoExample>[0] }).data, fx.fixtureCatalog().cards, Date.now());
+      if (mock && fx && ex && example && 'data' in k && ex.applyProtoExample((k as { data: Parameters<typeof ex.applyProtoExample>[0] }).data, fx.fixtureCatalog().cards, Date.now())) setProtoExample(true);
       if (!alive) return;
       setKcApi(k);
       setKc(k);
@@ -132,6 +135,7 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
 
   const applyResult = useCallback((r: OpenResult): void => {
     setState(r.state);
+    setProtoExample(false);
     setLastPack(r.pack.cards);
     setNewSet((prev) => { const s = new Set(prev); for (const c of r.pack.cards) if (c.isNew) s.add(c.n); return s; });
   }, []);
@@ -181,8 +185,8 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
   }, [api]);
 
   const value = useMemo<CardsCtx>(() => ({
-    status, state, now, catalog, byN, owned, api, kc, lobby: (state as LobbyState | null), fixture, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
-  }), [status, state, now, catalog, byN, owned, api, kc, fixture, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
+    status, state, now, catalog, byN, owned, api, kc, lobby: (state as LobbyState | null), fixture, protoExample, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
+  }), [status, state, now, catalog, byN, owned, api, kc, fixture, protoExample, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
 
   return (
     <Ctx.Provider value={value}>

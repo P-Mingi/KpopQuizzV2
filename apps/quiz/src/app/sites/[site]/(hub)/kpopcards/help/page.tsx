@@ -3,11 +3,8 @@
 import Link from 'next/link';
 
 import { CardsFaq } from '@/components/cards/cards-faq';
-import { CardsCreditsSection } from '@/components/cards/credits-section';
 import { HelpDemo } from '@/components/cards/help-demo';
 import { kcPath } from '@/lib/cards/kc-paths';
-import { cardCreditRows } from '@/lib/cards/ui-credit';
-import { loadCatalog } from '@/lib/cards/ui-catalog';
 import { robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
@@ -18,9 +15,7 @@ export const metadata: Metadata = {
   robots: robotsFor(false),
 };
 
-export default async function KpopCardsHelpPage(): Promise<React.ReactElement> {
-  const cat = await loadCatalog();
-  const rows = cat ? cardCreditRows(cat) : [];
+export default function KpopCardsHelpPage(): React.ReactElement {
   return (
     <article className="wrap help">
       <h1 className="h1" id="t-help">How KpopCards works</h1>
@@ -28,8 +23,7 @@ export default async function KpopCardsHelpPage(): Promise<React.ReactElement> {
       <CardsFaq><HelpDemo /></CardsFaq>
       <h2 id="credits">Credits</h2>
       <p className="lede" style={{ fontSize: '15.5px' }}>Every photo used in the game is listed on the credits page, with its author, licence, source and what was changed (cropped, frame and text added). A card made from a CC BY-SA photo is shared under CC BY-SA too.</p>
-      <p style={{ marginTop: 14, display: 'flex', flexWrap: 'wrap', gap: 10 }}><a href="#photo-credits" className="btn-outline">All photo credits</a><Link href={kcPath.report} className="btn-quiet">Report a photo</Link></p>
-      {rows.length > 0 ? <div className="faq-credits" id="photo-credits"><CardsCreditsSection rows={rows} /></div> : null}
+      <p style={{ marginTop: 14, display: 'flex', flexWrap: 'wrap', gap: 10 }}><Link href={kcPath.credits} className="btn-outline">All photo credits</Link><Link href={kcPath.report} className="btn-quiet">Report a photo</Link></p>
     </article>
   );
 }

@@ -319,7 +319,7 @@ export function createMockApi(opts: MockOptions): MockApi {
       sync();
       const pool: PlayerSummary[] = [];
       const fake = (name: string, pct: number, friend: boolean): PlayerSummary => {
-        const owned = Math.round((pct / 100) * total());
+        const owned = (pct / 100) * total(); // not rounded: the example players show the prototype's whole percentages
         const r = seededRng(slugify(name).length * 131 + name.charCodeAt(0));
         const top = [...w.cards].sort((a, b) => ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(b.rarity) - ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(a.rarity)).slice(0, 6);
         const show = [0, 1, 2].map(() => cardRef(top[r(top.length)]!));
@@ -341,7 +341,7 @@ export function createMockApi(opts: MockOptions): MockApi {
       return playerPage({ nickname, owned, showcase: row.showcase, badges: row.badges, friend: row.friend, me: row.me }, total(), wish);
     },
     async friends() {
-      return { friends: FRIENDS.map(([n, pc]) => { const o = Math.round((pc / 100) * total()); return { nickname: n, level: levelOf(o), title: titleOf(levelOf(o)), pct: pctOf(o, total()), wishlist: [] }; }), code: p.code && p.code.expiresAt > now() ? { code: p.code.code, expiresAt: new Date(p.code.expiresAt).toISOString() } : null, max: KC.FRIENDS_MAX };
+      return { friends: FRIENDS.map(([n, pc]) => { const o = (pc / 100) * total(); return { nickname: n, level: levelOf(o), title: titleOf(levelOf(o)), pct: pctOf(o, total()), wishlist: [] }; }), code: p.code && p.code.expiresAt > now() ? { code: p.code.code, expiresAt: new Date(p.code.expiresAt).toISOString() } : null, max: KC.FRIENDS_MAX };
     },
     async friendCode() {
       touch();

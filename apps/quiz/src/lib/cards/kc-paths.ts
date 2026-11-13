@@ -17,7 +17,7 @@ export const kcPath = {
   player: (nick: string): string => `${KC}/u/${encodeURIComponent(nick)}`,
   odds: `${KC}/odds`,
   help: `${KC}/help`,
-  credits: `${KC}/help#credits`,
+  credits: `${KC}/credits`,
   report: `${KC}/report`,
   open: (theme: ThemeId | 'daily', packs: 1 | 5 = 1): string => `${KC}/open/${theme}${packs === 5 ? '?packs=5' : ''}`,
   focus: (group: string): string => `${KC}/open/focus/${encodeURIComponent(group)}`,
@@ -29,7 +29,7 @@ export const kcPath = {
  */
 export const KC_ROUTE_PATTERNS: readonly string[] = [
   KC, `${KC}/open/{theme}`, `${KC}/open/focus/{group}`, `${KC}/collection`, `${KC}/collection/{group}`, `${KC}/c/{num}`, `${KC}/idol/{name}`,
-  `${KC}/missions`, `${KC}/ranking`, `${KC}/u/{nickname}`, `${KC}/odds`, `${KC}/help`, `${KC}/report`,
+  `${KC}/missions`, `${KC}/ranking`, `${KC}/u/{nickname}`, `${KC}/odds`, `${KC}/help`, `${KC}/credits`, `${KC}/report`,
   '/cards', '/cards/**',
 ];
 

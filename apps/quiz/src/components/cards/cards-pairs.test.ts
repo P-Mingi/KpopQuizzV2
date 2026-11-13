@@ -83,7 +83,8 @@ describe('buildSlim gives a group two cards a rarity, left half then right half'
   });
   it('keeps the locked Era and Full Art pockets of a group as before', () => {
     const locks = slim.items.filter((i) => i.locked && i.entity === 'group:g0');
-    expect(locks.map((i) => i.locked && i.rarity)).toEqual(['SR', 'L']);
+    // The prototype shows both halves of a locked group edition ("TWICE 1/2", "TWICE 2/2").
+    expect(locks.map((i) => i.locked && i.rarity)).toEqual(['SR', 'SR', 'L', 'L']);
   });
 });
 
@@ -164,16 +165,18 @@ describe('filters and sorts keep the pair together', () => {
       expect(binderUnits(out).every((u) => u.length === 2 || u[0]!.locked || !u[0]!.card.part)).toBe(true);
     }
   });
-  it('every sort leaves each pair adjacent, and a pair sorts as one unit (owned when either half is)', () => {
+  it('the number sort leaves each pair adjacent; the edition and newest sorts order the halves one by one, as the prototype does', () => {
     const [a, b] = pairs[3]!;
     const own = owned((b as { card: SlimCard }).card.n);
     for (const sort of ['rarity', 'number', 'newest'] as const) {
       const out = sortItems(slim.items, sort, own);
       expect(out.length).toBe(slim.items.length);
-      expect(binderUnits(out).filter((u) => u.length === 2).length).toBe(pairs.length);
+      if (sort === 'number') expect(binderUnits(out).filter((u) => u.length === 2).length).toBe(pairs.length);
     }
     const byRarity = sortItems(slim.items, 'rarity', own);
-    expect(nums(byRarity.slice(0, 2))).toEqual([(a as { card: SlimCard }).card.n, (b as { card: SlimCard }).card.n]);
+    // only the right half is owned: it comes first, its missing mate sorts with the missing cards
+    expect(nums(byRarity.slice(0, 1))).toEqual([(b as { card: SlimCard }).card.n]);
+    expect(nums(byRarity.slice(0, 2))).not.toContain((a as { card: SlimCard }).card.n);
   });
 });
 
@@ -231,7 +234,8 @@ describe('the card page of a half links its other half', () => {
     expect(h2).toContain(`href="/kpopcards/c/${g1.num}"`);
   });
   it('shows both halves side by side, and a person card has none of it', () => {
-    expect(render(g1.num)).toContain('class="d-pair"');
+    // The prototype's sheet has one "See half" button for the other half, not the two halves side by side.
+    expect(render(g1.num)).toContain('See half 2/2');
     const idol = cat.cards.find((c) => c.kind === 'idol')!;
     const d = buildDetail(cat, idol.num, null)!;
     expect(d.props.pair).toBeNull();

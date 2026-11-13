@@ -1,7 +1,8 @@
 // KpopCards screens: the pure logic of the pages: addresses and the old /cards redirects, the pack looks, the idol finder, the week of the lobby box, the legacy adapter over the contract's mock.
 import { describe, expect, it, vi } from 'vitest';
 
-import { createMockApi } from '../kpopcards/mock-api';
+import { createMockApi, fixtureWorld } from '../kpopcards/mock-api';
+import { fixtureCatalog } from './ui-fixture';
 import { legacyApi } from '../kpopcards/legacy';
 import { setKcApi } from '../kpopcards/registry';
 
@@ -78,7 +79,7 @@ describe('small helpers', () => {
 describe('the legacy interface over the contract (the seeded mock)', () => {
   it('state, one pack, favorite and recycle work through the adapter', async () => {
     vi.stubEnv('NODE_ENV', 'test');
-    const mock = createMockApi({ example: true, nickname: 'mingi' });
+    const mock = createMockApi({ world: fixtureWorld(fixtureCatalog()), example: true, nickname: 'mingi' });
     setKcApi(mock);
     const api = legacyApi(mock);
     const st = await api.state();

@@ -43,6 +43,6 @@ export function applyProtoExample(p: PlayerData, cards: UiCard[], now: number): 
   p.last = null;
   const bests: Rarity[] = ['R', 'C', 'U', 'SR', 'U', 'R'];
   const nw = [2, 1, 3, 2, 0, 4];
-  p.recent = bests.map((best, k) => ({ at: now - (k * 2 + 1) * 3600000 - k * 600000, best, source: k === 2 ? ('bonus' as const) : k === 4 ? ('shards' as const) : ('stock' as const), newCount: nw[k]! }));
+  p.recent = bests.map((best, k) => ({ at: now - (k * 2 + 1) * 3600000 - k * 600000, best, source: k === 2 ? ('focus' as unknown as 'bonus') : k === 4 ? ('shards' as const) : ('stock' as const), newCount: nw[k]! }));
   return true;
 }

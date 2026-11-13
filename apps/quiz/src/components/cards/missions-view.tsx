@@ -33,6 +33,13 @@ export function MissionsView(): React.ReactElement {
   }, [kc]);
   useEffect(() => { if (status === 'ready') void load(); }, [status, load]);
   const week = useMemo(() => (m ? weekOf(m.week, now ?? 0) : null), [m, now]);
+  // The groups of a debut year set, in catalog order: "Stray Kids and ATEEZ" (the prototype's line under the name).
+  const yearSub = (id: string): string | null => {
+    const y = Number(id.replace('year:', ''));
+    const names: string[] = [];
+    for (const c of catalog.cards) if (c.kind === 'group' && c.debutYear === y && !names.includes(c.name)) names.push(c.name);
+    return names.length < 2 ? null : names.length === 2 ? names.join(' and ') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
+  };
   const colorOf = (name: string): string => catalog.sections.find((s) => s.name === name)?.color ?? '#9B59D9';
 
   const claim = async (target: string, label: string, packs: number): Promise<void> => {
@@ -70,7 +77,8 @@ export function MissionsView(): React.ReactElement {
         {failed ? <p className="emptyline">Missions are not available right now. Try again in a few minutes.</p> : null}
         {sets.map((s) => (
           <div key={s.id} className={`set${s.done ? ' done' : ''}${s.ready ? ' ready' : ''}`}>
-            <div className="set-top">{GEM[s.kind] ? <Gem r={GEM[s.kind]!} className={`gem gc-${GEM[s.kind]}`} /> : <i style={{ background: s.kind === 'group' ? colorOf(s.name) : s.kind === 'solo' ? '#FFC24B' : '#9B59D9' }} />}<b>{s.name}</b><small>{s.type}</small></div>
+            <div className="set-top">{GEM[s.kind] ? <Gem r={GEM[s.kind]!} className={`gem gc-${GEM[s.kind]}`} /> : <i style={{ background: s.kind === 'group' ? colorOf(s.name) : s.kind === 'solo' ? '#FFC24B' : '#9B59D9' }} />}<b>{s.name}</b><small>{s.type === 'Debut' ? 'Debut year' : s.type}</small></div>
+            {s.kind === 'year' && yearSub(s.id) ? <p className="set-sub">{yearSub(s.id)}</p> : null}
             <span className="bar"><i style={{ width: `${((s.owned / Math.max(1, s.total)) * 100).toFixed(1)}%` }} /></span>
             <div className="set-row">
               <span><b style={{ color: 'var(--txt1)' }}>{s.owned}</b> of {s.total} cards</span>

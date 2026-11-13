@@ -64,6 +64,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const c = useCards();
   const { status, now, catalog, owned, lastPack, byN, toast, kc } = c;
   const w = c.lobby;
+  // The box shows only what the server grants (decision 28): the quiz of the day is no source of packs while bridges.quizOfDay.enabled is false.
+  const quizOn = (w?.bridges?.quizOfDay as { enabled: boolean } | undefined)?.enabled === true;
   const router = useRouter();
   const signIn = useSignIn();
   const ready = status === 'ready' && w !== null;
@@ -144,7 +146,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const last = useMemo(() => {
     if (lastPack) return lastPack.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
     if (w?.last) return w.last.cards.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
-    return [...owned.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 5).map((o) => ({ card: byN.get(o.n), isNew: false })).filter((x) => x.card);
+    return [];
   }, [lastPack, owned, byN, w?.last]);
   const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
   const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists'), [catalog.sections]);
@@ -174,6 +176,13 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           <p id="guest-t">{guestText}</p>
           {c.demo ? <OpenDemo className="btn-primary" id="guest-demo" /> : null}
           <button type="button" className="btn-quiet" id="guest-in" onClick={() => signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' })}>Sign in</button>
+        </div>
+      ) : null}
+      {/* Lot 5: the quiet "still there?" check. After 2 hours without an action the server pauses the pack timer; one tap restarts it. It never costs a pack. */}
+      {ready && w?.stillThere?.due ? (
+        <div className="nudge" id="still-there" role="status">
+          <p><b>Still there?</b> Your pack timer is paused after a while without any action. Tap to start it again. Nothing is taken.</p>
+          <button type="button" className="btn-primary" id="still-btn" onClick={() => { void c.kc?.stillThere().then(() => c.refresh()); }}>I&rsquo;m here</button>
         </div>
       ) : null}
 
@@ -345,9 +354,9 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
           </div>
           <div className="mx m-quiz">
-            <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2><span className="mx-aside">+1 pack each</span></div>
-            <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>Guess today&rsquo;s idol. A win gives a pack.</span></a>
-            <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Quiz of the day</b><span>Finish it for a pack, opened here.</span></a>
+            <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2><span className="mx-aside">{quizOn ? '+1 pack each' : '+1 pack a win'}</span></div>
+            {w?.bridges?.kpopdle.enabled !== false ? <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>Guess today&rsquo;s idol. A win gives a pack.</span></a> : null}
+            {quizOn ? <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Quiz of the day</b><span>Finish it for a pack, opened here.</span></a> : null}
             <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Your passport</b><span>One account for kpopquiz.org and KpopCards.</span></a>
           </div>
           <div className="mx m-odds" id="odds-box">
@@ -369,7 +378,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       </div>
 
       {ProtoControls && c.fixture ? <Suspense fallback={null}><ProtoControls /></Suspense> : null}
-      <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><Link href={kcPath.odds}>Odds</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
+      <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
     </div>
   );
 }
