@@ -8,4 +8,4 @@ export const PWA_FAQ = {
 } as const;
 
 /** The fixed notification the service worker shows (public/brand/hub/sw.js holds the same words; a test keeps them equal). */
-export const PUSH_NOTIFICATION = { title: 'Your packs are ready', body: 'Your stack is full. Open a pack on Bunnyverse.', url: '/cards' } as const;
+export const PUSH_NOTIFICATION = { title: 'Your packs are ready', body: 'Your stack is full. Open a pack on Bunnyverse.', url: '/kpopcards' } as const;

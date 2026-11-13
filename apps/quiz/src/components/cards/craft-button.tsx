@@ -6,6 +6,7 @@ import { useId, useState } from 'react';
 
 import { craftView } from '@/lib/cards/economy';
 import { ECON_ERRORS, craftCard, isEconError } from '@/lib/cards/economy-api';
+import { finishedLine } from '@/lib/cards/goals';
 import { RARITY_LABEL } from '@/lib/cards/rules';
 
 import { useCards } from './cards-provider';
@@ -23,16 +24,17 @@ export function CraftButton({ n, rarity, name }: { n: number; rarity: Rarity; na
     setBusy(true);
     const r = await craftCard(n);
     if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!);
-    else toast(`${name} is in your binder. ${r.card.cost} shards spent.`);
+    else toast(`${name} is in your binder. ${r.card.cost} shards spent.${finishedLine(r.card.finished ?? []) ? ` ${finishedLine(r.card.finished ?? [])}.` : ''}`);
     await refresh();
     setBusy(false);
   };
+  // The prototype's detail actions: a primary Craft button with its sparkle icon, and the sentence under it (its `small` takes the whole row).
   return (
-    <div className="craft">
-      <button type="button" className="btn-outline" disabled={busy || v.reason !== null} aria-describedby={v.reason ? note : undefined} onClick={() => void click()}>
-        {v.cost === null ? `${RARITY_LABEL[rarity]} cards come from packs` : `Craft for ${v.cost} shards`}
+    <>
+      <button type="button" className="btn-primary" id="d-craft" disabled={busy || v.reason !== null} aria-describedby={note} onClick={() => void click()}>
+        <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-i-craft" /></svg>{v.cost === null ? `${RARITY_LABEL[rarity]} cards come from packs` : `Craft for ${v.cost} shards`}
       </button>
-      {v.reason ? <p className="hint" id={note}>{v.reason}</p> : <p className="hint">You have {state.shards} shards.</p>}
-    </div>
+      <small id={note}>{v.reason ?? `You have ${state.shards} shards.`}</small>
+    </>
   );
 }

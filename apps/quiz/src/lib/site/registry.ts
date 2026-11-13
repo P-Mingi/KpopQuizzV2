@@ -10,6 +10,7 @@
 // Keep this module free of `@/` imports, next/* and Node built-ins: next.config.ts and the
 // middleware (edge) read it through lib/site/routing.ts.
 
+import { KC_ROUTE_PATTERNS } from '../cards/kc-paths';
 import { SITE_IDS } from './types';
 import type { RoutePattern, SiteConfig, SiteFeatures, SiteId, ThemeTokens, NetworkConfig } from './types';
 
@@ -287,8 +288,8 @@ export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: str
   { id: 'otakudle-one-piece', path: '/otakudle/one-piece' }, { id: 'otakudle-dragon-ball', path: '/otakudle/dragon-ball' },
 ];
 
-/** The public pages of Bunnyverse Cards on the hub (behind NET_CARDS). */
-export const CARDS_PATHS: readonly string[] = ['/cards', '/cards/binder', '/cards/c/{num}', '/cards/help', '/cards/report'];
+/** The public pages of KpopCards on the hub, under /kpopcards (behind NET_CARDS), and the old /cards tree, which only redirects (lib/cards/kc-paths.ts). */
+export const CARDS_PATHS: readonly string[] = KC_ROUTE_PATTERNS;
 
 /** Every page of the Terrier that exists, in both locales, the French credits with them. */
 export function dleLivePaths(): readonly string[] {

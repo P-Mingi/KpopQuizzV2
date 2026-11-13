@@ -18,6 +18,11 @@ export function Gem({ r, className = 'gem' }: { r: Rarity; className?: string })
   return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><use href={`#bvc-g-${r}`} /></svg>;
 }
 
+/** One icon of the sprite (the prototype's `ico(id)`): `name` is the prototype id without its prefix ("pack", "check"...). */
+export function Ico({ name, className = 'ico' }: { name: string; className?: string }): React.ReactElement {
+  return <svg className={className} viewBox="0 0 24 24" aria-hidden="true"><use href={`#bvc-i-${name}`} /></svg>;
+}
+
 /** The symbols the pages use, drawn once per page. */
 export function CardsSprite(): React.ReactElement {
   return (
@@ -29,6 +34,19 @@ export function CardsSprite(): React.ReactElement {
         <symbol id="bvc-g-SR" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z" /></symbol>
         <symbol id="bvc-g-UR" viewBox="0 0 24 24"><path d="M3.5 18.5h17l-1.4-10-4.6 4.2L12 5.5l-2.5 7.2-4.6-4.2zM4 20h16v1.5H4z" /></symbol>
         <symbol id="bvc-g-L" viewBox="0 0 24 24"><path d="M10 2l1.9 6.1L18 10l-6.1 1.9L10 18l-1.9-6.1L2 10l6.1-1.9zM18.5 13.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z" /></symbol>
+        {/* the icons of the v6 prototype, ids prefixed bvc-i- */}
+        <symbol id="bvc-i-pack" viewBox="0 0 24 24"><path d="M7 3h10l1 3v13l-1 2H7l-1-2V6z" /><path d="M6 7h12M6 17h12" /></symbol>
+        <symbol id="bvc-i-binder" viewBox="0 0 24 24"><path d="M5 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z" /><path d="M5 7h2M5 12h2M5 17h2M10 8h6M10 12h6" /></symbol>
+        <symbol id="bvc-i-goals" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r=".9" /></symbol>
+        <symbol id="bvc-i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.7M12 17.2v.3" /></symbol>
+        <symbol id="bvc-i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" /><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" /></symbol>
+        <symbol id="bvc-i-filter" viewBox="0 0 24 24"><path d="M4 6.5h16M7 12h10M10 17.5h4" /></symbol>
+        <symbol id="bvc-i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></symbol>
+        <symbol id="bvc-i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z" /></symbol>
+        <symbol id="bvc-i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></symbol>
+        <symbol id="bvc-i-craft" viewBox="0 0 24 24"><path d="M4 20L14 10" /><path d="M15.5 3.5v3M19.5 5l-2 2M20.5 9.5h-3M12.5 5l1.5 1.5" /></symbol>
+        <symbol id="bvc-i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z" /><circle cx="12" cy="13.2" r="3.4" /></symbol>
+        <symbol id="bvc-i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z" /><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8.5 20h7M10 17h4" /></symbol>
       </defs>
     </svg>
   );
@@ -112,40 +130,41 @@ export function kindTag(card: Pick<SlimCard, 'kind' | 'part'>): string | null {
   return card.kind === 'event' ? 'Event' : null;
 }
 
-/** The chip of a card's kind. A half of a group photo keeps its "1/2" or "2/2" on a small card (the kind word goes, the part stays). */
+/** The chip of a card's kind, as the prototype draws it: "Group 1/2", the word going away on a card under 150 px (the container query keeps "1/2"). */
 function KindChip({ card }: { card: Pick<SlimCard, 'kind' | 'part'> }): React.ReactElement | null {
-  const tag = kindTag(card);
-  if (!tag) return null;
-  const half = card.kind === 'group' && (card.part === 1 || card.part === 2);
-  if (!half) return <span className="c-kind">{tag}</span>;
-  // The whole tag stays in the markup (and for a screen reader); on a card under 150 px wide the CSS shows only "1/2" or "2/2" (data-part).
-  return <span className="c-kind c-part" data-part={`${card.part}/2`}>{tag}</span>;
+  if (card.kind === 'group') {
+    const half = card.part === 1 || card.part === 2;
+    return <span className="c-kind"><span className="kw">Group{half ? ' ' : ''}</span>{half ? <span className="kh">{card.part}/2</span> : null}</span>;
+  }
+  return card.kind === 'event' ? <span className="c-kind">Event</span> : null;
 }
 
-/** The front of a card. */
+/** The front of a card: the markup of the prototype's cardHTML (the rim of a Full Art, the rarity line under the name, the sheen and the glare). */
 export function CardFront({ card, className = '' }: { card: SlimCard; className?: string }): React.ReactElement {
   const p = paletteFor(card.entity);
+  const half = card.part === 1 || card.part === 2;
   return (
-    <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${card.part === 1 || card.part === 2 ? ` half half-${card.part}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
+    <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${half ? ` h${card.part} half half-${card.part}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
       <div className="c-in">
+        {card.edition === 'full' ? <i className="c-rim" /> : null}
         <div className="c-art"><Art card={card} /><i className="c-foil" /></div>
         <KindChip card={card} />
         <div className="c-plate">
           <b className="c-name" style={{ '--nf': `${nameSize(card.name)}cqi` } as Vars}>{card.name}</b>
-          {/* Lot 3 point A5: the one place the edition is named on a card, under the name, in the edition's own colour. */}
-          <div className="c-rar"><Gem r={card.rarity} className="" /><span className="c-rn">{RARITY_LABEL[card.rarity]}</span>{card.rate ? <span className="c-rate">{card.rate}</span> : null}</div>
+          {/* The one place the edition is named on a card, under the name, in the edition's own colour (v6: the Full Art line adds its rate). */}
+          <div className={`c-rar rc-${card.rarity}`}><Gem r={card.rarity} className="" /><span>{RARITY_LABEL[card.rarity]}</span>{card.rarity === 'L' && card.rate ? <em>{card.rate}</em> : null}</div>
           <div className="c-meta">
             <span>{metaLine(card)}</span>
             <span className="c-no">{card.num.slice(4)}</span>
           </div>
         </div>
-        <i className="c-frame" /><i className="c-glare" /><i className="c-sweep" />
+        <i className="c-frame" /><i className="c-sheen" /><i className="c-glare" />
       </div>
     </div>
   );
 }
 
-/** The back of every card: the rabbit of the three sites and the name. */
+/** The back of every card: the rabbit of Bunnyverse and the name of the game. */
 export function CardBack(): React.ReactElement {
   return (
     <div className="cback">
@@ -154,7 +173,7 @@ export function CardBack(): React.ReactElement {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={withBasePath(MASCOT_PATH)} alt="" width={128} height={128} />
       </span>
-      <span className="bt">BUNNYVERSE</span>
+      <span className="bt">KPOPCARDS</span>
     </div>
   );
 }
