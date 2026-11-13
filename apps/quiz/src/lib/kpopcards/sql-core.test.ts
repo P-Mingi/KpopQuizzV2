@@ -376,6 +376,56 @@ describe('the themes, the pack of the day, the focus pack and the shards pack', 
   });
 });
 
+describe('the Kpopdle bonus pack (source bonus): a win decided in the database, once per play, not from the stack', () => {
+  const win = (db: PGlite, u: string, date: string, finished: string, status = 'won', game = 'kpopdle-idol'): Promise<unknown> =>
+    db.query('insert into public.dle_plays (game_id, play_date, user_id, status, finished_at) values ($1, $2, $3, $4, $5)', [game, date, u, status, finished]);
+  const record = (db: PGlite, u: string, at = T0): Promise<number> => one<number>(db, 'select public.cards_bonus_record($1::uuid, $2::timestamptz)', [u, at]);
+  it('refused without a recorded win; a won Kpopdle play earns one pack, opened once, and the stack is not touched', async () => {
+    const db = await coreDb();
+    const u = await newUser(db);
+    expect(await tryOpen(db, u, { source: 'bonus', draws: [PLAIN] })).toMatch(/cards: bonus/);
+    await win(db, u, '2026-11-12', '2026-11-12T09:00:00Z');
+    expect(await record(db, u)).toBe(1);
+    expect(await record(db, u)).toBe(1); // recorded once per play
+    const r = await openSql(db, u, { source: 'bonus', draws: [PLAIN] });
+    expect(r.packs[0]).toMatchObject({ source: 'bonus', theme: 'all' });
+    expect((await wallet(db, u)).stock).toBe(10);
+    expect((await wallet(db, u)).bonus_left).toBe(0);
+    expect(await tryOpen(db, u, { source: 'bonus', draws: [PLAIN] })).toMatch(/cards: bonus/);
+    expect(Number(await one(db, `select count(*) from public.cards_packs where user_id = $1 and source = 'bonus'`, [u]))).toBe(1);
+  });
+  it('a lost play, another game, another day and a win of another player earn nothing; the day cap holds (CARDS_BONUS_PER_DAY); cap 0 closes it', async () => {
+    const db = await coreDb();
+    const u = await newUser(db);
+    const other = await newUser(db);
+    await win(db, u, '2026-11-12', '2026-11-12T09:00:00Z', 'lost');
+    await win(db, u, '2026-11-12', '2026-11-12T09:00:00Z', 'won', 'otakudle-character');
+    await win(db, u, '2026-11-11', '2026-11-11T09:00:00Z');
+    await win(db, other, '2026-11-12', '2026-11-12T09:00:00Z');
+    expect(await record(db, u)).toBe(0);
+    for (let i = 0; i < 5; i++) await win(db, u, '2026-11-12', `2026-11-12T09:0${i}:00Z`);
+    expect(await record(db, u)).toBe(5);
+    expect(await tryOpen(db, u, { source: 'bonus', draws: [PLAIN], bonusCap: 0 })).toMatch(/cards: bonus/);
+    for (let i = 0; i < 2; i++) await openSql(db, u, { source: 'bonus', draws: [PLAIN], bonusCap: 2 });
+    expect(await tryOpen(db, u, { source: 'bonus', draws: [PLAIN], bonusCap: 2 })).toMatch(/cards: bonus/);
+    await openSql(db, u, { source: 'bonus', draws: [PLAIN], bonusCap: 3 });
+    expect(await tryOpen(db, u, { source: 'bonus', draws: [PLAIN], bonusCap: 3 })).toMatch(/cards: bonus/);
+    // The next Paris day starts again from zero.
+    expect((await one<{ bonus_left: number }>(db, "select public.cards_wallet($1::uuid, '2026-11-13T09:00:00Z', 10, 3)", [u])).bonus_left).toBe(0);
+  });
+  it('a bonus pack is a pack like the others: counted in the pack number, the golden pack and the guarantee; never five at once', async () => {
+    const db = await coreDb();
+    const u = await newUser(db);
+    await setWallet(db, u, { stock: 10, opened: 9 });
+    await win(db, u, '2026-11-12', '2026-11-12T09:00:00Z');
+    await record(db, u);
+    const r = await openSql(db, u, { source: 'bonus', draws: [{ c: [1, 2, 6, 3, 13], g: 7, u: 4 }] });
+    expect(r.packs[0]).toMatchObject({ pack_no: 10, golden: true });
+    expect(r.packs[0]!.cards[4]!.n).toBe(7);
+    expect(await tryOpen(db, u, { source: 'bonus', draws: [PLAIN, PLAIN, PLAIN, PLAIN, PLAIN] })).toMatch(/cards: pack/);
+  });
+});
+
 describe('locks, recycling, crafting', () => {
   it('bulk recycling keeps one copy, leaves out locked cards and every Gold and Full Art extra, and tells what it skipped', async () => {
     const db = await coreDb();
@@ -565,7 +615,7 @@ describe('the player in one answer', () => {
     const u = await newUser(db);
     await openSql(db, u, { draws: [PLAIN] });
     const p = await one<Record<string, unknown>>(db, 'select public.cards_player($1::uuid, $2::timestamptz)', [u, T0]);
-    expect(Object.keys(p).sort()).toEqual(['claimed', 'daily_used', 'focus_used', 'gold_count', 'last', 'new_in_last', 'owned', 'prefs', 'recent', 'wallet', 'week', 'wishlist']);
+    expect(Object.keys(p).sort()).toEqual(['bonus_earned', 'bonus_today', 'claimed', 'daily_used', 'focus_used', 'gold_count', 'last', 'new_in_last', 'owned', 'prefs', 'recent', 'wallet', 'week', 'wishlist']);
     expect((p.owned as unknown[]).length).toBe(5);
     expect((p.wallet as { packs_opened: number }).packs_opened).toBe(1);
     expect((p.last as { pack_no: number }).pack_no).toBe(1);

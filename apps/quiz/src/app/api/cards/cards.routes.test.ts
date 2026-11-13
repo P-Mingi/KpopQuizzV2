@@ -68,6 +68,7 @@ import { GET as friends } from './friends/route';
 import { POST as friendCode } from './friends/code/route';
 import { POST as friendRedeem } from './friends/redeem/route';
 import { GET as odds } from './odds/route';
+import { GET as cardMoment } from './card/[n]/route';
 import { GET as help } from './help/route';
 import { POST as prefs } from './prefs/route';
 import { POST as lock } from './lock/route';
@@ -107,7 +108,7 @@ const PLAYER = {
   week: { week_start: '2026-11-09', packs_opened: 7, kpopdle_wins: 1, new_cards: 3, claimed: false },
   prefs: { sound: true, vibration: true, theme: 'all', focus: null },
   recent: [{ opened_at: '2026-11-12T09:00:00+00:00', best: 'UR', source: 'stock', new_count: 2 }],
-  daily_used: false, focus_used: false, last: { at: '2026-11-12T09:00:00+00:00', pack_no: 3, cards: [1, 2, 3, 4, 5] },
+  bonus_earned: 0, bonus_today: 0, daily_used: false, focus_used: false, last: { at: '2026-11-12T09:00:00+00:00', pack_no: 3, cards: [1, 2, 3, 4, 5] },
 };
 const OPENED = {
   replayed: false, owned_before: 1, owned_after: 5, finished: [],
@@ -142,6 +143,7 @@ beforeEach(() => {
     cards_ranking: { data: [] }, cards_friends: { data: { friends: [], code: null } },
     cards_friend_code_new: { data: { code: 'ABCDEFGH', expires_at: '2026-11-13T10:00:00+00:00' } },
     cards_friend_redeem: { data: { ok: false, error: 'code_invalid' } },
+    cards_moment: { data: { n: 2, event: { name: 'KCON, Los Angeles', date: '2019-08-17', precision: 'month' }, yours: { first_at: '2026-11-02T10:00:00+00:00', pack_no: 12, how: 'pack', copies: 3 }, quiz_slug: 'idol-a' } },
     cards_issue_ticket: { data: UUID }, cards_daily_group: { data: 'group:G' },
   };
   vi.stubEnv('NET_CARDS', '1');
@@ -177,6 +179,7 @@ const ROUTES: Array<[string, () => Promise<Response>]> = [
   ['friends', () => friends(req('/api/cards/friends'))],
   ['friends/code', () => friendCode(req('/api/cards/friends/code', {}))],
   ['odds', () => odds(req('/api/cards/odds'))],
+  ['card', () => cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })],
   ['help', () => help(req('/api/cards/help'))],
   ['prefs', () => prefs(req('/api/cards/prefs', { sound: false }))],
   ['lock', () => lock(req('/api/cards/lock', { n: 4, on: true }))],
@@ -387,6 +390,33 @@ describe('POST /api/cards/open', () => {
     await open(withKey('/api/cards/open', { source: 'focus', focus: 'group:G' }));
     expect(h.rpcCalls.filter((c) => c.fn === 'cards_open')[1]?.args).toMatchObject({ p_source: 'focus', p_focus: 'group:G' });
   });
+  it('a Kpopdle bonus pack: the database re-reads the wins first, then opens with the day cap; bridges off means cap 0', async () => {
+    await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect(h.rpcCalls.map((c) => c.fn).filter((f) => f === 'cards_bonus_record' || f === 'cards_open')).toEqual(['cards_bonus_record', 'cards_open']);
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 3 });
+    vi.stubEnv('CARDS_BONUS_PER_DAY', '2');
+    h.rpcCalls = [];
+    await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_bonus_cap: 2 });
+    vi.stubEnv('NET_CARDS_BRIDGES', '');
+    h.rpcCalls = [];
+    await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_bonus_cap: 0 });
+    h.rpcResult.cards_open = { error: { message: 'cards: bonus' } };
+    const res = await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect([res.status, await res.json()]).toEqual([409, { error: 'bonus' }]);
+    expect((await open(withKey('/api/cards/open', { source: 'bonus', packs: 5 }))).status).toBe(400);
+  });
+  it('the lobby tells the Kpopdle bridge and that the quiz of the day earns no pack', async () => {
+    h.rpcResult.cards_player = { data: { ...PLAYER, bonus_earned: 2, bonus_today: 1 } };
+    const b = await (await state(req('/api/cards/state'))).json();
+    expect(b.bonusLeft).toBe(1);
+    expect(b.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 2, left: 1, perDay: 3 });
+    expect(b.bridges.quizOfDay.enabled).toBe(false);
+    expect(b.bridges.quizOfDay.reason).toMatch(/score the browser reports/);
+    vi.stubEnv('NET_CARDS_BRIDGES', '');
+    expect((await (await state(req('/api/cards/state'))).json()).bridges.kpopdle).toMatchObject({ enabled: false, left: 0 });
+  });
   it('a plain "Open a pack" uses the saved theme', async () => {
     h.rpcResult.cards_prefs_get = { data: { theme: 'girls' } };
     await open(withKey('/api/cards/open', { source: 'stock' }));
@@ -534,6 +564,17 @@ describe('the other writes of the contract', () => {
     expect(o.packs.map((p: { id: string }) => p.id)).toContain('golden');
     expect(o.guarantees.map((g: { id: string }) => g.id)).toEqual(['five', 'gold', 'golden', 'pair', 'focus', 'daily']);
     expect((await (await help(req('/api/cards/help'))).json()).rules).toMatchObject({ stackCap: 10, goldByPack: 30 });
+  });
+  it('the moment of a card: the event with its precision, my first copy, the quiz link; bad numbers are refused', async () => {
+    const b = await (await cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })).json();
+    expect(b).toEqual({
+      n: 2, event: { name: 'KCON, Los Angeles', date: '2019-08-17', precision: 'month' },
+      yours: { firstAt: '2026-11-02T10:00:00.000Z', packNo: 12, how: 'pack', copies: 3 }, quiz: { title: 'Idol A quizzes on kpopquiz.org', url: 'https://kpopquiz.org/idol-a' },
+    });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_moment')?.args).toMatchObject({ p_user: 'u1', p_card_no: 2 });
+    h.rpcResult.cards_moment = { error: { message: 'cards: card' } };
+    expect((await cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })).status).toBe(404);
+    for (const n of ['x', '0', '-1', '1.5']) expect((await cardMoment(req('/api/cards/card/1'), { params: Promise.resolve({ n }) })).status).toBe(404);
   });
   it('collection parses its filters', async () => {
     const b = await (await collection(req('/api/cards/collection?show=missing&kind=idol&rar=gold,full,bogus&sort=rarity&page=1&per=500'))).json();
