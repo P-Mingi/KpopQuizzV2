@@ -47,10 +47,10 @@ describe('the two switches are separate', () => {
   it('sound off: no tone, vibration still works; vibration off: tones still play', () => {
     const r = recorder(); const o = new OpeningOutput(r.env);
     o.unlock();
-    o.setPrefs({ sound: false, haptics: true });
+    o.setPrefs({ sound: false, vibration: true });
     o.cue({ kind: 'sting', ri: 5 }); o.vibrate(18);
     expect(r.oscs).toHaveLength(0); expect(r.buzz).toEqual([18]);
-    o.setPrefs({ sound: true, haptics: false });
+    o.setPrefs({ sound: true, vibration: false });
     o.cue({ kind: 'flip' }); o.vibrate(18);
     expect(r.oscs).toHaveLength(2); expect(r.buzz).toEqual([18]);
   });
@@ -69,20 +69,20 @@ describe('the two switches are separate', () => {
 describe('the prefs store', () => {
   beforeEach(() => { resetPrefsForTest(); const mem = new Map<string, string>(); (globalThis as { localStorage?: unknown }).localStorage = { getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => { mem.set(k, v); } }; });
   it('both are on by default and are kept in local storage', () => {
-    expect(getPrefs()).toEqual({ sound: true, haptics: true });
+    expect(getPrefs()).toEqual({ sound: true, vibration: true });
     setPref('sound', false);
     resetPrefsForTest();
-    expect(getPrefs()).toEqual({ sound: false, haptics: true });
+    expect(getPrefs()).toEqual({ sound: false, vibration: true });
   });
   it('tells its listeners and the server sink, but the server\'s own values are not echoed back', () => {
     const seen: unknown[] = []; const sunk: unknown[] = [];
     subscribePrefs((p) => seen.push(p)); setPrefsSink((p) => sunk.push(p));
-    setPref('haptics', false); applyServerPrefs({ sound: false });
-    expect(seen).toHaveLength(2); expect(sunk).toEqual([{ sound: true, haptics: false }]);
-    expect(getPrefs()).toEqual({ sound: false, haptics: false });
+    setPref('vibration', false); applyServerPrefs({ sound: false });
+    expect(seen).toHaveLength(2); expect(sunk).toEqual([{ sound: true, vibration: false }]);
+    expect(getPrefs()).toEqual({ sound: false, vibration: false });
   });
   it('a broken stored value falls back to on', () => {
     (globalThis as { localStorage?: { setItem: (k: string, v: string) => void } }).localStorage!.setItem('kpopcards:prefs', '{nope');
-    expect(getPrefs()).toEqual({ sound: true, haptics: true });
+    expect(getPrefs()).toEqual({ sound: true, vibration: true });
   });
 });

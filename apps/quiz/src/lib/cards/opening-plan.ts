@@ -107,9 +107,9 @@ export function revealVibe(ri: number): readonly number[] | null {
 }
 
 /** Sound and vibration are separate switches, and neither plays before the player has touched the page. */
-export interface OutputGate { sound: boolean; haptics: boolean; gesture: boolean }
+export interface OutputGate { sound: boolean; vibration: boolean; gesture: boolean }
 export function canSound(g: OutputGate): boolean { return g.sound && g.gesture; }
-export function canVibrate(g: OutputGate): boolean { return g.haptics && g.gesture; }
+export function canVibrate(g: OutputGate): boolean { return g.vibration && g.gesture; }
 
 /* ------------------------------------------------------------------ the reveal of one card */
 

@@ -56,6 +56,9 @@ export interface OpeningProps {
   goldenPacks?: number;
   /** Sets this opening finished: shown as "You finished X. +1 pack in Missions". */
   finished?: readonly { id: string; name: string; packs?: number }[];
+  /** The server's headline for the summary ("3 new cards for your collection") and what the copies are worth in shards; computed here when absent. */
+  headline?: string;
+  copiesShards?: number;
   /** The Full Art odds in percent (the stamp says "0.3% of cards"). null or absent: the stamp says only FULL ART. */
   fullArtOdds?: number | null;
   /** Called when the player leaves the screen; `then` says what comes next. */
@@ -96,7 +99,7 @@ function PackFace({ id, look, golden, dealt }: { id: string; look: PackLook; gol
   );
 }
 
-export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, goldenPacks = 0, finished = [], fullArtOdds = null, onClose, demo, cardHref }: OpeningProps): React.ReactElement {
+export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, goldenPacks = 0, finished = [], headline, copiesShards, fullArtOdds = null, onClose, demo, cardHref }: OpeningProps): React.ReactElement {
   const ctx = useCards();
   const router = useRouter();
   const rows = useMemo(
@@ -491,7 +494,8 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
 
   /* ---- render ---- */
   const newCount = rows.filter((r) => r.isNew).length;
-  const dupShards = rows.filter((r) => !r.isNew).reduce((s, r) => s + SHARDS[r.card.rarity], 0);
+  const dupShards = copiesShards ?? rows.filter((r) => !r.isNew).reduce((s, r) => s + SHARDS[r.card.rarity], 0);
+  const title = headline ?? (newCount ? `${newCount} new card${newCount > 1 ? 's' : ''} for your collection` : 'Only copies this time');
   const best = RARITIES.indexOf(bestRarity);
   const narrow = typeof window !== 'undefined' && innerWidth < 520;
   const spreadPct = narrow ? 42 : 62;
@@ -586,7 +590,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
         ) : null}
         {(phase === 'grid' || (phase === 'summary' && multi)) ? (
           <>
-            <div className="ov-title" id="m-title" aria-live="polite">{phase === 'summary' ? (newCount ? `${newCount} new card${newCount > 1 ? 's' : ''} for your collection` : 'Only copies this time') : `${len} cards`}</div>
+            <div className="ov-title" id="m-title" aria-live="polite">{phase === 'summary' ? title : `${len} cards`}</div>
             <div className={`mgrid${dealt ? ' dealt' : ''}${turned ? ' flip' : ''}${phase === 'summary' && spot ? ' spot' : ''}`} id="mgrid" ref={gridRef} style={{ '--spot': SPOT_GLOW[bestRarity] } as Vars}>
               {order.map((o, pos) => {
                 const x = o.row.card;
@@ -621,7 +625,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
         ) : null}
         {phase === 'summary' && !multi ? (
           <>
-            <h2 className="ov-title" aria-live="polite">{demo ? 'Your demo pack' : newCount ? `${newCount} new card${newCount > 1 ? 's' : ''} for your collection` : 'Only copies this time'}</h2>
+            <h2 className="ov-title" aria-live="polite">{demo ? 'Your demo pack' : title}</h2>
             {finLines.length ? <div className="rlabel fin">{finLines}</div> : null}
             <div className={`fan${spot ? ' spot' : ''}`} id="fan" ref={fanRef} style={{ '--spot': SPOT_GLOW[bestRarity] } as Vars}>
               {rows.map((x, i) => (

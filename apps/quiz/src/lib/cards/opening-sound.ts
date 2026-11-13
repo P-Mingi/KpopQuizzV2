@@ -34,17 +34,17 @@ export class OpeningOutput {
   private ctx: AudioLike | null = null;
   private touched = false;
   private sound = true;
-  private haptics = true;
+  private vibration = true;
   constructor(private env: OutputEnv) {}
 
   /** The two switches of the top bar. */
-  setPrefs(p: { sound: boolean; haptics: boolean }): void { this.sound = p.sound; this.haptics = p.haptics; }
+  setPrefs(p: { sound: boolean; vibration: boolean }): void { this.sound = p.sound; this.vibration = p.vibration; }
   /** Call from a pointer, key or click handler: this is the gesture that unlocks sound and vibration, and that may start the audio context. */
   unlock(): void {
     this.touched = true;
     if (this.sound) this.audio();
   }
-  get gate(): OutputGate { return { sound: this.sound, haptics: this.haptics, gesture: this.touched || this.env.userActive() }; }
+  get gate(): OutputGate { return { sound: this.sound, vibration: this.vibration, gesture: this.touched || this.env.userActive() }; }
 
   private audio(): AudioLike | null {
     try {

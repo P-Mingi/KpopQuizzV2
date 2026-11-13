@@ -95,12 +95,12 @@ describe('the reveal plan of each rarity', () => {
 
 describe('nothing before a gesture, two separate switches', () => {
   it('sound needs its switch and a gesture; vibration needs its own switch and a gesture', () => {
-    expect(canSound({ sound: true, haptics: true, gesture: false })).toBe(false);
-    expect(canVibrate({ sound: true, haptics: true, gesture: false })).toBe(false);
-    expect(canSound({ sound: true, haptics: false, gesture: true })).toBe(true);
-    expect(canVibrate({ sound: true, haptics: false, gesture: true })).toBe(false);
-    expect(canSound({ sound: false, haptics: true, gesture: true })).toBe(false);
-    expect(canVibrate({ sound: false, haptics: true, gesture: true })).toBe(true);
+    expect(canSound({ sound: true, vibration: true, gesture: false })).toBe(false);
+    expect(canVibrate({ sound: true, vibration: true, gesture: false })).toBe(false);
+    expect(canSound({ sound: true, vibration: false, gesture: true })).toBe(true);
+    expect(canVibrate({ sound: true, vibration: false, gesture: true })).toBe(false);
+    expect(canSound({ sound: false, vibration: true, gesture: true })).toBe(false);
+    expect(canVibrate({ sound: false, vibration: true, gesture: true })).toBe(true);
   });
 });
 

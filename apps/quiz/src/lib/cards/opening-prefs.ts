@@ -1,19 +1,19 @@
 // KpopCards (agent C): the two switches of the opening, sound and vibration, as a tiny store. Both are on by default (the prototype).
 // The top bar (agent B) reads and writes them here; the opening reads them. They live in local storage; when the server prefs of file 107
 // exist (agent A), `setPrefsSink` gives the store a function that saves them there too, and `applyServerPrefs` loads them at sign in.
-export interface OpeningPrefs { sound: boolean; haptics: boolean }
+export interface OpeningPrefs { sound: boolean; vibration: boolean }
 const KEY = 'kpopcards:prefs';
 let cur: OpeningPrefs | null = null;
 const subs = new Set<(p: OpeningPrefs) => void>();
 let sink: ((p: OpeningPrefs) => void) | null = null;
 
 function read(): OpeningPrefs {
-  const d: OpeningPrefs = { sound: true, haptics: true };
+  const d: OpeningPrefs = { sound: true, vibration: true };
   try {
     const raw = typeof localStorage === 'undefined' ? null : localStorage.getItem(KEY);
     if (!raw) return d;
     const j = JSON.parse(raw) as Partial<OpeningPrefs>;
-    return { sound: typeof j.sound === 'boolean' ? j.sound : true, haptics: typeof j.haptics === 'boolean' ? j.haptics : true };
+    return { sound: typeof j.sound === 'boolean' ? j.sound : true, vibration: typeof j.vibration === 'boolean' ? j.vibration : true };
   } catch { return d; }
 }
 export function getPrefs(): OpeningPrefs {
