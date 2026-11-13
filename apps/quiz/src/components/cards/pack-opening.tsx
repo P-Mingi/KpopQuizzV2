@@ -20,7 +20,6 @@ import { PACK_SIZE, RARITIES, RARITY_LABEL, SHARDS } from '@/lib/cards/rules';
 
 import { CardBack, CardFront, Gem } from './card-art';
 import { useCards } from './cards-provider';
-import { FavStar } from './fav-star';
 import { Fx, attachTilt, onReducedMotionChange, reducedMotion } from './fx';
 import { listenForGesture, openingOutput } from './opening-output';
 import { FADE_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
@@ -645,7 +644,6 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                         <span className={`rtag ${x.isNew ? 'new' : 'dup'}`}>{x.isNew ? 'New' : '+1 copy'}</span>
                         <CardFront card={x.card} />
                       </Link>
-                      <FavStar n={x.card.n} name={x.card.name} edition={RARITY_LABEL[x.card.rarity]} />
                     </>
                   )}
                 </div>
