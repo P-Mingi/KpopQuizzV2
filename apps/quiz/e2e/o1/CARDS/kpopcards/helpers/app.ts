@@ -1,13 +1,22 @@
 import type { Page } from '@playwright/test';
 import { APP_BASE, APP_ROOT } from './env';
 import { freeze } from './freeze';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const protoPack = JSON.parse(fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'fixtures', 'proto-first-pack.json'), 'utf8')) as { cards: { rarity: string; isNew: boolean }[] };
+
+/** ?kcpack=R:n,C:c,... the mock's forcePack pattern (n new, c copy) of the prototype's first pack under the harness seed. */
+export const KC_PACK = protoPack.cards.map((c) => `${c.rarity}:${c.isNew ? 'n' : 'c'}`).join(',');
 
 /** Opens a KpopCards page of the app (dev server, fixture mode with the seeded mock of agent A), seeded and
  *  frozen exactly like the prototype. `sub` is the path under /kpopcards ('' = the lobby). */
-export async function openApp(page: Page, sub = '', opts: { state?: string } = {}) {
+export async function openApp(page: Page, sub = '', opts: { state?: string; noPack?: boolean } = {}) {
   await freeze(page);
   // the mock's start state: 'example' mirrors the prototype's example player (default), 'guest', 'empty'
-  const qs = `${sub.includes('?') ? '&' : '?'}kcstate=${encodeURIComponent(opts.state || 'example')}`;
+  const pack = sub.startsWith('/open') && !opts.noPack ? `&kcpack=${encodeURIComponent(KC_PACK)}` : '';
+  const qs = `${sub.includes('?') ? '&' : '?'}kcstate=${encodeURIComponent(opts.state || 'example')}${pack}`;
   await page.goto(`${APP_BASE}${APP_ROOT}${sub}${qs}`, { waitUntil: 'domcontentloaded' });
   await page.evaluate(() => document.fonts && document.fonts.ready);
   // the wallet arrives after the first paint (the mock loads lazily in development): wait for it, except in the guest view

@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { openApp } from './helpers/app';
 import { openProto } from './helpers/proto';
 import { openControls } from './helpers/screens';
+
 import { record } from './helpers/results';
 
 // Frames per second of the Full Art opening with the CPU slowed 4x (CDP Emulation.setCPUThrottlingRate), chromium only,
@@ -18,22 +19,21 @@ for (const target of ['proto', 'app'] as const) {
       await page.setViewportSize({ width: vp.w, height: vp.h });
       if (target === 'proto') await openProto(page, 'lobby'); else await openApp(page, '');
       await page.waitForSelector('#pack');
-      await openControls(page);
-      await page.click('#force-l');
-      await page.evaluate(() => scrollTo(0, 0));
+      if (target === 'proto') { await openControls(page); await page.click('#force-l'); await page.evaluate(() => scrollTo(0, 0)); }
+      else await page.evaluate(() => (window as unknown as { __kcMock: { forceFullArt(): void } }).__kcMock.forceFullArt());
       const cdp = await page.context().newCDPSession(page);
       await cdp.send('Emulation.setCPUThrottlingRate', { rate: RATE });
       await page.click('#open-btn');
       await page.waitForSelector('#opk');
       await page.waitForTimeout(800);
+      await page.click('#opk');
+      await page.waitForSelector('.pile', { timeout: 30_000 });
+      await page.waitForTimeout(400);
       await page.evaluate(() => {
         (window as any).__f = [] as number[];
         const loop = (t: number) => { (window as any).__f.push(t); (window as any).__run && requestAnimationFrame(loop); };
         (window as any).__run = true; requestAnimationFrame(loop);
       });
-      await page.click('#opk');
-      await page.waitForSelector('.pile', { timeout: 30_000 });
-      await page.waitForTimeout(2800);
       for (let i = 0; i < 3; i++) { await page.click('.pile', { timeout: 15_000 }).catch(() => {}); await page.waitForTimeout(1400); }
       await page.waitForTimeout(3000);
       const frames: number[] = await page.evaluate(() => { (window as any).__run = false; return (window as any).__f; });

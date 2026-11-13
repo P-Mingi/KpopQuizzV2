@@ -80,7 +80,7 @@ for (const [w, h] of OPENING_SIZES) {
     const bad: string[] = [];
     await page.setViewportSize({ width: w, height: h });
     await go(page);
-    await control(page, 'force-l').catch(() => {});
+    await control(page, 'force-l');
     await page.click('#open-btn');
     await page.waitForSelector('#opk');
     await page.waitForTimeout(700);
