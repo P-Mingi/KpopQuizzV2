@@ -157,8 +157,25 @@ Bunnyverse Cards (owner mission 2026-11-12, hub build only, 404 elsewhere and wi
 `POST /api/cards/report` (no sign-in), `GET /api/cards/catalog` (public, cached 5 minutes, no-store while the private launch is on), `POST /api/admin/cards/photos`
 (`requireAdmin`, served by the anime and hub builds, works while NET_CARDS is off so the owner can review first), and on the kpop and hub builds
 `GET /api/cards-bridge/me` and `POST /api/cards-bridge/bonus` (NET_CARDS and NET_CARDS_BRIDGES, same origin, no-store). While the hub's private launch is on, every Cards and hub bridge route answers only the accounts it allows.
-Its pages, hub build only, behind NET_CARDS (`hubRouteAllow` adds `CARDS_PATHS`; off: a 404 like any unknown URL), noindex and out of the
-sitemap: `/cards`, `/cards/binder`, `/cards/c/{num}` (`BV1-0001` style), `/cards/report`; the existing hub `/credits` gains a Cards section.
+Its pages became KpopCards (lots 3 to 5, prototype v6, integrator 2026-11-13), hub build only, behind NET_CARDS (`hubRouteAllow` adds `CARDS_PATHS`
+from `lib/cards/kc-paths.ts`; off: a 404 like any unknown URL), noindex and out of the sitemap: `/kpopcards`, `/kpopcards/open/{theme}` (all, girls,
+boys, solo, daily; `?packs=5`), `/kpopcards/open/focus/{group}`, `/kpopcards/collection`, `/kpopcards/collection/{group}`, `/kpopcards/c/{num}`,
+`/kpopcards/idol/{name}`, `/kpopcards/missions`, `/kpopcards/ranking`, `/kpopcards/u/{nickname}`, `/kpopcards/odds`, `/kpopcards/help`,
+`/kpopcards/credits`, `/kpopcards/report`. Every dynamic page exports `dynamicParams = true` and a `generateStaticParams` (the `[site]` layout
+sets false). `/cards` and every path below it answer a permanent redirect (308) to the same place under `/kpopcards`, query kept. The host
+`kpopcards.bunnyverse.org` is an alias: every path redirects permanently to `https://bunnyverse.org/kpopcards/...` (`redirectsFor('hub')`).
+The KpopCards API adds, under the same guards (session where it writes, Team accounts refused, same origin, rate limited, an idempotency
+`key` on every paying write): `POST /api/cards/open` (`{ key, source, theme?, focus?, packs? }`, one transaction), `GET /api/cards/almost`,
+`GET /api/cards/card/{n}` (the moment), `GET /api/cards/collection`, `POST /api/cards/craft`, `POST /api/cards/lock`, `POST /api/cards/wish`,
+`POST /api/cards/seen`, `GET /api/cards/missions` and `POST /api/cards/missions/claim`, `GET /api/cards/level`, `GET /api/cards/odds`,
+`GET /api/cards/ranking`, `GET /api/cards/player/{nickname}`, `GET /api/cards/friends`, `POST /api/cards/friends/code`,
+`POST /api/cards/friends/redeem`, `POST /api/cards/friends/remove`, `GET /api/cards/idol/{slug}`, `GET /api/cards/help`,
+`GET` and `POST /api/cards/prefs`, `POST /api/cards/still-there`, `POST /api/cards/demo` and `POST /api/cards/demo/claim` (the guest demo pack,
+404 without `CARDS_DEMO_SECRET`), `POST` and `DELETE /api/cards/push` (404 while NET_CARDS_PUSH is off), the cron `GET /api/cron/cards-push`
+(CRON_SECRET, every 10 minutes, quiet from 22:00 to 08:00 Paris); `POST /api/cards/ad/grant` now gives 25 shards (CARDS_AD_SHARDS), not a pack.
+Daily games pictures (lot 3 part E): `POST /api/admin/images/non-free` (anime build, `requireAdmin`, same origin, `{ action: 'preview' | 'delete',
+confirm, expect }`, no-store) and `GET /api/admin/dle-preview`, `GET /api/admin/dle-preview/img?id=&s=tile|full` (hub build only, `requireAdmin`,
+404 unless `PRIVATE_LAUNCH` is exactly `1`, `private, no-store`, never in a sitemap).
 
 ## 3. Route map per site
 
