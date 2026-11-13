@@ -14,6 +14,8 @@ export default defineConfig({
   reporter: [['line']],
   use: {
     headless: true,
+    actionTimeout: 15_000,
+    navigationTimeout: 60_000,
     deviceScaleFactor: 1,
     viewport: { width: 1440, height: 860 },
     timezoneId: 'Europe/Paris',
