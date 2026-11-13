@@ -1,5 +1,7 @@
+import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { previewConfigured } from '@/lib/dle/preview';
+import { previewIndex } from '@/lib/dle/preview-server';
 import { notFoundHandler } from '@/lib/entity-images/route-kit';
-import { previewGate, previewIndex } from '@/lib/dle/preview-server';
 
 import type { NextResponse } from 'next/server';
 
@@ -9,7 +11,9 @@ import type { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET(): Promise<NextResponse> {
-  const gate = await previewGate();
+  // The hard cut first (hub build, PRIVATE_LAUNCH exactly 1), then the admin guard: both answer the same admin 404.
+  if (!previewConfigured()) return adminNotFound();
+  const gate = await requireAdmin('api');
   if (!gate.ok) return gate.res;
   return previewIndex();
 }

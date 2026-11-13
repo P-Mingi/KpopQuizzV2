@@ -103,11 +103,12 @@ describe('the gate: 404 for everyone but the verified admin, on the hub, with PR
       });
     }
 
-    it(`${name}: a 404 is also private and never stored`, async () => {
+    it(`${name}: a 404 is the guard's own, never stored and never indexed`, async () => {
       state.user = null;
       const res = await call();
-      expect(res.headers.get('cache-control')).toMatch(/no-store/);
-      expect(res.headers.get('cache-control')).not.toMatch(/public|s-maxage/);
+      expect(res.headers.get('cache-control')).toBe('no-store');
+      expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow');
+      expect(await res.text()).toBe('{"error":"Not found.","code":"not_found"}');
     });
   }
 

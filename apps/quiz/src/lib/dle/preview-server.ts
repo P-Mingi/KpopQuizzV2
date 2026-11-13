@@ -2,28 +2,18 @@
 import { NextResponse } from 'next/server';
 import sharp from 'sharp';
 
-import { adminNotFound, requireAdmin } from '@/lib/admin/guard';
+import { adminNotFound } from '@/lib/admin/guard';
 import { BUCKET } from '@/lib/entity-images/constants';
 import { selectNonFreeRow, selectNonFreeRows } from '@/lib/entity-images/non-free';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 
-import { PREVIEW_HEADERS, isPreviewId, previewConfigured } from './preview';
+import { PREVIEW_HEADERS, isPreviewId } from './preview';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the app's clients are untyped
 type Db = any;
 
-/** 404 unless the hub build has PRIVATE_LAUNCH=1 AND the request is the verified admin (listed id, aal2). The same 404 for every refusal. */
-export async function previewGate(): Promise<{ ok: true } | { ok: false; res: NextResponse }> {
-  if (!previewConfigured()) return { ok: false, res: closed() };
-  const gate = await requireAdmin('api');
-  return gate.ok ? { ok: true } : { ok: false, res: closed() };
-}
-
-function closed(): NextResponse {
-  const res = adminNotFound();
-  for (const [k, v] of Object.entries(PREVIEW_HEADERS)) res.headers.set(k, v);
-  return res;
-}
+/** The one refusal: the admin 404, byte for byte the guard's own (lib/admin/guard.ts adminNotFound: no-store, noindex). A route answers it before the guard when the preview is not configured. */
+const closed = (): NextResponse => adminNotFound();
 
 function json(body: unknown, status = 200): NextResponse {
   return NextResponse.json(body, { status, headers: { ...PREVIEW_HEADERS } });
