@@ -2,6 +2,8 @@
 // words. Server component, no state. The percentages are those of the real catalog (the server's computeOdds of lib/cards/rules.ts, sent with the catalog): only the rarities that have
 // a card are listed, because an edition with no card can never come out.
 import { EDITIONS, RARITY_NAMES } from '@/lib/cards/rules';
+import { economySentences } from '@/lib/cards/economy';
+import { adShards, timerPerDay } from '@/lib/cards/flags';
 import { oddsView } from '@/lib/cards/ui-model';
 
 import { Gem } from './card-art';
@@ -12,6 +14,7 @@ const pct = (v: number | undefined): string => `${(v ?? 0).toFixed(2)}%`;
 
 export function DropRates({ odds }: { odds: CatalogOdds | null }): React.ReactElement {
   const t = oddsView(odds);
+  const econ = economySentences(timerPerDay(), t.present, adShards());
   return (
     <details className="rates" id="rates">
       <summary>
@@ -45,6 +48,15 @@ export function DropRates({ odds }: { odds: CatalogOdds | null }): React.ReactEl
       ) : null}
       {t.absent.length ? <p>Not in packs yet: {t.absent.map((r) => RARITY_NAMES[r]).join(', ')}.</p> : null}
       <p>Each card is drawn on its own. The fifth card of every pack is Uncommon or better. Packs are never sold and cards can&rsquo;t be sold.</p>
+      {/* Lots 3 and 4 (lane ECON): the plain sentences of the guarantee, the missing half, the focus pack and the economy. */}
+      <ul className="econ-rules" aria-label="Guarantees and extras">
+        <li>{econ.pity}</li>
+        <li>{econ.half}</li>
+        <li>{econ.focus}</li>
+        <li>{econ.timer}</li>
+        <li>{econ.craft}</li>
+        <li>{econ.ad}</li>
+      </ul>
     </details>
   );
 }

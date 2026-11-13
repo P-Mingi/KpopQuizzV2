@@ -4,10 +4,11 @@
 // pull and the aside (Watch an ad only when lane B's ad layer can play one, Use 50 shards, the binder progress, the drop rates).
 // A guest sees the same page with "Sign in to open" and no stack. Nothing is decided here: the wallet and the cards come from /api/cards.
 import Link from 'next/link';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { analytics } from '@/lib/analytics';
 import { CAP, PERIOD_MS, PERIOD_S, SHARD_PACK_COST } from '@/lib/cards/rules';
+import { mainButton } from '@/lib/cards/economy';
 import { isError } from '@/lib/cards/ui-api';
 import { fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
 import { PACK_LOGO_SRC } from '@/lib/cards/ui-logo';
@@ -17,11 +18,13 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { CardFront } from './card-art';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
+import { FocusPicker } from './focus-picker';
 import { attachTilt } from './fx';
 import { PackOpening } from './pack-opening';
+import { PityNote, TimerNote } from './pity-note';
 
 import type { AdsContext } from '@/lib/cards/ads';
-import type { OpenedCard, OpenResult, PackSource } from '@/lib/cards/types';
+import type { AdResult, OpenedCard, OpenResult, PackSource } from '@/lib/cards/types';
 
 interface Opening { cards: OpenedCard[]; source: PackSource }
 
@@ -37,6 +40,8 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
   const [opening, setOpening] = useState<Opening | null>(null);
   const [busy, setBusy] = useState(false);
   const [packEl, setPackEl] = useState<HTMLButtonElement | null>(null);
+  const [adReady, setAdReady] = useState(false);
+  const adBtn = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => attachTilt(packEl, 12), [packEl]);
 
@@ -68,12 +73,23 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
     begin(r, source);
   }, [api, begin, busy, signIn, toast]);
 
+  // Lot 4 B4: the one big button follows the stack, the shards, the ads left and the timer (mainButton).
+  const main = mainButton({
+    stock, shards: state?.shards ?? 0, adsLeft: state?.adsLeft ?? 0, adsAvailable: adReady && !!state?.adsEnabled, adShards: state?.adShards ?? 25,
+    nextMs: state && state.nextAt ? nextMs : null,
+  });
   const primary = (): void => {
     if (guest) { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); return; }
     if (!ready) return;
-    if (stock > 0) void openWith('stock');
-    else toast(`No pack left. The next one comes in ${fmtClock(nextMs)}.`);
+    if (main.kind === 'open') void openWith('stock');
+    else if (main.kind === 'shards') void openWith('shards');
+    else if (main.kind === 'ad') adBtn.current?.click();
+    else toast(main.label + '.');
   };
+  const adDone = useCallback((r: AdResult): void => {
+    toast(`+${r.gained} shards from the ad.`);
+    void c.refresh();
+  }, [c, toast]);
 
   const closeOpening = (then: 'none' | 'stock'): void => {
     setOpening(null);
@@ -85,9 +101,9 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
     return [...owned.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 5).map((o) => ({ card: byN.get(o.n), isNew: false })).filter((x) => x.card);
   }, [lastPack, owned, byN]);
 
-  const openLabel = guest ? 'Sign in to open' : !ready ? 'Open a pack' : stock > 0 ? 'Open a pack' : `Next pack in ${fmtClock(nextMs)}`;
-  const openDisabled = busy || (!guest && (!ready || stock <= 0));
-  const sub = guest ? 'Packs belong to your account.' : !ready ? '' : stock > 0 ? 'You can also tap the pack.' : `The next free pack comes in ${fmtClock(nextMs)}.`;
+  const openLabel = guest ? 'Sign in to open' : !ready ? 'Open a pack' : main.label;
+  const openDisabled = busy || (!guest && (!ready || main.disabled));
+  const sub = guest ? 'Packs belong to your account.' : !ready ? '' : stock > 0 ? 'You can also tap the pack.' : main.kind === 'wait' ? (state?.nextAt ? `The next free pack comes in ${fmtClock(nextMs)}.` : 'The stack fills up again at midnight, Paris time.') : '';
   const shards = state?.shards ?? 0;
 
   return (
@@ -101,7 +117,7 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
             <div className="bay-pack">
               <button
                 type="button" ref={setPackEl} className={`pack${ready && stock > 0 ? ' float' : ''}`} aria-label={guest ? 'Sign in to open a pack' : 'Open a pack'}
-                aria-disabled={guest || (ready && stock > 0) ? 'false' : 'true'} onClick={primary}
+                aria-disabled={guest || (ready && !main.disabled) ? 'false' : 'true'} onClick={primary}
               >
                 <span className="pk"><span className="pk-face" /><span className="pk-crimp t" /><span className="pk-crimp b" /></span>
                 <span className="pk-body"><span className="pk-logo">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={PACK_LOGO_SRC} alt="" /></span><span className="pk-title">CARDS</span></span>
@@ -122,6 +138,8 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
                     </div>
                     <p className="stack-label" style={{ marginTop: 10 }} aria-live="polite">{ready ? <><b className="num">{stock}</b> of {CAP} packs ready</> : 'Loading your packs'}</p>
                   </div>
+                  <PityNote />
+                  <TimerNote />
                   <div className="timers">
                     <div className="trow">
                       <div className="ring">
@@ -132,8 +150,8 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
                         <span className="ic"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" /><path d="M12 9v4l2.5 2M9 2h6" /></svg></span>
                       </div>
                       <div>
-                        <b className="num">{!ready ? '' : full ? 'Stack full' : fmtClock(nextMs)}</b>
-                        <span>{full ? `Open one and the next arrives ${PERIOD_S / 60} minutes later` : 'until the next pack'}</span>
+                        <b className="num">{!ready ? '' : full ? 'Stack full' : state?.nextAt ? fmtClock(nextMs) : 'Resting'}</b>
+                        <span>{full ? `Open one and the next arrives ${PERIOD_S / 60} minutes later` : state?.nextAt ? 'until the next pack' : 'until midnight in Paris'}</span>
                       </div>
                     </div>
                     <div className="trow">
@@ -169,6 +187,7 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
         </div>
 
         <aside className="aside" aria-label="More ways to open">
+          {ready ? <div className="box"><FocusPicker busy={busy} onResult={(r) => begin(r, 'stock')} /></div> : null}
           {ready ? (
             <div className="box">
               <h2 className="h2">Can&rsquo;t wait?</h2>
@@ -177,8 +196,8 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
                   // Lane B's button draws itself only when an ad can play now (consent, fill, publisher id); until it does the row stays hidden.
                   <li className="line ad-line">
                     <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M10 9.5v5l4.5-2.5z" /></svg>
-                    <div className="ltxt"><b>Watch an ad</b><span>Opens a pack right away &middot; {state.adsLeft} left today</span></div>
-                    <RewardedAdButton ctx={ads} className="btn-outline sm" onGranted={(r) => begin(r, 'ad')} />
+                    <div className="ltxt"><b>Watch an ad</b><span>Gives {state.adShards ?? 25} shards &middot; {state.adsLeft} left today</span></div>
+                    <RewardedAdButton ctx={ads} className="btn-outline sm" label={`Watch an ad for ${state.adShards ?? 25} shards`} buttonRef={adBtn} onAvailable={setAdReady} onGranted={adDone} />
                   </li>
                 ) : null}
                 {state.bonusLeft > 0 ? (

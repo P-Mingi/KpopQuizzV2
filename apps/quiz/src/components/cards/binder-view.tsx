@@ -121,6 +121,8 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
   const sortParam = params.get('sort');
   const sort: SortKey = SORTS.some((s) => s.key === sortParam) ? (sortParam as SortKey) : 'rarity';
   const [f, setF] = useState<Filters>(NO_FILTERS);
+  // Lot 3 A17: only the cards of the wishlist (a filter on top of the others).
+  const [wishOnly, setWishOnly] = useState(false);
   const [page, setPage] = useState(0);
   const [gpage, setGpage] = useState(0);
   const [single, setSingle] = useState(false);
@@ -143,7 +145,11 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
   }, [params, path, router]);
 
   const sections = useMemo(() => new Map(catalog.sections.map((s) => [s.id, { name: s.name, color: s.color }])), [catalog.sections]);
-  const list = useMemo(() => filterItems(catalog.items, f, owned), [catalog.items, f, owned]);
+  const wishSet = useMemo(() => new Set(state?.wishlist ?? []), [state?.wishlist]);
+  const list = useMemo(() => {
+    const l = filterItems(catalog.items, f, owned);
+    return wishOnly ? l.filter((i) => !i.locked && wishSet.has(i.card.n)) : l;
+  }, [catalog.items, f, owned, wishOnly, wishSet]);
   const pages = useMemo(() => paginate(list, PER_PAGE), [list]);
   const gridList = useMemo(() => (view === 'grid' ? gridPages(sortItems(list, sort, owned), GRID_PER_PAGE) : []), [list, sort, owned, view]);
   const total = catalog.cards.length;
@@ -275,6 +281,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
         <span className="fdiv" aria-hidden="true" />
         <div className="fgroup" role="group" aria-label="Show">
           {showBtns.map(([v, t]) => <button key={v} type="button" className="fpill" aria-pressed={f.show === v} onClick={() => refilter({ ...f, show: v })}>{t}</button>)}
+          {guest ? null : <button type="button" className="fpill" aria-pressed={wishOnly} onClick={() => { setWishOnly((v) => !v); setPage(0); setGpage(0); }}>Wishlist{wishSet.size ? ` (${wishSet.size})` : ''}</button>}
         </div>
       </div>
 

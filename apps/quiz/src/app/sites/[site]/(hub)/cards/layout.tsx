@@ -5,6 +5,7 @@
 import '@/styles/cards/cards-tokens.css';
 import '@/styles/cards/cards-art.css';
 import '@/styles/cards/cards-ui.css';
+import '@/styles/cards/cards-economy.css';
 
 import { notFound } from 'next/navigation';
 
