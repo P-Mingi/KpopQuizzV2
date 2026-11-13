@@ -172,7 +172,7 @@ export function build3(input: Catalog3Input): Catalog3Sql {
 -- Rows:   ${subjects.length} subjects with photos, ${all.length} photos (${live} approved or auto, ${pending} to review). With the approved ones:
 --         ${inPacks.length} subjects in the packs (${people} people, ${groups} groups), ${cardsPlanned} cards; subjects per edition: ${byEdition}.
 --         Waiting for a second approved photo: ${waiting.length ? waiting.join(', ') : 'none'}. The real counts are the notices (the apply-time check can leave a subject out).
--- Needs:  001 to 003, 099 and 102 applied before (this file replaces 102's rows).
+-- Needs:  001 to 003, 099, 099b and 102 applied before (this file replaces 102's rows; 099b adds the members of the groups that come back).
 -- Verify: select count(*) from public.cards_owned;   expect 0
 -- Verify: select min(card_no), max(card_no), count(*) from public.cards_catalog;   expect 1, N, N (contiguous; N in the notice "103-catalog-photos: ... cards")
 -- Verify: select count(*) from (select entity_id, photo_id from public.cards_catalog group by entity_id, photo_id having count(distinct rarity) > 1) x;   expect 0 (no photo on two editions)
