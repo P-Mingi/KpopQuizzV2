@@ -106,9 +106,9 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
     void c.refresh();
   }, [c, toast]);
 
-  const closeOpening = (then: 'none' | 'stock'): void => {
+  const closeOpening = (then: 'none' | 'stock' | 'stock5'): void => {
     setOpening(null);
-    if (then === 'stock') setTimeout(() => void openWith('stock'), 80);
+    if (then !== 'none') setTimeout(() => void openWith('stock'), 80);
   };
 
   const last = useMemo(() => {
