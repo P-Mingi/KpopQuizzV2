@@ -6,12 +6,15 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
 import { seriesArtOf } from '@/lib/dle/card-art';
-import { PREVIEW_INDEX_PATH, isPreviewSlug, makePreview, previewConfigured, previewImageUrl } from '@/lib/dle/preview';
+import { PREVIEW_INDEX_PATH, isPreviewId, makePreview, previewConfigured, previewImageUrl } from '@/lib/dle/preview';
 
 import { Avatar, tintOf } from './dle-avatar';
 import { DleCard, nameSize } from './dle-card';
 
 import type { DlePool, DlePoolEntity } from '@/lib/dle/types';
+
+// The game module is imported on first use (next/dynamic, fonts): one generous timeout for a loaded runner.
+vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 vi.mock('@/components/hub/home/home-font', () => ({ dmSans: { variable: 'dm-sans-var' }, dmMono: { variable: 'dm-mono-var' } }));
 vi.mock('@/components/hub/dle/dle-font', () => ({ dleMarquee: { variable: 'marquee-var' } }));
@@ -40,8 +43,8 @@ describe('the card of the result', () => {
   });
 
   it('shows the label of the private preview only when a preview picture is given, and the preview wins over the series photo', () => {
-    const html = renderToStaticMarkup(createElement(DleCard, { name: 'Zoro', sub: 'One Piece', tone: 'One Piece', look: { art: '/series/one-piece.webp', preview: '/api/admin/dle-preview/img?slug=one-piece%2Fzoro&s=full' } }));
-    expect(html).toContain('src="/api/admin/dle-preview/img?slug=one-piece%2Fzoro&amp;s=full"');
+    const html = renderToStaticMarkup(createElement(DleCard, { name: 'Zoro', sub: 'One Piece', tone: 'One Piece', look: { art: '/series/one-piece.webp', preview: '/api/admin/dle-preview/img?id=12&s=full' } }));
+    expect(html).toContain('src="/api/admin/dle-preview/img?id=12&amp;s=full"');
     expect(html).not.toContain('/series/one-piece.webp');
     expect(html).toContain('Owner preview');
   });
@@ -142,16 +145,16 @@ describe('the rules of the private preview', () => {
     expect(previewConfigured('hub', { VERCEL: '1', VERCEL_ENV: 'production' })).toBe(false);
   });
 
-  it('builds addresses of the admin route only, and only for slugs shaped like a character', () => {
+  it('builds addresses of the admin route only, and only for ids shaped like a character id', () => {
     expect(PREVIEW_INDEX_PATH).toBe('/api/admin/dle-preview');
-    expect(previewImageUrl('', 'one-piece/luffy', 'tile')).toBe('/api/admin/dle-preview/img?slug=one-piece%2Fluffy&s=tile');
-    expect(isPreviewSlug('one-piece/luffy')).toBe(true);
-    for (const bad of ['one-piece', 'a/b/c', '../x', 'A/b', 'a/b?x=1', '', null, 5]) expect(isPreviewSlug(bad), String(bad)).toBe(false);
-    const pv = makePreview(['one-piece/luffy', '../x', 'bad', 7], '/base');
-    expect(pv?.has('one-piece/luffy')).toBe(true);
+    expect(previewImageUrl('', '12', 'tile')).toBe('/api/admin/dle-preview/img?id=12&s=tile');
+    expect(isPreviewId('12')).toBe(true);
+    for (const bad of ['0', '012', 'one-piece/luffy', '1/2', '../x', '', '1.5', '12345678901', null, 5]) expect(isPreviewId(bad), String(bad)).toBe(false);
+    const pv = makePreview(['12', '../x', 'bad', 7, 'one-piece/luffy'], '/base');
+    expect(pv?.has('12')).toBe(true);
     expect(pv?.has('../x')).toBe(false);
-    expect(pv?.tile('one-piece/luffy')).toBe('/base/api/admin/dle-preview/img?slug=one-piece%2Fluffy&s=tile');
-    expect(pv?.full('one-piece/zoro')).toBeNull();
+    expect(pv?.tile('12')).toBe('/base/api/admin/dle-preview/img?id=12&s=tile');
+    expect(pv?.full('13')).toBeNull();
     expect(makePreview([], '')).toBeNull();
     expect(makePreview(null, '')).toBeNull();
     expect(makePreview({ ids: [] }, '')).toBeNull();

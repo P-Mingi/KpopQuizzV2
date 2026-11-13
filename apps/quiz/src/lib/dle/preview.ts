@@ -23,15 +23,15 @@ export function previewConfigured(site: SiteId = SITE_ID, env: PrivateLaunchEnv 
   return site === 'hub' && (env.PRIVATE_LAUNCH ?? '').trim() === '1' && privateLaunchOn(site, env);
 }
 
-/** The entity id of an Otakudle character is "<series slug>/<character slug>": the only shape the image route accepts. */
-const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,59}\/[a-z0-9][a-z0-9-]{0,59}$/;
-export const isPreviewSlug = (v: unknown): v is string => typeof v === 'string' && SLUG_RE.test(v);
+/** The entity id of an Otakudle character is its row id in public.characters (the source views of 023 and 024 say c.id::text): digits, the only shape the image route accepts. */
+const ID_RE = /^[1-9][0-9]{0,9}$/;
+export const isPreviewId = (v: unknown): v is string => typeof v === 'string' && ID_RE.test(v);
 
 /** The sizes of the image route: the 96 px-wide tile of the lists, and the stored 1x file for the answer card. */
 export type PreviewSize = 'tile' | 'full';
 
-export function previewImageUrl(base: string, slug: string, size: PreviewSize): string {
-  return `${base}${PREVIEW_IMAGE_PATH}?slug=${encodeURIComponent(slug)}&s=${size}`;
+export function previewImageUrl(base: string, id: string, size: PreviewSize): string {
+  return `${base}${PREVIEW_IMAGE_PATH}?id=${encodeURIComponent(id)}&s=${size}`;
 }
 
 /** Every header of every answer of the preview routes: private, never stored by a browser cache, a CDN or a crawler. */
@@ -52,10 +52,10 @@ export interface DlePreview {
   readonly full: (id: string) => string | null;
 }
 
-/** The preview of an index answer, or null when it holds nothing (the page then draws exactly what everyone sees). Ids not shaped like a character are dropped. */
+/** The preview of an index answer, or null when it holds nothing (the page then draws exactly what everyone sees). Ids not shaped like a character id are dropped. */
 export function makePreview(ids: unknown, base = ''): DlePreview | null {
   if (!Array.isArray(ids)) return null;
-  const set = new Set(ids.filter(isPreviewSlug));
+  const set = new Set(ids.filter(isPreviewId));
   if (set.size === 0) return null;
   return {
     has: (id) => set.has(id),

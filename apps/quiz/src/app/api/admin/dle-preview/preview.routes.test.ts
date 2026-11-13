@@ -29,7 +29,7 @@ const row = (id: number, slug: string, over: Record<string, unknown> = {}): Reco
 let png: Uint8Array;
 let db: NonFreeFake;
 const dbOf = (): NonFreeFake => state.db as NonFreeFake;
-const img = (slug: string | null, s?: string): Promise<Response> => image(new NextRequest(`${BASE}/api/admin/dle-preview/img${slug === null ? '' : `?slug=${encodeURIComponent(slug)}`}${s ? `&s=${s}` : ''}`));
+const img = (id: string | null, s?: string): Promise<Response> => image(new NextRequest(`${BASE}/api/admin/dle-preview/img${id === null ? '' : `?id=${encodeURIComponent(id)}`}${s ? `&s=${s}` : ''}`));
 
 beforeEach(async () => {
   png = new Uint8Array(await sharp({ create: { width: 360, height: 480, channels: 3, background: { r: 200, g: 40, b: 40 } } }).webp().toBuffer());
@@ -40,7 +40,10 @@ beforeEach(async () => {
     row(4, 'one-piece/nami', { license: 'cc0', license_note: null, source_url: 'https://commons.wikimedia.org/wiki/File:Nami.png' }),
     row(5, 'one-piece/usopp', { created_at: '2026-11-12T10:00:00+00:00' }),
   ];
-  db = nonFreeFake(rows, rows.map((r) => ({ name: r.path as string, createdAt: '2026-11-11T21:10:00+00:00', bytes: png })));
+  db = nonFreeFake(rows, rows.map((r) => ({ name: r.path as string, createdAt: '2026-11-11T21:10:00+00:00', bytes: png })), {
+    groups: [{ id: 1, slug: 'one-piece', site_id: 'anime' }, { id: 2, slug: 'bts', site_id: 'kpop' }],
+    characters: [{ id: 11, group_id: 1, slug: 'luffy' }, { id: 12, group_id: 1, slug: 'zoro' }, { id: 13, group_id: 1, slug: 'sanji' }, { id: 14, group_id: 1, slug: 'nami' }, { id: 15, group_id: 1, slug: 'usopp' }, { id: 99, group_id: 2, slug: 'luffy' }],
+  });
   state.db = db;
   state.site = 'hub';
   state.user = { id: 'admin-1' };
@@ -53,7 +56,7 @@ beforeEach(async () => {
 
 const ALL: Array<[string, () => Promise<Response>]> = [
   ['GET index', () => index()],
-  ['GET image', () => img('one-piece/luffy')],
+  ['GET image', () => img('11')],
 ];
 
 describe('the gate: 404 for everyone but the verified admin, on the hub, with PRIVATE_LAUNCH=1', () => {
@@ -123,8 +126,8 @@ describe('GET /api/admin/dle-preview', () => {
   it('lists the selected entity ids and nothing else: no path, no address, no licence', async () => {
     const res = await index();
     const body = await res.json();
-    expect(body).toEqual({ ok: true, ids: ['one-piece/luffy', 'one-piece/zoro'] });
-    expect(JSON.stringify(body)).not.toMatch(/anime\/character|https?:|license/);
+    expect(body).toEqual({ ok: true, ids: ['11', '12'] });
+    expect(JSON.stringify(body)).not.toMatch(/anime|character|https?:|license|luffy/);
   });
 
   it('is private, never stored, never indexed', async () => {
@@ -138,7 +141,7 @@ describe('GET /api/admin/dle-preview', () => {
 
 describe('GET /api/admin/dle-preview/img', () => {
   it('serves the bytes of a selected picture, the 1x file for full and a 96 px tile otherwise, with private headers', async () => {
-    const full = await img('one-piece/luffy', 'full');
+    const full = await img('11', 'full');
     expect(full.status).toBe(200);
     expect(full.headers.get('content-type')).toBe('image/webp');
     expect(full.headers.get('cache-control')).toBe('private, no-store, no-cache, max-age=0, must-revalidate');
@@ -147,28 +150,28 @@ describe('GET /api/admin/dle-preview/img', () => {
     expect(full.headers.get('etag')).toBeNull();
     const m = await sharp(Buffer.from(await full.arrayBuffer())).metadata();
     expect([m.width, m.height]).toEqual([360, 480]);
-    const tile = await sharp(Buffer.from(await (await img('one-piece/zoro')).arrayBuffer())).metadata();
+    const tile = await sharp(Buffer.from(await (await img('12')).arrayBuffer())).metadata();
     expect([tile.format, tile.width, tile.height]).toEqual(['webp', 96, 128]);
   });
 
-  it('is the plain 404 for a picture that is not selected: verified, from Commons, another date, unknown', async () => {
-    for (const slug of ['one-piece/sanji', 'one-piece/nami', 'one-piece/usopp', 'one-piece/nobody']) {
-      const res = await img(slug);
-      expect(res.status, slug).toBe(404);
+  it('is the plain 404 for a picture that is not selected: verified, from Commons, another date, another site, unknown', async () => {
+    for (const id of ['13', '14', '15', '99', '404']) {
+      const res = await img(id);
+      expect(res.status, id).toBe(404);
       expect(res.headers.get('content-type')).toMatch(/json/);
     }
     expect(dbOf().calls.filter((c) => c.startsWith('list') || c.startsWith('remove'))).toEqual([]);
   });
 
-  it('is the plain 404 for a slug that is not shaped like a character, and reads nothing', async () => {
-    for (const slug of [null, '', 'one-piece', 'one-piece/luffy/extra', '../etc/passwd', 'One-Piece/Luffy', 'one-piece/../x', 'one piece/luffy', '%2e%2e/x', `${'a'.repeat(61)}/b`]) {
-      expect((await img(slug)).status, String(slug)).toBe(404);
+  it('is the plain 404 for an id that is not shaped like a character id, and reads nothing', async () => {
+    for (const id of [null, '', '0', '011', '-1', '1.5', '1e3', '11/12', 'one-piece/luffy', '../etc/passwd', '11 ', '12345678901', 'NaN']) {
+      expect((await img(id)).status, String(id)).toBe(404);
     }
     expect(dbOf().calls.filter((c) => c.startsWith('from'))).toEqual([]);
   });
 
   it('never redirects to, nor names, a public address of the bucket', async () => {
-    const res = await img('one-piece/luffy', 'full');
+    const res = await img('11', 'full');
     expect(res.status).toBe(200);
     expect(res.headers.get('location')).toBeNull();
     expect([...res.headers.values()].join(' ')).not.toMatch(/storage\/v1|supabase/);

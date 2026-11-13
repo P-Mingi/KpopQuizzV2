@@ -13,8 +13,9 @@ export interface NonFreeFake {
   readonly calls: string[];
 }
 
-export function nonFreeFake(rows: Row[], objects: FakeObject[] = []): NonFreeFake {
+export function nonFreeFake(rows: Row[], objects: FakeObject[] = [], others: Record<string, Row[]> = {}): NonFreeFake {
   const state = { rows: [...rows], objects: [...objects] };
+  const tables: Record<string, Row[]> = { ...others };
   const removed: string[] = [];
   const calls: string[] = [];
   const db: NonFreeFake = {
@@ -31,7 +32,8 @@ export function nonFreeFake(rows: Row[], objects: FakeObject[] = []): NonFreeFak
       let one = false;
       const match = (r: Row): boolean => eq.every(([c, v]) => r[c] === v) && inn.every(([c, vs]) => vs.includes(r[c]));
       const exec = async (): Promise<{ data: unknown; error: null }> => {
-        let out = state.rows.filter(match).sort((a, b) => Number(a.id) - Number(b.id));
+        const source = table === 'entity_images' ? state.rows : (tables[table] ?? []);
+        let out = source.filter(match).sort((a, b) => Number(a.id) - Number(b.id));
         if (op === 'delete') {
           state.rows = state.rows.filter((r) => !match(r));
           return { data: out.map((r) => ({ id: r.id })), error: null };
