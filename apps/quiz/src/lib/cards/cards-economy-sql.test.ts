@@ -11,7 +11,7 @@ vi.setConfig({ testTimeout: 120_000, hookTimeout: 120_000 });
 
 import { CARDS_SQL, SCHEMA_FILES, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 import { WISHLIST_MAX } from './economy';
-import { CRAFT_COST, PITY_UR, TIMER_PACKS_PER_DAY } from './rules';
+import { CRAFT_COST, PITY_UR, TIMER_PACKS_PER_DAY, walletAt } from './rules';
 
 import type { PGlite } from '@electric-sql/pglite';
 
@@ -311,6 +311,17 @@ describe('A13, the timer cap', () => {
     expect(await wallet(db, u, T0, 3)).toMatchObject({ stock: 3, timer_used: 3, timer_left: 0, timer_cap: 3 });
     expect(await wallet(db, u, T0, 0)).toMatchObject({ stock: 0, timer_used: 0, timer_left: 0, timer_cap: 0, next_at: null });
     expect(await wallet(db, u, T0, 500)).toMatchObject({ stock: 5, timer_used: 5, timer_left: 495 });
+  });
+
+  it('is the exact twin of walletAt in lib/cards/rules.ts, with the cap', async () => {
+    const nows = ['2026-11-12T09:05:00Z', '2026-11-12T09:35:00Z', '2026-11-12T12:00:00Z', '2026-11-12T22:59:59Z', '2026-11-12T23:00:00Z', '2026-11-13T05:00:00Z'];
+    for (const stock of [0, 2, 4, 5]) for (const timer of [0, 37, 40]) for (const cap of [3, 40]) for (const now of nows) {
+      const anchor = '2026-11-12T09:00:00Z';
+      const sql = await one<{ stock: number; anchor: string; timer_today: number; paris_day: string }>(db,
+        `select public.cards_roll($1, $2::timestamptz, '2026-11-12'::date, 0, 0, $3::timestamptz, $4, $5)`, [stock, anchor, now, timer, cap]);
+      const ts = walletAt({ stock, anchor: +new Date(anchor), parisDay: '2026-11-12', adsToday: 0, bonusToday: 0, timerToday: timer }, +new Date(now), cap);
+      expect([sql.stock, new Date(sql.anchor).getTime(), sql.timer_today, sql.paris_day], `${stock} ${timer} ${cap} ${now}`).toEqual([ts.stock, ts.anchor, ts.timerToday, ts.parisDay]);
+    }
   });
 
   it('a partial period is kept: a refill at the cap leaves the anchor where the last counted refill put it', async () => {
