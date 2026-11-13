@@ -74,7 +74,13 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
     let alive = true;
     void (async () => {
       // NODE_ENV is inlined by the build: in production this branch (and the mock with its fixture) is dead code and leaves the bundle.
-      const k = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/kpopcards/mock-api')).createMockApi({ example: new URLSearchParams(window.location.search).get('kcstate') !== 'empty', nickname: 'mingi' }) : createHttpApi();
+      const [mock, fx, ex] = process.env.NODE_ENV !== 'production' && fixture ? await Promise.all([import('@/lib/kpopcards/mock-api'), import('@/lib/cards/ui-fixture'), import('./proto-example')]) : [null, null, null];
+      const world = mock && fx ? mock.fixtureWorld(fx.fixtureCatalog()) : null;
+      const themes = fx ? fx.fixtureThemes(fx.fixtureCatalog()) : null;
+      if (world && themes) for (const [id, t] of themes) world.themeOf.set(id, t);
+      const k = mock && world ? mock.createMockApi({ world, example: new URLSearchParams(window.location.search).get('kcstate') !== 'empty', nickname: 'mingi' }) : createHttpApi();
+      const example = new URLSearchParams(window.location.search).get('kcstate') !== 'empty';
+      if (mock && fx && ex && example && 'data' in k) ex.applyProtoExample((k as { data: Parameters<typeof ex.applyProtoExample>[0] }).data, fx.fixtureCatalog().cards, Date.now());
       if (!alive) return;
       setKcApi(k);
       setKc(k);
