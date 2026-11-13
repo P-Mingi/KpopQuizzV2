@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Fragment } from 'react';
@@ -17,6 +18,9 @@ import { activeNav, navItemsFor } from '@/lib/ux-v1/a0/nav';
  * sits between two links (a0.css `.ux-lsp`: 8px, shrinking evenly when the right
  * cluster needs the room), so the gap is the largest that fits.
  */
+// The Daily games badge (hub only): its own chunk, never loaded by a site without that tab.
+const UxDailyBadge = dynamic(() => import('./ux-daily-badge'), { ssr: false });
+
 export function UxNavLinks(): React.ReactElement {
   const active = activeNav(usePathname() || '/');
   return (
@@ -26,6 +30,7 @@ export function UxNavLinks(): React.ReactElement {
           {i > 0 && <span className="ux-lsp" aria-hidden="true" />}
           <Link href={it.href} data-nav={it.key} aria-current={active === it.key ? 'page' : undefined}>
             <Icon name={it.icon} />{it.label}
+            {it.key === 'daily' ? <UxDailyBadge /> : null}
           </Link>
         </Fragment>
       ))}
