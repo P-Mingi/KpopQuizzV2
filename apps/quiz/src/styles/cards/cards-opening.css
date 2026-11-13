@@ -27,6 +27,7 @@
 .bvc .ov-hint b { color: var(--txt1); }
 .bvc .ov-title { font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; letter-spacing: -.02em; text-align: center; line-height: 1.1; }
 .bvc .ov-actions { position: relative; z-index: 2; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; min-height: 56px; align-items: center; }
+.bvc .ov-actions .again { min-height: 54px; padding: 0 24px; font-size: 16px; }
 .bvc .ov-actions:empty { min-height: 0; height: 0; }
 
 /* ---------- the pack and its tear ---------- */
@@ -105,6 +106,7 @@
 .bvc .ov .fan .fc { position: absolute; bottom: 0; width: min(165px, 29vw, calc((100vh - 360px) * .647)); transform-origin: 50% 120%; transition: transform .7s var(--spring), opacity .3s ease; }
 .bvc .ov .fan .fc-b { position: relative; display: block; width: 100%; cursor: pointer; border: 0; background: none; padding: 0; transition: transform .45s var(--spring); isolation: isolate; will-change: transform; }
 .bvc .ov .fan .card { transition: transform .45s var(--ease); }
+.bvc .ov .fan .fc .star { position: absolute; top: -8px; right: -8px; width: 32px; height: 32px; }
 .bvc .ov .fan .fc.lft .star { right: auto; left: -8px; }
 .bvc .ov .fan .fc .rtag { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); z-index: 9; height: 26px; font-size: 12px; padding: 0 10px; white-space: nowrap; }
 @media (max-width: 520px) { .bvc .ov .fan .fc { width: min(26vw, calc((100svh - 360px) * .647)); } .bvc .ov .fan .fc .rtag { top: -15px; } }
