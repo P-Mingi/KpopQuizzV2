@@ -366,7 +366,6 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
             {gridList.length ? <Cells cells={gridList[gp] ?? []} /> : <p className="g-empty">No card matches these filters.</p>}
           </div>
           <Pager id="pg-bot" bottom />
-          {c.fixture ? <div className="adslot" role="note"><b>Advertisement</b>Banner space, binder pages only. In the game a Google banner shows here, never next to an Open button.</div> : <BinderBanner ctx={ads} />}
         </div>
       ) : (
         <div className="b-body" id="b-body">

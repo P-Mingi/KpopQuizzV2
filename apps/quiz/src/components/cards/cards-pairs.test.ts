@@ -165,16 +165,18 @@ describe('filters and sorts keep the pair together', () => {
       expect(binderUnits(out).every((u) => u.length === 2 || u[0]!.locked || !u[0]!.card.part)).toBe(true);
     }
   });
-  it('every sort leaves each pair adjacent, and a pair sorts as one unit (owned when either half is)', () => {
+  it('the number sort leaves each pair adjacent; the edition and newest sorts order the halves one by one, as the prototype does', () => {
     const [a, b] = pairs[3]!;
     const own = owned((b as { card: SlimCard }).card.n);
     for (const sort of ['rarity', 'number', 'newest'] as const) {
       const out = sortItems(slim.items, sort, own);
       expect(out.length).toBe(slim.items.length);
-      expect(binderUnits(out).filter((u) => u.length === 2).length).toBe(pairs.length);
+      if (sort === 'number') expect(binderUnits(out).filter((u) => u.length === 2).length).toBe(pairs.length);
     }
     const byRarity = sortItems(slim.items, 'rarity', own);
-    expect(nums(byRarity.slice(0, 2))).toEqual([(a as { card: SlimCard }).card.n, (b as { card: SlimCard }).card.n]);
+    // only the right half is owned: it comes first, its missing mate sorts with the missing cards
+    expect(nums(byRarity.slice(0, 1))).toEqual([(b as { card: SlimCard }).card.n]);
+    expect(nums(byRarity.slice(0, 2))).not.toContain((a as { card: SlimCard }).card.n);
   });
 });
 

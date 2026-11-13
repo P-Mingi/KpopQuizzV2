@@ -223,7 +223,8 @@ export const SORTS: { key: SortKey; label: string; hint: string }[] = [
 /** The grid order. Rarity: owned first, the highest rarity down, then by number. Newest: last pulled first, then by number. A pair sorts as one unit
  *  (owned when either half is, newest by its latest half, by number from its first half) and stays together. */
 export function sortItems(list: readonly BinderItem[], sort: SortKey, owned: Map<number, OwnedEntry>): BinderItem[] {
-  const out = binderUnits(list);
+  // The prototype sorts pockets one by one: the two halves of a pair are two items and part when one is owned and the other is not (the grid still draws a half beside its mate when both sort together).
+  const out: BinderItem[][] = list.map((it) => [it]);
   const rank = (u: BinderItem[]): number => { const it = u[0]!; return RARITIES.indexOf(it.locked ? it.rarity : it.card.rarity); };
   const own = (u: BinderItem[]): number => (u.some((it) => !it.locked && owned.has(it.card.n)) ? 1 : 0);
   const at = (u: BinderItem[]): number => Math.max(...u.map((it) => (it.locked ? -Infinity : Date.parse(owned.get(it.card.n)?.at ?? '') || -Infinity)));
