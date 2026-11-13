@@ -50,7 +50,7 @@ async function focusAudit(page: Page, n = 30) {
     await page.keyboard.press('Tab');
     const r = await page.evaluate(() => {
       const e = document.activeElement as HTMLElement | null;
-      if (!e || e === document.body || e.closest('details.proto')) return null;
+      if (!e || e === document.body || e.closest('details.proto') || e.tagName.toLowerCase() === 'nextjs-portal') return null; // the Next dev overlay is not the app
       const snap = (x: Element | null) => { if (!x) return ''; const c = getComputedStyle(x); return [c.outlineStyle, c.outlineWidth, c.outlineColor, c.boxShadow, c.borderTopColor, c.backgroundColor, c.textDecorationLine, c.color].join('|'); };
       const owners = [e, e.parentElement, e.closest('label')];
       const on = owners.map(snap);
