@@ -6,36 +6,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { build3, type Catalog3Input, type Photo3 } from '../../src/lib/cards/catalog3-sql';
+import { build3, inputOf, type PhotosFile } from '../../src/lib/cards/catalog3-sql';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const OUT = path.join(REPO, 'docs/pending-migrations/cards');
 export const PHOTOS_JSON = path.join(REPO, 'docs/design/cards/data/photos.json');
-
-interface PhotosFile {
-  checked_on: string;
-  subjects: Array<{ slug: string; kind: 'idol' | 'group'; end_year: number | null; photos: Array<Photo3 & { status: Photo3['status'] | 'out' }> }>;
-  left_out: Array<{ slug: string; reason: string }>;
-}
-
-/** photos.json to the builder's input: the photos that are not out, with their review reasons. */
-export function inputOf(file: PhotosFile): Catalog3Input {
-  return {
-    checked_on: file.checked_on,
-    left_out: file.left_out,
-    subjects: file.subjects
-      .map((s) => ({
-        slug: s.slug, kind: s.kind, end_year: s.end_year,
-        photos: s.photos.filter((p): p is Photo3 => p.status !== 'out').map((p) => ({
-          slot: p.slot, status: p.status, source: p.source, page: p.page, url: p.url, width: p.width, height: p.height, sha1: p.sha1,
-          author: p.author, author_url: p.author_url, licence: p.licence, licence_url: p.licence_url, share_alike: p.share_alike,
-          date: p.date, date_precision: p.date_precision, event: p.event, stage: p.stage, quality: p.quality, focal: p.focal,
-          source_path: p.source_path, news_only: p.news_only, review: p.review,
-        })),
-      }))
-      .filter((s) => s.photos.length > 0),
-  };
-}
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const file = JSON.parse(readFileSync(PHOTOS_JSON, 'utf8')) as PhotosFile;

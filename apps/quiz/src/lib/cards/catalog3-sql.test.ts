@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 import { vi, beforeAll, describe, expect, it } from 'vitest';
 
-import { build3, fullOk, plannedEditions, type Catalog3Input, type Photo3, type Subject3 } from './catalog3-sql';
+import { build3, fullOk, inputOf, plannedEditions, type Catalog3Input, type Photo3, type PhotosFile, type Subject3 } from './catalog3-sql';
 import { build, type Subject } from './rebuild-sql';
 import { failure, freshCardsDb, one, readCardsSql, rows, CARDS_SQL } from './sql-harness';
 
@@ -243,11 +243,47 @@ describe('103-catalog-photos.sql: one edition, one photo', () => {
 
 describe('103-catalog-photos.sql, the file in the repository', () => {
   const file = path.join(CARDS_SQL, '103-catalog-photos.sql');
-  it.skipIf(!existsSync(file))('is one DO block with Verify lines, and has a rollback', () => {
+  const photosJson = path.resolve(HERE, '../../../../../docs/design/cards/data/photos.json');
+  const ready = existsSync(file) && existsSync(photosJson);
+  it.skipIf(!ready)('is one DO block with Verify lines and a rollback, and is the build of photos.json as it is (regenerate with gen-catalog3-sql.mts)', () => {
     const sql = readFileSync(file, 'utf8');
     expect(sql.match(/^do \$/gm)?.length).toBe(1);
     expect(sql).toMatch(/^-- Verify: /m);
-    expect(existsSync(path.join(CARDS_SQL, '103-catalog-photos.rollback.sql'))).toBe(true);
-    expect(sql).not.toMatch(/[–—]/);
+    expect(sql).not.toMatch(/[\u2013\u2014]/);
+    const fresh = build3(inputOf(JSON.parse(readFileSync(photosJson, 'utf8')) as PhotosFile));
+    expect(sql).toBe(fresh.sql);
+    expect(readFileSync(path.join(CARDS_SQL, '103-catalog-photos.rollback.sql'), 'utf8')).toBe(fresh.rollback);
+  });
+  it.skipIf(!ready)('runs after the real 102 on a database where every subject resolves, and opens exactly the planned editions', async () => {
+    const input = inputOf(JSON.parse(readFileSync(photosJson, 'utf8')) as PhotosFile);
+    const subjects = JSON.parse(readFileSync(path.resolve(HERE, '../../../../../docs/design/cards/data/subjects.json'), 'utf8')) as Array<{ slug: string; name: string; kind: string }>;
+    const slugs = [...new Set([...subjects.map((x) => x.slug), ...input.subjects.map((x) => x.slug)])];
+    const kind = new Map([...subjects.map((x) => [x.slug, x.kind] as const), ...input.subjects.map((x) => [x.slug, x.kind] as const)]);
+    const ended = new Set(input.subjects.filter((x) => x.end_year !== null).map((x) => x.slug));
+    const q = (t: string) => `'${t.replace(/'/g, "''")}'`;
+    const fixture = `
+      create table public.groups (id serial primary key, name text not null unique, slug text not null unique, inception_date date);
+      create table public.idols (id serial primary key, group_id integer not null references public.groups(id), name text not null,
+        birth_date date, wikidata_qid text, active boolean not null default true, ord integer not null default 0);
+      insert into public.groups (name, slug, inception_date) values ${slugs.map((x) => `(${q(`Name of ${x}`)}, ${q(x)}, '2015-01-01')`).join(', ')};
+      insert into public.idols (group_id, name, birth_date, active)
+      select g.id, case when k.kind = 'idol' then g.name else g.name || ' member ' || n end, current_date - interval '25 years', not k.ended
+        from public.groups g join (values ${slugs.map((x) => `(${q(x)}, ${q(kind.get(x) ?? 'idol')}, ${ended.has(x)})`).join(', ')}) as k(slug, kind, ended) on k.slug = g.slug
+        cross join generate_series(1, 2) n where k.kind <> 'idol' or n = 1;`;
+    const db = await freshCardsDb();
+    await db.exec(fixture);
+    await db.exec(readCardsSql('102-catalog-rebuild.sql'));
+    const notices = await run(db, readFileSync(file, 'utf8'));
+    const planned = input.subjects.map((x) => ({ x, ed: plannedEditions(x.kind, x.photos) })).filter((y) => y.ed.length > 0);
+    const cardsPlanned = planned.reduce((n, y) => n + y.ed.length * (y.x.kind === 'group' ? 2 : 1), 0);
+    expect(await one(db, `select count(*)::int from cards_catalog`)).toBe(cardsPlanned);
+    expect(await one(db, `select count(distinct entity_id)::int from cards_catalog`)).toBe(planned.length);
+    for (const y of planned) {
+      const ent = `${y.x.kind === 'group' ? 'group' : 'idol'}:${y.x.slug}`;
+      const got = await rows<{ rarity: string }>(db, `select distinct rarity from cards_catalog where entity_id = $1 order by 1`, [ent]);
+      expect([ent, got.map((r) => r.rarity).sort()]).toEqual([ent, [...y.ed].sort()]);
+    }
+    expect(notices.some((n) => n.startsWith(`103-catalog-photos: ${planned.length} subjects in the packs`))).toBe(true);
+    expect(await one(db, `select count(*)::int from (select entity_id, photo_id from cards_catalog group by entity_id, photo_id having count(distinct rarity) > 1) x`)).toBe(0);
   });
 });

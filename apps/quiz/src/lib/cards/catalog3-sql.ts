@@ -63,6 +63,32 @@ export interface Catalog3Sql { sql: string; rollback: string }
 
 const LADDER = ['C', 'U', 'R', 'SR', 'UR', 'L'] as const;
 
+/** docs/design/cards/data/photos.json as verify-photos.mts writes it (the fields the SQL needs). */
+export interface PhotosFile {
+  checked_on: string;
+  subjects: Array<{ slug: string; kind: 'idol' | 'group'; end_year: number | null; photos: Array<Omit<Photo3, 'status'> & { status: PhotoStatus | 'out' }> }>;
+  left_out: Array<{ slug: string; reason: string }>;
+}
+
+/** photos.json to the builder's input: the photos that are not out, with their review reasons; a subject with none is not passed. */
+export function inputOf(file: PhotosFile): Catalog3Input {
+  return {
+    checked_on: file.checked_on,
+    left_out: file.left_out,
+    subjects: file.subjects
+      .map((s) => ({
+        slug: s.slug, kind: s.kind, end_year: s.end_year,
+        photos: s.photos.filter((p): p is Photo3 => p.status !== 'out').map((p) => ({
+          slot: p.slot, status: p.status, source: p.source, page: p.page, url: p.url, width: p.width, height: p.height, sha1: p.sha1,
+          author: p.author, author_url: p.author_url, licence: p.licence, licence_url: p.licence_url, share_alike: p.share_alike,
+          date: p.date, date_precision: p.date_precision, event: p.event, stage: p.stage, quality: p.quality, focal: p.focal,
+          source_path: p.source_path, news_only: p.news_only, review: p.review,
+        })),
+      }))
+      .filter((s) => s.photos.length > 0),
+  };
+}
+
 /** The editions a subject would open with these photos, the same rule as cards_build_catalog (for the header and the tests). */
 export function plannedEditions(kind: 'idol' | 'group', photos: Photo3[]): string[] {
   const live = photos.filter((p) => p.status !== 'pending');
