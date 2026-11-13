@@ -9,6 +9,8 @@ export async function openApp(page: Page, sub = '', opts: { state?: string } = {
   const qs = opts.state ? `${sub.includes('?') ? '&' : '?'}kcstate=${encodeURIComponent(opts.state)}` : '';
   await page.goto(`${APP_BASE}${APP_ROOT}${sub}${qs}`, { waitUntil: 'domcontentloaded' });
   await page.evaluate(() => document.fonts && document.fonts.ready);
+  // the wallet arrives after the first paint (the mock loads lazily in development): wait for it, except in the guest view
+  if (opts.state !== 'guest') await page.waitForSelector('.wallet .pill', { timeout: 60_000 }).catch(() => {});
 }
 
 /** Next dev compiles a route on its first request: hit every route once, with a long timeout, before the specs measure anything. */

@@ -4,7 +4,7 @@
 import { EDITIONS, computeOdds } from './rules';
 import { paletteFor } from './ui-palette';
 
-import type { PhotoSource, Rarity } from './types';
+import type { LockReason, PhotoSource, Rarity } from './types';
 import type { UiCard, UiCatalog, UiEntity, UiPhoto } from './ui-types';
 
 // Amendment 1: one free photo per subject, so 4 editions (Standard, Stage, Holo, Gold); Era and Full Art are locked pockets. No events.
@@ -103,8 +103,73 @@ export function buildFixtureCatalog(opts: { pairs?: boolean } = {}): UiCatalog {
   return { odds: computeOdds(cards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, ...(opts.pairs ? { entity: c.entity } : {}) }))), cards, entities };
 }
 
+
+// ---- The prototype's catalog (development server only): the nine groups and four soloists of docs/design/cards/kpopcards-prototype-v6.html, with its photo counts
+// (an idol joins packs with two free photos, one edition per photo), so the screens can be compared with the prototype box by box. Test shape (4 editions,
+// invented groups) stays the default under vitest; a development server uses this one unless CARDS_UI_FIXTURE_SHAPE=small.
+interface ProtoGroup { id: string; name: string; debut: number; gp: number; theme: 'girls' | 'boys'; m: [string, number, LockReason?][] }
+const PROTO_GROUPS: ProtoGroup[] = [
+  { id: 'bts', name: 'BTS', debut: 2013, gp: 4, theme: 'boys', m: [['RM', 6], ['Jin', 6], ['j-hope', 5], ['Jimin', 6], ['V', 6], ['Jungkook', 6]] },
+  { id: 'blackpink', name: 'BLACKPINK', debut: 2016, gp: 4, theme: 'girls', m: [['Jisoo', 6], ['Jennie', 6], ['Rosé', 6], ['Lisa', 6]] },
+  { id: 'twice', name: 'TWICE', debut: 2015, gp: 3, theme: 'girls', m: [['Nayeon', 6], ['Jeongyeon', 4, 'hiatus'], ['Momo', 5], ['Sana', 5], ['Jihyo', 6], ['Mina', 4, 'hiatus'], ['Dahyun', 5], ['Chaeyoung', 4], ['Tzuyu', 5]] },
+  { id: 'seventeen', name: 'SEVENTEEN', debut: 2015, gp: 3, theme: 'boys', m: [['S.Coups', 4, 'hiatus'], ['Woozi', 5], ['Hoshi', 5], ['DK', 4], ['Mingyu', 6], ['Vernon', 5]] },
+  { id: 'straykids', name: 'Stray Kids', debut: 2018, gp: 3, theme: 'boys', m: [['Bang Chan', 6], ['Lee Know', 5], ['Changbin', 4], ['Hyunjin', 6], ['Han', 5], ['Felix', 6], ['Seungmin', 4], ['I.N', 4, 'crop']] },
+  { id: 'ateez', name: 'ATEEZ', debut: 2018, gp: 3, theme: 'boys', m: [['Hongjoong', 5], ['Seonghwa', 4], ['Yunho', 4], ['San', 5], ['Wooyoung', 4]] },
+  { id: 'aespa', name: 'aespa', debut: 2020, gp: 2, theme: 'girls', m: [['Karina', 3], ['Giselle', 2, 'sameday'], ['Winter', 3], ['Ningning', 2, 'sameday']] },
+  { id: 'itzy', name: 'ITZY', debut: 2019, gp: 2, theme: 'girls', m: [['Yeji', 4], ['Lia', 2, 'hiatus'], ['Ryujin', 4], ['Chaeryeong', 3], ['Yuna', 3, 'crop']] },
+  { id: 'kep1er', name: 'Kep1er', debut: 2022, gp: 2, theme: 'girls', m: [['Choi Yujin', 3], ['Xiaoting', 2, 'sameday'], ['Hikaru', 2, 'sameday'], ['Chaehyun', 1], ['Dayeon', 1], ['Bahiyyih', 1]] },
+];
+const PROTO_SOLOISTS: [string, number, number][] = [['IU', 6, 2008], ['Taeyeon', 5, 2015], ['Chungha', 4, 2017], ['Heize', 3, 2014]];
+const PROTO_RARITIES: readonly Rarity[] = ['C', 'U', 'R', 'SR', 'UR', 'L'];
+
+export function buildProtoCatalog(): UiCatalog {
+  const entities: UiEntity[] = [];
+  const cards: UiCard[] = [];
+  let n = 0;
+  let serial = 100;
+  let q = 9000;
+  const add = (e: UiEntity, r: Rarity, extra: Partial<UiCard>, photo: UiPhoto): void => {
+    n += 1;
+    cards.push({ n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name, group: e.group, debutYear: e.debutYear, photo, ...extra });
+  };
+  const idol = (name: string, photos: number, reason: LockReason | undefined, group: string | null, debut: number, order: string): void => {
+    q += 1; serial += 1;
+    const lock: UiEntity['lockReasons'] = {};
+    PROTO_RARITIES.forEach((r, i) => { if (!(photos >= 2 && i < photos)) lock[r] = photos < 2 ? 'one' : (reason ?? 'one'); });
+    const e: UiEntity = { id: `idol:Q${q}`, kind: 'idol', name, group, debutYear: debut, sortKey: order, lockReasons: lock };
+    entities.push(e);
+    PROTO_RARITIES.forEach((r, i) => { if (photos >= 2 && i < photos) add(e, r, {}, photoFor(e.id, serial)); });
+  };
+  PROTO_GROUPS.forEach((g, gi) => {
+    const key = String(gi).padStart(2, '0');
+    g.m.forEach(([name, photos, reason], mi) => idol(name, photos, reason, g.name, g.debut, `${key}|${String(mi).padStart(2, '0')}`));
+    q += 1; serial += 1;
+    const lock: UiEntity['lockReasons'] = {};
+    PROTO_RARITIES.forEach((r, i) => { if (i >= g.gp) lock[r] = 'one'; });
+    const ge: UiEntity = { id: `group:Q${q}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${key}|~`, lockReasons: lock };
+    entities.push(ge);
+    const photo: UiPhoto = { ...photoFor(ge.id, serial), focalY: 50, src: placeholderGroupPicture(ge.id) };
+    PROTO_RARITIES.forEach((r, i) => {
+      if (i >= g.gp) return;
+      for (const part of [1, 2] as const) add(ge, r, { part, pairN: part === 1 ? n + 2 : n, ...{} }, photo);
+    });
+  });
+  PROTO_SOLOISTS.forEach(([name, photos, debut], si) => idol(name, photos, undefined, null, debut, `99|${String(si).padStart(2, '0')}`));
+  return { odds: computeOdds(cards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, entity: c.entity }))), cards, entities };
+}
+
+/** The theme of each entity of the prototype catalog (girl groups, boy groups, soloists); null for the small test shape. */
+export function fixtureThemes(cat: UiCatalog): Map<string, 'girls' | 'boys' | 'solo'> | null {
+  if (!cat.entities.some((e) => e.name === 'BTS')) return null;
+  const out = new Map<string, 'girls' | 'boys' | 'solo'>();
+  const themeOfGroup = new Map(PROTO_GROUPS.map((g) => [g.name, g.theme] as const));
+  for (const e of cat.entities) out.set(e.id, e.kind === 'group' ? (themeOfGroup.get(e.name) ?? 'solo') : e.group ? (themeOfGroup.get(e.group) ?? 'solo') : 'solo');
+  return out;
+}
+
 let memo: UiCatalog | null = null;
 export function fixtureCatalog(): UiCatalog {
+  if (process.env.NODE_ENV === 'development' && process.env.CARDS_UI_FIXTURE_SHAPE !== 'small') return (memo ??= buildProtoCatalog());
   memo ??= buildFixtureCatalog({ pairs: process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_PAIRS === '1' });
   return memo;
 }
