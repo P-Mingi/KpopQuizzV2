@@ -1,4 +1,5 @@
-// Bunnyverse Cards: the /api/cards/* routes against a recording stand-in for Supabase (nothing leaves the process).
+// KpopCards: the /api/cards/* routes against a recording stand-in for Supabase (nothing leaves the process): the guards in their order (404 build and
+// flag, 404 private launch, 401, 403 Team, 403 cross-site, 429), the idempotency key, the shapes of the contract and the refusals mapped to their codes.
 import { NextRequest } from 'next/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -17,13 +18,6 @@ const h = vi.hoisted(() => ({
 
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return h.site; } }));
 vi.mock('@/lib/editorial/accounts', () => ({ isEditorialUser: async () => h.team }));
-vi.mock('@/lib/cards/draw', () => ({
-  drawServerPack: async () => [1, 7, 9, 3, 2],
-  resetPoolCache: () => undefined,
-  loadPool: async () => (await import('@/lib/cards/rules')).indexPool([
-    { n: 1, kind: 'idol', rarity: 'C' }, { n: 2, kind: 'idol', rarity: 'U' }, { n: 3, kind: 'idol', rarity: 'R' }, { n: 4, kind: 'idol', rarity: 'UR' },
-  ]),
-}));
 
 function builder(table: string): unknown {
   const b: Record<string, unknown> = {};
@@ -34,6 +28,7 @@ function builder(table: string): unknown {
     return Promise.resolve({ error: h.insertError });
   };
   b.maybeSingle = async () => ({ data: h.maybe[table] ?? null, error: null });
+  b.then = (res: (v: unknown) => unknown) => res({ data: h.tables[table] ?? [], error: null });
   b.range = async (from: number, to: number) => ({ data: (h.tables[table] ?? []).slice(from, to + 1), error: null });
   return b;
 }
@@ -55,18 +50,34 @@ vi.mock('@/lib/supabase/server', () => ({
 
 import { GET as catalog } from './catalog/route';
 import { POST as craft } from './craft/route';
-import { GET as goals } from './goals/route';
-import { POST as goalsClaim } from './goals/claim/route';
 import { POST as favorite } from './favorite/route';
 import { POST as grant } from './ad/grant/route';
 import { POST as ticket } from './ad/ticket/route';
 import { POST as open } from './open/route';
-import { POST as recycle } from './recycle/route';
+import { GET as recycleGet, POST as recycle } from './recycle/route';
 import { POST as report } from './report/route';
 import { POST as wish } from './wish/route';
 import { GET as state } from './state/route';
+import { GET as collection } from './collection/route';
+import { GET as almost } from './almost/route';
+import { GET as missions } from './missions/route';
+import { POST as claim } from './missions/claim/route';
+import { GET as level } from './level/route';
+import { GET as ranking } from './ranking/route';
+import { GET as friends } from './friends/route';
+import { POST as friendCode } from './friends/code/route';
+import { POST as friendRedeem } from './friends/redeem/route';
+import { GET as odds } from './odds/route';
+import { GET as cardMoment } from './card/[n]/route';
+import { GET as help } from './help/route';
+import { POST as prefs } from './prefs/route';
+import { POST as lock } from './lock/route';
+import { POST as seen } from './seen/route';
+import { POST as stillThere } from './still-there/route';
 import { resetCatalogCache } from '@/lib/cards/catalog';
 import { resetReportLimit } from '@/lib/cards/report';
+import { resetRateLimits } from '@/lib/kpopcards/rate-limit';
+import { resetWorldCache } from '@/lib/kpopcards/server';
 
 const ORIGIN = 'http://localhost:3021';
 const req = (path: string, body?: unknown, headers: Record<string, string> = {}): NextRequest =>
@@ -75,23 +86,42 @@ const req = (path: string, body?: unknown, headers: Record<string, string> = {})
     headers: { host: 'localhost:3021', origin: ORIGIN, 'content-type': 'application/json', ...headers },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
+const K = '11111111-2222-3333-4444-555555555555';
+const withKey = (path: string, body: unknown, key = K): NextRequest => req(path, body, { 'idempotency-key': key });
+const UUID = K;
 
-// Lot 3: the draw first reads the player's Gold count (cards_pity_count), so the pack call is no longer the first call.
-const applyCall = (): { fn: string; args: Record<string, unknown> } | undefined => h.rpcCalls.find((c) => c.fn === 'cards_apply_pack');
-
-const WALLET = {
-  stock: 3, anchor: '2026-11-12T10:00:00+00:00', paris_day: '2026-11-12', ads_today: 2, bonus_today: 0, shards: 12, ads_left: 8, bonus_left: 1,
-  next_at: '2026-11-12T10:10:00+00:00', midnight_at: '2026-11-12T23:00:00+00:00',
+const CARD_ROWS = [
+  { card_no: 1, num: 'BV1-0001', entity_id: 'idol:A', rarity: 'C', edition: 'std', photo_id: null },
+  { card_no: 2, num: 'BV1-0002', entity_id: 'idol:A', rarity: 'R', edition: 'holo', photo_id: null },
+  { card_no: 3, num: 'BV1-0003', entity_id: 'group:G', rarity: 'C', edition: 'std', photo_id: null },
+  { card_no: 4, num: 'BV1-0004', entity_id: 'idol:A', rarity: 'UR', edition: 'gold', photo_id: null },
+  { card_no: 5, num: 'BV1-0005', entity_id: 'idol:A', rarity: 'U', edition: 'stage', photo_id: null },
+];
+const ENTITY_ROWS = [
+  { id: 'group:G', kind: 'group', name: 'Group', group_id: null, debut_year: 2015, sort_key: 'g', lock_reasons: {} },
+  { id: 'idol:A', kind: 'idol', name: 'Idol A', group_id: 'group:G', debut_year: 2015, sort_key: 'g1', lock_reasons: {} },
+];
+const PLAYER = {
+  wallet: { stock: 3, anchor: '2026-11-12T10:30:00+00:00', paris_day: '2026-11-12', ads_today: 2, timer_today: 4, shards: 12, packs_opened: 7, seen_at: '2026-11-12T10:30:00+00:00', created_at: '2026-11-01T10:00:00+00:00' },
+  owned: [{ n: 4, copies: 2, fav: true, locked: false, seen: true, first: '2026-11-12T09:00:00+00:00', last: '2026-11-12T09:00:00+00:00', fpn: 3 }],
+  wishlist: [2], gold_count: 3, claimed: [],
+  week: { week_start: '2026-11-09', packs_opened: 7, kpopdle_wins: 1, new_cards: 3, claimed: false },
+  prefs: { sound: true, vibration: true, theme: 'all', focus: null },
+  recent: [{ opened_at: '2026-11-12T09:00:00+00:00', best: 'UR', source: 'stock', new_count: 2 }],
+  bonus_earned: 0, bonus_today: 0, daily_used: false, focus_used: false, last: { at: '2026-11-12T09:00:00+00:00', pack_no: 3, cards: [1, 2, 3, 4, 5] },
 };
-const PACK = { id: 'pack-1', source: 'stock', cards: [1, 7, 9, 3, 2].map((n, i) => ({ n, isNew: i !== 1 })) };
-const GOALS = {
-  reward_packs: 2, finished: [],
-  week: { week_start: '2026-11-09', ends_at: '2026-11-15T23:00:00+00:00', packs_opened: 21, kpopdle_wins: 3, new_cards: 10, goal_packs: 20, goal_wins: 3, goal_cards: 10, reward_packs: 2, reward_shards: 25, done: true, claimed: false },
-  sets: [{ id: 'group:G1', kind: 'group', name: 'Group One', packs: 1, total: 6, owned: 6, claimed: true }, { id: 'holo', kind: 'holo', name: null, packs: 3, total: 4, owned: 2, claimed: false }],
+const OPENED = {
+  replayed: false, owned_before: 1, owned_after: 5, finished: [],
+  packs: [{ id: 'pack-1', pack_no: 8, source: 'stock', theme: 'all', group: null, golden: false, guarantee: false, new_count: 4,
+    cards: [1, 2, 3, 4, 5].map((n) => ({ n, isNew: n !== 4, completesPair: false, golden: false, guarantee: false })) }],
 };
-const UUID = '11111111-2222-3333-4444-555555555555';
+const MOCKED = ['2026-11-12T10:30:00Z'];
+void MOCKED;
 
 beforeEach(() => {
+  // The player's rows are of 2026-11-12: freeze the clock (only Date) in the same Paris day.
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(new Date('2026-11-12T10:30:00Z'));
   h.site = 'hub';
   h.user = { id: 'u1' };
   h.team = false;
@@ -99,35 +129,62 @@ beforeEach(() => {
   h.rpcCalls = [];
   h.inserts = [];
   h.insertError = null;
-  h.maybe = {};
-  h.tables = { cards_owned: [{ card_no: 4, copies: 2, favorite: true, last_at: '2026-11-12T09:00:00Z' }] };
+  h.maybe = { profiles: { username: 'tester' } };
+  h.tables = { cards_catalog: CARD_ROWS, cards_entities: ENTITY_ROWS, cards_photos: [], cards_group_types: [{ entity_id: 'group:G', gender: 'girl' }] };
   h.rpcResult = {
-    cards_wallet: { data: WALLET }, cards_apply_pack: { data: PACK },
-    // Lots 3 and 4: the ad shards, the craft and the wishlist answer something by default (the private-launch test calls every route).
-    cards_ad_grant: { data: { gained: 25, shards: 37, ads_today: 3 } }, cards_craft: { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12 } }, cards_wish: { data: { on: true, count: 1 } },
-    // Lots 3 and 4 (Goals).
-    cards_goals_sync: { data: GOALS }, cards_week_claim: { data: { packs: 2, shards: 25, reward_packs: 2, shards_total: 37 } },
+    cards_player: { data: PLAYER }, cards_open: { data: OPENED }, cards_prefs_get: { data: { sound: true, vibration: true, theme: 'all', focus: null } },
+    cards_prefs_set: { data: { sound: false, vibration: true, theme: 'all', focus: null } },
+    cards_craft: { data: { replayed: false, card_no: 2, rarity: 'R', cost: 50, shards: 12, finished: [] } },
+    cards_wish: { data: { on: true, count: 1 } }, cards_favorite: { data: true },
+    cards_recycle: { data: { replayed: false, recycled: 4, shards: 16, shards_total: 28, skipped: { locked: 0, goldAndFullArt: 1 } } },
+    cards_claim: { data: { replayed: false, target: 'holo', packs: 3, shards: 0 } },
+    cards_ad_grant: { data: { replayed: false, gained: 25, shards: 37, ads_today: 3 } },
+    cards_lock: { data: { n: 4, locked: true, locks: 1 } }, cards_seen: { data: 0 }, cards_still_there: { data: { ok: true, was_paused: false } },
+    cards_ranking: { data: [] }, cards_friends: { data: { friends: [], code: null } },
+    cards_friend_code_new: { data: { code: 'ABCDEFGH', expires_at: '2026-11-13T10:00:00+00:00' } },
+    cards_friend_redeem: { data: { ok: false, error: 'code_invalid' } },
+    cards_moment: { data: { n: 2, event: { name: 'KCON, Los Angeles', date: '2019-08-17', precision: 'month' }, yours: { first_at: '2026-11-02T10:00:00+00:00', pack_no: 12, how: 'pack', copies: 3 }, quiz_slug: 'idol-a' } },
+    cards_issue_ticket: { data: UUID }, cards_daily_group: { data: 'group:G' },
   };
   vi.stubEnv('NET_CARDS', '1');
   vi.stubEnv('NET_CARDS_BRIDGES', '1');
   vi.stubEnv('NET_CARDS_ADS', '1');
   vi.stubEnv('NET_IP_HASH_SALT', 'test-salt');
   resetCatalogCache();
+  resetWorldCache();
   resetReportLimit();
+  resetRateLimits();
 });
-afterEach(() => vi.unstubAllEnvs());
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.useRealTimers();
+});
 
 const ROUTES: Array<[string, () => Promise<Response>]> = [
   ['state', () => state(req('/api/cards/state'))],
-  ['open', () => open(req('/api/cards/open', { source: 'stock' }))],
+  ['open', () => open(withKey('/api/cards/open', { source: 'stock' }))],
   ['ad/ticket', () => ticket(req('/api/cards/ad/ticket', {}))],
-  ['ad/grant', () => grant(req('/api/cards/ad/grant', { ticket: UUID }))],
-  ['craft', () => craft(req('/api/cards/craft', { card_no: 3 }))],
-  ['wish', () => wish(req('/api/cards/wish', { card_no: 3, on: true }))],
-  ['goals', () => goals(req('/api/cards/goals'))],
-  ['goals/claim', () => goalsClaim(req('/api/cards/goals/claim', {}))],
-  ['recycle', () => recycle(req('/api/cards/recycle', {}))],
+  ['ad/grant', () => grant(withKey('/api/cards/ad/grant', { ticket: UUID }))],
+  ['craft', () => craft(withKey('/api/cards/craft', { n: 2 }))],
+  ['wish', () => wish(req('/api/cards/wish', { n: 3, on: true }))],
+  ['recycle', () => recycle(withKey('/api/cards/recycle', { confirm: true }))],
+  ['recycle preview', () => recycleGet(req('/api/cards/recycle'))],
   ['favorite', () => favorite(req('/api/cards/favorite', { n: 4, on: true }))],
+  ['collection', () => collection(req('/api/cards/collection'))],
+  ['almost', () => almost(req('/api/cards/almost'))],
+  ['missions', () => missions(req('/api/cards/missions'))],
+  ['missions/claim', () => claim(withKey('/api/cards/missions/claim', { target: 'holo' }))],
+  ['level', () => level(req('/api/cards/level'))],
+  ['ranking', () => ranking(req('/api/cards/ranking'))],
+  ['friends', () => friends(req('/api/cards/friends'))],
+  ['friends/code', () => friendCode(req('/api/cards/friends/code', {}))],
+  ['odds', () => odds(req('/api/cards/odds'))],
+  ['card', () => cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })],
+  ['help', () => help(req('/api/cards/help'))],
+  ['prefs', () => prefs(req('/api/cards/prefs', { sound: false }))],
+  ['lock', () => lock(req('/api/cards/lock', { n: 4, on: true }))],
+  ['seen', () => seen(req('/api/cards/seen', { ns: [4] }))],
+  ['still-there', () => stillThere(req('/api/cards/still-there', {}))],
   ['report', () => report(req('/api/cards/report', { n: 4, role: 'person', message: 'x' }))],
   ['catalog', () => catalog()],
 ];
@@ -165,10 +222,10 @@ describe('the session', () => {
     expect(h.rpcCalls).toEqual([]);
   });
   it('a cross-site POST is refused (403) and spends nothing', async () => {
-    const res = await open(req('/api/cards/open', { source: 'stock' }, { origin: 'https://evil.example' }));
+    const res = await open(req('/api/cards/open', { source: 'stock' }, { origin: 'https://evil.example', 'idempotency-key': K }));
     expect(res.status).toBe(403);
     expect(h.rpcCalls).toEqual([]);
-    const noOrigin = new NextRequest(`${ORIGIN}/api/cards/open`, { method: 'POST', headers: { host: 'localhost:3021', 'content-type': 'application/json' }, body: '{"source":"stock"}' });
+    const noOrigin = new NextRequest(`${ORIGIN}/api/cards/open`, { method: 'POST', headers: { host: 'localhost:3021', 'content-type': 'application/json', 'idempotency-key': K }, body: '{"source":"stock"}' });
     expect((await open(noOrigin)).status).toBe(403);
   });
   it('every signed-in answer is no-store', async () => {
@@ -176,6 +233,30 @@ describe('the session', () => {
       if (n === 'catalog') continue;
       expect((await call()).headers.get('cache-control'), n).toBe('no-store');
     }
+  });
+  it('a write that spends needs an idempotency key: 400 idem_missing, nothing read', async () => {
+    for (const [path, call] of [
+      ['open', () => open(req('/api/cards/open', { source: 'stock' }))],
+      ['craft', () => craft(req('/api/cards/craft', { n: 2 }))],
+      ['recycle', () => recycle(req('/api/cards/recycle', { confirm: true }))],
+      ['claim', () => claim(req('/api/cards/missions/claim', { target: 'holo' }))],
+      ['grant', () => grant(req('/api/cards/ad/grant', { ticket: UUID }))],
+      ['redeem', () => friendRedeem(req('/api/cards/friends/redeem', { code: 'ABCD-EFGH' }))],
+    ] as Array<[string, () => Promise<Response>]>) {
+      h.rpcCalls = [];
+      const res = await call();
+      expect([path, res.status, await res.json()]).toEqual([path, 400, { error: 'idem_missing' }]);
+      expect(h.rpcCalls).toEqual([]);
+    }
+    expect((await open(req('/api/cards/open', { source: 'stock' }, { 'idempotency-key': 'x' }))).status).toBe(400);
+    expect((await open(req('/api/cards/open', { source: 'stock', key: K }))).status).toBe(200); // the body key works too
+  });
+  it('a write is rate limited per player (429), the limit of one player is not the limit of another', async () => {
+    let last = 200;
+    for (let i = 0; i < 125; i++) last = (await lock(req('/api/cards/lock', { n: 4, on: true }))).status;
+    expect(last).toBe(429);
+    h.user = { id: 'u2' };
+    expect((await lock(req('/api/cards/lock', { n: 4, on: true }))).status).toBe(200);
   });
 });
 
@@ -199,8 +280,6 @@ describe('review 1 finding 10: the hub private launch', () => {
   });
   it.each(ROUTES)('%s works for an allowed account', async (_n, call) => {
     h.user = { id: ALLOWED };
-    h.rpcResult.cards_issue_ticket = { data: UUID };
-    h.rpcResult.cards_recycle = { data: { recycled: 0, shards_gained: 0, shards: 12 } };
     expect((await call()).status).toBe(200);
   });
   it('the catalog is never put in a shared cache while the gate is on; off, it is public again', async () => {
@@ -218,36 +297,32 @@ describe('review 1 finding 10: the hub private launch', () => {
   });
 });
 
-describe('GET /api/cards/state', () => {
-  it('returns the wallet from the database and the binder', async () => {
+describe('GET /api/cards/state: the lobby', () => {
+  it('answers the lobby of the contract from the database rows', async () => {
     const res = await state(req('/api/cards/state'));
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({
-      stock: 3, cap: 5, nextAt: '2026-11-12T10:10:00.000Z', midnightAt: '2026-11-12T23:00:00.000Z', adsLeft: 8, adsEnabled: true,
-      shards: 12, bonusLeft: 1, owned: [{ n: 4, copies: 2, fav: true, at: '2026-11-12T09:00:00.000Z' }],
-      // Lots 3 and 4: the timer cap (A13), the Gold guarantee (A11), the focus pack and the wishlist (A17), the ad shards (B4), the last packs (B3).
-      timerCap: 40, timerUsed: 0, timerLeft: 40, pityLeft: null, focusUsed: false, wishlist: [], adShards: 25, recent: [],
-      odds: expect.objectContaining({ available: ['C', 'U', 'R', 'UR'] }),
+    const b = await res.json();
+    expect(b).toMatchObject({
+      cap: 10, shards: 12, adShards: 25, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2], focusUsed: false,
+      golden: { next: false, packsUntil: 3, opened: 7 }, guarantee: { streak: 3, by: 30 }, level: { level: 1, title: 'Rookie' },
+      prefs: { sound: true, vibration: true, theme: 'all', focus: null },
+      owned: [{ n: 4, copies: 2, fav: true }], daily: { used: false, group: { id: 'group:G', name: 'Group' } },
     });
-    const odds = (await (await state(req('/api/cards/state'))).json()).odds;
-    expect(odds.card.C).toBeCloseTo((60 / 95.2) * 100, 9);
-    expect(odds.fifth.U).toBeCloseTo((84 / 95.2) * 100, 9);
-    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_wallet', args: { p_user: 'u1', p_ads_limit: 10, p_bonus_cap: 3 } });
+    expect(b.themes.map((t: { id: string }) => t.id)).toEqual(['all', 'girls', 'boys', 'solo']);
+    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_player', args: { p_user: 'u1', p_timer_cap: 40 } });
   });
-  it('the settings flow through, bonus packs are 0 while the bridges are off, adsEnabled follows NET_CARDS_ADS', async () => {
+  it('the settings flow through and adsEnabled follows NET_CARDS_ADS', async () => {
+    vi.stubEnv('CARDS_TIMER_PER_DAY', '12');
     vi.stubEnv('CARDS_ADS_PER_DAY', '4');
-    vi.stubEnv('CARDS_BONUS_PER_DAY', '2');
-    await state(req('/api/cards/state'));
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_ads_limit: 4, p_bonus_cap: 2 });
-    vi.stubEnv('NET_CARDS_BRIDGES', '');
+    let b = await (await state(req('/api/cards/state'))).json();
+    expect(h.rpcCalls[0]?.args).toMatchObject({ p_timer_cap: 12 });
+    expect([b.timerCap, b.adsLeft, b.adsEnabled]).toEqual([12, 2, true]);
     vi.stubEnv('NET_CARDS_ADS', '');
-    h.rpcCalls = [];
-    const body = await (await state(req('/api/cards/state'))).json();
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_bonus_cap: 0 });
-    expect(body.adsEnabled).toBe(false);
+    b = await (await state(req('/api/cards/state'))).json();
+    expect(b.adsEnabled).toBe(false);
   });
   it('a database failure is a 500 with nothing else said', async () => {
-    h.rpcResult.cards_wallet = { error: { message: 'boom secret' } };
+    h.rpcResult.cards_player = { error: { message: 'boom secret' } };
     const res = await state(req('/api/cards/state'));
     expect(res.status).toBe(500);
     expect(await res.json()).toEqual({ error: 'server' });
@@ -255,44 +330,97 @@ describe('GET /api/cards/state', () => {
 });
 
 describe('POST /api/cards/open', () => {
-  it('draws on the server, stores through cards_apply_pack, answers pack and state', async () => {
-    const res = await open(req('/api/cards/open', { source: 'stock' }));
+  it('draws the plans on the server and calls cards_open ONCE with the key; answers packs, summary and state', async () => {
+    const res = await open(withKey('/api/cards/open', { source: 'stock', theme: 'all', packs: 1 }));
     expect(res.status).toBe(200);
-    const body = await res.json();
-    expect(body.pack).toEqual({ id: 'pack-1', cards: [{ n: 1, isNew: true }, { n: 7, isNew: false }, { n: 9, isNew: true }, { n: 3, isNew: true }, { n: 2, isNew: true }] });
-    expect(body.state.stock).toBe(3);
-    expect(applyCall()).toMatchObject({ fn: 'cards_apply_pack', args: { p_user: 'u1', p_source: 'stock', p_cards: [1, 7, 9, 3, 2], p_ticket: null, p_timer_cap: 40, p_focus: null } });
+    const b = await res.json();
+    expect(b.packs).toHaveLength(1);
+    expect(b.packs[0]).toMatchObject({ id: 'pack-1', packNo: 8, golden: false, guarantee: false, best: 'gold' });
+    expect(b.packs[0].cards[0]).toMatchObject({ n: 1, edition: 'std', isNew: true, theme: 'all' });
+    expect(b.summary).toMatchObject({ newCards: 4, copies: 1, best: 'gold', headline: '4 new cards for your collection', levelUp: null });
+    expect(b.replayed).toBe(false);
+    const calls = h.rpcCalls.filter((c) => c.fn === 'cards_open');
+    expect(calls).toHaveLength(1);
+    const a = calls[0]!.args as { p_key: string; p_source: string; p_theme: string; p_draws: Array<{ c: number[]; g: number | null; u: number | null }>; p_timer_cap: number };
+    expect(a).toMatchObject({ p_user: 'u1', p_key: K, p_source: 'stock', p_theme: 'all', p_timer_cap: 40 });
+    expect(a.p_draws).toHaveLength(1);
+    expect(a.p_draws[0]!.c).toHaveLength(5);
+    expect(a.p_draws[0]!.g).not.toBeNull();
+    expect(a.p_draws[0]!.u).toBe(4);
   });
-  it('refuses a bad source (400), the ad source included, and a non-object body', async () => {
-    for (const body of [{ source: 'ad' }, { source: 'gift' }, {}, { source: 5 }]) expect((await open(req('/api/cards/open', body))).status).toBe(400);
-    expect((await open(req('/api/cards/open', [1]))).status).toBe(400);
-    expect(h.rpcCalls).toEqual([]);
+  it('Open 5 sends five plans in the one call', async () => {
+    h.rpcResult.cards_open = { data: { ...OPENED, packs: Array(5).fill(OPENED.packs[0]) } };
+    const b = await (await open(withKey('/api/cards/open', { source: 'stock', packs: 5 }))).json();
+    expect(b.packs).toHaveLength(5);
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_open')).toHaveLength(1);
+    expect((h.rpcCalls.find((c) => c.fn === 'cards_open')!.args.p_draws as unknown[]).length).toBe(5);
+  });
+  it('a replayed key says so', async () => {
+    h.rpcResult.cards_open = { data: { ...OPENED, replayed: true } };
+    expect((await (await open(withKey('/api/cards/open', { source: 'stock' }))).json()).replayed).toBe(true);
+  });
+  it('refuses a bad body (400) before any read: source, packs, theme, focus, 5 packs of a daily pack', async () => {
+    const bad: unknown[] = [{ source: 'ad' }, { source: 'gift' }, {}, { source: 5 }, { source: 'stock', packs: 3 }, { source: 'stock', theme: 'idols' }, { source: 'daily', packs: 5 },
+      { source: 'focus' }, { source: 'focus', focus: 'idol:Q1' }, { source: 'shards', packs: 5 }];
+    for (const b of bad) {
+      const res = await open(withKey('/api/cards/open', b));
+      expect([JSON.stringify(b), res.status < 500 && res.status >= 400]).toEqual([JSON.stringify(b), true]);
+    }
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_open')).toEqual([]);
+    expect((await open(req('/api/cards/open', [1], { 'idempotency-key': K }))).status).toBe(400);
   });
   it.each([
-    ['cards: empty', 'empty'],
-    ['cards: shards', 'shards'],
-    ['cards: bonus', 'bonus'],
-  ])('a refusal "%s" is 409 %s', async (message, error) => {
-    h.rpcResult.cards_apply_pack = { error: { message } };
-    const res = await open(req('/api/cards/open', { source: 'stock' }));
-    expect(res.status).toBe(409);
-    expect(await res.json()).toEqual({ error });
+    ['cards: empty', 409, 'empty'], ['cards: stack_short', 409, 'stack_short'], ['cards: shards', 409, 'shards'], ['cards: daily_used', 409, 'daily_used'],
+    ['cards: focus_used', 409, 'focus_used'], ['cards: idem_conflict', 409, 'idem_conflict'], ['cards: pack', 409, 'pack'],
+  ])('a refusal "%s" is %i %s', async (message, status, error) => {
+    h.rpcResult.cards_open = { error: { message } };
+    const res = await open(withKey('/api/cards/open', { source: 'stock' }));
+    expect([res.status, await res.json()]).toEqual([status, { error }]);
   });
   it('an unknown database error is a 500 that does not leak its message', async () => {
-    h.rpcResult.cards_apply_pack = { error: { message: 'relation "x" does not exist' } };
-    const res = await open(req('/api/cards/open', { source: 'stock' }));
+    h.rpcResult.cards_open = { error: { message: 'relation "x" does not exist' } };
+    const res = await open(withKey('/api/cards/open', { source: 'stock' }));
     expect(res.status).toBe(500);
     expect(JSON.stringify(await res.json())).not.toMatch(/relation/);
   });
-  it('a card that left the packs triggers one fresh draw, then gives up', async () => {
-    h.rpcResult.cards_apply_pack = { error: { message: 'cards: pack' } };
-    expect((await open(req('/api/cards/open', { source: 'stock' }))).status).toBe(500);
-    expect(h.rpcCalls.filter((c) => c.fn === 'cards_apply_pack')).toHaveLength(2);
+  it('the daily pack asks the database for the group of the Paris day; a focus pack carries its group', async () => {
+    await open(withKey('/api/cards/open', { source: 'daily' }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_daily_group')).toBeDefined();
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_source: 'daily', p_theme: null, p_focus: null });
+    await open(withKey('/api/cards/open', { source: 'focus', focus: 'group:G' }));
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_open')[1]?.args).toMatchObject({ p_source: 'focus', p_focus: 'group:G' });
   });
-  it('the bonus source is refused while the bridges are off', async () => {
+  it('a Kpopdle bonus pack: the database re-reads the wins first, then opens with the day cap; bridges off means cap 0', async () => {
+    await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect(h.rpcCalls.map((c) => c.fn).filter((f) => f === 'cards_bonus_record' || f === 'cards_open')).toEqual(['cards_bonus_record', 'cards_open']);
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 3 });
+    vi.stubEnv('CARDS_BONUS_PER_DAY', '2');
+    h.rpcCalls = [];
+    await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_bonus_cap: 2 });
     vi.stubEnv('NET_CARDS_BRIDGES', '');
-    await open(req('/api/cards/open', { source: 'bonus' }));
-    expect(applyCall()?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 0 });
+    h.rpcCalls = [];
+    await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_bonus_cap: 0 });
+    h.rpcResult.cards_open = { error: { message: 'cards: bonus' } };
+    const res = await open(withKey('/api/cards/open', { source: 'bonus' }));
+    expect([res.status, await res.json()]).toEqual([409, { error: 'bonus' }]);
+    expect((await open(withKey('/api/cards/open', { source: 'bonus', packs: 5 }))).status).toBe(400);
+  });
+  it('the lobby tells the Kpopdle bridge and that the quiz of the day earns no pack', async () => {
+    h.rpcResult.cards_player = { data: { ...PLAYER, bonus_earned: 2, bonus_today: 1 } };
+    const b = await (await state(req('/api/cards/state'))).json();
+    expect(b.bonusLeft).toBe(1);
+    expect(b.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 2, left: 1, perDay: 3 });
+    expect(b.bridges.quizOfDay.enabled).toBe(false);
+    expect(b.bridges.quizOfDay.reason).toMatch(/score the browser reports/);
+    vi.stubEnv('NET_CARDS_BRIDGES', '');
+    expect((await (await state(req('/api/cards/state'))).json()).bridges.kpopdle).toMatchObject({ enabled: false, left: 0 });
+  });
+  it('a plain "Open a pack" uses the saved theme', async () => {
+    h.rpcResult.cards_prefs_get = { data: { theme: 'girls' } };
+    await open(withKey('/api/cards/open', { source: 'stock' }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_theme: 'girls' });
   });
 });
 
@@ -316,115 +444,142 @@ describe('the rewarded ad', () => {
     expect((await ticket(req('/api/cards/ad/ticket', {}))).status).toBe(409);
     expect(h.rpcCalls).toEqual([]);
   });
-  it('grant (lot 4 B4): spends the ticket through cards_ad_grant, gives the ad shards and no pack', async () => {
-    h.rpcResult.cards_ad_grant = { data: { gained: 25, shards: 37, ads_today: 3 } };
-    const res = await grant(req('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
+});
+
+describe('the other writes of the contract', () => {
+  it('grant (lot 4 B4): spends the ticket through cards_ad_grant with the key, gives the ad shards and no pack', async () => {
+    const res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
     expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ gained: 25, shards: 37, state: { stock: 3 } });
-    expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')).toMatchObject({ args: { p_user: 'u1', p_ticket: UUID, p_ads_limit: 10, p_shards: 25, p_timer_cap: 40 } });
-    expect(applyCall()).toBeUndefined();
+    expect(await res.json()).toMatchObject({ gained: 25, shards: 37, replayed: false, state: { cap: 10 } });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')).toMatchObject({ args: { p_user: 'u1', p_key: K, p_ticket: UUID, p_ads_limit: 10, p_shards: 25, p_timer_cap: 40 } });
+    expect(h.rpcCalls.some((c) => c.fn === 'cards_open')).toBe(false);
   });
-  it('grant: CARDS_AD_SHARDS and CARDS_ADS_PER_DAY flow through', async () => {
+  it('grant: CARDS_AD_SHARDS and CARDS_ADS_PER_DAY flow through; a bad, replayed or foreign ticket is 409; the limit is 409 ad_limit; ads off is disabled', async () => {
     vi.stubEnv('CARDS_AD_SHARDS', '40');
     vi.stubEnv('CARDS_ADS_PER_DAY', '6');
-    h.rpcResult.cards_ad_grant = { data: { gained: 40, shards: 52, ads_today: 1 } };
-    await grant(req('/api/cards/ad/grant', { ticket: UUID }));
+    await grant(withKey('/api/cards/ad/grant', { ticket: UUID }));
     expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')?.args).toMatchObject({ p_shards: 40, p_ads_limit: 6 });
-  });
-  it('grant: a replayed, foreign or unknown ticket is 409, a malformed one too, and the limit is 409 limit', async () => {
     h.rpcResult.cards_ad_grant = { error: { message: 'cards: ticket' } };
-    let res = await grant(req('/api/cards/ad/grant', { ticket: UUID }));
+    let res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID }));
     expect([res.status, await res.json()]).toEqual([409, { error: 'ticket' }]);
-    for (const t of ['nope', 5, undefined, '']) {
-      res = await grant(req('/api/cards/ad/grant', { ticket: t }));
-      expect(res.status).toBe(409);
-    }
+    for (const t of ['nope', 5, undefined, '']) expect((await grant(withKey('/api/cards/ad/grant', { ticket: t }))).status).toBe(409);
     h.rpcResult.cards_ad_grant = { error: { message: 'cards: ad_limit' } };
-    res = await grant(req('/api/cards/ad/grant', { ticket: UUID }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'limit' }]);
-  });
-  it('grant with ads off is 409 disabled and spends nothing', async () => {
+    res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID }));
+    expect([res.status, await res.json()]).toEqual([409, { error: 'ad_limit' }]);
     vi.stubEnv('NET_CARDS_ADS', '');
-    const res = await grant(req('/api/cards/ad/grant', { ticket: UUID }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'disabled' }]);
+    h.rpcCalls = [];
+    expect((await grant(withKey('/api/cards/ad/grant', { ticket: UUID }))).status).toBe(400);
     expect(h.rpcCalls).toEqual([]);
   });
-});
-
-describe('lots 3 and 4 routes: open with a focus, completesPair, craft, wish', () => {
-  it('the pair mark and the moment numbers of the database reach the answer', async () => {
-    h.rpcResult.cards_apply_pack = { data: { id: 'pack-2', source: 'stock', new_count: 2, pack_no: 5, cards: [{ n: 7, isNew: false }, { n: 8, isNew: true, completesPair: true }] } };
-    const body = await (await open(req('/api/cards/open', { source: 'stock' }))).json();
-    expect(body.pack).toEqual({ id: 'pack-2', newCount: 2, packNo: 5, cards: [{ n: 7, isNew: false }, { n: 8, isNew: true, completesPair: true }] });
-  });
-  it('a focus pack is a stock pack for a group id; anything else is 400, and a used focus is 409', async () => {
-    await open(req('/api/cards/open', { source: 'stock', focus: 'group:Q123' }));
-    expect(applyCall()?.args).toMatchObject({ p_focus: 'group:Q123' });
-    for (const body of [{ source: 'shards', focus: 'group:Q1' }, { source: 'stock', focus: 'idol:Q1' }, { source: 'stock', focus: 5 }]) {
-      expect((await open(req('/api/cards/open', body))).status).toBe(400);
-    }
-    h.rpcResult.cards_apply_pack = { error: { message: 'cards: focus_used' } };
-    const res = await open(req('/api/cards/open', { source: 'stock', focus: 'group:Q123' }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'focus_used' }]);
-  });
-  it('the timer cap is passed to the database, CARDS_TIMER_PER_DAY overrides 40', async () => {
-    vi.stubEnv('CARDS_TIMER_PER_DAY', '12');
-    await open(req('/api/cards/open', { source: 'stock' }));
-    expect(applyCall()?.args).toMatchObject({ p_timer_cap: 12 });
-    h.rpcCalls = [];
-    await state(req('/api/cards/state'));
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_timer_cap: 12 });
-  });
-  it('craft: a missing card for shards, with the same guard as the other writes', async () => {
-    h.rpcResult.cards_craft = { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12 } };
-    const res = await craft(req('/api/cards/craft', { card_no: 3 }));
+  it('craft: spends through cards_craft with the key; bad numbers are 400; the refusals are 409', async () => {
+    const res = await craft(withKey('/api/cards/craft', { n: 2 }));
     expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ card: { n: 3, rarity: 'R', cost: 50 }, state: { shards: 12 } });
-    expect(h.rpcCalls.find((c) => c.fn === 'cards_craft')?.args).toMatchObject({ p_user: 'u1', p_card_no: 3 });
-    expect((await craft(req('/api/cards/craft', { card_no: 'x' }))).status).toBe(400);
-    expect((await craft(req('/api/cards/craft', { card_no: 1.5 }))).status).toBe(400);
-    expect((await craft(req('/api/cards/craft', {}, { origin: 'http://evil.example' }))).status).toBe(403);
-    h.user = null;
-    expect((await craft(req('/api/cards/craft', { card_no: 3 }))).status).toBe(401);
-    h.user = { id: 'u1' };
-    h.team = true;
-    expect((await craft(req('/api/cards/craft', { card_no: 3 }))).status).toBe(403);
-  });
-  it.each([['cards: shards', 'shards'], ['cards: owned', 'owned'], ['cards: card', 'card'], ['cards: no_craft', 'no_craft']])('craft refusal "%s" is 409 %s (a Full Art is no_craft)', async (message, error) => {
-    h.rpcResult.cards_craft = { error: { message } };
-    const res = await craft(req('/api/cards/craft', { card_no: 6 }));
-    expect([res.status, await res.json()]).toEqual([409, { error }]);
-  });
-  it('wish: toggles a card, 409 at the limit', async () => {
-    h.rpcResult.cards_wish = { data: { on: true, count: 4 } };
-    let res = await wish(req('/api/cards/wish', { card_no: 3, on: true }));
-    expect([res.status, await res.json()]).toEqual([200, { on: true, count: 4 }]);
-    expect((await wish(req('/api/cards/wish', { card_no: 3 }))).status).toBe(400);
-    h.rpcResult.cards_wish = { error: { message: 'cards: wish_limit' } };
-    res = await wish(req('/api/cards/wish', { card_no: 3, on: true }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'wish_limit' }]);
-  });
-  it('the state lists the last packs from the database with their edition names', async () => {
-    h.rpcResult.cards_recent_packs = { data: [{ opened_at: '2026-11-12T09:00:00+00:00', best: 'UR', source: 'stock', new_count: 2 }, { opened_at: '2026-11-12T08:00:00+00:00', best: 'C', source: 'shards', new_count: null }] };
-    const body = await (await state(req('/api/cards/state'))).json();
-    expect(body.recent).toEqual([{ at: '2026-11-12T09:00:00.000Z', best: 'gold', source: 'stock', newCount: 2 }, { at: '2026-11-12T08:00:00.000Z', best: 'std', source: 'shards', newCount: null }]);
-  });
-});
-
-describe('recycle and favorite', () => {
-  it('recycle answers the copies, the shards gained and the state', async () => {
-    h.rpcResult.cards_recycle = { data: { recycled: 4, shards_gained: 16, shards: 28 } };
-    const body = await (await recycle(req('/api/cards/recycle', {}))).json();
-    expect(body).toMatchObject({ recycled: 4, shards: 16, state: { shards: 12 } });
-  });
-  it('favorite validates and reports ok from the database', async () => {
-    h.rpcResult.cards_favorite = { data: true };
-    expect(await (await favorite(req('/api/cards/favorite', { n: 4, on: true }))).json()).toEqual({ ok: true });
-    h.rpcResult.cards_favorite = { data: false };
-    expect(await (await favorite(req('/api/cards/favorite', { n: 5, on: false }))).json()).toEqual({ ok: false });
-    for (const b of [{ n: 0, on: true }, { n: 1.5, on: true }, { n: 'a', on: true }, { n: 1 }, { n: 1, on: 'yes' }]) {
-      expect((await favorite(req('/api/cards/favorite', b))).status).toBe(400);
+    expect(await res.json()).toMatchObject({ n: 2, cost: 50, replayed: false, finished: [], state: { cap: 10 } });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_craft')?.args).toMatchObject({ p_user: 'u1', p_key: K, p_card_no: 2, p_timer_cap: 40 });
+    for (const n of ['x', 1.5, 0, undefined]) expect((await craft(withKey('/api/cards/craft', { n }))).status).toBe(400);
+    for (const [m, e] of [['cards: shards', 'shards'], ['cards: owned', 'owned'], ['cards: card', 'card'], ['cards: no_craft', 'no_craft']] as const) {
+      h.rpcResult.cards_craft = { error: { message: m } };
+      const r = await craft(withKey('/api/cards/craft', { n: 4 }));
+      expect([r.status, (await r.json()).error]).toEqual([e === 'card' ? 404 : 409, e]);
     }
+  });
+  it('wish and favorite validate and answer the contract shape', async () => {
+    expect(await (await wish(req('/api/cards/wish', { n: 3, on: true }))).json()).toEqual({ n: 3, on: true, count: 1 });
+    expect((await wish(req('/api/cards/wish', { n: 3 }))).status).toBe(400);
+    h.rpcResult.cards_wish = { error: { message: 'cards: wish_limit' } };
+    expect((await wish(req('/api/cards/wish', { n: 3, on: true }))).status).toBe(409);
+    expect(await (await favorite(req('/api/cards/favorite', { n: 4, on: true }))).json()).toEqual({ n: 4, fav: true });
+    h.rpcResult.cards_favorite = { data: false };
+    expect((await favorite(req('/api/cards/favorite', { n: 5, on: false }))).status).toBe(409);
+    for (const b of [{ n: 0, on: true }, { n: 1.5, on: true }, { n: 'a', on: true }, { n: 1 }, { n: 1, on: 'yes' }]) expect((await favorite(req('/api/cards/favorite', b))).status).toBe(400);
+  });
+  it('recycle needs confirm:true (400 confirm_required) and a key; the answer tells what was skipped; locked and last copy are refused', async () => {
+    let res = await recycle(withKey('/api/cards/recycle', {}));
+    expect([res.status, await res.json()]).toEqual([400, { error: 'confirm_required' }]);
+    expect(h.rpcCalls.some((c) => c.fn === 'cards_recycle')).toBe(false);
+    res = await recycle(withKey('/api/cards/recycle', { confirm: true }));
+    expect(await res.json()).toMatchObject({ recycled: 4, shards: 16, skipped: { locked: 0, goldAndFullArt: 1 }, replayed: false });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_recycle')?.args).toMatchObject({ p_key: K, p_n: null });
+    await recycle(withKey('/api/cards/recycle', { confirm: true, n: 4 }));
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_recycle')[1]?.args).toMatchObject({ p_n: 4 });
+    for (const [m, s, e] of [['cards: locked', 409, 'locked'], ['cards: lastcopy', 409, 'last_copy'], ['cards: nothing', 409, 'nothing_to_recycle'], ['cards: notowned', 409, 'not_owned']] as const) {
+      h.rpcResult.cards_recycle = { error: { message: m } };
+      const r = await recycle(withKey('/api/cards/recycle', { confirm: true }));
+      expect([r.status, (await r.json()).error]).toEqual([s, e]);
+    }
+    expect((await recycle(withKey('/api/cards/recycle', { confirm: true, n: 'x' }))).status).toBe(400);
+  });
+  it('recycle preview: counts extras and tells what a bulk recycle leaves out', async () => {
+    h.rpcResult.cards_player = { data: { ...PLAYER, owned: [
+      { n: 1, copies: 4, fav: false, locked: false, seen: true, first: PLAYER.owned[0]!.first, last: PLAYER.owned[0]!.last, fpn: 1 },
+      { n: 5, copies: 3, fav: false, locked: true, seen: true, first: PLAYER.owned[0]!.first, last: PLAYER.owned[0]!.last, fpn: 1 },
+      { n: 4, copies: 3, fav: false, locked: false, seen: true, first: PLAYER.owned[0]!.first, last: PLAYER.owned[0]!.last, fpn: 1 },
+    ] } };
+    const b = await (await recycleGet(req('/api/cards/recycle'))).json();
+    expect(b).toMatchObject({ extras: 3, shards: 3, skipped: { locked: 2, goldAndFullArt: 2 }, canRecycle: true });
+    expect(b.confirm).toMatch(/One copy of each card stays/);
+  });
+  it('missions/claim: the target is checked; the refusals map to their codes; the week is its own target', async () => {
+    const res = await claim(withKey('/api/cards/missions/claim', { target: 'holo' }));
+    expect(await res.json()).toMatchObject({ target: 'holo', packs: 3, replayed: false, missions: { setsTotal: expect.any(Number) }, state: { cap: 10 } });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_claim')?.args).toMatchObject({ p_key: K, p_target: 'holo' });
+    for (const t of ['', 'nope', 'group:', 'year:99', 5]) expect((await claim(withKey('/api/cards/missions/claim', { target: t }))).status, String(t)).toBe(400);
+    h.rpcResult.cards_claim = { error: { message: 'cards: goal' } };
+    expect((await (await claim(withKey('/api/cards/missions/claim', { target: 'week' }))).json()).error).toBe('week_not_done');
+    expect((await (await claim(withKey('/api/cards/missions/claim', { target: 'holo' }))).json()).error).toBe('set_not_done');
+    h.rpcResult.cards_claim = { error: { message: 'cards: claimed' } };
+    expect((await claim(withKey('/api/cards/missions/claim', { target: 'holo' }))).status).toBe(409);
+  });
+  it('prefs, lock, seen, still-there', async () => {
+    expect(await (await prefs(req('/api/cards/prefs', { sound: false }))).json()).toMatchObject({ prefs: { sound: false } });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_prefs_set')?.args).toMatchObject({ p_patch: { sound: false } });
+    h.rpcResult.cards_prefs_set = { error: { message: 'cards: pref' } };
+    expect((await prefs(req('/api/cards/prefs', { theme: 'x' }))).status).toBe(400);
+    expect(await (await lock(req('/api/cards/lock', { n: 4, on: true }))).json()).toEqual({ n: 4, locked: true, locks: 1 });
+    expect((await lock(req('/api/cards/lock', { n: 4 }))).status).toBe(400);
+    h.rpcResult.cards_lock = { error: { message: 'cards: notowned' } };
+    expect((await lock(req('/api/cards/lock', { n: 4, on: true }))).status).toBe(409);
+    expect(await (await seen(req('/api/cards/seen', { ns: [1, 2] }))).json()).toEqual({ newCards: 0 });
+    expect((await seen(req('/api/cards/seen', { ns: ['a'] }))).status).toBe(400);
+    expect(await (await stillThere(req('/api/cards/still-there', {}))).json()).toMatchObject({ ok: true, state: { cap: 10 } });
+  });
+  it('friends: a code, a failed redeem is a code error with the status of the contract, the list', async () => {
+    expect(await (await friendCode(req('/api/cards/friends/code', {}))).json()).toEqual({ code: 'ABCD-EFGH', expiresAt: '2026-11-13T10:00:00.000Z' });
+    const code = h.rpcCalls.find((c) => c.fn === 'cards_friend_code_new')!.args.p_code as string;
+    expect(code).toMatch(/^[0-9A-HJKMNP-TV-Z]{8}$/);
+    for (const [err, status, e] of [['code_invalid', 404, 'code_invalid'], ['code_used', 409, 'code_used'], ['code_expired', 410, 'code_expired'], ['self', 400, 'self_friend'], ['rate', 429, 'rate_limited']] as const) {
+      h.rpcResult.cards_friend_redeem = { data: { ok: false, error: err } };
+      const r = await friendRedeem(withKey('/api/cards/friends/redeem', { code: 'ABCD-EFGH' }));
+      expect([r.status, (await r.json()).error]).toEqual([status, e]);
+    }
+    expect((await friendRedeem(withKey('/api/cards/friends/redeem', { code: 5 }))).status).toBe(404);
+    expect(await (await friends(req('/api/cards/friends'))).json()).toEqual({ friends: [], code: null, max: 100 });
+  });
+  it('ranking asks the database for the scope; the odds and the help answer', async () => {
+    await ranking(req('/api/cards/ranking?scope=all'));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_ranking')?.args).toMatchObject({ p_scope: 'all' });
+    await ranking(req('/api/cards/ranking'));
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_ranking')[1]?.args).toMatchObject({ p_scope: 'friends' });
+    const o = await (await odds(req('/api/cards/odds'))).json();
+    expect(o.packs.map((p: { id: string }) => p.id)).toContain('golden');
+    expect(o.guarantees.map((g: { id: string }) => g.id)).toEqual(['five', 'gold', 'golden', 'pair', 'focus', 'daily']);
+    expect((await (await help(req('/api/cards/help'))).json()).rules).toMatchObject({ stackCap: 10, goldByPack: 30 });
+  });
+  it('the moment of a card: the event with its precision, my first copy, the quiz link; bad numbers are refused', async () => {
+    const b = await (await cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })).json();
+    expect(b).toEqual({
+      n: 2, event: { name: 'KCON, Los Angeles', date: '2019-08-17', precision: 'month' },
+      yours: { firstAt: '2026-11-02T10:00:00.000Z', packNo: 12, how: 'pack', copies: 3 }, quiz: { title: 'Idol A quizzes on kpopquiz.org', url: 'https://kpopquiz.org/idol-a' },
+    });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_moment')?.args).toMatchObject({ p_user: 'u1', p_card_no: 2 });
+    h.rpcResult.cards_moment = { error: { message: 'cards: card' } };
+    expect((await cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })).status).toBe(404);
+    for (const n of ['x', '0', '-1', '1.5']) expect((await cardMoment(req('/api/cards/card/1'), { params: Promise.resolve({ n }) })).status).toBe(404);
+  });
+  it('collection parses its filters', async () => {
+    const b = await (await collection(req('/api/cards/collection?show=missing&kind=idol&rar=gold,full,bogus&sort=rarity&page=1&per=500'))).json();
+    expect(b.items.every((i: { type: string; owned?: boolean }) => i.type === 'not_issued' || i.owned === false)).toBe(true);
+    expect(b.groups).toHaveLength(1);
   });
 });
 
@@ -503,63 +658,3 @@ describe('GET /api/cards/catalog', () => {
   });
 });
 
-describe('Goals (lots 3 and 4, lane GOALS)', () => {
-  it('GET goals settles, reads and answers the sets, the week and the packs waiting', async () => {
-    const res = await goals(req('/api/cards/goals'));
-    expect(res.status).toBe(200);
-    expect(res.headers.get('cache-control')).toBe('no-store');
-    const body = await res.json();
-    expect(body).toMatchObject({ rewardPacks: 2, finished: [], week: { weekStart: '2026-11-09', packsOpened: 21, kpopdleWins: 3, newCards: 10, goalPacks: 20, done: true, claimed: false } });
-    expect(body.sets).toEqual([
-      { id: 'group:G1', kind: 'group', name: 'Group One', packs: 1, total: 6, owned: 6, claimed: true },
-      { id: 'holo', kind: 'holo', name: null, packs: 3, total: 4, owned: 2, claimed: false },
-    ]);
-    expect(h.rpcCalls.map((c) => c.fn)).toEqual(['cards_goals_sync']);
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_user: 'u1' });
-  });
-  it('GET goals: a database error is a 500 and no body of the database', async () => {
-    h.rpcResult.cards_goals_sync = { error: { message: 'boom secret' } };
-    const res = await goals(req('/api/cards/goals'));
-    expect([res.status, await res.json()]).toEqual([500, { error: 'server' }]);
-  });
-  it('claim: the week is claimed once, the answer carries the new Goals state', async () => {
-    const res = await goalsClaim(req('/api/cards/goals/claim', {}));
-    expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ packs: 2, shards: 25, goals: { rewardPacks: 2 } });
-    expect(h.rpcCalls.map((c) => c.fn)).toEqual(['cards_week_claim', 'cards_goals_sync']);
-  });
-  it.each([['cards: claimed', 'claimed'], ['cards: goal', 'goal']])('claim refusal "%s" is 409 %s', async (message, error) => {
-    h.rpcResult.cards_week_claim = { error: { message } };
-    const res = await goalsClaim(req('/api/cards/goals/claim', {}));
-    expect([res.status, await res.json()]).toEqual([409, { error }]);
-    expect(h.rpcCalls.map((c) => c.fn)).toEqual(['cards_week_claim']);
-  });
-  it('claim: a cross-site POST is refused and claims nothing', async () => {
-    const res = await goalsClaim(req('/api/cards/goals/claim', {}, { origin: 'https://evil.example' }));
-    expect(res.status).toBe(403);
-    expect(h.rpcCalls).toEqual([]);
-  });
-  it('a Team account earns nothing: goals and claim answer 403 before any database call', async () => {
-    h.team = true;
-    expect((await goals(req('/api/cards/goals'))).status).toBe(403);
-    expect((await goalsClaim(req('/api/cards/goals/claim', {}))).status).toBe(403);
-    expect(h.rpcCalls).toEqual([]);
-  });
-  it('open accepts the source reward, sends it to cards_apply_pack and tells the sets the pack finished', async () => {
-    h.rpcResult.cards_apply_pack = { data: { ...PACK, source: 'reward', finished: [{ id: 'group:G1', kind: 'group', name: 'Group One', packs: 1 }] } };
-    const res = await open(req('/api/cards/open', { source: 'reward' }));
-    expect(res.status).toBe(200);
-    expect(applyCall()?.args).toMatchObject({ p_source: 'reward', p_focus: null });
-    expect((await res.json()).pack.finished).toEqual([{ id: 'group:G1', kind: 'group', name: 'Group One', packs: 1 }]);
-  });
-  it('open: no reward pack waiting is 409 reward', async () => {
-    h.rpcResult.cards_apply_pack = { error: { message: 'cards: reward' } };
-    const res = await open(req('/api/cards/open', { source: 'reward' }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'reward' }]);
-  });
-  it('craft tells the sets the craft finished', async () => {
-    h.rpcResult.cards_craft = { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12, finished: [{ id: 'holo', kind: 'holo', name: null, packs: 3 }] } };
-    const body = await (await craft(req('/api/cards/craft', { card_no: 3 }))).json();
-    expect(body.card).toEqual({ n: 3, rarity: 'R', cost: 50, finished: [{ id: 'holo', kind: 'holo', name: null, packs: 3 }] });
-  });
-});

@@ -11,7 +11,8 @@
 -- Why:    one push at most when the stack becomes full (5 packs), never between 22:00 and 08:00 Paris (the reminder waits for 08:00), at most
 --         one a Paris day for a player. The pick holds the rule so two cron runs never send twice: it locks the rows it takes (for update
 --         skip locked) and marks them (last_sent_day, notified_anchor) in that same statement.
--- Full:   "becomes full" reads the wallet of 002: the stored row (cards_wallets) is below 5 while cards_wallet, which applies the refill and the
+-- Full:   "full" is the stack cap the wallet reports in its 'cap' key (10 from file 110, 5 before it; a wallet without the key reads 5).
+--         "becomes full" reads the wallet of 002: the stored row (cards_wallets) is below 5 while cards_wallet, which applies the refill and the
 --         Paris midnight, now says 5. notified_anchor keeps the stored anchor of the notified cycle, so a stack that stays full is told once;
 --         the next pack the player opens moves the anchor and re-arms it. A player without a wallet row (no pack opened yet) is never told.
 --         A subscription made while the stack is already full starts notified for that cycle (no push for a stack that was full before).
@@ -70,7 +71,7 @@ begin
     end if;
     select * into w from public.cards_wallets where user_id = p_user;
     if found then
-      v_full := coalesce(((public.cards_wallet(p_user, p_now) ->> 'stock')::integer >= 5), false);
+      v_full := coalesce((select (q.x ->> 'stock')::integer >= coalesce((q.x ->> 'cap')::integer, 5) from (select public.cards_wallet(p_user, p_now) as x) q), false);
     end if;
     insert into public.cards_push_subs (user_id, endpoint, p256dh, auth, created_at, notified_anchor)
       values (p_user, p_endpoint, p_p256dh, p_auth, p_now, case when v_full then w.anchor else null end)
@@ -140,9 +141,9 @@ begin
         where s.failures < 5
           and s.last_sent_day is distinct from v_today
           and s.notified_anchor is distinct from w.anchor
-          and w.stock < 5
+          and w.stock < coalesce((public.cards_wallet(s.user_id, p_now) ->> 'cap')::integer, 5)
           and not exists (select 1 from public.cards_push_subs o where o.user_id = s.user_id and o.last_sent_day = v_today)
-          and (public.cards_wallet(s.user_id, p_now) ->> 'stock')::integer >= 5
+          and (public.cards_wallet(s.user_id, p_now) ->> 'stock')::integer >= coalesce((public.cards_wallet(s.user_id, p_now) ->> 'cap')::integer, 5)
         order by s.created_at, s.id
         limit greatest(1, least(coalesce(p_limit, 100), 500))
         for update of s skip locked

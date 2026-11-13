@@ -1,15 +1,14 @@
 // KpopCards: the SEEDED MOCK of the API contract (contract.ts), in memory, on the real fixture catalog (lib/cards/ui-fixture.ts). Same seed and
 // same calls: same state and same draws. It uses the very pure views of the real server (model.ts) and the very pure draw (draw.ts), so
 // a screen built against it sees what production answers. For the dev fixture mode (CARDS_UI_FIXTURE=1) and for the screen comparisons.
-// Never a source of truth: nothing is stored outside the object, and the clock is injectable.
+// The catalog is given by the caller (see MockOptions.world). Never a source of truth: nothing is stored outside the object, and the clock is injectable.
 import { EDITIONS, SHARDS, craftCost } from '../cards/rules';
-import { fixtureCatalog } from '../cards/ui-fixture';
 import { ERROR_STATUS, KC, THEME_IDS, isApiError, levelOf, titleOf } from './contract';
 import { drawKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
-  badgesOf, cardRef, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
-  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf, entitySlugs, slugify,
+  badgesOf, cardRef, idolPage, momentQuiz, quizSlug, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
+  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf, slugify,
 } from './model';
 
 import type { UiCard, UiCatalog } from '../cards/ui-types';
@@ -32,7 +31,7 @@ export function seededRng(seed: number): Rng {
 }
 
 /** The themes of the fixture's invented groups: the groups alternate girls and boys, and the one-member group is a soloist. */
-export function fixtureWorld(cat: UiCatalog = fixtureCatalog()): World {
+export function fixtureWorld(cat: UiCatalog): World {
   const themeOf = new Map<string, ThemeId>();
   const groups = cat.entities.filter((e) => e.kind === 'group').sort((a, b) => a.name.localeCompare(b.name));
   groups.forEach((g, i) => {
@@ -49,10 +48,12 @@ export interface MockOptions {
   seed?: number;
   /** Injected clock (ms since epoch). Default: Date.now. */
   now?: () => number;
-  /** The player starts with an example binder (default true) or an empty one. */
+  /** The player starts with the prototype's example binder (default) or an empty one. `start` wins over `example` (the dev fixture's `?kcstate=example`). */
   example?: boolean;
+  start?: 'example' | 'empty';
   nickname?: string | null;
-  world?: World;
+  /** The catalog the mock runs on. The caller gives it (fixtureWorld(fixtureCatalog()) in the dev fixture mode and in tests): this module never imports the dev fixture itself, so no production path can reach it (ui-fixture-guard.test.ts). */
+  world: World;
 }
 
 export interface MockApi extends KpopCardsApi {
@@ -64,61 +65,94 @@ export interface MockApi extends KpopCardsApi {
   forceGolden(): void;
   /** Make the Gold guarantee fire in the next pack. */
   forceGuarantee(): void;
+  /** The prototype controls: the third card of the next pack is a card of this rarity (UR: Gold, L: Full Art), when the catalog has one. */
+  forceRarity(r: 'UR' | 'L'): void;
+  /** The prototype's "force Full Art" control: the third card of the next pack is a Full Art card. The fixture holds none unless CARDS_UI_FIXTURE_FULL=1; then the best card the catalog has is used. */
+  forceFullArt(): void;
+  /** The prototype's "39 timer packs used today": one more timer pack is left and the stack is below its cap. */
+  useTimerUpTo(n: number): void;
+  /** A Kpopdle win counted for this week. */
+  addDleWin(): void;
+  /** Start again with the example binder (true) or an empty one with 3 packs (false). */
+  reset(example: boolean): void;
 }
 
-const FRIENDS: readonly [string, number][] = [['dalgom_daisy', 61], ['seoul_spark', 47], ['neon_bunny', 34], ['kpop_mochi', 29], ['lightstick_lu', 22], ['haru_hearts', 15], ['minty_wave', 9]];
-const EVERYONE: readonly [string, number][] = [['byeol_hunter', 92], ['photocard_pia', 88], ['star_seeker', 81], ['lumi_lumi', 58], ...FRIENDS];
+// The prototype's ranking rows (FRIENDS and EVERYONE), nicknames as written there.
+const FRIENDS: readonly [string, number][] = [['dalgom_daisy', 61], ['seoul_spark', 47], ['neon.bunny', 34], ['kpop_mochi', 29], ['lightstick_lu', 22], ['haru_hearts', 15], ['minty_wave', 9]];
+const EVERYONE: readonly [string, number][] = [['byeol_hunter', 92], ['photocard_pia', 88], ['star_seeker', 81], ['dalgom_daisy', 61], ['lumi.lumi', 58], ['seoul_spark', 47], ['neon.bunny', 34], ['kpop_mochi', 29], ['lightstick_lu', 22], ['haru_hearts', 15]];
+const MOMENTS: readonly [string, string][] = [['Music Bank', 'KBS, Seoul'], ['Inkigayo', 'SBS, Seoul'], ['Melon Music Awards', 'Seoul'], ['Golden Disc Awards', 'Seoul'], ['KCON', 'Los Angeles'], ['Dream Concert', 'Seoul'], ['Airport arrival', 'Incheon'], ['Press conference', 'Seoul'], ['Fan sign', 'Seoul']];
 
 const err = (error: ApiError['error'], message?: string): ApiError => (message ? { error, message } : { error });
 
-export function createMockApi(opts: MockOptions = {}): MockApi {
+export function createMockApi(opts: MockOptions): MockApi {
   const seed = opts.seed ?? 1;
   const rng = seededRng(seed);
   let nowMs = 0;
   const clock = opts.now;
   const now = (): number => (clock ? clock() : nowMs || Date.now());
-  const w = opts.world ?? fixtureWorld();
-  const slugs = entitySlugs(w.entities);
-  const p: PlayerData = emptyPlayer(now(), opts.nickname === undefined ? 'you_mock' : opts.nickname);
+  const w = opts.world;
+  const p: PlayerData = emptyPlayer(now(), opts.nickname === undefined ? 'mingi' : opts.nickname);
   const idem = new Map<string, { op: string; res: unknown }>();
   let forceGoldenNext = false;
   let forceGuarantee = false;
+  let forcedRarity: 'UR' | 'L' | null = null;
   const total = (): number => w.cards.length;
   const ownedNs = (): Set<number> => new Set(p.owned.keys());
 
-  // The example binder: a seeded handful of cards by edition, as the prototype's example player.
-  if (opts.example !== false) {
+  // The example player of the prototype v6 (its fresh(true) state), on the catalog it is given: 44 Standard, 16 Stage, 6 Holo, 2 Era and 1 Gold cards chosen by
+  // the seed outside one group that is owned complete (the prototype's aespa: here the smallest group), copies 1 to 3, 3 starred cards of Holo or better, a
+  // wishlist of 3 missing Holo cards of another group, the 4 newest cards flagged New, 7 packs in the stack, 34 shards, 14 timer packs used, 48 packs opened,
+  // 6 packs of history, the week at 12 packs, 1 Kpopdle win and 7 new cards, the nickname mingi. A rarity the catalog does not have is skipped.
+  const seedExample = (): void => {
     const r = seededRng(seed * 7919 + 23);
-    const want: Partial<Record<Rarity, number>> = { C: 14, U: 8, R: 4, UR: 1 };
-    let k = 0;
-    for (const [rar, count] of Object.entries(want) as [Rarity, number][]) {
-      const list = w.cards.filter((c) => c.rarity === rar);
+    const t0 = now() - 86400000;
+    const groups = sectionsOf(w).filter((s2) => s2.kind === 'group' && w.cards.some((c) => s2.ids.includes(c.entity)));
+    const size = (s2: (typeof groups)[number]): number => w.cards.filter((c) => s2.ids.includes(c.entity)).length;
+    const complete = [...groups].sort((x, y) => size(x) - size(y) || x.name.localeCompare(y.name))[0];
+    const inComplete = (n: number): boolean => !!complete && complete.ids.includes(w.cards.find((c) => c.n === n)!.entity);
+    let i = 0;
+    const own = (c: UiCard): void => {
+      const copies = 1 + (r(100) < 30 ? 1 : 0) + (r(100) < 8 ? 1 : 0);
+      p.owned.set(c.n, { copies, fav: false, locked: false, seen: true, firstAt: t0 - i * 60000, lastAt: t0 - i * 60000, packNo: 1 + r(47), how: 'pack' });
+      i++;
+    };
+    const goal: Partial<Record<Rarity, number>> = { C: 44, U: 16, R: 6, SR: 2, UR: 1 };
+    for (const [rar, count] of Object.entries(goal) as [Rarity, number][]) {
+      const list = w.cards.filter((c) => c.rarity === rar && !inComplete(c.n));
       let got = 0, guard = 0;
-      while (list.length && got < count && guard++ < 900) {
+      while (list.length && got < Math.min(count, list.length) && guard++ < 5000) {
         const c = list[r(list.length)]!;
         if (p.owned.has(c.n)) continue;
-        const copies = 1 + (r(100) < 30 ? 1 : 0) + (r(100) < 8 ? 1 : 0);
-        p.owned.set(c.n, { copies, fav: false, locked: false, seen: true, firstAt: now() - 86400000 - k * 60000, lastAt: now() - 86400000 - k * 60000 });
-        k++; got++;
+        own(c);
+        got++;
       }
     }
-    p.shards = 34;
-    p.stock = 7;
-    p.anchor = now() - 3 * 60000;
-    p.opened = 48;
-    p.sinceGold = 4;
+    if (complete) for (const c of w.cards.filter((x) => complete.ids.includes(x.entity))) if (!p.owned.has(c.n)) own(c);
+    const rank = (n: number): number => ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(w.cards.find((c) => c.n === n)!.rarity);
+    const owned = [...p.owned.keys()];
+    for (const n of owned.filter((n2) => rank(n2) >= 2).slice(0, 3)) p.owned.get(n)!.fav = true;
+    const other = groups.find((g) => g !== complete);
+    if (other) for (const c of w.cards.filter((x) => x.rarity === 'R' && other.ids.includes(x.entity) && !p.owned.has(x.n)).slice(0, 3)) p.wishlist.add(c.n);
+    for (const n of owned.slice(-4)) p.owned.get(n)!.seen = false;
+    p.shards = 34; p.stock = 7; p.timerToday = 14; p.anchor = now() - 3 * 60000; p.opened = 48; p.sinceGold = 0;
+    const bests: Rarity[] = ['R', 'C', 'U', 'SR', 'U', 'R'];
+    const nws = [2, 1, 3, 2, 0, 4];
+    p.recent = bests.map((best, k) => ({ at: now() - (k * 2 + 1) * 3600000 - k * 600000, best, source: k === 4 ? 'shards' as const : 'stock' as const, newCount: nws[k]! }));
     p.week = { id: weekStartOf(now()), packs: 12, dle: 1, newc: 7, claimed: false };
-    for (const c of [...p.owned.keys()].filter((n) => w.cards.find((x) => x.n === n)!.rarity === 'R' || w.cards.find((x) => x.n === n)!.rarity === 'UR').slice(0, 3)) p.owned.get(c)!.fav = true;
-  }
+    p.nickname = opts.nickname === undefined ? 'mingi' : opts.nickname;
+  };
+  const example = opts.start ? opts.start === 'example' : opts.example !== false;
+  if (example) seedExample();
 
   const sync = (): void => {
     const wal = walletNow(p, now());
+    if (p.parisDay !== wal.parisDay) { p.bonusEarned = 0; p.bonusUsed = 0; }
     p.stock = wal.stock; p.anchor = wal.anchor; p.timerToday = wal.timerToday; p.adsToday = wal.adsToday; p.parisDay = wal.parisDay;
     const wk = weekStartOf(now());
     if (p.week.id !== wk) p.week = { id: wk, packs: 0, dle: 0, newc: 0, claimed: false };
   };
   const touch = (): void => { sync(); p.lastSeen = now(); if (!walletNow({ ...p, lastSeen: now() }, now()).paused) { /* timer runs */ } };
-  const view = (): ReturnType<typeof lobbyState> => lobbyState({ w, p, now: now(), adsEnabled: true });
+  const view = (): ReturnType<typeof lobbyState> => lobbyState({ w, p, now: now(), adsEnabled: true, bonusPerDay: KC.BONUS_PER_DAY });
   const key = (k: string | undefined, op: string): ApiError | { hit: unknown } | null => {
     if (!k || !/^[0-9a-f-]{8,64}$/i.test(k)) return err('idem_missing');
     const h = idem.get(k);
@@ -148,8 +182,7 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
     const o = p.owned.get(c.n);
     let pair = false;
     if (!o && c.pairN) pair = p.owned.has(c.pairN);
-    if (o) { o.copies += 1; o.lastAt = now(); } else p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: false, firstAt: now(), lastAt: now() });
-    void packNo;
+    if (o) { o.copies += 1; o.lastAt = now(); } else p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: false, firstAt: now(), lastAt: now(), packNo, how: 'pack' });
     return { isNew: !o, pair };
   }
 
@@ -159,6 +192,15 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
     setNow(ms: number) { nowMs = ms; },
     forceGolden() { forceGoldenNext = true; },
     forceGuarantee() { forceGuarantee = true; },
+    forceRarity(r: 'UR' | 'L') { forcedRarity = r; },
+    forceFullArt() { forcedRarity = 'L'; },
+    useTimerUpTo(n: number) { sync(); p.timerToday = n; if (p.stock >= KC.STACK_CAP) p.stock = KC.STACK_CAP - 1; p.anchor = now(); },
+    addDleWin() { sync(); p.week.dle += 1; p.bonusEarned += 1; },
+    reset(example: boolean) {
+      Object.assign(p, emptyPlayer(now(), p.nickname));
+      idem.clear();
+      if (example) seedExample(); else { p.stock = 3; }
+    },
 
   } as unknown as MockApi;
 
@@ -171,7 +213,7 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
       if (k && 'hit' in k) return { ...(k.hit as object), replayed: true } as never;
       touch();
       const source = req.source;
-      if (!['stock', 'daily', 'focus', 'shards'].includes(source)) return err('source');
+      if (!['stock', 'daily', 'focus', 'shards', 'bonus'].includes(source)) return err('source');
       const n = req.packs === 5 ? 5 : 1;
       if (n === 5 && source !== 'stock') return err('bad_request');
       const theme: ThemeId = req.theme && THEME_IDS.includes(req.theme) ? req.theme : p.prefs.theme;
@@ -184,10 +226,15 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
       }
       if (source === 'stock') { if (p.stock < n) return err(n === 5 ? 'stack_short' : 'empty'); }
       if (source === 'shards' && p.shards < KC.SHARD_PACK) return err('shards');
+      if (source === 'bonus') {
+        if (n !== 1) return err('bad_request');
+        if (Math.min(KC.BONUS_PER_DAY, p.bonusEarned) - p.bonusUsed < 1) return err('bonus');
+      }
       const before = levelOf(ownedNs().size);
       const finishedBefore = new Set(missionSets(w, p).filter((s) => s.done).map((s) => s.id));
       if (source === 'stock' || source === 'focus') p.stock -= n;
       if (source === 'shards') p.shards -= KC.SHARD_PACK;
+      if (source === 'bonus') p.bonusUsed += 1;
       if (source === 'daily') p.dailyDay = day;
       if (source === 'focus') p.focusDay = day;
       const packs: OpenedPack[] = [];
@@ -199,6 +246,16 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
         const pity = forceGuarantee || (p.sinceGold >= KC.GOLD_BY_PACK - 1 && w.cards.some((c) => c.rarity === 'UR'));
         forceGoldenNext = false; forceGuarantee = false;
         const { drawn, kind } = packOf(source, theme, req.focus, golden, pity, ownedNs());
+        if (forcedRarity) {
+          let pool = w.cards.filter((x) => x.rarity === forcedRarity);
+          if (!pool.length) {
+            const order = ['L', 'UR', 'SR', 'R', 'U', 'C'];
+            const best = order.find((rr) => w.cards.some((x) => x.rarity === rr))!;
+            pool = w.cards.filter((x) => x.rarity === best);
+          }
+          if (pool.length) drawn.cards[2] = pool[rng(pool.length)]!.n;
+          forcedRarity = null;
+        }
         const cards: OpenedCardV[] = [];
         let nw = 0;
         drawn.cards.forEach((cn, idx) => {
@@ -215,7 +272,7 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
         newCards += nw; if (drawn.golden) goldenPacks++; if (drawn.guarantee) guaranteePacks++;
         const grp = source === 'daily' ? dailyGroup(w, day) : source === 'focus' ? sectionsOf(w).find((s) => s.id === req.focus) ?? null : null;
         packs.push({ id: `mock-${seed}-${packNo}`, packNo, source, theme: kind, group: grp ? { id: grp.id, slug: grp.slug, name: grp.name, kind: grp.kind } : null, golden: drawn.golden, guarantee: drawn.guarantee, cards, newCount: nw, best: EDITIONS[best].edition });
-        p.recent.unshift({ at: now(), best, source: source === 'shards' ? 'shards' : 'stock', newCount: nw });
+        p.recent.unshift({ at: now(), best, source: source === 'shards' ? 'shards' : source === 'bonus' ? 'bonus' : 'stock', newCount: nw });
         p.recent = p.recent.slice(0, 10);
         p.last = { at: now(), packNo, cards: cards.map((x) => ({ n: x.n, isNew: x.isNew })) };
       }
@@ -299,17 +356,21 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
       return err('code_invalid');
     },
     async friendRemove() { return impl.friends(); },
-    async idol(slug: string) {
+    async idol(slug: string) { sync(); return idolPage(w, p, slug) ?? err('idol_unknown'); },
+    async card(n: number) {
       sync();
-      const e = w.entities.find((x) => x.kind === 'idol' && slugs.get(x.id) === slug);
-      if (!e) return err('idol_unknown');
-      const cs = w.cards.filter((c) => c.entity === e.id);
-      const unlocked = cs.some((c) => p.owned.has(c.n));
-      const gs = e.group ? sectionsOf(w).find((s) => s.name === e.group) : null;
+      const c = w.cards.find((x) => x.n === n);
+      if (!c) return err('card');
+      const o = p.owned.get(n);
+      const h = Array.from(c.entity).reduce((a, ch) => (Math.imul(a, 31) + ch.charCodeAt(0)) >>> 0, n);
+      const m = MOMENTS[h % MOMENTS.length]!;
+      const date = new Date(Date.UTC(2016 + (h >>> 4) % 9, (h >>> 8) % 12, 1 + (h >>> 12) % 27, 12)).toISOString().slice(0, 10);
+      const e = w.entities.find((x) => x.id === c.entity);
+      const slug = e ? quizSlug(e) : null;
       return {
-        slug, name: e.name, kind: 'idol' as const, group: gs ? { id: gs.id, slug: gs.slug, name: gs.name, kind: gs.kind } : null, debutYear: e.debutYear, unlocked,
-        editions: unlocked ? cs.map((c) => ({ edition: c.edition, n: c.n, owned: p.owned.has(c.n), copies: p.owned.get(c.n)?.copies ?? 0 })) : [],
-        quizzes: unlocked && gs ? [{ title: `${gs.name} quiz`, url: `https://kpopquiz.org/groups/${gs.slug}` }, { title: 'Kpopdle', url: 'https://kpopquiz.org/kpopdle' }] : [],
+        n, event: { name: `${m[0]}, ${m[1]}`, date, precision: 'day' as const },
+        yours: o ? { firstAt: new Date(o.firstAt).toISOString(), packNo: o.how === 'craft' ? null : (o.packNo ?? null), how: o.how ?? 'pack', copies: o.copies } : null,
+        quiz: momentQuiz(w, n, slug),
       };
     },
     async odds() { sync(); return oddsState(w, now(), dailyGroup(w, p.parisDay)); },
@@ -378,7 +439,7 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
       if (p.shards < cost) return err('shards');
       const done0 = new Set(missionSets(w, p).filter((s) => s.done).map((s) => s.id));
       p.shards -= cost;
-      p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: false, firstAt: now(), lastAt: now() });
+      p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: false, firstAt: now(), lastAt: now(), packNo: p.opened, how: 'craft' });
       p.wishlist.delete(c.n); p.week.newc += 1;
       const finished = missionSets(w, p).filter((s) => s.done && !done0.has(s.id) && !s.claimed).map((s) => ({ id: s.id, name: s.name, packs: s.packs }));
       const res = { n: c.n, cost, finished, replayed: false, state: view() };
