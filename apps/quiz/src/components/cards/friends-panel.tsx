@@ -85,7 +85,7 @@ export function FriendsPanel({ onChange }: { onChange?: () => void }): React.Rea
           <input id="friend-in-top" className="search-in" value={typed} onChange={(e) => setTyped(e.target.value)} placeholder="Friend's code" autoComplete="off" autoCapitalize="characters" spellCheck={false} maxLength={32} />
           <button type="submit" className="btn-outline" disabled={busy || !typed.trim()}>Add</button>
         </form>
-        <button type="button" className="btn-outline" id="friends-open" onClick={() => setOpen(true)}><Ico name="goals" />My code and friends</button>
+        <button type="button" className="btn-outline" id="friends-open" onClick={() => setOpen(true)}><Ico name="goals" />Friends</button>
       </div>
       {msg && !open ? <p className="fr-err" role="alert" style={{ flexBasis: '100%' }}>{msg}</p> : null}
       {open ? (
