@@ -5,7 +5,6 @@ import { withBasePath } from '@/lib/site/base-path';
 
 import type { AdResult, OpenResult, OpenedCard, PackSource, WalletState } from './types';
 import type { GoalsState } from './goals';
-import type { AdResult, OpenResult, PackSource, WalletState } from './types';
 
 export type ApiError = { error: string };
 export type RecycleResult = { recycled: number; shards: number; state: WalletState };
