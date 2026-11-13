@@ -10,6 +10,9 @@ import { robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
 
+// The [site] layout sets dynamicParams = false (O1 guard); a dynamic segment without generateStaticParams needs true or it never matches (the catch-all answers 404).
+export const dynamicParams = true;
+
 interface Props { params: Promise<{ name: string }> }
 
 async function idolName(name: string): Promise<string | null> {

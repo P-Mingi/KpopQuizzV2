@@ -8,6 +8,9 @@ import { robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
 
+// The [site] layout sets dynamicParams = false (O1 guard); a dynamic segment without generateStaticParams needs true or it never matches (the catch-all answers 404).
+export const dynamicParams = true;
+
 export const metadata: Metadata = { title: 'Opening a focus pack', robots: robotsFor(false) };
 
 export default async function OpenFocusPage({ params }: { params: Promise<{ group: string }> }): Promise<React.ReactElement> {
