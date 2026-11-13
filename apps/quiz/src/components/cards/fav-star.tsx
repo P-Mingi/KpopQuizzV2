@@ -31,13 +31,12 @@ export function FavStar({ n, name, edition, className = '' }: { n: number; name:
  * `n`, `name` and `edition` are the card's, for the star's label.
  */
 export function PocketFoot({ n, name, edition, isNew = false, copies = 1, slot = null }: { n: number; name: string; edition: string; isNew?: boolean; copies?: number; slot?: React.ReactNode }): React.ReactElement {
+  // The prototype's foot: the copies count and the New chip on the left, then the heart (a missing card) and the star (an owned one) on the right.
   return (
     <div className="pw-foot">
-      <span className="pw-tags">
-        {isNew ? <span className="newb">New</span> : null}
-        {copies > 1 ? <span className="cnt" aria-hidden="true">&times;{copies}</span> : null}
-      </span>
-      <span className="pw-slot" data-slot="pocket-extra">{slot}</span>
+      {copies > 1 ? <span className="chip-n" aria-hidden="true">&times;{copies}</span> : null}
+      {isNew ? <span className="chip-new">New</span> : null}
+      {slot}
       <FavStar n={n} name={name} edition={edition} />
     </div>
   );

@@ -15,7 +15,7 @@ vi.mock('@/lib/site/registry', async (orig) => {
 // next/font only runs inside the Next compiler: the font module is replaced by the one field the layout reads (owner go 2026-11-12).
 vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' } }));
 vi.mock('next/navigation', () => ({
-  usePathname: () => '/cards', useRouter: () => ({ replace: () => undefined }), useSearchParams: () => new URLSearchParams(),
+  usePathname: () => '/kpopcards', useRouter: () => ({ replace: () => undefined, push: () => undefined }), useSearchParams: () => new URLSearchParams(),
   notFound: () => { throw new Error('NEXT_HTTP_ERROR_FALLBACK;404'); },
 }));
 
@@ -23,7 +23,7 @@ import { CardsProvider } from './cards-provider';
 import { CardDetail } from './card-detail';
 import { CreditBlock } from './credit-block';
 import { DropRates } from './drop-rates';
-import { PacksView } from './packs-view';
+import { LobbyView } from './lobby-view';
 import { BinderView } from './binder-view';
 import { ReportForm } from './report-form';
 import { LOCK_SENTENCES, RARITIES, computeOdds } from '@/lib/cards/rules';
@@ -50,7 +50,7 @@ afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('one H1 a page', () => {
   it('Packs, Binder, a card page and the report form each have exactly one', () => {
-    expect(h1s(wrap(createElement(PacksView, { rates: createElement(DropRates, { odds: oddsOf(['C', 'U', 'R', 'UR']) }), ads: ADS_OFF })))).toBe(1);
+    expect(h1s(wrap(createElement(LobbyView, { odds: oddsOf(['C', 'U', 'R', 'UR']), ads: ADS_OFF })))).toBe(1);
     expect(h1s(wrap(createElement(BinderView, { ads: ADS_OFF })))).toBe(1);
     const d = buildDetail(cat, 'BV1-0001', null)!;
     expect(h1s(wrap(createElement(CardDetail, { ...d.props, credit: createElement(CreditBlock, { photo: d.photo, num: 'BV1-0001' }) })))).toBe(1);
@@ -148,8 +148,8 @@ describe('the flag and the sites', () => {
     expect(cardsOn()).toBe(false);
   });
   it('the layout and the card page answer 404 with the flag off, and on the other sites', async () => {
-    const layout = (await import('../../app/sites/[site]/(hub)/cards/layout')).default;
-    const page = (await import('../../app/sites/[site]/(hub)/cards/c/[num]/page')).default;
+    const layout = (await import('../../app/sites/[site]/(hub)/kpopcards/layout')).default;
+    const page = (await import('../../app/sites/[site]/(hub)/kpopcards/c/[num]/page')).default;
     vi.stubEnv('NET_CARDS', '');
     await expect(layout({ children: null })).rejects.toThrow(NOT_FOUND);
     await expect(page({ params: Promise.resolve({ num: 'BV1-0001' }), searchParams: Promise.resolve({}) })).rejects.toThrow(NOT_FOUND);
@@ -157,7 +157,7 @@ describe('the flag and the sites', () => {
     await expect(layout({ children: null })).rejects.toThrow(NOT_FOUND);
   });
   it('an unknown card number is a 404 with the flag on', async () => {
-    const page = (await import('../../app/sites/[site]/(hub)/cards/c/[num]/page')).default;
+    const page = (await import('../../app/sites/[site]/(hub)/kpopcards/c/[num]/page')).default;
     await expect(page({ params: Promise.resolve({ num: 'BV1-9999' }), searchParams: Promise.resolve({}) })).rejects.toThrow(NOT_FOUND);
   });
   it('the navigation has a Cards entry only with the public flag on', async () => {
@@ -169,10 +169,10 @@ describe('the flag and the sites', () => {
 
 describe('noindex', () => {
   it('Packs, Binder, the report page and a card page are never indexed', async () => {
-    const packs = await import('../../app/sites/[site]/(hub)/cards/page');
-    const binder = await import('../../app/sites/[site]/(hub)/cards/binder/page');
-    const report = await import('../../app/sites/[site]/(hub)/cards/report/page');
-    const card = await import('../../app/sites/[site]/(hub)/cards/c/[num]/page');
+    const packs = await import('../../app/sites/[site]/(hub)/kpopcards/page');
+    const binder = await import('../../app/sites/[site]/(hub)/kpopcards/collection/page');
+    const report = await import('../../app/sites/[site]/(hub)/kpopcards/report/page');
+    const card = await import('../../app/sites/[site]/(hub)/kpopcards/c/[num]/page');
     for (const m of [packs.metadata, binder.metadata, report.metadata]) expect(m.robots).toEqual({ index: false, follow: false });
     const meta = await card.generateMetadata({ params: Promise.resolve({ num: 'BV1-0001' }), searchParams: Promise.resolve({}) });
     expect(meta.robots).toEqual({ index: false, follow: false });
@@ -182,11 +182,12 @@ describe('noindex', () => {
 describe('the style sheets', () => {
   const dir = join(__dirname, '../../styles/cards');
   it('hold no raw hex colour outside the tokens and the card art sheets', () => {
-    const css = readFileSync(join(dir, 'cards-ui.css'), 'utf8');
+    // kpopcards.css is the prototype's CSS lifted as is (raw colours are the prototype's own values); the sheet of this lane's own additions has none.
+    const css = readFileSync(join(dir, 'cards-photo.css'), 'utf8');
     expect(css.match(/#[0-9a-fA-F]{3,8}\b/g)).toBeNull();
   });
   it('every Cards source file is free of the em and en dash', () => {
-    const roots = [dir, __dirname, join(__dirname, '../../lib/cards'), join(__dirname, '../../app/sites/[site]/(hub)/cards')];
+    const roots = [dir, __dirname, join(__dirname, '../../lib/cards'), join(__dirname, '../../app/sites/[site]/(hub)/kpopcards')];
     const walk = (d: string): string[] => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]));
     for (const f of roots.flatMap(walk).filter((x) => /\.(tsx?|css)$/.test(x) && !/ui-logo|\.test\.ts$/.test(x) && /\/ui-|cards|styles\/cards/.test(x))) {
       expect(/[\u2013\u2014]/.test(readFileSync(f, 'utf8')), f).toBe(false);

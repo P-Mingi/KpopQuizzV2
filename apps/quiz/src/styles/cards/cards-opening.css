@@ -1,0 +1,212 @@
+/* KpopCards (agent C): the opening, exactly as docs/design/cards/kpopcards-prototype-v6.html (opening, Full Art moment, Open 5, sizes from the
+   screen height, the smoother layers, the final touches). The prototype's cascade is resolved here to its final values. Everything is under
+   `.bvc .ov` (or `.bvc` for what is drawn outside the opening) so no other page is touched; keyframes carry the prefix kco-.
+   Lot 5 rules: only transform and opacity animate; backgrounds fade as layers; light rays have no mask; no blend mode on a card or a pack
+   inside the opening; the Full Art rim turns as one layer; the spotlight dims with opacity and its glow is a layer that fades in. */
+
+/* nothing behind the opening is painted */
+.bvc.ovopen .kc-main, html.ovopen .bvc .kc-main { visibility: hidden; }
+.bvc.ovopen .top, html.ovopen .bvc .top { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* ---------- the screen ---------- */
+.bvc .ov { --stagebg: #0D0717; position: fixed; inset: 0; z-index: 80; display: flex; flex-direction: column; align-items: center; overflow: hidden; background: var(--bg); transition: none;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.bvc .ov[hidden] { display: none; }
+.bvc .ov.tone-UR { --stagebg: #170F02; }
+/* the tint of a Standard-or-better charge is a layer that fades in, never a full-screen colour transition */
+.bvc .ov::before { content: ""; position: absolute; inset: 0; z-index: 0; background: var(--tint, transparent); opacity: 0; transition: opacity .45s ease; pointer-events: none; }
+.bvc .ov.tone-SR { --tint: #F5EEFC; } .bvc .ov.tone-UR { --tint: #FFF6DF; } .bvc .ov.tone-L { --tint: #FFEFF5; }
+.bvc .ov.tone-SR::before, .bvc .ov.tone-UR::before, .bvc .ov.tone-L::before { opacity: 1; }
+.bvc .ov #fx { position: fixed; inset: 0; z-index: 90; pointer-events: none; width: 100%; height: 100%; }
+.bvc .ov-top { position: relative; z-index: 2; width: 100%; max-width: 980px; display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; }
+.bvc .ov-step { display: flex; flex-direction: column; line-height: 1.25; font-size: 14px; color: var(--txt2); font-weight: 600; }
+.bvc .ov-path { font-family: var(--f-mono); font-stretch: 85%; font-size: 10.5px; letter-spacing: .04em; color: var(--txt3); }
+.bvc .ov-mid { position: relative; z-index: 2; flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; min-height: 0; }
+.bvc .ov-mid.scroll { justify-content: flex-start; overflow-y: auto; padding-top: 6px; -webkit-overflow-scrolling: touch; }
+.bvc .ov-hint { font-size: 16px; color: var(--txt2); text-align: center; min-height: 24px; }
+.bvc .ov-hint b { color: var(--txt1); }
+.bvc .ov-title { font-size: clamp(24px, 3.6vw, 32px); font-weight: 800; letter-spacing: -.02em; text-align: center; line-height: 1.1; }
+.bvc .ov-actions { position: relative; z-index: 2; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; min-height: 56px; align-items: center; }
+.bvc .ov-actions:empty { min-height: 0; height: 0; }
+
+/* ---------- the pack and its tear ---------- */
+.bvc .ov .tearzone { position: relative; isolation: isolate; }
+.bvc .ov .tearzone .pack { width: min(240px, 58vw, calc((100vh - 310px) * .625)); animation: none; }
+.bvc .ov .cutline { position: absolute; left: 4%; top: 13.5%; height: 3px; width: 0; border-radius: 3px; z-index: 5; background: #fff; box-shadow: 0 0 0 1px rgba(209, 58, 110, .5), 0 0 14px rgba(255, 255, 255, .9); pointer-events: none; }
+.bvc .ov .pack.opening .pk.top-part { animation: kco-fly .7s var(--ease) forwards; }
+.bvc .ov .pack.opening .pk.main-part { animation: kco-drop .7s .35s var(--ease) forwards; }
+.bvc .ov .pack.opening .pk-body, .bvc .ov .pack.opening .pk-count { animation: kco-drop .7s .35s var(--ease) forwards; }
+@keyframes kco-fly { to { transform: translate(70%, -180%) rotate(28deg); opacity: 0; } }
+@keyframes kco-drop { to { transform: translateY(55%) scale(.92); opacity: 0; } }
+.bvc .ov .burst { position: absolute; left: 50%; top: 14%; width: 10px; height: 10px; border-radius: 50%; transform: translate(-50%, -50%); background: #fff; box-shadow: 0 0 60px 30px #fff, 0 0 120px 60px rgba(255, 141, 184, .8); opacity: 0; z-index: 4; pointer-events: none; }
+.bvc .ov .pack.opening .burst { animation: kco-flash .9s ease-out forwards; }
+@keyframes kco-flash { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.2); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(3); } }
+/* no blend modes on the pack inside the opening */
+.bvc .ov .pk { filter: none; }
+.bvc .ov .pk-face::before { mix-blend-mode: normal; background: repeating-linear-gradient(118deg, rgba(255,255,255,0) 0 14px, rgba(255,255,255,.10) 14px 16px, rgba(255,255,255,0) 16px 30px); }
+.bvc .ov .pk-face::after { mix-blend-mode: normal; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.3) 50%, transparent 58%); }
+/* a big pull warns at the pack: a halo layer behind it, a short shake, a buzz */
+.bvc .ov .tearzone.warn::before { content: ""; position: absolute; inset: -16% -34%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, var(--wc), transparent); animation: kco-warnglow 1.7s ease-in-out infinite; pointer-events: none; }
+.bvc .ov .tearzone.warn-UR { --wc: rgba(255, 190, 60, .85); }
+.bvc .ov .tearzone.warn-L { --wc: rgba(255, 105, 175, .8); }
+.bvc .ov .tearzone.warn .pack:not(.opening) { animation: kco-warnshake 1.7s ease-in-out infinite; }
+@keyframes kco-warnglow { 0%, 100% { opacity: .6; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.05); } }
+@keyframes kco-warnshake { 0%, 58%, 100% { rotate: 0deg; } 64% { rotate: -1.8deg; } 70% { rotate: 1.8deg; } 76% { rotate: -1.1deg; } 82% { rotate: .8deg; } }
+/* a tap jumps every animation to its end */
+.bvc .ov.jump *, .bvc .ov.jump *::before, .bvc .ov.jump *::after { transition: none !important; }
+.bvc .ov.jump .rc, .bvc .ov.jump .pop, .bvc .ov.jump .pk, .bvc .ov.jump .pk-body, .bvc .ov.jump .pk-count { animation-duration: 1ms !important; animation-delay: 0s !important; }
+
+/* ---------- the pile and the card ---------- */
+.bvc .ov .pile { position: relative; width: min(340px, 72vw, calc((100vh - 300px) * .647)); aspect-ratio: 55/85; }
+@supports (height: 100svh) { .bvc .ov .pile { width: min(340px, 72vw, calc((100svh - 300px) * .647)); } .bvc .ov .tearzone .pack { width: min(240px, 58vw, calc((100svh - 310px) * .625)); } }
+.bvc .ov .rc { position: absolute; inset: 0; perspective: 1200px; transition: transform .55s var(--ease), opacity .4s; will-change: transform; }
+.bvc .ov .rc-in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform var(--flip, .75s) var(--ease); }
+.bvc .ov .rc .side { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.bvc .ov .rc .side.front { transform: rotateY(180deg); visibility: hidden; }
+.bvc .ov .rc.flipped .rc-in { transform: rotateY(180deg); }
+.bvc .ov .rc.slow .rc-in { transition-duration: var(--flip, 1.3s); }
+/* each face switches visibility at the middle of the flip: the back never shows through the front on any browser */
+.bvc .ov .rc.flipped .side.back { visibility: hidden; transition: visibility 0s linear calc(var(--flip, .75s) * .5); }
+.bvc .ov .rc.flipped .side.front { visibility: visible; transition: visibility 0s linear calc(var(--flip, .75s) * .5); }
+.bvc .ov .rc.enter { animation: kco-rise .7s var(--spring) both; animation-delay: calc(var(--i) * 70ms); }
+@keyframes kco-rise { from { transform: translateY(60%) scale(.8); opacity: 0; } }
+.bvc .ov .rc.charge .cback { animation: kco-charge .7s ease-in-out; }
+.bvc .ov .rc.charge-SR .cback { box-shadow: 0 0 0 2px #D9B8FF, 0 0 34px 8px rgba(155,89,217,.55); }
+.bvc .ov .rc.charge-UR .cback { box-shadow: 0 0 0 2px #FFE7A0, 0 0 38px 10px rgba(217,154,0,.5); }
+.bvc .ov .rc.charge-L .cback { box-shadow: 0 0 0 2px #fff, 0 0 40px 12px rgba(232,69,122,.55), 0 0 80px 26px rgba(76,201,255,.35); }
+@keyframes kco-charge { 0%, 100% { transform: none; } 20% { transform: rotate(-2deg) scale(1.02); } 40% { transform: rotate(2deg) scale(1.03); } 60% { transform: rotate(-1.5deg) scale(1.04); } 80% { transform: rotate(1deg) scale(1.05); } }
+/* fewer blend effects on cards: the foil layers inside the opening are plain */
+.bvc .ov .c-mono { mix-blend-mode: normal; color: rgba(255,255,255,.12); }
+.bvc .ov .c-glare { mix-blend-mode: normal; }
+.bvc .ov .c-glare::before { background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.26), rgba(255,255,255,.05) 28%, transparent 55%); }
+.bvc .ov .c-sweep { mix-blend-mode: normal; background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.38) 50%, transparent 62%); }
+.bvc .ov .ed-stage .c-art::after { mix-blend-mode: normal; }
+.bvc .ov .ed-gold .c-in::after { mix-blend-mode: normal; opacity: .55; }
+.bvc .ov .rlabel { display: flex; align-items: center; gap: 8px; justify-content: center; flex-wrap: wrap; min-height: 36px; }
+.bvc .ov .rtag { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; border-radius: 999px; font-size: 14px; font-weight: 700; background: var(--surface); border: 1px solid var(--border); }
+.bvc .ov .rtag .gem { width: 15px; height: 15px; }
+.bvc .ov .rtag.new { background: var(--brand-btn); border-color: var(--brand-btn); color: #fff; }
+.bvc .ov .rtag.dup { background: var(--surface-alt); color: var(--txt2); }
+.bvc .ov .rtag.half { background: #E6F6EE; border-color: transparent; color: var(--ok); }
+.bvc .ov .rtag.pity { background: var(--amber-bg); border-color: transparent; color: var(--amber); }
+.bvc .ov .rnext { flex-basis: 100%; text-align: center; font-size: 14px; color: var(--txt2); margin-top: 2px; }
+.bvc .ov.boom .rnext { color: rgba(255,255,255,.8); }
+.bvc .ov .rnext b { color: inherit; }
+.bvc .ov .pop { animation: kco-pop .45s var(--spring); }
+@keyframes kco-pop { 0% { transform: scale(.6); opacity: 0; } }
+.bvc .ov .pulled { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(5, minmax(0, 60px)); gap: 8px; justify-content: center; min-height: 86px; }
+.bvc .ov .pulled .slot { aspect-ratio: 55/85; border-radius: 6px; border: 1.5px dashed var(--border-h); }
+.bvc .ov .finish { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--ok-bg); color: var(--ok); font-weight: 700; font-size: 14px; }
+.bvc .ov .finish .ico { width: 18px; height: 18px; stroke-width: 2.4; fill: none; stroke: currentColor; }
+
+/* ---------- the summary: the fan, the spotlight, the totals ---------- */
+.bvc .ov .fan { position: relative; width: min(760px, 100%); height: min(320px, 48vh, calc(100vh - 340px)); display: flex; justify-content: center; align-items: flex-end; }
+@supports (height: 100svh) { .bvc .ov .fan { height: min(320px, 48vh, calc(100svh - 340px)); } .bvc .ov .fan .fc { width: min(165px, 29vw, calc((100svh - 360px) * .647)); } }
+.bvc .ov .fan .fc { position: absolute; bottom: 0; width: min(165px, 29vw, calc((100vh - 360px) * .647)); transform-origin: 50% 120%; transition: transform .7s var(--spring), opacity .3s ease; }
+.bvc .ov .fan .fc-b { position: relative; display: block; width: 100%; cursor: pointer; border: 0; background: none; padding: 0; transition: transform .45s var(--spring); isolation: isolate; will-change: transform; }
+.bvc .ov .fan .card { transition: transform .45s var(--ease); }
+.bvc .ov .fan .fc.lft .star { right: auto; left: -8px; }
+.bvc .ov .fan .fc .rtag { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); z-index: 9; height: 26px; font-size: 12px; padding: 0 10px; white-space: nowrap; }
+@media (max-width: 520px) { .bvc .ov .fan .fc { width: min(26vw, calc((100svh - 360px) * .647)); } .bvc .ov .fan .fc .rtag { top: -15px; } }
+/* Reveal all: the spotlight dims the others with opacity only, and its glow is a layer that fades in */
+.bvc .ov .fan.spot .fc:not(.best) { opacity: .32; }
+.bvc .ov .fan.spot .fc.best { z-index: 9 !important; }
+.bvc .ov .fan.spot .fc.best .fc-b { transform: translateY(-24px) scale(1.15); }
+.bvc .ov .fan .fc-b::before { content: ""; position: absolute; inset: -16%; border-radius: 22%; background: radial-gradient(closest-side, var(--spot), transparent 70%); opacity: 0; transition: opacity .3s ease; z-index: -1; pointer-events: none; }
+.bvc .ov .fan.spot .fc.best .fc-b::before { opacity: 1; }
+.bvc .ov .totals { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 46px; }
+.bvc .ov .tot { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-size: 14px; color: var(--txt2); }
+.bvc .ov .tot b { color: var(--txt1); font-weight: 800; }
+.bvc .ov .tot.gold { background: #FFF4CC; border-color: #F6E1A2; }
+.bvc .ov .flyer { position: fixed; z-index: 95; pointer-events: none; transition: transform .8s cubic-bezier(.5,0,.75,0), opacity .8s; }
+.bvc .ov-mid > .rlabel.fin { margin-top: -6px; }
+
+/* ---------- Full Art and Gold: the dark stage ---------- */
+.bvc .ov .stagefx { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity .5s ease; background: var(--stagebg); }
+.bvc .ov.boom .stagefx { opacity: 1; }
+.bvc .ov.boom .ov-step, .bvc .ov.boom .ov-hint { color: rgba(255,255,255,.78); }
+.bvc .ov.boom .ov-hint b, .bvc .ov.boom .ov-title { color: #fff; }
+.bvc .ov.boom .ov-path { color: rgba(255,255,255,.5); }
+.bvc .ov.boom .skip { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.25); }
+.bvc .ov.boom .pulled .slot { border-color: rgba(255,255,255,.22); }
+.bvc .ov.boom .mc-tag { box-shadow: 0 0 0 1px rgba(255,255,255,.3); }
+/* the rays: smaller, no mask, the dark ground paints the fade at their centre */
+.bvc .ov .stagefx .rays { position: absolute; left: 50%; top: 44%; width: 90vmax; height: 90vmax; margin: -45vmax 0 0 -45vmax; will-change: transform;
+  background: radial-gradient(closest-side, transparent 6%, var(--stagebg) 74%), repeating-conic-gradient(from 0deg, rgba(255,118,182,0) 0deg 6deg, rgba(255,118,182,.32) 8deg 10deg, rgba(255,255,255,0) 12deg 18deg, rgba(79,195,255,.26) 20deg 22deg, rgba(255,255,255,0) 24deg 30deg);
+  animation: kco-raysspin 16s linear infinite; }
+.bvc .ov.tone-UR .stagefx .rays { background: radial-gradient(closest-side, transparent 6%, var(--stagebg) 74%), repeating-conic-gradient(from 0deg, rgba(255,201,77,0) 0deg 8deg, rgba(255,201,77,.34) 10deg 12deg, rgba(255,201,77,0) 14deg 22deg); }
+.bvc .ov .stagefx .glow { position: absolute; left: 50%; top: 44%; width: 80vmin; height: 80vmin; margin: -40vmin 0 0 -40vmin; border-radius: 50%; will-change: transform; background: radial-gradient(closest-side, rgba(255,118,182,.55), rgba(167,123,255,.25) 50%, transparent); animation: kco-glowp 2.2s ease-in-out infinite; }
+.bvc .ov.tone-UR .stagefx .glow { background: radial-gradient(closest-side, rgba(255,201,77,.55), rgba(255,160,40,.2) 50%, transparent); }
+@keyframes kco-raysspin { to { transform: rotate(360deg); } }
+@keyframes kco-glowp { 0%, 100% { opacity: .7; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.06); } }
+.bvc .ov .stagefx .ring { position: absolute; left: 50%; top: 44%; width: 56vmin; height: 56vmin; margin: -28vmin 0 0 -28vmin; border-radius: 50%; border: 3px solid rgba(255,255,255,.95); box-shadow: 0 0 28px rgba(255,118,182,.9), inset 0 0 28px rgba(79,195,255,.7); opacity: 0; transform: scale(.2); will-change: transform; }
+.bvc .ov.tone-UR .stagefx .ring { box-shadow: 0 0 28px rgba(255,201,77,.9), inset 0 0 28px rgba(255,201,77,.6); }
+.bvc .ov.bang .stagefx .ring { animation: kco-ringout 1.15s cubic-bezier(.2,.7,.2,1) forwards; }
+.bvc .ov.bang .stagefx .r2 { animation-delay: .13s; }
+.bvc .ov.bang .stagefx .r3 { animation-delay: .26s; }
+@keyframes kco-ringout { 0% { opacity: 1; transform: scale(.2); } 100% { opacity: 0; transform: scale(3.2); } }
+/* the one white flash (0.7 at most) and the 0.5 s shake belong to the Full Art alone; Gold has rays and rings only */
+.bvc .ov .stagefx .flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+.bvc .ov.bang.tone-L .stagefx .flash { animation: kco-flashw .6s ease-out forwards; }
+@keyframes kco-flashw { 0% { opacity: 0; } 12% { opacity: .7; } 100% { opacity: 0; } }
+.bvc .ov.bang.tone-L .ov-mid { animation: kco-shake .5s cubic-bezier(.36,.07,.19,.97); }
+@keyframes kco-shake { 10%, 90% { transform: translate(-2px,1px); } 20%, 80% { transform: translate(4px,-2px); } 30%, 50%, 70% { transform: translate(-8px,3px); } 40%, 60% { transform: translate(8px,-3px); } }
+.bvc .ov .rc.legend .side.front .card { animation: kco-legendpop .95s var(--spring); box-shadow: 0 0 0 2px rgba(255,255,255,.85), 0 0 46px 14px rgba(255,118,182,.55), 0 0 90px 30px rgba(79,195,255,.3); }
+@keyframes kco-legendpop { 0% { transform: scale(.72); } 55% { transform: scale(1.13); } 100% { transform: scale(1); } }
+/* the stamp, a little lower (top -7%), gone after 2.4 s */
+.bvc .ov .stamp { position: absolute; left: 50%; top: -7%; z-index: 30; pointer-events: none; text-align: center; white-space: nowrap; transform: translateX(-50%) rotate(-6deg); will-change: transform;
+  animation: kco-stampin .6s cubic-bezier(.2,1.6,.4,1) both, kco-stampout .5s ease 2.4s forwards; }
+.bvc .ov .stamp b { display: block; font-family: var(--f-card); font-weight: 900; font-stretch: 62%; font-size: clamp(38px, 10vw, 68px); line-height: .88; letter-spacing: .02em; background: linear-gradient(90deg,#FF7AB4,#FFD36B 30%,#8CF5A8 52%,#6FD0FF 74%,#B99BFF); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 16px rgba(255,92,158,.65)); }
+.bvc .ov .stamp span { display: inline-block; margin-top: 8px; padding: 5px 14px; border-radius: 999px; background: #fff; color: #140F24; font-family: var(--f-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+@keyframes kco-stampin { 0% { opacity: 0; transform: translateX(-50%) rotate(-16deg) scale(2.8); } 100% { opacity: 1; transform: translateX(-50%) rotate(-6deg) scale(1); } }
+@keyframes kco-stampout { to { opacity: 0; transform: translateX(-50%) translateY(-14px) rotate(-6deg) scale(.9); } }
+
+/* ---------- Open 5: five packs, then 25 cards ---------- */
+.bvc .ov .mpacks { position: relative; display: flex; justify-content: center; align-items: flex-end; height: min(300px, calc(100svh - 330px)); isolation: isolate; }
+.bvc .ov .mp { width: min(130px, 22vw, calc((100svh - 330px) * .5)); margin: 0 -14px; transform: rotate(calc((var(--i) - 2) * 7deg)) translateY(calc((var(--i) - 2) * (var(--i) - 2) * 6px)); transform-origin: 50% 110%; transition: transform .45s var(--ease), opacity .4s; will-change: transform; }
+.bvc .ov .mp .pack { width: 100%; animation: none; }
+.bvc .ov .mpacks.rip .mp { opacity: 0; transform: translateY(-40%) scale(.8) rotate(calc((var(--i) - 2) * 14deg)); transition-delay: calc(var(--i) * 70ms); }
+.bvc .ov .mpacks.warn::before { content: ""; position: absolute; inset: -10% -20%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, var(--wc), transparent); animation: kco-warnglow 1.7s ease-in-out infinite; }
+.bvc .ov .mpacks.warn-UR { --wc: rgba(255,190,60,.8); } .bvc .ov .mpacks.warn-L { --wc: rgba(255,105,175,.75); }
+.bvc .ov .mgrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 8px; row-gap: 20px; width: min(420px, calc(100% - 16px)); margin: 6px auto 0; isolation: isolate; }
+@media (min-width: 760px) { .bvc .ov .mgrid { grid-template-columns: repeat(10, minmax(0, 1fr)); width: min(880px, calc(100% - 24px)); } }
+.bvc .ov .mc { position: relative; display: block; aspect-ratio: 55/85; padding: 0; border: 0; background: none; cursor: pointer; opacity: 0; transform: translateY(24px) scale(.9); transition: transform .4s var(--spring), opacity .25s ease; transition-delay: var(--d); will-change: transform; }
+.bvc .ov .mgrid.dealt .mc { opacity: 1; transform: none; }
+.bvc .ov .mc-b, .bvc .ov .mc-f { position: absolute; inset: 0; display: block; }
+.bvc .ov .mc-f { opacity: 0; transform: scale(.88); transition: opacity .2s ease, transform .35s var(--spring); transition-delay: var(--fd); }
+.bvc .ov .mc-b { transition: opacity .2s ease; transition-delay: var(--fd); }
+.bvc .ov .mgrid.flip .mc-f { opacity: 1; transform: none; }
+.bvc .ov .mgrid.flip .mc-b { opacity: 0; }
+.bvc .ov .mc .cback, .bvc .ov .mc .card { box-shadow: 0 2px 6px rgba(0,0,0,.28); }
+.bvc .ov .mc.hi::after { content: ""; position: absolute; inset: -12%; border-radius: 18%; background: radial-gradient(closest-side, var(--hc), transparent 72%); opacity: 0; z-index: -1; transition: opacity .4s ease; transition-delay: var(--fd); pointer-events: none; }
+.bvc .ov .mgrid.flip .mc.hi::after { opacity: 1; }
+.bvc .ov .mc.hi-R { --hc: rgba(93,178,255,.6); } .bvc .ov .mc.hi-SR { --hc: rgba(190,146,255,.65); } .bvc .ov .mc.hi-UR { --hc: rgba(255,201,77,.8); } .bvc .ov .mc.hi-L { --hc: rgba(255,118,182,.85); }
+.bvc .ov .mc-tag { position: absolute; left: 50%; bottom: -17px; transform: translateX(-50%); height: 15px; padding: 0 6px; border-radius: 8px; background: var(--brand-btn); color: #fff; font-size: 9.5px; font-weight: 800; letter-spacing: .04em; display: grid; place-items: center; opacity: 0; transition: opacity .2s; transition-delay: var(--fd); }
+.bvc .ov .mgrid.flip .mc-tag { opacity: 1; }
+.bvc .ov .mgrid.spot .mc:not(.best) { opacity: .4; }
+.bvc .ov .mgrid.spot .mc.best { transform: scale(1.06); z-index: 2; }
+
+/* ---------- rewards arriving in the wallet ---------- */
+.bvc .gainf { position: fixed; z-index: 130; transform: translate(-50%, 0); font-weight: 800; font-size: 14px; color: var(--brand-ink); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; box-shadow: var(--shadow-lift); animation: kco-gainf 1.3s var(--ease) forwards; pointer-events: none; white-space: nowrap; }
+@keyframes kco-gainf { 0% { opacity: 0; transform: translate(-50%, -6px); } 15% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, 6px); } }
+.bvc .gainp { position: fixed; z-index: 129; width: 18px; height: 18px; margin: -9px 0 0 -9px; pointer-events: none; transition: transform .75s cubic-bezier(.5,0,.3,1), opacity .75s; color: var(--brand-btn); }
+.bvc .gainp svg { width: 18px; height: 18px; }
+
+/* ---------- reduced motion: short fades instead of nothing, so a reveal still reads. Fixed rays, no flash, no shake, no rings. ---------- */
+.bvc .ov.rm *, .bvc .ov.rm *::before, .bvc .ov.rm *::after { animation-duration: .2s !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .2s !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+.bvc .ov.rm .tearzone.warn .pack, .bvc .ov.rm .tearzone.warn::before, .bvc .ov.rm .rc.charge .cback, .bvc .ov.rm .pack.opening .burst, .bvc .ov.rm .stagefx .rays, .bvc .ov.rm .stagefx .glow, .bvc .ov.rm .stagefx .ring, .bvc .ov.rm .stagefx .flash, .bvc .ov.rm.bang .ov-mid, .bvc .ov.rm .rc.legend .side.front .card, .bvc .ov.rm .mpacks.warn::before { animation: none !important; }
+.bvc .ov.rm .stagefx .ring, .bvc .ov.rm .stagefx .flash { display: none; }
+.bvc .ov.rm .rc.enter, .bvc .ov.rm .pop { animation-name: kco-fadein !important; }
+.bvc .ov.rm .pack.opening .pk.top-part, .bvc .ov.rm .pack.opening .pk.main-part, .bvc .ov.rm .pack.opening .pk-body, .bvc .ov.rm .pack.opening .pk-count { animation-name: kco-fadeout !important; }
+@keyframes kco-fadein { from { opacity: 0; } }
+@keyframes kco-fadeout { to { opacity: 0; } }
+.bvc .ov.rm .rc-in { transform: none !important; transition: none !important; }
+.bvc .ov.rm .rc .side { transition: opacity .2s ease !important; }
+.bvc .ov.rm .rc .side.front { transform: none; opacity: 0; }
+.bvc .ov.rm .rc.flipped .side.front { opacity: 1; }
+.bvc .ov.rm .rc.flipped .side.back { opacity: 0; }
+.bvc .ov.rm .card, .bvc .ov.rm .pack { transform: none !important; }
+.bvc .ov.rm .fan.spot .fc.best .fc-b { transform: none; }
+.bvc .ov.rm .stamp { animation: kco-fadein .2s both, kco-stampout .2s ease 2.4s forwards !important; }
+.bvc .ov.rm .mgrid.spot .mc.best { transform: none; }
+.bvc.rm .gainp { display: none; }
