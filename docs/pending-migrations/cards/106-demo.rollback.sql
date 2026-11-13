@@ -16,5 +16,4 @@ begin
 
   drop function if exists public.cards_demo_claim(uuid, text, integer[], text, text, timestamptz);
   drop table if exists public.cards_demo_claims;
-end
-$c106r$;
+end $c106r$;

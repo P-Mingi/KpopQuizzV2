@@ -33,7 +33,8 @@ export interface OpeningProps {
   source: PackSource;
   /** Called when the player leaves the screen; `then` says what comes next. */
   onClose: (then: 'none' | 'stock') => void;
-  /** Lot 3 point C5: a demo pack of a signed-out visitor. Nothing is saved, so no New badge, no binder, no count; it ends on a sign in. */
+  /** Lot 3 point A18: the demo pack of a signed-out visitor, drawn and signed by the server. Nothing is saved yet, so no New badge and no count; it ends
+   *  on a sign in, after which its cards are attached to the account. */
   demo?: { onSignIn: () => void };
 }
 
@@ -107,7 +108,7 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
     return attachTilt(packRef.current, 6);
   }, []);
 
-  const stepText = demo ? 'Demo pack, not saved' : source === 'ad' ? 'Pack from an ad' : source === 'shards' ? 'Pack bought with shards' : source === 'bonus' ? 'Bonus pack' : `${ctx.state?.stock ?? 0} pack${ctx.state?.stock === 1 ? '' : 's'} left after this one`;
+  const stepText = demo ? 'Demo pack' : source === 'ad' ? 'Pack from an ad' : source === 'shards' ? 'Pack bought with shards' : source === 'bonus' ? 'Bonus pack' : `${ctx.state?.stock ?? 0} pack${ctx.state?.stock === 1 ? '' : 's'} left after this one`;
 
   /* ---- B5: a tap during an animation runs it to its end ---- */
   const skipAnim = useCallback((): void => {
@@ -461,7 +462,7 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
       <div className="ov-actions">
         {phase === 'summary' && demo ? (
           <>
-            <button type="button" ref={addRef} className="btn-primary lg" onClick={demo.onSignIn}>Sign in to open real packs</button>
+            <button type="button" ref={addRef} className="btn-primary lg" onClick={demo.onSignIn}>Sign in to keep these cards</button>
             <button type="button" className="btn-outline again" onClick={() => onClose('none')}>Close</button>
           </>
         ) : null}

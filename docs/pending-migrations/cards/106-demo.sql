@@ -130,5 +130,4 @@ begin
              and grantee in ('anon', 'authenticated', 'PUBLIC')) then
     raise exception '106-demo: cards_demo_claims is granted to a browser role';
   end if;
-end
-$c106$;
+end $c106$;

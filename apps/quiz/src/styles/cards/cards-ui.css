@@ -549,3 +549,8 @@
 }
 /* A3: the Help page keeps the photo credits under the questions. */
 .bvc .faq-credits{margin-top:40px}
+/* A3: every target 44 px each way: the short footer links and the search field. */
+.bvc .foot a{min-width:44px;justify-content:center}
+.bvc .search input{min-height:44px}
+/* A3 on the Help page: the links of the photo credits are 44 px targets too (the credits page keeps its own look). */
+.bvc .faq-credits li a,.bvc .faq-credits .hub-credits-text a{display:inline-flex;align-items:center;min-height:44px}
