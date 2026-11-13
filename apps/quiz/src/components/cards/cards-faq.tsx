@@ -1,79 +1,70 @@
-// Bunnyverse Cards, lot 3 point A18 (lot 4 C5): the Help tab of the Cards (/cards/help): three steps, then eleven questions in plain English,
-// then the photo credits (the page adds those). A server component: the text is in the HTML the server sends, under real headings (h2
-// sections, h3 questions). Every answer states what the code does, with the numbers taken from lib/cards/rules.ts. No FAQPage JSON-LD (the
-// pages are closed to search engines while the hub is private, and the markup would promise a rich result they cannot have).
+// KpopCards: the Help tab (/kpopcards/help): the v6 prototype's page: three steps, then eleven questions in plain English (a list of details), then the credits.
+// A server component: the text is in the HTML the server sends, under real headings. Every answer states what the code does, with the numbers taken from
+// lib/cards/rules.ts. No FAQPage JSON-LD (the pages are closed to search engines while the hub is private).
 import Link from 'next/link';
 
-import { AD_SHARDS_DEFAULT, CAP, CRAFT_COST, PACK_SIZE, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
+import { kcPath } from '@/lib/cards/kc-paths';
+import { AD_SHARDS_DEFAULT, CAP, CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
 
 import { REMOVAL_PROMISE } from './report-form';
 
-/** Shards a rewarded ad gives (lane ECON's ad for shards; the ad layer itself is in components/cards-bridge). */
 /** The shards of a rewarded ad (lot 4 B4): the default of CARDS_AD_SHARDS (lib/cards/rules.ts). */
 export const AD_SHARDS = AD_SHARDS_DEFAULT;
 
 export interface FaqItem { id: string; q: string; a: React.ReactNode }
 
+const shardLine = (['C', 'U', 'R', 'SR', 'UR', 'L'] as const).map((r) => `${RARITY_LABEL[r]} ${SHARDS[r]}`).join(', ');
+const craftLine = (['C', 'U', 'R', 'SR', 'UR'] as const).map((r) => `${RARITY_LABEL[r]} ${CRAFT_COST[r]}`).join(', ');
+
 export const FAQ: readonly FaqItem[] = [
-  { id: 'free', q: 'Is it free?', a: <>Yes. Bunnyverse Cards is free to play, and it stays free.</> },
+  { id: 'free', q: 'Is it free?', a: <>Yes. Packs are never sold, and cards can&rsquo;t be sold or turned into money. The game pays for itself with a few ads on bunnyverse.org.</> },
+  { id: 'account', q: 'Do I need an account?', a: <>Not to try it: anyone can open one demo pack. To keep cards and get a pack every {PERIOD_S / 60} minutes, sign in with your free Bunnyverse passport, the same one as kpopquiz.org.</> },
+  { id: 'crypto', q: 'Is there crypto, NFTs or a marketplace?', a: <>No. Cards have no money value, there is no market and no auction, and no card is ever numbered to look scarce.</> },
   {
-    id: 'ads', q: 'Are there ads?',
-    a: <>The only ads are optional rewarded ads on bunnyverse.org. When one is available you can watch it to get {AD_SHARDS} shards. You never have to: the timer brings a pack every {PERIOD_S / 60} minutes either way.</>,
+    id: 'odds', q: 'How do the odds work?',
+    a: <>Each card is drawn on its own with the <Link href={kcPath.odds}>odds</Link> of the lobby, the same for everyone. The fifth card is Stage or better. <b>{RARITY_LABEL.UR} guarantee:</b> if {PITY_UR - 1} packs in a row bring nothing {RARITY_LABEL.UR} or better, the fifth card of pack {PITY_UR} is {RARITY_LABEL.UR}.</>,
   },
-  { id: 'sold', q: 'Are packs ever sold?', a: <>Never. Packs cannot be bought, and cards cannot be bought, sold or traded. You get packs from the timer, from bonuses and from shards.</> },
+  {
+    id: 'shards', q: 'What are shards?',
+    a: <>Extra copies become shards when you recycle them: {shardLine}. {SHARD_PACK_COST} shards open a pack. You can also craft a card you&rsquo;re missing: {craftLine}. {RARITY_LABEL.L} only comes from packs.</>,
+  },
+  {
+    id: 'locked', q: 'Why is a card locked?',
+    a: <>Each edition uses its own free photo, from a different day. An idol with 3 free photos has 3 editions, from Standard up. An idol joins packs with 2 photos, and a new edition opens as soon as another photo is approved.</>,
+  },
+  { id: 'half', q: 'What is a half card?', a: <>Group photos are split into two cards, 1/2 and 2/2, so the faces stay big. When you own one half, the same edition gives you the other half.</> },
   {
     id: 'photos', q: 'Where do the photos come from?',
-    a: <>From free licences, such as Wikimedia Commons and other free photo sources. Every card credits its photographer, the licence and the source, on the card page and in the photo credits at the bottom of this page.</>,
+    a: <>Only photos under a free licence, mostly from Wikimedia Commons, with everyone in them 18 or older on the day. The author and licence are on every card and on the credits page. <b>Report a photo</b> and it leaves the game within 48 hours. {REMOVAL_PROMISE}</>,
   },
+  { id: 'ads', q: 'Why are there ads?', a: <>Only if you choose: a rewarded ad gives a fixed {AD_SHARDS} shards, up to 10 a day. Ads never show in front of a pack, and kpopquiz.org has none.</> },
   {
-    id: 'report', q: 'How do I report a photo?',
-    a: <>Use the <Link href="/cards/report">report form</Link>, or the Report a photo link next to any credit. {REMOVAL_PROMISE}</>,
+    id: 'notify', q: 'Will it send me notifications?',
+    a: <>Only if you turn them on: one when your stack of {CAP} is full, never between 22:00 and 08:00. The timer gives up to {TIMER_PACKS_PER_DAY} packs a day, so leaving a tab open all day brings nothing more.</>,
   },
-  {
-    id: 'account', q: 'Why do I need an account?',
-    a: <>To keep what you open. Your account holds your packs, your shards, your binder and the bonus packs you earn from quizzes and Kpopdle. You can try one demo pack without an account; when you sign in, its cards are added to your binder.</>,
-  },
-  {
-    id: 'refill', q: 'How does the stack of packs refill?',
-    a: <>A new pack arrives every {PERIOD_S / 60} minutes, and you hold up to {CAP}. The timer gives at most {TIMER_PACKS_PER_DAY} packs a day. At midnight, Paris time, the stack is topped up to {CAP}.</>,
-  },
-  {
-    id: 'shards', q: 'What are shards, and what is crafting?',
-    a: <>A card you already have is a copy. Recycle the extra copies and each one gives shards: {SHARDS.C} for a {RARITY_LABEL.C} up to {SHARDS.L} for a {RARITY_LABEL.L}. {SHARD_PACK_COST} shards open a pack, and you can craft a card you are missing for shards, from {CRAFT_COST.C} for a {RARITY_LABEL.C} to {CRAFT_COST.UR} for a {RARITY_LABEL.UR}. A {RARITY_LABEL.L} card cannot be crafted.</>,
-  },
-  {
-    id: 'gold', q: 'Is there a Gold guarantee?',
-    a: <>Yes. If {PITY_UR - 1} packs in a row hold no {RARITY_LABEL.UR} and no {RARITY_LABEL.L}, the fifth card of the {PITY_UR}th pack is a {RARITY_LABEL.UR}. A pack with one of them starts the count again, and the packs page shows how many packs are left.</>,
-  },
-  {
-    id: 'half', q: 'What is a half card, and what if I miss one?',
-    a: <>A group photo gives two half cards, marked 1/2 and 2/2, that sit side by side in the binder and make one picture. If you have one half of an edition, the next time a pack draws that edition it gives you the other half, marked "Completes the pair". Until then the other half shows as a missing card with its number.</>,
-  },
-  {
-    id: 'home', q: 'Can I add Bunnyverse to my home screen?',
-    a: <>Yes. Open bunnyverse.org in your phone&rsquo;s browser, open its share or menu button and choose Add to Home Screen. Bunnyverse then opens like an app.</>,
-  },
+  { id: 'home', q: 'Can I put it on my home screen?', a: <>Yes. On iPhone, tap Share and then Add to Home Screen. On Android, open the browser menu and tap Install app.</> },
 ];
 
-export function CardsFaq(): React.ReactElement {
-  return (
-    <section className="faq" aria-labelledby="faq-how">
-      <h2 className="h2" id="faq-how">How it works</h2>
-      <ol className="faq-steps">
-        <li><b>Get a pack.</b> You hold up to {CAP} packs. A new one arrives every {PERIOD_S / 60} minutes, and at midnight, Paris time, the stack fills up again.</li>
-        <li><b>Open it.</b> Each pack holds {PACK_SIZE} cards. Tap the pack to tear it, then tap each card to turn it over.</li>
-        <li><b>Fill your binder.</b> Every new card goes in your binder. Extra copies turn into shards, and {SHARD_PACK_COST} shards open another pack.</li>
-      </ol>
+const Chev = (): React.ReactElement => <svg className="ico chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>;
 
-      <h2 className="h2" id="faq-q">Questions</h2>
-      <div className="faq-list">
-        {FAQ.map((f) => (
-          <div key={f.id} id={`faq-${f.id}`}>
-            <h3>{f.q}</h3>
+export function CardsFaq({ children }: { children?: React.ReactNode }): React.ReactElement {
+  return (
+    <>
+      <div className="steps" aria-labelledby="faq-how">
+        <div className="stepc"><span className="n">1</span><b>Open</b><p>A free pack every {PERIOD_S / 60} minutes, up to {CAP} waiting. The stack fills up again at midnight, Paris time.</p></div>
+        <div className="stepc"><span className="n">2</span><b>Collect</b><p>Every idol has up to 6 editions, from Standard to Full Art, and each edition uses its own photo.</p></div>
+        <div className="stepc"><span className="n">3</span><b>Complete</b><p>Sets and the weekly list give packs. Extra copies turn into shards, and shards craft the cards you miss.</p></div>
+      </div>
+      {children}
+      <h2 id="faq-q">Questions</h2>
+      <div className="faq">
+        {FAQ.map((f, i) => (
+          <details key={f.id} id={`faq-${f.id}`} {...(i === 0 ? { open: true } : {})}>
+            <summary>{f.q}<Chev /></summary>
             <p>{f.a}</p>
-          </div>
+          </details>
         ))}
       </div>
-    </section>
+    </>
   );
 }

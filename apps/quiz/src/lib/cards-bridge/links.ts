@@ -4,8 +4,8 @@ import { SITE } from '@/lib/site/registry';
 
 import type { SiteId } from '@/lib/site/types';
 
-export const CARDS_PATH = '/cards';
-export const BINDER_PATH = '/cards/binder';
+export const CARDS_PATH = '/kpopcards';
+export const BINDER_PATH = '/kpopcards/collection';
 export const CREDITS_PATH = '/credits';
 
 export function cardsHref(path: string, site: { readonly id: SiteId; readonly letter: string } = SITE): string {

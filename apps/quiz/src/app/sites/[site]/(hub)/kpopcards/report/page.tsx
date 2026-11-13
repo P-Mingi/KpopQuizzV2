@@ -1,4 +1,4 @@
-// Bunnyverse Cards, lane U: /cards/report, the form to report a photo (the person shown, the photographer, an agency, anyone). Noindex.
+// KpopCards: /kpopcards/report, the form to report a photo (the person shown, the photographer, an agency, anyone). Noindex.
 // ?card=BV1-0042 and ?photo=17 (the links of the card pages and of /credits) say which photo; the page checks them against the catalog
 // and ignores what it does not know.
 import { notFound } from 'next/navigation';
@@ -12,7 +12,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Report a photo',
-  description: 'Tell us about a photo on a Bunnyverse card: it is removed within 48 hours.',
+  description: 'Tell us about a photo on a KpopCards card: it is removed within 48 hours.',
   robots: robotsFor(false),
 };
 
@@ -29,7 +29,7 @@ export default async function CardsReportPage({ searchParams }: Props): Promise<
   return (
     <div className="wrap page">
       <h1 className="h1">Report a photo</h1>
-      <p className="lede">Every photo on a Bunnyverse card is free to reuse and credited. If one should not be there, or the credit is wrong, tell us. {REMOVAL_PROMISE}</p>
+      <p className="lede">Every photo on a KpopCards card is free to reuse and credited. If one should not be there, or the credit is wrong, tell us. {REMOVAL_PROMISE}</p>
       <ReportForm photoId={photoId} cardNo={card ? card.n : null} cardLabel={card ? `${card.name}, ${card.num}` : null} />
     </div>
   );

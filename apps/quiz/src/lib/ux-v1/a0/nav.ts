@@ -46,7 +46,7 @@ const HUB_NAV: NavItem<NavKey>[] = [
 
 // Bunnyverse Cards (lane U): the hub gets a Cards entry only with NEXT_PUBLIC_NET_CARDS on (the public twin of NET_CARDS: the navigation is client code, so a server flag would not match;
 // docs/o1/requests/CARDS-U.md asks ORCH to register it); off, HUB_NAV itself (the same array) is returned.
-const HUB_NAV_CARDS: NavItem<NavKey>[] = [...HUB_NAV, { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }];
+const HUB_NAV_CARDS: NavItem<NavKey>[] = [...HUB_NAV, { key: 'cards', label: 'KpopCards', href: '/kpopcards', icon: 'layers' }];
 
 // Owner request 2026-11-13 (the passport page lacked it): the Daily games tab of the hub home on every other hub page too, second like on
 // the home, with the same badge (the games left on this device, components/layout/ux-v1/ux-daily-badge.tsx). Only while the Burrow is open
@@ -92,7 +92,7 @@ const HUB_TABS: NavItem<TabKey>[] = [
   { key: 'you', label: 'You', href: YOU_HREF.hub, icon: 'user' },
 ];
 
-const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
+const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'KpopCards', href: '/kpopcards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
 // The tab bar is narrow: the same door reads "Daily" there.
 const HUB_TAB_DAILY: NavItem<TabKey> = { key: 'daily', label: 'Daily', href: BURROW_PATHS.burrow, icon: 'grid' };
 const HUB_TABS_DAILY = withDaily(HUB_TABS, HUB_TAB_DAILY);
@@ -173,7 +173,7 @@ export function activeNav(pathname: string, v12: boolean = isUxV12(), member: st
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community')) return 'community';
   if (under(p, '/leaderboard')) return 'leaderboard';
-  if (under(p, '/cards')) return 'cards';
+  if (under(p, '/kpopcards') || under(p, '/cards')) return 'cards';
   if (site.id === 'hub' && isDaily(p)) return 'daily';
   return null;
 }
@@ -189,7 +189,7 @@ export function activeTab(pathname: string, v12: boolean = isUxV12(), member: st
   if (under(p, '/quizzes') || under(p, '/q') || under(p, '/groups') || under(p, '/group') || isHub(p)) return 'quizzes';
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community') || under(p, '/leaderboard')) return 'community';
-  if (under(p, '/cards')) return 'cards';
+  if (under(p, '/kpopcards') || under(p, '/cards')) return 'cards';
   if (site.id === 'hub' && isDaily(p)) return 'daily';
   if (under(p, '/profile') || under(p, '/passport') || under(p, '/me') || under(p, '/u') || under(p, '/settings') || under(p, '/notifications')) return 'you';
   return null;

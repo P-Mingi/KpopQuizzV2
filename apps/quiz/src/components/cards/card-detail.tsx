@@ -1,6 +1,6 @@
 'use client';
 
-// Bunnyverse Cards, lane U: the page of one card (the prototype's detail sheet, as a page): the card that flips to its back, the credit
+// KpopCards: the page of one card (the v6 prototype's detail sheet, as a page): the card that flips to its back, the credit
 // under it (server markup, handed in), the facts, the player's copies, the ladder of editions of the same idol, group or event, and the
 // reason sentence when an edition cannot exist yet. The back is a nicety; everything it says is also in the text beside it.
 import Link from 'next/link';
@@ -13,8 +13,9 @@ import { CardFront, Gem, LOCK_ICON } from './card-art';
 import { CraftButton } from './craft-button';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
-import { WishHeart } from './wish-toggle';
-import { attachTilt } from './fx';
+import { WantButton } from './wish-toggle';
+import { reduced, tilt } from './kc-tilt';
+import { kcPath } from '@/lib/cards/kc-paths';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 
@@ -48,7 +49,7 @@ export interface DetailProps {
 
 export function CardDetail(p: DetailProps): React.ReactElement {
   const { card, lockedRarity } = p;
-  const { owned, status, clearNew } = useCards();
+  const { owned, status, clearNew, newSet } = useCards();
   const [flipped, setFlipped] = useState(false);
   const flipRef = useRef<HTMLDivElement>(null);
   const rarity: Rarity = card ? card.rarity : (lockedRarity as Rarity);
@@ -60,7 +61,10 @@ export function CardDetail(p: DetailProps): React.ReactElement {
   useEffect(() => {
     if (!card) return undefined;
     clearNew(card.n);
-    const offs = [flipRef.current?.querySelector<HTMLElement>('.card') ?? null, flipRef.current?.querySelector<HTMLElement>('.d-back') ?? null].map((el) => attachTilt(el, 14));
+    const front = flipRef.current?.querySelector<HTMLElement>('.card') ?? null;
+    const offs = [front, flipRef.current?.querySelector<HTMLElement>('.d-back') ?? null].map((el) => tilt(el, 18, true));
+    // The sweep of light, once, when the card is new to the player or not owned yet (the prototype's sweep()).
+    if (front && !reduced() && (!owned.has(card.n) || newSet.has(card.n))) { front.classList.remove('sweep'); void front.offsetWidth; front.classList.add('sweep'); window.setTimeout(() => front.classList.remove('sweep'), 1000); }
     return () => offs.forEach((off) => off());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [card?.n]);
@@ -70,7 +74,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
   const toggle = (): void => setFlipped((v) => !v);
   return (
     <div className="wrap d-page">
-      <Link className="back-link" href="/cards/binder"><span aria-hidden="true">&larr;</span> Binder</Link>
+      <Link className="back-link" href={kcPath.collection}><span aria-hidden="true">&larr;</span> Collection</Link>
       <div className="sheet">
         <div className="d-card">
           {card ? (
@@ -92,13 +96,13 @@ export function CardDetail(p: DetailProps): React.ReactElement {
                   </div>
                 </div>
               </div>
-              <p className="d-hint">Tap the card to flip it. Drag to tilt it.</p>
+              <p className="d-hint">Tap to see the back {'\u00B7'} drag to tilt</p>
               {p.pair && p.pair.mate && card ? (
                 <div className="d-pair" aria-label="The two halves of the group photo">
                   {(card.part === 1 ? [card, p.pair.mate] : [p.pair.mate, card]).map((h) => {
                     const ho = owned.get(h.n);
                     return (
-                      <Link key={h.n} className={`pocket${h.n === card.n ? ' cur' : ''}${ho || h.n === card.n ? '' : ' unowned'}`} href={`/cards/c/${h.num}`} aria-label={`${h.name}, ${partWord(h)}, ${h.num}`} aria-current={h.n === card.n ? 'page' : undefined}>
+                      <Link key={h.n} className={`pocket${h.n === card.n ? ' cur' : ''}${ho || h.n === card.n ? '' : ' unowned'}`} href={kcPath.card(h.num)} aria-label={`${h.name}, ${partWord(h)}, ${h.num}`} aria-current={h.n === card.n ? 'page' : undefined}>
                         <CardFront card={h} />
                       </Link>
                     );
@@ -124,23 +128,23 @@ export function CardDetail(p: DetailProps): React.ReactElement {
             {card && o ? <FavStar n={card.n} name={card.name} edition={edName} className="in" /> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
-          <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && p.pair ? <span className="tag">{p.pair.side === 'left' ? 'Left' : 'Right'} half {card.part}/2</span> : null}</div>
+          <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}{p.rates[rarity] ? ` \u00B7 ${p.rates[rarity]} of cards` : ''}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && p.pair ? <span className="tag">{p.pair.side === 'left' ? 'Left' : 'Right'} half {card.part}/2</span> : null}</div>
           <p className="d-sub" style={{ marginTop: 10 }}>
             {card
               ? <>{edName} edition, card {card.num}. {status === 'ready' ? (o ? (o.copies > 1 ? `You have ${o.copies} copies.` : 'You have 1 copy.') : "You don't have it yet.") : ''}</>
               : <>{edName} edition, not issued yet.</>}
           </p>
           {card && !o && status === 'ready' ? (
-            <div className="d-econ">
+            <div className="d-acts">
               <CraftButton n={card.n} rarity={card.rarity} name={p.entityName} />
-              <WishHeart n={card.n} name={p.entityName} edition={edName} className="in" />
+              <WantButton n={card.n} name={p.entityName} edition={edName} />
             </div>
           ) : null}
           {card && p.pair ? (
             <p className="d-sub" id="d-half">
               This card is the {p.pair.side} half of the group photo.{' '}
               {p.pair.mate
-                ? <>The {p.pair.side === 'left' ? 'right' : 'left'} half is <Link className="d-mate" href={`/cards/c/${p.pair.mate.num}`}>card {p.pair.mate.num}</Link>. Own both to see the whole picture.</>
+                ? <>The {p.pair.side === 'left' ? 'right' : 'left'} half is <Link className="d-mate" href={kcPath.card(p.pair.mate.num)}>card {p.pair.mate.num}</Link>. Own both to see the whole picture.</>
                 : 'Its other half is not in packs.'}
             </p>
           ) : null}
@@ -157,7 +161,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
               const rn = RARITY_LABEL[r];
               if (!rung.card) {
                 return (
-                  <Link key={r} className={`rung locked${!card && rarity === r ? ' cur' : ''}`} href={`/cards/c/${rung.anchor}?lock=${r}`} aria-label={`${rn}, not issued`}>
+                  <Link key={r} className={`rung locked${!card && rarity === r ? ' cur' : ''}`} href={`${kcPath.card(rung.anchor)}?lock=${r}`} aria-label={`${rn}, not issued`}>
                     <span className="lk"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg></span>
                     <span className="rn"><Gem r={r} className={`gem gc-${r}`} />{rn}</span><span className="st">Not issued</span>
                   </Link>
@@ -166,7 +170,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
               const eo = owned.get(rung.card.n) ?? (rung.mate ? owned.get(rung.mate.n) : undefined);
               const isCur = !!card && (rung.card.n === card.n || rung.mate?.n === card.n);
               return (
-                <Link key={r} className={`rung ${eo ? 'owned' : 'missing'}${isCur ? ' cur' : ''}`} href={`/cards/c/${rung.card.num}`} aria-label={`${rn}, ${eo ? `you have ${eo.copies}` : 'missing'}`} aria-current={isCur ? 'page' : undefined}>
+                <Link key={r} className={`rung ${eo ? 'owned' : 'missing'}${isCur ? ' cur' : ''}`} href={kcPath.card(rung.card.num)} aria-label={`${rn}, ${eo ? `you have ${eo.copies}` : 'missing'}`} aria-current={isCur ? 'page' : undefined}>
                   <span className={`mini${rung.mate ? ' pairmini' : ''}`}><CardFront card={rung.card} />{rung.mate ? <CardFront card={rung.mate} /> : null}</span>
                   <span className="rn"><Gem r={r} className={`gem gc-${r}`} />{rn}</span>
                   <span className="st">{status !== 'ready' ? '' : eo ? `×${eo.copies}` : 'Missing'}</span>
