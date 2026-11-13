@@ -1,4 +1,4 @@
-// Bunnyverse Cards, lane U: the drop rates, two tables: each card, and the fifth card of every pack, with the calculation in plain
+// KpopCards: the drop rates page (/kpopcards/odds): one table: each card, and the fifth card of every pack, with the calculation in plain
 // words. Server component, no state. The percentages are those of the real catalog (the server's computeOdds of lib/cards/rules.ts, sent with the catalog): only the rarities that have
 // a card are listed, because an edition with no card can never come out.
 import { RARITY_LABEL } from '@/lib/cards/rules';
@@ -20,11 +20,7 @@ export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; ru
   const t = oddsView(odds);
   const econ = economySentences(timerPerDay(), t.present, adShards());
   return (
-    <details className="rates" id="rates">
-      <summary>
-        <span className="h2">Drop rates</span>
-        <svg className="ico chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
-      </summary>
+    <div className="rates" id="rates">
       {/* Lot 3 point A10: one table, one row per edition that exists in packs (computeOdds of the real pool), the first four cards and the fifth. */}
       <table id="rates-table" aria-label="Chance of each edition">
         <caption>Chance of each edition</caption>
@@ -68,6 +64,6 @@ export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; ru
           {rules}
         </ul>
       </section>
-    </details>
+    </div>
   );
 }

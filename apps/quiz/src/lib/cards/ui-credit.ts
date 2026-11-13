@@ -17,7 +17,7 @@ export function safeHref(u: string | null | undefined): string | null {
   return u && /^https:\/\//i.test(u) ? u : null;
 }
 
-export const REPORT_PATH = '/cards/report';
+export const REPORT_PATH = '/kpopcards/report';
 export function reportHref(o: { num?: string; photoId?: number }): string {
   const q = new URLSearchParams();
   if (o.num) q.set('card', o.num);

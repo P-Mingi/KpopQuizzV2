@@ -1,4 +1,4 @@
-// Bunnyverse Cards, lane U: /cards/c/BV1-0042, one card: the front, the back with the credit, and under it (never behind a flip) the
+// KpopCards: /kpopcards/c/BV1-0042, one card: the front, the back with the credit, and under it (never behind a flip) the
 // credit with links to the author, the source page and the licence. Always noindex. An unknown number is a 404. ?lock=SR on an
 // edition that cannot exist yet shows its lock sentence.
 import { notFound } from 'next/navigation';

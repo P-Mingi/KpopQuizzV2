@@ -77,7 +77,7 @@ async function post(path: string, body?: unknown): Promise<Response> {
  *  left today. `onGranted` gets the shards of the server. `onAvailable` says whether the button can play an ad now (the main button of the packs
  *  page reads it); `buttonRef` lets that main button press this one. */
 export function RewardedAdButton({ ctx, onGranted, className, label = 'Watch an ad for shards', onAvailable, buttonRef }: {
-  ctx: AdsContext; onGranted: (r: AdResult) => void; className?: string; label?: string; onAvailable?: (ok: boolean) => void; buttonRef?: React.Ref<HTMLButtonElement>;
+  ctx: AdsContext; onGranted: (r: AdResult) => void; className?: string; label?: React.ReactNode; onAvailable?: (ok: boolean) => void; buttonRef?: React.Ref<HTMLButtonElement>;
 }): React.ReactElement | null {
   const loaded = useAdScript(ctx);
   const [state, setState] = useState<RewardState>('hidden');
