@@ -4,8 +4,10 @@ import { permanentRedirect } from 'next/navigation';
 
 import { oldCardsTarget } from '@/lib/cards/kc-paths';
 
-// The [site] layout sets dynamicParams = false (O1 guard); a dynamic segment without generateStaticParams needs true or it never matches (the catch-all answers 404).
+// The [site] layout has generateStaticParams and dynamicParams = false (O1 guard), and a dynamic segment of its own with no generateStaticParams still answers 404 under it.
+// The rule for every dynamic page of the hub: dynamicParams = true AND a generateStaticParams (the finite values when they are finite, else an empty list: rendered on first request).
 export const dynamicParams = true;
+export function generateStaticParams(): { rest: string[] }[] { return []; }
 
 interface Props { params: Promise<{ rest?: string[] }>; searchParams: Promise<Record<string, string | string[] | undefined>> }
 

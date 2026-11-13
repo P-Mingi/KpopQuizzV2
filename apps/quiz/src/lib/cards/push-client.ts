@@ -1,6 +1,8 @@
 // Bunnyverse Cards, lot 4: the browser half of "Notify me". The packs page tile (another lane) reads pushState() and calls turnOn() / turnOff();
 // components/cards/notify-button.tsx is the minimal button over them. The browser permission is asked ONLY inside turnOn(), which the player's
 // tap calls: nothing in this file runs a prompt on load. Browser only.
+import { withBasePath } from '@/lib/site/base-path';
+
 import { cardsPushPublicOn } from './push-flags';
 
 /** unsupported: no push in this browser, or the feature is off; denied: the browser blocks notifications; off: not subscribed; on: subscribed. */
@@ -48,7 +50,7 @@ export async function pushState(): Promise<PushState> {
 
 async function post(method: 'POST' | 'DELETE', body: unknown): Promise<boolean> {
   try {
-    const res = await fetch(PUSH_API, { method, headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), credentials: 'same-origin' });
+    const res = await fetch(withBasePath(PUSH_API), { method, headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), credentials: 'same-origin' });
     return res.ok;
   } catch {
     return false;
@@ -63,7 +65,7 @@ export async function turnOn(): Promise<PushState> {
   if (permission === 'denied') return 'denied';
   if (permission !== 'granted') return 'off';
   try {
-    await navigator.serviceWorker.register(SW_URL, { scope: '/' });
+    await navigator.serviceWorker.register(withBasePath(SW_URL), { scope: '/' });
     const reg = await navigator.serviceWorker.ready;
     const sub = (await reg.pushManager.getSubscription()) ?? (await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToBytes(publicKey()) }));
     const json = sub.toJSON();
