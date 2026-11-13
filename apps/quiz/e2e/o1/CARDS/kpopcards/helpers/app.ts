@@ -6,7 +6,8 @@ import { freeze } from './freeze';
  *  frozen exactly like the prototype. `sub` is the path under /kpopcards ('' = the lobby). */
 export async function openApp(page: Page, sub = '', opts: { state?: string } = {}) {
   await freeze(page);
-  const qs = opts.state ? `${sub.includes('?') ? '&' : '?'}kcstate=${encodeURIComponent(opts.state)}` : '';
+  // the mock's start state: 'example' mirrors the prototype's example player (default), 'guest', 'empty'
+  const qs = `${sub.includes('?') ? '&' : '?'}kcstate=${encodeURIComponent(opts.state || 'example')}`;
   await page.goto(`${APP_BASE}${APP_ROOT}${sub}${qs}`, { waitUntil: 'domcontentloaded' });
   await page.evaluate(() => document.fonts && document.fonts.ready);
   // the wallet arrives after the first paint (the mock loads lazily in development): wait for it, except in the guest view
