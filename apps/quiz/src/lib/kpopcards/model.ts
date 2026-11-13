@@ -10,7 +10,7 @@ import { indexPool } from './draw';
 import type { PoolCard, Rarity } from '../cards/types';
 import type { UiCard, UiEntity } from '../cards/ui-types';
 import type {
-  AlmostItem, AlmostState, BellItem, CardRef, CollectionGroup, CollectionItem, CollectionQuery, CollectionState, DailyPack, GroupRef, LevelState,
+  AlmostItem, AlmostState, BellItem, IdolPage, CardRef, CollectionGroup, CollectionItem, CollectionQuery, CollectionState, DailyPack, GroupRef, LevelState,
   LobbyState, MissionSet, MissionsState, OddsPack, OddsRow, OddsState, PlayerPage, Prefs, RankRow, RecyclePreview, ThemeId, ThemeInfo, WeekItem, WeekMini,
 } from './contract';
 
@@ -143,9 +143,9 @@ export { PARIS_TZ };
 
 /** The pack of the day: one group a day, the same for everyone, by the Paris day number. */
 export function dailyGroup(w: World, day: string): Section | null {
-  const groups = sectionsOf(w).filter((s) => s.kind === 'group' && s.entity && w.cards.some((c) => s.ids.includes(c.entity)));
+  const groups = sectionsOf(w).filter((s) => s.kind === 'group' && s.entity && w.cards.some((c) => c.entity === s.entity));
   if (groups.length === 0) return null;
-  groups.sort((a, b) => a.id.localeCompare(b.id));
+  groups.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const n = Math.floor(Date.parse(`${day}T12:00:00Z`) / MS_DAY);
   return groups[((n % groups.length) + groups.length) % groups.length] ?? null;
 }
@@ -514,4 +514,34 @@ export function rankRows(players: readonly PlayerSummary[], total: number): Rank
 export function playerPage(s: PlayerSummary, total: number, wishlist: CardRef[] | null): PlayerPage {
   const lv = levelOf(s.owned);
   return { nickname: s.nickname, level: lv, title: titleOf(lv), pct: pctOf(s.owned, total), owned: s.owned, total, showcase: s.showcase, badges: s.badges, me: s.me, friend: s.friend, wishlist: s.me || s.friend ? wishlist : null };
+}
+
+/* ------------------------------------------------------------------ idol pages */
+
+/** The slug of an entity on kpopquiz.org (the groups table slug is the entity id after the colon). */
+export function quizSlug(e: UiEntity): string {
+  const id = e.id.replace(/^[a-z]+:/, '');
+  return /^[a-z0-9-]+$/.test(id) ? id : slugify(e.name);
+}
+
+export const QUIZ_BASE = 'https://kpopquiz.org';
+
+/** The idol page: locked until the player owns a card of the idol; then the editions and the idol's quizzes on kpopquiz.org. */
+export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null {
+  const slugs = entitySlugs(w.entities);
+  const e = w.entities.find((x) => x.kind === 'idol' && slugs.get(x.id) === slug);
+  if (!e) return null;
+  const cs = w.cards.filter((c) => c.entity === e.id);
+  const unlocked = cs.some((c) => p.owned.has(c.n));
+  const gs = e.group ? sectionsOf(w).find((s) => s.name === e.group) : null;
+  const quizzes = [{ title: `${e.name} quizzes on kpopquiz.org`, url: `${QUIZ_BASE}/${quizSlug(e)}` }];
+  if (gs && gs.entity) {
+    const ge = w.entities.find((x) => x.id === gs.entity);
+    if (ge) quizzes.push({ title: `${gs.name} quizzes on kpopquiz.org`, url: `${QUIZ_BASE}/${quizSlug(ge)}` });
+  }
+  return {
+    slug, name: e.name, kind: 'idol', group: gs ? groupRef(gs) : null, debutYear: e.debutYear, unlocked,
+    editions: unlocked ? cs.map((c) => ({ edition: c.edition, n: c.n, owned: p.owned.has(c.n), copies: p.owned.get(c.n)?.copies ?? 0 })) : [],
+    quizzes: unlocked ? quizzes : [],
+  };
 }

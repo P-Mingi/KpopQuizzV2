@@ -1,20 +1,17 @@
-// Bunnyverse Cards: POST /api/cards/recycle -> { recycled, shards, state }: every copy above one becomes shards, all at once
-// (the binder button "Recycle extras"). `recycled` is the number of copies, `shards` the shards gained by this call; state.shards is the total.
-import { guard, json, loadState } from '@/lib/cards/api';
+// KpopCards: GET /api/cards/recycle -> RecyclePreview; POST /api/cards/recycle { key, confirm: true, n? } -> RecycleResponse.
+// Bulk: one copy of each card stays, locked cards and Gold and Full Art extras are never recycled. With n: one extra copy of that card, never a locked one.
+import { cardNo, run } from '@/lib/kpopcards/route';
+import * as srv from '@/lib/kpopcards/server';
 
 import type { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
-  const g = await guard(req, { write: true });
-  if (!g.ok) return g.res;
-  const { data, error } = await g.db.rpc('cards_recycle', { p_user: g.userId, p_now: new Date().toISOString() });
-  if (error || !data) return json({ error: 'server' }, 500);
-  const r = data as { recycled: number; shards_gained: number };
-  try {
-    return json({ recycled: Number(r.recycled), shards: Number(r.shards_gained), state: await loadState(g.db, g.userId) });
-  } catch {
-    return json({ error: 'server' }, 500);
-  }
-}
+export const GET = (req: NextRequest): Promise<NextResponse> => run(req, { write: false }, (c) => srv.recyclePreviewOf(c));
+
+export const POST = (req: NextRequest): Promise<NextResponse> =>
+  run(req, { write: true, bucket: 'recycle', key: true }, (c, i) => {
+    const n = i.body.n === undefined ? undefined : cardNo(i.body.n);
+    if (n === null) return { error: 'bad_request' as const };
+    return srv.recycle(c, i.key!, i.body.confirm === true, n);
+  });

@@ -74,3 +74,25 @@ export { indexPool };
 export function poolOf(cards: readonly PoolCard[], keep: (c: PoolCard) => boolean): PoolIndex {
   return indexPool(cards.filter(keep));
 }
+
+/** What the server sends to cards_open for one pack: the plain five cards, a golden fifth card and a Gold fifth card. All three are drawn here
+ *  with the rng; the database picks one of the fifth cards from the player's state under the wallet lock (110-core.sql). */
+export interface KcPlan { c: number[]; g: number | null; u: number | null }
+
+export function planKcPack(theme: PoolIndex, all: PoolIndex, rng: Rng, focus: string | null = null): KcPlan {
+  const plain = drawKcPack(theme, all, rng, { pity: false, golden: false, focus });
+  // Candidate for a golden pack: the fifth-card roll lifted to Holo or better.
+  const golden = drawOne(theme, rng, true, { rarity: goldenRarity(theme, rng) });
+  // Candidate for the guarantee: a Gold card of the pack's pool, else of the whole pool; none when no Gold card is in packs.
+  const goldPool = cardsOfRarity(theme, 'UR').length > 0 ? theme : cardsOfRarity(all, 'UR').length > 0 ? all : null;
+  const gold = goldPool ? drawOne(goldPool, rng, true, { rarity: 'UR' }) : null;
+  return { c: plain.cards, g: golden.n, u: gold ? gold.n : null };
+}
+
+/** What cards_open keeps of a plan for a pack number and a guarantee state (the TypeScript twin of its choice, used by the simulation and the mock). */
+export function resolvePlan(plan: KcPlan, golden: boolean, pity: boolean): { cards: number[]; golden: boolean; guarantee: boolean } {
+  const cards = [...plan.c];
+  if (pity && plan.u !== null) cards[4] = plan.u;
+  else if (golden && plan.g !== null) cards[4] = plan.g;
+  return { cards, golden, guarantee: pity && plan.u !== null };
+}

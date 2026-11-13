@@ -1,0 +1,9 @@
+// KpopCards: GET /api/cards/friends -> FriendsState (the friends with their wishlists, the live one-time code).
+import { run } from '@/lib/kpopcards/route';
+import * as srv from '@/lib/kpopcards/server';
+
+import type { NextRequest, NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
+
+export const GET = (req: NextRequest): Promise<NextResponse> => run(req, { write: false }, (c) => srv.friends(c));

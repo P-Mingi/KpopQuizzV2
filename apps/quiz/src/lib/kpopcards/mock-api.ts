@@ -1,15 +1,14 @@
 // KpopCards: the SEEDED MOCK of the API contract (contract.ts), in memory, on the real fixture catalog (lib/cards/ui-fixture.ts). Same seed and
 // same calls: same state and same draws. It uses the very pure views of the real server (model.ts) and the very pure draw (draw.ts), so
 // a screen built against it sees what production answers. For the dev fixture mode (CARDS_UI_FIXTURE=1) and for the screen comparisons.
-// Never a source of truth: nothing is stored outside the object, and the clock is injectable.
+// The catalog is given by the caller (see MockOptions.world). Never a source of truth: nothing is stored outside the object, and the clock is injectable.
 import { EDITIONS, SHARDS, craftCost } from '../cards/rules';
-import { fixtureCatalog } from '../cards/ui-fixture';
 import { ERROR_STATUS, KC, THEME_IDS, isApiError, levelOf, titleOf } from './contract';
 import { drawKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
-  badgesOf, cardRef, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
-  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf, entitySlugs, slugify,
+  badgesOf, cardRef, idolPage, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
+  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf, slugify,
 } from './model';
 
 import type { UiCard, UiCatalog } from '../cards/ui-types';
@@ -32,7 +31,7 @@ export function seededRng(seed: number): Rng {
 }
 
 /** The themes of the fixture's invented groups: the groups alternate girls and boys, and the one-member group is a soloist. */
-export function fixtureWorld(cat: UiCatalog = fixtureCatalog()): World {
+export function fixtureWorld(cat: UiCatalog): World {
   const themeOf = new Map<string, ThemeId>();
   const groups = cat.entities.filter((e) => e.kind === 'group').sort((a, b) => a.name.localeCompare(b.name));
   groups.forEach((g, i) => {
@@ -52,7 +51,8 @@ export interface MockOptions {
   /** The player starts with an example binder (default true) or an empty one. */
   example?: boolean;
   nickname?: string | null;
-  world?: World;
+  /** The catalog the mock runs on. The caller gives it (fixtureWorld(fixtureCatalog()) in the dev fixture mode and in tests): this module never imports the dev fixture itself, so no production path can reach it (ui-fixture-guard.test.ts). */
+  world: World;
 }
 
 export interface MockApi extends KpopCardsApi {
@@ -71,14 +71,13 @@ const EVERYONE: readonly [string, number][] = [['byeol_hunter', 92], ['photocard
 
 const err = (error: ApiError['error'], message?: string): ApiError => (message ? { error, message } : { error });
 
-export function createMockApi(opts: MockOptions = {}): MockApi {
+export function createMockApi(opts: MockOptions): MockApi {
   const seed = opts.seed ?? 1;
   const rng = seededRng(seed);
   let nowMs = 0;
   const clock = opts.now;
   const now = (): number => (clock ? clock() : nowMs || Date.now());
-  const w = opts.world ?? fixtureWorld();
-  const slugs = entitySlugs(w.entities);
+  const w = opts.world;
   const p: PlayerData = emptyPlayer(now(), opts.nickname === undefined ? 'you_mock' : opts.nickname);
   const idem = new Map<string, { op: string; res: unknown }>();
   let forceGoldenNext = false;
@@ -299,19 +298,7 @@ export function createMockApi(opts: MockOptions = {}): MockApi {
       return err('code_invalid');
     },
     async friendRemove() { return impl.friends(); },
-    async idol(slug: string) {
-      sync();
-      const e = w.entities.find((x) => x.kind === 'idol' && slugs.get(x.id) === slug);
-      if (!e) return err('idol_unknown');
-      const cs = w.cards.filter((c) => c.entity === e.id);
-      const unlocked = cs.some((c) => p.owned.has(c.n));
-      const gs = e.group ? sectionsOf(w).find((s) => s.name === e.group) : null;
-      return {
-        slug, name: e.name, kind: 'idol' as const, group: gs ? { id: gs.id, slug: gs.slug, name: gs.name, kind: gs.kind } : null, debutYear: e.debutYear, unlocked,
-        editions: unlocked ? cs.map((c) => ({ edition: c.edition, n: c.n, owned: p.owned.has(c.n), copies: p.owned.get(c.n)?.copies ?? 0 })) : [],
-        quizzes: unlocked && gs ? [{ title: `${gs.name} quiz`, url: `https://kpopquiz.org/groups/${gs.slug}` }, { title: 'Kpopdle', url: 'https://kpopquiz.org/kpopdle' }] : [],
-      };
-    },
+    async idol(slug: string) { sync(); return idolPage(w, p, slug) ?? err('idol_unknown'); },
     async odds() { sync(); return oddsState(w, now(), dailyGroup(w, p.parisDay)); },
     async prefs(req) {
       touch();
