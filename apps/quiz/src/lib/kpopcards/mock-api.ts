@@ -44,6 +44,8 @@ export function fixtureWorld(cat: UiCatalog): World {
   return { cards: cat.cards, entities: cat.entities, themeOf };
 }
 
+export interface ForcedCard { rarity: Rarity; isNew: boolean }
+
 export interface MockOptions {
   seed?: number;
   /** Injected clock (ms since epoch). Default: Date.now. */
@@ -67,6 +69,9 @@ export interface MockApi extends KpopCardsApi {
   forceGuarantee(): void;
   /** The prototype controls: the third card of the next pack is a card of this rarity (UR: Gold, L: Full Art), when the catalog has one. */
   forceRarity(r: 'UR' | 'L'): void;
+  /** Dev fixture control: the next pack is exactly this pattern (cards of these rarities picked from the catalog, new to the player or copies as asked; a copy of a
+   *  card he does not own yet is given to him first). The totals, the shards of the copies and the summary follow from it. Used once. */
+  forcePack(cards: ForcedCard[]): void;
   /** The prototype's "force Full Art" control: the third card of the next pack is a Full Art card. The fixture holds none unless CARDS_UI_FIXTURE_FULL=1; then the best card the catalog has is used. */
   forceFullArt(): void;
   /** The prototype's "39 timer packs used today": one more timer pack is left and the stack is below its cap. */
@@ -96,6 +101,7 @@ export function createMockApi(opts: MockOptions): MockApi {
   let forceGoldenNext = false;
   let forceGuarantee = false;
   let forcedRarity: 'UR' | 'L' | null = null;
+  let forcedPack: ForcedCard[] | null = null;
   const total = (): number => w.cards.length;
   const ownedNs = (): Set<number> => new Set(p.owned.keys());
 
@@ -206,6 +212,7 @@ export function createMockApi(opts: MockOptions): MockApi {
     forceGuarantee() { forceGuarantee = true; },
     forceRarity(r: 'UR' | 'L') { forcedRarity = r; },
     forceFullArt() { forcedRarity = 'L'; },
+    forcePack(cards: ForcedCard[]) { forcedPack = cards.length === 5 ? cards : null; },
     useTimerUpTo(n: number) { sync(); p.timerToday = n; if (p.stock >= KC.STACK_CAP) p.stock = KC.STACK_CAP - 1; p.anchor = now(); },
     addDleWin() { sync(); p.week.dle += 1; p.bonusEarned += 1; },
     reset(example: boolean) {
@@ -258,6 +265,25 @@ export function createMockApi(opts: MockOptions): MockApi {
         const pity = forceGuarantee || (p.sinceGold >= KC.GOLD_BY_PACK - 1 && w.cards.some((c) => c.rarity === 'UR'));
         forceGoldenNext = false; forceGuarantee = false;
         const { drawn, kind } = packOf(source, theme, req.focus, golden, pity, ownedNs());
+        if (forcedPack) {
+          // The pattern of the dev control: new cards are unowned cards of the rarity, copies are owned ones (given first when he has none).
+          const used = new Set<number>();
+          const chosen: number[] = [];
+          for (const f of forcedPack) {
+            const ofR = w.cards.filter((x) => x.rarity === f.rarity);
+            if (ofR.length === 0) { chosen.push(drawn.cards[chosen.length]!); continue; }
+            let pick: UiCard | undefined;
+            if (f.isNew) pick = ofR.find((x) => !p.owned.has(x.n) && !used.has(x.n)) ?? ofR[0];
+            else {
+              pick = ofR.find((x) => p.owned.has(x.n)) ?? ofR.find((x) => !used.has(x.n)) ?? ofR[0];
+              if (pick && !p.owned.has(pick.n)) p.owned.set(pick.n, { copies: 1, fav: false, locked: false, seen: true, firstAt: now() - 86400000, lastAt: now() - 86400000, packNo: 1, how: 'pack' });
+            }
+            used.add(pick!.n);
+            chosen.push(pick!.n);
+          }
+          drawn.cards.splice(0, 5, ...chosen);
+          forcedPack = null;
+        }
         if (forcedRarity) {
           let pool = w.cards.filter((x) => x.rarity === forcedRarity);
           if (!pool.length) {
@@ -485,4 +511,26 @@ export function createMockApi(opts: MockOptions): MockApi {
   Object.assign(api, impl);
   void ERROR_STATUS;
   return api;
+}
+
+/** "R:n,C:c,U:c,SR:n,C:c" -> the pattern of forcePack (n a new card, c a copy); null when it is not five valid entries. For the dev fixture's `?kcpack=` query. */
+export function parseForcePack(text: string | null | undefined): ForcedCard[] | null {
+  if (!text) return null;
+  const out: ForcedCard[] = [];
+  for (const part of text.split(',')) {
+    const m = /^(C|U|R|SR|UR|L):([nc])$/.exec(part.trim());
+    if (!m) return null;
+    out.push({ rarity: m[1] as Rarity, isNew: m[2] === 'n' });
+  }
+  return out.length === 5 ? out : null;
+}
+
+/** For the page of the dev fixture only: puts the prototype controls on `target.__kcMock` (the harness of agent D calls them) and reads `?kcpack=` once. */
+export function installDevHooks(api: MockApi, target: Record<string, unknown>, search = ''): void {
+  target.__kcMock = {
+    forcePack: (c: ForcedCard[]) => api.forcePack(c), forceGolden: () => api.forceGolden(), forceGuarantee: () => api.forceGuarantee(), forceRarity: (r: 'UR' | 'L') => api.forceRarity(r),
+    forceFullArt: () => api.forceFullArt(), useTimerUpTo: (n: number) => api.useTimerUpTo(n), addDleWin: () => api.addDleWin(), reset: (e: boolean) => api.reset(e),
+  };
+  const f = parseForcePack(new URLSearchParams(search).get('kcpack'));
+  if (f) api.forcePack(f);
 }

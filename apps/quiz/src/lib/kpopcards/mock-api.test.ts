@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { KC, isApiError } from './contract';
 import { fixtureCatalog } from '../cards/ui-fixture';
-import { createMockApi, fixtureWorld } from './mock-api';
+import { createMockApi, fixtureWorld, installDevHooks, parseForcePack } from './mock-api';
 
 import type { OpenResponse } from './contract';
 
@@ -158,5 +158,32 @@ describe('the seeded mock of the KpopCards contract', () => {
     const ms = await a.missions();
     if (isApiError(ms)) throw new Error('x');
     expect(ms.sets.find((x) => x.id === g!.id)?.ready).toBe(true);
+  });
+  it('forcePack: the next opening is exactly the pattern (new or copies), the summary follows, and it is used once', async () => {
+    const a = createMockApi({ world: WORLD, seed: 12, now: () => T0, start: 'empty' });
+    a.forcePack([{ rarity: 'R', isNew: true }, { rarity: 'C', isNew: false }, { rarity: 'U', isNew: false }, { rarity: 'C', isNew: true }, { rarity: 'UR', isNew: true }]);
+    const r = await a.open({ key: k(60), source: 'stock' });
+    if (isApiError(r)) throw new Error(r.error);
+    const c = r.packs[0]!.cards;
+    expect(c.map((x) => x.edition)).toEqual(['holo', 'std', 'stage', 'std', 'gold']);
+    expect(c.map((x) => x.isNew)).toEqual([true, false, false, true, true]);
+    expect(r.summary).toMatchObject({ newCards: 3, copies: 2, best: 'gold' });
+    expect(r.summary.copiesShards).toBe(3);
+    const r2 = await a.open({ key: k(61), source: 'stock' });
+    if (isApiError(r2)) throw new Error(r2.error);
+    expect(r2.packs[0]!.cards.map((x) => x.edition)).not.toEqual(['holo', 'std', 'stage', 'std', 'gold']);
+  });
+  it('the dev hooks: ?kcpack= is parsed (five entries n or c), bad text is ignored, __kcMock carries the controls', async () => {
+    expect(parseForcePack('R:n,C:c,U:c,SR:n,C:c')).toHaveLength(5);
+    expect(parseForcePack('R:n,C:c')).toBeNull();
+    expect(parseForcePack('X:n,C:c,U:c,SR:n,C:c')).toBeNull();
+    const a = createMockApi({ world: WORLD, seed: 13, now: () => T0, start: 'empty' });
+    const w: Record<string, unknown> = {};
+    installDevHooks(a, w, '?kcpack=U:c,U:c,C:n,C:n,R:n');
+    expect(Object.keys(w.__kcMock as object)).toContain('forcePack');
+    const r = await a.open({ key: k(62), source: 'stock' });
+    if (isApiError(r)) throw new Error(r.error);
+    expect(r.packs[0]!.cards.map((x) => x.edition)).toEqual(['stage', 'stage', 'std', 'std', 'holo']);
+    expect(r.packs[0]!.cards.map((x) => x.isNew)).toEqual([false, false, true, true, true]);
   });
 });
