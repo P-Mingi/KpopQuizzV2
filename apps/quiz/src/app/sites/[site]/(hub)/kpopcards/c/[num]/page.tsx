@@ -17,10 +17,11 @@ import { robotsFor } from '@/lib/site/indexing';
 
 import type { Metadata } from 'next';
 
-// The [site] layout has generateStaticParams and dynamicParams = false (O1 guard), and a dynamic segment of its own with no generateStaticParams still answers 404 under it.
-// The rule for every dynamic page of the hub: dynamicParams = true AND a generateStaticParams (the finite values when they are finite, else an empty list: rendered on first request).
+// The [site] layout allows no param that was not generated at build (dynamicParams = false, O1 guard). An empty list of static params is not
+// enough: a production server then answers every value with NoFallbackError (a 404; seen with next start on 2026-11-13). The rule of the
+// hub's open-ended pages (as u/[username]): rendered per request, dynamicParams = true.
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
-export function generateStaticParams(): { num: string }[] { return []; }
 
 interface Props { params: Promise<{ num: string }>; searchParams: Promise<{ lock?: string | string[] }> }
 
