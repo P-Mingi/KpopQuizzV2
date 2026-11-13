@@ -12,6 +12,7 @@ import { ICON_SLOTS, IMAGE_SLOTS, TABS } from '@/lib/photos/slots';
 import { BannersPanel } from './banners-panel';
 import { CardsPanel } from './cards-panel';
 import { IconsPanel } from './icons-panel';
+import { NonFreePanel } from './non-free-panel';
 import { PhotoDrawer } from './photo-drawer';
 import { StickersPanel } from './stickers-panel';
 import { PHOTO_ICON, Svg, liveVersion } from './ui';
@@ -160,6 +161,7 @@ export function PhotosAdmin({ data, nav, initialTab, now, logo, emptyArt }: {
             <>
               <section aria-labelledby="ph" className={s.section}>
                 {head}
+                {photoTab === 'chars' && !animeMissing ? <NonFreePanel onDone={() => router.refresh()} /> : null}
                 <div className={s.filters}>
                   <div className={s.filterGroup} role="group" aria-label="Filtre">
                     {FILTERS.map(([f, label]) => <button key={f} type="button" className={s.pill} aria-pressed={filter === f} onClick={() => { setFilter(f); setShown(PAGE); setSel(null); }}>{label}</button>)}

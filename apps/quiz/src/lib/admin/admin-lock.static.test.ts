@@ -149,8 +149,8 @@ function importedBody(text: string, name: string, file: string): string | null {
 }
 
 describe('every route under api/admin is guarded, method by method', () => {
-  it('finds the 45 routes of ADMIN-0, the MFA route, the catch-all and the Cards photo review (2026-11-12), all under api/admin (a route in a page tree would need its own review)', () => {
-    expect(adminRoutes.length).toBe(48);
+  it('finds the 45 routes of ADMIN-0, the MFA route, the catch-all, the Cards photo review (2026-11-12) and the three routes of lot 3 DLE (2026-11-13: the non-free deletion and the two of the owner\'s preview), all under api/admin (a route in a page tree would need its own review)', () => {
+    expect(adminRoutes.length).toBe(51);
     expect(adminRoutes.filter((f) => !f.startsWith(`${API_ADMIN}/`))).toEqual([]);
   });
 
@@ -292,7 +292,7 @@ describe('no admin list outside the guard', () => {
 const ORIGIN_CHECK = /\bsameOrigin\(|\bforbidden\(\)|\.get\(\s*['"](?:origin|referer|sec-fetch-site|sec-fetch-mode|sec-fetch-dest)['"]\s*\)/i;
 const ANY_GUARD = /\brequireAdmin\(|\badminGate\(\)/;
 const FUNCTION_START = /^(?:export )?(?:default )?(?:async )?function\b|^(?:export )?const \w+(?:: [^=\n]+)? = (?:async )?(?:\([^)\n]*\)|\w+)(?:: [^=\n]+)? =>/gm;
-const IMAGE_ROUTES = ['delete-handler.ts', 'focal/route.ts', 'import/route.ts', 'upload/route.ts'].map((f) => `${API_ADMIN}/images/${f}`);
+const IMAGE_ROUTES = ['delete-handler.ts', 'focal/route.ts', 'import/route.ts', 'non-free/route.ts', 'upload/route.ts'].map((f) => `${API_ADMIN}/images/${f}`);
 const PHOTO_ROUTES = ['route.ts', 'assets/route.ts', 'fetch/route.ts'].map((f) => `${API_ADMIN}/photos/${f}`);
 
 /** The source cut at the start of each top-level function, so an order is read inside one function. */

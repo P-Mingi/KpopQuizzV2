@@ -35,7 +35,7 @@ export interface DlePublicEntity {
   readonly id: string;
   readonly name: string;
   readonly attrs: Readonly<Record<string, DleValue>>;
-  /** Storage path of the 96 px WebP, only when its licence is verified; null: the client shows the initials. */
+  /** Storage path of the 96 px WebP, only when its licence is verified; null: the client shows a designed card. */
   readonly thumb: string | null;
 }
 

@@ -23,7 +23,7 @@ const WORDS: Readonly<Record<DleLocale, {
   en: {
     title: 'Photo credits',
     lede: 'Some photos on Bunnyverse are shared under a Creative Commons licence that asks for a credit. Each one is listed here with its author, its licence and a link to the page it comes from. Small pictures, like the thumbnails of the daily games, are credited on this page only.',
-    empty: 'No licensed photo is shown on Bunnyverse yet. Until one is, the daily games show initials and every image keeps the colours of its site.',
+    empty: 'No licensed photo is shown on Bunnyverse yet. Until one is, the daily games show a card with the name and every image keeps the colours of its site.',
     photo: 'Photo:', source: 'Source page', character: (s) => `A character of ${s}`,
     sections: { idols: 'Idols', groups: 'Groups', agencies: 'Agencies', series: 'Anime series', characters: 'Anime characters', images: 'Banners and images of the site' },
     slots: {},
@@ -31,7 +31,7 @@ const WORDS: Readonly<Record<DleLocale, {
   fr: {
     title: 'Crédits photos',
     lede: 'Certaines photos de Bunnyverse sont sous une licence Creative Commons qui demande un crédit. Chacune est listée ici avec son auteur, sa licence et un lien vers sa page d\u2019origine. Les petites images, comme les vignettes des jeux du jour, sont créditées sur cette page seulement.',
-    empty: 'Aucune photo sous licence n\u2019est encore affichée sur Bunnyverse. En attendant, les jeux du jour montrent les initiales et chaque image garde les couleurs de son site.',
+    empty: 'Aucune photo sous licence n\u2019est encore affichée sur Bunnyverse. En attendant, les jeux du jour montrent une carte avec le nom et chaque image garde les couleurs de son site.',
     photo: 'Photo :', source: 'Page source', character: (s) => `Un personnage de ${s}`,
     sections: { idols: 'Idols', groups: 'Groupes', agencies: 'Agences', series: 'Séries anime', characters: 'Personnages d\u2019anime', images: 'Bannières et images du site' },
     slots: {
