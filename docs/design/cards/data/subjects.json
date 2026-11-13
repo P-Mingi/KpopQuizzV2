@@ -30,7 +30,13 @@
       "y": 30
     },
     "crop_width": 1378,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "chungha",
@@ -63,7 +69,13 @@
       "y": 30
     },
     "crop_width": 2795,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "heize",
@@ -96,7 +108,13 @@
       "y": 30
     },
     "crop_width": 580,
-    "small_2x": true
+    "small_2x": true,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "hwasa",
@@ -129,7 +147,13 @@
       "y": 30
     },
     "crop_width": 680,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "hyuna",
@@ -162,7 +186,13 @@
       "y": 30
     },
     "crop_width": 814,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "iu",
@@ -195,7 +225,13 @@
       "y": 30
     },
     "crop_width": 873,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "jay-park",
@@ -228,7 +264,13 @@
       "y": 30
     },
     "crop_width": 2299,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "jennie",
@@ -261,7 +303,13 @@
       "y": 30
     },
     "crop_width": 931,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "jeon-somi",
@@ -294,7 +342,13 @@
       "y": 30
     },
     "crop_width": 1222,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "jimin",
@@ -327,7 +381,13 @@
       "y": 30
     },
     "crop_width": 465,
-    "small_2x": true
+    "small_2x": true,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "jungkook",
@@ -360,7 +420,13 @@
       "y": 30
     },
     "crop_width": 1300,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "psy",
@@ -393,7 +459,13 @@
       "y": 30
     },
     "crop_width": 1387,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "rose",
@@ -426,7 +498,13 @@
       "y": 30
     },
     "crop_width": 672,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "sunmi",
@@ -459,7 +537,13 @@
       "y": 30
     },
     "crop_width": 698,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "taeyang",
@@ -492,7 +576,13 @@
       "y": 30
     },
     "crop_width": 618,
-    "small_2x": true
+    "small_2x": true,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "taeyeon",
@@ -525,7 +615,13 @@
       "y": 30
     },
     "crop_width": 1194,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "v-bts",
@@ -558,7 +654,13 @@
       "y": 30
     },
     "crop_width": 1110,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "zico",
@@ -591,7 +693,13 @@
       "y": 30
     },
     "crop_width": 2259,
-    "small_2x": false
+    "small_2x": false,
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "akmu",
@@ -624,7 +732,28 @@
       "y": 50
     },
     "crop_width": 430,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 792,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 396,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 396,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "apink",
@@ -657,7 +786,28 @@
       "y": 50
     },
     "crop_width": 1279,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2559,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1279,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1280,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "artms",
@@ -690,7 +840,28 @@
       "y": 50
     },
     "crop_width": 1294,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2588,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1294,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1294,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "astro",
@@ -723,7 +894,28 @@
       "y": 50
     },
     "crop_width": 862,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1725,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 862,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 863,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "billlie",
@@ -756,7 +948,28 @@
       "y": 50
     },
     "crop_width": 319,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 639,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 319,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 320,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "btob",
@@ -789,7 +1002,28 @@
       "y": 50
     },
     "crop_width": 317,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 634,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 317,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 317,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "cortis",
@@ -822,7 +1056,28 @@
       "y": 50
     },
     "crop_width": 504,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1009,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 504,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 505,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "day6",
@@ -855,7 +1110,28 @@
       "y": 50
     },
     "crop_width": 383,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 767,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 383,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 384,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "dreamcatcher",
@@ -888,7 +1164,28 @@
       "y": 50
     },
     "crop_width": 1725,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 3451,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1725,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1726,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "fifty-fifty",
@@ -921,7 +1218,28 @@
       "y": 50
     },
     "crop_width": 1261,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2523,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1261,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1262,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "fromis-9",
@@ -954,7 +1272,28 @@
       "y": 50
     },
     "crop_width": 583,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1166,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 583,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 583,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "hearts2hearts",
@@ -987,7 +1326,28 @@
       "y": 50
     },
     "crop_width": 500,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1001,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 500,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 501,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "ikon",
@@ -1020,7 +1380,28 @@
       "y": 50
     },
     "crop_width": 465,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 931,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 465,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 466,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "illit",
@@ -1053,7 +1434,28 @@
       "y": 50
     },
     "crop_width": 628,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1256,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 628,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 628,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "kara",
@@ -1086,7 +1488,28 @@
       "y": 50
     },
     "crop_width": 833,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1666,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 833,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 833,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "katseye",
@@ -1119,7 +1542,28 @@
       "y": 50
     },
     "crop_width": 1733,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 3466,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1733,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1733,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "kickflip",
@@ -1152,7 +1596,28 @@
       "y": 50
     },
     "crop_width": 543,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1087,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 543,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 544,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "unknown_lineup",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "kiss-of-life",
@@ -1185,7 +1650,28 @@
       "y": 50
     },
     "crop_width": 559,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1118,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 559,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 559,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "loona",
@@ -1218,7 +1704,28 @@
       "y": 50
     },
     "crop_width": 446,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 892,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 446,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 446,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "loossemble",
@@ -1251,7 +1758,30 @@
       "y": 50
     },
     "crop_width": 1224,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2448,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1224,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1224,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": {
+      "year": 2024
+    }
   },
   {
     "slug": "miss-a",
@@ -1284,7 +1814,30 @@
       "y": 50
     },
     "crop_width": 708,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1417,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 708,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 709,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": {
+      "year": 2017
+    }
   },
   {
     "slug": "monsta-x",
@@ -1317,7 +1870,28 @@
       "y": 50
     },
     "crop_width": 440,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 881,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 440,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 441,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "nct",
@@ -1350,7 +1924,28 @@
       "y": 50
     },
     "crop_width": 1431,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2862,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1431,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1431,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "nct-wish",
@@ -1383,7 +1978,28 @@
       "y": 50
     },
     "crop_width": 315,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 630,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 315,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 315,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "p1harmony",
@@ -1416,7 +2032,28 @@
       "y": 50
     },
     "crop_width": 774,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1549,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 774,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 775,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "pentagon",
@@ -1449,7 +2086,28 @@
       "y": 50
     },
     "crop_width": 444,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 889,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 444,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 445,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "purple-kiss",
@@ -1482,7 +2140,30 @@
       "y": 50
     },
     "crop_width": 1190,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2381,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1190,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1191,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": {
+      "year": 2025
+    }
   },
   {
     "slug": "rescene",
@@ -1515,7 +2196,28 @@
       "y": 50
     },
     "crop_width": 745,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1490,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 745,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 745,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "sistar",
@@ -1548,7 +2250,30 @@
       "y": 50
     },
     "crop_width": 511,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 910,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 455,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 455,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": {
+      "year": 2017
+    }
   },
   {
     "slug": "stayc",
@@ -1581,7 +2306,28 @@
       "y": 50
     },
     "crop_width": 1588,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 3177,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1588,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1589,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "t-ara",
@@ -1614,7 +2360,28 @@
       "y": 50
     },
     "crop_width": 668,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1336,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 668,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 668,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "team",
@@ -1647,7 +2414,28 @@
       "y": 50
     },
     "crop_width": 209,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 418,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 209,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 209,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "the-boyz",
@@ -1680,7 +2468,28 @@
       "y": 50
     },
     "crop_width": 347,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 694,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 347,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 347,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "unknown_birth_date",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "triples",
@@ -1713,7 +2522,28 @@
       "y": 50
     },
     "crop_width": 504,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1009,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 504,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 505,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "tuide",
@@ -1746,7 +2576,28 @@
       "y": 50
     },
     "crop_width": 518,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1036,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 518,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 518,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "tws",
@@ -1779,7 +2630,28 @@
       "y": 50
     },
     "crop_width": 1241,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2483,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1241,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1242,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_at_photo",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "viviz",
@@ -1812,7 +2684,28 @@
       "y": 50
     },
     "crop_width": 1807,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 3614,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1807,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1807,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "winner",
@@ -1845,7 +2738,28 @@
       "y": 50
     },
     "crop_width": 581,
-    "small_2x": true
+    "small_2x": true,
+    "pair": {
+      "window_width": 1162,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 581,
+          "small_2x": true
+        },
+        {
+          "part": 2,
+          "crop_width": 581,
+          "small_2x": true
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "xikers",
@@ -1878,7 +2792,28 @@
       "y": 50
     },
     "crop_width": 1897,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 3794,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1897,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1897,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "unknown_lineup",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "young-posse",
@@ -1911,7 +2846,28 @@
       "y": 50
     },
     "crop_width": 1266,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 2532,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 1266,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 1266,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": false,
+      "reason": "minor_today",
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   },
   {
     "slug": "zerobaseone",
@@ -1944,6 +2900,27 @@
       "y": 50
     },
     "crop_width": 706,
-    "small_2x": false
+    "small_2x": false,
+    "pair": {
+      "window_width": 1413,
+      "halves": [
+        {
+          "part": 1,
+          "crop_width": 706,
+          "small_2x": false
+        },
+        {
+          "part": 2,
+          "crop_width": 707,
+          "small_2x": false
+        }
+      ]
+    },
+    "age": {
+      "ok": true,
+      "reason": null,
+      "checked_on": "2026-11-12"
+    },
+    "disbanded": null
   }
 ]

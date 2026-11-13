@@ -34,6 +34,15 @@ export function DropRates({ odds }: { odds: CatalogOdds | null }): React.ReactEl
       </table>
       <p className="fifth">{t.eachWords}</p>
       {t.fifthWords ? <p className="fifth">{t.fifthWords}</p> : null}
+      {t.drawSteps.length ? (
+        <>
+          <p><b>How a card is drawn</b></p>
+          <ol className="draw">{t.drawSteps.map((x) => <li key={x}>{x}</li>)}</ol>
+          <ul className="draw" aria-label="Type split by rarity">{t.typeSplit.map((x) => <li key={x}>{x}</li>)}</ul>
+          <p><b>The chance of one given card</b></p>
+          <ul className="draw" aria-label="Chance of one given card">{t.cardChance.map((x) => <li key={`${x.r}-${x.kind}`}>{x.label}</li>)}</ul>
+        </>
+      ) : null}
       {t.absent.length ? <p>Not in packs yet: {t.absent.map((r) => RARITY_NAMES[r]).join(', ')}.</p> : null}
       <p>Each card is drawn on its own. The fifth card of every pack is Uncommon or better. Packs are never sold and cards can&rsquo;t be sold.</p>
     </details>

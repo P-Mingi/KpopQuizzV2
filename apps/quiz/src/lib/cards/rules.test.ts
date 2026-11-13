@@ -230,10 +230,13 @@ describe('computeOdds: the odds of the real catalog (amendment 1)', () => {
     expect(o.fifth.UR.toFixed(2)).toBe('1.26');
     expect(Object.values(o.fifth).reduce((a, b) => a + b, 0)).toBeCloseTo(100, 9);
   });
-  it('kinds: idol 75 and group 15 among the kinds that have a card of the rarity', () => {
+  // Owner decision 2026-11-13 (replaces "kinds: idol 75 and group 15"): no kind weight before the plan's form, every subject the same
+  // chance, so a kind's share is its share of the subjects: 3 idols and 1 group per rarity here.
+  it('kinds: the share of the subjects, every subject the same chance (no kind weight before the plan form)', () => {
     const o = computeOdds(real);
-    expect(o.kinds.C.idol).toBeCloseTo(83.3333333, 5);
-    expect(o.kinds.C.group).toBeCloseTo(16.6666667, 5);
+    expect(o.kindWeights).toBe(false);
+    expect(o.kinds.C.idol).toBeCloseTo(75, 9);
+    expect(o.kinds.C.group).toBeCloseTo(25, 9);
     expect(o.kinds.C.event).toBeUndefined();
     expect(o.kinds.SR).toEqual({});
   });

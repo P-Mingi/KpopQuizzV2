@@ -51,8 +51,18 @@ function photoFor(entityId: string, serial: number): UiPhoto {
   };
 }
 
-/** The whole fixture catalog: the numbers go groups A to Z (the people, then the group card), 4 numbers a subject in the order C, U, R, UR. */
-export function buildFixtureCatalog(): UiCatalog {
+/** Lot 2: a neutral wide placeholder for a group photo (four silhouettes), so the two halves of a pair show one picture split in two. */
+export function placeholderGroupPicture(entityId: string): string {
+  const p = paletteFor(`${entityId}#group`);
+  const heads = [180, 420, 660, 900].map((x, i) => `<circle cx="${x + 60}" cy="${250 - (i % 2) * 30}" r="70" fill="${p.c}" opacity=".78"/><path d="M${x - 40} 675 C ${x - 30} 470 ${x + 20} 400 ${x + 60} 400 C ${x + 110} 400 ${x + 160} 470 ${x + 170} 675 Z" fill="${p.c}" opacity=".62"/>`).join('');
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${p.a}"/><stop offset="1" stop-color="${p.b}"/></linearGradient></defs><rect width="1200" height="675" fill="url(#g)"/>${heads}</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
+/** The whole fixture catalog: the numbers go groups A to Z (the people, then the group card), 4 numbers a subject in the order C, U, R, UR.
+ *  Lot 2: with `pairs`, a group gives a pair per edition (8 numbers, 1/2 then 2/2) on a wide placeholder; off by default, so the existing
+ *  tests read the same catalog. A development server turns it on with CARDS_UI_FIXTURE_PAIRS=1. */
+export function buildFixtureCatalog(opts: { pairs?: boolean } = {}): UiCatalog {
   const entities: UiEntity[] = [];
   const cards: UiCard[] = [];
   let n = 0;
@@ -60,6 +70,19 @@ export function buildFixtureCatalog(): UiCatalog {
   const lockAll: UiEntity['lockReasons'] = { SR: 'one', L: 'one' };
   const push = (e: UiEntity): void => {
     serial += 1;
+    if (opts.pairs && e.kind === 'group') {
+      const photo: UiPhoto = { ...photoFor(e.id, serial), focalY: 50, src: placeholderGroupPicture(e.id) };
+      for (const r of FIXTURE_RARITIES) {
+        for (const part of [1, 2] as const) {
+          n += 1;
+          cards.push({
+            n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name,
+            group: e.group, debutYear: e.debutYear, photo, part, pairN: part === 1 ? n + 1 : n - 1, ...(e.endYear ? { endYear: e.endYear } : {}),
+          });
+        }
+      }
+      return;
+    }
     for (const r of FIXTURE_RARITIES) {
       n += 1;
       cards.push({ n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name, group: e.group, debutYear: e.debutYear, photo: photoFor(e.id, serial) });
@@ -71,15 +94,17 @@ export function buildFixtureCatalog(): UiCatalog {
       entities.push(e);
       push(e);
     }
-    const ge: UiEntity = { id: `group:Q${gi}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${g.name}|~`, lockReasons: lockAll };
+    // Lot 2, pairs only: one invented group is disbanded, so the card shows its year (owner decision 2026-11-12).
+    const end = opts.pairs && g.name === 'Harbor Moth' ? { endYear: 2023 } : {};
+    const ge: UiEntity = { id: `group:Q${gi}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${g.name}|~`, lockReasons: lockAll, ...end };
     entities.push(ge);
     push(ge);
   });
-  return { odds: computeOdds(cards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity }))), cards, entities };
+  return { odds: computeOdds(cards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, ...(opts.pairs ? { entity: c.entity } : {}) }))), cards, entities };
 }
 
 let memo: UiCatalog | null = null;
 export function fixtureCatalog(): UiCatalog {
-  memo ??= buildFixtureCatalog();
+  memo ??= buildFixtureCatalog({ pairs: process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_PAIRS === '1' });
   return memo;
 }

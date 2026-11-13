@@ -6,14 +6,19 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import { computeOdds } from './rules';
 
-import type { CardImage, CardKind, CatalogCard, CatalogEntity, CatalogPayload, Edition, LockReason, PhotoCredit, PhotoSource, Rarity } from './types';
+import type { CardImage, CardKind, CardPart, CatalogCard, CatalogEntity, CatalogPayload, Edition, LockReason, PhotoCredit, PhotoSource, Rarity } from './types';
 
 export const CATALOG_TTL_MS = 5 * 60 * 1000;
 
-interface CardRow { card_no: number; num: string; entity_id: string; rarity: Rarity; edition: Edition; photo_id: number | null }
+/** part and small_2x come with file 102 (lot 2): absent on a database where 102 is not applied, then every card is a whole card. */
+interface CardRow {
+  card_no: number; num: string; entity_id: string; rarity: Rarity; edition: Edition; photo_id: number | null;
+  part?: number | null; small_2x?: boolean | null;
+}
+/** end_year comes with file 102 (lot 2): absent before it. */
 interface EntityRow {
   id: string; kind: CardKind; name: string; group_id: string | null; debut_year: number | null; sort_key: string;
-  lock_reasons: Record<string, string> | null;
+  lock_reasons: Record<string, string> | null; end_year?: number | null;
 }
 interface PhotoRow {
   id: number; slot: number; source: PhotoSource; source_page: string; author: string; author_url: string | null; licence: string;
@@ -42,15 +47,31 @@ export function publicObjectUrl(bucketPath: string, base: string | undefined = p
 /** The photo columns cardImage reads (lib/cards-bridge/group.ts reads only these). */
 export type ImagePhotoRow = Pick<PhotoRow, 'focal_x' | 'focal_y' | 'storage_path' | 'source_path' | 'file_focal_x' | 'file_focal_y' | 'small_2x'>;
 
-export function cardImage(p: ImagePhotoRow, base?: string): CardImage {
+/** A card_no row's part (lot 2): 1 or 2 for a half of a group photo, else 0. */
+export function partOf(v: unknown): CardPart {
+  return v === 1 || v === 2 ? v : 0;
+}
+
+/** The file stem suffix of a part: '' for a whole card, '-h1' and '-h2' for the halves (the owner's script writes <stem>-h1-1x.webp). */
+export const partSuffix = (part: CardPart): string => (part === 0 ? '' : `-h${part}`);
+
+/**
+ * Lot 2: `card` is the cards_catalog row's part and small_2x. A half (part 1 or 2) uses the files of its side, and its own small_2x when
+ * the row has one (each half of the 11:8.5 window is checked on its own); a whole card keeps the photo's.
+ */
+export function cardImage(p: ImagePhotoRow, base?: string, card: { part?: number | null; small_2x?: boolean | null } = {}): CardImage {
+  const part = partOf(card.part);
+  const small2x = part !== 0 && typeof card.small_2x === 'boolean' ? card.small_2x : p.small_2x;
   const cut = p.storage_path !== null && p.file_focal_x === p.focal_x && p.file_focal_y === p.focal_y;
   const sourceUrl = p.source_path ? publicObjectUrl(p.source_path, base) : null;
   const common = {
-    small2x: p.small_2x, focalX: p.focal_x, focalY: p.focal_y, sourceUrl,
+    small2x, focalX: p.focal_x, focalY: p.focal_y, sourceUrl,
     fileFocalX: p.storage_path !== null ? p.file_focal_x : null, fileFocalY: p.storage_path !== null ? p.file_focal_y : null,
+    ...(part !== 0 ? { part } : {}),
   };
   if (cut) {
-    return { url: cardImageUrl(`${p.storage_path}-1x.webp`, base), url2x: p.small_2x ? null : cardImageUrl(`${p.storage_path}-2x.webp`, base), css: false, ...common };
+    const stem = `${p.storage_path}${partSuffix(part)}`;
+    return { url: cardImageUrl(`${stem}-1x.webp`, base), url2x: small2x ? null : cardImageUrl(`${stem}-2x.webp`, base), css: false, ...common };
   }
   return { url: sourceUrl, url2x: null, css: true, ...common };
 }
@@ -64,10 +85,13 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
     for (const [k, v] of Object.entries(e.lock_reasons ?? {})) if (RAR.has(k) && LOCKS.has(v)) lockReasons[k as Rarity] = v as LockReason;
     return {
       id: e.id, kind: e.kind, name: e.name, groupId: e.group_id, group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : null,
-      debutYear: e.debut_year, sortKey: e.sort_key, lockReasons,
+      debutYear: e.debut_year, sortKey: e.sort_key, lockReasons, ...(typeof e.end_year === 'number' ? { endYear: e.end_year } : {}),
     };
   });
   const outCards: CatalogCard[] = [];
+  // Lot 2: the other half of a pair is the card of the same subject, edition and the other part.
+  const halves = new Map<string, number>();
+  for (const c of cards) if (partOf(c.part) !== 0) halves.set(`${c.entity_id}|${c.rarity}|${partOf(c.part)}`, c.card_no);
   for (const c of cards) {
     const e = ent.get(c.entity_id);
     if (!e) continue;
@@ -78,14 +102,16 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
           source: p.source, sourcePage: p.source_page, shareAlike: p.share_alike, modified: p.modified,
         }
       : null;
+    const part = partOf(c.part);
     outCards.push({
       n: c.card_no, num: c.num, entity: c.entity_id, kind: e.kind, rarity: c.rarity, edition: c.edition, name: e.name,
       group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : e.kind === 'group' ? e.name : null,
-      debutYear: e.debut_year, photo: credit,
-      image: p ? cardImage(p, base) : null,
+      debutYear: e.debut_year, ...(typeof e.end_year === 'number' ? { endYear: e.end_year } : {}), photo: credit,
+      image: p ? cardImage(p, base, c) : null,
+      ...(part !== 0 ? { part, pairN: halves.get(`${c.entity_id}|${c.rarity}|${part === 1 ? 2 : 1}`) ?? null } : {}),
     });
   }
-  const pool = outCards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity }));
+  const pool = outCards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, entity: c.entity }));
   return { generatedAt, odds: pool.length > 0 ? computeOdds(pool) : null, cards: outCards, entities: outEntities };
 }
 
@@ -96,9 +122,11 @@ export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayl
   const db = createServiceRoleClient();
   const [cards, entities, photos] = await Promise.all([
     fetchAllRows<CardRow>(() =>
-      db.from('cards_catalog').select('card_no, num, entity_id, rarity, edition, photo_id').eq('in_packs', true).order('card_no', { ascending: true })),
+      // '*': part and small_2x exist only once file 102 is applied; before it every card reads as a whole card.
+      db.from('cards_catalog').select('*').eq('in_packs', true).order('card_no', { ascending: true })),
     fetchAllRows<EntityRow>(() =>
-      db.from('cards_entities').select('id, kind, name, group_id, debut_year, sort_key, lock_reasons').eq('active', true).order('id', { ascending: true })),
+      // '*': end_year exists only once file 102 is applied.
+      db.from('cards_entities').select('*').eq('active', true).order('id', { ascending: true })),
     fetchAllRows<PhotoRow>(() =>
       db.from('cards_photos')
         .select('id, slot, source, source_page, author, author_url, licence, licence_url, share_alike, modified, focal_x, focal_y, storage_path, source_path, file_focal_x, file_focal_y, small_2x')

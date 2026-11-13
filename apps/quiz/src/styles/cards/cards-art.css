@@ -120,3 +120,8 @@
 .bvc .d-back .lic b{display:block;font-family:var(--f-mono);font-stretch:80%;font-weight:500;font-size:3.6cqi;letter-spacing:.1em;text-transform:uppercase;color:#A9A2C4;margin-bottom:1cqi}
 .bvc .c-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
 .bvc .c-photo + .c-foil{z-index:2}
+/* Lot 2: a half of a group photo from the source photo: a box twice the card width (the 11:8.5 window), the card shows its side of it. */
+.bvc .c-pair{position:absolute;top:0;bottom:0;width:200%;display:block}
+.bvc .c-pair.c-half1{left:0}
+.bvc .c-pair.c-half2{left:-100%}
+.bvc .c-pair + .c-foil{z-index:2}

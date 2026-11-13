@@ -1,0 +1,301 @@
+{
+  "checked_on": "2026-11-12",
+  "sources": "Wikidata membership (P463, P527 with start and end times) and birth dates (P569), each checked against the English Wikipedia article; a birth date with one source, a disagreement or an unknown date leaves the subject out",
+  "subjects": [
+    {
+      "slug": "bibi",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "chungha",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "heize",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "hwasa",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "hyuna",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "iu",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "jay-park",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "jennie",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "jeon-somi",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "jimin",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "jungkook",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "psy",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "rose",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "sunmi",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "taeyang",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "taeyeon",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "v-bts",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "zico",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "akmu",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "apink",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "artms",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "astro",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "billlie",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "btob",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "cortis",
+      "ok": false,
+      "reason": "minor_today"
+    },
+    {
+      "slug": "day6",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "dreamcatcher",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "fifty-fifty",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "fromis-9",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "hearts2hearts",
+      "ok": false,
+      "reason": "minor_today"
+    },
+    {
+      "slug": "ikon",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "illit",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "kara",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "katseye",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "kickflip",
+      "ok": false,
+      "reason": "unknown_lineup"
+    },
+    {
+      "slug": "kiss-of-life",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "loona",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "loossemble",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "miss-a",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "monsta-x",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "nct",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "nct-wish",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "p1harmony",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "pentagon",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "purple-kiss",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "rescene",
+      "ok": false,
+      "reason": "minor_today"
+    },
+    {
+      "slug": "sistar",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "stayc",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "t-ara",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "team",
+      "ok": false,
+      "reason": "unknown_birth_date"
+    },
+    {
+      "slug": "the-boyz",
+      "ok": false,
+      "reason": "unknown_birth_date"
+    },
+    {
+      "slug": "triples",
+      "ok": false,
+      "reason": "minor_today"
+    },
+    {
+      "slug": "tuide",
+      "ok": false,
+      "reason": "minor_today"
+    },
+    {
+      "slug": "tws",
+      "ok": false,
+      "reason": "minor_at_photo"
+    },
+    {
+      "slug": "viviz",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "winner",
+      "ok": true,
+      "reason": null
+    },
+    {
+      "slug": "xikers",
+      "ok": false,
+      "reason": "unknown_lineup"
+    },
+    {
+      "slug": "young-posse",
+      "ok": false,
+      "reason": "minor_today"
+    },
+    {
+      "slug": "zerobaseone",
+      "ok": true,
+      "reason": null
+    }
+  ]
+}

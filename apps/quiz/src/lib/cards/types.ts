@@ -8,6 +8,9 @@ export type PackSource = 'stock' | 'ad' | 'shards' | 'bonus';
 export type PhotoSource = 'commons' | 'koreanet' | 'flickr' | 'dvids';
 export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop';
 export type PhotoStatus = 'auto' | 'pending' | 'approved' | 'rejected' | 'removed';
+/** Lot 2 (owner idea, 2026-11-12): what part of its photo a card shows. 0 the whole photo (a person's card), 1 the left half and 2 the
+ *  right half of a group photo. A group gives a pair of cards per edition, with consecutive numbers (cards_catalog.part, file 102). */
+export type CardPart = 0 | 1 | 2;
 
 export interface PhotoCredit {
   id: number;
@@ -42,6 +45,9 @@ export interface CardImage {
   fileFocalY: number | null;
   /** The public URL of the source photo (bucket images/group-photos/<slug>.jpg), null without a source_path. */
   sourceUrl: string | null;
+  /** Lot 2: 1 or 2 for a half of a group photo. The pair's window is 11:8.5 (two cards side by side), placed in the photo by the focal
+   *  point; a half shows its side of that window. A cut half is the file <stem>-h<part>-1x.webp (and -2x). 0 or absent: the whole card. */
+  part?: CardPart;
 }
 
 export interface CatalogCard {
@@ -59,9 +65,15 @@ export interface CatalogCard {
   /** Group name for an idol card, null otherwise. */
   group: string | null;
   debutYear: number | null;
+  /** Lot 2: the year a disbanded group disbanded (cards_entities.end_year, file 102), null otherwise. Optional for older payloads. */
+  endYear?: number | null;
   photo: PhotoCredit | null;
   /** Added by lane C after the first commit; optional so older fixtures still type-check. */
   image?: CardImage | null;
+  /** Lot 2: 1 or 2 for a half of a group photo (see CardPart); 0 or absent for a whole card. */
+  part?: CardPart;
+  /** Lot 2: the card_no of the other half of the pair (same subject, same edition), null when it is not in packs. */
+  pairN?: number | null;
 }
 
 /** An idol, a group or an event, with the reasons its missing editions are missing (LOCK_SENTENCES keys). */
@@ -73,6 +85,8 @@ export interface CatalogEntity {
   groupId: string | null;
   group: string | null;
   debutYear: number | null;
+  /** Lot 2: the year a disbanded group disbanded, null otherwise. */
+  endYear?: number | null;
   sortKey: string;
   /** {"SR":"one","L":"crop"}: why a missing edition is missing. */
   lockReasons: Partial<Record<Rarity, LockReason>>;
@@ -151,6 +165,9 @@ export interface PoolCard {
   n: number;
   kind: CardKind;
   rarity: Rarity;
+  /** Lot 2: the subject (cards_entities.id). The draw picks a subject first, then one of its cards of the rolled rarity (the two halves of a
+   *  group), so a group with a pair comes out as often as a subject with one card. Without it, every card is its own subject. */
+  entity?: string;
 }
 
 /** An integer in [0, maxExclusive). The server passes crypto.randomInt; the tests pass a seeded generator. */
@@ -168,6 +185,13 @@ export interface CatalogOdds {
   card: Record<Rarity, number>;
   /** The fifth card: a Common becomes an Uncommon. */
   fifth: Record<Rarity, number>;
-  /** Kind weights in percent among the kinds that have a card of that rarity. */
+  /** The share of each rarity that goes to each kind, in percent: the plan's kind weights once the catalog has the plan's form, else each
+   *  kind's share of the subjects (owner decision 2026-11-13: every subject the same chance). */
   kinds: Record<Rarity, Partial<Record<CardKind, number>>>;
+  /** Lot 2: true when the plan's kind weights apply (rules.ts hasPlanForm). Optional for older payloads. */
+  kindWeights?: boolean;
+  /** Lot 2: the number of subjects per rarity and kind (a group with a pair counts once). Optional so older payloads still type-check. */
+  subjects?: Record<Rarity, Partial<Record<CardKind, number>>>;
+  /** Lot 2: the number of cards per rarity and kind (a group with a pair counts twice). */
+  cards?: Record<Rarity, Partial<Record<CardKind, number>>>;
 }

@@ -27,10 +27,16 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const entity = card ? cat.entities.find((e) => e.id === card.entity) : undefined;
   if (!card || !entity) return null;
   const mine = cat.cards.filter((c) => c.entity === entity.id);
+  // Lot 2: a rung of a group is its pair (left half first); the rung points at the first card, the mate is the other half.
   const ladder: Rung[] = ladderRarities(entity.kind).map((r) => {
-    const c = mine.find((x) => x.rarity === r);
-    return { rarity: r, card: c ? slimCard(c, entity.eventType ?? null) : null, reason: lockReasonOf(entity.lockReasons, r), anchor: card.num };
+    const cs = mine.filter((x) => x.rarity === r).sort((a, b) => (a.part ?? 0) - (b.part ?? 0) || a.n - b.n);
+    const c = cs[0];
+    const m = c && (c.part === 1) ? cs.find((x) => x.part === 2 && x.n === c.pairN) : undefined;
+    return { rarity: r, card: c ? slimCard(c, entity.eventType ?? null) : null, ...(m ? { mate: slimCard(m, entity.eventType ?? null) } : {}), reason: lockReasonOf(entity.lockReasons, r), anchor: card.num };
   });
+  const half = card.part === 1 || card.part === 2 ? card.part : 0;
+  const mateCard = half && card.pairN != null ? cat.cards.find((x) => x.n === card.pairN && x.entity === card.entity) : undefined;
+  const pair: DetailProps['pair'] = half ? { side: half === 1 ? 'left' : 'right', mate: mateCard ? slimCard(mateCard, entity.eventType ?? null) : null } : null;
   const lockR = RARITIES.find((r) => r === lock);
   const missing = lockR ? ladder.find((x) => x.rarity === lockR && !x.card) : undefined;
   const locked = !!missing;
@@ -43,11 +49,11 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const groupLine = entity.group || SOLOIST;
   const allFacts: [string, string | null][] =
     entity.kind === 'idol' ? [['Group', groupLine], ['Debut', year !== null ? (entity.group ? `${year}, with the group` : String(year)) : null], ['Edition', edition], ['Number', card.num]]
-    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]]
+    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Disbanded', entity.endYear ? String(entity.endYear) : null], ['Edition', edition], ...(half ? [['Part', `${half === 1 ? 'Left' : 'Right'} half, ${half} of 2`] as [string, string]] : []), ['Number', card.num]]
     : [['Type', entity.eventType ?? 'Event'], ['Year', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]];
   const facts = allFacts.filter((f): f is [string, string] => f[1] !== null && f[1] !== '');
   const subParts = entity.kind === 'idol' ? [groupLine, year !== null ? `debut ${year}` : null]
-    : entity.kind === 'group' ? ['Group', year !== null ? `debut ${year}` : null] : [entity.eventType ?? 'Event', year !== null ? String(year) : null];
+    : entity.kind === 'group' ? ['Group', year !== null ? `debut ${year}` : null, entity.endYear ? `disbanded ${entity.endYear}` : null] : [entity.eventType ?? 'Event', year !== null ? String(year) : null];
   const sub = subParts.filter((x): x is string => !!x).join(' · ');
   const missingRungs = ladder.filter((x) => !x.card);
   let why: DetailProps['why'] = null;
@@ -65,7 +71,7 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
     lockedRarity: locked ? shown : null,
     entityName: entity.name, entityKind: entity.kind, sub, facts,
     backCredit: !locked && card.photo ? creditLine(card.photo, card.photo.slot) : null,
-    ladder, why,
+    ladder, why, pair: locked ? null : pair,
     lockSentence: locked ? (missing!.reason ? LOCK_SENTENCES[missing!.reason] : 'No free photo can make this edition yet.') : null,
   };
   return { props, card, photo: card.photo, entity, locked };

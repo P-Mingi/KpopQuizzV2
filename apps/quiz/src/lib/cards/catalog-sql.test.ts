@@ -154,11 +154,13 @@ describe('101-catalog.sql on fixture groups and idols', () => {
     expect(second).toContain('101-catalog: 0 subjects in, 54 left out, 5 already there');
   });
 
-  it('review 1 finding 15: the file set is 001, 002, 003 and 101, each with its rollback (no bucket file 100)', async () => {
+  // Lot 2 (integrator brief 2026-11-12, points 1 and 4): 099 (the members of the subjects that had none) and 102 (the rebuild) join the set.
+  it('review 1 finding 15: the file set is 001, 002, 003, 099, 101 and 102, each with its rollback (no bucket file 100)', async () => {
     const { readdirSync } = await import('node:fs');
     expect(readdirSync(CARDS_SQL).filter((f) => f.endsWith('.sql')).sort()).toEqual([
       '001-schema.rollback.sql', '001-schema.sql', '002-functions.rollback.sql', '002-functions.sql', '003-rls.rollback.sql', '003-rls.sql',
-      '101-catalog.rollback.sql', '101-catalog.sql']);
+      '099-idols-members.rollback.sql', '099-idols-members.sql', '101-catalog.rollback.sql', '101-catalog.sql',
+      '102-catalog-rebuild.rollback.sql', '102-catalog-rebuild.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
     const d2 = await fixtureDb();
