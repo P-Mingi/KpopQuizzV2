@@ -122,6 +122,16 @@ export interface WalletState {
   shards: number;
   bonusLeft: number;
   owned: OwnedEntry[];
+  /** Lot 3 B12: packs from the timer allowed a Paris day (TIMER_PACKS_PER_DAY, or CARDS_TIMER_PER_DAY). Optional for older payloads. */
+  timerCap?: number;
+  /** Lot 3 B12: packs from the timer still allowed today. At 0 the stack rests until Paris midnight whatever its size. */
+  timerLeft?: number;
+  /** Lot 3 B10: packs left up to and including the one that holds a Gold card for sure (1 = the next pack); null while no Gold card is in packs. */
+  pityLeft?: number | null;
+  /** Lot 3 C4: true once today's focus pack is opened. */
+  focusUsed?: boolean;
+  /** Lot 3 C4: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
+  wishlist?: number[];
   /** The odds of the real catalog (null while the catalog is empty). */
   odds?: CatalogOdds | null;
 }
@@ -168,6 +178,8 @@ export interface PoolCard {
   /** Lot 2: the subject (cards_entities.id). The draw picks a subject first, then one of its cards of the rolled rarity (the two halves of a
    *  group), so a group with a pair comes out as often as a subject with one card. Without it, every card is its own subject. */
   entity?: string;
+  /** Lot 3 (C4): the group of the card's subject (cards_entities.group_id of an idol), so a focus pack finds a group's idols. */
+  group?: string | null;
 }
 
 /** An integer in [0, maxExclusive). The server passes crypto.randomInt; the tests pass a seeded generator. */

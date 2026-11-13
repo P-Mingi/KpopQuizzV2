@@ -182,14 +182,49 @@ function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
   return (table[table.length - 1] as [Rarity, number])[0];
 }
 
+/** What a per-player draw may add to the plain draw (lot 3). Everything is optional: without it the draw is exactly the lot 2 one. */
+export interface DrawOpts {
+  /** B10: draw this rarity instead of rolling one (the Ultra Rare of the 30th pack). */
+  rarity?: Rarity;
+  /** B11: the card numbers the player owns; the cards drawn so far in the pack are added by drawPack. A group edition of which he owns
+   *  exactly one half gives him the other half. */
+  owned?: ReadonlySet<number>;
+  /** C4: a group (cards_entities.id of kind 'group'); the card comes from its subjects at the rolled rarity, else from the whole pool. */
+  focus?: string | null;
+}
+
+/** The cards of a group for the focus pack: the group's own cards and those of the idols whose group_id is that group. */
+export function focusCards(list: readonly PoolCard[], focus: string): PoolCard[] {
+  return list.filter((c) => c.entity === focus || c.group === focus);
+}
+
+/** One of a subject's cards. With `owned`, a subject of which the player holds some but not all halves gives one he lacks (B11). */
+function pickCard(cards: PoolCard[], rng: Rng, owned: ReadonlySet<number> | undefined): PoolCard {
+  if (cards.length === 1) return cards[0] as PoolCard;
+  if (owned) {
+    const lacking = cards.filter((c) => !owned.has(c.n));
+    if (lacking.length > 0 && lacking.length < cards.length) return lacking.length === 1 ? (lacking[0] as PoolCard) : (lacking[rng(lacking.length)] as PoolCard);
+  }
+  return cards[rng(cards.length)] as PoolCard;
+}
+
+/** A subject at random in a list, then one of its cards. */
+function pickSubject(list: readonly PoolCard[], rng: Rng, owned: ReadonlySet<number> | undefined): PoolCard {
+  const subjects = subjectsOf(list);
+  return pickCard(subjects[rng(subjects.length)] as PoolCard[], rng, owned);
+}
+
 /** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. Exported for the tests. */
-export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): PoolCard {
-  const rarity = rollFrom(tableOf(byKey, fifth), rng);
+export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean, opts: DrawOpts = {}): PoolCard {
+  const rarity = opts.rarity ?? rollFrom(tableOf(byKey, fifth), rng);
+  if (opts.focus) {
+    // Lot 3 C4: a subject of the focus group at this rarity; a group with no card of the rarity falls back to the plain draw below.
+    const mine = focusCards(cardsOfRarity(byKey, rarity), opts.focus);
+    if (mine.length > 0) return pickSubject(mine, rng, opts.owned);
+  }
   if (!hasPlanForm(byKey)) {
     // Owner decision 2026-11-13: no kind weight before the plan's form; one subject of the rarity at random, then one of its cards.
-    const subjects = subjectsOf(cardsOfRarity(byKey, rarity));
-    const cards = subjects[rng(subjects.length)] as PoolCard[];
-    return (cards.length === 1 ? cards[0] : cards[rng(cards.length)]) as PoolCard;
+    return pickSubject(cardsOfRarity(byKey, rarity), rng, opts.owned);
   }
   const kinds = KINDS.filter((k) => (byKey.get(`${k}|${rarity}`)?.length ?? 0) > 0);
   const total = kinds.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
@@ -205,9 +240,7 @@ export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean
   const list = byKey.get(`${kind}|${rarity}`) as PoolCard[];
   // Lot 2: a subject first, then one of its cards of that rarity (a group's two halves), so a pair does not double a group's chance.
   // With one card per subject this is exactly the former uniform pick (same rng calls, same card).
-  const subjects = subjectsOf(list);
-  const cards = subjects[rng(subjects.length)] as PoolCard[];
-  return (cards.length === 1 ? cards[0] : cards[rng(cards.length)]) as PoolCard;
+  return pickSubject(list, rng, opts.owned);
 }
 
 const SUBJECTS = new WeakMap<readonly PoolCard[], PoolCard[][]>();
@@ -287,11 +320,37 @@ export function indexPool(pool: readonly PoolCard[]): Map<string, PoolCard[]> {
   return byKey;
 }
 
-export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rng: Rng): number[] {
+/** What the player's own state adds to a pack (lot 3). The server fills it; the plain draw is drawPack(pool, rng). */
+export interface PackContext {
+  /** B10: the player's last PITY_UR - 1 packs held no Ultra Rare and no Legendary, so this pack must hold one. */
+  pity?: boolean;
+  /** B11: the card numbers the player owns now. */
+  owned?: ReadonlySet<number>;
+  /** C4: the group of a focus pack (cards 1 and 2 come from it). */
+  focus?: string | null;
+}
+
+/** True for the two rarities that end the Ultra Rare count. */
+export const isPityHit = (r: Rarity): boolean => r === 'UR' || r === 'L';
+
+export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rng: Rng, ctx: PackContext = {}): number[] {
   const byKey = pool instanceof Map ? pool : indexPool(pool);
-  const out: number[] = [];
-  for (let i = 0; i < PACK_SIZE; i++) out.push(drawOne(byKey, rng, i === PACK_SIZE - 1).n);
-  return out;
+  const out: PoolCard[] = [];
+  // The cards drawn so far count as owned, so the second draw of a group edition inside one pack gives its other half.
+  const owned = ctx.owned ? new Set(ctx.owned) : undefined;
+  // B10 holds only while the pool has an Ultra Rare card.
+  const mustUr = ctx.pity === true && cardsOfRarity(byKey, 'UR').length > 0;
+  for (let i = 0; i < PACK_SIZE; i++) {
+    const last = i === PACK_SIZE - 1;
+    const opts: DrawOpts = {};
+    if (owned) opts.owned = owned;
+    if (ctx.focus && i < 2) opts.focus = ctx.focus;
+    if (last && mustUr && !out.some((c) => isPityHit(c.rarity))) opts.rarity = 'UR';
+    const card = drawOne(byKey, rng, last, opts);
+    owned?.add(card.n);
+    out.push(card);
+  }
+  return out.map((c) => c.n);
 }
 
 /* ---------- time (Europe/Paris) ---------- */
@@ -312,6 +371,26 @@ export function parisDayOf(t: number | Date): string {
   const o: Record<string, string> = {};
   for (const p of parisFmt().formatToParts(new Date(t))) o[p.type] = p.value;
   return `${o.year}-${o.month}-${o.day}`;
+}
+
+let hourFmt: Intl.DateTimeFormat | null = null;
+
+/** The Paris hour of an instant, 0 to 23. */
+export function parisHourOf(t: number | Date): number {
+  hourFmt ??= new Intl.DateTimeFormat('en-GB', { timeZone: PARIS_TZ, hour: '2-digit', hourCycle: 'h23' });
+  const h = hourFmt.formatToParts(new Date(t)).find((p) => p.type === 'hour');
+  return Number(h?.value ?? 0) % 24;
+}
+
+/**
+ * Lot 3 B12: true during the quiet hours (Paris time, QUIET_HOURS: 22:00 to 08:00, the start included and the end excluded).
+ * The game sends no reminder today (no push, no email, no title or icon counter). ANY FUTURE REMINDER, in the page or outside it, MUST
+ * call this helper and stay silent when it returns true.
+ */
+export function inQuietHours(now: number | Date = Date.now()): boolean {
+  const h = parisHourOf(now);
+  const { from, to } = QUIET_HOURS;
+  return from > to ? h >= from || h < to : h >= from && h < to;
 }
 
 /**

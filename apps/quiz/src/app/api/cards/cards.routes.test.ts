@@ -72,6 +72,9 @@ const req = (path: string, body?: unknown, headers: Record<string, string> = {})
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
 
+// Lot 3: the draw first reads the player's Gold count (cards_pity_count), so the pack call is no longer the first call.
+const applyCall = (): { fn: string; args: Record<string, unknown> } | undefined => h.rpcCalls.find((c) => c.fn === 'cards_apply_pack');
+
 const WALLET = {
   stock: 3, anchor: '2026-11-12T10:00:00+00:00', paris_day: '2026-11-12', ads_today: 2, bonus_today: 0, shards: 12, ads_left: 8, bonus_left: 1,
   next_at: '2026-11-12T10:10:00+00:00', midnight_at: '2026-11-12T23:00:00+00:00',
@@ -203,6 +206,8 @@ describe('GET /api/cards/state', () => {
     expect(await res.json()).toEqual({
       stock: 3, cap: 5, nextAt: '2026-11-12T10:10:00.000Z', midnightAt: '2026-11-12T23:00:00.000Z', adsLeft: 8, adsEnabled: true,
       shards: 12, bonusLeft: 1, owned: [{ n: 4, copies: 2, fav: true, at: '2026-11-12T09:00:00.000Z' }],
+      // Lot 3: the timer cap (B12), the Gold guarantee (B10), the focus pack and the wishlist (C4) join the state.
+      timerCap: 40, timerLeft: 40, pityLeft: null, focusUsed: false, wishlist: [],
       odds: expect.objectContaining({ available: ['C', 'U', 'R', 'UR'] }),
     });
     const odds = (await (await state(req('/api/cards/state'))).json()).odds;
@@ -237,7 +242,7 @@ describe('POST /api/cards/open', () => {
     const body = await res.json();
     expect(body.pack).toEqual({ id: 'pack-1', cards: [{ n: 1, isNew: true }, { n: 7, isNew: false }, { n: 9, isNew: true }, { n: 3, isNew: true }, { n: 2, isNew: true }] });
     expect(body.state.stock).toBe(3);
-    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_apply_pack', args: { p_user: 'u1', p_source: 'stock', p_cards: [1, 7, 9, 3, 2], p_ticket: null } });
+    expect(applyCall()).toMatchObject({ fn: 'cards_apply_pack', args: { p_user: 'u1', p_source: 'stock', p_cards: [1, 7, 9, 3, 2], p_ticket: null, p_timer_cap: 40, p_focus: null } });
   });
   it('refuses a bad source (400), the ad source included, and a non-object body', async () => {
     for (const body of [{ source: 'ad' }, { source: 'gift' }, {}, { source: 5 }]) expect((await open(req('/api/cards/open', body))).status).toBe(400);
@@ -268,7 +273,7 @@ describe('POST /api/cards/open', () => {
   it('the bonus source is refused while the bridges are off', async () => {
     vi.stubEnv('NET_CARDS_BRIDGES', '');
     await open(req('/api/cards/open', { source: 'bonus' }));
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 0 });
+    expect(applyCall()?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 0 });
   });
 });
 
@@ -297,7 +302,7 @@ describe('the rewarded ad', () => {
     const res = await grant(req('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
     expect(res.status).toBe(200);
     expect((await res.json()).pack.id).toBe('pack-1');
-    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_apply_pack', args: { p_source: 'ad', p_ticket: UUID } });
+    expect(applyCall()).toMatchObject({ fn: 'cards_apply_pack', args: { p_source: 'ad', p_ticket: UUID } });
   });
   it('grant: a replayed, foreign or unknown ticket is 409, a malformed one too, and the limit is 409 limit', async () => {
     h.rpcResult.cards_apply_pack = { error: { message: 'cards: ticket' } };

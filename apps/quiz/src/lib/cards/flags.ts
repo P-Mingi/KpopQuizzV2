@@ -8,11 +8,12 @@
 //   NEXT_PUBLIC_NET_CARDS_ADS  public, hub    the ad button, the binder banner, the consent banner (inlined at build)
 //   CARDS_ADS_PER_DAY          server         rewarded ads a Paris day, default 10
 //   CARDS_BONUS_PER_DAY        server         bonus packs a Paris day, default 3 until the owner rules (decision 1)
+//   CARDS_TIMER_PER_DAY        server         packs from the timer a Paris day, default 40 (lot 3 B12)
 // kpopquiz.org never loads an ad script: every ads helper is false off the hub.
 
 import { flagOn, SITE_ID } from '@/lib/site/registry';
 
-import { ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT } from './rules';
+import { ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT, TIMER_PACKS_PER_DAY } from './rules';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -23,6 +24,7 @@ interface Env {
   readonly NEXT_PUBLIC_NET_CARDS_ADS?: string | undefined;
   readonly CARDS_ADS_PER_DAY?: string | undefined;
   readonly CARDS_BONUS_PER_DAY?: string | undefined;
+  readonly CARDS_TIMER_PER_DAY?: string | undefined;
 }
 
 /** The pieces a test replaces. Defaults read the build's site and process.env (written out in full so Next inlines the public flag). */
@@ -40,6 +42,7 @@ function envOf(ctx: FlagCtx | undefined): Env {
       NEXT_PUBLIC_NET_CARDS_ADS: process.env.NEXT_PUBLIC_NET_CARDS_ADS,
       CARDS_ADS_PER_DAY: process.env.CARDS_ADS_PER_DAY,
       CARDS_BONUS_PER_DAY: process.env.CARDS_BONUS_PER_DAY,
+      CARDS_TIMER_PER_DAY: process.env.CARDS_TIMER_PER_DAY,
     }
   );
 }
@@ -80,4 +83,9 @@ export function adsPerDay(ctx?: FlagCtx): number {
 /** Bonus packs a Paris day (CARDS_BONUS_PER_DAY, default 3, 0 turns them off, at most 20). */
 export function bonusPerDay(ctx?: FlagCtx): number {
   return intSetting(envOf(ctx).CARDS_BONUS_PER_DAY, BONUS_PER_DAY_DEFAULT, 20);
+}
+
+/** Packs from the timer (source 'stock') a Paris day (CARDS_TIMER_PER_DAY, default TIMER_PACKS_PER_DAY = 40, 0 closes the timer, at most 500). */
+export function timerPerDay(ctx?: FlagCtx): number {
+  return intSetting(envOf(ctx).CARDS_TIMER_PER_DAY, TIMER_PACKS_PER_DAY, 500);
 }
