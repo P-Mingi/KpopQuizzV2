@@ -160,7 +160,8 @@ describe('101-catalog.sql on fixture groups and idols', () => {
     expect(readdirSync(CARDS_SQL).filter((f) => f.endsWith('.sql')).sort()).toEqual([
       '001-schema.rollback.sql', '001-schema.sql', '002-functions.rollback.sql', '002-functions.sql', '003-rls.rollback.sql', '003-rls.sql',
       '099-idols-members.rollback.sql', '099-idols-members.sql', '101-catalog.rollback.sql', '101-catalog.sql',
-      '102-catalog-rebuild.rollback.sql', '102-catalog-rebuild.sql']);
+      '102-catalog-rebuild.rollback.sql', '102-catalog-rebuild.sql', '103-catalog-photos.rollback.sql', '103-catalog-photos.sql',
+      '104-economy.rollback.sql', '104-economy.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
     const d2 = await fixtureDb();

@@ -8,12 +8,13 @@
 //   NEXT_PUBLIC_NET_CARDS_ADS  public, hub    the ad button, the binder banner, the consent banner (inlined at build)
 //   CARDS_ADS_PER_DAY          server         rewarded ads a Paris day, default 10
 //   CARDS_BONUS_PER_DAY        server         bonus packs a Paris day, default 3 until the owner rules (decision 1)
-//   CARDS_TIMER_PER_DAY        server         packs from the timer a Paris day, default 40 (lot 3 B12)
+//   CARDS_TIMER_PER_DAY        server         packs the timer adds a Paris day, default 40 (lot 3 A13)
+//   CARDS_AD_SHARDS            server         shards a rewarded ad gives, default 25 (lot 4 B4)
 // kpopquiz.org never loads an ad script: every ads helper is false off the hub.
 
 import { flagOn, SITE_ID } from '@/lib/site/registry';
 
-import { ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT, TIMER_PACKS_PER_DAY } from './rules';
+import { AD_SHARDS_DEFAULT, ADS_PER_DAY_DEFAULT, BONUS_PER_DAY_DEFAULT, TIMER_PACKS_PER_DAY } from './rules';
 
 import type { SiteId } from '@/lib/site/types';
 
@@ -25,6 +26,7 @@ interface Env {
   readonly CARDS_ADS_PER_DAY?: string | undefined;
   readonly CARDS_BONUS_PER_DAY?: string | undefined;
   readonly CARDS_TIMER_PER_DAY?: string | undefined;
+  readonly CARDS_AD_SHARDS?: string | undefined;
 }
 
 /** The pieces a test replaces. Defaults read the build's site and process.env (written out in full so Next inlines the public flag). */
@@ -43,6 +45,7 @@ function envOf(ctx: FlagCtx | undefined): Env {
       CARDS_ADS_PER_DAY: process.env.CARDS_ADS_PER_DAY,
       CARDS_BONUS_PER_DAY: process.env.CARDS_BONUS_PER_DAY,
       CARDS_TIMER_PER_DAY: process.env.CARDS_TIMER_PER_DAY,
+      CARDS_AD_SHARDS: process.env.CARDS_AD_SHARDS,
     }
   );
 }
@@ -85,7 +88,12 @@ export function bonusPerDay(ctx?: FlagCtx): number {
   return intSetting(envOf(ctx).CARDS_BONUS_PER_DAY, BONUS_PER_DAY_DEFAULT, 20);
 }
 
-/** Packs from the timer (source 'stock') a Paris day (CARDS_TIMER_PER_DAY, default TIMER_PACKS_PER_DAY = 40, 0 closes the timer, at most 500). */
+/** Packs the timer adds a Paris day (CARDS_TIMER_PER_DAY, default TIMER_PACKS_PER_DAY = 40, 0 closes the timer, at most 500). */
 export function timerPerDay(ctx?: FlagCtx): number {
   return intSetting(envOf(ctx).CARDS_TIMER_PER_DAY, TIMER_PACKS_PER_DAY, 500);
+}
+
+/** Shards a rewarded ad gives (CARDS_AD_SHARDS, default AD_SHARDS_DEFAULT = 25, at least 1, at most 1000). */
+export function adShards(ctx?: FlagCtx): number {
+  return Math.max(1, intSetting(envOf(ctx).CARDS_AD_SHARDS, AD_SHARDS_DEFAULT, 1000));
 }

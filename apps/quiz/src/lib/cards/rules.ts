@@ -57,18 +57,28 @@ export const RARITY_LABEL: Record<Rarity, string> = {
   L: 'Full Art',
 };
 
-/** Lot 3 point B10: an Ultra Rare at the latest in the 30th pack in a row without one (a pack holding an Ultra Rare or a Legendary
- *  resets the count). Only while the pool has an Ultra Rare card. */
+/** Lot 3 point A11: after PITY_UR - 1 = 29 packs in a row without a Gold or a Full Art card, the 5th card of the 30th pack is Gold (a pack
+ *  holding a Gold or a Full Art card resets the count). Only while the pool has a Gold card. The SQL twin is cards_apply_pack (104). */
 export const PITY_UR = 30;
 
-/** Lot 3 point B12: at most this many packs from the timer (source 'stock') a Paris day; CARDS_TIMER_PER_DAY overrides it on the server. */
+/** Lot 3 point A13: the timer adds at most this many packs a Paris day (the midnight top-up is not counted); a pack in the stack always
+ *  opens. CARDS_TIMER_PER_DAY overrides it on the server. */
 export const TIMER_PACKS_PER_DAY = 40;
 
-/** Lot 3 point B12: the quiet hours of any reminder the game may send (Paris time, from 22:00 to 08:00). The game sends none today. */
+/** Lot 4 point B4: the shards a rewarded ad gives (fixed, not a pack); CARDS_AD_SHARDS overrides it on the server. */
+export const AD_SHARDS_DEFAULT = 25;
+
+/** Lot 3 point A13: the quiet hours of any reminder the game may send (Paris time, from 22:00 to 08:00). The game sends none today. */
 export const QUIET_HOURS = { from: 22, to: 8 } as const;
 
-/** Lot 3 point C1: the shards a missing card costs to craft (SR and L only once such a card exists). A pack still costs SHARD_PACK_COST. */
-export const CRAFT_COST: Record<Rarity, number> = { C: 10, U: 20, R: 50, SR: 120, UR: 300, L: 800 };
+/** Lot 3 point A14: the shards a missing card costs to craft: Standard 10, Stage 20, Holo 50, Era 120, Gold 300. A Full Art is NOT craftable
+ *  (no entry). A pack still costs SHARD_PACK_COST. */
+export const CRAFT_COST: Partial<Record<Rarity, number>> = { C: 10, U: 20, R: 50, SR: 120, UR: 300 };
+
+/** The craft cost of a rarity, null for a Full Art (it cannot be crafted). */
+export function craftCost(r: Rarity): number | null {
+  return CRAFT_COST[r] ?? null;
+}
 
 /** Kind weights, among the kinds that have at least one active card of the rolled rarity. Applied only once the catalog has the plan's
  *  form (hasPlanForm): owner decision 2026-11-13. */
@@ -187,12 +197,12 @@ function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
 
 /** What a per-player draw may add to the plain draw (lot 3). Everything is optional: without it the draw is exactly the lot 2 one. */
 export interface DrawOpts {
-  /** B10: draw this rarity instead of rolling one (the Ultra Rare of the 30th pack). */
+  /** A11: draw this rarity instead of rolling one (the Gold card 5 of the 30th pack). */
   rarity?: Rarity;
-  /** B11: the card numbers the player owns; the cards drawn so far in the pack are added by drawPack. A group edition of which he owns
+  /** A12: the card numbers the player owns; the cards drawn so far in the pack are added by drawPack. A group edition of which he owns
    *  exactly one half gives him the other half. */
   owned?: ReadonlySet<number>;
-  /** C4: a group (cards_entities.id of kind 'group'); the card comes from its subjects at the rolled rarity, else from the whole pool. */
+  /** A17: a group (cards_entities.id of kind 'group'); the card comes from its subjects at the rolled rarity, else from the whole pool. */
   focus?: string | null;
 }
 
@@ -325,15 +335,15 @@ export function indexPool(pool: readonly PoolCard[]): Map<string, PoolCard[]> {
 
 /** What the player's own state adds to a pack (lot 3). The server fills it; the plain draw is drawPack(pool, rng). */
 export interface PackContext {
-  /** B10: the player's last PITY_UR - 1 packs held no Ultra Rare and no Legendary, so this pack must hold one. */
+  /** A11: the player's last PITY_UR - 1 packs held no Gold and no Full Art, so card 5 of this pack is Gold. */
   pity?: boolean;
-  /** B11: the card numbers the player owns now. */
+  /** A12: the card numbers the player owns now. */
   owned?: ReadonlySet<number>;
-  /** C4: the group of a focus pack (cards 1 and 2 come from it). */
+  /** A17: the group of a focus pack (cards 2 and 4 come from it, at the edition rolled with the normal odds). */
   focus?: string | null;
 }
 
-/** True for the two rarities that end the Ultra Rare count. */
+/** True for the two rarities that end the Gold count (Gold and Full Art). */
 export const isPityHit = (r: Rarity): boolean => r === 'UR' || r === 'L';
 
 export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rng: Rng, ctx: PackContext = {}): number[] {
@@ -341,14 +351,14 @@ export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rn
   const out: PoolCard[] = [];
   // The cards drawn so far count as owned, so the second draw of a group edition inside one pack gives its other half.
   const owned = ctx.owned ? new Set(ctx.owned) : undefined;
-  // B10 holds only while the pool has an Ultra Rare card.
+  // A11 holds only while the pool has a Gold card.
   const mustUr = ctx.pity === true && cardsOfRarity(byKey, 'UR').length > 0;
   for (let i = 0; i < PACK_SIZE; i++) {
     const last = i === PACK_SIZE - 1;
     const opts: DrawOpts = {};
     if (owned) opts.owned = owned;
-    if (ctx.focus && i < 2) opts.focus = ctx.focus;
-    if (last && mustUr && !out.some((c) => isPityHit(c.rarity))) opts.rarity = 'UR';
+    if (ctx.focus && (i === 1 || i === 3)) opts.focus = ctx.focus;
+    if (last && mustUr) opts.rarity = 'UR';
     const card = drawOne(byKey, rng, last, opts);
     owned?.add(card.n);
     out.push(card);
@@ -422,18 +432,20 @@ function toMs(v: number | string | Date): number {
  * Paris midnight, at `now`. Read only: nothing is written.
  *  - a new Paris day resets ads_today and bonus_today, and tops the stack up to CAP when it is under CAP;
  *  - a full stack keeps its anchor at `now` (the next pack starts counting when a pack is spent);
- *  - otherwise one pack per full PERIOD since the anchor, the anchor advancing by whole periods.
+ *  - otherwise one pack per full PERIOD since the anchor, the anchor advancing by whole periods, up to timerCap refills a Paris day.
  */
-export function walletAt(row: WalletRow, now: number | Date): WalletClock {
+export function walletAt(row: WalletRow, now: number | Date, timerCap: number = Number.POSITIVE_INFINITY): WalletClock {
   const t = +now;
   let stock = row.stock;
   let anchor = toMs(row.anchor);
   let adsToday = row.adsToday;
   let bonusToday = row.bonusToday;
+  let timerToday = row.timerToday ?? 0;
   const today = parisDayOf(t);
   if (row.parisDay !== today) {
     adsToday = 0;
     bonusToday = 0;
+    timerToday = 0;
     if (stock < CAP) {
       stock = CAP;
       anchor = t;
@@ -442,11 +454,16 @@ export function walletAt(row: WalletRow, now: number | Date): WalletClock {
   if (stock >= CAP) {
     anchor = t;
   } else {
+    // Lot 3 A13: a refill adds a pack only while fewer than timerCap were added since Paris midnight (the midnight top-up is not counted).
     const k = Math.floor((t - anchor) / PERIOD_MS);
-    if (k > 0) {
-      stock = Math.min(CAP, stock + k);
-      anchor += k * PERIOD_MS;
+    const room = Math.max(0, timerCap - timerToday);
+    if (k > 0 && room > 0) {
+      const g = Math.min(k, CAP - stock, room);
+      stock += g;
+      timerToday += g;
       if (stock >= CAP) anchor = t;
+      else if (g === room) anchor += g * PERIOD_MS;
+      else anchor += k * PERIOD_MS;
     }
   }
   return {
@@ -455,7 +472,9 @@ export function walletAt(row: WalletRow, now: number | Date): WalletClock {
     parisDay: today,
     adsToday,
     bonusToday,
-    nextAt: stock >= CAP ? null : anchor + PERIOD_MS,
+    timerToday,
+    // At the cap the stack adds nothing until midnight: no next refill.
+    nextAt: stock >= CAP || timerToday >= timerCap ? null : anchor + PERIOD_MS,
     midnightAt: nextParisMidnight(t),
   };
 }

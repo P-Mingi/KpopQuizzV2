@@ -1,7 +1,7 @@
 // Bunnyverse Cards: POST /api/cards/open { source: 'stock' | 'shards' | 'bonus' } -> { pack: { id, cards: [{ n, isNew }] }, state }.
 // The draw is on the server (crypto.randomInt); cards_apply_pack spends the source and stores the five cards in one transaction.
-// Lot 3: { source: 'stock', focus: 'group:Q123' } opens a focus pack (once a Paris day, cards 1 and 2 from that group).
-// A refusal is 409 { error: 'empty' | 'shards' | 'bonus' | 'timer_cap' | 'focus_used' }. The rewarded ad has its own routes (ad/ticket, ad/grant).
+// Lot 3: { source: 'stock', focus: 'group:Q123' } opens a focus pack (once a Paris day, cards 2 and 4 from that group).
+// A refusal is 409 { error: 'empty' | 'shards' | 'bonus' | 'focus_used' }. The rewarded ad has its own routes (ad/ticket, ad/grant).
 import { guard, json, readJson } from '@/lib/cards/api';
 import { openPack } from '@/lib/cards/open-pack';
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     focus = focusRaw;
   }
   try {
-    return await openPack(g.db, g.userId, source, null, focus);
+    return await openPack(g.db, g.userId, source, focus);
   } catch {
     return json({ error: 'server' }, 500);
   }

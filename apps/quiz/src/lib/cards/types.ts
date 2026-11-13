@@ -122,27 +122,53 @@ export interface WalletState {
   shards: number;
   bonusLeft: number;
   owned: OwnedEntry[];
-  /** Lot 3 B12: packs from the timer allowed a Paris day (TIMER_PACKS_PER_DAY, or CARDS_TIMER_PER_DAY). Optional for older payloads. */
+  /** Lot 3 A13: packs the timer may add a Paris day (TIMER_PACKS_PER_DAY, or CARDS_TIMER_PER_DAY). Optional for older payloads. */
   timerCap?: number;
-  /** Lot 3 B12: packs from the timer still allowed today. At 0 the stack rests until Paris midnight whatever its size. */
+  /** Lot 3 A13: packs the timer added since Paris midnight ("14 of 40 timer packs today"). */
+  timerUsed?: number;
+  /** Lot 3 A13: refills the timer may still add today. At 0 the stack adds nothing until Paris midnight; the packs in it still open. */
   timerLeft?: number;
-  /** Lot 3 B10: packs left up to and including the one that holds a Gold card for sure (1 = the next pack); null while no Gold card is in packs. */
+  /** Lot 3 A11: packs left up to and including the one with a Gold card 5 for sure (1 = the next pack); null while no Gold card is in packs. */
   pityLeft?: number | null;
-  /** Lot 3 C4: true once today's focus pack is opened. */
+  /** Lot 3 A17: true once today's focus pack is opened. */
   focusUsed?: boolean;
-  /** Lot 3 C4: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
+  /** Lot 3 A17: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
   wishlist?: number[];
+  /** Lot 4 B4: the shards a rewarded ad gives (CARDS_AD_SHARDS, default AD_SHARDS_DEFAULT). */
+  adShards?: number;
+  /** Lot 4 B3: the last 10 packs, newest first. */
+  recent?: RecentPack[];
   /** The odds of the real catalog (null while the catalog is empty). */
   odds?: CatalogOdds | null;
+}
+
+/** Lot 4 B3: one line of the player's last packs. */
+export interface RecentPack {
+  /** ISO time the pack was opened. */
+  at: string;
+  /** The best edition among its five cards. */
+  best: Edition;
+  source: PackSource;
+  /** The cards new to the player in that pack, null for a pack opened before the moment was recorded. */
+  newCount: number | null;
 }
 
 export interface OpenedCard {
   n: number;
   isNew: boolean;
+  /** Lot 3 A12: true when this new card is the other half of a group edition of which the player already owned one half. */
+  completesPair?: boolean;
 }
 
 export interface OpenResult {
-  pack: { id: string; cards: OpenedCard[] };
+  pack: { id: string; cards: OpenedCard[]; newCount?: number; packNo?: number };
+  state: WalletState;
+}
+
+/** POST /api/cards/ad/grant (lot 4 B4): a rewarded ad gives shards, not a pack. */
+export interface AdResult {
+  gained: number;
+  shards: number;
   state: WalletState;
 }
 
@@ -154,6 +180,8 @@ export interface WalletRow {
   adsToday: number;
   bonusToday: number;
   shards?: number;
+  /** Lot 3 A13: the timer refills since Paris midnight (cards_wallets.timer_today). */
+  timerToday?: number;
 }
 
 /** What walletAt returns: the row after the refill and the Paris midnight, never written. */
@@ -164,6 +192,8 @@ export interface WalletClock {
   parisDay: string;
   adsToday: number;
   bonusToday: number;
+  /** Lot 3 A13: the timer refills since Paris midnight, after this sync. */
+  timerToday: number;
   /** ms since epoch of the next refill, null when the stack is full. */
   nextAt: number | null;
   /** ms since epoch of the next 00:00 Europe/Paris. */

@@ -1,5 +1,5 @@
 // Bunnyverse Cards, lot 3 C1: POST /api/cards/craft { card_no } -> { card: { n, rarity, cost }, state }: spends CRAFT_COST[rarity] shards and
-// stores a MISSING card, in one transaction (cards_craft). A refusal is 409 { error: 'shards' | 'owned' | 'card' }.
+// stores a MISSING card, in one transaction (cards_craft). A refusal is 409 { error: 'shards' | 'owned' | 'card' | 'no_craft' }.
 import { guard, json, loadState, readJson, refusalOf } from '@/lib/cards/api';
 
 import type { NextRequest, NextResponse } from 'next/server';
@@ -15,7 +15,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const { data, error } = await g.db.rpc('cards_craft', { p_user: g.userId, p_card_no: n, p_now: new Date().toISOString() });
   if (error || !data) {
     const why = refusalOf(error?.message);
-    if (why === 'shards' || why === 'owned' || why === 'card') return json({ error: why }, 409);
+    if (why === 'shards' || why === 'owned' || why === 'card' || why === 'no_craft') return json({ error: why }, 409);
     return json({ error: 'server' }, 500);
   }
   const r = data as { card_no: number; rarity: string; cost: number };
