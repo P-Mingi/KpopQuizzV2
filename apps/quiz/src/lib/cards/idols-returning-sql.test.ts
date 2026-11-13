@@ -55,7 +55,7 @@ describe('099b-idols-returning.sql', () => {
     const sql = readFileSync(file, 'utf8');
     expect(sql.match(/^do \$/gm)?.length).toBe(1);
     expect(sql).toMatch(/^-- Verify: /m);
-    expect(sql).not.toMatch(/[–—]/);
+    expect(sql).not.toMatch(/[\u2013\u2014]/);
     expect(existsSync(path.join(CARDS_SQL, '099b-idols-returning.rollback.sql'))).toBe(true);
   });
 });

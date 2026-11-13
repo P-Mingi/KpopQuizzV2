@@ -83,6 +83,8 @@ export interface SlimCard {
   part?: CardPart;
   /** Lot 2: the card number of the other half of the pair, null for a whole card or when the other half is not in packs. */
   pairN?: number | null;
+  /** Lot 3 point A5: on a Full Art card, its rate as the page prints it ("0.3%"), from the odds; absent on the other editions. */
+  rate?: string;
 }
 
 /** One pocket of the binder: a card, or an edition that cannot exist yet. */

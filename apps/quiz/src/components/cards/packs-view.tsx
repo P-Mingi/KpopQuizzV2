@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { analytics } from '@/lib/analytics';
-import { CAP, PERIOD_MS, PERIOD_S, SHARD_PACK_COST } from '@/lib/cards/rules';
+import { CAP, PERIOD_MS, PERIOD_S, RARITY_LABEL, SHARD_PACK_COST } from '@/lib/cards/rules';
 import { mainButton } from '@/lib/cards/economy';
 import { isError } from '@/lib/cards/ui-api';
 import { fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
@@ -17,16 +17,17 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
 import { CardFront } from './card-art';
 import { useCards } from './cards-provider';
-import { FavStar } from './fav-star';
+import { PocketFoot } from './fav-star';
 import { FocusPicker } from './focus-picker';
 import { attachTilt } from './fx';
 import { PackOpening } from './pack-opening';
 import { PityNote, TimerNote } from './pity-note';
+import { demoUsed, markDemoUsed } from './demo-store';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { AdResult, OpenedCard, OpenResult, PackSource } from '@/lib/cards/types';
 
-interface Opening { cards: OpenedCard[]; source: PackSource }
+interface Opening { cards: OpenedCard[]; source: PackSource; demo?: boolean }
 
 const ERRORS: Record<string, string> = {
   empty: 'No pack left. The next one comes soon.', shards: `You need ${SHARD_PACK_COST} shards for a pack.`, limit: 'No ads left today.', disabled: 'Ads are not available right now.',
@@ -43,7 +44,7 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
   const [adReady, setAdReady] = useState(false);
   const adBtn = useRef<HTMLButtonElement | null>(null);
 
-  useEffect(() => attachTilt(packEl, 12), [packEl]);
+  useEffect(() => attachTilt(packEl, 7), [packEl]);
 
   const ready = status === 'ready' && state !== null;
   const guest = status === 'guest';
@@ -78,6 +79,20 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
     stock, shards: state?.shards ?? 0, adsLeft: state?.adsLeft ?? 0, adsAvailable: adReady && !!state?.adsEnabled, adShards: state?.adShards ?? 25,
     nextMs: state && state.nextAt ? nextMs : null,
   });
+
+  // Lot 3 point A18: a signed-out visitor opens ONE demo pack, drawn and signed by the server. Nothing is saved yet: the cards are attached to
+  // the account when the visitor signs in (CardsProvider posts the token). Without a server secret there is no demo (c.demo false).
+  const tryDemo = async (): Promise<void> => {
+    if (!api || busy) return;
+    if (demoUsed()) { toast('You already opened your demo pack on this device. Sign in to open real packs.'); return; }
+    setBusy(true);
+    const r = await api.demoDraw();
+    setBusy(false);
+    if (isError(r)) { toast(ERRORS[r.error] ?? ERRORS.failed!); return; }
+    markDemoUsed(r.token);
+    setOpening({ cards: r.cards, source: 'stock', demo: true });
+  };
+
   const primary = (): void => {
     if (guest) { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); return; }
     if (!ready) return;
@@ -129,6 +144,12 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
                 <div>
                   <p className="stack-label"><b>Sign in</b> to keep a stack of packs.</p>
                   <p className="hint" style={{ marginTop: 6 }}>Your account holds your packs, your shards and your binder. Playing is free and packs are never sold.</p>
+                  {c.demo ? (
+                    <>
+                      <p style={{ marginTop: 10 }}><button type="button" className="btn-outline" onClick={() => void tryDemo()} disabled={!total || busy}>Open a demo pack</button></p>
+                      <p className="hint" style={{ marginTop: 6 }}>One demo pack per visitor, no account needed. Sign in afterwards and its cards go to your binder.</p>
+                    </>
+                  ) : null}
                 </div>
               ) : (
                 <>
@@ -173,11 +194,10 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
             <div className="strip">
               {last.map((x, i) => (
                 <div className="pw" key={`${x.card!.n}-${i}`}>
-                  <Link className="pocket" href={`/cards/c/${x.card!.num}`} aria-label={`${x.card!.name}, ${x.card!.num}`}>
-                    {x.isNew ? <span className="newb">New</span> : null}
+                  <Link className="pocket" href={`/cards/c/${x.card!.num}`} aria-label={`${x.card!.name}, ${RARITY_LABEL[x.card!.rarity]}, ${x.card!.num}${x.isNew ? ', new' : ''}`}>
                     <CardFront card={x.card!} />
                   </Link>
-                  <FavStar n={x.card!.n} name={x.card!.name} edition={x.card!.edition} />
+                  <PocketFoot n={x.card!.n} name={x.card!.name} edition={RARITY_LABEL[x.card!.rarity]} isNew={x.isNew} />
                 </div>
               ))}
             </div>
@@ -229,7 +249,12 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
         </aside>
       </div>
 
-      {opening ? <PackOpening cards={opening.cards} source={opening.source} onClose={closeOpening} /> : null}
+      {opening ? (
+        <PackOpening
+          cards={opening.cards} source={opening.source} onClose={closeOpening}
+          {...(opening.demo ? { demo: { onSignIn: () => { setOpening(null); signIn({ title: 'Sign in to keep your cards', sub: 'Your demo pack is added to your binder.' }); } } } : {})}
+        />
+      ) : null}
     </div>
   );
 }

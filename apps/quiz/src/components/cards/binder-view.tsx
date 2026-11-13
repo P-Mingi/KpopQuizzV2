@@ -9,15 +9,16 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { EDITIONS, LOCK_SENTENCES, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
+import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
-import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, isPairStart, ownedCount, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, isPairStart, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
 import { CardFront, Gem, LOCK_ICON } from './card-art';
 import { useCards } from './cards-provider';
-import { FavStar } from './fav-star';
+import { PocketFoot } from './fav-star';
+import { WishHeart } from './wish-toggle';
 import { reducedMotion } from './fx';
 
 import type { AdsContext } from '@/lib/cards/ads';
@@ -34,9 +35,9 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
     const why = item.reason ? LOCK_SENTENCES[item.reason] : null;
     const href = item.anchor ? `/cards/c/${item.anchor}?lock=${item.rarity}` : '/cards';
     return (
-      <Link className="pocket locked" href={href} aria-label={`${item.name}, ${EDITIONS[item.rarity].name}, not issued yet${why ? `. ${why}` : ''}`}>
+      <Link className="pocket locked" href={href} aria-label={`${item.name}, ${RARITY_LABEL[item.rarity]}, not issued yet${why ? `. ${why}` : ''}`}>
         <span className="miss">
-          <span className="mno">{EDITIONS[item.rarity].name}</span>
+          <span className="mno">{RARITY_LABEL[item.rarity]}</span>
           <span className="mic">{LOCK_ICON}</span>
           <span><span className="mnm">{item.name}</span><span className="med">Not issued yet</span></span>
         </span>
@@ -45,28 +46,31 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   }
   const d = item.card;
   const o = owned.get(d.n);
-  const ed = EDITIONS[d.rarity].name;
+  const ed = RARITY_LABEL[d.rarity];
   const half = partWord(d) ? `, ${partWord(d)} of the group photo` : '';
   if (o) {
     return (
       <div className="pw">
-        <Link className="pocket" href={`/cards/c/${d.num}`} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${RARITY_NAMES[d.rarity]}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}`}>
-          {newSet.has(d.n) ? <span className="newb">New</span> : null}
-          {o.copies > 1 ? <span className="cnt">&times;{o.copies}</span> : null}
+        <Link className="pocket" href={`/cards/c/${d.num}`} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}${newSet.has(d.n) ? ', new' : ''}`}>
           <CardFront card={d} />
         </Link>
-        <FavStar n={d.n} name={d.name} edition={ed} />
+        <PocketFoot n={d.n} name={d.name} edition={ed} isNew={newSet.has(d.n)} copies={o.copies} />
       </div>
     );
   }
+  // A missing card has the same 30 px band under it as an owned one, so the rows line up. Its slot holds the wishlist heart (lot 4 A1:
+  // a heart under the missing cards; WishHeart draws nothing for a signed-out visitor).
   return (
-    <Link className="pocket" href={`/cards/c/${d.num}`} aria-label={`${d.name}${half}, ${ed}, missing`}>
-      <span className="miss">
-        <span className="mno">{d.num}</span>
-        <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
-        <span><span className="mnm">{d.name}</span><span className="med">{ed} &middot; {RARITY_NAMES[d.rarity]}{d.part ? <> &middot; {d.part}/2</> : null}</span></span>
-      </span>
-    </Link>
+    <div className="pw missing">
+      <Link className="pocket" href={`/cards/c/${d.num}`} aria-label={`${d.name}${half}, ${ed}, missing`}>
+        <span className="miss">
+          <span className="mno">{d.num}</span>
+          <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
+          <span><span className="mnm">{d.name}</span><span className="med">{ed}{d.part ? <> &middot; {d.part}/2</> : null}</span></span>
+        </span>
+      </Link>
+      <PocketFoot n={d.n} name={d.name} edition={ed} slot={<WishHeart n={d.n} name={d.name} edition={ed} />} />
+    </div>
   );
 }
 
@@ -232,7 +236,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
   const Pager = ({ id, bottom }: { id: string; bottom?: boolean }): React.ReactElement => (
     <nav className={`pager${bottom ? ' bot' : ''}`} id={id} aria-label={bottom ? 'Grid pages, bottom' : 'Grid pages'}>
       <button type="button" className="btn-quiet" onClick={() => gGo(-1, !!bottom)} disabled={gp <= 0}><span aria-hidden="true">&larr;</span> Previous</button>
-      <span className="pg" aria-live={bottom ? undefined : 'polite'}>Page {gp + 1} / {gpc}</span>
+      <span className="pg" aria-live={bottom ? undefined : 'polite'}>Page {gp + 1} of {gpc}</span>
       <button type="button" className="btn-quiet" onClick={() => gGo(1, !!bottom)} disabled={gp >= gpc - 1}>Next <span aria-hidden="true">&rarr;</span></button>
     </nav>
   );
@@ -273,7 +277,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
         <span className="fdiv" aria-hidden="true" />
         <div className="fgroup" role="group" aria-label="Rarity">
           {RARITIES.map((r: Rarity) => (
-            <button key={r} type="button" className="fpill gemonly" aria-pressed={!!f.rar[r]} title={RARITY_NAMES[r]} aria-label={RARITY_NAMES[r]} onClick={() => refilter({ ...f, rar: { ...f.rar, [r]: !f.rar[r] } })}>
+            <button key={r} type="button" className="fpill gemonly" aria-pressed={!!f.rar[r]} title={RARITY_LABEL[r]} aria-label={RARITY_LABEL[r]} onClick={() => refilter({ ...f, rar: { ...f.rar, [r]: !f.rar[r] } })}>
               <Gem r={r} className={`gem gc-${r}`} />
             </button>
           ))}
@@ -316,7 +320,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
             </div>
             <div className="b-nav">
               <button type="button" className="btn-quiet" aria-label="Previous pages" onClick={() => turn(-1)} disabled={pg <= 0}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg></button>
-              <span className="pg" aria-live="polite">{single ? `Page ${pg + 1} of ${pc}` : `Pages ${pg + 1} and ${Math.min(pc, pg + 2)} of ${pc}`}</span>
+              <span className="pg" aria-live="polite">{pageWords(pg, pc, single)}</span>
               <button type="button" className="btn-quiet" aria-label="Next pages" onClick={() => turn(1)} disabled={pg + step >= pc}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
             </div>
             <BinderBanner ctx={ads} />

@@ -2,7 +2,7 @@
 // Server-safe: no hook, no state. The finishes (silver keyline, spotlight beams, holo film, era, gold foil, full art) are CSS, in
 // styles/cards/cards-art.css, keyed by the classes ed-* and k-*. A card with a photo (an idol or a group) shows it as a cover crop at its
 // focal point; a card without one (an event, a subject whose photo is not readable) keeps the drawn figure.
-import { EDITIONS } from '@/lib/cards/rules';
+import { RARITY_LABEL } from '@/lib/cards/rules';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 import { SOLOIST } from '@/lib/cards/ui-model';
@@ -112,25 +112,34 @@ export function kindTag(card: Pick<SlimCard, 'kind' | 'part'>): string | null {
   return card.kind === 'event' ? 'Event' : null;
 }
 
+/** The chip of a card's kind. A half of a group photo keeps its "1/2" or "2/2" on a small card (the kind word goes, the part stays). */
+function KindChip({ card }: { card: Pick<SlimCard, 'kind' | 'part'> }): React.ReactElement | null {
+  const tag = kindTag(card);
+  if (!tag) return null;
+  const half = card.kind === 'group' && (card.part === 1 || card.part === 2);
+  if (!half) return <span className="c-kind">{tag}</span>;
+  // The whole tag stays in the markup (and for a screen reader); on a card under 150 px wide the CSS shows only "1/2" or "2/2" (data-part).
+  return <span className="c-kind c-part" data-part={`${card.part}/2`}>{tag}</span>;
+}
+
 /** The front of a card. */
 export function CardFront({ card, className = '' }: { card: SlimCard; className?: string }): React.ReactElement {
   const p = paletteFor(card.entity);
-  const ed = EDITIONS[card.rarity];
-  const tag = kindTag(card);
   return (
     <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${card.part === 1 || card.part === 2 ? ` half half-${card.part}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
       <div className="c-in">
         <div className="c-art"><Art card={card} /><i className="c-foil" /></div>
-        {tag ? <span className="c-kind">{tag}</span> : null}
-        <span className="c-ed">{ed.name}</span>
+        <KindChip card={card} />
         <div className="c-plate">
           <b className="c-name" style={{ '--nf': `${nameSize(card.name)}cqi` } as Vars}>{card.name}</b>
+          {/* Lot 3 point A5: the one place the edition is named on a card, under the name, in the edition's own colour. */}
+          <div className="c-rar"><Gem r={card.rarity} className="" /><span className="c-rn">{RARITY_LABEL[card.rarity]}</span>{card.rate ? <span className="c-rate">{card.rate}</span> : null}</div>
           <div className="c-meta">
             <span>{metaLine(card)}</span>
-            <span className={`c-gem rc-${card.rarity}`}>{card.num.slice(4)}<Gem r={card.rarity} className="" /></span>
+            <span className="c-no">{card.num.slice(4)}</span>
           </div>
         </div>
-        <i className="c-frame" /><i className="c-glare" />
+        <i className="c-frame" /><i className="c-glare" /><i className="c-sweep" />
       </div>
     </div>
   );

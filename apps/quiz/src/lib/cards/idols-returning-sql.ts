@@ -130,6 +130,6 @@ begin
   raise notice '${TAG} rollback: % rows deleted', v_deleted;
 end $i099br$;
 `;
-  for (const t of [sql, rollback]) if (/[–—]/.test(t)) throw new Error('dash character in generated text');
+  for (const t of [sql, rollback]) if (/[\u2013\u2014]/.test(t)) throw new Error('dash character in generated text');
   return { sql, rollback };
 }

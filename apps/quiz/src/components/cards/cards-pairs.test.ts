@@ -267,7 +267,7 @@ describe('the drop rates of a pool with one idol subject and one group pair', ()
     expect(html).toContain('one of its two halves at random, so a pair never makes a group come out more often');
     expect(html).toContain(`soloists and members ${Number((odds.kinds.C.idol as number).toFixed(2))}%`);
     const g = oddsView(odds).cardChance.find((x) => x.r === 'C' && x.kind === 'group')!;
-    expect(html).toContain(`Common, groups: ${g.pct.toFixed(2)}% for each of the 2 cards.`);
+    expect(html).toContain(`Standard, groups: ${g.pct.toFixed(2)}% for each of the 2 cards.`);
   });
   it('hides the new lines for an older payload without subjects and cards', () => {
     const { subjects: _s, cards: _c, ...old } = odds;

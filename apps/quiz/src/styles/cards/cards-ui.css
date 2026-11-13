@@ -1,5 +1,5 @@
 /* Bunnyverse Cards, the pages: layout, controls, binder, detail; colours only through the tokens. Ported from docs/design/cards/bunnyverse-cards-prototype-v4.html by scoping every rule under .bvc (the prototype styled the whole page). */
-@keyframes bvc-spinb{to{--spin:360deg}}
+@keyframes bvc-spinb{to{transform:rotate(360deg)}}
 .bvc *,.bvc *::before,.bvc *::after{box-sizing:border-box}
 .bvc,.bvc{background:var(--bg);color:var(--txt1)}
 .bvc{font-family:var(--f-ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -36,7 +36,7 @@
 .bvc .brand{display:flex;align-items:center;text-decoration:none;flex:none}
 .bvc .brand img{height:34px;width:auto;display:block}
 .bvc .tabs{display:flex;gap:6px}
-.bvc .tabs a{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 14px;border-radius:999px;color:var(--txt2);text-decoration:none;font-weight:700;font-size:15px;transition:background-color .15s,color .15s}
+.bvc .tabs a{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 14px;border-radius:999px;color:var(--txt2);text-decoration:none;font-weight:700;font-size:15px;transition:background-color .15s,color .15s}
 .bvc .tabs a:hover{background:var(--surface-alt);color:var(--txt1)}
 .bvc .tabs a[aria-current="page"]{background:var(--brand-btn);color:var(--white)}
 .bvc .badge{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--brand-btn);color:var(--white);font-size:11px;font-weight:700;display:inline-grid;place-items:center;line-height:1;box-sizing:border-box}
@@ -64,8 +64,8 @@
 .bvc .btn-primary .ico{width:20px;height:20px}
 .bvc .btn-outline{background:transparent;color:var(--brand-ink);border:1.5px solid var(--brand-btn);min-height:44px;padding:0 18px;font-size:14px}
 .bvc .btn-outline:hover{background:var(--brand-light)}
-.bvc .btn-outline.sm{min-height:38px;padding:0 14px}
-.bvc .btn-quiet{background:var(--surface);color:var(--txt1);border:1px solid var(--border-h);min-height:40px;padding:0 14px;font-size:14px}
+.bvc .btn-outline.sm{min-height:44px;padding:0 14px}
+.bvc .btn-quiet{background:var(--surface);color:var(--txt1);border:1px solid var(--border-h);min-height:44px;padding:0 14px;font-size:14px}
 .bvc .btn-quiet:hover{background:var(--surface-alt)}
 .bvc .btn-primary[disabled],.bvc .btn-outline[disabled],.bvc .btn-quiet[disabled]{opacity:.45;cursor:not-allowed;transform:none}
 .bvc .btn-primary[disabled]:hover{background:var(--brand-btn)}
@@ -134,7 +134,7 @@
 .bvc .switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s var(--ease)}
 .bvc .switch:checked{background:var(--brand-btn)}
 .bvc .switch:checked::after{transform:translateX(18px)}
-.bvc details.rates summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:28px}
+.bvc details.rates summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
 .bvc details.rates summary::-webkit-details-marker{display:none}
 .bvc details.rates summary .chev{transition:transform .2s}
 .bvc details.rates[open] summary .chev{transform:rotate(180deg)}
@@ -197,7 +197,8 @@
 .bvc .fan{position:relative;width:min(760px,100%);height:min(320px,48vh);display:flex;justify-content:center;align-items:flex-end}
 .bvc .fan .fc{position:absolute;bottom:0;width:min(165px,29vw);transform-origin:50% 120%;transition:transform .7s var(--spring)}
 .bvc .fc-b{position:relative;display:block;width:100%;cursor:pointer;border:0;background:none;padding:0}
-.bvc .fan .fc.lft .star{right:auto;left:-8px}
+.bvc .fan .fc .star{align-self:flex-end}
+.bvc .fan .fc.lft .star{align-self:flex-start}
 .bvc .fan .fc .rtag{position:absolute;top:-15px;left:50%;transform:translateX(-50%);z-index:9;height:26px;font-size:12px;padding:0 10px;white-space:nowrap}
 @media (max-width:520px){
 .bvc .fan .fc{width:26vw}
@@ -221,11 +222,11 @@
 .bvc .search input{flex:1;min-width:0;background:none;border:0;color:var(--txt1);font:inherit;font-size:15px;outline:none}
 .bvc .search input::placeholder{color:var(--txt3)}
 .bvc .fgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.bvc .fpill{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 15px;border-radius:999px;background:var(--surface-alt);border:1px solid var(--border);font-size:14px;color:var(--txt1);cursor:pointer;white-space:nowrap;transition:border-color .12s,color .12s,background-color .12s}
+.bvc .fpill{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 15px;border-radius:999px;background:var(--surface-alt);border:1px solid var(--border);font-size:14px;color:var(--txt1);cursor:pointer;white-space:nowrap;transition:border-color .12s,color .12s,background-color .12s}
 .bvc .fpill:hover{border-color:var(--brand);color:var(--brand-ink)}
 .bvc .fpill[aria-pressed="true"]{background:var(--brand-btn);border-color:var(--brand-btn);color:var(--white)}
 .bvc .fpill[aria-pressed="true"] .gem{color:var(--white)}
-.bvc .fpill.gemonly{width:40px;padding:0;justify-content:center}
+.bvc .fpill.gemonly{width:44px;padding:0;justify-content:center}
 .bvc .fdiv{width:1px;height:22px;background:var(--border);margin:0 4px}
 .bvc .b-actions{margin-left:auto}
 .bvc .brk{flex-basis:100%;height:0}
@@ -251,7 +252,7 @@
 }
 .bvc .b-body[hidden],.bvc .g-wrap[hidden]{display:none}
 .bvc .idx{display:flex;flex-direction:column;gap:2px;position:sticky;top:84px}
-.bvc .idx button{display:flex;align-items:center;gap:9px;width:100%;min-height:38px;padding:0 10px;border:1px solid transparent;border-radius:10px;background:none;color:var(--txt1);font-size:14px;font-weight:600;cursor:pointer;text-align:left}
+.bvc .idx button{display:flex;align-items:center;gap:9px;width:100%;min-height:44px;padding:0 10px;border:1px solid transparent;border-radius:10px;background:none;color:var(--txt1);font-size:14px;font-weight:600;cursor:pointer;text-align:left}
 .bvc .idx button i{width:9px;height:9px;border-radius:50%;background:var(--t);flex:none}
 .bvc .idx button span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bvc .idx button small{font-size:12.5px;color:var(--txt2);font-variant-numeric:tabular-nums;font-weight:500}
@@ -284,8 +285,8 @@
 .bvc .pocket:hover{transform:translateY(-2px)}
 .bvc .pocket::after{content:"";position:absolute;inset:-3px;border-radius:7% / 5%;pointer-events:none;background:linear-gradient(118deg,rgba(255,255,255,.55),rgba(255,255,255,0) 26%,rgba(255,255,255,0) 72%,rgba(255,255,255,.3));box-shadow:inset 0 0 0 1px rgba(26,23,20,.07);z-index:8}
 .bvc .pocket .card{box-shadow:0 1px 3px rgba(0,0,0,.25)}
-.bvc .pocket .cnt{position:absolute;right:-6px;bottom:-6px;z-index:9;min-width:26px;height:22px;padding:0 6px;border-radius:11px;background:var(--txt1);color:var(--white);font-size:12px;font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
-.bvc .pocket .newb{position:absolute;left:-6px;top:-6px;z-index:9;height:22px;padding:0 8px;border-radius:11px;background:var(--brand-btn);color:var(--white);font-size:11px;font-weight:700;letter-spacing:.02em;display:grid;place-items:center}
+.bvc .cnt{min-width:26px;height:24px;padding:0 8px;border-radius:12px;background:var(--txt1);color:var(--white);font-size:12px;font-weight:700;display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
+.bvc .newb{height:24px;padding:0 9px;border-radius:12px;background:var(--brand-btn);color:var(--white);font-size:11px;font-weight:700;letter-spacing:.02em;display:inline-grid;place-items:center}
 .bvc .miss{position:absolute;inset:0;border-radius:inherit;display:flex;flex-direction:column;justify-content:space-between;padding:9% 9% 8%;container-type:inline-size;color:var(--txt2);text-align:left}
 .bvc .miss .mno{font-size:max(10px,7.4cqi);font-variant-numeric:tabular-nums}
 .bvc .miss .mic{align-self:center}
@@ -300,16 +301,16 @@
 .bvc .pw{position:relative;min-width:0;transition:transform .2s var(--ease)}
 .bvc .pw:hover{transform:translateY(-2px)}
 .bvc .pw > .pocket:hover{transform:none}
-.bvc .star{position:absolute;top:-8px;right:-8px;z-index:10;width:32px;height:32px;padding:0;border-radius:50%;background:var(--white);border:1px solid var(--border-h);box-shadow:0 1px 3px rgba(26,23,20,.16);display:grid;place-items:center;color:var(--txt2);cursor:pointer;transition:color .12s,transform .12s}
-.bvc .star::before{content:"";position:absolute;inset:-6px;border-radius:50%}
-.bvc .star svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round}
+.bvc .star{position:relative;z-index:10;flex:none;width:44px;height:44px;padding:0;border:0;background:none;display:grid;place-items:center;color:var(--txt2);cursor:pointer;transition:color .12s,transform .12s}
+.bvc .star::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--white);border:1px solid var(--border-h);box-shadow:0 1px 3px rgba(26,23,20,.16)}
+.bvc .star svg{position:relative;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round}
 .bvc .star:hover{color:var(--txt1)}
 .bvc .star:active{transform:scale(.92)}
 .bvc .star[aria-pressed="true"]{color:var(--star-on)}
 .bvc .star[aria-pressed="true"] svg{fill:var(--star-on);stroke:var(--star-edge);stroke-width:1.4}
-.bvc .star.in{position:relative;top:auto;right:auto;flex:none;width:40px;height:40px}
+.bvc .star.in{flex:none}
 .bvc .star.in svg{width:21px;height:21px}
-.bvc .star.in::before{inset:-2px}
+.bvc .star.in::before{inset:2px}
 .bvc .b-nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:16px}
 .bvc .b-nav .btn-quiet{width:46px;height:46px;padding:0;border-radius:50%}
 .bvc .b-nav .pg{font-size:14px;color:var(--txt2);min-width:150px;text-align:center;font-variant-numeric:tabular-nums}
@@ -379,9 +380,6 @@
 .bvc #toast.show{opacity:1;transform:translate(-50%,0)}
 @media (max-width:760px){
 .bvc #toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-}
-@media (prefers-reduced-motion: reduce){
-.bvc *,.bvc *::before,.bvc *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
 /* ---------- the Cards bar under the hub chrome, the footer and the pages that are not in the prototype ---------- */
@@ -460,3 +458,99 @@
 .bvc .rung{grid-column:auto}
 .bvc .rates .draw{margin:10px 0 0;padding-left:20px;font-size:14px;line-height:1.5}
 .bvc .rates .draw li{margin:2px 0}
+
+/* ---------- Lot 3 ---------- */
+/* B1: the foot of a pocket, under the card: the New badge, the copies badge and the star never cover the face. */
+.bvc .pw{display:flex;flex-direction:column}
+.bvc .pw-foot{display:flex;align-items:center;gap:6px;height:30px;margin-top:2px;position:relative}
+.bvc .pw-tags{display:flex;align-items:center;gap:4px;min-width:0;margin-right:auto}
+.bvc .pw-slot{display:flex;align-items:center;flex:none}
+.bvc .pw-slot:empty{display:none}
+/* The band stays 30 px high; each control inside overflows it to a 44 px hit area (negative block margin, z-index above the next row). */
+.bvc .pw-foot .star{margin-block:-7px}
+.bvc .pw-slot > *{margin-block:-7px}
+.bvc .fan .fc .star{margin-top:2px}
+/* B3: every target at least 44 px each way (links in running text keep their look and gain a taller hit area). */
+.bvc .foot a,.bvc .d-credit .links a,.bvc .d-mate,.bvc .back-link{display:inline-flex;align-items:center;min-height:44px}
+.bvc .d-credit .links{gap:0 16px}
+.bvc .foot{gap:0 22px;align-items:center}
+.bvc .rates caption{text-align:left;font-weight:700;font-size:14px;padding-top:12px;color:var(--txt1)}
+.bvc .rates table + table{margin-top:4px}
+.bvc .d-flip{touch-action:pan-y}
+.bvc .d-flip .card{transition:transform .6s var(--spring),box-shadow .3s}
+.bvc .d-flip .card.tilting{transition:transform .08s linear}
+/* B8: the best card of a pack held up for 600 ms after "Reveal all". */
+.bvc .spot{display:flex;flex-direction:column;align-items:center;gap:14px;cursor:pointer;border-radius:16px}
+.bvc .spot-card{width:min(250px,60vw)}
+/* B9: reduced motion keeps the reveal readable: no flip, no flight, no spin; every change is a 200 ms fade. */
+@media (prefers-reduced-motion: reduce){
+.bvc *,.bvc *::before,.bvc *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+.bvc .rc-in{transform:none!important}
+.bvc .rc .side{backface-visibility:visible;-webkit-backface-visibility:visible;transform:none!important;transition:opacity .2s linear!important}
+.bvc .rc .side.front{opacity:0}
+.bvc .rc .side.back{opacity:1}
+.bvc .rc.flipped .side.front{opacity:1}
+.bvc .rc.flipped .side.back{opacity:0}
+.bvc .rc{transition:opacity .2s linear!important}
+.bvc .pack.opening .pk,.bvc .pack.opening .pk-body,.bvc .pack.opening .pk-count{animation:bvc-fadeout .2s linear forwards!important}
+.bvc .pop{animation:bvc-fadein .2s linear!important}
+.bvc .ov{animation:bvc-fadein .2s linear!important}
+}
+@keyframes bvc-fadeout{to{opacity:0}}
+@keyframes bvc-fadein{from{opacity:0}}
+/* C5: the how it works and the questions on /cards */
+.bvc .faq{margin-top:40px;max-width:760px}
+.bvc .faq .h2{font-size:22px;margin-top:28px}
+.bvc .faq .h2:first-child{margin-top:0}
+.bvc .faq-steps{list-style:decimal;margin:12px 0 0;padding-left:22px;display:grid;gap:8px;color:var(--txt2)}
+.bvc .faq-steps b{color:var(--txt1)}
+.bvc .faq-list h3{font-size:16px;font-weight:700;margin-top:18px}
+.bvc .faq-list p{color:var(--txt2);margin-top:4px;max-width:64ch}
+.bvc .faq-list a,.bvc .d-credit p a,.bvc .d-sub a{position:relative}
+.bvc .faq-list a::after,.bvc .d-credit p a::after,.bvc .d-sub a::after{content:"";position:absolute;inset:-14px -4px}
+
+/* ---------- Lot 3 (UI lane, second pass) ---------- */
+/* A7: dragging tilts the back of the card too; the spring back is the transition of the resting state. */
+.bvc .d-back{--rx:0deg;--ry:0deg;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .6s var(--spring)}
+.bvc .d-back.tilting{transition:transform .08s linear}
+/* A5: how often each edition comes, one line each, computed from the odds. */
+.bvc .ed-odds{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;font-size:14.5px;color:var(--txt2)}
+.bvc .ed-odds li{display:flex;align-items:center;gap:8px;min-height:28px}
+.bvc .ed-odds li.cur{color:var(--txt1);font-weight:700}
+/* A10: the odds table (one row per edition that exists) and the place of the pack rules under it. */
+.bvc .rates th[scope="row"]{padding:8px 0;border-top:1px solid var(--border);text-align:left;font-size:14.5px;font-weight:600;color:var(--txt1)}
+.bvc .rates thead th{text-align:right;white-space:nowrap}
+.bvc .rates thead th:first-child{text-align:left}
+.bvc .rates td{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.bvc .rules-place{margin-top:14px;padding-top:6px;border-top:1px solid var(--border)}
+.bvc .rules-h{font-size:14px;font-weight:800;margin-top:8px}
+.bvc .rules-list{margin:6px 0 0;padding-left:20px;font-size:13.5px;color:var(--txt2);display:grid;gap:4px}
+/* A8: "Reveal all": the five cards turn at once, then the best one rises and glows while the others fade (600 ms, transform and opacity only). */
+.bvc .allrow{display:flex;justify-content:center;align-items:center;gap:clamp(4px,1.6vw,14px);width:100%;cursor:pointer;padding:34px 0 14px;border-radius:16px}
+.bvc .allc{position:relative;flex:none;width:clamp(58px,calc((min(100vw,860px) - 72px) / 5),170px);aspect-ratio:55/85;transition:transform .6s var(--ease),opacity .6s linear}
+.bvc .allc::after{content:"";position:absolute;inset:-28%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(255,255,255,.85),rgba(255,141,184,.35) 55%,transparent);opacity:0;transition:opacity .6s linear}
+.bvc .allrow.spotting .allc{opacity:.22}
+.bvc .allrow.spotting .allc.best{opacity:1;z-index:3;transform:translateY(-8%) scale(1.32)}
+.bvc .allrow.spotting .allc.best::after{opacity:1}
+.bvc .allc .rc{position:absolute;inset:0}
+/* B9: leaving the opening under reduced motion is a 200 ms fade, not a flight. */
+.bvc .ov.fade-out{opacity:0;transition:opacity .2s linear}
+@media (prefers-reduced-motion: reduce){
+.bvc .allc{transition:opacity .2s linear!important}
+.bvc .allrow.spotting .allc.best{transform:none!important}
+.bvc .allc::after{transition:opacity .2s linear!important}
+.bvc .ov.fade-out{transition:opacity .2s linear!important}
+.bvc .d-flip{transform:none!important;transform-style:flat}
+.bvc .d-flip .fr,.bvc .d-flip .bk{backface-visibility:visible;-webkit-backface-visibility:visible;transition:opacity .2s linear!important}
+.bvc .d-flip .bk{transform:none;opacity:0}
+.bvc .d-flip.flipped .fr{opacity:0}
+.bvc .d-flip.flipped .bk{opacity:1}
+.bvc .d-back{transform:none!important}
+}
+/* A3: the Help page keeps the photo credits under the questions. */
+.bvc .faq-credits{margin-top:40px}
+/* A3: every target 44 px each way: the short footer links and the search field. */
+.bvc .foot a{min-width:44px;justify-content:center}
+.bvc .search input{min-height:44px}
+/* A3 on the Help page: the links of the photo credits are 44 px targets too (the credits page keeps its own look). */
+.bvc .faq-credits li a,.bvc .faq-credits .hub-credits-text a{display:inline-flex;align-items:center;min-height:44px}
