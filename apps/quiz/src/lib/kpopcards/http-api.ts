@@ -46,7 +46,7 @@ export function createHttpApi(): KpopCardsApi {
     friendRemove: (req) => call(R.friendRemove, {}, req),
     idol: (slug) => call(R.idol, { slug }),
     odds: () => call(R.odds),
-    card: (n) => call(R.card, { n }),
+    card: (n) => call(R.card, { n: String(n) }),
     prefs: (req) => call(R.prefs, {}, req),
     lock: (req) => call(R.lock, {}, req),
     wish: (req) => call(R.wish, {}, req),

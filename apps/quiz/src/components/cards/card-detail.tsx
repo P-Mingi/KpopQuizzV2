@@ -14,6 +14,7 @@ import { CardFront, Gem, Ico, LOCK_ICON } from './card-art';
 import { CraftButton } from './craft-button';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
+import { LockButton } from './lock-button';
 import { WantButton } from './wish-toggle';
 import { reduced, tilt } from './kc-tilt';
 import { kcPath } from '@/lib/cards/kc-paths';
@@ -181,7 +182,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
         <div className="d-info">
           <div className="d-title">
             <Title>{p.entityName}{card && card.part ? ` ${card.part}/2` : ''}</Title>
-            {card && o ? <FavStar n={card.n} name={card.name} edition={edName} className="in" /> : null}
+            {card && o ? <span className="d-marks"><LockButton n={card.n} name={card.name} edition={edName} /><FavStar n={card.n} name={card.name} edition={edName} className="in" /></span> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
           <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}{p.rates[rarity] ? ` · ${p.rates[rarity]} of cards` : ''}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && o ? <span className="tag">{o.copies > 1 ? `${o.copies} copies` : '1 copy'}</span> : null}</div>

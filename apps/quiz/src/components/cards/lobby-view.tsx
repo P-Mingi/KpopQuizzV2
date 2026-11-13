@@ -178,6 +178,13 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           <button type="button" className="btn-quiet" id="guest-in" onClick={() => signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' })}>Sign in</button>
         </div>
       ) : null}
+      {/* Lot 5: the quiet "still there?" check. After 2 hours without an action the server pauses the pack timer; one tap restarts it. It never costs a pack. */}
+      {ready && w?.stillThere?.due ? (
+        <div className="nudge" id="still-there" role="status">
+          <p><b>Still there?</b> Your pack timer is paused after a while without any action. Tap to start it again. Nothing is taken.</p>
+          <button type="button" className="btn-primary" id="still-btn" onClick={() => { void c.kc?.stillThere().then(() => c.refresh()); }}>I&rsquo;m here</button>
+        </div>
+      ) : null}
 
       <div className="stage" id="stage">
         <span className={`golden-chip${golden ? ' now' : ''}`} id="golden-chip" hidden={!ready || toGolden === null}>

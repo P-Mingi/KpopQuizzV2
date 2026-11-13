@@ -13,6 +13,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
+import { isApiError } from '@/lib/kpopcards/contract';
 import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
@@ -181,7 +182,16 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const pct = total ? Math.round((own / total) * 1000) / 10 : 0;
   const kinds = useMemo(() => countByKind(scopedCards, owned), [scopedCards, owned]);
   const lockedCount = scoped.filter((i) => i.locked).length;
-  const ex = useMemo(() => extras(catalog.cards, owned, true), [catalog.cards, owned]);
+  const [preview, setPreview] = useState<{ extras: number; shards: number } | null>(null);
+  useEffect(() => {
+    let live = true;
+    if (!c.kc || c.status !== 'ready') return undefined;
+    void c.kc.recyclePreview().then((r) => { if (live && !isApiError(r)) setPreview({ extras: r.extras, shards: r.shards }); });
+    return () => { live = false; };
+  }, [c.kc, c.status, owned]);
+  // The server's figure (locked cards, Gold and Full Art extras left out); the local one until it answers.
+  const local = useMemo(() => extras(catalog.cards, owned, true), [catalog.cards, owned]);
+  const ex = preview ? { n: preview.extras, shards: preview.shards } : local;
   const pc = Math.max(1, pages.length);
   const step = single ? 1 : 2;
   const pg = Math.max(0, Math.min(single ? page : page - (page % 2), pc - 1));
@@ -257,7 +267,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
     const r = await c.recycle();
     if (isError(r)) { toast('Could not recycle. Try again.'); return; }
     flyReward(document.getElementById('pill-shards'), r.shards, document.getElementById('recycle'));
-    toast(`Recycled ${r.recycled} extras for ${r.shards} shards. One copy of each card stays in your binder.`);
+    toast(`Recycled ${r.recycled} extras for ${r.shards} shards. One copy of each card stays, and locked cards, Gold and Full Art extras are never recycled.`);
   };
 
   const firstSec = pages[pg]?.sec;
