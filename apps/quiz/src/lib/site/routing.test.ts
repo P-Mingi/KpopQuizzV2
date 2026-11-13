@@ -671,7 +671,7 @@ describe('middleware step and the sites/[site] guard', () => {
     // KpopCards lives under /kpopcards; the old /cards tree is one catch-all page that redirects (308) to it (lib/cards/kc-paths.ts).
     const cards = new Set([
       '/kpopcards', '/kpopcards/open/xtheme', '/kpopcards/open/focus/xgroup', '/kpopcards/collection', '/kpopcards/collection/xgroup', '/kpopcards/c/xnum', '/kpopcards/idol/xname',
-      '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/xnickname', '/kpopcards/odds', '/kpopcards/help', '/kpopcards/report', '/cards/x[...rest]',
+      '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/xnickname', '/kpopcards/odds', '/kpopcards/help', '/kpopcards/credits', '/kpopcards/report', '/cards/x[...rest]',
     ]);
     for (const p of cards) {
       expect(pages, `cards page ${p}`).toContain(p);
