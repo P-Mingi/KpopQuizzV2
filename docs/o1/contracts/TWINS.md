@@ -169,6 +169,7 @@ and security, your data) with Leave a world and Delete my passport (S6 steps).
 | 61 | /cards/binder (with the flag) | `app/sites/[site]/(hub)/cards/binder/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/cards/binder-view.tsx | Tn Bf C | H1 | local | The binder: pages of 9 pockets or the grid of 36, sorts, filters, favorites, Recycle extras. noindex. A 404 with NET_CARDS off. |
 | 62 | /cards/c/[num] (with the flag) | `app/sites/[site]/(hub)/cards/c/[num]/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/cards/card-detail.tsx, components/cards/credit-block.tsx | Tn Bf C | H1 | local | One card with its credit under it, always noindex. A 404 with NET_CARDS off or an unknown number. |
 | 63 | /cards/report (with the flag) | `app/sites/[site]/(hub)/cards/report/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/cards/report-form.tsx | Tn Bf C | H1 | local | Report a photo: removal within 48 hours, noindex. A 404 with NET_CARDS off. |
+| 64 | /cards/help (with the flag) | `app/sites/[site]/(hub)/cards/help/page.tsx` | `app/(site)/[slug]/page.tsx` | (none) | components/cards/cards-faq.tsx, components/cards/credits-section.tsx | Tn Bf C | H1 | local | The Help tab of the Cards (lot 3 point A18): three steps, eleven questions, then the photo credits. Server HTML, no FAQPage JSON-LD, noindex. A 404 with NET_CARDS off. |
 
 ## 5. kpopquiz.org deltas (flagged, not twins)
 

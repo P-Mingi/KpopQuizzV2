@@ -2088,6 +2088,26 @@
       "owner": "H1",
       "body": "local",
       "notes": "Report a photo: removal within 48 hours, noindex. A 404 with NET_CARDS off."
+    },
+    {
+      "id": "64",
+      "site": "hub",
+      "route": "/cards/help (with the flag)",
+      "file": "apps/quiz/src/app/sites/[site]/(hub)/cards/help/page.tsx",
+      "twin": "apps/quiz/src/app/(site)/[slug]/page.tsx",
+      "mustImport": [],
+      "renders": [
+        "components/cards/cards-faq.tsx",
+        "components/cards/credits-section.tsx"
+      ],
+      "allowed": [
+        "Tn",
+        "Bf",
+        "C"
+      ],
+      "owner": "H1",
+      "body": "local",
+      "notes": "The Help tab of the Cards (lot 3 point A18): three steps, eleven questions, then the photo credits. Server HTML, no FAQPage JSON-LD, noindex. A 404 with NET_CARDS off."
     }
   ]
 }
