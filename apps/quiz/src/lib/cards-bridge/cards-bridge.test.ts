@@ -74,7 +74,7 @@ describe('home block (bridge 1)', () => {
     expect(el).not.toBeNull();
     const html = renderToStaticMarkup(el!);
     expect(html).toContain('Your packs');
-    expect(html).toContain('/auth/passport/out?to=hub&amp;next=%2Fcards');
+    expect(html).toContain('/auth/passport/out?to=hub&amp;next=%2Fkpopcards');
   });
   it('on, a signed-in fan: the stack of the database and the midnight line', async () => {
     env('1');

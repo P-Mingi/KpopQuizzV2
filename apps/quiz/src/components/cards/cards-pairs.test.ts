@@ -188,27 +188,26 @@ describe('a half renders its side and its 1/2 label', () => {
     expect(l).toContain('c-pair c-half1');
     expect(r).toContain('c-pair c-half2');
     expect(l).toContain('object-position:40% 20%');
-    expect(l).toContain('Group · 1/2');
-    expect(r).toContain('Group · 2/2');
+    expect(l).toContain('<span class="kw">Group </span><span class="kh">1/2</span>');
+    expect(r).toContain('<span class="kw">Group </span><span class="kh">2/2</span>');
     expect(l).toContain('half-1');
   });
   it('a cut half is its own file and shows as is', () => {
     const html = renderToStaticMarkup(createElement(CardFront, { card: half(2, { img: { src: 'https://p.test/g-h2-1x.webp', srcSet: null, cut: true } }) }));
     expect(html).not.toContain('c-pair');
     expect(html).toContain('g-h2-1x.webp');
-    expect(html).toContain('Group · 2/2');
+    expect(html).toContain('<span class="kh">2/2</span>');
   });
   it('a whole group card keeps its plain tag and no pair box', () => {
     const html = renderToStaticMarkup(createElement(CardFront, { card: half(1, { part: 0, pairN: null }) }));
-    expect(html).toContain('>Group<');
+    expect(html).toContain('<span class="kw">Group</span>');
     expect(html).not.toContain('c-pair');
   });
-  it('the binder prints a pair as one two-cell item with both halves', () => {
+  it('the binder prints the two halves of a pair side by side, each in its own pocket (the prototype draws them so)', () => {
     const html = wrap(createElement(BinderView, { ads: ADS_OFF }));
-    expect((html.match(/pocket-li pair/g) ?? []).length).toBeGreaterThan(0);
-    const m = html.match(/<li class="pocket-li pair"[^>]*>.*?<\/li>/);
-    expect(m![0]).toContain('left half of the group photo');
-    expect(m![0]).toContain('right half of the group photo');
+    expect(html).not.toContain('pocket-li');
+    expect(html).toContain('left half of the group photo');
+    expect(html).toContain('right half of the group photo');
   });
 });
 
@@ -226,10 +225,10 @@ describe('the card page of a half links its other half', () => {
     expect(d1.props.facts.find(([k]) => k === 'Part')).toEqual(['Part', 'Left half, 1 of 2']);
     const h1 = render(g1.num);
     expect(h1).toContain('This card is the left half of the group photo.');
-    expect(h1).toContain(`href="/cards/c/${g2.num}"`);
+    expect(h1).toContain(`href="/kpopcards/c/${g2.num}"`);
     const h2 = render(g2.num);
     expect(h2).toContain('This card is the right half of the group photo.');
-    expect(h2).toContain(`href="/cards/c/${g1.num}"`);
+    expect(h2).toContain(`href="/kpopcards/c/${g1.num}"`);
   });
   it('shows both halves side by side, and a person card has none of it', () => {
     expect(render(g1.num)).toContain('class="d-pair"');

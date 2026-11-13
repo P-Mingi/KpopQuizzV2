@@ -10,17 +10,17 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { analytics } from '@/lib/analytics';
 import { kcPath } from '@/lib/cards/kc-paths';
-import { openOne } from '@/lib/cards/kc-open';
+import { isApiError as isKcError } from '@/lib/kpopcards/contract';
+import { newKey } from '@/lib/kpopcards/registry';
 import { packLook } from '@/lib/cards/kc-themes';
-import { dailyGroup } from '@/lib/cards/kc-daily';
-import { goldenNext } from '@/lib/cards/kc-extras';
+import { paletteFor } from '@/lib/cards/ui-palette';
 import { isError } from '@/lib/cards/ui-api';
 
 import { useCards } from './cards-provider';
 import { markDemoUsed, demoUsed } from './demo-store';
 import { PackOpening } from './pack-opening';
 
-import type { KcWallet } from '@/lib/cards/kc-extras';
+import type { ThemeId } from '@/lib/kpopcards/contract';
 import type { OpenSpec } from '@/lib/cards/kc-open';
 import type { OpenedCard, PackSource } from '@/lib/cards/types';
 
@@ -33,16 +33,16 @@ interface Dealt { cards: OpenedCard[]; source: PackSource; demo: boolean }
 
 export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement | null {
   const c = useCards();
-  const { status, api, catalog, toast, now } = c;
+  const { status, api, kc, catalog, toast, now } = c;
   const router = useRouter();
   const signIn = useSignIn();
   const [dealt, setDealt] = useState<Dealt | null>(null);
   const started = useRef<string | null>(null);
   const key = JSON.stringify(spec);
-  const w = c.state as KcWallet | null;
+  const w = c.lobby;
 
   useEffect(() => {
-    if (status === 'loading' || !api) return;
+    if (status === 'loading' || !api || !kc) return;
     if (started.current === key) return;
     started.current = key;
     const back = (msg?: string): void => { if (msg) toast(msg); router.replace(kcPath.lobby); };
@@ -58,31 +58,34 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
       }
       if (status === 'guest') { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); back(); return; }
       if (status !== 'ready') { back(ERRORS.failed); return; }
-      const cards: OpenedCard[] = [];
-      const packs = spec.kind === 'theme' ? spec.packs : 1;
-      let source: PackSource = spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
-      for (let i = 0; i < packs; i++) {
-        const r = await openOne(api, spec, (slug) => { for (const it of catalog.items) if (!it.locked && it.sec === slug && it.card.kind === 'group') return it.card.entity; return null; });
-        if (isError(r)) {
-          if (r.error === 'signin') { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); back(); return; }
-          if (cards.length === 0) { back(ERRORS[r.error] ?? ERRORS.failed); return; }
-          break;
-        }
-        analytics.gameStart({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard' });
-        c.applyResult(r);
-        cards.push(...r.pack.cards);
-        source = 'stock';
+      const entity = spec.kind === 'focus' ? ((): string | null => { for (const it of catalog.items) if (!it.locked && it.sec === spec.group && it.card.kind === 'group') return it.card.entity; return null; })() : null;
+      if (spec.kind === 'focus' && !entity) { back(ERRORS.failed); return; }
+      const r = await kc.open({
+        key: newKey(),
+        source: spec.kind === 'daily' ? 'daily' : spec.kind === 'focus' ? 'focus' : spec.from === 'shards' ? 'shards' : 'stock',
+        ...(spec.kind === 'theme' ? { theme: spec.theme as ThemeId, packs: spec.packs } : { packs: 1 as const }),
+        ...(entity ? { focus: entity } : {}),
+      });
+      if (isKcError(r)) {
+        if (r.error === 'unauthorized') { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); back(); return; }
+        back(ERRORS[r.error] ?? ERRORS.failed);
+        return;
       }
+      analytics.gameStart({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard' });
+      const last = r.packs[r.packs.length - 1]!;
+      c.applyResult({ pack: { id: last.id, cards: last.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair })), newCount: last.newCount, packNo: last.packNo }, state: r.state });
+      const cards: OpenedCard[] = r.packs.flatMap((p) => p.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair })));
+      const source: PackSource = spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
       setDealt({ cards, source, demo: false });
     })();
-  }, [status, api, key, spec, router, signIn, toast, c, catalog.items]);
+  }, [status, api, kc, key, spec, router, signIn, toast, c, catalog.items]);
 
   const look = useMemo(() => {
-    const golden = goldenNext(w?.packsOpened);
-    if (spec.kind === 'daily') return packLook({ daily: dailyGroup(catalog, now ?? 0) ?? null, golden });
+    const golden = w?.golden.next === true;
+    if (spec.kind === 'daily') return packLook({ daily: w ? (() => { const p = paletteFor(`group:${w.daily.group.name}`); return { name: w.daily.group.name, a: p.a, c: p.c }; })() : null, golden });
     if (spec.kind === 'focus') { const g = catalog.sections.find((s) => s.id === spec.group); return packLook({ focus: { slug: spec.group, name: g?.name ?? spec.group, color: g?.color ?? '#FF3E86' }, golden }); }
     return packLook({ theme: spec.kind === 'theme' ? spec.theme : 'all', golden });
-  }, [spec, catalog, now, w?.packsOpened]);
+  }, [spec, catalog, now, w?.golden.next]);
 
   if (!dealt) return <div className="wrap page" aria-busy="true"><p className="lede" role="status">Getting your pack.</p></div>;
   // `look` and `packs` are the opening's extra props (see scratchpad B-mounts.md); the existing ones are cards, source, onClose and demo.

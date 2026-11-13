@@ -11,16 +11,14 @@ import { RewardedAdButton } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { mainButton, pityProgress } from '@/lib/cards/economy';
 import { ECON_ERRORS, craftCard, isEconError, wishCard } from '@/lib/cards/economy-api';
+import { isApiError } from '@/lib/kpopcards/contract';
+import { paletteFor } from '@/lib/cards/ui-palette';
 import { EDITION_RARITY } from '@/lib/cards/kc-editions';
-import { goldenIn, goldenNext } from '@/lib/cards/kc-extras';
-import { levelInfo } from '@/lib/cards/kc-level';
-import { almostThere } from '@/lib/cards/kc-almost';
-import { dailyGroup } from '@/lib/cards/kc-daily';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { THEMES, THEME_KEY, isThemeId, packLook, themeBy } from '@/lib/cards/kc-themes';
 import { whenLabel } from '@/lib/cards/kc-time';
+import { weekOf } from '@/lib/cards/kc-views';
 import { PERIOD_MS, RARITIES, RARITY_LABEL, SHARD_PACK_COST } from '@/lib/cards/rules';
-import { craftCost } from '@/lib/cards/rules';
 import { fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
 import { pushState, turnOff, turnOn } from '@/lib/cards/push-client';
 
@@ -32,11 +30,10 @@ import { OddsBox } from './odds-box';
 import { OpenDemo } from './open-demo';
 
 import type { AdsContext } from '@/lib/cards/ads';
-import type { KcWallet } from '@/lib/cards/kc-extras';
+import type { AlmostItem } from '@/lib/kpopcards/contract';
 import type { PushState } from '@/lib/cards/push-client';
 import type { Rarity } from '@/lib/cards/types';
 import type { WeekView } from '@/lib/cards/kc-views';
-import type { RankRowView } from '@/lib/cards/kc-views';
 import type { CatalogOdds } from '@/lib/cards/types';
 
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
@@ -57,20 +54,12 @@ function PackFace({ c, title, golden, count = '5 CARDS' }: { c: readonly string[
   };
 }
 
-export interface LobbyProps {
-  ads: AdsContext;
-  odds: CatalogOdds | null;
-  /** The weekly list and the friends of the boxes (agent A's contract); null while they are not loaded or the contract does not give them. */
-  week: WeekView | null;
-  friends: RankRowView[] | null;
-  /** Sets of agent A: the reward of finishing a group, for the "+1 pack" of Almost there (by group name). */
-  setPacks?: Record<string, number>;
-}
+export interface LobbyProps { ads: AdsContext; odds: CatalogOdds | null }
 
-export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): React.ReactElement {
+export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const c = useCards();
-  const { status, state, now, catalog, owned, lastPack, byN, toast } = c;
-  const w = state as KcWallet | null;
+  const { status, now, catalog, owned, lastPack, byN, toast, kc } = c;
+  const w = c.lobby;
   const router = useRouter();
   const signIn = useSignIn();
   const ready = status === 'ready' && w !== null;
@@ -84,22 +73,22 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
   const [push, setPush] = useState<PushState>('unsupported');
   const [focusG, setFocusG] = useState('');
 
-  useEffect(() => { try { const t = localStorage.getItem(THEME_KEY); if (isThemeId(t)) setThemeState(t); } catch { /* private mode */ } }, []);
+  useEffect(() => { if (w) setThemeState(w.theme); else { try { const t = localStorage.getItem(THEME_KEY); if (isThemeId(t)) setThemeState(t); } catch { /* private mode */ } } }, [w?.theme]);
   useEffect(() => { void pushState().then(setPush); }, []);
   useEffect(() => tilt(packRef.current, 12), []);
 
   const total = catalog.cards.length;
-  const daily = useMemo(() => (now === null ? null : dailyGroup(catalog, now)), [catalog, now]);
+  const daily = useMemo(() => { if (!w) return null; const p = paletteFor(`group:${w.daily.group.name}`); return { slug: w.daily.group.slug, name: w.daily.group.name, a: p.a, c: p.c }; }, [w]);
   const own = useMemo(() => ownedCount(catalog.cards, owned), [catalog.cards, owned]);
-  const lv = levelInfo(own);
+  const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: '', nextLabel: '', progress: 0 };
   const stock = w?.stock ?? 0;
   const cap = w?.cap ?? 10;
   const nextMs = w?.nextAt && now !== null ? Math.max(0, Date.parse(w.nextAt) - now) : 0;
   const midMs = w && now !== null ? Math.max(0, Date.parse(w.midnightAt) - now) : 0;
   const full = ready && stock >= cap;
   const rested = ready && (w?.timerLeft ?? 1) <= 0 && !full;
-  const golden = goldenNext(w?.packsOpened);
-  const toGolden = goldenIn(w?.packsOpened);
+  const golden = w?.golden.next === true;
+  const toGolden = w ? w.golden.packsUntil : null;
   const look = packLook({ theme, golden });
   const face = PackFace({ c: look.c, title: look.title, golden: look.golden });
 
@@ -125,6 +114,7 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
     if (id === theme) return;
     setThemeState(id);
     try { localStorage.setItem(THEME_KEY, id); } catch { /* private mode */ }
+    if (isThemeId(id)) void kc?.prefs({ theme: id });
     setSwap((n) => n + 1);
   };
 
@@ -138,11 +128,20 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
     } finally { setBusy(false); }
   };
 
-  const almost = useMemo(() => almostThere(catalog, (n) => owned.has(n)), [catalog, owned]);
+  const [almost, setAlmost] = useState<AlmostItem[]>([]);
+  const [friends, setFriends] = useState<{ pos: number; nickname: string; pct: number; me: boolean }[]>([]);
+  useEffect(() => {
+    if (!kc || !ready) return;
+    let live = true;
+    void kc.almost(4).then((r) => { if (live && !isApiError(r)) setAlmost(r.items); });
+    void kc.ranking('friends').then((r) => { if (live && !isApiError(r)) { const i = r.rows.findIndex((x) => x.me); const top = i >= 4 ? [...r.rows.slice(0, 3), r.rows[i]!] : r.rows.slice(0, 4); setFriends(top.map((x) => ({ pos: x.pos, nickname: x.nickname, pct: x.pct, me: x.me }))); } });
+    return () => { live = false; };
+  }, [kc, ready, w?.stock, w?.shards, own]);
   const last = useMemo(() => {
     if (lastPack) return lastPack.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
+    if (w?.last) return w.last.cards.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
     return [...owned.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 5).map((o) => ({ card: byN.get(o.n), isNew: false })).filter((x) => x.card);
-  }, [lastPack, owned, byN]);
+  }, [lastPack, owned, byN, w?.last]);
   const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
   const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists'), [catalog.sections]);
   useEffect(() => { if (!focusG && groups[0]) setFocusG(groups[0].id); }, [focusG, groups]);
@@ -151,10 +150,11 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
   const adsLeft = w?.adsLeft ?? 0;
   const adShards = w?.adShards ?? 25;
   const shards = w?.shards ?? 0;
-  const pityLeft = w?.pityLeft ?? null;
-  const dailyUsed = w?.dailyUsed === true;
-  const hl = ready && (w?.packsOpened ?? 0) > 0 && push === 'off';
+  const pityLeft = w?.guarantee.left ?? null;
+  const dailyUsed = w?.daily.used === true;
+  const hl = ready && (w?.golden.opened ?? 0) > 0 && push === 'off';
   const timerCap = w?.timerCap ?? 40;
+  const weekView = useMemo(() => (w ? weekOf(w.week, now ?? 0) : null), [w, now]);
   const timerUsed = w?.timerUsed ?? 0;
 
   const guestText = guest ? (c.demo ? <><b>Not signed in yet?</b> Open one demo pack, no account needed. Sign in with your Bunnyverse passport to keep the cards.</> : <><b>Not signed in yet?</b> Sign in with your Bunnyverse passport to keep a stack of packs and your collection.</>) : null;
@@ -230,7 +230,7 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
             <button key={t.id} type="button" className="sp" role="radio" aria-checked={theme === t.id} data-theme={t.id} style={{ '--p1': t.c[0], '--p2': t.c[1], '--p3': t.c[2] } as Vars} onClick={() => choose(t.id)}>
               <span className="sp-pack"><span>{t.title}</span></span>
               <b>{t.name}</b>
-              <small>{t.id === 'all' ? `${total} cards` : 'Themed pack'}</small>
+              <small>{(w?.themes.find((x) => x.id === t.id)?.cards ?? (t.id === 'all' ? total : null)) !== null ? `${w?.themes.find((x) => x.id === t.id)?.cards ?? total} cards` : 'Themed pack'}</small>
               <span className="sp-sel">{theme === t.id ? <><Ico name="check" />Selected</> : 'Choose'}</span>
             </button>
           ))}
@@ -279,20 +279,17 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
         <div className="sec-head"><h2 className="h2" id="t-almost">Almost there</h2><span>Cards that would finish something</span></div>
         <div className="almost-row" id="almost">
           {almost.length ? almost.map((x) => {
-            const m = x.miss[0]!;
-            const cost = craftCost(m.rarity);
-            const can = cost !== null && shards >= cost && ready;
-            const wish = (w?.wishlist ?? []).includes(m.n);
-            const left = x.all - x.own;
-            const rewardPacks = x.kind === 'sec' ? setPacks?.[x.name] : undefined;
+            const m = byN.get(x.next.n);
+            if (!m) return null;
+            const col = paletteFor(`group:${x.name}`).dot;
             return (
-              <div className="al" key={`${x.kind}-${x.id}`} style={{ '--c': x.color } as Vars}>
+              <div className="al" key={`${x.type}-${x.id}`} style={{ '--c': col } as Vars}>
                 <span className="al-card"><CardFront card={m} /></span>
-                <span className="al-txt"><b>{x.name}</b><small>{x.kind === 'sec' ? `${left} card${left > 1 ? 's' : ''} to finish${rewardPacks ? ` · +${rewardPacks} pack${rewardPacks > 1 ? 's' : ''}` : ''}` : `1 edition left: ${RARITY_LABEL[m.rarity]}`}</small><span className="bar"><i style={{ width: `${((x.own / x.all) * 100).toFixed(0)}%` }} /></span></span>
-                {x.kind === 'idol' ? (
-                  can ? <button type="button" className="al-btn" onClick={async () => { const r = await craftCard(m.n); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else toast(`${m.name} is in your binder. ${r.card.cost} shards spent.`); await c.refresh(); }}>Craft {'·'} {cost}</button>
-                  : ready ? <button type="button" className="al-btn" aria-pressed={wish} onClick={async () => { const r = await wishCard(m.n, !wish); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else await c.refresh(); }}>{wish ? 'Wished' : 'Wishlist'}</button> : null
-                ) : <Link className="al-btn" href={`${kcPath.group(x.id)}`}>Show</Link>}
+                <span className="al-txt"><b>{x.name}</b><small>{x.type === 'group' ? `${x.missing} card${x.missing > 1 ? 's' : ''} to finish${x.rewardPacks ? ` \u00B7 +${x.rewardPacks} pack${x.rewardPacks > 1 ? 's' : ''}` : ''}` : `1 edition left: ${RARITY_LABEL[m.rarity]}`}</small><span className="bar"><i style={{ width: `${((x.owned / x.total) * 100).toFixed(0)}%` }} /></span></span>
+                {x.type === 'idol' ? (
+                  x.craft?.canAfford ? <button type="button" className="al-btn" onClick={async () => { const r = await craftCard(m.n); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else toast(`${m.name} is in your binder. ${r.card.cost} shards spent.`); await c.refresh(); }}>Craft {'\u00B7'} {x.craft.cost}</button>
+                  : ready ? <button type="button" className="al-btn" aria-pressed={x.wished} onClick={async () => { const r = await wishCard(m.n, !x.wished); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else await c.refresh(); }}>{x.wished ? 'Wished' : 'Wishlist'}</button> : null
+                ) : <Link className="al-btn" href={kcPath.group(x.slug)}>Show</Link>}
               </div>
             );
           }) : <p className="emptyline">Open a few packs: groups and idols close to complete show up here.</p>}
@@ -323,8 +320,8 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
             <Link href={kcPath.collection} className="mx-btn">Open the collection</Link>
           </div>
           <div className="mx m-week">
-            <div className="mx-head"><span className="mx-ico"><Ico name="goals" /></span><h2 className="h2">This week</h2><span className="mx-aside" id="wk-left">{week?.leftLabel ?? ''}</span></div>
-            <WeekList week={week} />
+            <div className="mx-head"><span className="mx-ico"><Ico name="goals" /></span><h2 className="h2">This week</h2><span className="mx-aside" id="wk-left">{weekView?.leftLabel ?? ''}</span></div>
+            <WeekList week={weekView} />
             <Link href={kcPath.missions} className="mx-btn">All missions and sets</Link>
           </div>
           {groups.length ? (
@@ -339,7 +336,7 @@ export function LobbyView({ ads, odds, week, friends, setPacks }: LobbyProps): R
           <div className="mx m-rank">
             <div className="mx-head"><span className="mx-ico"><Ico name="trophy" /></span><h2 className="h2">Friends</h2><span className="mx-aside">By completion</span></div>
             <ol className="rk-mini" id="rk-mini">
-              {(friends ?? []).map((x) => <li key={x.nickname} className={x.me ? 'me' : undefined}><span className="pos">{x.pos}</span><span className="av sm">{x.nickname.charAt(0).toUpperCase()}</span><b>{x.me ? 'You' : x.nickname}</b><span className="num">{x.pct}%</span></li>)}
+              {friends.map((x) => <li key={x.nickname} className={x.me ? 'me' : undefined}><span className="pos">{x.pos}</span><span className="av sm">{x.nickname.charAt(0).toUpperCase()}</span><b>{x.me ? 'You' : x.nickname}</b><span className="num">{x.pct}%</span></li>)}
             </ol>
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
           </div>

@@ -50,7 +50,7 @@ afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('one H1 a page', () => {
   it('Packs, Binder, a card page and the report form each have exactly one', () => {
-    expect(h1s(wrap(createElement(LobbyView, { odds: oddsOf(['C', 'U', 'R', 'UR']), ads: ADS_OFF, week: null, friends: null })))).toBe(1);
+    expect(h1s(wrap(createElement(LobbyView, { odds: oddsOf(['C', 'U', 'R', 'UR']), ads: ADS_OFF })))).toBe(1);
     expect(h1s(wrap(createElement(BinderView, { ads: ADS_OFF })))).toBe(1);
     const d = buildDetail(cat, 'BV1-0001', null)!;
     expect(h1s(wrap(createElement(CardDetail, { ...d.props, credit: createElement(CreditBlock, { photo: d.photo, num: 'BV1-0001' }) })))).toBe(1);

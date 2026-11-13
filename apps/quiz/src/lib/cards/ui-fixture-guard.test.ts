@@ -40,16 +40,16 @@ function walk(dir: string, out: string[] = []): string[] {
 
 describe('no production import path reaches the fixture or the mock', () => {
   const SRC = join(__dirname, '../..');
-  const IMPORT = /(?:from\s*|import\s*\(\s*)['"][^'"]*ui-(?:fixture|mock-api)['"]/;
-  const users = walk(SRC).filter((f) => !/ui-(fixture|mock-api)\.ts$/.test(f) && IMPORT.test(readFileSync(f, 'utf8')));
+  const IMPORT = /(?:from\s*|import\s*\(\s*)['"][^'"]*(?:ui-fixture|kpopcards\/mock-api)['"]/;
+  const users = walk(SRC).filter((f) => !/(ui-fixture|kpopcards\/mock-api)\.ts$/.test(f) && IMPORT.test(readFileSync(f, 'utf8')));
   it('only ui-catalog.ts and cards-provider.tsx import them', () => {
     expect(users.map((f) => relative(SRC, f)).sort()).toEqual(['components/cards/cards-provider.tsx', 'lib/cards/ui-catalog.ts']);
   });
   it('each does it through a dynamic import on a line behind a NODE_ENV production check (dead code in a production build)', () => {
     for (const f of users) {
       const src = readFileSync(f, 'utf8');
-      expect(src).not.toMatch(/^import[^\n]*(ui-fixture|ui-mock-api)/m);
-      const line = src.split('\n').find((l) => /import\(\s*'[^']*(ui-fixture|ui-mock-api)'/.test(l)) ?? '';
+      expect(src).not.toMatch(/^import[^\n]*(ui-fixture|mock-api)/m);
+      const line = src.split('\n').find((l) => /import\(\s*'[^']*(ui-fixture|mock-api)'/.test(l)) ?? '';
       expect(line).toMatch(/process\.env\.NODE_ENV !== 'production'/);
     }
   });

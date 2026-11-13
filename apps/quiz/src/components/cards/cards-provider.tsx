@@ -5,12 +5,16 @@
 // and the small toast. A guest (401) gets status 'guest' and no wallet: no page shows a fake stack.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { isError, httpApi } from '@/lib/cards/ui-api';
+import { isError } from '@/lib/cards/ui-api';
+import { createHttpApi } from '@/lib/kpopcards/http-api';
+import { legacyApi } from '@/lib/kpopcards/legacy';
+import { setKcApi } from '@/lib/kpopcards/registry';
 import { ownedMap } from '@/lib/cards/ui-model';
 
 import { clearPendingDemo, deviceId, pendingDemo } from './demo-store';
 
 import type { CardsApi, RecycleResult } from '@/lib/cards/ui-api';
+import type { KpopCardsApi, LobbyState } from '@/lib/kpopcards/contract';
 import type { OpenResult, OpenedCard, OwnedEntry, WalletState } from '@/lib/cards/types';
 import type { SlimCard, SlimCatalog } from '@/lib/cards/ui-types';
 
@@ -25,6 +29,9 @@ export interface CardsCtx {
   byN: Map<number, SlimCard>;
   owned: Map<number, OwnedEntry>;
   api: CardsApi | null;
+  /** The contract's API (the seeded mock in a development fixture, the fetch client otherwise) and the lobby state it last answered (null for a guest or before the first read). */
+  kc: KpopCardsApi | null;
+  lobby: LobbyState | null;
   fixture: boolean;
   /** Point A18: the server can draw a demo pack for a signed-out visitor (a secret is set); false: the sign-in call to action only. */
   demo: boolean;
@@ -48,6 +55,7 @@ export function useCards(): CardsCtx {
 
 export function CardsProvider({ catalog, fixture, demo = false, children }: { catalog: SlimCatalog; fixture: boolean; demo?: boolean; children: React.ReactNode }): React.ReactElement {
   const [api, setApi] = useState<CardsApi | null>(null);
+  const [kc, setKc] = useState<KpopCardsApi | null>(null);
   const [status, setStatus] = useState<CardsStatus>('loading');
   const [state, setState] = useState<WalletState | null>(null);
   const [now, setNow] = useState<number | null>(null);
@@ -64,8 +72,11 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
     let alive = true;
     void (async () => {
       // NODE_ENV is inlined by the build: in production this branch (and the mock with its fixture) is dead code and leaves the bundle.
-      const a = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/cards/ui-mock-api')).createMockApi() : httpApi;
+      const k = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/kpopcards/mock-api')).createMockApi({ example: true, nickname: 'mingi' }) : createHttpApi();
       if (!alive) return;
+      setKcApi(k);
+      setKc(k);
+      const a = legacyApi(k);
       setApi(a);
       const r = await a.state();
       if (!alive) return;
@@ -157,8 +168,8 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
   }, [api]);
 
   const value = useMemo<CardsCtx>(() => ({
-    status, state, now, catalog, byN, owned, api, fixture, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
-  }), [status, state, now, catalog, byN, owned, api, fixture, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
+    status, state, now, catalog, byN, owned, api, kc, lobby: (state as LobbyState | null), fixture, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
+  }), [status, state, now, catalog, byN, owned, api, kc, fixture, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
 
   return (
     <Ctx.Provider value={value}>

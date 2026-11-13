@@ -5,12 +5,10 @@
 // It reads the wallet through useCards(); a signed-out visitor sees the bar and no wallet. The panels close on an outside tap and on Escape.
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useMe } from '@/lib/auth/use-me';
-import { goldenNext } from '@/lib/cards/kc-extras';
 import { useKcPrefs } from '@/lib/cards/kc-prefs';
-import { levelInfo } from '@/lib/cards/kc-level';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
@@ -18,7 +16,6 @@ import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 import { Ico } from './card-art';
 import { useCards } from './cards-provider';
 
-import type { KcWallet } from '@/lib/cards/kc-extras';
 
 type TabId = 'lobby' | 'collection' | 'missions' | 'ranking' | 'help';
 const TABS: readonly { id: TabId; href: string; label: string; icon: string }[] = [
@@ -40,22 +37,8 @@ export function tabOf(path: string): TabId | null {
   return null;
 }
 
-interface BellItem { href: string; title: string; sub: string }
-
-/** What the bell lists, from what is true now: nothing is invented. */
-export function bellItems(w: KcWallet | null): BellItem[] {
-  if (!w) return [];
-  const out: BellItem[] = [];
-  if (w.stock >= w.cap) out.push({ href: kcPath.lobby, title: `Your ${w.cap} free packs are ready`, sub: 'Open one so the timer runs again' });
-  if (w.dailyUsed === false) out.push({ href: kcPath.lobby, title: 'Pack of the day', sub: 'Free once today' });
-  if (goldenNext(w.packsOpened)) out.push({ href: kcPath.lobby, title: 'Your next pack is golden', sub: 'Its fifth card is Holo or better' });
-  if ((w.claimable ?? 0) > 0) out.push({ href: kcPath.missions, title: `${w.claimable} reward${w.claimable === 1 ? '' : 's'} to claim`, sub: 'Sets and the weekly list, in Missions' });
-  return out;
-}
-
 export function KcShell({ children }: { children: React.ReactNode }): React.ReactElement {
-  const { status, state, newSet, catalog, owned } = useCards();
-  const w = state as KcWallet | null;
+  const { status, lobby: w, newSet, kc } = useCards();
   const path = usePathname() ?? '';
   const tab = tabOf(path);
   const me = useMe();
@@ -83,12 +66,11 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
     return () => { document.removeEventListener('click', away); document.removeEventListener('keydown', key); };
   }, [open]);
 
-  const ownedN = useMemo(() => catalog.cards.reduce((n, c) => n + (owned.has(c.n) ? 1 : 0), 0), [catalog.cards, owned]);
-  const lv = levelInfo(ownedN);
-  const nick = me?.profile?.username ?? (status === 'ready' ? 'you' : null);
+  const lv = w ? { level: w.level.level, label: `Level ${w.level.level} \u00B7 ${w.level.title}`, progress: w.level.progress / 10, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}` } : { level: 1, label: '', progress: 0, nextLabel: '' };
+  const nick = w?.nickname ?? me?.profile?.username ?? (status === 'ready' ? 'you' : null);
   const initial = (me?.profile?.display_name ?? nick ?? '?').trim().charAt(0).toUpperCase() || '?';
-  const items = useMemo(() => bellItems(w), [w]);
-  const badges: Partial<Record<TabId, number>> = { collection: newSet.size, missions: w?.claimable ?? 0 };
+  const items = w?.bell ?? [];
+  const badges: Partial<Record<TabId, number>> = { collection: Math.max(newSet.size, w?.newCards ?? 0), missions: w?.claimable ?? 0 };
   const toggle = useCallback((which: 'bell' | 'profile') => setOpen((o) => (o === which ? null : which)), []);
   const signedIn = status === 'ready' && !!w;
 
@@ -125,7 +107,7 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
                 <div className="setpop bellpop" id="bell-pop" hidden={open !== 'bell'}>
                   <b className="pop-h">Notifications</b>
                   <ul>
-                    {items.length ? items.map((x) => <li key={x.title}><Link href={x.href}><i /><span>{x.title}<small>{x.sub}</small></span></Link></li>) : <li className="empty">Nothing new right now.</li>}
+                    {items.length ? items.map((x) => <li key={x.id}><Link href={x.href}><i /><span>{x.title}<small>{x.text}</small></span></Link></li>) : <li className="empty">Nothing new right now.</li>}
                   </ul>
                 </div>
               </div>
@@ -142,8 +124,8 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
                     <small className="me-next" id="me-next">{lv.nextLabel}</small>
                   </>
                 ) : null}
-                <label className="srow"><span><b>Sound</b><small>Rip, flip and reveal sounds</small></span><input type="checkbox" className="switch" id="o-snd" checked={prefs.sound} onChange={(e) => setPrefs({ sound: e.target.checked })} /></label>
-                <label className="srow"><span><b>Vibration</b><small>On phones that support it</small></span><input type="checkbox" className="switch" id="o-hap" checked={prefs.vibration} onChange={(e) => setPrefs({ vibration: e.target.checked })} /></label>
+                <label className="srow"><span><b>Sound</b><small>Rip, flip and reveal sounds</small></span><input type="checkbox" className="switch" id="o-snd" checked={prefs.sound} onChange={(e) => { setPrefs({ sound: e.target.checked }); void kc?.prefs({ sound: e.target.checked }); }} /></label>
+                <label className="srow"><span><b>Vibration</b><small>On phones that support it</small></span><input type="checkbox" className="switch" id="o-hap" checked={prefs.vibration} onChange={(e) => { setPrefs({ vibration: e.target.checked }); void kc?.prefs({ vibration: e.target.checked }); }} /></label>
                 {signedIn ? (
                   <Link className="srow linkrow" href={kcPath.ranking}><span><b>Your profile and ranking</b><small>Showcase, badges, friends</small></span><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></Link>
                 ) : null}
