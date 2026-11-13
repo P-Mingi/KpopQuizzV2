@@ -109,7 +109,14 @@ export function createMockApi(opts: MockOptions): MockApi {
     const groups = sectionsOf(w).filter((s2) => s2.kind === 'group' && w.cards.some((c) => s2.ids.includes(c.entity)));
     const size = (s2: (typeof groups)[number]): number => w.cards.filter((c) => s2.ids.includes(c.entity)).length;
     const complete = [...groups].sort((x, y) => size(x) - size(y) || x.name.localeCompare(y.name))[0];
-    const inComplete = (n: number): boolean => !!complete && complete.ids.includes(w.cards.find((c) => c.n === n)!.entity);
+    // A second group is left one card short of complete, its lowest-numbered Standard or Stage card, first in the list (the groups sort before the idols), so "Almost there" offers a Craft button the
+    // 34 shards can pay (10 or 20), as the prototype's example does.
+    const rest = [...groups].filter((g) => g !== complete).sort((x, y) => size(x) - size(y) || x.name.localeCompare(y.name));
+    const almost = rest.find((g) => w.cards.filter((c) => g.ids.includes(c.entity) && (c.rarity === 'C' || c.rarity === 'U')).length >= 1);
+    const inComplete = (n: number): boolean => {
+      const e = w.cards.find((c) => c.n === n)!.entity;
+      return (!!complete && complete.ids.includes(e)) || (!!almost && almost.ids.includes(e));
+    };
     let i = 0;
     const own = (c: UiCard): void => {
       const copies = 1 + (r(100) < 30 ? 1 : 0) + (r(100) < 8 ? 1 : 0);
@@ -128,10 +135,15 @@ export function createMockApi(opts: MockOptions): MockApi {
       }
     }
     if (complete) for (const c of w.cards.filter((x) => complete.ids.includes(x.entity))) if (!p.owned.has(c.n)) own(c);
+    if (almost) {
+      const cs = w.cards.filter((x) => almost.ids.includes(x.entity)).sort((x, y) => x.n - y.n);
+      const missing = new Set(cs.filter((c) => c.rarity === 'C' || c.rarity === 'U').slice(0, 1).map((c) => c.n));
+      for (const c of cs) if (!missing.has(c.n) && !p.owned.has(c.n)) own(c);
+    }
     const rank = (n: number): number => ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(w.cards.find((c) => c.n === n)!.rarity);
     const owned = [...p.owned.keys()];
     for (const n of owned.filter((n2) => rank(n2) >= 2).slice(0, 3)) p.owned.get(n)!.fav = true;
-    const other = groups.find((g) => g !== complete);
+    const other = rest.find((g) => g !== almost);
     if (other) for (const c of w.cards.filter((x) => x.rarity === 'R' && other.ids.includes(x.entity) && !p.owned.has(x.n)).slice(0, 3)) p.wishlist.add(c.n);
     for (const n of owned.slice(-4)) p.owned.get(n)!.seen = false;
     p.shards = 34; p.stock = 7; p.timerToday = 14; p.anchor = now() - 3 * 60000; p.opened = 48; p.sinceGold = 0;
