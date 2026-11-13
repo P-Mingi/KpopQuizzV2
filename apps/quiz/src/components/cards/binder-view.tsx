@@ -288,6 +288,8 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
       </div>
       {guest ? (
         <p className="b-note" id="b-note">You are not signed in, so every pocket is empty. <button type="button" className="btn-outline sm" onClick={() => signIn({ title: 'Sign in to see your binder', sub: 'Your collection lives with your account.' })}>Sign in</button></p>
+      ) : c.protoExample ? (
+        <p className="b-note" id="b-note">This binder starts with an example collection. &quot;Empty binder&quot; under Prototype controls starts from zero.</p>
       ) : null}
 
       <div className="b-tools">

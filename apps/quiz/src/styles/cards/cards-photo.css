@@ -70,7 +70,7 @@
 .bvc .d-back.tilting{transition:transform .08s linear}
 .bvc .d-flip .card{transition:transform .6s var(--spring),box-shadow .3s}
 .bvc .d-flip .card.tilting{transition:transform .08s linear}
-.bvc .foot a{display:inline-flex;align-items:center;min-height:44px}
+.bvc .foot a{display:block;padding:12px 0;margin:-12px 0}/* a 45 px target that takes the layout room of the prototype's 21 px line */
 .bvc .faq-credits{margin-top:40px}
 .bvc .faq-credits li a{display:inline-flex;align-items:center;min-height:44px}
 .bvc [data-testid="cards-banner"]{margin-top:28px}

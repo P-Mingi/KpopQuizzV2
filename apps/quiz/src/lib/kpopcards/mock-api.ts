@@ -75,7 +75,7 @@ export interface MockApi extends KpopCardsApi {
 }
 
 const FRIENDS: readonly [string, number][] = [['dalgom_daisy', 61], ['seoul_spark', 47], ['neon_bunny', 34], ['kpop_mochi', 29], ['lightstick_lu', 22], ['haru_hearts', 15], ['minty_wave', 9]];
-const EVERYONE: readonly [string, number][] = [['byeol_hunter', 92], ['photocard_pia', 88], ['star_seeker', 81], ['lumi_lumi', 58], ...FRIENDS];
+const EVERYONE: readonly [string, number][] = [['byeol_hunter', 92], ['photocard_pia', 88], ['star_seeker', 81], ['dalgom_daisy', 61], ['lumi_lumi', 58], ['seoul_spark', 47], ['neon_bunny', 34], ['kpop_mochi', 29], ['lightstick_lu', 22], ['haru_hearts', 15]];
 
 const err = (error: ApiError['error'], message?: string): ApiError => (message ? { error, message } : { error });
 
@@ -284,7 +284,7 @@ export function createMockApi(opts: MockOptions): MockApi {
       sync();
       const pool: PlayerSummary[] = [];
       const fake = (name: string, pct: number, friend: boolean): PlayerSummary => {
-        const owned = Math.round((pct / 100) * total());
+        const owned = (pct / 100) * total(); // not rounded: the example players show the prototype's whole percentages
         const r = seededRng(slugify(name).length * 131 + name.charCodeAt(0));
         const top = [...w.cards].sort((a, b) => ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(b.rarity) - ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(a.rarity)).slice(0, 6);
         const show = [0, 1, 2].map(() => cardRef(top[r(top.length)]!));
@@ -306,7 +306,7 @@ export function createMockApi(opts: MockOptions): MockApi {
       return playerPage({ nickname, owned, showcase: row.showcase, badges: row.badges, friend: row.friend, me: row.me }, total(), wish);
     },
     async friends() {
-      return { friends: FRIENDS.map(([n, pc]) => { const o = Math.round((pc / 100) * total()); return { nickname: n, level: levelOf(o), title: titleOf(levelOf(o)), pct: pctOf(o, total()), wishlist: [] }; }), code: p.code && p.code.expiresAt > now() ? { code: p.code.code, expiresAt: new Date(p.code.expiresAt).toISOString() } : null, max: KC.FRIENDS_MAX };
+      return { friends: FRIENDS.map(([n, pc]) => { const o = (pc / 100) * total(); return { nickname: n, level: levelOf(o), title: titleOf(levelOf(o)), pct: pctOf(o, total()), wishlist: [] }; }), code: p.code && p.code.expiresAt > now() ? { code: p.code.code, expiresAt: new Date(p.code.expiresAt).toISOString() } : null, max: KC.FRIENDS_MAX };
     },
     async friendCode() {
       touch();

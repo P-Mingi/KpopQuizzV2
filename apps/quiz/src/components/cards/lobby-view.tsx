@@ -369,7 +369,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       </div>
 
       {ProtoControls && c.fixture ? <Suspense fallback={null}><ProtoControls /></Suspense> : null}
-      <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><Link href={kcPath.odds}>Odds</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
+      <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
     </div>
   );
 }
