@@ -91,13 +91,13 @@ export interface Opened {
   owned_after: number;
 }
 
-export function openSql(db: PGlite, u: string, o: { key?: string; source?: string; theme?: string | null; focus?: string | null; draws: Draw[]; at?: string; timer?: number }): Promise<Opened> {
-  return one<Opened>(db, 'select public.cards_open($1::uuid, $2, $3, $4, $5, $6::jsonb, $7::timestamptz, 10, 3, $8::int)',
-    [u, o.key ?? key(), o.source ?? 'stock', o.theme ?? null, o.focus ?? null, JSON.stringify(o.draws), o.at ?? T0, o.timer ?? 40]);
+export function openSql(db: PGlite, u: string, o: { key?: string; source?: string; theme?: string | null; focus?: string | null; draws: Draw[]; at?: string; timer?: number; bonusCap?: number }): Promise<Opened> {
+  return one<Opened>(db, 'select public.cards_open($1::uuid, $2, $3, $4, $5, $6::jsonb, $7::timestamptz, 10, $9::int, $8::int)',
+    [u, o.key ?? key(), o.source ?? 'stock', o.theme ?? null, o.focus ?? null, JSON.stringify(o.draws), o.at ?? T0, o.timer ?? 40, o.bonusCap ?? 3]);
 }
-export function tryOpen(db: PGlite, u: string, o: { key?: string; source?: string; theme?: string | null; focus?: string | null; draws: Draw[]; at?: string; timer?: number }): Promise<string | null> {
-  return failure(db, 'select public.cards_open($1::uuid, $2, $3, $4, $5, $6::jsonb, $7::timestamptz, 10, 3, $8::int)',
-    [u, o.key ?? key(), o.source ?? 'stock', o.theme ?? null, o.focus ?? null, JSON.stringify(o.draws), o.at ?? T0, o.timer ?? 40]);
+export function tryOpen(db: PGlite, u: string, o: { key?: string; source?: string; theme?: string | null; focus?: string | null; draws: Draw[]; at?: string; timer?: number; bonusCap?: number }): Promise<string | null> {
+  return failure(db, 'select public.cards_open($1::uuid, $2, $3, $4, $5, $6::jsonb, $7::timestamptz, 10, $9::int, $8::int)',
+    [u, o.key ?? key(), o.source ?? 'stock', o.theme ?? null, o.focus ?? null, JSON.stringify(o.draws), o.at ?? T0, o.timer ?? 40, o.bonusCap ?? 3]);
 }
 
 /** A plain pack of the catalog: C C C R U-or-better... card 5 is never Standard. */

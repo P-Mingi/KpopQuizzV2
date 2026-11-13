@@ -29,7 +29,7 @@ const redeem = (db: PGlite, u: string, c: string, at = T0, k = key()): Promise<{
   one(db, 'select public.cards_friend_redeem($1::uuid, $2, $3, $4::timestamptz)', [u, k, c, at]);
 
 describe('the 111 and 112 files are one DO block', () => {
-  it.each([['111-group-types.sql', 'c111'], ['111-group-types.rollback.sql', 'c111r'], ['112-social.sql', 'c112'], ['112-social.rollback.sql', 'c112r']])('%s', (file, tag) => {
+  it.each([['111-group-types.sql', 'c111'], ['111-group-types.rollback.sql', 'c111r'], ['112-social.sql', 'c112'], ['112-social.rollback.sql', 'c112r'], ['113-moment.sql', 'c113'], ['113-moment.rollback.sql', 'c113r']])('%s', (file, tag) => {
     const sql = readFileSync(path.join(CARDS_SQL, file), 'utf8');
     const outer = `$${tag}$`;
     const code2 = sql.split('\n').filter((l) => !l.startsWith('--')).join('\n').trim();
@@ -183,5 +183,37 @@ describe('112: the ranking is by completion only', () => {
     expect(p.showcase).toEqual([2, 5, 4]);
     expect(p.badges).toEqual(['Founder', 'Group Three complete', 'First Gold', 'First Full Art']);
     expect(p.owned).toBe(6);
+  });
+});
+
+describe('113: the moment of a card', () => {
+  it('the photo event with its precision, the first copy (pack, craft), and the quiz slug of the idol else of its group', async () => {
+    const db = await coreDb();
+    await db.exec("create table public.groups (id serial primary key, slug text unique not null);");
+    await db.exec(readCardsSql('113-moment.sql'));
+    await db.exec(readCardsSql('113-moment.sql'));
+    const u = await newUser(db);
+    await db.query("insert into public.cards_photos (entity_id, slot, source, source_page, file_url, author, licence, licence_url, share_alike, checked_at, event_name, event_date, status) values ('idol:A1', 1, 'commons', 'p', 'f', 'a', 'CC BY 4.0', 'l', false, '2026-11-01', 'KCON, Los Angeles', '2019-08-17', 'approved')");
+    await db.query("update public.cards_catalog set photo_id = (select id from public.cards_photos limit 1) where card_no = 2");
+    await db.query("insert into public.groups (slug) values ('G1'), ('A1')");
+    // Not owned: the event shows, "yours" is null.
+    const m0 = await one<{ event: { name: string; date: string; precision: string }; yours: unknown; quiz_slug: string }>(db, 'select public.cards_moment($1::uuid, 2)', [u]);
+    expect(m0.event).toEqual({ name: 'KCON, Los Angeles', date: '2019-08-17', precision: 'day' });
+    expect(m0.yours).toBeNull();
+    expect(m0.quiz_slug).toBe('A1');
+    await db.query("update public.cards_photos set event_precision = 'month'");
+    await db.query("insert into public.cards_owned (user_id, card_no, copies, first_at, last_at, first_pack_no, first_source) values ($1, 2, 3, '2026-11-02T10:00:00Z', now(), 12, 'pack'), ($1, 3, 1, '2026-11-03T10:00:00Z', now(), null, 'craft')", [u]);
+    const m1 = await one<{ event: { precision: string }; yours: { pack_no: number; how: string; copies: number } }>(db, 'select public.cards_moment($1::uuid, 2)', [u]);
+    expect(m1.event.precision).toBe('month');
+    expect(m1.yours).toMatchObject({ pack_no: 12, how: 'pack', copies: 3 });
+    const m2 = await one<{ event: unknown; yours: { how: string }; quiz_slug: string }>(db, 'select public.cards_moment($1::uuid, 3)', [u]);
+    expect(m2.event).toBeNull();
+    expect(m2.yours.how).toBe('craft');
+    expect(await failure(db, 'select public.cards_moment($1::uuid, 26)', [u])).toMatch(/cards: card/);
+    // No quiz page for the idol or its group: the link is hidden.
+    await db.query("delete from public.groups");
+    expect((await one<{ quiz_slug: string | null }>(db, 'select public.cards_moment($1::uuid, 2)', [u])).quiz_slug).toBeNull();
+    await db.exec(readCardsSql('113-moment.rollback.sql'));
+    expect(Number(await one(db, "select count(*) from pg_proc where proname = 'cards_moment'"))).toBe(0);
   });
 });

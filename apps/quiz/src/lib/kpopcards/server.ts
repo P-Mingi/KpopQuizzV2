@@ -4,13 +4,13 @@
 import { randomInt } from 'node:crypto';
 
 import { loadCatalog } from '../cards/catalog';
-import { adShards, adsPerDay, cardsAdsOn, timerPerDay } from '../cards/flags';
+import { adShards, adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, timerPerDay } from '../cards/flags';
 import { EDITIONS, SHARDS } from '../cards/rules';
 import { ERROR_STATUS, KC, THEME_IDS, levelOf, titleOf } from './contract';
 import { planKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
-  QUIZ_BASE, almostState, badgesOf, cardRef, collectionState, dailyGroup, emptyPlayer, groupCards, groupRef, idolPage, lobbyState, missionsState, oddsState, pctOf,
+  QUIZ_BASE, momentQuiz, almostState, badgesOf, cardRef, collectionState, dailyGroup, emptyPlayer, groupCards, groupRef, idolPage, lobbyState, missionsState, oddsState, pctOf,
   playerPage, poolCards, rankRows, recyclePreview, sectionsOf, showcaseOf, themeCards,
 } from './model';
 
@@ -19,7 +19,7 @@ import type { CatalogPayload } from '../cards/types';
 import type { Rng } from '../cards/types';
 import type { UiCard, UiEntity } from '../cards/ui-types';
 import type {
-  ApiError, ApiResult, CardRef, ClaimResponse, CollectionQuery, CraftResponse, ErrorCode, FinishedSetV, FriendRow, FriendsState, LobbyState, LockResponse,
+  ApiError, ApiResult, CardMoment, CardRef, ClaimResponse, CollectionQuery, CraftResponse, ErrorCode, FinishedSetV, FriendRow, FriendsState, LobbyState, LockResponse,
   OpenRequest, OpenResponse, OpenedPack, PackKind, PlayerPage, PrefsRequest, RankingState, RecycleResponse, Edition, ThemeId,
 } from './contract';
 import type { OwnedRow, PlayerData, PlayerSummary, World } from './model';
@@ -31,7 +31,7 @@ export const serverRng: Rng = (max) => randomInt(max);
 /* ------------------------------------------------------------------ errors */
 
 const WORDS: Record<string, ErrorCode> = {
-  empty: 'empty', stack_short: 'stack_short', shards: 'shards', daily_used: 'daily_used', focus_used: 'focus_used', focus: 'focus', pack: 'pack', source: 'source',
+  bonus: 'bonus', empty: 'empty', stack_short: 'stack_short', shards: 'shards', daily_used: 'daily_used', focus_used: 'focus_used', focus: 'focus', pack: 'pack', source: 'source',
   theme: 'bad_request', key: 'idem_missing', idem_conflict: 'idem_conflict', locked: 'locked', lastcopy: 'last_copy', nothing: 'nothing_to_recycle',
   notowned: 'not_owned', owned: 'owned', card: 'card', no_craft: 'no_craft', ad_limit: 'ad_limit', ticket: 'ticket', claimed: 'already_claimed', set: 'set_unknown',
   nickname: 'no_nickname', code: 'bad_request', user: 'bad_request', pref: 'pref', wish_limit: 'wish_limit', scope: 'bad_request', goal: 'set_not_done',
@@ -103,6 +103,8 @@ interface PlayerJson {
   owned: { n: number; copies: number; fav: boolean; locked: boolean; seen: boolean; first: string; last: string; fpn: number | null }[];
   wishlist: number[];
   gold_count: number;
+  bonus_earned: number;
+  bonus_today: number;
   claimed: string[];
   week: { week_start: string; packs_opened: number; kpopdle_wins: number; new_cards: number; claimed: boolean };
   prefs: { sound: boolean; vibration: boolean; theme: ThemeId; focus: string | null };
@@ -131,7 +133,7 @@ export function playerFrom(j: PlayerJson, nickname: string | null, friends: stri
   })() : null;
   return {
     nickname, createdAt: t(w.created_at), owned, wishlist: new Set(j.wishlist), shards: w.shards, stock: w.stock, anchor: t(w.anchor), timerToday: w.timer_today,
-    parisDay: w.paris_day, adsToday: w.ads_today, opened: w.packs_opened, sinceGold: j.gold_count, dailyDay: j.daily_used ? today : null, focusDay: j.focus_used ? today : null,
+    parisDay: w.paris_day, adsToday: w.ads_today, opened: w.packs_opened, sinceGold: j.gold_count, bonusEarned: j.bonus_earned ?? 0, bonusUsed: j.bonus_today ?? 0, dailyDay: j.daily_used ? today : null, focusDay: j.focus_used ? today : null,
     claimedSets: new Set(j.claimed),
     week: { id: j.week.week_start, packs: j.week.packs_opened, dle: j.week.kpopdle_wins, newc: j.week.new_cards, claimed: j.week.claimed },
     prefs: j.prefs, lastSeen: t(w.seen_at),
@@ -139,6 +141,9 @@ export function playerFrom(j: PlayerJson, nickname: string | null, friends: stri
     last, friends, code: null,
   };
 }
+
+/** Kpopdle bonus packs a Paris day: CARDS_BONUS_PER_DAY, and 0 while the bridges are off. */
+export const bonusCap = (): number => (cardsBridgesOn() ? bonusPerDay() : 0);
 
 export interface Ctx { db: ServiceDb; userId: string; now: number; rng?: Rng }
 
@@ -161,7 +166,7 @@ export async function loadPlayer(c: Ctx): Promise<PlayerData> {
 
 async function lobbyOf(c: Ctx, w: World, p?: PlayerData): Promise<LobbyState> {
   const pd = p ?? (await loadPlayer(c));
-  return lobbyState({ w, p: pd, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn() });
+  return lobbyState({ w, p: pd, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap() });
 }
 
 /* ------------------------------------------------------------------ reads */
@@ -200,6 +205,26 @@ export async function odds(c: Ctx) {
 }
 
 export const help = () => helpData();
+
+interface MomentJson {
+  n: number;
+  event: { name: string; date: string | null; precision: 'day' | 'month' | 'year' | null } | null;
+  yours: { first_at: string; pack_no: number | null; how: 'pack' | 'craft' | 'demo'; copies: number } | null;
+  quiz_slug: string | null;
+}
+
+/** "The moment" of the card view: the photo's event, the player's first copy of the card, the quiz link. */
+export async function card(c: Ctx, n: number): Promise<ApiResult<CardMoment>> {
+  const w = await loadWorld(c.db, c.now);
+  const { data, error } = await c.db.rpc('cards_moment', { p_user: c.userId, p_card_no: n });
+  if (error || !data) return fail(errorOf(error?.message) ?? 'server');
+  const j = data as MomentJson;
+  return {
+    n: j.n, event: j.event ? { name: j.event.name, date: j.event.date, precision: j.event.date ? j.event.precision ?? 'day' : null } : null,
+    yours: j.yours ? { firstAt: new Date(j.yours.first_at).toISOString(), packNo: j.yours.pack_no, how: j.yours.how, copies: j.yours.copies } : null,
+    quiz: momentQuiz(w, n, j.quiz_slug),
+  };
+}
 
 export async function recyclePreviewOf(c: Ctx) {
   const [w, p] = await Promise.all([loadWorld(c.db, c.now), loadPlayer(c)]);
@@ -354,14 +379,14 @@ export function plansFor(w: World, req: Pick<OpenRequest, 'source' | 'theme' | '
 
 export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResponse>> {
   const n = req.packs === 5 ? 5 : 1;
-  if (!['stock', 'daily', 'focus', 'shards'].includes(req.source) || (req.packs !== undefined && req.packs !== 1 && req.packs !== 5)) return fail('bad_request');
+  if (!['stock', 'daily', 'focus', 'shards', 'bonus'].includes(req.source) || (req.packs !== undefined && req.packs !== 1 && req.packs !== 5)) return fail('bad_request');
   if (n === 5 && req.source !== 'stock') return fail('bad_request');
   if (req.theme !== undefined && !THEME_IDS.includes(req.theme)) return fail('bad_request');
   if (req.source === 'focus' && (typeof req.focus !== 'string' || !/^group:[A-Za-z0-9_.-]{1,80}$/.test(req.focus))) return fail('focus');
   const w = await loadWorld(c.db, c.now);
   const day = new Date(c.now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
   let theme: ThemeId = req.theme ?? 'all';
-  if (req.theme === undefined && (req.source === 'stock' || req.source === 'shards')) {
+  if (req.theme === undefined && (req.source === 'stock' || req.source === 'shards' || req.source === 'bonus')) {
     const { data } = await c.db.rpc('cards_prefs_get', { p_user: c.userId });
     const t = (data as { theme?: ThemeId } | null)?.theme;
     if (t && THEME_IDS.includes(t)) theme = t;
@@ -371,17 +396,22 @@ export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResp
     const { data } = await c.db.rpc('cards_daily_group', { p_day: day });
     dailyId = typeof data === 'string' ? data : null;
   }
+  if (req.source === 'bonus') {
+    if (n !== 1) return fail('bad_request');
+    // The wins are read again by the database before the pack opens (a win whose line never posted still counts, once per play).
+    await c.db.rpc('cards_bonus_record', { p_user: c.userId, p_now: new Date(c.now).toISOString() });
+  }
   const rng = c.rng ?? serverRng;
   const plans = plansFor(w, req, dailyId, n, rng, theme);
   if (!plans) return fail('pack');
   const lim = { ads: adsPerDay(), timer: timerPerDay() };
   const { data, error } = await c.db.rpc('cards_open', {
-    p_user: c.userId, p_key: req.key, p_source: req.source, p_theme: req.source === 'stock' || req.source === 'shards' ? theme : null,
-    p_focus: req.source === 'focus' ? req.focus : null, p_draws: plans, p_now: new Date(c.now).toISOString(), p_ads_limit: lim.ads, p_bonus_cap: 0, p_timer_cap: lim.timer,
+    p_user: c.userId, p_key: req.key, p_source: req.source, p_theme: req.source === 'stock' || req.source === 'shards' || req.source === 'bonus' ? theme : null,
+    p_focus: req.source === 'focus' ? req.focus : null, p_draws: plans, p_now: new Date(c.now).toISOString(), p_ads_limit: lim.ads, p_bonus_cap: bonusCap(), p_timer_cap: lim.timer,
   });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
   const p = await loadPlayer(c);
-  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn() }));
+  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap() }));
 }
 
 export async function claim(c: Ctx, key: string, target: string): Promise<ApiResult<ClaimResponse>> {
@@ -392,7 +422,7 @@ export async function claim(c: Ctx, key: string, target: string): Promise<ApiRes
   }
   const d = data as { replayed: boolean; target: string; packs: number; shards: number };
   const [w, p] = await Promise.all([loadWorld(c.db, c.now), loadPlayer(c)]);
-  return { target: d.target, packs: d.packs, shards: d.shards, replayed: d.replayed, missions: missionsState(w, p, c.now), state: lobbyState({ w, p, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn() }) };
+  return { target: d.target, packs: d.packs, shards: d.shards, replayed: d.replayed, missions: missionsState(w, p, c.now), state: lobbyState({ w, p, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap() }) };
 }
 
 export async function craft(c: Ctx, key: string, n: number): Promise<ApiResult<CraftResponse>> {
