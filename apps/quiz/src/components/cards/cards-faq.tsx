@@ -57,7 +57,7 @@ export function CardsFaq({ children }: { children?: React.ReactNode }): React.Re
       </div>
       {children}
       <h2 id="faq-q">Questions</h2>
-      <div className="faq">
+      <div className="faq" id="faq">
         {FAQ.map((f, i) => (
           <details key={f.id} id={`faq-${f.id}`} {...(i === 0 ? { open: true } : {})}>
             <summary>{f.q}<Chev /></summary>

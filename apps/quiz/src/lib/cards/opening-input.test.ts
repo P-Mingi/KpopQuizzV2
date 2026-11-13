@@ -2,7 +2,8 @@
 import { describe, expect, it } from 'vitest';
 
 import { isApiError } from '../kpopcards/contract';
-import { createMockApi } from '../kpopcards/mock-api';
+import { createMockApi, fixtureWorld } from '../kpopcards/mock-api';
+import { fixtureCatalog } from './ui-fixture';
 
 import { isBigEdition, openingInput, rarityOfEdition } from './opening-input';
 import { spotlightIndex } from '../../components/cards/reveal-steps';
@@ -12,7 +13,7 @@ import type { OpenResponse } from '../kpopcards/contract';
 const T0 = Date.parse('2026-11-13T10:00:00Z');
 const key = (i: number): string => `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
 async function open(seed: number, req: { packs?: 1 | 5; source?: 'stock' | 'daily' } = {}): Promise<OpenResponse> {
-  const r = await createMockApi({ seed, now: () => T0 }).open({ key: key(seed), source: req.source ?? 'stock', ...(req.packs ? { packs: req.packs } : {}) });
+  const r = await createMockApi({ world: fixtureWorld(fixtureCatalog()), seed, now: () => T0 }).open({ key: key(seed), source: req.source ?? 'stock', ...(req.packs ? { packs: req.packs } : {}) });
   if (isApiError(r)) throw new Error(r.error);
   return r;
 }

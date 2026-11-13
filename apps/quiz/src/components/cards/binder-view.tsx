@@ -13,6 +13,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
+import { isApiError } from '@/lib/kpopcards/contract';
 import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
@@ -22,6 +23,7 @@ import { useCards } from './cards-provider';
 import { PocketFoot } from './fav-star';
 import { WishHeart } from './wish-toggle';
 import { reducedMotion } from './fx';
+import { flyReward } from './reward-fly';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { Filters, SortKey } from '@/lib/cards/ui-model';
@@ -31,11 +33,21 @@ import type { CardKind, Rarity } from '@/lib/cards/types';
 const GRID_PER_PAGE = 36;
 const PER_PAGE = 9;
 
+/** A card's address with the binder's own query kept (view, sort, filters), so the sheet opens over the same binder and closing comes back to it. */
+function cardHref(num: string, sp: URLSearchParams, lock?: string): string {
+  const q = new URLSearchParams(sp.toString());
+  q.delete('lock');
+  if (lock) q.set('lock', lock);
+  const s = q.toString();
+  return `${kcPath.card(num)}${s ? `?${s}` : ''}`;
+}
+
 function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   const { owned, newSet, clearNew } = useCards();
+  const sp = useSearchParams();
   if (item.locked) {
     const why = item.reason ? LOCK_SENTENCES[item.reason] : null;
-    const href = item.anchor ? `${kcPath.card(item.anchor)}?lock=${item.rarity}` : kcPath.collection;
+    const href = item.anchor ? cardHref(item.anchor, sp, item.rarity) : kcPath.collection;
     // The 30 px band under a locked pocket is empty, so the rows line up with the cards around it.
     return (
       <div className="pw">
@@ -57,7 +69,7 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   if (o) {
     return (
       <div className="pw">
-        <Link className="pocket" href={kcPath.card(d.num)} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}${newSet.has(d.n) ? ', new' : ''}`}>
+        <Link className="pocket" href={cardHref(d.num, sp)} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}${newSet.has(d.n) ? ', new' : ''}`}>
           <CardFront card={d} />
         </Link>
         <PocketFoot n={d.n} name={d.name} edition={ed} isNew={newSet.has(d.n)} copies={o.copies} />
@@ -68,7 +80,7 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   // a heart under the missing cards; WishHeart draws nothing for a signed-out visitor).
   return (
     <div className="pw">
-      <Link className="pocket" href={kcPath.card(d.num)} aria-label={`${d.name}${half}, ${ed}, missing`}>
+      <Link className="pocket" href={cardHref(d.num, sp)} aria-label={`${d.name}${half}, ${ed}, missing`}>
         <span className="miss">
           <span className="mno">{d.num}</span>
           <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
@@ -170,7 +182,16 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const pct = total ? Math.round((own / total) * 1000) / 10 : 0;
   const kinds = useMemo(() => countByKind(scopedCards, owned), [scopedCards, owned]);
   const lockedCount = scoped.filter((i) => i.locked).length;
-  const ex = useMemo(() => extras(catalog.cards, owned), [catalog.cards, owned]);
+  const [preview, setPreview] = useState<{ extras: number; shards: number } | null>(null);
+  useEffect(() => {
+    let live = true;
+    if (!c.kc || c.status !== 'ready') return undefined;
+    void c.kc.recyclePreview().then((r) => { if (live && !isApiError(r)) setPreview({ extras: r.extras, shards: r.shards }); });
+    return () => { live = false; };
+  }, [c.kc, c.status, owned]);
+  // The server's figure (locked cards, Gold and Full Art extras left out); the local one until it answers.
+  const local = useMemo(() => extras(catalog.cards, owned, true), [catalog.cards, owned]);
+  const ex = preview ? { n: preview.extras, shards: preview.shards } : local;
   const pc = Math.max(1, pages.length);
   const step = single ? 1 : 2;
   const pg = Math.max(0, Math.min(single ? page : page - (page % 2), pc - 1));
@@ -245,7 +266,8 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const recycle = async (): Promise<void> => {
     const r = await c.recycle();
     if (isError(r)) { toast('Could not recycle. Try again.'); return; }
-    toast(`Recycled ${r.recycled} extras for ${r.shards} shards. One copy of each card stays in your binder.`);
+    flyReward(document.getElementById('pill-shards'), r.shards, document.getElementById('recycle'));
+    toast(`Recycled ${r.recycled} extras for ${r.shards} shards. One copy of each card stays, and locked cards, Gold and Full Art extras are never recycled.`);
   };
 
   const firstSec = pages[pg]?.sec;
@@ -286,12 +308,14 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
       </div>
       {guest ? (
         <p className="b-note" id="b-note">You are not signed in, so every pocket is empty. <button type="button" className="btn-outline sm" onClick={() => signIn({ title: 'Sign in to see your binder', sub: 'Your collection lives with your account.' })}>Sign in</button></p>
+      ) : c.protoExample ? (
+        <p className="b-note" id="b-note">This binder starts with an example collection. &quot;Empty binder&quot; under Prototype controls starts from zero.</p>
       ) : null}
 
       <div className="b-tools">
         <div className="seg" id="f-view" role="group" aria-label="View">
-          <button type="button" aria-pressed={view === 'pages'} onClick={() => setUrl({ view: null })}>Binder</button>
-          <button type="button" aria-pressed={view === 'grid'} onClick={() => setUrl({ view: 'grid' })}>Grid</button>
+          <button type="button" data-v="binder" aria-pressed={view === 'pages'} onClick={() => setUrl({ view: null })}>Binder</button>
+          <button type="button" data-v="grid" aria-pressed={view === 'grid'} onClick={() => setUrl({ view: 'grid' })}>Grid</button>
         </div>
         <label className="search">
           <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
@@ -342,7 +366,6 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
             {gridList.length ? <Cells cells={gridList[gp] ?? []} /> : <p className="g-empty">No card matches these filters.</p>}
           </div>
           <Pager id="pg-bot" bottom />
-          <BinderBanner ctx={ads} />
         </div>
       ) : (
         <div className="b-body" id="b-body">
@@ -363,7 +386,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
               <span className="pg" id="pg-label" aria-live="polite">{pageWords(pg, pc, single)}</span>
               <button type="button" className="btn-quiet" id="pg-next" aria-label="Next pages" onClick={() => turn(1)} disabled={pg + step >= pc}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
             </div>
-            <BinderBanner ctx={ads} />
+            {c.fixture ? <div className="adslot" role="note"><b>Advertisement</b>Banner space, binder pages only. In the game a Google banner shows here, never next to an Open button.</div> : <BinderBanner ctx={ads} />}
           </div>
           <nav className="idx" id="idx" aria-label="Binder sections">
             {catalog.sections.map((s) => {

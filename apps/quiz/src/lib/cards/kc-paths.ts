@@ -17,19 +17,19 @@ export const kcPath = {
   player: (nick: string): string => `${KC}/u/${encodeURIComponent(nick)}`,
   odds: `${KC}/odds`,
   help: `${KC}/help`,
-  credits: `${KC}/help#credits`,
+  credits: `${KC}/credits`,
   report: `${KC}/report`,
   open: (theme: ThemeId | 'daily', packs: 1 | 5 = 1): string => `${KC}/open/${theme}${packs === 5 ? '?packs=5' : ''}`,
   focus: (group: string): string => `${KC}/open/focus/${encodeURIComponent(group)}`,
 } as const;
 
 /**
- * The route patterns of the hub for KpopCards (lib/site/registry.ts hubRouteAllow reads this). The old /cards tree is in too: its pages only
+ * The route patterns of the hub (the same list as CARDS_PATHS of lib/site/registry.ts; lib/cards/kc-pages.test.ts keeps the two equal) for KpopCards (lib/site/registry.ts hubRouteAllow reads this). The old /cards tree is in too: its pages only
  * redirect (permanently) to the address above, so the old links and bookmarks keep working.
  */
 export const KC_ROUTE_PATTERNS: readonly string[] = [
   KC, `${KC}/open/{theme}`, `${KC}/open/focus/{group}`, `${KC}/collection`, `${KC}/collection/{group}`, `${KC}/c/{num}`, `${KC}/idol/{name}`,
-  `${KC}/missions`, `${KC}/ranking`, `${KC}/u/{nickname}`, `${KC}/odds`, `${KC}/help`, `${KC}/report`,
+  `${KC}/missions`, `${KC}/ranking`, `${KC}/u/{nickname}`, `${KC}/odds`, `${KC}/help`, `${KC}/credits`, `${KC}/report`,
   '/cards', '/cards/**',
 ];
 

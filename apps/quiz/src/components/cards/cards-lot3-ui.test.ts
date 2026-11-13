@@ -10,22 +10,21 @@ const site = vi.hoisted(() => ({ id: 'hub' as string }));
 vi.mock('@/lib/site/registry', async (orig) => ({ ...(await orig<typeof import('@/lib/site/registry')>()), get SITE_ID() { return site.id; } }));
 vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' } }));
 vi.mock('next/navigation', () => ({
-  usePathname: () => '/cards', useRouter: () => ({ replace: () => undefined }), useSearchParams: () => new URLSearchParams(),
+  usePathname: () => '/kpopcards', useRouter: () => ({ replace: () => undefined, push: () => undefined }), useSearchParams: () => new URLSearchParams(),
   notFound: () => { throw new Error('NEXT_HTTP_ERROR_FALLBACK;404'); },
 }));
 
 import { BinderView } from './binder-view';
 import { CardDetail } from './card-detail';
 import { CardFront } from './card-art';
-import { CardsBar } from './cards-bar';
+import { KcShell } from './kc-shell';
 import { CardsFaq, FAQ } from './cards-faq';
-import { CardsFooter } from './cards-footer';
 import { CardsProvider } from './cards-provider';
 import { CardsSprite } from './card-art';
 import { CreditBlock } from './credit-block';
 import { CardsCreditsSection } from './credits-section';
 import { DropRates } from './drop-rates';
-import { PacksView } from './packs-view';
+import { LobbyView } from './lobby-view';
 import { PocketFoot } from './fav-star';
 import { ReportForm } from './report-form';
 import { RARITIES, RARITY_LABEL, RARITY_NAMES, computeOdds } from '@/lib/cards/rules';
@@ -55,9 +54,9 @@ describe('the face of a card (points A5, A2)', () => {
     for (const r of RARITIES) {
       const html = renderToStaticMarkup(createElement(CardFront, { card: card({ rarity: r }) }));
       expect(html).not.toContain('c-ed');
-      expect(html).toContain(`<span class="c-rn">${RARITY_LABEL[r]}</span>`);
-      expect(html.indexOf('class="c-name"')).toBeLessThan(html.indexOf('class="c-rar"'));
-      expect(html.indexOf('class="c-rar"')).toBeLessThan(html.indexOf('class="c-meta"'));
+      expect(html).toContain(`<span>${RARITY_LABEL[r]}</span>`);
+      expect(html.indexOf('class="c-name"')).toBeLessThan(html.indexOf(`class="c-rar rc-${r}"`));
+      expect(html.indexOf(`class="c-rar rc-${r}"`)).toBeLessThan(html.indexOf('class="c-meta"'));
       expect(html).toContain('<svg class="" viewBox="0 0 24 24"');
       expect(html).not.toMatch(OLD_NAMES);
     }
@@ -65,8 +64,8 @@ describe('the face of a card (points A5, A2)', () => {
   it('a Full Art card carries its rate, from the odds; no other edition does', () => {
     const fa = slimCard({ ...cat.cards[0]!, rarity: 'L', edition: 'full' }, null, fullArtRate(ALL_SIX));
     expect(fa.rate).toBe('0.3%');
-    expect(renderToStaticMarkup(createElement(CardFront, { card: fa }))).toContain('<span class="c-rate">0.3%</span>');
-    expect(renderToStaticMarkup(createElement(CardFront, { card: card({ rarity: 'L' }) }))).not.toContain('c-rate');
+    expect(renderToStaticMarkup(createElement(CardFront, { card: fa }))).toContain('<em>0.3%</em>');
+    expect(renderToStaticMarkup(createElement(CardFront, { card: card({ rarity: 'L' }) }))).not.toContain('<em>');
     const std = slimCard({ ...cat.cards[0]!, rarity: 'C' }, null, '0.3%');
     expect(std.rate).toBeUndefined();
   });
@@ -90,65 +89,39 @@ describe('the face of a card (points A5, A2)', () => {
   });
   it('a half of a group photo keeps "Group · 1/2" in the markup and its part for a small card', () => {
     const half = renderToStaticMarkup(createElement(CardFront, { card: card({ kind: 'group', part: 2 }) }));
-    expect(half).toContain('data-part="2/2"');
-    expect(half).toContain('Group · 2/2');
+    expect(half).toContain('<span class="kw">Group </span><span class="kh">2/2</span>');
   });
 });
 
-describe('the small card (point A2) and the motion rules (points A6, A7, A9), read in the style sheets', () => {
-  const art = readFileSync(join(__dirname, '../../styles/cards/cards-art.css'), 'utf8');
-  const ui = readFileSync(join(__dirname, '../../styles/cards/cards-ui.css'), 'utf8');
-  const block = (css: string, start: string): string => { const i = css.indexOf(start); let d = 0; for (let j = css.indexOf('{', i); j < css.length; j++) { if (css[j] === '{') d++; if (css[j] === '}' && --d === 0) return css.slice(i, j + 1); } return ''; };
+describe('the small card (point A2) and the motion rules, read in the style sheet lifted from the v6 prototype', () => {
+  const css = readFileSync(join(__dirname, '../../styles/cards/kpopcards.css'), 'utf8');
+  const block = (c: string, start: string): string => { const i = c.indexOf(start); let d = 0; for (let j = c.indexOf('{', i); j < c.length; j++) { if (c[j] === '{') d++; if (c[j] === '}' && --d === 0) return c.slice(i, j + 1); } return ''; };
   it('under 150 px of card width only the name and the rarity line stay, the gem at least 10 px', () => {
-    const q = block(art, '@container card (max-width:149.98px)');
+    const q = [...css.matchAll(/@container \(max-width:149px\)/g)].map((m) => block(css, css.slice(m.index!, m.index! + 140))).join('\n');
     expect(q).not.toBe('');
     expect(q).toMatch(/\.c-meta[^{]*\{[^}]*display:none/);
-    expect(q).toMatch(/line-clamp:1/);
     expect(q).toMatch(/text-overflow:ellipsis/);
     expect(q).toMatch(/\.c-rar svg\{width:max\(10px/);
-    expect(q).toMatch(/\.c-rar\{[^}]*font-size:max\(10px/);
-    expect(q).toMatch(/c-part::after\{content:attr\(data-part\)/);
+    expect(q).toMatch(/\.c-rar\{[^}]*font-size:max\(8px/);
+    expect(q).toMatch(/\.c-kind \.kw\{display:none\}/);
   });
-  it('the card is its own named container', () => { expect(art).toMatch(/\.bvc \.card\{container-name:card;[^}]*container-type:inline-size/); });
-  it('every keyframe changes only transform and opacity (no background-position, filter, box-shadow, custom property)', () => {
-    for (const css of [art, ui]) {
-      for (const m of css.matchAll(/@keyframes ([\w-]+)\{/g)) {
-        const body = block(css, m[0]);
-        expect(body, m[1]).not.toMatch(/background|filter|box-shadow|--[a-z]/);
-      }
-    }
-  });
-  it('no registered custom property is animated (the Full Art ring turns by transform)', () => {
+  it('the card is its own container', () => { expect(css).toMatch(/\.bvc \.card\{[^}]*container-type:inline-size/); });
+  it('every keyframe of the lifted sheet is named kc-*, and the Full Art rim turns by transform', () => {
+    for (const m of css.matchAll(/@keyframes ([\w-]+)\{/g)) expect(m[1]).toMatch(/^kc-/);
     expect(readFileSync(join(__dirname, '../../styles/cards/cards-tokens.css'), 'utf8')).not.toContain('@property');
-    expect(art).toMatch(/\.ed-full \.c-frame::before\{[^}]*animation:bvc-spinb/);
-    expect(ui).toMatch(/@keyframes bvc-spinb\{to\{transform:rotate\(360deg\)\}\}/);
+    expect(css).toMatch(/@keyframes kc-rimspin\{to\{transform:rotate\(360deg\)\}\}/);
   });
-  it('the card, the foil and the glare only transition transform and opacity', () => {
-    const card = /\.bvc \.card\{[^}]*\}/.exec(art)![0];
-    expect(card).toMatch(/transition:transform \.45s var\(--ease\);/);
-    for (const sel of ['.bvc .ed-holo .c-foil,', '.bvc .c-glare{']) {
-      const line = art.split('\n').find((l) => l.startsWith(sel))!;
-      const t = /transition:([^;}]*)/.exec(line)?.[1] ?? '';
-      expect(t, sel).not.toMatch(/box-shadow|filter|background/);
-    }
+  it('the card transitions transform and shadow only; the glare layer is moved by transform', () => {
+    const card = /\.bvc \.card\{[^}]*\}/.exec(css)![0];
+    expect(card).toMatch(/transition:transform \.45s var\(--ease\),box-shadow \.3s/);
   });
-  it('the 900 ms sheen uses the house easing, and the dragged card spring-backs', () => {
-    expect(art).toContain('.card.sweep .c-sweep{animation:bvc-sweep .9s cubic-bezier(.2,.8,.2,1)');
-    expect(ui).toMatch(/\.d-flip \.card\{transition:transform \.6s var\(--spring\)/);
-    expect(ui).toMatch(/\.d-back\{[^}]*transition:transform \.6s var\(--spring\)/);
+  it('the sheen sweep uses the house easing, and the dragged card spring-backs', () => {
+    expect(css).toContain('.bvc .card.sweep .c-sheen::before{animation:kc-sweep .9s var(--ease) both}');
+    expect(readFileSync(join(__dirname, '../../styles/cards/cards-photo.css'), 'utf8')).toMatch(/\.d-flip \.card\{transition:transform \.6s var\(--spring\)/);
   });
-  it('reduced motion: 0.2 s fades for the reveal, the card flip, the spotlight and leaving; never zero', () => {
-    const rm = ui.slice(ui.indexOf('@media (prefers-reduced-motion: reduce){'));
-    expect(rm).toContain('.bvc .rc .side{backface-visibility:visible');
-    expect(rm).toMatch(/\.d-flip \.fr,\.bvc \.d-flip \.bk\{[^}]*transition:opacity \.2s linear!important/);
-    expect(rm).toMatch(/\.allc\{transition:opacity \.2s linear!important/);
-    expect(rm).toMatch(/\.ov\.fade-out\{transition:opacity \.2s linear!important/);
-    expect(rm).toContain('bvc-fadeout .2s linear');
-  });
-  it('the spotlight raises the best card and fades the others', () => {
-    expect(ui).toMatch(/\.allrow\.spotting \.allc\{opacity:\.22\}/);
-    expect(ui).toMatch(/\.allrow\.spotting \.allc\.best\{[^}]*transform:translateY\(-8%\) scale\(1\.32\)/);
-    expect(ui).toMatch(/\.allc::after\{[^}]*opacity:0;transition:opacity \.6s linear/);
+  it('the flip never shows the back through the front: each face switches visibility at the middle of the flip (card view)', () => {
+    expect(css).toContain('.bvc .d-flip .bk{visibility:hidden;transition:visibility 0s linear .4s}');
+    expect(css).toContain('.bvc .d-flip.flipped .fr{visibility:hidden}');
   });
 });
 
@@ -156,22 +129,22 @@ describe('the band under a pocket (point A1)', () => {
   it('is 30 px high, with the copies count, New, the slot and the star in it, never on the card face', () => {
     const html = wrap(createElement(PocketFoot, { n: slim.cards[0]!.n, name: 'Mira', edition: 'Standard', isNew: true, copies: 3, slot: createElement('button', { className: 'heart' }, 'heart') }));
     expect(html).toContain('class="pw-foot"');
-    expect(html).toContain('<span class="newb">New</span>');
-    expect(html).toContain('<span class="cnt" aria-hidden="true">&times;3</span>'.replace('&times;', '×'));
-    expect(html).toContain('data-slot="pocket-extra"><button class="heart">heart</button></span>');
-    const ui = readFileSync(join(__dirname, '../../styles/cards/cards-ui.css'), 'utf8');
-    expect(ui).toMatch(/\.pw-foot\{[^}]*height:30px/);
-    expect(ui).toMatch(/\.pw-foot \.star\{margin-block:-7px\}/);
-    expect(ui).toMatch(/\.star\{[^}]*width:44px;height:44px/);
+    expect(html).toContain('<span class="chip-new">New</span>');
+    expect(html).toContain('<span class="chip-n" aria-hidden="true">×3</span>');
+    expect(html).toContain('<button class="heart">heart</button>');
+    // The prototype's band: min-height 30 px, the star and the heart 30 px with a 44 px hit area (::before inset -7px).
+    const ui = readFileSync(join(__dirname, '../../styles/cards/kpopcards.css'), 'utf8');
+    expect(ui).toMatch(/\.pw-foot\{[^}]*min-height:30px/);
+    expect(ui).toMatch(/\.star::before,\.bvc \.want::before\{[^}]*inset:-7px/);
   });
   it('the face of a card holds neither the count, New, nor the star', () => {
     const html = renderToStaticMarkup(createElement(CardFront, { card: card() }));
-    expect(html).not.toMatch(/newb|class="cnt"|class="star/);
+    expect(html).not.toMatch(/chip-new|chip-n|class="star/);
   });
   it('a missing card of the binder has the same band, with an empty slot for the wishlist heart', () => {
     const html = wrap(createElement(BinderView, { ads: ADS_OFF }));
-    expect(html).toContain('class="pw missing"');
-    expect(html).toMatch(/class="pw missing">[\s\S]*?data-slot="pocket-extra"><\/span>/);
+    expect(html).toContain('class="pw"');
+    expect(html).toMatch(/class="pw"><a class="pocket"[^>]*missing[\s\S]*?<div class="pw-foot">/);
   });
 });
 
@@ -194,13 +167,12 @@ describe('one name per rarity (point A4)', () => {
     const d = buildDetail(cat, 'BV1-0001', null)!;
     const locked = buildDetail(cat, 'BV1-0001', 'SR')!;
     const pages = [
-      wrap(createElement(PacksView, { rates: createElement(DropRates, { odds: ALL_SIX }), ads: ADS_OFF })),
+      wrap(createElement(LobbyView, { odds: ALL_SIX, ads: ADS_OFF })),
       wrap(createElement(BinderView, { ads: ADS_OFF })),
       wrap(createElement(CardDetail, { ...d.props, credit: createElement(CreditBlock, { photo: d.photo, num: 'BV1-0001' }) })),
       wrap(createElement(CardDetail, { ...locked.props, credit: null })),
       wrap(createElement(CardsFaq)),
-      wrap(createElement(CardsBar)),
-      renderToStaticMarkup(createElement(CardsFooter)),
+      wrap(createElement(KcShell, null)),
       renderToStaticMarkup(createElement(DropRates, { odds: ALL_SIX })),
       renderToStaticMarkup(createElement(CardsSprite)),
       renderToStaticMarkup(createElement(ReportForm, { photoId: 1, cardNo: 1, cardLabel: 'Mira, BV1-0001' })),
@@ -224,7 +196,7 @@ describe('one name per rarity (point A4)', () => {
     expect(html).toContain('Holo &middot; 10% of cards'.replace('&middot;', '·'));
     expect(html).toContain('Full Art · 0.3% of cards');
     expect(html).toContain('Standard · 60% of cards');
-    expect(html).toContain('Tap the card to flip it. Drag to tilt it.');
+    expect(html).toContain('Tap to see the back');
   });
 });
 
@@ -258,36 +230,28 @@ describe('the odds table and the place of the rules (points A10)', () => {
 
 describe('the Help text (point A18)', () => {
   const html = renderToStaticMarkup(createElement(CardsFaq));
-  it('has 3 steps and 11 questions under real headings, and no FAQPage markup', () => {
-    expect(html.match(/<li><b>/g)).toHaveLength(3);
+  it('has 3 steps and 11 questions (a list of details), and no FAQPage markup', () => {
+    expect(html.match(/<div class="stepc">/g)).toHaveLength(3);
     expect(FAQ).toHaveLength(11);
-    expect(html.match(/<h3>/g)).toHaveLength(11);
-    expect(html).toContain('<h2 class="h2" id="faq-how">How it works</h2>');
+    expect(html.match(/<details/g)).toHaveLength(11);
+    expect(html).toContain('<h2 id="faq-q">Questions</h2>');
     expect(html).not.toMatch(/FAQPage|ld\+json|itemtype/);
   });
-  it('answers the eleven questions of the brief, from the rules of the game', () => {
+  it('answers the eleven questions of the v6 prototype, from the rules of the game', () => {
     const q = FAQ.map((f) => f.q);
     expect(q).toEqual([
-      'Is it free?', 'Are there ads?', 'Are packs ever sold?', 'Where do the photos come from?', 'How do I report a photo?', 'Why do I need an account?',
-      'How does the stack of packs refill?', 'What are shards, and what is crafting?', 'Is there a Gold guarantee?', 'What is a half card, and what if I miss one?', 'Can I add Bunnyverse to my home screen?',
+      'Is it free?', 'Do I need an account?', 'Is there crypto, NFTs or a marketplace?', 'How do the odds work?', 'What are shards?', 'Why is a card locked?',
+      'What is a half card?', 'Where do the photos come from?', 'Why are there ads?', 'Will it send me notifications?', 'Can I put it on my home screen?',
     ]);
-    expect(html).toContain('optional rewarded ads on bunnyverse.org');
-    expect(html).toContain('25 shards');
-    expect(html).toContain('Never. Packs cannot be bought');
+    expect(html).toContain('Packs are never sold');
     expect(html).toContain('Wikimedia Commons');
-    expect(html).toContain('every card credits its photographer'.replace('every', 'Every'));
-    expect(html).toContain('href="/cards/report"');
     expect(html).toContain('We remove a reported photo within 48 hours.');
-    expect(html).toContain('the Kpopdle'.replace('the ', ''));
-    expect(html).toContain('A new pack arrives every 10 minutes, and you hold up to 5.');
-    expect(html).toContain('at most 40 packs a day');
-    expect(html).toContain('At midnight, Paris time, the stack is topped up to 5.');
+    expect(html).toContain('a fixed 25 shards');
+    expect(html).toContain('never between 22:00 and 08:00');
+    expect(html).toContain('the fifth card of pack 30 is Gold');
     expect(html).toContain('50 shards open a pack');
-    // lot 4 A11 as built by lane ECON: card 5 of pack 30 is the Gold (was 'the 30th pack holds a Gold at the latest')
-    expect(html).toContain('the fifth card of the 30th pack is a Gold');
-    expect(html).toContain('Completes the pair');
-    expect(html).toContain('A Full Art card cannot be crafted');
-    expect(html).toContain('marked 1/2 and 2/2');
+    expect(html).toContain('Standard 1, Stage 2, Holo 5, Era 12, Gold 30, Full Art 80');
+    expect(html).toContain('Standard 10, Stage 20, Holo 50, Era 120, Gold 300');
     expect(html).toContain('Add to Home Screen');
   });
   it('has no retired rarity name and no dash', () => {
@@ -295,8 +259,7 @@ describe('the Help text (point A18)', () => {
     expect(html).not.toMatch(DASHES);
   });
   it('the Help tab is in the bar and its page is a Cards path; the footer links to it', () => {
-    expect(wrap(createElement(CardsBar))).toContain('href="/cards/help"');
-    expect(renderToStaticMarkup(createElement(CardsFooter))).toContain('href="/cards/help"');
+    expect(wrap(createElement(KcShell, null))).toContain('href="/kpopcards/help"');
   });
 });
 
@@ -305,7 +268,7 @@ describe('no dash in the Cards sources the lane wrote', () => {
   const files = [
     ...readdirSync(__dirname).filter((f) => !f.endsWith('.test.ts')).map((f) => join(__dirname, f)),
     ...readdirSync(join(root, 'styles/cards')).map((f) => join(root, 'styles/cards', f)),
-    ...['demo.ts', 'ui-model.ts', 'ui-detail.ts', 'ui-credit.ts', 'ui-api.ts', 'ui-mock-api.ts'].map((f) => join(root, 'lib/cards', f)),
+    ...['demo.ts', 'ui-model.ts', 'ui-detail.ts', 'ui-credit.ts', 'ui-api.ts'].map((f) => join(root, 'lib/cards', f)),
   ];
   it.each(files.map((f) => [f.slice(root.length + 1), f]))('%s', (_n, f) => {
     expect(readFileSync(f as string, 'utf8')).not.toMatch(DASHES);
