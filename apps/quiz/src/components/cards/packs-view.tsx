@@ -19,7 +19,7 @@ import { useCards } from './cards-provider';
 import { PocketFoot } from './fav-star';
 import { attachTilt } from './fx';
 import { PackOpening } from './pack-opening';
-import { drawDemoPack } from '@/lib/cards/demo-pack';
+import { demoUsed, markDemoUsed } from './demo-store';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { OpenedCard, OpenResult, PackSource } from '@/lib/cards/types';
@@ -31,7 +31,7 @@ const ERRORS: Record<string, string> = {
   conflict: 'That ad was already used.', forbidden: 'This account cannot open packs.', network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', bonus: 'No bonus pack to open.',
 };
 
-export function PacksView({ rates, ads, faq }: { rates: React.ReactNode; ads: AdsContext; faq?: React.ReactNode }): React.ReactElement {
+export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsContext }): React.ReactElement {
   const c = useCards();
   const { status, state, now, catalog, owned, lastPack, byN, api, toast } = c;
   const signIn = useSignIn();
@@ -69,11 +69,17 @@ export function PacksView({ rates, ads, faq }: { rates: React.ReactNode; ads: Ad
     begin(r, source);
   }, [api, begin, busy, signIn, toast]);
 
-  // Lot 3 point C5: a signed-out visitor can open one demo pack, drawn here in the browser from the catalog the page holds. Nothing is
-  // stored: no write, no request, no count.
-  const tryDemo = (): void => {
-    const nums = drawDemoPack(catalog.cards);
-    if (nums.length) setOpening({ cards: nums.map((n) => ({ n, isNew: false })), source: 'stock', demo: true });
+  // Lot 3 point A18: a signed-out visitor opens ONE demo pack, drawn and signed by the server. Nothing is saved yet: the cards are attached to
+  // the account when the visitor signs in (CardsProvider posts the token). Without a server secret there is no demo (c.demo false).
+  const tryDemo = async (): Promise<void> => {
+    if (!api || busy) return;
+    if (demoUsed()) { toast('You already opened your demo pack on this device. Sign in to open real packs.'); return; }
+    setBusy(true);
+    const r = await api.demoDraw();
+    setBusy(false);
+    if (isError(r)) { toast(ERRORS[r.error] ?? ERRORS.failed!); return; }
+    markDemoUsed(r.token);
+    setOpening({ cards: r.cards, source: 'stock', demo: true });
   };
 
   const primary = (): void => {
@@ -121,8 +127,12 @@ export function PacksView({ rates, ads, faq }: { rates: React.ReactNode; ads: Ad
                 <div>
                   <p className="stack-label"><b>Sign in</b> to keep a stack of packs.</p>
                   <p className="hint" style={{ marginTop: 6 }}>Your account holds your packs, your shards and your binder. Playing is free and packs are never sold.</p>
-                  <p style={{ marginTop: 10 }}><button type="button" className="btn-outline" onClick={tryDemo} disabled={!total}>Try a demo pack</button></p>
-                  <p className="hint" style={{ marginTop: 6 }}>Demo pack, not saved: no account needed, and nothing is kept.</p>
+                  {c.demo ? (
+                    <>
+                      <p style={{ marginTop: 10 }}><button type="button" className="btn-outline" onClick={() => void tryDemo()} disabled={!total || busy}>Open a demo pack</button></p>
+                      <p className="hint" style={{ marginTop: 6 }}>One demo pack per visitor, no account needed. Sign in afterwards and its cards go to your binder.</p>
+                    </>
+                  ) : null}
                 </div>
               ) : (
                 <>
@@ -219,12 +229,10 @@ export function PacksView({ rates, ads, faq }: { rates: React.ReactNode; ads: Ad
         </aside>
       </div>
 
-      {faq}
-
       {opening ? (
         <PackOpening
           cards={opening.cards} source={opening.source} onClose={closeOpening}
-          demo={opening.demo ? { onSignIn: () => { setOpening(null); signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); } } : undefined}
+          {...(opening.demo ? { demo: { onSignIn: () => { setOpening(null); signIn({ title: 'Sign in to keep your cards', sub: 'Your demo pack is added to your binder.' }); } } } : {})}
         />
       ) : null}
     </div>

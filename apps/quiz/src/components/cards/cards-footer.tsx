@@ -4,6 +4,7 @@ import Link from 'next/link';
 export function CardsFooter(): React.ReactElement {
   return (
     <footer className="foot">
+      <Link href="/cards/help">Help</Link>
       <Link href="/credits#cards">Photo credits</Link>
       <Link href="/cards/report">Report a photo</Link>
       <span>Bunnyverse Cards is free. Packs are never sold.</span>

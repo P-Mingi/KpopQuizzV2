@@ -9,9 +9,9 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { EDITIONS, LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
+import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
-import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, isPairStart, ownedCount, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, isPairStart, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
@@ -34,9 +34,9 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
     const why = item.reason ? LOCK_SENTENCES[item.reason] : null;
     const href = item.anchor ? `/cards/c/${item.anchor}?lock=${item.rarity}` : '/cards';
     return (
-      <Link className="pocket locked" href={href} aria-label={`${item.name}, ${EDITIONS[item.rarity].name}, not issued yet${why ? `. ${why}` : ''}`}>
+      <Link className="pocket locked" href={href} aria-label={`${item.name}, ${RARITY_LABEL[item.rarity]}, not issued yet${why ? `. ${why}` : ''}`}>
         <span className="miss">
-          <span className="mno">{EDITIONS[item.rarity].name}</span>
+          <span className="mno">{RARITY_LABEL[item.rarity]}</span>
           <span className="mic">{LOCK_ICON}</span>
           <span><span className="mnm">{item.name}</span><span className="med">Not issued yet</span></span>
         </span>
@@ -57,14 +57,19 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
       </div>
     );
   }
+  // A missing card has the same 30 px band under it as an owned one, so the rows line up. The band's slot is empty here: lane ECON puts
+  // the wishlist heart in it (PocketFoot's `slot`).
   return (
-    <Link className="pocket" href={`/cards/c/${d.num}`} aria-label={`${d.name}${half}, ${ed}, missing`}>
-      <span className="miss">
-        <span className="mno">{d.num}</span>
-        <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
-        <span><span className="mnm">{d.name}</span><span className="med">{ed}{d.part ? <> &middot; {d.part}/2</> : null}</span></span>
-      </span>
-    </Link>
+    <div className="pw missing">
+      <Link className="pocket" href={`/cards/c/${d.num}`} aria-label={`${d.name}${half}, ${ed}, missing`}>
+        <span className="miss">
+          <span className="mno">{d.num}</span>
+          <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
+          <span><span className="mnm">{d.name}</span><span className="med">{ed}{d.part ? <> &middot; {d.part}/2</> : null}</span></span>
+        </span>
+      </Link>
+      <PocketFoot n={d.n} name={d.name} edition={ed} />
+    </div>
   );
 }
 
@@ -307,7 +312,7 @@ export function BinderView({ ads }: { ads: AdsContext }): React.ReactElement {
             </div>
             <div className="b-nav">
               <button type="button" className="btn-quiet" aria-label="Previous pages" onClick={() => turn(-1)} disabled={pg <= 0}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg></button>
-              <span className="pg" aria-live="polite">{single ? `Page ${pg + 1} of ${pc}` : `Pages ${pg + 1} and ${Math.min(pc, pg + 2)} of ${pc}`}</span>
+              <span className="pg" aria-live="polite">{pageWords(pg, pc, single)}</span>
               <button type="button" className="btn-quiet" aria-label="Next pages" onClick={() => turn(1)} disabled={pg + step >= pc}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
             </div>
             <BinderBanner ctx={ads} />

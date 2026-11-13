@@ -14,6 +14,7 @@ export function CardsBar(): React.ReactElement {
   const path = usePathname() ?? '';
   const onBinder = path.startsWith('/cards/binder');
   const onPacks = path === '/cards';
+  const onHelp = path.startsWith('/cards/help');
   const n = newSet.size;
   return (
     <div className="bar-cards">
@@ -23,6 +24,7 @@ export function CardsBar(): React.ReactElement {
           <Icon d="M5 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1zM5 7h2M5 12h2M5 17h2M10 8h6M10 12h6" />Binder
           {n > 0 ? <span className="badge" aria-label={`${n} new ${n === 1 ? 'card' : 'cards'}`}>{n}</span> : null}
         </Link>
+        <Link href="/cards/help" aria-current={onHelp ? 'page' : undefined}><Icon d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9.6 9.2a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1.1.9-1.1 1.7M12 16.6v.1" />Help</Link>
       </nav>
       {status === 'ready' && state ? (
         <div className="wallet" aria-label="Your wallet">

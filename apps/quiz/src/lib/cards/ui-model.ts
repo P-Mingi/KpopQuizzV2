@@ -17,12 +17,31 @@ export function photoPicture(photo: UiPhoto | null): CardPicture | null {
   return null;
 }
 
-export function slimCard(c: UiCard, entityType: string | null = null): SlimCard {
+/** Lot 3 point A5: a rate as the page prints it ("0.3%", "10%"): at most two decimals, none when it is a whole number. Computed from the odds. */
+export function fmtRate(v: number): string {
+  return `${Number(v.toFixed(2))}%`;
+}
+
+/** Lot 3 point A5: the chance of one card being of each rarity, as printed (only the rarities that exist in packs), from computeOdds. */
+export function rateLabels(odds: CatalogOdds | null): Partial<Record<Rarity, string>> {
+  const out: Partial<Record<Rarity, string>> = {};
+  if (!odds) return out;
+  for (const r of RARITIES) if (odds.available.includes(r) && odds.card[r] > 0) out[r] = fmtRate(odds.card[r]);
+  return out;
+}
+
+/** The small label a Full Art card carries ("0.3%"): its rarity's rate from the odds the page shows. null when there is none. */
+export function fullArtRate(odds: CatalogOdds | null): string | null {
+  return rateLabels(odds).L ?? null;
+}
+
+export function slimCard(c: UiCard, entityType: string | null = null, rate: string | null = null): SlimCard {
   return {
     n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear,
     img: photoPicture(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
     part: c.part === 1 || c.part === 2 ? c.part : 0, pairN: c.part === 1 || c.part === 2 ? (c.pairN ?? null) : null,
     ...(c.endYear ? { endYear: c.endYear } : {}),
+    ...(rate && c.rarity === 'L' ? { rate } : {}),
   };
 }
 
@@ -56,7 +75,8 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     else byEntity.set(c.entity, [c]);
   }
   const typeOf = new Map(cat.entities.map((e) => [e.id, e.eventType ?? null]));
-  const cards = cat.cards.map((c) => slimCard(c, typeOf.get(c.entity) ?? null));
+  const faRate = fullArtRate(cat.odds);
+  const cards = cat.cards.map((c) => slimCard(c, typeOf.get(c.entity) ?? null, faRate));
   const firstN = (id: string): number => Math.min(...(byEntity.get(id) ?? []).map((c) => c.n), Number.MAX_SAFE_INTEGER);
   const entities = [...cat.entities].sort((a, b) => firstN(a.id) - firstN(b.id) || a.sortKey.localeCompare(b.sortKey));
   const sections: BinderSection[] = [];
@@ -87,7 +107,7 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
       const cs = have.get(r);
       if (cs) {
         for (const c of cs) {
-          items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null) });
+          items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null, faRate) });
           sections.find((x) => x.id === sec)!.ns.push(c.n);
         }
       }
@@ -355,4 +375,10 @@ export function oddsView(odds: CatalogOdds | null): OddsView {
     : 'The fifth card is drawn the same way.';
   const fifthFloor = present.find((r) => fifth[r] !== undefined) ?? null;
   return { present, absent, each, fifth, eachWords, fifthWords, fifthFloor, ...drawView(odds, present) };
+}
+
+/** Lot 3 point A3: "Page 3 of 9" for one page, "Pages 37 and 38 of 54" for a spread (the last spread of an odd count shows one page). `at` is
+ *  the 0-based first page. */
+export function pageWords(at: number, count: number, single: boolean): string {
+  return single || at + 2 > count ? `Page ${at + 1} of ${count}` : `Pages ${at + 1} and ${at + 2} of ${count}`;
 }

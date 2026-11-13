@@ -3,7 +3,7 @@
 // (ui-mock-api.ts, loaded only then). Every answer is the shape of types.ts.
 import { withBasePath } from '@/lib/site/base-path';
 
-import type { OpenResult, PackSource, WalletState } from './types';
+import type { OpenResult, OpenedCard, PackSource, WalletState } from './types';
 
 export type ApiError = { error: string };
 export type RecycleResult = { recycled: number; shards: number; state: WalletState };
@@ -16,6 +16,10 @@ export interface CardsApi {
   adGrant(ticket: string): Promise<OpenResult | ApiError>;
   recycle(): Promise<RecycleResult | ApiError>;
   favorite(n: number, on: boolean): Promise<boolean>;
+  /** Point A18: the demo pack of a signed-out visitor, drawn and signed by the server. Nothing is saved until demoClaim. */
+  demoDraw(): Promise<{ token: string; cards: OpenedCard[] } | ApiError>;
+  /** Point A18: after sign in, attaches the demo pack's five cards to the account (once per token). */
+  demoClaim(token: string, device: string): Promise<{ added: OpenedCard[]; state: WalletState } | ApiError>;
 }
 
 async function call<T>(path: string, body?: unknown): Promise<T | ApiError> {
@@ -46,6 +50,8 @@ export const httpApi: CardsApi = {
     const r = await call<{ ok: boolean }>('/api/cards/favorite', { n, on });
     return !('error' in r) && r.ok === true;
   },
+  demoDraw: () => call<{ token: string; cards: OpenedCard[] }>('/api/cards/demo', {}),
+  demoClaim: (token, device) => call<{ added: OpenedCard[]; state: WalletState }>('/api/cards/demo/claim', { token, device }),
 };
 
 export const isError = <T extends object>(r: T | ApiError | null): r is ApiError => r !== null && typeof r === 'object' && 'error' in r;

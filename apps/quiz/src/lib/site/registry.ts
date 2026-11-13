@@ -288,7 +288,7 @@ export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: str
 ];
 
 /** The public pages of Bunnyverse Cards on the hub (behind NET_CARDS). */
-export const CARDS_PATHS: readonly string[] = ['/cards', '/cards/binder', '/cards/c/{num}', '/cards/report'];
+export const CARDS_PATHS: readonly string[] = ['/cards', '/cards/binder', '/cards/c/{num}', '/cards/help', '/cards/report'];
 
 /** Every page of the Terrier that exists, in both locales, the French credits with them. */
 export function dleLivePaths(): readonly string[] {

@@ -1,5 +1,5 @@
 /* Bunnyverse Cards, the pages: layout, controls, binder, detail; colours only through the tokens. Ported from docs/design/cards/bunnyverse-cards-prototype-v4.html by scoping every rule under .bvc (the prototype styled the whole page). */
-@keyframes bvc-spinb{to{--spin:360deg}}
+@keyframes bvc-spinb{to{transform:rotate(360deg)}}
 .bvc *,.bvc *::before,.bvc *::after{box-sizing:border-box}
 .bvc,.bvc{background:var(--bg);color:var(--txt1)}
 .bvc{font-family:var(--f-ui);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -302,7 +302,7 @@
 .bvc .pw:hover{transform:translateY(-2px)}
 .bvc .pw > .pocket:hover{transform:none}
 .bvc .star{position:relative;z-index:10;flex:none;width:44px;height:44px;padding:0;border:0;background:none;display:grid;place-items:center;color:var(--txt2);cursor:pointer;transition:color .12s,transform .12s}
-.bvc .star::before{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--white);border:1px solid var(--border-h);box-shadow:0 1px 3px rgba(26,23,20,.16)}
+.bvc .star::before{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--white);border:1px solid var(--border-h);box-shadow:0 1px 3px rgba(26,23,20,.16)}
 .bvc .star svg{position:relative;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round}
 .bvc .star:hover{color:var(--txt1)}
 .bvc .star:active{transform:scale(.92)}
@@ -462,8 +462,13 @@
 /* ---------- Lot 3 ---------- */
 /* B1: the foot of a pocket, under the card: the New badge, the copies badge and the star never cover the face. */
 .bvc .pw{display:flex;flex-direction:column}
-.bvc .pw-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:44px}
-.bvc .pw-tags{display:flex;align-items:center;gap:4px;min-width:0}
+.bvc .pw-foot{display:flex;align-items:center;gap:6px;height:30px;margin-top:2px;position:relative}
+.bvc .pw-tags{display:flex;align-items:center;gap:4px;min-width:0;margin-right:auto}
+.bvc .pw-slot{display:flex;align-items:center;flex:none}
+.bvc .pw-slot:empty{display:none}
+/* The band stays 30 px high; each control inside overflows it to a 44 px hit area (negative block margin, z-index above the next row). */
+.bvc .pw-foot .star{margin-block:-7px}
+.bvc .pw-slot > *{margin-block:-7px}
 .bvc .fan .fc .star{margin-top:2px}
 /* B3: every target at least 44 px each way (links in running text keep their look and gain a taller hit area). */
 .bvc .foot a,.bvc .d-credit .links a,.bvc .d-mate,.bvc .back-link{display:inline-flex;align-items:center;min-height:44px}
@@ -497,9 +502,50 @@
 .bvc .faq{margin-top:40px;max-width:760px}
 .bvc .faq .h2{font-size:22px;margin-top:28px}
 .bvc .faq .h2:first-child{margin-top:0}
-.bvc .faq-steps{margin:12px 0 0;padding-left:22px;display:grid;gap:8px;color:var(--txt2)}
+.bvc .faq-steps{list-style:decimal;margin:12px 0 0;padding-left:22px;display:grid;gap:8px;color:var(--txt2)}
 .bvc .faq-steps b{color:var(--txt1)}
 .bvc .faq-list h3{font-size:16px;font-weight:700;margin-top:18px}
 .bvc .faq-list p{color:var(--txt2);margin-top:4px;max-width:64ch}
 .bvc .faq-list a,.bvc .d-credit p a,.bvc .d-sub a{position:relative}
 .bvc .faq-list a::after,.bvc .d-credit p a::after,.bvc .d-sub a::after{content:"";position:absolute;inset:-14px -4px}
+
+/* ---------- Lot 3 (UI lane, second pass) ---------- */
+/* A7: dragging tilts the back of the card too; the spring back is the transition of the resting state. */
+.bvc .d-back{--rx:0deg;--ry:0deg;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .6s var(--spring)}
+.bvc .d-back.tilting{transition:transform .08s linear}
+/* A5: how often each edition comes, one line each, computed from the odds. */
+.bvc .ed-odds{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;font-size:14.5px;color:var(--txt2)}
+.bvc .ed-odds li{display:flex;align-items:center;gap:8px;min-height:28px}
+.bvc .ed-odds li.cur{color:var(--txt1);font-weight:700}
+/* A10: the odds table (one row per edition that exists) and the place of the pack rules under it. */
+.bvc .rates th[scope="row"]{padding:8px 0;border-top:1px solid var(--border);text-align:left;font-size:14.5px;font-weight:600;color:var(--txt1)}
+.bvc .rates thead th{text-align:right;white-space:nowrap}
+.bvc .rates thead th:first-child{text-align:left}
+.bvc .rates td{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.bvc .rules-place{margin-top:14px;padding-top:6px;border-top:1px solid var(--border)}
+.bvc .rules-h{font-size:14px;font-weight:800;margin-top:8px}
+.bvc .rules-list{margin:6px 0 0;padding-left:20px;font-size:13.5px;color:var(--txt2);display:grid;gap:4px}
+/* A8: "Reveal all": the five cards turn at once, then the best one rises and glows while the others fade (600 ms, transform and opacity only). */
+.bvc .allrow{display:flex;justify-content:center;align-items:center;gap:clamp(4px,1.6vw,14px);width:100%;cursor:pointer;padding:34px 0 14px;border-radius:16px}
+.bvc .allc{position:relative;flex:none;width:clamp(58px,calc((min(100vw,860px) - 72px) / 5),170px);aspect-ratio:55/85;transition:transform .6s var(--ease),opacity .6s linear}
+.bvc .allc::after{content:"";position:absolute;inset:-28%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(255,255,255,.85),rgba(255,141,184,.35) 55%,transparent);opacity:0;transition:opacity .6s linear}
+.bvc .allrow.spotting .allc{opacity:.22}
+.bvc .allrow.spotting .allc.best{opacity:1;z-index:3;transform:translateY(-8%) scale(1.32)}
+.bvc .allrow.spotting .allc.best::after{opacity:1}
+.bvc .allc .rc{position:absolute;inset:0}
+/* B9: leaving the opening under reduced motion is a 200 ms fade, not a flight. */
+.bvc .ov.fade-out{opacity:0;transition:opacity .2s linear}
+@media (prefers-reduced-motion: reduce){
+.bvc .allc{transition:opacity .2s linear!important}
+.bvc .allrow.spotting .allc.best{transform:none!important}
+.bvc .allc::after{transition:opacity .2s linear!important}
+.bvc .ov.fade-out{transition:opacity .2s linear!important}
+.bvc .d-flip{transform:none!important;transform-style:flat}
+.bvc .d-flip .fr,.bvc .d-flip .bk{backface-visibility:visible;-webkit-backface-visibility:visible;transition:opacity .2s linear!important}
+.bvc .d-flip .bk{transform:none;opacity:0}
+.bvc .d-flip.flipped .fr{opacity:0}
+.bvc .d-flip.flipped .bk{opacity:1}
+.bvc .d-back{transform:none!important}
+}
+/* A3: the Help page keeps the photo credits under the questions. */
+.bvc .faq-credits{margin-top:40px}

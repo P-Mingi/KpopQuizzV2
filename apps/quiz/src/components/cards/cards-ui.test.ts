@@ -61,9 +61,9 @@ describe('one H1 a page', () => {
 describe('the drop rates', () => {
   it('prints the odds of the real catalog (C, U, R, UR), both lines, with the calculation in words', () => {
     const html = renderToStaticMarkup(createElement(DropRates, { odds: oddsOf(['C', 'U', 'R', 'UR']) }));
-    expect(html).toContain('Only Common, Uncommon, Rare and Ultra Rare cards exist so far, so their odds from the plan (60, 24, 10 and 1.2) are scaled to 100: 60 / 95.2 = 63.03%, 24 / 95.2 = 25.21%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
-    expect(html).toContain('The fifth card is drawn the same way, and a Common there becomes an Uncommon: (24 + 60) / 95.2 = 88.24%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
-    expect(html).toContain('Not in packs yet: Super Rare, Legendary.');
+    expect(html).toContain('Only Standard, Stage, Holo and Gold cards exist so far, so their odds from the plan (60, 24, 10 and 1.2) are scaled to 100: 60 / 95.2 = 63.03%, 24 / 95.2 = 25.21%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
+    expect(html).toContain('The fifth card is drawn the same way, and a Standard there becomes a Stage: (24 + 60) / 95.2 = 88.24%, 10 / 95.2 = 10.50%, 1.2 / 95.2 = 1.26%.');
+    expect(html).toContain('Not in packs yet: Era, Full Art.');
     expect(html).not.toContain('4.5%');
   });
   it('lists only the rarities that have a card', () => {
@@ -85,8 +85,8 @@ describe('the drop rates', () => {
   });
   it('an absent rarity is never listed as drawable, and with no odds nothing is', () => {
     const html = renderToStaticMarkup(createElement(DropRates, { odds: oddsOf(['C', 'U', 'R', 'UR']) }));
-    expect(html).not.toContain('Super Rare</span>');
-    expect(html).not.toContain('Legendary</span>');
+    expect(html).not.toContain('Era</span>');
+    expect(html).not.toContain('Full Art</span>');
     expect(oddsView(null).present).toEqual([]);
     expect(renderToStaticMarkup(createElement(DropRates, { odds: null }))).toContain('No card is in packs yet.');
   });

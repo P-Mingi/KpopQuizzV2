@@ -6,7 +6,7 @@
 // Keyboard: the pack and the pile are buttons; the result of each card is read out through an aria-live region.
 // Lot 3: a tap during an animation is never lost (point B5): one tap is buffered, the running animation jumps to its end, then the tap's
 // action runs, and a card stays on screen 150 ms (Standard to Holo) or 450 ms (Era and above) before a tap can send it down. "Reveal all"
-// deals the five and then holds up the best Era or better for 600 ms (B8). Under reduced motion every change is a 200 ms fade, and the
+// turns the five cards at once and then holds up the best card of the pack for 600 ms (B8). Under reduced motion every change is a 200 ms fade, and the
 // setting is read again when it changes (B9).
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -20,12 +20,12 @@ import { CardBack, CardFront, Gem } from './card-art';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
 import { Fx, PACK_BURST, RARITY_BURST, attachTilt, onReducedMotionChange, reducedMotion } from './fx';
-import { FADE_MS, SPOTLIGHT_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
+import { FADE_MS, FLIP_ALL_MS, SPOTLIGHT_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
 
 import type { OpenedCard, PackSource, Rarity } from '@/lib/cards/types';
 import type { SlimCard } from '@/lib/cards/ui-types';
 
-type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'spot' | 'summary';
+type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'all' | 'spot' | 'summary';
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
 export interface OpeningProps {
@@ -65,10 +65,11 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
   const [label, setLabel] = useState<{ idx: number } | null>(null);
   const [leaving, setLeaving] = useState(false);
   const [spot, setSpot] = useState<number | null>(null);
+  const [allFlip, setAllFlip] = useState(false);
   const [, setReducedState] = useState(() => reducedMotion());
 
   // The machine lives in a ref so the timers never read a stale render.
-  const m = useRef({ phase: 'pack' as Phase, idx: 0, flipped: false, queued: false, waiting: false, all: false, shownAt: 0 });
+  const m = useRef({ phase: 'pack' as Phase, idx: 0, flipped: false, queued: false, waiting: false, shownAt: 0 });
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const fx = useRef<Fx | null>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -110,7 +111,10 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
 
   /* ---- B5: a tap during an animation runs it to its end ---- */
   const skipAnim = useCallback((): void => {
-    flushSync(() => { for (let k = 0; k < 6 && run.busy; k++) run.finish(); });
+    // The turn of "Reveal all" finishes in one pass, so the spotlight that follows it still gets its 600 ms; every other animation runs to
+    // the very end (a step may schedule the next one, hence the loop).
+    const once = m.current.phase === 'all';
+    flushSync(() => { for (let k = 0; k < (once ? 1 : 6) && run.busy; k++) run.finish(); });
     finishAnimations(root.current);
   }, [run]);
 
@@ -173,21 +177,20 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
   const toSummary = (): void => {
     setPhase('summary');
     setSpot(null);
+    setAllFlip(false);
     setHint(null);
     // The pack is complete once its fifth card is shown: game_complete with the existing enums (a full pack is 5 cards of 5).
     if (!demo) analytics.gameComplete({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard', score: PACK_SIZE, max: PACK_SIZE });
     later(() => addRef.current?.focus(), 80);
   };
 
-  /** The five are dealt. After "Reveal all", the best Era or better is held up for 600 ms first (point B8); a pack without one goes
-   *  straight to the summary. */
-  const dealt = (): void => {
-    const k = m.current.all ? spotlightIndex(rows.map((r) => r.card.rarity)) : null;
-    m.current.all = false;
+  /** The five have turned. The best card of the pack is held up for 600 ms (point B8): it rises and glows while the others fade; a pack
+   *  whose five cards are of one rarity has no best card and goes straight to the summary. */
+  const spotlight = (): void => {
+    const k = spotlightIndex(rows.map((r) => r.card.rarity));
     if (k === null) { toSummary(); return; }
     setSpot(k);
     setPhase('spot');
-    setHint(null);
     run.start([[SPOTLIGHT_MS, toSummary]]);
   };
 
@@ -250,7 +253,7 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
       setLabel(null); setTone(null); setCharge(null); setSlow(false); setActive(null);
       m.current.idx = i + 1; m.current.flipped = false;
       setIdxState(i + 1); setFlippedState(false);
-      if (i + 1 >= len) dealt();
+      if (i + 1 >= len) toSummary();
       else setHint(<><b>Tap the card</b> to reveal it &middot; {i + 2} of {len}</>);
     }]]);
   };
@@ -275,26 +278,29 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
     act();
   };
 
-  const revealAllFast = (): void => {
+  /** Point B8: the five cards turn at once (a row of five, face down, then all turned together), then the best one is spotlighted. */
+  const revealAll = (): void => {
     if (m.current.phase !== 'reveal') return;
-    m.current.all = true;
     m.current.queued = false;
+    m.current.waiting = false;
     if (run.busy) skipAnim();
-    const step = (): void => {
-      if (m.current.idx >= len || m.current.phase !== 'reveal') return;
-      if (run.busy || m.current.waiting) { later(step, 120); return; }
-      if (!m.current.flipped) { reveal(true); later(step, 420); } else { sendDown(true); later(step, 300); }
-    };
-    step();
+    tiltOff.current?.();
+    tiltOff.current = null;
+    setLabel(null); setTone(null); setCharge(null); setSlow(false); setActive(null);
+    setAllFlip(false);
+    setPhase('all');
+    setHint(null);
+    // A short beat so the face-down row has painted before it turns; under reduced motion the turn is a 200 ms fade.
+    run.start([[40, () => setAllFlip(true)], [40 + (reducedRef.current ? FADE_MS : FLIP_ALL_MS), spotlight]]);
   };
 
   const skip = (): void => {
-    if (m.current.phase === 'spot') { skipAnim(); return; }
+    if (m.current.phase === 'all' || m.current.phase === 'spot') { skipAnim(); return; }
     if (m.current.phase === 'pack' || m.current.phase === 'tearing' || m.current.phase === 'torn') {
       flushSync(() => { if (m.current.phase === 'pack') { setPhase('tearing'); tear(); } });
       skipAnim();
     }
-    revealAllFast();
+    revealAll();
   };
 
   /* ---- leaving ---- */
@@ -303,7 +309,12 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
     setLeaving(true);
     const target = document.getElementById('bvc-tab-binder');
     const cardsEls = document.querySelectorAll<HTMLElement>('#fan .fc');
-    if (reducedRef.current || !target || !cardsEls.length) { onClose(then); return; }
+    // Point B9: under reduced motion the cards do not fly; the screen fades out in 200 ms instead.
+    if (reducedRef.current || !target || !cardsEls.length) {
+      root.current?.classList.add('fade-out');
+      later(() => onClose(then), reducedRef.current ? FADE_MS : 0);
+      return;
+    }
     const tr = target.getBoundingClientRect();
     cardsEls.forEach((c, i) => {
       const r = c.getBoundingClientRect();
@@ -388,15 +399,28 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
             </div>
           </>
         ) : null}
-        {phase === 'spot' && spot !== null && rows[spot] ? (
-          <div
-            className="spot" role="button" tabIndex={0} aria-live="polite" onClick={skipAnim}
-            aria-label={`Best card of the pack: ${rows[spot]!.card.name}, ${RARITY_LABEL[rows[spot]!.card.rarity]}. Continue.`}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skipAnim(); } }}
-          >
-            <div className="spot-card pop"><CardFront card={rows[spot]!.card} className="sweep" /></div>
-            <span className="rtag pop"><Gem r={rows[spot]!.card.rarity} className={`gem gc-${rows[spot]!.card.rarity}`} />{RARITY_LABEL[rows[spot]!.card.rarity]}</span>
-          </div>
+        {phase === 'all' || phase === 'spot' ? (
+          <>
+            <div
+              className={`allrow${phase === 'spot' ? ' spotting' : ''}`} role="button" tabIndex={0} onClick={skipAnim}
+              aria-label={phase === 'spot' && spot !== null ? `Best card of the pack: ${rows[spot]!.card.name}, ${RARITY_LABEL[rows[spot]!.card.rarity]}. Continue.` : 'Your five cards. Continue.'}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skipAnim(); } }}
+            >
+              {rows.map((x, i) => (
+                <div key={x.card.n} className={`allc${spot === i ? ' best' : ''}`}>
+                  <div className={`rc${allFlip ? ' flipped' : ''}`}>
+                    <div className="rc-in">
+                      <div className="side back"><CardBack /></div>
+                      <div className="side front"><CardFront card={x.card} className={spot === i ? 'sweep' : ''} /></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="rlabel" aria-live="polite">
+              {phase === 'spot' && spot !== null ? <span className="rtag pop"><Gem r={rows[spot]!.card.rarity} className={`gem gc-${rows[spot]!.card.rarity}`} />{RARITY_LABEL[rows[spot]!.card.rarity]}</span> : null}
+            </div>
+          </>
         ) : null}
         {phase === 'summary' ? (
           <>

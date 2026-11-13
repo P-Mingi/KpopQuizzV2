@@ -112,5 +112,24 @@ export function createMockApi(): CardsApi {
       return { recycled, shards, state: view(s) };
     },
     async favorite(n, on) { const o = s.owned[n]; if (!o) return false; o.fav = on; save(s); return true; },
+    // Point A18 (test stand-in): the demo pack is drawn here and its token is 'fixture-demo:<five numbers>'; the claim adds the cards.
+    async demoDraw() {
+      if (!guest) return { error: 'signed_in' };
+      const ns = drawPack(indexPool(fixtureCatalog().cards), (m) => Math.floor(Math.random() * m));
+      return { token: `fixture-demo:${ns.join(',')}`, cards: ns.map((n) => ({ n, isNew: false })) };
+    },
+    async demoClaim(token) {
+      if (guest) return { error: 'signin' };
+      const ns = token.startsWith('fixture-demo:') ? token.slice(13).split(',').map(Number).filter((n) => Number.isInteger(n)) : [];
+      if (ns.length !== 5) return { error: 'token' };
+      const now = Date.now();
+      const added = ns.map((n, i) => {
+        const o = s.owned[n];
+        s.owned[n] = { copies: (o?.copies ?? 0) + 1, fav: o?.fav ?? false, at: new Date(now + i).toISOString() };
+        return { n, isNew: !o };
+      });
+      save(s);
+      return { added, state: view(s) };
+    },
   };
 }

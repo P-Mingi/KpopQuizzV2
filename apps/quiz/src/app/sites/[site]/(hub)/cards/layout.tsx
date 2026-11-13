@@ -13,6 +13,7 @@ import { CardsProvider } from '@/components/cards/cards-provider';
 import { CardsSprite } from '@/components/cards/card-art';
 import { CardsFooter } from '@/components/cards/cards-footer';
 import { cardsFace, cardsMono } from '@/components/cards/cards-font';
+import { demoOn } from '@/lib/cards/demo';
 import { loadCatalog } from '@/lib/cards/ui-catalog';
 import { cardsFixtureOn, cardsOn } from '@/lib/cards/ui-flag';
 import { buildSlim } from '@/lib/cards/ui-model';
@@ -25,7 +26,7 @@ export default async function CardsLayout({ children }: { children: React.ReactN
     <UxPage width="full" padded={false} className={`bvc ${cardsFace.variable} ${cardsMono.variable}`}>
       <CardsSprite />
       {cat ? (
-        <CardsProvider catalog={buildSlim(cat)} fixture={cardsFixtureOn()}>
+        <CardsProvider catalog={buildSlim(cat)} fixture={cardsFixtureOn()} demo={cardsFixtureOn() || demoOn()}>
           <div className="wrap"><CardsBar /></div>
           {children}
         </CardsProvider>

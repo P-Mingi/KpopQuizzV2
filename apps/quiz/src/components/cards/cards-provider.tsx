@@ -8,6 +8,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { isError, httpApi } from '@/lib/cards/ui-api';
 import { ownedMap } from '@/lib/cards/ui-model';
 
+import { clearPendingDemo, deviceId, pendingDemo } from './demo-store';
+
 import type { CardsApi, RecycleResult } from '@/lib/cards/ui-api';
 import type { OpenResult, OpenedCard, OwnedEntry, WalletState } from '@/lib/cards/types';
 import type { SlimCard, SlimCatalog } from '@/lib/cards/ui-types';
@@ -24,6 +26,8 @@ export interface CardsCtx {
   owned: Map<number, OwnedEntry>;
   api: CardsApi | null;
   fixture: boolean;
+  /** Point A18: the server can draw a demo pack for a signed-out visitor (a secret is set); false: the sign-in call to action only. */
+  demo: boolean;
   lastPack: OpenedCard[] | null;
   newSet: ReadonlySet<number>;
   clearNew: (n?: number) => void;
@@ -42,7 +46,7 @@ export function useCards(): CardsCtx {
   return c;
 }
 
-export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCatalog; fixture: boolean; children: React.ReactNode }): React.ReactElement {
+export function CardsProvider({ catalog, fixture, demo = false, children }: { catalog: SlimCatalog; fixture: boolean; demo?: boolean; children: React.ReactNode }): React.ReactElement {
   const [api, setApi] = useState<CardsApi | null>(null);
   const [status, setStatus] = useState<CardsStatus>('loading');
   const [state, setState] = useState<WalletState | null>(null);
@@ -108,6 +112,30 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
     setNewSet((prev) => { const s = new Set(prev); for (const c of r.pack.cards) if (c.isNew) s.add(c.n); return s; });
   }, []);
 
+  // Point A18: a demo pack opened before sign in is attached to the account once the visitor is signed in: the token is posted once (it is
+  // dropped on any answer except a dropped connection, which keeps it for the next visit).
+  const claiming = useRef(false);
+  useEffect(() => {
+    if (status !== 'ready' || !api || claiming.current) return;
+    const token = pendingDemo();
+    if (!token) return;
+    claiming.current = true;
+    void (async () => {
+      const r = await api.demoClaim(token, deviceId());
+      if (isError(r)) {
+        if (r.error !== 'network' && r.error !== 'failed') clearPendingDemo();
+        if (r.error === 'limit') toast('Your demo cards could not be added today. Open a real pack instead.');
+        claiming.current = false;
+        return;
+      }
+      clearPendingDemo();
+      setState(r.state);
+      setNewSet((prev) => { const s = new Set(prev); for (const c of r.added) if (c.isNew) s.add(c.n); return s; });
+      toast(`Your demo pack is in your binder: ${r.added.length} cards.`);
+      claiming.current = false;
+    })();
+  }, [status, api, toast]);
+
   const toggleFav = useCallback(async (n: number): Promise<void> => {
     if (!api || !state) return;
     const cur = state.owned.find((o) => o.n === n);
@@ -129,8 +157,8 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
   }, [api]);
 
   const value = useMemo<CardsCtx>(() => ({
-    status, state, now, catalog, byN, owned, api, fixture, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
-  }), [status, state, now, catalog, byN, owned, api, fixture, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
+    status, state, now, catalog, byN, owned, api, fixture, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
+  }), [status, state, now, catalog, byN, owned, api, fixture, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
 
   return (
     <Ctx.Provider value={value}>

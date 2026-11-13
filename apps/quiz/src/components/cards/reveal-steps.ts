@@ -7,7 +7,9 @@ import type { Rarity } from '@/lib/cards/types';
 /** Point B5: a card stays at least this long on screen before a tap can send it down (Standard to Holo, then Era and above). */
 export const DWELL_LOW_MS = 150;
 export const DWELL_HIGH_MS = 450;
-/** Point B8: how long the best card of a pack is held up after "Reveal all" has dealt the five. */
+/** Point B8: "Reveal all" turns the five cards at once (the CSS flip of one card lasts this long), then the best card is held up. */
+export const FLIP_ALL_MS = 750;
+/** Point B8: how long the best card of a pack is held up (it rises and glows while the others fade). */
 export const SPOTLIGHT_MS = 600;
 /** Point B9: under reduced motion a change of state is a short fade of this length instead of a cut or a flip. */
 export const FADE_MS = 200;
@@ -15,7 +17,7 @@ export const FADE_MS = 200;
 export const SWEEP_MS = 900;
 export const SWEEP_EASE = 'cubic-bezier(.2,.8,.2,1)';
 
-/** Index of the first rarity that counts as "Era or better" (Era, Gold, Full Art). */
+/** Index of the first rarity that counts as "Era or better" (Era, Gold, Full Art): the longer dwell of point B5. */
 const ERA = RARITIES.indexOf('SR');
 
 export const isEraOrBetter = (r: Rarity): boolean => RARITIES.indexOf(r) >= ERA;
@@ -31,17 +33,19 @@ export function leaveWait(shownAt: number, now: number, r: Rarity): number {
 }
 
 /**
- * Point B8: the card "Reveal all" holds up once the five are dealt: the best card of Era or better (the highest rarity, the first of
- * them on a tie). null when the pack holds no Era or better, so a pack of lower rarities gets no spotlight.
+ * Point B8: the card "Reveal all" holds up once the five have turned: the best card of the pack (the highest rarity, the first of them on a
+ * tie). null when the five are all of one rarity, so no card is better than the others and nothing is spotlighted.
  */
 export function spotlightIndex(rarities: readonly Rarity[]): number | null {
   let best = -1;
   let at = -1;
+  let low = Infinity;
   rarities.forEach((r, i) => {
     const k = RARITIES.indexOf(r);
+    low = Math.min(low, k);
     if (k > best) { best = k; at = i; }
   });
-  return best >= ERA ? at : null;
+  return best > low ? at : null;
 }
 
 interface Pending { run: () => void; t: ReturnType<typeof setTimeout> }

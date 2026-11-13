@@ -22,4 +22,3 @@
   --binder-ground:#E9E4DC; --ring-a:#FFFFFF; --ring-b:#B9B3AA; --ring-c:#EDE9E3; --star-on:#D99A00; --star-edge:#A87400;
   --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.56,.64,1);
 }
-@property --spin{syntax:"<angle>";inherits:false;initial-value:0deg}
