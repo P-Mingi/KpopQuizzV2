@@ -175,6 +175,15 @@ function dleShareRewrites(base: string): readonly SiteRewrite[] {
   })));
 }
 
+/**
+ * Lot 4 (the installable hub): the service worker of Bunnyverse, at the root so its scope is the whole site. The file lives in
+ * public/brand/hub/ and only the hub build rewrites /sw.js to it: kpopquiz.org and the anime site serve no /sw.js. It handles push and
+ * notificationclick only (no fetch handler, no cache).
+ */
+export const HUB_ONLY_FILES: readonly { readonly source: string; readonly destination: string }[] = [
+  { source: '/sw.js', destination: '/brand/hub/sw.js' },
+];
+
 /** The internal path of a public path on a non-kpop site: '/' becomes '/sites/anime'. */
 export function internalPath(site: SiteId, pathname: string): string {
   const base = `${SITES_PREFIX}/${site}`;
@@ -207,6 +216,7 @@ export function rewritesFor(site: SiteId): readonly SiteRewrite[] {
     { source: '/', destination: base },
     ...PER_SITE_ROOT_FILES.map((f) => ({ source: f, destination: `${base}${f}` })),
     ...PER_SITE_BRAND_FILES.map((f) => ({ source: f, destination: brandPath(site, f) })),
+    ...(site === 'hub' ? HUB_ONLY_FILES.map((f) => ({ source: f.source, destination: f.destination })) : []),
     ...keyFileBlocksFor(site),
     ...BLOCKED_PUBLIC[site].flatMap((p) => [
       { source: `${base}${p}`, destination: `${base}/gone` },
