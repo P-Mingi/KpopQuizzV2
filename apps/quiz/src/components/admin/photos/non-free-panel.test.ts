@@ -25,7 +25,7 @@ describe('the words of the panel', () => {
     expect(html).toContain('aria-labelledby="nf-h"');
     expect(html).not.toContain('nf-word');
     expect(html).toContain('aria-live="polite"');
-    expect(html).not.toMatch(/[–—]/);
+    expect(html).not.toMatch(/[\u2013\u2014]/);
   });
 });
 

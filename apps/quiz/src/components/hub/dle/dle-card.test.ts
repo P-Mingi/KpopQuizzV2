@@ -58,7 +58,7 @@ describe('the card of the result', () => {
 
   it('draws no dash of any kind', () => {
     const html = renderToStaticMarkup(createElement(DleCard, { name: 'A', sub: 'B', tone: 'C', look: { preview: '/x' } }));
-    expect(html).not.toMatch(/[–—]/);
+    expect(html).not.toMatch(/[\u2013\u2014]/);
   });
 });
 

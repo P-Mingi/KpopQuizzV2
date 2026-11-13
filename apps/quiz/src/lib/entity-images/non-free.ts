@@ -179,29 +179,37 @@ async function allRowFiles(db: Db): Promise<{ id: number; files: string[] }[]> {
 
 export interface StoredObject { readonly name: string; readonly createdAt: string }
 
-/** Lists the files under a folder of the bucket, every level (the Storage API lists one level at a time), a few folders at once. */
+/** Lists the files under a folder of the bucket, every level (the Storage API lists one level at a time), six folders at once. */
 export async function listBucketObjects(db: Db, root: string = ORPHAN_PREFIX): Promise<StoredObject[]> {
   const out: StoredObject[] = [];
   const queue: string[] = [root];
+  let active = 0;
+  const listFolder = async (folder: string): Promise<void> => {
+    for (let offset = 0; ; offset += 1000) {
+      const { data, error } = await db.storage.from(BUCKET).list(folder, { limit: 1000, offset, sortBy: { column: 'name', order: 'asc' } });
+      if (error) throw new ImageError('storage_failed', 502, 'Le stockage n\'a pas pu être lu. Réessaie.');
+      const items = (data ?? []) as { name: string; id: string | null; created_at?: string | null }[];
+      for (const it of items) {
+        if (it.id === null || it.id === undefined) queue.push(`${folder}/${it.name}`);
+        else out.push({ name: `${folder}/${it.name}`, createdAt: it.created_at ?? '' });
+      }
+      if (items.length < 1000) return;
+    }
+  };
+  // A worker leaves only when the queue is empty AND no other worker is still listing a folder (it may add more).
   const worker = async (): Promise<void> => {
     for (;;) {
       const folder = queue.pop();
-      if (folder === undefined) return;
-      for (let offset = 0; ; offset += 1000) {
-        const { data, error } = await db.storage.from(BUCKET).list(folder, { limit: 1000, offset, sortBy: { column: 'name', order: 'asc' } });
-        if (error) throw new ImageError('storage_failed', 502, 'Le stockage n\'a pas pu être lu. Réessaie.');
-        const items = (data ?? []) as { name: string; id: string | null; created_at?: string | null }[];
-        for (const it of items) {
-          if (it.id === null || it.id === undefined) queue.push(`${folder}/${it.name}`);
-          else out.push({ name: `${folder}/${it.name}`, createdAt: it.created_at ?? '' });
-        }
-        if (items.length < 1000) break;
+      if (folder === undefined) {
+        if (active === 0) return;
+        await new Promise((r) => setTimeout(r, 5));
+        continue;
       }
+      active++;
+      try { await listFolder(folder); } finally { active--; }
     }
   };
-  // A worker that finds the queue empty leaves, so start them in turns while there is work: one pass of the first folder fills the queue.
-  await worker();
-  while (queue.length > 0) await Promise.all(Array.from({ length: 6 }, () => worker()));
+  await Promise.all(Array.from({ length: 6 }, () => worker()));
   return out;
 }
 

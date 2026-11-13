@@ -157,6 +157,26 @@ describe('the orphan files', () => {
   });
 });
 
+describe('listing a bucket folder with many sub-folders', () => {
+  it('finds every file of 60 series by 15 characters, each once, with a few folders listed at the same time', async () => {
+    const objects: FakeObject[] = [];
+    for (let s = 0; s < 60; s++) for (let c = 0; c < 15; c++) objects.push(obj(`anime/character/series-${s}/char-${c}/h.webp`, IN), obj(`anime/character/series-${s}/char-${c}/h-2x.webp`, IN));
+    objects.push(obj('anime/series/series-0/s.webp', IN), obj('anime/character/loose.webp', IN));
+    const db = nonFreeFake([], objects);
+    const list = await listBucketObjects(db);
+    expect(list).toHaveLength(60 * 15 * 2 + 1);
+    expect(new Set(list.map((o) => o.name)).size).toBe(list.length);
+    expect(list.some((o) => o.name === 'anime/character/loose.webp')).toBe(true);
+    expect(list.some((o) => o.name.startsWith('anime/series/'))).toBe(false);
+  });
+
+  it('stops with a storage error when a folder cannot be listed', async () => {
+    const db = nonFreeFake([], [obj('anime/character/a/b/h.webp', IN)]);
+    (db.storage as { from: () => { list: () => Promise<unknown> } }).from = () => ({ list: async () => ({ data: null, error: { message: 'boom' } }) });
+    await expect(listBucketObjects(db)).rejects.toMatchObject({ code: 'storage_failed' });
+  });
+});
+
 const world = (): { rows: CandidateRow[]; objects: FakeObject[] } => {
   n = 100;
   const luffy = official({ slug: 'one-piece/luffy', path: 'anime/character/one-piece/luffy/aaaa.webp' });
