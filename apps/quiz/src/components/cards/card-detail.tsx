@@ -6,7 +6,7 @@
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
-import { EDITIONS, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
+import { EDITIONS, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { partWord } from '@/lib/cards/ui-model';
 
 import { CardFront, Gem, LOCK_ICON } from './card-art';
@@ -54,7 +54,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
   useEffect(() => {
     if (!card) return undefined;
     clearNew(card.n);
-    return attachTilt(flipRef.current?.querySelector<HTMLElement>('.card') ?? null, 18);
+    return attachTilt(flipRef.current?.querySelector<HTMLElement>('.card') ?? null, 14);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [card?.n]);
 
@@ -112,7 +112,7 @@ export function CardDetail(p: DetailProps): React.ReactElement {
             {card && o ? <FavStar n={card.n} name={card.name} edition={ed.name} className="in" /> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
-          <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_NAMES[rarity]}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && p.pair ? <span className="tag">{p.pair.side === 'left' ? 'Left' : 'Right'} half {card.part}/2</span> : null}</div>
+          <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && p.pair ? <span className="tag">{p.pair.side === 'left' ? 'Left' : 'Right'} half {card.part}/2</span> : null}</div>
           <p className="d-sub" style={{ marginTop: 10 }}>
             {card
               ? <>{ed.name} edition, card {card.num}. {status === 'ready' ? (o ? (o.copies > 1 ? `You have ${o.copies} copies.` : 'You have 1 copy.') : "You don't have it yet.") : ''}</>

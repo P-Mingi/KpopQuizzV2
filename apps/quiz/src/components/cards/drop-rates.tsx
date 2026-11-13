@@ -1,7 +1,7 @@
-// Bunnyverse Cards, lane U: the drop rates, both lines: each card, and the fifth card of every pack, with the calculation in plain
+// Bunnyverse Cards, lane U: the drop rates, two tables: each card, and the fifth card of every pack, with the calculation in plain
 // words. Server component, no state. The percentages are those of the real catalog (the server's computeOdds of lib/cards/rules.ts, sent with the catalog): only the rarities that have
 // a card are listed, because an edition with no card can never come out.
-import { EDITIONS, RARITY_NAMES } from '@/lib/cards/rules';
+import { RARITY_LABEL } from '@/lib/cards/rules';
 import { oddsView } from '@/lib/cards/ui-model';
 
 import { Gem } from './card-art';
@@ -18,16 +18,31 @@ export function DropRates({ odds }: { odds: CatalogOdds | null }): React.ReactEl
         <span className="h2">Drop rates</span>
         <svg className="ico chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
       </summary>
-      <table>
+      <table aria-label="Chance of each card">
+        <caption>Each card</caption>
         <thead>
-          <tr><th scope="col">Rarity</th><th scope="col">Each card</th><th scope="col">Fifth card</th></tr>
+          <tr><th scope="col">Rarity</th><th scope="col">Chance</th></tr>
         </thead>
         <tbody>
           {t.present.map((r) => (
             <tr key={r}>
-              <td><span className="rname"><Gem r={r} className={`gem gc-${r}`} /><span>{RARITY_NAMES[r]}</span><small>{EDITIONS[r].name}</small></span></td>
+              <td><span className="rname"><Gem r={r} className={`gem gc-${r}`} /><span>{RARITY_LABEL[r]}</span></span></td>
               <td>{pct(t.each[r])}</td>
-              <td className={t.fifth[r] === undefined ? 'dim' : undefined}>{pct(t.fifth[r])}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* Lot 3 point B10: the fifth card has a table of its own (a Standard there is lifted), only the rarities it can be. */}
+      <table id="rates-fifth" aria-label="Chance of the fifth card">
+        <caption>The fifth card of a pack</caption>
+        <thead>
+          <tr><th scope="col">Rarity</th><th scope="col">Chance</th></tr>
+        </thead>
+        <tbody>
+          {t.present.filter((r) => t.fifth[r] !== undefined).map((r) => (
+            <tr key={r}>
+              <td><span className="rname"><Gem r={r} className={`gem gc-${r}`} /><span>{RARITY_LABEL[r]}</span></span></td>
+              <td>{pct(t.fifth[r])}</td>
             </tr>
           ))}
         </tbody>
@@ -43,8 +58,8 @@ export function DropRates({ odds }: { odds: CatalogOdds | null }): React.ReactEl
           <ul className="draw" aria-label="Chance of one given card">{t.cardChance.map((x) => <li key={`${x.r}-${x.kind}`}>{x.label}</li>)}</ul>
         </>
       ) : null}
-      {t.absent.length ? <p>Not in packs yet: {t.absent.map((r) => RARITY_NAMES[r]).join(', ')}.</p> : null}
-      <p>Each card is drawn on its own. The fifth card of every pack is Uncommon or better. Packs are never sold and cards can&rsquo;t be sold.</p>
+      {t.absent.length ? <p>Not in packs yet: {t.absent.map((r) => RARITY_LABEL[r]).join(', ')}.</p> : null}
+      <p>Each card is drawn on its own.{t.fifthFloor ? ` The fifth card of every pack is ${RARITY_LABEL[t.fifthFloor]} or better.` : ''} Packs are never sold and cards can&rsquo;t be sold.</p>
     </details>
   );
 }

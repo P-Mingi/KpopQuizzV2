@@ -1,5 +1,6 @@
 // Bunnyverse Cards, lane U: /cards, the Packs page. NET_CARDS off: 404 (the layout). Closed to search engines while the hub is private
 // (owner decision 5 of the Cards plan: indexing of /cards waits for the owner); robotsFor(false) keeps it so whatever NET_INDEXING says.
+import { CardsFaq } from '@/components/cards/cards-faq';
 import { DropRates } from '@/components/cards/drop-rates';
 import { PacksView } from '@/components/cards/packs-view';
 import { readAdsContext } from '@/lib/cards/ads-server';
@@ -16,5 +17,5 @@ export const metadata: Metadata = {
 
 export default async function CardsPacksPage(): Promise<React.ReactElement> {
   const cat = await loadCatalog();
-  return <PacksView rates={<DropRates odds={cat?.odds ?? null} />} ads={await readAdsContext()} />;
+  return <PacksView rates={<DropRates odds={cat?.odds ?? null} />} ads={await readAdsContext()} faq={<CardsFaq />} />;
 }

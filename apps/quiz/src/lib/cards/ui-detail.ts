@@ -1,6 +1,6 @@
 // Bunnyverse Cards, lane U: what the page of one card needs, from the catalog, a card number and the optional ?lock=<rarity>. Pure.
 // Unknown number: null (the page answers 404). A ?lock for an edition that does not exist yet shows that edition's lock sentence.
-import { EDITIONS, LOCK_SENTENCES, RARITIES, RARITY_NAMES, creditLine } from './rules';
+import { LOCK_SENTENCES, RARITIES, RARITY_LABEL, creditLine } from './rules';
 import { SOLOIST, ladderRarities, lockReasonOf, slimCard } from './ui-model';
 
 import type { Rarity } from './types';
@@ -41,7 +41,7 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const missing = lockR ? ladder.find((x) => x.rarity === lockR && !x.card) : undefined;
   const locked = !!missing;
   const shown: Rarity = locked ? (lockR as Rarity) : card.rarity;
-  const edition = `${EDITIONS[card.rarity].name} · ${RARITY_NAMES[card.rarity]}`;
+  const edition = RARITY_LABEL[card.rarity];
   // A fact the database does not hold (no debut year) is left out, never shown empty (no invented value either). A person without a group
   // line is a soloist (decision 18, review 1 finding 12: 101 gives a person a group line only when the idols row sits in another group);
   // a soloist's debut year is the solo debut, so it is not "with the group".

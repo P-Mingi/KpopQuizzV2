@@ -2,7 +2,7 @@
 // Server-safe: no hook, no state. The finishes (silver keyline, spotlight beams, holo film, era, gold foil, full art) are CSS, in
 // styles/cards/cards-art.css, keyed by the classes ed-* and k-*. A card with a photo (an idol or a group) shows it as a cover crop at its
 // focal point; a card without one (an event, a subject whose photo is not readable) keeps the drawn figure.
-import { EDITIONS } from '@/lib/cards/rules';
+import { RARITY_LABEL } from '@/lib/cards/rules';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
 import { SOLOIST } from '@/lib/cards/ui-model';
@@ -115,22 +115,21 @@ export function kindTag(card: Pick<SlimCard, 'kind' | 'part'>): string | null {
 /** The front of a card. */
 export function CardFront({ card, className = '' }: { card: SlimCard; className?: string }): React.ReactElement {
   const p = paletteFor(card.entity);
-  const ed = EDITIONS[card.rarity];
   const tag = kindTag(card);
   return (
     <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${card.part === 1 || card.part === 2 ? ` half half-${card.part}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
       <div className="c-in">
         <div className="c-art"><Art card={card} /><i className="c-foil" /></div>
         {tag ? <span className="c-kind">{tag}</span> : null}
-        <span className="c-ed">{ed.name}</span>
+        <span className="c-ed">{RARITY_LABEL[card.rarity]}</span>
         <div className="c-plate">
           <b className="c-name" style={{ '--nf': `${nameSize(card.name)}cqi` } as Vars}>{card.name}</b>
           <div className="c-meta">
             <span>{metaLine(card)}</span>
-            <span className={`c-gem rc-${card.rarity}`}>{card.num.slice(4)}<Gem r={card.rarity} className="" /></span>
+            <span className={`c-gem rc-${card.rarity}`}><span className="c-no">{card.num.slice(4)}</span><Gem r={card.rarity} className="" /></span>
           </div>
         </div>
-        <i className="c-frame" /><i className="c-glare" />
+        <i className="c-frame" /><i className="c-glare" /><i className="c-sweep" />
       </div>
     </div>
   );

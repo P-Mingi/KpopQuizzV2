@@ -1,32 +1,90 @@
 // Bunnyverse Cards, lane U: the pointer tilt and the particles of the reveal, ported from the prototype (tilt, burst, rain). Browser only.
-// Everything here is skipped under prefers-reduced-motion.
+// Everything here is skipped under prefers-reduced-motion. Lot 3 point B9: the setting is read live (one MediaQueryList, whose
+// `matches` follows the system), and onReducedMotionChange tells a screen when it changes.
+let mql: MediaQueryList | null | undefined;
+function reducedList(): MediaQueryList | null {
+  if (mql === undefined) mql = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  return mql;
+}
 export function reducedMotion(): boolean {
-  return typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return !!reducedList()?.matches;
+}
+/** Calls `cb` with the new value each time the reduced-motion setting changes. Returns the cleanup. */
+export function onReducedMotionChange(cb: (reduced: boolean) => void): () => void {
+  const m = reducedList();
+  if (!m) return () => undefined;
+  const on = (e: MediaQueryListEvent): void => cb(e.matches);
+  m.addEventListener('change', on);
+  return () => m.removeEventListener('change', on);
 }
 
-/** A pointer tilt with a moving glare on an element (the card or the pack). Returns the cleanup. */
+/**
+ * A pointer tilt with a moving glare on an element (the card or the pack). Returns the cleanup.
+ * Lot 3 point B6: a move only changes custom properties that feed `transform` and `opacity` (the card's tilt, the foil and the glare
+ * layers are translated, never repainted), at most once per animation frame (moves are coalesced), and the rectangle is measured once
+ * when the pointer enters (and again on a resize), never on a move. `max` is the angle at the edge of the element, in degrees; on a
+ * touch screen the finger drives it the same way and the card springs back on release (the CSS transition of the resting state).
+ */
 export function attachTilt(el: HTMLElement | null, max = 14): () => void {
-  if (!el || reducedMotion()) return () => undefined;
+  if (!el) return () => undefined;
+  const node: HTMLElement = el;
+  let box: { x: number; y: number; w: number; h: number } | null = null;
+  let frame = 0;
+  let px = 0;
+  let py = 0;
+  let on = false;
+  const measure = (): void => {
+    const r = node.getBoundingClientRect();
+    box = { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width || 1, h: r.height || 1 };
+  };
+  const paint = (): void => {
+    frame = 0;
+    if (!box || reducedMotion()) return;
+    const x = Math.min(1, Math.max(0, (px - box.x) / box.w));
+    const y = Math.min(1, Math.max(0, (py - box.y) / box.h));
+    if (!on) { on = true; node.classList.add('tilting'); }
+    node.style.setProperty('--rx', `${((0.5 - y) * 2 * max).toFixed(2)}deg`);
+    node.style.setProperty('--ry', `${((x - 0.5) * 2 * max).toFixed(2)}deg`);
+    node.style.setProperty('--gx', x.toFixed(3));
+    node.style.setProperty('--gy', y.toFixed(3));
+    node.style.setProperty('--go', '1');
+  };
+  const enter = (): void => { measure(); };
   const move = (e: PointerEvent): void => {
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;
-    const y = (e.clientY - r.top) / r.height;
-    el.classList.add('tilting');
-    el.style.setProperty('--rx', `${((0.5 - y) * max).toFixed(2)}deg`);
-    el.style.setProperty('--ry', `${((x - 0.5) * max * 1.2).toFixed(2)}deg`);
-    el.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
-    el.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
-    el.style.setProperty('--go', '1');
+    if (reducedMotion()) return;
+    if (!box) measure();
+    px = e.pageX;
+    py = e.pageY;
+    if (!frame) frame = requestAnimationFrame(paint);
   };
   const leave = (): void => {
-    el.classList.remove('tilting');
-    el.style.setProperty('--rx', '0deg');
-    el.style.setProperty('--ry', '0deg');
-    el.style.setProperty('--go', '0');
+    if (frame) { cancelAnimationFrame(frame); frame = 0; }
+    on = false;
+    box = null;
+    node.classList.remove('tilting');
+    node.style.setProperty('--rx', '0deg');
+    node.style.setProperty('--ry', '0deg');
+    node.style.setProperty('--go', '0');
   };
-  el.addEventListener('pointermove', move);
-  el.addEventListener('pointerleave', leave);
-  return () => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave); };
+  const up = (e: PointerEvent): void => { if (e.pointerType !== 'mouse') leave(); };
+  const resize = (): void => { box = null; };
+  node.addEventListener('pointerenter', enter);
+  node.addEventListener('pointerdown', enter);
+  node.addEventListener('pointermove', move);
+  node.addEventListener('pointerleave', leave);
+  node.addEventListener('pointerup', up);
+  node.addEventListener('pointercancel', leave);
+  window.addEventListener('resize', resize);
+  return () => {
+    if (frame) cancelAnimationFrame(frame);
+    node.removeEventListener('pointerenter', enter);
+    node.removeEventListener('pointerdown', enter);
+    node.removeEventListener('pointermove', move);
+    node.removeEventListener('pointerleave', leave);
+    node.removeEventListener('pointerup', up);
+    node.removeEventListener('pointercancel', leave);
+    window.removeEventListener('resize', resize);
+  };
 }
 
 interface Particle { x: number; y: number; vx: number; vy: number; g: number; life: number; dec: number; s: number; c: string; sh: string; rot: number; vr: number }

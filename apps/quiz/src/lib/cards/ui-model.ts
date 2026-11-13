@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: the pure model of the pages. From the catalog (cards and entities) it builds the slim cards, the pockets of
 // the binder (a card, or an edition that cannot exist yet with its reason sentence), the sections, and the numbers the pages print.
 // Nothing here invents a number: every count is taken from the catalog and from the player's state.
-import { RARITIES, RARITY_NAMES, SHARDS } from './rules';
+import { RARITIES, RARITY_LABEL, SHARDS } from './rules';
 import { paletteFor } from './ui-palette';
 
 import type { CardKind, CatalogOdds, LockReason, OwnedEntry, Rarity } from './types';
@@ -189,19 +189,19 @@ export function filterItems(items: readonly BinderItem[], f: Filters, owned: Map
 
 export type SortKey = 'rarity' | 'number' | 'newest';
 export const SORTS: { key: SortKey; label: string; hint: string }[] = [
-  { key: 'rarity', label: 'Rarity', hint: 'Legendary first, then by number' },
+  { key: 'rarity', label: 'Rarity', hint: 'Highest rarity first, then by number' },
   { key: 'number', label: 'Number', hint: 'By card number' },
   { key: 'newest', label: 'Newest', hint: 'Last pulled first' },
 ];
 
-/** The grid order. Rarity: owned first, Legendary down, then by number. Newest: last pulled first, then by number. A pair sorts as one unit
+/** The grid order. Rarity: owned first, the highest rarity down, then by number. Newest: last pulled first, then by number. A pair sorts as one unit
  *  (owned when either half is, newest by its latest half, by number from its first half) and stays together. */
 export function sortItems(list: readonly BinderItem[], sort: SortKey, owned: Map<number, OwnedEntry>): BinderItem[] {
   const out = binderUnits(list);
   const rank = (u: BinderItem[]): number => { const it = u[0]!; return RARITIES.indexOf(it.locked ? it.rarity : it.card.rarity); };
   const own = (u: BinderItem[]): number => (u.some((it) => !it.locked && owned.has(it.card.n)) ? 1 : 0);
   const at = (u: BinderItem[]): number => Math.max(...u.map((it) => (it.locked ? -Infinity : Date.parse(owned.get(it.card.n)?.at ?? '') || -Infinity)));
-  // The prototype's rule (owned first, then rarity, Legendary first), with the locked pockets after the issued cards: in a catalog where
+  // The prototype's rule (owned first, then rarity, highest first), with the locked pockets after the issued cards: in a catalog where
   // every Era and Full Art is locked (amendment 1) the grid would otherwise open on pages of empty pockets (decision 31).
   const locked = (u: BinderItem[]): number => (u[0]!.locked ? 1 : 0);
   if (sort === 'rarity') out.sort((a, b) => own(b) - own(a) || locked(a) - locked(b) || rank(b) - rank(a) || a[0]!.i - b[0]!.i);
@@ -246,7 +246,7 @@ export function gridPages(list: readonly BinderItem[], perPage = 36): BinderItem
   return out;
 }
 
-export const rarityName = (r: Rarity): string => RARITY_NAMES[r];
+export const rarityName = (r: Rarity): string => RARITY_LABEL[r];
 
 /** mm:ss for the next-pack timer. */
 export function fmtClock(ms: number): string {
@@ -260,9 +260,9 @@ export function fmtHours(ms: number): string {
   return `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}`;
 }
 
-/** The accessible name of a card: name, edition, rarity. */
-export function cardLabel(c: SlimCard, editionName: string): string {
-  return `${c.name}, ${editionName}, ${RARITY_NAMES[c.rarity]}`;
+/** The accessible name of a card: name and its one rarity name (lot 3 point B4: the edition's name is the rarity's name). */
+export function cardLabel(c: SlimCard): string {
+  return `${c.name}, ${RARITY_LABEL[c.rarity]}`;
 }
 
 /** What the Drop rates box prints, taken from the server's odds (rules.ts computeOdds over the real catalog). Nothing is typed here. */
@@ -275,6 +275,8 @@ export interface OddsView {
   fifth: Partial<Record<Rarity, number>>;
   eachWords: string;
   fifthWords: string;
+  /** The lowest rarity the fifth card can be (the floor of its table), null with no odds. */
+  fifthFloor: Rarity | null;
   /** Lot 2: the order of the draw in plain sentences, from the odds only. Empty when the odds hold no subject and card counts (older payloads). */
   drawSteps: string[];
   /** Lot 2: per rarity, the split between types (soloists and members, groups, events), from odds.kinds. */
@@ -298,13 +300,13 @@ function drawView(odds: CatalogOdds, present: readonly Rarity[]): Pick<OddsView,
   for (const r of present) {
     const ks = KIND_ORDER.filter((k) => (odds.kinds[r]?.[k] ?? 0) > 0 && (subj[r]?.[k] ?? 0) > 0 && (cards[r]?.[k] ?? 0) > 0);
     if (ks.length === 0) continue;
-    typeSplit.push(`${RARITY_NAMES[r]}: ${list(ks.map((k) => `${KIND_WORDS[k]} ${num(Number((odds.kinds[r][k] as number).toFixed(2)))}%`))}.`);
+    typeSplit.push(`${RARITY_LABEL[r]}: ${list(ks.map((k) => `${KIND_WORDS[k]} ${num(Number((odds.kinds[r][k] as number).toFixed(2)))}%`))}.`);
     for (const k of ks) {
       const s = subj[r][k] as number;
       const c = cards[r][k] as number;
       if (c > s) halves = true;
       const p = (odds.card[r] * (odds.kinds[r][k] as number) / 100 / s) * s / c;
-      cardChance.push({ r, kind: k, subjects: s, cards: c, pct: p, label: `${RARITY_NAMES[r]}, ${KIND_WORDS[k]}: ${pct(p)} for each of the ${c} cards.` });
+      cardChance.push({ r, kind: k, subjects: s, cards: c, pct: p, label: `${RARITY_LABEL[r]}, ${KIND_WORDS[k]}: ${pct(p)} for each of the ${c} cards.` });
     }
   }
   if (typeSplit.length === 0) return none;
@@ -336,7 +338,7 @@ const list = (xs: string[]): string => (xs.length <= 1 ? (xs[0] ?? '') : `${xs.s
 export function oddsView(odds: CatalogOdds | null): OddsView {
   const present = odds ? RARITIES.filter((r) => odds.available.includes(r)) : [];
   const absent = RARITIES.filter((r) => !present.includes(r));
-  if (!odds || present.length === 0) return { present: [], absent: [...RARITIES], each: {}, fifth: {}, eachWords: 'No card is in packs yet.', fifthWords: '', drawSteps: [], typeSplit: [], cardChance: [] };
+  if (!odds || present.length === 0) return { present: [], absent: [...RARITIES], each: {}, fifth: {}, eachWords: 'No card is in packs yet.', fifthWords: '', fifthFloor: null, drawSteps: [], typeSplit: [], cardChance: [] };
   const w = odds.planWeights;
   const total = odds.availableWeightTotal;
   const each: OddsView['each'] = {};
@@ -345,11 +347,12 @@ export function oddsView(odds: CatalogOdds | null): OddsView {
   const hasC = present.includes('C');
   const lift = hasC ? present.find((r) => r !== 'C') : undefined;
   const eachWords = absent.length === 0
-    ? `Every rarity has cards, so the plan's odds apply as they are: ${present.map((r) => `${RARITY_NAMES[r]} ${num(w[r])}`).join(', ')} (a total of ${num(total)}).`
-    : `Only ${list(present.map((r) => RARITY_NAMES[r]))} cards exist so far, so their odds from the plan (${list(present.map((r) => num(w[r])))}) are scaled to 100: ${present.map((r) => `${num(w[r])} / ${num(total)} = ${pct(each[r] as number)}`).join(', ')}.`;
+    ? `Every rarity has cards, so the plan's odds apply as they are: ${present.map((r) => `${RARITY_LABEL[r]} ${num(w[r])}`).join(', ')} (a total of ${num(total)}).`
+    : `Only ${list(present.map((r) => RARITY_LABEL[r]))} cards exist so far, so their odds from the plan (${list(present.map((r) => num(w[r])))}) are scaled to 100: ${present.map((r) => `${num(w[r])} / ${num(total)} = ${pct(each[r] as number)}`).join(', ')}.`;
   const parts = present.filter((r) => fifth[r] !== undefined).map((r) => `${r === lift ? `(${num(w[r])} + ${num(w.C)})` : num(w[r])} / ${num(total)} = ${pct(fifth[r] as number)}`);
   const fifthWords = lift
-    ? `The fifth card is drawn the same way, and a Common there becomes ${lift === 'U' ? 'an Uncommon' : `a ${RARITY_NAMES[lift]}`}: ${parts.join(', ')}.`
+    ? `The fifth card is drawn the same way, and a ${RARITY_LABEL.C} there becomes a ${RARITY_LABEL[lift]}: ${parts.join(', ')}.`
     : 'The fifth card is drawn the same way.';
-  return { present, absent, each, fifth, eachWords, fifthWords, ...drawView(odds, present) };
+  const fifthFloor = present.find((r) => fifth[r] !== undefined) ?? null;
+  return { present, absent, each, fifth, eachWords, fifthWords, fifthFloor, ...drawView(odds, present) };
 }

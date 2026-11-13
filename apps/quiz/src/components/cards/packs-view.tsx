@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { analytics } from '@/lib/analytics';
-import { CAP, PERIOD_MS, PERIOD_S, SHARD_PACK_COST } from '@/lib/cards/rules';
+import { CAP, PERIOD_MS, PERIOD_S, RARITY_LABEL, SHARD_PACK_COST } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
 import { fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
 import { PACK_LOGO_SRC } from '@/lib/cards/ui-logo';
@@ -16,21 +16,22 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
 import { CardFront } from './card-art';
 import { useCards } from './cards-provider';
-import { FavStar } from './fav-star';
+import { PocketFoot } from './fav-star';
 import { attachTilt } from './fx';
 import { PackOpening } from './pack-opening';
+import { drawDemoPack } from '@/lib/cards/demo-pack';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { OpenedCard, OpenResult, PackSource } from '@/lib/cards/types';
 
-interface Opening { cards: OpenedCard[]; source: PackSource }
+interface Opening { cards: OpenedCard[]; source: PackSource; demo?: boolean }
 
 const ERRORS: Record<string, string> = {
   empty: 'No pack left. The next one comes soon.', shards: `You need ${SHARD_PACK_COST} shards for a pack.`, limit: 'No ads left today.', disabled: 'Ads are not available right now.',
   conflict: 'That ad was already used.', forbidden: 'This account cannot open packs.', network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', bonus: 'No bonus pack to open.',
 };
 
-export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsContext }): React.ReactElement {
+export function PacksView({ rates, ads, faq }: { rates: React.ReactNode; ads: AdsContext; faq?: React.ReactNode }): React.ReactElement {
   const c = useCards();
   const { status, state, now, catalog, owned, lastPack, byN, api, toast } = c;
   const signIn = useSignIn();
@@ -38,7 +39,7 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
   const [busy, setBusy] = useState(false);
   const [packEl, setPackEl] = useState<HTMLButtonElement | null>(null);
 
-  useEffect(() => attachTilt(packEl, 12), [packEl]);
+  useEffect(() => attachTilt(packEl, 7), [packEl]);
 
   const ready = status === 'ready' && state !== null;
   const guest = status === 'guest';
@@ -67,6 +68,13 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
     }
     begin(r, source);
   }, [api, begin, busy, signIn, toast]);
+
+  // Lot 3 point C5: a signed-out visitor can open one demo pack, drawn here in the browser from the catalog the page holds. Nothing is
+  // stored: no write, no request, no count.
+  const tryDemo = (): void => {
+    const nums = drawDemoPack(catalog.cards);
+    if (nums.length) setOpening({ cards: nums.map((n) => ({ n, isNew: false })), source: 'stock', demo: true });
+  };
 
   const primary = (): void => {
     if (guest) { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); return; }
@@ -113,6 +121,8 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
                 <div>
                   <p className="stack-label"><b>Sign in</b> to keep a stack of packs.</p>
                   <p className="hint" style={{ marginTop: 6 }}>Your account holds your packs, your shards and your binder. Playing is free and packs are never sold.</p>
+                  <p style={{ marginTop: 10 }}><button type="button" className="btn-outline" onClick={tryDemo} disabled={!total}>Try a demo pack</button></p>
+                  <p className="hint" style={{ marginTop: 6 }}>Demo pack, not saved: no account needed, and nothing is kept.</p>
                 </div>
               ) : (
                 <>
@@ -155,11 +165,10 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
             <div className="strip">
               {last.map((x, i) => (
                 <div className="pw" key={`${x.card!.n}-${i}`}>
-                  <Link className="pocket" href={`/cards/c/${x.card!.num}`} aria-label={`${x.card!.name}, ${x.card!.num}`}>
-                    {x.isNew ? <span className="newb">New</span> : null}
+                  <Link className="pocket" href={`/cards/c/${x.card!.num}`} aria-label={`${x.card!.name}, ${RARITY_LABEL[x.card!.rarity]}, ${x.card!.num}${x.isNew ? ', new' : ''}`}>
                     <CardFront card={x.card!} />
                   </Link>
-                  <FavStar n={x.card!.n} name={x.card!.name} edition={x.card!.edition} />
+                  <PocketFoot n={x.card!.n} name={x.card!.name} edition={RARITY_LABEL[x.card!.rarity]} isNew={x.isNew} />
                 </div>
               ))}
             </div>
@@ -210,7 +219,14 @@ export function PacksView({ rates, ads }: { rates: React.ReactNode; ads: AdsCont
         </aside>
       </div>
 
-      {opening ? <PackOpening cards={opening.cards} source={opening.source} onClose={closeOpening} /> : null}
+      {faq}
+
+      {opening ? (
+        <PackOpening
+          cards={opening.cards} source={opening.source} onClose={closeOpening}
+          demo={opening.demo ? { onSignIn: () => { setOpening(null); signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); } } : undefined}
+        />
+      ) : null}
     </div>
   );
 }

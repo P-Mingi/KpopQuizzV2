@@ -1,6 +1,6 @@
 // Bunnyverse Cards, lane U: the words of a photo credit that the pages link (rules.ts creditLine gives the one-line text of the card
 // back; this gives the parts, so the author, the source page and the licence can each be a link).
-import { EDITIONS } from './rules';
+import { RARITY_LABEL } from './rules';
 import { photoPicture } from './ui-model';
 
 import type { UiCatalog, UiPhoto } from './ui-types';
@@ -45,7 +45,7 @@ export function cardCreditRows(cat: UiCatalog): CardCreditRow[] {
       row = { photo: c.photo, thumb: photoPicture(c.photo)?.src ?? null, cards: [] };
       byId.set(c.photo.id, row);
     }
-    row.cards.push({ num: c.num, name: c.name, edition: EDITIONS[c.rarity].name });
+    row.cards.push({ num: c.num, name: c.name, edition: RARITY_LABEL[c.rarity] });
   }
   return [...byId.values()].sort((a, b) => (a.cards[0]?.num ?? '').localeCompare(b.cards[0]?.num ?? ''));
 }
