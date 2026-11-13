@@ -46,6 +46,34 @@ select count(*) from storage.objects where bucket_id = 'character-refs';   -- at
 
 Les images publiques des personnages (table `entity_images`, bucket public `entity-images`) ne changent pas.
 
+4. **Avant** de mettre `PRIVATE_LAUNCH=0` : **0 image non libre**. Les illustrations et captures sous droits (import du 2026-11-11, « Official artwork », et les CC0 dont la source est Fandom) se suppriment avec le bouton « Supprimer les images non libres » de l'admin (onglet Personnages anime, voir `docs/o1/reports/CARDS/OWNER-STEPS-LOT3-DLE.md`). Puis colle chaque requête dans le SQL Editor de Supabase. Attendu : `0` et `0`.
+
+```sql
+select count(*) as non_free_images
+from public.entity_images
+where site_id = 'anime' and kind = 'character' and not license_verified
+  and (
+    (license = 'other' and starts_with(license_note, 'Official artwork')
+      and created_at >= timestamptz '2026-11-11 00:00:00+00' and created_at < timestamptz '2026-11-12 00:00:00+00')
+    or
+    (license = 'cc0' and source_url !~ '[\s\\]'
+      and substring(lower(source_url) from '^https?://(?:[^/?#@\\\s]*@)?([^/?#:@\\\s]+)(?::[0-9]*)?(?:[/?#]|$)') ~ '^([a-z0-9-]+[.])*(fandom[.]com|wikia[.]nocookie[.]net)$')
+  );   -- attendu : 0
+```
+
+```sql
+select count(*) as orphan_files
+from storage.objects o
+where o.bucket_id = 'entity-images' and starts_with(o.name, 'anime/character/')
+  and o.created_at >= timestamptz '2026-11-11 21:00:00+00' and o.created_at <= timestamptz '2026-11-11 21:30:00+00'
+  and not exists (
+    select 1 from public.entity_images e
+    where o.name = e.path or o.name = regexp_replace(e.path, '[.]webp$', '-2x.webp') or o.name = e.thumb_path
+  );   -- attendu : 0
+```
+
+Si un des deux ne vaut pas 0 : n'ouvre pas, ouvre l'aperçu du bouton de nouveau, ou dis-le à Claude.
+
 Rien d'autre.
 (`PRIVATE_LAUNCH_ALLOW` et `PRIVATE_LAUNCH_KEY` peuvent rester, ils ne servent plus.)
 

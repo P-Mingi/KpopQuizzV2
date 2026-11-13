@@ -1,41 +1,72 @@
 'use client';
 
-// Bunnyverse Cards, lane U: the opening of a pack, ported from the approved prototype v4 (startOpening, bindTear, tear, showPile, reveal,
-// sendDown, summary). The five cards were drawn by the server before this screen shows (POST /api/cards/open), so nothing here decides a
-// result. Tap or press Enter on the pack to rip it (or drag across), tap the pile to reveal and send each card down, "Reveal all" skips.
-// Keyboard: the pack and the pile are buttons; the result of each card is read out through an aria-live region.
-// Lot 3: a tap during an animation is never lost (point B5): one tap is buffered, the running animation jumps to its end, then the tap's
-// action runs, and a card stays on screen 150 ms (Standard to Holo) or 450 ms (Era and above) before a tap can send it down. "Reveal all"
-// turns the five cards at once and then holds up the best card of the pack for 600 ms (B8). Under reduced motion every change is a 200 ms fade, and the
-// setting is read again when it changes (B9).
+// KpopCards (agent C): the opening of a pack, one pack or five at once, exactly as docs/design/cards/kpopcards-prototype-v6.html
+// (startOpening, startMulti, tear, reveal, sendDown, summary, multiGrid, multiDone). The cards were drawn by the server before this screen
+// shows (POST /api/cards/open): nothing here draws or decides a result, it only shows the cards it was given.
+// Every number (timings per edition, bursts, sounds, sizes) comes from lib/cards/opening-plan.ts. A tap during an animation is never lost: one
+// tap is buffered, the running animation jumps to its end, then the tap acts (StepRunner). Under reduced motion every change is a 200 ms fade.
+// Lot 5: nothing behind the opening is painted (class ovopen), the particles are one canvas at one pixel per pixel (at most 260), only
+// transform and opacity animate.
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 import { analytics } from '@/lib/analytics';
+import {
+  FINISH_COLORS, MULTI, SPOT_GLOW, TEAR, TEAR_COLORS, multiDelays, multiDoneAfter, multiFlipAfter, multiOrder, rarityIndex, revealPlan, summaryPlan, warnLevel,
+} from '@/lib/cards/opening-plan';
 import { PACK_SIZE, RARITIES, RARITY_LABEL, SHARDS } from '@/lib/cards/rules';
-import { PACK_LOGO_SRC } from '@/lib/cards/ui-logo';
 
 import { CardBack, CardFront, Gem } from './card-art';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
-import { Fx, PACK_BURST, RARITY_BURST, attachTilt, onReducedMotionChange, reducedMotion } from './fx';
-import { FADE_MS, FLIP_ALL_MS, SPOTLIGHT_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
+import { Fx, attachTilt, onReducedMotionChange, reducedMotion } from './fx';
+import { listenForGesture, openingOutput } from './opening-output';
+import { FADE_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
+
+import '@/styles/cards/cards-opening.css';
 
 import type { OpenedCard, PackSource, Rarity } from '@/lib/cards/types';
 import type { SlimCard } from '@/lib/cards/ui-types';
 
-type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'all' | 'spot' | 'summary';
+type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'multi' | 'grid' | 'summary';
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
+/** The face of the pack: three colours, the name under the word, the address of the page ("all", "daily", "focus/twice"), golden or not. */
+export interface PackLook { c: readonly [string, string, string]; title: string; path: string; golden: boolean }
+export const GOLD_COLORS: readonly [string, string, string] = ['#FFF1B8', '#F2B53A', '#B77A0E'];
+const DEFAULT_LOOK: PackLook = { c: ['#FF3E86', '#C55BFF', '#4CC9FF'], title: 'ALL IDOLS', path: 'all', golden: false };
+
+export type OpeningSource = PackSource | 'daily' | 'focus';
+/** What comes next when the player leaves: nothing, one more pack, or five more. */
+export type OpeningNext = 'none' | 'stock' | 'stock5';
+
+export interface OpeningCard extends OpenedCard {
+  /** The server's Gold guarantee fired for this card ("Gold guarantee"). */
+  pity?: boolean;
+}
 export interface OpeningProps {
-  cards: OpenedCard[];
-  source: PackSource;
+  /** 5 cards, or 25 when `packs` is 5, in draw order. */
+  cards: OpeningCard[];
+  source: OpeningSource;
+  look?: PackLook;
+  packs?: 1 | 5;
+  /** Packs of the run that were golden (Open 5 says "2 golden packs"). */
+  goldenPacks?: number;
+  /** Sets this opening finished: shown as "You finished X. +1 pack in Missions". */
+  finished?: readonly { id: string; name: string; packs?: number }[];
+  /** The server's headline for the summary ("3 new cards for your collection") and what the copies are worth in shards; computed here when absent. */
+  headline?: string;
+  copiesShards?: number;
+  /** The Full Art odds in percent (the stamp says "0.3% of cards"). null or absent: the stamp says only FULL ART. */
+  fullArtOdds?: number | null;
   /** Called when the player leaves the screen; `then` says what comes next. */
-  onClose: (then: 'none' | 'stock') => void;
-  /** Lot 3 point A18: the demo pack of a signed-out visitor, drawn and signed by the server. Nothing is saved yet, so no New badge and no count; it ends
-   *  on a sign in, after which its cards are attached to the account. */
+  onClose: (then: OpeningNext) => void;
+  /** The demo pack of a signed-out visitor, drawn and signed by the server: no New badge, no count; it ends on a sign in. */
   demo?: { onSignIn: () => void };
+  /** The page of a card (the summary links to it). */
+  cardHref?: (card: SlimCard) => string;
 }
 
 function zig(y: number, teeth: number, top: boolean): string {
@@ -51,72 +82,156 @@ function zig(y: number, teeth: number, top: boolean): string {
   return `polygon(${pts.join(',')})`;
 }
 
-export function PackOpening({ cards, source, onClose, demo }: OpeningProps): React.ReactElement {
+function PackFace({ id, look, golden, dealt }: { id: string; look: PackLook; golden: boolean; dealt?: boolean }): React.ReactElement {
+  const c = golden ? GOLD_COLORS : look.c;
+  const title = golden ? 'GOLDEN PACK' : look.title;
+  return (
+    <button
+      type="button" id={id} className={`pack${golden ? ' golden' : ''}`} aria-label="Open the pack" tabIndex={dealt ? -1 : 0}
+      style={{ '--p1': c[0], '--p2': c[1], '--p3': c[2] } as Vars}
+    >
+      <span className="pk top-part" id={`${id}-top`}><span className="pk-face" /><span className="pk-crimp t" /></span>
+      <span className="pk main-part" id={`${id}-main`}><span className="pk-face" /><span className="pk-crimp b" /></span>
+      <span className="pk-body"><span className="pk-word">Kpop<b>Cards</b></span><span className="pk-title">{title}</span></span>
+      <span className="pk-count">5 CARDS</span>
+      <i className="burst" />
+    </button>
+  );
+}
+
+export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, goldenPacks = 0, finished = [], headline, copiesShards, fullArtOdds = null, onClose, demo, cardHref }: OpeningProps): React.ReactElement {
   const ctx = useCards();
-  const rows = useMemo(() => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew, pair: c.completesPair === true })).filter((r) => r.card), [cards, ctx.byN]);
+  const router = useRouter();
+  const rows = useMemo(
+    () => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew, pair: c.completesPair === true, pity: c.pity === true })).filter((r) => r.card),
+    [cards, ctx.byN],
+  );
   const len = rows.length;
-  const [phase, setPhaseState] = useState<Phase>('pack');
+  const multi = packs === 5;
+  const bestRarity: Rarity = rows.reduce<Rarity>((b, r) => (rarityIndex(r.card.rarity) > rarityIndex(b) ? r.card.rarity : b), 'C');
+  const warn = warnLevel(bestRarity);
+  const golden = look.golden && !multi;
+  const hrefOf = cardHref ?? ((c: SlimCard) => `/kpopcards/c/${c.num}`);
+
+  const [phase, setPhaseState] = useState<Phase>(multi ? 'multi' : 'pack');
   const [idx, setIdxState] = useState(0);
   const [flipped, setFlippedState] = useState(false);
   const [active, setActive] = useState<number | null>(null);
   const [charge, setCharge] = useState<Rarity | null>(null);
-  const [slow, setSlow] = useState(false);
-  const [tone, setTone] = useState<Rarity | null>(null);
-  const [hint, setHint] = useState<React.ReactNode>(<><b>Tap the pack</b> to open it</>);
+  const [flipVar, setFlipVar] = useState<number | null>(null);
+  const [stamp, setStamp] = useState(false);
+  const [legend, setLegend] = useState(false);
+  const [hint, setHint] = useState<React.ReactNode>(null);
   const [label, setLabel] = useState<{ idx: number } | null>(null);
   const [leaving, setLeaving] = useState(false);
-  const [spot, setSpot] = useState<number | null>(null);
-  const [allFlip, setAllFlip] = useState(false);
+  const [spot, setSpot] = useState(false);
+  const [ripped, setRipped] = useState(false);
+  const [dealt, setDealt] = useState(false);
+  const [turned, setTurned] = useState(false);
   const [, setReducedState] = useState(() => reducedMotion());
 
   // The machine lives in a ref so the timers never read a stale render.
-  const m = useRef({ phase: 'pack' as Phase, idx: 0, flipped: false, queued: false, waiting: false, shownAt: 0 });
+  const m = useRef({ phase: (multi ? 'multi' : 'pack') as Phase, idx: 0, flipped: false, queued: false, waiting: false, shownAt: 0, fast: false, summarySpot: false });
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const fx = useRef<Fx | null>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const root = useRef<HTMLDivElement>(null);
   const packRef = useRef<HTMLButtonElement>(null);
   const cutRef = useRef<HTMLElement>(null);
+  const zoneRef = useRef<HTMLDivElement>(null);
   const pileRef = useRef<HTMLDivElement>(null);
   const pulledRef = useRef<HTMLDivElement>(null);
+  const fanRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const addRef = useRef<HTMLButtonElement>(null);
-  // Point B9: the setting is a ref the timers read, kept current by a change listener.
   const reducedRef = useRef(reducedMotion());
   const tiltOff = useRef<(() => void) | null>(null);
-  // Point B5: the timed steps of the running animation; when the last one has run, the buffered tap (if any) runs.
+  const fanTilts = useRef<(() => void)[]>([]);
   const actRef = useRef<() => void>(() => undefined);
   const run = useMemo(() => new StepRunner(() => { if (m.current.queued) { m.current.queued = false; actRef.current(); } }), []);
+  const out = (): ReturnType<typeof openingOutput> => openingOutput();
 
   const setPhase = (p: Phase): void => { m.current.phase = p; setPhaseState(p); };
   const later = useCallback((fn: () => void, ms: number): void => { timers.current.push(setTimeout(fn, ms)); }, []);
 
+  /* ---- the classes of the screen, set by hand so a change replays its animation and a render never undoes it ---- */
+  const cls = (name: string, on: boolean): void => { root.current?.classList.toggle(name, on); };
+  const setTone = (r: Rarity | null): void => { (['SR', 'UR', 'L'] as const).forEach((x) => cls(`tone-${x}`, r === x)); };
+  const stage = (on: boolean, bang = false): void => {
+    cls('boom', on);
+    const el = root.current;
+    if (!bang) { cls('bang', false); return; }
+    if (el) { el.classList.remove('bang'); void el.offsetWidth; el.classList.add('bang'); }
+  };
+  const jump = (): void => {
+    cls('jump', true);
+    requestAnimationFrame(() => requestAnimationFrame(() => cls('jump', false)));
+  };
+  const sweep = (card: Element | null | undefined): void => {
+    if (!card || reducedRef.current) return;
+    card.classList.remove('sweep'); void (card as HTMLElement).offsetWidth; card.classList.add('sweep');
+    later(() => card.classList.remove('sweep'), 1000);
+  };
+
   useEffect(() => {
     const ts = timers.current;
-    document.documentElement.style.overflow = 'hidden';
+    const html = document.documentElement;
+    const scope = root.current?.closest('.bvc') ?? null;
+    html.style.overflow = 'hidden';
+    html.classList.add('ovopen');
+    scope?.classList.add('ovopen');
     if (canvas.current) fx.current = new Fx(canvas.current);
-    const off = onReducedMotionChange((v) => { reducedRef.current = v; setReducedState(v); });
-    return () => { ts.forEach(clearTimeout); run.cancel(); off(); tiltOff.current?.(); fx.current?.destroy(); document.documentElement.style.overflow = ''; };
+    const stopGesture = listenForGesture();
+    cls('rm', reducedRef.current);
+    const off = onReducedMotionChange((v) => { reducedRef.current = v; cls('rm', v); setReducedState(v); });
+    return () => {
+      ts.forEach(clearTimeout); run.cancel(); off(); stopGesture(); tiltOff.current?.(); fanTilts.current.forEach((f) => f()); fx.current?.destroy();
+      html.style.overflow = ''; html.classList.remove('ovopen'); scope?.classList.remove('ovopen');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run]);
 
-  // The first screen: the clip of the two pack halves, the tilt, the focus.
+  // The first screen: the clip of the two pack halves, the tilt, the focus, and the warning buzz of a big pull.
   useEffect(() => {
+    if (multi) {
+      document.querySelectorAll<HTMLElement>('.mp .pk.top-part').forEach((e) => { e.style.clipPath = zig(14, 22, true); });
+      document.querySelectorAll<HTMLElement>('.mp .pk.main-part').forEach((e) => { e.style.clipPath = zig(14, 22, false); });
+      setHint(bestRarity && warn ? <><b>Something shines</b> in these packs</> : <><b>{packs} packs</b> opening</>);
+      // Five packs rip together, one rip sound after another, then the grid is dealt.
+      for (let j = 0; j < packs; j++) later(() => { if (m.current.phase === 'multi') out().cue({ kind: 'rip' }); }, j * MULTI.ripStagger);
+      if (warn) out().vibrate([12, 80, 12]);
+      run.start([[reducedRef.current ? MULTI.ripAfterReduced : MULTI.ripAfter, () => {
+        setRipped(true);
+        run.start([[m.current.fast ? 0 : reducedRef.current ? MULTI.gridAfterReduced : MULTI.gridAfter, multiGrid]]);
+      }]]);
+      return undefined;
+    }
     const top = document.getElementById('opk-top');
     const main = document.getElementById('opk-main');
     if (top) top.style.clipPath = zig(14, 22, true);
     if (main) main.style.clipPath = zig(14, 22, false);
     packRef.current?.focus();
-    return attachTilt(packRef.current, 6);
+    setHint(warn ? <><b>Something shines</b> in this pack. Tap to open it</> : golden ? <><b>A golden pack:</b> its fifth card is Holo or better</> : <><b>Tap the pack</b> to open it</>);
+    if (warn) out().vibrate([12, 80, 12]);
+    return attachTilt(packRef.current, 10);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const stepText = demo ? 'Demo pack' : source === 'ad' ? 'Pack from an ad' : source === 'shards' ? 'Pack bought with shards' : source === 'bonus' ? 'Bonus pack' : `${ctx.state?.stock ?? 0} pack${ctx.state?.stock === 1 ? '' : 's'} left after this one`;
+  const stockLeft = ctx.state?.stock ?? 0;
+  const stepText = demo ? 'Demo pack'
+    : multi ? `${packs} packs · ${stockLeft} left`
+    : source === 'ad' ? 'Pack from an ad' : source === 'shards' ? 'Pack bought with shards' : source === 'bonus' ? 'Bonus pack' : source === 'daily' ? 'Pack of the day' : source === 'focus' ? 'Focus pack'
+    : `${golden ? 'Golden pack · ' : ''}${stockLeft} pack${stockLeft === 1 ? '' : 's'} left`;
 
-  /* ---- B5: a tap during an animation runs it to its end ---- */
+  /* ---- a tap during an animation runs it to its end ---- */
   const skipAnim = useCallback((): void => {
-    // The turn of "Reveal all" finishes in one pass, so the spotlight that follows it still gets its 600 ms; every other animation runs to
-    // the very end (a step may schedule the next one, hence the loop).
-    const once = m.current.phase === 'all';
-    flushSync(() => { for (let k = 0; k < (once ? 1 : 6) && run.busy; k++) run.finish(); });
+    // Steps that look at the flag run their "jumped" variant (no confetti burst, a smaller rain).
+    m.current.fast = true;
+    jump();
+    flushSync(() => { for (let k = 0; k < 8 && run.busy; k++) run.finish(); });
+    m.current.fast = false;
     finishAnimations(root.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [run]);
 
   /* ---- tear ---- */
@@ -127,25 +242,29 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
   };
 
   const tear = (): void => {
-    if (m.current.phase === 'torn' || m.current.phase === 'reveal' || m.current.phase === 'spot' || m.current.phase === 'summary') return;
+    const ph = m.current.phase;
+    if (ph === 'torn' || ph === 'reveal' || ph === 'summary') return;
+    if (ph === 'pack') out().cue({ kind: 'rip' });
     setPhase('torn');
     const p = packRef.current;
     if (!p) return;
     p.classList.add('opening');
     if (cutRef.current) cutRef.current.style.opacity = '0';
+    zoneRef.current?.classList.remove('warn');
     const r = p.getBoundingClientRect();
-    fx.current?.burst(r.left + r.width / 2, r.top + r.height * 0.14, { n: 60, colors: PACK_BURST, speed: 9, g: 0.1, size: 2.6 });
-    if (navigator.vibrate) try { navigator.vibrate(18); } catch { /* not supported */ }
-    run.start([[reducedRef.current ? FADE_MS : 950, showPile]]);
+    fx.current?.burst(r.left + r.width / 2, r.top + r.height * 0.14, { n: TEAR.burst.n, colors: TEAR_COLORS, speed: TEAR.burst.speed, g: TEAR.burst.g, size: TEAR.burst.size });
+    out().vibrate(18);
+    run.start([[reducedRef.current ? TEAR.pileAfterReduced : TEAR.pileAfter, showPile]]);
   };
 
   const autoTear = (): void => {
     if (m.current.phase !== 'pack') return;
     setPhase('tearing');
+    out().cue({ kind: 'rip' });
     const cut = cutRef.current;
     const red = reducedRef.current;
     if (cut) { cut.style.transition = red ? 'none' : 'width .45s cubic-bezier(.45,0,.35,1)'; void cut.offsetWidth; cut.style.width = '92%'; }
-    run.start([[red ? 60 : 470, tear]]);
+    run.start([[red ? TEAR.cutMsReduced : TEAR.tearAfter, tear]]);
   };
 
   const drag = useRef<{ x: number; w: number; prog: number } | null>(null);
@@ -160,7 +279,7 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
     if (dx > 4) {
       d.prog = Math.min(1, dx / (d.w * 0.8));
       if (cutRef.current) cutRef.current.style.width = `${d.prog * 92}%`;
-      if (d.prog >= 0.62) tear();
+      if (d.prog >= TEAR.drag) tear();
     }
   };
   const onUp = (e: React.PointerEvent<HTMLButtonElement>): void => {
@@ -171,63 +290,96 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
     // A tap on a pack that is already tearing is not lost: the tear runs to its end and the pile shows.
     if (m.current.phase === 'tearing' || m.current.phase === 'torn') { skipAnim(); return; }
     if (m.current.phase !== 'pack') return;
-    if (!moved || d.prog < 0.62) autoTear();
+    if (!moved || d.prog < TEAR.drag) autoTear();
   };
 
-  /* ---- reveal ---- */
-  const toSummary = (): void => {
+  /* ---- the summary (after five taps, after Reveal all, after Open 5) ---- */
+  const toSummary = (withSpot: boolean): void => {
+    m.current.summarySpot = withSpot && spotlightIndex(rows.map((r) => r.card.rarity)) !== null;
     setPhase('summary');
-    setSpot(null);
-    setAllFlip(false);
+    setSpot(m.current.summarySpot);
+    setActive(null); setLabel(null); setCharge(null); setStamp(false); setLegend(false);
     setHint(null);
+    setTone(null); stage(false);
     // The pack is complete once its fifth card is shown: game_complete with the existing enums (a full pack is 5 cards of 5).
     if (!demo) analytics.gameComplete({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard', score: PACK_SIZE, max: PACK_SIZE });
     later(() => addRef.current?.focus(), 80);
   };
 
-  /** The five have turned. The best card of the pack is held up for 600 ms (point B8): it rises and glows while the others fade; a pack
-   *  whose five cards are of one rarity has no best card and goes straight to the summary. */
-  const spotlight = (): void => {
-    const k = spotlightIndex(rows.map((r) => r.card.rarity));
-    if (k === null) { toSummary(); return; }
-    setSpot(k);
-    setPhase('spot');
-    run.start([[SPOTLIGHT_MS, toSummary]]);
-  };
+  // What the summary plays: the sting, the sweep on the best card, the stage and the rain of a Gold or Full Art, the finished sets.
+  useEffect(() => {
+    if (phase !== 'summary') return;
+    const red = reducedRef.current;
+    const o = out();
+    const f = fx.current;
+    const stop: ReturnType<typeof setTimeout>[] = [];
+    if (multi || m.current.summarySpot) {
+      const plan = summaryPlan(bestRarity, { spot: m.current.summarySpot, multi, reduced: red });
+      const bestEl = multi ? gridRef.current?.querySelector('.mc.best .card') : fanRef.current?.querySelector('.fc.best .card');
+      if (plan.sweep) sweep(bestEl);
+      plan.sting.forEach((t) => o.tone(t));
+      if (plan.stage) {
+        setTone(bestRarity); stage(true, true);
+        if (plan.boom) o.cue({ kind: 'boom' });
+        if (plan.rain) f?.rain(plan.rain.colors, plan.rain.n);
+        stop.push(setTimeout(() => { stage(false); setTone(null); }, plan.stageOffMs));
+      }
+      if (!multi) stop.push(setTimeout(() => setSpot(false), plan.stageOffMs));
+      else stop.push(setTimeout(() => gridRef.current?.classList.remove('spot'), red ? MULTI.spotHoldReduced : MULTI.spotHold));
+    }
+    if (finished.length) f?.rain(FINISH_COLORS, multi ? 60 : 80);
+    if (!multi) {
+      fanTilts.current.forEach((x) => x());
+      fanTilts.current = Array.from(fanRef.current?.querySelectorAll<HTMLElement>('.card') ?? []).map((c) => attachTilt(c, 12));
+    }
+    return () => stop.forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase]);
 
-  const reveal = (fast: boolean): void => {
+  /* ---- reveal one card ---- */
+  const reveal = (): void => {
     const i = m.current.idx;
     const x = rows[i];
     if (!x) return;
     const red = reducedRef.current;
-    const ri = RARITIES.indexOf(x.card.rarity);
+    const r = x.card.rarity;
+    const plan = revealPlan(r, { reduced: red });
     setActive(i);
-    const pre = fast || red ? 0 : ri >= 5 ? 1100 : ri >= 3 ? 700 : 0;
-    if (pre) {
-      setCharge(x.card.rarity);
-      setHint(ri >= 5 ? <><b>A {RARITY_LABEL[x.card.rarity]}</b> card is on its way</> : <><b>{RARITY_LABEL[x.card.rarity]}</b> or better</>);
-      setTone(x.card.rarity);
+    setFlipVar(plan.flip);
+    if (plan.charge) {
+      setCharge(r);
+      setHint(plan.chargeHint === 'full' ? <><b>{RARITY_LABEL.L}</b> on its way</> : <><b>{RARITY_LABEL[r]}</b> or better</>);
+      setTone(r);
+      out().vibrate([10, 60, 10]);
+      if (plan.stageOnCharge) { stage(true); if (plan.hum) out().cue({ kind: 'hum', ms: plan.hum }); }
     }
-    const labelAfter = fast ? 0 : red ? FADE_MS : ri >= 5 ? 900 : 380;
     run.start([
-      [pre, () => {
-        if (ri >= 5 && !fast && !red) setSlow(true);
+      [plan.wait, () => {
         m.current.flipped = true;
         setFlippedState(true);
-        const el = pileRef.current?.querySelector<HTMLElement>(`[data-i="${i}"]`);
-        const cardEl = el?.querySelector<HTMLElement>('.card') ?? null;
-        // Point B7: a sweep of light over a foil card as it turns up (CSS, 900 ms), and the tilt of the finger or the pointer.
-        if (cardEl && !red) { cardEl.classList.add('sweep'); tiltOff.current?.(); tiltOff.current = attachTilt(cardEl, 10); }
+        out().cue({ kind: 'flip' });
+        const cardEl = pileRef.current?.querySelector<HTMLElement>(`[data-i="${i}"] .side.front .card`) ?? null;
+        if (cardEl) { tiltOff.current?.(); tiltOff.current = attachTilt(cardEl, 16); }
       }],
-      [pre + labelAfter, () => {
+      [plan.wait + plan.labelAt, () => {
+        const p = revealPlan(r, { fast: m.current.fast, reduced: red });
         const el = pileRef.current?.querySelector<HTMLElement>(`[data-i="${i}"]`);
-        const r = el?.getBoundingClientRect();
-        const cxp = r ? r.left + r.width / 2 : innerWidth / 2;
-        const cyp = r ? r.top + r.height / 2 : innerHeight / 2;
+        const rect = el?.getBoundingClientRect();
+        const cxp = rect ? rect.left + rect.width / 2 : innerWidth / 2;
+        const cyp = rect ? rect.top + rect.height / 2 : innerHeight / 2;
         const f = fx.current;
-        if (f && ri >= 1) f.burst(cxp, cyp, { n: [0, 18, 30, 60, 80, 120][ri]!, colors: RARITY_BURST[x.card.rarity], speed: [0, 5, 6, 8, 9, 11][ri]!, size: ri >= 4 ? 3.4 : 2.6 });
-        if (f && ri === 4) f.rain(RARITY_BURST.UR, 90);
-        if (f && ri === 5) { f.rain(RARITY_BURST.L, 160); f.burst(cxp, cyp, { n: 90, colors: RARITY_BURST.L, speed: 13, shape: 'confetti', size: 4 }); }
+        if (f && p.burst) f.burst(cxp, cyp, p.burst);
+        if (f && p.rain) f.rain(p.rain.colors, p.rain.n);
+        if (f && p.confetti) f.burst(cxp, cyp, p.confetti);
+        if (f && p.afterBurst) { const ab = p.afterBurst; later(() => f.burst(cxp, cyp, ab), ab.delay ?? 0); }
+        if (p.sweep) sweep(el?.querySelector('.side.front .card'));
+        if (p.bang) {
+          stage(true, true);
+          if (p.legend) { setLegend(true); setStamp(true); }
+          if (p.boom) out().cue({ kind: 'boom' });
+        }
+        out().cue({ kind: 'sting', ri: rarityIndex(r) });
+        out().vibrate(p.vibrate);
         setLabel({ idx: i });
         setHint(i < len - 1 ? <><b>Tap again</b> for the next card &middot; {i + 1} of {len}</> : <><b>Tap again</b> to see your pull</>);
         m.current.shownAt = performance.now();
@@ -235,26 +387,28 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
     ]);
   };
 
-  const sendDown = (fast: boolean): void => {
+  const sendDown = (): void => {
     const i = m.current.idx;
     const red = reducedRef.current;
     const el = pileRef.current?.querySelector<HTMLElement>(`[data-i="${i}"]`);
     const slot = pulledRef.current?.children[i] as HTMLElement | undefined;
     tiltOff.current?.();
     tiltOff.current = null;
+    stage(false); setTone(null); setStamp(false);
     if (el && red) {
-      el.style.opacity = '0';
+      el.style.transition = 'opacity .2s'; el.style.opacity = '0';
     } else if (el && slot) {
       const sr = slot.getBoundingClientRect();
       const er = el.getBoundingClientRect();
-      el.style.transition = `transform ${fast ? 0.25 : 0.55}s cubic-bezier(.5,0,.3,1), opacity .5s`;
+      el.style.transition = 'transform .5s cubic-bezier(.5,0,.3,1), opacity .5s';
       el.style.transform = `translate(${sr.left + sr.width / 2 - (er.left + er.width / 2)}px,${sr.top + sr.height / 2 - (er.top + er.height / 2)}px) scale(${sr.width / er.width})`;
     }
-    run.start([[red ? FADE_MS : fast ? 260 : 560, () => {
-      setLabel(null); setTone(null); setCharge(null); setSlow(false); setActive(null);
+    run.start([[red ? FADE_MS : 520, () => {
+      setLabel(null); setTone(null); setCharge(null); setActive(null); setLegend(false); setStamp(false); setFlipVar(null);
+      stage(false);
       m.current.idx = i + 1; m.current.flipped = false;
       setIdxState(i + 1); setFlippedState(false);
-      if (i + 1 >= len) toSummary();
+      if (i + 1 >= len) toSummary(false);
       else setHint(<><b>Tap the card</b> to reveal it &middot; {i + 2} of {len}</>);
     }]]);
   };
@@ -262,57 +416,66 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
   /** What a tap on the pile does when nothing is running: show the card, or (after its minimum stay) send it down. */
   const act = (): void => {
     if (m.current.phase !== 'reveal' || m.current.waiting) return;
-    if (!m.current.flipped) { reveal(false); return; }
+    if (!m.current.flipped) { reveal(); return; }
     const row = rows[m.current.idx];
     const wait = row ? leaveWait(m.current.shownAt, performance.now(), row.card.rarity) : 0;
     if (wait > 0) {
       m.current.waiting = true;
-      later(() => { m.current.waiting = false; if (m.current.phase === 'reveal') sendDown(false); }, wait);
-    } else sendDown(false);
+      later(() => { m.current.waiting = false; if (m.current.phase === 'reveal') sendDown(); }, wait);
+    } else sendDown();
   };
   actRef.current = act;
 
   const onPile = (): void => {
     if (m.current.phase !== 'reveal' || m.current.waiting) return;
-    // Point B5: never ignore a tap during an animation: buffer it (one), run the animation to its end, then the tap acts.
+    // Never ignore a tap during an animation: buffer it (one), run the animation to its end, then the tap acts.
     if (run.busy) { m.current.queued = true; skipAnim(); return; }
     act();
   };
 
-  /** Point B8: the five cards turn at once (a row of five, face down, then all turned together), then the best one is spotlighted. */
-  const revealAll = (): void => {
-    if (m.current.phase !== 'reveal') return;
-    m.current.queued = false;
-    m.current.waiting = false;
-    if (run.busy) skipAnim();
-    tiltOff.current?.();
-    tiltOff.current = null;
-    setLabel(null); setTone(null); setCharge(null); setSlow(false); setActive(null);
-    setAllFlip(false);
-    setPhase('all');
+  /* ---- Open 5: the 25 cards ---- */
+  const order = useMemo(() => multiOrder(rows.map((r) => ({ rarity: r.card.rarity, isNew: r.isNew, card: r.card }))), [rows]);
+  const multiGrid = (): void => {
+    if (m.current.phase !== 'multi') return;
+    setPhase('grid');
     setHint(null);
-    // A short beat so the face-down row has painted before it turns; under reduced motion the turn is a 200 ms fade.
-    run.start([[40, () => setAllFlip(true)], [40 + (reducedRef.current ? FADE_MS : FLIP_ALL_MS), spotlight]]);
+    const red = reducedRef.current;
+    requestAnimationFrame(() => setDealt(true));
+    run.start([[multiFlipAfter(order.length, red), () => {
+      setTurned(true);
+      if (!m.current.fast && !red) for (let t = 0; t < 8; t++) later(() => out().cue({ kind: 'flip' }), t * 120);
+      run.start([[m.current.fast ? 0 : multiDoneAfter(order.length, red), multiDone]]);
+    }]]);
+  };
+  const multiDone = (): void => {
+    if (m.current.phase === 'summary') return;
+    m.current.summarySpot = true;
+    setPhase('summary');
+    setSpot(true);
+    if (!demo) analytics.gameComplete({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard', score: PACK_SIZE * packs, max: PACK_SIZE * packs });
+    later(() => addRef.current?.focus(), 80);
   };
 
+  /** Reveal all: one pack goes straight to its summary with the best card held up; five packs run the deal to its end. */
   const skip = (): void => {
-    if (m.current.phase === 'all' || m.current.phase === 'spot') { skipAnim(); return; }
-    if (m.current.phase === 'pack' || m.current.phase === 'tearing' || m.current.phase === 'torn') {
-      flushSync(() => { if (m.current.phase === 'pack') { setPhase('tearing'); tear(); } });
-      skipAnim();
-    }
-    revealAll();
+    const ph = m.current.phase;
+    if (ph === 'summary') return;
+    if (multi) { skipAnim(); return; }
+    run.cancel();
+    m.current.queued = false; m.current.waiting = false;
+    tiltOff.current?.(); tiltOff.current = null;
+    toSummary(true);
   };
 
   /* ---- leaving ---- */
-  const fly = (then: 'none' | 'stock'): void => {
+  const fly = (then: OpeningNext): void => {
     if (leaving) return;
     setLeaving(true);
-    const target = document.getElementById('bvc-tab-binder');
-    const cardsEls = document.querySelectorAll<HTMLElement>('#fan .fc');
-    // Point B9: under reduced motion the cards do not fly; the screen fades out in 200 ms instead.
+    const targets = Array.from(document.querySelectorAll<HTMLElement>('[data-kc-target="collection"], #bvc-tab-binder'));
+    const target = targets.find((t) => t.getBoundingClientRect().width > 0) ?? null;
+    const cardsEls = multi ? [] : Array.from(root.current?.querySelectorAll<HTMLElement>('#fan .fc') ?? []);
+    // Under reduced motion the cards do not fly; the screen fades out in 200 ms instead.
     if (reducedRef.current || !target || !cardsEls.length) {
-      root.current?.classList.add('fade-out');
       later(() => onClose(then), reducedRef.current ? FADE_MS : 0);
       return;
     }
@@ -321,53 +484,74 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
       const r = c.getBoundingClientRect();
       const f = c.cloneNode(true) as HTMLElement;
       f.className = 'flyer'; f.style.left = `${r.left}px`; f.style.top = `${r.top}px`; f.style.width = `${r.width}px`; f.style.transform = 'none';
-      document.body.appendChild(f);
+      root.current?.appendChild(f);
       c.style.visibility = 'hidden';
-      setTimeout(() => { f.style.transform = `translate(${tr.left + tr.width / 2 - r.left - r.width / 2}px,${tr.top + tr.height / 2 - r.top - r.height / 2}px) scale(.12) rotate(${i * 30 - 60}deg)`; f.style.opacity = '0'; }, 20 + i * 70);
-      setTimeout(() => f.remove(), 900 + i * 70);
+      later(() => { f.style.transform = `translate(${tr.left + tr.width / 2 - r.left - r.width / 2}px,${tr.top + tr.height / 2 - r.top - r.height / 2}px) scale(.12) rotate(${i * 30 - 60}deg)`; f.style.opacity = '0'; }, 20 + i * 70);
+      later(() => f.remove(), 900 + i * 70);
     });
     later(() => onClose(then), 700);
   };
 
   /* ---- render ---- */
   const newCount = rows.filter((r) => r.isNew).length;
-  const dupShards = rows.filter((r) => !r.isNew).reduce((s, r) => s + SHARDS[r.card.rarity], 0);
-  const best = rows.reduce((mx, r) => Math.max(mx, RARITIES.indexOf(r.card.rarity)), 0);
-  const stockLeft = ctx.state?.stock ?? 0;
+  const dupShards = copiesShards ?? rows.filter((r) => !r.isNew).reduce((s, r) => s + SHARDS[r.card.rarity], 0);
+  const title = headline ?? (newCount ? `${newCount} new card${newCount > 1 ? 's' : ''} for your collection` : 'Only copies this time');
+  const best = RARITIES.indexOf(bestRarity);
   const narrow = typeof window !== 'undefined' && innerWidth < 520;
   const spreadPct = narrow ? 42 : 62;
   const current = rows[idx];
+  const bestIdx = rows.reduce((b, r, i) => (rarityIndex(r.card.rarity) > rarityIndex(rows[b]!.card.rarity) ? i : b), 0);
+  const stampOdds = fullArtOdds && fullArtOdds > 0 ? `${fullArtOdds}% of cards · 1 in ${Math.round(100 / fullArtOdds)}` : null;
+  const finLines = finished.map((s) => (
+    <span key={s.id} className="finish pop">
+      <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+      You finished {s.name}. +{s.packs ?? 1} pack{(s.packs ?? 1) > 1 ? 's' : ''} in Missions
+    </span>
+  ));
+  const againLabel = stockLeft >= 5 && multi ? 'Open 5 more' : `Open another (${stockLeft} left)`;
+  const path = `kpopcards/open/${look.path}${multi ? `?packs=${packs}` : ''}`;
+  const slots = multi ? [] : rows;
 
   return (
-    <div ref={root} className={`ov${tone ? ` tone-${tone}` : ''}`} role="dialog" aria-modal="true" aria-label="Pack opening">
+    <div ref={root} id="ov" className="ov" role="dialog" aria-modal="true" aria-label="Pack opening">
+      <div className="stagefx" aria-hidden="true"><i className="glow" /><i className="rays" /><i className="ring r1" /><i className="ring r2" /><i className="ring r3" /><i className="flash" /></div>
       <div className="ov-top">
-        <span className="ov-step">{stepText}</span>
-        {phase !== 'summary' ? <button type="button" className="btn-quiet" onClick={skip}>Reveal all</button> : <span />}
+        <span className="ov-step"><span className="ov-path" id="ov-path">{path}</span><span id="ov-step">{stepText}</span></span>
+        {phase !== 'summary' ? <button type="button" id="ov-skip" className="btn-quiet skip" onClick={skip}>Reveal all</button> : <span />}
       </div>
-      <div className="ov-mid">
+      <div id="ov-mid" className={`ov-mid${phase === 'grid' || (phase === 'summary' && multi) ? ' scroll' : ''}`} onClick={multi && phase !== 'summary' ? () => skipAnim() : undefined}>
+        {phase === 'multi' ? (
+          <>
+            <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
+            <div className={`mpacks${warn ? ` warn warn-${warn}` : ''}${ripped ? ' rip' : ''}`} id="mpacks">
+              {Array.from({ length: packs }, (_, i) => <div key={i} className="mp" style={{ '--i': i } as Vars}><PackFace id={`mpk${i}`} look={look} golden={false} dealt /></div>)}
+            </div>
+          </>
+        ) : null}
         {phase === 'pack' || phase === 'tearing' || phase === 'torn' ? (
           <>
-            <div className="ov-hint" aria-live="polite">{hint}</div>
-            <div className="tearzone">
-              <button
-                type="button" id="opk" ref={packRef} className="pack" aria-label="Open the pack. Press Enter to rip it."
-                onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); autoTear(); } }}
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="pk top-part" id="opk-top"><span className="pk-face" /><span className="pk-crimp t" /></span>
-                <span className="pk main-part" id="opk-main"><span className="pk-face" /><span className="pk-crimp b" /></span>
-                <span className="pk-body"><span className="pk-logo">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={PACK_LOGO_SRC} alt="" /></span><span className="pk-title">CARDS</span></span>
-                <span className="pk-count">5 CARDS</span>
-                <i className="burst" />
-              </button>
-              <i className="cutline" ref={cutRef as React.RefObject<HTMLElement>} />
+            <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
+            <div ref={zoneRef} className={`tearzone${warn ? ` warn warn-${warn}` : ''}`}>
+                <button
+                  type="button" id="opk" ref={packRef} className={`pack${golden ? ' golden' : ''}`} aria-label="Open the pack. Press Enter to rip it."
+                  style={{ '--p1': (golden ? GOLD_COLORS : look.c)[0], '--p2': (golden ? GOLD_COLORS : look.c)[1], '--p3': (golden ? GOLD_COLORS : look.c)[2] } as Vars}
+                  onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); autoTear(); } }}
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <span className="pk top-part" id="opk-top"><span className="pk-face" /><span className="pk-crimp t" /></span>
+                  <span className="pk main-part" id="opk-main"><span className="pk-face" /><span className="pk-crimp b" /></span>
+                  <span className="pk-body"><span className="pk-word">Kpop<b>Cards</b></span><span className="pk-title">{golden ? 'GOLDEN PACK' : look.title}</span></span>
+                  <span className="pk-count">5 CARDS</span>
+                  <i className="burst" />
+                </button>
+              <i className="cutline" id="cut" ref={cutRef as React.RefObject<HTMLElement>} />
             </div>
           </>
         ) : null}
         {phase === 'reveal' ? (
           <>
-            <div className="ov-hint" aria-live="polite">{hint}</div>
+            <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
             <div
               className="pile" id="pile" ref={pileRef} role="button" tabIndex={0}
               aria-label={flipped ? 'Send this card down and see the next' : 'Reveal the next card'}
@@ -379,8 +563,8 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
                 return (
                   <div
                     key={i} data-i={i}
-                    className={`rc${isActive ? '' : ' enter'}${isActive && flipped ? ' flipped' : ''}${isActive && slow ? ' slow' : ''}${isActive && charge ? ` charge charge-${charge}` : ''}`}
-                    style={{ '--i': rows.length - 1 - i, transform: isActive ? 'none' : `translate(${i * 3}px,${i * -4}px) rotate(${(i % 2 ? 1.2 : -1.2) * i}deg)` } as Vars}
+                    className={`rc${isActive ? '' : ' enter'}${isActive && flipped ? ' flipped' : ''}${isActive && charge ? ` charge charge-${charge}` : ''}${isActive && legend ? ' legend' : ''}`}
+                    style={{ '--i': rows.length - 1 - i, ...(isActive && flipVar !== null ? { '--flip': `${flipVar}ms` } : {}), transform: isActive ? 'none' : `translate(${i * 3}px,${i * -4}px) rotate(${(i % 2 ? 1.2 : -1.2) * i}deg)` } as Vars}
                   >
                     <div className="rc-in">
                       <div className="side back"><CardBack /></div>
@@ -389,48 +573,64 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
                   </div>
                 );
               })}
+              {stamp ? <div className="stamp"><b>FULL ART</b>{stampOdds ? <span>{stampOdds}</span> : null}</div> : null}
             </div>
-            <div className="rlabel" aria-live="polite">
+            <div className="rlabel" id="rlabel" aria-live="polite">
               {label && current && label.idx === idx ? (
                 <>
                   <span className="rtag pop"><Gem r={current.card.rarity} className={`gem gc-${current.card.rarity}`} />{RARITY_LABEL[current.card.rarity]}</span>
                   {demo ? null : current.isNew ? <span className="rtag new pop">New</span> : <span className="rtag dup pop">+1 copy</span>}
-                  {current.pair ? <span className="rtag pair pop">Completes the pair</span> : null}
+                  {current.pair ? <span className="rtag half pop">Completes the pair</span> : null}
+                  {current.pity ? <span className="rtag pity pop">Gold guarantee</span> : null}
+                  {current.card.rarity === 'L' ? <span className="rnext pop"><b>Tap again</b> {idx < len - 1 ? 'for the next card' : 'to see your pull'}</span> : null}
                 </>
               ) : null}
             </div>
           </>
         ) : null}
-        {phase === 'all' || phase === 'spot' ? (
+        {(phase === 'grid' || (phase === 'summary' && multi)) ? (
           <>
-            <div
-              className={`allrow${phase === 'spot' ? ' spotting' : ''}`} role="button" tabIndex={0} onClick={skipAnim}
-              aria-label={phase === 'spot' && spot !== null ? `Best card of the pack: ${rows[spot]!.card.name}, ${RARITY_LABEL[rows[spot]!.card.rarity]}. Continue.` : 'Your five cards. Continue.'}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skipAnim(); } }}
-            >
-              {rows.map((x, i) => (
-                <div key={x.card.n} className={`allc${spot === i ? ' best' : ''}`}>
-                  <div className={`rc${allFlip ? ' flipped' : ''}`}>
-                    <div className="rc-in">
-                      <div className="side back"><CardBack /></div>
-                      <div className="side front"><CardFront card={x.card} className={spot === i ? 'sweep' : ''} /></div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="ov-title" id="m-title" aria-live="polite">{phase === 'summary' ? title : `${len} cards`}</div>
+            <div className={`mgrid${dealt ? ' dealt' : ''}${turned ? ' flip' : ''}${phase === 'summary' && spot ? ' spot' : ''}`} id="mgrid" ref={gridRef} style={{ '--spot': SPOT_GLOW[bestRarity] } as Vars}>
+              {order.map((o, pos) => {
+                const x = o.row.card;
+                const ri = rarityIndex(x.rarity);
+                const dl = multiDelays(pos, order.length, x.rarity);
+                const isNew = rows[o.i]!.isNew;
+                return (
+                  <button
+                    key={o.i} type="button" disabled={phase !== 'summary'}
+                    className={`mc${ri >= 2 ? ` hi hi-${x.rarity}` : ''}${pos === 0 ? ' best' : ''}`}
+                    style={{ '--d': `${dl.d}ms`, '--fd': `${dl.fd}ms` } as Vars}
+                    aria-label={`${x.name}, ${RARITY_LABEL[x.rarity]}`}
+                    onClick={() => { if (phase === 'summary') router.push(hrefOf(x)); }}
+                  >
+                    <span className="mc-b"><CardBack /></span>
+                    <span className="mc-f"><CardFront card={x} /></span>
+                    {isNew && !demo ? <span className="mc-tag">New</span> : null}
+                  </button>
+                );
+              })}
             </div>
-            <div className="rlabel" aria-live="polite">
-              {phase === 'spot' && spot !== null ? <span className="rtag pop"><Gem r={rows[spot]!.card.rarity} className={`gem gc-${rows[spot]!.card.rarity}`} />{RARITY_LABEL[rows[spot]!.card.rarity]}</span> : null}
-            </div>
+            {phase === 'summary' ? (
+              <div className="totals" id="m-tot">
+                {demo ? null : <span className="tot"><b>{newCount}</b>new</span>}
+                {!demo ? <span className="tot"><b>{len - newCount}</b>{len - newCount === 1 ? 'copy' : 'copies'}, worth {dupShards} shards</span> : null}
+                <span className="tot">Best: <b className={`rt-${RARITIES[best]}`}>{RARITY_LABEL[RARITIES[best]!]}</b></span>
+                {goldenPacks > 0 ? <span className="tot gold"><b>{goldenPacks}</b>golden pack{goldenPacks > 1 ? 's' : ''}</span> : null}
+                {finLines}
+              </div>
+            ) : null}
           </>
         ) : null}
-        {phase === 'summary' ? (
+        {phase === 'summary' && !multi ? (
           <>
-            <h2 className="ov-title" aria-live="polite">{demo ? 'Your demo pack' : newCount ? `${newCount} new card${newCount > 1 ? 's' : ''} for your binder` : 'Only copies this time'}</h2>
-            <div className="fan" id="fan">
+            <h2 className="ov-title" aria-live="polite">{demo ? 'Your demo pack' : title}</h2>
+            {finLines.length ? <div className="rlabel fin">{finLines}</div> : null}
+            <div className={`fan${spot ? ' spot' : ''}`} id="fan" ref={fanRef} style={{ '--spot': SPOT_GLOW[bestRarity] } as Vars}>
               {rows.map((x, i) => (
                 <div
-                  key={x.card.n} className={`fc${i < 2 ? ' lft' : ''}`}
+                  key={x.card.n} className={`fc${i < 2 ? ' lft' : ''}${i === bestIdx ? ' best' : ''}`}
                   style={{ transform: `translateX(${(i - 2) * spreadPct}%) translateY(${Math.abs(i - 2) * 16}px) rotate(${(i - 2) * (narrow ? 7 : 9)}deg)`, zIndex: i === 2 ? 5 : 5 - Math.abs(i - 2) }}
                 >
                   {demo ? (
@@ -439,9 +639,8 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
                     </div>
                   ) : (
                     <>
-                      <Link href={`/cards/c/${x.card.num}`} className="fc-b" aria-label={`${x.card.name}, ${RARITY_LABEL[x.card.rarity]}${x.isNew ? ', new' : ', copy'}${x.pair ? ', completes the pair' : ''}. See the card.`}>
+                      <Link href={hrefOf(x.card)} className="fc-b" aria-label={`${x.card.name}, ${RARITY_LABEL[x.card.rarity]}${x.isNew ? ', new' : ', copy'}${x.pair ? ', completes the pair' : ''}. See the card.`}>
                         <span className={`rtag ${x.isNew ? 'new' : 'dup'}`}>{x.isNew ? 'New' : '+1 copy'}</span>
-                        {x.pair ? <span className="rtag pair">Completes the pair</span> : null}
                         <CardFront card={x.card} />
                       </Link>
                       <FavStar n={x.card.n} name={x.card.name} edition={RARITY_LABEL[x.card.rarity]} />
@@ -458,20 +657,20 @@ export function PackOpening({ cards, source, onClose, demo }: OpeningProps): Rea
           </>
         ) : null}
       </div>
-      <div className="pulled" ref={pulledRef}>
-        {phase === 'summary' ? null : rows.map((x, i) => (i < idx ? <div key={x.card.n} className="pop" style={{ position: 'relative' }}><CardFront card={x.card} /></div> : <i key={x.card.n} className="slot" />))}
+      <div className="pulled" id="pulled" ref={pulledRef}>
+        {phase === 'summary' || multi ? null : slots.map((x, i) => (i < idx ? <div key={x.card.n} className="pop" style={{ position: 'relative' }}><CardFront card={x.card} /></div> : <i key={x.card.n} className="slot" />))}
       </div>
-      <div className="ov-actions">
+      <div className="ov-actions" id="ov-actions">
         {phase === 'summary' && demo ? (
           <>
-            <button type="button" ref={addRef} className="btn-primary lg" onClick={demo.onSignIn}>Sign in to keep these cards</button>
-            <button type="button" className="btn-outline again" onClick={() => onClose('none')}>Close</button>
+            <button type="button" ref={addRef} id="ov-in" className="btn-primary lg" onClick={demo.onSignIn}>Sign in to keep these cards</button>
+            <button type="button" id="ov-later" className="btn-outline again" onClick={() => onClose('none')}>Close</button>
           </>
         ) : null}
         {phase === 'summary' && !demo ? (
           <>
-            <button type="button" ref={addRef} className="btn-primary lg" onClick={() => fly('none')} disabled={leaving}>Add to binder</button>
-            {stockLeft > 0 ? <button type="button" className="btn-outline again" onClick={() => fly('stock')} disabled={leaving}>Open another ({stockLeft} left)</button> : null}
+            <button type="button" ref={addRef} id="ov-add" className="btn-primary lg" onClick={() => fly('none')} disabled={leaving}>Add to collection</button>
+            {stockLeft > 0 ? <button type="button" id={multi && stockLeft >= 5 ? 'ov-again5' : 'ov-again'} className="btn-outline again" onClick={() => fly(multi && stockLeft >= 5 ? 'stock5' : 'stock')} disabled={leaving}>{againLabel}</button> : null}
           </>
         ) : null}
       </div>

@@ -1,21 +1,33 @@
 // Bunnyverse Cards, lane U: the pointer tilt and the particles of the reveal, ported from the prototype (tilt, burst, rain). Browser only.
 // Everything here is skipped under prefers-reduced-motion. Lot 3 point B9: the setting is read live (one MediaQueryList, whose
 // `matches` follows the system), and onReducedMotionChange tells a screen when it changes.
+import { MAX_PARTICLES } from '@/lib/cards/opening-plan';
+
 let mql: MediaQueryList | null | undefined;
 function reducedList(): MediaQueryList | null {
   if (mql === undefined) mql = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   return mql;
 }
+/** The system setting, or the `rm` class that the page puts on the root (the prototype's "reduced motion" control, and agent B's KcRoot). */
 export function reducedMotion(): boolean {
-  return !!reducedList()?.matches;
+  return !!reducedList()?.matches || rootRm();
+}
+function rootRm(): boolean {
+  try { return typeof document !== 'undefined' && !!document.documentElement?.classList?.contains('rm'); } catch { return false; }
 }
 /** Calls `cb` with the new value each time the reduced-motion setting changes. Returns the cleanup. */
 export function onReducedMotionChange(cb: (reduced: boolean) => void): () => void {
   const m = reducedList();
-  if (!m) return () => undefined;
-  const on = (e: MediaQueryListEvent): void => cb(e.matches);
-  m.addEventListener('change', on);
-  return () => m.removeEventListener('change', on);
+  const on = (e: MediaQueryListEvent): void => cb(e.matches || rootRm());
+  const onClass = (): void => cb(reducedMotion());
+  m?.addEventListener('change', on);
+  // The class on the root can change too (the prototype control): watch it, when the browser can.
+  let mo: MutationObserver | null = null;
+  if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined' && document.documentElement) {
+    mo = new MutationObserver(onClass);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  }
+  return () => { m?.removeEventListener('change', on); mo?.disconnect(); };
 }
 
 /**
@@ -95,7 +107,8 @@ export class Fx {
   private cx: CanvasRenderingContext2D | null;
   private p: Particle[] = [];
   private running = false;
-  private dpr = Math.min(2, typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1);
+  /** Lot 5: one canvas pixel per CSS pixel (never the device ratio): a retina phone would draw four times the pixels for dots of 3 px. */
+  private dpr = 1;
   constructor(private cv: HTMLCanvasElement) {
     this.cx = cv.getContext('2d');
     this.size();
@@ -104,10 +117,14 @@ export class Fx {
   private size = (): void => { this.cv.width = innerWidth * this.dpr; this.cv.height = innerHeight * this.dpr; };
   destroy(): void { window.removeEventListener('resize', this.size); this.p.length = 0; }
   clear(): void { this.p.length = 0; }
+  /** Particles alive now (the tests check the ceiling). */
+  get count(): number { return this.p.length; }
   burst(x: number, y: number, o: BurstOptions = {}): void {
-    if (reducedMotion()) return;
-    const n = o.n ?? 40; const cols = o.colors ?? ['#fff']; const sp = o.speed ?? 7;
-    for (let i = 0; i < n; i++) {
+    if (reducedMotion() || this.p.length > MAX_PARTICLES) return;
+    const n = Math.min(o.n ?? 40, MAX_PARTICLES - this.p.length);
+    const nn = n;
+    const cols = o.colors ?? ['#fff']; const sp = o.speed ?? 7;
+    for (let i = 0; i < nn; i++) {
       const a = Math.random() * Math.PI * 2; const v = sp * (0.35 + Math.random() * 0.9);
       this.p.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - (o.up ?? 2), g: o.g ?? 0.18, life: 1, dec: 0.008 + Math.random() * 0.014, s: (o.size ?? 3) * (0.5 + Math.random()), c: cols[i % cols.length]!, sh: o.shape ?? 'spark', rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.3 });
     }
@@ -115,6 +132,7 @@ export class Fx {
   }
   rain(colors: readonly string[], n: number): void {
     if (reducedMotion()) return;
+    n = Math.min(n, Math.max(0, MAX_PARTICLES - this.p.length));
     for (let i = 0; i < n; i++) this.p.push({ x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * 0.5, vx: (Math.random() - 0.5) * 1.2, vy: 2 + Math.random() * 3, g: 0.03, life: 1, dec: 0.004 + Math.random() * 0.004, s: 3 + Math.random() * 4, c: colors[i % colors.length]!, sh: 'confetti', rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.25 });
     this.start();
   }
