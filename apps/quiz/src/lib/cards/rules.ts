@@ -46,6 +46,30 @@ const ODDS_UNITS: Record<Rarity, number> = { C: 60000, U: 24000, R: 10000, SR: 4
 /** Shards a duplicate is worth in "Recycle extras". */
 export const SHARDS: Record<Rarity, number> = { C: 1, U: 2, R: 5, SR: 12, UR: 30, L: 80 };
 
+/** Lot 3 point B4: one name per rarity, everywhere a player reads it (the edition's name; RARITY_NAMES stays for code and tests only).
+ *  The rarity order is told by the gem and the odds table, never by a second name. */
+export const RARITY_LABEL: Record<Rarity, string> = {
+  C: 'Standard',
+  U: 'Stage',
+  R: 'Holo',
+  SR: 'Era',
+  UR: 'Gold',
+  L: 'Full Art',
+};
+
+/** Lot 3 point B10: an Ultra Rare at the latest in the 30th pack in a row without one (a pack holding an Ultra Rare or a Legendary
+ *  resets the count). Only while the pool has an Ultra Rare card. */
+export const PITY_UR = 30;
+
+/** Lot 3 point B12: at most this many packs from the timer (source 'stock') a Paris day; CARDS_TIMER_PER_DAY overrides it on the server. */
+export const TIMER_PACKS_PER_DAY = 40;
+
+/** Lot 3 point B12: the quiet hours of any reminder the game may send (Paris time, from 22:00 to 08:00). The game sends none today. */
+export const QUIET_HOURS = { from: 22, to: 8 } as const;
+
+/** Lot 3 point C1: the shards a missing card costs to craft (SR and L only once such a card exists). A pack still costs SHARD_PACK_COST. */
+export const CRAFT_COST: Record<Rarity, number> = { C: 10, U: 20, R: 50, SR: 120, UR: 300, L: 800 };
+
 /** Kind weights, among the kinds that have at least one active card of the rolled rarity. Applied only once the catalog has the plan's
  *  form (hasPlanForm): owner decision 2026-11-13. */
 export const KIND_WEIGHTS: Record<CardKind, number> = { idol: 75, group: 15, event: 10 };
