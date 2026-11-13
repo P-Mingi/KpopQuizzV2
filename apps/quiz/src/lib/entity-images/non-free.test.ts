@@ -1,12 +1,15 @@
 // Lot 3 DLE: the one selection of the pictures that are not free. Rows close to it that must never be taken, the hosts, the orphan files, the
 // button's plan and deletion (refusals included), and NON_FREE_SQL on PGlite held equal to the predicate.
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { freshDb, one, rows as sqlRows } from '@/lib/dle/pglite-harness';
 
 import {
   NON_FREE_CONFIRM, NON_FREE_MAX_ROWS, NON_FREE_SQL, deleteNonFree, hostOf, inOrphanWindow, isFandomHost, isNonFreeRow, listBucketObjects, orphansOf,
-  planNonFree, selectNonFreeRow, selectNonFreeRows,
+  ORPHAN_FILES_SQL, planNonFree, selectNonFreeRow, selectNonFreeRows,
 } from './non-free';
 import { nonFreeFake } from './non-free-fake';
 
@@ -309,5 +312,45 @@ describe('NON_FREE_SQL', () => {
     expect(NON_FREE_SQL.trim().split(';').filter(Boolean)).toHaveLength(1);
     expect(NON_FREE_SQL).not.toMatch(/\b(delete|update|insert|drop|alter)\b/i);
     expect(await sqlRows(db, NON_FREE_SQL)).toEqual([{ non_free_images: 0 }]);
+  });
+
+  it('ORPHAN_FILES_SQL counts the same files as orphansOf, window ends included, on a stand-in of storage.objects', async () => {
+    await db.exec('create table storage.objects (id bigserial primary key, bucket_id text not null, name text not null, created_at timestamptz not null)');
+    await db.query(`insert into public.entity_images (site_id, kind, slug, path, width, height, license, license_note, thumb_path) values ('anime', 'character', 's/withrow', 'anime/character/s/withrow/a.webp', 360, 480, 'other', 'Official artwork', 'anime/character/s/withrow/a-96.webp')`);
+    const objs: Array<[string, string, string]> = [
+      ['entity-images', 'anime/character/s/withrow/a.webp', '2026-11-11T21:10:00+00:00'], ['entity-images', 'anime/character/s/withrow/a-2x.webp', '2026-11-11T21:10:00+00:00'],
+      ['entity-images', 'anime/character/s/withrow/a-96.webp', '2026-11-11T21:10:00+00:00'], ['entity-images', 'anime/character/s/gone/o1.webp', '2026-11-11T21:10:00+00:00'],
+      ['entity-images', 'anime/character/s/gone/o2.webp', '2026-11-11T21:00:00+00:00'], ['entity-images', 'anime/character/s/gone/o3.webp', '2026-11-11T21:30:00+00:00'],
+      ['entity-images', 'anime/character/s/gone/early.webp', '2026-11-11T20:59:00+00:00'], ['entity-images', 'anime/character/s/gone/late.webp', '2026-11-11T21:31:00+00:00'],
+      ['entity-images', 'anime/series/s/o.webp', '2026-11-11T21:10:00+00:00'], ['entity-images', 'anime/characters/s/o.webp', '2026-11-11T21:10:00+00:00'],
+      ['entity-images', 'kpop/idol/1/o.webp', '2026-11-11T21:10:00+00:00'], ['other-bucket', 'anime/character/s/gone/o4.webp', '2026-11-11T21:10:00+00:00'],
+    ];
+    for (const [bucket, name, at] of objs) await db.query('insert into storage.objects (bucket_id, name, created_at) values ($1, $2, $3::timestamptz)', [bucket, name, at]);
+    const sqlNames = (await sqlRows<{ name: string }>(db, ORPHAN_FILES_SQL.replace('select count(*) as orphan_files', 'select o.name'))).map((r) => r.name).sort();
+    const referenced = new Set(['anime/character/s/withrow/a.webp', 'anime/character/s/withrow/a-2x.webp', 'anime/character/s/withrow/a-96.webp']);
+    const tsNames = orphansOf(objs.filter(([b]) => b === 'entity-images').map(([, name, at]) => ({ name, createdAt: at })), referenced);
+    expect(sqlNames).toEqual(['anime/character/s/gone/o1.webp', 'anime/character/s/gone/o2.webp', 'anime/character/s/gone/o3.webp']);
+    expect(tsNames).toEqual(sqlNames);
+    expect(Number(await one(db, ORPHAN_FILES_SQL))).toBe(3);
+  });
+});
+
+describe('the owner steps', () => {
+  const doc = readFileSync(fileURLToPath(new URL('../../../../../docs/o1/reports/CARDS/OWNER-STEPS-LOT3-DLE.md', import.meta.url)), 'utf8');
+  const patch = readFileSync(fileURLToPath(new URL('../../../../../docs/o1/reports/CARDS/DOCS-LAUNCH-LOT3-DLE.patch', import.meta.url)), 'utf8');
+
+  it('carry the two verification queries word for word, as the code runs them', () => {
+    expect(doc).toContain(NON_FREE_SQL.replace(/;$/, ''));
+    expect(doc).toContain(ORPHAN_FILES_SQL.replace(/;$/, ''));
+    // the patch for the files of another lane holds them too (each line added with a "+")
+    const added = patch.split('\n').filter((l) => l.startsWith('+')).map((l) => l.slice(1)).join('\n');
+    expect(added).toContain(NON_FREE_SQL.replace(/;$/, ''));
+    expect(added).toContain(ORPHAN_FILES_SQL.replace(/;$/, ''));
+  });
+
+  it('draw no en dash and no em dash, and name the typed word and the limit', () => {
+    expect(doc + patch).not.toMatch(/[\u2013\u2014]/);
+    expect(doc).toContain(NON_FREE_CONFIRM);
+    expect(doc).toContain('1 100');
   });
 });

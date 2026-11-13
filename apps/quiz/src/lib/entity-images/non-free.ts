@@ -110,6 +110,16 @@ where site_id = 'anime' and kind = 'character' and not license_verified
       and substring(lower(source_url) from '^https?://(?:[^/?#@\\\\\\s]*@)?([^/?#:@\\\\\\s]+)(?::[0-9]*)?(?:[/?#]|$)') ~ '^([a-z0-9-]+[.])*(fandom[.]com|wikia[.]nocookie[.]net)$')
   );`;
 
+/** The orphan files as SQL text (same window, same folder, no row pointing to them): for the owner's SQL editor and the runbook, expect 0 after the button. */
+export const ORPHAN_FILES_SQL = `select count(*) as orphan_files
+from storage.objects o
+where o.bucket_id = 'entity-images' and starts_with(o.name, 'anime/character/')
+  and o.created_at >= timestamptz '2026-11-11 21:00:00+00' and o.created_at <= timestamptz '2026-11-11 21:30:00+00'
+  and not exists (
+    select 1 from public.entity_images e
+    where o.name = e.path or o.name = regexp_replace(e.path, '[.]webp$', '-2x.webp') or o.name = e.thumb_path
+  );`;
+
 // ---- the rows and their files ---------------------------------------------------------------------------------------------------------
 
 export interface SelectedRow {
