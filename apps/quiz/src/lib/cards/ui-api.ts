@@ -3,7 +3,7 @@
 // (ui-mock-api.ts, loaded only then). Every answer is the shape of types.ts.
 import { withBasePath } from '@/lib/site/base-path';
 
-import type { OpenResult, PackSource, WalletState } from './types';
+import type { AdResult, OpenResult, PackSource, WalletState } from './types';
 
 export type ApiError = { error: string };
 export type RecycleResult = { recycled: number; shards: number; state: WalletState };
@@ -13,7 +13,7 @@ export interface CardsApi {
   state(): Promise<WalletState | null | ApiError>;
   open(source: Exclude<PackSource, 'ad'>): Promise<OpenResult | ApiError>;
   adTicket(): Promise<{ ticket: string } | ApiError>;
-  adGrant(ticket: string): Promise<OpenResult | ApiError>;
+  adGrant(ticket: string): Promise<AdResult | ApiError>;
   recycle(): Promise<RecycleResult | ApiError>;
   favorite(n: number, on: boolean): Promise<boolean>;
 }
@@ -40,7 +40,7 @@ export const httpApi: CardsApi = {
   },
   open: (source) => call<OpenResult>('/api/cards/open', { source }),
   adTicket: () => call<{ ticket: string }>('/api/cards/ad/ticket', {}),
-  adGrant: (ticket) => call<OpenResult>('/api/cards/ad/grant', { ticket }),
+  adGrant: (ticket) => call<AdResult>('/api/cards/ad/grant', { ticket }),
   recycle: () => call<RecycleResult>('/api/cards/recycle', {}),
   async favorite(n, on) {
     const r = await call<{ ok: boolean }>('/api/cards/favorite', { n, on });

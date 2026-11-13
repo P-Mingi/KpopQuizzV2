@@ -44,7 +44,7 @@ function zig(y: number, teeth: number, top: boolean): string {
 
 export function PackOpening({ cards, source, onClose }: OpeningProps): React.ReactElement {
   const ctx = useCards();
-  const rows = useMemo(() => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew })).filter((r) => r.card), [cards, ctx.byN]);
+  const rows = useMemo(() => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew, pair: c.completesPair === true })).filter((r) => r.card), [cards, ctx.byN]);
   const len = rows.length;
   const [phase, setPhaseState] = useState<Phase>('pack');
   const [idx, setIdxState] = useState(0);
@@ -314,6 +314,7 @@ export function PackOpening({ cards, source, onClose }: OpeningProps): React.Rea
                 <>
                   <span className="rtag pop"><Gem r={current.card.rarity} className={`gem gc-${current.card.rarity}`} />{RARITY_NAMES[current.card.rarity]} &middot; {EDITIONS[current.card.rarity].name}</span>
                   {current.isNew ? <span className="rtag new pop">New</span> : <span className="rtag dup pop">+1 copy</span>}
+                  {current.pair ? <span className="rtag pair pop">Completes the pair</span> : null}
                 </>
               ) : null}
             </div>
@@ -328,8 +329,9 @@ export function PackOpening({ cards, source, onClose }: OpeningProps): React.Rea
                   key={x.card.n} className={`fc${i < 2 ? ' lft' : ''}`}
                   style={{ transform: `translateX(${(i - 2) * spreadPct}%) translateY(${Math.abs(i - 2) * 16}px) rotate(${(i - 2) * (narrow ? 7 : 9)}deg)`, zIndex: i === 2 ? 5 : 5 - Math.abs(i - 2) }}
                 >
-                  <Link href={`/cards/c/${x.card.num}`} className="fc-b" aria-label={`${x.card.name}, ${EDITIONS[x.card.rarity].name}${x.isNew ? ', new' : ', copy'}. See the card.`}>
+                  <Link href={`/cards/c/${x.card.num}`} className="fc-b" aria-label={`${x.card.name}, ${EDITIONS[x.card.rarity].name}${x.isNew ? ', new' : ', copy'}${x.pair ? ', completes the pair' : ''}. See the card.`}>
                     <span className={`rtag ${x.isNew ? 'new' : 'dup'}`}>{x.isNew ? 'New' : '+1 copy'}</span>
+                    {x.pair ? <span className="rtag pair">Completes the pair</span> : null}
                     <CardFront card={x.card} />
                   </Link>
                   <FavStar n={x.card.n} name={x.card.name} edition={EDITIONS[x.card.rarity].name} />

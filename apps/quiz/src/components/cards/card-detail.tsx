@@ -10,8 +10,10 @@ import { EDITIONS, RARITIES, RARITY_NAMES } from '@/lib/cards/rules';
 import { partWord } from '@/lib/cards/ui-model';
 
 import { CardFront, Gem, LOCK_ICON } from './card-art';
+import { CraftButton } from './craft-button';
 import { useCards } from './cards-provider';
 import { FavStar } from './fav-star';
+import { WishHeart } from './wish-toggle';
 import { attachTilt } from './fx';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
@@ -118,6 +120,12 @@ export function CardDetail(p: DetailProps): React.ReactElement {
               ? <>{ed.name} edition, card {card.num}. {status === 'ready' ? (o ? (o.copies > 1 ? `You have ${o.copies} copies.` : 'You have 1 copy.') : "You don't have it yet.") : ''}</>
               : <>{ed.name} edition, not issued yet.</>}
           </p>
+          {card && !o && status === 'ready' ? (
+            <div className="d-econ">
+              <CraftButton n={card.n} rarity={card.rarity} name={p.entityName} />
+              <WishHeart n={card.n} name={p.entityName} edition={ed.name} className="in" />
+            </div>
+          ) : null}
           {card && p.pair ? (
             <p className="d-sub" id="d-half">
               This card is the {p.pair.side} half of the group photo.{' '}

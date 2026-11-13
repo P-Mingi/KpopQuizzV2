@@ -6,7 +6,7 @@ import { CAP, SHARD_PACK_COST, SHARDS, drawPack, indexPool, walletAt } from './r
 import { fixtureCatalog } from './ui-fixture';
 
 import type { CardsApi, RecycleResult } from './ui-api';
-import type { OwnedEntry, OpenResult, PackSource, WalletState } from './types';
+import type { AdResult, OwnedEntry, OpenResult, PackSource, WalletState } from './types';
 
 interface Saved {
   v: 1; stock: number; anchor: number; parisDay: string; adsToday: number; bonusToday: number; shards: number;
@@ -103,7 +103,7 @@ export function createMockApi(): CardsApi {
       return pack(s, source);
     },
     async adTicket() { sync(s); if (s.adsToday >= ADS_PER_DAY) return { error: 'limit' }; ticket = `t${Date.now()}`; return { ticket }; },
-    async adGrant(t) { if (!ticket || t !== ticket) return { error: 'conflict' }; ticket = null; sync(s); s.adsToday += 1; return pack(s, 'ad'); },
+    async adGrant(t): Promise<AdResult | { error: string }> { if (!ticket || t !== ticket) return { error: 'conflict' }; ticket = null; sync(s); s.adsToday += 1; s.shards += 25; save(s); return { gained: 25, shards: s.shards, state: view(s) }; },
     async recycle(): Promise<RecycleResult | { error: string }> {
       const cards = fixtureCatalog().cards;
       let recycled = 0; let shards = 0;

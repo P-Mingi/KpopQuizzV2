@@ -9,7 +9,7 @@ import { withBasePath } from '@/lib/site/base-path';
 import { cmpSrc, consentAllows, createRewardController, scriptAttributes } from '@/lib/cards/ads';
 
 import type { AdsContext, RewardState, TcData } from '@/lib/cards/ads';
-import type { OpenResult } from '@/lib/cards/types';
+import type { AdResult } from '@/lib/cards/types';
 
 type W = Window & {
   adsbygoogle?: unknown[];
@@ -73,13 +73,20 @@ async function post(path: string, body?: unknown): Promise<Response> {
   });
 }
 
-/** "Watch an ad, open a pack". Hidden with no publisher id, no consent, no ad available, or no ad left today. `onGranted` gets the pack of the server. */
-export function RewardedAdButton({ ctx, onGranted, className }: { ctx: AdsContext; onGranted: (r: OpenResult) => void; className?: string }): React.ReactElement | null {
+/** "Watch an ad for N shards" (lot 4 B4: an ad gives shards, not a pack). Hidden with no publisher id, no consent, no ad available, or no ad
+ *  left today. `onGranted` gets the shards of the server. `onAvailable` says whether the button can play an ad now (the main button of the packs
+ *  page reads it); `buttonRef` lets that main button press this one. */
+export function RewardedAdButton({ ctx, onGranted, className, label = 'Watch an ad for shards', onAvailable, buttonRef }: {
+  ctx: AdsContext; onGranted: (r: AdResult) => void; className?: string; label?: string; onAvailable?: (ok: boolean) => void; buttonRef?: React.Ref<HTMLButtonElement>;
+}): React.ReactElement | null {
   const loaded = useAdScript(ctx);
   const [state, setState] = useState<RewardState>('hidden');
   const ctl = useRef<ReturnType<typeof createRewardController> | null>(null);
   const cb = useRef(onGranted);
   cb.current = onGranted;
+  const avail = useRef(onAvailable);
+  avail.current = onAvailable;
+  useEffect(() => { avail.current?.(ctx.enabled && state !== 'hidden'); }, [ctx.enabled, state]);
   useEffect(() => {
     if (!loaded) return;
     const w = window as W;
@@ -93,7 +100,7 @@ export function RewardedAdButton({ ctx, onGranted, className }: { ctx: AdsContex
       },
       grant: async (ticket) => {
         const r = await post('/api/cards/ad/grant', { ticket });
-        if (r.ok) cb.current((await r.json()) as OpenResult);
+        if (r.ok) cb.current((await r.json()) as AdResult);
       },
       onState: setState,
     });
@@ -102,8 +109,8 @@ export function RewardedAdButton({ ctx, onGranted, className }: { ctx: AdsContex
   const click = useCallback(() => { void ctl.current?.click(); }, []);
   if (!ctx.enabled || state === 'hidden') return null;
   return (
-    <button type="button" className={className ?? 'ux-btn ux-btn-ghost'} disabled={state === 'busy'} onClick={click} data-testid="cards-ad-button">
-      Watch an ad, open a pack
+    <button type="button" ref={buttonRef} className={className ?? 'ux-btn ux-btn-ghost'} disabled={state === 'busy'} onClick={click} data-testid="cards-ad-button">
+      {label}
     </button>
   );
 }

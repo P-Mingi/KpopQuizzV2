@@ -54,12 +54,14 @@ vi.mock('@/lib/supabase/server', () => ({
 }));
 
 import { GET as catalog } from './catalog/route';
+import { POST as craft } from './craft/route';
 import { POST as favorite } from './favorite/route';
 import { POST as grant } from './ad/grant/route';
 import { POST as ticket } from './ad/ticket/route';
 import { POST as open } from './open/route';
 import { POST as recycle } from './recycle/route';
 import { POST as report } from './report/route';
+import { POST as wish } from './wish/route';
 import { GET as state } from './state/route';
 import { resetCatalogCache } from '@/lib/cards/catalog';
 import { resetReportLimit } from '@/lib/cards/report';
@@ -71,6 +73,9 @@ const req = (path: string, body?: unknown, headers: Record<string, string> = {})
     headers: { host: 'localhost:3021', origin: ORIGIN, 'content-type': 'application/json', ...headers },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
+
+// Lot 3: the draw first reads the player's Gold count (cards_pity_count), so the pack call is no longer the first call.
+const applyCall = (): { fn: string; args: Record<string, unknown> } | undefined => h.rpcCalls.find((c) => c.fn === 'cards_apply_pack');
 
 const WALLET = {
   stock: 3, anchor: '2026-11-12T10:00:00+00:00', paris_day: '2026-11-12', ads_today: 2, bonus_today: 0, shards: 12, ads_left: 8, bonus_left: 1,
@@ -89,7 +94,11 @@ beforeEach(() => {
   h.insertError = null;
   h.maybe = {};
   h.tables = { cards_owned: [{ card_no: 4, copies: 2, favorite: true, last_at: '2026-11-12T09:00:00Z' }] };
-  h.rpcResult = { cards_wallet: { data: WALLET }, cards_apply_pack: { data: PACK } };
+  h.rpcResult = {
+    cards_wallet: { data: WALLET }, cards_apply_pack: { data: PACK },
+    // Lots 3 and 4: the ad shards, the craft and the wishlist answer something by default (the private-launch test calls every route).
+    cards_ad_grant: { data: { gained: 25, shards: 37, ads_today: 3 } }, cards_craft: { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12 } }, cards_wish: { data: { on: true, count: 1 } },
+  };
   vi.stubEnv('NET_CARDS', '1');
   vi.stubEnv('NET_CARDS_BRIDGES', '1');
   vi.stubEnv('NET_CARDS_ADS', '1');
@@ -104,6 +113,8 @@ const ROUTES: Array<[string, () => Promise<Response>]> = [
   ['open', () => open(req('/api/cards/open', { source: 'stock' }))],
   ['ad/ticket', () => ticket(req('/api/cards/ad/ticket', {}))],
   ['ad/grant', () => grant(req('/api/cards/ad/grant', { ticket: UUID }))],
+  ['craft', () => craft(req('/api/cards/craft', { card_no: 3 }))],
+  ['wish', () => wish(req('/api/cards/wish', { card_no: 3, on: true }))],
   ['recycle', () => recycle(req('/api/cards/recycle', {}))],
   ['favorite', () => favorite(req('/api/cards/favorite', { n: 4, on: true }))],
   ['report', () => report(req('/api/cards/report', { n: 4, role: 'person', message: 'x' }))],
@@ -203,6 +214,8 @@ describe('GET /api/cards/state', () => {
     expect(await res.json()).toEqual({
       stock: 3, cap: 5, nextAt: '2026-11-12T10:10:00.000Z', midnightAt: '2026-11-12T23:00:00.000Z', adsLeft: 8, adsEnabled: true,
       shards: 12, bonusLeft: 1, owned: [{ n: 4, copies: 2, fav: true, at: '2026-11-12T09:00:00.000Z' }],
+      // Lots 3 and 4: the timer cap (A13), the Gold guarantee (A11), the focus pack and the wishlist (A17), the ad shards (B4), the last packs (B3).
+      timerCap: 40, timerUsed: 0, timerLeft: 40, pityLeft: null, focusUsed: false, wishlist: [], adShards: 25, recent: [],
       odds: expect.objectContaining({ available: ['C', 'U', 'R', 'UR'] }),
     });
     const odds = (await (await state(req('/api/cards/state'))).json()).odds;
@@ -237,7 +250,7 @@ describe('POST /api/cards/open', () => {
     const body = await res.json();
     expect(body.pack).toEqual({ id: 'pack-1', cards: [{ n: 1, isNew: true }, { n: 7, isNew: false }, { n: 9, isNew: true }, { n: 3, isNew: true }, { n: 2, isNew: true }] });
     expect(body.state.stock).toBe(3);
-    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_apply_pack', args: { p_user: 'u1', p_source: 'stock', p_cards: [1, 7, 9, 3, 2], p_ticket: null } });
+    expect(applyCall()).toMatchObject({ fn: 'cards_apply_pack', args: { p_user: 'u1', p_source: 'stock', p_cards: [1, 7, 9, 3, 2], p_ticket: null, p_timer_cap: 40, p_focus: null } });
   });
   it('refuses a bad source (400), the ad source included, and a non-object body', async () => {
     for (const body of [{ source: 'ad' }, { source: 'gift' }, {}, { source: 5 }]) expect((await open(req('/api/cards/open', body))).status).toBe(400);
@@ -268,7 +281,7 @@ describe('POST /api/cards/open', () => {
   it('the bonus source is refused while the bridges are off', async () => {
     vi.stubEnv('NET_CARDS_BRIDGES', '');
     await open(req('/api/cards/open', { source: 'bonus' }));
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 0 });
+    expect(applyCall()?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 0 });
   });
 });
 
@@ -292,22 +305,30 @@ describe('the rewarded ad', () => {
     expect((await ticket(req('/api/cards/ad/ticket', {}))).status).toBe(409);
     expect(h.rpcCalls).toEqual([]);
   });
-  it('grant: spends the ticket through cards_apply_pack (source ad) and answers like open', async () => {
-    h.rpcResult.cards_apply_pack = { data: { ...PACK, source: 'ad' } };
+  it('grant (lot 4 B4): spends the ticket through cards_ad_grant, gives the ad shards and no pack', async () => {
+    h.rpcResult.cards_ad_grant = { data: { gained: 25, shards: 37, ads_today: 3 } };
     const res = await grant(req('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
     expect(res.status).toBe(200);
-    expect((await res.json()).pack.id).toBe('pack-1');
-    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_apply_pack', args: { p_source: 'ad', p_ticket: UUID } });
+    expect(await res.json()).toMatchObject({ gained: 25, shards: 37, state: { stock: 3 } });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')).toMatchObject({ args: { p_user: 'u1', p_ticket: UUID, p_ads_limit: 10, p_shards: 25, p_timer_cap: 40 } });
+    expect(applyCall()).toBeUndefined();
+  });
+  it('grant: CARDS_AD_SHARDS and CARDS_ADS_PER_DAY flow through', async () => {
+    vi.stubEnv('CARDS_AD_SHARDS', '40');
+    vi.stubEnv('CARDS_ADS_PER_DAY', '6');
+    h.rpcResult.cards_ad_grant = { data: { gained: 40, shards: 52, ads_today: 1 } };
+    await grant(req('/api/cards/ad/grant', { ticket: UUID }));
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')?.args).toMatchObject({ p_shards: 40, p_ads_limit: 6 });
   });
   it('grant: a replayed, foreign or unknown ticket is 409, a malformed one too, and the limit is 409 limit', async () => {
-    h.rpcResult.cards_apply_pack = { error: { message: 'cards: ticket' } };
+    h.rpcResult.cards_ad_grant = { error: { message: 'cards: ticket' } };
     let res = await grant(req('/api/cards/ad/grant', { ticket: UUID }));
     expect([res.status, await res.json()]).toEqual([409, { error: 'ticket' }]);
     for (const t of ['nope', 5, undefined, '']) {
       res = await grant(req('/api/cards/ad/grant', { ticket: t }));
       expect(res.status).toBe(409);
     }
-    h.rpcResult.cards_apply_pack = { error: { message: 'cards: ad_limit' } };
+    h.rpcResult.cards_ad_grant = { error: { message: 'cards: ad_limit' } };
     res = await grant(req('/api/cards/ad/grant', { ticket: UUID }));
     expect([res.status, await res.json()]).toEqual([409, { error: 'limit' }]);
   });
@@ -316,6 +337,66 @@ describe('the rewarded ad', () => {
     const res = await grant(req('/api/cards/ad/grant', { ticket: UUID }));
     expect([res.status, await res.json()]).toEqual([409, { error: 'disabled' }]);
     expect(h.rpcCalls).toEqual([]);
+  });
+});
+
+describe('lots 3 and 4 routes: open with a focus, completesPair, craft, wish', () => {
+  it('the pair mark and the moment numbers of the database reach the answer', async () => {
+    h.rpcResult.cards_apply_pack = { data: { id: 'pack-2', source: 'stock', new_count: 2, pack_no: 5, cards: [{ n: 7, isNew: false }, { n: 8, isNew: true, completesPair: true }] } };
+    const body = await (await open(req('/api/cards/open', { source: 'stock' }))).json();
+    expect(body.pack).toEqual({ id: 'pack-2', newCount: 2, packNo: 5, cards: [{ n: 7, isNew: false }, { n: 8, isNew: true, completesPair: true }] });
+  });
+  it('a focus pack is a stock pack for a group id; anything else is 400, and a used focus is 409', async () => {
+    await open(req('/api/cards/open', { source: 'stock', focus: 'group:Q123' }));
+    expect(applyCall()?.args).toMatchObject({ p_focus: 'group:Q123' });
+    for (const body of [{ source: 'shards', focus: 'group:Q1' }, { source: 'stock', focus: 'idol:Q1' }, { source: 'stock', focus: 5 }]) {
+      expect((await open(req('/api/cards/open', body))).status).toBe(400);
+    }
+    h.rpcResult.cards_apply_pack = { error: { message: 'cards: focus_used' } };
+    const res = await open(req('/api/cards/open', { source: 'stock', focus: 'group:Q123' }));
+    expect([res.status, await res.json()]).toEqual([409, { error: 'focus_used' }]);
+  });
+  it('the timer cap is passed to the database, CARDS_TIMER_PER_DAY overrides 40', async () => {
+    vi.stubEnv('CARDS_TIMER_PER_DAY', '12');
+    await open(req('/api/cards/open', { source: 'stock' }));
+    expect(applyCall()?.args).toMatchObject({ p_timer_cap: 12 });
+    h.rpcCalls = [];
+    await state(req('/api/cards/state'));
+    expect(h.rpcCalls[0]?.args).toMatchObject({ p_timer_cap: 12 });
+  });
+  it('craft: a missing card for shards, with the same guard as the other writes', async () => {
+    h.rpcResult.cards_craft = { data: { card_no: 3, rarity: 'R', cost: 50, shards: 12 } };
+    const res = await craft(req('/api/cards/craft', { card_no: 3 }));
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ card: { n: 3, rarity: 'R', cost: 50 }, state: { shards: 12 } });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_craft')?.args).toMatchObject({ p_user: 'u1', p_card_no: 3 });
+    expect((await craft(req('/api/cards/craft', { card_no: 'x' }))).status).toBe(400);
+    expect((await craft(req('/api/cards/craft', { card_no: 1.5 }))).status).toBe(400);
+    expect((await craft(req('/api/cards/craft', {}, { origin: 'http://evil.example' }))).status).toBe(403);
+    h.user = null;
+    expect((await craft(req('/api/cards/craft', { card_no: 3 }))).status).toBe(401);
+    h.user = { id: 'u1' };
+    h.team = true;
+    expect((await craft(req('/api/cards/craft', { card_no: 3 }))).status).toBe(403);
+  });
+  it.each([['cards: shards', 'shards'], ['cards: owned', 'owned'], ['cards: card', 'card'], ['cards: no_craft', 'no_craft']])('craft refusal "%s" is 409 %s (a Full Art is no_craft)', async (message, error) => {
+    h.rpcResult.cards_craft = { error: { message } };
+    const res = await craft(req('/api/cards/craft', { card_no: 6 }));
+    expect([res.status, await res.json()]).toEqual([409, { error }]);
+  });
+  it('wish: toggles a card, 409 at the limit', async () => {
+    h.rpcResult.cards_wish = { data: { on: true, count: 4 } };
+    let res = await wish(req('/api/cards/wish', { card_no: 3, on: true }));
+    expect([res.status, await res.json()]).toEqual([200, { on: true, count: 4 }]);
+    expect((await wish(req('/api/cards/wish', { card_no: 3 }))).status).toBe(400);
+    h.rpcResult.cards_wish = { error: { message: 'cards: wish_limit' } };
+    res = await wish(req('/api/cards/wish', { card_no: 3, on: true }));
+    expect([res.status, await res.json()]).toEqual([409, { error: 'wish_limit' }]);
+  });
+  it('the state lists the last packs from the database with their edition names', async () => {
+    h.rpcResult.cards_recent_packs = { data: [{ opened_at: '2026-11-12T09:00:00+00:00', best: 'UR', source: 'stock', new_count: 2 }, { opened_at: '2026-11-12T08:00:00+00:00', best: 'C', source: 'shards', new_count: null }] };
+    const body = await (await state(req('/api/cards/state'))).json();
+    expect(body.recent).toEqual([{ at: '2026-11-12T09:00:00.000Z', best: 'gold', source: 'stock', newCount: 2 }, { at: '2026-11-12T08:00:00.000Z', best: 'std', source: 'shards', newCount: null }]);
   });
 });
 
