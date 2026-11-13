@@ -231,9 +231,17 @@ describe('anime and hub rewrites (Next matcher)', () => {
     }
   });
 
-  it('non-kpop builds drop every kpop redirect', () => {
+  it('non-kpop builds drop every kpop redirect; the hub has only the KpopCards host alias (integrator 2026-11-13)', () => {
     expect(redirectsFor('anime')).toEqual([]);
-    expect(redirectsFor('hub')).toEqual([]);
+    // was [] before KpopCards: every hub redirect now applies only to the host kpopcards.bunnyverse.org, nothing else changes
+    const hub = redirectsFor('hub')!;
+    expect(hub.length).toBe(4);
+    for (const r of hub) {
+      expect(r.has).toEqual([{ type: 'host', value: 'kpopcards.bunnyverse.org' }]);
+      expect(r.permanent).toBe(true);
+      expect(r.destination.startsWith('https://bunnyverse.org/kpopcards')).toBe(true);
+    }
+    expect(hub.map((r) => r.source)).toEqual(['/kpopcards/:path*', '/kpopcards', '/', '/:path*']);
   });
 
   it('internalPath', () => {

@@ -258,15 +258,28 @@ export interface SiteRedirect {
   readonly source: string;
   readonly destination: string;
   readonly permanent: boolean;
+  /** Only for a request to this host (next.config.ts redirects `has`). */
+  readonly has?: Array<{ type: 'host'; value: string }>;
 }
+
+/** KpopCards (lots 3 to 5, integrator 2026-11-13): kpopcards.bunnyverse.org is only an alias of bunnyverse.org/kpopcards, path and query kept.
+ *  The owner adds the domain to the hub's Vercel project; until then these rules never match. */
+export const KPOPCARDS_HOST = 'kpopcards.bunnyverse.org';
+const onKpopcardsHost = (): Array<{ type: 'host'; value: string }> => [{ type: 'host', value: KPOPCARDS_HOST }];
+const HUB_REDIRECTS: readonly SiteRedirect[] = [
+  { source: '/kpopcards/:path*', has: onKpopcardsHost(), destination: 'https://bunnyverse.org/kpopcards/:path*', permanent: true },
+  { source: '/kpopcards', has: onKpopcardsHost(), destination: 'https://bunnyverse.org/kpopcards', permanent: true },
+  { source: '/', has: onKpopcardsHost(), destination: 'https://bunnyverse.org/kpopcards', permanent: true },
+  { source: '/:path*', has: onKpopcardsHost(), destination: 'https://bunnyverse.org/kpopcards/:path*', permanent: true },
+];
 
 /**
  * The redirects of a build: null on kpop (next.config.ts keeps today's list, untouched);
  * an empty list on anime and hub (none of the kpop legacy redirects applies there; a site's
- * own redirects are a CR that adds them here).
+ * own redirects are a CR that adds them here). The hub's own: the KpopCards host alias (HUB_REDIRECTS).
  */
 export function redirectsFor(site: SiteId): readonly SiteRedirect[] | null {
-  return site === 'kpop' ? null : [];
+  return site === 'kpop' ? null : site === 'hub' ? HUB_REDIRECTS : [];
 }
 
 function escapeRe(s: string): string {
