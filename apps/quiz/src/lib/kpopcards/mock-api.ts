@@ -64,6 +64,14 @@ export interface MockApi extends KpopCardsApi {
   forceGolden(): void;
   /** Make the Gold guarantee fire in the next pack. */
   forceGuarantee(): void;
+  /** The prototype controls: the third card of the next pack is a card of this rarity (UR: Gold, L: Full Art), when the catalog has one. */
+  forceRarity(r: 'UR' | 'L'): void;
+  /** The prototype's "39 timer packs used today": one more timer pack is left and the stack is below its cap. */
+  useTimerUpTo(n: number): void;
+  /** A Kpopdle win counted for this week. */
+  addDleWin(): void;
+  /** Start again with the example binder (true) or an empty one with 3 packs (false). */
+  reset(example: boolean): void;
 }
 
 const FRIENDS: readonly [string, number][] = [['dalgom_daisy', 61], ['seoul_spark', 47], ['neon_bunny', 34], ['kpop_mochi', 29], ['lightstick_lu', 22], ['haru_hearts', 15], ['minty_wave', 9]];
@@ -82,11 +90,12 @@ export function createMockApi(opts: MockOptions): MockApi {
   const idem = new Map<string, { op: string; res: unknown }>();
   let forceGoldenNext = false;
   let forceGuarantee = false;
+  let forcedRarity: 'UR' | 'L' | null = null;
   const total = (): number => w.cards.length;
   const ownedNs = (): Set<number> => new Set(p.owned.keys());
 
   // The example binder: a seeded handful of cards by edition, as the prototype's example player.
-  if (opts.example !== false) {
+  const seedExample = (): void => {
     const r = seededRng(seed * 7919 + 23);
     const want: Partial<Record<Rarity, number>> = { C: 14, U: 8, R: 4, UR: 1 };
     let k = 0;
@@ -108,7 +117,8 @@ export function createMockApi(opts: MockOptions): MockApi {
     p.sinceGold = 4;
     p.week = { id: weekStartOf(now()), packs: 12, dle: 1, newc: 7, claimed: false };
     for (const c of [...p.owned.keys()].filter((n) => w.cards.find((x) => x.n === n)!.rarity === 'R' || w.cards.find((x) => x.n === n)!.rarity === 'UR').slice(0, 3)) p.owned.get(c)!.fav = true;
-  }
+  };
+  if (opts.example !== false) seedExample();
 
   const sync = (): void => {
     const wal = walletNow(p, now());
@@ -158,6 +168,14 @@ export function createMockApi(opts: MockOptions): MockApi {
     setNow(ms: number) { nowMs = ms; },
     forceGolden() { forceGoldenNext = true; },
     forceGuarantee() { forceGuarantee = true; },
+    forceRarity(r: 'UR' | 'L') { forcedRarity = r; },
+    useTimerUpTo(n: number) { sync(); p.timerToday = n; if (p.stock >= KC.STACK_CAP) p.stock = KC.STACK_CAP - 1; p.anchor = now(); },
+    addDleWin() { sync(); p.week.dle += 1; },
+    reset(example: boolean) {
+      Object.assign(p, emptyPlayer(now(), p.nickname));
+      idem.clear();
+      if (example) seedExample(); else { p.stock = 3; }
+    },
 
   } as unknown as MockApi;
 
@@ -198,6 +216,11 @@ export function createMockApi(opts: MockOptions): MockApi {
         const pity = forceGuarantee || (p.sinceGold >= KC.GOLD_BY_PACK - 1 && w.cards.some((c) => c.rarity === 'UR'));
         forceGoldenNext = false; forceGuarantee = false;
         const { drawn, kind } = packOf(source, theme, req.focus, golden, pity, ownedNs());
+        if (forcedRarity) {
+          const pool = w.cards.filter((x) => x.rarity === forcedRarity);
+          if (pool.length) drawn.cards[2] = pool[rng(pool.length)]!.n;
+          forcedRarity = null;
+        }
         const cards: OpenedCardV[] = [];
         let nw = 0;
         drawn.cards.forEach((cn, idx) => {

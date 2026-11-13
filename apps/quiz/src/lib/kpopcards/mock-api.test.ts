@@ -70,4 +70,19 @@ describe('the seeded mock of the KpopCards contract', () => {
       expect(isApiError(r)).toBe(false);
     }
   });
+  it('the prototype controls: a forced Gold or Full Art, the 39th timer pack, a reset', async () => {
+    const a = createMockApi({ world: WORLD, seed: 8, now: () => T0 });
+    a.forceRarity('UR');
+    const r = await a.open({ key: k(20), source: 'stock' });
+    if (isApiError(r)) throw new Error(r.error);
+    expect(r.packs[0]!.cards[2]!.edition).toBe('gold');
+    a.useTimerUpTo(39);
+    const st = await a.state();
+    if (isApiError(st)) throw new Error('x');
+    expect(st.timerLeft).toBe(1);
+    a.reset(false);
+    const e = await a.state();
+    if (isApiError(e)) throw new Error('x');
+    expect([e.stock, e.owned.length, e.golden.opened]).toEqual([3, 0, 0]);
+  });
 });
