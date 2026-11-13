@@ -38,9 +38,11 @@ describe('constants', () => {
     expect(FIFTH_ODDS.C).toBe(0);
     expect(FIFTH_ODDS.U).toBeCloseTo(ODDS.C + ODDS.U, 9);
   });
-  it('shards and the five lock sentences are exact', () => {
+  it('shards and the seven lock sentences are exact (lot 3, owner decision "one edition, one photo": photo and size)', () => {
     expect(SHARDS).toEqual({ C: 1, U: 2, R: 5, SR: 12, UR: 30, L: 80 });
-    expect(Object.keys(LOCK_SENTENCES)).toEqual(['one', 'sameday', 'newg', 'hiatus', 'crop']);
+    expect(Object.keys(LOCK_SENTENCES)).toEqual(['one', 'sameday', 'newg', 'hiatus', 'crop', 'photo', 'size']);
+    expect(LOCK_SENTENCES.photo).toBe('Each edition needs its own free photo, and this one has none yet.');
+    expect(LOCK_SENTENCES.size).toBe('No free photo is large enough yet for a full art card.');
     expect(LOCK_SENTENCES.one).toBe('Only one free photo of this idol exists so far.');
     expect(LOCK_SENTENCES.sameday).toBe("All free photos come from the same day, so they can't make different editions.");
     expect(LOCK_SENTENCES.newg).toBe("New group: free photographers haven't caught up yet.");

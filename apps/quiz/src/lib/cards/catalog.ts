@@ -26,7 +26,7 @@ interface PhotoRow {
   source_path: string | null; file_focal_x: number | null; file_focal_y: number | null; small_2x: boolean;
 }
 
-const LOCKS = new Set<string>(['one', 'sameday', 'newg', 'hiatus', 'crop']);
+const LOCKS = new Set<string>(['one', 'sameday', 'newg', 'hiatus', 'crop', 'photo', 'size']);
 const RAR = new Set<string>(['C', 'U', 'R', 'SR', 'UR', 'L']);
 
 /** The public URL of a file of the 'cards' bucket (003-rls.sql). */
@@ -69,7 +69,9 @@ export function cardImage(p: ImagePhotoRow, base?: string, card: { part?: number
     fileFocalX: p.storage_path !== null ? p.file_focal_x : null, fileFocalY: p.storage_path !== null ? p.file_focal_y : null,
     ...(part !== 0 ? { part } : {}),
   };
-  if (cut) {
+  // Lot 3: a photo with no bucket copy (every new photo) keeps showing its cut files while the owner moves its focal point, until the
+  // script recuts them (the files are the old crop of the same photo).
+  if (cut || (p.storage_path !== null && !sourceUrl)) {
     const stem = `${p.storage_path}${partSuffix(part)}`;
     return { url: cardImageUrl(`${stem}-1x.webp`, base), url2x: small2x ? null : cardImageUrl(`${stem}-2x.webp`, base), css: false, ...common };
   }
