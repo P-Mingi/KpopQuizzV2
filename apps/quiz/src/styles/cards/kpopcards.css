@@ -1308,3 +1308,7 @@ html.rm .bvc .c-rim{animation:none}
 .bvc .fr-row small{color:var(--txt2);font-size:13px}
 .bvc .fr-wish{font-size:13.5px;color:var(--txt2)}
 .bvc .fr-wish b{color:var(--txt1)}
+.bvc .fr-inline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bvc .fr-inline .fr-add input{width:150px}
+.bvc .brand,.bvc .brand.kc{min-height:44px}
+.bvc .ux-skip{height:44px}
