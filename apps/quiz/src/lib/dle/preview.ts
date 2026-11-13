@@ -44,3 +44,22 @@ export const PREVIEW_HEADERS: Readonly<Record<string, string>> = {
   'X-Content-Type-Options': 'nosniff',
   'Cross-Origin-Resource-Policy': 'same-origin',
 };
+
+/** What the browser holds once the index answered: which entities have a preview picture, and the addresses of its two sizes. */
+export interface DlePreview {
+  readonly has: (id: string) => boolean;
+  readonly tile: (id: string) => string | null;
+  readonly full: (id: string) => string | null;
+}
+
+/** The preview of an index answer, or null when it holds nothing (the page then draws exactly what everyone sees). Ids not shaped like a character are dropped. */
+export function makePreview(ids: unknown, base = ''): DlePreview | null {
+  if (!Array.isArray(ids)) return null;
+  const set = new Set(ids.filter(isPreviewSlug));
+  if (set.size === 0) return null;
+  return {
+    has: (id) => set.has(id),
+    tile: (id) => (set.has(id) ? previewImageUrl(base, id, 'tile') : null),
+    full: (id) => (set.has(id) ? previewImageUrl(base, id, 'full') : null),
+  };
+}

@@ -1,4 +1,4 @@
-// Daily games step 4 (v2 section 7): the picture of an entity where a name is typed. A licensed 96 px file when dle_pool gives one, else the initials on a gradient of the group's colours. Decorative: the name is beside it.
+// Daily games step 4 (v2 section 7): the picture of an entity where a name is typed. A licensed 96 px file when dle_pool gives one, else a designed tile (series photo, or a pattern in the colours). Decorative: the name is beside it.
 import type { DleGameDef } from '@/lib/dle/games';
 import type { DlePublicEntity, DleValue } from '@/lib/dle/types';
 
@@ -36,28 +36,45 @@ export function parentName(game: Pick<DleGameDef, 'series'>, subKey: string, att
   return v?.p?.[0] ?? firstValue(v?.v);
 }
 
+/**
+ * What a tile or the result card draws behind a name when there is no licensed photo (lot 3 DLE, E3):
+ *   art      the public path of the series photo already in place on the anime pages (the free photos of objects and places), or null
+ *   preview  the owner's private preview image (lib/dle/preview.ts), or null. Never set for anyone else.
+ */
+export interface AvatarLook {
+  readonly art?: string | null;
+  readonly preview?: string | null;
+}
+
 interface AvatarProps {
   readonly entity: Pick<DlePublicEntity, 'name' | 'thumb'>;
-  /** The name the gradient follows (the group). */
+  /** The name the colours follow (the group, or the series). */
   readonly tone: string;
   readonly size?: number;
   readonly radius?: number;
   readonly font?: number;
-  /** Fills its frame with large initials: the result screen without a licensed photo. */
-  readonly fill?: boolean;
+  readonly look?: AvatarLook | undefined;
 }
 
-export function Avatar({ entity, tone, size, radius, font, fill }: AvatarProps): React.ReactElement {
+/**
+ * The small picture beside a name (a guess, a suggestion, yesterday's answer). Decorative: the name is beside it. In order: the licensed 96 px
+ * file, the owner's private preview, the series photo with a tint of the colours, else a patterned tile in the colours with the initials (a small
+ * tile only: the large card of the result sets the whole name in type, see dle-card.tsx).
+ */
+export function Avatar({ entity, tone, size, radius, font, look }: AvatarProps): React.ReactElement {
   const [a, b] = tintOf(tone || entity.name);
-  const style: React.CSSProperties = fill
-    ? { background: `linear-gradient(165deg, ${a} 0%, ${b} 100%)` }
-    : { width: size, height: size, borderRadius: radius, fontSize: font, background: `linear-gradient(165deg, ${a} 0%, ${b} 100%)` };
+  const style = { width: size, height: size, borderRadius: radius, fontSize: font, '--dle-a': a, '--dle-b': b } as React.CSSProperties;
+  // A plain img everywhere: the 96 px file made at upload, a bundled file, or the preview route (no Vercel image optimisation, no cache of the preview).
+  const src = entity.thumb ?? look?.preview ?? null;
+  const art = src ? null : look?.art ?? null;
   return (
-    <span aria-hidden="true" className={fill ? 'hub-dle-thumb hub-dle-thumb-fill' : 'hub-dle-thumb'} style={style}>
-      {entity.thumb && !fill ? (
-        // A plain img: the 96 px file made at upload (no Vercel image optimisation).
+    <span aria-hidden="true" className={`hub-dle-thumb${src ? '' : art ? ' hub-dle-thumb-art' : ' hub-dle-thumb-pat'}`} style={style}>
+      {src ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={entity.thumb} alt="" width={size} height={size} loading="lazy" decoding="async" />
+        <img src={src} alt="" width={size} height={size} loading="lazy" decoding="async" />
+      ) : art ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={art} alt="" width={size} height={size} loading="lazy" decoding="async" />
       ) : initialsOf(entity.name)}
     </span>
   );
