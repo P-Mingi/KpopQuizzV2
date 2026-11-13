@@ -118,10 +118,11 @@ export const EDITIONS: Record<Rarity, EditionInfo> = {
   L: { edition: 'full', name: 'Full Art', photoSlot: 3 },
 };
 
-/** The rarities a kind can exist in (idol: all six; group: C U R UR, amendment 1; event: C U R). The binder also shows the locked Era and Full Art pockets (ui-model ladderRarities). */
+/** The rarities a kind can exist in (idol and group: all six, lot 3 owner decision "one edition, one photo": a group follows the same
+ *  ladder, each edition with its own group photo; amendment 1 limited groups to C U R UR; event: C U R). The binder shows the locked pockets. */
 export const KIND_RARITIES: Record<CardKind, readonly Rarity[]> = {
   idol: ['C', 'U', 'R', 'SR', 'UR', 'L'],
-  group: ['C', 'U', 'R', 'UR'],
+  group: ['C', 'U', 'R', 'SR', 'UR', 'L'],
   event: ['C', 'U', 'R'],
 };
 
@@ -132,6 +133,8 @@ export const LOCK_SENTENCES: Record<LockReason, string> = {
   newg: "New group: free photographers haven't caught up yet.",
   hiatus: 'On a break, so no new public appearances to photograph.',
   crop: 'Only appears in group shots, too small to crop for Full Art.',
+  photo: 'Each edition needs its own free photo, and this one has none yet.',
+  size: 'No free photo is large enough yet for a full art card.',
 };
 
 export const SOURCE_NAMES: Record<PhotoSource, string> = {

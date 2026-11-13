@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ageOk, cardFileRegex, cutPlan, partFileName, planRemovals } from '../../../scripts/cards/card-files.mjs';
+import { ageOk, cardFileRegex, cutPlan, partFileName, planRemovals, stemOf } from '../../../scripts/cards/card-files.mjs';
 import { MIN_2X, PAIR_RATIO, cardBox, halves, pairBox } from '../../../scripts/cards/card-geometry.mjs';
 
 describe('card geometry, pair window and halves', () => {
@@ -90,5 +90,31 @@ describe('the exact-name matcher of the bucket cleanup', () => {
     const names = ['old-group-50-50-h1-1x.webp', 'nct-20-40-h1-1x.webp', 'readme.txt'];
     expect(removed(names, { only: new Set(['old-group']) })).toEqual(['old-group-50-50-h1-1x.webp']);
     expect(removed(names, { skip: new Set(['nct']) })).toEqual(['old-group-50-50-h1-1x.webp', 'readme.txt']);
+  });
+});
+
+describe('lot 3: several photos a subject (one edition, one photo)', () => {
+  it('slot 1 keeps the stem of lots 1 and 2, a lot 3 photo carries its slot', () => {
+    expect(stemOf('iu', 1, 50, 30)).toBe('iu-50-30');
+    expect(stemOf('iu', 4, 50, 22)).toBe('iu-s4-50-22');
+    const m = cardFileRegex(['nct', 'nct-wish', 'iu']).exec('nct-s3-50-50-h2-2x.webp')!;
+    expect([m[1], m[2], m[3], m[4], m[5], m[6]]).toEqual(['nct', '3', '50', '50', '2', '2x']);
+    expect(cardFileRegex(['nct', 'nct-wish']).exec('nct-wish-s2-20-40-h1-1x.webp')![1]).toBe('nct-wish');
+  });
+  it('keeps the files of every live photo at its focal point, proposes the rest', () => {
+    const current = new Map<string, unknown>([
+      ['iu', [{ slot: 1, group: false, fx: 50, fy: 30 }, { slot: 2, group: false, fx: 50, fy: 22 }]],
+      ['btob', [{ slot: 1, group: true, fx: 40, fy: 50 }, { slot: 3, group: true, fx: 50, fy: 50 }]],
+    ]);
+    const names = ['iu-50-30-1x.webp', 'iu-s2-50-22-2x.webp', 'iu-s2-50-30-1x.webp', 'iu-s3-50-30-1x.webp',
+      'btob-40-50-h1-1x.webp', 'btob-s3-50-50-h2-2x.webp', 'btob-s2-50-50-h1-1x.webp', 'btob-s3-50-50-1x.webp'];
+    const { keep, remove } = planRemovals(names, { known: ['iu', 'btob'], current });
+    expect(keep).toEqual(['iu-50-30-1x.webp', 'iu-s2-50-22-2x.webp', 'btob-40-50-h1-1x.webp', 'btob-s3-50-50-h2-2x.webp']);
+    expect(remove.map((r: { name: string; why: string }) => [r.name, r.why])).toEqual([
+      ['iu-s2-50-30-1x.webp', 'old focal point (now 50/22)'],
+      ['iu-s3-50-30-1x.webp', 'photo 3 of this subject is no longer live (refused, removed or dropped)'],
+      ['btob-s2-50-50-h1-1x.webp', 'photo 2 of this subject is no longer live (refused, removed or dropped)'],
+      ['btob-s3-50-50-1x.webp', 'old whole-card file of a group'],
+    ]);
   });
 });

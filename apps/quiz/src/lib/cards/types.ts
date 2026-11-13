@@ -6,7 +6,7 @@ export type Edition = 'std' | 'stage' | 'holo' | 'era' | 'gold' | 'full';
 export type CardKind = 'idol' | 'group' | 'event';
 export type PackSource = 'stock' | 'ad' | 'shards' | 'bonus';
 export type PhotoSource = 'commons' | 'koreanet' | 'flickr' | 'dvids';
-export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop';
+export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop' | 'photo' | 'size';
 export type PhotoStatus = 'auto' | 'pending' | 'approved' | 'rejected' | 'removed';
 /** Lot 2 (owner idea, 2026-11-12): what part of its photo a card shows. 0 the whole photo (a person's card), 1 the left half and 2 the
  *  right half of a group photo. A group gives a pair of cards per edition, with consecutive numbers (cards_catalog.part, file 102). */

@@ -27,14 +27,20 @@ export const partFileName = (stem, part, size) => `${stem}${partSuffix(part)}-${
 
 const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-/** An exact matcher of the card file names of the known slugs: `<slug>-<fx>-<fy>[-h1|-h2]-1x|2x.webp`. Longest slugs first; the whole name is anchored. */
+/** Lot 3 (one edition, one photo): the stem of a photo's files. Slot 1, the photo of lots 1 and 2, keeps `<slug>-<fx>-<fy>` (its published
+ *  files stay valid); a lot 3 photo is `<slug>-s<slot>-<fx>-<fy>`. */
+export const stemOf = (slug, slot, fx, fy) => (slot > 1 ? `${slug}-s${slot}-${fx}-${fy}` : `${slug}-${fx}-${fy}`);
+
+/** An exact matcher of the card file names of the known slugs: `<slug>[-s<slot>]-<fx>-<fy>[-h1|-h2]-1x|2x.webp`. Longest slugs first; the
+ *  whole name is anchored. Groups: 1 slug, 2 slot (undefined for slot 1), 3 fx, 4 fy, 5 half, 6 size. */
 export function cardFileRegex(slugs) {
   const alt = [...slugs].sort((a, b) => b.length - a.length).map(escapeRe).join('|');
-  return new RegExp(`^(${alt || '(?!)'})-(\\d{1,3})-(\\d{1,3})(?:-h([12]))?-(1x|2x)\\.webp$`);
+  return new RegExp(`^(${alt || '(?!)'})(?:-s([2-6]))?-(\\d{1,3})-(\\d{1,3})(?:-h([12]))?-(1x|2x)\\.webp$`);
 }
 
 /**
- * Which objects of the bucket to propose for deletion. `known`: every slug of subjects.json. `current`: slug -> { group, fx, fy } for each included
+ * Which objects of the bucket to propose for deletion. `known`: every slug of subjects.json. `current`: slug -> { group, fx, fy } (lot 2) or
+ * slug -> [{ slot, group, fx, fy }, ...] (lot 3, one entry per live photo) for each included
  * subject (age ok, with a database row), fx and fy being its current focal point (the stem of its files). `only`: a Set of slugs or null.
  * An object is KEPT only when it is a file of a current stem: the slug is current, the focal point is the current one, and the part is right
  * (a group has halves only, a person a whole card only). Everything else is proposed: the files of excluded subjects, the old whole-card
@@ -54,11 +60,16 @@ export function planRemovals(names, { known, current, only = null, skip = new Se
     const slug = m[1];
     if (only && !only.has(slug)) continue;
     if (skip.has(slug)) continue;
-    const cur = current.get(slug);
-    if (!cur) { remove.push({ name, why: 'subject left out (age rule) or without a current photo' }); continue; }
-    const part = m[4] ? Number(m[4]) : 0;
+    const got = current.get(slug);
+    if (!got) { remove.push({ name, why: 'subject left out (age rule) or without a current photo' }); continue; }
+    // Lot 3: a subject has one entry per live photo ({ slot, group, fx, fy }); lot 2 passed one object (its slot 1).
+    const list = Array.isArray(got) ? got : [{ slot: 1, ...got }];
+    const slot = m[2] ? Number(m[2]) : 1;
+    const cur = list.find((x) => (x.slot ?? 1) === slot);
+    if (!cur) { remove.push({ name, why: `photo ${slot} of this subject is no longer live (refused, removed or dropped)` }); continue; }
+    const part = m[5] ? Number(m[5]) : 0;
     if (cur.group !== (part !== 0)) { remove.push({ name, why: cur.group ? 'old whole-card file of a group' : 'half file of a person' }); continue; }
-    if (Number(m[2]) !== cur.fx || Number(m[3]) !== cur.fy) { remove.push({ name, why: `old focal point (now ${cur.fx}/${cur.fy})` }); continue; }
+    if (Number(m[3]) !== cur.fx || Number(m[4]) !== cur.fy) { remove.push({ name, why: `old focal point (now ${cur.fx}/${cur.fy})` }); continue; }
     keep.push(name);
   }
   return { keep, remove };

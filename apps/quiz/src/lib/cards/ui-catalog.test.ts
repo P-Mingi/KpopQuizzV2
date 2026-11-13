@@ -42,8 +42,8 @@ describe('the picture of a card follows the file focal point', () => {
 });
 
 describe('rules shared with the UI', () => {
-  it('a group exists in C, U, R, UR (amendment 1)', () => {
-    expect(KIND_RARITIES.group).toEqual(['C', 'U', 'R', 'UR']);
+  it('a group exists in the six editions, like a person (lot 3, owner decision "one edition, one photo"; amendment 1 had C, U, R, UR)', () => {
+    expect(KIND_RARITIES.group).toEqual(['C', 'U', 'R', 'SR', 'UR', 'L']);
   });
   it('SOURCE_NAMES names the four sources', () => {
     expect(SOURCE_NAMES.commons).toBe('Wikimedia Commons');
