@@ -144,7 +144,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const last = useMemo(() => {
     if (lastPack) return lastPack.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
     if (w?.last) return w.last.cards.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
-    return [...owned.values()].sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 5).map((o) => ({ card: byN.get(o.n), isNew: false })).filter((x) => x.card);
+    return [];
   }, [lastPack, owned, byN, w?.last]);
   const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
   const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists'), [catalog.sections]);

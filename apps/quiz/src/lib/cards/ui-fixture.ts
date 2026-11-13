@@ -132,21 +132,21 @@ export function buildProtoCatalog(): UiCatalog {
     n += 1;
     cards.push({ n, num: `BV1-${String(n).padStart(4, '0')}`, entity: e.id, kind: e.kind, rarity: r, edition: EDITIONS[r].edition, name: e.name, group: e.group, debutYear: e.debutYear, photo, ...extra });
   };
-  const idol = (name: string, photos: number, reason: LockReason | undefined, group: string | null, debut: number, order: string): void => {
+  const idol = (name: string, photos: number, reason: LockReason | undefined, group: string | null, debut: number, order: string, slug: string): void => {
     q += 1; serial += 1;
     const lock: UiEntity['lockReasons'] = {};
     PROTO_RARITIES.forEach((r, i) => { if (!(photos >= 2 && i < photos)) lock[r] = photos < 2 ? 'one' : (reason ?? 'one'); });
-    const e: UiEntity = { id: `idol:Q${q}`, kind: 'idol', name, group, debutYear: debut, sortKey: order, lockReasons: lock };
+    const e: UiEntity = { id: `idol:Qkc-${slug}-${q}`, kind: 'idol', name, group, debutYear: debut, sortKey: order, lockReasons: lock };
     entities.push(e);
     PROTO_RARITIES.forEach((r, i) => { if (photos >= 2 && i < photos) add(e, r, {}, photoFor(e.id, serial)); });
   };
   PROTO_GROUPS.forEach((g, gi) => {
     const key = String(gi).padStart(2, '0');
-    g.m.forEach(([name, photos, reason], mi) => idol(name, photos, reason, g.name, g.debut, `${key}|${String(mi).padStart(2, '0')}`));
+    g.m.forEach(([name, photos, reason], mi) => idol(name, photos, reason, g.name, g.debut, `${key}|${String(mi).padStart(2, '0')}`, g.id));
     q += 1; serial += 1;
     const lock: UiEntity['lockReasons'] = {};
     PROTO_RARITIES.forEach((r, i) => { if (i >= g.gp) lock[r] = 'one'; });
-    const ge: UiEntity = { id: `group:Q${q}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${key}|~`, lockReasons: lock };
+    const ge: UiEntity = { id: `group:Qkc-${g.id}`, kind: 'group', name: g.name, group: null, debutYear: g.debut, sortKey: `${key}|~`, lockReasons: lock };
     entities.push(ge);
     const photo: UiPhoto = { ...photoFor(ge.id, serial), focalY: 50, src: placeholderGroupPicture(ge.id) };
     PROTO_RARITIES.forEach((r, i) => {
@@ -154,7 +154,7 @@ export function buildProtoCatalog(): UiCatalog {
       for (const part of [1, 2] as const) add(ge, r, { part, pairN: part === 1 ? n + 2 : n, ...{} }, photo);
     });
   });
-  PROTO_SOLOISTS.forEach(([name, photos, debut], si) => idol(name, photos, undefined, null, debut, `99|${String(si).padStart(2, '0')}`));
+  PROTO_SOLOISTS.forEach(([name, photos, debut], si) => idol(name, photos, undefined, null, debut, `99|${String(si).padStart(2, '0')}`, 'solo'));
   return { odds: computeOdds(cards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, entity: c.entity }))), cards, entities };
 }
 
