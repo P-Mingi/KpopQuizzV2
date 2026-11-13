@@ -20,7 +20,6 @@ import { PACK_SIZE, RARITIES, RARITY_LABEL, SHARDS } from '@/lib/cards/rules';
 
 import { CardBack, CardFront, Gem } from './card-art';
 import { useCards } from './cards-provider';
-import { FavStar } from './fav-star';
 import { Fx, attachTilt, onReducedMotionChange, reducedMotion } from './fx';
 import { listenForGesture, openingOutput } from './opening-output';
 import { FADE_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
@@ -52,6 +51,8 @@ export interface OpeningProps {
   source: OpeningSource;
   look?: PackLook;
   packs?: 1 | 5;
+  /** The pack's own golden flag from the server's answer (OpenedPack.golden). It wins over look.golden: the lobby state read AFTER the open already counts the next pack. */
+  golden?: boolean;
   /** Packs of the run that were golden (Open 5 says "2 golden packs"). */
   goldenPacks?: number;
   /** Sets this opening finished: shown as "You finished X. +1 pack in Missions". */
@@ -99,7 +100,7 @@ function PackFace({ id, look, golden, dealt }: { id: string; look: PackLook; gol
   );
 }
 
-export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, goldenPacks = 0, finished = [], headline, copiesShards, fullArtOdds = null, onClose, demo, cardHref }: OpeningProps): React.ReactElement {
+export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, golden: goldenProp, goldenPacks = 0, finished = [], headline, copiesShards, fullArtOdds = null, onClose, demo, cardHref }: OpeningProps): React.ReactElement {
   const ctx = useCards();
   const router = useRouter();
   const rows = useMemo(
@@ -110,7 +111,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
   const multi = packs === 5;
   const bestRarity: Rarity = rows.reduce<Rarity>((b, r) => (rarityIndex(r.card.rarity) > rarityIndex(b) ? r.card.rarity : b), 'C');
   const warn = warnLevel(bestRarity);
-  const golden = look.golden && !multi;
+  const golden = (goldenProp ?? look.golden) && !multi;
   const hrefOf = cardHref ?? ((c: SlimCard) => `/kpopcards/c/${c.num}`);
 
   const [phase, setPhaseState] = useState<Phase>(multi ? 'multi' : 'pack');
@@ -643,7 +644,6 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                         <span className={`rtag ${x.isNew ? 'new' : 'dup'}`}>{x.isNew ? 'New' : '+1 copy'}</span>
                         <CardFront card={x.card} />
                       </Link>
-                      <FavStar n={x.card.n} name={x.card.name} edition={RARITY_LABEL[x.card.rarity]} />
                     </>
                   )}
                 </div>
