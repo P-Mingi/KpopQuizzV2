@@ -6,6 +6,7 @@ import { useId, useState } from 'react';
 
 import { craftView } from '@/lib/cards/economy';
 import { ECON_ERRORS, craftCard, isEconError } from '@/lib/cards/economy-api';
+import { finishedLine } from '@/lib/cards/goals';
 import { RARITY_LABEL } from '@/lib/cards/rules';
 
 import { useCards } from './cards-provider';
@@ -23,7 +24,7 @@ export function CraftButton({ n, rarity, name }: { n: number; rarity: Rarity; na
     setBusy(true);
     const r = await craftCard(n);
     if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!);
-    else toast(`${name} is in your binder. ${r.card.cost} shards spent.`);
+    else toast(`${name} is in your binder. ${r.card.cost} shards spent.${finishedLine(r.card.finished ?? []) ? ` ${finishedLine(r.card.finished ?? [])}.` : ''}`);
     await refresh();
     setBusy(false);
   };

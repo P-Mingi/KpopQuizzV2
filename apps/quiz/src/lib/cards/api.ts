@@ -144,6 +144,17 @@ async function recentPacks(db: ServiceDb, userId: string): Promise<RecentPack[]>
   }
 }
 
+/** Reward packs waiting in Goals (cards_wallets.reward_packs). A failed read is 0: the state never fails for it. */
+async function waitingRewardPacks(db: ServiceDb, userId: string): Promise<number> {
+  try {
+    const { data } = await db.from('cards_wallets').select('reward_packs').eq('user_id', userId).maybeSingle();
+    const n = Number((data as { reward_packs?: number } | null)?.reward_packs ?? 0);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+
 /** The odds of the real catalog, from the cached pool; null while the catalog is empty or unreadable. */
 async function oddsOrNull(): Promise<CatalogOdds | null> {
   try {
@@ -165,6 +176,7 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
   const wish = await fetchAllRows<{ card_no: number }>(() =>
     db.from('cards_wishlist').select('card_no').eq('user_id', userId).order('card_no', { ascending: true }),
   );
+  const rewardPacks = await waitingRewardPacks(db, userId);
   const owned: OwnedEntry[] = rows.map((r) => ({ n: r.card_no, copies: r.copies, fav: r.favorite, at: new Date(r.last_at).toISOString() }));
   return {
     stock: w.stock,
@@ -183,6 +195,7 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
     focusUsed: w.focus_used === true,
     wishlist: wish.map((x) => x.card_no),
     adShards: adShards(),
+    ...(rewardPacks > 0 ? { rewardPacks } : {}),
     recent: await recentPacks(db, userId),
     odds: await oddsOrNull(),
   };
@@ -191,9 +204,9 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
 /** The refusals of cards_apply_pack, by the word after "cards: " in its message. */
 export type PackRefusal =
   | 'empty' | 'shards' | 'bonus' | 'ad_limit' | 'ticket' | 'pack' | 'source' | 'user'
-  | 'timer_cap' | 'pity' | 'focus_used' | 'focus' | 'owned' | 'card' | 'wish_limit' | 'no_craft';
+  | 'timer_cap' | 'pity' | 'focus_used' | 'focus' | 'owned' | 'card' | 'wish_limit' | 'no_craft' | 'reward' | 'claimed' | 'goal';
 
 export function refusalOf(message: string | undefined): PackRefusal | null {
-  const m = /cards: (empty|shards|bonus|ad_limit|ticket|pack|source|user|timer_cap|pity|focus_used|focus|owned|card|wish_limit|no_craft)\b/.exec(message ?? '');
+  const m = /cards: (empty|shards|bonus|ad_limit|ticket|pack|source|user|timer_cap|pity|focus_used|focus|owned|card|wish_limit|no_craft|reward|claimed|goal)\b/.exec(message ?? '');
   return m ? (m[1] as PackRefusal) : null;
 }

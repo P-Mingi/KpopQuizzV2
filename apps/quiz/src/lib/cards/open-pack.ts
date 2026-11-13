@@ -2,6 +2,7 @@
 // cards_apply_pack (which spends the source, checks the five cards and stores them in one transaction), answer { pack, state }.
 import { drawServerPack, loadPool, resetPoolCache } from './draw';
 import { json, limits, loadState, refusalOf } from './api';
+import { finishedOf } from './goals';
 import { loadPackContext } from './pack-context';
 
 import type { createServiceRoleClient } from '@/lib/supabase/server';
@@ -15,11 +16,12 @@ interface PackJson {
   cards: { n: number; isNew: boolean; completesPair?: boolean }[];
   new_count?: number;
   pack_no?: number;
+  finished?: unknown;
 }
 
 /** What the player is told for each refusal (409, the state of his wallet did not allow it). */
 const ERROR_NAME = {
-  empty: 'empty', shards: 'shards', bonus: 'bonus', focus_used: 'focus_used',
+  empty: 'empty', shards: 'shards', bonus: 'bonus', focus_used: 'focus_used', reward: 'reward',
 } as const;
 
 export async function openPack(db: ServiceDb, userId: string, source: Exclude<PackSource, 'ad'>, focus: string | null = null): Promise<NextResponse> {
@@ -42,9 +44,10 @@ export async function openPack(db: ServiceDb, userId: string, source: Exclude<Pa
     if (!error && data) {
       const pack = data as PackJson;
       const state = await loadState(db, userId);
+      const finished = finishedOf(pack.finished);
       const cards = pack.cards.map((c) => (c.completesPair === true ? { n: c.n, isNew: c.isNew, completesPair: true } : { n: c.n, isNew: c.isNew }));
       const body: OpenResult = {
-        pack: { id: pack.id, cards, ...(typeof pack.new_count === 'number' ? { newCount: pack.new_count } : {}), ...(typeof pack.pack_no === 'number' ? { packNo: pack.pack_no } : {}) },
+        pack: { id: pack.id, cards, ...(typeof pack.new_count === 'number' ? { newCount: pack.new_count } : {}), ...(typeof pack.pack_no === 'number' ? { packNo: pack.pack_no } : {}), ...(finished.length > 0 ? { finished } : {}) },
         state,
       };
       return json(body);

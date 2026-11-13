@@ -11,15 +11,15 @@ vi.mock('@/lib/cards/ui-catalog', () => ({ loadCatalog: async () => null }));
 // next/font only runs inside the Next compiler: the font module is replaced by the one field the layout reads (owner go 2026-11-12).
 vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' } }));
 vi.mock('@/lib/cards/ui-flag', () => ({ cardsOn: () => true, cardsFixtureOn: () => false }));
-vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('404'); }, usePathname: () => '/cards' }));
+vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('404'); }, usePathname: () => '/kpopcards' }));
 
-import CardsLayout from '@/app/sites/[site]/(hub)/cards/layout';
+import CardsLayout from '@/app/sites/[site]/(hub)/kpopcards/layout';
 
 describe('the Cards layout without a catalog', () => {
   it('says the cards are not available, under exactly one H1', async () => {
     const html = renderToStaticMarkup(await CardsLayout({ children: createElement('h1', null, 'never drawn') }));
     expect(html.match(/<h1[\s>]/g)?.length).toBe(1);
-    expect(html).toContain('<h1 class="h1">Bunnyverse Cards</h1>');
+    expect(html).toContain('<h1 class="h1">KpopCards</h1>');
     expect(html).toContain('The cards are not available right now.');
     expect(html).not.toContain('never drawn');
   });
@@ -55,6 +55,6 @@ describe('the card faces (owner go 2026-11-12: Archivo and Martian Mono through 
   it('is imported by the Cards layout only, so no other page of any site loads the two faces', () => {
     // git grep: the tracked sources, read in one pass (a walk of every file of src is too slow for the full suite).
     const hits = execFileSync('git', ['grep', '-l', '-F', 'cards/cards-font', '--', 'src'], { encoding: 'utf8' }).split('\n').filter(Boolean);
-    expect(hits.filter((f) => !/\.test\.tsx?$/.test(f))).toEqual(['src/app/sites/[site]/(hub)/cards/layout.tsx']);
+    expect(hits.filter((f) => !/\.test\.tsx?$/.test(f))).toEqual(['src/app/sites/[site]/(hub)/kpopcards/layout.tsx']);
   });
 });

@@ -22,7 +22,7 @@
 @media (max-width:900px){.bvc .idx a{flex:none;width:auto;border:1px solid var(--border);border-radius:999px;background:var(--surface);padding:0 13px}}
 /* ---------- the pages the prototype does not draw as pages: a card page, the report form, the credits, the sentences of the odds page ---------- */
 .bvc a.btn-primary,.bvc a.btn-outline,.bvc a.btn-quiet{text-decoration:none}
-.bvc a.btn-primary{color:#fff}
+.bvc a.btn-primary{color:var(--surface)}
 .bvc .page-note{margin-top:18px;padding:16px 18px;border-radius:14px;background:var(--surface-alt);color:var(--txt2);font-size:15px;max-width:60ch}
 .bvc .gate{margin-top:22px;padding:28px 30px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .bvc .gate p{font-size:16px;color:var(--txt2);max-width:52ch}

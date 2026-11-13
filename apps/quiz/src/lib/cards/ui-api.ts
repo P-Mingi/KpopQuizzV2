@@ -4,9 +4,12 @@
 import { withBasePath } from '@/lib/site/base-path';
 
 import type { AdResult, OpenResult, OpenedCard, PackSource, WalletState } from './types';
+import type { GoalsState } from './goals';
 
 export type ApiError = { error: string };
 export type RecycleResult = { recycled: number; shards: number; state: WalletState };
+/** POST /api/cards/goals/claim (lane GOALS): the week's reward and the Goals state after it. */
+export type WeekClaim = { packs: number; shards: number; goals: GoalsState };
 
 export interface CardsApi {
   /** null: the visitor is not signed in (401). */
@@ -20,6 +23,9 @@ export interface CardsApi {
   demoDraw(): Promise<{ token: string; cards: OpenedCard[] } | ApiError>;
   /** Point A18: after sign in, attaches the demo pack's five cards to the account (once per token). */
   demoClaim(token: string, device: string): Promise<{ added: OpenedCard[]; state: WalletState } | ApiError>;
+  /** Lane GOALS: the packs waiting, the week and the sets (GET /api/cards/goals). */
+  goals(): Promise<GoalsState | ApiError>;
+  claimWeek(): Promise<WeekClaim | ApiError>;
 }
 
 async function call<T>(path: string, body?: unknown): Promise<T | ApiError> {
@@ -46,6 +52,8 @@ export const httpApi: CardsApi = {
   adTicket: () => call<{ ticket: string }>('/api/cards/ad/ticket', {}),
   adGrant: (ticket) => call<AdResult>('/api/cards/ad/grant', { ticket }),
   recycle: () => call<RecycleResult>('/api/cards/recycle', {}),
+  goals: () => call<GoalsState>('/api/cards/goals'),
+  claimWeek: () => call<WeekClaim>('/api/cards/goals/claim', {}),
   async favorite(n, on) {
     const r = await call<{ ok: boolean }>('/api/cards/favorite', { n, on });
     return !('error' in r) && r.ok === true;
