@@ -12,6 +12,7 @@ import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { mainButton, pityProgress } from '@/lib/cards/economy';
 import { ECON_ERRORS, craftCard, isEconError, wishCard } from '@/lib/cards/economy-api';
 import { isApiError } from '@/lib/kpopcards/contract';
+import { newKey } from '@/lib/kpopcards/registry';
 import { paletteFor } from '@/lib/cards/ui-palette';
 import { EDITION_RARITY } from '@/lib/cards/kc-editions';
 import { kcPath } from '@/lib/cards/kc-paths';
@@ -85,6 +86,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
 
   const total = catalog.cards.length;
   const daily = useMemo(() => { if (!w) return null; const p = paletteFor(`group:${w.daily.group.name}`); return { slug: w.daily.group.slug, name: w.daily.group.name, a: p.a, c: p.c }; }, [w]);
+  // The pack of the day joins the shelf once the wallet is read; the snapping row must not stay on the pack that was first, so it starts at the left again (as the prototype's does).
+  useEffect(() => { const el = document.getElementById('shelf'); if (el) el.scrollLeft = 0; }, [!!daily]);
   const own = useMemo(() => ownedCount(catalog.cards, owned), [catalog.cards, owned]);
   const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: '', nextLabel: '', progress: 0 };
   const stock = w?.stock ?? 0;
@@ -261,7 +264,10 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
               <p className="big"><span>+{adShards}</span><small>shards</small></p>
               <p id="ad-s">{adsLeft > 0 ? `${adsLeft} left today. Two ads open a pack.` : 'No ads left today. More after midnight.'}</p>
               <div className="t-act">
-                {adsLeft > 0 ? (
+                {adsLeft > 0 && c.fixture ? (
+                  // Development fixture only: no ad provider here, so the button draws the same and grants through the mock.
+                  <button type="button" className="btn-ad" ref={adBtn} onClick={() => { void c.kc?.adTicket().then((t) => (isApiError(t) ? null : c.kc!.adGrant({ key: newKey(), ticket: t.ticket }))).then((r) => { if (r && !isApiError(r)) { toast(`+${r.gained} shards from the ad.`); flyReward(document.getElementById('pill-shards'), r.gained, adBtn.current); void c.refresh(); } }); }}><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></button>
+                ) : adsLeft > 0 ? (
                   <RewardedAdButton ctx={ads} className="btn-ad" buttonRef={adBtn} onAvailable={setAdReady} onGranted={(r) => { toast(`+${r.gained} shards from the ad.`); flyReward(document.getElementById('pill-shards'), r.gained, adBtn.current); void c.refresh(); }} label={<><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></>} />
                 ) : <button type="button" className="btn-ad" disabled><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Back at midnight</span></button>}
               </div>
