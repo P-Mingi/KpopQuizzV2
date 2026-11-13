@@ -1,10 +1,11 @@
 // Bunnyverse Cards: shared types (lane C CORE owns this file; lanes U and B import it).
 // Contract: docs/o1/briefs/CARDS-CONTRACT.md sections 2 and 3.
+import type { FinishedSet } from './goals';
 
 export type Rarity = 'C' | 'U' | 'R' | 'SR' | 'UR' | 'L';
 export type Edition = 'std' | 'stage' | 'holo' | 'era' | 'gold' | 'full';
 export type CardKind = 'idol' | 'group' | 'event';
-export type PackSource = 'stock' | 'ad' | 'shards' | 'bonus';
+export type PackSource = 'stock' | 'ad' | 'shards' | 'bonus' | 'reward';
 export type PhotoSource = 'commons' | 'koreanet' | 'flickr' | 'dvids';
 export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop' | 'photo' | 'size';
 export type PhotoStatus = 'auto' | 'pending' | 'approved' | 'rejected' | 'removed';
@@ -138,6 +139,8 @@ export interface WalletState {
   adShards?: number;
   /** Lot 4 B3: the last 10 packs, newest first. */
   recent?: RecentPack[];
+  /** Lot 4 A15 (Goals): reward packs waiting, opened from the Goals tab (source 'reward'). Absent when none wait. */
+  rewardPacks?: number;
   /** The odds of the real catalog (null while the catalog is empty). */
   odds?: CatalogOdds | null;
 }
@@ -161,7 +164,7 @@ export interface OpenedCard {
 }
 
 export interface OpenResult {
-  pack: { id: string; cards: OpenedCard[]; newCount?: number; packNo?: number };
+  pack: { id: string; cards: OpenedCard[]; newCount?: number; packNo?: number; /** Lot 4 A15: the sets this pack completed (each pays its reward packs once). */ finished?: FinishedSet[] };
   state: WalletState;
 }
 

@@ -1,27 +1,14 @@
-// Bunnyverse Cards, lot 3 C1: POST /api/cards/craft { card_no } -> { card: { n, rarity, cost }, state }: spends CRAFT_COST[rarity] shards and
-// stores a MISSING card, in one transaction (cards_craft). A refusal is 409 { error: 'shards' | 'owned' | 'card' | 'no_craft' }.
-import { guard, json, loadState, readJson, refusalOf } from '@/lib/cards/api';
+// KpopCards: POST /api/cards/craft { key, n } -> CraftResponse. Spends the shards of the card's edition once (the key), never makes a Full Art.
+import { cardNo, errorResponse, run } from '@/lib/kpopcards/route';
+import * as srv from '@/lib/kpopcards/server';
 
 import type { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
-  const g = await guard(req, { write: true });
-  if (!g.ok) return g.res;
-  const body = await readJson(req);
-  const n = body?.card_no;
-  if (typeof n !== 'number' || !Number.isInteger(n) || n < 1 || n > 2_000_000_000) return json({ error: 'bad_request' }, 400);
-  const { data, error } = await g.db.rpc('cards_craft', { p_user: g.userId, p_card_no: n, p_now: new Date().toISOString() });
-  if (error || !data) {
-    const why = refusalOf(error?.message);
-    if (why === 'shards' || why === 'owned' || why === 'card' || why === 'no_craft') return json({ error: why }, 409);
-    return json({ error: 'server' }, 500);
-  }
-  const r = data as { card_no: number; rarity: string; cost: number };
-  try {
-    return json({ card: { n: Number(r.card_no), rarity: r.rarity, cost: Number(r.cost) }, state: await loadState(g.db, g.userId) });
-  } catch {
-    return json({ error: 'server' }, 500);
-  }
-}
+export const POST = (req: NextRequest): Promise<NextResponse> =>
+  run(req, { write: true, bucket: 'craft', key: true }, (c, i) => {
+    const n = cardNo(i.body.n);
+    return n === null ? { error: 'bad_request' as const } : srv.craft(c, i.key!, n);
+  });
+void errorResponse;
