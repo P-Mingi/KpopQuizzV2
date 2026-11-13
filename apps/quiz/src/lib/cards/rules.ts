@@ -104,7 +104,7 @@ export function hasPlanForm(byKey: Map<string, PoolCard[]>): boolean {
 const OF_RARITY = new WeakMap<Map<string, PoolCard[]>, Map<Rarity, PoolCard[]>>();
 
 /** Every card of a rarity, all kinds together (kind order, then pool order), one stable list per pool so its subjects are cached. */
-function cardsOfRarity(byKey: Map<string, PoolCard[]>, r: Rarity): PoolCard[] {
+export function cardsOfRarity(byKey: Map<string, PoolCard[]>, r: Rarity): PoolCard[] {
   let m = OF_RARITY.get(byKey);
   if (!m) { m = new Map(); OF_RARITY.set(byKey, m); }
   let l = m.get(r);
@@ -167,7 +167,7 @@ export function creditLine(photo: PhotoCredit, idolPhotoNumber: number = photo.s
 }
 
 /** The plan's weights (thousandths of a percent) of the rarities that have at least one card in the pool, in rarity order. */
-function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity, number]> {
+export function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity, number]> {
   const has = (r: Rarity): boolean => KINDS.some((k) => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0);
   const t: Array<[Rarity, number]> = RARITIES.filter(has).map((r) => [r, ODDS_UNITS[r]]);
   if (fifth) {
@@ -184,7 +184,7 @@ function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity,
 }
 
 /** Rarity roll for one card among the rarities that have a card (renormalised); `fifth` turns a Common into an Uncommon. */
-function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
+export function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
   const total = table.reduce((s, [, w]) => s + w, 0);
   if (total <= 0) throw new Error('cards: the pool has no card for this draw');
   let x = rng(total);
