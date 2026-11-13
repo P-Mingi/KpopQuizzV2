@@ -308,13 +308,19 @@ function drawView(odds: CatalogOdds, present: readonly Rarity[]): Pick<OddsView,
     }
   }
   if (typeSplit.length === 0) return none;
-  const drawSteps = [
-    'A card is drawn in steps. First its rarity, from the table above.',
-    'Then its type, with the split of that rarity listed below.',
-    halves
-      ? 'Then one subject of that type at random. For a group, then one of its two halves at random, so a pair never makes a group come out more often.'
-      : 'Then one subject of that type at random.',
-  ];
+  const halfWords = 'For a group, then one of its two halves at random, so a pair never makes a group come out more often.';
+  // Owner decision 2026-11-13: until the catalog has the plan's form, no kind weight: every subject of the rarity has the same chance.
+  const drawSteps = odds.kindWeights === false
+    ? [
+        'A card is drawn in steps. First its rarity, from the table above.',
+        'Then one subject at random among all those with a card of that rarity: a soloist, a member and a group have the same chance, so the split by type below follows the number of subjects.',
+        ...(halves ? [halfWords] : []),
+      ]
+    : [
+        'A card is drawn in steps. First its rarity, from the table above.',
+        'Then its type, with the split of that rarity listed below.',
+        halves ? `Then one subject of that type at random. ${halfWords}` : 'Then one subject of that type at random.',
+      ];
   return { drawSteps, typeSplit, cardChance };
 }
 

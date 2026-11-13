@@ -139,11 +139,14 @@ describe('the large draw on the real catalog shape (C, U, R, UR only, no event):
     expect(fifth.U / PACKS).toBeGreaterThan(0.878);
     expect(fifth.U / PACKS).toBeLessThan(0.887);
   });
-  it('idol 75 and group 15 among the kinds present', () => {
+  // Owner decision 2026-11-13 (replaces "idol 75 and group 15 among the kinds present"): until the catalog has the plan's form (three kinds,
+  // six rarities) every subject of the rolled rarity has the same chance, whatever its kind: 40 idols and 12 groups, so idols 40 of 52.
+  it('every subject the same chance whatever its kind: idols 40 of 52 here', () => {
+    expect(odds.kindWeights).toBe(false);
     for (const r of ['C', 'U', 'R', 'UR'] as Rarity[]) {
       const idol = kindCount.get(`${r}|idol`) ?? 0;
       const group = kindCount.get(`${r}|group`) ?? 0;
-      expect(within(idol, idol + group, 75 / 90, 4), r).toBe(true);
+      expect(within(idol, idol + group, 40 / 52, 4), r).toBe(true);
     }
   });
 });

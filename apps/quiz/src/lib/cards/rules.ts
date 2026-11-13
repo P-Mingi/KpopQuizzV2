@@ -46,9 +46,37 @@ const ODDS_UNITS: Record<Rarity, number> = { C: 60000, U: 24000, R: 10000, SR: 4
 /** Shards a duplicate is worth in "Recycle extras". */
 export const SHARDS: Record<Rarity, number> = { C: 1, U: 2, R: 5, SR: 12, UR: 30, L: 80 };
 
-/** Kind weights, among the kinds that have at least one active card of the rolled rarity. */
+/** Kind weights, among the kinds that have at least one active card of the rolled rarity. Applied only once the catalog has the plan's
+ *  form (hasPlanForm): owner decision 2026-11-13. */
 export const KIND_WEIGHTS: Record<CardKind, number> = { idol: 75, group: 15, event: 10 };
 const KINDS: readonly CardKind[] = ['idol', 'group', 'event'];
+
+const PLAN_FORM = new WeakMap<Map<string, PoolCard[]>, boolean>();
+
+/**
+ * Lot 2 (owner decision 2026-11-13): the kind weights of the plan apply only while the pool has the plan's form, cards of the three kinds
+ * (idol, group, event) and of the six rarities. Until then every subject of the rolled rarity has the same chance, whatever its kind, and a
+ * group's two halves share its chance.
+ */
+export function hasPlanForm(byKey: Map<string, PoolCard[]>): boolean {
+  const hit = PLAN_FORM.get(byKey);
+  if (hit !== undefined) return hit;
+  const has = (k: CardKind, r: Rarity): boolean => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0;
+  const form = KINDS.every((k) => RARITIES.some((r) => has(k, r))) && RARITIES.every((r) => KINDS.some((k) => has(k, r)));
+  PLAN_FORM.set(byKey, form);
+  return form;
+}
+
+const OF_RARITY = new WeakMap<Map<string, PoolCard[]>, Map<Rarity, PoolCard[]>>();
+
+/** Every card of a rarity, all kinds together (kind order, then pool order), one stable list per pool so its subjects are cached. */
+function cardsOfRarity(byKey: Map<string, PoolCard[]>, r: Rarity): PoolCard[] {
+  let m = OF_RARITY.get(byKey);
+  if (!m) { m = new Map(); OF_RARITY.set(byKey, m); }
+  let l = m.get(r);
+  if (!l) { l = KINDS.flatMap((k) => byKey.get(`${k}|${r}`) ?? []); m.set(r, l); }
+  return l;
+}
 
 export interface EditionInfo {
   edition: Edition;
@@ -133,6 +161,12 @@ function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
 /** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. Exported for the tests. */
 export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): PoolCard {
   const rarity = rollFrom(tableOf(byKey, fifth), rng);
+  if (!hasPlanForm(byKey)) {
+    // Owner decision 2026-11-13: no kind weight before the plan's form; one subject of the rarity at random, then one of its cards.
+    const subjects = subjectsOf(cardsOfRarity(byKey, rarity));
+    const cards = subjects[rng(subjects.length)] as PoolCard[];
+    return (cards.length === 1 ? cards[0] : cards[rng(cards.length)]) as PoolCard;
+  }
   const kinds = KINDS.filter((k) => (byKey.get(`${k}|${rarity}`)?.length ?? 0) > 0);
   const total = kinds.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
   let x = rng(total);
@@ -188,15 +222,17 @@ export function computeOdds(pool: readonly PoolCard[] | Map<string, PoolCard[]>)
   const kinds = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
   const subjects = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
   const cards = {} as Record<Rarity, Partial<Record<CardKind, number>>>;
+  const weighted = hasPlanForm(byKey);
   for (const r of RARITIES) {
     const ks = KINDS.filter((k) => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0);
-    const tot = ks.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
+    // The share of the rolled rarity that goes to each kind: the plan's weights in the plan's form, else the kind's share of the subjects.
+    const tot = weighted ? ks.reduce((s, k) => s + KIND_WEIGHTS[k], 0) : subjectsOf(cardsOfRarity(byKey, r)).length;
     kinds[r] = {};
     subjects[r] = {};
     cards[r] = {};
     for (const k of ks) {
       const list = byKey.get(`${k}|${r}`) as PoolCard[];
-      kinds[r][k] = (KIND_WEIGHTS[k] / tot) * 100;
+      kinds[r][k] = ((weighted ? KIND_WEIGHTS[k] : subjectsOf(list).length) / tot) * 100;
       subjects[r][k] = subjectsOf(list).length;
       cards[r][k] = list.length;
     }
@@ -208,6 +244,7 @@ export function computeOdds(pool: readonly PoolCard[] | Map<string, PoolCard[]>)
     card: pct(card),
     fifth: pct(tableOf(byKey, true)),
     kinds,
+    kindWeights: weighted,
     subjects,
     cards,
   };

@@ -185,8 +185,11 @@ export interface CatalogOdds {
   card: Record<Rarity, number>;
   /** The fifth card: a Common becomes an Uncommon. */
   fifth: Record<Rarity, number>;
-  /** Kind weights in percent among the kinds that have a card of that rarity. */
+  /** The share of each rarity that goes to each kind, in percent: the plan's kind weights once the catalog has the plan's form, else each
+   *  kind's share of the subjects (owner decision 2026-11-13: every subject the same chance). */
   kinds: Record<Rarity, Partial<Record<CardKind, number>>>;
+  /** Lot 2: true when the plan's kind weights apply (rules.ts hasPlanForm). Optional for older payloads. */
+  kindWeights?: boolean;
   /** Lot 2: the number of subjects per rarity and kind (a group with a pair counts once). Optional so older payloads still type-check. */
   subjects?: Record<Rarity, Partial<Record<CardKind, number>>>;
   /** Lot 2: the number of cards per rarity and kind (a group with a pair counts twice). */
