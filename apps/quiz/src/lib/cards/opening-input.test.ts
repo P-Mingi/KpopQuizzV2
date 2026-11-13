@@ -10,6 +10,7 @@ import { spotlightIndex } from '../../components/cards/reveal-steps';
 
 import type { OpenResponse } from '../kpopcards/contract';
 
+const WORLD = fixtureWorld(fixtureCatalog());
 const T0 = Date.parse('2026-11-13T10:00:00Z');
 const key = (i: number): string => `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
 async function open(seed: number, req: { packs?: 1 | 5; source?: 'stock' | 'daily' } = {}): Promise<OpenResponse> {
@@ -59,5 +60,26 @@ describe('openingInput', () => {
       const order = ['std', 'stage', 'holo', 'era', 'gold', 'full'];
       expect(Math.max(...i.cards.map((c) => order.indexOf(c.edition)))).toBe(order.indexOf(i.cards[k]!.edition));
     }
+  });
+});
+
+describe('the golden flag of the example player (prototype: 48 packs opened, the 49th is not golden, the 50th is)', () => {
+  it('the mock agrees with the prototype: the next pack is not golden, "Golden pack in 2"', async () => {
+    const a = createMockApi({ world: WORLD, seed: 7, now: () => T0 });
+    const s = await a.state();
+    if (isApiError(s)) throw new Error(s.error);
+    expect(s.golden).toMatchObject({ next: false, packsUntil: 2, opened: 48 });
+    const r = await a.open({ key: key(70), source: 'stock' });
+    if (isApiError(r)) throw new Error(r.error);
+    expect(r.packs[0]!.packNo).toBe(49);
+    expect(r.packs[0]!.golden).toBe(false);
+    expect(openingInput(r).golden).toBe(false);
+  });
+  it('the state that comes back WITH the answer already says the next pack is golden: the face of the pack just opened must come from its own flag', async () => {
+    const a = createMockApi({ world: WORLD, seed: 8, now: () => T0 });
+    const r = await a.open({ key: key(80), source: 'stock' });
+    if (isApiError(r)) throw new Error(r.error);
+    expect(r.state.golden.next).toBe(true);
+    expect(r.packs[0]!.golden).toBe(false);
   });
 });
