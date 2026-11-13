@@ -1979,7 +1979,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five new photos; two pass 640 px Full Art. Rejected: 2019 SBS Super Concert and 2014 MAMA 01 (other member in frame).",
    "photos": [
     {
      "slot": 1,
@@ -1997,7 +1997,7 @@
      "share_alike": false,
      "date": "2021-08-22",
      "date_precision": "day",
-     "event": null,
+     "event": "Samsung Galaxy advertisement video, August 2021",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -2016,6 +2016,186 @@
      "window_width": 465,
      "full_ok": false,
      "small_2x": true
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Park_Ji-min_at_The_Wings_Tour_in_Anaheim_01.jpg",
+     "file": "Park Ji-min at The Wings Tour in Anaheim 01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Park_Ji-min_at_The_Wings_Tour_in_Anaheim_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2245,
+     "height": 3368,
+     "sha1": "1e7719ba964f79c78fdfa556c0ef988d3fa59220",
+     "author": "AJEONG JM",
+     "author_url": "http://ajeongjm951013.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-04-01",
+     "date_precision": "day",
+     "event": "BTS Wings Tour, Anaheim",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2179,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Park_Jimin_at_MAMA_in_Hong_Kong,_3_December_2014_04.jpg",
+     "file": "Park Jimin at MAMA in Hong Kong, 3 December 2014 04.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Park_Jimin_at_MAMA_in_Hong_Kong%2C_3_December_2014_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 920,
+     "height": 1340,
+     "sha1": "bbdfc4eb2472a6320fc0c42913383c7bc7bcbfb8",
+     "author": "Mischief Managed BTS",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2014-12-03",
+     "date_precision": "day",
+     "event": "Mnet Asian Music Awards 2014, Hong Kong",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 867,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jimin_on_Melon_Music_Awards_2016.jpg",
+     "file": "Jimin on Melon Music Awards 2016.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Jimin_on_Melon_Music_Awards_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 700,
+     "height": 1049,
+     "sha1": "f7969c4cc507f377033889b29919e378aae3ef2e",
+     "author": "F28STAR",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2016-11-19",
+     "date_precision": "day",
+     "event": "Melon Music Awards 2016, Seoul",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 678,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jimin_on_the_way_to_SBS_Radio,_31_March_2023_(1).jpg",
+     "file": "Jimin on the way to SBS Radio, 31 March 2023 (1).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Jimin_on_the_way_to_SBS_Radio%2C_31_March_2023_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 531,
+     "height": 720,
+     "sha1": "71d35663f916c1229eb36e8f160b38a4426492cc",
+     "author": "K-POPIT 케이팝잇 TV10",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-03-31",
+     "date_precision": "day",
+     "event": "arrival at SBS Radio, Seoul",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 465,
+     "full_ok": false,
+     "small_2x": true
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jimin_at_the_Paris_Fashion_Week,_1_October_2025.png",
+     "file": "Jimin at the Paris Fashion Week, 1 October 2025.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Jimin_at_the_Paris_Fashion_Week%2C_1_October_2025.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 438,
+     "height": 822,
+     "sha1": "43d514feb8d422fd73327408bb38c6f32f89e2e9",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-10-01",
+     "date_precision": "day",
+     "event": "Paris Fashion Week, Marie Claire Korea",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 438,
+     "full_ok": false,
+     "small_2x": true
     }
    ]
   },
@@ -2025,7 +2205,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five new photos. Skipped: 2026-02-12 files (same date as the current photo), Wings Tour Newark files (date given as 23 or 24 March, not exact), 1 May 2019 BBMA (another person at the frame edge).",
    "photos": [
     {
      "slot": 1,
@@ -2043,9 +2223,9 @@
      "share_alike": false,
      "date": "2026-02-12",
      "date_precision": "day",
-     "event": null,
+     "event": "Bublot event, Seoul, 12 February 2026",
      "stage": false,
-     "quality": 3,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 30
@@ -2062,6 +2242,186 @@
      "window_width": 1300,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jeon_Jung-kook_at_Golden_Disk_Awards,_5_January_2019_01.jpg",
+     "file": "Jeon Jung-kook at Golden Disk Awards, 5 January 2019 01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/78/Jeon_Jung-kook_at_Golden_Disk_Awards%2C_5_January_2019_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1241,
+     "height": 1742,
+     "sha1": "880e2d1f6b4f50f4b8854603c27e94c00e36df2b",
+     "author": "I Dare U JK",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-01-05",
+     "date_precision": "day",
+     "event": "Golden Disc Awards 2019",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1127,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jeon_Jung-kook_performing_%22Baepsae%22_during_Speak_Yourself_tour_at_Soldier_Field,_Chicago,_11_May_2019_01.jpg",
+     "file": "Jeon Jung-kook performing \"Baepsae\" during Speak Yourself tour at Soldier Field, Chicago, 11 May 2019 01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Jeon_Jung-kook_performing_%22Baepsae%22_during_Speak_Yourself_tour_at_Soldier_Field%2C_Chicago%2C_11_May_2019_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1156,
+     "height": 1518,
+     "sha1": "f12e1ed47b8e7ac4dd0b33ce06bd1f649a55e3a6",
+     "author": "I DARE U JK",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-05-11",
+     "date_precision": "day",
+     "event": "BTS Speak Yourself tour, Soldier Field, Chicago",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 45,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 982,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jeon_Jung-kook_performing_during_the_Love_Yourself_concert_in_Hong_Kong,_24_March_2019_01.jpg",
+     "file": "Jeon Jung-kook performing during the Love Yourself concert in Hong Kong, 24 March 2019 01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Jeon_Jung-kook_performing_during_the_Love_Yourself_concert_in_Hong_Kong%2C_24_March_2019_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1007,
+     "height": 1786,
+     "sha1": "6dda8fc4c1830ffcf3b80cfb405140f54c9b8a84",
+     "author": "I Dare U JK",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-03-24",
+     "date_precision": "day",
+     "event": "BTS Love Yourself concert, Hong Kong",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 22
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1007,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jeon_Jung-kook_at_%22Map_of_the_Soul_-_Persona%22_global_press_conference,_17_April_2019.jpg",
+     "file": "Jeon Jung-kook at \"Map of the Soul - Persona\" global press conference, 17 April 2019.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Jeon_Jung-kook_at_%22Map_of_the_Soul_-_Persona%22_global_press_conference%2C_17_April_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 752,
+     "height": 1051,
+     "sha1": "10ca857eb872547459e6147c6318d59cf24aa893",
+     "author": "Dispatch",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-04-17",
+     "date_precision": "day",
+     "event": "Map of the Soul: Persona global press conference, Seoul",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 35
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 680,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Jeon_Jung-kook_performing_%22Euphoria%22_during_Speak_Yourself_tour_at_Rose_Bowl,_Pasadena,_5_May_2019_10.jpg",
+     "file": "Jeon Jung-kook performing \"Euphoria\" during Speak Yourself tour at Rose Bowl, Pasadena, 5 May 2019 10.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Jeon_Jung-kook_performing_%22Euphoria%22_during_Speak_Yourself_tour_at_Rose_Bowl%2C_Pasadena%2C_5_May_2019_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1269,
+     "height": 1897,
+     "sha1": "147f717ce180179d0c5c2e56ce3d44870983ad33",
+     "author": "I DARE U JK",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-05-05",
+     "date_precision": "day",
+     "event": "BTS Speak Yourself tour, Rose Bowl, Pasadena",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1227,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2071,7 +2431,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only three distinct events found with a solo, sharp PSY on Commons (many files share one date).",
    "photos": [
     {
      "slot": 1,
@@ -2089,9 +2449,9 @@
      "share_alike": true,
      "date": "2015-08-04",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
-     "quality": 3,
+     "event": "2015 Summer K-POP Festival, Seoul Plaza",
+     "stage": true,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 30
@@ -2108,6 +2468,120 @@
      "window_width": 1387,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:PSY_EMTV_logo_06_(8198014673).jpg",
+     "file": "PSY EMTV logo 06 (8198014673).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/PSY_EMTV_logo_06_%288198014673%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2904,
+     "height": 4288,
+     "sha1": "1a25b911ad76272e0d414d64c05e82634b99e22c",
+     "author": "Korea.net / Korean Culture and Information Service (Jeon Han)",
+     "author_url": "http://www.korea.net",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2012-12-13",
+     "date_precision": "day",
+     "event": "MTV EMA 2012, Frankfurt (Korea.net)",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2774,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Psy_(8540618339).jpg",
+     "file": "Psy (8540618339).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Psy_%288540618339%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1000,
+     "height": 1500,
+     "sha1": "69a6b57e4a6e965b257fcba60ffda33d9acc22b4",
+     "author": "Eva Rinaldi from Sydney, Australia",
+     "author_url": "https://www.flickr.com/people/76753780@N02",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2013-03-09",
+     "date_precision": "day",
+     "event": "Future Music Festival, Sydney",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 40,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 970,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Psy_Gangnam_Style_performs_at_Marquee,_The_Star,_Sydney,_Australia_(1).jpg",
+     "file": "Psy Gangnam Style performs at Marquee, The Star, Sydney, Australia (1).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Psy_Gangnam_Style_performs_at_Marquee%2C_The_Star%2C_Sydney%2C_Australia_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1000,
+     "height": 1500,
+     "sha1": "e7a21065241bebaff7b556ffc6765d1a693235be",
+     "author": "Eva Rinaldi",
+     "author_url": "https://www.wikidata.org/wiki/Q37885816",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2012-10-19",
+     "date_precision": "day",
+     "event": "Marquee nightclub appearance, Sydney",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 970,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2117,7 +2591,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Four new photos, all pass Full Art. Rejected: fan signs and airport files with another member in frame; Rimowa 2 (same event and date as the current photo).",
    "photos": [
     {
      "slot": 1,
@@ -2135,7 +2609,7 @@
      "share_alike": false,
      "date": "2024-04-15",
      "date_precision": "day",
-     "event": null,
+     "event": "Rimowa launch party, Seoul, 15 April 2024",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -2154,6 +2628,150 @@
      "window_width": 672,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:171001_%EC%BD%94%EB%A6%AC%EC%95%84_%EB%AE%A4%EC%A7%81_%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%EB%B8%94%EB%9E%99%ED%95%91%ED%81%AC_(4).jpg",
+     "file": "171001 코리아 뮤직 페스티벌 블랙핑크 (4).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/171001_%EC%BD%94%EB%A6%AC%EC%95%84_%EB%AE%A4%EC%A7%81_%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%EB%B8%94%EB%9E%99%ED%95%91%ED%81%AC_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1198,
+     "height": 1720,
+     "sha1": "2e4a88a22643122e44ec8c139fbfdd77b3ed1d0e",
+     "author": "HeyDay",
+     "author_url": "https://hdpics.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-10-01",
+     "date_precision": "day",
+     "event": "Korea Music Festival, Goyang",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 22
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1112,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Ros%C3%A9_at_SBS_Gayo_Daejeon_on_December_25,_2017_(3).jpg",
+     "file": "Rosé at SBS Gayo Daejeon on December 25, 2017 (3).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Ros%C3%A9_at_SBS_Gayo_Daejeon_on_December_25%2C_2017_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 957,
+     "height": 1264,
+     "sha1": "6139f9eddd368fc37390c8d974e299d31acdadaa",
+     "author": "Maddie Rice",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Maddie_Rice",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2017-12-25",
+     "date_precision": "day",
+     "event": "SBS Gayo Daejeon 2017, Seoul",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 817,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Ros%C3%A9_at_a_fan_signing_event_on_September_25,_2022.jpg",
+     "file": "Rosé at a fan signing event on September 25, 2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Ros%C3%A9_at_a_fan_signing_event_on_September_25%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 6000,
+     "height": 4000,
+     "sha1": "869669c5dfe5c89524040cab35f5202edd58679a",
+     "author": "Alex Dempsey",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2022-09-25",
+     "date_precision": "day",
+     "event": "fan signing event, Seoul",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2588,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Ros%C3%A9_performs_3am_at_SoFi_Stadium_01.png",
+     "file": "Rosé performs 3am at SoFi Stadium 01.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/31/Ros%C3%A9_performs_3am_at_SoFi_Stadium_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2160,
+     "height": 3840,
+     "sha1": "7e37b3ced87acdb104ac4f6e4bb385d1b6118a82",
+     "author": "theCwE",
+     "author_url": "https://www.youtube.com/@theCwE",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2025-07-15",
+     "date_precision": "day",
+     "event": "Blackpink Deadline tour, SoFi Stadium, Los Angeles",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 45,
+      "y": 35
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2160,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2163,7 +2781,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five new photos, all pass Full Art; one stage photo.",
    "photos": [
     {
      "slot": 1,
@@ -2181,7 +2799,7 @@
      "share_alike": false,
      "date": "2025-11-27",
      "date_precision": "day",
-     "event": null,
+     "event": "Miss Sixty x KNWLS event, November 2025",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -2200,6 +2818,186 @@
      "window_width": 698,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sunmi_at_the_Korea_University_Seoktap_Daedongje_Festival_on_May_25,_2023.jpg",
+     "file": "Sunmi at the Korea University Seoktap Daedongje Festival on May 25, 2023.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Sunmi_at_the_Korea_University_Seoktap_Daedongje_Festival_on_May_25%2C_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1104,
+     "height": 1570,
+     "sha1": "8cc419c8bf9df09be4df7da603a401ca21b17435",
+     "author": "덕후는 사진을 남긴다",
+     "author_url": "https://duckleavepics.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2023-05-25",
+     "date_precision": "day",
+     "event": "Korea University Seoktap Daedongje Festival, Seoul",
+     "stage": true,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1015,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sunmi_at_a_fanmeeting_on_July_9,_2022.jpg",
+     "file": "Sunmi at a fanmeeting on July 9, 2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Sunmi_at_a_fanmeeting_on_July_9%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2352,
+     "height": 3344,
+     "sha1": "88d71ea55b2c40512209a1fd067719bf0626af97",
+     "author": "mang2goon",
+     "author_url": "https://www.youtube.com/@mang2goon",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-07-09",
+     "date_precision": "day",
+     "event": "Sunmi fan meeting",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2163,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:20230720_Lee_Sunmi_on_July_2023_02.jpg",
+     "file": "20230720 Lee Sunmi on July 2023 02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/20230720_Lee_Sunmi_on_July_2023_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1568,
+     "height": 2356,
+     "sha1": "c0139e05c265b72de8e2cc46f6942a43fd1ef6dc",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-07-20",
+     "date_precision": "day",
+     "event": "airport departure, Incheon",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 45,
+      "y": 22
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1524,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sunmi_modeling_for_Marie_Claire_Korea,_March_issue,_2023_(10).png",
+     "file": "Sunmi modeling for Marie Claire Korea, March issue, 2023 (10).png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Sunmi_modeling_for_Marie_Claire_Korea%2C_March_issue%2C_2023_%2810%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1728,
+     "height": 2160,
+     "sha1": "5854ccb282eec74cc2fa066243813fc42b0dc1ca",
+     "author": "Marie Claire Korea",
+     "author_url": "https://www.youtube.com/@marieclairekr",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-02-23",
+     "date_precision": "day",
+     "event": "Marie Claire Korea studio shoot, March 2023 issue",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1397,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Lee_Sunmi_%EC%9D%B4%EC%84%A0%EB%AF%B8_2024_04.jpg",
+     "file": "Lee Sunmi 이선미 2024 04.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Lee_Sunmi_%EC%9D%B4%EC%84%A0%EB%AF%B8_2024_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 990,
+     "height": 1452,
+     "sha1": "6ee0bc4819e9eb27b0244d8e06075805e92d7aaf",
+     "author": "티비텐",
+     "author_url": "https://youtube.com/@_TV10?si=SP3uEtXErFCCqW18",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-07-12",
+     "date_precision": "day",
+     "event": "airport departure, July 2024",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 939,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2209,7 +3007,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only two usable events on Commons. Rejected: Made premiere files (same event and date as the current photo), others show other Big Bang members, 2018 'Taeyang' SF Day file is likely SF9's Taeyang.",
    "photos": [
     {
      "slot": 1,
@@ -2227,7 +3025,7 @@
      "share_alike": false,
      "date": "2017-10-25",
      "date_precision": "day",
-     "event": null,
+     "event": "MADE movie premiere, Seoul, 28 June 2016 (subjects.json date 2017-10-25 is the crop upload date)",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -2246,6 +3044,80 @@
      "window_width": 618,
      "full_ok": false,
      "small_2x": true
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Taeyang_2012.jpg",
+     "file": "Taeyang 2012.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Taeyang_2012.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1457,
+     "height": 2048,
+     "sha1": "74f18ee5df9a0edbc4303b0657f64b80f3e1d45b",
+     "author": "nicole voon",
+     "author_url": "https://www.flickr.com/people/60223890@N05",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2012-09-28",
+     "date_precision": "day",
+     "event": "BIGBANG Alive Galaxy World Tour, 2012",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1325,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Taeyang_in_K-Collection_2012.jpg",
+     "file": "Taeyang in K-Collection 2012.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Taeyang_in_K-Collection_2012.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 640,
+     "height": 960,
+     "sha1": "89ade1c8e533da8bad440b68858f7a4d6da619f1",
+     "author": "Wasabi content",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2012-03-11",
+     "date_precision": "day",
+     "event": "K-Collection fashion show performance, 2012",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 22
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 621,
+     "full_ok": false,
+     "small_2x": true
     }
    ]
   },
@@ -2255,7 +3127,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five new photos; the 240518 airport file and others show a bystander and were left out.",
    "photos": [
     {
      "slot": 1,
@@ -2273,9 +3145,9 @@
      "share_alike": true,
      "date": "2025-08-07",
      "date_precision": "day",
-     "event": null,
+     "event": "Pretty Crazy VIP premiere, Seoul, 7 August 2025",
      "stage": false,
-     "quality": 3,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 30
@@ -2292,6 +3164,192 @@
      "window_width": 1194,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:251019_TAEYEON_@MADLY_MEDLEY_2025.jpg",
+     "file": "251019 TAEYEON @MADLY MEDLEY 2025.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/30/251019_TAEYEON_%40MADLY_MEDLEY_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2200,
+     "height": 3300,
+     "sha1": "1e80c890c3ee8647a146e6e932b5a97f88e8179c",
+     "author": "Spes Sublimitas",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2025-10-19",
+     "date_precision": "day",
+     "event": "Madly Medley festival, 2025",
+     "stage": true,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2135,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Kim_Tae-yeon_at_Asia_Song_Festival_on_September_24,_2017_(3).jpg",
+     "file": "Kim Tae-yeon at Asia Song Festival on September 24, 2017 (3).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Kim_Tae-yeon_at_Asia_Song_Festival_on_September_24%2C_2017_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1077,
+     "height": 1616,
+     "sha1": "38f471928c568b620af2d002d98a6b1462a05690",
+     "author": "Like A Fool",
+     "author_url": "http://likeafool0805.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-09-24",
+     "date_precision": "day",
+     "event": "Asia Song Festival 2017, Ulsan",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 45,
+      "y": 32
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1045,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Taeyeon_Airport_Departure_2023_7.jpg",
+     "file": "Taeyeon Airport Departure 2023 7.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Taeyeon_Airport_Departure_2023_7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2400,
+     "height": 3600,
+     "sha1": "0aec479d29a1c90bffe64451bf8302fd7ee38d8c",
+     "author": "Spes Sublimitas",
+     "author_url": null,
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2023-06-09",
+     "date_precision": "day",
+     "event": "airport departure, Incheon",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 22
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2329,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Taeyeon_at_Incheon_Airport_on_24032025_(10).jpg",
+     "file": "Taeyeon at Incheon Airport on 24032025 (10).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Taeyeon_at_Incheon_Airport_on_24032025_%2810%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2715,
+     "height": 2854,
+     "sha1": "1f203834cbcf79e19640121d6ff36f44944b4a27",
+     "author": "Spes Sublimitas",
+     "author_url": "https://www.flickr.com/photos/200274192@N05/",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2025-03-24",
+     "date_precision": "day",
+     "event": "airport, Incheon",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1846,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Kim_Taeyeon,_Kpop_Expo_in_Asia_140921.jpg",
+     "file": "Kim Taeyeon, Kpop Expo in Asia 140921.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Kim_Taeyeon%2C_Kpop_Expo_in_Asia_140921.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 640,
+     "height": 1000,
+     "sha1": "0f5746aa7599bf7a3324447c081cdcd32ae228f6",
+     "author": "Sweet3Haven9",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2014-09-21",
+     "date_precision": "day",
+     "event": "K-pop Expo in Asia, 2014",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 640,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2301,7 +3359,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five new photos, all pass Full Art. Rejected: Seoul Music Awards 2017 and others with another member in frame.",
    "photos": [
     {
      "slot": 1,
@@ -2319,7 +3377,7 @@
      "share_alike": false,
      "date": "2025-10-15",
      "date_precision": "day",
-     "event": null,
+     "event": "W Korea Breast Cancer Campaign, Seoul, 15 October 2025",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -2338,6 +3396,186 @@
      "window_width": 1110,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:V_(Kim_Tae-hyung)_performing_at_the_TRB_in_Taipei_06.jpg",
+     "file": "V (Kim Tae-hyung) performing at the TRB in Taipei 06.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/17/V_%28Kim_Tae-hyung%29_performing_at_the_TRB_in_Taipei_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 944,
+     "height": 1427,
+     "sha1": "dc4ae72056a27a2a0dc2ee3dd8f89744c948cf60",
+     "author": "Taehyung's Moment",
+     "author_url": "http://taehyungsmoment.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2015-03-08",
+     "date_precision": "day",
+     "event": "BTS TRB showcase, Taipei",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 923,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:V_(Kim_Tae-hyung)_at_The_Mood_For_Love_On_Stage_Epilogue_in_Taipei,_in_June_2016_02.jpg",
+     "file": "V (Kim Tae-hyung) at The Mood For Love On Stage Epilogue in Taipei, in June 2016 02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/V_%28Kim_Tae-hyung%29_at_The_Mood_For_Love_On_Stage_Epilogue_in_Taipei%2C_in_June_2016_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 873,
+     "height": 1360,
+     "sha1": "0abcccbfb97db8a0d190283954fd9cd3f29709f8",
+     "author": "Taehyung's Moment",
+     "author_url": "http://taehyungsmoment.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2016-06-09",
+     "date_precision": "day",
+     "event": "HYYH On Stage: Epilogue, Taipei",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 873,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:V_at_MAMA_in_Hong_Kong,_3_December_2014_02.jpg",
+     "file": "V at MAMA in Hong Kong, 3 December 2014 02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/47/V_at_MAMA_in_Hong_Kong%2C_3_December_2014_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 936,
+     "height": 1400,
+     "sha1": "0f73dc73e2a6862ba061bc540934890d31e727ee",
+     "author": "Mischief Managed BTS",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2014-12-02",
+     "date_precision": "day",
+     "event": "Mnet Asian Music Awards 2014, Hong Kong (title says 3 December)",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 905,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:170807_V.jpg",
+     "file": "170807 V.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/170807_V.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1600,
+     "height": 2400,
+     "sha1": "5955d95573d2515f2d0369b867af1604fdb0bec4",
+     "author": "HeyDay",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-08-07",
+     "date_precision": "day",
+     "event": "Midnight Runners VIP premiere, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1552,
+     "full_ok": true,
+     "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:160217_Gaon_Chart_K-POP_Awards_Red_Carpet_BTS_V_(1).jpg",
+     "file": "160217 Gaon Chart K-POP Awards Red Carpet BTS V (1).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/160217_Gaon_Chart_K-POP_Awards_Red_Carpet_BTS_V_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1398,
+     "height": 1996,
+     "sha1": "c1873a612a054b7e2343bc14f140bfe06ddcf975",
+     "author": "SHAQ Photo",
+     "author_url": "http://shaq32.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2016-02-17",
+     "date_precision": "day",
+     "event": "Gaon Chart K-Pop Awards 2016 red carpet, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 38,
+      "y": 28
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1291,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2347,7 +3585,7 @@
    "kind": "idol",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only one clean solo photo. Rejected: Zico and Friends 2016 and KCON 2015 (dancers or other members in frame), Monster Concert 5 files (same event and date as the current photo), Cyworld 2011 (another member).",
    "photos": [
     {
      "slot": 1,
@@ -2365,8 +3603,8 @@
      "share_alike": true,
      "date": "2017-07-01",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
+     "event": "Monster Concert #5, Yes24 Live Hall, Seoul, 1 July 2017",
+     "stage": true,
      "quality": 3,
      "focal": {
       "x": 50,
@@ -2384,6 +3622,42 @@
      "window_width": 2259,
      "full_ok": true,
      "small_2x": false
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:ZICO_Damiani_May_2024.jpg",
+     "file": "ZICO Damiani May 2024.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/ZICO_Damiani_May_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1467,
+     "height": 1956,
+     "sha1": "962f3f3a0155091c71fd7793486cb4a3029a96fe",
+     "author": "티비텐",
+     "author_url": "https://www.youtube.com/@_TV10",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-05-23",
+     "date_precision": "day",
+     "event": "Damiani event, Seoul",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 25
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1265,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -2393,8 +3667,56 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "One two-member photo only. The 2024 AKMU concert files show IU alone, other files show one member each.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:AKMU_Marie_Claire_Korea_2021.jpg",
+     "file": "AKMU Marie Claire Korea 2021.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/AKMU_Marie_Claire_Korea_2021.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 724,
+     "height": 702,
+     "sha1": "99652d8e62e017aff04e8c5b304fb08b5b803415",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2021-08-04",
+     "date_precision": "day",
+     "event": "Marie Claire Korea shoot, 2021",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 724,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 362,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 362,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "apink",
@@ -3056,8 +4378,56 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "Only one usable photo; Commons has no other Billlie group photo dated after 2024-01-30.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:241018_Billlie.jpg",
+     "file": "241018 Billlie.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/241018_Billlie.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1914,
+     "height": 857,
+     "sha1": "fac474a7e2ea5aa6d1584372a1d63b0371d0ca1f",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-10-18",
+     "date_precision": "day",
+     "event": "arrival at KBS Music Bank",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1109,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 554,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 555,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "btob",
@@ -3670,8 +5040,59 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "One group photo, with 4 of 5 members. The DVIDS Ground Forces Festival files (21 Sep 2025, public domain) show Hana and Chanelle Moon alone, not usable as a group.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Fifty_Fifty_in_2026.jpg",
+     "file": "Fifty Fifty in 2026.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Fifty_Fifty_in_2026.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4208,
+     "height": 2805,
+     "sha1": "072f2ea1be27b77535982604a13935b0b4d39cae",
+     "author": "Republic of Korea",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2026-09-01",
+     "date_precision": "day",
+     "event": "Seoul Fashion Week 2027 S/S, DDP, Seoul (Korea.net)",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 3630,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1815,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1815,
+       "small_2x": false
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "fromis-9",
@@ -3679,8 +5100,199 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "Four photos, three at low resolution. Lineup history from Wikipedia: 9 members until July 2022, 8 until February 2025, 5 since. The 2022 Marie Claire file was not viewed.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Fromis_9_in_Seattle_-_54777058881.jpg",
+     "file": "Fromis 9 in Seattle - 54777058881.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Fromis_9_in_Seattle_-_54777058881.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5093,
+     "height": 2865,
+     "sha1": "4a84582415d260fcd14d81049409b9b103ac536d",
+     "author": "David Lee",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-09-08",
+     "date_precision": "day",
+     "event": "fromis_9 concert, McCaw Hall, Seattle",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 3707,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1853,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1854,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Fromis_9_250825.jpg",
+     "file": "Fromis 9 250825.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Fromis_9_250825.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1501,
+     "height": 791,
+     "sha1": "bc3f47ff09b68130b374907429c71badaf9a73ed",
+     "author": "티비텐 TV10",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2025-08-25",
+     "date_precision": "day",
+     "event": "airport, 25 August 2025",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 45,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1023,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 511,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 512,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Fromis_9_240224.png",
+     "file": "Fromis 9 240224.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Fromis_9_240224.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1529,
+     "height": 768,
+     "sha1": "4fbb92f442d57fe9ad23310919f29722316ae89a",
+     "author": "TV10",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-02-24",
+     "date_precision": "day",
+     "event": "airport departure, 24 February 2024",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 993,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 496,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 497,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Fromis_9_231223.png",
+     "file": "Fromis 9 231223.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Fromis_9_231223.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1156,
+     "height": 575,
+     "sha1": "041a7d050134d0456e8ee546c8069b3c68abce79",
+     "author": "MANIA K-POP FAN CAM 8K",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-12-23",
+     "date_precision": "day",
+     "event": "Christmas event stage, 23 December 2023",
+     "stage": true,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 744,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 372,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 372,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "ikon",
@@ -3688,7 +5300,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Two new photos only, both low resolution and neither passes Full Art. The 2018 Continue Tour files show one or two members each and share one date.",
    "photos": [
     {
      "slot": 1,
@@ -3736,6 +5348,102 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:IKON_at_Goan_Chart_Music_Awards_(2019).jpg",
+     "file": "IKON at Goan Chart Music Awards (2019).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/IKON_at_Goan_Chart_Music_Awards_%282019%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1311,
+     "height": 890,
+     "sha1": "2eb26264d3e72a0ddb112622ff82ba26a6be66a4",
+     "author": "뉴스엔· NewsenTV·KOREA Entertainment news",
+     "author_url": "https://www.youtube.com/channel/UCkPp7PMd1sOcsJCq8_3-1fw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-01-23",
+     "date_precision": "day",
+     "event": "Gaon Chart Music Awards 2019, red carpet, Seoul",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1151,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 575,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 576,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:0105_%EC%95%84%EC%9D%B4%EC%BD%98(iKON)_%EB%B0%94%EB%B9%84X%EC%A0%95%EC%B0%AC%EC%9A%B0_%ED%8F%AC%EC%BB%A4%EC%8A%A4_33%ED%9A%8C_%EA%B3%A8%EB%93%A0%EB%94%94%EC%8A%A4%ED%81%AC_%EC%8B%9C%EC%83%81%EC%8B%9D_%EB%A0%88%EB%93%9C%EC%B9%B4%ED%8E%AB_4K%EC%98%81%EC%83%81_2m_53s.jpg",
+     "file": "0105 아이콘(iKON) 바비X정찬우 포커스 33회 골든디스크 시상식 레드카펫 4K영상 2m 53s.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/0105_%EC%95%84%EC%9D%B4%EC%BD%98%28iKON%29_%EB%B0%94%EB%B9%84X%EC%A0%95%EC%B0%AC%EC%9A%B0_%ED%8F%AC%EC%BB%A4%EC%8A%A4_33%ED%9A%8C_%EA%B3%A8%EB%93%A0%EB%94%94%EC%8A%A4%ED%81%AC_%EC%8B%9C%EC%83%81%EC%8B%9D_%EB%A0%88%EB%93%9C%EC%B9%B4%ED%8E%AB_4K%EC%98%81%EC%83%81_2m_53s.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1220,
+     "height": 610,
+     "sha1": "26fe6353900cba218211759ca0504772784fce56",
+     "author": "뉴스인스타",
+     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-01-05",
+     "date_precision": "day",
+     "event": "33rd Golden Disc Awards red carpet, Seoul",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 789,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 394,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 395,
+       "small_2x": true
+      }
+     ]
     }
    ]
   },
@@ -3745,8 +5453,59 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "One photo, with 4 of 5 members. Every other 2026 file shows one member alone; the 2024 MAMA airport file predates the limit.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:29102026_ILLIT_TOP_TEN_AWARDS.png",
+     "file": "29102026 ILLIT TOP TEN AWARDS.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/29102026_ILLIT_TOP_TEN_AWARDS.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1503,
+     "height": 811,
+     "sha1": "7f7ad4cf68601deecdba53a35f8795240cbed384",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-10-29",
+     "date_precision": "day",
+     "event": "Top Ten Awards 2026, Best Girl Group trophy",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1049,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 524,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 525,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "kara",
@@ -3754,8 +5513,254 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "Five photos. Not used: KARA at the Taipei New Year's Eve party 2026 (licence labelled only 'Attribution' and backup dancers on stage). Lineup history from Wikipedia: five members through 2013, six from 2014.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:KARA_at_DSP_Festival.jpg",
+     "file": "KARA at DSP Festival.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/KARA_at_DSP_Festival.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "09ee6e516484377d1aafcbec0781bf0d82fde4d6",
+     "author": "takato marui",
+     "author_url": "https://www.flickr.com/people/32413914@N00",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2013-12-14",
+     "date_precision": "day",
+     "event": "DSP Festival, Seoul",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Kara_in_2012.jpg",
+     "file": "Kara in 2012.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Kara_in_2012.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2464,
+     "height": 1632,
+     "sha1": "09cca63367109c5037325b375dbb2dba9a5964f1",
+     "author": "KIYOUNG KIM",
+     "author_url": "https://www.flickr.com/people/91077831@N00",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2012-09-02",
+     "date_precision": "day",
+     "event": "press event, 2012 (Gyu-ri, Seung-yeon, Ha-ra, Nicole, Ji-young named in description)",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2112,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1056,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1056,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Kara_When_I_Move.jpg",
+     "file": "Kara When I Move.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kara_When_I_Move.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2084,
+     "height": 1325,
+     "sha1": "f1de800eae5f368450f439fffdaf3a0382820077",
+     "author": "Studio FLO 스튜디오 플로",
+     "author_url": "https://www.youtube.com/@studioflo",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-11-27",
+     "date_precision": "day",
+     "event": "'Move Again' 15th anniversary MV teaser (2022)",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1714,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 857,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 857,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:150621._%EC%B9%B4%EB%9D%BC_%ED%8C%AC%EB%AF%B8%ED%8C%85_&_%ED%87%B4%EA%B7%BC%EA%B8%B8.jpg",
+     "file": "150621. 카라 팬미팅 & 퇴근길.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/150621._%EC%B9%B4%EB%9D%BC_%ED%8C%AC%EB%AF%B8%ED%8C%85_%26_%ED%87%B4%EA%B7%BC%EA%B8%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1976,
+     "height": 1310,
+     "sha1": "4e5d15764254daf83f1b9ff2b0faadfe17a17ca7",
+     "author": "MFDice",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2015-06-21",
+     "date_precision": "day",
+     "event": "fan meeting, outdoor stage, 21 June 2015",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "pending",
+     "review": [
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1695,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 847,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 848,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:KARA_MBC_Korean_Music_Wave.jpg",
+     "file": "KARA MBC Korean Music Wave.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/KARA_MBC_Korean_Music_Wave.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2048,
+     "height": 1536,
+     "sha1": "26dd0b49630d71d98df5f715370232dfe228f4b1",
+     "author": "Travis Wise",
+     "author_url": null,
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2012-05-21",
+     "date_precision": "day",
+     "event": "MBC Korean Music Wave, Shoreline Amphitheatre, California",
+     "stage": true,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1987,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 993,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 994,
+       "small_2x": false
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "katseye",
@@ -3763,7 +5768,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "No new photo: only the last weeks pass; the Seattle file is the current photo's event and date, and the 13 Dec 2025 Palladium file has 4 of 6 members and a caption overlay.",
    "photos": [
     {
      "slot": 1,
@@ -3781,9 +5786,9 @@
      "share_alike": false,
      "date": "2025-12-09",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
-     "quality": 3,
+     "event": "The Beautiful Chaos Tour, WAMU Theater, Seattle, 9 December 2025",
+     "stage": true,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 50
@@ -3820,7 +5825,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five new photos. Skipped Music Bank 20240705 02 (same event and date as the current photo) and the Anaheim concert (3 of 4 members).",
    "photos": [
     {
      "slot": 1,
@@ -3838,8 +5843,8 @@
      "share_alike": false,
      "date": "2024-07-05",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
+     "event": "Music Bank, Seoul, 5 July 2024",
+     "stage": true,
      "quality": 3,
      "focal": {
       "x": 50,
@@ -3868,6 +5873,243 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:20230705_KISS_OF_LIFE_(%ED%82%A4%EC%8A%A4%EC%98%A4%EB%B8%8C%EB%9D%BC%EC%9D%B4%ED%94%84).jpg",
+     "file": "20230705 KISS OF LIFE (키스오브라이프).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/20230705_KISS_OF_LIFE_%28%ED%82%A4%EC%8A%A4%EC%98%A4%EB%B8%8C%EB%9D%BC%EC%9D%B4%ED%94%84%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 6320,
+     "height": 5200,
+     "sha1": "29e16d69b6e974cb79711fff4f788d8724e12d48",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-07-05",
+     "date_precision": "day",
+     "event": "debut showcase 'Shhh', Seoul",
+     "stage": true,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 6320,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 3160,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 3160,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Kiss_of_Life_at_showcase_for_promotions_of_Midas_Touch_on_April_3,_2024.jpg",
+     "file": "Kiss of Life at showcase for promotions of Midas Touch on April 3, 2024.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Kiss_of_Life_at_showcase_for_promotions_of_Midas_Touch_on_April_3%2C_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1930,
+     "height": 1082,
+     "sha1": "d3b014e3a861458dbcafccee84de1d23fb257a2a",
+     "author": "티비텐",
+     "author_url": "https://www.youtube.com/@_TV10",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-04-03",
+     "date_precision": "day",
+     "event": "Midas Touch showcase, Seoul",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1400,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 700,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 700,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:KIOF_brandaward.jpg",
+     "file": "KIOF brandaward.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/KIOF_brandaward.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2221,
+     "height": 1507,
+     "sha1": "3bcc56184fd4a455125eff4849f6a3f671ada5e0",
+     "author": "티비텐",
+     "author_url": "https://www.youtube.com/@_TV10",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-05-09",
+     "date_precision": "day",
+     "event": "brand award ceremony, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1950,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 975,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 975,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Kiss_of_Life_at_the_Moore_Theatre_in_Seattle.jpg",
+     "file": "Kiss of Life at the Moore Theatre in Seattle.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Kiss_of_Life_at_the_Moore_Theatre_in_Seattle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2262,
+     "height": 2828,
+     "sha1": "0c511718f8a878cd234cc34a9760e4871fd90868",
+     "author": "davidjlee",
+     "author_url": null,
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2024-12-12",
+     "date_precision": "day",
+     "event": "Kiss Road tour, Moore Theatre, Seattle",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 55
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2262,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1131,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1131,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:05062026_KISS_OF_LIFE_Airport_Departure.png",
+     "file": "05062026 KISS OF LIFE Airport Departure.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/05062026_KISS_OF_LIFE_Airport_Departure.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "dfcb4806c271aec5c3a3a00b281af1e980e3f0d6",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-06-05",
+     "date_precision": "day",
+     "event": "Incheon airport departure",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -3877,8 +6119,105 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "Two photos. ARTMS, Odd Eye Circle and the other sub-unit files were left out (not the group).",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:LOONA_(%EC%9D%B4%EB%8B%AC%EC%9D%98_%EC%86%8C%EB%85%80)_Flip_That_Media_Showcase.jpg",
+     "file": "LOONA (이달의 소녀) Flip That Media Showcase.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/LOONA_%28%EC%9D%B4%EB%8B%AC%EC%9D%98_%EC%86%8C%EB%85%80%29_Flip_That_Media_Showcase.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1420,
+     "height": 567,
+     "sha1": "47d89662b63d29fcd34466fde332382a58a7baa3",
+     "author": "PlayIn",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-06-21",
+     "date_precision": "day",
+     "event": "'Flip That' mini album showcase, Seoul",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 733,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 366,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 367,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:20220908_Loona_Amsterdam_concert_010.jpg",
+     "file": "20220908 Loona Amsterdam concert 010.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/20220908_Loona_Amsterdam_concert_010.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4000,
+     "height": 3000,
+     "sha1": "6d2fa951d84081572f90e5203e602d53d05d53f7",
+     "author": "Robbie Klinkenberg",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2022-09-08",
+     "date_precision": "day",
+     "event": "LOONATHEWORLD tour, Amsterdam",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 3882,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1941,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1941,
+       "small_2x": false
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "loossemble",
@@ -3886,7 +6225,7 @@
    "kind": "group",
    "end_year": 2024,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only two usable dates, both with 4 of 5 members, both black and white concert shots from one Flickr photographer; no full-lineup photo found. Wikipedia: contracts ended end of 2024, so Oct 2024 is before the end.",
    "photos": [
     {
      "slot": 1,
@@ -3904,9 +6243,9 @@
      "share_alike": false,
      "date": "2023-09-14",
      "date_precision": "day",
-     "event": null,
+     "event": "Incheon airport arrival, 14 September 2023",
      "stage": false,
-     "quality": 3,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 50
@@ -3934,6 +6273,106 @@
        "small_2x": false
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Loosemble_(54146252066).jpg",
+     "file": "Loosemble (54146252066).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Loosemble_%2854146252066%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5472,
+     "height": 3648,
+     "sha1": "7c10683b041742df8374f53a9e7185407a01d58e",
+     "author": "David Lee from Redmond, WA, USA",
+     "author_url": "https://www.flickr.com/people/46192164@N06",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2024-10-21",
+     "date_precision": "day",
+     "event": "Loossemble North America tour concert, 2024 (Flickr title 'Loosemble')",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 4720,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 2360,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 2360,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Loosemble_(54145401722).jpg",
+     "file": "Loosemble (54145401722).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Loosemble_%2854145401722%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5520,
+     "height": 3681,
+     "sha1": "64ae450ae7fc4dbd7400d01b69d2e43a737faebb",
+     "author": "David Lee from Redmond, WA, USA",
+     "author_url": "https://www.flickr.com/people/46192164@N06",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2024-10-24",
+     "date_precision": "day",
+     "event": "Loossemble North America tour concert, 2024 (Flickr title 'Loosemble')",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 55
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 4763,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 2381,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 2382,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -3943,7 +6382,7 @@
    "kind": "group",
    "end_year": 2017,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only two events found. Not usable: K Collection and Seoul Art School files (dated 2012-03, before the 2012-10-10 limit), Gaon 2014 (3 of 4 members), the 2013 file is the current photo.",
    "photos": [
     {
      "slot": 1,
@@ -3991,6 +6430,102 @@
        "small_2x": false
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:KOCIS_Korea_KPOP_World_Festival_08_(11040012933).jpg",
+     "file": "KOCIS Korea KPOP World Festival 08 (11040012933).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/KOCIS_Korea_KPOP_World_Festival_08_%2811040012933%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4152,
+     "height": 2712,
+     "sha1": "1c98701fb8d9b8048a2cbb817813fc9fc2dce575",
+     "author": "Korea.net / Korean Culture and Information Service (Jeon Han)",
+     "author_url": "http://www.korea.net",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2013-10-20",
+     "date_precision": "day",
+     "event": "K-POP World Festival, Changwon (Korea.net)",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 3509,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1754,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1755,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Miss_A_at_Severance_Hospital,_5_December_2013.jpg",
+     "file": "Miss A at Severance Hospital, 5 December 2013.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Miss_A_at_Severance_Hospital%2C_5_December_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1446,
+     "height": 924,
+     "sha1": "e09abf1fdc4eb0e183947c6c5b99c682556e04cb",
+     "author": "와사비콘텐츠",
+     "author_url": null,
+     "licence": "CC BY 2.0 kr",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0/kr/deed.en",
+     "share_alike": false,
+     "date": "2013-12-02",
+     "date_precision": "day",
+     "event": "charity performance 'Hush', Severance Hospital, Seoul (title says 5 December, description 2 December)",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1195,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 597,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 598,
+       "small_2x": true
+      }
+     ]
     }
    ]
   },
@@ -4000,7 +6535,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Four photos, all stage but dark or low quality. Not used: KCON LA 2025 (many acts on stage, not clearly Monsta X alone), KCON 2015 (members split in two groups, small), Dream Concert 2017 second file (same event).",
    "photos": [
     {
      "slot": 1,
@@ -4018,7 +6553,7 @@
      "share_alike": false,
      "date": "2019-01-06",
      "date_precision": "day",
-     "event": null,
+     "event": "Golden Disc Awards 2019 red carpet, Seoul",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -4048,6 +6583,198 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:MonstaX_Live_at_KCON_2016_Los_Angeles_20160731-P1010499_(29203527652).jpg",
+     "file": "MonstaX Live at KCON 2016 Los Angeles 20160731-P1010499 (29203527652).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/MonstaX_Live_at_KCON_2016_Los_Angeles_20160731-P1010499_%2829203527652%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5472,
+     "height": 3648,
+     "sha1": "3350a3629dc5f72e49f9a07d0c33090b36e142d8",
+     "author": "mduangdara from Midlothian, VA, United States",
+     "author_url": "https://www.flickr.com/people/59143760@N00",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2016-07-31",
+     "date_precision": "day",
+     "event": "KCON 2016, Los Angeles",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 47,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 4720,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 2360,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 2360,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2017_Dream_Concert_in_Pyeongchang.jpg",
+     "file": "2017 Dream Concert in Pyeongchang.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/2017_Dream_Concert_in_Pyeongchang.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1981,
+     "height": 1131,
+     "sha1": "9c8f2119023df2ac945665f52b66b0e4b83fedb8",
+     "author": "Annariel 85",
+     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Annariel_85&amp;action=edit&amp;redlink=1",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2017-11-04",
+     "date_precision": "day",
+     "event": "Dream Concert 2017, Pyeongchang",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1463,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 731,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 732,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82_Monsta_X_%D0%B2_%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE.png",
+     "file": "Концерт Monsta X в Чикаго.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/34/%D0%9A%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82_Monsta_X_%D0%B2_%D0%A7%D0%B8%D0%BA%D0%B0%D0%B3%D0%BE.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1920,
+     "height": 1080,
+     "sha1": "f7b6a66b3b1eeb3fd7f6d320c6764948e22b2108",
+     "author": "Grace Jung ( https://www.youtube.com/watch?v=QE7GVwoKFuE&t=197s )",
+     "author_url": "https://www.youtube.com/watch?v=QE7GVwoKFuE&amp;t=197s",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2018-08-06",
+     "date_precision": "day",
+     "event": "Monsta X concert, Chicago",
+     "stage": true,
+     "quality": 2,
+     "focal": {
+      "x": 45,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1397,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 698,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 699,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Monsta_X_fanmeeting_in_Singapore.jpg",
+     "file": "Monsta X fanmeeting in Singapore.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Monsta_X_fanmeeting_in_Singapore.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1024,
+     "height": 682,
+     "sha1": "4f1b5adc81a9328e41d23a6b03f65fdf9cba8c91",
+     "author": "Annariel 85",
+     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Annariel_85&amp;action=edit&amp;redlink=1",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2015-12-17",
+     "date_precision": "day",
+     "event": "fan meeting, Singapore",
+     "stage": true,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 55
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 882,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 441,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 441,
+       "small_2x": true
+      }
+     ]
     }
    ]
   },
@@ -4057,8 +6784,59 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "No full-lineup NCT photo can exist (23 members). Only one partial unit photo qualifies; NCT DoJaeJung file is dated by upload (event 2023), NCT Wish files belong to the nct-wish subject.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:NCT_Dream_at_DREAM()SCAPE_Press_Conference_3.png",
+     "file": "NCT Dream at DREAM()SCAPE Press Conference 3.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/NCT_Dream_at_DREAM%28%29SCAPE_Press_Conference_3.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1085,
+     "height": 595,
+     "sha1": "f8e7475dd72e2f00f9a88996cdd724ffa6399ccb",
+     "author": "티비텐 TV10 (TV Ten)",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2026-07-09",
+     "date_precision": "day",
+     "event": "NCT Dream press conference, 2026 (unit of NCT)",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 770,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 385,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 385,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "nct-wish",
@@ -4066,7 +6844,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only one distinct event passes: promotion 02 and 04 share the current photo's event and date, and the fan signing files share one date.",
    "photos": [
     {
      "slot": 1,
@@ -4084,7 +6862,7 @@
      "share_alike": false,
      "date": "2026-02-26",
      "date_precision": "day",
-     "event": null,
+     "event": "numbuzin x NCT WISH promotion, February 2026",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -4116,6 +6894,55 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_09.jpg",
+     "file": "2026 NCT WISH fansigning 09.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/2026_NCT_WISH_fansigning_09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "be8291a6522d8a10cc7d7c4d3bccf89b0492098f",
+     "author": "numbuzin",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-02-15",
+     "date_precision": "day",
+     "event": "numbuzin x NCT WISH fan signing event, 2026",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 55
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -4125,7 +6952,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "No new photo: the Marie Claire Korea files all share the current photo's event and date, and the only other file is a solo of Keeho on stage.",
    "photos": [
     {
      "slot": 1,
@@ -4143,7 +6970,7 @@
      "share_alike": false,
      "date": "2026-02-15",
      "date_precision": "day",
-     "event": null,
+     "event": "Marie Claire Korea shoot, March 2026 issue",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -4184,7 +7011,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Four photos, all low to mid resolution, none on stage. The Genie us showcase file is the current photo's event and date.",
    "photos": [
     {
      "slot": 1,
@@ -4202,8 +7029,8 @@
      "share_alike": false,
      "date": "2019-03-27",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
+     "event": "'Genie us' showcase, 27 March 2019",
+     "stage": true,
      "quality": 3,
      "focal": {
       "x": 50,
@@ -4232,6 +7059,197 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:171215_Pentagon.png",
+     "file": "171215 Pentagon.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/171215_Pentagon.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1500,
+     "height": 1000,
+     "sha1": "25e8ef6f5f7041c37e35434e88d9eec3d057ec97",
+     "author": "Little Star* @kinowflake",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-12-15",
+     "date_precision": "day",
+     "event": "fan-shared group photo, 15 December 2017 (event not named)",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1294,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 647,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 647,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:200901_Pentagon_Ten_Asia_(TTA).png",
+     "file": "200901 Pentagon Ten Asia (TTA).png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/200901_Pentagon_Ten_Asia_%28TTA%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1887,
+     "height": 807,
+     "sha1": "a2d0e50ca62c07e9eac3afc511db948194105649",
+     "author": "Ten Asia",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2020-09-01",
+     "date_precision": "day",
+     "event": "Ten Asia Top Ten Awards video message",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "not the whole lineup of that date"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1044,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 522,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 522,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:190419_%ED%8E%9C%ED%83%80%EA%B3%A4_(PENTAGON).png",
+     "file": "190419 펜타곤 (PENTAGON).png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/190419_%ED%8E%9C%ED%83%80%EA%B3%A4_%28PENTAGON%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 835,
+     "height": 444,
+     "sha1": "2e5a9cc2a67a34df5b43af99fc69f18e4f1a50e0",
+     "author": "NINE STARS",
+     "author_url": "https://www.youtube.com/channel/UCb6uBWNlCA0kyhRln2aa6JA",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-04-19",
+     "date_precision": "day",
+     "event": "arrival at KBS Music Bank",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 574,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 287,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 287,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:180503_%ED%8E%9C%ED%83%80%EA%B3%A4_PENTAGON_01.png",
+     "file": "180503 펜타곤 PENTAGON 01.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/180503_%ED%8E%9C%ED%83%80%EA%B3%A4_PENTAGON_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 934,
+     "height": 472,
+     "sha1": "7b3cac85893a56a1b5b6d49130bff20c317545ea",
+     "author": "NINE STARS",
+     "author_url": "https://www.youtube.com/channel/UCb6uBWNlCA0kyhRln2aa6JA",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2018-05-03",
+     "date_precision": "day",
+     "event": "arrival at KBS Music Bank",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 610,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 305,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 305,
+       "small_2x": true
+      }
+     ]
     }
    ]
   },
@@ -4241,7 +7259,7 @@
    "kind": "group",
    "end_year": 2025,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "No new photo: Commons holds only two 2023 files, each showing two members (Na Go-eun and Swan) on a radio show.",
    "photos": [
     {
      "slot": 1,
@@ -4298,7 +7316,7 @@
    "kind": "group",
    "end_year": 2017,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Four photos found; the Incheon Asian Games and Inkigayo files were too small or showed other people. Photos after 2017 were not considered (disbanded).",
    "photos": [
     {
      "slot": 1,
@@ -4316,9 +7334,9 @@
      "share_alike": false,
      "date": "2016-10-18",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
-     "quality": 3,
+     "event": "G-Festival Asia Dream Concert, 18 October 2016",
+     "stage": true,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 50
@@ -4346,6 +7364,200 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:KCON_2015_Sistar_DSC02857_(20424155301).jpg",
+     "file": "KCON 2015 Sistar DSC02857 (20424155301).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/KCON_2015_Sistar_DSC02857_%2820424155301%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5472,
+     "height": 3648,
+     "sha1": "1980f947d0c04f0006c6c8133916d8967cc2e141",
+     "author": "mduangdara from Midlothian, VA, United States",
+     "author_url": "https://www.flickr.com/people/59143760@N00",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2015-08-01",
+     "date_precision": "day",
+     "event": "KCON 2015, Los Angeles",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 4720,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 2360,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 2360,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sistar_at_The_70th_Independence_Day_of_Republic_of_Korea_02.jpg",
+     "file": "Sistar at The 70th Independence Day of Republic of Korea 02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Sistar_at_The_70th_Independence_Day_of_Republic_of_Korea_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2048,
+     "height": 1187,
+     "sha1": "1eeac88b30d489ce6211625b57a1da7c9f5fea10",
+     "author": "Republic of Korea",
+     "author_url": "https://www.flickr.com/photos/koreanet/",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2015-08-14",
+     "date_precision": "day",
+     "event": "70th Independence Day concert, Seoul (Korea.net)",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 55,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1536,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 768,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 768,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sistar.jpg",
+     "file": "Sistar.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Sistar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4288,
+     "height": 2848,
+     "sha1": "27f96b80796d8928f98e32b96383ec1670673a60",
+     "author": "Monkey Man =))",
+     "author_url": null,
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2012-11-29",
+     "date_precision": "day",
+     "event": "K-pop festival, Vietnam",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 3685,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1842,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1843,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sistar_performing_on_May_19,_2013_1.jpg",
+     "file": "Sistar performing on May 19, 2013 1.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Sistar_performing_on_May_19%2C_2013_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1500,
+     "height": 1001,
+     "sha1": "33ca599104757fca0f34670180a94b2f3b196770",
+     "author": "혼났습니다",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2013-05-19",
+     "date_precision": "day",
+     "event": "Korea Racing Authority event, Seoul",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 45,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1295,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 647,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 648,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -4355,7 +7567,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five photos. Rejected: Metamorphic Showcase file (its Commons description names another group), Music Bank red-carpet crop (faces hidden), the Seattle 2025 files (current photo's event and date).",
    "photos": [
     {
      "slot": 1,
@@ -4373,9 +7585,9 @@
      "share_alike": false,
      "date": "2025-10-02",
      "date_precision": "day",
-     "event": null,
-     "stage": false,
-     "quality": 3,
+     "event": "Stay Tuned Tour, Paramount Theatre, Seattle, 2 October 2025",
+     "stage": true,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 50
@@ -4403,6 +7615,241 @@
        "small_2x": false
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:MMA_2023_STAYC.jpg",
+     "file": "MMA 2023 STAYC.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/MMA_2023_STAYC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1813,
+     "height": 1015,
+     "sha1": "4c9dec08118d86751e80203b02232ea49bfdb738",
+     "author": "TenAsia",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2023-12-02",
+     "date_precision": "day",
+     "event": "Melon Music Awards 2023, red carpet, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1313,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 656,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 657,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Stay%D0%A1_in_Incheon_Airport,_July_24,_2024.png",
+     "file": "StayС in Incheon Airport, July 24, 2024.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Stay%D0%A1_in_Incheon_Airport%2C_July_24%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3413,
+     "height": 1893,
+     "sha1": "71530fbfd4c4bf0785ca74b4213f5520b5eb1447",
+     "author": "티비텐",
+     "author_url": "https://www.youtube.com/@_TV10",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-07-24",
+     "date_precision": "day",
+     "event": "Incheon airport departure",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2449,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1224,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1225,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:230214_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%94%A8_(StayC)_at_Teddy_Bear_Showcase.png",
+     "file": "230214 스테이씨 (StayC) at Teddy Bear Showcase.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/230214_%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%94%A8_%28StayC%29_at_Teddy_Bear_Showcase.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2878,
+     "height": 1422,
+     "sha1": "01a282da564a38255ec387b37f7989e4306177e6",
+     "author": "K-POPIT 케이팝잇 TV10",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-02-14",
+     "date_precision": "day",
+     "event": "Teddy Bear showcase, Seoul",
+     "stage": true,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1840,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 920,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 920,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:230816_STAYC_at_%22TEENFRESH%22_Showcase.jpg",
+     "file": "230816 STAYC at \"TEENFRESH\" Showcase.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/230816_STAYC_at_%22TEENFRESH%22_Showcase.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1366,
+     "height": 768,
+     "sha1": "0b9b5829ace32abc33d1404e5ffae29666a227d5",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-08-16",
+     "date_precision": "day",
+     "event": "TEENFRESH showcase, Seoul",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 55
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 993,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 496,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 497,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:STAYC_Ending_Pose.jpg",
+     "file": "STAYC Ending Pose.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/STAYC_Ending_Pose.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3520,
+     "height": 1980,
+     "sha1": "359617f764a3756071d8c106a5589ee7a67f878d",
+     "author": "Pjdlr",
+     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Pjdlr&amp;action=edit&amp;redlink=1",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2023-10-17",
+     "date_precision": "day",
+     "event": "STAYC concert (fan photo), 17 October 2023",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2562,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1281,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1281,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -4412,8 +7859,56 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
-   "photos": []
+   "shortfall": "One photo. The 2017 T-ara N4 and 2015 QBS files predate the limit and are sub-unit photos.",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:T-ara_2026_Fan_Concert.png",
+     "file": "T-ara 2026 Fan Concert.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/T-ara_2026_Fan_Concert.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1086,
+     "height": 489,
+     "sha1": "f7e81c26fcdae3a22bd4c626f5a3ed1565931fde",
+     "author": "EunYeon FC VietNam",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-02-08",
+     "date_precision": "day",
+     "event": "T-ara fan concert, 2026 (uploader: a Vietnamese fan club)",
+     "stage": true,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 632,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 316,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 316,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "tws",
@@ -4421,7 +7916,7 @@
    "kind": "group",
    "end_year": null,
    "returning": true,
-   "shortfall": null,
+   "shortfall": "No photo: Commons holds no TWS group photo dated on or after 2025-10-02 (the TWS category has only 2024 material).",
    "photos": []
   },
   {
@@ -4430,7 +7925,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Three photos; fan meeting and showcase files show the members from behind. The existing and new photos are all non-stage.",
    "photos": [
     {
      "slot": 1,
@@ -4448,9 +7943,9 @@
      "share_alike": false,
      "date": "2023-03-15",
      "date_precision": "day",
-     "event": null,
+     "event": "Seoul Fashion Week, Seoul, 15 March 2023",
      "stage": false,
-     "quality": 3,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 50
@@ -4478,6 +7973,147 @@
        "small_2x": false
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:VIVIZ_at_Billboard_K_POWER_100,_27_August_2024_04.png",
+     "file": "VIVIZ at Billboard K POWER 100, 27 August 2024 04.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/VIVIZ_at_Billboard_K_POWER_100%2C_27_August_2024_04.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "9b695a14c66b1c5e8782a4c698893f28c2ac8f28",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-08-27",
+     "date_precision": "day",
+     "event": "Billboard K Power 100 event, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:VIVIZ_(%EB%B9%84%EB%B9%84%EC%A7%80)_%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC_%EC%B6%9C%EA%B7%BC%EA%B8%B8_VIVIZ_Music_Bank_(4K)_0-48_screenshot.jpg",
+     "file": "VIVIZ (비비지) 뮤직뱅크 출근길 VIVIZ Music Bank (4K) 0-48 screenshot.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/VIVIZ_%28%EB%B9%84%EB%B9%84%EC%A7%80%29_%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC_%EC%B6%9C%EA%B7%BC%EA%B8%B8_VIVIZ_Music_Bank_%284K%29_0-48_screenshot.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "eae05aebed327afeb1381f7bd35afc3b693e5fe3",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-11-10",
+     "date_precision": "day",
+     "event": "arrival at KBS Music Bank",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Viviz_at_SBS_Radio_on_February_13,_2022.jpg",
+     "file": "Viviz at SBS Radio on February 13, 2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Viviz_at_SBS_Radio_on_February_13%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4096,
+     "height": 2018,
+     "sha1": "e21ee3bd00f44c41cc7309c4d1b01e76bb2e4083",
+     "author": "SBS Radio",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-02-13",
+     "date_precision": "day",
+     "event": "SBS radio show studio",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2611,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1305,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1306,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -4487,7 +8123,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Five photos, none on stage. Not used: Melon 2014 files (current photo's event and date), Kiehl's 2018 (a woman appears among the four), the 2015 Japan tour (one member).",
    "photos": [
     {
      "slot": 1,
@@ -4505,7 +8141,7 @@
      "share_alike": false,
      "date": "2014-11-13",
      "date_precision": "day",
-     "event": null,
+     "event": "6th Melon Music Awards, Seoul, 13 November 2014",
      "stage": false,
      "quality": 3,
      "focal": {
@@ -4535,6 +8171,241 @@
        "small_2x": true
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:180110_%EC%9C%84%EB%84%88_32%ED%9A%8C_%EA%B3%A8%EB%93%A0%EB%94%94%EC%8A%A4%ED%81%AC.jpg",
+     "file": "180110 위너 32회 골든디스크.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/180110_%EC%9C%84%EB%84%88_32%ED%9A%8C_%EA%B3%A8%EB%93%A0%EB%94%94%EC%8A%A4%ED%81%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2400,
+     "height": 1600,
+     "sha1": "5a1e9774c96d8068fd41274d2febc7b2e47ad87a",
+     "author": "NewsInStar",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2018-01-10",
+     "date_precision": "day",
+     "event": "32nd Golden Disc Awards red carpet, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2070,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1035,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1035,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:191102_%EC%9C%84%EB%84%88_%EC%98%81%EB%93%B1%ED%8F%AC_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C.jpg",
+     "file": "191102 위너 영등포 팬싸인회.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/191102_%EC%9C%84%EB%84%88_%EC%98%81%EB%93%B1%ED%8F%AC_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4920,
+     "height": 2952,
+     "sha1": "539abbdad7f295ffb55115d13e20326205e3d5f7",
+     "author": "Explicit",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Explicit",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2019-11-02",
+     "date_precision": "day",
+     "event": "album fan signing, Times Square Yeongdeungpo, Seoul",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 3,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 3820,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1910,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1910,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:%EC%9C%84%EB%84%88_%ED%99%98%ED%83%80%EB%AF%B9%EC%8A%A4_%EC%B4%AC%EC%98%81%EC%9E%A5_%EB%A9%94%EC%9D%B4%ED%82%B9_%ED%95%84%EB%A6%84.png",
+     "file": "위너 환타믹스 촬영장 메이킹 필름.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/%EC%9C%84%EB%84%88_%ED%99%98%ED%83%80%EB%AF%B9%EC%8A%A4_%EC%B4%AC%EC%98%81%EC%9E%A5_%EB%A9%94%EC%9D%B4%ED%82%B9_%ED%95%84%EB%A6%84.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1700,
+     "height": 1236,
+     "sha1": "51af1466720d28f86981acc4e11cbc31188e2928",
+     "author": "환타 믹스",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2014-05-16",
+     "date_precision": "day",
+     "event": "Fanta commercial shoot, May 2014",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 4,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1599,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 799,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 800,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:(Marie_Claire_Korea)_Here_Comes_Winner.jpg",
+     "file": "(Marie Claire Korea) Here Comes Winner.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/%28Marie_Claire_Korea%29_Here_Comes_Winner.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1435,
+     "height": 985,
+     "sha1": "adefab8afa5dd11e9ec646b782dff312a3382003",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2016-05-01",
+     "date_precision": "day",
+     "event": "Marie Claire Korea shoot, May 2016",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 5,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1274,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 637,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 637,
+       "small_2x": true
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:181229_%EC%9C%84%EB%84%88_%EB%A1%AF%EB%8D%B0%EB%B0%B1%ED%99%94%EC%A0%90_%EC%9E%A0%EC%8B%A4_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C.jpg",
+     "file": "181229 위너 롯데백화점 잠실 팬싸인회.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/181229_%EC%9C%84%EB%84%88_%EB%A1%AF%EB%8D%B0%EB%B0%B1%ED%99%94%EC%A0%90_%EC%9E%A0%EC%8B%A4_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4000,
+     "height": 2000,
+     "sha1": "74013874047e87fbe28b6b47b338a2b260edb2fa",
+     "author": "Explicit",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Explicit",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2018-12-29",
+     "date_precision": "day",
+     "event": "fan signing, Lotte Department Store Jamsil, Seoul",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 6,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 2588,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1294,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1294,
+       "small_2x": false
+      }
+     ]
     }
    ]
   },
@@ -4544,7 +8415,7 @@
    "kind": "group",
    "end_year": null,
    "returning": false,
-   "shortfall": null,
+   "shortfall": "Only one photo of the 5-member lineup is on Commons; no other new-lineup or new-event nine-member photo besides the current one.",
    "photos": [
     {
      "slot": 1,
@@ -4562,9 +8433,9 @@
      "share_alike": false,
      "date": "2026-03-16",
      "date_precision": "day",
-     "event": null,
+     "event": "40th Golden Disc Awards red carpet, 10 January 2026",
      "stage": false,
-     "quality": 3,
+     "quality": 4,
      "focal": {
       "x": 50,
       "y": 50
@@ -4594,47 +8465,60 @@
        "small_2x": false
       }
      ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Zerobaseone_at_public_event_in_South_Korea,_May_2026.png",
+     "file": "Zerobaseone at public event in South Korea, May 2026.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Zerobaseone_at_public_event_in_South_Korea%2C_May_2026.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1582,
+     "height": 792,
+     "sha1": "2b59f285bf954b269bd4c186839220e2545c3cb4",
+     "author": "Hamcee",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Hamcee",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-05",
+     "date_precision": "month",
+     "event": "public outdoor event, South Korea, May 2026",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 45
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 2,
+     "status": "pending",
+     "review": [
+      "the date is known to the month only"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1024,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 512,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 512,
+       "small_2x": true
+      }
+     ]
     }
    ]
   }
  ],
  "left_out": [
-  {
-   "slug": "akmu",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "billlie",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "fifty-fifty",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "fromis-9",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "illit",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "kara",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "loona",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "nct",
-   "reason": "no photo found"
-  },
-  {
-   "slug": "t-ara",
-   "reason": "no photo found"
-  },
   {
    "slug": "tws",
    "reason": "no photo found"
