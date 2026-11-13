@@ -2,6 +2,10 @@
 // credit with links to the author, the source page and the licence. Always noindex. An unknown number is a 404. ?lock=SR on an
 // edition that cannot exist yet shows its lock sentence.
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+
+import { BinderView } from '@/components/cards/binder-view';
+import { readAdsContext } from '@/lib/cards/ads-server';
 
 import { CardDetail } from '@/components/cards/card-detail';
 import { CreditBlock } from '@/components/cards/credit-block';
@@ -33,5 +37,12 @@ export default async function CardPage({ params, searchParams }: Props): Promise
   const cat = await loadCatalog();
   const d = cat ? buildDetail(cat, num, lockOf(q.lock)) : null;
   if (!d) notFound();
-  return <CardDetail {...d.props} credit={<CreditBlock photo={d.photo} num={d.card.num} kind={d.entity.kind} />} />;
+  const ads = await readAdsContext();
+  // The prototype's card view is a sheet over the collection: the binder is drawn behind it (from the query of the address) and the sheet closes back to it.
+  return (
+    <>
+      <Suspense fallback={<div className="wrap page" aria-busy="true"><p className="lede">Loading your collection.</p></div>}><BinderView ads={ads} /></Suspense>
+      <Suspense fallback={null}><CardDetail {...d.props} inSheet credit={<CreditBlock photo={d.photo} num={d.card.num} kind={d.entity.kind} />} /></Suspense>
+    </>
+  );
 }

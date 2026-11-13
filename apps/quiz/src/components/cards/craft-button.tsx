@@ -13,7 +13,7 @@ import { useCards } from './cards-provider';
 
 import type { Rarity } from '@/lib/cards/types';
 
-export function CraftButton({ n, rarity, name }: { n: number; rarity: Rarity; name: string }): React.ReactElement | null {
+export function CraftButton({ n, rarity, name, after = null }: { n: number; rarity: Rarity; name: string; after?: React.ReactNode }): React.ReactElement | null {
   const { state, status, owned, refresh, toast } = useCards();
   const [busy, setBusy] = useState(false);
   const note = useId();
@@ -34,6 +34,7 @@ export function CraftButton({ n, rarity, name }: { n: number; rarity: Rarity; na
       <button type="button" className="btn-primary" id="d-craft" disabled={busy || v.reason !== null} aria-describedby={note} onClick={() => void click()}>
         <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-i-craft" /></svg>{v.cost === null ? `${RARITY_LABEL[rarity]} cards come from packs` : `Craft for ${v.cost} shards`}
       </button>
+      {after}
       <small id={note}>{v.reason ?? `You have ${state.shards} shards.`}</small>
     </>
   );

@@ -32,11 +32,21 @@ import type { CardKind, Rarity } from '@/lib/cards/types';
 const GRID_PER_PAGE = 36;
 const PER_PAGE = 9;
 
+/** A card's address with the binder's own query kept (view, sort, filters), so the sheet opens over the same binder and closing comes back to it. */
+function cardHref(num: string, sp: URLSearchParams, lock?: string): string {
+  const q = new URLSearchParams(sp.toString());
+  q.delete('lock');
+  if (lock) q.set('lock', lock);
+  const s = q.toString();
+  return `${kcPath.card(num)}${s ? `?${s}` : ''}`;
+}
+
 function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   const { owned, newSet, clearNew } = useCards();
+  const sp = useSearchParams();
   if (item.locked) {
     const why = item.reason ? LOCK_SENTENCES[item.reason] : null;
-    const href = item.anchor ? `${kcPath.card(item.anchor)}?lock=${item.rarity}` : kcPath.collection;
+    const href = item.anchor ? cardHref(item.anchor, sp, item.rarity) : kcPath.collection;
     // The 30 px band under a locked pocket is empty, so the rows line up with the cards around it.
     return (
       <div className="pw">
@@ -58,7 +68,7 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   if (o) {
     return (
       <div className="pw">
-        <Link className="pocket" href={kcPath.card(d.num)} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}${newSet.has(d.n) ? ', new' : ''}`}>
+        <Link className="pocket" href={cardHref(d.num, sp)} onClick={() => clearNew(d.n)} aria-label={`${d.name}${half}, ${ed}, ${o.copies} ${o.copies > 1 ? 'copies' : 'copy'}${newSet.has(d.n) ? ', new' : ''}`}>
           <CardFront card={d} />
         </Link>
         <PocketFoot n={d.n} name={d.name} edition={ed} isNew={newSet.has(d.n)} copies={o.copies} />
@@ -69,7 +79,7 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   // a heart under the missing cards; WishHeart draws nothing for a signed-out visitor).
   return (
     <div className="pw">
-      <Link className="pocket" href={kcPath.card(d.num)} aria-label={`${d.name}${half}, ${ed}, missing`}>
+      <Link className="pocket" href={cardHref(d.num, sp)} aria-label={`${d.name}${half}, ${ed}, missing`}>
         <span className="miss">
           <span className="mno">{d.num}</span>
           <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
@@ -171,7 +181,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const pct = total ? Math.round((own / total) * 1000) / 10 : 0;
   const kinds = useMemo(() => countByKind(scopedCards, owned), [scopedCards, owned]);
   const lockedCount = scoped.filter((i) => i.locked).length;
-  const ex = useMemo(() => extras(catalog.cards, owned), [catalog.cards, owned]);
+  const ex = useMemo(() => extras(catalog.cards, owned, true), [catalog.cards, owned]);
   const pc = Math.max(1, pages.length);
   const step = single ? 1 : 2;
   const pg = Math.max(0, Math.min(single ? page : page - (page % 2), pc - 1));
@@ -346,7 +356,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
             {gridList.length ? <Cells cells={gridList[gp] ?? []} /> : <p className="g-empty">No card matches these filters.</p>}
           </div>
           <Pager id="pg-bot" bottom />
-          <BinderBanner ctx={ads} />
+          {c.fixture ? <div className="adslot" role="note"><b>Advertisement</b>Banner space, binder pages only. In the game a Google banner shows here, never next to an Open button.</div> : <BinderBanner ctx={ads} />}
         </div>
       ) : (
         <div className="b-body" id="b-body">
@@ -367,7 +377,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
               <span className="pg" id="pg-label" aria-live="polite">{pageWords(pg, pc, single)}</span>
               <button type="button" className="btn-quiet" id="pg-next" aria-label="Next pages" onClick={() => turn(1)} disabled={pg + step >= pc}><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
             </div>
-            <BinderBanner ctx={ads} />
+            {c.fixture ? <div className="adslot" role="note"><b>Advertisement</b>Banner space, binder pages only. In the game a Google banner shows here, never next to an Open button.</div> : <BinderBanner ctx={ads} />}
           </div>
           <nav className="idx" id="idx" aria-label="Binder sections">
             {catalog.sections.map((s) => {

@@ -83,7 +83,8 @@ describe('buildSlim gives a group two cards a rarity, left half then right half'
   });
   it('keeps the locked Era and Full Art pockets of a group as before', () => {
     const locks = slim.items.filter((i) => i.locked && i.entity === 'group:g0');
-    expect(locks.map((i) => i.locked && i.rarity)).toEqual(['SR', 'L']);
+    // The prototype shows both halves of a locked group edition ("TWICE 1/2", "TWICE 2/2").
+    expect(locks.map((i) => i.locked && i.rarity)).toEqual(['SR', 'SR', 'L', 'L']);
   });
 });
 
@@ -231,7 +232,8 @@ describe('the card page of a half links its other half', () => {
     expect(h2).toContain(`href="/kpopcards/c/${g1.num}"`);
   });
   it('shows both halves side by side, and a person card has none of it', () => {
-    expect(render(g1.num)).toContain('class="d-pair"');
+    // The prototype's sheet has one "See half" button for the other half, not the two halves side by side.
+    expect(render(g1.num)).toContain('See half 2/2');
     const idol = cat.cards.find((c) => c.kind === 'idol')!;
     const d = buildDetail(cat, idol.num, null)!;
     expect(d.props.pair).toBeNull();

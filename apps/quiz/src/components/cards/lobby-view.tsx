@@ -64,6 +64,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const c = useCards();
   const { status, now, catalog, owned, lastPack, byN, toast, kc } = c;
   const w = c.lobby;
+  // The box shows only what the server grants (decision 28): the quiz of the day is no source of packs while bridges.quizOfDay.enabled is false.
+  const quizOn = (w?.bridges?.quizOfDay as { enabled: boolean } | undefined)?.enabled === true;
   const router = useRouter();
   const signIn = useSignIn();
   const ready = status === 'ready' && w !== null;
@@ -345,9 +347,9 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
           </div>
           <div className="mx m-quiz">
-            <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2><span className="mx-aside">+1 pack each</span></div>
-            <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>Guess today&rsquo;s idol. A win gives a pack.</span></a>
-            <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Quiz of the day</b><span>Finish it for a pack, opened here.</span></a>
+            <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2><span className="mx-aside">{quizOn ? '+1 pack each' : '+1 pack a win'}</span></div>
+            {w?.bridges?.kpopdle.enabled !== false ? <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>Guess today&rsquo;s idol. A win gives a pack.</span></a> : null}
+            {quizOn ? <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Quiz of the day</b><span>Finish it for a pack, opened here.</span></a> : null}
             <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Your passport</b><span>One account for kpopquiz.org and KpopCards.</span></a>
           </div>
           <div className="mx m-odds" id="odds-box">

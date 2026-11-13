@@ -51,6 +51,8 @@ export const SOLOIST = 'Soloist';
 
 const slug = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const EVENTS_SECTION = 'events';
+/** The section of every person without a group line (the prototype's "Soloists" page of the binder). */
+export const SOLOISTS_SECTION = 'Soloists';
 
 /**
  * The editions a subject has a pocket for. Amendment 1: a person or a group has all six pockets (C, U, R, UR exist, Era and Full Art are
@@ -88,7 +90,7 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     // Review 1 finding 5: an entity with no card (the group line of a person, BLACKPINK for Jennie and Rose) has no pocket and no section
     // of its own; its name is only the group line of its people.
     if (!byEntity.has(e.id)) continue;
-    const secName = e.kind === 'event' ? 'Events' : e.kind === 'group' ? e.name : (e.group ?? e.name);
+    const secName = e.kind === 'event' ? 'Events' : e.kind === 'group' ? e.name : (e.group ?? SOLOISTS_SECTION);
     const sec = e.kind === 'event' ? EVENTS_SECTION : slug(secName);
     if (!seen.has(sec)) {
       seen.add(sec);
@@ -115,7 +117,10 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
         const reason = lockReasonOf(e.lockReasons, r);
         lk[r] = reason;
         const anchor = (byEntity.get(e.id) ?? [])[0]?.num ?? null;
-        items.push({ i: items.length, sec, locked: true, entity: e.id, name: e.name, group: e.kind === 'idol' ? e.group : e.kind === 'group' ? e.name : null, rarity: r, reason, anchor });
+        // A group edition that cannot exist yet shows its two halves, as the prototype does ("TWICE 1/2", "TWICE 2/2").
+        for (const half of e.kind === 'group' ? [' 1/2', ' 2/2'] : ['']) {
+          items.push({ i: items.length, sec, locked: true, entity: e.id, name: `${e.name}${half}`, group: e.kind === 'idol' ? e.group : e.kind === 'group' ? e.name : null, rarity: r, reason, anchor });
+        }
       }
     }
     locks[e.id] = lk;
@@ -147,12 +152,13 @@ export function countByKind(cards: readonly SlimCard[], owned: Map<number, Owned
 }
 
 /** Extras: every copy above one, and the shards they are worth (the exact figure the Recycle button prints). */
-export function extras(cards: readonly SlimCard[], owned: Map<number, OwnedEntry>): { n: number; shards: number } {
+export function extras(cards: readonly SlimCard[], owned: Map<number, OwnedEntry>, recyclable = false): { n: number; shards: number } {
   let n = 0;
   let shards = 0;
   for (const c of cards) {
     const o = owned.get(c.n);
-    if (o && o.copies > 1) {
+    // `recyclable`: Gold and Full Art extras are never recycled (the prototype's extras(), and the server's recycle since 110).
+    if (o && o.copies > 1 && !(recyclable && (c.rarity === 'UR' || c.rarity === 'L'))) {
       n += o.copies - 1;
       shards += (o.copies - 1) * SHARDS[c.rarity];
     }
@@ -209,7 +215,7 @@ export function filterItems(items: readonly BinderItem[], f: Filters, owned: Map
 
 export type SortKey = 'rarity' | 'number' | 'newest';
 export const SORTS: { key: SortKey; label: string; hint: string }[] = [
-  { key: 'rarity', label: 'Rarity', hint: 'Highest rarity first, then by number' },
+  { key: 'rarity', label: 'Edition', hint: 'Full Art first, then by number' },
   { key: 'number', label: 'Number', hint: 'By card number' },
   { key: 'newest', label: 'Newest', hint: 'Last pulled first' },
 ];
