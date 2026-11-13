@@ -14,12 +14,14 @@ export default defineConfig({
   reporter: [['line']],
   use: {
     headless: true,
-    deviceScaleFactor: 1,
-    viewport: { width: 1440, height: 860 },
+    actionTimeout: 15_000,
+    navigationTimeout: 60_000,
     timezoneId: 'Europe/Paris',
     locale: 'en-GB',
     ...map[project as keyof typeof map],
+    // after the device preset: the same size and scale on every engine
     deviceScaleFactor: 1,
+    viewport: { width: 1440, height: 860 },
   },
   projects: [{ name: project }],
 });

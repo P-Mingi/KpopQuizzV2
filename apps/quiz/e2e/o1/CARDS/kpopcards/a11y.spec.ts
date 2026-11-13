@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { finishOpening, go, TARGET } from './helpers/target';
+import { go, TARGET } from './helpers/target';
 import { record } from './helpers/results';
 import { SCREENS } from './helpers/screens';
 
@@ -35,7 +35,8 @@ async function audit(page: Page) {
       let name = e.getAttribute('aria-label') || '';
       if (!name) { const by = e.getAttribute('aria-labelledby'); if (by) name = by.split(' ').map((i) => document.getElementById(i)?.textContent || '').join(' '); }
       if (!name) name = (e.textContent || '').trim();
-      if (!name && el.labels && el.labels.length) name = el.labels[0].textContent || '';
+      const lab0 = el.labels?.[0];
+      if (!name && lab0) name = lab0.textContent || '';
       if (!name) name = e.getAttribute('title') || e.getAttribute('placeholder') || (e.querySelector('img[alt]') as HTMLImageElement | null)?.alt || '';
       if (!name.trim()) noName.push(label(e));
     }
@@ -50,7 +51,7 @@ async function focusAudit(page: Page, n = 30) {
     await page.keyboard.press('Tab');
     const r = await page.evaluate(() => {
       const e = document.activeElement as HTMLElement | null;
-      if (!e || e === document.body || e.closest('details.proto')) return null;
+      if (!e || e === document.body || e.closest('details.proto') || e.tagName.toLowerCase() === 'nextjs-portal') return null; // the Next dev overlay is not the app
       const snap = (x: Element | null) => { if (!x) return ''; const c = getComputedStyle(x); return [c.outlineStyle, c.outlineWidth, c.outlineColor, c.boxShadow, c.borderTopColor, c.backgroundColor, c.textDecorationLine, c.color].join('|'); };
       const owners = [e, e.parentElement, e.closest('label')];
       const on = owners.map(snap);

@@ -38,12 +38,14 @@ for (const target of ['proto', 'app'] as const) {
       await page.waitForTimeout(3000);
       const frames: number[] = await page.evaluate(() => { (window as any).__run = false; return (window as any).__f; });
       await cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 });
-      const span = (frames[frames.length - 1] - frames[0]) / 1000;
+      const t = (i: number): number => frames[i] ?? 0;
+      const last = t(frames.length - 1);
+      const span = (last - t(0)) / 1000;
       const fps = (frames.length - 1) / span;
       let worst = Infinity;
-      for (let i = 0; i < frames.length; i++) { let j = i; while (j < frames.length && frames[j] - frames[i] < 1000) j++; if (frames[frames.length - 1] - frames[i] >= 1000) worst = Math.min(worst, j - i); }
-      const deltas = frames.slice(1).map((t, i) => t - frames[i]).sort((a, b) => a - b);
-      const p95 = deltas[Math.floor(deltas.length * 0.95)];
+      for (let i = 0; i < frames.length; i++) { let j = i; while (j < frames.length && t(j) - t(i) < 1000) j++; if (last - t(i) >= 1000) worst = Math.min(worst, j - i); }
+      const deltas = frames.slice(1).map((x, i) => x - t(i)).sort((a, b) => a - b);
+      const p95 = deltas[Math.floor(deltas.length * 0.95)] ?? 0;
       const row = { kind: 'fps', target, vp: `${vp.w}x${vp.h}`, cpu: RATE, seconds: +span.toFixed(1), fps: +fps.toFixed(1), worstSecondFrames: worst === Infinity ? null : worst, p95FrameMs: +p95.toFixed(1), pass: fps >= MIN_FPS };
       record(row);
       console.log(JSON.stringify(row));

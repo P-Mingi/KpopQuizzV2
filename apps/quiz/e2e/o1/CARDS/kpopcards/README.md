@@ -5,7 +5,7 @@ overflow, journey, accessibility, flip and fps checks. Config: `apps/quiz/e2e/o1
 
 ## Run (from apps/quiz)
 1. Dev server of the app in fixture mode on the QA port (needs agent A's seeded mock, `lib/kpopcards/mock-api.ts`):
-   `NET_CARDS=1 CARDS_UI_FIXTURE=1 NEXT_PUBLIC_SITE_ID=hub NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 pnpm dev -p 3135`
+   `NET_CARDS=1 CARDS_UI_FIXTURE=1 CARDS_UI_FIXTURE_FULL=1 NEXT_PUBLIC_SITE_ID=hub NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 pnpm dev -p 3135`
    (the app is read from `KC_BASE_URL`, default `http://localhost:3135`, under `KC_APP_ROOT`, default `/kpopcards`).
 2. Specs, one browser at a time:
    - `./node_modules/.bin/playwright test -c e2e/o1/CARDS/playwright.kpopcards.config.ts visual` : pixels and boxes, 3 viewports x every screen

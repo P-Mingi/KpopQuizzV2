@@ -11,7 +11,7 @@ test('card view flip: the back never shows through the front', async ({ page, br
   await page.click('#grid .card >> nth=0');
   await page.waitForSelector('#dt:not([hidden]) .d-flip');
   await page.waitForTimeout(600);
-  const result = await page.evaluate(async () => {
+  const raw = await page.evaluate(async () => {
     const flip = document.querySelector('.d-flip') as HTMLElement;
     const fr = flip.querySelector('.fr') as HTMLElement, bk = flip.querySelector('.bk') as HTMLElement;
     const samples: { t: number; fr: string; bk: string; cls: boolean }[] = [];
@@ -31,6 +31,8 @@ test('card view flip: the back never shows through the front', async ({ page, br
     const backface = [getComputedStyle(fr).backfaceVisibility || (getComputedStyle(fr) as any).webkitBackfaceVisibility, getComputedStyle(bk).backfaceVisibility || (getComputedStyle(bk) as any).webkitBackfaceVisibility];
     return { n: samples.length, both: both.length, firstBack: firstBack?.t ?? null, lastFront: lastFront?.t ?? null, final: samples[samples.length - 1], backface };
   });
+  const final = raw.final ?? { t: 0, fr: '', bk: '', cls: false };
+  const result = { ...raw, final };
   record({ kind: 'flip', engine: browserName, target: TARGET, ...result, pass: result.both === 0 && result.final.bk === 'visible' && result.final.fr === 'hidden' });
   expect(result.both, 'frames where both faces were visible').toBe(0);
   expect(result.final.bk).toBe('visible');

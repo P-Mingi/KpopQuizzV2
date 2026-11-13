@@ -32,7 +32,7 @@ out.push(`# Pass ${n}`, '', `Run at ${new Date().toISOString()}. Branches: ${hea
 const vis = last.filter((r) => r.kind === 'visual');
 if (vis.length) {
   out.push('## Visual comparison with the prototype (target: at most 1% of pixels different, key boxes within 2 px)', '', '| Screen | Viewport | Pixels different | Page height proto / app | Boxes off (>2 px) | Result |', '|---|---|---|---|---|---|');
-  for (const r of vis) out.push(`| ${r.screen} | ${r.vp} | ${r.error ? 'error' : r.diffPct + '%'} | ${r.sizeProto ? r.sizeProto[1] + ' / ' + r.sizeApp[1] : ''} | ${r.error ? r.error : (r.boxesOff || []).length + ' of ' + r.boxesChecked} | ${r.pass ? 'PASS' : 'FAIL'} |`);
+  for (const r of vis) out.push(`| ${r.screen} | ${r.vp} | ${r.error ? 'error' : r.diffPct + '%'} | ${r.sizeProto ? r.sizeProto[1] + ' / ' + r.sizeApp[1] : ''} | ${r.error ? r.error : (r.boxesOff || []).length + ' of ' + r.boxesChecked} | ${r.pass ? 'PASS' : r.screen === 'lobby-guest' ? 'PRODUCT DECISION' : 'FAIL'} |`);
   const m = vis.find((r) => r.mask);
   if (m) out.push('', `Masked on both sides: ${m.mask}`);
   out.push('');
@@ -41,6 +41,7 @@ const section = (who) => {
   const L = [];
   for (const r of last) {
     if (r.pass !== false) continue;
+    if (r.screen === 'lobby-guest') continue; // listed apart: a product decision, not a gap
     if (owner(r) !== who) continue;
     if (r.kind === 'visual') {
       if (r.error) L.push(`- **${r.screen} @ ${r.vp}**: could not be compared: ${r.error}`);
@@ -69,6 +70,8 @@ if (other.length) {
   for (const r of other) out.push(`| ${r.kind} | ${[r.screen, r.name, r.vp, r.engine, r.target].filter(Boolean).join(' / ')} | ${r.pass ? 'PASS' : 'FAIL'} | ${r.kind === 'fps' ? r.fps + ' fps' : r.kind === 'flip' ? 'both visible: ' + r.both : ''} |`);
   out.push('');
 }
+const guest = last.filter((r) => r.screen === 'lobby-guest');
+if (guest.length) out.push('## Product decision for the owner, not a gap: the guest lobby', '', 'A real signed-out visitor has no wallet and no stack, so showing the prototype\'s example player to a guest would be fake activity. The prototype\'s guest view differs on purpose; measured anyway:', '', ...guest.map((r) => `- ${r.vp}: ${r.error ? r.error : r.diffPct + '% of pixels differ, ' + (r.boxesOff || []).length + ' boxes off'}`), '');
 for (const who of ['A', 'B', 'C']) out.push(`## For agent ${who}`, '', ...section(who), '');
 const file = path.join(QA, `pass-${n}.md`);
 fs.writeFileSync(file, out.join('\n'));
