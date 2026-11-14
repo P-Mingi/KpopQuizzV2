@@ -206,7 +206,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           {face.body}
         </button>
         <i className="stage-floor" aria-hidden="true" />
-        {ready ? (
+        {ready || guest ? (
           <div className="stackrow">
             <div className="stack" id="stack" aria-hidden="true">{Array.from({ length: Math.max(cap, stock) }, (_, i) => <i key={i} className={i < stock ? 'on' : undefined} />)}</div>
             <p className="stack-label" id="stack-label" aria-live="polite"><b className="num">{stock}</b> of {cap} packs ready{stock > cap ? ' (with bonus packs)' : ''}</p>
@@ -214,9 +214,22 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
         ) : null}
         <div className="openrow">
           <button type="button" className="btn-primary xl" id="open-btn" onClick={primary} disabled={busy || (!guest && (!ready || main.disabled))}><span id="open-label">{guest ? 'Sign in to open' : !ready ? 'Open a pack' : main.label}</span></button>
-          {ready ? <button type="button" className="btn-x5" id="open5-btn" disabled={stock < 5} title={stock < 5 ? 'Needs 5 packs ready' : 'Open 5 packs at once'} onClick={() => goOpen('stock', 5)}>Open 5</button> : null}
+          {ready || guest ? <button type="button" className="btn-x5" id="open5-btn" disabled={guest || stock < 5} title={stock < 5 ? 'Needs 5 packs ready' : 'Open 5 packs at once'} onClick={() => goOpen('stock', 5)}>Open 5</button> : null}
         </div>
         <p className="hint" id="cta-sub">{guest ? 'Packs belong to your account.' : !ready ? '' : hasPack ? 'You can also tap the pack.' : rested ? 'The timer is done for today. Midnight brings the stack back to full.' : main.kind === 'wait' && w?.nextAt ? `Or wait ${fmtClock(nextMs)} for a free pack.` : ''}</p>
+        {guest ? (
+          // A visitor has no wallet: the chips state the rules (no number of a player), and no pity chip.
+          <div className="ichips">
+            <span className="ichip">
+              <span className="ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="bg" cx="24" cy="24" r="20" /></svg></span>
+              <span className="ct"><b className="num">10:00</b><small>a free pack every 10 minutes once you sign in</small></span>
+            </span>
+            <span className="ichip">
+              <span className="moon"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg></span>
+              <span className="ct"><b className="num">Midnight</b><small>the stack is full again, Paris time</small></span>
+            </span>
+          </div>
+        ) : null}
         {ready ? (
           <div className="ichips">
             <span className="ichip">

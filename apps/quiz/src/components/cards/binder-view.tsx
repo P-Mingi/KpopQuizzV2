@@ -14,7 +14,7 @@ import { kcPath } from '@/lib/cards/kc-paths';
 import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
 import { isApiError } from '@/lib/kpopcards/contract';
-import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridPages, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridCells, gridPages, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
@@ -363,7 +363,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
             <Pager id="pg-top" />
           </div>
           <div className="grid" id="grid">
-            {gridList.length ? <Cells cells={gridList[gp] ?? []} /> : <p className="g-empty">No card matches these filters.</p>}
+            {gridList.length ? <Cells cells={gridCells(gridList[gp] ?? [], gp < gpc - 1, GRID_PER_PAGE)} /> : <p className="g-empty">No card matches these filters.</p>}
           </div>
           <Pager id="pg-bot" bottom />
         </div>
