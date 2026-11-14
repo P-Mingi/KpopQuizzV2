@@ -44,9 +44,38 @@ Each file's header holds the exact queries next to these expected values.
 | `ADMIN_USER_IDS` | the owner's id | the admin, and the owner's private preview of the non-free Otakudle images (with PRIVATE_LAUNCH=1) |
 | `CARDS_UI_FIXTURE`, `CARDS_UI_FIXTURE_FULL` | never set in production | development fixture only |
 The cron `/api/cron/cards-push` (every 10 minutes) is in vercel.json; it answers 404 while NET_CARDS_PUSH is off.
+`NET_CARDS` must be set before the deployment is built: the static KpopCards pages (missions, ranking, odds, help, credits, report) read it at build time, so turning it on means a redeploy.
 
 ## Checks
-TBD: full suite, tsc, hub and kpop builds, parity on kpopquiz.org, the visual comparison table per screen and viewport, the fps measured, the concurrency test, the 100,000-pack simulation.
+- **tsc** green. **Full suite** (without the offline wrapper): 10,967 passed, 5 skipped, 34 failed in 18 files under load; each of the 18 files passes alone (load timeouts, for example legal.test's 5 s walk of src).
+- **Builds**: hub (NET_CARDS on and off) and kpop (the parity head build) green.
+- **Production server** (`next start`, hub build, offline): every /kpopcards page answers (200); `/cards`, `/cards/binder?x=1` and `/cards/c/<num>` answer 308 to the same place under /kpopcards with the query kept; `kpopcards.bunnyverse.org/` and `/help?a=1` answer 308 to `bunnyverse.org/kpopcards` and `/kpopcards/help?a=1`. This check found that an empty generateStaticParams under the `[site]` layout answers 404 (NoFallbackError) on a production server although a dev server answers 200: the six open-ended pages now render per request (as `u/[username]`). Offline there is no catalog, so the pages show their "not available right now" fallback; a real card rendered by a production server needs the database.
+- **Parity on kpopquiz.org** (60 URLs, base 84187a3, head 762da7e): 58 identical; /groups and /bts-quiz differ only in the numbering of streamed rows (the same rows in another order), which a control run of two builds of the same tree (84187a3 against b936fc6, same tree) also shows on /groups. No stylesheet, markup or status difference; no refused write fails. A first run had found one real difference (a Tailwind utility `.inline-grid` added to kpopquiz.org's shared stylesheet by a word in the Daily games badge): fixed in f77ef99.
+- **Visual comparison with the v6 prototype** (Playwright, target at most 1% of pixels different and every key box within 2 px; photos and idol names masked on both sides): 38 of 42 shots within target.
+
+| Screen | 1440x860 | 1366x657 | 390x664 |
+|---|---|---|---|
+| Lobby | 0.16% | 0.18% | 0.31% |
+| Collection, binder | 0.20% | 0.21% | 0.29% |
+| Collection, grid | 1.42% (pager 3.5 px wider) | 1.50% (same) | 1.55% |
+| Collection, filters | 0.21% | 0.21% | 0.24% |
+| Card view | 0.72% | 0.84% | 1.40% (the lock row, 80 px) |
+| Missions | 0.09% | 0.10% | 0.06% |
+| Ranking, friends | 0.30% | 0.31% | 0.43% |
+| Ranking, everyone | 0.24% | 0.25% | 0.37% |
+| Help | 0.07% | 0.08% | 0.06% |
+| Bell | 0.05% | 0.06% | 0.17% |
+| Avatar menu | 0.01% | 0.01% | 0.00% |
+| Opening, pack | 0.21% | 0.26% | 0.91% |
+| Opening, first card | 0.13% | 0.14% | 0.48% |
+| Opening, summary | 0.07% | 0.09% | 0.01% |
+| Guest lobby (product call) | 25.4% | 26.9% | 44.0% |
+
+  The grid's remaining gap is mostly one empty pocket: the app never splits a group pair across two grid pages (lot 2 rule), the prototype does.
+- **Opening**: fits all 13 sizes (320x568 to 1920x1080); no horizontal overflow from 360 to 1920 px; the flip never shows the back through the front on Chromium, Firefox and WebKit; reduced motion as 0.2 s fades. **Frames per second**, CPU 4x slower, Full Art opening: 59.5 (390x664) and 58.7 (1366x657), prototype 59.9 and 60.0, target 45.
+- **Journeys** 15 of 16 (craft is skipped in the example state: 34 shards, the cheapest craft costs 50, as in the prototype; crafting after an ad works by hand). **Accessibility**: every target 44 px or more, names and focus rings on every page, at 390 and 1366.
+- **Concurrency on a real Postgres** (throwaway cluster, the real SQL files, parallel psql sessions on one account): 10 openings in parallel on a stack of 10 give exactly 10 packs, one pack number each, no extra card; 14 on a stack of 10 give 10 packs and 4 refusals, the stack stops at 0; the same idempotency key fired 8 times at once gives one pack and the same answer; 3 Open 5 on a stack of 10 give 2 and 1 refusal, pack numbers 1 to 10 once each; the Gold guarantee fires once, on the 30th pack, whatever the order; two recycles never pay one extra copy twice. 13 of 13.
+- **Simulation**: 100,000 packs per theme (all, girls, boys, solo) through the server's own draw, golden every 10th pack and the guarantee counted pack by pack: every printed rate within 5 standard deviations; every golden card 5 Holo or better; the longest run without Gold or Full Art is 29 in each theme (902 to 959 guarantee packs).
 
 ## Exact expected values changed (each because a rule or the prototype requires it; none weakened)
 - `rules.test.ts`: 5 lock sentences become 7 (`photo`, `size`): owner decision "one edition, one photo".
@@ -61,8 +90,11 @@ TBD: full suite, tsc, hub and kpop builds, parity on kpopquiz.org, the visual co
 - `nav-hub.test.ts`: the hub's tabs gain Daily games while the Burrow is open (owner request 2026-11-13).
 - `admin-lock.refusal.test.ts`, `admin-lock.static.test.ts`: 48 admin routes become 51 (the non-free images button and the owner's private preview, lot 3 part E).
 - `cards-bridge.test.ts`: the sign-in return goes to `/kpopcards`; `cards-layout.test.ts`: the layout path and the title KpopCards; `ui-fixture-guard.test.ts`: the mock's path.
+- `cards-layout.test.ts`: the font import line names DM_Sans, the root carries a third variable, and two checks are added (DM Sans with its optical size axis, the `--f-ui` token): the prototype's interface face. The font mock of `cards-layout`, `cards-lot3-ui`, `cards-pairs` and `cards-ui` gains that variable.
+- `kc-dynamic.test.ts` (written in this lot): its rule "an empty generateStaticParams" is what a production server answers 404; it now requires per-request rendering for open-ended values, or the finite list with the site param (the themes), and refuses an empty list.
+- The QA harness (`e2e/o1/CARDS/kpopcards/helpers/diff.ts`, new in this lot) measures the boxes at rest, as its screenshots already are.
 
 ## For the owner
-See the final report: the SQL above in order, the files script (`publish-card-files.mjs`, preview then `--publish`), the review of the 44 photos waiting in the admin "À relire" then "Reconstruire le catalogue", the Kpopdle photos script, the env, the domain `kpopcards.bunnyverse.org`, the non-free images, and three product calls (the guest view, the quiz of the day, the sort of halves).
+See the final report: the SQL above in order, the files script (`publish-card-files.mjs`, preview then `--publish`), the review of the 44 photos waiting in the admin "À relire" then "Reconstruire le catalogue", the Kpopdle photos script, the env, the domain `kpopcards.bunnyverse.org`, the non-free images, and five product calls (the guest view, the quiz of the day, the sort of halves, the place of the lock, a group pair split across two grid pages).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
