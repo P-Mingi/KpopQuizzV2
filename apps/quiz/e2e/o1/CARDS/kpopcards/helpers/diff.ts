@@ -61,10 +61,13 @@ export async function diffPngs(browser: Browser, a: Buffer, b: Buffer, threshold
 export type Box = { x: number; y: number; w: number; h: number };
 export type BoxRow = { sel: string; idx: number; proto: Box | null; app: Box | null; dx: number; dy: number; dw: number; dh: number; off: number };
 
-/** Document-space boxes (rect + scroll) of every match of each selector, capped per selector. */
+/** Document-space boxes (rect + scroll) of every match of each selector, capped per selector. Boxes are read at rest: every infinite CSS animation
+ *  (the lobby pack's float, a pulse) is cancelled first, as the screenshot that follows does with animations: 'disabled', so a box never depends on
+ *  how long a page took to load (the float moves #pack by up to 8 px). */
 export async function measure(page: Page, sels: string[], cap = 12): Promise<Record<string, Box[]>> {
   return page.evaluate(
     ({ sels, cap }) => {
+      for (const a of document.getAnimations()) { const t = a.effect?.getTiming(); if (t && t.iterations === Infinity) a.cancel(); }
       const out: Record<string, { x: number; y: number; w: number; h: number }[]> = {};
       for (const s of sels) {
         out[s] = Array.from(document.querySelectorAll(s))
