@@ -93,13 +93,20 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
             ))}
           </nav>
           <div className="wallet">
+            {status === 'guest' ? (
+              // A visitor has no wallet: the two pills are drawn empty (no number that would be invented), the bell has nothing new.
+              <>
+                <span className="pill" id="pill-packs" title="Free packs waiting"><Ico name="pack" /><span className="num"><b id="w-packs">-</b></span><span className="lbl">packs</span></span>
+                <span className="pill" id="pill-shards" title="Shards"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-R" /></svg><b id="w-shards" className="num">-</b><span className="lbl">shards</span></span>
+              </>
+            ) : null}
             {signedIn && w ? (
               <>
                 <span className="pill" id="pill-packs" title="Free packs waiting"><Ico name="pack" /><span className="num"><b id="w-packs">{w.stock}</b>/{w.cap}</span><span className="lbl">packs</span></span>
                 <span className="pill" id="pill-shards" title="Shards"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-R" /></svg><b id="w-shards" className="num">{w.shards}</b><span className="lbl">shards</span></span>
               </>
             ) : null}
-            {signedIn ? (
+            {signedIn || status === 'guest' ? (
               <div className="setwrap">
                 <button className="iconbtn" id="bell-btn" type="button" aria-label="Notifications" aria-expanded={open === 'bell'} aria-controls="bell-pop" onClick={() => toggle('bell')}>
                   <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z" /><path d="M10 20a2 2 0 0 0 4 0" /></svg>

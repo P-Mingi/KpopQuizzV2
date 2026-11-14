@@ -27,13 +27,14 @@ export const MASK_CSS = `
   .c-art { background: #7a7a7a !important; visibility: visible !important; }
   .c-name, .c-meta span, .c-mono, .c-kind .kh { color: transparent !important; text-shadow: none !important; }
   .rtag b, .al-name, .rk-name { color: transparent !important; }
+  .credit, .credit * { color: transparent !important; text-decoration-color: transparent !important; }
   img.photo, .photo, [data-photo], picture, .c-art img { visibility: hidden !important; }
   * { caret-color: transparent !important; }
   nextjs-portal, [data-nextjs-toast], [data-nextjs-dev-tools-button] { display: none !important; }
 `;
 export const MASK_DESCRIPTION =
   'photo layer (.c-art and everything in it, img.photo/[data-photo]) painted flat grey; idol name and meta text on cards (.c-name, .c-meta span, .c-mono, .c-kind .kh), ' +
-  'reveal-tag and almost-there and ranking names (.rtag b, .al-name, .rk-name) made transparent. Boxes are NOT masked: the layout must still match.';
+  'reveal-tag and almost-there and ranking names (.rtag b, .al-name, .rk-name) made transparent; the photo credit line text (.credit, the author and licence of the photo itself), its box still measured. Boxes are NOT masked: the layout must still match.';
 
 export async function injectMask(page: Page) {
   await page.addStyleTag({ content: MASK_CSS });

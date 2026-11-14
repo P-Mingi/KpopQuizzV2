@@ -40,6 +40,12 @@ export const SCREENS: Screen[] = [
     boxes: [...TOP, '#guest', '#guest-demo', '#guest-in', '#pack', '#open-btn'],
   },
   {
+    // The integrator's guest view: the same lobby plus the #guest banner, the personal blocks in their empty state (the prototype's "Empty binder", then "Guest view").
+    id: 'lobby-guest-empty', hash: 'lobby', app: '', ready: '#guest:not([hidden])', full: true, needs: 'guest',
+    steps: async (page, side) => { if (side === 'proto') { await openControls(page); await page.click('#reset-empty'); await page.click('#guest-tg'); await page.evaluate(() => scrollTo(0, 0)); } },
+    boxes: [...TOP, '#guest', '#guest-demo', '#guest-in', '.p-head2', '#stage', '#pack', '#stack', '#open-btn', '#open5-btn', '.ichip', '.shelf', '#shelf > *', '.tile', '.almost', '.strip', '.mx', '.m-coll', '.m-week', '.m-focus', '.m-rank', '.m-quiz', '.m-odds', '.foot'],
+  },
+  {
     id: 'collection-binder', hash: 'collection', app: '/collection', ready: '#spread .card', full: true,
     boxes: [...TOP, '.b-head', '.b-progress', '.b-tools', '.seg button', '.search', '#fbtn', '#recycle', '#spread', '#spread .card', '.b-nav', '#idx', '.adslot'],
   },
@@ -57,7 +63,8 @@ export const SCREENS: Screen[] = [
   {
     id: 'card-view', hash: 'collection', app: '/collection', ready: '#dt:not([hidden]) .sheet',
     steps: async (page) => { await page.click('#f-view [data-v="grid"]'); await page.waitForSelector('#grid .card'); await page.click('#grid .card >> nth=0'); await page.waitForSelector('#dt:not([hidden]) .sheet'); await page.waitForTimeout(900); },
-    boxes: ['.sheet', '.d-flip', '.d-flip .card', '.moment', '.sheet button'],
+    // the lock button has no counterpart in the prototype (integrator decision): it is left out of the index-based button list, and the credit line keeps its box
+    boxes: ['.sheet', '.d-flip', '.d-flip .card', '.moment', '.credit', '.sheet button:not(#d-lock)'],
   },
   { id: 'missions', hash: 'missions', app: '/missions', ready: '#week', full: true, boxes: [...TOP, '.h1', '.lede', '#week', '#week > *', '.sets', '.sets > *'] },
   { id: 'ranking-friends', hash: 'ranking', app: '/ranking', ready: '#rank li', full: true, boxes: [...TOP, '.h1', '.seg button', '#rank', '#rank li', '#me-card'] },
