@@ -39,6 +39,8 @@ beforeEach(async () => {
     row(3, 'one-piece/sanji', { license_verified: true }),
     row(4, 'one-piece/nami', { license: 'cc0', license_note: null, source_url: 'https://commons.wikimedia.org/wiki/File:Nami.png' }),
     row(5, 'one-piece/usopp', { created_at: '2026-11-12T10:00:00+00:00' }),
+    row(21, 'one-piece', { kind: 'series', license: 'public_domain', license_note: null, source_url: 'https://commons.wikimedia.org/wiki/File:Sea.jpg', created_at: '2026-10-01T00:00:00+00:00' }),
+    row(22, 'naruto', { kind: 'series', license: 'cc0', license_note: null, created_at: '2026-10-01T00:00:00+00:00', license_verified: true }),
   ];
   db = nonFreeFake(rows, rows.map((r) => ({ name: r.path as string, createdAt: '2026-11-11T21:10:00+00:00', bytes: png })), {
     groups: [{ id: 1, slug: 'one-piece', site_id: 'anime' }, { id: 2, slug: 'bts', site_id: 'kpop' }],
@@ -54,9 +56,14 @@ beforeEach(async () => {
   vi.stubEnv('PRIVATE_LAUNCH_KEY', '');
 });
 
+const seriesIndex = (): Promise<Response> => index(new NextRequest(`${BASE}/api/admin/dle-preview?series=1`));
+const seriesImg = (slug: string): Promise<Response> => image(new NextRequest(`${BASE}/api/admin/dle-preview/img?series=${encodeURIComponent(slug)}`));
+
 const ALL: Array<[string, () => Promise<Response>]> = [
   ['GET index', () => index()],
   ['GET image', () => img('11')],
+  ['GET series index', () => seriesIndex()],
+  ['GET series image', () => seriesImg('one-piece')],
 ];
 
 describe('the gate: 404 for everyone but the verified admin, on the hub, with PRIVATE_LAUNCH=1', () => {
@@ -176,5 +183,48 @@ describe('GET /api/admin/dle-preview/img', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('location')).toBeNull();
     expect([...res.headers.values()].join(' ')).not.toMatch(/storage\/v1|supabase/);
+  });
+});
+
+describe('the series check of the owner (?series)', () => {
+  it('lists the series rows with slug, licence, verified and the source host, and nothing more', async () => {
+    const res = await seriesIndex();
+    const body = await res.json();
+    expect(body).toEqual({ ok: true, series: [
+      { slug: 'naruto', license: 'cc0', verified: true, source: 'none', host: null },
+      { slug: 'one-piece', license: 'public_domain', verified: false, source: 'host', host: 'commons.wikimedia.org' },
+    ] });
+    expect(JSON.stringify(body)).not.toMatch(/anime\/series|https?:|\.webp|Sea\.jpg/);
+    expect(res.headers.get('cache-control')).toBe('private, no-store, no-cache, max-age=0, must-revalidate');
+    expect(res.headers.get('x-robots-tag')).toBe('noindex, nofollow');
+  });
+
+  it('leaves the plain index as it was: character ids only', async () => {
+    expect(await (await index(new NextRequest(`${BASE}/api/admin/dle-preview`))).json()).toEqual({ ok: true, ids: ['11', '12'] });
+    expect(await (await index(new NextRequest(`${BASE}/api/admin/dle-preview?series=0`))).json()).toEqual({ ok: true, ids: ['11', '12'] });
+  });
+
+  it('serves the picture of a series, verified or not, as a private 160 px tile; a character, another shape or an unknown slug is the plain 404', async () => {
+    for (const slug of ['one-piece', 'naruto']) {
+      const res = await seriesImg(slug);
+      expect(res.status, slug).toBe(200);
+      expect(res.headers.get('content-type')).toBe('image/webp');
+      expect(res.headers.get('cache-control')).toBe('private, no-store, no-cache, max-age=0, must-revalidate');
+      const m = await sharp(Buffer.from(await res.arrayBuffer())).metadata();
+      expect([m.width, m.height]).toEqual([160, 213]);
+    }
+    for (const slug of ['unknown', 'one-piece/luffy', '', '../x', 'ONE-PIECE', 'one piece']) expect((await seriesImg(slug)).status, slug).toBe(404);
+    expect(dbOf().calls.filter((c) => c.startsWith('remove') || c.startsWith('delete'))).toEqual([]);
+  });
+
+  it('never writes: the rows and the files are the same after every call', async () => {
+    const rowsBefore = JSON.stringify(dbOf().rows);
+    const filesBefore = dbOf().objects.length;
+    await seriesIndex();
+    await seriesImg('one-piece');
+    await seriesImg('naruto');
+    expect(JSON.stringify(dbOf().rows)).toBe(rowsBefore);
+    expect(dbOf().objects.length).toBe(filesBefore);
+    expect(dbOf().removed).toEqual([]);
   });
 });

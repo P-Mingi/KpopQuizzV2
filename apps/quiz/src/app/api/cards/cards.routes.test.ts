@@ -309,13 +309,15 @@ describe('GET /api/cards/state: the lobby', () => {
       owned: [{ n: 4, copies: 2, fav: true }], daily: { used: false, group: { id: 'group:G', name: 'Group' } },
     });
     expect(b.themes.map((t: { id: string }) => t.id)).toEqual(['all', 'girls', 'boys', 'solo']);
-    expect(h.rpcCalls[0]).toMatchObject({ fn: 'cards_player', args: { p_user: 'u1', p_timer_cap: 40 } });
+    // The bonus packs of the day are recorded first (cards_player counts the rows that call writes), then the player is read.
+    expect(h.rpcCalls.map((c) => c.fn).slice(0, 2)).toEqual(['cards_bonus_sync', 'cards_player']);
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_player')).toMatchObject({ args: { p_user: 'u1', p_timer_cap: 40 } });
   });
   it('the settings flow through and adsEnabled follows NET_CARDS_ADS', async () => {
     vi.stubEnv('CARDS_TIMER_PER_DAY', '12');
     vi.stubEnv('CARDS_ADS_PER_DAY', '4');
     let b = await (await state(req('/api/cards/state'))).json();
-    expect(h.rpcCalls[0]?.args).toMatchObject({ p_timer_cap: 12 });
+    expect(h.rpcCalls.find((c) => c.fn === 'cards_player')?.args).toMatchObject({ p_timer_cap: 12 });
     expect([b.timerCap, b.adsLeft, b.adsEnabled]).toEqual([12, 2, true]);
     vi.stubEnv('NET_CARDS_ADS', '');
     b = await (await state(req('/api/cards/state'))).json();
@@ -392,7 +394,7 @@ describe('POST /api/cards/open', () => {
   });
   it('a Kpopdle bonus pack: the database re-reads the wins first, then opens with the day cap; bridges off means cap 0', async () => {
     await open(withKey('/api/cards/open', { source: 'bonus' }));
-    expect(h.rpcCalls.map((c) => c.fn).filter((f) => f === 'cards_bonus_record' || f === 'cards_open')).toEqual(['cards_bonus_record', 'cards_open']);
+    expect(h.rpcCalls.map((c) => c.fn).filter((f) => f === 'cards_bonus_sync' || f === 'cards_open')).toEqual(['cards_bonus_sync', 'cards_open']);
     expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_source: 'bonus', p_bonus_cap: 3 });
     vi.stubEnv('CARDS_BONUS_PER_DAY', '2');
     h.rpcCalls = [];
@@ -407,15 +409,40 @@ describe('POST /api/cards/open', () => {
     expect([res.status, await res.json()]).toEqual([409, { error: 'bonus' }]);
     expect((await open(withKey('/api/cards/open', { source: 'bonus', packs: 5 }))).status).toBe(400);
   });
-  it('the lobby tells the Kpopdle bridge and that the quiz of the day earns no pack', async () => {
+  it('the lobby tells the Kpopdle bridge and the quiz of the day bridge: the pack of the quiz is one of the earned bonus packs, inside the same cap', async () => {
     h.rpcResult.cards_player = { data: { ...PLAYER, bonus_earned: 2, bonus_today: 1 } };
-    const b = await (await state(req('/api/cards/state'))).json();
+    let b = await (await state(req('/api/cards/state'))).json();
     expect(b.bonusLeft).toBe(1);
     expect(b.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 2, left: 1, perDay: 3 });
-    expect(b.bridges.quizOfDay.enabled).toBe(false);
-    expect(b.bridges.quizOfDay.reason).toMatch(/score the browser reports/);
+    expect(b.bridges.quizOfDay).toEqual({ enabled: true, done: false });
+    // the database says the quiz of the day's pack is one of the 2 earned: Kpopdle's own count leaves it out, the allowance is shared
+    h.rpcResult.cards_bonus_sync = { data: { earned: 2, quiz: true } };
+    b = await (await state(req('/api/cards/state'))).json();
+    expect(b.bonusLeft).toBe(1);
+    expect(b.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 1, left: 1, perDay: 3 });
+    expect(b.bridges.quizOfDay).toEqual({ enabled: true, done: true });
+    // the server records by itself, for the player of the session and the injected clock, never from a body
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_bonus_sync').at(-1)).toMatchObject({ args: { p_user: 'u1', p_now: '2026-11-12T10:30:00.000Z' } });
     vi.stubEnv('NET_CARDS_BRIDGES', '');
-    expect((await (await state(req('/api/cards/state'))).json()).bridges.kpopdle).toMatchObject({ enabled: false, left: 0 });
+    h.rpcCalls = [];
+    b = await (await state(req('/api/cards/state'))).json();
+    expect(b.bridges.kpopdle).toMatchObject({ enabled: false, left: 0 });
+    expect(b.bridges.quizOfDay).toEqual({ enabled: false, done: false });
+    expect(h.rpcCalls.some((c) => c.fn === 'cards_bonus_sync' || c.fn === 'cards_bonus_record')).toBe(false);
+  });
+  it('the lobby still records the Kpopdle wins when 115 is not applied yet (cards_bonus_sync missing): the quiz is simply not done', async () => {
+    h.rpcResult.cards_bonus_sync = { error: { message: 'function public.cards_bonus_sync does not exist' } };
+    const b = await (await state(req('/api/cards/state'))).json();
+    expect(h.rpcCalls.map((c) => c.fn).slice(0, 3)).toEqual(['cards_bonus_sync', 'cards_bonus_record', 'cards_player']);
+    expect(b.bridges.quizOfDay).toEqual({ enabled: true, done: false });
+  });
+  it('a Team account is refused before anything is recorded; a guest too', async () => {
+    h.team = true;
+    expect((await state(req('/api/cards/state'))).status).toBe(403);
+    h.team = false;
+    h.user = null;
+    expect((await state(req('/api/cards/state'))).status).toBe(401);
+    expect(h.rpcCalls).toEqual([]);
   });
   it('a plain "Open a pack" uses the saved theme', async () => {
     h.rpcResult.cards_prefs_get = { data: { theme: 'girls' } };

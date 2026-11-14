@@ -40,9 +40,10 @@ create trigger protect_objects_delete before delete on storage.objects for each 
 
 -- Stand-ins for the play tables: plays and quizzes (written by a browser, never counted: the proof of review 1 finding 1), dle_plays and
 -- dle_games (the production columns cards_bonus_record reads).
-create table public.quizzes (id uuid primary key default gen_random_uuid(), site_id text not null default 'kpop');
+create table public.quizzes (id uuid primary key default gen_random_uuid(), site_id text not null default 'kpop',
+  status text not null default 'published', is_quiz_of_the_day boolean not null default false, quiz_of_the_day_date date);
 create table public.plays (id uuid primary key default gen_random_uuid(), quiz_id uuid not null references public.quizzes(id),
-  player_id uuid, created_at timestamptz not null default now());
+  player_id uuid, total_questions integer not null default 10, created_at timestamptz not null default now());
 create table public.dle_plays (id bigint generated always as identity primary key, game_id text not null, play_date date not null,
   user_id uuid, status text not null default 'playing', finished_at timestamptz);
 create table public.dle_games (id text primary key);

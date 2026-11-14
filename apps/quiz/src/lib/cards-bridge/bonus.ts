@@ -1,8 +1,10 @@
 // Bunnyverse Cards, review 1 finding 1: POST /api/cards-bridge/bonus { source: 'kpopdle' }, sent by the Kpopdle win line once a game is won.
 // The server records the bonus pack itself: cards_bonus_record (002-functions.sql) reads the player's Kpopdle wins of the Paris day from
 // dle_plays, where the win is decided by dle_guess in the database (the browser holds no grant on that table and never sees the answer),
-// and keeps one row per won play in cards_bonus_earned. The body only names the game; the player is the session's. A kpopquiz.org quiz earns
-// nothing: its completion is a score the browser reports (POST /api/quiz/[id]/play checks only 0 <= score <= max), owner decision pending.
+// and keeps one row per won play in cards_bonus_earned. The body only names the game; the player is the session's. The quiz of the day of
+// kpopquiz.org gives a pack too (115-quiz-of-day-bonus.sql, integrator rule) but NOT through this route: the browser reports nothing and a cross-site
+// call is refused (403); the hub's server records it itself (lib/kpopcards/server.ts recordBonus, in the lobby read and before an opening). The same
+// database function (cards_bonus_record) serves both, so a call here also records a quiz of the day finished earlier.
 // Flags off: 404 like any unknown URL. A cross-site call: 403. A guest, a Team account or any failure: { signedIn: false }, nothing recorded.
 import { NextResponse } from 'next/server';
 
@@ -20,7 +22,7 @@ const HEADERS = { 'Cache-Control': 'private, no-store' } as const;
 
 export interface BonusAnswer {
   signedIn: boolean;
-  /** Bonus packs the server recorded for this Paris day (Kpopdle wins), after this call. */
+  /** Bonus packs the server recorded for this Paris day (Kpopdle wins and the quiz of the day), after this call. */
   earned?: number;
   /** What the player may still open today: min(cap, earned) minus the bonus packs opened. */
   bonusLeft?: number;

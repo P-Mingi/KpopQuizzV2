@@ -271,6 +271,32 @@ describe('the plan and the deletion of the button', () => {
     await expect(deleteNonFree(db, { confirm: NON_FREE_CONFIRM, expect: { rows: 2, files: 5, orphans: 2 } })).rejects.toMatchObject({ code: 'count_changed' });
   });
 
+  it('removes in this order: the rows first, then the files of those rows (main, 2x, 96 px), then the orphans; it never touches a series row', async () => {
+    const series = official({ kind: 'series', slug: 'one-piece-series', path: 'anime/series/one-piece-series/gggg.webp', license: 'public_domain', license_note: null });
+    const db = nonFreeFake([...w.rows, series] as never[], [...w.objects, { name: series.path, createdAt: '2026-11-11T21:10:00+00:00' }]);
+    await deleteNonFree(db, { confirm: NON_FREE_CONFIRM, expect: { rows: 2, files: 5, orphans: 2 } });
+    expect(db.calls.filter((c) => c.startsWith('delete') || c.startsWith('remove'))).toEqual(['delete entity_images 2', 'remove 5', 'remove 2']);
+    // the rows of the selection are gone, the series row is still there with its file
+    expect(db.rows.some((r) => r.slug === 'one-piece/luffy' || r.slug === 'one-piece/zoro')).toBe(false);
+    expect(db.rows.some((r) => r.kind === 'series' && r.slug === 'one-piece-series')).toBe(true);
+    expect(db.objects.some((o) => o.name === series.path)).toBe(true);
+  });
+
+  it('removes the files of the rows that are really gone only: a failed row deletion keeps its row and its files, the orphans still go', async () => {
+    const db = nonFreeFake(w.rows as never[], w.objects);
+    const realFrom = db.from.bind(db);
+    db.from = (table: string) => {
+      const q = realFrom(table) as Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any -- a test stand-in of the query builder
+      const del = q.delete!;
+      q.delete = () => { del(); q.then = (ok: (v: unknown) => unknown) => Promise.resolve({ data: null, error: { message: 'boom' } }).then(ok); return q; };
+      return q;
+    };
+    const report = await deleteNonFree(db, { confirm: NON_FREE_CONFIRM, expect: { rows: 2, files: 5, orphans: 2 } });
+    expect(report).toEqual({ rows: 0, files: 0, orphans: 2, failedChunks: 1 });
+    expect(db.rows.some((r) => r.slug === 'one-piece/luffy')).toBe(true);
+    expect(db.removed.sort()).toEqual(['anime/character/one-piece/chopper/orphan1-2x.webp', 'anime/character/one-piece/chopper/orphan1.webp']);
+  });
+
   it('never removes a file that a row outside the selection still points to', async () => {
     const shared = cc0('https://commons.wikimedia.org/wiki/File:Robin.png', { id: 900, slug: 'one-piece/robin', path: 'anime/character/one-piece/luffy/aaaa.webp' });
     const db = nonFreeFake([...w.rows, shared] as never[], w.objects);

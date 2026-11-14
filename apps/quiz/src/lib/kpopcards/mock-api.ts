@@ -78,6 +78,8 @@ export interface MockApi extends KpopCardsApi {
   useTimerUpTo(n: number): void;
   /** A Kpopdle win counted for this week. */
   addDleWin(): void;
+  /** The quiz of the day finished: one bonus pack, once per Paris day, inside the same cap as the Kpopdle wins (the database rule of 115). Returns whether a pack was earned. */
+  finishQuizOfDay(): boolean;
   /** Start again with the example binder (true) or an empty one with 3 packs (false). */
   reset(example: boolean): void;
 }
@@ -170,7 +172,9 @@ export function createMockApi(opts: MockOptions): MockApi {
     if (p.week.id !== wk) p.week = { id: wk, packs: 0, dle: 0, newc: 0, claimed: false };
   };
   const touch = (): void => { sync(); p.lastSeen = now(); if (!walletNow({ ...p, lastSeen: now() }, now()).paused) { /* timer runs */ } };
-  const view = (): ReturnType<typeof lobbyState> => lobbyState({ w, p, now: now(), adsEnabled: true, bonusPerDay: KC.BONUS_PER_DAY });
+  // The Paris day the quiz of the day's pack was earned on (one a day, like cards_bonus_earned's partial unique index).
+  let quizDay: string | null = null;
+  const view = (): ReturnType<typeof lobbyState> => lobbyState({ w, p, now: now(), adsEnabled: true, bonusPerDay: KC.BONUS_PER_DAY, quizDone: quizDay !== null && quizDay === p.parisDay });
   const key = (k: string | undefined, op: string): ApiError | { hit: unknown } | null => {
     if (!k || !/^[0-9a-f-]{8,64}$/i.test(k)) return err('idem_missing');
     const h = idem.get(k);
@@ -215,8 +219,10 @@ export function createMockApi(opts: MockOptions): MockApi {
     forcePack(cards: ForcedCard[]) { forcedPack = cards.length === 5 ? cards : null; },
     useTimerUpTo(n: number) { sync(); p.timerToday = n; if (p.stock >= KC.STACK_CAP) p.stock = KC.STACK_CAP - 1; p.anchor = now(); },
     addDleWin() { sync(); p.week.dle += 1; p.bonusEarned += 1; },
+    finishQuizOfDay() { sync(); if (quizDay === p.parisDay) return false; quizDay = p.parisDay; p.bonusEarned += 1; return true; },
     reset(example: boolean) {
       Object.assign(p, emptyPlayer(now(), p.nickname));
+      quizDay = null;
       idem.clear();
       if (example) seedExample(); else { p.stock = 3; }
     },

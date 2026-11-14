@@ -85,20 +85,40 @@ describe('the seeded mock of the KpopCards contract', () => {
     if (isApiError(e)) throw new Error('x');
     expect([e.stock, e.owned.length, e.golden.opened]).toEqual([3, 0, 0]);
   });
-  it('the Kpopdle bonus pack: a win earns one, it is opened apart from the stack, and the quiz of the day earns none', async () => {
+  it('the Kpopdle bonus pack: a win earns one, it is opened apart from the stack; the quiz of the day shares the cap', async () => {
     const a = createMockApi({ world: WORLD, seed: 9, now: () => T0 });
     expect(await a.open({ key: k(30), source: 'bonus' })).toEqual({ error: 'bonus' });
     a.addDleWin();
     const st = await a.state();
     if (isApiError(st)) throw new Error('x');
     expect(st.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 1, left: 1, perDay: 3 });
-    expect(st.bridges.quizOfDay.enabled).toBe(false);
+    expect(st.bridges.quizOfDay).toEqual({ enabled: true, done: false });
     const r = await a.open({ key: k(31), source: 'bonus' });
     if (isApiError(r)) throw new Error(r.error);
     expect(r.packs[0]!.source).toBe('bonus');
     expect(r.state.stock).toBe(st.stock);
     expect(r.state.bridges.kpopdle.left).toBe(0);
     expect(await a.open({ key: k(32), source: 'bonus' })).toEqual({ error: 'bonus' });
+  });
+  it('the quiz of the day: one pack a Paris day, inside the Kpopdle cap (3 wins and the quiz open 3), and a new day gives another', async () => {
+    let now = T0;
+    const a = createMockApi({ world: WORLD, seed: 9, now: () => now });
+    expect(a.finishQuizOfDay()).toBe(true);
+    expect(a.finishQuizOfDay()).toBe(false); // once a Paris day
+    let st = await a.state();
+    if (isApiError(st)) throw new Error('x');
+    expect(st.bridges.quizOfDay).toEqual({ enabled: true, done: true });
+    expect(st.bridges.kpopdle).toEqual({ enabled: true, earnedToday: 0, left: 1, perDay: 3 });
+    expect(st.bonusLeft).toBe(1);
+    a.addDleWin(); a.addDleWin(); a.addDleWin();
+    st = (await a.state()) as typeof st;
+    expect(st.bonusLeft).toBe(3); // 4 earned, the cap holds
+    for (let i = 0; i < 3; i++) { const r = await a.open({ key: k(40 + i), source: 'bonus' }); if (isApiError(r)) throw new Error(r.error); }
+    expect(await a.open({ key: k(44), source: 'bonus' })).toEqual({ error: 'bonus' });
+    now = T0 + 24 * 3600_000; // the next Paris day
+    expect(a.finishQuizOfDay()).toBe(true);
+    st = (await a.state()) as typeof st;
+    expect([st.bonusLeft, st.bridges.quizOfDay.done]).toEqual([1, true]);
   });
   it('the example player mirrors the prototype v6: counts, stack, shards, history, bell, week, ranking', async () => {
     const a = createMockApi({ world: WORLD, seed: 1, now: () => T0, start: 'example' });
