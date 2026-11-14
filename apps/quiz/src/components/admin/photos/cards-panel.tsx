@@ -171,6 +171,39 @@ export function sourceSrc(row: Pick<CardPhotoRow, 'file_url'>, base: string | un
 
 const clamp = (v: number): number => Math.max(0, Math.min(100, Math.round(v)));
 
+/** What cards_catalog_append(true) answers: what an append would add (file 114). */
+export interface AppendSummary {
+  dry_run?: boolean; cards: number; subjects: number; new_subjects: number; extended_subjects: number; waiting: number;
+  from_no: number | null; to_no: number | null; not_shown?: number;
+}
+
+/** The French sentence of an append preview or result (no dash). */
+export function appendSentence(a: AppendSummary, done: boolean): string {
+  if (a.cards === 0) return `Rien à ajouter. ${a.waiting} sujet${a.waiting > 1 ? 's attendent' : ' attend'} une deuxième photo approuvée.`;
+  const range = a.from_no === a.to_no ? `la carte ${a.from_no}` : `les cartes ${a.from_no} à ${a.to_no}`;
+  const who = `${a.subjects} sujet${a.subjects > 1 ? 's' : ''} (${a.new_subjects} nouveau${a.new_subjects > 1 ? 'x' : ''}, ${a.extended_subjects} complété${a.extended_subjects > 1 ? 's' : ''})`;
+  return `${done ? 'Ajouté' : 'À ajouter'} : ${a.cards} carte${a.cards > 1 ? 's' : ''}, ${who}, ${range}. Aucune carte existante ne change de numéro.`;
+}
+
+/** The catalog button: "Reconstruire" before the first pack, "Ajouter au catalogue" after it (with its preview and a confirmation click). */
+export function CatalogBar({ frozen, busy, preview, onRebuild, onPreview, onConfirm, onCancel }: {
+  frozen: boolean | null; busy: boolean; preview: AppendSummary | null;
+  onRebuild: () => void; onPreview: () => void; onConfirm: () => void; onCancel: () => void;
+}): React.ReactElement | null {
+  if (frozen === null) return null;
+  if (!frozen) return <button type="button" className={s.pill} onClick={onRebuild} disabled={busy}>Reconstruire le catalogue</button>;
+  if (!preview) return <button type="button" className={s.pill} onClick={onPreview} disabled={busy}>Ajouter au catalogue</button>;
+  return (
+    <div className={s.where} role="group" aria-label="Ajouter au catalogue">
+      <p className={s.whereText}>{appendSentence(preview, false)}</p>
+      <div className={s.actions}>
+        {preview.cards > 0 ? <button type="button" className={s.pill} disabled={busy} onClick={onConfirm}>Confirmer l&apos;ajout</button> : null}
+        <button type="button" className={s.secondary} disabled={busy} onClick={onCancel}>{preview.cards > 0 ? 'Annuler' : 'Fermer'}</button>
+      </div>
+    </div>
+  );
+}
+
 async function api<T>(body: Record<string, unknown>): Promise<T | null> {
   try {
     const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
@@ -190,6 +223,8 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   const [reports, setReports] = useState<CardReportRow[] | null>(null);
   const [reportsFailed, setReportsFailed] = useState(false);
   const [closing, setClosing] = useState<number | null>(null);
+  const [frozen, setFrozen] = useState<boolean | null>(null);
+  const [preview, setPreview] = useState<AppendSummary | null>(null);
   const drag = useRef(false);
   const frame = useRef<HTMLDivElement>(null);
 
@@ -229,6 +264,12 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     })();
     return () => { live = false; };
   }, [view]);
+
+  useEffect(() => {
+    let live = true;
+    void api<{ ok: boolean; frozen: boolean }>({ action: 'catalog_state' }).then((r) => { if (live) setFrozen(r?.ok ? r.frozen : false); });
+    return () => { live = false; };
+  }, []);
 
   const closeReport = async (id: number): Promise<void> => {
     setClosing(id);
@@ -271,7 +312,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
       setRows((xs) => xs?.filter((x) => x.id !== row.id) ?? xs);
       setSel(null);
       onSaved(action === 'approve'
-        ? 'Photo approuvée. Elle ouvre une édition quand le catalogue est reconstruit (bouton Reconstruire), puis son fichier se fait avec publish-card-files.mjs.'
+        ? 'Photo approuvée. Elle ouvre une édition quand le catalogue est reconstruit (bouton Reconstruire) ou, une fois les paquets ouverts, complété (bouton Ajouter au catalogue), puis son fichier se fait avec publish-card-files.mjs.'
         : 'Photo refusée : elle ne revient jamais, même après une reconstruction.');
     } else onSaved('La décision n\'a pas pu être enregistrée. Réessaie.');
   };
@@ -285,6 +326,25 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     setSaving(false);
     if (r?.ok && r.summary) onSaved(`Catalogue reconstruit : ${r.summary.subjects} sujets, ${r.summary.cards} cartes, ${r.summary.waiting} sujets attendent une deuxième photo, ${r.summary.not_shown} cartes attendent leur fichier.`);
     else onSaved('Le catalogue n\'a pas été reconstruit (une carte est déjà possédée, ou le fichier 103 n\'est pas appliqué).');
+  };
+
+  /** File 114, after the first pack: the preview first (writes nothing), then the write on a second, explicit click. */
+  const previewAppend = async (): Promise<void> => {
+    if (saving) return;
+    setSaving(true);
+    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append_preview' });
+    setSaving(false);
+    if (r?.ok && r.summary) setPreview(r.summary);
+    else onSaved('L\'aperçu n\'a pas pu être calculé (le fichier 114 n\'est pas appliqué ?).');
+  };
+  const confirmAppend = async (): Promise<void> => {
+    if (saving || !preview || preview.cards === 0) return;
+    setSaving(true);
+    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append', confirm: true });
+    setSaving(false);
+    setPreview(null);
+    if (r?.ok && r.summary) onSaved(`${appendSentence(r.summary, true)} ${r.summary.not_shown ?? 0} cartes attendent leur fichier.`);
+    else onSaved('Le catalogue n\'a pas été complété. Rien n\'a changé.');
   };
 
   const remove = async (): Promise<void> => {
@@ -338,7 +398,8 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
       <div className={s.filters}>
         <div className={s.filterGroup} role="group" aria-label="Statut de la photo">{pill('approved', 'Approuvées')}{pill('auto', 'Automatiques')}{pill('pending', 'À relire')}</div>
         <button type="button" className={s.pill} aria-pressed={false} onClick={() => setView('reports')}>Signalements</button>
-        <button type="button" className={s.pill} onClick={() => void rebuild()} disabled={saving}>Reconstruire le catalogue</button>
+        <CatalogBar frozen={frozen} busy={saving} preview={preview} onRebuild={() => void rebuild()} onPreview={() => void previewAppend()}
+          onConfirm={() => void confirmAppend()} onCancel={() => setPreview(null)} />
       </div>
       {failed ? <p className={s.statusErr} role="alert">La liste des photos de cartes n&apos;a pas pu être lue.</p> : null}
       {rows === null && !failed ? <p className={s.note}>Chargement des photos de cartes.</p> : null}

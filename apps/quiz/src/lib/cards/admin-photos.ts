@@ -18,6 +18,11 @@
 //   close_report { id }                        closes a report (the trigger erases its contact)
 //   rebuild      {}                            lot 3: runs cards_build_catalog() (file 103), the edition rule, after the owner's review;
 //                                              409 locked once a player owns a card or opened a pack, 409 not_ready before file 103
+//   catalog_state {}                          { ok, frozen }: frozen once a player owns a card or opened a pack (the condition under which
+//                                              cards_build_catalog() refuses), so the panel offers "Ajouter au catalogue" instead of "Reconstruire"
+//   append_preview {}                         file 114: cards_catalog_append(true), what an append would add; writes nothing
+//   append       { confirm: true }            file 114: cards_catalog_append(false), adds the new editions and subjects after the last number,
+//                                              renumbers nothing; without confirm: true it is refused (400); 409 not_ready before file 114
 // The hub build and the anime build (review 1 finding 6: the photos admin, and its Cartes tab, is the admin of bunnyverse.org/anime; both
 // builds read the same database); 404 on kpopquiz.org. Same-origin writes only. Reads and writes go through the service role.
 import { adminNotFound } from '@/lib/admin/guard';
@@ -204,6 +209,21 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
   if (action === 'rebuild') {
     const { data, error } = await db.rpc('cards_build_catalog');
     if (error) return /owns a card|pack was opened/.test(error.message ?? '') ? fail('locked', 409) : fail('not_ready', 409);
+    return reply({ ok: true, summary: data });
+  }
+
+  // The catalog is frozen once a player holds a card or opened a pack: the numbers cannot change, only grow (file 114).
+  if (action === 'catalog_state') {
+    const [owned, packs] = await Promise.all([db.from('cards_owned').select('card_no').limit(1), db.from('cards_packs').select('id').limit(1)]);
+    if (owned.error || packs.error) return fail('server', 500);
+    return reply({ ok: true, frozen: (owned.data ?? []).length > 0 || (packs.data ?? []).length > 0 });
+  }
+
+  // File 114: the preview never writes; the write needs the explicit confirm: true of the second click.
+  if (action === 'append_preview' || action === 'append') {
+    if (action === 'append' && body.confirm !== true) return fail('bad_request', 400);
+    const { data, error } = await db.rpc('cards_catalog_append', { p_dry_run: action !== 'append' });
+    if (error) return fail('not_ready', 409);
     return reply({ ok: true, summary: data });
   }
 
