@@ -53,7 +53,7 @@ export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; ru
         <h3 className="rules-h" id="rates-rules-h">Pack rules</h3>
         <ul className="rules-list">
           <li>Each card is drawn on its own.{t.fifthFloor ? ` The fifth card of every pack is ${RARITY_LABEL[t.fifthFloor]} or better.` : ''}</li>
-          <li>Packs are never sold and cards can&rsquo;t be sold.</li>
+          <li>Packs are never sold and cards can&apos;t be sold.</li>
           {/* Lots 3 and 4 (lane ECON): the guarantee, the missing half, the focus pack and the economy, in plain sentences. */}
           <li>{econ.pity}</li>
           <li>{econ.half}</li>
