@@ -11,7 +11,8 @@ import { RewardedAdButton } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { mainButton, pityProgress } from '@/lib/cards/economy';
 import { ECON_ERRORS, craftCard, isEconError, wishCard } from '@/lib/cards/economy-api';
-import { isApiError } from '@/lib/kpopcards/contract';
+import { KC, isApiError } from '@/lib/kpopcards/contract';
+import { WEEK_GOALS } from '@/lib/cards/goals';
 import { newKey } from '@/lib/kpopcards/registry';
 import { paletteFor } from '@/lib/cards/ui-palette';
 import { EDITION_RARITY } from '@/lib/cards/kc-editions';
@@ -96,9 +97,9 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   // The pack of the day joins the shelf once the wallet is read; the snapping row must not stay on the pack that was first, so it starts at the left again (as the prototype's does).
   useEffect(() => { const el = document.getElementById('shelf'); if (el) el.scrollLeft = 0; }, [!!daily]);
   const own = useMemo(() => ownedCount(catalog.cards, owned), [catalog.cards, owned]);
-  const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: '', nextLabel: '', progress: 0 };
+  const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: guest ? 'Level -' : '', nextLabel: guest ? 'Cards to collect to level up' : '', progress: 0 };
   const stock = w?.stock ?? 0;
-  const cap = w?.cap ?? 10;
+  const cap = w?.cap ?? KC.STACK_CAP;
   const nextMs = w?.nextAt && now !== null ? Math.max(0, Date.parse(w.nextAt) - now) : 0;
   const midMs = w && now !== null ? Math.max(0, Date.parse(w.midnightAt) - now) : 0;
   const full = ready && stock >= cap;
@@ -210,11 +211,11 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
         {ready || guest ? (
           <div className="stackrow">
             <div className="stack" id="stack" aria-hidden="true">{Array.from({ length: Math.max(cap, stock) }, (_, i) => <i key={i} className={i < stock ? 'on' : undefined} />)}</div>
-            <p className="stack-label" id="stack-label" aria-live="polite">{guest ? <>Up to <b className="num">{cap}</b> packs wait for you</> : <><b className="num">{stock}</b> of {cap} packs ready{stock > cap ? ' (with bonus packs)' : ''}</>}</p>
+            <p className="stack-label" id="stack-label" aria-live="polite">{guest ? <><b className="num">-</b> of {cap} packs ready</> : <><b className="num">{stock}</b> of {cap} packs ready{stock > cap ? ' (with bonus packs)' : ''}</>}</p>
           </div>
         ) : null}
         <div className="openrow">
-          <button type="button" className="btn-primary xl" id="open-btn" onClick={primary} disabled={busy || (!guest && (!ready || main.disabled))}><span id="open-label">{guest ? 'Sign in to open' : !ready ? 'Open a pack' : main.label}</span></button>
+          <button type="button" className="btn-primary xl" id="open-btn" onClick={primary} disabled={busy || (!guest && (!ready || main.disabled))}><span id="open-label">{guest || !ready ? 'Open a pack' : main.label}</span></button>
           {ready || guest ? <button type="button" className="btn-x5" id="open5-btn" disabled={guest || stock < 5} title={stock < 5 ? 'Needs 5 packs ready' : 'Open 5 packs at once'} onClick={() => goOpen('stock', 5)}>Open 5</button> : null}
         </div>
         <p className="hint" id="cta-sub">{guest ? 'Packs belong to your account.' : !ready ? '' : hasPack ? 'You can also tap the pack.' : rested ? 'The timer is done for today. Midnight brings the stack back to full.' : main.kind === 'wait' && w?.nextAt ? `Or wait ${fmtClock(nextMs)} for a free pack.` : ''}</p>
@@ -223,7 +224,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
           <div className="ichips">
             <span className="ichip">
               <span className="ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="bg" cx="24" cy="24" r="20" /></svg></span>
-              <span className="ct"><b className="num">10:00</b><small>a free pack every 10 minutes</small></span>
+              <span className="ct"><b className="num">10:00</b><small>next pack · every 10 mins</small></span>
             </span>
             <span className="ichip">
               <span className="moon"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg></span>
@@ -378,8 +379,8 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
             <Link href={kcPath.collection} className="mx-btn">Open the collection</Link>
           </div>
           <div className="mx m-week">
-            <div className="mx-head"><span className="mx-ico"><Ico name="goals" /></span><h2 className="h2">This week</h2><span className="mx-aside" id="wk-left">{weekView?.leftLabel ?? ''}</span></div>
-            {guest ? <p className="small" id="wk-guest">Your weekly missions start the day you sign in.</p> : <WeekList week={weekView} />}
+            <div className="mx-head"><span className="mx-ico"><Ico name="goals" /></span><h2 className="h2">This week</h2><span className="mx-aside" id="wk-left">{(guest ? guestWeek(now ?? Date.now()) : weekView)?.leftLabel ?? ''}</span></div>
+            <WeekList week={guest ? guestWeek(now ?? Date.now()) : weekView} />
             <Link href={kcPath.missions} className="mx-btn">All missions and sets</Link>
           </div>
           {groups.length ? (
@@ -393,8 +394,8 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
           ) : null}
           <div className="mx m-rank">
             <div className="mx-head"><span className="mx-ico"><Ico name="trophy" /></span><h2 className="h2">Friends</h2><span className="mx-aside">By completion</span></div>
-            {guest ? <p className="small" id="rk-guest">Sign in to see where you stand among your friends.</p> : null}
             <ol className="rk-mini" id="rk-mini">
+              {guest ? [1, 2, 3, 4].map((k) => <li key={k} className={k === 4 ? 'me' : undefined}><span className="pos">-</span><span className="av sm" /><b>{k === 4 ? 'You' : '-'}</b><span className="num">-</span></li>) : null}
               {friends.map((x) => <li key={`${x.pos}-${x.nickname}`} className={x.me ? 'me' : undefined}><span className="pos">{x.pos}</span><span className="av sm">{x.nickname.charAt(0).toUpperCase()}</span><b>{x.me ? 'You' : x.nickname}</b><span className="num">{x.pct}%</span></li>)}
             </ol>
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
@@ -429,6 +430,21 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
       <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
     </div>
   );
+}
+
+/** The week of a visitor: the goals are the rules (goals.ts), the progress is zero, and the week ends as the signed-in list says (Monday, Paris). */
+export function guestWeek(now: number): WeekView {
+  const day = new Date(now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
+  const d = new Date(`${day}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7) + 7);
+  return weekOf({
+    endsAt: d.toISOString(), done: false, claimed: false, rewardPacks: WEEK_GOALS.rewardPacks, rewardShards: WEEK_GOALS.rewardShards,
+    items: [
+      { key: 'packs', label: `Open ${WEEK_GOALS.packs} packs`, value: 0, goal: WEEK_GOALS.packs },
+      { key: 'dle', label: `Win ${WEEK_GOALS.wins} Kpopdle games`, value: 0, goal: WEEK_GOALS.wins },
+      { key: 'newc', label: `Add ${WEEK_GOALS.cards} new cards to your binder`, value: 0, goal: WEEK_GOALS.cards },
+    ],
+  }, now);
 }
 
 export function WeekList({ week }: { week: WeekView | null }): React.ReactElement {

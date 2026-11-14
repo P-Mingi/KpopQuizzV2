@@ -42,7 +42,7 @@ export const SCREENS: Screen[] = [
   {
     // The integrator's guest view: the same lobby plus the #guest banner, the personal blocks in their empty state (the prototype's "Empty binder", then "Guest view").
     id: 'lobby-guest-empty', hash: 'lobby', app: '', ready: '#guest:not([hidden])', full: true, needs: 'guest',
-    steps: async (page, side) => { if (side === 'proto') { await openControls(page); await page.click('#reset-empty'); await page.click('#guest-tg'); await page.evaluate(() => scrollTo(0, 0)); } },
+    steps: async (page, side) => { if (side === 'proto') { await openControls(page); await page.click('#reset-empty'); await page.click('#guest-tg'); await page.evaluate(() => { const d = document.querySelector('details.proto') as HTMLDetailsElement | null; if (d) d.open = false; scrollTo(0, 0); }); } },
     boxes: [...TOP, '#guest', '#guest-demo', '#guest-in', '.p-head2', '#stage', '#pack', '#stack', '#open-btn', '#open5-btn', '.ichip', '.shelf', '#shelf > *', '.tile', '.almost', '.strip', '.mx', '.m-coll', '.m-week', '.m-focus', '.m-rank', '.m-quiz', '.m-odds', '.foot'],
   },
   {

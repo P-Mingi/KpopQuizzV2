@@ -33,8 +33,7 @@ describe('the guest lobby', () => {
   it('draws the stack empty: ten empty segments and a rule sentence, no count of packs', () => {
     expect(html).toContain('id="stack"');
     expect(html.match(/<i class="on"/g)).toBeNull();
-    expect(html).toContain('Up to <b class="num">10</b> packs wait for you');
-    expect(html).not.toContain('of 10 packs ready');
+    expect(html).toContain('<b class="num">-</b> of 10 packs ready');
     expect(html).toContain('id="open5-btn"');
   });
   it('keeps every block of the lobby in place, the personal ones empty', () => {
@@ -42,12 +41,16 @@ describe('the guest lobby', () => {
     expect(html).toContain('Every 10th pack is golden');
     expect(html).toContain('to a sure Gold');
     expect(html).toContain('id="tile-sh"');
-    expect(html).toContain('id="wk-guest"');
-    expect(html).toContain('id="rk-guest"');
+    // the week: the goals are rules, the progress is zero
+    expect(html).toContain('Open 20 packs');
+    expect(html).toContain('Win 3 Kpopdle games');
+    expect(html).toContain('Add 10 new cards to your binder');
+    expect(html).toContain('<small>0 of 20</small>');
+    // friends: four empty rows, no player
+    expect(html.match(/<span class="pos">-<\/span>/g)).toHaveLength(4);
     expect(html).toContain('id="last-empty"');
     expect(html).not.toContain('id="hist-wrap"');
-    expect(html).not.toContain('<li class="me"');
-    expect(html).not.toContain('id="ring-fg"');
+        expect(html).not.toContain('id="ring-fg"');
   });
   it('shows today\'s pack of the day (server data) with a button to the sign-in, no time left', () => {
     expect(html).toContain('Pack of the day');

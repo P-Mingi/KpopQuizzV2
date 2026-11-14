@@ -1332,3 +1332,7 @@ html.rm .bvc .c-rim{animation:none}
    KpopCards pages only (a page that holds the Cards root); every other page of every site keeps the shared 40 px link. */
 .ux-app:has(.bvc) > .ux-skip{height:44px}
 @media (max-width:900px){.bvc .fr-inline .fr-add{display:none}}
+
+/* the level chip of a visitor: a hyphen where the number goes, as wide as the digit of the prototype's chip */
+.bvc .lv .dash{font-style:normal;margin-right:-2.6px}
+.bvc .pill .dash{font-style:normal;margin-right:1.8px}
