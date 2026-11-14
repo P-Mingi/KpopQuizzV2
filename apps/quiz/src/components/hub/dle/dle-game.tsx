@@ -17,6 +17,7 @@ import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
 import { clock, deviceStore, useDleClient, useDlePreview, useResetCountdown } from './dle-hooks';
+import { DleSeriesReview } from './dle-series-review';
 import { IconMark } from '@/components/photos/icon-mark';
 
 import { D, Flame, Ic, Spark, libraryIcon, savedIcon } from './dle-icons';
@@ -607,6 +608,8 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
           </div>
         )}
       </section>
+      {/* The owner's check of the series pictures that remain (2026-11-14): the general Otakudle page only, asked for after the page, nothing for anyone else. */}
+      <DleSeriesReview enabled={ownerPreview && g.universe === 'anime' && !g.series} />
     </>
   );
 }

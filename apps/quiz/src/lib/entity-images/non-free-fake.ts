@@ -35,6 +35,7 @@ export function nonFreeFake(rows: Row[], objects: FakeObject[] = [], others: Rec
         const source = table === 'entity_images' ? state.rows : (tables[table] ?? []);
         let out = source.filter(match).sort((a, b) => Number(a.id) - Number(b.id));
         if (op === 'delete') {
+          calls.push(`delete ${table} ${out.length}`);
           state.rows = state.rows.filter((r) => !match(r));
           return { data: out.map((r) => ({ id: r.id })), error: null };
         }

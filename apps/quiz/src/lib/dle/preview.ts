@@ -27,6 +27,14 @@ export function previewConfigured(site: SiteId = SITE_ID, env: PrivateLaunchEnv 
 const ID_RE = /^[1-9][0-9]{0,9}$/;
 export const isPreviewId = (v: unknown): v is string => typeof v === 'string' && ID_RE.test(v);
 
+/** A series slug as the image route accepts it (lowercase words with hyphens, as the series of the anime site are named): no slash, no dot, no space. */
+const SERIES_RE = /^[a-z0-9][a-z0-9-]{0,79}$/;
+export const isSeriesSlug = (v: unknown): v is string => typeof v === 'string' && SERIES_RE.test(v);
+
+/** The series check of the owner (2026-11-14): the same two routes with a `series` parameter. The index lists the series rows, the image route serves one. */
+export const seriesIndexUrl = (base: string): string => `${base}${PREVIEW_INDEX_PATH}?series=1`;
+export const seriesImageUrl = (base: string, slug: string): string => `${base}${PREVIEW_IMAGE_PATH}?series=${encodeURIComponent(slug)}`;
+
 /** The sizes of the image route: the 96 px-wide tile of the lists, and the stored 1x file for the answer card. */
 export type PreviewSize = 'tile' | 'full';
 
