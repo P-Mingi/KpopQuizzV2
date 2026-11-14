@@ -37,6 +37,8 @@
 .bvc td,.bvc th{padding:1px}
 /* a checkbox keeps its browser margin (the Sound and Vibration switches of the prototype sit 3 px from the row's end) */
 .bvc input[type=checkbox]{margin:3px 3px 3px 4px}
+/* a pocket is a link here and a <button> in the prototype, whose text the browser centres: a card's name on one line sits in the middle of its plate */
+.bvc a.pocket{text-align:center}
 .bvc .wrap{max-width:1180px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
 @media (max-width:620px){
   .bvc .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
