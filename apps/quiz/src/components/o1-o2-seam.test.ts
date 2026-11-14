@@ -5,6 +5,9 @@ import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+// Scans every file of src/: the first `it` that reads the tree took 2.9 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
+
 // The title-card tests below name series that now have a free photo (docs/anime/images): they run on an empty photo map, so the card
 // is what they draw. The photo path is held by lib/anime/series-images-real.test.ts on the real map.
 vi.mock('@/lib/anime/series-images.generated', () => ({ SERIES_IMAGES: {}, SERIES_IMAGE_CREDITS: {} }));

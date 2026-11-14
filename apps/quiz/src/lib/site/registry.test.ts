@@ -22,6 +22,9 @@ import { SITE_IDS } from './types';
 
 import type { ThemeTokenName, ThemeTokens } from './types';
 
+// Scans every file of src/: the first `it` that reads the tree took 3.6 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
+
 const SRC = fileURLToPath(new URL('../../', import.meta.url));
 const APP = fileURLToPath(new URL('../../../', import.meta.url));
 const REPO = fileURLToPath(new URL('../../../../../', import.meta.url));

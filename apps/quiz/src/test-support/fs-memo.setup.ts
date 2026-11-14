@@ -8,7 +8,8 @@
 // Results are the same as a fresh read as long as nothing changes the tree, so any call that can
 // change a file (write, append, remove, rename, create, copy, truncate) empties the whole memo
 // first. Errors are never memoised (a test that expects ENOENT and then creates the file still
-// sees the file). Each test file runs in its own module graph, so the memo never crosses files.
+// sees the file). The memo is filled lazily by the first scan in a file (nothing runs at setup, so
+// a worker answers the pool at once). Each test file runs in its own module graph, so the memo never crosses files.
 import fs, { type Stats } from 'node:fs';
 import { syncBuiltinESMExports } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -92,18 +93,3 @@ for (const name of ['writeFile', 'appendFile', 'rm', 'rmdir', 'unlink', 'rename'
 }
 
 syncBuiltinESMExports();
-
-// Warm the memo before the first test when the test file is one of the tree scanners (its own
-// source calls readdirSync). The walk then happens here, in setup, which has no test timeout,
-// instead of inside the first `it`, which has 5 s. The files read are the ones the scan reads.
-const TEXT = /\.(?:tsx?|mts|cts|jsx?|mjs|cjs|css|json|md|sql|txt|html|svg)$/;
-function warm(dir: string): void {
-  for (const name of fs.readdirSync(dir)) {
-    const f = dir + name;
-    if (fs.statSync(f).isDirectory()) warm(f + '/');
-    else if (TEXT.test(name)) fs.readFileSync(f, 'utf8');
-  }
-}
-const worker = (globalThis as { __vitest_worker__?: { filepath?: string } }).__vitest_worker__;
-const self = worker?.filepath;
-if (self && realRead(self, 'utf8').includes('readdirSync')) warm(SRC);
