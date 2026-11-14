@@ -21,18 +21,19 @@ import { isError } from '@/lib/cards/ui-api';
 import { useCards } from './cards-provider';
 import { markDemoUsed, demoUsed } from './demo-store';
 import { PackOpening } from './pack-opening';
+import type { OpeningSource } from './pack-opening';
 
 import type { ThemeId } from '@/lib/kpopcards/contract';
 import type { OpenSpec } from '@/lib/cards/kc-open';
 import type { OpeningInput } from '@/lib/cards/opening-input';
-import type { OpenedCard, PackSource } from '@/lib/cards/types';
+import type { OpenedCard } from '@/lib/cards/types';
 
 const ERRORS: Record<string, string> = {
   empty: 'No pack left. The next one comes soon.', shards: 'You need 50 shards for a pack.', forbidden: 'This account cannot open packs.', limit: 'That pack was already opened today.',
   network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', focus_used: 'Today’s focus pack is already opened.',
 };
 
-interface Dealt { cards: OpenedCard[]; source: PackSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'golden' | 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
+interface Dealt { cards: OpenedCard[]; source: OpeningSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'golden' | 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
 
 export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement | null {
   const c = useCards();
@@ -79,7 +80,8 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
       c.applyResult({ pack: { id: last.id, cards: last.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair })), newCount: last.newCount, packNo: last.packNo }, state: r.state });
       const inp = openingInput(r);
       const cards = inp.cards as unknown as OpenedCard[];
-      const source: PackSource = spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
+      // The source names the pack in the opening's step line (the prototype's #ov-step: "Pack of the day", "Focus pack", "Pack bought with shards").
+      const source: OpeningSource = spec.kind === 'daily' ? 'daily' : spec.kind === 'focus' ? 'focus' : spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
       setDealt({ cards, source, demo: false, extra: { golden: inp.golden, goldenPacks: inp.goldenPacks, finished: inp.finished, headline: inp.headline, copiesShards: inp.copiesShards } });
       return;
 
