@@ -302,8 +302,9 @@ export function lobbyState(i: LobbyInput): LobbyState {
   if (wal.stock >= KC.STACK_CAP) bell.push({ id: 'stack_full', href: '/kpopcards', title: `Your ${KC.STACK_CAP} free packs are ready`, text: 'Open one so the timer runs again' });
   if (!daily.used && dg) bell.push({ id: 'daily', href: '/kpopcards', title: `Pack of the day: ${dg.name}`, text: 'Free once today' });
   if (golden.next) bell.push({ id: 'golden', href: '/kpopcards', title: 'Your next pack is golden', text: 'Its fifth card is Holo or better' });
-  if (ms.sets.some((s) => s.ready)) bell.push({ id: 'set_ready', href: '/kpopcards/missions', title: 'A set is complete', text: 'Claim its reward packs' });
-  if (week.done && !week.claimed) bell.push({ id: 'week_ready', href: '/kpopcards/missions', title: 'This week\'s list is done', text: 'Claim +2 packs and 25 shards' });
+  // One line per finished set, named, as the prototype's bell does ("aespa is complete", "Claim +1 pack in Missions").
+  for (const s of ms.sets) if (s.ready) bell.push({ id: 'set_ready', href: '/kpopcards/missions', title: `${s.name} is complete`, text: `Claim +${s.packs} pack${s.packs > 1 ? 's' : ''} in Missions` });
+  if (week.done && !week.claimed) bell.push({ id: 'week_ready', href: '/kpopcards/missions', title: 'Weekly reward ready', text: '+2 packs and 25 shards' });
   const paused = wal.paused;
   if (paused) bell.push({ id: 'still_there', href: '/kpopcards', title: 'Still there?', text: 'Tap to restart your pack timer' });
   const last = p.last;
@@ -437,7 +438,8 @@ export function almostState(w: World, p: PlayerData, limit = 4): AlmostState {
       items.push({ type: 'idol', id: e.id, slug: slugs.get(e.id) ?? slugify(e.name), name: e.name, owned: cs.length - 1, total: cs.length, next: cardRef(next), missing: 1, rewardPacks: 0, craft: mk(next), wished: p.wishlist.has(next.n), left: 1 });
     }
   }
-  items.sort((a, b) => a.left - b.left || (a.type === 'group' ? -1 : 1) - (b.type === 'group' ? -1 : 1) || a.name.localeCompare(b.name));
+  // The prototype's order: fewest missing first, a group before an idol, then the catalog's own order (its renderAlmost keeps the order of the sections and idols).
+  items.sort((a, b) => a.left - b.left || (a.type === 'group' ? -1 : 1) - (b.type === 'group' ? -1 : 1) || a.next.n - b.next.n);
   return { items: items.slice(0, Math.max(1, limit)).map(({ left: _l, ...rest }) => rest) };
 }
 
@@ -515,13 +517,14 @@ export interface PlayerSummary { nickname: string; owned: number; showcase: Card
 export function rankRows(players: readonly PlayerSummary[], total: number): RankRow[] {
   const sorted = [...players].sort((a, b) => b.owned - a.owned || a.nickname.localeCompare(b.nickname));
   return sorted.map((x, i) => {
-    const lv = levelOf(x.owned);
+    // A real count is a whole number; the mock's example players carry the prototype's whole percentages, so their count is rounded as the prototype's lvFor does.
+    const lv = levelOf(Math.round(x.owned));
     return { pos: i + 1, nickname: x.nickname, level: lv, title: titleOf(lv), pct: pctOf(x.owned, total), me: x.me, friend: x.friend, showcase: x.showcase, badges: x.badges };
   });
 }
 
 export function playerPage(s: PlayerSummary, total: number, wishlist: CardRef[] | null): PlayerPage {
-  const lv = levelOf(s.owned);
+  const lv = levelOf(Math.round(s.owned));
   return { nickname: s.nickname, level: lv, title: titleOf(lv), pct: pctOf(s.owned, total), owned: s.owned, total, showcase: s.showcase, badges: s.badges, me: s.me, friend: s.friend, wishlist: s.me || s.friend ? wishlist : null };
 }
 

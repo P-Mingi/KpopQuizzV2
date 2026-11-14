@@ -108,7 +108,7 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
                 <div className="setpop bellpop" id="bell-pop" hidden={open !== 'bell'}>
                   <b className="pop-h">Notifications</b>
                   <ul>
-                    {items.length ? items.map((x) => <li key={x.id}><Link href={x.href}><i /><span>{x.title}<small>{x.text}</small></span></Link></li>) : <li className="empty">Nothing new right now.</li>}
+                    {items.length ? items.map((x) => <li key={`${x.id}-${x.title}`}><Link href={x.href}><i /><span>{x.title}<small>{x.text}</small></span></Link></li>) : <li className="empty">Nothing new right now.</li>}
                   </ul>
                 </div>
               </div>

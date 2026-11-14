@@ -1,6 +1,6 @@
 // Bunnyverse Cards, lane U: the credit of a card, printed under the card on its page (never behind a flip): the photo's number for that
 // idol, the author, the licence and the source page, each a link, what was changed, "This card is shared under CC BY-SA" when it is, and
-// "Report a photo". Server component. A card with no photo says its art is drawn.
+// "Report a photo" (at the end of the line, as in the prototype). Server component. A card with no photo says its art is drawn.
 import { SOURCE_NAMES } from '@/lib/cards/rules';
 import { reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
 
@@ -23,8 +23,9 @@ export function CreditBlock({ photo, num, kind = 'idol' }: { photo: UiPhoto | nu
       {' · '}
       {source ? <a href={source} rel="noopener noreferrer nofollow" target="_blank">{SOURCE_NAMES[photo.source]}</a> : SOURCE_NAMES[photo.source]}
       {' · '}{photo.modified}
+      {/* The report link ends the credit line, as the prototype's "· Report this photo" does; the share-alike notice follows on its own line. */}
+      {' · '}<a href={reportHref({ num, photoId: photo.id })}>Report a photo</a>
       {sa ? <span className="sa">This card is shared under {sa}.</span> : null}
-      <span className="sa"><a href={reportHref({ num, photoId: photo.id })}>Report a photo</a></span>
     </p>
   );
 }

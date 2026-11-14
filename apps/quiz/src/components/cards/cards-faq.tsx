@@ -4,9 +4,13 @@
 import Link from 'next/link';
 
 import { kcPath } from '@/lib/cards/kc-paths';
-import { AD_SHARDS_DEFAULT, CAP, CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
+import { AD_SHARDS_DEFAULT, CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
+import { KC } from '@/lib/kpopcards/contract';
 
 import { REMOVAL_PROMISE } from './report-form';
+
+// The stack of KpopCards holds 10 packs (KC.STACK_CAP); CAP of lib/cards/rules.ts is the old Bunnyverse Cards stack of 5.
+const CAP = KC.STACK_CAP;
 
 /** The shards of a rewarded ad (lot 4 B4): the default of CARDS_AD_SHARDS (lib/cards/rules.ts). */
 export const AD_SHARDS = AD_SHARDS_DEFAULT;
@@ -17,7 +21,7 @@ const shardLine = (['C', 'U', 'R', 'SR', 'UR', 'L'] as const).map((r) => `${RARI
 const craftLine = (['C', 'U', 'R', 'SR', 'UR'] as const).map((r) => `${RARITY_LABEL[r]} ${CRAFT_COST[r]}`).join(', ');
 
 export const FAQ: readonly FaqItem[] = [
-  { id: 'free', q: 'Is it free?', a: <>Yes. Packs are never sold, and cards can&rsquo;t be sold or turned into money. The game pays for itself with a few ads on bunnyverse.org.</> },
+  { id: 'free', q: 'Is it free?', a: <>Yes. Packs are never sold, and cards can&apos;t be sold or turned into money. The game pays for itself with a few ads on bunnyverse.org.</> },
   { id: 'account', q: 'Do I need an account?', a: <>Not to try it: anyone can open one demo pack. To keep cards and get a pack every {PERIOD_S / 60} minutes, sign in with your free Bunnyverse passport, the same one as kpopquiz.org.</> },
   { id: 'crypto', q: 'Is there crypto, NFTs or a marketplace?', a: <>No. Cards have no money value, there is no market and no auction, and no card is ever numbered to look scarce.</> },
   {
@@ -26,7 +30,7 @@ export const FAQ: readonly FaqItem[] = [
   },
   {
     id: 'shards', q: 'What are shards?',
-    a: <>Extra copies become shards when you recycle them: {shardLine}. {SHARD_PACK_COST} shards open a pack. You can also craft a card you&rsquo;re missing: {craftLine}. {RARITY_LABEL.L} only comes from packs.</>,
+    a: <>Extra copies become shards when you recycle them: {shardLine}. {SHARD_PACK_COST} shards open a pack. You can also craft a card you&apos;re missing: {craftLine}. {RARITY_LABEL.L} only comes from packs.</>,
   },
   {
     id: 'locked', q: 'Why is a card locked?',

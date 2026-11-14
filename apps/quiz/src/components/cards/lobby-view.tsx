@@ -43,6 +43,10 @@ const ProtoControls = process.env.NODE_ENV !== 'production' ? lazy(() => import(
 
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
+/** The aside of "On kpopquiz.org" while only Kpopdle grants packs (the prototype's "+1 pack each" would promise a pack for the quiz of the day too).
+ *  A win is a Kpopdle win (a quiz of the day is finished, never won). At most the width of "+1 pack each" (78.6 px at 12.5 px), or the heading wraps. */
+const QUIZ_ASIDE_DLE = 'Win: +1 pack';
+
 const SOURCE_LABEL: Record<string, string> = { stock: 'Pack', shards: 'Bought with shards', ad: 'Pack', bonus: 'Bonus pack', focus: 'Focus pack', daily: 'Pack of the day', demo: 'Demo pack' };
 
 function PackFace({ c, title, golden, count = '5 CARDS' }: { c: readonly string[]; title: string; golden: boolean; count?: string }): { style: Vars; className: string; body: React.ReactElement } {
@@ -67,6 +71,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const w = c.lobby;
   // The box shows only what the server grants (decision 28): the quiz of the day is no source of packs while bridges.quizOfDay.enabled is false.
   const quizOn = (w?.bridges?.quizOfDay as { enabled: boolean } | undefined)?.enabled === true;
+  const dleOn = w?.bridges?.kpopdle.enabled !== false;
+  const quizAside = dleOn && quizOn ? '+1 pack each' : dleOn ? QUIZ_ASIDE_DLE : quizOn ? '+1 pack a quiz' : null;
   const router = useRouter();
   const signIn = useSignIn();
   const ready = status === 'ready' && w !== null;
@@ -133,7 +139,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
     try {
       const next = push === 'on' ? await turnOff() : await turnOn();
       setPush(next);
-      toast(next === 'on' ? 'You’ll get one notification when your packs are ready, never between 22:00 and 08:00.' : next === 'denied' ? 'Notifications are blocked in your browser settings.' : 'Notifications off.');
+      toast(next === 'on' ? "You'll get one notification when your packs are ready, never between 22:00 and 08:00." : next === 'denied' ? 'Notifications are blocked in your browser settings.' : 'Notifications off.');
     } finally { setBusy(false); }
   };
 
@@ -153,7 +159,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   }, [lastPack, owned, byN, w?.last]);
   const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
   const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists'), [catalog.sections]);
-  useEffect(() => { if (!focusG && groups[0]) setFocusG(groups[0].id); }, [focusG, groups]);
+  // The prototype's default focus group is TWICE (S.focus "twice"); a catalog without it starts on its first group.
+  useEffect(() => { if (!focusG && groups[0]) setFocusG((groups.find((g) => g.name === 'TWICE') ?? groups[0]).id); }, [focusG, groups]);
   const focusGroup = groups.find((g) => g.id === focusG) ?? groups[0] ?? null;
   const focusUsed = w?.focusUsed === true;
   const adsLeft = w?.adsLeft ?? 0;
@@ -161,7 +168,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const shards = w?.shards ?? 0;
   const pityLeft = w?.guarantee.left ?? null;
   const dailyUsed = w?.daily.used === true;
-  const hl = ready && (w?.golden.opened ?? 0) > 0 && push === 'off';
+  // The development fixture has no push service (no VAPID key), yet it draws the tile as the prototype does: there it reads as "not turned on yet".
+  const hl = ready && (w?.golden.opened ?? 0) > 0 && (push === 'off' || (c.fixture && push === 'unsupported'));
   const timerCap = w?.timerCap ?? 40;
   const weekView = useMemo(() => (w ? weekOf(w.week, now ?? 0) : null), [w, now]);
   const timerUsed = w?.timerUsed ?? 0;
@@ -254,7 +262,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       </section>
 
       <section className="boost" aria-labelledby="t-boost">
-        <div className="boost-head"><h2 className="h2" id="t-boost">Can&rsquo;t wait?</h2><span>Three ways to get more</span></div>
+        <div className="boost-head"><h2 className="h2" id="t-boost">Can&apos;t wait?</h2><span>Three ways to get more</span></div>
         <div className="tiles">
           {ready && w && w.adsEnabled ? (
             <div className="tile ad" id="tile-ad">
@@ -300,15 +308,17 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           {almost.length ? almost.map((x) => {
             const m = byN.get(x.next.n);
             if (!m) return null;
-            const col = paletteFor(`group:${x.name}`).dot;
+            // The prototype colours a row with its section's colour (an idol with its group's, a soloist with the Soloists'), as the binder's dots and the focus box.
+            const col = catalog.sections.find((s) => s.ns.includes(m.n))?.color ?? paletteFor(`group:${x.name}`).dot;
             return (
               <div className="al" key={`${x.type}-${x.id}`} style={{ '--c': col } as Vars}>
                 <span className="al-card"><CardFront card={m} /></span>
                 <span className="al-txt"><b>{x.name}</b><small>{x.type === 'group' ? `${x.missing} card${x.missing > 1 ? 's' : ''} to finish${x.rewardPacks ? ` \u00B7 +${x.rewardPacks} pack${x.rewardPacks > 1 ? 's' : ''}` : ''}` : `1 edition left: ${RARITY_LABEL[m.rarity]}`}</small><span className="bar"><i style={{ width: `${((x.owned / x.total) * 100).toFixed(0)}%` }} /></span></span>
-                {x.type === 'idol' ? (
-                  x.craft?.canAfford ? <button type="button" className="al-btn" onClick={async () => { const r = await craftCard(m.n); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else toast(`${m.name} is in your binder. ${r.card.cost} shards spent.`); await c.refresh(); }}>Craft {'\u00B7'} {x.craft.cost}</button>
-                  : ready ? <button type="button" className="al-btn" aria-pressed={x.wished} onClick={async () => { const r = await wishCard(m.n, !x.wished); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else await c.refresh(); }}>{x.wished ? 'Wished' : 'Wishlist'}</button> : null
-                ) : <Link className="al-btn" href={kcPath.group(x.slug)}>Show</Link>}
+                {/* The server decides (AlmostItem.craft): when the shards cover the missing card, the prototype's "Craft · cost" button (data-craft), for a group
+                    row too; otherwise an idol row offers the wishlist and a group row its page. */}
+                {x.craft?.canAfford ? <button type="button" className="al-btn" data-craft={m.n} onClick={async () => { const r = await craftCard(m.n); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else toast(`${m.name} is in your binder. ${r.card.cost} shards spent.`); await c.refresh(); }}>Craft {'\u00B7'} {x.craft.cost}</button>
+                  : x.type === 'idol' ? (ready ? <button type="button" className="al-btn" data-want={m.n} aria-pressed={x.wished} onClick={async () => { const r = await wishCard(m.n, !x.wished); if (isEconError(r)) toast(ECON_ERRORS[r.error] ?? ECON_ERRORS.failed!); else await c.refresh(); }}>{x.wished ? 'Wished' : 'Wishlist'}</button> : null)
+                  : <Link className="al-btn" href={kcPath.group(x.slug)}>Show</Link>}
               </div>
             );
           }) : <p className="emptyline">Open a few packs: groups and idols close to complete show up here.</p>}
@@ -359,10 +369,12 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
             </ol>
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
           </div>
+          {/* The prototype's three rows, always. The copy only promises what the server grants (decision 28): the quiz of the day row links to the quiz and
+              promises a pack only once bridges.quizOfDay.enabled is true; the aside names the one source of packs that is on. */}
           <div className="mx m-quiz">
-            <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2><span className="mx-aside">{quizOn ? '+1 pack each' : '+1 pack a win'}</span></div>
-            {w?.bridges?.kpopdle.enabled !== false ? <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>Guess today&rsquo;s idol. A win gives a pack.</span></a> : null}
-            {quizOn ? <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Quiz of the day</b><span>Finish it for a pack, opened here.</span></a> : null}
+            <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2>{quizAside ? <span className="mx-aside">{quizAside}</span> : null}</div>
+            <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>{dleOn ? <>Guess today&apos;s idol. A win gives a pack.</> : <>Guess today&apos;s idol.</>}</span></a>
+            <a className="qrow" href="https://kpopquiz.org/daily" target="_blank" rel="noopener"><b>Quiz of the day</b><span>{quizOn ? 'Finish it for a pack, opened here.' : "Today's quiz, on kpopquiz.org."}</span></a>
             <a className="qrow" href="https://kpopquiz.org" target="_blank" rel="noopener"><b>Your passport</b><span>One account for kpopquiz.org and KpopCards.</span></a>
           </div>
           <div className="mx m-odds" id="odds-box">
