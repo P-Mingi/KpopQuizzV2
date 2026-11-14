@@ -11,7 +11,8 @@ import { RewardedAdButton } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { mainButton, pityProgress } from '@/lib/cards/economy';
 import { ECON_ERRORS, craftCard, isEconError, wishCard } from '@/lib/cards/economy-api';
-import { isApiError } from '@/lib/kpopcards/contract';
+import { KC, isApiError } from '@/lib/kpopcards/contract';
+import { WEEK_GOALS } from '@/lib/cards/goals';
 import { newKey } from '@/lib/kpopcards/registry';
 import { paletteFor } from '@/lib/cards/ui-palette';
 import { EDITION_RARITY } from '@/lib/cards/kc-editions';
@@ -63,9 +64,10 @@ function PackFace({ c, title, golden, count = '5 CARDS' }: { c: readonly string[
   };
 }
 
-export interface LobbyProps { ads: AdsContext; odds: CatalogOdds | null }
+/** `dailyGuest`: the group of today's pack of the day (server data, the same for everyone), for the signed-out visitor who has no wallet to read it from. */
+export interface LobbyProps { ads: AdsContext; odds: CatalogOdds | null; dailyGuest?: { slug: string; name: string } | null }
 
-export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
+export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.ReactElement {
   const c = useCards();
   const { status, now, catalog, owned, lastPack, byN, toast, kc } = c;
   const w = c.lobby;
@@ -91,13 +93,13 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   useEffect(() => tilt(packRef.current, 12), []);
 
   const total = catalog.cards.length;
-  const daily = useMemo(() => { if (!w) return null; const p = paletteFor(`group:${w.daily.group.name}`); return { slug: w.daily.group.slug, name: w.daily.group.name, a: p.a, c: p.c }; }, [w]);
+  const daily = useMemo(() => { const g = w ? w.daily.group : dailyGuest; if (!g) return null; const p = paletteFor(`group:${g.name}`); return { slug: g.slug, name: g.name, a: p.a, c: p.c }; }, [w, dailyGuest]);
   // The pack of the day joins the shelf once the wallet is read; the snapping row must not stay on the pack that was first, so it starts at the left again (as the prototype's does).
   useEffect(() => { const el = document.getElementById('shelf'); if (el) el.scrollLeft = 0; }, [!!daily]);
   const own = useMemo(() => ownedCount(catalog.cards, owned), [catalog.cards, owned]);
-  const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: '', nextLabel: '', progress: 0 };
+  const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: guest ? 'Level -' : '', nextLabel: guest ? 'Cards to collect to level up' : '', progress: 0 };
   const stock = w?.stock ?? 0;
-  const cap = w?.cap ?? 10;
+  const cap = w?.cap ?? KC.STACK_CAP;
   const nextMs = w?.nextAt && now !== null ? Math.max(0, Date.parse(w.nextAt) - now) : 0;
   const midMs = w && now !== null ? Math.max(0, Date.parse(w.midnightAt) - now) : 0;
   const full = ready && stock >= cap;
@@ -198,25 +200,43 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       ) : null}
 
       <div className="stage" id="stage">
-        <span className={`golden-chip${golden ? ' now' : ''}`} id="golden-chip" hidden={!ready || toGolden === null}>
+        <span className={`golden-chip${golden ? ' now' : ''}`} id="golden-chip" hidden={guest ? false : !ready || toGolden === null}>
           <svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-UR" /></svg>
-          <span className="lg">{golden ? 'Next pack is golden' : `Golden pack in ${toGolden} packs`}</span><span className="sh">{golden ? 'Golden next' : `Golden in ${toGolden}`}</span>
+          {guest ? <><span className="lg">Every 10th pack is golden</span><span className="sh">Every 10th golden</span></> : <><span className="lg">{golden ? 'Next pack is golden' : `Golden pack in ${toGolden} packs`}</span><span className="sh">{golden ? 'Golden next' : `Golden in ${toGolden}`}</span></>}
         </span>
         <button type="button" ref={packRef} key={swap} id="pack" className={`pack float${face.className}${swap ? ' swap' : ''}`} style={face.style} aria-label={guest ? 'Sign in to open a pack' : 'Open a pack'} aria-disabled={guest || !ready || hasPack || !main.disabled ? 'false' : 'true'} onClick={primary}>
           {face.body}
         </button>
         <i className="stage-floor" aria-hidden="true" />
-        {ready ? (
+        {ready || guest ? (
           <div className="stackrow">
             <div className="stack" id="stack" aria-hidden="true">{Array.from({ length: Math.max(cap, stock) }, (_, i) => <i key={i} className={i < stock ? 'on' : undefined} />)}</div>
-            <p className="stack-label" id="stack-label" aria-live="polite"><b className="num">{stock}</b> of {cap} packs ready{stock > cap ? ' (with bonus packs)' : ''}</p>
+            <p className="stack-label" id="stack-label" aria-live="polite">{guest ? <><b className="num">-</b> of {cap} packs ready</> : <><b className="num">{stock}</b> of {cap} packs ready{stock > cap ? ' (with bonus packs)' : ''}</>}</p>
           </div>
         ) : null}
         <div className="openrow">
-          <button type="button" className="btn-primary xl" id="open-btn" onClick={primary} disabled={busy || (!guest && (!ready || main.disabled))}><span id="open-label">{guest ? 'Sign in to open' : !ready ? 'Open a pack' : main.label}</span></button>
-          {ready ? <button type="button" className="btn-x5" id="open5-btn" disabled={stock < 5} title={stock < 5 ? 'Needs 5 packs ready' : 'Open 5 packs at once'} onClick={() => goOpen('stock', 5)}>Open 5</button> : null}
+          <button type="button" className="btn-primary xl" id="open-btn" onClick={primary} disabled={busy || (!guest && (!ready || main.disabled))}><span id="open-label">{guest || !ready ? 'Open a pack' : main.label}</span></button>
+          {ready || guest ? <button type="button" className="btn-x5" id="open5-btn" disabled={guest || stock < 5} title={stock < 5 ? 'Needs 5 packs ready' : 'Open 5 packs at once'} onClick={() => goOpen('stock', 5)}>Open 5</button> : null}
         </div>
         <p className="hint" id="cta-sub">{guest ? 'Packs belong to your account.' : !ready ? '' : hasPack ? 'You can also tap the pack.' : rested ? 'The timer is done for today. Midnight brings the stack back to full.' : main.kind === 'wait' && w?.nextAt ? `Or wait ${fmtClock(nextMs)} for a free pack.` : ''}</p>
+        {guest ? (
+          // A visitor has no wallet: the chips state the rules (no number of a player), and no pity chip.
+          <div className="ichips">
+            <span className="ichip">
+              <span className="ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="bg" cx="24" cy="24" r="20" /></svg></span>
+              <span className="ct"><b className="num">10:00</b><small>next pack · every 10 mins</small></span>
+            </span>
+            <span className="ichip">
+              <span className="moon"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg></span>
+              <span className="ct"><b className="num">Midnight</b><small>to the midnight refill</small></span>
+            </span>
+            <span className="ichip gold">
+              <span className="moon gold"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-UR" /></svg></span>
+              <span className="ct"><b className="num">30 packs</b><small>to a sure Gold</small></span>
+              <span className="pity" aria-hidden="true"><i /></span>
+            </span>
+          </div>
+        ) : null}
         {ready ? (
           <div className="ichips">
             <span className="ichip">
@@ -247,7 +267,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
               <span className="sp-pack"><span>{daily.name}</span></span>
               <b>Pack of the day</b>
               <small>{daily.name} only {'·'} {dailyUsed ? 'a new one at midnight' : ready ? `${fmtHours(midMs)} left` : 'free once a day'}</small>
-              <button type="button" className="sp-go" id="daily-btn" disabled={!ready || dailyUsed} onClick={() => router.push(kcPath.open('daily'))}>{dailyUsed ? 'Opened' : 'Open free'}</button>
+              <button type="button" className="sp-go" id="daily-btn" disabled={!guest && (!ready || dailyUsed)} onClick={() => (guest ? signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }) : router.push(kcPath.open('daily')))}>{dailyUsed ? 'Opened' : guest ? 'Sign in to open' : 'Open free'}</button>
             </div>
           ) : null}
           {THEMES.map((t) => (
@@ -264,6 +284,16 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       <section className="boost" aria-labelledby="t-boost">
         <div className="boost-head"><h2 className="h2" id="t-boost">Can&apos;t wait?</h2><span>Three ways to get more</span></div>
         <div className="tiles">
+          {guest && (ads.enabled || c.fixture) ? (
+            <div className="tile ad" id="tile-ad">
+              <span className="ribbon">Free</span>
+              <span className="t-ico"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M10 9.5v5l4.5-2.5z" /></svg></span>
+              <h3>Watch an ad</h3>
+              <p className="big"><span>Shards</span><small>for each ad</small></p>
+              <p id="ad-s">Two ads open a pack. Sign in to watch.</p>
+              <div className="t-act"><button type="button" className="btn-ad" onClick={() => signIn({ title: 'Sign in to watch an ad', sub: 'Shards belong to your account.' })}><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Sign in to watch</span></button></div>
+            </div>
+          ) : null}
           {ready && w && w.adsEnabled ? (
             <div className="tile ad" id="tile-ad">
               <span className="ribbon">Free</span>
@@ -284,9 +314,9 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           <div className="tile sh" id="tile-sh">
             <span className="t-ico"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-R" /></svg></span>
             <h3>Use {SHARD_PACK_COST} shards</h3>
-            <p className="big"><span id="sh-n">{shards}</span><small>of {SHARD_PACK_COST}</small></p>
+            <p className="big"><span id="sh-n">{guest ? '-' : shards}</span><small>of {SHARD_PACK_COST}</small></p>
             <span className="sh-bar"><i id="sh-bar" style={{ width: `${Math.min(100, (shards / SHARD_PACK_COST) * 100)}%` }} /></span>
-            <p id="sh-s">{canShards ? (shards >= SHARD_PACK_COST * 2 ? `Enough for ${Math.floor(shards / SHARD_PACK_COST)} packs` : 'Ready to open a pack') : `${SHARD_PACK_COST - shards} more to open a pack`}</p>
+            <p id="sh-s">{guest ? `${SHARD_PACK_COST} shards open a pack` : canShards ? (shards >= SHARD_PACK_COST * 2 ? `Enough for ${Math.floor(shards / SHARD_PACK_COST)} packs` : 'Ready to open a pack') : `${SHARD_PACK_COST - shards} more to open a pack`}</p>
             <div className="t-act"><button type="button" className="btn-sh" id="buy-btn" disabled={!ready || !canShards} onClick={() => goOpen('shards')}>{canShards ? 'Open a pack' : 'Not enough shards yet'}</button></div>
           </div>
           {push !== 'unsupported' || c.fixture ? (
@@ -349,8 +379,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
             <Link href={kcPath.collection} className="mx-btn">Open the collection</Link>
           </div>
           <div className="mx m-week">
-            <div className="mx-head"><span className="mx-ico"><Ico name="goals" /></span><h2 className="h2">This week</h2><span className="mx-aside" id="wk-left">{weekView?.leftLabel ?? ''}</span></div>
-            <WeekList week={weekView} />
+            <div className="mx-head"><span className="mx-ico"><Ico name="goals" /></span><h2 className="h2">This week</h2><span className="mx-aside" id="wk-left">{(guest ? guestWeek(now ?? Date.now()) : weekView)?.leftLabel ?? ''}</span></div>
+            <WeekList week={guest ? guestWeek(now ?? Date.now()) : weekView} />
             <Link href={kcPath.missions} className="mx-btn">All missions and sets</Link>
           </div>
           {groups.length ? (
@@ -365,6 +395,7 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
           <div className="mx m-rank">
             <div className="mx-head"><span className="mx-ico"><Ico name="trophy" /></span><h2 className="h2">Friends</h2><span className="mx-aside">By completion</span></div>
             <ol className="rk-mini" id="rk-mini">
+              {guest ? [1, 2, 3, 4].map((k) => <li key={k} className={k === 4 ? 'me' : undefined}><span className="pos">-</span><span className="av sm" /><b>{k === 4 ? 'You' : '-'}</b><span className="num">-</span></li>) : null}
               {friends.map((x) => <li key={`${x.pos}-${x.nickname}`} className={x.me ? 'me' : undefined}><span className="pos">{x.pos}</span><span className="av sm">{x.nickname.charAt(0).toUpperCase()}</span><b>{x.me ? 'You' : x.nickname}</b><span className="num">{x.pct}%</span></li>)}
             </ol>
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
@@ -399,6 +430,21 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
       <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><span>KpopCards is free. Packs are never sold. bunnyverse.org/kpopcards, part of Bunnyverse.</span></footer>
     </div>
   );
+}
+
+/** The week of a visitor: the goals are the rules (goals.ts), the progress is zero, and the week ends as the signed-in list says (Monday, Paris). */
+export function guestWeek(now: number): WeekView {
+  const day = new Date(now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
+  const d = new Date(`${day}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7) + 7);
+  return weekOf({
+    endsAt: d.toISOString(), done: false, claimed: false, rewardPacks: WEEK_GOALS.rewardPacks, rewardShards: WEEK_GOALS.rewardShards,
+    items: [
+      { key: 'packs', label: `Open ${WEEK_GOALS.packs} packs`, value: 0, goal: WEEK_GOALS.packs },
+      { key: 'dle', label: `Win ${WEEK_GOALS.wins} Kpopdle games`, value: 0, goal: WEEK_GOALS.wins },
+      { key: 'newc', label: `Add ${WEEK_GOALS.cards} new cards to your binder`, value: 0, goal: WEEK_GOALS.cards },
+    ],
+  }, now);
 }
 
 export function WeekList({ week }: { week: WeekView | null }): React.ReactElement {

@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useMe } from '@/lib/auth/use-me';
 import { useKcPrefs } from '@/lib/cards/kc-prefs';
+import { KC } from '@/lib/kpopcards/contract';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
@@ -93,13 +94,20 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
             ))}
           </nav>
           <div className="wallet">
+            {status === 'guest' ? (
+              // A visitor has no wallet: the two pills are drawn empty (no number that would be invented), the bell has nothing new.
+              <>
+                <span className="pill" id="pill-packs" title="Free packs waiting"><Ico name="pack" /><span className="num"><b id="w-packs">-</b>/{KC.STACK_CAP}</span><span className="lbl">packs</span></span>
+                <span className="pill" id="pill-shards" title="Shards"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-R" /></svg><b id="w-shards" className="num"><i className="dash">-</i></b><span className="lbl">shards</span></span>
+              </>
+            ) : null}
             {signedIn && w ? (
               <>
                 <span className="pill" id="pill-packs" title="Free packs waiting"><Ico name="pack" /><span className="num"><b id="w-packs">{w.stock}</b>/{w.cap}</span><span className="lbl">packs</span></span>
                 <span className="pill" id="pill-shards" title="Shards"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-R" /></svg><b id="w-shards" className="num">{w.shards}</b><span className="lbl">shards</span></span>
               </>
             ) : null}
-            {signedIn ? (
+            {signedIn || status === 'guest' ? (
               <div className="setwrap">
                 <button className="iconbtn" id="bell-btn" type="button" aria-label="Notifications" aria-expanded={open === 'bell'} aria-controls="bell-pop" onClick={() => toggle('bell')}>
                   <svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z" /><path d="M10 20a2 2 0 0 0 4 0" /></svg>
@@ -115,7 +123,7 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
             ) : null}
             <div className="setwrap">
               <button className="avatar" id="set-btn" type="button" aria-label="Your profile, sound and vibration" aria-expanded={open === 'profile'} aria-controls="set-pop" onClick={() => toggle('profile')}>
-                <span className="av">{initial}</span>{signedIn ? <span className="lv" id="lv-chip">Lv {lv.level}</span> : null}
+                <span className="av">{initial}</span>{signedIn ? <span className="lv" id="lv-chip">Lv {lv.level}</span> : status === 'guest' ? <span className="lv" id="lv-chip">Lv <i className="dash">-</i></span> : null}
               </button>
               <div className="setpop" id="set-pop" hidden={open !== 'profile'}>
                 {signedIn ? (

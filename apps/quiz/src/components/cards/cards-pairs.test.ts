@@ -20,7 +20,7 @@ import { CreditBlock } from './credit-block';
 import { DropRates } from './drop-rates';
 import { EDITIONS, computeOdds } from '@/lib/cards/rules';
 import { buildDetail } from '@/lib/cards/ui-detail';
-import { NO_FILTERS, binderUnits, buildSlim, filterItems, gridPages, oddsView, paginate, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, binderUnits, buildSlim, filterItems, gridCells, gridPages, oddsView, paginate, sortItems } from '@/lib/cards/ui-model';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { OwnedEntry, Rarity } from '@/lib/cards/types';
@@ -142,6 +142,13 @@ describe('the pair is one unit', () => {
     const run = [...Array.from({ length: 35 }, (_, k) => ({ ...single, i: k })), ...pr];
     const g = gridPages(run, 36);
     expect(g.map((x) => x.length)).toEqual([35, 2]);
+    // The page left one cell short is drawn with a plain empty pocket (a null cell), the last page is not padded.
+    const first = gridCells(g[0]!, true, 36);
+    expect(first).toHaveLength(36);
+    expect(first.slice(0, 35)).toEqual(g[0]);
+    expect(first[35]).toBeNull();
+    expect(gridCells(g[1]!, false, 36)).toEqual(g[1]);
+    expect(gridCells(g[0]!, false, 36)).toHaveLength(35);
   });
 });
 

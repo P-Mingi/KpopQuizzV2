@@ -273,6 +273,12 @@ export function gridPages(list: readonly BinderItem[], perPage = 36): BinderItem
   return out;
 }
 
+/** The cells a grid page draws: a page that is not the last one always has its `perPage` cells. A pair is never cut across two pages, so a page
+ *  one cell short ends on a plain empty pocket (null: no card, no number, no silhouette). */
+export function gridCells(page: readonly BinderItem[], more: boolean, perPage = 36): (BinderItem | null)[] {
+  return more && page.length < perPage ? [...page, ...Array.from({ length: perPage - page.length }, () => null)] : [...page];
+}
+
 export const rarityName = (r: Rarity): string => RARITY_LABEL[r];
 
 /** mm:ss for the next-pack timer. */
