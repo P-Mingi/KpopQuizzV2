@@ -8,7 +8,7 @@ import { drawKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
   badgesOf, cardRef, idolPage, momentQuiz, quizSlug, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
-  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf, slugify,
+  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf,
 } from './model';
 
 import type { UiCard, UiCatalog } from '../cards/ui-types';
@@ -358,9 +358,12 @@ export function createMockApi(opts: MockOptions): MockApi {
       const pool: PlayerSummary[] = [];
       const fake = (name: string, pct: number, friend: boolean): PlayerSummary => {
         const owned = (pct / 100) * total(); // not rounded: the example players show the prototype's whole percentages
-        const r = seededRng(slugify(name).length * 131 + name.charCodeAt(0));
-        const top = [...w.cards].sort((a, b) => ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(b.rarity) - ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(a.rarity)).slice(0, 6);
-        const show = [0, 1, 2].map(() => cardRef(top[r(top.length)]!));
+        // The prototype's showcaseFor(name): three Holo or better cards of the catalog, in card order, picked by the FNV-1a hash of the nickname.
+        const pool = [...w.cards].sort((a, b) => a.n - b.n).filter((c) => ['R', 'SR', 'UR', 'L'].includes(c.rarity));
+        let h = 2166136261;
+        for (let i = 0; i < name.length; i++) { h ^= name.charCodeAt(i); h = Math.imul(h, 16777619); }
+        h >>>= 0;
+        const show = pool.length ? [0, 1, 2].map((i) => cardRef(pool[(h >>> (i * 7)) % pool.length]!)) : [];
         return { nickname: name, owned, showcase: show, badges: ['Founder'], friend, me: false };
       };
       for (const [n, pc] of scope === 'all' ? EVERYONE : FRIENDS) pool.push(fake(n, pc, p.friends.includes(n) || FRIENDS.some((f) => f[0] === n)));

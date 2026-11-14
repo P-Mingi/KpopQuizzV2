@@ -24,8 +24,8 @@ export function applyProtoExample(p: PlayerData, cards: UiCard[], now: number): 
   const order: number[] = [];
   const own = (c: UiCard): void => {
     const copies = 1 + (r() < 0.3 ? 1 : 0) + (r() < 0.08 ? 1 : 0);
-    r(); // the prototype draws the pack number of the card here
-    p.owned.set(c.n, { copies, fav: false, locked: false, seen: true, firstAt: t0 - i * 60000, lastAt: t0 - i * 60000 });
+    const packNo = 1 + Math.floor(r() * 47); // the prototype's pk: the pack the card came from ("Pulled on ..., pack N" in the card view)
+    p.owned.set(c.n, { copies, fav: false, locked: false, seen: true, firstAt: t0 - i * 60000, lastAt: t0 - i * 60000, packNo, how: 'pack' });
     order.push(c.n); i++;
   };
   const goal: [Rarity, number][] = [['C', 44], ['U', 16], ['R', 6], ['SR', 2], ['UR', 1]];
