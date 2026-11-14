@@ -90,7 +90,7 @@ export interface PlayerData {
   opened: number;
   /** Packs in a row with no Gold and no Full Art, newest first. */
   sinceGold: number;
-  /** Kpopdle bonus packs earned on the Paris day (cards_bonus_earned) and already opened (cards_wallets.bonus_today). */
+  /** Bonus packs earned on the Paris day (cards_bonus_earned: the Kpopdle wins and, since 115, the quiz of the day) and already opened (cards_wallets.bonus_today). */
   bonusEarned: number;
   bonusUsed: number;
   /** Paris day the pack of the day / a focus pack was last opened. */
@@ -281,7 +281,7 @@ export function missionsState(w: World, p: PlayerData, now: number): MissionsSta
 
 /* ------------------------------------------------------------------ lobby */
 
-export interface LobbyInput { w: World; p: PlayerData; now: number; bonusPerDay?: number; timerCap?: number; adsPerDay?: number; adShards?: number; adsEnabled?: boolean; odds?: boolean }
+export interface LobbyInput { w: World; p: PlayerData; now: number; bonusPerDay?: number; /** The quiz of the day's pack is among the bonus packs earned today (cards_bonus_sync). */ quizDone?: boolean; timerCap?: number; adsPerDay?: number; adShards?: number; adsEnabled?: boolean; odds?: boolean }
 
 export function lobbyState(i: LobbyInput): LobbyState {
   const { w, p, now } = i;
@@ -310,6 +310,8 @@ export function lobbyState(i: LobbyInput): LobbyState {
   const last = p.last;
   const bonusCap = i.bonusPerDay ?? 0;
   const bonusLeft = Math.max(0, Math.min(bonusCap, p.bonusEarned) - p.bonusUsed);
+  // The quiz of the day's pack is one of the earned bonus packs (shared cap): Kpopdle's own count leaves it out.
+  const quizDone = bonusCap > 0 && i.quizDone === true;
   const canBuy = wal.stock < 1 && p.shards >= KC.SHARD_PACK;
   const adsPer = i.adsPerDay ?? KC.ADS_PER_DAY;
   return {
@@ -323,8 +325,8 @@ export function lobbyState(i: LobbyInput): LobbyState {
     last: last ? { at: new Date(last.at).toISOString(), packNo: last.packNo, cards: last.cards } : null,
     canBuyPack: canBuy, stillThere: { due: paused, since: paused ? new Date(p.lastSeen + STILL_THERE_AFTER_MS).toISOString() : null },
     bridges: {
-      kpopdle: { enabled: bonusCap > 0, earnedToday: p.bonusEarned, left: bonusLeft, perDay: bonusCap },
-      quizOfDay: { enabled: false, reason: 'A quiz result is a score the browser reports, so it cannot be checked on the server. Only a Kpopdle win earns a pack.' },
+      kpopdle: { enabled: bonusCap > 0, earnedToday: Math.max(0, p.bonusEarned - (quizDone ? 1 : 0)), left: bonusLeft, perDay: bonusCap },
+      quizOfDay: { enabled: bonusCap > 0, done: quizDone },
     },
     nickname: p.nickname, serverNow: new Date(now).toISOString(),
   };

@@ -43,7 +43,7 @@ const ProtoControls = process.env.NODE_ENV !== 'production' ? lazy(() => import(
 
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
-/** The aside of "On kpopquiz.org" while only Kpopdle grants packs (the prototype's "+1 pack each" would promise a pack for the quiz of the day too).
+/** The aside of "On kpopquiz.org" when only Kpopdle grants packs (an older server answer: the prototype's "+1 pack each" would promise a pack for the quiz of the day too).
  *  A win is a Kpopdle win (a quiz of the day is finished, never won). At most the width of "+1 pack each" (78.6 px at 12.5 px), or the heading wraps. */
 const QUIZ_ASIDE_DLE = 'Win: +1 pack';
 
@@ -69,8 +69,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
   const c = useCards();
   const { status, now, catalog, owned, lastPack, byN, toast, kc } = c;
   const w = c.lobby;
-  // The box shows only what the server grants (decision 28): the quiz of the day is no source of packs while bridges.quizOfDay.enabled is false.
-  const quizOn = (w?.bridges?.quizOfDay as { enabled: boolean } | undefined)?.enabled === true;
+  // The box shows only what the server grants: the quiz of the day gives a pack (inside the daily bonus cap, once a Paris day) while bridges.quizOfDay.enabled is true.
+  const quizOn = w?.bridges?.quizOfDay?.enabled === true;
   const dleOn = w?.bridges?.kpopdle.enabled !== false;
   const quizAside = dleOn && quizOn ? '+1 pack each' : dleOn ? QUIZ_ASIDE_DLE : quizOn ? '+1 pack a quiz' : null;
   const router = useRouter();
@@ -369,8 +369,8 @@ export function LobbyView({ ads, odds }: LobbyProps): React.ReactElement {
             </ol>
             <Link href={kcPath.ranking} className="mx-btn">Full ranking</Link>
           </div>
-          {/* The prototype's three rows, always. The copy only promises what the server grants (decision 28): the quiz of the day row links to the quiz and
-              promises a pack only once bridges.quizOfDay.enabled is true; the aside names the one source of packs that is on. */}
+          {/* The prototype's three rows, always, with its words ("Finish it for a pack, opened here.") while the server grants the pack
+              (bridges.quizOfDay.enabled); with the bridges off the rows promise nothing and the aside names the source of packs that is on. */}
           <div className="mx m-quiz">
             <div className="mx-head"><span className="mx-ico"><Ico name="help" /></span><h2 className="h2">On kpopquiz.org</h2>{quizAside ? <span className="mx-aside">{quizAside}</span> : null}</div>
             <a className="qrow" href="https://kpopquiz.org/kpopdle" target="_blank" rel="noopener"><b>Kpopdle</b><span>{dleOn ? <>Guess today&apos;s idol. A win gives a pack.</> : <>Guess today&apos;s idol.</>}</span></a>

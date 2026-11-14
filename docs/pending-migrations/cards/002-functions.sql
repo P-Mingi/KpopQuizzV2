@@ -16,8 +16,8 @@
 -- Needs:  001. For the bonus pack: public.dle_plays and public.dle_games (019), read inside cards_bonus_record only and only when they exist
 --         (to_regclass). public.plays is never read: a browser can write it (review 1 finding 1).
 -- Bonus:  the allowance of a Paris day = min(p_bonus_cap, bonus packs earned that day) minus the bonus packs already opened that day. A bonus
---         pack is earned by a Kpopdle win only (owner decision), recorded by cards_bonus_record from the server route after its checks; a
---         quiz completion of kpopquiz.org earns nothing (its score is reported by the browser). With p_bonus_cap <= 0 nothing is read.
+--         pack is earned by a Kpopdle win (decided in the database), recorded by cards_bonus_record from the server after its checks; 115 adds the
+--         quiz of the day (one pack a Paris day, same cap, integrator rule). With p_bonus_cap <= 0 nothing is read.
 -- Errors: a refusal is an exception whose message starts with 'cards: ' and one word: empty, shards, bonus, ad_limit, ticket, source, pack.
 -- Ads:    a ticket opens a pack only between 10 seconds and 1 hour after it was issued (review 1 finding 9, owner decision on the 10 s).
 -- Every p_now defaults to now(); the proofs inject it. A new wallet starts with a full stack (decision 16 of CARDS-DECISIONS.md).
@@ -86,7 +86,7 @@ begin
   -- Records the Kpopdle wins of the player's Paris day as earned bonus packs, one row per won play (dle_plays.id), never twice, and returns
   -- the bonus packs earned that day. The win is decided in the database by dle_guess (019-dle-core.sql: dle_plays holds no browser grant
   -- and no policy, the answer never reaches the browser). Called by the server route POST /api/cards-bridge/bonus after its own checks
-  -- (session, Team account, flags). A quiz of kpopquiz.org earns nothing: its completion is a client-reported score (owner decision).
+  -- (session, Team account, flags). 115 replaces this function: it adds the quiz of the day (a client-reported score, accepted by the integrator, 1 a Paris day).
   -- A play's date is its UTC day or the day before (dle_playable), so a Paris day reads at most the three play dates up to it.
   create or replace function public.cards_bonus_record(p_user uuid, p_now timestamptz default now())
     returns integer

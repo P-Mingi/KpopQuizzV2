@@ -142,7 +142,7 @@ export function playerFrom(j: PlayerJson, nickname: string | null, friends: stri
   };
 }
 
-/** Kpopdle bonus packs a Paris day: CARDS_BONUS_PER_DAY, and 0 while the bridges are off. */
+/** Bonus packs a Paris day (the Kpopdle wins and the quiz of the day share it): CARDS_BONUS_PER_DAY, and 0 while the bridges are off. */
 export const bonusCap = (): number => (cardsBridgesOn() ? bonusPerDay() : 0);
 
 export interface Ctx { db: ServiceDb; userId: string; now: number; rng?: Rng }
@@ -164,9 +164,31 @@ export async function loadPlayer(c: Ctx): Promise<PlayerData> {
   return p;
 }
 
-async function lobbyOf(c: Ctx, w: World, p?: PlayerData): Promise<LobbyState> {
+async function lobbyOf(c: Ctx, w: World, p?: PlayerData, quizDone?: boolean): Promise<LobbyState> {
+  // The recording comes first: cards_player (read by loadPlayer) counts the rows it writes.
+  const done = quizDone ?? (p ? false : await recordBonus(c));
   const pd = p ?? (await loadPlayer(c));
-  return lobbyState({ w, p: pd, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap() });
+  return lobbyState({ w, p: pd, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone: done });
+}
+
+/**
+ * The hub's server records the bonus packs of the player's Paris day itself (115-quiz-of-day-bonus.sql): the Kpopdle wins and the quiz of the day, decided in
+ * the database and idempotent, so no browser report and no cross-site call (refused with 403) is needed. Returns whether the quiz of the day's pack is earned
+ * today. Without 115 (the code may deploy first) it falls back to cards_bonus_record (the Kpopdle wins only) and reads as "not done"; a network error
+ * records nothing and reads the same: the lobby then shows what it showed before, and the next read records.
+ */
+async function recordBonus(c: Ctx): Promise<boolean> {
+  if (bonusCap() <= 0) return false;
+  const at = new Date(c.now).toISOString();
+  try {
+    const { data, error } = await c.db.rpc('cards_bonus_sync', { p_user: c.userId, p_now: at });
+    if (!error) return (data as { quiz?: unknown } | null)?.quiz === true;
+    // 115 not applied yet (the code may deploy first): record the Kpopdle wins the way 002 does, the quiz of the day is not a source yet.
+    await c.db.rpc('cards_bonus_record', { p_user: c.userId, p_now: at });
+  } catch {
+    // A network error records nothing; the player's next read does.
+  }
+  return false;
 }
 
 /* ------------------------------------------------------------------ reads */
@@ -396,11 +418,10 @@ export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResp
     const { data } = await c.db.rpc('cards_daily_group', { p_day: day });
     dailyId = typeof data === 'string' ? data : null;
   }
-  if (req.source === 'bonus') {
-    if (n !== 1) return fail('bad_request');
-    // The wins are read again by the database before the pack opens (a win whose line never posted still counts, once per play).
-    await c.db.rpc('cards_bonus_record', { p_user: c.userId, p_now: new Date(c.now).toISOString() });
-  }
+  if (req.source === 'bonus' && n !== 1) return fail('bad_request');
+  // The wins and the quiz of the day are read again by the database before any opening (a win whose line never posted, a quiz finished on kpopquiz.org,
+  // still count, once each); a bonus pack needs it, and the lobby answer after the opening tells whether the quiz's pack is earned.
+  const quizDone = await recordBonus(c);
   const rng = c.rng ?? serverRng;
   const plans = plansFor(w, req, dailyId, n, rng, theme);
   if (!plans) return fail('pack');
@@ -411,7 +432,7 @@ export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResp
   });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
   const p = await loadPlayer(c);
-  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap() }));
+  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }));
 }
 
 export async function claim(c: Ctx, key: string, target: string): Promise<ApiResult<ClaimResponse>> {
@@ -421,8 +442,9 @@ export async function claim(c: Ctx, key: string, target: string): Promise<ApiRes
     return fail(e === 'set_not_done' && target === 'week' ? 'week_not_done' : (e ?? 'server'));
   }
   const d = data as { replayed: boolean; target: string; packs: number; shards: number };
+  const quizDone = await recordBonus(c);
   const [w, p] = await Promise.all([loadWorld(c.db, c.now), loadPlayer(c)]);
-  return { target: d.target, packs: d.packs, shards: d.shards, replayed: d.replayed, missions: missionsState(w, p, c.now), state: lobbyState({ w, p, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap() }) };
+  return { target: d.target, packs: d.packs, shards: d.shards, replayed: d.replayed, missions: missionsState(w, p, c.now), state: lobbyState({ w, p, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }) };
 }
 
 export async function craft(c: Ctx, key: string, n: number): Promise<ApiResult<CraftResponse>> {

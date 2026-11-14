@@ -220,11 +220,13 @@ export interface LobbyState extends WalletState {
   /** The "still there?" check (quiet): when due, the timer is paused until the player confirms. Nothing is ever taken. */
   stillThere: { due: boolean; since: string | null };
   /** The bridges to kpopquiz.org (the lobby box "On kpopquiz.org +1 pack each"). Kpopdle: a win decided in the database earns a pack (at most perDay a Paris day);
-   *  the page that shows the win posts to ROUTES.bonusRecord so the server records it, and the pack is opened with source 'bonus'. Quiz of the day: NOT a source
-   *  of packs (decision 28: its completion is a score the browser reports, so it could be farmed); `enabled` is false and the box must not promise a pack for it. */
+   *  the page that shows the win posts to ROUTES.bonusRecord so the server records it, and the pack is opened with source 'bonus'. Quiz of the day (integrator rule,
+   *  115-quiz-of-day-bonus.sql): finishing it gives one pack, counted inside the same perDay (the cap does not move), once per Paris day; the database decides and the
+   *  hub's server records it itself when it reads the lobby and before a bonus opening, so no browser report is needed. `done` is true once today's pack is earned;
+   *  `enabled` follows the bridges flag. Kpopdle's earnedToday does not count the quiz's pack. */
   bridges: {
     kpopdle: { enabled: boolean; earnedToday: number; left: number; perDay: number };
-    quizOfDay: { enabled: false; reason: string };
+    quizOfDay: { enabled: boolean; done: boolean };
   };
   /** The player's own nickname (profiles.username), null when none is set (ranking and friends need one). */
   nickname: string | null;
