@@ -11,7 +11,7 @@
 --         wins and the quiz still open 3 packs), once per Paris day. The cards live on bunnyverse.org and the quiz on kpopquiz.org, so a cross-site call
 --         is refused (403); the hub's server therefore records it itself (the lobby state and the opening of a bonus pack call these functions) and
 --         no browser report is needed.
--- Rule:   a row is written for the player when a public.plays row of his exists with all of:
+-- Rule:   a row is written for the player when a public.plays row of the player exists with all of:
 --           player_id = the player (a guest has none, a Team account is refused by the server before this is called), total_questions > 0,
 --           created_at on the Paris day of p_now and not after p_now (the play is stamped when it is finished: record_play inserts it at the end),
 --           the quiz is published, is_quiz_of_the_day, and its quiz_of_the_day_date is the UTC date of the play (the date the site showed it as the
