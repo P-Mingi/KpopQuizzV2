@@ -512,6 +512,7 @@
     "apps/quiz/src/**",
     "apps/quiz/scripts/cards/**",
     "apps/quiz/e2e/o1/CARDS/**",
+    "apps/quiz/vitest.config.ts",
     "docs/pending-migrations/cards/**",
     "docs/design/cards/**",
     "docs/o1/evidence/cards/**",
