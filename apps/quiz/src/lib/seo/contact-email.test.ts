@@ -2,12 +2,15 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import BannedPage from '../../app/(site)/banned/page';
 import TermsPage from '../../app/(site)/terms/page';
 
 import { CONTACT_EMAIL, organizationJsonLd } from './org';
+
+// Scans every file of src/: the first `it` that reads the tree took 3.2 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
 
 // hello@kpopquiz.org is the only routed mailbox of the site (owner, 2026-10-25): contact@ and
 // support@ bounce, so no page, schema or text may send people there.

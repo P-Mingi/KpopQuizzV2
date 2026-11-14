@@ -19,6 +19,9 @@ import type { UxQuizCardData } from '@/components/ux-v1/quiz-card';
 import type { ImageRow } from './series-images-data';
 import type { SeriesImage } from './series-images';
 
+// Scans every file of src/: the first `it` that reads the tree took 2.5 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
+
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '../../../../..');
 const QUIZ = path.resolve(HERE, '../../..');

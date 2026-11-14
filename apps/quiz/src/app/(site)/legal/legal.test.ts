@@ -12,6 +12,9 @@ import { SITE_IDS } from '@/lib/site/types';
 
 import type { Metadata } from 'next';
 
+// Scans every file of src/: the first `it` that reads the tree took 3.6 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
+
 // Lot (d), H1 (owner, 2026-10-24, brief H1-legal.md): the legal notice of the three sites. One route, the kpop one, is the source; the
 // OtakuQuiz and Bunnyverse page re-exports it. One copy file (legal.* keys of copy/hub/h1.ts); the publisher is Louis Pecchia, entrepreneur
 // individuel (owner, 2026-10-25) and his phone is given (owner, 2026-10-25): the real copy holds no placeholder. The launch gate stays, and

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import {
   CAP,
@@ -17,6 +17,9 @@ import {
   walletAt,
 } from './rules';
 import type { PhotoCredit, PoolCard, Rarity } from './types';
+
+// 'an absent edition is never drawn' draws a large pool: 2.6 s measured (load 13) against the 5 s default. 15 s for this file.
+vi.setConfig({ testTimeout: 15_000 });
 
 export function seeded(seed: number) {
   let a = seed | 0;
