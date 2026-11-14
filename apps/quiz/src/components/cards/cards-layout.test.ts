@@ -9,7 +9,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/cards/ui-catalog', () => ({ loadCatalog: async () => null }));
 // next/font only runs inside the Next compiler: the font module is replaced by the one field the layout reads (owner go 2026-11-12).
-vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' } }));
+vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' }, cardsUi: { variable: 'bvc-ui-var' } }));
 vi.mock('@/lib/cards/ui-flag', () => ({ cardsOn: () => true, cardsFixtureOn: () => false }));
 vi.mock('next/navigation', () => ({ notFound: () => { throw new Error('404'); }, usePathname: () => '/kpopcards' }));
 
@@ -38,19 +38,22 @@ describe('the card faces (owner go 2026-11-12: Archivo and Martian Mono through 
   const read = (p: string): string => readFileSync(p, 'utf8');
   it('loads both faces with their width axis from next/font/google, and adds no font file by hand', () => {
     const src = read('src/components/cards/cards-font.ts');
-    expect(src).toMatch(/import \{ Archivo, Martian_Mono \} from 'next\/font\/google';/);
+    expect(src).toMatch(/import \{ Archivo, DM_Sans, Martian_Mono \} from 'next\/font\/google';/);
     expect(src).toMatch(/Archivo\(\{[^}]*variable: '--font-bvc-card'[^}]*axes: \['wdth'\]/);
     expect(src).toMatch(/Martian_Mono\(\{[^}]*variable: '--font-bvc-mono'[^}]*axes: \['wdth'\]/);
+    // the interface face of the prototype: DM Sans with its optical size axis (the site's own DM Sans file has the weight axis only)
+    expect(src).toMatch(/DM_Sans\(\{[^}]*variable: '--font-bvc-ui'[^}]*axes: \['opsz'\]/);
     for (const dir of ['public', 'public/fonts']) {
       expect(readdirSync(dir).filter((n) => /archivo|martian/i.test(n)), dir).toEqual([]);
     }
   });
   it('puts both variables on the root of the Cards pages, the root that defines the card tokens', async () => {
     const html = renderToStaticMarkup(await CardsLayout({ children: null }));
-    expect(html).toMatch(/class="[^"]*\bbvc bvc-card-var bvc-mono-var"/);
+    expect(html).toMatch(/class="[^"]*\bbvc bvc-card-var bvc-mono-var bvc-ui-var"/);
     const tokens = read('src/styles/cards/cards-tokens.css');
     expect(tokens).toContain('--f-card:var(--font-bvc-card,"Archivo")');
     expect(tokens).toContain('--f-mono:var(--font-bvc-mono,"Martian Mono")');
+    expect(tokens).toContain('--f-ui:var(--font-bvc-ui,"BVC DM Sans")');
   });
   it('is imported by the Cards layout only, so no other page of any site loads the two faces', () => {
     // git grep: the tracked sources, read in one pass (a walk of every file of src is too slow for the full suite).
