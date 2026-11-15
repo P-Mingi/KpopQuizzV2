@@ -55,7 +55,8 @@ fs.readdirSync = ((p: unknown, opts?: unknown) => {
   return (realReaddir as (...a: unknown[]) => unknown)(p, opts);
 }) as typeof fs.readdirSync;
 
-fs.statSync = ((p: unknown, opts?: unknown) => {
+// statSync is a const in the node typings (StatSyncFn), so it is assigned through a writable view of the module.
+(fs as { statSync: typeof fs.statSync }).statSync = ((p: unknown, opts?: unknown) => {
   if (inSrc(p) && opts === undefined) {
     const hit = stats.get(p);
     if (hit) return hit;
