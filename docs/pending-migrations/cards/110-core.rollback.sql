@@ -389,12 +389,15 @@ begin
   revoke all on function public.cards_apply_pack(uuid, text, integer[], uuid, timestamptz, integer, integer, integer, text) from public, anon, authenticated;
   revoke all on function public.cards_ad_grant(uuid, uuid, timestamptz, integer, integer, integer) from public, anon, authenticated;
   revoke all on function public.cards_craft(uuid, integer, timestamptz) from public, anon, authenticated;
+  -- 002's grants on the cards_recycle given back above (002-functions.sql lines 347 and 357): a security definer function, service_role only.
+  revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;
   grant execute on function public.cards_roll(integer, timestamptz, date, integer, integer, timestamptz, integer, integer) to service_role;
   grant execute on function public.cards_pity_count(uuid) to service_role;
   grant execute on function public.cards_wallet(uuid, timestamptz, integer, integer, integer) to service_role;
   grant execute on function public.cards_apply_pack(uuid, text, integer[], uuid, timestamptz, integer, integer, integer, text) to service_role;
   grant execute on function public.cards_ad_grant(uuid, uuid, timestamptz, integer, integer, integer) to service_role;
   grant execute on function public.cards_craft(uuid, integer, timestamptz) to service_role;
+  grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;
 
   alter table public.cards_packs drop constraint if exists cards_packs_theme_check;
   if exists (select 1 from pg_constraint where conname = 'cards_packs_source_check' and conrelid = 'public.cards_packs'::regclass and pg_get_constraintdef(oid) like '%daily%') then

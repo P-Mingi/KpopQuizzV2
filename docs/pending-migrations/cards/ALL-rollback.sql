@@ -3,10 +3,7 @@
 -- What:   begin; the 15 rollback files verbatim, from 115 down to 099:
 --         115-quiz-of-day-bonus.rollback, 114-catalog-append.rollback, 113-moment.rollback, 112-social.rollback, 111-group-types.rollback, 110-core.rollback, 108-push.rollback, 107-prefs.rollback,
 --         106-demo.rollback, 105-goals.rollback, 104-economy.rollback, 103-catalog-photos.rollback, 099b-idols-returning.rollback, 102-catalog-rebuild.rollback, 099-idols-members.rollback;
---         then the grants of 002 on cards_recycle; then 101-catalog.sql verbatim; commit;
--- Why the grants: 110-core.rollback.sql gives 002's cards_recycle(uuid, timestamptz) back (110 dropped it) without the revoke of 002,
---         so on Supabase, which grants every new function to anon and authenticated, a browser role could execute that security
---         definer function. The two statements give it back the grants 002 gave it (service_role only).
+--         then 101-catalog.sql verbatim; commit;
 -- Why 101: 103 and 102 replace the catalog of 101, and their rollbacks empty it (they cannot know the rows they replaced). 101 was
 --         applied before the bundle; run again on the restored groups and idols it writes the same subjects, cards and photos.
 --         The photo ids are new (cards_photos.id is an identity, its sequence does not go back), and so is cards_catalog.photo_id.
@@ -595,12 +592,15 @@ begin
   revoke all on function public.cards_apply_pack(uuid, text, integer[], uuid, timestamptz, integer, integer, integer, text) from public, anon, authenticated;
   revoke all on function public.cards_ad_grant(uuid, uuid, timestamptz, integer, integer, integer) from public, anon, authenticated;
   revoke all on function public.cards_craft(uuid, integer, timestamptz) from public, anon, authenticated;
+  -- 002's grants on the cards_recycle given back above (002-functions.sql lines 347 and 357): a security definer function, service_role only.
+  revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;
   grant execute on function public.cards_roll(integer, timestamptz, date, integer, integer, timestamptz, integer, integer) to service_role;
   grant execute on function public.cards_pity_count(uuid) to service_role;
   grant execute on function public.cards_wallet(uuid, timestamptz, integer, integer, integer) to service_role;
   grant execute on function public.cards_apply_pack(uuid, text, integer[], uuid, timestamptz, integer, integer, integer, text) to service_role;
   grant execute on function public.cards_ad_grant(uuid, uuid, timestamptz, integer, integer, integer) to service_role;
   grant execute on function public.cards_craft(uuid, integer, timestamptz) to service_role;
+  grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;
 
   alter table public.cards_packs drop constraint if exists cards_packs_theme_check;
   if exists (select 1 from pg_constraint where conname = 'cards_packs_source_check' and conrelid = 'public.cards_packs'::regclass and pg_get_constraintdef(oid) like '%daily%') then
@@ -1181,10 +1181,6 @@ begin
   get diagnostics v_deleted = row_count;
   raise notice '099-idols-members rollback: % rows deleted', v_deleted;
 end $i099r$;
-
--- ==== the grants of 002 on cards_recycle (110-core.rollback.sql recreates the function without its revoke) ====
-revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;
-grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;
 
 -- ==== 16/16: 101-catalog.sql (verbatim, the catalog of before the bundle) ====
 -- 101-catalog.sql (Bunnyverse Cards, lane DATA, 2026-11-12; the catalog of the 59 October photos)

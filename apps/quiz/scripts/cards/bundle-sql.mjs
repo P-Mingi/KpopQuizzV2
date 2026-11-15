@@ -74,12 +74,6 @@ export function buildBundle(read = readCards) {
   return `${header}begin;\n\n${GUARD}\n${parts.join('\n')}\ncommit;\n`;
 }
 
-/** After 110-core.rollback.sql: 002's grants on the cards_recycle it gives back (002-functions.sql lines 347 and 357). */
-export const RECYCLE_GRANTS = `-- ==== the grants of 002 on cards_recycle (110-core.rollback.sql recreates the function without its revoke) ====
-revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;
-grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;
-`;
-
 /** The rollbacks undo the bundle; 103's and 102's empty the catalog, so 101 (applied before the bundle) runs again at the end. */
 export function buildRollback(read = readCards) {
   const rev = [...ORDER].reverse();
@@ -89,10 +83,7 @@ export function buildRollback(read = readCards) {
     '-- What:   begin; the 15 rollback files verbatim, from 115 down to 099:',
     `--         ${rev.slice(0, 8).map((f) => `${f}.rollback`).join(', ')},`,
     `--         ${rev.slice(8).map((f) => `${f}.rollback`).join(', ')};`,
-    '--         then the grants of 002 on cards_recycle; then 101-catalog.sql verbatim; commit;',
-    '-- Why the grants: 110-core.rollback.sql gives 002\'s cards_recycle(uuid, timestamptz) back (110 dropped it) without the revoke of 002,',
-    '--         so on Supabase, which grants every new function to anon and authenticated, a browser role could execute that security',
-    '--         definer function. The two statements give it back the grants 002 gave it (service_role only).',
+    '--         then 101-catalog.sql verbatim; commit;',
     '-- Why 101: 103 and 102 replace the catalog of 101, and their rollbacks empty it (they cannot know the rows they replaced). 101 was',
     '--         applied before the bundle; run again on the restored groups and idols it writes the same subjects, cards and photos.',
     '--         The photo ids are new (cards_photos.id is an identity, its sequence does not go back), and so is cards_catalog.photo_id.',
@@ -105,7 +96,6 @@ export function buildRollback(read = readCards) {
   ].join('\n');
   const n = rev.length + 1;
   const parts = rev.map((f, i) => sep(i + 1, n, `${f}.rollback.sql`) + withNl(read(`${f}.rollback.sql`)));
-  parts.push(RECYCLE_GRANTS);
   parts.push(sep(n, n, '101-catalog.sql', 'verbatim, the catalog of before the bundle') + withNl(read('101-catalog.sql')));
   return `${header}begin;\n\n${parts.join('\n')}\ncommit;\n`;
 }

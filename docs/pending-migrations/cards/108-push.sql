@@ -34,7 +34,10 @@ begin
   perform set_config('lock_timeout', '5s', true);
   perform set_config('client_min_messages', 'warning', true);
 
-  if to_regclass('public.cards_wallets') is null or to_regprocedure('public.cards_wallet(uuid, timestamptz, integer, integer)') is null then
+  -- 002's cards_wallet has 4 arguments; 104 (before this file in the closed order) replaces it by one with 5: either shows 002 is applied.
+  if to_regclass('public.cards_wallets') is null
+     or (to_regprocedure('public.cards_wallet(uuid, timestamptz, integer, integer)') is null
+         and to_regprocedure('public.cards_wallet(uuid, timestamptz, integer, integer, integer)') is null) then
     raise exception '108-push: run 001-schema.sql and 002-functions.sql first';
   end if;
 

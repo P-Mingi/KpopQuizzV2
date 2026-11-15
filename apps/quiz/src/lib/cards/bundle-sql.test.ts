@@ -1,12 +1,12 @@
 // KpopCards, PR #231: the three ALL files of docs/pending-migrations/cards, without a database. They are what bundle-sql.mjs writes, byte
 // for byte; the bundle holds the 15 files verbatim in the closed order between its begin, its guard and its commit, nothing else; the
-// rollback holds the 15 rollbacks verbatim from 115 down to 099, the grants of 002 on cards_recycle, then 101; the 15 files hold no temp
+// rollback holds the 15 rollbacks verbatim from 115 down to 099, then 101; the 15 files hold no temp
 // table, no CONCURRENTLY, no transaction command and no psql meta-command; ALL-verify is one SELECT with a row per Verify line of the
 // 15 files, in order, then TOUT_OK, and writes nothing. The database proofs are bundle-sql-db.test.ts and kpopcards/bundle-sql-postgres.test.ts.
 import { describe, expect, it } from 'vitest';
 
 import { CHECKS, verifyLines } from '../../../scripts/cards/bundle-verify.mjs';
-import { GUARD, ORDER, OUTPUTS, RECYCLE_GRANTS, buildAll, readCards } from '../../../scripts/cards/bundle-sql.mjs';
+import { GUARD, ORDER, OUTPUTS, buildAll, readCards } from '../../../scripts/cards/bundle-sql.mjs';
 
 const BUNDLE = readCards(OUTPUTS.bundle);
 const VERIFY = readCards(OUTPUTS.verify);
@@ -99,8 +99,8 @@ describe('the 15 files, their rollbacks and 101 run inside one transaction', () 
 });
 
 describe('ALL-rollback.sql', () => {
-  it('is begin, the 15 rollbacks verbatim from 115 down to 099, the grants of 002 on cards_recycle, 101 verbatim, commit', () => {
-    const parts = [...[...ORDER].reverse().map((f) => readCards(`${f}.rollback.sql`)), RECYCLE_GRANTS, readCards('101-catalog.sql')];
+  it('is begin, the 15 rollbacks verbatim from 115 down to 099, 101 verbatim, commit', () => {
+    const parts = [...[...ORDER].reverse().map((f) => readCards(`${f}.rollback.sql`)), readCards('101-catalog.sql')];
     let at = 0;
     let rest = ROLLBACK;
     for (const p of parts) {
@@ -110,14 +110,21 @@ describe('ALL-rollback.sql', () => {
       rest = rest.replace(p, '');
     }
     expect(code(rest).replace(/\s+/g, ' ').trim()).toBe('begin; commit;');
-    expect(code(RECYCLE_GRANTS).trim()).toBe('revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;\n'
-      + 'grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;');
-    // they are the grants 002 gives the function
+    // 110's rollback gives 002's cards_recycle back WITH 002's grants (a security definer function: service_role only; Supabase grants a new
+    // function to anon and authenticated by default)
     const f002 = readCards('002-functions.sql');
-    expect(f002).toContain('revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;');
-    expect(f002).toContain('grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;');
-    // and 110's rollback gives the function back without them
-    expect(readCards('110-core.rollback.sql')).not.toMatch(/(revoke|grant)[^;]*cards_recycle\(uuid, timestamptz\)/);
+    const r110 = readCards('110-core.rollback.sql');
+    for (const g of ['revoke all on function public.cards_recycle(uuid, timestamptz) from public, anon, authenticated;',
+      'grant execute on function public.cards_recycle(uuid, timestamptz) to service_role;']) {
+      expect(f002).toContain(g);
+      expect(r110).toContain(g);
+    }
+  });
+  it('108 accepts the cards_wallet of 002 (4 arguments) or of 104 (5 arguments): in the closed order it runs after 104', () => {
+    const f108 = readCards('108-push.sql');
+    expect(f108).toContain("to_regprocedure('public.cards_wallet(uuid, timestamptz, integer, integer)') is null");
+    expect(f108).toContain("to_regprocedure('public.cards_wallet(uuid, timestamptz, integer, integer, integer)') is null) then");
+    expect(ORDER.indexOf('104-economy')).toBeLessThan(ORDER.indexOf('108-push'));
   });
 });
 
