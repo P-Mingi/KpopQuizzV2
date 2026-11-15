@@ -7,6 +7,9 @@ const map = { chromium: devices['Desktop Chrome'], firefox: devices['Desktop Fir
 
 export default defineConfig({
   testDir: './kpopcards',
+  // *.kc.ts, never *.spec.ts: the default config (playwright.config.ts, run by CI's e2e job) collects every *.spec.ts under e2e/, and
+  // CI has no harness server (the fixture dev server of the README); playwright.o1.config.ts collects *.o1.ts. Only this config runs them.
+  testMatch: /\.kc\.ts$/,
   fullyParallel: false,
   workers: 1,
   retries: 0,
