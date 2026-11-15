@@ -17,25 +17,9 @@ Branch `o1/cards3` (main 84187a3 with #230 merged, then lots 3, 4 and 5). Everyt
   - more room between "Your guesses" and the column titles of the grid (12 px);
   - an upload of the Photos admin is tried once more after a 5xx from Supabase's storage (a banner got 544 DatabaseTimeout on 2026-11-15: the storage's own connection to the database timed out, the database was fine); a 4xx is never retried.
 
-## SQL, in this order (after a backup, never between 23:50 and 00:30 UTC; each file is one DO block with its `-- Verify:` lines and a rollback)
-Raw links (live once the branch is pushed): `https://raw.githubusercontent.com/P-Mingi/KpopQuizzV2/o1/cards3/docs/pending-migrations/cards/<file>`.
-The order is closed: a read-only check of production on 2026-11-14 (integrator) found no `part` column in `cards_catalog` and 0 row of 099, so 099 and 102 are not applied; 001 to 003 and 101 are.
-1. `099-idols-members.sql`: the members of the card subjects that had none (lot 2). Verify (4): the count equals the "N rows added" notice; one line per subject with an added notice; 0 active row without needs_review; 0 row of this file in Kpopdle.
-2. `102-catalog-rebuild.sql`: the age rule and the group pairs (lot 2). Verify (6): 0 cards owned; the parts as in the notice; 1, N, N (contiguous); 0 pair with non-consecutive numbers; 0 subject the age rule leaves out; exactly the slugs of the "left out" notices.
-3. `099b-idols-returning.sql`: the members of fromis_9, KARA and LOONA, only where the group has no active member, out of Kpopdle. Verify (3): the "N rows added" notice; 0 active row without needs_review; one line per group added.
-4. `103-catalog-photos.sql`: the catalog with one photo per edition, `cards_build_catalog()`, the files trigger. Verify (7): 0 cards owned; numbers 1 to N contiguous; 0 photo on two editions; 0 card on a photo that is not live; 0 subject with fewer than 2 editions; 0 pair with non-consecutive numbers; photo statuses as in the notice (147 approved or auto, 44 to review).
-5. `104-economy.sql`: the guarantee, the missing half, the timer refills, craft, wishlist, focus, ad shards, the moment columns. Verify (9): its 7 functions and one each of `cards_roll`, `cards_wallet`, `cards_apply_pack`; nothing executable by anon or authenticated; RLS on the new tables, no browser grant; the 5 new columns; an empty wallet shows 40 timer packs left and 30 to the guarantee; nothing backfilled.
-6. `105-goals.sql`: sets and the week, the ledgers. Verify (7): 5, f, 4, 0, t, the week start 2026-11-09, 0 claimed right after the run.
-7. `106-demo.sql`: the guest demo claim. Verify (6): 1, t, 0, t, f, 0.
-8. `107-prefs.sql`: sound, vibration and the other preferences. Verify (5): 2, 1, 0, f, all.
-9. `108-push.sql`: web push subscriptions (unused while NET_CARDS_PUSH is off). Verify (8): 1 table, RLS t, 0 browser grant, 0 policy, 5 functions, none for anon or authenticated, all for service_role, 0 rows.
-10. `110-core.sql`: stack of 10, themes, pack of the day, `cards_open` (1 or 5 packs, one transaction, idempotency key), locks, recycle, craft, ad grant, the audit table. Verify (7): 10, each 1, 0, f, 1, 10, 0.
-11. `111-group-types.sql`: girl or boy for 41 groups (two agreeing sources each). Verify (3): boy 16, girl 24, mixed 1; 0; 0.
-12. `112-social.sql`: friends by one-time code, ranking by completion, player pages. Verify (4): 7, f, 2, 0.
-13. `113-moment.sql`: the moment of a card. Verify (3): 1, 1, f.
-14. `114-catalog-append.sql`: `cards_catalog_append(p_dry_run boolean default true)`, a preview by default, a write only with `false`. Verify (6): 1 function; f (anon, authenticated); t (service_role); t (security definer, search_path public); the preview answers `"dry_run": true` and writes nothing (0 cards while no photo waits); 1, N, N, the same as after 103 (the file itself adds no card).
-15. `115-quiz-of-day-bonus.sql`: the quiz of the day pack. Verify (7): the source check lists 'quiz', 'kpopdle' and 'quiz_of_day'; 1 index (one row a Paris day, even in parallel); 2 functions (`cards_bonus_record` replaced, `cards_bonus_sync`); f (anon, authenticated); t (service_role); t (security definer, search_path public); t (the `cards_bonus_record` in place reads the quiz of the day). Every Verify line is read only: none calls a function.
-Each file's header holds the exact queries next to these expected values.
+## SQL
+One bundle, one transaction: `docs/pending-migrations/cards/ALL-099-115.sql` (the 15 files 099, 102, 099b, 103, 104, 105, 106, 107, 108, 110, 111, 112, 113, 114, 115, with a guard that refuses between 23:50 and 00:30 UTC, when a card is owned or a pack opened, or when 102 is already applied), then the read-only `ALL-verify.sql` (the last row `TOUT_OK` must be true). Way back: `ALL-rollback.sql`. The steps, in order, are in `docs/o1/reports/CARDS/OWNER-ONE-SHOT.md`. The 15 files stay in the folder, each with its `-- Verify:` lines and its rollback; their expected values are in each file's header.
+A read-only check of production on 2026-11-14 (integrator) found no `part` column in `cards_catalog` and 0 row of 099, so 099 and 102 are not applied; 001 to 003 and 101 are.
 
 ## Flags and env (hub project; the values advised at launch)
 | Name | At launch | What it does |
@@ -114,6 +98,6 @@ The cron `/api/cron/cards-push` (every 10 minutes) is in vercel.json; it answers
 - Timeouts (the integrator's rule: an explicit timeout only for the tests that need one, measured): `lib/dle/bank.test.ts` 120 s to 600 s (121.6 s on an idle machine, so it failed alone); 30 s (default 5 s) for `lib/daily-bank/lot3-sql.test.ts` (measured 4.3 s), `components/o1-o2-seam.test.ts` (2.9 s), `lib/hidden-cover.test.ts` (3.1 s), `lib/anime/series-images.test.ts` (2.5 s), `lib/seo/contact-email.test.ts` (3.2 s), `lib/site/mailbox.test.ts` (4.2 s), `lib/site/registry.test.ts` (3.6 s), `app/(site)/legal/legal.test.ts` (3.6 s), `lib/ux-v1/a0/site-avatar.test.ts` (5.0 s), and the top bar test of `app/sites/[site]/home-hub.test.ts` (5.0 s once); 15 s for `lib/cards/rules.test.ts` (2.6 s). No test is skipped, removed or narrowed.
 
 ## For the owner
-See the final report: the SQL above in order, the files script (`publish-card-files.mjs`, preview then `--publish`), **the review of the 44 photos waiting in the admin "À relire" then "Reconstruire le catalogue", BEFORE any real pack is opened** (after the first pack only "Ajouter au catalogue" remains), the Kpopdle photos script, the env, the domain `kpopcards.bunnyverse.org`, and the non-free images (then a look at the series rows the private preview lists).
+One page, in French, in order: `docs/o1/reports/CARDS/OWNER-ONE-SHOT.md` (CI, backup, the SQL bundle, the Vercel variables, the domain, the merge, the admin with the non-free images then the review of the 44 photos then "Reconstruire le catalogue", the terminal script `pnpm --filter quiz owner:cards` for the card files and the Kpopdle photos, the first pack, the way back). The photo review and the rebuild come BEFORE the files script: `cards_build_catalog()` needs no file to include a photo, and `publish-card-files.mjs` cuts only live photos, so one run after the rebuild cuts them all.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
