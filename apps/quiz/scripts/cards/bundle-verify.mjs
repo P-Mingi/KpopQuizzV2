@@ -13,6 +13,14 @@
 //     (copied below by the generator), never a number measured on a test database. Where a later file of the bundle changes what an
 //     earlier line reads (103 rebuilds the catalog of 102, 110 drops cards_apply_pack of 104), the row checks the state after the bundle
 //     and its controle says so.
+//   - every row that reads data holds at any point before the first pack, through the owner's admin work (photos approved or refused,
+//     focal points moved, "Reconstruire le catalogue", the card files published, the script run again): the expected values are read
+//     from the database as it is now. The catalog rows compare the catalog with the edition rule of 103 on the photos live NOW: true after
+//     every rebuild; a review that changes the live photos (a photo approved, a live one refused) and is not followed by the rebuild
+//     makes them false on purpose, until the rebuild: once a pack is opened the catalog can only grow at its end (114), and a refused
+//     photo would keep its cards forever. Once a card is owned or a pack opened, the rows of 102 line 26 and 103 line 28 are false.
+
+import { createHash } from 'node:crypto';
 
 const LADDER = "array['C', 'U', 'R', 'SR', 'UR', 'L']";
 const ZERO = "'00000000-0000-0000-0000-000000000000'::uuid";
@@ -58,16 +66,22 @@ const wallet = (key) => dyn(fn(WALLET), `coalesce(public.cards_wallet(${ZERO}, $
 // The crop window of a photo (cards_build_catalog of 103, cards_catalog_append of 114): 5.5:8.5 for a person, 11:8.5 for a group's pair.
 const cw = (p, grp) => `floor(least(${p}.source_width::numeric, ${p}.source_height::numeric * (case when ${grp} then 11 else 5.5 end) / 8.5))::integer`;
 
-/** The cards cards_build_catalog() (103) makes from the photos in the database: n live photos (at most 6) open the n lowest editions
- *  from 2 photos, Full Art needs a photo with an honest 2x, a group card is a pair. */
-export const LADDER_TOTAL = `(select coalesce(sum(case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end * case when z.kind = 'group' then 2 else 1 end), 0)
-     from (select e.id, e.kind, least(count(*), 6) as n,
-                  bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
-             from public.cards_entities e
-             join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
-             cross join lateral (select ${cw('p', "e.kind = 'group'")} as cw) w
-            where e.kind in ('idol', 'group')
-            group by e.id, e.kind) z)`;
+/** The editions cards_build_catalog() (103) opens for each subject from the photos live NOW: n live photos (at most 6) open the n lowest
+ *  editions from 2 photos, Full Art needs a photo with an honest 2x. Rows (kind, editions). True of the catalog after every rebuild; a
+ *  review (a photo approved, or a live one refused) not followed by "Reconstruire le catalogue" makes it differ until the rebuild. */
+const EDITIONS = `select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
+       from (select e.id, e.kind, least(count(*), 6) as n,
+                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
+               from public.cards_entities e
+               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
+               cross join lateral (select ${cw('p', "e.kind = 'group'")} as cw) w
+              where e.kind in ('idol', 'group')
+              group by e.id, e.kind) z`;
+/** The cards of the edition rule on the photos live now: one an edition for a person, a pair for a group. */
+export const LADDER_TOTAL = `(select coalesce(sum(r.editions * case when r.kind = 'group' then 2 else 1 end), 0) from (${EDITIONS}) r)`;
+/** The same, by part: 0 the people's whole cards, 1 and 2 the halves of the groups' pairs. */
+const LADDER_PARTS = `(select format('0: %s, 1: %s, 2: %s', coalesce(sum(r.editions) filter (where r.kind = 'idol'), 0),
+       coalesce(sum(r.editions) filter (where r.kind = 'group'), 0), coalesce(sum(r.editions) filter (where r.kind = 'group'), 0)) from (${EDITIONS}) r)`;
 
 /** The answer of cards_catalog_append(true) - 'by_rarity' (114), computed with a plain query: the same subjects, the same ranking of the
  *  unused live photos, the same free editions, Full Art and Stage picks, so the same cards, subjects, waiting and not_shown counts. */
@@ -122,8 +136,8 @@ export const APPEND_PREVIEW = `(with ent as (
               'not_shown', (select coalesce(sum(case when pk.grp then 2 else 1 end), 0) from picks pk join u on u.pid = pk.pid where not u.shown))::text
        from t)`;
 
-/** What the preview must answer right after the bundle: 103 has just put every usable live photo on a card, so nothing to add; the
- *  subjects with fewer than 2 live photos wait. */
+/** What the preview must answer while the catalog is the edition rule on the photos live now (right after the bundle, after every
+ *  rebuild): every usable live photo is on a card, so nothing to add; the subjects with fewer than 2 live photos wait. */
 const APPEND_AFTER_BUNDLE = `(select jsonb_build_object('dry_run', true, 'cards', 0, 'subjects', 0, 'new_subjects', 0, 'extended_subjects', 0,
        'waiting', count(*) filter (where z.n < 2), 'from_no', null, 'to_no', null, 'not_shown', 0)::text
      from (select en.id, (select count(*) from public.cards_photos p where p.entity_id = en.id and p.status in ('auto', 'approved')
@@ -173,8 +187,8 @@ export function lists(read) {
   return {
     l099: m099.flatMap((s) => s.members.map((m, pos) => [s.slug, s.kind, pos, m.name, m.qid, m.active])),
     l099b: m099b.flatMap((s) => s.members.map((m) => [s.slug, m.name])),
-    l103: s103.map((s) => [s.slug, s.kind, s.end_year,
-      ...['approved', 'auto', 'pending'].map((st) => s.photos.filter((p) => p.status === st).length)]),
+    l103: s103.map((s) => [s.slug, s.kind, s.end_year]),
+    l103p: s103.flatMap((s) => s.photos.map((p) => [s.slug, createHash('md5').update(p.page, 'utf8').digest('hex')])),
     lot1: lot1.map((slug, pos) => [pos, slug, owner.get(`images/group-photos/${slug}.jpg`) ?? null]),
     age102: age.map((id, pos) => [pos, id]),
     l111: g111,
@@ -184,7 +198,7 @@ export function lists(read) {
 // ---------- the checks, in file order ----------
 
 const DLE = "to_regclass('public.dle_src_kpop_idol') is not null";
-const statusList = (from) => `(select coalesce(string_agg(st || ' ' || n, ', ' order by st), '') from (${from}) z where n > 0)`;
+const OWNED_PACKS = "(select (select count(*) from public.cards_owned) || ' owned, ' || (select count(*) from public.cards_packs) || ' packs')";
 
 /** file -> [{ line, label, expect, got }]: each Verify line of the file, in order (bundle-sql.mjs refuses a missing or extra one). */
 export const CHECKS = {
@@ -202,13 +216,9 @@ export const CHECKS = {
       got: `coalesce(${dyn(DLE, "select count(*) from public.dle_src_kpop_idol s join public.idols i on i.id::text = s.entity_id where i.review_reason like '099-idols-members%'")}, 'no view dle_src_kpop_idol')` },
   ],
   '102-catalog-rebuild.sql': [
-    { line: 26, label: 'cards owned', expect: "'0'", got: '(select count(*)::text from public.cards_owned)' },
-    { line: 27, label: 'cards per part (after 103: each subject in packs has one card per open edition, a group a pair; open = 6 minus its lock reasons)',
-      expect: `(select format('0: %s, 1: %s, 2: %s', coalesce(sum(o) filter (where kind = 'idol'), 0), coalesce(sum(o) filter (where kind = 'group'), 0),
-       coalesce(sum(o) filter (where kind = 'group'), 0))
-     from (select e.kind, 6 - (select count(*) from jsonb_object_keys(e.lock_reasons) k where k = any (${LADDER})) as o
-             from public.cards_entities e
-            where e.kind in ('idol', 'group') and e.active and exists (select 1 from public.cards_photos p where p.entity_id = e.id)) z)`,
+    { line: 26, label: 'cards owned and packs opened (none before the first pack: the numbers may still change)', expect: "'0 owned, 0 packs'", got: OWNED_PACKS },
+    { line: 27, label: 'cards per part = the edition rule of 103 on the photos live now: a person one card an edition, a group a pair (true after Reconstruire le catalogue)',
+      expect: LADDER_PARTS,
       got: dyn(col('cards_catalog', 'part'), "select format('0: %s, 1: %s, 2: %s', count(*) filter (where part = 0), count(*) filter (where part = 1), count(*) filter (where part = 2)) from public.cards_catalog") },
     { line: 28, label: 'numbers 1 to N, contiguous', expect: contiguous('select count(*) from public.cards_catalog'), got: minMaxCount },
     { line: 29, label: 'pairs without consecutive numbers', expect: "'0'", got: pairsApart },
@@ -231,20 +241,25 @@ export const CHECKS = {
      where i.review_reason like '099b-idols-returning%' group by g.slug) z)` },
   ],
   '103-catalog-photos.sql': [
-    { line: 28, label: 'cards owned', expect: "'0'", got: '(select count(*)::text from public.cards_owned)' },
-    { line: 29, label: 'numbers 1 to N, contiguous, N = the cards of the edition rule on the live photos (the notice "... N cards")',
+    { line: 28, label: 'cards owned and packs opened (none before the first pack: the numbers may still change)', expect: "'0 owned, 0 packs'", got: OWNED_PACKS },
+    { line: 29, label: 'numbers 1 to N, contiguous, N = the cards of the edition rule on the photos live now (the notice "... N cards"; true after Reconstruire le catalogue)',
       expect: contiguous(LADDER_TOTAL), got: minMaxCount },
     { line: 30, label: 'photos on two editions', expect: "'0'",
       got: '(select count(*)::text from (select entity_id, photo_id from public.cards_catalog group by entity_id, photo_id having count(distinct rarity) > 1) x)' },
-    { line: 31, label: 'cards on a photo that is not live', expect: "'0'",
+    { line: 31, label: 'cards on a photo that is not live (a refused photo keeps its cards, out of packs, until Reconstruire le catalogue)', expect: "'0'",
       got: "(select count(*)::text from public.cards_catalog c join public.cards_photos p on p.id = c.photo_id where p.status not in ('auto', 'approved'))" },
     { line: 32, label: 'subjects with fewer than 2 editions', expect: "'0'",
       got: '(select count(*)::text from (select entity_id from public.cards_catalog group by entity_id having count(distinct rarity) < 2) x)' },
     { line: 33, label: 'pairs without consecutive numbers', expect: "'0'", got: pairsApart },
-    { line: 34, label: 'photos by status = the photos of the file of the subjects resolved now (the notice "photos ...")',
-      expect: statusList(`select 'approved' as st, sum(approved) as n from r103 where reason is null
-       union all select 'auto', sum(auto) from r103 where reason is null union all select 'pending', sum(pending) from r103 where reason is null`),
-      got: statusList('select status as st, count(*) as n from public.cards_photos group by status') },
+    { line: 34, label: 'the photos of the file of the subjects resolved now are all there, none lost and no other, whatever their status (the owner approves or refuses them; the notice "photos ...")',
+      expect: "(select count(*) || ' photos of the file' from l103p f join r103 r on r.slug = f.slug where r.reason is null)",
+      got: `(select x.n || ' photos of the file' || case when x.other > 0 then ' and ' || x.other || ' others' else '' end || ' (' || x.st || ')' from (
+       select count(distinct (p.entity_id, md5(p.source_page))) filter (where f.slug is not null) as n, count(*) filter (where f.slug is null) as other,
+              (select coalesce(string_agg(st || ' ' || c, ', ' order by st), 'none') from (select status as st, count(*) as c from public.cards_photos group by status) q) as st
+         from public.cards_photos p
+         left join (select f.slug, f.page_md5 from l103p f join r103 r on r.slug = f.slug where r.reason is null) f
+           on p.entity_id in ('idol:' || f.slug, 'group:' || f.slug) and md5(p.source_page) = f.page_md5) x)`,
+      ok: "split_part(o, ' (', 1) = a" },
   ],
   '104-economy.sql': [
     { line: 45, label: 'its 7 functions', expect: "'7'",
@@ -348,9 +363,9 @@ export const CHECKS = {
     { line: 24, label: 'service_role executes it', expect: "'true'", got: privOn('service_role', 'cards_catalog_append(boolean)') },
     { line: 25, label: 'security definer with search_path public', expect: "'true'",
       got: "(select (prosecdef and proconfig = array['search_path=public'])::text from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_catalog_append')" },
-    { line: 26, label: "the preview, by_rarity left out: nothing to add right after the bundle (not called: the same answer by a plain query)",
+    { line: 26, label: "the preview, by_rarity left out: nothing to add while the catalog is the edition rule on the photos live now (after the bundle, after Reconstruire le catalogue; not called: the same answer by a plain query)",
       expect: APPEND_AFTER_BUNDLE, got: dyn(fn('cards_catalog_append(boolean)'), APPEND_PREVIEW) },
-    { line: 27, label: 'numbers 1 to N, contiguous, the N of 103 (this file adds no card)', expect: contiguous(LADDER_TOTAL), got: minMaxCount },
+    { line: 27, label: 'numbers 1 to N, contiguous, N = the edition rule of 103 on the photos live now (this file adds no card)', expect: contiguous(LADDER_TOTAL), got: minMaxCount },
   ],
   '115-quiz-of-day-bonus.sql': [
     { line: 31, label: "the sources the check of cards_bonus_earned lists", expect: "'quiz, kpopdle, quiz_of_day'",
@@ -374,7 +389,7 @@ export const CHECKS = {
 const SHARED = `
 r103 as (
   -- the subjects of 103, resolved now by the rule of 102 and 103 (public.groups, public.idols, decision 17): reason null = in
-  select s.slug, s.kind, s.end_year, s.approved, s.auto, s.pending,
+  select s.slug, s.kind, s.end_year,
          case
            when g.id is null then 'no_groups_row'
            when s.kind = 'group' then (
@@ -434,7 +449,7 @@ export function buildVerify(read, order) {
   const extra = Object.keys(CHECKS).filter((f) => !order.includes(f.replace(/\.sql$/, '')));
   if (extra.length) throw new Error(`ALL-verify: checks for files outside the bundle: ${extra.join(', ')}`);
   const n = rows.length;
-  const body = rows.map((r, i) => `  select ${i + 1} as n, ${lit(r.file)} as fichier, ${lit(`line ${r.line}: ${r.label}`)} as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+  const body = rows.map((r, i) => `  select ${i + 1} as n, ${lit(r.file)} as fichier, ${lit(`line ${r.line}: ${r.label}`)} as controle, a as attendu, o as obtenu, coalesce(${r.ok ?? 'a = o'}, false) as ok
     from (select ${r.expect} as a,
                  ${r.got} as o) x`).join('\n  union all\n');
   const header = [
@@ -448,18 +463,23 @@ export function buildVerify(read, order) {
     '--         not called, a plain query gives its preview). It also runs inside a read-only transaction:',
     '--         PGOPTIONS="-c default_transaction_read_only=on" psql "$SUPABASE_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/cards/ALL-verify.sql',
     '--         Before the bundle (or after ALL-rollback.sql) it runs too and answers TOUT_OK false.',
-    '-- Expected values: computed from the database and from the lists of the files (copied below), never a count measured on a test',
-    '--         database: rows of 099 and 099b = the members of their lists whose group had no active member; the subjects of 103 resolved',
-    '--         now by the apply-time rule (decision 17); the cards of the edition rule on the live photos. Where a later file changes what an',
-    '--         earlier line reads (103 rebuilds the catalog of 102, 110 drops cards_apply_pack of 104), the row checks the state after the',
-    '--         bundle and its controle says so. A photo the owner had refused or removed before the bundle stays out of 103, so it would show',
-    '--         as a difference in the photo rows of 102 line 31 and 103 line 34.',
+    '-- Expected values: computed from the database as it is now and from the lists of the files (copied below), never a count measured',
+    '--         on a test database: rows of 099 and 099b = the members of their lists whose group had no active member; the subjects of 103',
+    '--         resolved now by the apply-time rule (decision 17); the photos of 103 there whatever their status; the cards of the edition',
+    '--         rule of 103 on the photos live now. Where a later file changes what an earlier line reads (103 rebuilds the catalog of 102, 110',
+    '--         drops cards_apply_pack of 104), the row checks the state after the bundle and its controle says so.',
+    '-- When:   right after the bundle and at any point before the first pack: approving or refusing photos, moving a focal point, the card',
+    '--         files published, "Reconstruire le catalogue" keep TOUT_OK true, but a review that changes the live photos (a photo approved, a',
+    '--         live one refused) must be followed by "Reconstruire le catalogue": until then the catalog rows (102 line 27, 103 lines 29 and',
+    '--         31, 114 lines 26 and 27) are false. Once a card is owned or a pack opened, 102 line 26 and 103 line 28 are false for good.',
+    '--         A photo the owner had refused or removed before the bundle stays out of 103: it would show in 102 line 31 and 103 line 34.',
     '',
   ].join('\n');
   return `${header}with
 ${valuesCte('l099', ['slug', 'kind', 'pos', 'name', 'qid', 'active'], L.l099)},
 ${valuesCte('l099b', ['slug', 'name'], L.l099b)},
-${valuesCte('l103', ['slug', 'kind', 'end_year', 'approved', 'auto', 'pending'], L.l103.map((r) => [r[0], r[1], r[2] === null ? { raw: 'null::integer' } : r[2], r[3], r[4], r[5]]))},
+${valuesCte('l103', ['slug', 'kind', 'end_year'], L.l103.map((r) => [r[0], r[1], r[2] === null ? { raw: 'null::integer' } : r[2]]))},
+${valuesCte('l103p', ['slug', 'page_md5'], L.l103p)},
 ${valuesCte('lot1', ['pos', 'slug', 'subject'], L.lot1)},
 ${valuesCte('age102', ['pos', 'id'], L.age102)},
 ${valuesCte('l111', ['id', 'gender'], L.l111)},${SHARED},
