@@ -34,7 +34,7 @@
 -- Verify: select bool_or(has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute')) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('cards_bonus_record', 'cards_bonus_sync');   expect f
 -- Verify: select bool_and(has_function_privilege('service_role', p.oid, 'execute')) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('cards_bonus_record', 'cards_bonus_sync');   expect t
 -- Verify: select prosecdef and 'search_path=public' = any (proconfig) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_bonus_sync';   expect t
--- Verify: select (public.cards_bonus_sync(id, '2026-11-12 10:00+00')) ->> 'quiz' from auth.users limit 1;   expect false (a player with no play of the quiz of the day; no row means no output)
+-- Verify: select prosrc like '%is_quiz_of_the_day%' from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_bonus_record';   expect t (002's recording is replaced by the one that reads the quiz of the day; read only: no Verify line calls a function)
 -- Undo:   115-quiz-of-day-bonus.rollback.sql (deletes the 'quiz_of_day' rows, narrows the check, restores 002's cards_bonus_record, drops the rest)
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
 

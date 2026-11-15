@@ -245,14 +245,18 @@ describe('115: the table, the grants and the files', () => {
       { proname: 'cards_bonus_record', prosecdef: true, cfg: ['search_path=public'], anon: false, authed: false, service: true },
       { proname: 'cards_bonus_sync', prosecdef: true, cfg: ['search_path=public'], anon: false, authed: false, service: true }]);
   });
+  it('the Verify lines are read only: none calls a function (the recording functions write)', () => {
+    const verify = readFileSync(path.join(CARDS_SQL, '115-quiz-of-day-bonus.sql'), 'utf8').split('\n').filter((l) => l.startsWith('-- Verify: '));
+    expect(verify).toHaveLength(7);
+    for (const v of verify) expect(v).not.toMatch(/\bcards_\w+\s*\(/);
+  });
   it('the Verify lines of the file answer as written', async () => {
     const db = await sharedDb();
-    const u = await newUser(db);
     expect(String(await one(db, `select pg_get_constraintdef(oid) from pg_constraint where conname = 'cards_bonus_earned_source_check' and conrelid = 'public.cards_bonus_earned'::regclass`)))
       .toMatch(/'quiz'.*'kpopdle'.*'quiz_of_day'/);
     expect(Number(await one(db, `select count(*) from pg_indexes where schemaname = 'public' and indexname = 'cards_bonus_earned_quiz_day_key'`))).toBe(1);
     expect(Number(await one(db, `select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_bonus_record', 'cards_bonus_sync')`))).toBe(2);
-    expect(await one(db, `select (public.cards_bonus_sync($1::uuid, '2026-11-12 10:00+00')) ->> 'quiz'`, [u])).toBe('false');
+    expect(await one(db, `select prosrc like '%is_quiz_of_the_day%' from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_bonus_record'`)).toBe(true);
   });
   it('a second run changes nothing, and the rollback puts 002 back: the quiz earns nothing and its rows are gone', async () => {
     const db = await quizDb();

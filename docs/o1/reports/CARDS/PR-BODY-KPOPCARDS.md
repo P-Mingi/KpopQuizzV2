@@ -30,7 +30,7 @@ The order is closed: a read-only check of production on 2026-11-14 (integrator) 
 12. `112-social.sql`: friends by one-time code, ranking by completion, player pages. Verify (4): 7, f, 2, 0.
 13. `113-moment.sql`: the moment of a card. Verify (3): 1, 1, f.
 14. `114-catalog-append.sql`: `cards_catalog_append(p_dry_run boolean default true)`, a preview by default, a write only with `false`. Verify (6): 1 function; f (anon, authenticated); t (service_role); t (security definer, search_path public); the preview answers `"dry_run": true` and writes nothing (0 cards while no photo waits); 1, N, N, the same as after 103 (the file itself adds no card).
-15. `115-quiz-of-day-bonus.sql`: the quiz of the day pack. Verify (7): the source check lists 'quiz', 'kpopdle' and 'quiz_of_day'; 1 index (one row a Paris day, even in parallel); 2 functions (`cards_bonus_record` replaced, `cards_bonus_sync`); f (anon, authenticated); t (service_role); t (security definer, search_path public); false for a player with no play of the quiz of the day.
+15. `115-quiz-of-day-bonus.sql`: the quiz of the day pack. Verify (7): the source check lists 'quiz', 'kpopdle' and 'quiz_of_day'; 1 index (one row a Paris day, even in parallel); 2 functions (`cards_bonus_record` replaced, `cards_bonus_sync`); f (anon, authenticated); t (service_role); t (security definer, search_path public); t (the `cards_bonus_record` in place reads the quiz of the day). Every Verify line is read only: none calls a function.
 Each file's header holds the exact queries next to these expected values.
 
 ## Flags and env (hub project; the values advised at launch)
@@ -103,6 +103,7 @@ The cron `/api/cron/cards-push` (every 10 minutes) is in vercel.json; it answers
 - The QA harness (`e2e/o1/CARDS/kpopcards/helpers/diff.ts`, new in this lot) measures the boxes at rest, as its screenshots already are.
 - The QA harness, after the integrator decisions of 2026-11-14: the card-view box list is `.sheet button:not(#d-lock)` (the lock button has no counterpart in the prototype) and gains `.credit`; the credit text is masked on both sides like the names (`freeze.ts`); a new screen `lobby-guest-empty` (the prototype's empty state with the guest view on, its controls panel closed) is added beside `lobby-guest`, which is kept.
 - `catalog-sql.test.ts`: the list of cards SQL files gains 114 and 115.
+- `sql-quiz-bonus.test.ts` (written in this lot): the last Verify line of 115 called `cards_bonus_sync`, which writes through `cards_bonus_record`; it is now a read-only check of the function in place (integrator rule of 2026-11-15), and a new check requires that no Verify line of 115 calls a function.
 - `cards.routes.test.ts`: the server records the bonus packs first, so the first calls are `cards_bonus_sync` then `cards_player` (was `cards_player`), the timer check reads the `cards_player` call, a bonus opening calls `cards_bonus_sync` then `cards_open` (was `cards_bonus_record`), and the lobby's `bridges.quizOfDay` is `{ enabled: true, done }` (was `enabled: false` with the decision 28 reason); `mock-api.test.ts` likewise: the integrator's quiz of the day rule.
 - `cards-bridge.test.ts`: two test titles that said a quiz earns nothing are reworded, assertions unchanged.
 - `lobby-guest.test.ts` (written in this lot) follows the guest layout of the integrator's rule.
