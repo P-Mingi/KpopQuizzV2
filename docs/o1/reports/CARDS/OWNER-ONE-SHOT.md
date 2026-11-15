@@ -30,6 +30,7 @@ Neuf étapes. Ne saute rien, ne change pas l'ordre. Claude n'a aucun accès à l
    - Il lit `apps/quiz/.env.local` et veut `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` et `SUPABASE_DB_URL`.
    - `SUPABASE_DB_URL` : Supabase, bouton Connect, la chaîne de connexion. Mets-la dans `apps/quiz/.env.local` seulement. Jamais dans Vercel, jamais dans git, jamais dans le chat.
    - Il te fait retaper l'hôte du projet, refuse tant que `ALL-verify.sql` ne rend pas `TOUT_OK`, puis fait dans l'ordre : fichiers des cartes (aperçu, confirmation tapée, publication), puis photos de Kpopdle (aperçu, confirmation tapée, publication).
+   - Entre l'étape 3 et ce script, ne touche pas aux membres Kpopdle ajoutés par 099 et 099b (case « à relire ») : le contrôle attend qu'ils le restent. Si tu as approuvé une photo sans reconstruire le catalogue, le contrôle le dit (`TOUT_OK` false) : reconstruis, puis relance.
    - Pourquoi après l'admin : la publication ne coupe que les photos vivantes (statut `auto` ou `approved`). Une photo approuvée à l'étape 7 est donc coupée dans ce passage unique. Faite avant, elle aurait demandé un second passage.
 
 9. **Le premier vrai paquet** : https://bunnyverse.org/kpopcards, connecté avec ton compte. Dès qu'un paquet est ouvert ou une carte possédée, « Reconstruire le catalogue » est refusé pour toujours : il ne reste que « Ajouter au catalogue ».
@@ -65,4 +66,4 @@ Le code de `main` tourne un moment sur le nouveau schéma (étapes 3 à 6).
 ## Revenir en arrière
 
 1. D'abord Vercel, **Instant Rollback** sur les 3 projets (`kpopquiz`, `otakuquiz`, `fandomverse`), vers le déploiement précédent. Cela ne touche aucune donnée.
-2. Seulement si besoin : `docs/pending-migrations/cards/ALL-rollback.sql`, une transaction, les 15 retours en arrière dans l'ordre inverse.
+2. Seulement si besoin : `docs/pending-migrations/cards/ALL-rollback.sql`, une transaction, les 15 retours en arrière dans l'ordre inverse. Puis il remet le catalogue de 101, celui d'avant le paquet. Il refuse, sans rien changer, dès qu'un joueur possède une carte ou a ouvert un paquet : après le premier vrai paquet, on ne revient plus en arrière par le SQL. Ensuite `ALL-verify.sql` rend `TOUT_OK` false, c'est normal.
