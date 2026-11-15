@@ -4,7 +4,7 @@ Neuf étapes. Ne saute rien, ne change pas l'ordre. Claude n'a aucun accès à l
 
 ## Les étapes
 
-1. **CI verte** sur la tête de la PR : https://github.com/P-Mingi/KpopQuizzV2/pull/231. Si un test est rouge, ne va pas plus loin.
+1. **CI verte** sur la tête de la PR : https://github.com/P-Mingi/KpopQuizzV2/pull/231. Si un test est rouge, ne va pas plus loin. Ce qui compte : `unit` et `e2e`. Les aperçus Vercel `fandomverse` et `otakuquiz` échouent toujours sur cette branche (pas de variables Preview, c'est voulu : on saute l'aperçu du hub) ; `kpopquiz` passe.
 
 2. **Sauvegarde.** Supabase, Database, Backups : une sauvegarde de moins de 24 heures doit exister (fais-en une si ton offre le permet). Une sauvegarde plus vieille ne compte pas.
 
