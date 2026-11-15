@@ -27,7 +27,7 @@ describe('the ALL files are what bundle-sql.mjs writes', () => {
   });
 
   it('hold no en or em dash', () => {
-    for (const t of [BUNDLE, VERIFY, ROLLBACK]) expect(t).not.toMatch(/[–—]/);
+    for (const t of [BUNDLE, VERIFY, ROLLBACK]) expect(t).not.toMatch(/[\u2013\u2014]/);
   });
 });
 

@@ -114,7 +114,7 @@ if (isMain) {
   const out = buildAll();
   let stale = 0;
   for (const [name, text] of Object.entries(out)) {
-    if (/[–—]/.test(text)) throw new Error(`${name}: an en or em dash`);
+    if (/[\u2013\u2014]/.test(text)) throw new Error(`${name}: an en or em dash`);
     const file = path.join(CARDS_DIR, name);
     let now = null;
     try { now = readFileSync(file, 'utf8'); } catch { /* not written yet */ }
