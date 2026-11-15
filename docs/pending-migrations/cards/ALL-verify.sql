@@ -8,12 +8,16 @@
 --         not called, a plain query gives its preview). It also runs inside a read-only transaction:
 --         PGOPTIONS="-c default_transaction_read_only=on" psql "$SUPABASE_DB_URL" -X -v ON_ERROR_STOP=1 -f docs/pending-migrations/cards/ALL-verify.sql
 --         Before the bundle (or after ALL-rollback.sql) it runs too and answers TOUT_OK false.
--- Expected values: computed from the database and from the lists of the files (copied below), never a count measured on a test
---         database: rows of 099 and 099b = the members of their lists whose group had no active member; the subjects of 103 resolved
---         now by the apply-time rule (decision 17); the cards of the edition rule on the live photos. Where a later file changes what an
---         earlier line reads (103 rebuilds the catalog of 102, 110 drops cards_apply_pack of 104), the row checks the state after the
---         bundle and its controle says so. A photo the owner had refused or removed before the bundle stays out of 103, so it would show
---         as a difference in the photo rows of 102 line 31 and 103 line 34.
+-- Expected values: computed from the database as it is now and from the lists of the files (copied below), never a count measured
+--         on a test database: rows of 099 and 099b = the members of their lists whose group had no active member; the subjects of 103
+--         resolved now by the apply-time rule (decision 17); the photos of 103 there whatever their status; the cards of the edition
+--         rule of 103 on the photos live now. Where a later file changes what an earlier line reads (103 rebuilds the catalog of 102, 110
+--         drops cards_apply_pack of 104), the row checks the state after the bundle and its controle says so.
+-- When:   right after the bundle and at any point before the first pack: approving or refusing photos, moving a focal point, the card
+--         files published, "Reconstruire le catalogue" keep TOUT_OK true, but a review that changes the live photos (a photo approved, a
+--         live one refused) must be followed by "Reconstruire le catalogue": until then the catalog rows (102 line 27, 103 lines 29 and
+--         31, 114 lines 26 and 27) are false. Once a card is owned or a pack opened, 102 line 26 and 103 line 28 are false for good.
+--         A photo the owner had refused or removed before the bundle stays out of 103: it would show in 102 line 31 and 103 line 34.
 with
 l099 (slug, kind, pos, name, qid, active) as (values
     ('bibi', 'idol', 0, 'BIBI', 'Q65060693', true),
@@ -158,55 +162,247 @@ l099b (slug, name) as (values
     ('loona', 'Olivia Hye'),
     ('loona', 'Vivi'),
     ('loona', 'Go Won')),
-l103 (slug, kind, end_year, approved, auto, pending) as (values
-    ('bibi', 'idol', null::integer, 1, 5, 0),
-    ('chungha', 'idol', null::integer, 1, 5, 0),
-    ('heize', 'idol', null::integer, 1, 3, 0),
-    ('hwasa', 'idol', null::integer, 1, 5, 0),
-    ('hyuna', 'idol', null::integer, 1, 5, 0),
-    ('iu', 'idol', null::integer, 1, 3, 2),
-    ('jay-park', 'idol', null::integer, 1, 5, 0),
-    ('jennie', 'idol', null::integer, 1, 4, 1),
-    ('jeon-somi', 'idol', null::integer, 1, 4, 1),
-    ('jimin', 'idol', null::integer, 1, 5, 0),
-    ('jungkook', 'idol', null::integer, 1, 5, 0),
-    ('psy', 'idol', null::integer, 1, 0, 3),
-    ('rose', 'idol', null::integer, 1, 4, 0),
-    ('sunmi', 'idol', null::integer, 1, 5, 0),
-    ('taeyang', 'idol', null::integer, 1, 1, 1),
-    ('taeyeon', 'idol', null::integer, 1, 2, 3),
-    ('v-bts', 'idol', null::integer, 1, 5, 0),
-    ('zico', 'idol', null::integer, 1, 1, 0),
-    ('akmu', 'group', null::integer, 0, 1, 0),
-    ('apink', 'group', null::integer, 1, 0, 5),
-    ('artms', 'group', null::integer, 1, 5, 0),
-    ('astro', 'group', null::integer, 1, 0, 0),
-    ('billlie', 'group', null::integer, 0, 1, 0),
-    ('btob', 'group', null::integer, 1, 0, 3),
-    ('day6', 'group', null::integer, 1, 1, 2),
-    ('dreamcatcher', 'group', null::integer, 1, 3, 0),
-    ('fifty-fifty', 'group', null::integer, 0, 0, 1),
-    ('fromis-9', 'group', null::integer, 0, 3, 1),
-    ('ikon', 'group', null::integer, 1, 1, 1),
-    ('illit', 'group', null::integer, 0, 0, 1),
-    ('kara', 'group', null::integer, 0, 0, 5),
-    ('katseye', 'group', null::integer, 1, 0, 0),
-    ('kiss-of-life', 'group', null::integer, 1, 4, 1),
-    ('loona', 'group', null::integer, 0, 1, 1),
-    ('loossemble', 'group', 2024, 1, 0, 2),
-    ('miss-a', 'group', 2017, 1, 1, 1),
-    ('monsta-x', 'group', null::integer, 1, 2, 2),
-    ('nct', 'group', null::integer, 0, 0, 1),
-    ('nct-wish', 'group', null::integer, 1, 0, 1),
-    ('p1harmony', 'group', null::integer, 1, 0, 0),
-    ('pentagon', 'group', null::integer, 1, 3, 1),
-    ('purple-kiss', 'group', 2025, 1, 0, 0),
-    ('sistar', 'group', 2017, 1, 1, 3),
-    ('stayc', 'group', null::integer, 1, 5, 0),
-    ('t-ara', 'group', null::integer, 0, 1, 0),
-    ('viviz', 'group', null::integer, 1, 3, 0),
-    ('winner', 'group', null::integer, 1, 5, 0),
-    ('zerobaseone', 'group', null::integer, 1, 0, 1)),
+l103 (slug, kind, end_year) as (values
+    ('bibi', 'idol', null::integer),
+    ('chungha', 'idol', null::integer),
+    ('heize', 'idol', null::integer),
+    ('hwasa', 'idol', null::integer),
+    ('hyuna', 'idol', null::integer),
+    ('iu', 'idol', null::integer),
+    ('jay-park', 'idol', null::integer),
+    ('jennie', 'idol', null::integer),
+    ('jeon-somi', 'idol', null::integer),
+    ('jimin', 'idol', null::integer),
+    ('jungkook', 'idol', null::integer),
+    ('psy', 'idol', null::integer),
+    ('rose', 'idol', null::integer),
+    ('sunmi', 'idol', null::integer),
+    ('taeyang', 'idol', null::integer),
+    ('taeyeon', 'idol', null::integer),
+    ('v-bts', 'idol', null::integer),
+    ('zico', 'idol', null::integer),
+    ('akmu', 'group', null::integer),
+    ('apink', 'group', null::integer),
+    ('artms', 'group', null::integer),
+    ('astro', 'group', null::integer),
+    ('billlie', 'group', null::integer),
+    ('btob', 'group', null::integer),
+    ('day6', 'group', null::integer),
+    ('dreamcatcher', 'group', null::integer),
+    ('fifty-fifty', 'group', null::integer),
+    ('fromis-9', 'group', null::integer),
+    ('ikon', 'group', null::integer),
+    ('illit', 'group', null::integer),
+    ('kara', 'group', null::integer),
+    ('katseye', 'group', null::integer),
+    ('kiss-of-life', 'group', null::integer),
+    ('loona', 'group', null::integer),
+    ('loossemble', 'group', 2024),
+    ('miss-a', 'group', 2017),
+    ('monsta-x', 'group', null::integer),
+    ('nct', 'group', null::integer),
+    ('nct-wish', 'group', null::integer),
+    ('p1harmony', 'group', null::integer),
+    ('pentagon', 'group', null::integer),
+    ('purple-kiss', 'group', 2025),
+    ('sistar', 'group', 2017),
+    ('stayc', 'group', null::integer),
+    ('t-ara', 'group', null::integer),
+    ('viviz', 'group', null::integer),
+    ('winner', 'group', null::integer),
+    ('zerobaseone', 'group', null::integer)),
+l103p (slug, page_md5) as (values
+    ('bibi', 'bbf3ad1e266b40cdd4f6d1e94a114fcf'),
+    ('bibi', '31da61618a0609bda01e68abfd6834ca'),
+    ('bibi', '704ebaa712d3ec9b0adc09b78420bbdd'),
+    ('bibi', 'aa72d5f73b8f85860de677570499c6db'),
+    ('bibi', 'e39d7b5eeb28f4caf68410c2da96388e'),
+    ('bibi', 'b26ce3194e03d60e1d9e6cb8dfcecadf'),
+    ('chungha', '98b81ac969d4382637405ce3fa73f661'),
+    ('chungha', 'bd3046d10bca50bad5c5e637de72d2fa'),
+    ('chungha', '551f08b7b04bfba15a357a2a805a208f'),
+    ('chungha', 'c658f3236f99462e0e375fb81c00fa3b'),
+    ('chungha', 'fd235be79529960c9943324524e76a2e'),
+    ('chungha', 'c750e1b0980e4a747545b4b83eefb4b3'),
+    ('heize', '0961db055aecb47efda0efcd259b7f9e'),
+    ('heize', '0c3a01c10f56529145cd586e56e176b3'),
+    ('heize', '6edf8e7542c5a456ede11348d7b1ac52'),
+    ('heize', 'c6c426ef75e2f8f8216fb5ae6cf32405'),
+    ('hwasa', '0ee124baa246cf8a092a2377c52edd06'),
+    ('hwasa', 'a71d581fbd93ec042908fc6c9e5ef7ae'),
+    ('hwasa', '26d97b59ae23ea4706b666881a9ebd7b'),
+    ('hwasa', '5b5256fd7962821b3fd5c048bf96cf46'),
+    ('hwasa', '068c4eb4eff4b06404ad14c676ee6e51'),
+    ('hwasa', 'a836c874c026b1a0c132a42f8866ab7d'),
+    ('hyuna', '7044429b871c7192b0a7084a8d60a45e'),
+    ('hyuna', '81a8a2617ec5c804a4b3415080bbf3a2'),
+    ('hyuna', '95b66e33caaf1f56fe02dd12a344737d'),
+    ('hyuna', 'a2e09e7edcddb0e1950a447083acc035'),
+    ('hyuna', 'e2cfd98cc16f8556c44a1a6e532aae27'),
+    ('hyuna', '0609300aa0e6dc862f8a83a2ba94e06d'),
+    ('iu', 'fe409e764c0e906ac521e9bfaf3ab311'),
+    ('iu', 'c8c73598c42ca676e549800d2c23ff66'),
+    ('iu', '3ac4bf25e00efeafdc9614ef13a1f70a'),
+    ('iu', 'bf4cde8bbccd57fc94275af08580d4d3'),
+    ('iu', '36a8deb3699196331eeb1ba4b97a56d4'),
+    ('iu', '6a28cf80c9d5b4fc1cfef79f5148a0dc'),
+    ('jay-park', '753c17b924bbd3a8173feb6344e82b91'),
+    ('jay-park', '5cfe8cbfd50df2c59f5159df9d779ba2'),
+    ('jay-park', 'ebd59e9accba034d3a4c943a111596f0'),
+    ('jay-park', '050af9d0ac3c85cce1a53e80ff7a134e'),
+    ('jay-park', '65c74aaef923f08178fef9b573330bd2'),
+    ('jay-park', 'bce1f44b8394f27fb6deba8888e0399f'),
+    ('jennie', '358ca08480e950fe6be60882f731250d'),
+    ('jennie', '384796a16da075e5c7d48680c87c1dcd'),
+    ('jennie', 'f488b740ac86179ddf5b2f744fcc5609'),
+    ('jennie', '5b1840d120cd8e82485d418df6024c0b'),
+    ('jennie', '1dc08aba0b37d4c8abea7bd6d867d33a'),
+    ('jennie', 'd0842b356b57c7b4e860954af63e162d'),
+    ('jeon-somi', '51955555f2b4bc7265a68565590f5fad'),
+    ('jeon-somi', '57d208ba9ca97cb1e53dff0bf23c9bc1'),
+    ('jeon-somi', '2b7620cda8b32a83df223830cf65acb8'),
+    ('jeon-somi', 'd26133a8e750a573810e299f81f5fef9'),
+    ('jeon-somi', '1e26f95c3c248facb8d9f323fc070f61'),
+    ('jeon-somi', '9cfef7e03e57464a5c5cfcbc8698505c'),
+    ('jimin', '1f595b0827870114b45efd1066293d74'),
+    ('jimin', '8dce258d73f08d36522a6acba9106e17'),
+    ('jimin', '24a67a8aab35599cfc7b278d76621586'),
+    ('jimin', 'e684468b0fe3ba78b33ee365def893b9'),
+    ('jimin', 'b2e9bf93bf96d8359df4e76f3e181f80'),
+    ('jimin', '0e55f171e31ea7976944744379a3589f'),
+    ('jungkook', '3b65ead57a209f3257e695f0409f959c'),
+    ('jungkook', 'b6b15cad6a3ec5bde5879fec14cf62ba'),
+    ('jungkook', '5ab681cc59613885f8a2e9a34f6104e1'),
+    ('jungkook', '19866379f83f0eb085e8ece7066ed1d3'),
+    ('jungkook', '10fe1d7d56a5888c8cd7f8ddbbb4a855'),
+    ('jungkook', 'f355db93d014f64e9f78ba91d3d04a68'),
+    ('psy', '8b4e6ef230aad85e1b51b76f3df19404'),
+    ('psy', '9da48e69b0dbd6ac5b07c0ac6375cbbe'),
+    ('psy', '6c2fc30f933e7bf5c6a445a8017cad2f'),
+    ('psy', 'a4ed1f48ec2864812c21abd35020fde5'),
+    ('rose', '3e413fe3d4f8a77fa5482f3c07e63dd5'),
+    ('rose', 'd633b1d74cda518eed1f159f6f275081'),
+    ('rose', '69cd36e0038d29b207397f375fe530bb'),
+    ('rose', '04818b7a87acca12ab10b77b94573f0a'),
+    ('rose', 'e8e078d71645c4a774625b8d97ebf1ec'),
+    ('sunmi', '2f8e441e1665b3dda0edecea4a3410f3'),
+    ('sunmi', 'b91483b2dba414d329a2c43f3b22b2a4'),
+    ('sunmi', 'b144da7f8109ee7571198701879c298b'),
+    ('sunmi', '7b40aaadaf94d68152092b81e6fc8fc0'),
+    ('sunmi', '86efd4ff77a0d1bda1a29bae2a08ca22'),
+    ('sunmi', '2abed412807c370d6cd2bf9dce0e9421'),
+    ('taeyang', 'e761b28de83b08945191065a0dec8fff'),
+    ('taeyang', 'd3d27dc7329411a58ca285dccc8c457b'),
+    ('taeyang', 'e98ec77d440ddcd02289ff7a50567de5'),
+    ('taeyeon', '2c1e7ce4c53406e82c3759e24894ae42'),
+    ('taeyeon', '9f6b8cc5ec86eb37e196a4d0064527be'),
+    ('taeyeon', 'a20641ea0b0876bcef5cd13affbe90f0'),
+    ('taeyeon', '77530d931bbf0219642f797d82c7068c'),
+    ('taeyeon', 'e5a075a91035a1ae2f06053b37dfeada'),
+    ('taeyeon', '0b50a6535f5ab36f74e6d5b1bf9b9ecd'),
+    ('v-bts', '38229320364eb4a7240f09a59ac31aef'),
+    ('v-bts', 'c78f0082ebce1569216b67f27184eabb'),
+    ('v-bts', '38e4577b7922c059f6bfa611eaf893f5'),
+    ('v-bts', '60f4f1e259f8718001c4b21d225ce930'),
+    ('v-bts', 'de9d7c0225344fd34eecd5231cda4959'),
+    ('v-bts', '470d64164920cdb26d54ac18ce24e6ba'),
+    ('zico', 'ae2516d88f5190fa6d402e138d13b5f4'),
+    ('zico', 'ec76351001681c82a2f441fe464b2ac4'),
+    ('akmu', 'a50af17aecc4bfedbd2010e7a2f30531'),
+    ('apink', '7a3465eec1f443bb5caea52ef979603f'),
+    ('apink', '19ee6c4ab6372134feb5404b19b35eb0'),
+    ('apink', 'f9d03fab0ae217958e77028a027b22d1'),
+    ('apink', '0e4e2448e1fb35036d42f865f09a7886'),
+    ('apink', '49586feaa9f2be51d2237593bab7aff6'),
+    ('apink', '80d99308fbec408664657c8526c87fe9'),
+    ('artms', '603d6b081163621b5007ac90c713e9e1'),
+    ('artms', 'f1eeadec423366165fdb56c5a0e23e52'),
+    ('artms', 'ce7fc5d8822ea8c228ad495dd7f7a74e'),
+    ('artms', 'f4f79d9134ece38f2809a7672b7e6f2b'),
+    ('artms', '76eaa144762a7c798fd6e087d968325d'),
+    ('artms', '4151e123f4f20f3470dfa30f7729e917'),
+    ('astro', '8da8d59360634067b1970d406d778613'),
+    ('billlie', '08a761b8a1fea828f4bfa479a20bea8c'),
+    ('btob', 'fa7b59fe1355f427b3f95e85aa2c4ab0'),
+    ('btob', '29cde785bcc4b540ab4f4f4ea3f1ae82'),
+    ('btob', '1ad8a6aa901e09b1bad62f7e8b9bcca3'),
+    ('btob', 'b03921307aea2b5a3858d172c08457fb'),
+    ('day6', '67e5b37a36baafe03bb0752d06f075d8'),
+    ('day6', 'c1e69a293537dc4eb79885690e9a618b'),
+    ('day6', 'cb602da8f0fe053684c22d9fa946abdf'),
+    ('day6', '2c6b0c7dc3741580fad06b27557bed4d'),
+    ('dreamcatcher', '18c94795487e985b89912a2b952a459d'),
+    ('dreamcatcher', 'b8e662c3babddc0e957c887c9bd2ab43'),
+    ('dreamcatcher', '6283b637995599f32c9bb572cc0fd42a'),
+    ('dreamcatcher', 'df902dd03e6efc9bb4149d770762c35e'),
+    ('fifty-fifty', '5bd7a1d356ce1f7e46adc959f17907ee'),
+    ('fromis-9', '7006cb3e653e1f86e619860f8b9fe06d'),
+    ('fromis-9', '80db14e15220e80bf44c90b4ef610205'),
+    ('fromis-9', '0793a8aae4e66ba9340cb66381c6e9bb'),
+    ('fromis-9', '57347f092322c13ebe1e5ce797bb8afd'),
+    ('ikon', 'f77c363621e5fb7493eeee75ac434789'),
+    ('ikon', '8331e5789f7e5df805b905b261ac50e5'),
+    ('ikon', '54939487219499b271dbec12d3f6c278'),
+    ('illit', '4a16f3465500c4ca891f0ea8aa25d58d'),
+    ('kara', '0d056deb5d3cc2a3cc1b8777df838a1e'),
+    ('kara', '4faf972ef46059479f901600e7fbf47e'),
+    ('kara', '3f01e0b7097c1d1a087f73f66961dee7'),
+    ('kara', '2f61b3cf46b7080c6042c0b6a43c0b98'),
+    ('kara', '909717dd56fd694e3683fec09aaedd55'),
+    ('katseye', '1c1b5f26a654341093412c2bd27adfa1'),
+    ('kiss-of-life', '7d4fdb726946ea97e54cdb74a7bb6bc0'),
+    ('kiss-of-life', 'be3b0907658a7891bdeb76b222e9b34f'),
+    ('kiss-of-life', '6f9a01820429ba55b453753f377c792a'),
+    ('kiss-of-life', 'e70b5f8efafd4e92c195a11dc9bece47'),
+    ('kiss-of-life', '0c9a36f74157dad0d9e921d5320c3394'),
+    ('kiss-of-life', 'c1bda13183b1d95d1b37f20bd3c15805'),
+    ('loona', 'ab23ede7da68b3abc76517b5bbc0e627'),
+    ('loona', 'aa122a9797921e3bf9b5741ef7d0aa51'),
+    ('loossemble', 'a7eec78631c2081f0eb9cb60375bdb72'),
+    ('loossemble', 'f657f9cf19088c3e8bc8781942bb74da'),
+    ('loossemble', '5aab241d45751ba099ffcf0c42ecc140'),
+    ('miss-a', '6b38686164c894b09775e16019aa669f'),
+    ('miss-a', 'b4d95696343d9e23d9c10fa437139461'),
+    ('miss-a', '4ee09aabdee9ff14b26d6060b341956b'),
+    ('monsta-x', '13decbbe46ff06ed58a9301305e84cae'),
+    ('monsta-x', '415b9dd32f5fba412f6476eb94b90303'),
+    ('monsta-x', '7cd33f5f340b116a119ac7038a7256c4'),
+    ('monsta-x', 'ea26d4e82d77888561a3f47539427387'),
+    ('monsta-x', 'f209e4d05fe40ee8cba6adc5f5538dd4'),
+    ('nct', '429cc2c2c7ba72d3ffb705b50c07ddb2'),
+    ('nct-wish', '6af019b79ba86b932e66c4f617989eea'),
+    ('nct-wish', '56b05778f3033cbba93fcc8bd5ba3b15'),
+    ('p1harmony', '3941bc45c733d3e5be4705bd2e4de5d3'),
+    ('pentagon', 'f8e9db76752050c1c5e83f4786be6e23'),
+    ('pentagon', '5a0f43760cb6d61d3ebc093f50ced02c'),
+    ('pentagon', 'a2940bca7586c4b42ce4900fbf1a99c8'),
+    ('pentagon', '2e6a44f81494b11af69d247b0b2cb008'),
+    ('pentagon', '0812368bc053f9fdc64306d3538cafcc'),
+    ('purple-kiss', '8872240efebf94099f06acfe63fe488d'),
+    ('sistar', 'c9de5971c0a1b8f67714b107c97e802f'),
+    ('sistar', '49fd36f127b2e580935a3258c25f80b2'),
+    ('sistar', '66b1aafcd33c32d3bf04804a093056bf'),
+    ('sistar', '96af164e56342c00336ba1f3e91673d7'),
+    ('sistar', '43a560055b8208756a04c1758a562d15'),
+    ('stayc', '6f9560a11a55534a6c80616411dc67e7'),
+    ('stayc', 'e0968e8f4c475ffd03ac9b094cf70332'),
+    ('stayc', 'c7ed7e014c45970526655be111181cc9'),
+    ('stayc', 'd2a1cb874377f58936dde0f04842acb4'),
+    ('stayc', '2d0f1c38662887c288e5128f7b6e0572'),
+    ('stayc', '1c34bb02a8be4e47453a41b1d7faeb3d'),
+    ('t-ara', 'd0cc643298b3b21b29fa50591d4b31cf'),
+    ('viviz', 'ac091dfde931c4fc526b471c04e3c9e1'),
+    ('viviz', 'ca28be5e90467b79e1e292ab7641747e'),
+    ('viviz', '73dd864bc7c163bf16a14261104fe39d'),
+    ('viviz', 'ba6810fbe724890a32b10a0b044a9054'),
+    ('winner', '5027332a76712a9b2d706e20dc2679a2'),
+    ('winner', '3edbf748ed5508316bf3d19ae24e3bdf'),
+    ('winner', '033ffc6cb6d820f8c089067ebeb1c33f'),
+    ('winner', 'b8e0b4a0fbe6e646a12df37b4b19dc57'),
+    ('winner', 'ecaed88335c33ea895959b844d90df33'),
+    ('winner', 'b10d061a5671a08d3e516e04fa6ccf4d'),
+    ('zerobaseone', 'cd50fa6150229810b859ca201f624945'),
+    ('zerobaseone', '452eb5106363264602ac21af1963b6da')),
 lot1 (pos, slug, subject) as (values
     (0, 'bibi', 'bibi'),
     (1, 'chungha', 'chungha'),
@@ -332,7 +528,7 @@ l111 (id, gender) as (values
     ('group:bts', 'boy')),
 r103 as (
   -- the subjects of 103, resolved now by the rule of 102 and 103 (public.groups, public.idols, decision 17): reason null = in
-  select s.slug, s.kind, s.end_year, s.approved, s.auto, s.pending,
+  select s.slug, s.kind, s.end_year,
          case
            when g.id is null then 'no_groups_row'
            when s.kind = 'group' then (
@@ -392,16 +588,20 @@ checks as (
     from (select case when to_regclass('public.dle_src_kpop_idol') is not null then '0' else 'no view dle_src_kpop_idol' end as a,
                  coalesce(case when to_regclass('public.dle_src_kpop_idol') is not null then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select count(*) from public.dle_src_kpop_idol s join public.idols i on i.id::text = s.entity_id where i.review_reason like '099-idols-members%')::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end, 'no view dle_src_kpop_idol') as o) x
   union all
-  select 5 as n, '102-catalog-rebuild.sql' as fichier, 'line 26: cards owned' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select '0' as a,
-                 (select count(*)::text from public.cards_owned) as o) x
+  select 5 as n, '102-catalog-rebuild.sql' as fichier, 'line 26: cards owned and packs opened (none before the first pack: the numbers may still change)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+    from (select '0 owned, 0 packs' as a,
+                 (select (select count(*) from public.cards_owned) || ' owned, ' || (select count(*) from public.cards_packs) || ' packs') as o) x
   union all
-  select 6 as n, '102-catalog-rebuild.sql' as fichier, 'line 27: cards per part (after 103: each subject in packs has one card per open edition, a group a pair; open = 6 minus its lock reasons)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select format('0: %s, 1: %s, 2: %s', coalesce(sum(o) filter (where kind = 'idol'), 0), coalesce(sum(o) filter (where kind = 'group'), 0),
-       coalesce(sum(o) filter (where kind = 'group'), 0))
-     from (select e.kind, 6 - (select count(*) from jsonb_object_keys(e.lock_reasons) k where k = any (array['C', 'U', 'R', 'SR', 'UR', 'L'])) as o
-             from public.cards_entities e
-            where e.kind in ('idol', 'group') and e.active and exists (select 1 from public.cards_photos p where p.entity_id = e.id)) z) as a,
+  select 6 as n, '102-catalog-rebuild.sql' as fichier, 'line 27: cards per part = the edition rule of 103 on the photos live now: a person one card an edition, a group a pair (true after Reconstruire le catalogue)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+    from (select (select format('0: %s, 1: %s, 2: %s', coalesce(sum(r.editions) filter (where r.kind = 'idol'), 0),
+       coalesce(sum(r.editions) filter (where r.kind = 'group'), 0), coalesce(sum(r.editions) filter (where r.kind = 'group'), 0)) from (select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
+       from (select e.id, e.kind, least(count(*), 6) as n,
+                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
+               from public.cards_entities e
+               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
+               cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
+              where e.kind in ('idol', 'group')
+              group by e.id, e.kind) z) r) as a,
                  case when exists (select 1 from pg_attribute where attrelid = to_regclass('public.cards_catalog') and attname = 'part' and attnum > 0 and not attisdropped) then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select format('0: %s, 1: %s, 2: %s', count(*) filter (where part = 0), count(*) filter (where part = 1), count(*) filter (where part = 2)) from public.cards_catalog)::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
   select 7 as n, '102-catalog-rebuild.sql' as fichier, 'line 28: numbers 1 to N, contiguous' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
@@ -434,26 +634,26 @@ checks as (
                  (select coalesce(string_agg(slug || ' ' || n, ', ' order by slug), '') from (select g.slug, count(*) as n from public.idols i join public.groups g on g.id = i.group_id
      where i.review_reason like '099b-idols-returning%' group by g.slug) z) as o) x
   union all
-  select 14 as n, '103-catalog-photos.sql' as fichier, 'line 28: cards owned' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select '0' as a,
-                 (select count(*)::text from public.cards_owned) as o) x
+  select 14 as n, '103-catalog-photos.sql' as fichier, 'line 28: cards owned and packs opened (none before the first pack: the numbers may still change)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+    from (select '0 owned, 0 packs' as a,
+                 (select (select count(*) from public.cards_owned) || ' owned, ' || (select count(*) from public.cards_packs) || ' packs') as o) x
   union all
-  select 15 as n, '103-catalog-photos.sql' as fichier, 'line 29: numbers 1 to N, contiguous, N = the cards of the edition rule on the live photos (the notice "... N cards")' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((select coalesce(sum(case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end * case when z.kind = 'group' then 2 else 1 end), 0)
-     from (select e.id, e.kind, least(count(*), 6) as n,
-                  bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
-             from public.cards_entities e
-             join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
-             cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
-            where e.kind in ('idol', 'group')
-            group by e.id, e.kind) z))::bigint as n) x) as a,
+  select 15 as n, '103-catalog-photos.sql' as fichier, 'line 29: numbers 1 to N, contiguous, N = the cards of the edition rule on the photos live now (the notice "... N cards"; true after Reconstruire le catalogue)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((select coalesce(sum(r.editions * case when r.kind = 'group' then 2 else 1 end), 0) from (select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
+       from (select e.id, e.kind, least(count(*), 6) as n,
+                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
+               from public.cards_entities e
+               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
+               cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
+              where e.kind in ('idol', 'group')
+              group by e.id, e.kind) z) r))::bigint as n) x) as a,
                  (select coalesce(min(card_no)::text, '-') || ', ' || coalesce(max(card_no)::text, '-') || ', ' || count(*) from public.cards_catalog) as o) x
   union all
   select 16 as n, '103-catalog-photos.sql' as fichier, 'line 30: photos on two editions' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select '0' as a,
                  (select count(*)::text from (select entity_id, photo_id from public.cards_catalog group by entity_id, photo_id having count(distinct rarity) > 1) x) as o) x
   union all
-  select 17 as n, '103-catalog-photos.sql' as fichier, 'line 31: cards on a photo that is not live' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+  select 17 as n, '103-catalog-photos.sql' as fichier, 'line 31: cards on a photo that is not live (a refused photo keeps its cards, out of packs, until Reconstruire le catalogue)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select '0' as a,
                  (select count(*)::text from public.cards_catalog c join public.cards_photos p on p.id = c.photo_id where p.status not in ('auto', 'approved')) as o) x
   union all
@@ -466,10 +666,14 @@ checks as (
                  case when exists (select 1 from pg_attribute where attrelid = to_regclass('public.cards_catalog') and attname = 'part' and attnum > 0 and not attisdropped) then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select count(*) from public.cards_catalog a join public.cards_catalog b on b.entity_id = a.entity_id and b.rarity = a.rarity and b.part = 2
      where a.part = 1 and b.card_no <> a.card_no + 1)::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
-  select 20 as n, '103-catalog-photos.sql' as fichier, 'line 34: photos by status = the photos of the file of the subjects resolved now (the notice "photos ...")' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select coalesce(string_agg(st || ' ' || n, ', ' order by st), '') from (select 'approved' as st, sum(approved) as n from r103 where reason is null
-       union all select 'auto', sum(auto) from r103 where reason is null union all select 'pending', sum(pending) from r103 where reason is null) z where n > 0) as a,
-                 (select coalesce(string_agg(st || ' ' || n, ', ' order by st), '') from (select status as st, count(*) as n from public.cards_photos group by status) z where n > 0) as o) x
+  select 20 as n, '103-catalog-photos.sql' as fichier, 'line 34: the photos of the file of the subjects resolved now are all there, none lost and no other, whatever their status (the owner approves or refuses them; the notice "photos ...")' as controle, a as attendu, o as obtenu, coalesce(split_part(o, ' (', 1) = a, false) as ok
+    from (select (select count(*) || ' photos of the file' from l103p f join r103 r on r.slug = f.slug where r.reason is null) as a,
+                 (select x.n || ' photos of the file' || case when x.other > 0 then ' and ' || x.other || ' others' else '' end || ' (' || x.st || ')' from (
+       select count(distinct (p.entity_id, md5(p.source_page))) filter (where f.slug is not null) as n, count(*) filter (where f.slug is null) as other,
+              (select coalesce(string_agg(st || ' ' || c, ', ' order by st), 'none') from (select status as st, count(*) as c from public.cards_photos group by status) q) as st
+         from public.cards_photos p
+         left join (select f.slug, f.page_md5 from l103p f join r103 r on r.slug = f.slug where r.reason is null) f
+           on p.entity_id in ('idol:' || f.slug, 'group:' || f.slug) and md5(p.source_page) = f.page_md5) x) as o) x
   union all
   select 21 as n, '104-economy.sql' as fichier, 'line 45: its 7 functions' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select '7' as a,
@@ -713,7 +917,7 @@ checks as (
     from (select 'true' as a,
                  (select (prosecdef and proconfig = array['search_path=public'])::text from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_catalog_append') as o) x
   union all
-  select 77 as n, '114-catalog-append.sql' as fichier, 'line 26: the preview, by_rarity left out: nothing to add right after the bundle (not called: the same answer by a plain query)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+  select 77 as n, '114-catalog-append.sql' as fichier, 'line 26: the preview, by_rarity left out: nothing to add while the catalog is the edition rule on the photos live now (after the bundle, after Reconstruire le catalogue; not called: the same answer by a plain query)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select (select jsonb_build_object('dry_run', true, 'cards', 0, 'subjects', 0, 'new_subjects', 0, 'extended_subjects', 0,
        'waiting', count(*) filter (where z.n < 2), 'from_no', null, 'to_no', null, 'not_shown', 0)::text
      from (select en.id, (select count(*) from public.cards_photos p where p.entity_id = en.id and p.status in ('auto', 'approved')
@@ -771,15 +975,15 @@ checks as (
               'not_shown', (select coalesce(sum(case when pk.grp then 2 else 1 end), 0) from picks pk join u on u.pid = pk.pid where not u.shown))::text
        from t))::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
-  select 78 as n, '114-catalog-append.sql' as fichier, 'line 27: numbers 1 to N, contiguous, the N of 103 (this file adds no card)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((select coalesce(sum(case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end * case when z.kind = 'group' then 2 else 1 end), 0)
-     from (select e.id, e.kind, least(count(*), 6) as n,
-                  bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
-             from public.cards_entities e
-             join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
-             cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
-            where e.kind in ('idol', 'group')
-            group by e.id, e.kind) z))::bigint as n) x) as a,
+  select 78 as n, '114-catalog-append.sql' as fichier, 'line 27: numbers 1 to N, contiguous, N = the edition rule of 103 on the photos live now (this file adds no card)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((select coalesce(sum(r.editions * case when r.kind = 'group' then 2 else 1 end), 0) from (select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
+       from (select e.id, e.kind, least(count(*), 6) as n,
+                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
+               from public.cards_entities e
+               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
+               cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
+              where e.kind in ('idol', 'group')
+              group by e.id, e.kind) z) r))::bigint as n) x) as a,
                  (select coalesce(min(card_no)::text, '-') || ', ' || coalesce(max(card_no)::text, '-') || ', ' || count(*) from public.cards_catalog) as o) x
   union all
   select 79 as n, '115-quiz-of-day-bonus.sql' as fichier, 'line 31: the sources the check of cards_bonus_earned lists' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok

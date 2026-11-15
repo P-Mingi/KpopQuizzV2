@@ -58,6 +58,13 @@ async function state(db: PGlite): Promise<{ schema: string; rows: string[] }> {
   return { schema: await one<string>(db, FINGERPRINT), rows };
 }
 const notOk = (rows: Row[]): string[] => rows.filter((r) => !r.ok).map((r) => `${r.fichier} ${r.controle}: attendu ${r.attendu} obtenu ${r.obtenu}`);
+/** The rows that are not ok, as "file line N" (TOUT_OK left out). */
+const failing = async (db: PGlite): Promise<string[]> =>
+  (await verify(db)).filter((r) => !r.ok && r.controle !== 'TOUT_OK').map((r) => `${r.fichier} ${r.controle.split(':')[0]}`);
+/** The rows that compare the catalog with the edition rule of 103 on the photos live now: false between a review and the rebuild. */
+const CATALOG_ROWS = ['102-catalog-rebuild.sql line 27', '103-catalog-photos.sql line 29', '103-catalog-photos.sql line 31',
+  '114-catalog-append.sql line 26', '114-catalog-append.sql line 27'];
+const OWNED_ROWS = ['102-catalog-rebuild.sql line 26', '103-catalog-photos.sql line 28'];
 
 /** The rows of the catalog and the photos with the photo read through its source page instead of its id (an identity). */
 const BY_PAGE = `select md5(string_agg(x::text, E'\\n' order by x::text)) from (
@@ -124,8 +131,10 @@ describe('ALL-099-115.sql on the database of 2026-11-14', () => {
     const cards = notices.map((n) => /^103-catalog-photos: \d+ subjects in the packs, \d+ waiting for a second approved photo, (\d+) cards/.exec(n)?.[1]).find(Boolean);
     expect(row('103-catalog-photos.sql', 29).attendu).toBe(`1, ${cards}, ${cards}`);
     expect(row('114-catalog-append.sql', 27).attendu).toBe(`1, ${cards}, ${cards}`);
-    const photos = notices.map((n) => /^103-catalog-photos: photos (\w+) (\d+)$/.exec(n)).filter(Boolean).map((m) => `${m![1]} ${m![2]}`).join(', ');
-    expect(row('103-catalog-photos.sql', 34).attendu).toBe(photos);
+    const by = notices.map((n) => /^103-catalog-photos: photos (\w+) (\d+)$/.exec(n)).filter(Boolean).map((m) => [m![1]!, Number(m![2])] as const);
+    const total = by.reduce((t, [, k]) => t + k, 0);
+    expect(row('103-catalog-photos.sql', 34).attendu).toBe(`${total} photos of the file`);
+    expect(row('103-catalog-photos.sql', 34).obtenu).toBe(`${total} photos of the file (${by.map(([st, k]) => `${st} ${k}`).join(', ')})`);
     const waiting = notices.map((n) => /, (\d+) waiting for a second approved photo,/.exec(n)?.[1]).find(Boolean);
     expect(JSON.parse(row('114-catalog-append.sql', 26).attendu!)).toMatchObject({ cards: 0, waiting: Number(waiting) });
   });
@@ -158,6 +167,53 @@ describe('ALL-099-115.sql on the database of 2026-11-14', () => {
     } finally {
       await db.exec('rollback');
     }
+  });
+
+  it('stays TOUT_OK through the owner\'s admin work before the first pack; a review that changes the live photos waits for the rebuild; a card owned or a pack opened makes it false', async () => {
+    expect(await failing(db)).toEqual([]);
+    // refusing photos that wait in "To review" changes no live photo, moving a focal point changes no card: still true, no rebuild needed
+    await db.exec(`update cards_photos set status = 'rejected', review_note = 'Refused by the owner.' where id in (select id from cards_photos where status = 'pending' order by id limit 4)`);
+    await db.exec(`update cards_photos set focal_x = 42, focal_y = 33 where id in (select id from cards_photos where status in ('auto', 'approved') order by id limit 3)`);
+    expect(await failing(db)).toEqual([]);
+    // approving 20 photos: more editions by the rule, the catalog is behind until "Reconstruire le catalogue"
+    await db.exec(`update cards_photos set status = 'approved', review_note = 'Approved by the owner in the admin.' where id in (select id from cards_photos where status = 'pending' order by id limit 20)`);
+    let f = await failing(db);
+    console.log(`after 20 approvals, before the rebuild: ${f.join('; ')}`);
+    expect(f).toContain('103-catalog-photos.sql line 29');
+    expect(f.filter((x) => !CATALOG_ROWS.includes(x))).toEqual([]);
+    await db.query("select public.cards_build_catalog()");
+    expect(await failing(db)).toEqual([]);
+    // refusing two live photos that are on cards: their cards leave the packs at once (002's trigger), and wait for the rebuild to go
+    await db.exec(`update cards_photos set status = 'rejected' where id in (select distinct p.id from cards_photos p join cards_catalog c on c.photo_id = p.id where p.status = 'auto' order by p.id limit 2)`);
+    expect(await one(db, `select count(*)::int from cards_catalog c join cards_photos p on p.id = c.photo_id where p.status = 'rejected' and c.in_packs`)).toBe(0);
+    f = await failing(db);
+    console.log(`after 2 live photos refused, before the rebuild: ${f.join('; ')}`);
+    expect(f).toContain('103-catalog-photos.sql line 31');
+    expect(f.filter((x) => !CATALOG_ROWS.includes(x))).toEqual([]);
+    await db.query('select public.cards_build_catalog()');
+    expect(await failing(db)).toEqual([]);
+    // the card files published (publish-card-files.mjs: storage_path and the file focal point): their cards enter the packs
+    const inPacks = (): Promise<number> => one<number>(db, 'select count(*)::int from cards_catalog where in_packs');
+    const before = await inPacks();
+    await db.exec(`update cards_photos set storage_path = 'cut-' || id, file_focal_x = focal_x, file_focal_y = focal_y
+      where id in (select id from cards_photos where status in ('auto', 'approved') and storage_path is null order by id limit 30)`);
+    expect(await inPacks()).toBeGreaterThan(before);
+    expect(await failing(db)).toEqual([]);
+    // the rebuild again, and the owner's script a second time: still true
+    await db.query('select public.cards_build_catalog()');
+    expect(await failing(db)).toEqual([]);
+    const v = await verify(db);
+    expect(v.at(-1)).toEqual({ fichier: 'ALL-099-115.sql', controle: 'TOUT_OK', attendu: 'true', obtenu: 'true', ok: true });
+    // a card owned, then a pack opened: false, the rows say why
+    await db.exec(`insert into cards_owned (user_id, card_no) values ('${U1}', 1)`);
+    expect(await failing(db)).toEqual(OWNED_ROWS);
+    expect((await verify(db)).find((r) => r.controle.startsWith('line 26:'))).toMatchObject({ attendu: '0 owned, 0 packs', obtenu: '1 owned, 0 packs', ok: false });
+    // a pack row as cards_open writes it (the wallet counts it), without its cards
+    await db.exec(`delete from cards_owned; insert into cards_packs (user_id, source, cards, seq) values ('${U1}', 'stock', array[1, 2, 3, 4, 5], 1);
+      update cards_wallets set packs_opened = packs_opened + 1 where user_id = '${U1}'`);
+    expect(await failing(db)).toEqual(OWNED_ROWS);
+    await db.exec(`delete from cards_packs; update cards_wallets set packs_opened = packs_opened - 1 where user_id = '${U1}'`);
+    expect(await failing(db)).toEqual([]);
   });
 
   it('ALL-rollback gives back the schema and the rows of before, but the new ids of the 101 photos; ALL-verify answers TOUT_OK false', async () => {

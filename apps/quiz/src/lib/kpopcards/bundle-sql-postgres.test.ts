@@ -132,6 +132,56 @@ run('the bundle on a real Postgres', () => {
     expect((await psqlC('kc1', 'create table public.ro_probe (x int)', READ_ONLY)).err).toMatch(/cannot execute CREATE TABLE in a read-only transaction/);
   });
 
+  it('stays TOUT_OK through the owner\'s admin work before the first pack (a review that changes the live photos waits for the rebuild); a card owned or a pack opened makes it false', async () => {
+    const db = 'kc2';
+    const sql = async (q: string): Promise<string> => {
+      const r = await psqlC(db, q);
+      expect(r.code, r.err).toBe(0);
+      return r.out;
+    };
+    // the rows of ALL-verify that are not ok, "file line N", read only
+    const failing = async (): Promise<string[]> => {
+      const r = await psqlC(db, VERIFY, READ_ONLY);
+      expect(r.code, r.err).toBe(0);
+      return r.out.split('\n').map((l) => l.split('|')).filter((c) => c.at(-1) === 'f' && c[1] !== 'TOUT_OK').map((c) => `${c[0]} ${c[1]!.split(':')[0]}`);
+    };
+    const CATALOG = ['102-catalog-rebuild.sql line 27', '103-catalog-photos.sql line 29', '103-catalog-photos.sql line 31', '114-catalog-append.sql line 26', '114-catalog-append.sql line 27'];
+    expect(await failing()).toEqual([]);
+    await sql(`update cards_photos set status = 'rejected' where id in (select id from cards_photos where status = 'pending' order by id limit 4)`);
+    await sql(`update cards_photos set focal_x = 42, focal_y = 33 where id in (select id from cards_photos where status in ('auto', 'approved') order by id limit 3)`);
+    expect(await failing()).toEqual([]);
+    await sql(`update cards_photos set status = 'approved' where id in (select id from cards_photos where status = 'pending' order by id limit 20)`);
+    let f = await failing();
+    expect(f).toContain('103-catalog-photos.sql line 29');
+    expect(f.filter((x) => !CATALOG.includes(x))).toEqual([]);
+    await sql('select public.cards_build_catalog()');
+    expect(await failing()).toEqual([]);
+    await sql(`update cards_photos set status = 'rejected' where id in (select distinct p.id from cards_photos p join cards_catalog c on c.photo_id = p.id where p.status = 'auto' order by p.id limit 2)`);
+    f = await failing();
+    expect(f).toContain('103-catalog-photos.sql line 31');
+    expect(f.filter((x) => !CATALOG.includes(x))).toEqual([]);
+    await sql('select public.cards_build_catalog()');
+    expect(await failing()).toEqual([]);
+    const inPacks = async (): Promise<number> => Number(await sql('select count(*) from cards_catalog where in_packs'));
+    const n0 = await inPacks();
+    await sql(`update cards_photos set storage_path = 'cut-' || id, file_focal_x = focal_x, file_focal_y = focal_y
+      where id in (select id from cards_photos where status in ('auto', 'approved') and storage_path is null order by id limit 30)`);
+    expect(await inPacks()).toBeGreaterThan(n0);
+    expect(await failing()).toEqual([]);
+    await sql('select public.cards_build_catalog()');
+    expect(await failing()).toEqual([]);
+    expect((await psqlC(db, VERIFY, READ_ONLY)).out.split('\n').at(-1)).toBe('ALL-099-115.sql|TOUT_OK|true|true|t');
+    const OWNED = ['102-catalog-rebuild.sql line 26', '103-catalog-photos.sql line 28'];
+    const user = (await sql('select user_id from cards_wallets order by user_id limit 1'));
+    await sql(`insert into cards_owned (user_id, card_no) values ('${user}', 1)`);
+    expect(await failing()).toEqual(OWNED);
+    await sql(`delete from cards_owned`);
+    await sql(`insert into cards_packs (user_id, source, cards, seq) values ('${user}', 'stock', array[1, 2, 3, 4, 5], 1); update cards_wallets set packs_opened = packs_opened + 1 where user_id = '${user}'`);
+    expect(await failing()).toEqual(OWNED);
+    await sql(`delete from cards_packs; update cards_wallets set packs_opened = packs_opened - 1 where user_id = '${user}'`);
+    expect(await failing()).toEqual([]);
+  });
+
   it('the owner\'s psql command (-f, ON_ERROR_STOP=1, SUPABASE_DB_URL) gives the database of the one-query run; psql splits the file', async () => {
     const db = fresh();
     const r = await owner(db, OUTPUTS.bundle, '', 'owner-f');

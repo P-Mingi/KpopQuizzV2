@@ -189,11 +189,24 @@ describe('ALL-verify.sql', () => {
     expect(VERIFY).toContain("('zico', 'idol', 0, 'Zico', 'Q7696122', true)");
     expect(VERIFY).toContain("('sistar', 'group', 0, 'Bora', 'Q5363925', false)");
     expect(VERIFY).toContain("('loona', 'Heejin')");
-    expect(VERIFY).toContain("('purple-kiss', 'group', 2025, ");
+    expect(VERIFY).toContain("('purple-kiss', 'group', 2025)");
     expect(VERIFY.slice(VERIFY.indexOf('l103 ('), VERIFY.indexOf('lot1 ('))).not.toContain("('tws', ");
     expect(VERIFY).toContain("(0, 'group:akmu')");
     expect(VERIFY).toContain("(58, 'zerobaseone', 'zerobaseone')");
     expect(VERIFY).toContain("('group:bts', 'boy')");
     expect((VERIFY.match(/^ {4}\('group:[a-z0-9-]+', '(girl|boy|mixed)'\)/gm) ?? []).length).toBe(41);
+    // the 191 photos of 103, by the md5 of their source page
+    expect((VERIFY.match(/^ {4}\('[a-z0-9-]+', '[0-9a-f]{32}'\)/gm) ?? []).length).toBe(191);
+  });
+
+  it('reads the database as it is now, so the owner\'s admin work before the first pack keeps it true (the database tests run it)', () => {
+    // no constant of a test database, nothing of the Otakudle images the owner deletes in the admin
+    expect(VERIFY).not.toMatch(/entity_images|anime_|otakudle/i);
+    // the photos of 103 may change status: the row counts them whatever their status
+    expect(VERIFY).toContain("coalesce(split_part(o, ' (', 1) = a, false) as ok");
+    // before the first pack: owned cards and opened packs are both counted where 102 and 103 expect 0
+    expect((VERIFY.match(/' owned, ' \|\| \(select count\(\*\) from public\.cards_packs\) \|\| ' packs'/g) ?? []).length).toBe(2);
+    // the catalog rows say when they are false: between a review that changes the live photos and the rebuild
+    expect((VERIFY.match(/Reconstruire le catalogue/g) ?? []).length).toBeGreaterThanOrEqual(5);
   });
 });
