@@ -12,6 +12,10 @@ Branch `o1/cards3` (main 84187a3 with #230 merged, then lots 3, 4 and 5). Everyt
 - **Lot 4 extras**: the guest demo pack attached at sign-in, web push "Notify me" with quiet hours (off), the hub PWA manifest and icons.
 - **Daily games pictures (lot 3 part E)**: the Kpopdle photos script (owner-run), a designed fallback card instead of initials, the owner's private preview of the non-free Otakudle images and the button that deletes them (a narrow server-side selection): the selected rows, then their files in the bucket entity-images (main, 2x, 96 px; a file another row still uses is kept), then the orphan files of the import window. The same private preview lists the series rows that remain (picture, slug, licence, verified or not, source host), read only, for the owner to check.
 - **Hub**: the Daily games tab on every hub page.
+- **Owner requests of 2026-11-15**:
+  - the stickers saved in the admin (Photos, Stickers) were drawn on no page; they now appear on Kpopdle, Otakudle (and its One Piece and Dragon Ball steps), the daily games page and the hub home, where the board places them (x and y in the 1180 px main column, size, rotation, mirror, opacity, entrance). Decoration only: hidden from assistive technology, no pointer events, hidden under 1240 px, still for reduced motion;
+  - more room between "Your guesses" and the column titles of the grid (12 px);
+  - an upload of the Photos admin is tried once more after a 5xx from Supabase's storage (a banner got 544 DatabaseTimeout on 2026-11-15: the storage's own connection to the database timed out, the database was fine); a 4xx is never retried.
 
 ## SQL, in this order (after a backup, never between 23:50 and 00:30 UTC; each file is one DO block with its `-- Verify:` lines and a rollback)
 Raw links (live once the branch is pushed): `https://raw.githubusercontent.com/P-Mingi/KpopQuizzV2/o1/cards3/docs/pending-migrations/cards/<file>`.

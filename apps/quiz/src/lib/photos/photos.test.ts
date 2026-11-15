@@ -6,7 +6,7 @@ import { cropToBox, fitWidth, tooSmall } from './crop';
 import {
   ICON_SLOTS, IMAGE_SLOTS, HOME_SLOT_KEY, PHOTO_BOX, isPhotoSlug, parseFocal, parseIconSettings, parseStickerSettings, photoFolder, tabOf,
 } from './slots';
-import { assertPhotoEntity, checkAssetFiles, checkPhotoFiles, removePhoto, restoreAsset, retireAsset, saveAsset, savePhoto } from './store';
+import { UPLOAD_RETRY_PAUSE_MS, assertPhotoEntity, checkAssetFiles, checkPhotoFiles, removePhoto, restoreAsset, retireAsset, saveAsset, savePhoto } from './store';
 import { META, photoFiles, photosFakeDb, webpOf } from './test-support';
 import { parseAssetMeta, parseAssetSettings, parseAssetSlot, parseFocalFields, parsePhotoTarget, parsePublish } from './validate';
 import { webpInfo } from './webp';
@@ -348,5 +348,56 @@ describe('public reads', () => {
     // a missing view is told apart from a blip: only the first is an answer the cache may keep
     expect(isMissingView(new Error("fetchAllRows: Could not find the table 'public.site_assets_public' in the schema cache"))).toBe(true);
     expect(isMissingView(new Error('fetchAllRows: TypeError: fetch failed'))).toBe(false);
+  });
+});
+
+describe('a blip of the storage (2026-11-15: a banner got 544 DatabaseTimeout from Supabase)', () => {
+  const banner = { key: 'banner:kpopdle', type: 'banner' as const, page: 'kpopdle' };
+  /** The storage answers the given errors first, one per upload, then stores as usual; the paths it was asked for, in order. */
+  function flaky(db: ReturnType<typeof photosFakeDb>, answers: Array<{ status: number; message: string }>): string[] {
+    const calls: string[] = [];
+    const real = db.storage.from.bind(db.storage);
+    db.storage.from = (bucket: string) => {
+      const r = real(bucket);
+      return { ...r, async upload(path: string, data: unknown) { calls.push(path); const a = answers.shift(); return a ? { error: a } : r.upload(path, data); } };
+    };
+    return calls;
+  }
+  async function save(db: ReturnType<typeof photosFakeDb>): Promise<{ id: number }> {
+    const files = { large: await webpOf(1920, 600), mid: await webpOf(400, 125), thumb: await webpOf(96, 30) };
+    vi.useFakeTimers();
+    try {
+      const p = saveAsset(db, { slot: banner, files, noFile: false, settings: { focal: { x: 50, y: 50 } }, meta: META, verified: true, publishAt: 'now', userId: 'u-1' });
+      p.catch(() => {});
+      await vi.advanceTimersByTimeAsync(UPLOAD_RETRY_PAUSE_MS);
+      return await p;
+    } finally {
+      vi.useRealTimers();
+    }
+  }
+
+  it('a 5xx is tried once more after a pause, the same file, and the banner is saved', async () => {
+    const db = photosFakeDb({ site_assets: [] });
+    const calls = flaky(db, [{ status: 544, message: 'The connection to the database timed out' }]);
+    await save(db);
+    expect(calls).toHaveLength(4);
+    expect(calls[0]).toBe(calls[1]);
+    expect(db.files.size).toBe(3);
+    expect(db.tables.site_assets).toHaveLength(1);
+  });
+
+  it('two 5xx in a row: the admin is told it was the storage and to try again, and no row is written', async () => {
+    const db = photosFakeDb({ site_assets: [] });
+    const calls = flaky(db, [{ status: 544, message: 'timeout' }, { status: 503, message: 'unavailable' }]);
+    await expect(save(db)).rejects.toThrow(/n'a pas répondu à temps/);
+    expect(calls).toHaveLength(2);
+    expect(db.tables.site_assets).toHaveLength(0);
+  });
+
+  it('a refusal (4xx) is never tried again', async () => {
+    const db = photosFakeDb({ site_assets: [] });
+    const calls = flaky(db, [{ status: 400, message: 'mime type not allowed' }]);
+    await expect(save(db)).rejects.toThrow(/n'a pas pu être enregistrée dans le stockage/);
+    expect(calls).toHaveLength(1);
   });
 });

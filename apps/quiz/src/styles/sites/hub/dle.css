@@ -58,7 +58,7 @@ html.ux-v1[data-site="hub"] .hub-dle-btn-line { border: 1.5px solid var(--ux-ink
 html.ux-v1[data-site="hub"] .hub-dle-btn-accent { border: 0; background: var(--hub-dle-c); color: #FFFFFF; }
 
 /* ---- the Terrier */
-html.ux-v1[data-site="hub"] .hub-dle-burrow { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; flex: 1 1 auto; }
+html.ux-v1[data-site="hub"] .hub-dle-burrow { position: relative; width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; flex: 1 1 auto; }
 html.ux-v1[data-site="hub"] .hub-dle-hero { padding: 44px 0 30px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; }
 html.ux-v1[data-site="hub"] .hub-dle-heroleft { display: flex; align-items: center; gap: 18px; }
 html.ux-v1[data-site="hub"] .hub-dle-heroleft > div { display: flex; flex-direction: column; gap: 6px; }
@@ -308,7 +308,7 @@ html.ux-v1[data-site="hub"] .hub-dle-gateway strong { font-size: 15px; font-weig
 
 /* ---- the grid */
 html.ux-v1[data-site="hub"] .hub-dle-gridsec { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-html.ux-v1[data-site="hub"] .hub-dle-gridhead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+html.ux-v1[data-site="hub"] .hub-dle-gridhead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
 html.ux-v1[data-site="hub"] .hub-dle-gridhead h2 { margin: 0; font-size: 20px; font-weight: 800; }
 html.ux-v1[data-site="hub"] .hub-dle-gridhead h2 .hub-dle-num { color: var(--hub-ink-2); font-size: 16px; }
 html.ux-v1[data-site="hub"] .hub-dle-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 13px; font-weight: 600; color: var(--hub-dle-text); }

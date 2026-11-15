@@ -30,10 +30,12 @@ import { HomeQuick } from './home-quick';
 import { HomeSeo } from './home-seo';
 import { HomeToday } from './home-today';
 import { DAY_GAMES } from './home-day-logic';
+import { PageStickers } from '../page-stickers';
 
 import type { HotCard } from './home-hot';
 import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { HomeAssets } from '@/lib/site/hub/home-assets';
+import type { PageSticker } from '@/lib/photos/stickers';
 import type {
   HomeCrossover as HomeCrossoverData, HomeDone, HomeDoor, HomeFans, HomeHot as HomeHotData, HomeQuick as HomeQuickData, HomeQuiz, HomeSurprise,
   HomeToday as HomeTodayData, HomeViewer,
@@ -54,6 +56,8 @@ export interface HomeData {
   readonly icons: LiveIcons;
   /** The Burrow (Kpopdle and Otakudle) is open: the dailyGuess flag is on and the hub has its pages (lib/site/hub/daily-guess.ts). */
   readonly burrow: boolean;
+  /** The owner's stickers of the home (admin Photos, Stickers, page home); none when absent. */
+  readonly stickers?: readonly PageSticker[];
 }
 
 function card(q: HomeQuiz): HotCard {
@@ -71,7 +75,7 @@ function card(q: HomeQuiz): HotCard {
 }
 
 export function HomePage({ data }: { data: HomeData }): React.ReactElement {
-  const { hot, viewer, today, quick, crossover, assets, icons, burrow } = data;
+  const { hot, viewer, today, quick, crossover, assets, icons, burrow, stickers = [] } = data;
   const description = ht('hp.meta.description');
   const lists = hot
     ? { all: hot.all.map(card), kpop: hot.kpop.map(card), anime: hot.anime.map(card), easy: hot.easy.map(card) }
@@ -89,6 +93,7 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
         <HomeDayProvider games={games}>
           <HomeNav viewer={viewer} sections={{ hot: !!hot, blindtest: !!today?.blindtest, community }} burrow={burrow} />
           <main id="main" tabIndex={-1} className="hub-h2-main">
+            <PageStickers stickers={stickers} />
             <HomeHero
               viewer={viewer}
               pool={surprisePool(data.surprise)}

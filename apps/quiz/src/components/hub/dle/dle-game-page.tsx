@@ -4,6 +4,8 @@ import { IconMark } from '@/components/photos/icon-mark';
 import { siteHasCredits } from '@/lib/credits/site-credits';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { getLiveIcons } from '@/lib/photos/icons-read';
+import { getLiveAssets } from '@/lib/photos/public-read';
+import { pageStickers } from '@/lib/photos/stickers';
 import { seriesArtOf } from '@/lib/dle/card-art';
 import { previewConfigured } from '@/lib/dle/preview';
 import { blindLinksOf, getAnimeSeriesSlugs, getBlindtestSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
@@ -14,6 +16,8 @@ import { burrowHref, otherWorld, worldHref, worldOf } from '@/lib/dle/worlds';
 import { yesterdayName } from '@/lib/dle/yesterday';
 import { withBasePath } from '@/lib/site/base-path';
 import { REGISTRY } from '@/lib/site/registry';
+
+import { PageStickers } from '../page-stickers';
 
 import { firstValue, parentName } from './dle-avatar';
 import { DleChrome } from './dle-chrome';
@@ -85,6 +89,8 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const seriesGames = g.series ? [] : builtGames().filter((x) => x.series && worldOf(x.id) === world);
   const universeGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
   const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
+  // The owner's stickers of the world's page (admin Photos, Stickers): the same cached read as the banners, so no second query.
+  const stickers = pageStickers(await getLiveAssets(), world.id);
   return (
     <DleChrome
       locale={locale} enPath={g.path} className={`hub-dle-game hub-dle-${world.tone} ${dleMarquee.variable}`} showCredits={showCredits}
@@ -115,6 +121,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
         </div>
       </div>
       <main id="main" tabIndex={-1} className="hub-dle-main">
+        <PageStickers stickers={stickers} />
         <DleGame
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
           quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} icons={icons}

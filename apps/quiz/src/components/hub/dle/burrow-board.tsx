@@ -11,11 +11,14 @@ import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { DLE_WORLDS, liveGame, liveModes, modeImage, worldHref } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
+import { PageStickers } from '../page-stickers';
+
 import { Avatar, firstValue, parentName } from './dle-avatar';
 import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks';
 import { D, Flame, Ic, libraryIcon } from './dle-icons';
 
 import type { DleImages } from '@/lib/dle/read';
+import type { PageSticker } from '@/lib/photos/stickers';
 import type { DleGameId } from '@/lib/dle/games';
 import type { DleLocale, DlePublicEntity, DleStats } from '@/lib/dle/types';
 import type { DleMode, DleWorld } from '@/lib/dle/worlds';
@@ -36,6 +39,8 @@ interface BurrowBoardProps {
   readonly images: DleImages;
   /** Group name to the address of its quiz on KpopQuiz: the link of an answer. */
   readonly quizLinks: Readonly<Record<string, string>>;
+  /** The owner's stickers of the page (admin Photos, Stickers, page daily). */
+  readonly stickers?: readonly PageSticker[];
 }
 
 function stateOf(mode: DleMode, plays: Readonly<Record<string, ModeState>>): ModeState {
@@ -44,7 +49,7 @@ function stateOf(mode: DleMode, plays: Readonly<Record<string, ModeState>>): Mod
   return plays[g.id] ?? { kind: 'todo' };
 }
 
-export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks }: BurrowBoardProps): React.ReactElement {
+export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks, stickers = [] }: BurrowBoardProps): React.ReactElement {
   const t = dleCopy(locale);
   const client = useDleClient();
   const left = useResetCountdown();
@@ -158,6 +163,7 @@ export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks }: Bur
 
   return (
     <main id="main" tabIndex={-1} className="hub-dle-burrow">
+      <PageStickers stickers={stickers} />
       <section aria-labelledby="dle-h1" className="hub-dle-hero">
         <div className="hub-dle-heroleft">
           {/* eslint-disable-next-line @next/next/no-img-element */}

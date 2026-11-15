@@ -82,7 +82,7 @@ html.ux-v1[data-site="hub"] .hub-h2-me-av { width: 34px; height: 34px; border-ra
 /* the signed-in fan's photo (components/hub/hub-me-avatar.tsx) fills the round box of the initial */
 html.ux-v1[data-site="hub"] .hub-h2-me-av img, html.ux-v1[data-site="hub"] .hub-h2-av img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 
-html.ux-v1[data-site="hub"] .hub-h2-main { display: block; }
+html.ux-v1[data-site="hub"] .hub-h2-main { display: block; position: relative; }
 
 /* ---- Home v4 (2026-11-10, HOME-AUDIT.md sections 4 and 6, validated prototype home-v4-prototype/): bands, one scale. ----
    Spacing 4, 8, 12, 16, 24, 32, 48, 64. Radius 8, 12, 16, 24, 999. Type: H1 44 (32), H2 28 (24), H3 20 (18), row title 16, body 15, meta 13. */
