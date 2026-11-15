@@ -31,6 +31,10 @@
 //       Then the cleanup: it lists the bucket (Storage API, service key) and PROPOSES to delete every object that is not a file of a current
 //       stem of an included subject: the files of excluded subjects, the old whole-card files of a group, the files at an old focal point.
 //       Names are matched exactly (nct- is also the start of nct-wish-). It prints the list and deletes only if you type: delete
+//   Started by the wrapper `pnpm --filter quiz owner:cards` (scripts/cards/owner-cards.mjs), which has already shown the host and had it typed
+//       back: the wrapper sets CARDS_SUPABASE_URL, CARDS_HOST_CONFIRMED (the host it had typed, compared here with the host of
+//       CARDS_SUPABASE_URL; equal = the typing is not asked a second time) and CARDS_SERVICE_KEY (the key, taken from the environment of this
+//       child process only instead of being typed). Started by hand none of these exist: the host and the key are typed as above.
 // Options: --only slug1,slug2   limit to some subjects (the cleanup then looks at the objects of those slugs only).
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -197,9 +201,16 @@ async function publish() {
   const host = new URL(origin).host;
   console.log(`Project host: ${host}`);
   console.log(`Files go to the public bucket 'cards' of this project, the rows of cards_photos are updated there, and old files may be proposed for deletion.`);
-  const typed = await ask(`Type the project host to continue: `);
-  if (typed !== host) throw new Error('refused: the host typed does not match; nothing was sent');
-  const key = await readSecret('Supabase service key (typed, not shown): ');
+  const confirmed = (process.env.CARDS_HOST_CONFIRMED ?? '').trim();
+  if (confirmed) {
+    // the wrapper already had this host typed back; it must still be the host of CARDS_SUPABASE_URL
+    if (confirmed !== host) throw new Error('refused: CARDS_HOST_CONFIRMED does not match the host of CARDS_SUPABASE_URL; nothing was sent');
+    console.log('Host already confirmed by owner-cards.');
+  } else {
+    const typed = await ask(`Type the project host to continue: `);
+    if (typed !== host) throw new Error('refused: the host typed does not match; nothing was sent');
+  }
+  const key = (process.env.CARDS_SERVICE_KEY ?? '').trim() || await readSecret('Supabase service key (typed, not shown): ');
   if (!key) throw new Error('no key');
   const H = { apikey: key, Authorization: `Bearer ${key}` };
   const rest = async (p, init = {}) => {
