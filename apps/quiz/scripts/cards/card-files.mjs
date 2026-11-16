@@ -74,3 +74,21 @@ export function planRemovals(names, { known, current, only = null, skip = new Se
   }
   return { keep, remove };
 }
+
+/**
+ * Lot 6 (the photo harvest): lot 3's photos.json and lot 6's (docs/design/cards/data/lot6/photos.json) read as one. A subject of lot 6 that is
+ * already in lot 3 (a person who is a subject of both, found by the same slug) gains its new photos after the old ones (lot 6 slots start after
+ * the lot 3 ones); a new subject is added whole; a locked subject has no photo and is only a left-out line. No file is read here.
+ */
+export function mergePhotoFiles(base, extra) {
+  if (!extra) return base;
+  const subjects = base.subjects.map((s) => ({ ...s, photos: [...s.photos] }));
+  for (const x of extra.subjects) {
+    if (!x.photos || x.photos.length === 0) continue;
+    const at = subjects.find((s) => s.slug === x.slug);
+    if (at) at.photos.push(...x.photos);
+    else subjects.push({ slug: x.slug, name: x.name, kind: x.kind, end_year: x.end_year ?? null, returning: false, shortfall: x.shortfall ?? null, photos: [...x.photos] });
+  }
+  const seen = new Set(base.left_out.map((l) => l.slug));
+  return { ...base, subjects, left_out: [...base.left_out, ...extra.left_out.filter((l) => !seen.has(l.slug))] };
+}
