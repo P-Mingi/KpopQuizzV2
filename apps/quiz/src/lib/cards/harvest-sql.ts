@@ -228,12 +228,17 @@ begin
     else
       -- The person, by Wikidata id: one public.idols row, no more, no less.
       select count(*) into v_n from public.idols x where v_qid is not null and x.wikidata_qid = v_qid;
-      if v_n <> 1 then
+      -- a LOCKED person with no public.idols row still gets its pocket: no row means no birth date, so the lock holds (fail closed)
+      -- until the owner adds the row; any other subject needs exactly one row
+      if v_n > 1 or (v_n = 0 and not v_locked) then
         raise notice '116-photos-harvest: skipped % (% public.idols rows for its Wikidata id)', v_slug, v_n;
         c_skipped := c_skipped + 1;
         continue;
       end if;
-      select coalesce(nullif(btrim(x.name), ''), sj ->> 'name') into v_name from public.idols x where x.wikidata_qid = v_qid;
+      if v_n = 0 then
+        raise notice '116-photos-harvest: % has no public.idols row: its pocket stays locked until the owner adds one', v_slug;
+      end if;
+      v_name := coalesce((select nullif(btrim(x.name), '') from public.idols x where x.wikidata_qid = v_qid), sj ->> 'name');
       -- the group: the person's own public.idols row says it (the database is the truth), else the research slug (a soloist: its own row)
       if v_group is not null then
         select gr.id, gr.name, gr.slug into g from public.groups gr join public.idols x on x.group_id = gr.id where x.wikidata_qid = v_qid;

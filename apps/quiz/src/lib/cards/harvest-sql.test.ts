@@ -277,3 +277,23 @@ describe('116-photos-harvest.sql: the research slug that differs from the databa
     expect(await one<number>(db, `select count(*)::int from cards_photos where source_page like '%Alias_%'`)).toBe(0);
   });
 });
+
+describe('116-photos-harvest.sql: a locked person with no public.idols row (ORCH, 2026-11-16)', () => {
+  it('still gets its locked pocket (no row means no birth date: locked, opening month unknown), and an unlocked one is still skipped', async () => {
+    const db = await base();
+    const sql = buildHarvest({
+      checked_on: '2026-11-16',
+      subjects: [
+        { slug: 'nobody-yet-trio', kind: 'idol', name: 'Nobody Yet', qid: 'Q4242', group: 'trio', locked: true, photos: [] },
+        { slug: 'nobody-else-trio', kind: 'idol', name: 'Nobody Else', qid: 'Q4243', group: 'trio', locked: false, photos: [] },
+      ],
+    });
+    const notices = await run(db, at(sql.sql, '12:00'));
+    expect(notices.join('\n')).toMatch(/nobody-yet-trio has no public\.idols row: its pocket stays locked until the owner adds one/);
+    expect(notices.join('\n')).toMatch(/skipped nobody-else-trio \(0 public\.idols rows/);
+    expect(await rows(db, `select id, name, group_id, age_lock from cards_entities where id in ('idol:nobody-yet-trio', 'idol:nobody-else-trio')`))
+      .toEqual([{ id: 'idol:nobody-yet-trio', name: 'Nobody Yet', group_id: 'group:trio', age_lock: true }]);
+    expect(await rows(db, `select entity_id, locked, opens_month from cards_age_locks('2026-11-16') where entity_id = 'idol:nobody-yet-trio'`))
+      .toEqual([{ entity_id: 'idol:nobody-yet-trio', locked: true, opens_month: null }]);
+  });
+});

@@ -244,3 +244,20 @@ describe('verify-harvest.mts: the private paths', () => {
     expect(err).toMatch(/refused: .*must stay outside the repository/);
   });
 });
+
+describe('harvest: the public file never carries the researcher\'s notes (ORCH, 2026-11-16)', () => {
+  it('replaces a shortfall note (which can tell how old someone was on a date) by a generated count line', () => {
+    const cs = [cand('Solo.jpg', '2026-01-01')];
+    const { file } = runHarvest({
+      subjects: [sub('ada', 'idol', 'Q1', 'trio'), sub('cleo', 'idol', 'Q3', 'trio')], people: PEOPLE, today: TODAY, groups: GROUPS, info: files(...cs), lot3: [],
+      candidates: new Map([
+        ['ada', { slug: 'ada', kind: 'idol' as const, photos: cs, shortfall: 'The only other photo (2019-05-05) was taken when she was 17, before her 18th birthday.' }],
+        ['cleo', { slug: 'cleo', kind: 'idol' as const, photos: [], shortfall: 'under 18 until 2028-06' }],
+      ]),
+    });
+    const text = JSON.stringify(file);
+    expect(text).not.toMatch(/2019-05-05|18th birthday|was 17|2028-06/);
+    expect(file.subjects.find((s) => s.slug === 'ada')!.shortfall).toBe('1 usable photo of the 6 a subject can have (the research found no more that pass the checks)');
+    expect(file.subjects.find((s) => s.slug === 'cleo')!.shortfall).toBeNull();
+  });
+});
