@@ -73,13 +73,19 @@ describe('116-photos-harvest.sql', () => {
       const v = String(Object.values(r[0] ?? { x: 'no row' })[0]);
       for (const [k, want] of expect1) if (q!.includes(k.replace(/;$/, ''))) expect(v, q).toBe(want);
     }
-    expect(await one(db, 'select count(*) from cards_harvest_log')).toBe(5 + 10);
+    // integrator, 2026-11-16 (listed): 8 entities (ghost-trio, dup-kpopdle-dups and the dups group line join), 1 idols row (ghost-trio),
+    // 14 photos (ghost-trio 2, dup-kpopdle-dups 2); was 5 + 10
+    expect(await one(db, 'select count(*) from cards_harvest_log')).toBe(8 + 1 + 14);
+    expect(await one(db, `select count(*) from public.idols where review_reason like '116-photos-harvest%' and (active or not needs_review or birth_date is not null)`)).toBe(0);
+    expect(await one(db, `select count(*) from public.dle_src_kpop_idol s join public.idols i on i.id::text = s.entity_id where i.review_reason like '116-photos-harvest%'`)).toBe(0);
   });
 
   it('refuses a database without the tables or file 103, with nothing changed', async () => {
     const bare = await freshCardsDb();
     expect(await failure(bare, SQL)).toMatch(/public\.groups or public\.idols is missing/);
     await bare.exec('create table public.groups (id serial primary key, name text, slug text); create table public.idols (id serial primary key)');
+    expect(await failure(bare, SQL)).toMatch(/public\.idols lacks a column of 124/);
+    await bare.exec('alter table public.idols add column wikidata_qid text, add column birth_date date, add column active boolean, add column ord integer, add column needs_review boolean, add column review_reason text');
     expect(await failure(bare, SQL)).toMatch(/file 103 is missing/);
     expect(await one(bare, `select count(*) from information_schema.columns where table_name = 'cards_entities' and column_name = 'age_lock'`)).toBe(0);
   });
@@ -102,6 +108,8 @@ describe('116-photos-harvest.sql', () => {
   });
 
   it('adds the photos in the next free slots, with the status of the check, and skips a known page, a known sha1, and the people it cannot resolve', async () => {
+    // integrator, 2026-11-16 (listed): a Kpopdle idol is found by its public.idols id even when its Wikidata id has two rows (dup-kpopdle-dups);
+    // a person with no row gets one without a birth date, and an adult's photos wait as pending (ghost-trio: was skipped)
     const p = await rows<{ slot: number; status: string; entity_id: string; review_note: string }>(db,
       `select entity_id, slot, status, review_note from cards_photos where id > ${before.maxPhoto} order by entity_id, slot`);
     const slots = (e: string) => p.filter((x) => x.entity_id === e).map((x) => `${x.slot}${x.status[0]}`);
@@ -111,10 +119,15 @@ describe('116-photos-harvest.sql', () => {
     // Jennie holds slots 1 (approved) and 2 (pending): the new photos take 3 and 4; BTOB holds 1 to 3: the new one takes 4
     expect(slots('idol:jennie')).toEqual(['3a', '4a']);
     expect(slots('group:btob')).toEqual(['4a']);
+    expect(slots('idol:dup-kpopdle-dups')).toEqual(['1a', '2a']);
+    expect(slots('idol:ghost-trio')).toEqual(['1p', '2p']);
+    expect(p.filter((x) => x.entity_id === 'idol:ghost-trio').every((x) => /^To review: public\.idols has no birth date for this person yet/.test(x.review_note))).toBe(true);
     expect(p.find((x) => x.entity_id === 'idol:bea-trio' && x.status === 'pending')!.review_note).toMatch(/^To review: 2 people/);
-    expect(p).toHaveLength(3 + 2 + 2 + 2 + 1);
-    expect(await one(db, `select count(*) from cards_photos where entity_id in ('idol:cleo-trio', 'group:trio', 'idol:ghost-trio', 'idol:dup-dups')`)).toBe(0);
-    expect(notices.some((m) => /skipped ghost-trio \(0 public\.idols rows/.test(m))).toBe(true);
+    expect(p).toHaveLength(3 + 2 + 2 + 2 + 1 + 2 + 2);
+    expect(await one(db, `select count(*) from cards_photos where entity_id in ('idol:cleo-trio', 'group:trio', 'idol:dup-dups')`)).toBe(0);
+    expect(notices.some((m) => /idols rows added 1 \(inactive, flagged, no birth date\); photos waiting for a birth date in public\.idols 2/.test(m))).toBe(true);
+    expect(await rows(db, `select name, birth_date, active, needs_review, wikidata_qid from public.idols where review_reason like '116-photos-harvest%'`))
+      .toEqual([{ name: 'ghost-trio', birth_date: null, active: false, needs_review: true, wikidata_qid: 'Q999' }]);
     expect(notices.some((m) => /skipped dup-dups \(2 public\.idols rows/.test(m))).toBe(true);
     expect(notices.some((m) => /eunkwang-btob photo skipped \(the page is already in cards_photos\)/.test(m))).toBe(true);
     expect(notices.some((m) => /eunkwang-btob photo skipped \(the sha1 is already in cards_photos\)/.test(m))).toBe(true);
@@ -122,12 +135,13 @@ describe('116-photos-harvest.sql', () => {
     expect(await one(db, `select author from cards_photos where entity_id = 'idol:ada-trio' and slot = 1`)).toBe('A Photographer \u2013 Seoul');
   });
 
-  it('changes nothing that was there: every old photo and entity byte for byte, the catalog, public.idols', async () => {
+  it('changes nothing that was there: every old photo and entity byte for byte, the catalog, the old public.idols rows', async () => {
     expect(await snap(db, `(select * from cards_photos where id <= ${before.maxPhoto})`)).toBe(before.photos);
     // the entities that were there, without the new column
     expect(await snap(db, `(select * from cards_entities where id not in (select ref from cards_harvest_log where kind = 'entity'))`, " - 'age_lock'")).toBe(before.entities);
     expect(await cards(db)).toEqual(before.catalog);
-    expect(await snap(db, 'public.idols')).toBe(before.idols);
+    // integrator, 2026-11-16 (listed): public.idols gains the rows of the log only; every old row is byte for byte the same (was: the whole table)
+    expect(await snap(db, `(select * from public.idols where id not in (select ref::integer from cards_harvest_log where kind = 'idol'))`)).toBe(before.idols);
   });
 
   it('runs a second time and adds nothing', async () => {
@@ -145,8 +159,8 @@ describe('116-photos-harvest.sql', () => {
     const summary = await one<{ subjects: number; cards: number }>(db, 'select public.cards_build_catalog()');
     const cs = await cards(db);
     const ents = [...new Set(cs.map((c) => c.entity_id))];
-    // by sort_key: Jennie (blackpink section), Eunkwang then BTOB (btob section), IU, Ada
-    expect(ents).toEqual(['idol:jennie', 'idol:eunkwang-btob', 'group:btob', 'idol:iu', 'idol:ada-trio']);
+    // by sort_key: Jennie (blackpink section), Eunkwang then BTOB (btob section), Dup Kpopdle (dups section), IU, Ada
+    expect(ents).toEqual(['idol:jennie', 'idol:eunkwang-btob', 'group:btob', 'idol:dup-kpopdle-dups', 'idol:iu', 'idol:ada-trio']);
     const eds = (e: string) => [...new Set(cs.filter((c) => c.entity_id === e).map((c) => c.rarity))];
     expect(eds('idol:ada-trio')).toEqual(['C', 'U', 'R']);
     expect(eds('idol:eunkwang-btob')).toEqual(['C', 'U']);
@@ -155,7 +169,7 @@ describe('116-photos-harvest.sql', () => {
     expect(cs.filter((c) => c.entity_id === 'group:btob').every((c) => c.part > 0)).toBe(true);
     expect(summary.cards).toBe(cs.length);
     expect(cs.map((c) => c.card_no)).toEqual(Array.from({ length: cs.length }, (_, i) => i + 1));
-    // no card for a locked pocket, for Bea (one live photo, one pending), for a skipped person
+    // no card for a locked pocket, for Bea (one live photo, one pending), for a person whose photos wait for a birth date
     expect(cs.some((c) => ['idol:cleo-trio', 'group:trio', 'idol:bea-trio', 'idol:ghost-trio'].includes(c.entity_id))).toBe(false);
     expect(await one(db, `select count(*) from cards_entities where id = 'idol:bea-trio' and not active`)).toBe(1);
   });
@@ -194,10 +208,11 @@ describe('116-photos-harvest.sql', () => {
 
   it('leaves the Kpopdle source alone, and refuses when it would move', async () => {
     const fresh = await base();
-    await fresh.exec(`create view public.dle_src_kpop_idol as select id::text as entity_id from public.idols where active`);
+    // the fixture's view reads rows without needs_review (as production); one that reads every active row does not move either
+    await fresh.exec(`create or replace view public.dle_src_kpop_idol as select id::text as entity_id from public.idols where active`);
     expect(await failure(fresh, SQL)).toBeNull();
     const moving = await base();
-    await moving.exec(`create view public.dle_src_kpop_idol as select id as entity_id from public.cards_entities`);
+    await moving.exec(`create or replace view public.dle_src_kpop_idol as select id as entity_id from public.cards_entities`);
     expect(await failure(moving, SQL)).toMatch(/the Kpopdle source would go from \d+ to \d+ entities/);
     expect(await one(moving, `select count(*) from cards_photos where id > ${before.maxPhoto}`)).toBe(0);
   });
@@ -206,7 +221,7 @@ describe('116-photos-harvest.sql', () => {
 describe('116-photos-harvest.rollback.sql', () => {
   it('removes only what 116 added, and the catalog is built again as it was', async () => {
     const db = await base();
-    const old = { photos: await snap(db, 'cards_photos'), ents: await snap(db, 'cards_entities'), catalog: await cards(db) };
+    const old = { photos: await snap(db, 'cards_photos'), ents: await snap(db, 'cards_entities'), idols: await snap(db, 'public.idols'), catalog: await cards(db) };
     await run(db, SQL);
     await db.exec('select public.cards_build_catalog()');
     expect((await cards(db)).length).toBeGreaterThan(old.catalog.length);
@@ -214,6 +229,7 @@ describe('116-photos-harvest.rollback.sql', () => {
     expect(await snap(db, 'cards_photos')).toBe(old.photos);
     expect(await snap(db, 'cards_entities')).toBe(old.ents);
     expect(await cards(db)).toEqual(old.catalog);
+    expect(await snap(db, 'public.idols')).toBe(old.idols);
     expect(await one(db, `select count(*) from information_schema.columns where table_name = 'cards_entities' and column_name = 'age_lock'`)).toBe(0);
     expect(await one(db, `select count(*) from pg_proc where proname in ('cards_age_locks', 'cards_age_day')`)).toBe(0);
     expect(await one(db, `select to_regclass('public.cards_harvest_log') is null`)).toBe(true);
@@ -240,10 +256,15 @@ describe('116-photos-harvest.rollback.sql', () => {
     expect(await failure(db, HARVEST_SQL.rollback)).toMatch(/a pack was opened and the catalog holds cards of these subjects/);
     expect(await snap(db, 'cards_photos')).toBe(photos);
   });
-  it('lists only what the file added: explicit lists, no public.idols write', () => {
+  it('lists only what the file added: explicit lists; public.idols gets one insert of a flagged row without a birth date, never an update or a delete', () => {
     expect(HARVEST_SQL.rollback).toContain("'group:trio'");
     expect(HARVEST_SQL.rollback).toContain(HARVEST.subjects[0]!.photos[0]!.page);
-    expect(HARVEST_SQL.sql).not.toMatch(/\b(insert into|update|delete from) public\.idols\b/);
+    // integrator, 2026-11-16 (listed): was "no insert into public.idols" either
+    expect(HARVEST_SQL.sql).not.toMatch(/\b(update|delete from) public\.idols\b/);
+    expect(HARVEST_SQL.sql.match(/\binsert into public\.idols\b/g)).toHaveLength(1);
+    expect(HARVEST_SQL.sql).toMatch(/insert into public\.idols \(group_id, name, birth_date, wikidata_qid, active, ord, needs_review, review_reason\)\n\s+values \(g\.id, sj ->> 'name', null, v_qid, false, 0, true,/);
+    // the rollback deletes only the logged rows still flagged and without a date (a row the owner completed stays)
+    expect(HARVEST_SQL.rollback).toMatch(/delete from public\.idols i\n\s+where i\.id = any \(v_idol_ids\) and i\.review_reason like '116-photos-harvest%' and i\.birth_date is null and i\.needs_review and not i\.active;/);
     expect(readFileSync(path.join(CARDS_SQL, '114-catalog-append.sql'), 'utf8')).toContain('o1-transaction');
     expect(buildHarvest({ checked_on: '2026-11-16', subjects: [] }).sql).toContain('0 subjects');
   });
@@ -278,22 +299,39 @@ describe('116-photos-harvest.sql: the research slug that differs from the databa
   });
 });
 
-describe('116-photos-harvest.sql: a locked person with no public.idols row (ORCH, 2026-11-16)', () => {
-  it('still gets its locked pocket (no row means no birth date: locked, opening month unknown), and an unlocked one is still skipped', async () => {
+describe('116-photos-harvest.sql: a person with no public.idols row (ORCH and integrator, 2026-11-16)', () => {
+  it('adds the row without a birth date: a locked pocket stays locked until the owner fills it, an adult\'s photos wait as pending', async () => {
     const db = await base();
+    const p = (n: number) => ({ ...HARVEST.subjects[0]!.photos[0]!, page: `https://commons.wikimedia.org/wiki/File:Nobody_${n}.jpg`, sha1: `nobody-sha-${n}`, event: `Nobody ${n}` });
     const sql = buildHarvest({
       checked_on: '2026-11-16',
       subjects: [
         { slug: 'nobody-yet-trio', kind: 'idol', name: 'Nobody Yet', qid: 'Q4242', group: 'trio', locked: true, photos: [] },
-        { slug: 'nobody-else-trio', kind: 'idol', name: 'Nobody Else', qid: 'Q4243', group: 'trio', locked: false, photos: [] },
+        { slug: 'nobody-else-trio', kind: 'idol', name: 'Nobody Else', qid: 'Q4243', group: 'trio', locked: false, photos: [p(1), p(2)] },
+        // a row of the same name in the group, without this Wikidata id: nothing is added; the locked one keeps its pocket, the adult is skipped
+        { slug: 'ada-again-trio', kind: 'idol', name: 'Ada', qid: 'Q4244', group: 'trio', locked: false, photos: [p(3)] },
+        { slug: 'bea-again-trio', kind: 'idol', name: 'Bea', qid: 'Q4245', group: 'trio', locked: true, photos: [] },
       ],
     });
-    const notices = await run(db, at(sql.sql, '12:00'));
-    expect(notices.join('\n')).toMatch(/nobody-yet-trio has no public\.idols row: its pocket stays locked until the owner adds one/);
-    expect(notices.join('\n')).toMatch(/skipped nobody-else-trio \(0 public\.idols rows/);
-    expect(await rows(db, `select id, name, group_id, age_lock from cards_entities where id in ('idol:nobody-yet-trio', 'idol:nobody-else-trio')`))
-      .toEqual([{ id: 'idol:nobody-yet-trio', name: 'Nobody Yet', group_id: 'group:trio', age_lock: true }]);
-    expect(await rows(db, `select entity_id, locked, opens_month from cards_age_locks('2026-11-16') where entity_id = 'idol:nobody-yet-trio'`))
-      .toEqual([{ entity_id: 'idol:nobody-yet-trio', locked: true, opens_month: null }]);
+    const idolsBefore = await snap(db, 'public.idols');
+    const notices = (await run(db, at(sql.sql, '12:00'))).join('\n');
+    expect(notices).toMatch(/a public\.idols row named Ada exists in trio without the Wikidata id Q4244: the owner links it/);
+    expect(notices).toMatch(/skipped ada-again-trio \(no public\.idols row, and none could be added\)/);
+    expect(notices).toMatch(/bea-again-trio has no public\.idols row: its pocket stays locked until the owner adds one/);
+    expect(await rows(db, `select name, birth_date, active, needs_review from public.idols where review_reason like '116-photos-harvest%' order by name`))
+      .toEqual([{ name: 'Nobody Else', birth_date: null, active: false, needs_review: true }, { name: 'Nobody Yet', birth_date: null, active: false, needs_review: true }]);
+    expect(await rows(db, `select id, age_lock from cards_entities where id in ('idol:nobody-yet-trio', 'idol:nobody-else-trio', 'idol:ada-again-trio', 'idol:bea-again-trio') order by id`))
+      .toEqual([{ id: 'idol:bea-again-trio', age_lock: true }, { id: 'idol:nobody-else-trio', age_lock: false }, { id: 'idol:nobody-yet-trio', age_lock: true }]);
+    expect(await rows(db, `select entity_id, locked, opens_month from cards_age_locks('2026-11-16') where entity_id in ('idol:nobody-yet-trio', 'idol:bea-again-trio') order by 1`))
+      .toEqual([{ entity_id: 'idol:bea-again-trio', locked: true, opens_month: null }, { entity_id: 'idol:nobody-yet-trio', locked: true, opens_month: null }]);
+    expect(await rows(db, `select status from cards_photos where entity_id = 'idol:nobody-else-trio'`)).toEqual([{ status: 'pending' }, { status: 'pending' }]);
+    // the owner fills a date: the pocket opens by itself (the age lock reads public.idols); the rollback then keeps that completed row
+    await db.exec(`update public.idols set birth_date = '1999-09-09', needs_review = false where name = 'Nobody Yet'`);
+    expect(await rows(db, `select locked from cards_age_locks('2026-11-16') where entity_id = 'idol:nobody-yet-trio'`)).toEqual([{ locked: false }]);
+    const back = (await run(db, sql.rollback)).join('\n');
+    expect(back).toMatch(/1 public\.idols rows removed, 1 kept \(the owner completed them\)/);
+    expect(await one(db, `select count(*) from public.idols where name = 'Nobody Yet'`)).toBe(1);
+    expect(await one(db, `select count(*) from public.idols where name = 'Nobody Else'`)).toBe(0);
+    expect(idolsBefore).toBeTruthy();
   });
 });

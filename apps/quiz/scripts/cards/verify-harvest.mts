@@ -49,7 +49,10 @@ async function main(): Promise<void> {
   const groups = new Map<string, GroupLineup>();
   if (existsSync(groupsDir)) for (const f of jsonFiles(groupsDir)) { const g = JSON.parse(readFileSync(f, 'utf8')) as GroupLineup; groups.set(g.slug, g); }
 
-  const run = { subjects, people, candidates, lot3, info: new Map<string, CommonsInfo>(), today, groups };
+  // the groups public.groups has (read only by the integrator, 2026-11-16): a group outside the list has no row, its photos are out
+  const dbFile = arg('--db-groups') ?? path.join(LOT6_DIR, 'db-groups.json');
+  const dbGroups = existsSync(dbFile) ? new Set((JSON.parse(readFileSync(dbFile, 'utf8')) as { slugs: string[] }).slugs) : undefined;
+  const run = { subjects, people, candidates, lot3, info: new Map<string, CommonsInfo>(), today, groups, dbGroups };
   const titles = titlesToAsk(run, fileOfPage);
   console.log(`asking Commons about ${titles.length} files`);
   run.info = await commonsInfo(titles);

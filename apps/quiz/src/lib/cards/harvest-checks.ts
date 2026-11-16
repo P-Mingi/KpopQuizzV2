@@ -10,7 +10,8 @@
 //   - the photos already in the game (lot 3's photos.json) are never proposed again: the same page or sha1 is out, sameOccasion is checked
 //     against them, and they count among the six slots of a subject;
 //   - the integrator's decisions of 2026-11-16: a file with Commons' personality rights warning is pending; Moonbin's photos are out; two
-//     sites that agree on a birth day while another differs: the latest day read is kept, as confirmed.
+//     sites that agree on a birth day while another differs: the latest day read is kept, as confirmed; a group with no public.groups row
+//     (WayV, GFRIEND) has its photos out; a photo whose thumbnail shows a person who seems under 18 is out.
 // Pure: no file, no network, no clock (today is an argument). The people files hold birth dates and stay outside the repository; nothing
 // here writes one anywhere (the outputs carry verdicts, credits and counts; the opening month goes to the private locked.md only).
 import { ageVerdict, dateRange, eighteenthBirthday, type AgeReason, type DatePrecision, type LineupPerson } from './age-rule';
@@ -197,6 +198,8 @@ export interface HarvestInput {
   groups?: Map<string, GroupLineup> | undefined;
   /** Pages and sha1 already used by an earlier subject of this run or by any photo of lot 3 (a file is one photo of one subject). */
   usedPages: Set<string>; usedSha1: Set<string>;
+  /** A group with no public.groups row (integrator, 2026-11-16: no new group row in lot 6): its photos are out. */
+  noGroupRow?: boolean | undefined;
 }
 
 const findPerson = (token: string, people: Map<string, PrivatePerson>): PrivatePerson | undefined => {
@@ -251,6 +254,8 @@ export function checkHarvestSubject(inp: HarvestInput): CheckedPhoto[] {
     if (info?.templates.some((t) => PERSONALITY_RIGHTS.test(t))) review.push('Commons shows a personality rights warning on the file');
     const leftOut = LEFT_OUT_PEOPLE.find((x) => x.qid === subject.qid || x.match.test(`${c.who ?? ''} ${c.file ?? ''} ${c.event ?? ''} ${c.page}`));
     if (leftOut) reasons.push(`the photos of ${leftOut.name} are left out (integrator decision, 2026-11-16)`);
+    if (inp.noGroupRow) reasons.push('no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)');
+    if (c.thumb_minor) reasons.push('the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)');
 
     // The age rule on the photo's own date, from the people files.
     const iso = isoOf(p.date, precision);
@@ -304,6 +309,8 @@ export function checkHarvestSubject(inp: HarvestInput): CheckedPhoto[] {
 export interface HarvestRun {
   subjects: HarvestSubject[]; people: Map<string, PrivatePerson>; candidates: Map<string, CandidateFile>; lot3: Lot3Subject[];
   info: Map<string, CommonsInfo>; today: string; groups?: Map<string, GroupLineup> | undefined;
+  /** The slugs public.groups has (docs/design/cards/data/lot6/db-groups.json, read by the integrator): a group subject outside it has no row. */
+  dbGroups?: Set<string> | undefined;
 }
 export interface HarvestSubjectOut {
   slug: string; name: string; kind: 'idol' | 'group'; qid: string | null; group: string | null; idol_id: number | null; why: HarvestSubject['why'];
@@ -361,6 +368,7 @@ export function runHarvest(run: HarvestRun): HarvestResult {
     const cand = run.candidates.get(s.slug);
     const photos = checkHarvestSubject({
       subject: s, lock, existing, candidates: cand?.photos ?? [], info: run.info, people: run.people, today: run.today, groups: run.groups, usedPages, usedSha1,
+      noGroupRow: s.kind === 'group' && !!run.dbGroups && !run.dbGroups.has(s.slug),
     });
     if (lock.locked) left.push({ slug: s.slug, reason: 'locked' });
     else if (!photos.some((p) => p.status !== 'out') && !existing.some((e) => e.status !== 'out')) left.push({ slug: s.slug, reason: photos.length ? 'no photo passes the checks' : 'no photo found' });

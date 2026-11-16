@@ -8,6 +8,8 @@ export interface Candidate {
   source: Photo3['source']; page: string; file: string | null; flickr_id?: string | null; width: number; height: number;
   date: string; date_source?: string; event: string | null; stage: boolean; people_visible?: number; members_visible?: number | null;
   lineup_full?: boolean | null; who?: string; focal: { x: number; y: number }; quality: number; news_only?: boolean;
+  /** Lot 6 (integrator, 2026-11-16): ORCH's 400 px thumbnail showed a person who seems under 18; the photo is out, the thumbnail deleted. */
+  thumb_minor?: boolean;
   licence_review_pending?: boolean; note?: string;
 }
 export interface CandidateFile {

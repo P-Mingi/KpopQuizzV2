@@ -72,11 +72,11 @@ run('116-photos-harvest.sql on a real Postgres', () => {
     expect(r.code).toBe(0);
     const logged = readFileSync(path.join(dir, 'pg.log'), 'utf8').split('\n').filter((l) => l.startsWith('[harvest-one] ') && l.includes('LOG:  statement: ')).length;
     expect(logged).toBe(1);
-    expect(r.err).toMatch(/116-photos-harvest: 7 subjects, \d+ entities added/);
+    expect(r.err).toMatch(/116-photos-harvest: 9 subjects, \d+ entities added/);
     console.log(`116 on Postgres ${version}: ${Buffer.byteLength(SQL)} bytes`);
   });
 
-  it('the Verify lines hold, an old row is byte for byte the same, public.idols too, and a second run adds nothing', async () => {
+  it('the Verify lines hold, an old row is byte for byte the same, the old public.idols rows too, and a second run adds nothing', async () => {
     const db = fresh();
     const oldPhotos = await md5(db, 'cards_photos');
     const oldEnts = await md5(db, 'cards_entities');
@@ -85,7 +85,9 @@ run('116-photos-harvest.sql on a real Postgres', () => {
     expect((await psql(db, SQL)).code).toBe(0);
     expect(await md5(db, `(select * from cards_photos where id <= ${maxPhoto})`)).toBe(oldPhotos);
     expect(await md5(db, `(select * from cards_entities where id not in (select ref from cards_harvest_log where kind = 'entity'))`, " - 'age_lock'")).toBe(oldEnts);
-    expect(await md5(db, 'public.idols')).toBe(oldIdols);
+    // integrator, 2026-11-16 (listed): public.idols gains the logged rows only (was: the whole table unchanged)
+    expect(await md5(db, `(select * from public.idols where id not in (select ref::integer from cards_harvest_log where kind = 'idol'))`)).toBe(oldIdols);
+    expect((await psql(db, `select count(*) from public.idols where review_reason like '116-photos-harvest%' and not active and needs_review and birth_date is null`)).out).toBe('1');
     for (const line of HARVEST_SQL.sql.split('\n').filter((l) => l.startsWith('-- Verify:'))) {
       const q = /^-- Verify: (.*?);\s{3}/.exec(line)?.[1];
       expect(q, line).toBeTruthy();
@@ -119,13 +121,14 @@ run('116-photos-harvest.sql on a real Postgres', () => {
 
   it('the rollback gives the old photos, entities and catalog back; a player owning a card of these subjects refuses it', async () => {
     const db = fresh();
-    const old = { photos: await md5(db, 'cards_photos'), ents: await md5(db, 'cards_entities'), order: (await psql(db, ORDER)).out };
+    const old = { photos: await md5(db, 'cards_photos'), ents: await md5(db, 'cards_entities'), idols: await md5(db, 'public.idols'), order: (await psql(db, ORDER)).out };
     await psql(db, SQL);
     await psql(db, 'select public.cards_build_catalog()');
     const r = await psql(db, HARVEST_SQL.rollback);
     expect(r.code, r.err).toBe(0);
     expect(await md5(db, 'cards_photos')).toBe(old.photos);
     expect(await md5(db, 'cards_entities')).toBe(old.ents);
+    expect(await md5(db, 'public.idols')).toBe(old.idols);
     expect((await psql(db, ORDER)).out).toBe(old.order);
     const owned = fresh();
     await psql(owned, SQL);

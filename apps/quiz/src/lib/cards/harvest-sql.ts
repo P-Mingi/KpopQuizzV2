@@ -2,10 +2,11 @@
 // docs/design/cards/data/lot6/photos.json (scripts/cards/verify-harvest.mts) by scripts/cards/gen-harvest-sql.mts. Pure: no file, no network,
 // no database. harvest-sql.test.ts runs both files on PGlite; kpopcards/harvest-sql-postgres.test.ts on a real Postgres.
 //
-// ADDITIVE: it never updates, renumbers or deletes an existing cards_photos row or status, never writes public.idols (Kpopdle must not
-// move), adds the entities that are missing (member idols, a card-less group line, the groups of the lot, the age-locked pockets), the new
-// photos in the next free slots, the column cards_entities.age_lock and the function cards_age_locks() that computes the lock at READ time
-// from public.idols. The lot's data carries no birth date: a locked subject is only a name and a flag.
+// ADDITIVE: it never updates, renumbers or deletes an existing cards_photos row or status, never changes an existing public.idols row
+// (Kpopdle must not move), adds the entities that are missing (member idols, a card-less group line, the groups of the lot, the age-locked
+// pockets), a public.idols row for a person of the lot who has none (inactive, flagged, without a birth date: out of Kpopdle; integrator,
+// 2026-11-16), the new photos in the next free slots, the column cards_entities.age_lock and the function cards_age_locks() that computes the
+// lock at READ time from public.idols. The lot's data carries no birth date: a locked subject is only a name and a flag.
 import type { HarvestPhotosFile } from './harvest-checks';
 
 export interface HarvestPhotoRow {
@@ -15,6 +16,8 @@ export interface HarvestPhotoRow {
 }
 export interface HarvestSqlSubject {
   slug: string; kind: 'idol' | 'group'; name: string; qid: string | null; group: string | null; locked: boolean; photos: HarvestPhotoRow[];
+  /** The public.idols id of a Kpopdle idol (the integrator's export): it resolves the person, as a Wikidata id can have two rows. */
+  idol_id?: number | null | undefined;
 }
 export interface HarvestSqlInput { checked_on: string; subjects: HarvestSqlSubject[] }
 export interface HarvestSql { sql: string; rollback: string }
@@ -24,7 +27,7 @@ export function harvestInputOf(file: HarvestPhotosFile): HarvestSqlInput {
   return {
     checked_on: file.checked_on,
     subjects: file.subjects.map((s) => ({
-      slug: s.slug, kind: s.kind, name: s.name, qid: s.qid, group: s.group, locked: s.locked,
+      slug: s.slug, kind: s.kind, name: s.name, qid: s.qid, group: s.group, locked: s.locked, idol_id: s.idol_id ?? null,
       photos: s.locked ? [] : s.photos.filter((p) => p.status !== 'out').map((p) => ({
         status: p.status as 'auto' | 'pending', source: p.source, page: p.page, url: p.url, width: p.width, height: p.height, sha1: p.sha1, author: p.author,
         author_url: p.author_url, licence: p.licence, licence_url: p.licence_url, share_alike: p.share_alike, date: p.date, date_precision: p.date_precision,
@@ -55,6 +58,7 @@ export function buildHarvest(input: HarvestSqlInput): HarvestSql {
   const photos = subjects.flatMap((s) => s.photos);
   const locked = subjects.filter((s) => s.locked);
   const people = subjects.filter((s) => s.kind === 'idol');
+  const byQid = people.filter((s) => s.idol_id == null);
   const entityIds = [...new Set([
     ...subjects.map(idOf),
     ...subjects.filter((s) => s.kind === 'idol' && s.group).map((s) => `group:${s.group}`),
@@ -64,7 +68,7 @@ export function buildHarvest(input: HarvestSqlInput): HarvestSql {
   const sqlList = (xs: string[], sep = ', '): string => (xs.length ? xs.map((x) => (/[\u2013\u2014]/.test(x) ? `(${sqlText(x)})` : sqlText(x))).join(sep) : "''");
   // one key a line: a photo's date never shares a line with its event or page text (the privacy test reads line by line)
   const literal = `[\n${subjects.map((s) => `  ${jsonText({
-    slug: s.slug, kind: s.kind, name: s.name, qid: s.qid, group: s.group, locked: s.locked,
+    slug: s.slug, kind: s.kind, name: s.name, qid: s.qid, group: s.group, idol_id: s.idol_id ?? null, locked: s.locked,
     photos: s.photos.map((p) => ({
       status: p.status, source: p.source, page: p.page, url: p.url, width: p.width, height: p.height, sha1: p.sha1, author: p.author, author_url: p.author_url,
       licence: p.licence, licence_url: p.licence_url, share_alike: p.share_alike, date: p.date, date_precision: p.date_precision, event: p.event,
@@ -87,15 +91,20 @@ export function buildHarvest(input: HarvestSqlInput): HarvestSql {
 --            (public.idols of that group, active, or a locked member entity of it) is. opens_month (the first day of the month the person, or
 --            the group's youngest member, turns 18; null when unknown) is for the admin only: the function runs for service_role. After the
 --            opening the entity is a normal entity without a photo, until a photo goes through the circuit;
---         4. a log table (cards_harvest_log) of the entities and photos THIS file added, so the rollback removes only those.
---         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never public.idols: the Kpopdle source
---         view is counted before and after, and the file refuses if it moved.
+--         4. a public.idols row for a person of the lot who has none, as the integrator decided for lot 6: active false, needs_review true,
+--            NO birth date, review_reason starting with '116-photos-harvest'. The Kpopdle source view reads no such row. Without a birth date
+--            the person is locked (a pocket) or, for an adult, the photos wait as pending until the owner fills the date (two agreeing sources);
+--         5. a log table (cards_harvest_log) of the entities, the idols rows and the photos THIS file added, so the rollback removes only those.
+--         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never changes an existing public.idols
+--         row: the Kpopdle source view is counted before and after, and the file refuses if it moved.
 -- How:    one jsonb literal below (${subjects.length} subjects: ${people.length} people, ${subjects.length - people.length} groups, ${locked.length} locked, ${photos.length} photos).
---         People resolve at apply time by Wikidata id from public.idols (no row, or two: skipped with a notice); groups by slug from public.groups.
+--         People resolve at apply time from public.idols: a Kpopdle idol by its id (${people.length - byQid.length} people), the others by Wikidata id (${byQid.length}: one row; none:
+--         the row of point 4 is added; two: skipped with a notice). Groups by slug from public.groups, else by the same name.
+--         A person whose public.idols row has no birth date gets its photos as pending, whatever the check said (fail closed).
 --         Photos get the smallest free slot of 1 to 6 among the live and pending ones.
 -- Why:    goal of 1,000 cards (lot 6): every Kpopdle idol becomes a subject of its own, the groups get up to six photos, and the groups with a minor
 --         show locked pockets instead of a photo.
--- Rows:   at most ${entityIds.length} entities, ${photos.length} photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
+-- Rows:   at most ${entityIds.length} entities, ${byQid.length} public.idols rows, ${photos.length} photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
 -- Needs:  001 to 003, 102, 103 and 110 applied before (cards_build_catalog, the photo columns of lot 3), public.groups and public.idols.
 --         Apply after a backup, never between 23:50 and 00:30 UTC, then "Reconstruire le catalogue", then pnpm --filter quiz owner:cards.
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_entities' and column_name = 'age_lock';   expect 1
@@ -106,8 +115,11 @@ export function buildHarvest(input: HarvestSqlInput): HarvestSql {
 -- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most ${photos.length})
 -- Verify: select count(*) from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id);   expect 0
 -- Verify: select count(*) from public.cards_photos where status in ('auto', 'approved') group by entity_id, slot having count(*) > 1;   expect no row
+-- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%';   expect the notice "idols rows added" (at most ${byQid.length})
+-- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%' and (active or not needs_review or birth_date is not null);   expect 0 (until the owner fills a date)
+-- Verify: select count(*) from public.dle_src_kpop_idol s join public.idols i on i.id::text = s.entity_id where i.review_reason like '116-photos-harvest%';   expect 0 (no row of this file in Kpopdle)
 -- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most ${locked.length} (the pockets still locked today; fewer when public.idols holds an adult birth date)
--- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of 103 or cards_build_catalog() is missing; when the Kpopdle source would change.
+-- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of public.idols (124) or of 103, or cards_build_catalog() is missing; when the Kpopdle source would change.
 -- Undo:   116-photos-harvest.rollback.sql (removes only what the log says this file added; refused while a player owns a card of these subjects).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run adds nothing.
 
@@ -137,6 +149,11 @@ declare
   v_slot integer;
   v_pid bigint;
   v_locked boolean;
+  v_iid integer;
+  v_new boolean;
+  v_hold boolean;
+  c_idols integer := 0;
+  c_held integer := 0;
   c_entities integer := 0;
   c_lines integer := 0;
   c_locked integer := 0;
@@ -158,13 +175,17 @@ begin
   if to_regclass('public.groups') is null or to_regclass('public.idols') is null then
     raise exception '116-photos-harvest: public.groups or public.idols is missing';
   end if;
+  if (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'idols'
+        and column_name in ('wikidata_qid', 'birth_date', 'active', 'ord', 'needs_review', 'review_reason')) < 6 then
+    raise exception '116-photos-harvest: public.idols lacks a column of 124 (wikidata_qid, birth_date, active, ord, needs_review, review_reason)';
+  end if;
   if (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_photos'
         and column_name in ('sha1', 'quality', 'stage', 'event_date_precision', 'news_only')) < 5
      or to_regprocedure('public.cards_build_catalog()') is null then
     raise exception '116-photos-harvest: file 103 is missing (cards_build_catalog and the photo columns of lot 3), apply 103-catalog-photos.sql first';
   end if;
 
-  -- Kpopdle must not move: this file never writes public.idols, and the source view is counted before and after (as 099).
+  -- Kpopdle must not move: this file changes no existing public.idols row, its own rows are flagged, and the source view is counted before and after (as 099).
   if to_regclass('public.dle_src_kpop_idol') is not null then
     execute 'select count(*) from public.dle_src_kpop_idol' into v_dle_before;
   end if;
@@ -172,7 +193,7 @@ begin
   -- 1. The column, the log, the debut year of a group (a debut column when groups has one, else the year of inception_date, as 103).
   alter table public.cards_entities add column if not exists age_lock boolean not null default false;
   create table if not exists public.cards_harvest_log (
-    kind text not null constraint cards_harvest_log_kind_check check (kind in ('entity', 'photo')),
+    kind text not null constraint cards_harvest_log_kind_check check (kind in ('entity', 'idol', 'photo')),
     ref text not null,
     added_on date not null default current_date,
     constraint cards_harvest_log_pkey primary key (kind, ref)
@@ -227,22 +248,57 @@ begin
         c_entities := c_entities + 1;
       end if;
     else
-      -- The person, by Wikidata id: one public.idols row, no more, no less.
-      select count(*) into v_n from public.idols x where v_qid is not null and x.wikidata_qid = v_qid;
-      -- a LOCKED person with no public.idols row still gets its pocket: no row means no birth date, so the lock holds (fail closed)
-      -- until the owner adds the row; any other subject needs exactly one row
-      if v_n > 1 or (v_n = 0 and not v_locked) then
-        raise notice '116-photos-harvest: skipped % (% public.idols rows for its Wikidata id)', v_slug, v_n;
-        c_skipped := c_skipped + 1;
-        continue;
+      -- The person: a Kpopdle idol by its public.idols id (integrator, 2026-11-16: a Wikidata id can have two rows), any other by its Wikidata id.
+      v_iid := nullif(sj ->> 'idol_id', '')::integer;
+      v_new := false;
+      if v_iid is not null then
+        if not exists (select 1 from public.idols x where x.id = v_iid and x.wikidata_qid is not distinct from v_qid) then
+          raise notice '116-photos-harvest: skipped % (no public.idols row % with its Wikidata id)', v_slug, v_iid;
+          c_skipped := c_skipped + 1;
+          continue;
+        end if;
+      else
+        select count(*), min(x.id) into v_n, v_iid from public.idols x where v_qid is not null and x.wikidata_qid = v_qid;
+        if v_n > 1 then
+          raise notice '116-photos-harvest: skipped % (% public.idols rows for its Wikidata id)', v_slug, v_n;
+          c_skipped := c_skipped + 1;
+          continue;
+        end if;
+        if v_n = 0 then
+          -- no row: one is added, out of every public read and of Kpopdle, WITHOUT a birth date (the owner fills it)
+          select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = coalesce(v_group, v_slug);
+          if g.id is not null then
+            insert into public.idols (group_id, name, birth_date, wikidata_qid, active, ord, needs_review, review_reason)
+            values (g.id, sj ->> 'name', null, v_qid, false, 0, true,
+                    '116-photos-harvest: a person of the cards lot 6 with no row; the owner fills the birth date (two agreeing sources) and the Kpopdle clues')
+            on conflict (group_id, name) do nothing
+            returning id into v_iid;
+            if v_iid is not null then
+              insert into public.cards_harvest_log (kind, ref) values ('idol', v_iid::text) on conflict do nothing;
+              c_idols := c_idols + 1;
+              v_new := true;
+            else
+              raise notice '116-photos-harvest: a public.idols row named % exists in % without the Wikidata id %: the owner links it', sj ->> 'name', g.slug, v_qid;
+            end if;
+          end if;
+          g := null;
+          -- a LOCKED person still gets its pocket when no row could be added: no birth date, so the lock holds (fail closed)
+          if v_iid is null and not v_locked then
+            raise notice '116-photos-harvest: skipped % (no public.idols row, and none could be added)', v_slug;
+            c_skipped := c_skipped + 1;
+            continue;
+          end if;
+          if v_iid is null then
+            raise notice '116-photos-harvest: % has no public.idols row: its pocket stays locked until the owner adds one', v_slug;
+          end if;
+        end if;
       end if;
-      if v_n = 0 then
-        raise notice '116-photos-harvest: % has no public.idols row: its pocket stays locked until the owner adds one', v_slug;
-      end if;
-      v_name := coalesce((select nullif(btrim(x.name), '') from public.idols x where x.wikidata_qid = v_qid), sj ->> 'name');
+      -- an adult's photos wait as pending while the row has no birth date (the owner fills it, then approves them)
+      v_hold := not v_locked and not exists (select 1 from public.idols x where x.id = v_iid and x.birth_date is not null);
+      v_name := coalesce((select nullif(btrim(x.name), '') from public.idols x where x.id = v_iid), sj ->> 'name');
       -- the group: the person's own public.idols row says it (the database is the truth), else the research slug (a soloist: its own row)
       if v_group is not null then
-        select gr.id, gr.name, gr.slug into g from public.groups gr join public.idols x on x.group_id = gr.id where x.wikidata_qid = v_qid;
+        select gr.id, gr.name, gr.slug into g from public.groups gr join public.idols x on x.group_id = gr.id where x.id = v_iid;
       end if;
       if g.id is null then
         select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = coalesce(v_group, v_slug);
@@ -333,14 +389,17 @@ begin
               case when v_kind = 'group'
                    then floor(least((ph ->> 'width')::numeric, (ph ->> 'height')::numeric * 11 / 8.5))::integer / 2 < 640
                    else floor(least((ph ->> 'width')::numeric, (ph ->> 'height')::numeric * 5.5 / 8.5))::integer < 640 end,
-              ph ->> 'status',
-              case when ph ->> 'status' = 'pending' then 'To review: ' || (ph ->> 'review')
+              case when v_hold then 'pending' else ph ->> 'status' end,
+              case when v_hold then 'To review: public.idols has no birth date for this person yet; approve once the owner has filled it (two agreeing sources)'
+                     || case when ph ->> 'status' = 'pending' then '; ' || (ph ->> 'review') else '' end
+                   when ph ->> 'status' = 'pending' then 'To review: ' || (ph ->> 'review')
                    else 'Commons licence, author, file and deletion requests checked by verify-harvest.mts on ' || v_checked || '; age rule passed on its date.' end,
               nullif(ph ->> 'sha1', ''), (ph ->> 'quality')::smallint, (ph ->> 'stage')::boolean, (ph ->> 'news_only')::boolean)
       returning id into v_pid;
       insert into public.cards_harvest_log (kind, ref) values ('photo', v_pid::text);
       c_photos := c_photos + 1;
-      if ph ->> 'status' = 'pending' then c_pending := c_pending + 1; end if;
+      if v_hold or ph ->> 'status' = 'pending' then c_pending := c_pending + 1; end if;
+      if v_hold and ph ->> 'status' = 'auto' then c_held := c_held + 1; end if;
     end loop;
   end loop;
 
@@ -406,7 +465,7 @@ begin
     if v_dle_after is distinct from v_dle_before then
       raise exception '116-photos-harvest: the Kpopdle source would go from % to % entities, nothing written', v_dle_before, v_dle_after;
     end if;
-    raise notice '116-photos-harvest: Kpopdle source % entities before and after (this file never writes public.idols)', v_dle_after;
+    raise notice '116-photos-harvest: Kpopdle source % entities before and after (the idols rows of this file are out of it)', v_dle_after;
   end if;
   if exists (select 1 from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id)) then
     raise exception '116-photos-harvest: a photo has no entity';
@@ -414,6 +473,7 @@ begin
   notify pgrst, 'reload schema';
   raise notice '116-photos-harvest: % subjects, % entities added (% of them group lines of a member), % locked pockets, photos added % (% to review), % skipped',
     c_subjects, c_entities + c_lines, c_lines, c_locked, c_photos, c_pending, c_skipped;
+  raise notice '116-photos-harvest: idols rows added % (inactive, flagged, no birth date); photos waiting for a birth date in public.idols %', c_idols, c_held;
   raise notice '116-photos-harvest: now press "Reconstruire le catalogue" in the admin, then pnpm --filter quiz owner:cards';
 end $c116$;
 `;
@@ -421,8 +481,9 @@ end $c116$;
   const rollback = `-- 116-photos-harvest.rollback.sql (undo of 116-photos-harvest.sql)
 --
 -- What:   removes ONLY what 116 added, as its own log (public.cards_harvest_log) says: the photos it added (inside the explicit list of
---         ${pages.length} pages below), the entities it created (the log's ids: a group can take the database's slug at apply time), the log, the column cards_entities.age_lock, the
---         functions cards_age_locks and cards_age_day. An entity that existed before 116 stays; a photo that existed before stays.
+--         ${pages.length} pages below), the entities it created (the log's ids: a group can take the database's slug at apply time), the public.idols rows it added
+--         while they are still without a birth date and flagged (a row the owner completed stays, with a notice), the log, the column
+--         cards_entities.age_lock, the functions cards_age_locks and cards_age_day. An entity that existed before 116 stays; a photo that existed before stays.
 --         When the catalog already holds cards of these subjects it is built again with cards_build_catalog() (so the numbers stay contiguous),
 --         which is only possible while no pack was opened.
 -- Refuses: while a player owns a card of these subjects; while a pack was opened and the catalog holds a card of these subjects (the numbers cannot change then).
@@ -439,6 +500,7 @@ declare
     ${sqlList(pages, ',\n    ')}];
   v_photo_ids bigint[];
   v_entity_ids text[];
+  v_idol_ids integer[];
   v_subject_ids text[];
   v_touched boolean;
   v_n integer;
@@ -452,6 +514,8 @@ begin
      where l.kind = 'photo' and p.source_page = any (v_pages);
     select coalesce(array_agg(l.ref), '{}') into v_entity_ids
       from public.cards_harvest_log l where l.kind = 'entity';
+    select coalesce(array_agg(l.ref::integer), '{}') into v_idol_ids
+      from public.cards_harvest_log l where l.kind = 'idol';
     -- the subjects: the listed ids, and every entity that received a photo of this file (a person found by Wikidata id keeps another id)
     select coalesce(array_agg(distinct x), '{}') into v_subject_ids
       from unnest(v_entities || v_entity_ids || coalesce((select array_agg(distinct p.entity_id) from public.cards_photos p where p.id = any (v_photo_ids)), '{}')) x;
@@ -475,6 +539,10 @@ begin
      where e.kind = 'group' and e.id = any (v_entity_ids) and not exists (select 1 from public.cards_photos p where p.entity_id = e.id)
        and not exists (select 1 from public.cards_entities m where m.group_id = e.id);
     raise notice '116-photos-harvest.rollback: % people removed (then the group lines no member needs)', v_n;
+    delete from public.idols i
+     where i.id = any (v_idol_ids) and i.review_reason like '116-photos-harvest%' and i.birth_date is null and i.needs_review and not i.active;
+    get diagnostics v_n = row_count;
+    raise notice '116-photos-harvest.rollback: % public.idols rows removed, % kept (the owner completed them)', v_n, cardinality(v_idol_ids) - v_n;
     drop table public.cards_harvest_log;
     if v_touched then
       perform public.cards_build_catalog();

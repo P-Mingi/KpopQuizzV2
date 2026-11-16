@@ -5,6 +5,9 @@ import { buildHarvest, type HarvestPhotoRow, type HarvestSqlInput, type HarvestS
 
 /** Groups and idols the lot 6 subjects resolve against, added to the lot 3 fixture (groups iu, blackpink, jennie, btob, akmu). */
 export const EXTRA = `
+-- the columns and the key of the real public.idols (supabase/migrations/124_verse_entity_foundation.sql) that 116 needs
+alter table public.idols add column if not exists needs_review boolean not null default false, add column if not exists review_reason text;
+alter table public.idols add constraint idols_group_id_name_key unique (group_id, name);
 update public.idols set wikidata_qid = 'Q500' where name = 'Jennie';
 update public.idols set wikidata_qid = 'Q601' where name = 'Eunkwang';
 insert into public.groups (name, slug, inception_date) values ('TRIO', 'trio', '2024-05-01'), ('DUPS', 'dups', '2020-01-01');
@@ -14,6 +17,11 @@ insert into public.idols (group_id, name, birth_date, wikidata_qid, active) valu
   (gid('trio'), 'Cleo', '2010-03-15', 'Q3', true),
   (gid('dups'), 'Dup One', '1995-01-01', 'Q700', true),
   (gid('dups'), 'Dup Two', '1995-01-01', 'Q700', true);
+-- a Kpopdle idol whose Wikidata id has two rows (as Kai or DK in production): found by its id
+insert into public.idols (id, group_id, name, birth_date, wikidata_qid, active) values (9001, gid('dups'), 'Dup Kpopdle', '1996-01-01', 'Q701', true),
+  (9002, gid('trio'), 'Dup Kpopdle', '1996-01-01', 'Q701', true);
+-- the Kpopdle source view reads no row with needs_review (as in production, file 099)
+create view public.dle_src_kpop_idol as select id::text as entity_id from public.idols where active and not needs_review;
 `;
 
 let n = 0;
@@ -42,9 +50,11 @@ export const HARVEST: HarvestSqlInput = {
     // a new member of an existing group, and a photo the game already holds (page and sha1), skipped
     person('eunkwang-btob', 'Q601', 'btob', [photo(), photo(), photo({ page: EXISTING_PAGE }), photo({ sha1: EXISTING_SHA1 })]),
     { slug: 'btob', kind: 'group', name: 'BTOB', qid: null, group: null, locked: false, photos: [photo({ width: 4000, height: 2600 })] },
-    // no public.idols row, and two rows: skipped with a notice
-    person('ghost-trio', 'Q999', 'trio', [photo()]),
+    // no public.idols row: 116 adds one (inactive, flagged, no birth date), and the adult's photos wait as pending (integrator, 2026-11-16)
+    person('ghost-trio', 'Q999', 'trio', [photo(), photo()]),
+    // two rows for a Wikidata id: skipped with a notice; a Kpopdle idol with the same problem is found by its public.idols id
     person('dup-dups', 'Q700', 'dups', [photo()]),
+    { ...person('dup-kpopdle-dups', 'Q701', 'dups', [photo(), photo()]), idol_id: 9001 },
   ],
 };
 export const HARVEST_SQL = buildHarvest(HARVEST);

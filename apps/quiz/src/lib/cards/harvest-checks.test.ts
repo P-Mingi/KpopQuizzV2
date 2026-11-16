@@ -248,6 +248,25 @@ describe('harvest: one subject', () => {
   });
 });
 
+describe('harvest: a group with no public.groups row, a thumbnail that shows a person who seems under 18 (integrator, 2026-11-16)', () => {
+  it('leaves out every photo of a group the database does not have, and keeps the groups it has', () => {
+    const run = (dbGroups: Set<string> | undefined) => runHarvest({
+      subjects: [sub('duo', 'group', 'Q101')], people: PEOPLE, candidates: new Map([['duo', { slug: 'duo', kind: 'group', photos: [cand('Duo.jpg', '2026-01-01', { people_visible: 2, members_visible: 2 })] }]]),
+      lot3: [], info: files(cand('Duo.jpg', '2026-01-01')), today: TODAY, groups: GROUPS, dbGroups,
+    }).file.subjects[0]!.photos[0]!;
+    expect(run(new Set(['trio']))).toMatchObject({ status: 'out' });
+    expect(run(new Set(['trio'])).reasons.join(' ')).toMatch(/no public\.groups row for this group/);
+    expect(run(new Set(['duo']))).toMatchObject({ status: 'auto' });
+    expect(run(undefined)).toMatchObject({ status: 'auto' });
+  });
+  it('leaves out a photo whose thumbnail shows a person who seems under 18', () => {
+    const [a, b] = check(sub('ada', 'idol', 'Q1', 'trio'), [cand('A.jpg', '2026-01-01', { thumb_minor: true }), cand('B.jpg', '2026-02-01')]);
+    expect(a).toMatchObject({ status: 'out' });
+    expect(a!.reasons.join(' ')).toMatch(/seems under 18/);
+    expect(b).toMatchObject({ status: 'auto' });
+  });
+});
+
 describe('harvest: the outputs', () => {
   const subjects = [sub('ada', 'idol', 'Q1', 'trio'), sub('bea', 'idol', 'Q2', 'trio'), sub('cleo', 'idol', 'Q3', 'trio'), sub('trio', 'group', 'Q100'), sub('duo', 'group', 'Q101')];
   const cs = [cand('A.jpg', '2026-01-01'), cand('B.jpg', '2026-02-01')];
