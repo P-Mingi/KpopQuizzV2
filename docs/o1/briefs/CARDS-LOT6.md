@@ -53,6 +53,10 @@ Private, outside the repository (`$HOME/kpq-o1/notes/cards-lot6/`, mode 700; the
 - `candidates/<slug>.json`: lot 3's `CandidateFile` (`apps/quiz/src/lib/cards/photo-checks.ts`), one file a subject, at most 8
   candidates of distinct occasions, best first. For an idol photo, `people_visible` counts everyone in the frame and `who` names
   them; a photo where anyone else is visible goes to the owner's review at best, and is left out when that person is under 18.
+- `groups/<slug>.json`: one file a group whose group photos are proposed (ORCH, 2026-11-16: a group photo is out without it):
+  `{ "slug": "<groups slug>", "complete": true | false, "members": ["Q...", ...], "sources": ["wikidata revid ...", "enwiki revid ..."] }`.
+  `members` lists every current AND former member; `complete` is true only when Wikidata and English Wikipedia agree on the whole
+  lineup. Every QID listed needs a row in `people/` with a membership of this group.
 - `locked.md`: the locked pockets with their opening month (written by the verify script, given to the integrator in the chat).
 
 In the repository (public, no birth date, no month of a 18th birthday):
