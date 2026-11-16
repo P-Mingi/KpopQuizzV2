@@ -1,0 +1,3161 @@
+[
+ {
+  "slug": "2ne1",
+  "kind": "group",
+  "name": "2NE1",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "a-na-hearts2hearts",
+  "kind": "idol",
+  "name": "A-na",
+  "qid": "Q131932325",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "aespa",
+  "kind": "group",
+  "name": "aespa",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "ahyeon-babymonster",
+  "kind": "idol",
+  "name": "Ahyeon",
+  "qid": "Q123560890",
+  "group": "babymonster",
+  "idol_id": 148,
+  "why": "minor-group"
+ },
+ {
+  "slug": "akmu",
+  "kind": "group",
+  "name": "AKMU",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "anton-riize",
+  "kind": "idol",
+  "name": "Anton",
+  "qid": "Q123310101",
+  "group": "riize",
+  "idol_id": 151,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "apink",
+  "kind": "group",
+  "name": "Apink",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "artms",
+  "kind": "group",
+  "name": "ARTMS",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "asa-babymonster",
+  "kind": "idol",
+  "name": "Asa",
+  "qid": "Q123554438",
+  "group": "babymonster",
+  "idol_id": 144,
+  "why": "minor-group"
+ },
+ {
+  "slug": "astro",
+  "kind": "group",
+  "name": "ASTRO",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "ateez",
+  "kind": "group",
+  "name": "ATEEZ",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "athena-fifty-fifty",
+  "kind": "idol",
+  "name": "Athena",
+  "qid": "Q129548317",
+  "group": "fifty-fifty",
+  "idol_id": 167,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "babymonster",
+  "kind": "group",
+  "name": "BABYMONSTER",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "bae-nmixx",
+  "kind": "idol",
+  "name": "Bae",
+  "qid": "Q109308055",
+  "group": "nmixx",
+  "idol_id": 189,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "baekhyun-exo",
+  "kind": "idol",
+  "name": "Baekhyun",
+  "qid": "Q4688701",
+  "group": "exo",
+  "idol_id": 171,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "bahiyyih-kep1er",
+  "kind": "idol",
+  "name": "Bahiyyih",
+  "qid": "Q109109100",
+  "group": "kep1er",
+  "idol_id": 135,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "bambam-got7",
+  "kind": "idol",
+  "name": "BamBam",
+  "qid": "Q16688282",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "bang-chan-stray-kids",
+  "kind": "idol",
+  "name": "Bang Chan",
+  "qid": "Q59670293",
+  "group": "stray-kids",
+  "idol_id": 12,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "beomgyu-tomorrow-x-together",
+  "kind": "idol",
+  "name": "Beomgyu",
+  "qid": "Q62396696",
+  "group": "txt",
+  "idol_id": 124,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "bigbang",
+  "kind": "group",
+  "name": "BIGBANG",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "billlie",
+  "kind": "group",
+  "name": "Billlie",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "blackpink",
+  "kind": "group",
+  "name": "BLACKPINK",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "btob",
+  "kind": "group",
+  "name": "BTOB",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "bts",
+  "kind": "group",
+  "name": "BTS",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "carmen-hearts2hearts",
+  "kind": "idol",
+  "name": "Carmen",
+  "qid": "Q131932321",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "chaehyun-kep1er",
+  "kind": "idol",
+  "name": "Chaehyun",
+  "qid": "Q109108660",
+  "group": "kep1er",
+  "idol_id": 133,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chaeryeong-itzy",
+  "kind": "idol",
+  "name": "Chaeryeong",
+  "qid": "Q60829936",
+  "group": "itzy",
+  "idol_id": 184,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chaewon-le-sserafim",
+  "kind": "idol",
+  "name": "Chaewon",
+  "qid": "Q56660174",
+  "group": "le-sserafim",
+  "idol_id": 68,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chaeyoung-twice",
+  "kind": "idol",
+  "name": "Chaeyoung",
+  "qid": "Q24043625",
+  "group": "twice",
+  "idol_id": 28,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chanelle-fifty-fifty",
+  "kind": "idol",
+  "name": "Chanelle",
+  "qid": "Q129547871",
+  "group": "fifty-fifty",
+  "idol_id": 164,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "changbin-stray-kids",
+  "kind": "idol",
+  "name": "Changbin",
+  "qid": "Q61100669",
+  "group": "stray-kids",
+  "idol_id": 19,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chanhyuk-akmu",
+  "kind": "idol",
+  "name": "Chanhyuk",
+  "qid": "Q16071030",
+  "group": "akmu",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chanyeol-exo",
+  "kind": "idol",
+  "name": "Chanyeol",
+  "qid": "Q7137681",
+  "group": "exo",
+  "idol_id": 173,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chen-exo",
+  "kind": "idol",
+  "name": "Chen",
+  "qid": "Q16098027",
+  "group": "exo",
+  "idol_id": 172,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chenle-nct",
+  "kind": "idol",
+  "name": "Chenle",
+  "qid": "Q30945670",
+  "group": "nct",
+  "idol_id": 203,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "chiquita-babymonster",
+  "kind": "idol",
+  "name": "Chiquita",
+  "qid": "Q123554441",
+  "group": "babymonster",
+  "idol_id": 147,
+  "why": "minor-group"
+ },
+ {
+  "slug": "choerry-loona",
+  "kind": "idol",
+  "name": "Choerry",
+  "qid": "Q58224261",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "cl-2ne1",
+  "kind": "idol",
+  "name": "CL",
+  "qid": "Q483683",
+  "group": "2ne1",
+  "idol_id": 138,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "cortis",
+  "kind": "group",
+  "name": "CORTIS",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "d-o-exo",
+  "kind": "idol",
+  "name": "D.O.",
+  "qid": "Q15111667",
+  "group": "exo",
+  "idol_id": 174,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "daesung-bigbang",
+  "kind": "idol",
+  "name": "Daesung",
+  "qid": "Q194798",
+  "group": "bigbang",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "daeyoung-nct",
+  "kind": "idol",
+  "name": "Daeyoung",
+  "qid": "Q122349180",
+  "group": "nct",
+  "idol_id": 96,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dahyun-twice",
+  "kind": "idol",
+  "name": "Dahyun",
+  "qid": "Q22773838",
+  "group": "twice",
+  "idol_id": 27,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dami-dreamcatcher",
+  "kind": "idol",
+  "name": "Dami",
+  "qid": "Q59313527",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "daniela-katseye",
+  "kind": "idol",
+  "name": "Daniela",
+  "qid": "Q124692767",
+  "group": "katseye",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "danielle-newjeans",
+  "kind": "idol",
+  "name": "Danielle",
+  "qid": "Q113455624",
+  "group": "newjeans",
+  "idol_id": 36,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dara-2ne1",
+  "kind": "idol",
+  "name": "Dara",
+  "qid": "Q496170",
+  "group": "2ne1",
+  "idol_id": 141,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "day6",
+  "kind": "group",
+  "name": "DAY6",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "dayeon-kep1er",
+  "kind": "idol",
+  "name": "Dayeon",
+  "qid": "Q109120276",
+  "group": "kep1er",
+  "idol_id": 136,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dino-seventeen",
+  "kind": "idol",
+  "name": "Dino",
+  "qid": "Q20779386",
+  "group": "seventeen",
+  "idol_id": 51,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dk-seventeen",
+  "kind": "idol",
+  "name": "DK",
+  "qid": "Q21824862",
+  "group": "seventeen",
+  "idol_id": 52,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dohoon-tws",
+  "kind": "idol",
+  "name": "Dohoon",
+  "qid": "Q125865775",
+  "group": "tws",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "doyoung-nct",
+  "kind": "idol",
+  "name": "Doyoung",
+  "qid": "Q26689987",
+  "group": "nct",
+  "idol_id": 77,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "doyoung-treasure",
+  "kind": "idol",
+  "name": "Doyoung",
+  "qid": "Q97320177",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "dreamcatcher",
+  "kind": "group",
+  "name": "Dreamcatcher",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "ej-team",
+  "kind": "idol",
+  "name": "EJ",
+  "qid": "Q127427815",
+  "group": "team",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "enhypen",
+  "kind": "group",
+  "name": "ENHYPEN",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "eunchae-le-sserafim",
+  "kind": "idol",
+  "name": "Eunchae",
+  "qid": "Q111544444",
+  "group": "le-sserafim",
+  "idol_id": 71,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "eunha-gfriend",
+  "kind": "idol",
+  "name": "Eunha",
+  "qid": "Q21710247",
+  "group": "gfriend",
+  "idol_id": 128,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "eunseok-riize",
+  "kind": "idol",
+  "name": "Eunseok",
+  "qid": "Q123528880",
+  "group": "riize",
+  "idol_id": 152,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "eunwoo-astro",
+  "kind": "idol",
+  "name": "Cha Eunwoo",
+  "qid": "Q21060390",
+  "group": "astro",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "exo",
+  "kind": "group",
+  "name": "EXO",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "felix-stray-kids",
+  "kind": "idol",
+  "name": "Felix",
+  "qid": "Q61100678",
+  "group": "stray-kids",
+  "idol_id": 17,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "fifty-fifty",
+  "kind": "group",
+  "name": "FIFTY FIFTY",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "fromis-9",
+  "kind": "group",
+  "name": "fromis_9",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "g-dragon-bigbang",
+  "kind": "idol",
+  "name": "G-Dragon",
+  "qid": "Q495577",
+  "group": "bigbang",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "gaeul-ive",
+  "kind": "idol",
+  "name": "Gaeul",
+  "qid": "Q109420011",
+  "group": "ive",
+  "idol_id": 62,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "gahyun-dreamcatcher",
+  "kind": "idol",
+  "name": "Gahyun",
+  "qid": "Q59313606",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "gfriend",
+  "kind": "group",
+  "name": "GFRIEND",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "gidle",
+  "kind": "group",
+  "name": "(G)I-DLE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "girls-generation",
+  "kind": "group",
+  "name": "Girls' Generation",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "giselle-aespa",
+  "kind": "idol",
+  "name": "Giselle",
+  "qid": "Q101161168",
+  "group": "aespa",
+  "idol_id": 31,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "go-won-loona",
+  "kind": "idol",
+  "name": "Go Won",
+  "qid": "Q58825794",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "got7",
+  "kind": "group",
+  "name": "GOT7",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "gunwook-zerobaseone",
+  "kind": "idol",
+  "name": "Gunwook",
+  "qid": "Q117818064",
+  "group": "zerobaseone",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "haechan-nct-dream",
+  "kind": "idol",
+  "name": "Haechan",
+  "qid": "Q19730396",
+  "group": "nct-dream",
+  "idol_id": 198,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "haerin-newjeans",
+  "kind": "idol",
+  "name": "Haerin",
+  "qid": "Q113508917",
+  "group": "newjeans",
+  "idol_id": 37,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "haewon-nmixx",
+  "kind": "idol",
+  "name": "Haewon",
+  "qid": "Q109567033",
+  "group": "nmixx",
+  "idol_id": 192,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "han-stray-kids",
+  "kind": "idol",
+  "name": "Han",
+  "qid": "Q60994278",
+  "group": "stray-kids",
+  "idol_id": 16,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hana-fifty-fifty",
+  "kind": "idol",
+  "name": "Hana",
+  "qid": "Q129548220",
+  "group": "fifty-fifty",
+  "idol_id": 166,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hanbin-zerobaseone",
+  "kind": "idol",
+  "name": "Hanbin",
+  "qid": "Q117746200",
+  "group": "zerobaseone",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "handong-dreamcatcher",
+  "kind": "idol",
+  "name": "Handong",
+  "qid": "Q59313384",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hanjin-tws",
+  "kind": "idol",
+  "name": "Hanjin",
+  "qid": "Q132041929",
+  "group": "tws",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hanni-newjeans",
+  "kind": "idol",
+  "name": "Hanni",
+  "qid": "Q113455973",
+  "group": "newjeans",
+  "idol_id": 35,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "haram-billlie",
+  "kind": "idol",
+  "name": "Haram",
+  "qid": "Q117805493",
+  "group": "billlie",
+  "idol_id": 160,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "haruna-billlie",
+  "kind": "idol",
+  "name": "Haruna",
+  "qid": "Q117805516",
+  "group": "billlie",
+  "idol_id": 162,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "haseul-loona",
+  "kind": "idol",
+  "name": "Haseul",
+  "qid": "Q57318729",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hearts2hearts",
+  "kind": "group",
+  "name": "Hearts2Hearts",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "heejin-loona",
+  "kind": "idol",
+  "name": "Heejin",
+  "qid": "Q56259179",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "heeseung-enhypen",
+  "kind": "idol",
+  "name": "Heeseung",
+  "qid": "Q105717901",
+  "group": "enhypen",
+  "idol_id": 115,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hendery-wayv",
+  "kind": "idol",
+  "name": "Hendery",
+  "qid": "Q64604849",
+  "group": "wayv",
+  "idol_id": 90,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hikaru-kep1er",
+  "kind": "idol",
+  "name": "Hikaru",
+  "qid": "Q109108909",
+  "group": "kep1er",
+  "idol_id": 134,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hongjoong-ateez",
+  "kind": "idol",
+  "name": "Hongjoong",
+  "qid": "Q85864418",
+  "group": "ateez",
+  "idol_id": 107,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hoshi-seventeen",
+  "kind": "idol",
+  "name": "Hoshi",
+  "qid": "Q21825470",
+  "group": "seventeen",
+  "idol_id": 43,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "huening-kai-tomorrow-x-together",
+  "kind": "idol",
+  "name": "Huening Kai",
+  "qid": "Q61715236",
+  "group": "txt",
+  "idol_id": 126,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hwasa",
+  "kind": "idol",
+  "name": "Hwasa",
+  "qid": "Q19603912",
+  "group": "mamamoo",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hyein-newjeans",
+  "kind": "idol",
+  "name": "Hyein",
+  "qid": "Q113561413",
+  "group": "newjeans",
+  "idol_id": 38,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hyoyeon-girls-generation",
+  "kind": "idol",
+  "name": "Hyoyeon",
+  "qid": "Q253619",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hyungwon-monsta-x",
+  "kind": "idol",
+  "name": "Hyungwon",
+  "qid": "Q28549791",
+  "group": "monsta-x",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hyunjin-loona",
+  "kind": "idol",
+  "name": "Hyunjin",
+  "qid": "Q48893612",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hyunjin-stray-kids",
+  "kind": "idol",
+  "name": "Hyunjin",
+  "qid": "Q57601775",
+  "group": "stray-kids",
+  "idol_id": 15,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "hyunsuk-treasure",
+  "kind": "idol",
+  "name": "Hyunsuk",
+  "qid": "Q63850969",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "i-m-monsta-x",
+  "kind": "idol",
+  "name": "I.M",
+  "qid": "Q28549782",
+  "group": "monsta-x",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "i-n-stray-kids",
+  "kind": "idol",
+  "name": "I.N",
+  "qid": "Q59831589",
+  "group": "stray-kids",
+  "idol_id": 14,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "ian-hearts2hearts",
+  "kind": "idol",
+  "name": "Ian",
+  "qid": "Q131932326",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "ikon",
+  "kind": "group",
+  "name": "iKON",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "illit",
+  "kind": "group",
+  "name": "ILLIT",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "irene-red-velvet",
+  "kind": "idol",
+  "name": "Irene",
+  "qid": "Q12605358",
+  "group": "red-velvet",
+  "idol_id": 102,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "iroha-illit",
+  "kind": "idol",
+  "name": "Iroha",
+  "qid": "Q126923761",
+  "group": "illit",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "itzy",
+  "kind": "group",
+  "name": "ITZY",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "ive",
+  "kind": "group",
+  "name": "IVE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "j-hope-bts",
+  "kind": "idol",
+  "name": "J-Hope",
+  "qid": "Q16236223",
+  "group": "bts",
+  "idol_id": 4,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jackson-got7",
+  "kind": "idol",
+  "name": "Jackson",
+  "qid": "Q16905948",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jaehyuk-treasure",
+  "kind": "idol",
+  "name": "Jaehyuk",
+  "qid": "Q98136886",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jaehyun-nct",
+  "kind": "idol",
+  "name": "Jaehyun",
+  "qid": "Q26267642",
+  "group": "nct",
+  "idol_id": 78,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jaemin-nct",
+  "kind": "idol",
+  "name": "Jaemin",
+  "qid": "Q27431345",
+  "group": "nct",
+  "idol_id": 200,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "james-cortis",
+  "kind": "idol",
+  "name": "James",
+  "qid": "Q135963716",
+  "group": "cortis",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "jay-b-got7",
+  "kind": "idol",
+  "name": "Jay B",
+  "qid": "Q491048",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jay-enhypen",
+  "kind": "idol",
+  "name": "Jay",
+  "qid": "Q105717862",
+  "group": "enhypen",
+  "idol_id": 116,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jennie",
+  "kind": "idol",
+  "name": "Jennie",
+  "qid": "Q26262599",
+  "group": "blackpink",
+  "idol_id": 9,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jeno-nct",
+  "kind": "idol",
+  "name": "Jeno",
+  "qid": "Q28741579",
+  "group": "nct",
+  "idol_id": 202,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jeonghan-seventeen",
+  "kind": "idol",
+  "name": "Jeonghan",
+  "qid": "Q24566664",
+  "group": "seventeen",
+  "idol_id": 40,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jeongwoo-treasure",
+  "kind": "idol",
+  "name": "Jeongwoo",
+  "qid": "Q97326265",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jeongyeon-twice",
+  "kind": "idol",
+  "name": "Jeongyeon",
+  "qid": "Q25374501",
+  "group": "twice",
+  "idol_id": 22,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jihoon-tws",
+  "kind": "idol",
+  "name": "Jihoon",
+  "qid": "Q124091988",
+  "group": "tws",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jihyo-twice",
+  "kind": "idol",
+  "name": "Jihyo",
+  "qid": "Q22774055",
+  "group": "twice",
+  "idol_id": 25,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jimin",
+  "kind": "idol",
+  "name": "Jimin",
+  "qid": "Q20947093",
+  "group": "bts",
+  "idol_id": 5,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jin-bts",
+  "kind": "idol",
+  "name": "Jin",
+  "qid": "Q24276424",
+  "group": "bts",
+  "idol_id": 2,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jini-nmixx",
+  "kind": "idol",
+  "name": "Jini",
+  "qid": "Q109307988",
+  "group": "nmixx",
+  "idol_id": 188,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jinjin-astro",
+  "kind": "idol",
+  "name": "Jinjin",
+  "qid": "Q60991892",
+  "group": "astro",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jinsoul-loona",
+  "kind": "idol",
+  "name": "Jinsoul",
+  "qid": "Q56825122",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jinyoung-got7",
+  "kind": "idol",
+  "name": "Jinyoung",
+  "qid": "Q492313",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jisoo-blackpink",
+  "kind": "idol",
+  "name": "Jisoo",
+  "qid": "Q27655361",
+  "group": "blackpink",
+  "idol_id": 8,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jisung-nct",
+  "kind": "idol",
+  "name": "Jisung",
+  "qid": "Q27477017",
+  "group": "nct",
+  "idol_id": 201,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jiu-dreamcatcher",
+  "kind": "idol",
+  "name": "JiU",
+  "qid": "Q59313184",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jiung-p1harmony",
+  "kind": "idol",
+  "name": "Jiung",
+  "qid": "Q121579089",
+  "group": "p1harmony",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jiwoo-hearts2hearts",
+  "kind": "idol",
+  "name": "Jiwoo",
+  "qid": "Q131932320",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "jiwoo-nmixx",
+  "kind": "idol",
+  "name": "Jiwoo",
+  "qid": "Q109308189",
+  "group": "nmixx",
+  "idol_id": 190,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jiwoong-zerobaseone",
+  "kind": "idol",
+  "name": "Jiwoong",
+  "qid": "Q115933814",
+  "group": "zerobaseone",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "johnny-nct",
+  "kind": "idol",
+  "name": "Johnny",
+  "qid": "Q47690025",
+  "group": "nct",
+  "idol_id": 75,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jongho-ateez",
+  "kind": "idol",
+  "name": "Jongho",
+  "qid": "Q85884933",
+  "group": "ateez",
+  "idol_id": 114,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jonghyun-shinee",
+  "kind": "idol",
+  "name": "Jonghyun",
+  "qid": "Q484484",
+  "group": "shinee",
+  "idol_id": 197,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jongseob-p1harmony",
+  "kind": "idol",
+  "name": "Jongseob",
+  "qid": "Q30006465",
+  "group": "p1harmony",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "joohoney-monsta-x",
+  "kind": "idol",
+  "name": "Joohoney",
+  "qid": "Q23008017",
+  "group": "monsta-x",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "joshua-seventeen",
+  "kind": "idol",
+  "name": "Joshua",
+  "qid": "Q21825065",
+  "group": "seventeen",
+  "idol_id": 41,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "joy-red-velvet",
+  "kind": "idol",
+  "name": "Joy",
+  "qid": "Q17484113",
+  "group": "red-velvet",
+  "idol_id": 105,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "juhoon-cortis",
+  "kind": "idol",
+  "name": "Juhoon",
+  "qid": "Q135963733",
+  "group": "cortis",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "jun-seventeen",
+  "kind": "idol",
+  "name": "Jun",
+  "qid": "Q20972211",
+  "group": "seventeen",
+  "idol_id": 42,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "junghwan-treasure",
+  "kind": "idol",
+  "name": "Junghwan",
+  "qid": "Q97352009",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jungkook",
+  "kind": "idol",
+  "name": "Jungkook",
+  "qid": "Q22338877",
+  "group": "bts",
+  "idol_id": 7,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jungwon-enhypen",
+  "kind": "idol",
+  "name": "Jungwon",
+  "qid": "Q105717977",
+  "group": "enhypen",
+  "idol_id": 120,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jungwoo-nct-127",
+  "kind": "idol",
+  "name": "Jungwoo",
+  "qid": "Q60831979",
+  "group": "nct-127",
+  "idol_id": 79,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "junkyu-treasure",
+  "kind": "idol",
+  "name": "Junkyu",
+  "qid": "Q97319986",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "juun-hearts2hearts",
+  "kind": "idol",
+  "name": "Juun",
+  "qid": "Q131932324",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "k-team",
+  "kind": "idol",
+  "name": "K",
+  "qid": "Q116226143",
+  "group": "team",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kai-exo",
+  "kind": "idol",
+  "name": "Kai",
+  "qid": "Q10775090",
+  "group": "exo",
+  "idol_id": 179,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kara",
+  "kind": "group",
+  "name": "KARA",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "karina-aespa",
+  "kind": "idol",
+  "name": "Karina",
+  "qid": "Q101161002",
+  "group": "aespa",
+  "idol_id": 30,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "katseye",
+  "kind": "group",
+  "name": "KATSEYE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "kazuha-le-sserafim",
+  "kind": "idol",
+  "name": "Kazuha",
+  "qid": "Q111544446",
+  "group": "le-sserafim",
+  "idol_id": 70,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "keeho-p1harmony",
+  "kind": "idol",
+  "name": "Keeho",
+  "qid": "Q114690500",
+  "group": "p1harmony",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "keena-fifty-fifty",
+  "kind": "idol",
+  "name": "Keena",
+  "qid": "Q117178583",
+  "group": "fifty-fifty",
+  "idol_id": 163,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "keonho-cortis",
+  "kind": "idol",
+  "name": "Keonho",
+  "qid": "Q135963581",
+  "group": "cortis",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "kep1er",
+  "kind": "group",
+  "name": "Kep1er",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "key-shinee",
+  "kind": "idol",
+  "name": "Key",
+  "qid": "Q483980",
+  "group": "shinee",
+  "idol_id": 194,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kihyun-monsta-x",
+  "kind": "idol",
+  "name": "Kihyun",
+  "qid": "Q27951584",
+  "group": "monsta-x",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kim-lip-loona",
+  "kind": "idol",
+  "name": "Kim Lip",
+  "qid": "Q56816418",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kiss-of-life",
+  "kind": "group",
+  "name": "KISS OF LIFE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "kris-exo",
+  "kind": "idol",
+  "name": "Kris",
+  "qid": "Q6437313",
+  "group": "exo",
+  "idol_id": 177,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kun-nct",
+  "kind": "idol",
+  "name": "Kun",
+  "qid": "Q60644128",
+  "group": "nct",
+  "idol_id": 89,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kyujin-nmixx",
+  "kind": "idol",
+  "name": "Kyujin",
+  "qid": "Q109308262",
+  "group": "nmixx",
+  "idol_id": 191,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "kyungmin-tws",
+  "kind": "idol",
+  "name": "Kyungmin",
+  "qid": "Q132041931",
+  "group": "tws",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "lara-katseye",
+  "kind": "idol",
+  "name": "Lara",
+  "qid": "Q124692773",
+  "group": "katseye",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "lay-exo",
+  "kind": "idol",
+  "name": "Lay",
+  "qid": "Q12494180",
+  "group": "exo",
+  "idol_id": 170,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "le-sserafim",
+  "kind": "group",
+  "name": "LE SSERAFIM",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "lee-know-stray-kids",
+  "kind": "idol",
+  "name": "Lee Know",
+  "qid": "Q59260597",
+  "group": "stray-kids",
+  "idol_id": 13,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "leeseo-ive",
+  "kind": "idol",
+  "name": "Leeseo",
+  "qid": "Q109572155",
+  "group": "ive",
+  "idol_id": 66,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "lia-itzy",
+  "kind": "idol",
+  "name": "Lia",
+  "qid": "Q60870266",
+  "group": "itzy",
+  "idol_id": 182,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "lily-nmixx",
+  "kind": "idol",
+  "name": "Lily",
+  "qid": "Q26196972",
+  "group": "nmixx",
+  "idol_id": 186,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "lisa-blackpink",
+  "kind": "idol",
+  "name": "Lisa",
+  "qid": "Q26707663",
+  "group": "blackpink",
+  "idol_id": 11,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "liz-ive",
+  "kind": "idol",
+  "name": "Liz",
+  "qid": "Q109420139",
+  "group": "ive",
+  "idol_id": 65,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "loona",
+  "kind": "group",
+  "name": "LOONA",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "loossemble",
+  "kind": "group",
+  "name": "Loossemble",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "lucas-nct",
+  "kind": "idol",
+  "name": "Lucas",
+  "qid": "Q52219380",
+  "group": "nct",
+  "idol_id": 99,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "luhan-exo",
+  "kind": "idol",
+  "name": "Luhan",
+  "qid": "Q10788758",
+  "group": "exo",
+  "idol_id": 180,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mamamoo",
+  "kind": "group",
+  "name": "MAMAMOO",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "manon-katseye",
+  "kind": "idol",
+  "name": "Manon",
+  "qid": "Q124692741",
+  "group": "katseye",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mark-got7",
+  "kind": "idol",
+  "name": "Mark",
+  "qid": "Q16075083",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mark-nct",
+  "kind": "idol",
+  "name": "Mark",
+  "qid": "Q26689986",
+  "group": "nct",
+  "idol_id": 199,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "martin-cortis",
+  "kind": "idol",
+  "name": "Martin",
+  "qid": "Q135963739",
+  "group": "cortis",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "megan-katseye",
+  "kind": "idol",
+  "name": "Megan",
+  "qid": "Q124692787",
+  "group": "katseye",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mina-twice",
+  "kind": "idol",
+  "name": "Mina",
+  "qid": "Q20688186",
+  "group": "twice",
+  "idol_id": 26,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mingi-ateez",
+  "kind": "idol",
+  "name": "Mingi",
+  "qid": "Q85878823",
+  "group": "ateez",
+  "idol_id": 112,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mingyu-seventeen",
+  "kind": "idol",
+  "name": "Mingyu",
+  "qid": "Q21824887",
+  "group": "seventeen",
+  "idol_id": 47,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "minho-shinee",
+  "kind": "idol",
+  "name": "Minho",
+  "qid": "Q134575",
+  "group": "shinee",
+  "idol_id": 195,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "minhyuk-monsta-x",
+  "kind": "idol",
+  "name": "Minhyuk",
+  "qid": "Q28746303",
+  "group": "monsta-x",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "minji-newjeans",
+  "kind": "idol",
+  "name": "Minji",
+  "qid": "Q113561403",
+  "group": "newjeans",
+  "idol_id": 34,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "minju-illit",
+  "kind": "idol",
+  "name": "Minju",
+  "qid": "Q126923757",
+  "group": "illit",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "minnie-i-dle",
+  "kind": "idol",
+  "name": "Minnie",
+  "qid": "Q56761923",
+  "group": "gidle",
+  "idol_id": 56,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "minzy-2ne1",
+  "kind": "idol",
+  "name": "Minzy",
+  "qid": "Q483842",
+  "group": "2ne1",
+  "idol_id": 139,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "miss-a",
+  "kind": "group",
+  "name": "miss A",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "miyeon-i-dle",
+  "kind": "idol",
+  "name": "Miyeon",
+  "qid": "Q56259927",
+  "group": "gidle",
+  "idol_id": 55,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "mj-astro",
+  "kind": "idol",
+  "name": "MJ",
+  "qid": "Q47673408",
+  "group": "astro",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "momo-twice",
+  "kind": "idol",
+  "name": "Momo",
+  "qid": "Q23779926",
+  "group": "twice",
+  "idol_id": 23,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "monsta-x",
+  "kind": "group",
+  "name": "MONSTA X",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "moonbyul-mamamoo",
+  "kind": "idol",
+  "name": "Moonbyul",
+  "qid": "Q19483782",
+  "group": "mamamoo",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "nayeon-twice",
+  "kind": "idol",
+  "name": "Nayeon",
+  "qid": "Q22804243",
+  "group": "twice",
+  "idol_id": 21,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "nct",
+  "kind": "group",
+  "name": "NCT",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "nct-127",
+  "kind": "group",
+  "name": "NCT 127",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "nct-dream",
+  "kind": "group",
+  "name": "NCT Dream",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "nct-wish",
+  "kind": "group",
+  "name": "NCT WISH",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "newjeans",
+  "kind": "group",
+  "name": "NewJeans",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "ni-ki-enhypen",
+  "kind": "idol",
+  "name": "Ni-Ki",
+  "qid": "Q108043218",
+  "group": "enhypen",
+  "idol_id": 121,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "nicholas-team",
+  "kind": "idol",
+  "name": "Nicholas",
+  "qid": "Q104723121",
+  "group": "team",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "ningning-aespa",
+  "kind": "idol",
+  "name": "Ningning",
+  "qid": "Q101161499",
+  "group": "aespa",
+  "idol_id": 33,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "nmixx",
+  "kind": "group",
+  "name": "NMIXX",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "olivia-hye-loona",
+  "kind": "idol",
+  "name": "Olivia Hye",
+  "qid": "Q58825825",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "onew-shinee",
+  "kind": "idol",
+  "name": "Onew",
+  "qid": "Q494692",
+  "group": "shinee",
+  "idol_id": 193,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "p1harmony",
+  "kind": "group",
+  "name": "P1Harmony",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "park-bom-2ne1",
+  "kind": "idol",
+  "name": "Park Bom",
+  "qid": "Q494154",
+  "group": "2ne1",
+  "idol_id": 140,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "pentagon",
+  "kind": "group",
+  "name": "PENTAGON",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "pharita-babymonster",
+  "kind": "idol",
+  "name": "Pharita",
+  "qid": "Q123554436",
+  "group": "babymonster",
+  "idol_id": 143,
+  "why": "minor-group"
+ },
+ {
+  "slug": "purple-kiss",
+  "kind": "group",
+  "name": "PURPLE KISS",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "rami-babymonster",
+  "kind": "idol",
+  "name": "Rami",
+  "qid": "Q123554439",
+  "group": "babymonster",
+  "idol_id": 145,
+  "why": "minor-group"
+ },
+ {
+  "slug": "red-velvet",
+  "kind": "group",
+  "name": "Red Velvet",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "rei-ive",
+  "kind": "idol",
+  "name": "Rei",
+  "qid": "Q109571132",
+  "group": "ive",
+  "idol_id": 63,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "renjun-nct",
+  "kind": "idol",
+  "name": "Renjun",
+  "qid": "Q60229471",
+  "group": "nct",
+  "idol_id": 204,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "riize",
+  "kind": "group",
+  "name": "RIIZE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "riku-nct",
+  "kind": "idol",
+  "name": "Riku",
+  "qid": "Q122309465",
+  "group": "nct",
+  "idol_id": 95,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "rm-bts",
+  "kind": "idol",
+  "name": "RM",
+  "qid": "Q20514446",
+  "group": "bts",
+  "idol_id": 1,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "rora-babymonster",
+  "kind": "idol",
+  "name": "Rora",
+  "qid": "Q123554440",
+  "group": "babymonster",
+  "idol_id": 146,
+  "why": "minor-group"
+ },
+ {
+  "slug": "rose",
+  "kind": "idol",
+  "name": "Rosé",
+  "qid": "Q27655344",
+  "group": "blackpink",
+  "idol_id": 10,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "ruka-babymonster",
+  "kind": "idol",
+  "name": "Ruka",
+  "qid": "Q123554435",
+  "group": "babymonster",
+  "idol_id": 142,
+  "why": "minor-group"
+ },
+ {
+  "slug": "ryo-nct",
+  "kind": "idol",
+  "name": "Ryo",
+  "qid": "Q123153864",
+  "group": "nct",
+  "idol_id": 98,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "ryujin-itzy",
+  "kind": "idol",
+  "name": "Ryujin",
+  "qid": "Q60870265",
+  "group": "itzy",
+  "idol_id": 183,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "s-coups-seventeen",
+  "kind": "idol",
+  "name": "S.Coups",
+  "qid": "Q21824968",
+  "group": "seventeen",
+  "idol_id": 54,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sakura-le-sserafim",
+  "kind": "idol",
+  "name": "Sakura",
+  "qid": "Q869966",
+  "group": "le-sserafim",
+  "idol_id": 67,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sakuya-nct",
+  "kind": "idol",
+  "name": "Sakuya",
+  "qid": "Q122363261",
+  "group": "nct",
+  "idol_id": 97,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "san-ateez",
+  "kind": "idol",
+  "name": "San",
+  "qid": "Q85879242",
+  "group": "ateez",
+  "idol_id": 111,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sana-twice",
+  "kind": "idol",
+  "name": "Sana",
+  "qid": "Q23012025",
+  "group": "twice",
+  "idol_id": 24,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sanha-astro",
+  "kind": "idol",
+  "name": "Sanha",
+  "qid": "Q56278318",
+  "group": "astro",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sehun-exo",
+  "kind": "idol",
+  "name": "Sehun",
+  "qid": "Q10802388",
+  "group": "exo",
+  "idol_id": 176,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seohyun-girls-generation",
+  "kind": "idol",
+  "name": "Seohyun",
+  "qid": "Q240082",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seonghwa-ateez",
+  "kind": "idol",
+  "name": "Seonghwa",
+  "qid": "Q85880867",
+  "group": "ateez",
+  "idol_id": 108,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seonghyeon-cortis",
+  "kind": "idol",
+  "name": "Seonghyeon",
+  "qid": "Q135963751",
+  "group": "cortis",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "seulgi-red-velvet",
+  "kind": "idol",
+  "name": "Seulgi",
+  "qid": "Q15934116",
+  "group": "red-velvet",
+  "idol_id": 103,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seunghan-riize",
+  "kind": "idol",
+  "name": "Seunghan",
+  "qid": "Q131154617",
+  "group": "riize",
+  "idol_id": 155,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seungkwan-seventeen",
+  "kind": "idol",
+  "name": "Seungkwan",
+  "qid": "Q21824947",
+  "group": "seventeen",
+  "idol_id": 49,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seungmin-stray-kids",
+  "kind": "idol",
+  "name": "Seungmin",
+  "qid": "Q60467634",
+  "group": "stray-kids",
+  "idol_id": 18,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "seventeen",
+  "kind": "group",
+  "name": "SEVENTEEN",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "sheon-billlie",
+  "kind": "idol",
+  "name": "Sheon",
+  "qid": "Q117747301",
+  "group": "billlie",
+  "idol_id": 159,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "shinee",
+  "kind": "group",
+  "name": "SHINee",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "shinyu-tws",
+  "kind": "idol",
+  "name": "Shinyu",
+  "qid": "Q132041926",
+  "group": "tws",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "shotaro-riize",
+  "kind": "idol",
+  "name": "Shotaro",
+  "qid": "Q104604557",
+  "group": "riize",
+  "idol_id": 150,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "shownu-monsta-x",
+  "kind": "idol",
+  "name": "Shownu",
+  "qid": "Q24834621",
+  "group": "monsta-x",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "shuhua-i-dle",
+  "kind": "idol",
+  "name": "Shuhua",
+  "qid": "Q55287305",
+  "group": "gidle",
+  "idol_id": 59,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sinb-gfriend",
+  "kind": "idol",
+  "name": "SinB",
+  "qid": "Q21709909",
+  "group": "gfriend",
+  "idol_id": 127,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sion-nct",
+  "kind": "idol",
+  "name": "Sion",
+  "qid": "Q122272723",
+  "group": "nct",
+  "idol_id": 93,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sistar",
+  "kind": "group",
+  "name": "SISTAR",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "siyeon-dreamcatcher",
+  "kind": "idol",
+  "name": "Siyeon",
+  "qid": "Q59313326",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "siyoon-billlie",
+  "kind": "idol",
+  "name": "Siyoon",
+  "qid": "Q117805511",
+  "group": "billlie",
+  "idol_id": 161,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sohee-riize",
+  "kind": "idol",
+  "name": "Sohee",
+  "qid": "Q123528913",
+  "group": "riize",
+  "idol_id": 154,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "solar-mamamoo",
+  "kind": "idol",
+  "name": "Solar",
+  "qid": "Q19483969",
+  "group": "mamamoo",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "soobin-tomorrow-x-together",
+  "kind": "idol",
+  "name": "Soobin",
+  "qid": "Q62396828",
+  "group": "txt",
+  "idol_id": 122,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "soojin-i-dle",
+  "kind": "idol",
+  "name": "Soojin",
+  "qid": "Q61100297",
+  "group": "gidle",
+  "idol_id": 60,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sooyoung-girls-generation",
+  "kind": "idol",
+  "name": "Sooyoung",
+  "qid": "Q233385",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sophia-katseye",
+  "kind": "idol",
+  "name": "Sophia",
+  "qid": "Q124692753",
+  "group": "katseye",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "soul-p1harmony",
+  "kind": "idol",
+  "name": "Soul",
+  "qid": "Q121579375",
+  "group": "p1harmony",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "soyeon-i-dle",
+  "kind": "idol",
+  "name": "Soyeon",
+  "qid": "Q26707915",
+  "group": "gidle",
+  "idol_id": 57,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "stayc",
+  "kind": "group",
+  "name": "STAYC",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "stella-hearts2hearts",
+  "kind": "idol",
+  "name": "Stella",
+  "qid": "Q131932323",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "stray-kids",
+  "kind": "group",
+  "name": "Stray Kids",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "sua-billlie",
+  "kind": "idol",
+  "name": "Sua",
+  "qid": "Q22773742",
+  "group": "billlie",
+  "idol_id": 156,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sua-dreamcatcher",
+  "kind": "idol",
+  "name": "SuA",
+  "qid": "Q59313270",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "suga-bts",
+  "kind": "idol",
+  "name": "Suga",
+  "qid": "Q21075020",
+  "group": "bts",
+  "idol_id": 3,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "suho-exo",
+  "kind": "idol",
+  "name": "Suho",
+  "qid": "Q10822003",
+  "group": "exo",
+  "idol_id": 169,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "suhyeon-billlie",
+  "kind": "idol",
+  "name": "Suhyeon",
+  "qid": "Q59594164",
+  "group": "billlie",
+  "idol_id": 157,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "suhyun-akmu",
+  "kind": "idol",
+  "name": "Suhyun",
+  "qid": "Q18697707",
+  "group": "akmu",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sullyoon-nmixx",
+  "kind": "idol",
+  "name": "Sullyoon",
+  "qid": "Q109307956",
+  "group": "nmixx",
+  "idol_id": 187,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sungchan-riize",
+  "kind": "idol",
+  "name": "Sungchan",
+  "qid": "Q104370500",
+  "group": "riize",
+  "idol_id": 149,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sunghoon-enhypen",
+  "kind": "idol",
+  "name": "Sunghoon",
+  "qid": "Q17198771",
+  "group": "enhypen",
+  "idol_id": 118,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sunny-girls-generation",
+  "kind": "idol",
+  "name": "Sunny",
+  "qid": "Q233894",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "sunoo-enhypen",
+  "kind": "idol",
+  "name": "Sunoo",
+  "qid": "Q105718407",
+  "group": "enhypen",
+  "idol_id": 119,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "t-ara",
+  "kind": "group",
+  "name": "T-ARA",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "taehyun-tomorrow-x-together",
+  "kind": "idol",
+  "name": "Taehyun",
+  "qid": "Q61715235",
+  "group": "txt",
+  "idol_id": 125,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "taeil-nct",
+  "kind": "idol",
+  "name": "Taeil",
+  "qid": "Q28653640",
+  "group": "nct",
+  "idol_id": 74,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "taemin-shinee",
+  "kind": "idol",
+  "name": "Taemin",
+  "qid": "Q153597",
+  "group": "shinee",
+  "idol_id": 196,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "taerae-zerobaseone",
+  "kind": "idol",
+  "name": "Taerae",
+  "qid": "Q117817675",
+  "group": "zerobaseone",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "taeyang",
+  "kind": "idol",
+  "name": "Taeyang",
+  "qid": "Q482991",
+  "group": "bigbang",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "taeyeon",
+  "kind": "idol",
+  "name": "Taeyeon",
+  "qid": "Q233371",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "taeyong-nct",
+  "kind": "idol",
+  "name": "Taeyong",
+  "qid": "Q26459163",
+  "group": "nct",
+  "idol_id": 73,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "tao-exo",
+  "kind": "idol",
+  "name": "Tao",
+  "qid": "Q10769072",
+  "group": "exo",
+  "idol_id": 178,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "team",
+  "kind": "group",
+  "name": "&TEAM",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "ten-nct",
+  "kind": "idol",
+  "name": "Ten",
+  "qid": "Q26451151",
+  "group": "nct",
+  "idol_id": 82,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "the8-seventeen",
+  "kind": "idol",
+  "name": "The8",
+  "qid": "Q21824868",
+  "group": "seventeen",
+  "idol_id": 53,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "theo-p1harmony",
+  "kind": "idol",
+  "name": "Theo",
+  "qid": "Q121579075",
+  "group": "p1harmony",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "tiffany-girls-generation",
+  "kind": "idol",
+  "name": "Tiffany",
+  "qid": "Q236355",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "treasure",
+  "kind": "group",
+  "name": "TREASURE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "tsuki-billlie",
+  "kind": "idol",
+  "name": "Tsuki",
+  "qid": "Q111113517",
+  "group": "billlie",
+  "idol_id": 158,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "twice",
+  "kind": "group",
+  "name": "TWICE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "tws",
+  "kind": "group",
+  "name": "TWS",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "txt",
+  "kind": "group",
+  "name": "TOMORROW X TOGETHER",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "tzuyu-twice",
+  "kind": "idol",
+  "name": "Tzuyu",
+  "qid": "Q20688219",
+  "group": "twice",
+  "idol_id": 29,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "umji-gfriend",
+  "kind": "idol",
+  "name": "Umji",
+  "qid": "Q24572927",
+  "group": "gfriend",
+  "idol_id": 129,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "v-bts",
+  "kind": "idol",
+  "name": "V",
+  "qid": "Q18388296",
+  "group": "bts",
+  "idol_id": 6,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "vernon-seventeen",
+  "kind": "idol",
+  "name": "Vernon",
+  "qid": "Q21824912",
+  "group": "seventeen",
+  "idol_id": 50,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "viviz",
+  "kind": "group",
+  "name": "VIVIZ",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "wayv",
+  "kind": "group",
+  "name": "WayV",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "wendy-red-velvet",
+  "kind": "idol",
+  "name": "Wendy",
+  "qid": "Q17478642",
+  "group": "red-velvet",
+  "idol_id": 104,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "wheein-mamamoo",
+  "kind": "idol",
+  "name": "Wheein",
+  "qid": "Q19603930",
+  "group": "mamamoo",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "winner",
+  "kind": "group",
+  "name": "WINNER",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ },
+ {
+  "slug": "winter-aespa",
+  "kind": "idol",
+  "name": "Winter",
+  "qid": "Q101161289",
+  "group": "aespa",
+  "idol_id": 32,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "winwin-nct",
+  "kind": "idol",
+  "name": "Winwin",
+  "qid": "Q56259872",
+  "group": "nct",
+  "idol_id": 87,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "wonbin-riize",
+  "kind": "idol",
+  "name": "Wonbin",
+  "qid": "Q123528897",
+  "group": "riize",
+  "idol_id": 153,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "wonhee-illit",
+  "kind": "idol",
+  "name": "Wonhee",
+  "qid": "Q126923760",
+  "group": "illit",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "wonwoo-seventeen",
+  "kind": "idol",
+  "name": "Wonwoo",
+  "qid": "Q21623339",
+  "group": "seventeen",
+  "idol_id": 44,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "wonyoung-ive",
+  "kind": "idol",
+  "name": "Wonyoung",
+  "qid": "Q56476186",
+  "group": "ive",
+  "idol_id": 64,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "woojin-stray-kids",
+  "kind": "idol",
+  "name": "Woojin",
+  "qid": "Q61100680",
+  "group": "stray-kids",
+  "idol_id": 20,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "wooyoung-ateez",
+  "kind": "idol",
+  "name": "Wooyoung",
+  "qid": "Q65054015",
+  "group": "ateez",
+  "idol_id": 113,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "woozi-seventeen",
+  "kind": "idol",
+  "name": "Woozi",
+  "qid": "Q21824990",
+  "group": "seventeen",
+  "idol_id": 45,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "xiaojun-nct",
+  "kind": "idol",
+  "name": "Xiaojun",
+  "qid": "Q67975453",
+  "group": "nct",
+  "idol_id": 91,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "xiaoting-kep1er",
+  "kind": "idol",
+  "name": "Xiaoting",
+  "qid": "Q109108495",
+  "group": "kep1er",
+  "idol_id": 132,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "xiumin-exo",
+  "kind": "idol",
+  "name": "Xiumin",
+  "qid": "Q10834841",
+  "group": "exo",
+  "idol_id": 168,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yangyang-nct",
+  "kind": "idol",
+  "name": "Yangyang",
+  "qid": "Q67975872",
+  "group": "nct",
+  "idol_id": 92,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "ye-on-hearts2hearts",
+  "kind": "idol",
+  "name": "Ye-on",
+  "qid": "Q131932327",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "yeji-itzy",
+  "kind": "idol",
+  "name": "Yeji",
+  "qid": "Q60870268",
+  "group": "itzy",
+  "idol_id": 181,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yeojin-loona",
+  "kind": "idol",
+  "name": "Yeojin",
+  "qid": "Q56824821",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yeonjun-tomorrow-x-together",
+  "kind": "idol",
+  "name": "Yeonjun",
+  "qid": "Q62396954",
+  "group": "txt",
+  "idol_id": 123,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yeosang-ateez",
+  "kind": "idol",
+  "name": "Yeosang",
+  "qid": "Q85878532",
+  "group": "ateez",
+  "idol_id": 110,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yeri-red-velvet",
+  "kind": "idol",
+  "name": "Yeri",
+  "qid": "Q19940498",
+  "group": "red-velvet",
+  "idol_id": 106,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yeseo-busters",
+  "kind": "idol",
+  "name": "Yeseo",
+  "qid": "Q12582984",
+  "group": "busters",
+  "idol_id": 130,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yewon-fifty-fifty",
+  "kind": "idol",
+  "name": "Yewon",
+  "qid": "Q129548065",
+  "group": "fifty-fifty",
+  "idol_id": 165,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yoohyeon-dreamcatcher",
+  "kind": "idol",
+  "name": "Yoohyeon",
+  "qid": "Q59313479",
+  "group": "dreamcatcher",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yoona-girls-generation",
+  "kind": "idol",
+  "name": "Yoona",
+  "qid": "Q466975",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "youngeun-kep1er",
+  "kind": "idol",
+  "name": "Youngeun",
+  "qid": "Q109141485",
+  "group": "kep1er",
+  "idol_id": 137,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "youngjae-got7",
+  "kind": "idol",
+  "name": "Youngjae",
+  "qid": "Q17500581",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "youngjae-tws",
+  "kind": "idol",
+  "name": "Youngjae",
+  "qid": "Q132041928",
+  "group": "tws",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yugyeom-got7",
+  "kind": "idol",
+  "name": "Yugyeom",
+  "qid": "Q17500887",
+  "group": "got7",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yuha-hearts2hearts",
+  "kind": "idol",
+  "name": "Yuha",
+  "qid": "Q131932322",
+  "group": "hearts2hearts",
+  "idol_id": null,
+  "why": "minor-group"
+ },
+ {
+  "slug": "yujin-ive",
+  "kind": "idol",
+  "name": "Yujin",
+  "qid": "Q55694622",
+  "group": "ive",
+  "idol_id": 61,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yujin-kep1er",
+  "kind": "idol",
+  "name": "Yujin",
+  "qid": "Q28698283",
+  "group": "kep1er",
+  "idol_id": 131,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yuna-itzy",
+  "kind": "idol",
+  "name": "Yuna",
+  "qid": "Q60870263",
+  "group": "itzy",
+  "idol_id": 185,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yunah-illit",
+  "kind": "idol",
+  "name": "Yunah",
+  "qid": "Q126923756",
+  "group": "illit",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yunho-ateez",
+  "kind": "idol",
+  "name": "Yunho",
+  "qid": "Q85873722",
+  "group": "ateez",
+  "idol_id": 109,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yunjin-le-sserafim",
+  "kind": "idol",
+  "name": "Yunjin",
+  "qid": "Q111537648",
+  "group": "le-sserafim",
+  "idol_id": 69,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yuqi-i-dle",
+  "kind": "idol",
+  "name": "Yuqi",
+  "qid": "Q55287306",
+  "group": "gidle",
+  "idol_id": 58,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yuri-girls-generation",
+  "kind": "idol",
+  "name": "Yuri",
+  "qid": "Q276158",
+  "group": "girls-generation",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yushi-nct",
+  "kind": "idol",
+  "name": "Yushi",
+  "qid": "Q122293880",
+  "group": "nct",
+  "idol_id": 94,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yuta-nct",
+  "kind": "idol",
+  "name": "Yuta",
+  "qid": "Q22773776",
+  "group": "nct",
+  "idol_id": 76,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "yves-loona",
+  "kind": "idol",
+  "name": "Yves",
+  "qid": "Q58825704",
+  "group": "loona",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "zerobaseone",
+  "kind": "group",
+  "name": "ZEROBASEONE",
+  "qid": null,
+  "group": null,
+  "idol_id": null,
+  "why": "group"
+ }
+]
