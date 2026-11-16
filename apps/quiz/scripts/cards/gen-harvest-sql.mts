@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import type { HarvestPhotosFile } from '../../src/lib/cards/harvest-checks';
-import { buildHarvest, harvestInputOf } from '../../src/lib/cards/harvest-sql';
+import { buildHarvest, harvestInputOf, typesOf111 } from '../../src/lib/cards/harvest-sql';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 const OUT = path.join(REPO, 'docs/pending-migrations/cards');
@@ -14,7 +14,9 @@ export const LOT6_PHOTOS = path.join(REPO, 'docs/design/cards/data/lot6/photos.j
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const file = JSON.parse(readFileSync(LOT6_PHOTOS, 'utf8')) as HarvestPhotosFile;
-  const input = harvestInputOf(file);
+  // file 111's group types (two sources each): 116 gives them to the groups it brings in
+  const t111 = typesOf111(readFileSync(path.join(OUT, '111-group-types.sql'), 'utf8'));
+  const input = { ...harvestInputOf(file), types: t111.types, types_checked_on: t111.checked_on };
   const out = buildHarvest(input);
   writeFileSync(path.join(OUT, '116-photos-harvest.sql'), out.sql);
   writeFileSync(path.join(OUT, '116-photos-harvest.rollback.sql'), out.rollback);

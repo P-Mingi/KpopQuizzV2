@@ -20,6 +20,11 @@ insert into public.idols (group_id, name, birth_date, wikidata_qid, active) valu
 -- a Kpopdle idol whose Wikidata id has two rows (as Kai or DK in production): found by its id
 insert into public.idols (id, group_id, name, birth_date, wikidata_qid, active) values (9001, gid('dups'), 'Dup Kpopdle', '1996-01-01', 'Q701', true),
   (9002, gid('trio'), 'Dup Kpopdle', '1996-01-01', 'Q701', true);
+-- the table of the group types (file 110, in production since 2026-11-15), empty here
+create table if not exists public.cards_group_types (
+  entity_id text constraint cards_group_types_pkey primary key constraint cards_group_types_entity_id_fkey references public.cards_entities(id) on delete cascade,
+  gender text not null constraint cards_group_types_gender_check check (gender in ('girl', 'boy', 'mixed')),
+  source_a text not null, source_b text not null, checked_on date not null);
 -- the Kpopdle source view reads no row with needs_review (as in production, file 099)
 create view public.dle_src_kpop_idol as select id::text as entity_id from public.idols where active and not needs_review;
 `;

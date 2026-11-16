@@ -42,6 +42,10 @@ export function dyn(need, expr) {
   return `case when ${need} then convert_from(decode(substring(query_to_xml($q$${inner}$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end`;
 }
 
+/** The refs that 116-photos-harvest.sql (lot 6) logged in cards_harvest_log for one kind, as a text array ('{}' before 116): what lot 6
+ *  added is checked by lot 6's own rules (verify-harvest.mts, its Verify lines), so the exact-set rows of 102 and 103 leave it out. */
+const LOG116 = (kind) => `string_to_array(coalesce(${dyn(tbl('cards_harvest_log'), `select coalesce(string_agg(ref, ','), '') from public.cards_harvest_log where kind = '${kind}'`)}, ''), ',')`;
+
 /** The number of public functions with these names. */
 const nproc = (names) => `(select count(*)::text from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names.map(lit).join(', ')}))`;
 /** "name count, ..." for these function names. */
@@ -222,9 +226,10 @@ export const CHECKS = {
       got: dyn(col('cards_catalog', 'part'), "select format('0: %s, 1: %s, 2: %s', count(*) filter (where part = 0), count(*) filter (where part = 1), count(*) filter (where part = 2)) from public.cards_catalog") },
     { line: 28, label: 'numbers 1 to N, contiguous', expect: contiguous('select count(*) from public.cards_catalog'), got: minMaxCount },
     { line: 29, label: 'pairs without consecutive numbers', expect: "'0'", got: pairsApart },
-    { line: 30, label: 'subjects the age rule of 102 leaves out that have an entity (after the bundle: only those 103 brings back with newer photos, resolved now)',
+    { line: 30, label: 'subjects the age rule of 102 leaves out that have an entity (after the bundle: only those 103 brings back with newer photos, resolved now; an entity of 116 is checked by lot 6)',
       expect: "(select coalesce(string_agg(a.id, ', ' order by a.pos), '') from age102 a where a.id in (select id from e103))",
-      got: "(select coalesce(string_agg(a.id, ', ' order by a.pos), '') from age102 a where exists (select 1 from public.cards_entities e where e.id = a.id))" },
+      got: `(select coalesce(string_agg(a.id, ', ' order by a.pos), '') from age102 a where exists (select 1 from public.cards_entities e where e.id = a.id)
+       and a.id <> all (${LOG116('entity')}))` },
     { line: 31, label: 'slugs without their October photo (after the bundle: the slugs whose 103 subject is out or carries no such photo)',
       expect: "(select coalesce(string_agg(l.slug, ', ' order by l.pos), '') from lot1 l where not exists (select 1 from r103 r where r.slug = l.subject and r.reason is null))",
       got: "(select coalesce(string_agg(l.slug, ', ' order by l.pos), '') from lot1 l where not exists (select 1 from public.cards_photos p where p.source_path = 'images/group-photos/' || l.slug || '.jpg'))" },
@@ -251,10 +256,11 @@ export const CHECKS = {
     { line: 32, label: 'subjects with fewer than 2 editions', expect: "'0'",
       got: '(select count(*)::text from (select entity_id from public.cards_catalog group by entity_id having count(distinct rarity) < 2) x)' },
     { line: 33, label: 'pairs without consecutive numbers', expect: "'0'", got: pairsApart },
-    { line: 34, label: 'the photos of the file of the subjects resolved now are all there, none lost and no other, whatever their status (the owner approves or refuses them; the notice "photos ...")',
+    { line: 34, label: 'the photos of the file of the subjects resolved now are all there, none lost and no other, whatever their status (the owner approves or refuses them; the notice "photos ..."; a photo of 116 is checked by lot 6)',
       expect: "(select count(*) || ' photos of the file' from l103p f join r103 r on r.slug = f.slug where r.reason is null)",
       got: `(select x.n || ' photos of the file' || case when x.other > 0 then ' and ' || x.other || ' others' else '' end || ' (' || x.st || ')' from (
-       select count(distinct (p.entity_id, md5(p.source_page))) filter (where f.slug is not null) as n, count(*) filter (where f.slug is null) as other,
+       select count(distinct (p.entity_id, md5(p.source_page))) filter (where f.slug is not null) as n,
+              count(*) filter (where f.slug is null and p.id::text <> all (${LOG116('photo')})) as other,
               (select coalesce(string_agg(st || ' ' || c, ', ' order by st), 'none') from (select status as st, count(*) as c from public.cards_photos group by status) q) as st
          from public.cards_photos p
          left join (select f.slug, f.page_md5 from l103p f join r103 r on r.slug = f.slug where r.reason is null) f

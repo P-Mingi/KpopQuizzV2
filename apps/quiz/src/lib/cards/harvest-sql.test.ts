@@ -9,7 +9,7 @@ import path from 'node:path';
 import { vi, beforeAll, describe, expect, it } from 'vitest';
 
 import { EXISTING_PAGE, HARVEST, HARVEST_SQL, at, harvestBase } from './harvest-fixture';
-import { buildHarvest } from './harvest-sql';
+import { buildHarvest, typesOf111 } from './harvest-sql';
 import { PLAYER } from './catalog-append-fixture';
 import { failure, freshCardsDb, one, rows, CARDS_SQL } from './sql-harness';
 
@@ -65,6 +65,8 @@ describe('116-photos-harvest.sql', () => {
     const expect1 = new Map<string, string>([
       ["column_name = 'age_lock';", '1'], ["proname = 'cards_age_locks';", '1'], ["'authenticated', 'public.cards_age_locks(date)', 'execute');", 'false'],
       ["has_function_privilege('service_role'", 'true'], ['not exists (select 1 from public.cards_entities e where e.id = p.entity_id);', '0'],
+      // integrator, 2026-11-16: the rows of 116 are never active, and the trigger that keeps them so is there
+      ["review_reason like '116-photos-harvest%' and active;", '0'], ["tgname = 'cards_116_idols_guard' and not tgisinternal;", '1'],
     ]);
     for (const line of lines) {
       const q = /^-- Verify: (.*?);\s{3}/.exec(line)?.[1];
@@ -333,5 +335,71 @@ describe('116-photos-harvest.sql: a person with no public.idols row (ORCH and in
     expect(await one(db, `select count(*) from public.idols where name = 'Nobody Yet'`)).toBe(1);
     expect(await one(db, `select count(*) from public.idols where name = 'Nobody Else'`)).toBe(0);
     expect(idolsBefore).toBeTruthy();
+  });
+});
+
+describe('116-photos-harvest.sql: a row it adds to public.idols never becomes active (integrator, 2026-11-16)', () => {
+  // policy idols_public_read shows active rows only: while these rows stay inactive, the birth date the owner fills stays private
+  it('opens a pocket at read time and never makes the row active, through the lock, a rebuild, or a manual update while under 18', async () => {
+    const db = await base();
+    const sql = buildHarvest({
+      checked_on: '2026-11-16',
+      subjects: [{ slug: 'teen-yet-trio', kind: 'idol', name: 'Teen Yet', qid: 'Q4250', group: 'trio', locked: true, photos: [] }],
+    });
+    await run(db, at(sql.sql, '12:00'));
+    const row = `(select id from public.idols where wikidata_qid = 'Q4250')`;
+    const active = () => one<boolean>(db, `select active from public.idols where wikidata_qid = 'Q4250'`);
+    expect(await active()).toBe(false);
+    // no date: the trigger refuses active = true
+    expect(await failure(db, `update public.idols set active = true where id = ${row}`)).toMatch(/stays inactive while the person is under 18 or has no birth date/);
+    // the owner fills a date (as 116b does): locked before the 18th birthday, open on the day, the row still inactive
+    await db.exec(`update public.idols set birth_date = '2010-01-01' where id = ${row}`);
+    const lock = (d: string) => one<boolean>(db, `select locked from cards_age_locks('${d}'::date) where entity_id = 'idol:teen-yet-trio'`);
+    expect(await lock('2027-12-31')).toBe(true);
+    expect(await lock('2028-01-01')).toBe(false);
+    await db.exec('select public.cards_build_catalog()');
+    expect(await active()).toBe(false);
+    // under 18 today: the trigger refuses it too
+    expect(await failure(db, `update public.idols set active = true where id = ${row}`)).toMatch(/stays inactive/);
+    expect(await active()).toBe(false);
+    // the lock functions only read: no insert, update or delete in their bodies
+    for (const f of ['cards_age_locks', 'cards_age_day']) {
+      expect(await one<string>(db, `select prosrc from pg_proc where proname = '${f}'`), f).not.toMatch(/\b(insert|update|delete)\b/i);
+    }
+    // an adult with a date may be published later by the owner; a row that is not of 116 is not touched by the trigger
+    await db.exec(`update public.idols set birth_date = '1999-01-01' where id = ${row}`);
+    expect(await failure(db, `update public.idols set active = true where id = ${row}`)).toBeNull();
+    await db.exec(`update public.idols set active = false where name = 'Cleo'`);
+    expect(await failure(db, `update public.idols set active = true where name = 'Cleo'`)).toBeNull();
+    // the rollback removes the trigger and its function
+    await run(db, sql.rollback);
+    expect(await one(db, `select count(*) from pg_trigger where tgname = 'cards_116_idols_guard'`)).toBe(0);
+    expect(await one(db, `select count(*) from pg_proc where proname = 'cards_116_idols_guard'`)).toBe(0);
+  });
+});
+
+describe('116-photos-harvest.sql: the type of a group it brings in, from file 111 (two sources each)', () => {
+  it('reads 111\'s list, gives a type to a group entity of the lot that has none, invents none, and the rollback removes it', async () => {
+    const t111 = typesOf111(readFileSync(path.join(CARDS_SQL, '111-group-types.sql'), 'utf8'));
+    expect(t111.types).toHaveLength(41);
+    expect(t111.checked_on).toBe('2026-11-13');
+    expect(t111.types.every((t) => t.source_a.length > 0 && t.source_b.length > 0 && t.source_a !== t.source_b)).toBe(true);
+    const db = await base();
+    // the fixture holds the table of 110 (empty)
+    const types = [
+      { id: 'group:trio', gender: 'girl' as const, source_a: 'en.wikipedia.org short description "girl group" (TRIO)', source_b: 'Wikidata item Q1, instance of Q641066 (girl group)' },
+      { id: 'group:elsewhere', gender: 'boy' as const, source_a: 'a', source_b: 'b' },
+    ];
+    const sql = buildHarvest({ ...HARVEST, types, types_checked_on: '2026-11-13' });
+    // only the groups of the lot are in the file
+    expect(sql.sql).toContain('group:trio');
+    expect(sql.sql).not.toContain('group:elsewhere');
+    const n = (await run(db, at(sql.sql, '12:00'))).join('\n');
+    expect(n).toMatch(/group types added 1 \(from file 111\)/);
+    expect(await rows(db, `select entity_id, gender, checked_on::text from public.cards_group_types`)).toEqual([{ entity_id: 'group:trio', gender: 'girl', checked_on: '2026-11-13' }]);
+    // a second run adds nothing
+    expect((await run(db, at(sql.sql, '12:00'))).join('\n')).toMatch(/group types added 0/);
+    await run(db, sql.rollback);
+    expect(await one(db, 'select count(*) from public.cards_group_types')).toBe(0);
   });
 });
