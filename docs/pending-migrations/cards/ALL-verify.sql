@@ -613,9 +613,10 @@ checks as (
                  case when exists (select 1 from pg_attribute where attrelid = to_regclass('public.cards_catalog') and attname = 'part' and attnum > 0 and not attisdropped) then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select count(*) from public.cards_catalog a join public.cards_catalog b on b.entity_id = a.entity_id and b.rarity = a.rarity and b.part = 2
      where a.part = 1 and b.card_no <> a.card_no + 1)::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
-  select 9 as n, '102-catalog-rebuild.sql' as fichier, 'line 30: subjects the age rule of 102 leaves out that have an entity (after the bundle: only those 103 brings back with newer photos, resolved now)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+  select 9 as n, '102-catalog-rebuild.sql' as fichier, 'line 30: subjects the age rule of 102 leaves out that have an entity (after the bundle: only those 103 brings back with newer photos, resolved now; an entity of 116 is checked by lot 6)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select (select coalesce(string_agg(a.id, ', ' order by a.pos), '') from age102 a where a.id in (select id from e103)) as a,
-                 (select coalesce(string_agg(a.id, ', ' order by a.pos), '') from age102 a where exists (select 1 from public.cards_entities e where e.id = a.id)) as o) x
+                 (select coalesce(string_agg(a.id, ', ' order by a.pos), '') from age102 a where exists (select 1 from public.cards_entities e where e.id = a.id)
+       and a.id <> all (string_to_array(coalesce(case when to_regclass('public.cards_harvest_log') is not null then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select coalesce(string_agg(ref, ','), '') from public.cards_harvest_log where kind = 'entity')::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end, ''), ','))) as o) x
   union all
   select 10 as n, '102-catalog-rebuild.sql' as fichier, 'line 31: slugs without their October photo (after the bundle: the slugs whose 103 subject is out or carries no such photo)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select (select coalesce(string_agg(l.slug, ', ' order by l.pos), '') from lot1 l where not exists (select 1 from r103 r where r.slug = l.subject and r.reason is null)) as a,
@@ -666,10 +667,11 @@ checks as (
                  case when exists (select 1 from pg_attribute where attrelid = to_regclass('public.cards_catalog') and attname = 'part' and attnum > 0 and not attisdropped) then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select count(*) from public.cards_catalog a join public.cards_catalog b on b.entity_id = a.entity_id and b.rarity = a.rarity and b.part = 2
      where a.part = 1 and b.card_no <> a.card_no + 1)::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
-  select 20 as n, '103-catalog-photos.sql' as fichier, 'line 34: the photos of the file of the subjects resolved now are all there, none lost and no other, whatever their status (the owner approves or refuses them; the notice "photos ...")' as controle, a as attendu, o as obtenu, coalesce(split_part(o, ' (', 1) = a, false) as ok
+  select 20 as n, '103-catalog-photos.sql' as fichier, 'line 34: the photos of the file of the subjects resolved now are all there, none lost and no other, whatever their status (the owner approves or refuses them; the notice "photos ..."; a photo of 116 is checked by lot 6)' as controle, a as attendu, o as obtenu, coalesce(split_part(o, ' (', 1) = a, false) as ok
     from (select (select count(*) || ' photos of the file' from l103p f join r103 r on r.slug = f.slug where r.reason is null) as a,
                  (select x.n || ' photos of the file' || case when x.other > 0 then ' and ' || x.other || ' others' else '' end || ' (' || x.st || ')' from (
-       select count(distinct (p.entity_id, md5(p.source_page))) filter (where f.slug is not null) as n, count(*) filter (where f.slug is null) as other,
+       select count(distinct (p.entity_id, md5(p.source_page))) filter (where f.slug is not null) as n,
+              count(*) filter (where f.slug is null and p.id::text <> all (string_to_array(coalesce(case when to_regclass('public.cards_harvest_log') is not null then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select coalesce(string_agg(ref, ','), '') from public.cards_harvest_log where kind = 'photo')::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end, ''), ','))) as other,
               (select coalesce(string_agg(st || ' ' || c, ', ' order by st), 'none') from (select status as st, count(*) as c from public.cards_photos group by status) q) as st
          from public.cards_photos p
          left join (select f.slug, f.page_md5 from l103p f join r103 r on r.slug = f.slug where r.reason is null) f

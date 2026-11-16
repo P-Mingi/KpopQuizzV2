@@ -160,7 +160,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
     return [];
   }, [lastPack, owned, byN, w?.last]);
   const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
-  const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists'), [catalog.sections]);
+  const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists' && !s.soon), [catalog.sections]);
   // The prototype's default focus group is TWICE (S.focus "twice"); a catalog without it starts on its first group.
   useEffect(() => { if (!focusG && groups[0]) setFocusG((groups.find((g) => g.name === 'TWICE') ?? groups[0]).id); }, [focusG, groups]);
   const focusGroup = groups.find((g) => g.id === focusG) ?? groups[0] ?? null;

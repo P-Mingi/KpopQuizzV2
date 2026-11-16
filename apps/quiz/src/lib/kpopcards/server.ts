@@ -54,6 +54,7 @@ const GENDER_THEME: Record<string, ThemeId | undefined> = { girl: 'girls', boy: 
 export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'>, types: ReadonlyMap<string, string>): World {
   const entities: UiEntity[] = cat.entities.map((e) => ({
     id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear !== undefined ? { endYear: e.endYear } : {}),
+    ...(e.locked ? { locked: true as const } : {}),
   }));
   const cards = cat.cards as unknown as UiCard[];
   const groupHasCard = new Set<string>();
@@ -64,6 +65,7 @@ export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'>, types
   const byId = new Map(cat.entities.map((e) => [e.id, e]));
   const themeOf = new Map<string, ThemeId>();
   for (const e of cat.entities) {
+    if (e.locked) continue; // Lot 6: an age-locked subject belongs to no pack
     if (e.kind === 'group') {
       const t = GENDER_THEME[types.get(e.id) ?? ''];
       if (t) themeOf.set(e.id, t);

@@ -19,6 +19,8 @@ interface CardRow {
 interface EntityRow {
   id: string; kind: CardKind; name: string; group_id: string | null; debut_year: number | null; sort_key: string;
   lock_reasons: Record<string, string> | null; end_year?: number | null;
+  /** age_lock comes with file 116 (lot 6): absent before it. */
+  age_lock?: boolean | null;
 }
 interface PhotoRow {
   id: number; slot: number; source: PhotoSource; source_page: string; author: string; author_url: string | null; licence: string;
@@ -79,7 +81,7 @@ export function cardImage(p: ImagePhotoRow, base?: string, card: { part?: number
 }
 
 /** Builds the payload from the three table reads (pure, tested without a database). */
-export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: PhotoRow[], generatedAt: string, base?: string): CatalogPayload {
+export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: PhotoRow[], generatedAt: string, base?: string, locked: ReadonlySet<string> = new Set()): CatalogPayload {
   const ent = new Map(entities.map((e) => [e.id, e]));
   const photo = new Map(photos.map((p) => [p.id, p]));
   const outEntities: CatalogEntity[] = entities.map((e) => {
@@ -88,6 +90,7 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
     return {
       id: e.id, kind: e.kind, name: e.name, groupId: e.group_id, group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : null,
       debutYear: e.debut_year, sortKey: e.sort_key, lockReasons, ...(typeof e.end_year === 'number' ? { endYear: e.end_year } : {}),
+      ...(locked.has(e.id) ? { locked: true as const } : {}),
     };
   });
   const outCards: CatalogCard[] = [];
@@ -97,6 +100,8 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
   for (const c of cards) {
     const e = ent.get(c.entity_id);
     if (!e) continue;
+    // Lot 6: a locked subject has no card in the payload, whatever the database holds (fail closed).
+    if (locked.has(c.entity_id)) continue;
     const p = c.photo_id === null ? undefined : photo.get(c.photo_id);
     const credit: PhotoCredit | null = p
       ? {
@@ -117,6 +122,23 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
   return { generatedAt, odds: pool.length > 0 ? computeOdds(pool) : null, cards: outCards, entities: outEntities };
 }
 
+/** One row of cards_age_locks() (file 116). opens_month is read by the admin only: it never enters the payload. */
+export interface AgeLockRow { entity_id: string; locked: boolean | null; opens_month?: string | null }
+
+/**
+ * The ids of the entities that are locked right now (lot 6). Only an entity with age_lock set can be locked. The database answers
+ * (cards_age_locks()); a missing row, or an answer that did not come, locks it: fail closed. Before file 116 no row has age_lock.
+ */
+export function lockedIds(entities: readonly EntityRow[], answer: readonly AgeLockRow[] | null): Set<string> {
+  const out = new Set<string>();
+  const byId = new Map((answer ?? []).map((r) => [r.entity_id, r.locked]));
+  for (const e of entities) {
+    if (e.age_lock !== true) continue;
+    if (answer === null || byId.get(e.id) !== false) out.add(e.id);
+  }
+  return out;
+}
+
 let cached: { at: number; payload: CatalogPayload } | null = null;
 
 export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayload> {
@@ -134,7 +156,13 @@ export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayl
         .select('id, slot, source, source_page, author, author_url, licence, licence_url, share_alike, modified, focal_x, focal_y, storage_path, source_path, file_focal_x, file_focal_y, small_2x')
         .in('status', ['auto', 'approved']).order('id', { ascending: true })),
   ]);
-  const payload = buildCatalog(cards, entities, photos, new Date(now).toISOString());
+  // Lot 6: the age lock is computed by the database at read time; the answer is cached with the catalog (5 minutes), so a pocket opens by itself.
+  let answer: AgeLockRow[] | null = [];
+  if (entities.some((e) => e.age_lock === true)) {
+    const r = await db.rpc('cards_age_locks');
+    answer = r.error || !Array.isArray(r.data) ? null : (r.data as AgeLockRow[]);
+  }
+  const payload = buildCatalog(cards, entities, photos, new Date(now).toISOString(), undefined, lockedIds(entities, answer));
   cached = { at: now, payload };
   return payload;
 }

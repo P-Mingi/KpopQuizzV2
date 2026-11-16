@@ -21,94 +21,15 @@ import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { checkSubject, type CandidateFile, type CommonsInfo, type Confirmation, type Lot2Subject, type ResearchRow, type Status } from '../../src/lib/cards/photo-checks';
+import { REPO, arg, commonsInfo, fileOfPage, outsideRepo } from './commons-io.mts';
+import { checkSubject, type CandidateFile, type Confirmation, type Lot2Subject, type ResearchRow, type Status } from '../../src/lib/cards/photo-checks';
 
-const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 export const PHOTOS_JSON = path.join(REPO, 'docs/design/cards/data/photos.json');
 const SUBJECTS_JSON = path.join(REPO, 'docs/design/cards/data/subjects.json');
 const AGE_JSON = path.join(REPO, 'docs/design/cards/data/age-check.json');
-const UA = 'BunnyverseCards/1.0 (https://bunnyverse.org; hello@kpopquiz.org)';
-const API = 'https://commons.wikimedia.org/w/api.php';
 
 /** The groups lot 2 left out ONLY because someone was under 18 on the old photo's date (integrator brief lot 3, part A). */
 export const RETURNING = ['akmu', 'billlie', 'fromis-9', 'illit', 'kara', 'loona', 'nct', 'tws', 'fifty-fifty', 't-ara'] as const;
-
-// ---- I/O ----
-
-const sleep = (ms: number) => new Promise((ok) => setTimeout(ok, ms));
-let last = 0;
-async function api(params: Record<string, string>): Promise<any> {
-  const wait = last + 1000 - Date.now();
-  if (wait > 0) await sleep(wait);
-  last = Date.now();
-  const url = `${API}?${new URLSearchParams({ format: 'json', formatversion: '2', maxlag: '5', ...params })}`;
-  for (let attempt = 0; attempt < 5; attempt++) {
-    const r = await fetch(url, { headers: { 'User-Agent': UA } });
-    if (r.status === 429 || r.status >= 500) { await sleep(5000 * (attempt + 1)); continue; }
-    if (!r.ok) throw new Error(`Commons API ${r.status}`);
-    const j = await r.json();
-    if (j.error?.code === 'maxlag') { await sleep(5000 * (attempt + 1)); continue; }
-    return j;
-  }
-  throw new Error('Commons API: too many retries');
-}
-
-async function commonsInfo(titles: string[]): Promise<Map<string, CommonsInfo>> {
-  const out = new Map<string, CommonsInfo>();
-  for (let i = 0; i < titles.length; i += 10) {
-    const batch = titles.slice(i, i + 10);
-    const acc = new Map<string, CommonsInfo>();
-    const alias = new Map<string, string>();
-    let cont: Record<string, string> = {};
-    for (;;) {
-      const j = await api({
-        action: 'query', titles: batch.join('|'), redirects: '1', prop: 'imageinfo|categories|templates',
-        iiprop: 'url|size|sha1|mime|extmetadata', iiextmetadatafilter: 'Artist|LicenseShortName|LicenseUrl|DateTimeOriginal',
-        cllimit: 'max', tllimit: 'max', tlnamespace: '10', ...cont,
-      });
-      for (const n of j.query?.normalized ?? []) alias.set(n.from, n.to);
-      for (const n of j.query?.redirects ?? []) alias.set(n.from, n.to);
-      for (const pg of j.query?.pages ?? []) {
-        const cur: CommonsInfo = acc.get(pg.title) ?? {
-          title: pg.title, missing: !!pg.missing, url: null, width: 0, height: 0, sha1: null, mime: null, artist: null, artistUrl: null,
-          licence: null, licenceUrl: null, dateOriginal: null, categories: [], templates: [],
-        };
-        const ii = pg.imageinfo?.[0];
-        if (ii) {
-          const md = ii.extmetadata ?? {};
-          Object.assign(cur, {
-            url: ii.url ?? null, width: ii.width ?? 0, height: ii.height ?? 0, sha1: ii.sha1 ?? null, mime: ii.mime ?? null,
-            artist: md.Artist?.value ?? null, licence: md.LicenseShortName?.value ?? null, licenceUrl: md.LicenseUrl?.value ?? null,
-            dateOriginal: md.DateTimeOriginal?.value ?? null,
-          });
-        }
-        for (const c of pg.categories ?? []) cur.categories.push(c.title);
-        for (const t of pg.templates ?? []) cur.templates.push(t.title);
-        acc.set(pg.title, cur);
-      }
-      if (!j.continue) break;
-      cont = j.continue;
-    }
-    for (const t of batch) {
-      const to = alias.get(alias.get(t) ?? t) ?? alias.get(t) ?? t;
-      const info = acc.get(to) ?? acc.get(t);
-      if (info) out.set(t, info);
-      else out.set(t, { title: t, missing: true, url: null, width: 0, height: 0, sha1: null, mime: null, artist: null, artistUrl: null, licence: null, licenceUrl: null, dateOriginal: null, categories: [], templates: [] });
-    }
-  }
-  return out;
-}
-
-const fileOfPage = (page: string): string | null => {
-  const m = /\/wiki\/File:(.+)$/.exec(page);
-  return m ? decodeURIComponent(m[1]!).replace(/_/g, ' ') : null;
-};
-
-function arg(name: string): string | null {
-  const i = process.argv.indexOf(name);
-  return i > 0 ? (process.argv[i + 1] ?? null) : null;
-}
-const outsideRepo = (f: string): boolean => !path.resolve(f).startsWith(REPO + path.sep);
 
 async function main(): Promise<void> {
   const dir = arg('--candidates');

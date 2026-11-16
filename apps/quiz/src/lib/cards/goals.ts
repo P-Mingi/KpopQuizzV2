@@ -108,7 +108,7 @@ export function goalsFromJson(j: GoalsJson): GoalsState {
 /** What the twin of the sets needs of a card of the catalog (a UiCard satisfies it). */
 export interface SetCardIn { n: number; entity: string; kind: 'idol' | 'group' | 'event'; rarity: string }
 /** What it needs of an entity: a group is named by `name`, an idol points at its group by that name (the stand-in has no ids for them). */
-export interface SetEntityIn { id: string; kind: 'idol' | 'group' | 'event'; name: string; group: string | null; debutYear: number | null }
+export interface SetEntityIn { id: string; kind: 'idol' | 'group' | 'event'; name: string; group: string | null; debutYear: number | null; /** Lot 6: age-locked, no set. */ locked?: true }
 
 /**
  * The sets of cards_goals_progress (105-goals.sql) computed in TypeScript, for the fixture API of the development server and for the tests
@@ -116,7 +116,7 @@ export interface SetEntityIn { id: string; kind: 'idol' | 'group' | 'event'; nam
  * group that is not one is a soloist; Holo is rarity R, Gold is UR; a debut year holds the sets of 2 or more groups.
  */
 export function goalSets(cards: readonly SetCardIn[], entities: readonly SetEntityIn[], owned: ReadonlySet<number>, claimed: ReadonlySet<string>): GoalSet[] {
-  const ent = new Map(entities.map((e) => [e.id, e]));
+  const ent = new Map(entities.filter((e) => !e.locked).map((e) => [e.id, e]));
   const subjects = new Map<string, SetEntityIn>();
   for (const c of cards) {
     const e = ent.get(c.entity);

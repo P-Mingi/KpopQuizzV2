@@ -43,7 +43,7 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { cutPlan, partFileName, planRemovals, stemOf } from './card-files.mjs';
+import { cutPlan, mergePhotoFiles, partFileName, planRemovals, stemOf } from './card-files.mjs';
 import { SIZES } from './card-geometry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -69,9 +69,13 @@ const args = process.argv.slice(2);
 const PUBLISH = args.includes('--publish');
 const onlyArg = args.indexOf('--only');
 const ONLY = onlyArg >= 0 ? new Set((args[onlyArg + 1] ?? '').split(',').filter(Boolean)) : null;
-const photosFile = JSON.parse(readFileSync(dataFile('photos.json'), 'utf8'));
-/** Every slug lots 2 and 3 know: the cleanup proposes the files of a known slug that has no live photo (a subject left out). */
-const KNOWN = [...new Set([...JSON.parse(readFileSync(dataFile('subjects.json'), 'utf8')).map((s) => s.slug), ...photosFile.subjects.map((s) => s.slug)])];
+// Lot 6 (the photo harvest): lot 3's photos.json and, when it exists, lot6/photos.json are read as one (new subjects, new photos of known ones).
+const lot6Dir = path.join(REPO, 'docs/design/cards/data/lot6');
+const lot6Photos = existsSync(path.join(lot6Dir, 'photos.json')) ? JSON.parse(readFileSync(path.join(lot6Dir, 'photos.json'), 'utf8')) : null;
+const lot6Slugs = existsSync(path.join(lot6Dir, 'subjects.json')) ? JSON.parse(readFileSync(path.join(lot6Dir, 'subjects.json'), 'utf8')).map((s) => s.slug) : [];
+const photosFile = mergePhotoFiles(JSON.parse(readFileSync(dataFile('photos.json'), 'utf8')), lot6Photos);
+/** Every slug lots 2, 3 and 6 know: the cleanup proposes the files of a known slug that has no live photo (a subject left out, a locked pocket). */
+const KNOWN = [...new Set([...JSON.parse(readFileSync(dataFile('subjects.json'), 'utf8')).map((s) => s.slug), ...lot6Slugs, ...(lot6Photos?.subjects ?? []).map((s) => s.slug), ...photosFile.subjects.map((s) => s.slug)])];
 const chosen = photosFile.subjects.filter((s) => !ONLY || ONLY.has(s.slug));
 const LIVE = new Set(['approved', 'auto']);
 const CUT = new Set(['approved', 'auto', 'pending']);
