@@ -51,6 +51,8 @@ export interface UiEntity {
   lockReasons: Partial<Record<Rarity, LockReason>>;
   /** 'Award show', 'Festival'... when the catalog knows it. */
   eventType?: string | null;
+  /** Lot 6: true while the subject is age-locked (the boolean the API sends, never a date). The entity has no card. */
+  locked?: true;
 }
 
 export interface UiCatalog {
@@ -90,7 +92,12 @@ export interface SlimCard {
 /** One pocket of the binder: a card, or an edition that cannot exist yet. */
 export type BinderItem =
   | { i: number; sec: string; card: SlimCard; locked?: undefined }
-  | { i: number; sec: string; locked: true; entity: string; name: string; group: string | null; rarity: Rarity; reason: LockReason | null; /** A card of the same entity the lock page hangs on. */ anchor: string | null };
+  | {
+      i: number; sec: string; locked: true; entity: string; name: string; group: string | null; rarity: Rarity; reason: LockReason | null;
+      /** A card of the same entity the lock page hangs on. */ anchor: string | null;
+      /** Lot 6: a pocket of an age-locked subject ("Carte à venir", no date, not a link). It is no edition: no rarity, no card, no count. */
+      soon?: true;
+    };
 
 export interface BinderSection {
   id: string;
@@ -99,6 +106,8 @@ export interface BinderSection {
   color: string;
   /** The card numbers of the section (for its owned/all count). */
   ns: number[];
+  /** Lot 6: a section that holds only age-locked pockets. It is not a group a player can open a pack for or pick in the lobby. */
+  soon?: true;
 }
 
 export interface SlimCatalog {

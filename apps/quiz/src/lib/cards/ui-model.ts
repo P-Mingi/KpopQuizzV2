@@ -5,7 +5,7 @@ import { RARITIES, RARITY_LABEL, SHARDS } from './rules';
 import { paletteFor } from './ui-palette';
 
 import type { CardKind, CatalogOdds, LockReason, OwnedEntry, Rarity } from './types';
-import type { BinderItem, BinderSection, CardPicture, SlimCard, SlimCatalog, UiCard, UiCatalog, UiPhoto } from './ui-types';
+import type { BinderItem, BinderSection, CardPicture, SlimCard, SlimCatalog, UiCard, UiCatalog, UiEntity, UiPhoto } from './ui-types';
 
 /** The picture of a card (amendment 1, point 7): the cropped WebP while it was cut at the current focal point, else the source photo. */
 export function photoPicture(photo: UiPhoto | null): CardPicture | null {
@@ -90,6 +90,7 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     // Review 1 finding 5: an entity with no card (the group line of a person, BLACKPINK for Jennie and Rose) has no pocket and no section
     // of its own; its name is only the group line of its people.
     if (!byEntity.has(e.id)) continue;
+    if (e.locked) continue; // never has a card; its pocket is added below
     const secName = e.kind === 'event' ? 'Events' : e.kind === 'group' ? e.name : (e.group ?? SOLOISTS_SECTION);
     const sec = e.kind === 'event' ? EVENTS_SECTION : slug(secName);
     if (!seen.has(sec)) {
@@ -127,7 +128,34 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     // The ladder of editions points at the first card of a rarity (the left half of a pair).
     editions[e.id] = Object.fromEntries([...have].map(([r, cs]) => [r, cs[0]!.n]));
   }
+  addSoonPockets(entities, items, sections, seen);
   return { cards, items, sections, locks, editions };
+}
+
+/**
+ * Lot 6: the pockets of the age-locked subjects. Each one has its name and no more ("Carte à venir"): no rarity, no number, no date, no link.
+ * A person gets one pocket, a group its pair (1/2 and 2/2). They go into the section of the group (the person's group line, the group's own
+ * name), after its last pocket; a section with nothing else is marked `soon` so no pack and no lobby box is made from it. They add nothing
+ * to `cards`, `locks`, `editions` or a section's card numbers: nothing counts them.
+ */
+function addSoonPockets(entities: readonly UiEntity[], items: BinderItem[], sections: BinderSection[], seen: Set<string>): void {
+  for (const e of entities) {
+    if (!e.locked || e.kind === 'event') continue;
+    const secName = e.kind === 'group' ? e.name : (e.group ?? SOLOISTS_SECTION);
+    const sec = slug(secName);
+    if (!seen.has(sec)) {
+      seen.add(sec);
+      sections.push({ id: sec, name: secName, color: paletteFor(`group:${secName}`).dot, ns: [], soon: true });
+    }
+    let at = -1;
+    items.forEach((it, k) => { if (it.sec === sec) at = k; });
+    const pockets: BinderItem[] = (e.kind === 'group' ? [' 1/2', ' 2/2'] : ['']).map((half) => ({
+      i: 0, sec, locked: true as const, soon: true as const, entity: e.id, name: `${e.name}${half}`, group: e.kind === 'idol' ? e.group : e.name, rarity: 'C' as Rarity,
+      reason: null, anchor: null,
+    }));
+    items.splice(at < 0 ? items.length : at + 1, 0, ...pockets);
+  }
+  items.forEach((it, k) => { it.i = k; });
 }
 
 /** What the player owns, by card number. */
@@ -194,6 +222,8 @@ export function filterItems(items: readonly BinderItem[], f: Filters, owned: Map
   const q = f.q.trim().toLowerCase();
   const anyR = RARITIES.some((r) => f.rar[r]);
   const matches = (it: BinderItem): boolean => {
+    // Lot 6: a "Carte à venir" pocket is never a search result and never a "missing", "owned" or "favourite" card: it shows only with no filter at all.
+    if (it.locked && it.soon) return f.show === 'all' && !q && !anyR && f.kind === 'all';
     const kind: CardKind = it.locked ? 'idol' : it.card.kind;
     const rar = it.locked ? it.rarity : it.card.rarity;
     const name = it.locked ? it.name : it.card.name;

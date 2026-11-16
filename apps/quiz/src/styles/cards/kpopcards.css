@@ -414,6 +414,8 @@
 .bvc .miss .med{display:block;font-size:max(10px,7.4cqi);margin-top:2cqi;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bvc .pocket.locked{background:repeating-linear-gradient(135deg,rgba(26,23,20,.035) 0 6px,transparent 6px 12px),var(--surface-alt)}
 .bvc .pocket.locked .mic{color:var(--txt3)}
+.bvc .pocket.soon{cursor:default}
+.bvc .pocket.soon:hover{transform:none}
 .bvc .pocket.locked .mic svg{width:16cqi;height:16cqi;fill:none;stroke:currentColor;stroke-width:1.8}
 .bvc .pocket.empty{cursor:default;box-shadow:inset 0 0 0 1px rgba(26,23,20,.04);background:transparent}
 .bvc .pocket.empty::after{display:none}

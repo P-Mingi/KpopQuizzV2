@@ -42,9 +42,26 @@ function cardHref(num: string, sp: URLSearchParams, lock?: string): string {
   return `${kcPath.card(num)}${s ? `?${s}` : ''}`;
 }
 
+/** Lot 6: the pocket of an age-locked subject: its name and "Carte à venir". No date, no link, no number, no star, no heart, no "new" mark. */
+export function SoonPocket({ name }: { name: string }): React.ReactElement {
+  return (
+    <div className="pw">
+      <div className="pocket locked soon" role="img" aria-label={`${name}, Carte à venir`}>
+        <span className="miss">
+          <span className="mno" aria-hidden="true">&nbsp;</span>
+          <span className="mic" aria-hidden="true">{LOCK_ICON}</span>
+          <span><span className="mnm">{name}</span><span className="med">Carte à venir</span></span>
+        </span>
+      </div>
+      <div className="pw-foot" />
+    </div>
+  );
+}
+
 function Pocket({ item }: { item: BinderItem }): React.ReactElement {
   const { owned, newSet, clearNew } = useCards();
   const sp = useSearchParams();
+  if (item.locked && item.soon) return <SoonPocket name={item.name} />;
   if (item.locked) {
     const why = item.reason ? LOCK_SENTENCES[item.reason] : null;
     const href = item.anchor ? cardHref(item.anchor, sp, item.rarity) : kcPath.collection;
@@ -181,7 +198,8 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const own = ownedCount(scopedCards, owned);
   const pct = total ? Math.round((own / total) * 1000) / 10 : 0;
   const kinds = useMemo(() => countByKind(scopedCards, owned), [scopedCards, owned]);
-  const lockedCount = scoped.filter((i) => i.locked).length;
+  // Lot 6: the pockets of age-locked subjects are not editions that are not issued yet, and count nowhere.
+  const lockedCount = scoped.filter((i) => i.locked && !i.soon).length;
   const [preview, setPreview] = useState<{ extras: number; shards: number } | null>(null);
   useEffect(() => {
     let live = true;
@@ -281,7 +299,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   if (show !== 'all') chips.push({ key: 'show', label: showBtns.find(([v]) => v === show)?.[1] ?? '', clear: () => refilter(f, 'all') });
   if (f.q.trim()) chips.push({ key: 'q', label: `\u201C${f.q.trim()}\u201D`, clear: () => refilter({ ...f, q: '' }) });
   const nFilters = chips.filter((x) => x.key !== 'q').length;
-  const shown = list.length;
+  const shown = list.filter((i) => !(i.locked && i.soon)).length;
   const doneLabel = shown ? `Show ${shown} card${shown === 1 ? '' : 's'}` : 'No card matches';
   const closePanel = (): void => { setPanel(false); fbtn.current?.focus(); };
   const Pager = ({ id, bottom }: { id: string; bottom?: boolean }): React.ReactElement => (

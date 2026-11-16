@@ -124,6 +124,28 @@ export function ReportsInbox({ rows, busy, onClose }: { rows: readonly CardRepor
   );
 }
 
+/** Lot 6: the age-locked pockets with the month each one opens (admin only; the public pages never get a month). */
+export function opensLabel(month: string | null): string {
+  if (!month || !/^\d{4}-\d{2}$/.test(month)) return 'inconnue';
+  const d = new Date(Date.UTC(Number(month.slice(0, 4)), Number(month.slice(5, 7)) - 1, 1));
+  return d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+export function LocksList({ rows }: { rows: readonly { entity: string; name: string; kind: string; group: string | null; opens_month: string | null }[] }): React.ReactElement {
+  if (rows.length === 0) return <p className={s.empty}>Aucune carte verrouillée.</p>;
+  return (
+    <div className={s.tableBox}>
+      <table className={s.table} aria-label="Cartes verrouillées par l'âge">
+        <thead><tr><th scope="col">Groupe</th><th scope="col">Carte</th><th scope="col">Ouverture</th></tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.entity} className={s.row}><td>{r.group ?? '-'}</td><td>{r.name}{r.kind === 'group' ? ' (groupe)' : ''}</td><td>{opensLabel(r.opens_month)}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /** Why Era and Full Art are missing for this subject. Empty: the default of the plan ("one free photo"). */
 export function LockEditor({ lockReasons, busy, onSet }: { lockReasons: Record<string, string> | null | undefined; busy: boolean; onSet: (rarity: (typeof LOCKABLE)[number], reason: LockReason | null) => void }): React.ReactElement {
   return (
@@ -219,7 +241,9 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   const [dims, setDims] = useState<Record<number, [number, number]>>({});
   const [pos, setPos] = useState<[number, number]>([50, 30]);
   const [saving, setSaving] = useState(false);
-  const [view, setView] = useState<'photos' | 'reports'>('photos');
+  const [view, setView] = useState<'photos' | 'reports' | 'locks'>('photos');
+  const [locks, setLocks] = useState<{ entity: string; name: string; kind: string; group: string | null; opens_month: string | null }[] | null>(null);
+  const [locksFailed, setLocksFailed] = useState(false);
   const [reports, setReports] = useState<CardReportRow[] | null>(null);
   const [reportsFailed, setReportsFailed] = useState(false);
   const [closing, setClosing] = useState<number | null>(null);
@@ -245,6 +269,17 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     })();
     return () => { live = false; };
   }, [status]);
+
+  useEffect(() => {
+    if (view !== 'locks') return undefined;
+    let live = true;
+    setLocks(null); setLocksFailed(false);
+    void api<{ ok: boolean; rows: { entity: string; name: string; kind: string; group: string | null; opens_month: string | null }[] }>({ action: 'age_locks' }).then((r) => {
+      if (!live) return;
+      if (r?.ok) setLocks(r.rows); else setLocksFailed(true);
+    });
+    return () => { live = false; };
+  }, [view]);
 
   useEffect(() => {
     if (view !== 'reports') return;
@@ -377,6 +412,21 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   const small = group ? small1 || small2 : d ? tooSmallFor2x(d[0], d[1]) : false;
   const pill = (v: typeof status, label: string): React.ReactElement => <button type="button" className={s.pill} aria-pressed={view === 'photos' && status === v} onClick={() => { setView('photos'); setStatus(v); }}>{label}</button>;
 
+  if (view === 'locks') {
+    return (
+      <section aria-labelledby="ph" className={s.section}>
+        {head}
+        <div className={s.filters}>
+          <button type="button" className={s.pill} aria-pressed={false} onClick={() => setView('photos')}>Photos</button>
+          <button type="button" className={s.pill} aria-pressed>Verrouillées</button>
+        </div>
+        {locksFailed ? <p className={s.statusErr} role="alert">Les cartes verrouillées n&apos;ont pas pu être lues (le fichier 116 est-il appliqué ?).</p> : null}
+        {locks === null && !locksFailed ? <p className={s.note}>Chargement des cartes verrouillées.</p> : null}
+        {locks ? <LocksList rows={locks} /> : null}
+      </section>
+    );
+  }
+
   if (view === 'reports') {
     return (
       <section aria-labelledby="ph" className={s.section}>
@@ -398,6 +448,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
       <div className={s.filters}>
         <div className={s.filterGroup} role="group" aria-label="Statut de la photo">{pill('approved', 'Approuvées')}{pill('auto', 'Automatiques')}{pill('pending', 'À relire')}</div>
         <button type="button" className={s.pill} aria-pressed={false} onClick={() => setView('reports')}>Signalements</button>
+        <button type="button" className={s.pill} aria-pressed={false} onClick={() => setView('locks')}>Verrouillées</button>
         <CatalogBar frozen={frozen} busy={saving} preview={preview} onRebuild={() => void rebuild()} onPreview={() => void previewAppend()}
           onConfirm={() => void confirmAppend()} onCancel={() => setPreview(null)} />
       </div>

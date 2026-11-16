@@ -132,6 +132,26 @@ async function setStatus(db: Db, id: number, status: 'approved' | 'rejected' | '
   return reply({ ok: true, photo: data });
 }
 
+/** Lot 6: one locked pocket as the admin reads it. opens_month ('YYYY-MM') comes from cards_age_locks() and goes to the admin only (never to the public API). */
+export interface AdminLockRow { entity: string; name: string; kind: string; group: string | null; opens_month: string | null }
+
+/** The locked pockets with their opening month: from the rows of cards_age_locks() and the entities that carry the lock. null month: not known. */
+export function lockRowsOf(
+  locks: readonly { entity_id: string; locked: boolean | null; opens_month?: string | null }[],
+  ents: readonly { id: string; name: string; kind: string; group_id: string | null }[],
+  groupNames: ReadonlyMap<string, string>,
+): AdminLockRow[] {
+  const by = new Map(locks.map((l) => [l.entity_id, l]));
+  return ents
+    // an entity the database does not answer for counts as locked (fail closed), with no month
+    .filter((e) => by.get(e.id)?.locked !== false)
+    .map((e) => ({
+      entity: e.id, name: e.name, kind: e.kind, group: e.kind === 'group' ? e.name : (e.group_id ? (groupNames.get(e.group_id) ?? null) : null),
+      opens_month: typeof by.get(e.id)?.opens_month === 'string' ? (by.get(e.id)!.opens_month as string).slice(0, 7) : null,
+    }))
+    .sort((a, b) => (a.group ?? '').localeCompare(b.group ?? '') || a.name.localeCompare(b.name));
+}
+
 export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse> {
   if (SITE_ID !== 'hub' && SITE_ID !== 'anime') return adminNotFound();
   if (!ownSite(req)) return fail('origin', 403);
@@ -225,6 +245,20 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     const { data, error } = await db.rpc('cards_catalog_append', { p_dry_run: action !== 'append' });
     if (error) return fail('not_ready', 409);
     return reply({ ok: true, summary: data });
+  }
+
+  // Lot 6: the age-locked pockets with the month each opens (the service role only: a browser never reads a month).
+  if (action === 'age_locks') {
+    const ents = await db.from('cards_entities').select('id, name, kind, group_id').eq('age_lock', true).limit(1000);
+    if (ents.error) return fail('not_ready', 409);
+    const list = (ents.data ?? []) as { id: string; name: string; kind: string; group_id: string | null }[];
+    const locks = await db.rpc('cards_age_locks');
+    if (locks.error || !Array.isArray(locks.data)) return fail('not_ready', 409);
+    const gids = [...new Set(list.map((e) => e.group_id).filter((x): x is string => !!x))];
+    const names = gids.length ? await db.from('cards_entities').select('id, name').in('id', gids) : { data: [], error: null };
+    if (names.error) return fail('server', 500);
+    const groupNames = new Map(((names.data ?? []) as { id: string; name: string }[]).map((g) => [g.id, g.name]));
+    return reply({ ok: true, rows: lockRowsOf(locks.data as { entity_id: string; locked: boolean | null; opens_month?: string | null }[], list, groupNames) });
   }
 
   if (action === 'close_report') {

@@ -10,7 +10,7 @@ import type { UiCatalog, UiPhoto } from './ui-types';
 export function fromPayload(p: CatalogPayload): UiCatalog {
   return {
     odds: p.odds,
-    entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear ? { endYear: e.endYear } : {}) })),
+    entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear ? { endYear: e.endYear } : {}), ...(e.locked ? { locked: true as const } : {}) })),
     cards: p.cards.map((c) => {
       const i = c.image;
       const photo: UiPhoto | null = c.photo
