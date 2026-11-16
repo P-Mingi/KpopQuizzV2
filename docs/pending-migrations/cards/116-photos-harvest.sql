@@ -16,23 +16,23 @@
 --         4. a log table (cards_harvest_log) of the entities and photos THIS file added, so the rollback removes only those.
 --         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never public.idols: the Kpopdle source
 --         view is counted before and after, and the file refuses if it moved.
--- How:    one jsonb literal below (351 subjects: 286 people, 65 groups, 11 locked, 1332 photos).
+-- How:    one jsonb literal below (353 subjects: 288 people, 65 groups, 10 locked, 1347 photos).
 --         People resolve at apply time by Wikidata id from public.idols (no row, or two: skipped with a notice); groups by slug from public.groups.
 --         Photos get the smallest free slot of 1 to 6 among the live and pending ones.
 -- Why:    goal of 1,000 cards (lot 6): every Kpopdle idol becomes a subject of its own, the groups get up to six photos, and the groups with a minor
 --         show locked pockets instead of a photo.
--- Rows:   at most 352 entities, 1332 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
+-- Rows:   at most 354 entities, 1347 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
 -- Needs:  001 to 003, 102, 103 and 110 applied before (cards_build_catalog, the photo columns of lot 3), public.groups and public.idols.
 --         Apply after a backup, never between 23:50 and 00:30 UTC, then "Reconstruire le catalogue", then pnpm --filter quiz owner:cards.
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_entities' and column_name = 'age_lock';   expect 1
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_age_locks';   expect 1
 -- Verify: select has_function_privilege('anon', 'public.cards_age_locks(date)', 'execute') or has_function_privilege('authenticated', 'public.cards_age_locks(date)', 'execute');   expect f
 -- Verify: select has_function_privilege('service_role', 'public.cards_age_locks(date)', 'execute');   expect t
--- Verify: select count(*) from public.cards_entities where age_lock;   expect at most 11 (the notice "locked pockets"; a locked subject with cards, or without a row to resolve, is not set)
--- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1332)
+-- Verify: select count(*) from public.cards_entities where age_lock;   expect at most 10 (the notice "locked pockets"; a locked subject with cards, or without a row to resolve, is not set)
+-- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1347)
 -- Verify: select count(*) from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id);   expect 0
 -- Verify: select count(*) from public.cards_photos where status in ('auto', 'approved') group by entity_id, slot having count(*) > 1;   expect no row
--- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 11 (the pockets still locked today; fewer when public.idols holds an adult birth date)
+-- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 10 (the pockets still locked today; fewer when public.idols holds an adult birth date)
 -- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of 103 or cards_build_catalog() is missing; when the Kpopdle source would change.
 -- Undo:   116-photos-harvest.rollback.sql (removes only what the log says this file added; refused while a player owns a card of these subjects).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run adds nothing.
@@ -5244,7 +5244,146 @@ declare
    "qid": null,
    "group": null,
    "locked": false,
-   "photos": []
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Collection_of_Enhypen_Sin-Vanish_Photocard.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Collection_of_Enhypen_Sin-Vanish_Photocard.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3024,
+     "height": 4032,
+     "sha1": "ef2509db3881c880182569d2a7d0bb82104d0e01",
+     "author": "Dhylala096",
+     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Dhylala096&amp;action=edit&amp;redlink=1",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2026-05-23",
+     "date_precision": "day",
+     "event": "Collection of Enhypen Sin-Vanish Photocard",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Enhypen_members.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Enhypen_members.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4096,
+     "height": 3276,
+     "sha1": "aba43d90b7699a9c3912aa0ceb3b8e486e725349",
+     "author": "BELIFTLAB",
+     "author_url": null,
+     "licence": "CC0",
+     "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "share_alike": false,
+     "date": "2026-04-15",
+     "date_precision": "day",
+     "event": "Enhypen members",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Enhypen,_June_2026.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Enhypen%2C_June_2026.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3304,
+     "height": 1858,
+     "sha1": "18cd39844bfe2702dc6d5d2edab34a5782831ff4",
+     "author": "K-POPIT",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-06-18",
+     "date_precision": "day",
+     "event": "Enhypen, June 2026",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Threads_Communities_interface_screenshot.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Threads_Communities_interface_screenshot.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1920,
+     "height": 1080,
+     "sha1": "7a4a445b6c2af11957e595593206ec2862eafb8e",
+     "author": "Bluesky.b",
+     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Bluesky.b&amp;action=edit&amp;redlink=1",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-04-01",
+     "date_precision": "day",
+     "event": "Threads Communities interface screenshot",
+     "stage": false,
+     "quality": 3,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Enhypen_in_2026_at_GDA.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Enhypen_in_2026_at_GDA.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1911,
+     "height": 870,
+     "sha1": "9abd5780ad7dfd8ad19f62ee79b59c6f96cc2e56",
+     "author": "https://www.youtube.com/@_TV10",
+     "author_url": "https://www.youtube.com/@_TV10",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2026-01-10",
+     "date_precision": "day",
+     "event": "Enhypen in 2026 at GDA",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:241014_Enhypen.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/241014_Enhypen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1179,
+     "height": 650,
+     "sha1": "97a73fea85123af665d74a5e547965b42e4fcd7d",
+     "author": "Ten Asia",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-10-14",
+     "date_precision": "day",
+     "event": "241014 Enhypen",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    }
+   ]
   },
   {
    "slug": "eunchae-le-sserafim",
@@ -8156,6 +8295,39 @@ declare
    "photos": []
   },
   {
+   "slug": "haruto-treasure",
+   "kind": "idol",
+   "name": "Haruto",
+   "qid": "Q97352003",
+   "group": "treasure",
+   "locked": false,
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:230707_TREASURE(트레저)_Haruto_in_Incheon_Airport.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/230707_TREASURE%28%ED%8A%B8%EB%A0%88%EC%A0%80%29_Haruto_in_Incheon_Airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1431,
+     "height": 1907,
+     "sha1": "ca14c1974a71e223298ff72e99ef2121bfbd8e72",
+     "author": "K-POPIT 케이팝잇 TENASIA",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-07-07",
+     "date_precision": "day",
+     "event": "230707 TREASURE(트레저) Haruto in Incheon Airport",
+     "stage": false,
+     "quality": 3,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    }
+   ]
+  },
+  {
    "slug": "haseul-loona",
    "kind": "idol",
    "name": "Haseul",
@@ -10930,6 +11102,39 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
+    }
+   ]
+  },
+  {
+   "slug": "jake-enhypen",
+   "kind": "idol",
+   "name": "Jake",
+   "qid": "Q105718037",
+   "group": "enhypen",
+   "locked": false,
+   "photos": [
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sim_Jae-yun,_2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Sim_Jae-yun%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2174,
+     "height": 2626,
+     "sha1": "af89fe8710bb646024ad0c836be3d98a0747652c",
+     "author": "SBS Radio",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-07-09",
+     "date_precision": "day",
+     "event": "Sim Jae-yun, 2022",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -22620,7 +22825,31 @@ declare
    "qid": "Q122363261",
    "group": "nct",
    "locked": false,
-   "photos": []
+   "photos": [
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_05.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/2026_NCT_WISH_fansigning_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "a5df70109e77abe3a7f3d8d2418da470e95d56f1",
+     "author": "numbuzin",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-02-15",
+     "date_precision": "day",
+     "event": "2026 NCT WISH fansigning 2026-02-15",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "the licence review is still open on Commons; 2 people are in the frame; a person in the frame is not identified"
+    }
+   ]
   },
   {
    "slug": "san-ateez",
@@ -28035,7 +28264,7 @@ declare
    "name": "&TEAM",
    "qid": null,
    "group": null,
-   "locked": true,
+   "locked": false,
    "photos": []
   },
   {
@@ -28498,7 +28727,146 @@ declare
    "qid": null,
    "group": null,
    "locked": false,
-   "photos": []
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Toshodaiji-GoldenHall(NT).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Toshodaiji-GoldenHall%28NT%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5472,
+     "height": 3648,
+     "sha1": "00c6b1daf7c7d186811aef029f6c7c110d1f93c5",
+     "author": "Gaodanielbo",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Gaodanielbo",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-08-13",
+     "date_precision": "day",
+     "event": "Toshodaiji-GoldenHall(NT)",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Cast_and_crew_members_of_\"Nine\"_look_over_a_special_collections_display_of_Music_Division_treasures_during_a_visit_to_the_Library,_August_7,_2024.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Cast_and_crew_members_of_%22Nine%22_look_over_a_special_collections_display_of_Music_Division_treasures_during_a_visit_to_the_Library%2C_August_7%2C_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 6000,
+     "height": 4002,
+     "sha1": "632cf0522ea2fc00992cbc7c985131c85578e4f0",
+     "author": "Library of Congress Life",
+     "author_url": null,
+     "licence": "CC0",
+     "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "share_alike": false,
+     "date": "2024-08-07",
+     "date_precision": "day",
+     "event": "Cast and crew members of \"Nine\" look over a special collections display of Music",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:240405_트레저_TTA_Malaysia_1st_Place.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/240405_%ED%8A%B8%EB%A0%88%EC%A0%80_TTA_Malaysia_1st_Place.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4096,
+     "height": 2322,
+     "sha1": "2d9635c924d091f7b38d149c3fa87a4117c54665",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-04-05",
+     "date_precision": "day",
+     "event": "240405 트레저 TTA Malaysia 1st Place",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Fishmongers'_Pall_-_Treasures_of_Gold_and_Silver_Wire.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Fishmongers%27_Pall_-_Treasures_of_Gold_and_Silver_Wire.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3984,
+     "height": 2988,
+     "sha1": "86f0a740d535e0621f9edbba08ddaca03b1ef962",
+     "author": "The wub",
+     "author_url": "https://commons.wikimedia.org/wiki/User:The_wub",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2023-10-11",
+     "date_precision": "day",
+     "event": "Fishmongers' Pall - Treasures of Gold and Silver Wire",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:230806_트레저_(TREASURE)_SBS_파워FM_두시탈출_컬투쇼.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/230806_%ED%8A%B8%EB%A0%88%EC%A0%80_%28TREASURE%29_SBS_%ED%8C%8C%EC%9B%8CFM_%EB%91%90%EC%8B%9C%ED%83%88%EC%B6%9C_%EC%BB%AC%ED%88%AC%EC%87%BC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 15934,
+     "height": 11092,
+     "sha1": "9983a3b37f9363d474d1b382f079516dd19b66d9",
+     "author": "SBS Radio",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-08-06",
+     "date_precision": "day",
+     "event": "230806 트레저 (TREASURE) SBS 파워FM 두시탈출 컬투쇼",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:230415_트레저_Hello_Tour_in_Manila.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/230415_%ED%8A%B8%EB%A0%88%EC%A0%80_Hello_Tour_in_Manila.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 11125,
+     "height": 9342,
+     "sha1": "f8f8701635ae6c9edcbe3709835cf18f99b52c8a",
+     "author": "takatajeon",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2023-04-15",
+     "date_precision": "day",
+     "event": "230415 트레저 Hello Tour in Manila",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    }
+   ]
   },
   {
    "slug": "tsuki-billlie",

@@ -5,26 +5,25 @@ Verdicts and counts only: nothing about anyone's age or birth.
 
 ## Subjects
 
-- 351 subjects: 286 people, 65 groups.
-- 11 locked pockets (no photo, shown in the binder as "Carte à venir"), by group:
+- 353 subjects: 288 people, 65 groups.
+- 10 locked pockets (no photo, shown in the binder as "Carte à venir"), by group:
   - babymonster: 2
   - cortis: 3
   - hearts2hearts: 5
-  - team: 1
 
 ## Photos
 
-- 1049 auto, 283 pending (the owner's review), 326 out.
+- 1062 auto, 285 pending (the owner's review), 322 out.
 - Out, by reason (a photo can have several):
-  - six photos already: 254
-  - already a photo in the game: 45
-  - age rule: unknown_birth_date: 16
-  - age rule: minor_at_photo: 8
+  - six photos already: 258
+  - already a photo in the game: 46
+  - age rule: minor_at_photo: 9
+  - age rule: unknown_birth_date: 7
   - age rule: another person in the frame under 18: 3
 
 ## Cards the edition rules will give
 
-- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 1240 cards, pairs counted as two (1058 more). Pending photos open nothing until the owner approves them.
+- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 1264 cards, pairs counted as two (1082 more). Pending photos open nothing until the owner approves them.
 - Full Art locked (six live photos, none with an honest 2x): 0 subjects.
 
 ## Adult idols with fewer than 2 usable photos
@@ -45,10 +44,12 @@ Verdicts and counts only: nothing about anyone's age or birth.
 - Hanni
 - Haram
 - Haruna
+- Haruto
 - Hikaru
 - Hyein
 - Iroha
 - Jaehyuk
+- Jake
 - Jay
 - Jeongwoo
 - Jihoon

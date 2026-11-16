@@ -10267,7 +10267,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": null,
    "photos": [
     {
      "source": "commons",
@@ -10293,15 +10293,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 1,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 3024,
      "full_ok": true,
@@ -10342,15 +10340,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 2,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 4096,
      "full_ok": true,
@@ -10391,15 +10387,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 3,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 2404,
      "full_ok": true,
@@ -10440,15 +10434,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 4,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 1397,
      "full_ok": true,
@@ -10489,15 +10481,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 5,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 1125,
      "full_ok": false,
@@ -10538,15 +10528,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 841,
      "full_ok": false,
@@ -10591,11 +10579,11 @@
      "status": "out",
      "review": [],
      "reasons": [
-      "age rule: unknown_birth_date"
+      "six photos already"
      ],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 332,
      "full_ok": false,
@@ -10640,11 +10628,11 @@
      "status": "out",
      "review": [],
      "reasons": [
-      "age rule: unknown_birth_date"
+      "six photos already"
      ],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 828,
      "full_ok": false,
@@ -16510,6 +16498,56 @@
    "photos": []
   },
   {
+   "slug": "haruto-treasure",
+   "name": "Haruto",
+   "kind": "idol",
+   "qid": "Q97352003",
+   "group": "treasure",
+   "idol_id": null,
+   "why": "kpopdle",
+   "end_year": null,
+   "locked": false,
+   "shortfall": "1 usable photo of the 6 a subject can have (the research found no more that pass the checks)",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:230707_TREASURE(트레저)_Haruto_in_Incheon_Airport.jpg",
+     "file": "230707 TREASURE(트레저) Haruto in Incheon Airport.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/230707_TREASURE%28%ED%8A%B8%EB%A0%88%EC%A0%80%29_Haruto_in_Incheon_Airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1431,
+     "height": 1907,
+     "sha1": "ca14c1974a71e223298ff72e99ef2121bfbd8e72",
+     "author": "K-POPIT 케이팝잇 TENASIA",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-07-07",
+     "date_precision": "day",
+     "event": "230707 TREASURE(트레저) Haruto in Incheon Airport",
+     "stage": false,
+     "quality": 3,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "auto",
+     "review": [],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1233,
+     "full_ok": true,
+     "small_2x": false
+    }
+   ]
+  },
+  {
    "slug": "haseul-loona",
    "name": "Haseul",
    "kind": "idol",
@@ -21795,6 +21833,59 @@
      "window_width": 581,
      "full_ok": false,
      "small_2x": true
+    }
+   ]
+  },
+  {
+   "slug": "jake-enhypen",
+   "name": "Jake",
+   "kind": "idol",
+   "qid": "Q105718037",
+   "group": "enhypen",
+   "idol_id": 117,
+   "why": "kpopdle",
+   "end_year": null,
+   "locked": false,
+   "shortfall": "1 usable photo of the 6 a subject can have (the research found no more that pass the checks)",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Sim_Jae-yun,_2022.jpg",
+     "file": "Sim Jae-yun, 2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Sim_Jae-yun%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2174,
+     "height": 2626,
+     "sha1": "af89fe8710bb646024ad0c836be3d98a0747652c",
+     "author": "SBS Radio",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-07-09",
+     "date_precision": "day",
+     "event": "Sim Jae-yun, 2022",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the number of people in the frame is not stated",
+      "a person in the frame is not identified"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1699,
+     "full_ok": true,
+     "small_2x": false
     }
    ]
   },
@@ -45676,8 +45767,49 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
-   "photos": []
+   "shortfall": "1 usable photo of the 6 a subject can have (the research found no more that pass the checks)",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_05.jpg",
+     "file": "2026 NCT WISH fansigning 05.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/2026_NCT_WISH_fansigning_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "a5df70109e77abe3a7f3d8d2418da470e95d56f1",
+     "author": "numbuzin",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-02-15",
+     "date_precision": "day",
+     "event": "2026 NCT WISH fansigning 2026-02-15",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 30
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 1,
+     "status": "pending",
+     "review": [
+      "the licence review is still open on Commons",
+      "2 people are in the frame",
+      "a person in the frame is not identified"
+     ],
+     "reasons": [],
+     "age": {
+      "ok": true,
+      "reason": null
+     },
+     "window_width": 1397,
+     "full_ok": true,
+     "small_2x": false
+    }
+   ]
   },
   {
    "slug": "san-ateez",
@@ -56425,9 +56557,409 @@
    "idol_id": null,
    "why": "group",
    "end_year": null,
-   "locked": true,
-   "shortfall": null,
-   "photos": []
+   "locked": false,
+   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "photos": [
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:K_of_&TEAM_2026.09.21_Mark_on_Me_showcase_01.jpg",
+     "file": "K of &TEAM 2026.09.21 Mark on Me showcase 01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/K_of_%26TEAM_2026.09.21_Mark_on_Me_showcase_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4559,
+     "height": 6840,
+     "sha1": "3e848f156dfa256a622d749a98d67fce3689cc64",
+     "author": "Kollection K",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2026-09-22",
+     "date_precision": "day",
+     "event": "K of &TEAM Mark on Me showcase 01",
+     "stage": true,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [],
+     "reasons": [
+      "age rule: unknown_birth_date",
+      "this file is already a photo in the game"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 4559,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 2279,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 2280,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2024-08-28_&TEAM_fan_event_in_Seoul_09.jpg",
+     "file": "2024-08-28 &TEAM fan event in Seoul 09.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/2024-08-28_%26TEAM_fan_event_in_Seoul_09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "3c4ac60c7bf2334c8478df889bd09e6f5825f000",
+     "author": "티비텐 TV10",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-08-28",
+     "date_precision": "day",
+     "event": "&TEAM fan event in Seoul 09",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [],
+     "reasons": [
+      "age rule: unknown_birth_date"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:K_(&TEAM)._April_6,_2026._\"The_Devil_Wears_Prada_2\"_event_in_Tokyo.jpg",
+     "file": "K (&TEAM). April 6, 2026. \"The Devil Wears Prada 2\" event in Tokyo.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/K_%28%26TEAM%29._April_6%2C_2026._%22The_Devil_Wears_Prada_2%22_event_in_Tokyo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1791,
+     "height": 2239,
+     "sha1": "1da9dc928941f1f2b26af486c116d0f9606887dc",
+     "author": "spiKa 10210921",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2026-06-06",
+     "date_precision": "day",
+     "event": "K (&TEAM). April 6, 2026. \"The Devil Wears Prada 2\" event in Tokyo",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [],
+     "reasons": [
+      "age rule: unknown_birth_date"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 1791,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 895,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 896,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2023-11-25_&TEAM_airport_departure-1.jpg",
+     "file": "2023-11-25 &TEAM airport departure-1.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/2023-11-25_%26TEAM_airport_departure-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3278,
+     "height": 1993,
+     "sha1": "ee2476380388a3d4f2b7149a06b121495ba86b44",
+     "author": "티비텐 TV10",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-11-25",
+     "date_precision": "day",
+     "event": "&TEAM airport departure-1",
+     "stage": false,
+     "quality": 4,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [],
+     "reasons": [
+      "age rule: minor_at_photo"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "minor_at_photo"
+     },
+     "window_width": 2579,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1289,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1290,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:&TEAM_ATA_promotion_02.jpg",
+     "file": "&TEAM ATA promotion 02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/%26TEAM_ATA_promotion_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "d00b5c04bca6c6a9e658e1fc412cb1f6ac877042",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-09-02",
+     "date_precision": "day",
+     "event": "&TEAM ATA promotion 02",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [
+      "age rule: unknown_birth_date"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2025-12-29_&Team_for_Marie_Claire_02.jpg",
+     "file": "2025-12-29 &Team for Marie Claire 02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/2025-12-29_%26Team_for_Marie_Claire_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "8bf11607cdfdda3e4f3aa0181ed8e4ac7506bbad",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-12-29",
+     "date_precision": "day",
+     "event": "&Team for Marie Claire 02",
+     "stage": false,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [
+      "age rule: unknown_birth_date"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2025-11-18_&TEAM_performing_Mismatch_for_SBS_Radio_01.jpg",
+     "file": "2025-11-18 &TEAM performing Mismatch for SBS Radio 01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/2025-11-18_%26TEAM_performing_Mismatch_for_SBS_Radio_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "b538a710aaa2e8960c3581583dd6c798fff3b1db",
+     "author": "SBS Radio 에라오",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-11-18",
+     "date_precision": "day",
+     "event": "&TEAM performing Mismatch for SBS Radio 01",
+     "stage": true,
+     "quality": 5,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [
+      "the licence review is still open on Commons"
+     ],
+     "reasons": [
+      "age rule: unknown_birth_date"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 2795,
+     "full_ok": true,
+     "halves": [
+      {
+       "part": 1,
+       "width": 1397,
+       "small_2x": false
+      },
+      {
+       "part": 2,
+       "width": 1398,
+       "small_2x": false
+      }
+     ]
+    },
+    {
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:241002_&Team_(3).jpg",
+     "file": "241002 &Team (3).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/17/241002_%26Team_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1360,
+     "height": 698,
+     "sha1": "686ce732da50f90e72e56b1115e356480bc7662f",
+     "author": "nacco",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-10-02",
+     "date_precision": "day",
+     "event": "241002 &Team (3)",
+     "stage": false,
+     "quality": 2,
+     "focal": {
+      "x": 50,
+      "y": 50
+     },
+     "source_path": null,
+     "news_only": false,
+     "slot": 0,
+     "status": "out",
+     "review": [],
+     "reasons": [
+      "age rule: unknown_birth_date"
+     ],
+     "age": {
+      "ok": false,
+      "reason": "unknown_birth_date"
+     },
+     "window_width": 903,
+     "full_ok": false,
+     "halves": [
+      {
+       "part": 1,
+       "width": 451,
+       "small_2x": true
+      },
+      {
+       "part": 2,
+       "width": 452,
+       "small_2x": true
+      }
+     ]
+    }
+   ]
   },
   {
    "slug": "ten-nct",
@@ -57405,7 +57937,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": null,
    "photos": [
     {
      "source": "commons",
@@ -57431,15 +57963,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 1,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 4720,
      "full_ok": true,
@@ -57480,15 +58010,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 2,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 5179,
      "full_ok": true,
@@ -57529,15 +58057,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 3,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 3004,
      "full_ok": true,
@@ -57578,15 +58104,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 4,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 3866,
      "full_ok": true,
@@ -57627,15 +58151,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 5,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 14354,
      "full_ok": true,
@@ -57676,15 +58198,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "age rule: unknown_birth_date"
-     ],
+     "reasons": [],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 11125,
      "full_ok": true,
@@ -57729,11 +58249,11 @@
      "status": "out",
      "review": [],
      "reasons": [
-      "age rule: unknown_birth_date"
+      "six photos already"
      ],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 1781,
      "full_ok": true,
@@ -57778,11 +58298,11 @@
      "status": "out",
      "review": [],
      "reasons": [
-      "age rule: unknown_birth_date"
+      "six photos already"
      ],
      "age": {
-      "ok": false,
-      "reason": "unknown_birth_date"
+      "ok": true,
+      "reason": null
      },
      "window_width": 2174,
      "full_ok": true,
@@ -68759,10 +69279,6 @@
    "reason": "locked"
   },
   {
-   "slug": "enhypen",
-   "reason": "no photo passes the checks"
-  },
-  {
    "slug": "hana-fifty-fifty",
    "reason": "no photo found"
   },
@@ -68823,10 +69339,6 @@
    "reason": "no photo found"
   },
   {
-   "slug": "sakuya-nct",
-   "reason": "no photo found"
-  },
-  {
    "slug": "seonghyeon-cortis",
    "reason": "locked"
   },
@@ -68852,15 +69364,11 @@
   },
   {
    "slug": "team",
-   "reason": "locked"
+   "reason": "no photo passes the checks"
   },
   {
    "slug": "theo-p1harmony",
    "reason": "no photo found"
-  },
-  {
-   "slug": "treasure",
-   "reason": "no photo passes the checks"
   },
   {
    "slug": "tws",

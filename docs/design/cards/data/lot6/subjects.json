@@ -774,6 +774,15 @@
   "why": "kpopdle"
  },
  {
+  "slug": "haruto-treasure",
+  "kind": "idol",
+  "name": "Haruto",
+  "qid": "Q97352003",
+  "group": "treasure",
+  "idol_id": null,
+  "why": "kpopdle"
+ },
+ {
   "slug": "haseul-loona",
   "kind": "idol",
   "name": "Haseul",
@@ -1041,6 +1050,15 @@
   "qid": "Q27431345",
   "group": "nct",
   "idol_id": 200,
+  "why": "kpopdle"
+ },
+ {
+  "slug": "jake-enhypen",
+  "kind": "idol",
+  "name": "Jake",
+  "qid": "Q105718037",
+  "group": "enhypen",
+  "idol_id": 117,
   "why": "kpopdle"
  },
  {
