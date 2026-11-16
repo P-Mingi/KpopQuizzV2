@@ -1,8 +1,9 @@
 -- 116-photos-harvest.rollback.sql (undo of 116-photos-harvest.sql)
 --
 -- What:   removes ONLY what 116 added, as its own log (public.cards_harvest_log) says: the photos it added (inside the explicit list of
---         1150 pages below), the entities it created (the log's ids: a group can take the database's slug at apply time), the log, the column cards_entities.age_lock, the
---         functions cards_age_locks and cards_age_day. An entity that existed before 116 stays; a photo that existed before stays.
+--         1115 pages below), the entities it created (the log's ids: a group can take the database's slug at apply time), the public.idols rows it added
+--         while they are still without a birth date and flagged (a row the owner completed stays, with a notice), the log, the column
+--         cards_entities.age_lock, the functions cards_age_locks and cards_age_day. An entity that existed before 116 stays; a photo that existed before stays.
 --         When the catalog already holds cards of these subjects it is built again with cards_build_catalog() (so the numbers stay contiguous),
 --         which is only possible while no pack was opened.
 -- Refuses: while a player owns a card of these subjects; while a pack was opened and the catalog holds a card of these subjects (the numbers cannot change then).
@@ -26,7 +27,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Aespa''s_Ningning_&_Karina_2.png',
     'https://commons.wikimedia.org/wiki/File:03112026_Aespa_NingNing_Airport_Departure_10.png',
     'https://commons.wikimedia.org/wiki/File:31072026_NINGNING_AESPA_AIRPORT_DEPARTURE_1.png',
-    'https://commons.wikimedia.org/wiki/File:Aespa''s_Ningning_4.jpg',
     'https://commons.wikimedia.org/wiki/File:20250306_Aespa_Amsterdam_concert_02.jpg',
     'https://commons.wikimedia.org/wiki/File:Ahyeon_20260905_Manila.jpg',
     'https://commons.wikimedia.org/wiki/File:Ahyeon_Summer_Sonic_2026.jpg',
@@ -79,9 +79,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:Blackpink_Born_Pink_Tour_LA_01.jpg',
     'https://commons.wikimedia.org/wiki/File:0020Reinvent_Your_World_With_Globe-Blackpink_The_Show_24.jpg',
     'https://commons.wikimedia.org/wiki/File:151219_비투비_두번째_단독콘서트_Born_To_Beat_Time.jpg',
-    'https://commons.wikimedia.org/wiki/File:141005_여의도_팬싸_비투비.jpg',
+    'https://commons.wikimedia.org/wiki/File:5월_26일_우유의_날_&_치즈에_퐁당_페스티벌_(31).jpg',
     'https://commons.wikimedia.org/wiki/File:BTS_Arirang_World_Tour_in_Paris_(17_July_2026)_-_Swim.jpg',
-    'https://commons.wikimedia.org/wiki/File:BTS_Behind_the_Stage_Exhibition.jpg',
     'https://commons.wikimedia.org/wiki/File:BTS_PTD_LAS_VEGAS_Allegiant_Stadium_interior.jpg',
     'https://commons.wikimedia.org/wiki/File:BTS_Permission_to_Dance_On_Stage_Dec_1,_2021.jpg',
     'https://commons.wikimedia.org/wiki/File:BTS_performing_"Not_Today"_during_Speak_Yourself_tour_at_MetLife_Stadium,_18_May_2019_01.jpg',
@@ -112,7 +111,7 @@ declare
     'https://commons.wikimedia.org/wiki/File:Stray_Kids_Changbin.jpg',
     'https://commons.wikimedia.org/wiki/File:190106_Stray_Kids_Changbin.png',
     'https://commons.wikimedia.org/wiki/File:190106_Stray_Kids_彰彬.png',
-    'https://commons.wikimedia.org/wiki/File:Changbin_of_Stray_Kids,_December_4,_2024.png',
+    'https://commons.wikimedia.org/wiki/File:Changbin_of_Stray_Kids_on_Incheon_Airport,_May_3,_2024.png',
     'https://commons.wikimedia.org/wiki/File:Chanhyuk_at_Ipselenti_Korea_University_Campus_Festival_in_2016_01.jpg',
     'https://commons.wikimedia.org/wiki/File:Lee_Chanhyuk_-_Marie_Claire_Korea_2021_Interview.png',
     ('https://commons.wikimedia.org/wiki/File:Chanyeol_during_the_Exo_Planet_5_' || chr(8211) || '_Exploration_concert_on_December_2019_(3).jpg'),
@@ -133,9 +132,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:180715_엘리시온_닷_in_서울_(디오)_1.jpg',
     'https://commons.wikimedia.org/wiki/File:180714_엘리시온_닷_in_서울_(디오)_1.jpg',
     'https://commons.wikimedia.org/wiki/File:140815_SMTOWN_LIVE''14_IN_SEOUL_EXO_엑소_디오_직찍_(4).jpg',
-    'https://commons.wikimedia.org/wiki/File:Korea_KPOP_World_Festival_13.jpg',
     'https://commons.wikimedia.org/wiki/File:2012_가요대제전_03.jpg',
-    'https://commons.wikimedia.org/wiki/File:Exo-K_during_EXPO_2012_Yeosu_Korea_Foundation.jpg',
+    'https://commons.wikimedia.org/wiki/File:D.O._of_EXO_in_KPOP_World_Festival.jpg',
     'https://commons.wikimedia.org/wiki/File:Seungri_&_Daesung_-_MADE_THE_MOVIE_Premiere_-_2.jpg',
     'https://commons.wikimedia.org/wiki/File:Daesung_and_Seungri_at_Big_Show,_2011.jpg',
     'https://commons.wikimedia.org/wiki/File:GDYBDSRI.png',
@@ -180,7 +178,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:2025-11-18_&TEAM_performing_Mismatch_for_SBS_Radio_08.jpg',
     'https://commons.wikimedia.org/wiki/File:2023-11-25_&TEAM_airport_departure-3_(cropped).jpg',
     'https://commons.wikimedia.org/wiki/File:20251110_&TEAM_EJ_BARRIE.png',
-    'https://commons.wikimedia.org/wiki/File:2025-12-29_&Team_for_Marie_Claire_05.jpg',
     'https://commons.wikimedia.org/wiki/File:Collection_of_Enhypen_Sin-Vanish_Photocard.jpg',
     'https://commons.wikimedia.org/wiki/File:Enhypen_members.jpg',
     'https://commons.wikimedia.org/wiki/File:Enhypen,_June_2026.jpg',
@@ -190,7 +187,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Easy_Crazy_Hot_Tour_in_Seattle_-_le_sserafim_(54846409880).jpg',
     'https://commons.wikimedia.org/wiki/File:03032026_LESSERAFIM_EUNCHAE_Airport_Departure_2.jpg',
     'https://commons.wikimedia.org/wiki/File:Hong_Eunchae_2026.jpg',
-    'https://commons.wikimedia.org/wiki/File:Hong_Eunchae_of_Le_Sserafim,_January_10,_2025.png',
     'https://commons.wikimedia.org/wiki/File:Eunseok_of_Riize_at_the_2024_Melon_Music_Awards.png',
     'https://commons.wikimedia.org/wiki/File:20231124_Song_Eun-seok_(Riize).jpg',
     'https://commons.wikimedia.org/wiki/File:Song_Eunseok_-_Sealook_OST_Behind_The_Scenes.jpg',
@@ -200,6 +196,7 @@ declare
     'https://commons.wikimedia.org/wiki/File:230407_Cha_Eun-woo_(차은우).jpg',
     'https://commons.wikimedia.org/wiki/File:차은우_@_2019_SS_헤라_서울패션위크_''YCH(와이씨에이치)''_포토월_06.png',
     'https://commons.wikimedia.org/wiki/File:170602_Astro_02.jpg',
+    'https://commons.wikimedia.org/wiki/File:Korea_KPOP_World_Festival_13.jpg',
     'https://commons.wikimedia.org/wiki/File:20241105_Suho_수호_04.jpg',
     'https://commons.wikimedia.org/wiki/File:EXO_at_KBS_Gayo_Daejun_on_December_28,_2018.png',
     'https://commons.wikimedia.org/wiki/File:PN_Woodland.jpg',
@@ -217,12 +214,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:G-Dragon_-_Heartbreaker.jpg',
     'https://commons.wikimedia.org/wiki/File:G_Dragon.jpg',
     'https://commons.wikimedia.org/wiki/File:GD&TOP_performance_at_Big_Bang''s_Big_Show,_2011.jpg',
-    'https://commons.wikimedia.org/wiki/File:Yeh_Shuhua_of_(G)I-DLE_in_2020_04.png',
     'https://commons.wikimedia.org/wiki/File:Jeon_So-yeon_of_(G)I-DLE_in_2020_01.png',
-    'https://commons.wikimedia.org/wiki/File:Song_Yuqi_of_(G)I-dle_in_2020_02.png',
-    'https://commons.wikimedia.org/wiki/File:Cho_Mi-yeon_of_(G)I-dle_in_2020_03.png',
     'https://commons.wikimedia.org/wiki/File:Minnie_of_(G)I-dle_in_2020_04.png',
-    'https://commons.wikimedia.org/wiki/File:Yuqi_at_SBS_Radio_on_August,6_2020_02.png',
     'https://commons.wikimedia.org/wiki/File:Gaeul_of_IVE_"Show_What_I_Am"_World_Tour_Kuala_Lumpur_01.jpg',
     'https://commons.wikimedia.org/wiki/File:Gaeul_of_IVE_"Show_What_I_Am"_World_Tour_Kuala_Lumpur.jpg',
     'https://commons.wikimedia.org/wiki/File:Gaeul_of_Ive_at_Senka_Pop-up_Event,_May_19,_2026_(2).png',
@@ -232,15 +225,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:20240223_Dreamcatcher_Offenbach_concert_24_Gahyeon.jpg',
     'https://commons.wikimedia.org/wiki/File:20221117_Dreamcatcher_Tilburg_concert_37_Gahyeon.jpg',
     'https://commons.wikimedia.org/wiki/File:180612_드림캐쳐_유앤아이_막방미니팬미팅_(5).jpg',
-    'https://commons.wikimedia.org/wiki/File:GFriend_at_Incheon_International_Airport,_January_2025.jpg',
-    'https://commons.wikimedia.org/wiki/File:190701_쇼케이스_여자친구_(cropped).jpg',
-    'https://commons.wikimedia.org/wiki/File:190424_레드카펫_여자친구.jpg',
-    'https://commons.wikimedia.org/wiki/File:190114_쇼케이스_여자친구.jpg',
-    'https://commons.wikimedia.org/wiki/File:180106_180107_Season_Of_Gfriend_유주_(3).jpg',
-    'https://commons.wikimedia.org/wiki/File:GFRIEND_at_Korea_Sale_Festa,_30_September_2016.png',
     'https://commons.wikimedia.org/wiki/File:LG_시네마_3D_TV_새_모델_‘소녀시대’_영입.jpg',
     'https://commons.wikimedia.org/wiki/File:KOCIS_Korea_Mnet_Girls_Generation_11_(12986862615).jpg',
-    'https://commons.wikimedia.org/wiki/File:Kpop_girl_groups_on_Spotify_Ranking.jpg',
     'https://commons.wikimedia.org/wiki/File:220903_poleposition_069_(53595347273).jpg',
     'https://commons.wikimedia.org/wiki/File:220820_poleposition_235_(53595169299).jpg',
     'https://commons.wikimedia.org/wiki/File:220820_poleposition_265_(53594853161).jpg',
@@ -269,9 +255,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:20062026_Stray_Kids_HAN_Airport_Departure_6.jpg',
     'https://commons.wikimedia.org/wiki/File:20240503_Han_of_Stray_Kids.png',
     'https://commons.wikimedia.org/wiki/File:190106_Stray_Kids_Han_Ji_Sung.png',
-    'https://commons.wikimedia.org/wiki/File:Han_of_Stray_Kids,_November_21,_2023.png',
-    'https://commons.wikimedia.org/wiki/File:Han_of_Stray_Kids_at_Incheon_Airport,_May_3,_2024.png',
-    'https://commons.wikimedia.org/wiki/File:Han_of_Stray_Kids_at_the_40th_Golden_Disc_Awards,_January_10,_2026_(1).png',
     'https://commons.wikimedia.org/wiki/File:Sung_Hanbin_at_Gucci_event_on_March_5,_2024.png',
     'https://commons.wikimedia.org/wiki/File:230513_Sung_Han-bin_(성한빈).jpg',
     'https://commons.wikimedia.org/wiki/File:2025-08-02_KCON_LA_last_goodbye_08.jpg',
@@ -283,12 +266,9 @@ declare
     'https://commons.wikimedia.org/wiki/File:180127_DREAMCATCHER_드림캐쳐_분당_버스킹_HANDONG_한동.png',
     'https://commons.wikimedia.org/wiki/File:Hanjin_of_TWS_at_the_2024_Melon_Music_Awards.png',
     'https://commons.wikimedia.org/wiki/File:HANJIN_of_TWS_at_Music_Bank_20240223.png',
-    'https://commons.wikimedia.org/wiki/File:20230921_Newjeans_Hanni_티비텐_03.jpg',
-    'https://commons.wikimedia.org/wiki/File:20230905_Hanni_(NewJeans).jpg',
     'https://commons.wikimedia.org/wiki/File:Newjeans_Hanni_2023_01.jpg',
-    'https://commons.wikimedia.org/wiki/File:Hanni_OLENS_2.jpg',
-    'https://commons.wikimedia.org/wiki/File:2023_MMA_NewJeans_Hanni.jpg',
-    'https://commons.wikimedia.org/wiki/File:Hanni_241022.png',
+    'https://commons.wikimedia.org/wiki/File:Hanni_OLensglobal.jpg',
+    'https://commons.wikimedia.org/wiki/File:NewJeans_Hanni_OLENS_1.jpg',
     'https://commons.wikimedia.org/wiki/File:230707_TREASURE(트레저)_Haruto_in_Incheon_Airport.jpg',
     'https://commons.wikimedia.org/wiki/File:2017.01.21_용산_이달의소녀_팬_사인회_하슬_by_엔타로_(2).jpg',
     'https://commons.wikimedia.org/wiki/File:Haseul.png',
@@ -323,8 +303,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:Hyungwon_-_HMBD_Campaign_by_Marie_Claire_Korea_in_February_2023.png',
     'https://commons.wikimedia.org/wiki/File:Monsta_X_at_a_fanmeet_in_May_2016_01.jpg',
     'https://commons.wikimedia.org/wiki/File:Hyungwon_at_a_fanmeet_in_May_2016_03.jpg',
-    'https://commons.wikimedia.org/wiki/File:151206_몬스타엑스_싱가포르_팬미팅_5.jpg',
     'https://commons.wikimedia.org/wiki/File:HYUNGWON_MarieClarieKorea_2021.png',
+    'https://commons.wikimedia.org/wiki/File:Chae_Hyung-won_at_Old_School_Public_Broadcasting_in_October_2016.jpg',
     'https://commons.wikimedia.org/wiki/File:20220908_Loona_Amsterdam_concert_041_HyunJin.jpg',
     'https://commons.wikimedia.org/wiki/File:Hyunjin_Loossemble_Airport_Departure_20230913.png',
     'https://commons.wikimedia.org/wiki/File:Hyunjin_of_Stray_Kids_on_November_24_2023.png',
@@ -351,7 +331,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:23052024_I.N_DAMIANI_of_Stray_Kids.png',
     'https://commons.wikimedia.org/wiki/File:20240503_I.N_of_Stray_Kids.png',
     'https://commons.wikimedia.org/wiki/File:I.N_of_Stray_Kids_at_Incheon_Airport,_September_20,_2024.png',
-    'https://commons.wikimedia.org/wiki/File:LG전자,_프리미엄급_개성_갖춘_‘X_시리즈’_출시_(25673479820).jpg',
     'https://commons.wikimedia.org/wiki/File:180818_iKON_2018_Continue_Tour_in_Seoul_바비_송윤형.jpg',
     'https://commons.wikimedia.org/wiki/File:20230530_Red_Velvet_Amsterdam_concert_107_Irene.jpg',
     'https://commons.wikimedia.org/wiki/File:Irene_Bae_at_Busan_One_Asia_Festival_in_October_23,_2016_(1).jpg',
@@ -363,7 +342,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:ITZY_(있지)_2023_뮤직뱅크_페스티벌_출국_ITZY_Airport_Departure.jpg',
     'https://commons.wikimedia.org/wiki/File:Yeji_of_Itzy_on_Incheon_Airport,_September_26,_2024.png',
     'https://commons.wikimedia.org/wiki/File:10072026_YUNA_ITZY_AIRPORT_DEPARTURE_2.png',
-    'https://commons.wikimedia.org/wiki/File:18052026_ITZY_CHAERYEONG_2.png',
     'https://commons.wikimedia.org/wiki/File:18052026_ITZY_LIA_2.png',
     'https://commons.wikimedia.org/wiki/File:ITZY''s_Lia_in_August_2023_02.jpg',
     'https://commons.wikimedia.org/wiki/File:J-Hope_during_Hope_on_the_Stage_in_Manila.jpg',
@@ -421,7 +399,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Jin_performing_at_''Music_Bank''_in_Mexico,_30_October_2014_02.jpg',
     'https://commons.wikimedia.org/wiki/File:Jin_performing_at_KCON_2014,_10_August_2014_02.jpg',
     'https://commons.wikimedia.org/wiki/File:Jin_at_a_fansigning_in_Sinchon,_11_September_2014.jpg',
-    'https://commons.wikimedia.org/wiki/File:170602_Astro_07.jpg',
     'https://commons.wikimedia.org/wiki/File:20250503_ARTMS_Eindhoven_concert_14_Jinsoul.jpg',
     'https://commons.wikimedia.org/wiki/File:20220908_Loona_Amsterdam_concert_073_JinSoul.jpg',
     'https://commons.wikimedia.org/wiki/File:20181013_이달의_소녀_음악중심_미니_팬미팅_(5).jpg',
@@ -588,7 +565,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:20230712_ODD_EYE_CIRCLE_(오드아이써클).jpg',
     'https://commons.wikimedia.org/wiki/File:Loosemble_(54145401082).jpg',
     'https://commons.wikimedia.org/wiki/File:Mamamoo_Moonbyul_in_2024_(1)_04.jpg',
-    'https://commons.wikimedia.org/wiki/File:171015_KB배구_홈개막전_축하공연_마마무_솔라_미리보기_01.jpg',
     'https://commons.wikimedia.org/wiki/File:171210_핑거밴드_페스티벌_마마무_솔라_미리보기_02.jpg',
     'https://commons.wikimedia.org/wiki/File:Solar_Mamamoo_2.jpg',
     'https://commons.wikimedia.org/wiki/File:191005_Mamamoo_Wheein.png',
@@ -623,7 +599,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Mingi_ATEEZ_di_Kpop_Land_Indonesia.jpg',
     'https://commons.wikimedia.org/wiki/File:220728_에이티즈_ATEEZ_Mingi.png',
     'https://commons.wikimedia.org/wiki/File:Song_Min-gi.png',
-    'https://commons.wikimedia.org/wiki/File:240803_Ateez_03.jpg',
     'https://commons.wikimedia.org/wiki/File:240803-ateez-nyc-7.jpg',
     'https://commons.wikimedia.org/wiki/File:Glasto24_28_300624_(89_of_545)_(53838092965).jpg',
     'https://commons.wikimedia.org/wiki/File:180111_민규_-_32nd_Golden_Disc_Awards_03.jpg',
@@ -638,14 +613,13 @@ declare
     'https://commons.wikimedia.org/wiki/File:Choi_Min-ho_최민호_220113.png',
     'https://commons.wikimedia.org/wiki/File:190106_민호_-_33rd_Golden_Disc_Awards_03.jpg',
     'https://commons.wikimedia.org/wiki/File:Lee_Min-hyuk_at_Old_School_Public_Broadcasting_in_October_2016.jpg',
-    'https://commons.wikimedia.org/wiki/File:KCON_2015_Monsta_X_3.jpg',
     'https://commons.wikimedia.org/wiki/File:151206_몬스타엑스_싱가포르_팬미팅_3.jpg',
     'https://commons.wikimedia.org/wiki/File:Minji_(NewJeans)_220812.jpg',
     'https://commons.wikimedia.org/wiki/File:NewJeans_Minji_OLENS_2.jpg',
     'https://commons.wikimedia.org/wiki/File:Minji_Olens_2024_FW_3.jpg',
-    'https://commons.wikimedia.org/wiki/File:Minji_240903.png',
     'https://commons.wikimedia.org/wiki/File:NewJeans_Minji_OLENS_3.jpg',
     'https://commons.wikimedia.org/wiki/File:20220814_Minji_on_SBS_Radio.jpg',
+    'https://commons.wikimedia.org/wiki/File:NewJeans_Minji_Seoul_Fashion_Week_2.jpg',
     'https://commons.wikimedia.org/wiki/File:27082026_Min-ju_ILLIT_Airport_Departure_1.png',
     'https://commons.wikimedia.org/wiki/File:07072026_ILLIT_MINJU_Kerastase_PhotoCall_3.png',
     'https://commons.wikimedia.org/wiki/File:ILLIT_Minju_February_2024.png',
@@ -700,6 +674,7 @@ declare
     'https://commons.wikimedia.org/wiki/File:260507_Min_Heejin.png',
     'https://commons.wikimedia.org/wiki/File:Ni-Ki_at_Love_Your_W_event_October_14_2024.png',
     'https://commons.wikimedia.org/wiki/File:Naval_Base_Coronado_Leaders_meet_NASCAR_racer_Riley_Herbst''s_team_(2)_9763295.jpg',
+    'https://commons.wikimedia.org/wiki/File:2025-12-29_&Team_for_Marie_Claire_05.jpg',
     'https://commons.wikimedia.org/wiki/File:2025-11-18_&TEAM_performing_Mismatch_for_SBS_Radio_06.jpg',
     'https://commons.wikimedia.org/wiki/File:20251008_&TEAM_NICHOLAS_Gimpo_Airport.png',
     'https://commons.wikimedia.org/wiki/File:250315-16_aespa_Ningning_01.jpg',
@@ -727,7 +702,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Pharita_Summer_Sonic_2026.jpg',
     'https://commons.wikimedia.org/wiki/File:Adidas_Orchard_Ignition_Event_X_Babymonster_-_Pharita_30082026.jpg',
     'https://commons.wikimedia.org/wiki/File:Pharita_SBS_Gayo_Daejeon_2025.jpg',
-    'https://commons.wikimedia.org/wiki/File:20231028_SWAN_(PURPLE_KISS).jpg',
     'https://commons.wikimedia.org/wiki/File:Red_Velvet_at_Lotte_World_Happy_concert_01.jpg',
     'https://commons.wikimedia.org/wiki/File:20230530_Red_Velvet_Amsterdam_concert_013_Yeri_and_Irene.jpg',
     'https://commons.wikimedia.org/wiki/File:240511_Red_Velvet_Irene.jpg',
@@ -736,9 +710,9 @@ declare
     'https://commons.wikimedia.org/wiki/File:Rei_of_IVE_"Show_What_I_Am"_Kuala_Lumpur.jpg',
     'https://commons.wikimedia.org/wiki/File:Ive''s_Rei_@_OPENING_PROJECTxSATUR_PhotoCall,_12_June_2025_03.png',
     'https://commons.wikimedia.org/wiki/File:Ive''s_Rei_at_Ralph_Lauren_Hannam_store_opening,_26_March_2025_02.png',
-    'https://commons.wikimedia.org/wiki/File:Ive''s_Rei_in_2023.jpg',
     'https://commons.wikimedia.org/wiki/File:29092026_IVE_REI_rom''u_PhotoCall_8.jpg',
     'https://commons.wikimedia.org/wiki/File:20231202_IVE''s_Naoi_Rei_at_the_MAMA2023_07.jpg',
+    'https://commons.wikimedia.org/wiki/File:Rei_for_Longines,_February_2025_03.png',
     'https://commons.wikimedia.org/wiki/File:Riize_at_the_2024_Melon_Music_Awards.png',
     'https://commons.wikimedia.org/wiki/File:Riize_-_2023_Love_Your_W_press_line.png',
     'https://commons.wikimedia.org/wiki/File:MMA_2023_Riize_1.jpg',
@@ -782,9 +756,9 @@ declare
     'https://commons.wikimedia.org/wiki/File:Twice''s_Sana_(2)_at_KCON_2016_LA_fan_engagement_08_(cropped).jpg',
     'https://commons.wikimedia.org/wiki/File:Twice_in_Seattle_2026_-_TWICE._Sana_and_Tzuyu_(55044987451).jpg',
     'https://commons.wikimedia.org/wiki/File:161204_트와이스_사나_다현_ICN_MAMA_출국_by._정연은_사랑_(1).jpg',
-    'https://commons.wikimedia.org/wiki/File:Sana_Minatozaki_2022.jpg',
-    'https://commons.wikimedia.org/wiki/File:Sana_Minatozaki_2022_(3).jpg',
     'https://commons.wikimedia.org/wiki/File:(17.05.26)뮤직뱅크_TWICE_사나_(4).jpg',
+    'https://commons.wikimedia.org/wiki/File:170304_여의도_팬싸인회_사나.jpg',
+    'https://commons.wikimedia.org/wiki/File:161025_최파타_출근_사나_2pic_(2).jpg',
     'https://commons.wikimedia.org/wiki/File:2019_SS_서울패션위크_-_Sanha_04.png',
     'https://commons.wikimedia.org/wiki/File:Yoon_San-ha_during_the_''Incense_showcase''_photo_time_in_2023.png',
     'https://commons.wikimedia.org/wiki/File:GsKaaVLWAAARAvP.jpg',
@@ -823,8 +797,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:20240503_Kim_Seungmin_of_Stray_Kids.png',
     'https://commons.wikimedia.org/wiki/File:230424_Kim_Seung_min_of_Stray_Kids.png',
     'https://commons.wikimedia.org/wiki/File:Kim_Seung-min(Stray_kids)_221018.jpg',
-    'https://commons.wikimedia.org/wiki/File:Seventeen_performing_Don''t_Wanna_Cry_at_Dream_Concert_2017_02.png',
-    'https://commons.wikimedia.org/wiki/File:HMV&BOOKS_SHIBUYA_2024年12月3日の渋谷_202412031252_IMG_2531.jpg',
     'https://commons.wikimedia.org/wiki/File:HMV&BOOKS_SHIBUYA_2024年12月1日の渋谷_202412011631_IMG_2116.jpg',
     'https://commons.wikimedia.org/wiki/File:SeventeenSeventyNov082024_07.jpg',
     'https://commons.wikimedia.org/wiki/File:SeventeenSeventyNov082024_06.jpg',
@@ -837,6 +809,7 @@ declare
     'https://commons.wikimedia.org/wiki/File:Shinyu_of_TWS_at_the_2024_Melon_Music_Awards.png',
     'https://commons.wikimedia.org/wiki/File:SHINYU_of_TWS_at_Music_Bank_20240202.png',
     'https://commons.wikimedia.org/wiki/File:SHINYU_of_TWS_at_KCON_JAPAN_20240511.png',
+    'https://commons.wikimedia.org/wiki/File:KCON_2015_Monsta_X_3.jpg',
     'https://commons.wikimedia.org/wiki/File:Shownu_blur.jpg',
     'https://commons.wikimedia.org/wiki/File:Shownu_at_Delvaux_in_May_2023.jpg',
     'https://commons.wikimedia.org/wiki/File:Shownu_at_Old_School_Public_Broadcasting_in_October_2016.jpg',
@@ -879,9 +852,7 @@ declare
     'https://commons.wikimedia.org/wiki/File:(G)I-DLE_Airport_Departure_2024_Soyeon_1.png',
     'https://commons.wikimedia.org/wiki/File:20230905_(G)i-dle''s_Soyeon_02.png',
     'https://commons.wikimedia.org/wiki/File:20230802_Jeon_Soyeon_07.png',
-    'https://commons.wikimedia.org/wiki/File:Lee_Know_and_Lee_Felix_in_Incheon_Airport,_September_7,_2024.png',
     'https://commons.wikimedia.org/wiki/File:Lee_Felix_of_Stray_Kids_at_the_HERA_photocall,_17_April_2026_(1).png',
-    'https://commons.wikimedia.org/wiki/File:Hyunjin_of_Stray_Kids_for_Marie_Claire_Korea,_March_31,_2025.png',
     'https://commons.wikimedia.org/wiki/File:01092026_Stray_Kids_CHANGBIN_X_AUTRY_PhotoCall_12.png',
     'https://commons.wikimedia.org/wiki/File:Bang_Chan_of_Stray_Kids,_October_15,_2025_(2).png',
     'https://commons.wikimedia.org/wiki/File:Lee_Know_of_Stray_Kids,_September_2,_2025_(4).png',
@@ -895,8 +866,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:Suga_x_Galaxy_Samsung_August_2021.png',
     'https://commons.wikimedia.org/wiki/File:KOCIS_Korea_Mnet_BTS_01_(12986916653).jpg',
     'https://commons.wikimedia.org/wiki/File:SUGA_of_BTS_-_Agust_D_Tour_2023_-_UBS_Belmont_Arena_April_27,_2023_-_Photo_4.jpg',
-    'https://commons.wikimedia.org/wiki/File:Suga_and_Jimin_at_an_fansign_in_Sinchon,_in_September_2014.jpg',
     'https://commons.wikimedia.org/wiki/File:Suga_and_Kim_Seok-jin_at_K-Star_Road_Opening_Ceremony.jpg',
+    'https://commons.wikimedia.org/wiki/File:Bangtan_Boys_during_a_photography_session,_May_2014_03.jpg',
     'https://commons.wikimedia.org/wiki/File:20141226_KBS_가요대축제_(타오,_수호,_엘).jpg',
     'https://commons.wikimedia.org/wiki/File:Suho_during_the_collective_of_the_musical_"The_Man_Who_Laughs",_in_September_2018_04.png',
     'https://commons.wikimedia.org/wiki/File:Suho_at_24th_Busan_Internation_Film_Festival_red_carpet_on_October_3,_2019.png',
@@ -963,8 +934,8 @@ declare
     'https://commons.wikimedia.org/wiki/File:THE_8_210925.png',
     'https://commons.wikimedia.org/wiki/File:170604_The8.png',
     'https://commons.wikimedia.org/wiki/File:Glasto24_28_300624_(86_of_545)_(53836758817).jpg',
-    'https://commons.wikimedia.org/wiki/File:The8_leaving_a_Music_Bank_recording_in_December_2016.jpg',
     'https://commons.wikimedia.org/wiki/File:Seo_Myung-ho_at_Incheon_International_Airport_in_December_2019_02.png',
+    'https://commons.wikimedia.org/wiki/File:Yoon_Jeong-han,_Xu_Minghao_during_a_fan_signing_event_in_June_2017.png',
     'https://commons.wikimedia.org/wiki/File:Tiffany(SNSD)_in_2012.jpg',
     'https://commons.wikimedia.org/wiki/File:(160315)_SIA_2016_-_Tiffany_(2).png',
     'https://commons.wikimedia.org/wiki/File:SNSD_Tiffany_Young_in_2010.jpg',
@@ -980,7 +951,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Sana,_Chaeyoung,_Jeongyeon_and_Nayeon_at_Gaon_Awards_on_January_23,_2019_(1).jpg',
     'https://commons.wikimedia.org/wiki/File:Jeongyeon_opening_remarks_at_the_Twice_This_Is_For_World_Tour_in_Vancouver,_January_9,_2026.jpg',
     'https://commons.wikimedia.org/wiki/File:20250801_LOLLAPALOOZA_TWICE_0727_(cropped).jpg',
-    'https://commons.wikimedia.org/wiki/File:Twice_Jeongyeon_in_2023_02.jpg',
     'https://commons.wikimedia.org/wiki/File:260306_Twice_Hamilton_Jeongyeon_트와이스_정연_(5).jpg',
     'https://commons.wikimedia.org/wiki/File:260306_Twice_Hamilton_Jeongyeon_트와이스_정연_(8).jpg',
     'https://commons.wikimedia.org/wiki/File:Sony_Ericsson_txt_pro_(Black)_-_Front_(Closed).jpg',
@@ -1003,9 +973,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:Vernon_Black_Eye.png',
     'https://commons.wikimedia.org/wiki/File:220706_Summer_Vibe_쇼케이스_비비지.jpg',
     'https://commons.wikimedia.org/wiki/File:220813_Vivid_Dayz_팬미팅_비비지.jpg',
-    'https://commons.wikimedia.org/wiki/File:Wayv_durante_Good_Life..jpg',
-    'https://commons.wikimedia.org/wiki/File:TimelineWayV.Ua.png',
-    'https://commons.wikimedia.org/wiki/File:WayVDec2019.png',
     'https://commons.wikimedia.org/wiki/File:20230530_Red_Velvet_Amsterdam_concert_104_Wendy.jpg',
     'https://commons.wikimedia.org/wiki/File:Wendy_Son_during_the_Pyeongchang_Music_Festival_in_October_2017_03.jpg',
     'https://commons.wikimedia.org/wiki/File:Wendy_performing_at_KCON_2015_on_August_3,_2015_13.jpg',
@@ -1031,7 +998,6 @@ declare
     'https://commons.wikimedia.org/wiki/File:ILLIT_WONHEE_CHANEL_Photo_Call.png',
     'https://commons.wikimedia.org/wiki/File:03102026_ILLIT_Wonhee_Airport_Departure_3.jpg',
     'https://commons.wikimedia.org/wiki/File:251106_Lee_Wonhee_from_ILLIT.png',
-    'https://commons.wikimedia.org/wiki/File:(FULL)_마법_소녀에_이어_게임_캐릭터_컨셉_자신_있어🪄_아일릿(ILLIT)_윤아,_모카,_원희_보는_라디오_박소현의_러브게임_250720_1-29_screenshot.png',
     'https://commons.wikimedia.org/wiki/File:Glasto24_28_300624_(74_of_545)_(53836758942).jpg',
     'https://commons.wikimedia.org/wiki/File:Glasto24_28_300624_(67_of_545)_(53838004279).jpg',
     'https://commons.wikimedia.org/wiki/File:Jeon_Won-woo_during_the_Love_&_Letter_Showcase.jpg',
@@ -1117,9 +1083,9 @@ declare
     'https://commons.wikimedia.org/wiki/File:Yujin_of_IVE_"Show_What_I_Am"_Kuala_Lumpur_02.jpg',
     'https://commons.wikimedia.org/wiki/File:220524_An_Yu-jin_FASHION_FILM.jpg',
     'https://commons.wikimedia.org/wiki/File:Ahn_Yujin_for_FENDI.jpg',
-    'https://commons.wikimedia.org/wiki/File:Ahn_Yujin_티비텐_airport_departure_in_2023_02.jpg',
     'https://commons.wikimedia.org/wiki/File:20230918_An_Yu-jin_(안유진).jpg',
     'https://commons.wikimedia.org/wiki/File:221128_An_Yu-jin_(IVE).jpg',
+    'https://commons.wikimedia.org/wiki/File:An_Yujin_for_Marie_Claire_Korea_in_May_2022.jpg',
     'https://commons.wikimedia.org/wiki/File:20240501_ITZY_Amsterdam_concert_04_Yuna.jpg',
     'https://commons.wikimedia.org/wiki/File:ITZY''s_Shin_Yuna_(신유나)_01.jpg',
     'https://commons.wikimedia.org/wiki/File:Yuna_at_Incheon_Airport_on_September_22,_2025.jpg',
@@ -1145,9 +1111,9 @@ declare
     'https://commons.wikimedia.org/wiki/File:20230911_(G)I-dle_Amsterdam_concert_056_Yuqi.jpg',
     'https://commons.wikimedia.org/wiki/File:06072026_YUQI_I-DLE_SHOWCASE_3.png',
     'https://commons.wikimedia.org/wiki/File:(G)I-DLE_YUQI_Airport_Departure_on_20250306_02.png',
+    'https://commons.wikimedia.org/wiki/File:Song_Yuqi_of_(G)I-dle_in_2020_02.png',
     'https://commons.wikimedia.org/wiki/File:Yuqi_at_KBS_MUSICBANK_on_July,18_2019_02.png',
     'https://commons.wikimedia.org/wiki/File:Song_Yuqi_at_The_Fact_Music_Awards_on_April_24,_2019_02.png',
-    'https://commons.wikimedia.org/wiki/File:Yuqi_at_KBS_MUSICBANK_on_March,1_2019_(2).png',
     'https://commons.wikimedia.org/wiki/File:260127_Yuri_@The_King''s_Warden_VIP_Premier.jpg',
     'https://commons.wikimedia.org/wiki/File:250807_유리_''악마가_이사왔다''_VIP_Premiere_04.jpg',
     'https://commons.wikimedia.org/wiki/File:240310_Yuri_@AFA.jpg',
@@ -1168,6 +1134,7 @@ declare
     'https://commons.wikimedia.org/wiki/File:240531_이브_Yves_at_Music_Bank.png'];
   v_photo_ids bigint[];
   v_entity_ids text[];
+  v_idol_ids integer[];
   v_subject_ids text[];
   v_touched boolean;
   v_n integer;
@@ -1181,6 +1148,8 @@ begin
      where l.kind = 'photo' and p.source_page = any (v_pages);
     select coalesce(array_agg(l.ref), '{}') into v_entity_ids
       from public.cards_harvest_log l where l.kind = 'entity';
+    select coalesce(array_agg(l.ref::integer), '{}') into v_idol_ids
+      from public.cards_harvest_log l where l.kind = 'idol';
     -- the subjects: the listed ids, and every entity that received a photo of this file (a person found by Wikidata id keeps another id)
     select coalesce(array_agg(distinct x), '{}') into v_subject_ids
       from unnest(v_entities || v_entity_ids || coalesce((select array_agg(distinct p.entity_id) from public.cards_photos p where p.id = any (v_photo_ids)), '{}')) x;
@@ -1204,6 +1173,10 @@ begin
      where e.kind = 'group' and e.id = any (v_entity_ids) and not exists (select 1 from public.cards_photos p where p.entity_id = e.id)
        and not exists (select 1 from public.cards_entities m where m.group_id = e.id);
     raise notice '116-photos-harvest.rollback: % people removed (then the group lines no member needs)', v_n;
+    delete from public.idols i
+     where i.id = any (v_idol_ids) and i.review_reason like '116-photos-harvest%' and i.birth_date is null and i.needs_review and not i.active;
+    get diagnostics v_n = row_count;
+    raise notice '116-photos-harvest.rollback: % public.idols rows removed, % kept (the owner completed them)', v_n, cardinality(v_idol_ids) - v_n;
     drop table public.cards_harvest_log;
     if v_touched then
       perform public.cards_build_catalog();

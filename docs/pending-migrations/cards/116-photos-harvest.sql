@@ -13,15 +13,20 @@
 --            (public.idols of that group, active, or a locked member entity of it) is. opens_month (the first day of the month the person, or
 --            the group's youngest member, turns 18; null when unknown) is for the admin only: the function runs for service_role. After the
 --            opening the entity is a normal entity without a photo, until a photo goes through the circuit;
---         4. a log table (cards_harvest_log) of the entities and photos THIS file added, so the rollback removes only those.
---         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never public.idols: the Kpopdle source
---         view is counted before and after, and the file refuses if it moved.
--- How:    one jsonb literal below (293 subjects: 228 people, 65 groups, 10 locked, 1150 photos).
---         People resolve at apply time by Wikidata id from public.idols (no row, or two: skipped with a notice); groups by slug from public.groups.
+--         4. a public.idols row for a person of the lot who has none, as the integrator decided for lot 6: active false, needs_review true,
+--            NO birth date, review_reason starting with '116-photos-harvest'. The Kpopdle source view reads no such row. Without a birth date
+--            the person is locked (a pocket) or, for an adult, the photos wait as pending until the owner fills the date (two agreeing sources);
+--         5. a log table (cards_harvest_log) of the entities, the idols rows and the photos THIS file added, so the rollback removes only those.
+--         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never changes an existing public.idols
+--         row: the Kpopdle source view is counted before and after, and the file refuses if it moved.
+-- How:    one jsonb literal below (293 subjects: 228 people, 65 groups, 10 locked, 1115 photos).
+--         People resolve at apply time from public.idols: a Kpopdle idol by its id (218 people), the others by Wikidata id (10: one row; none:
+--         the row of point 4 is added; two: skipped with a notice). Groups by slug from public.groups, else by the same name.
+--         A person whose public.idols row has no birth date gets its photos as pending, whatever the check said (fail closed).
 --         Photos get the smallest free slot of 1 to 6 among the live and pending ones.
 -- Why:    goal of 1,000 cards (lot 6): every Kpopdle idol becomes a subject of its own, the groups get up to six photos, and the groups with a minor
 --         show locked pockets instead of a photo.
--- Rows:   at most 293 entities, 1150 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
+-- Rows:   at most 293 entities, 10 public.idols rows, 1115 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
 -- Needs:  001 to 003, 102, 103 and 110 applied before (cards_build_catalog, the photo columns of lot 3), public.groups and public.idols.
 --         Apply after a backup, never between 23:50 and 00:30 UTC, then "Reconstruire le catalogue", then pnpm --filter quiz owner:cards.
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_entities' and column_name = 'age_lock';   expect 1
@@ -29,11 +34,14 @@
 -- Verify: select has_function_privilege('anon', 'public.cards_age_locks(date)', 'execute') or has_function_privilege('authenticated', 'public.cards_age_locks(date)', 'execute');   expect f
 -- Verify: select has_function_privilege('service_role', 'public.cards_age_locks(date)', 'execute');   expect t
 -- Verify: select count(*) from public.cards_entities where age_lock;   expect at most 10 (the notice "locked pockets"; a locked subject with cards, or without a row to resolve, is not set)
--- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1150)
+-- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1115)
 -- Verify: select count(*) from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id);   expect 0
 -- Verify: select count(*) from public.cards_photos where status in ('auto', 'approved') group by entity_id, slot having count(*) > 1;   expect no row
+-- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%';   expect the notice "idols rows added" (at most 10)
+-- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%' and (active or not needs_review or birth_date is not null);   expect 0 (until the owner fills a date)
+-- Verify: select count(*) from public.dle_src_kpop_idol s join public.idols i on i.id::text = s.entity_id where i.review_reason like '116-photos-harvest%';   expect 0 (no row of this file in Kpopdle)
 -- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 10 (the pockets still locked today; fewer when public.idols holds an adult birth date)
--- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of 103 or cards_build_catalog() is missing; when the Kpopdle source would change.
+-- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of public.idols (124) or of 103, or cards_build_catalog() is missing; when the Kpopdle source would change.
 -- Undo:   116-photos-harvest.rollback.sql (removes only what the log says this file added; refused while a player owns a card of these subjects).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run adds nothing.
 
@@ -46,6 +54,7 @@ declare
    "name": "2NE1",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -164,7 +173,7 @@ declare
      "review": "a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:2NE1_everland_3D_pavilion_2013.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/2NE1_everland_3D_pavilion_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -184,7 +193,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -194,6 +203,7 @@ declare
    "name": "A-na",
    "qid": "Q131932325",
    "group": "hearts2hearts",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -203,10 +213,11 @@ declare
    "name": "aespa",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Aespa_at_Mise-en-Scene_event_on_19022026_(7).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Aespa_at_Mise-en-Scene_event_on_19022026_%287%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -226,7 +237,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "someone who is not a member is in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -295,33 +306,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
     },
     {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Aespa's_Ningning_4.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Aespa%27s_Ningning_4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1052,
-     "height": 1872,
-     "sha1": "9e4899c165dd5042dffe52b7700ae1b7a8cde3f6",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-24",
-     "date_precision": "day",
-     "event": "South korean girl band Aespa's Ningning.",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
-    },
-    {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20250306_Aespa_Amsterdam_concert_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/20250306_Aespa_Amsterdam_concert_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -341,7 +329,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -351,6 +339,7 @@ declare
    "name": "Ahyeon",
    "qid": "Q123560890",
    "group": "babymonster",
+   "idol_id": 148,
    "locked": false,
    "photos": [
     {
@@ -430,6 +419,7 @@ declare
    "name": "AKMU",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -439,6 +429,7 @@ declare
    "name": "Anton",
    "qid": "Q123310101",
    "group": "riize",
+   "idol_id": 151,
    "locked": false,
    "photos": [
     {
@@ -518,6 +509,7 @@ declare
    "name": "Apink",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -527,6 +519,7 @@ declare
    "name": "ARTMS",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -536,6 +529,7 @@ declare
    "name": "Asa",
    "qid": "Q123554438",
    "group": "babymonster",
+   "idol_id": 144,
    "locked": false,
    "photos": [
     {
@@ -615,6 +609,7 @@ declare
    "name": "ASTRO",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -624,6 +619,7 @@ declare
    "name": "ATEEZ",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -772,6 +768,7 @@ declare
    "name": "BABYMONSTER",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -781,6 +778,7 @@ declare
    "name": "Baekhyun",
    "qid": "Q4688701",
    "group": "exo",
+   "idol_id": 171,
    "locked": false,
    "photos": [
     {
@@ -929,6 +927,7 @@ declare
    "name": "BamBam",
    "qid": "Q16688282",
    "group": "got7",
+   "idol_id": 224,
    "locked": false,
    "photos": [
     {
@@ -1077,6 +1076,7 @@ declare
    "name": "Bang Chan",
    "qid": "Q59670293",
    "group": "stray-kids",
+   "idol_id": 12,
    "locked": false,
    "photos": [
     {
@@ -1225,6 +1225,7 @@ declare
    "name": "Beomgyu",
    "qid": "Q62396696",
    "group": "txt",
+   "idol_id": 124,
    "locked": false,
    "photos": [
     {
@@ -1350,6 +1351,7 @@ declare
    "name": "BIGBANG",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -1373,7 +1375,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -1419,7 +1421,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -1442,7 +1444,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -1465,7 +1467,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -1488,7 +1490,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -1498,6 +1500,7 @@ declare
    "name": "Billlie",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -1507,6 +1510,7 @@ declare
    "name": "BLACKPINK",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -1576,7 +1580,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; someone who is not a member is in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -1602,7 +1606,7 @@ declare
      "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Blackpink_Born_Pink_Tour_LA_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Blackpink_Born_Pink_Tour_LA_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1622,7 +1626,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -1645,7 +1649,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -1655,6 +1659,7 @@ declare
    "name": "BTOB",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -1683,25 +1688,25 @@ declare
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:141005_여의도_팬싸_비투비.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/141005_%EC%97%AC%EC%9D%98%EB%8F%84_%ED%8C%AC%EC%8B%B8_%EB%B9%84%ED%88%AC%EB%B9%84.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 800,
-     "height": 600,
-     "sha1": "0962f1799bbe4f6e7a216840eebfbeedbca49ba0",
-     "author": "NOV.BOY",
-     "author_url": "http://novboy.tistory.com/",
+     "page": "https://commons.wikimedia.org/wiki/File:5월_26일_우유의_날_&_치즈에_퐁당_페스티벌_(31).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/5%EC%9B%94_26%EC%9D%BC_%EC%9A%B0%EC%9C%A0%EC%9D%98_%EB%82%A0_%26_%EC%B9%98%EC%A6%88%EC%97%90_%ED%90%81%EB%8B%B9_%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%2831%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 640,
+     "height": 427,
+     "sha1": "f36acf120322a2a7068d60a3a626949e1714c071",
+     "author": "사진&여행 (生活의發見)",
+     "author_url": null,
      "licence": "CC BY 4.0",
      "licence_url": "https://creativecommons.org/licenses/by/4.0",
      "share_alike": false,
-     "date": "2014-10-05",
+     "date": "2018-05-26",
      "date_precision": "day",
-     "event": "BtoB fan signing, Yeouido, Seoul",
-     "stage": false,
-     "quality": 2,
+     "event": "Milk Day and Cheese festival, 26 May 2018",
+     "stage": true,
+     "quality": 1,
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "the file's date (2014-10-25) differs from the description's (2014-10-05); a person in the frame is not identified; a person in the frame is not identified"
+     "review": "a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -1711,6 +1716,7 @@ declare
    "name": "BTS",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -1729,29 +1735,6 @@ declare
      "date": "2026-07-17",
      "date_precision": "day",
      "event": "Arirang World Tour",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:BTS_Behind_the_Stage_Exhibition.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/BTS_Behind_the_Stage_Exhibition.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 4032,
-     "height": 3024,
-     "sha1": "7ac23580630992915c665105af422b898836bcec",
-     "author": "Monbmon",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Monbmon&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2022-04-10",
-     "date_precision": "day",
-     "event": "Permission to Dance On Stage",
      "stage": true,
      "quality": 5,
      "fx": 50,
@@ -1783,7 +1766,7 @@ declare
      "review": "a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:BTS_Permission_to_Dance_On_Stage_Dec_1,_2021.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/BTS_Permission_to_Dance_On_Stage_Dec_1%2C_2021.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1803,7 +1786,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -1849,7 +1832,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -1859,6 +1842,7 @@ declare
    "name": "Carmen",
    "qid": "Q131932321",
    "group": "hearts2hearts",
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -1892,6 +1876,7 @@ declare
    "name": "Chaehyun",
    "qid": "Q109108660",
    "group": "kep1er",
+   "idol_id": 133,
    "locked": false,
    "photos": [
     {
@@ -1948,6 +1933,7 @@ declare
    "name": "Chaeryeong",
    "qid": "Q60829936",
    "group": "itzy",
+   "idol_id": 184,
    "locked": false,
    "photos": [
     {
@@ -2020,7 +2006,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:18052026_ITZY_YUNA_1.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/18052026_ITZY_YUNA_1.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2040,7 +2026,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -2096,6 +2082,7 @@ declare
    "name": "Chaewon",
    "qid": "Q56660174",
    "group": "le-sserafim",
+   "idol_id": 68,
    "locked": false,
    "photos": [
     {
@@ -2244,6 +2231,7 @@ declare
    "name": "Chaeyoung",
    "qid": "Q24043625",
    "group": "twice",
+   "idol_id": 28,
    "locked": false,
    "photos": [
     {
@@ -2313,7 +2301,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -2392,6 +2380,7 @@ declare
    "name": "Changbin",
    "qid": "Q61100669",
    "group": "stray-kids",
+   "idol_id": 14,
    "locked": false,
    "photos": [
     {
@@ -2512,21 +2501,21 @@ declare
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Changbin_of_Stray_Kids,_December_4,_2024.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Changbin_of_Stray_Kids%2C_December_4%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2322,
-     "height": 2956,
-     "sha1": "3102430188788649972ab2cd8b7ec6ce1a878a85",
+     "page": "https://commons.wikimedia.org/wiki/File:Changbin_of_Stray_Kids_on_Incheon_Airport,_May_3,_2024.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Changbin_of_Stray_Kids_on_Incheon_Airport%2C_May_3%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1746,
+     "height": 2334,
+     "sha1": "4dedcb60d61c20b5eb3b4a8a194c8809e9bc3394",
      "author": "티비텐",
      "author_url": "https://www.youtube.com/@_TV10",
      "licence": "CC BY 3.0",
      "licence_url": "https://creativecommons.org/licenses/by/3.0",
      "share_alike": false,
-     "date": "2024-12-04",
+     "date": "2024-05-03",
      "date_precision": "day",
-     "event": "Changbin of Stray Kids, December 4, 2024",
+     "event": "Changbin of Stray Kids on Incheon Airport, May 3, 2024",
      "stage": false,
-     "quality": 5,
+     "quality": 4,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -2540,6 +2529,7 @@ declare
    "name": "Chanhyuk",
    "qid": "Q16071030",
    "group": "akmu",
+   "idol_id": 294,
    "locked": false,
    "photos": [
     {
@@ -2586,7 +2576,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -2596,6 +2586,7 @@ declare
    "name": "Chanyeol",
    "qid": "Q7137681",
    "group": "exo",
+   "idol_id": 173,
    "locked": false,
    "photos": [
     {
@@ -2744,10 +2735,11 @@ declare
    "name": "Chen",
    "qid": "Q16098027",
    "group": "exo",
+   "idol_id": 172,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:180623_롯데패밀리_콘서트_첸_04.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/180623_%EB%A1%AF%EB%8D%B0%ED%8C%A8%EB%B0%80%EB%A6%AC_%EC%BD%98%EC%84%9C%ED%8A%B8_%EC%B2%B8_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2767,7 +2759,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -2892,6 +2884,7 @@ declare
    "name": "Chiquita",
    "qid": "Q123554441",
    "group": "babymonster",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -2901,6 +2894,7 @@ declare
    "name": "Choerry",
    "qid": "Q58224261",
    "group": "loona",
+   "idol_id": 215,
    "locked": false,
    "photos": [
     {
@@ -2980,6 +2974,7 @@ declare
    "name": "CORTIS",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -2989,10 +2984,11 @@ declare
    "name": "D.O.",
    "qid": "Q15111667",
    "group": "exo",
+   "idol_id": 174,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:180715_엘리시온_닷_in_서울_(디오)_1.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/180715_%EC%97%98%EB%A6%AC%EC%8B%9C%EC%98%A8_%EB%8B%B7_in_%EC%84%9C%EC%9A%B8_%28%EB%94%94%EC%98%A4%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -3012,10 +3008,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:180714_엘리시온_닷_in_서울_(디오)_1.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/180714_%EC%97%98%EB%A6%AC%EC%8B%9C%EC%98%A8_%EB%8B%B7_in_%EC%84%9C%EC%9A%B8_%28%EB%94%94%EC%98%A4%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -3035,7 +3031,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -3063,29 +3059,6 @@ declare
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Korea_KPOP_World_Festival_13.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Korea_KPOP_World_Festival_13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3918,
-     "height": 2124,
-     "sha1": "2a0d6ad97e3e7c39d45396c3ab6dd229f5913b71",
-     "author": "Korea.net / Korean Culture and Information Service (Jeon Han)",
-     "author_url": "http://www.korea.net",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2013-10-20",
-     "date_precision": "day",
-     "event": "At the back from left to right: Kris, Chanyeol, Luhan, Kai, ",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:2012_가요대제전_03.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/2012_%EA%B0%80%EC%9A%94%EB%8C%80%EC%A0%9C%EC%A0%84_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
      "width": 4000,
@@ -3109,21 +3082,21 @@ declare
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Exo-K_during_EXPO_2012_Yeosu_Korea_Foundation.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Exo-K_during_EXPO_2012_Yeosu_Korea_Foundation.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 1000,
-     "sha1": "bab105b8d16a1bd8f63348ca01a7ab94e9e8c9bc",
-     "author": "Naver",
-     "author_url": null,
-     "licence": "CC BY 2.0 kr",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0/kr/deed.en",
-     "share_alike": false,
-     "date": "2012-07-12",
+     "page": "https://commons.wikimedia.org/wiki/File:D.O._of_EXO_in_KPOP_World_Festival.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/D.O._of_EXO_in_KPOP_World_Festival.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 403,
+     "height": 698,
+     "sha1": "6e26025133832e7a52107def45019d038514d0f3",
+     "author": "Korea KPOP World Festival 13.jpg",
+     "author_url": "https://commons.wikimedia.org/wiki/File:Korea_KPOP_World_Festival_13.jpg",
+     "licence": "CC BY-SA 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "share_alike": true,
+     "date": "2013-10-20",
      "date_precision": "day",
-     "event": "2012 festivals in South Korea",
+     "event": "D.O. in KPOP World Festival.",
      "stage": true,
-     "quality": 3,
+     "quality": 1,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -3137,6 +3110,7 @@ declare
    "name": "Daesung",
    "qid": "Q194798",
    "group": "bigbang",
+   "idol_id": 250,
    "locked": false,
    "photos": [
     {
@@ -3183,7 +3157,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "4 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -3206,7 +3180,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "4 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -3229,7 +3203,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "3 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -3239,6 +3213,7 @@ declare
    "name": "Dahyun",
    "qid": "Q22773838",
    "group": "twice",
+   "idol_id": 27,
    "locked": false,
    "photos": [
     {
@@ -3387,6 +3362,7 @@ declare
    "name": "Dami",
    "qid": "Q59313527",
    "group": "dreamcatcher",
+   "idol_id": 272,
    "locked": false,
    "photos": [
     {
@@ -3482,7 +3458,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:180127_DREAMCATCHER_드림캐쳐_분당_버스킹_DAMI_다미_(2).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/180127_DREAMCATCHER_%EB%93%9C%EB%A6%BC%EC%BA%90%EC%B3%90_%EB%B6%84%EB%8B%B9_%EB%B2%84%EC%8A%A4%ED%82%B9_DAMI_%EB%8B%A4%EB%AF%B8_%282%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -3502,7 +3478,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated"
+     "review": ""
     }
    ]
   },
@@ -3512,6 +3488,7 @@ declare
    "name": "Daniela",
    "qid": "Q124692767",
    "group": "katseye",
+   "idol_id": 251,
    "locked": false,
    "photos": [
     {
@@ -3614,6 +3591,7 @@ declare
    "name": "DAY6",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -3637,7 +3615,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "the file's date (2017-03-12) differs from the description's (2017-03-11); a person in the frame is not identified"
+     "review": "the file's date (2017-03-12) differs from the description's (2017-03-11); not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -3647,6 +3625,7 @@ declare
    "name": "Dino",
    "qid": "Q20779386",
    "group": "seventeen",
+   "idol_id": 51,
    "locked": false,
    "photos": [
     {
@@ -3716,7 +3695,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "3 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -3739,7 +3718,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "4 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -3749,6 +3728,7 @@ declare
    "name": "DK",
    "qid": "Q21824862",
    "group": "seventeen",
+   "idol_id": 46,
    "locked": false,
    "photos": [
     {
@@ -3897,6 +3877,7 @@ declare
    "name": "Dohoon",
    "qid": "Q125865775",
    "group": "tws",
+   "idol_id": 275,
    "locked": false,
    "photos": [
     {
@@ -3953,6 +3934,7 @@ declare
    "name": "Doyoung",
    "qid": "Q26689987",
    "group": "nct",
+   "idol_id": 77,
    "locked": false,
    "photos": [
     {
@@ -4101,6 +4083,7 @@ declare
    "name": "Doyoung",
    "qid": "Q97320177",
    "group": "treasure",
+   "idol_id": 263,
    "locked": false,
    "photos": [
     {
@@ -4134,6 +4117,7 @@ declare
    "name": "Dreamcatcher",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -4180,7 +4164,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -4190,6 +4174,7 @@ declare
    "name": "EJ",
    "qid": "Q127427815",
    "group": "team",
+   "idol_id": 293,
    "locked": false,
    "photos": [
     {
@@ -4260,29 +4245,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2025-12-29_&Team_for_Marie_Claire_05.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/2025-12-29_%26Team_for_Marie_Claire_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "4520a69f2f3631b0050b940d253de7a11499841a",
-     "author": "Marie Claire Korea",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2025-12-29",
-     "date_precision": "day",
-     "event": "&Team for Marie Claire 05",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons; the number of people in the frame is not stated"
     }
    ]
   },
@@ -4292,6 +4254,7 @@ declare
    "name": "ENHYPEN",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -4440,6 +4403,7 @@ declare
    "name": "Eunchae",
    "qid": "Q111544444",
    "group": "le-sserafim",
+   "idol_id": 71,
    "locked": false,
    "photos": [
     {
@@ -4510,29 +4474,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hong_Eunchae_of_Le_Sserafim,_January_10,_2025.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Hong_Eunchae_of_Le_Sserafim%2C_January_10%2C_2025.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 736,
-     "height": 958,
-     "sha1": "bb238cf61191c9067731d8f42fa164efab3ebb16",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-01-10",
-     "date_precision": "day",
-     "event": "Hong Eunchae of Le Sserafim at COACH PhotoCall, January 10, ",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -4542,6 +4483,7 @@ declare
    "name": "Eunseok",
    "qid": "Q123528880",
    "group": "riize",
+   "idol_id": 152,
    "locked": false,
    "photos": [
     {
@@ -4621,6 +4563,7 @@ declare
    "name": "Cha Eunwoo",
    "qid": "Q21060390",
    "group": "astro",
+   "idol_id": 298,
    "locked": false,
    "photos": [
     {
@@ -4769,8 +4712,32 @@ declare
    "name": "EXO",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Korea_KPOP_World_Festival_13.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Korea_KPOP_World_Festival_13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3918,
+     "height": 2124,
+     "sha1": "2a0d6ad97e3e7c39d45396c3ab6dd229f5913b71",
+     "author": "Korea.net / Korean Culture and Information Service (Jeon Han)",
+     "author_url": "http://www.korea.net",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2013-10-20",
+     "date_precision": "day",
+     "event": "At the back from left to right: Kris, Chanyeol, Luhan, Kai, ",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
     {
      "status": "pending",
      "source": "commons",
@@ -4795,7 +4762,7 @@ declare
      "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:EXO_at_KBS_Gayo_Daejun_on_December_28,_2018.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/EXO_at_KBS_Gayo_Daejun_on_December_28%2C_2018.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -4815,7 +4782,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -4838,7 +4805,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -4861,7 +4828,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -4871,6 +4838,7 @@ declare
    "name": "Felix",
    "qid": "Q61100678",
    "group": "stray-kids",
+   "idol_id": 17,
    "locked": false,
    "photos": [
     {
@@ -4917,7 +4885,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -5019,6 +4987,7 @@ declare
    "name": "FIFTY FIFTY",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -5042,7 +5011,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "the licence review is still open on Commons; a person in the frame is not identified; a person in the frame is not identified; a person in the frame is not identified"
+     "review": "the licence review is still open on Commons; not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -5052,6 +5021,7 @@ declare
    "name": "fromis_9",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -5061,6 +5031,7 @@ declare
    "name": "G-Dragon",
    "qid": "Q495577",
    "group": "bigbang",
+   "idol_id": 249,
    "locked": false,
    "photos": [
     {
@@ -5199,7 +5170,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -5209,31 +5180,9 @@ declare
    "name": "(G)I-DLE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Yeh_Shuhua_of_(G)I-DLE_in_2020_04.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Yeh_Shuhua_of_%28G%29I-DLE_in_2020_04.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2254,
-     "height": 1858,
-     "sha1": "543bebf242d68ff2430ef678c204e5a22997593f",
-     "author": "사진기자머길",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-08-14",
-     "date_precision": "day",
-     "event": "Captured picture of Yeh Shuhua from Youtube \"[4K] (여자)아이들 슈화",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
-    },
     {
      "status": "pending",
      "source": "commons",
@@ -5255,53 +5204,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Song_Yuqi_of_(G)I-dle_in_2020_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Song_Yuqi_of_%28G%29I-dle_in_2020_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2140,
-     "height": 1858,
-     "sha1": "5a879e354626ad26bd0539ce2d72bfdb4d4492f3",
-     "author": "사진기자머길",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-08-14",
-     "date_precision": "day",
-     "event": "Captured picture of Song Yuqi from Youtube \"[4K] (여자)아이들 우기,",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Cho_Mi-yeon_of_(G)I-dle_in_2020_03.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Cho_Mi-yeon_of_%28G%29I-dle_in_2020_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2268,
-     "height": 1858,
-     "sha1": "21461102ef8946bdc72d892724d3a3ff9f83bca6",
-     "author": "사진기자머길",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-08-14",
-     "date_precision": "day",
-     "event": "Captured picture of Cho Mi-yeon from Youtube \"[4K] (여자)아이들 미",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date"
     },
     {
      "status": "pending",
@@ -5324,30 +5227,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Yuqi_at_SBS_Radio_on_August,6_2020_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Yuqi_at_SBS_Radio_on_August%2C6_2020_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 908,
-     "height": 1370,
-     "sha1": "350ab869aa22232ff68c42c2f43e6bfb24115ca2",
-     "author": "SBS Radio 에라오",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-08-06",
-     "date_precision": "day",
-     "event": "Captured picture of Song Yuqi from Youtube \"[집방캠][4K] 덤디덤디(D",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date"
     }
    ]
   },
@@ -5357,6 +5237,7 @@ declare
    "name": "Gaeul",
    "qid": "Q109420011",
    "group": "ive",
+   "idol_id": 62,
    "locked": false,
    "photos": [
     {
@@ -5452,7 +5333,7 @@ declare
      "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:IVE's_Gaeul_In_January_2023.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/IVE%27s_Gaeul_In_January_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5472,7 +5353,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -5495,7 +5376,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -5505,6 +5386,7 @@ declare
    "name": "Gahyun",
    "qid": "Q59313606",
    "group": "dreamcatcher",
+   "idol_id": 273,
    "locked": false,
    "photos": [
     {
@@ -5584,147 +5466,9 @@ declare
    "name": "GFRIEND",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:GFriend_at_Incheon_International_Airport,_January_2025.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/GFriend_at_Incheon_International_Airport%2C_January_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3505,
-     "height": 1651,
-     "sha1": "37732c5f0dfe777ff24f13d89556d3ee3fcd0a85",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-01-02",
-     "date_precision": "day",
-     "event": "GFriend at Incheon International Airport on January 2, 2025",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190701_쇼케이스_여자친구_(cropped).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/190701_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3033,
-     "height": 1706,
-     "sha1": "567fb3e8c9377fadbdd8574303dba0109061bd70",
-     "author": "뉴스인스타 (NewsInStar)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-07-01",
-     "date_precision": "day",
-     "event": "7월 1일 오후 서울시 광진구 예스24 라이브홀에서 걸그룹 '여자친구'의 일곱 번째 미니앨범 ‘피버 시즌(F",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190424_레드카펫_여자친구.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/190424_%EB%A0%88%EB%93%9C%EC%B9%B4%ED%8E%AB_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3322,
-     "height": 1869,
-     "sha1": "5aedd9e0cc5ea3a689aec2fa8a991b50695a923e",
-     "author": "뉴스인스타 (NewsInStar)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-04-24",
-     "date_precision": "day",
-     "event": "24일 오후 인천광역시 남동구 수산동 남동체육관에서 ‘U+5G 더팩트 뮤직 어워즈(U+5G THE FACT ",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190114_쇼케이스_여자친구.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/190114_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3385,
-     "height": 1904,
-     "sha1": "2b7a74ac3340a68fd88a76da5c65725e9c3ceb98",
-     "author": "뉴스인스타 (NewsInStar)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-01-14",
-     "date_precision": "day",
-     "event": "14일 오후 서울시 광진구 광장동 '예스24 라이브홀'에서 두번째 정규앨범 'Time for us(타임 포 ",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:180106_180107_Season_Of_Gfriend_유주_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/180106_180107_Season_Of_Gfriend_%EC%9C%A0%EC%A3%BC_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 2750,
-     "sha1": "52a7490964277a5f43407e3d29748bd2ed197cf7",
-     "author": "mainline",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2018-01-07",
-     "date_precision": "day",
-     "event": "180106 180107 Season Of Gfriend 유주",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:GFRIEND_at_Korea_Sale_Festa,_30_September_2016.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/GFRIEND_at_Korea_Sale_Festa%2C_30_September_2016.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3782,
-     "height": 2060,
-     "sha1": "a90e199db97b7b92cc474d6cf52383366a8e8d44",
-     "author": "Korea.net",
-     "author_url": "https://www.flickr.com/people/koreanet/",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2016-09-30",
-     "date_precision": "day",
-     "event": "GFRIEND at Korea Sale Festa, 30 September 2016",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    }
-   ]
+   "photos": []
   },
   {
    "slug": "girls-generation",
@@ -5732,6 +5476,7 @@ declare
    "name": "Girls' Generation",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -5758,7 +5503,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:KOCIS_Korea_Mnet_Girls_Generation_11_(12986862615).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/KOCIS_Korea_Mnet_Girls_Generation_11_%2812986862615%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5778,30 +5523,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kpop_girl_groups_on_Spotify_Ranking.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Kpop_girl_groups_on_Spotify_Ranking.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2880,
-     "height": 2880,
-     "sha1": "9fd885168de404cc9fdab793766c7bf92d787747",
-     "author": "NZ 토끼들",
-     "author_url": "https://commons.wikimedia.org/wiki/User:NZ_%ED%86%A0%EB%81%BC%EB%93%A4",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2025-05-27",
-     "date_precision": "day",
-     "event": "스포티파이 순위권에 들어간 KPOP 걸그룹 모음. 위에서부터 차례대로 소녀시대, 아이브, 뉴진스, 트와이스",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -5824,7 +5546,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -5847,7 +5569,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -5870,7 +5592,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -5880,6 +5602,7 @@ declare
    "name": "Giselle",
    "qid": "Q101161168",
    "group": "aespa",
+   "idol_id": 31,
    "locked": false,
    "photos": [
     {
@@ -5929,7 +5652,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Aespa_07.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Aespa_07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5949,7 +5672,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -6028,6 +5751,7 @@ declare
    "name": "Go Won",
    "qid": "Q58825794",
    "group": "loona",
+   "idol_id": 217,
    "locked": false,
    "photos": [
     {
@@ -6054,7 +5778,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Gowon_LOONA_on_October_27_2020.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Gowon_LOONA_on_October_27_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -6074,7 +5798,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated"
+     "review": ""
     }
    ]
   },
@@ -6084,6 +5808,7 @@ declare
    "name": "GOT7",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -6130,7 +5855,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; someone who is not a member is in the frame"
     },
     {
      "status": "pending",
@@ -6153,7 +5878,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; someone who is not a member is in the frame"
     },
     {
      "status": "pending",
@@ -6176,10 +5901,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:171013_GOT7_KBS_뮤직뱅크_출근길.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/171013_GOT7_KBS_%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC_%EC%B6%9C%EA%B7%BC%EA%B8%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -6199,7 +5924,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -6222,7 +5947,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -6232,6 +5957,7 @@ declare
    "name": "Gunwook",
    "qid": "Q117818064",
    "group": "zerobaseone",
+   "idol_id": 243,
    "locked": false,
    "photos": [
     {
@@ -6265,6 +5991,7 @@ declare
    "name": "Haechan",
    "qid": "Q19730396",
    "group": "nct",
+   "idol_id": 81,
    "locked": false,
    "photos": [
     {
@@ -6413,6 +6140,7 @@ declare
    "name": "Haerin",
    "qid": "Q113508917",
    "group": "newjeans",
+   "idol_id": 37,
    "locked": false,
    "photos": [
     {
@@ -6446,6 +6174,7 @@ declare
    "name": "Han",
    "qid": "Q60994278",
    "group": "stray-kids",
+   "idol_id": 16,
    "locked": false,
    "photos": [
     {
@@ -6516,75 +6245,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Han_of_Stray_Kids,_November_21,_2023.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/36/Han_of_Stray_Kids%2C_November_21%2C_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2696,
-     "height": 3808,
-     "sha1": "13c20104a79eaf7e3d55fc2349f2dbc5f1112e08",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-21",
-     "date_precision": "day",
-     "event": "Han of Stray Kids, November 21, 2023",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Han_of_Stray_Kids_at_Incheon_Airport,_May_3,_2024.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Han_of_Stray_Kids_at_Incheon_Airport%2C_May_3%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1568,
-     "height": 2067,
-     "sha1": "75d24ca31390fdad209d4b042ba51b3c01f5d1e5",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-05-03",
-     "date_precision": "day",
-     "event": "Han of Stray Kids at Incheon Airport, May 3, 2024",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Han_of_Stray_Kids_at_the_40th_Golden_Disc_Awards,_January_10,_2026_(1).png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Han_of_Stray_Kids_at_the_40th_Golden_Disc_Awards%2C_January_10%2C_2026_%281%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1145,
-     "height": 1631,
-     "sha1": "01f17f8c84155455d2266a9d0aebe766d4159238",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-01-16",
-     "date_precision": "day",
-     "event": "Han of Stray Kids at the 40th Golden Disc Awards, January 10",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -6594,6 +6254,7 @@ declare
    "name": "Hanbin",
    "qid": "Q117746200",
    "group": "zerobaseone",
+   "idol_id": 241,
    "locked": false,
    "photos": [
     {
@@ -6742,6 +6403,7 @@ declare
    "name": "Handong",
    "qid": "Q59313384",
    "group": "dreamcatcher",
+   "idol_id": 270,
    "locked": false,
    "photos": [
     {
@@ -6821,6 +6483,7 @@ declare
    "name": "Hanjin",
    "qid": "Q132041929",
    "group": "tws",
+   "idol_id": 277,
    "locked": false,
    "photos": [
     {
@@ -6877,56 +6540,11 @@ declare
    "name": "Hanni",
    "qid": "Q113455973",
    "group": "newjeans",
+   "idol_id": 35,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20230921_Newjeans_Hanni_티비텐_03.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/20230921_Newjeans_Hanni_%ED%8B%B0%EB%B9%84%ED%85%90_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1532,
-     "height": 2880,
-     "sha1": "484f6ca7f736341dab1c6e4e639a7f0694a1e3ab",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-21",
-     "date_precision": "day",
-     "event": "NEWJEANS's Hanni airport departure in September 2023.",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20230905_Hanni_(NewJeans).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/20230905_Hanni_%28NewJeans%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1260,
-     "height": 1660,
-     "sha1": "9d0b61ffc43db043b864d317be7da0bab70e5cec",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-05",
-     "date_precision": "day",
-     "event": "NewJeans(뉴진스) 줌인을 부르는 비주얼",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Newjeans_Hanni_2023_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Newjeans_Hanni_2023_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -6946,76 +6564,53 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hanni_OLENS_2.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Hanni_OLENS_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 850,
-     "height": 1040,
-     "sha1": "57f0a35036dccd417d39c7d96c2e5f1645115c11",
-     "author": "Olensglobal",
-     "author_url": null,
+     "page": "https://commons.wikimedia.org/wiki/File:Hanni_OLensglobal.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Hanni_OLensglobal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 626,
+     "height": 852,
+     "sha1": "19920d6eb3cac9355641a97aa7b44d96dc1d9265",
+     "author": "OLensglobal",
+     "author_url": "https://www.youtube.com/@olens_contactlens",
      "licence": "CC BY 3.0",
      "licence_url": "https://creativecommons.org/licenses/by/3.0",
      "share_alike": false,
-     "date": "2024-04-02",
+     "date": "2023-12-11",
      "date_precision": "day",
-     "event": "[💕𝐆𝐋𝐎𝐖𝐘 𝐗 𝐇𝐀𝐍𝐍𝐈]",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2023_MMA_NewJeans_Hanni.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/2023_MMA_NewJeans_Hanni.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 998,
-     "height": 1448,
-     "sha1": "41cde4fd54cef5fb09801220260ef55350a6f6e8",
-     "author": "TenAsia",
-     "author_url": null,
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2023-12-02",
-     "date_precision": "day",
-     "event": "Melon Music Awards 2023",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hanni_241022.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Hanni_241022.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 483,
-     "height": 675,
-     "sha1": "6634cf295bd910bb6797f2066aed54d1d3d619f2",
-     "author": "TV Ten",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-10-22",
-     "date_precision": "day",
-     "event": "Hanni Gucci 241022",
+     "event": "🧡𝐅𝐚𝐥𝐥 𝐢𝐧 𝐥𝐨𝐯𝐞 𝐰𝐢𝐭𝐡 𝐍𝐞𝐰𝐉𝐞𝐚𝐧𝐬'𝐬 𝐀𝐮𝐭",
      "stage": false,
      "quality": 2,
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:NewJeans_Hanni_OLENS_1.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/NewJeans_Hanni_OLENS_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 706,
+     "height": 1002,
+     "sha1": "f497ff93be24f8b227c3abf2b69f662366ecb7c1",
+     "author": "OLensglobal",
+     "author_url": "https://www.youtube.com/@olens_contactlens",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-06-01",
+     "date_precision": "day",
+     "event": "NewJeans X OLENS",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -7025,6 +6620,7 @@ declare
    "name": "Haruto",
    "qid": "Q97352003",
    "group": "treasure",
+   "idol_id": 264,
    "locked": false,
    "photos": [
     {
@@ -7058,6 +6654,7 @@ declare
    "name": "Haseul",
    "qid": "Q57318729",
    "group": "loona",
+   "idol_id": 211,
    "locked": false,
    "photos": [
     {
@@ -7206,6 +6803,7 @@ declare
    "name": "Hearts2Hearts",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -7215,6 +6813,7 @@ declare
    "name": "Heejin",
    "qid": "Q56259179",
    "group": "loona",
+   "idol_id": 209,
    "locked": false,
    "photos": [
     {
@@ -7317,6 +6916,7 @@ declare
    "name": "Hongjoong",
    "qid": "Q85864418",
    "group": "ateez",
+   "idol_id": 107,
    "locked": false,
    "photos": [
     {
@@ -7409,7 +7009,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated"
+     "review": "3 people are in the frame"
     }
    ]
   },
@@ -7419,6 +7019,7 @@ declare
    "name": "Hoshi",
    "qid": "Q21825470",
    "group": "seventeen",
+   "idol_id": 43,
    "locked": false,
    "photos": [
     {
@@ -7567,6 +7168,7 @@ declare
    "name": "Huening Kai",
    "qid": "Q61715236",
    "group": "txt",
+   "idol_id": 126,
    "locked": false,
    "photos": [
     {
@@ -7646,6 +7248,7 @@ declare
    "name": "Hwasa",
    "qid": "Q19603912",
    "group": "mamamoo",
+   "idol_id": 247,
    "locked": false,
    "photos": []
   },
@@ -7655,6 +7258,7 @@ declare
    "name": "Hyein",
    "qid": "Q113561413",
    "group": "newjeans",
+   "idol_id": 38,
    "locked": false,
    "photos": []
   },
@@ -7664,6 +7268,7 @@ declare
    "name": "Hyoyeon",
    "qid": "Q253619",
    "group": "girls-generation",
+   "idol_id": 235,
    "locked": false,
    "photos": [
     {
@@ -7812,6 +7417,7 @@ declare
    "name": "Hyungwon",
    "qid": "Q28549791",
    "group": "monsta-x",
+   "idol_id": 229,
    "locked": false,
    "photos": [
     {
@@ -7907,29 +7513,6 @@ declare
      "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:151206_몬스타엑스_싱가포르_팬미팅_5.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/151206_%EB%AA%AC%EC%8A%A4%ED%83%80%EC%97%91%EC%8A%A4_%EC%8B%B1%EA%B0%80%ED%8F%AC%EB%A5%B4_%ED%8C%AC%EB%AF%B8%ED%8C%85_5.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 1000,
-     "sha1": "c0ae2fe1fe5fbc999d63734d60ffd16855855083",
-     "author": "0126 - Be My Sunshine",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2015-12-06",
-     "date_precision": "day",
-     "event": "Entertainment events in Singapore",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    },
-    {
      "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:HYUNGWON_MarieClarieKorea_2021.png",
@@ -7951,6 +7534,29 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Chae_Hyung-won_at_Old_School_Public_Broadcasting_in_October_2016.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Chae_Hyung-won_at_Old_School_Public_Broadcasting_in_October_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 658,
+     "height": 969,
+     "sha1": "8085f12d3c62ca47d55a6034a42eb683e1c336a7",
+     "author": "F28STAR",
+     "author_url": "http://f28star.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2016-10-09",
+     "date_precision": "day",
+     "event": "Chae Hyung-won at Old School Public Broadcasting on October ",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
     }
    ]
   },
@@ -7960,6 +7566,7 @@ declare
    "name": "Hyunjin",
    "qid": "Q48893612",
    "group": "loona",
+   "idol_id": 210,
    "locked": false,
    "photos": [
     {
@@ -8016,6 +7623,7 @@ declare
    "name": "Hyunjin",
    "qid": "Q57601775",
    "group": "stray-kids",
+   "idol_id": 15,
    "locked": false,
    "photos": [
     {
@@ -8111,7 +7719,7 @@ declare
      "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Stray_Kids_Hyunjin.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Stray_Kids_Hyunjin.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -8131,7 +7739,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -8164,6 +7772,7 @@ declare
    "name": "Hyunsuk",
    "qid": "Q63850969",
    "group": "treasure",
+   "idol_id": 260,
    "locked": false,
    "photos": [
     {
@@ -8312,6 +7921,7 @@ declare
    "name": "I.M",
    "qid": "Q28549782",
    "group": "monsta-x",
+   "idol_id": 231,
    "locked": false,
    "photos": [
     {
@@ -8361,7 +7971,7 @@ declare
      "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230708_I.M_(아이엠).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/20230708_I.M_%28%EC%95%84%EC%9D%B4%EC%97%A0%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -8381,7 +7991,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -8460,6 +8070,7 @@ declare
    "name": "I.N",
    "qid": "Q59831589",
    "group": "stray-kids",
+   "idol_id": 19,
    "locked": false,
    "photos": [
     {
@@ -8598,7 +8209,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -8608,6 +8219,7 @@ declare
    "name": "Ian",
    "qid": "Q131932326",
    "group": "hearts2hearts",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -8617,31 +8229,9 @@ declare
    "name": "iKON",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:LG전자,_프리미엄급_개성_갖춘_‘X_시리즈’_출시_(25673479820).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/LG%EC%A0%84%EC%9E%90%2C_%ED%94%84%EB%A6%AC%EB%AF%B8%EC%97%84%EA%B8%89_%EA%B0%9C%EC%84%B1_%EA%B0%96%EC%B6%98_%E2%80%98X_%EC%8B%9C%EB%A6%AC%EC%A6%88%E2%80%99_%EC%B6%9C%EC%8B%9C_%2825673479820%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 1335,
-     "sha1": "427ca469f44a57b6c3b659d365425b376674babb",
-     "author": "LG전자",
-     "author_url": "https://www.flickr.com/people/32985045@N08",
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2016-03-22",
-     "date_precision": "day",
-     "event": "LG X series smartphone launch, Seoul, 22 Mar 2016",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
-    },
     {
      "status": "pending",
      "source": "commons",
@@ -8673,6 +8263,7 @@ declare
    "name": "ILLIT",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -8682,6 +8273,7 @@ declare
    "name": "Irene",
    "qid": "Q12605358",
    "group": "red-velvet",
+   "idol_id": 102,
    "locked": false,
    "photos": [
     {
@@ -8830,6 +8422,7 @@ declare
    "name": "Iroha",
    "qid": "Q126923761",
    "group": "illit",
+   "idol_id": 259,
    "locked": false,
    "photos": [
     {
@@ -8863,6 +8456,7 @@ declare
    "name": "ITZY",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -8935,29 +8529,6 @@ declare
      "review": "not the whole lineup of that date"
     },
     {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:18052026_ITZY_CHAERYEONG_2.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/18052026_ITZY_CHAERYEONG_2.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1620,
-     "height": 2160,
-     "sha1": "609298a5f224fb4ab41884b9393a7ab3c934cd7b",
-     "author": "SBS Radio 에라오",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-05-18",
-     "date_precision": "day",
-     "event": "Chaeryeong on SBS Power FM promoting the mini-album \"Motto\" ",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date"
-    },
-    {
      "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:18052026_ITZY_LIA_2.png",
@@ -9011,6 +8582,7 @@ declare
    "name": "IVE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -9020,6 +8592,7 @@ declare
    "name": "J-Hope",
    "qid": "Q16236223",
    "group": "bts",
+   "idol_id": 4,
    "locked": false,
    "photos": [
     {
@@ -9043,7 +8616,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -9158,7 +8731,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "5 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -9168,6 +8741,7 @@ declare
    "name": "Jackson",
    "qid": "Q16905948",
    "group": "got7",
+   "idol_id": 221,
    "locked": false,
    "photos": [
     {
@@ -9316,6 +8890,7 @@ declare
    "name": "Jaehyuk",
    "qid": "Q98136886",
    "group": "treasure",
+   "idol_id": 262,
    "locked": false,
    "photos": [
     {
@@ -9349,6 +8924,7 @@ declare
    "name": "Jaehyun",
    "qid": "Q26267642",
    "group": "nct",
+   "idol_id": 78,
    "locked": false,
    "photos": [
     {
@@ -9497,10 +9073,11 @@ declare
    "name": "Jake",
    "qid": "Q105718037",
    "group": "enhypen",
+   "idol_id": 117,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sim_Jae-yun,_2022.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Sim_Jae-yun%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9520,7 +9097,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -9530,6 +9107,7 @@ declare
    "name": "James",
    "qid": "Q135963716",
    "group": "cortis",
+   "idol_id": 285,
    "locked": false,
    "photos": [
     {
@@ -9586,6 +9164,7 @@ declare
    "name": "Jay B",
    "qid": "Q491048",
    "group": "got7",
+   "idol_id": 220,
    "locked": false,
    "photos": [
     {
@@ -9734,6 +9313,7 @@ declare
    "name": "Jay",
    "qid": "Q105717862",
    "group": "enhypen",
+   "idol_id": 116,
    "locked": false,
    "photos": [
     {
@@ -9767,6 +9347,7 @@ declare
    "name": "Jennie",
    "qid": "Q26262599",
    "group": "blackpink",
+   "idol_id": 9,
    "locked": false,
    "photos": []
   },
@@ -9776,6 +9357,7 @@ declare
    "name": "Jeonghan",
    "qid": "Q24566664",
    "group": "seventeen",
+   "idol_id": 40,
    "locked": false,
    "photos": [
     {
@@ -9924,6 +9506,7 @@ declare
    "name": "Jeongwoo",
    "qid": "Q97326265",
    "group": "treasure",
+   "idol_id": 265,
    "locked": false,
    "photos": [
     {
@@ -9957,10 +9540,11 @@ declare
    "name": "Jeongyeon",
    "qid": "Q25374501",
    "group": "twice",
+   "idol_id": 22,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20250801_LOLLAPALOOZA_TWICE_0727.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/20250801_LOLLAPALOOZA_TWICE_0727.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9980,7 +9564,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -10052,7 +9636,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Twice_Jeongyeon_in_2023_06.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Twice_Jeongyeon_in_2023_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10072,7 +9656,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -10105,6 +9689,7 @@ declare
    "name": "Jihoon",
    "qid": "Q124091988",
    "group": "tws",
+   "idol_id": 278,
    "locked": false,
    "photos": [
     {
@@ -10138,6 +9723,7 @@ declare
    "name": "Jihyo",
    "qid": "Q22774055",
    "group": "twice",
+   "idol_id": 25,
    "locked": false,
    "photos": [
     {
@@ -10233,7 +9819,7 @@ declare
      "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230817_Park_Jihyo_for_pearly_gates_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/20230817_Park_Jihyo_for_pearly_gates_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10253,10 +9839,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Park_Jihyo_for_Pearly_Gates_Korea_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Park_Jihyo_for_Pearly_Gates_Korea_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10276,7 +9862,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -10286,6 +9872,7 @@ declare
    "name": "Jimin",
    "qid": "Q20947093",
    "group": "bts",
+   "idol_id": 5,
    "locked": false,
    "photos": []
   },
@@ -10295,6 +9882,7 @@ declare
    "name": "Jin",
    "qid": "Q24276424",
    "group": "bts",
+   "idol_id": 2,
    "locked": false,
    "photos": [
     {
@@ -10341,7 +9929,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 9 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -10443,32 +10031,9 @@ declare
    "name": "Jinjin",
    "qid": "Q60991892",
    "group": "astro",
+   "idol_id": 297,
    "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:170602_Astro_07.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/170602_Astro_07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 750,
-     "height": 1125,
-     "sha1": "a5e8685c9c5f6f3a99c573a370f2927ca9385811",
-     "author": "http://intheholic.tistory.com/",
-     "author_url": "http://intheholic.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2017-06-02",
-     "date_precision": "day",
-     "event": "170602 뮤직뱅크 출근길",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
-    }
-   ]
+   "photos": []
   },
   {
    "slug": "jinsoul-loona",
@@ -10476,6 +10041,7 @@ declare
    "name": "Jinsoul",
    "qid": "Q56825122",
    "group": "loona",
+   "idol_id": 214,
    "locked": false,
    "photos": [
     {
@@ -10624,6 +10190,7 @@ declare
    "name": "Jinyoung",
    "qid": "Q492313",
    "group": "got7",
+   "idol_id": 222,
    "locked": false,
    "photos": [
     {
@@ -10647,10 +10214,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jinyoung_for_GQ_Korea_in_July_2021.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Jinyoung_for_GQ_Korea_in_July_2021.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10670,7 +10237,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -10693,10 +10260,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 5 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Park_Jin-young_at_Brunello_Cucinelli_Photocall,_23_October_2025_04.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Park_Jin-young_at_Brunello_Cucinelli_Photocall%2C_23_October_2025_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10716,7 +10283,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -10739,10 +10306,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Park_Jinyoung_\"Chapter_0_With\"_unboxing_05.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Park_Jinyoung_%22Chapter_0_With%22_unboxing_05.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10762,7 +10329,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -10772,6 +10339,7 @@ declare
    "name": "Jisoo",
    "qid": "Q27655361",
    "group": "blackpink",
+   "idol_id": 8,
    "locked": false,
    "photos": [
     {
@@ -10851,6 +10419,7 @@ declare
    "name": "JiU",
    "qid": "Q59313184",
    "group": "dreamcatcher",
+   "idol_id": 267,
    "locked": false,
    "photos": [
     {
@@ -10999,6 +10568,7 @@ declare
    "name": "Jiung",
    "qid": "Q121579089",
    "group": "p1harmony",
+   "idol_id": 282,
    "locked": false,
    "photos": [
     {
@@ -11032,6 +10602,7 @@ declare
    "name": "Jiwoo",
    "qid": "Q131932320",
    "group": "hearts2hearts",
+   "idol_id": 288,
    "locked": false,
    "photos": [
     {
@@ -11111,6 +10682,7 @@ declare
    "name": "Jiwoong",
    "qid": "Q115933814",
    "group": "zerobaseone",
+   "idol_id": 240,
    "locked": false,
    "photos": [
     {
@@ -11236,6 +10808,7 @@ declare
    "name": "Johnny",
    "qid": "Q47690025",
    "group": "nct",
+   "idol_id": 75,
    "locked": false,
    "photos": [
     {
@@ -11384,6 +10957,7 @@ declare
    "name": "Jongho",
    "qid": "Q85884933",
    "group": "ateez",
+   "idol_id": 114,
    "locked": false,
    "photos": [
     {
@@ -11486,6 +11060,7 @@ declare
    "name": "Jongseob",
    "qid": "Q30006465",
    "group": "p1harmony",
+   "idol_id": 284,
    "locked": false,
    "photos": []
   },
@@ -11495,6 +11070,7 @@ declare
    "name": "Joohoney",
    "qid": "Q23008017",
    "group": "monsta-x",
+   "idol_id": 230,
    "locked": false,
    "photos": [
     {
@@ -11613,7 +11189,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Monsta_X_Joohoney_Nov_12,_2020_(1).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Monsta_X_Joohoney_Nov_12%2C_2020_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -11633,7 +11209,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -11643,6 +11219,7 @@ declare
    "name": "Joshua",
    "qid": "Q21825065",
    "group": "seventeen",
+   "idol_id": 41,
    "locked": false,
    "photos": [
     {
@@ -11791,6 +11368,7 @@ declare
    "name": "Joy",
    "qid": "Q17484113",
    "group": "red-velvet",
+   "idol_id": 105,
    "locked": false,
    "photos": [
     {
@@ -11883,7 +11461,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -11939,6 +11517,7 @@ declare
    "name": "Juhoon",
    "qid": "Q135963733",
    "group": "cortis",
+   "idol_id": 286,
    "locked": false,
    "photos": []
   },
@@ -11948,6 +11527,7 @@ declare
    "name": "Jun",
    "qid": "Q20972211",
    "group": "seventeen",
+   "idol_id": 42,
    "locked": false,
    "photos": [
     {
@@ -12096,6 +11676,7 @@ declare
    "name": "Junghwan",
    "qid": "Q97352009",
    "group": "treasure",
+   "idol_id": 266,
    "locked": false,
    "photos": [
     {
@@ -12129,6 +11710,7 @@ declare
    "name": "Jungkook",
    "qid": "Q22338877",
    "group": "bts",
+   "idol_id": 7,
    "locked": false,
    "photos": []
   },
@@ -12138,6 +11720,7 @@ declare
    "name": "Jungwon",
    "qid": "Q105717977",
    "group": "enhypen",
+   "idol_id": 120,
    "locked": false,
    "photos": [
     {
@@ -12240,6 +11823,7 @@ declare
    "name": "Jungwoo",
    "qid": "Q60831979",
    "group": "nct",
+   "idol_id": 79,
    "locked": false,
    "photos": [
     {
@@ -12388,6 +11972,7 @@ declare
    "name": "Junkyu",
    "qid": "Q97319986",
    "group": "treasure",
+   "idol_id": 261,
    "locked": false,
    "photos": []
   },
@@ -12397,6 +11982,7 @@ declare
    "name": "Juun",
    "qid": "Q131932324",
    "group": "hearts2hearts",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -12406,6 +11992,7 @@ declare
    "name": "K",
    "qid": "Q116226143",
    "group": "team",
+   "idol_id": 291,
    "locked": false,
    "photos": [
     {
@@ -12554,6 +12141,7 @@ declare
    "name": "Kai",
    "qid": "Q10775090",
    "group": "exo",
+   "idol_id": 175,
    "locked": false,
    "photos": [
     {
@@ -12580,7 +12168,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kai_at_the_U_Have_A_Dream_concert_on_May_31,_2017.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kai_at_the_U_Have_A_Dream_concert_on_May_31%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -12600,7 +12188,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "6 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -12623,7 +12211,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "6 people are in the frame; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -12702,6 +12290,7 @@ declare
    "name": "KARA",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -12725,7 +12314,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; someone who is not a member is in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -12735,6 +12324,7 @@ declare
    "name": "Karina",
    "qid": "Q101161002",
    "group": "aespa",
+   "idol_id": 30,
    "locked": false,
    "photos": [
     {
@@ -12883,6 +12473,7 @@ declare
    "name": "KATSEYE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -12892,6 +12483,7 @@ declare
    "name": "Kazuha",
    "qid": "Q111544446",
    "group": "le-sserafim",
+   "idol_id": 70,
    "locked": false,
    "photos": [
     {
@@ -13040,6 +12632,7 @@ declare
    "name": "Keeho",
    "qid": "Q114690500",
    "group": "p1harmony",
+   "idol_id": 280,
    "locked": false,
    "photos": [
     {
@@ -13096,6 +12689,7 @@ declare
    "name": "Keena",
    "qid": "Q117178583",
    "group": "fifty-fifty",
+   "idol_id": 163,
    "locked": false,
    "photos": [
     {
@@ -13152,6 +12746,7 @@ declare
    "name": "Keonho",
    "qid": "Q135963581",
    "group": "cortis",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -13161,6 +12756,7 @@ declare
    "name": "Kep1er",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -13217,6 +12813,7 @@ declare
    "name": "Key",
    "qid": "Q483980",
    "group": "shinee",
+   "idol_id": 194,
    "locked": false,
    "photos": [
     {
@@ -13286,7 +12883,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -13365,6 +12962,7 @@ declare
    "name": "Kihyun",
    "qid": "Q27951584",
    "group": "monsta-x",
+   "idol_id": 228,
    "locked": false,
    "photos": [
     {
@@ -13421,6 +13019,7 @@ declare
    "name": "Kim Lip",
    "qid": "Q56816418",
    "group": "loona",
+   "idol_id": 213,
    "locked": false,
    "photos": [
     {
@@ -13546,6 +13145,7 @@ declare
    "name": "KISS OF LIFE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -13555,6 +13155,7 @@ declare
    "name": "Kun",
    "qid": "Q60644128",
    "group": "nct",
+   "idol_id": 89,
    "locked": false,
    "photos": [
     {
@@ -13657,6 +13258,7 @@ declare
    "name": "Kyungmin",
    "qid": "Q132041931",
    "group": "tws",
+   "idol_id": 279,
    "locked": false,
    "photos": []
   },
@@ -13666,6 +13268,7 @@ declare
    "name": "Lara",
    "qid": "Q124692773",
    "group": "katseye",
+   "idol_id": 252,
    "locked": false,
    "photos": [
     {
@@ -13745,6 +13348,7 @@ declare
    "name": "Lay",
    "qid": "Q12494180",
    "group": "exo",
+   "idol_id": 170,
    "locked": false,
    "photos": [
     {
@@ -13824,10 +13428,11 @@ declare
    "name": "LE SSERAFIM",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Le_Sserafim_in_Tacoma_-_Image_2.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Le_Sserafim_in_Tacoma_-_Image_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13847,7 +13452,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "someone who is not a member is in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -13896,7 +13501,7 @@ declare
      "review": "not the whole lineup of that date"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Le_Sserafim_in_Tacoma.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Le_Sserafim_in_Tacoma.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13916,7 +13521,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -13942,7 +13547,7 @@ declare
      "review": "a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Le_Sserafim_at_the_2026_Golden_Disc_Awards.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Le_Sserafim_at_the_2026_Golden_Disc_Awards.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13962,7 +13567,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -13972,6 +13577,7 @@ declare
    "name": "Lee Know",
    "qid": "Q59260597",
    "group": "stray-kids",
+   "idol_id": 13,
    "locked": false,
    "photos": [
     {
@@ -14120,6 +13726,7 @@ declare
    "name": "Leeseo",
    "qid": "Q109572155",
    "group": "ive",
+   "idol_id": 66,
    "locked": false,
    "photos": [
     {
@@ -14222,6 +13829,7 @@ declare
    "name": "Lia",
    "qid": "Q60870266",
    "group": "itzy",
+   "idol_id": 182,
    "locked": false,
    "photos": [
     {
@@ -14360,7 +13968,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -14370,10 +13978,11 @@ declare
    "name": "Lisa",
    "qid": "Q26707663",
    "group": "blackpink",
+   "idol_id": 11,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:180819_블랙핑크_팬싸인회_코엑스_라이브프라자_리사.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/180819_%EB%B8%94%EB%9E%99%ED%95%91%ED%81%AC_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%BD%94%EC%97%91%EC%8A%A4_%EB%9D%BC%EC%9D%B4%EB%B8%8C%ED%94%84%EB%9D%BC%EC%9E%90_%EB%A6%AC%EC%82%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -14393,7 +14002,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -14416,7 +14025,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -14462,7 +14071,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 4 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -14518,6 +14127,7 @@ declare
    "name": "Liz",
    "qid": "Q109420139",
    "group": "ive",
+   "idol_id": 65,
    "locked": false,
    "photos": [
     {
@@ -14666,6 +14276,7 @@ declare
    "name": "LOONA",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -14699,6 +14310,7 @@ declare
    "name": "Loossemble",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -14722,7 +14334,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -14732,6 +14344,7 @@ declare
    "name": "MAMAMOO",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -14752,29 +14365,6 @@ declare
      "event": "Moonbyul in 2024",
      "stage": false,
      "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:171015_KB배구_홈개막전_축하공연_마마무_솔라_미리보기_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/171015_KB%EB%B0%B0%EA%B5%AC_%ED%99%88%EA%B0%9C%EB%A7%89%EC%A0%84_%EC%B6%95%ED%95%98%EA%B3%B5%EC%97%B0_%EB%A7%88%EB%A7%88%EB%AC%B4_%EC%86%94%EB%9D%BC_%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1920,
-     "height": 1279,
-     "sha1": "2a0a73210877b73ffad6898e1acdf7b474a86012",
-     "author": "Sunshine, and you",
-     "author_url": "https://sunandyou.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2017-10-15",
-     "date_precision": "day",
-     "event": "171015 KB Volleyball Home Opening Celebration Performance Ma",
-     "stage": true,
-     "quality": 4,
      "fx": 50,
      "fy": 50,
      "news_only": false,
@@ -14880,6 +14470,7 @@ declare
    "name": "Manon",
    "qid": "Q124692741",
    "group": "katseye",
+   "idol_id": 253,
    "locked": false,
    "photos": [
     {
@@ -14982,6 +14573,7 @@ declare
    "name": "Mark",
    "qid": "Q16075083",
    "group": "got7",
+   "idol_id": 219,
    "locked": false,
    "photos": [
     {
@@ -15130,6 +14722,7 @@ declare
    "name": "Mark",
    "qid": "Q26689986",
    "group": "nct",
+   "idol_id": 80,
    "locked": false,
    "photos": [
     {
@@ -15278,6 +14871,7 @@ declare
    "name": "Martin",
    "qid": "Q135963739",
    "group": "cortis",
+   "idol_id": 287,
    "locked": false,
    "photos": []
   },
@@ -15287,6 +14881,7 @@ declare
    "name": "Megan",
    "qid": "Q124692787",
    "group": "katseye",
+   "idol_id": 254,
    "locked": false,
    "photos": [
     {
@@ -15379,7 +14974,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons; the number of people in the frame is not stated"
+     "review": "the licence review is still open on Commons; 3 people are in the frame"
     }
    ]
   },
@@ -15389,6 +14984,7 @@ declare
    "name": "Mina",
    "qid": "Q20688186",
    "group": "twice",
+   "idol_id": 26,
    "locked": false,
    "photos": [
     {
@@ -15507,7 +15103,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:6V0A5604.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/6V0A5604.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15527,7 +15123,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -15537,6 +15133,7 @@ declare
    "name": "Mingi",
    "qid": "Q85878823",
    "group": "ateez",
+   "idol_id": 112,
    "locked": false,
    "photos": [
     {
@@ -15634,29 +15231,6 @@ declare
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:240803_Ateez_03.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/240803_Ateez_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 5057,
-     "height": 4152,
-     "sha1": "74e69ac1a37bc80299a8bdf5f11a8e586aea3fd4",
-     "author": "pinkllamanade",
-     "author_url": null,
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2024-08-03",
-     "date_precision": "day",
-     "event": "Choi Jong-ho in 2024",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:240803-ateez-nyc-7.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/240803-ateez-nyc-7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
      "width": 5398,
@@ -15675,7 +15249,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -15685,6 +15259,7 @@ declare
    "name": "Mingyu",
    "qid": "Q21824887",
    "group": "seventeen",
+   "idol_id": 47,
    "locked": false,
    "photos": [
     {
@@ -15833,6 +15408,7 @@ declare
    "name": "Minho",
    "qid": "Q134575",
    "group": "shinee",
+   "idol_id": 195,
    "locked": false,
    "photos": [
     {
@@ -15981,6 +15557,7 @@ declare
    "name": "Minhyuk",
    "qid": "Q28746303",
    "group": "monsta-x",
+   "idol_id": 227,
    "locked": false,
    "photos": [
     {
@@ -16009,29 +15586,6 @@ declare
     {
      "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:KCON_2015_Monsta_X_3.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/KCON_2015_Monsta_X_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 5472,
-     "height": 3648,
-     "sha1": "1959d654ddbe3e253f2c01695011bd84941ac155",
-     "author": "mduangdara",
-     "author_url": "https://www.flickr.com/photos/mduangdara/",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2015-08-01",
-     "date_precision": "day",
-     "event": "KCON LA 2015",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:151206_몬스타엑스_싱가포르_팬미팅_3.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/151206_%EB%AA%AC%EC%8A%A4%ED%83%80%EC%97%91%EC%8A%A4_%EC%8B%B1%EA%B0%80%ED%8F%AC%EB%A5%B4_%ED%8C%AC%EB%AF%B8%ED%8C%85_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
      "width": 1500,
@@ -16050,7 +15604,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "3 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -16060,6 +15614,7 @@ declare
    "name": "Minji",
    "qid": "Q113561403",
    "group": "newjeans",
+   "idol_id": 34,
    "locked": false,
    "photos": [
     {
@@ -16132,29 +15687,6 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Minji_240903.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Minji_240903.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 468,
-     "height": 661,
-     "sha1": "5d8c6d06f8e93754f480407da472f4da4bb44f9f",
-     "author": "TV Ten",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-03",
-     "date_precision": "day",
-     "event": "Minji (NewJeans, NJZ) at Seoul Fashion Week 2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
      "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:NewJeans_Minji_OLENS_3.jpg",
@@ -16199,6 +15731,29 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:NewJeans_Minji_Seoul_Fashion_Week_2.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/NewJeans_Minji_Seoul_Fashion_Week_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 413,
+     "height": 606,
+     "sha1": "711a8d882ce49e51be877d945bc3bc5d6ce1cf75",
+     "author": "티비텐",
+     "author_url": "https://www.youtube.com/@_TV10",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-09-05",
+     "date_precision": "day",
+     "event": "NewJeans Minji Seoul Fashion Week",
+     "stage": false,
+     "quality": 1,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
     }
    ]
   },
@@ -16208,6 +15763,7 @@ declare
    "name": "Minju",
    "qid": "Q126923757",
    "group": "illit",
+   "idol_id": 257,
    "locked": false,
    "photos": [
     {
@@ -16333,6 +15889,7 @@ declare
    "name": "Minnie",
    "qid": "Q56761923",
    "group": "g-i-dle",
+   "idol_id": 56,
    "locked": false,
    "photos": []
   },
@@ -16342,6 +15899,7 @@ declare
    "name": "miss A",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -16365,10 +15923,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Miss_A_from_acrofan.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Miss_A_from_acrofan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16388,7 +15946,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -16398,6 +15956,7 @@ declare
    "name": "Miyeon",
    "qid": "Q56259927",
    "group": "g-i-dle",
+   "idol_id": 55,
    "locked": false,
    "photos": [
     {
@@ -16546,6 +16105,7 @@ declare
    "name": "MJ",
    "qid": "Q47673408",
    "group": "astro",
+   "idol_id": 296,
    "locked": false,
    "photos": [
     {
@@ -16664,7 +16224,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:아스트로_엠제이_2024.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/%EC%95%84%EC%8A%A4%ED%8A%B8%EB%A1%9C_%EC%97%A0%EC%A0%9C%EC%9D%B4_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16684,7 +16244,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -16694,6 +16254,7 @@ declare
    "name": "Momo",
    "qid": "Q23779926",
    "group": "twice",
+   "idol_id": 23,
    "locked": false,
    "photos": [
     {
@@ -16842,6 +16403,7 @@ declare
    "name": "MONSTA X",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -16865,7 +16427,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -16875,6 +16437,7 @@ declare
    "name": "Moonbyul",
    "qid": "Q19483782",
    "group": "mamamoo",
+   "idol_id": 245,
    "locked": false,
    "photos": [
     {
@@ -17023,6 +16586,7 @@ declare
    "name": "Nayeon",
    "qid": "Q22804243",
    "group": "twice",
+   "idol_id": 21,
    "locked": false,
    "photos": [
     {
@@ -17171,6 +16735,7 @@ declare
    "name": "NCT",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -17180,6 +16745,7 @@ declare
    "name": "NCT 127",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -17328,6 +16894,7 @@ declare
    "name": "NCT Dream",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -17466,7 +17033,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -17476,6 +17043,7 @@ declare
    "name": "NCT WISH",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -17485,6 +17053,7 @@ declare
    "name": "NewJeans",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -17531,7 +17100,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -17541,6 +17110,7 @@ declare
    "name": "Ni-Ki",
    "qid": "Q108043218",
    "group": "enhypen",
+   "idol_id": 121,
    "locked": false,
    "photos": [
     {
@@ -17574,6 +17144,7 @@ declare
    "name": "Nicholas",
    "qid": "Q104723121",
    "group": "team",
+   "idol_id": 292,
    "locked": false,
    "photos": [
     {
@@ -17598,6 +17169,29 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2025-12-29_&Team_for_Marie_Claire_05.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/2025-12-29_%26Team_for_Marie_Claire_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "4520a69f2f3631b0050b940d253de7a11499841a",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-12-29",
+     "date_precision": "day",
+     "event": "&Team for Marie Claire 05",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "the licence review is still open on Commons"
     },
     {
      "status": "pending",
@@ -17653,6 +17247,7 @@ declare
    "name": "Ningning",
    "qid": "Q101161499",
    "group": "aespa",
+   "idol_id": 33,
    "locked": false,
    "photos": [
     {
@@ -17745,7 +17340,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -17801,6 +17396,7 @@ declare
    "name": "NMIXX",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -17949,6 +17545,7 @@ declare
    "name": "Olivia Hye",
    "qid": "Q58825825",
    "group": "loona",
+   "idol_id": 218,
    "locked": false,
    "photos": [
     {
@@ -18028,6 +17625,7 @@ declare
    "name": "Onew",
    "qid": "Q494692",
    "group": "shinee",
+   "idol_id": 193,
    "locked": false,
    "photos": [
     {
@@ -18074,7 +17672,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -18176,6 +17774,7 @@ declare
    "name": "P1Harmony",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -18185,6 +17784,7 @@ declare
    "name": "PENTAGON",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -18208,7 +17808,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "the licence review is still open on Commons; a person in the frame is not identified; a person in the frame is not identified"
+     "review": "the licence review is still open on Commons"
     }
    ]
   },
@@ -18218,6 +17818,7 @@ declare
    "name": "Pharita",
    "qid": "Q123554436",
    "group": "babymonster",
+   "idol_id": 143,
    "locked": false,
    "photos": [
     {
@@ -18297,32 +17898,9 @@ declare
    "name": "PURPLE KISS",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20231028_SWAN_(PURPLE_KISS).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/20231028_SWAN_%28PURPLE_KISS%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 990,
-     "height": 1180,
-     "sha1": "9ec50425ac3f83172367dbe0ebdc83fece6157a8",
-     "author": "SBS Radio",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-10-28",
-     "date_precision": "day",
-     "event": "SBS Radio 'The K-pop Stars', 28 Oct 2023",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified"
-    }
-   ]
+   "photos": []
   },
   {
    "slug": "rami-babymonster",
@@ -18330,6 +17908,7 @@ declare
    "name": "Rami",
    "qid": "Q123554439",
    "group": "babymonster",
+   "idol_id": 145,
    "locked": false,
    "photos": []
   },
@@ -18339,6 +17918,7 @@ declare
    "name": "Red Velvet",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -18431,7 +18011,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date"
     },
     {
      "status": "pending",
@@ -18454,7 +18034,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     }
    ]
   },
@@ -18464,6 +18044,7 @@ declare
    "name": "Rei",
    "qid": "Q109571132",
    "group": "ive",
+   "idol_id": 63,
    "locked": false,
    "photos": [
     {
@@ -18536,30 +18117,7 @@ declare
      "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Ive's_Rei_in_2023.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Ive%27s_Rei_in_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1610,
-     "height": 1583,
-     "sha1": "881c18ecd638c88b43ee5f9c1770bf5e79858b71",
-     "author": "K-POPIT 케이팝잇 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-03-31",
-     "date_precision": "day",
-     "event": "Screenshot extracted from Youtube under creative commons lic",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:29092026_IVE_REI_rom'u_PhotoCall_8.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/29092026_IVE_REI_rom%27u_PhotoCall_8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -18579,7 +18137,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -18603,6 +18161,29 @@ declare
      "fy": 30,
      "news_only": false,
      "review": "Commons shows a personality rights warning on the file"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Rei_for_Longines,_February_2025_03.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Rei_for_Longines%2C_February_2025_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 564,
+     "height": 682,
+     "sha1": "6925ce4a29e3dd254decc4d5e335767c94dbb6e6",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2025-02-20",
+     "date_precision": "day",
+     "event": "Rei for Longines, February 2025",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -18612,6 +18193,7 @@ declare
    "name": "RIIZE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -18760,6 +18342,7 @@ declare
    "name": "RM",
    "qid": "Q20514446",
    "group": "bts",
+   "idol_id": 1,
    "locked": false,
    "photos": [
     {
@@ -18898,7 +18481,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -18908,6 +18491,7 @@ declare
    "name": "Rora",
    "qid": "Q123554440",
    "group": "babymonster",
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -18964,6 +18548,7 @@ declare
    "name": "Rosé",
    "qid": "Q27655344",
    "group": "blackpink",
+   "idol_id": 10,
    "locked": false,
    "photos": []
   },
@@ -18973,6 +18558,7 @@ declare
    "name": "Ruka",
    "qid": "Q123554435",
    "group": "babymonster",
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -19029,6 +18615,7 @@ declare
    "name": "Ryujin",
    "qid": "Q60870265",
    "group": "itzy",
+   "idol_id": 183,
    "locked": false,
    "photos": [
     {
@@ -19177,6 +18764,7 @@ declare
    "name": "S.Coups",
    "qid": "Q21824968",
    "group": "seventeen",
+   "idol_id": 39,
    "locked": false,
    "photos": [
     {
@@ -19246,7 +18834,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -19325,6 +18913,7 @@ declare
    "name": "Sakura",
    "qid": "Q869966",
    "group": "le-sserafim",
+   "idol_id": 67,
    "locked": false,
    "photos": [
     {
@@ -19473,6 +19062,7 @@ declare
    "name": "San",
    "qid": "Q85879242",
    "group": "ateez",
+   "idol_id": 111,
    "locked": false,
    "photos": [
     {
@@ -19621,10 +19211,11 @@ declare
    "name": "Sana",
    "qid": "Q23012025",
    "group": "twice",
+   "idol_id": 24,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Twice's_Sana_(2)_at_KCON_2016_LA_fan_engagement_08_(cropped).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Twice%27s_Sana_%282%29_at_KCON_2016_LA_fan_engagement_08_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -19644,7 +19235,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "5 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -19670,7 +19261,7 @@ declare
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:161204_트와이스_사나_다현_ICN_MAMA_출국_by._정연은_사랑_(1).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/161204_%ED%8A%B8%EC%99%80%EC%9D%B4%EC%8A%A4_%EC%82%AC%EB%82%98_%EB%8B%A4%ED%98%84_ICN_MAMA_%EC%B6%9C%EA%B5%AD_by._%EC%A0%95%EC%97%B0%EC%9D%80_%EC%82%AC%EB%9E%91_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -19690,53 +19281,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sana_Minatozaki_2022.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Sana_Minatozaki_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1849,
-     "height": 3240,
-     "sha1": "f01174279694df2c576caa0d1dd103a101fc4ec1",
-     "author": "mang2goon",
-     "author_url": "https://youtube.com/@mang2goon",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-09-04",
-     "date_precision": "day",
-     "event": "Mini Fan Meeting Twice SANA Fancam 220903",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "5 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sana_Minatozaki_2022_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Sana_Minatozaki_2022_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1747,
-     "height": 3105,
-     "sha1": "c2f90c4fb460684cf1a820172f8ddc8802d80f96",
-     "author": "mang2goon",
-     "author_url": "https://youtube.com/@mang2goon",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-09-04",
-     "date_precision": "day",
-     "event": "Music Core Mini Fan Meeting Twice SANA Fancam 220903",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "5 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "pending",
@@ -19759,6 +19304,52 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
+     "review": "3 people are in the frame; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:170304_여의도_팬싸인회_사나.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/170304_%EC%97%AC%EC%9D%98%EB%8F%84_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%82%AC%EB%82%98.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2000,
+     "height": 2648,
+     "sha1": "8576bc9413f60e064bada7088276a82496afdef7",
+     "author": "SHAQ Photo",
+     "author_url": "http://shaq32.tistory.com/514",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-03-04",
+     "date_precision": "day",
+     "event": "170304 여의도 팬싸인회 사나",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:161025_최파타_출근_사나_2pic_(2).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/161025_%EC%B5%9C%ED%8C%8C%ED%83%80_%EC%B6%9C%EA%B7%BC_%EC%82%AC%EB%82%98_2pic_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2760,
+     "height": 2280,
+     "sha1": "36c2b43b06606b2739418d70aef323a5a9a88dd3",
+     "author": "TWICE FRAME",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2016-10-25",
+     "date_precision": "day",
+     "event": "161025 최파타 출근 사나 2pic",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
@@ -19769,6 +19360,7 @@ declare
    "name": "Sanha",
    "qid": "Q56278318",
    "group": "astro",
+   "idol_id": 299,
    "locked": false,
    "photos": [
     {
@@ -19871,6 +19463,7 @@ declare
    "name": "Sehun",
    "qid": "Q10802388",
    "group": "exo",
+   "idol_id": 176,
    "locked": false,
    "photos": [
     {
@@ -20019,6 +19612,7 @@ declare
    "name": "Seohyun",
    "qid": "Q240082",
    "group": "girls-generation",
+   "idol_id": 239,
    "locked": false,
    "photos": [
     {
@@ -20068,7 +19662,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Seohyun_2022.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Seohyun_2022.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20088,7 +19682,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -20134,7 +19728,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "3 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -20157,7 +19751,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "4 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -20167,6 +19761,7 @@ declare
    "name": "Seonghwa",
    "qid": "Q85880867",
    "group": "ateez",
+   "idol_id": 108,
    "locked": false,
    "photos": [
     {
@@ -20269,6 +19864,7 @@ declare
    "name": "Seonghyeon",
    "qid": "Q135963751",
    "group": "cortis",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -20278,6 +19874,7 @@ declare
    "name": "Seulgi",
    "qid": "Q15934116",
    "group": "red-velvet",
+   "idol_id": 103,
    "locked": false,
    "photos": [
     {
@@ -20393,7 +19990,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": "3 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -20426,6 +20023,7 @@ declare
    "name": "Seungkwan",
    "qid": "Q21824947",
    "group": "seventeen",
+   "idol_id": 49,
    "locked": false,
    "photos": [
     {
@@ -20574,6 +20172,7 @@ declare
    "name": "Seungmin",
    "qid": "Q60467634",
    "group": "stray-kids",
+   "idol_id": 18,
    "locked": false,
    "photos": [
     {
@@ -20722,54 +20321,9 @@ declare
    "name": "SEVENTEEN",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Seventeen_performing_Don't_Wanna_Cry_at_Dream_Concert_2017_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Seventeen_performing_Don%27t_Wanna_Cry_at_Dream_Concert_2017_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3996,
-     "height": 2247,
-     "sha1": "67e600d3680a6b46431856fb9d73128c1b963872",
-     "author": "DaftTaengk",
-     "author_url": "https://www.youtube.com/channel/UCrTCkJ8377E7JhsMeyLXtKA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2017-06-03",
-     "date_precision": "day",
-     "event": "Dream Concert 2017",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:HMV&BOOKS_SHIBUYA_2024年12月3日の渋谷_202412031252_IMG_2531.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/HMV%26BOOKS_SHIBUYA_2024%E5%B9%B412%E6%9C%883%E6%97%A5%E3%81%AE%E6%B8%8B%E8%B0%B7_202412031252_IMG_2531.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 4032,
-     "height": 3024,
-     "sha1": "3a6cff9a167c682ef132a74e765ff42ef038992d",
-     "author": "ウィ貴公子",
-     "author_url": "https://commons.wikimedia.org/wiki/User:%E3%82%A6%E3%82%A3%E8%B2%B4%E5%85%AC%E5%AD%90",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2024-12-03",
-     "date_precision": "day",
-     "event": "HMV&BOOKS SHIBUYA（2024年12月3日12時52分） This photo was taken wit",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
     {
      "status": "pending",
      "source": "commons",
@@ -20814,7 +20368,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -20837,10 +20391,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "not the whole lineup of that date; a person in the frame is not identified"
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:SEVENTEEN(세븐틴)_-_'Ready_to_love'_응원법_3m_25s.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/SEVENTEEN%28%EC%84%B8%EB%B8%90%ED%8B%B4%29_-_%27Ready_to_love%27_%EC%9D%91%EC%9B%90%EB%B2%95_3m_25s.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20860,7 +20414,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -20870,6 +20424,7 @@ declare
    "name": "SHINee",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -20962,7 +20517,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -20995,6 +20550,7 @@ declare
    "name": "Shinyu",
    "qid": "Q132041926",
    "group": "tws",
+   "idol_id": 274,
    "locked": false,
    "photos": [
     {
@@ -21074,8 +20630,32 @@ declare
    "name": "Shownu",
    "qid": "Q24834621",
    "group": "monsta-x",
+   "idol_id": 226,
    "locked": false,
    "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:KCON_2015_Monsta_X_3.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a9/KCON_2015_Monsta_X_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 5472,
+     "height": 3648,
+     "sha1": "1959d654ddbe3e253f2c01695011bd84941ac155",
+     "author": "mduangdara",
+     "author_url": "https://www.flickr.com/photos/mduangdara/",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2015-08-01",
+     "date_precision": "day",
+     "event": "KCON LA 2015",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    },
     {
      "status": "auto",
      "source": "commons",
@@ -21166,7 +20746,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -21176,6 +20756,7 @@ declare
    "name": "Shuhua",
    "qid": "Q55287305",
    "group": "g-i-dle",
+   "idol_id": 59,
    "locked": false,
    "photos": [
     {
@@ -21324,10 +20905,11 @@ declare
    "name": "SISTAR",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sistar_in_Insadong.JPG",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Sistar_in_Insadong.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21347,7 +20929,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -21357,6 +20939,7 @@ declare
    "name": "Siyeon",
    "qid": "Q59313326",
    "group": "dreamcatcher",
+   "idol_id": 269,
    "locked": false,
    "photos": [
     {
@@ -21482,6 +21065,7 @@ declare
    "name": "Solar",
    "qid": "Q19483969",
    "group": "mamamoo",
+   "idol_id": 244,
    "locked": false,
    "photos": [
     {
@@ -21630,6 +21214,7 @@ declare
    "name": "Soobin",
    "qid": "Q62396828",
    "group": "txt",
+   "idol_id": 122,
    "locked": false,
    "photos": [
     {
@@ -21778,6 +21363,7 @@ declare
    "name": "Sooyoung",
    "qid": "Q233385",
    "group": "girls-generation",
+   "idol_id": 237,
    "locked": false,
    "photos": [
     {
@@ -21926,6 +21512,7 @@ declare
    "name": "Sophia",
    "qid": "Q124692753",
    "group": "katseye",
+   "idol_id": 255,
    "locked": false,
    "photos": [
     {
@@ -21982,6 +21569,7 @@ declare
    "name": "Soul",
    "qid": "Q121579375",
    "group": "p1harmony",
+   "idol_id": 283,
    "locked": false,
    "photos": []
   },
@@ -21991,6 +21579,7 @@ declare
    "name": "Soyeon",
    "qid": "Q26707915",
    "group": "g-i-dle",
+   "idol_id": 57,
    "locked": false,
    "photos": [
     {
@@ -22106,7 +21695,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -22139,6 +21728,7 @@ declare
    "name": "STAYC",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -22148,6 +21738,7 @@ declare
    "name": "Stella",
    "qid": "Q131932323",
    "group": "hearts2hearts",
+   "idol_id": 290,
    "locked": false,
    "photos": []
   },
@@ -22157,31 +21748,9 @@ declare
    "name": "Stray Kids",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lee_Know_and_Lee_Felix_in_Incheon_Airport,_September_7,_2024.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Lee_Know_and_Lee_Felix_in_Incheon_Airport%2C_September_7%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2338,
-     "height": 1891,
-     "sha1": "f059d5c8dfcdb7abe45c8f33efb888c1c7c9c55c",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-07",
-     "date_precision": "day",
-     "event": "Lee Know and Felix from Stray Kids at Incheon Airport, Septe",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
-    },
     {
      "status": "pending",
      "source": "commons",
@@ -22204,29 +21773,6 @@ declare
      "fy": 50,
      "news_only": false,
      "review": "Commons shows a personality rights warning on the file"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hyunjin_of_Stray_Kids_for_Marie_Claire_Korea,_March_31,_2025.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Hyunjin_of_Stray_Kids_for_Marie_Claire_Korea%2C_March_31%2C_2025.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2502,
-     "height": 2160,
-     "sha1": "651c1c3eaf56089e99f94513d3742c6a6e816ea6",
-     "author": "Marie Claire Korea",
-     "author_url": "https://www.youtube.com/@marieclairekr",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-03-31",
-     "date_precision": "day",
-     "event": "Hyunjin of Stray Kids for Marie Claire Korea ' s April 2025 ",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -22305,6 +21851,7 @@ declare
    "name": "SuA",
    "qid": "Q59313270",
    "group": "dreamcatcher",
+   "idol_id": 268,
    "locked": false,
    "photos": [
     {
@@ -22453,6 +22000,7 @@ declare
    "name": "Suga",
    "qid": "Q21075020",
    "group": "bts",
+   "idol_id": 3,
    "locked": false,
    "photos": [
     {
@@ -22522,7 +22070,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "7 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -22545,30 +22093,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Suga_and_Jimin_at_an_fansign_in_Sinchon,_in_September_2014.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Suga_and_Jimin_at_an_fansign_in_Sinchon%2C_in_September_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 1309,
-     "sha1": "4990194c959bad20954571babffbc2f78bdeb805",
-     "author": "Marshmallow",
-     "author_url": "http://marshmallow9293.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-08-08",
-     "date_precision": "day",
-     "event": "Suga and Jimin at an fansign in Sinchon on September 11, 201",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -22591,6 +22116,29 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
+     "review": "3 people are in the frame; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Bangtan_Boys_during_a_photography_session,_May_2014_03.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Bangtan_Boys_during_a_photography_session%2C_May_2014_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2200,
+     "height": 1650,
+     "sha1": "da9066c3abf95f1e453787d5ea107edd8cf97990",
+     "author": "BANGTAN BLOG",
+     "author_url": "http://bangtan.tistory.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2014-05-19",
+     "date_precision": "day",
+     "event": "Bangtan Boys during a photography session on May 19, 2014.",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
@@ -22601,6 +22149,7 @@ declare
    "name": "Suho",
    "qid": "Q10822003",
    "group": "exo",
+   "idol_id": 169,
    "locked": false,
    "photos": [
     {
@@ -22749,6 +22298,7 @@ declare
    "name": "Suhyun",
    "qid": "Q18697707",
    "group": "akmu",
+   "idol_id": 295,
    "locked": false,
    "photos": [
     {
@@ -22897,6 +22447,7 @@ declare
    "name": "Sunghoon",
    "qid": "Q17198771",
    "group": "enhypen",
+   "idol_id": 118,
    "locked": false,
    "photos": [
     {
@@ -23045,6 +22596,7 @@ declare
    "name": "Sunny",
    "qid": "Q233894",
    "group": "girls-generation",
+   "idol_id": 233,
    "locked": false,
    "photos": [
     {
@@ -23140,7 +22692,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sunny_at_Party_Showcase_on_July_2015_02_(cropped).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Sunny_at_Party_Showcase_on_July_2015_02_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -23160,7 +22712,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -23193,6 +22745,7 @@ declare
    "name": "Sunoo",
    "qid": "Q105718407",
    "group": "enhypen",
+   "idol_id": 119,
    "locked": false,
    "photos": [
     {
@@ -23226,6 +22779,7 @@ declare
    "name": "T-ARA",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -23235,6 +22789,7 @@ declare
    "name": "Taehyun",
    "qid": "Q61715235",
    "group": "txt",
+   "idol_id": 125,
    "locked": false,
    "photos": [
     {
@@ -23314,6 +22869,7 @@ declare
    "name": "Taeil",
    "qid": "Q28653640",
    "group": "nct",
+   "idol_id": 74,
    "locked": false,
    "photos": [
     {
@@ -23462,6 +23018,7 @@ declare
    "name": "Taemin",
    "qid": "Q153597",
    "group": "shinee",
+   "idol_id": 196,
    "locked": false,
    "photos": [
     {
@@ -23610,6 +23167,7 @@ declare
    "name": "Taerae",
    "qid": "Q117817675",
    "group": "zerobaseone",
+   "idol_id": 242,
    "locked": false,
    "photos": [
     {
@@ -23643,6 +23201,7 @@ declare
    "name": "Taeyang",
    "qid": "Q482991",
    "group": "bigbang",
+   "idol_id": 248,
    "locked": false,
    "photos": [
     {
@@ -23722,6 +23281,7 @@ declare
    "name": "Taeyeon",
    "qid": "Q233371",
    "group": "girls-generation",
+   "idol_id": 232,
    "locked": false,
    "photos": []
   },
@@ -23731,6 +23291,7 @@ declare
    "name": "Taeyong",
    "qid": "Q26459163",
    "group": "nct",
+   "idol_id": 73,
    "locked": false,
    "photos": [
     {
@@ -23879,6 +23440,7 @@ declare
    "name": "&TEAM",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -24027,6 +23589,7 @@ declare
    "name": "Ten",
    "qid": "Q26451151",
    "group": "nct",
+   "idol_id": 82,
    "locked": false,
    "photos": [
     {
@@ -24175,6 +23738,7 @@ declare
    "name": "The8",
    "qid": "Q21824868",
    "group": "seventeen",
+   "idol_id": 48,
    "locked": false,
    "photos": [
     {
@@ -24267,30 +23831,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:The8_leaving_a_Music_Bank_recording_in_December_2016.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/The8_leaving_a_Music_Bank_recording_in_December_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2511,
-     "height": 3497,
-     "sha1": "64d0d6178d4fb82097dfdda698c4e1f6cafa4750",
-     "author": "SHAQ Photo",
-     "author_url": "http://shaq32.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-12-23",
-     "date_precision": "day",
-     "event": "Music Bank",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "3 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -24313,6 +23854,29 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
+     "review": "2 people are in the frame; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Yoon_Jeong-han,_Xu_Minghao_during_a_fan_signing_event_in_June_2017.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Yoon_Jeong-han%2C_Xu_Minghao_during_a_fan_signing_event_in_June_2017.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3000,
+     "height": 2000,
+     "sha1": "952a6266487d919cbad9f0cd9e80906d683e4813",
+     "author": "AFFECTION",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2017-06-04",
+     "date_precision": "day",
+     "event": "Yoon Jeong-han and Xu Minghao during a fan signing event in ",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
@@ -24323,6 +23887,7 @@ declare
    "name": "Theo",
    "qid": "Q121579075",
    "group": "p1harmony",
+   "idol_id": 281,
    "locked": false,
    "photos": []
   },
@@ -24332,6 +23897,7 @@ declare
    "name": "Tiffany",
    "qid": "Q236355",
    "group": "girls-generation",
+   "idol_id": 234,
    "locked": false,
    "photos": [
     {
@@ -24424,7 +23990,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "5 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -24447,7 +24013,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -24470,7 +24036,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "8 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -24480,6 +24046,7 @@ declare
    "name": "TREASURE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -24628,6 +24195,7 @@ declare
    "name": "TWICE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -24697,30 +24265,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Twice_Jeongyeon_in_2023_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Twice_Jeongyeon_in_2023_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2028,
-     "height": 3168,
-     "sha1": "7f074b30a9ff80cf1d5b361ec600a8226c3e2800",
-     "author": "파리게이츠",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-07-10",
-     "date_precision": "day",
-     "event": "Twice Jeongyeon for Pearly Gates 2023",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date"
     },
     {
      "status": "pending",
@@ -24743,7 +24288,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date"
     },
     {
      "status": "pending",
@@ -24766,7 +24311,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date"
     }
    ]
   },
@@ -24776,6 +24321,7 @@ declare
    "name": "TWS",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -24785,6 +24331,7 @@ declare
    "name": "TOMORROW X TOGETHER",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
@@ -24933,6 +24480,7 @@ declare
    "name": "Tzuyu",
    "qid": "Q20688219",
    "group": "twice",
+   "idol_id": 29,
    "locked": false,
    "photos": [
     {
@@ -25081,6 +24629,7 @@ declare
    "name": "V",
    "qid": "Q18388296",
    "group": "bts",
+   "idol_id": 6,
    "locked": false,
    "photos": []
   },
@@ -25090,6 +24639,7 @@ declare
    "name": "Vernon",
    "qid": "Q21824912",
    "group": "seventeen",
+   "idol_id": 50,
    "locked": false,
    "photos": [
     {
@@ -25238,10 +24788,11 @@ declare
    "name": "VIVIZ",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:220706_Summer_Vibe_쇼케이스_비비지.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/220706_Summer_Vibe_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EB%B9%84%EB%B9%84%EC%A7%80.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25261,10 +24812,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:220813_Vivid_Dayz_팬미팅_비비지.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/220813_Vivid_Dayz_%ED%8C%AC%EB%AF%B8%ED%8C%85_%EB%B9%84%EB%B9%84%EC%A7%80.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25284,7 +24835,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -25294,78 +24845,9 @@ declare
    "name": "WayV",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Wayv_durante_Good_Life..jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Wayv_durante_Good_Life..jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1620,
-     "height": 1080,
-     "sha1": "6fa1546ad13b4b94221d4ee8a569e9137759c03f",
-     "author": "Nuodery",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Nuodery&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2024-10-28",
-     "date_precision": "day",
-     "event": "Wayv durante Good Life.",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:TimelineWayV.Ua.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/TimelineWayV.Ua.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 400,
-     "height": 300,
-     "sha1": "4d8c6c47310bbc88515ddc26f1edfb02f6a76234",
-     "author": "Ksfxl",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Ksfxl&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2023-08-07",
-     "date_precision": "day",
-     "event": "TimelineWayV.Ua",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:WayVDec2019.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/WayVDec2019.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 773,
-     "height": 408,
-     "sha1": "524d1d01864dffa4d791e60fce842ce747223a6d",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-06",
-     "date_precision": "day",
-     "event": "WayVDec2019",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": ""
-    }
-   ]
+   "photos": []
   },
   {
    "slug": "wendy-red-velvet",
@@ -25373,6 +24855,7 @@ declare
    "name": "Wendy",
    "qid": "Q17478642",
    "group": "red-velvet",
+   "idol_id": 104,
    "locked": false,
    "photos": [
     {
@@ -25521,6 +25004,7 @@ declare
    "name": "Wheein",
    "qid": "Q19603930",
    "group": "mamamoo",
+   "idol_id": 246,
    "locked": false,
    "photos": [
     {
@@ -25669,6 +25153,7 @@ declare
    "name": "WINNER",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   },
@@ -25678,10 +25163,11 @@ declare
    "name": "Winter",
    "qid": "Q101161289",
    "group": "aespa",
+   "idol_id": 32,
    "locked": false,
    "photos": [
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Aespa_05.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Aespa_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25701,7 +25187,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -25826,6 +25312,7 @@ declare
    "name": "Wonbin",
    "qid": "Q123528897",
    "group": "riize",
+   "idol_id": 153,
    "locked": false,
    "photos": [
     {
@@ -25905,6 +25392,7 @@ declare
    "name": "Wonhee",
    "qid": "Q126923760",
    "group": "illit",
+   "idol_id": 258,
    "locked": false,
    "photos": [
     {
@@ -25998,29 +25486,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": "the licence review is still open on Commons; Commons shows a personality rights warning on the file"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:(FULL)_마법_소녀에_이어_게임_캐릭터_컨셉_자신_있어🪄_아일릿(ILLIT)_윤아,_모카,_원희_보는_라디오_박소현의_러브게임_250720_1-29_screenshot.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/%28FULL%29_%EB%A7%88%EB%B2%95_%EC%86%8C%EB%85%80%EC%97%90_%EC%9D%B4%EC%96%B4_%EA%B2%8C%EC%9E%84_%EC%BA%90%EB%A6%AD%ED%84%B0_%EC%BB%A8%EC%85%89_%EC%9E%90%EC%8B%A0_%EC%9E%88%EC%96%B4%F0%9F%AA%84_%EC%95%84%EC%9D%BC%EB%A6%BF%28ILLIT%29_%EC%9C%A4%EC%95%84%2C_%EB%AA%A8%EC%B9%B4%2C_%EC%9B%90%ED%9D%AC_%EB%B3%B4%EB%8A%94_%EB%9D%BC%EB%94%94%EC%98%A4_%EB%B0%95%EC%86%8C%ED%98%84%EC%9D%98_%EB%9F%AC%EB%B8%8C%EA%B2%8C%EC%9E%84_250720_1-29_screenshot.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1920,
-     "height": 1080,
-     "sha1": "0d211c4456b095a957d60377e903ba55016e09a3",
-     "author": "티비텐 TV1티티 스튜디오(TT STUDIO)0 sbs radio",
-     "author_url": null,
-     "licence": "CC BY-SA 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "share_alike": true,
-     "date": "2025-07-25",
-     "date_precision": "day",
-     "event": "(FULL) 마법 소녀에 이어 게임 캐릭터 컨셉 자신 있어🪄 아일릿(ILLIT) 윤아, 모카, 원희 보는 라디오 박소현의 러브게임 250720",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated"
     }
    ]
   },
@@ -26030,6 +25495,7 @@ declare
    "name": "Wonwoo",
    "qid": "Q21623339",
    "group": "seventeen",
+   "idol_id": 44,
    "locked": false,
    "photos": [
     {
@@ -26178,6 +25644,7 @@ declare
    "name": "Wonyoung",
    "qid": "Q56476186",
    "group": "ive",
+   "idol_id": 64,
    "locked": false,
    "photos": [
     {
@@ -26326,6 +25793,7 @@ declare
    "name": "Wooyoung",
    "qid": "Q65054015",
    "group": "ateez",
+   "idol_id": 113,
    "locked": false,
    "photos": [
     {
@@ -26474,6 +25942,7 @@ declare
    "name": "Woozi",
    "qid": "Q21824990",
    "group": "seventeen",
+   "idol_id": 45,
    "locked": false,
    "photos": [
     {
@@ -26622,6 +26091,7 @@ declare
    "name": "Xiumin",
    "qid": "Q10834841",
    "group": "exo",
+   "idol_id": 168,
    "locked": false,
    "photos": [
     {
@@ -26648,7 +26118,7 @@ declare
      "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:160622_봉이_김선달_쇼케이스_(시우민)_4.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/160622_%EB%B4%89%EC%9D%B4_%EA%B9%80%EC%84%A0%EB%8B%AC_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%28%EC%8B%9C%EC%9A%B0%EB%AF%BC%29_4.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -26668,7 +26138,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
      "status": "auto",
@@ -26770,6 +26240,7 @@ declare
    "name": "Ye-on",
    "qid": "Q131932327",
    "group": "hearts2hearts",
+   "idol_id": null,
    "locked": true,
    "photos": []
   },
@@ -26779,6 +26250,7 @@ declare
    "name": "Yeji",
    "qid": "Q60870268",
    "group": "itzy",
+   "idol_id": 181,
    "locked": false,
    "photos": [
     {
@@ -26927,6 +26399,7 @@ declare
    "name": "Yeojin",
    "qid": "Q56824821",
    "group": "loona",
+   "idol_id": 212,
    "locked": false,
    "photos": [
     {
@@ -26960,6 +26433,7 @@ declare
    "name": "Yeonjun",
    "qid": "Q62396954",
    "group": "txt",
+   "idol_id": 123,
    "locked": false,
    "photos": [
     {
@@ -27108,6 +26582,7 @@ declare
    "name": "Yeosang",
    "qid": "Q85878532",
    "group": "ateez",
+   "idol_id": 110,
    "locked": false,
    "photos": [
     {
@@ -27223,7 +26698,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons; the number of people in the frame is not stated"
+     "review": "the licence review is still open on Commons; 2 people are in the frame"
     }
    ]
   },
@@ -27233,6 +26708,7 @@ declare
    "name": "Yeri",
    "qid": "Q19940498",
    "group": "red-velvet",
+   "idol_id": 106,
    "locked": false,
    "photos": [
     {
@@ -27381,6 +26857,7 @@ declare
    "name": "Yoohyeon",
    "qid": "Q59313479",
    "group": "dreamcatcher",
+   "idol_id": 271,
    "locked": false,
    "photos": [
     {
@@ -27529,6 +27006,7 @@ declare
    "name": "Yoona",
    "qid": "Q466975",
    "group": "girls-generation",
+   "idol_id": 238,
    "locked": false,
    "photos": [
     {
@@ -27677,6 +27155,7 @@ declare
    "name": "Youngjae",
    "qid": "Q17500581",
    "group": "got7",
+   "idol_id": 223,
    "locked": false,
    "photos": [
     {
@@ -27825,6 +27304,7 @@ declare
    "name": "Youngjae",
    "qid": "Q132041928",
    "group": "tws",
+   "idol_id": 276,
    "locked": false,
    "photos": [
     {
@@ -27881,6 +27361,7 @@ declare
    "name": "Yugyeom",
    "qid": "Q17500887",
    "group": "got7",
+   "idol_id": 225,
    "locked": false,
    "photos": [
     {
@@ -28029,6 +27510,7 @@ declare
    "name": "Yuha",
    "qid": "Q131932322",
    "group": "hearts2hearts",
+   "idol_id": 289,
    "locked": false,
    "photos": [
     {
@@ -28085,6 +27567,7 @@ declare
    "name": "Yujin",
    "qid": "Q55694622",
    "group": "ive",
+   "idol_id": 61,
    "locked": false,
    "photos": [
     {
@@ -28154,30 +27637,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Ahn_Yujin_티비텐_airport_departure_in_2023_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Ahn_Yujin_%ED%8B%B0%EB%B9%84%ED%85%90_airport_departure_in_2023_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1212,
-     "height": 1788,
-     "sha1": "ef222f893f1743addb535e1ecfa52a39117d08c9",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-18",
-     "date_precision": "day",
-     "event": "IVE's Ahn Yujin airport departure in September 2023.",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -28224,6 +27684,29 @@ declare
      "fy": 30,
      "news_only": false,
      "review": "Commons shows a personality rights warning on the file"
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:An_Yujin_for_Marie_Claire_Korea_in_May_2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/An_Yujin_for_Marie_Claire_Korea_in_May_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1472,
+     "height": 1440,
+     "sha1": "95b1fd77f0833ccfb80f5e2f50652868e56d6eed",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2022-05-26",
+     "date_precision": "day",
+     "event": "An Yu-jin 's Burberry photoshoot for Marie Claire Korea in M",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
     }
    ]
   },
@@ -28233,6 +27716,7 @@ declare
    "name": "Yuna",
    "qid": "Q60870263",
    "group": "itzy",
+   "idol_id": 185,
    "locked": false,
    "photos": [
     {
@@ -28279,7 +27763,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 4 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -28381,6 +27865,7 @@ declare
    "name": "Yunah",
    "qid": "Q126923756",
    "group": "illit",
+   "idol_id": 256,
    "locked": false,
    "photos": [
     {
@@ -28483,6 +27968,7 @@ declare
    "name": "Yunho",
    "qid": "Q85873722",
    "group": "ateez",
+   "idol_id": 109,
    "locked": false,
    "photos": [
     {
@@ -28631,6 +28117,7 @@ declare
    "name": "Yunjin",
    "qid": "Q111537648",
    "group": "le-sserafim",
+   "idol_id": 69,
    "locked": false,
    "photos": [
     {
@@ -28769,7 +28256,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -28779,6 +28266,7 @@ declare
    "name": "Yuqi",
    "qid": "Q55287306",
    "group": "g-i-dle",
+   "idol_id": 58,
    "locked": false,
    "photos": [
     {
@@ -28853,6 +28341,29 @@ declare
     {
      "status": "pending",
      "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Song_Yuqi_of_(G)I-dle_in_2020_02.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Song_Yuqi_of_%28G%29I-dle_in_2020_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2140,
+     "height": 1858,
+     "sha1": "5a879e354626ad26bd0539ce2d72bfdb4d4492f3",
+     "author": "사진기자머길",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2020-08-14",
+     "date_precision": "day",
+     "event": "Captured picture of Song Yuqi from Youtube \"[4K] (여자)아이들 우기,",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "2 people are in the frame; a person in the frame is not identified"
+    },
+    {
+     "status": "auto",
+     "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Yuqi_at_KBS_MUSICBANK_on_July,18_2019_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Yuqi_at_KBS_MUSICBANK_on_July%2C18_2019_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
      "width": 1510,
@@ -28871,10 +28382,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     },
     {
-     "status": "pending",
+     "status": "auto",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Song_Yuqi_at_The_Fact_Music_Awards_on_April_24,_2019_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Song_Yuqi_at_The_Fact_Music_Awards_on_April_24%2C_2019_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -28894,30 +28405,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Yuqi_at_KBS_MUSICBANK_on_March,1_2019_(2).png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Yuqi_at_KBS_MUSICBANK_on_March%2C1_2019_%282%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1496,
-     "height": 1856,
-     "sha1": "21fdf5e23edd9712c470809aba7749e1cd2cfeb0",
-     "author": "NewsInstar",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-03-03",
-     "date_precision": "day",
-     "event": "Captured picture of Song Yuqi from Youtube \"0301 (여자)아이들 우기 ",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": ""
     }
    ]
   },
@@ -28927,6 +28415,7 @@ declare
    "name": "Yuri",
    "qid": "Q276158",
    "group": "girls-generation",
+   "idol_id": 236,
    "locked": false,
    "photos": [
     {
@@ -29075,6 +28564,7 @@ declare
    "name": "Yuta",
    "qid": "Q22773776",
    "group": "nct",
+   "idol_id": 76,
    "locked": false,
    "photos": [
     {
@@ -29223,6 +28713,7 @@ declare
    "name": "Yves",
    "qid": "Q58825704",
    "group": "loona",
+   "idol_id": 216,
    "locked": false,
    "photos": [
     {
@@ -29371,6 +28862,7 @@ declare
    "name": "ZEROBASEONE",
    "qid": null,
    "group": null,
+   "idol_id": null,
    "locked": false,
    "photos": []
   }
@@ -29398,6 +28890,11 @@ declare
   v_slot integer;
   v_pid bigint;
   v_locked boolean;
+  v_iid integer;
+  v_new boolean;
+  v_hold boolean;
+  c_idols integer := 0;
+  c_held integer := 0;
   c_entities integer := 0;
   c_lines integer := 0;
   c_locked integer := 0;
@@ -29419,13 +28916,17 @@ begin
   if to_regclass('public.groups') is null or to_regclass('public.idols') is null then
     raise exception '116-photos-harvest: public.groups or public.idols is missing';
   end if;
+  if (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'idols'
+        and column_name in ('wikidata_qid', 'birth_date', 'active', 'ord', 'needs_review', 'review_reason')) < 6 then
+    raise exception '116-photos-harvest: public.idols lacks a column of 124 (wikidata_qid, birth_date, active, ord, needs_review, review_reason)';
+  end if;
   if (select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_photos'
         and column_name in ('sha1', 'quality', 'stage', 'event_date_precision', 'news_only')) < 5
      or to_regprocedure('public.cards_build_catalog()') is null then
     raise exception '116-photos-harvest: file 103 is missing (cards_build_catalog and the photo columns of lot 3), apply 103-catalog-photos.sql first';
   end if;
 
-  -- Kpopdle must not move: this file never writes public.idols, and the source view is counted before and after (as 099).
+  -- Kpopdle must not move: this file changes no existing public.idols row, its own rows are flagged, and the source view is counted before and after (as 099).
   if to_regclass('public.dle_src_kpop_idol') is not null then
     execute 'select count(*) from public.dle_src_kpop_idol' into v_dle_before;
   end if;
@@ -29433,7 +28934,7 @@ begin
   -- 1. The column, the log, the debut year of a group (a debut column when groups has one, else the year of inception_date, as 103).
   alter table public.cards_entities add column if not exists age_lock boolean not null default false;
   create table if not exists public.cards_harvest_log (
-    kind text not null constraint cards_harvest_log_kind_check check (kind in ('entity', 'photo')),
+    kind text not null constraint cards_harvest_log_kind_check check (kind in ('entity', 'idol', 'photo')),
     ref text not null,
     added_on date not null default current_date,
     constraint cards_harvest_log_pkey primary key (kind, ref)
@@ -29488,22 +28989,57 @@ begin
         c_entities := c_entities + 1;
       end if;
     else
-      -- The person, by Wikidata id: one public.idols row, no more, no less.
-      select count(*) into v_n from public.idols x where v_qid is not null and x.wikidata_qid = v_qid;
-      -- a LOCKED person with no public.idols row still gets its pocket: no row means no birth date, so the lock holds (fail closed)
-      -- until the owner adds the row; any other subject needs exactly one row
-      if v_n > 1 or (v_n = 0 and not v_locked) then
-        raise notice '116-photos-harvest: skipped % (% public.idols rows for its Wikidata id)', v_slug, v_n;
-        c_skipped := c_skipped + 1;
-        continue;
+      -- The person: a Kpopdle idol by its public.idols id (integrator, 2026-11-16: a Wikidata id can have two rows), any other by its Wikidata id.
+      v_iid := nullif(sj ->> 'idol_id', '')::integer;
+      v_new := false;
+      if v_iid is not null then
+        if not exists (select 1 from public.idols x where x.id = v_iid and x.wikidata_qid is not distinct from v_qid) then
+          raise notice '116-photos-harvest: skipped % (no public.idols row % with its Wikidata id)', v_slug, v_iid;
+          c_skipped := c_skipped + 1;
+          continue;
+        end if;
+      else
+        select count(*), min(x.id) into v_n, v_iid from public.idols x where v_qid is not null and x.wikidata_qid = v_qid;
+        if v_n > 1 then
+          raise notice '116-photos-harvest: skipped % (% public.idols rows for its Wikidata id)', v_slug, v_n;
+          c_skipped := c_skipped + 1;
+          continue;
+        end if;
+        if v_n = 0 then
+          -- no row: one is added, out of every public read and of Kpopdle, WITHOUT a birth date (the owner fills it)
+          select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = coalesce(v_group, v_slug);
+          if g.id is not null then
+            insert into public.idols (group_id, name, birth_date, wikidata_qid, active, ord, needs_review, review_reason)
+            values (g.id, sj ->> 'name', null, v_qid, false, 0, true,
+                    '116-photos-harvest: a person of the cards lot 6 with no row; the owner fills the birth date (two agreeing sources) and the Kpopdle clues')
+            on conflict (group_id, name) do nothing
+            returning id into v_iid;
+            if v_iid is not null then
+              insert into public.cards_harvest_log (kind, ref) values ('idol', v_iid::text) on conflict do nothing;
+              c_idols := c_idols + 1;
+              v_new := true;
+            else
+              raise notice '116-photos-harvest: a public.idols row named % exists in % without the Wikidata id %: the owner links it', sj ->> 'name', g.slug, v_qid;
+            end if;
+          end if;
+          g := null;
+          -- a LOCKED person still gets its pocket when no row could be added: no birth date, so the lock holds (fail closed)
+          if v_iid is null and not v_locked then
+            raise notice '116-photos-harvest: skipped % (no public.idols row, and none could be added)', v_slug;
+            c_skipped := c_skipped + 1;
+            continue;
+          end if;
+          if v_iid is null then
+            raise notice '116-photos-harvest: % has no public.idols row: its pocket stays locked until the owner adds one', v_slug;
+          end if;
+        end if;
       end if;
-      if v_n = 0 then
-        raise notice '116-photos-harvest: % has no public.idols row: its pocket stays locked until the owner adds one', v_slug;
-      end if;
-      v_name := coalesce((select nullif(btrim(x.name), '') from public.idols x where x.wikidata_qid = v_qid), sj ->> 'name');
+      -- an adult's photos wait as pending while the row has no birth date (the owner fills it, then approves them)
+      v_hold := not v_locked and not exists (select 1 from public.idols x where x.id = v_iid and x.birth_date is not null);
+      v_name := coalesce((select nullif(btrim(x.name), '') from public.idols x where x.id = v_iid), sj ->> 'name');
       -- the group: the person's own public.idols row says it (the database is the truth), else the research slug (a soloist: its own row)
       if v_group is not null then
-        select gr.id, gr.name, gr.slug into g from public.groups gr join public.idols x on x.group_id = gr.id where x.wikidata_qid = v_qid;
+        select gr.id, gr.name, gr.slug into g from public.groups gr join public.idols x on x.group_id = gr.id where x.id = v_iid;
       end if;
       if g.id is null then
         select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = coalesce(v_group, v_slug);
@@ -29594,14 +29130,17 @@ begin
               case when v_kind = 'group'
                    then floor(least((ph ->> 'width')::numeric, (ph ->> 'height')::numeric * 11 / 8.5))::integer / 2 < 640
                    else floor(least((ph ->> 'width')::numeric, (ph ->> 'height')::numeric * 5.5 / 8.5))::integer < 640 end,
-              ph ->> 'status',
-              case when ph ->> 'status' = 'pending' then 'To review: ' || (ph ->> 'review')
+              case when v_hold then 'pending' else ph ->> 'status' end,
+              case when v_hold then 'To review: public.idols has no birth date for this person yet; approve once the owner has filled it (two agreeing sources)'
+                     || case when ph ->> 'status' = 'pending' then '; ' || (ph ->> 'review') else '' end
+                   when ph ->> 'status' = 'pending' then 'To review: ' || (ph ->> 'review')
                    else 'Commons licence, author, file and deletion requests checked by verify-harvest.mts on ' || v_checked || '; age rule passed on its date.' end,
               nullif(ph ->> 'sha1', ''), (ph ->> 'quality')::smallint, (ph ->> 'stage')::boolean, (ph ->> 'news_only')::boolean)
       returning id into v_pid;
       insert into public.cards_harvest_log (kind, ref) values ('photo', v_pid::text);
       c_photos := c_photos + 1;
-      if ph ->> 'status' = 'pending' then c_pending := c_pending + 1; end if;
+      if v_hold or ph ->> 'status' = 'pending' then c_pending := c_pending + 1; end if;
+      if v_hold and ph ->> 'status' = 'auto' then c_held := c_held + 1; end if;
     end loop;
   end loop;
 
@@ -29667,7 +29206,7 @@ begin
     if v_dle_after is distinct from v_dle_before then
       raise exception '116-photos-harvest: the Kpopdle source would go from % to % entities, nothing written', v_dle_before, v_dle_after;
     end if;
-    raise notice '116-photos-harvest: Kpopdle source % entities before and after (this file never writes public.idols)', v_dle_after;
+    raise notice '116-photos-harvest: Kpopdle source % entities before and after (the idols rows of this file are out of it)', v_dle_after;
   end if;
   if exists (select 1 from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id)) then
     raise exception '116-photos-harvest: a photo has no entity';
@@ -29675,5 +29214,6 @@ begin
   notify pgrst, 'reload schema';
   raise notice '116-photos-harvest: % subjects, % entities added (% of them group lines of a member), % locked pockets, photos added % (% to review), % skipped',
     c_subjects, c_entities + c_lines, c_lines, c_locked, c_photos, c_pending, c_skipped;
+  raise notice '116-photos-harvest: idols rows added % (inactive, flagged, no birth date); photos waiting for a birth date in public.idols %', c_idols, c_held;
   raise notice '116-photos-harvest: now press "Reconstruire le catalogue" in the admin, then pnpm --filter quiz owner:cards';
 end $c116$;

@@ -275,7 +275,7 @@
   "name": "Chiquita",
   "qid": "Q123554441",
   "group": "babymonster",
-  "idol_id": 147,
+  "idol_id": null,
   "why": "minor-group"
  },
  {
@@ -1796,7 +1796,7 @@
   "name": "Rora",
   "qid": "Q123554440",
   "group": "babymonster",
-  "idol_id": 146,
+  "idol_id": null,
   "why": "minor-group"
  },
  {
@@ -1814,7 +1814,7 @@
   "name": "Ruka",
   "qid": "Q123554435",
   "group": "babymonster",
-  "idol_id": 142,
+  "idol_id": null,
   "why": "minor-group"
  },
  {

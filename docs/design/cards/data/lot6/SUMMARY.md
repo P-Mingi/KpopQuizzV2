@@ -13,17 +13,19 @@ Verdicts and counts only: nothing about anyone's age or birth.
 
 ## Photos
 
-- 720 auto, 430 pending (the owner's review), 276 out.
+- 771 auto, 344 pending (the owner's review), 311 out.
 - Out, by reason (a photo can have several):
-  - six photos already: 229
-  - already a photo in the game: 32
+  - six photos already: 216
+  - the thumbnail shows a person who seems under 18: 43
+  - already a photo in the game: 28
   - age rule: minor_at_photo: 9
+  - no public.groups row for this group: 9
   - the photos of Moonbin are left out: 3
   - age rule: another person in the frame under 18: 3
 
 ## Cards the edition rules will give
 
-- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 920 cards, pairs counted as two (738 more). Pending photos open nothing until the owner approves them.
+- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 980 cards, pairs counted as two (798 more). Pending photos open nothing until the owner approves them.
 - Full Art locked (six live photos, none with an honest 2x): 0 subjects.
 
 ## Adult idols with fewer than 2 usable photos
@@ -32,10 +34,8 @@ Verdicts and counts only: nothing about anyone's age or birth.
 - Cha Eunwoo
 - Chaehyun
 - Chanhyuk
-- D.O.
 - Daesung
 - Doyoung
-- Go Won
 - Gunwook
 - Haerin
 - Hanni
@@ -50,7 +50,6 @@ Verdicts and counts only: nothing about anyone's age or birth.
 - Jihoon
 - Jin
 - Jinjin
-- Jinyoung
 - Jiung
 - Jongseob
 - Juhoon
@@ -65,9 +64,7 @@ Verdicts and counts only: nothing about anyone's age or birth.
 - Minnie
 - Ni-Ki
 - Rami
-- Rei
 - Ruka
-- Sana
 - Sanha
 - Solar
 - Sophia

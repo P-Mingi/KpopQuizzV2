@@ -281,10 +281,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -330,7 +328,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -357,11 +355,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "someone who is not a member is in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -508,7 +503,8 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date"
+      "not the whole lineup of that date",
+      "someone who is not a member is in the frame"
      ],
      "reasons": [],
      "age": {
@@ -554,13 +550,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "Commons shows a personality rights warning on the file"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -604,11 +602,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "slot": 5,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -2749,6 +2745,7 @@
      "slot": 1,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -2847,6 +2844,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -2896,6 +2894,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -2945,6 +2944,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -2994,6 +2994,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -3170,6 +3171,7 @@
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
+      "someone who is not a member is in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -3267,10 +3269,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -3318,6 +3318,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -3428,14 +3429,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the file's date (2014-10-25) differs from the description's (2014-10-05)",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -3479,15 +3482,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "pending",
      "review": [
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -3622,7 +3623,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -3697,12 +3698,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -3746,7 +3749,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 2,
      "status": "pending",
      "review": [
       "a person in the frame is not identified"
@@ -3795,11 +3798,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "slot": 3,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -3844,7 +3845,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file",
@@ -3894,11 +3895,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -4211,11 +4211,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 4,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -4805,9 +4802,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "2 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -5222,14 +5217,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -5262,16 +5259,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -5399,7 +5394,7 @@
      "slot": 2,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -5758,11 +5753,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -6038,7 +6030,7 @@
    "kind": "idol",
    "qid": "Q123554441",
    "group": "babymonster",
-   "idol_id": 147,
+   "idol_id": null,
    "why": "minor-group",
    "end_year": null,
    "locked": true,
@@ -6190,7 +6182,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -6217,11 +6209,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -6256,11 +6245,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 2,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -6330,13 +6316,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -6369,7 +6357,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
@@ -6408,13 +6396,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -6447,15 +6437,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 5,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -6541,7 +6529,7 @@
      "slot": 2,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "4 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -6580,7 +6568,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "4 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -6619,7 +6607,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -7122,10 +7110,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -7339,6 +7325,7 @@
      "status": "pending",
      "review": [
       "the file's date (2017-03-12) differs from the description's (2017-03-11)",
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -7474,7 +7461,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -7513,7 +7500,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "4 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -8370,6 +8357,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
@@ -8512,7 +8500,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -8648,13 +8636,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the licence review is still open on Commons",
       "the number of people in the frame is not stated"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -9069,7 +9059,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -9203,14 +9193,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -9669,7 +9661,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -9695,12 +9687,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 1,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "this file is already a photo in the game"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -9795,7 +9785,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
+     "slot": 2,
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
@@ -9845,11 +9835,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "slot": 3,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -9894,9 +9882,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 4,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -9943,9 +9932,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
+     "slot": 5,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -10047,9 +10037,7 @@
      "slot": 2,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "3 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -10326,6 +10314,7 @@
      "status": "pending",
      "review": [
       "the licence review is still open on Commons",
+      "not the whole lineup of that date",
       "a person in the frame is not identified",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
@@ -10687,7 +10676,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -10793,7 +10782,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "2 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -10819,13 +10808,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "someone who is not a member is in the frame"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -10869,11 +10860,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
+     "slot": 1,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date",
-      "someone who is not a member is in the frame"
+      "not the whole lineup of that date"
      ],
      "reasons": [],
      "age": {
@@ -10919,13 +10909,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "someone who is not a member is in the frame"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -10969,13 +10961,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "someone who is not a member is in the frame"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11019,11 +11013,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 2,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date",
-      "someone who is not a member is in the frame"
+      "not the whole lineup of that date"
      ],
      "reasons": [],
      "age": {
@@ -11069,13 +11062,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "someone who is not a member is in the frame"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11282,11 +11277,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -11323,9 +11315,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "2 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -11552,7 +11542,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -11578,13 +11568,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11628,12 +11620,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11677,12 +11671,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11726,12 +11722,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11775,12 +11773,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11824,12 +11824,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -11861,7 +11863,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -11935,10 +11937,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 2,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -11983,12 +11983,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -12032,9 +12034,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
+     "slot": 3,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -12081,9 +12084,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -12130,9 +12134,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -12266,11 +12271,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 3,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -12539,10 +12541,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 2,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -12643,7 +12643,8 @@
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
-      "Commons shows a personality rights warning on the file"
+      "Commons shows a personality rights warning on the file",
+      "someone who is not a member is in the frame"
      ],
      "reasons": [],
      "age": {
@@ -12693,7 +12694,8 @@
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
-      "Commons shows a personality rights warning on the file"
+      "Commons shows a personality rights warning on the file",
+      "someone who is not a member is in the frame"
      ],
      "reasons": [],
      "age": {
@@ -12742,6 +12744,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "Commons shows a personality rights warning on the file",
       "a person in the frame is not identified"
      ],
@@ -12790,10 +12793,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -12841,8 +12842,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -13248,7 +13248,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -13384,14 +13384,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -13424,14 +13426,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -13464,14 +13468,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -14018,7 +14024,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -14044,14 +14050,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "2 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -14084,14 +14092,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -14124,12 +14134,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "slot": 1,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -14163,13 +14170,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -14202,13 +14211,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -14241,14 +14252,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -14281,15 +14294,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 2,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -14322,15 +14333,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 3,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -15021,7 +15030,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated"
+      "3 people are in the frame"
      ],
      "reasons": [],
      "age": {
@@ -15985,13 +15994,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "2 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -16024,7 +16035,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -16060,12 +16071,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -16390,11 +16399,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "3 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -16869,11 +16875,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 3,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -17256,9 +17259,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -17378,7 +17379,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -17404,13 +17405,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -17454,7 +17457,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
@@ -17862,7 +17865,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -18036,12 +18039,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -18085,7 +18090,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -18132,7 +18137,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
@@ -18212,7 +18217,7 @@
      "slot": 1,
      "status": "pending",
      "review": [
-      "3 people are in the frame",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -18395,7 +18400,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "5 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -19203,11 +19208,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -20071,11 +20073,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "3 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -20218,11 +20217,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -20582,11 +20578,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "3 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -20621,11 +20614,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "3 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -20805,7 +20795,7 @@
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file",
-      "the number of people in the frame is not stated",
+      "9 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -21057,7 +21047,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "1 usable photo of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -21083,14 +21073,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -21409,7 +21401,7 @@
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file",
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -21446,11 +21438,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 2,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -21488,7 +21477,7 @@
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file",
-      "the number of people in the frame is not stated",
+      "5 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -21525,11 +21514,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 4,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -21566,9 +21552,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -21604,11 +21588,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -23244,11 +23225,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -23715,9 +23693,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "2 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -25139,11 +25115,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 2,
-     "status": "pending",
-     "review": [
-      "6 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -25180,7 +25153,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "6 people are in the frame",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -25421,6 +25394,7 @@
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
+      "someone who is not a member is in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -26549,7 +26523,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -27576,11 +27550,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "someone who is not a member is in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -27724,10 +27695,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 4,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -27822,10 +27791,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -28595,7 +28562,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -28688,11 +28655,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "3 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -28729,9 +28693,7 @@
      "slot": 2,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "3 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -28807,9 +28769,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "4 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -29384,6 +29344,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -29418,7 +29379,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -29494,13 +29455,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "Commons shows a personality rights warning on the file"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -29544,7 +29507,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 2,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
@@ -29593,7 +29556,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
+     "slot": 3,
      "status": "pending",
      "review": [
       "not the whole lineup of that date"
@@ -29642,7 +29605,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
       "not the whole lineup of that date"
@@ -29691,7 +29654,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
       "not the whole lineup of that date"
@@ -30676,7 +30639,7 @@
      "status": "pending",
      "review": [
       "the licence review is still open on Commons",
-      "the number of people in the frame is not stated"
+      "3 people are in the frame"
      ],
      "reasons": [],
      "age": {
@@ -30906,11 +30869,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -31008,7 +30968,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -31180,12 +31140,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -31218,10 +31180,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -31859,7 +31821,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "2 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -31959,13 +31921,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -31998,10 +31962,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 2,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -32159,13 +32123,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -32198,7 +32164,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -32234,7 +32200,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -32270,12 +32236,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -32618,6 +32582,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
@@ -32666,11 +32631,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -33222,11 +33184,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -33583,6 +33542,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
@@ -35291,6 +35251,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
@@ -35515,6 +35476,7 @@
      "slot": 2,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -35601,7 +35563,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -35663,14 +35625,12 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 2,
+     "status": "pending",
      "review": [
       "the licence review is still open on Commons"
      ],
-     "reasons": [
-      "this file is already a photo in the game"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -35703,7 +35663,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
+     "slot": 3,
      "status": "pending",
      "review": [
       "the licence review is still open on Commons"
@@ -35741,7 +35701,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 4,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -35902,7 +35862,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -36662,7 +36622,7 @@
      "slot": 2,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -36948,9 +36908,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the licence review is still open on Commons",
-      "a person in the frame is not identified",
-      "a person in the frame is not identified"
+      "the licence review is still open on Commons"
      ],
      "reasons": [],
      "age": {
@@ -37212,7 +37170,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": "2 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "1 usable photo of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -37238,14 +37196,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "a person in the frame is not identified",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -37469,8 +37429,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date",
-      "someone who is not a member is in the frame"
+      "not the whole lineup of that date"
      ],
      "reasons": [],
      "age": {
@@ -37572,6 +37531,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -37744,13 +37704,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "2 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -37783,12 +37745,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "slot": 4,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -37822,7 +37781,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
@@ -37860,14 +37819,12 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -38544,7 +38501,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -38564,7 +38521,7 @@
    "kind": "idol",
    "qid": "Q123554440",
    "group": "babymonster",
-   "idol_id": 146,
+   "idol_id": null,
    "why": "minor-group",
    "end_year": null,
    "locked": false,
@@ -38705,7 +38662,7 @@
    "kind": "idol",
    "qid": "Q123554435",
    "group": "babymonster",
-   "idol_id": 142,
+   "idol_id": null,
    "why": "minor-group",
    "end_year": null,
    "locked": false,
@@ -39217,7 +39174,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -40081,11 +40038,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "5 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -40159,11 +40113,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 3,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -40197,13 +40148,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "5 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -40236,13 +40189,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "5 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -40275,10 +40230,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -40314,15 +40269,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 5,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -40355,15 +40308,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -40993,11 +40944,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 3,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -41070,7 +41018,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -41109,7 +41057,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "4 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -41564,7 +41512,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
-      "2 people are in the frame",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -42342,7 +42290,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -42368,12 +42316,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -42417,12 +42367,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -42466,7 +42418,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 1,
      "status": "pending",
      "review": [
       "a person in the frame is not identified"
@@ -42515,9 +42467,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
+     "slot": 2,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -42564,9 +42517,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 3,
      "status": "pending",
      "review": [
+      "not the whole lineup of that date",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -42613,11 +42567,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "slot": 4,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -42870,8 +42822,7 @@
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
-      "Commons shows a personality rights warning on the file",
-      "someone who is not a member is in the frame"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -43074,7 +43025,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -43100,12 +43051,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 1,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "this file is already a photo in the game"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -43138,7 +43087,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
+     "slot": 2,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -43174,7 +43123,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
+     "slot": 3,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
@@ -43212,7 +43161,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
+     "slot": 4,
      "status": "auto",
      "review": [],
      "reasons": [],
@@ -43248,10 +43197,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
+     "slot": 5,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -43658,11 +43607,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -45302,9 +45248,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "3 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -45391,7 +45335,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -45417,13 +45361,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "Commons shows a personality rights warning on the file"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -45467,7 +45413,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
+     "slot": 1,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
@@ -45516,13 +45462,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "Commons shows a personality rights warning on the file"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -45566,7 +45514,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
+     "slot": 2,
      "status": "pending",
      "review": [
       "not the whole lineup of that date"
@@ -45615,7 +45563,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 3,
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
@@ -45665,7 +45613,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 4,
      "status": "pending",
      "review": [
       "not the whole lineup of that date",
@@ -46153,7 +46101,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "7 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -46192,7 +46140,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -46228,13 +46176,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -46267,10 +46217,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -46306,15 +46256,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -47289,11 +47237,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -49578,7 +49523,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "3 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -49655,13 +49600,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -49694,10 +49641,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -49733,15 +49680,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "pending",
      "review": [
       "the number of people in the frame is not stated",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -49915,7 +49860,7 @@
      "slot": 4,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "5 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -49954,7 +49899,7 @@
      "slot": 5,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "2 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -49993,7 +49938,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "the number of people in the frame is not stated",
+      "8 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -50493,7 +50438,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": null,
+   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -50619,8 +50564,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date",
-      "someone who is not a member is in the frame"
+      "not the whole lineup of that date"
      ],
      "reasons": [],
      "age": {
@@ -50666,13 +50610,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "not the whole lineup of that date",
       "someone who is not a member is in the frame"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -50716,11 +50662,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date",
-      "someone who is not a member is in the frame"
+      "not the whole lineup of that date"
      ],
      "reasons": [],
      "age": {
@@ -50766,11 +50711,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
-      "not the whole lineup of that date",
-      "someone who is not a member is in the frame"
+      "not the whole lineup of that date"
      ],
      "reasons": [],
      "age": {
@@ -51874,10 +51818,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 5,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -51923,10 +51865,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 6,
-     "status": "pending",
-     "review": [
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -51959,7 +51899,7 @@
    "why": "group",
    "end_year": null,
    "locked": false,
-   "shortfall": "3 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "0 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -51985,10 +51925,12 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 1,
-     "status": "auto",
+     "slot": 0,
+     "status": "out",
      "review": [],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -52032,10 +51974,12 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 2,
-     "status": "auto",
+     "slot": 0,
+     "status": "out",
      "review": [],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -52079,10 +52023,12 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 3,
-     "status": "auto",
+     "slot": 0,
+     "status": "out",
      "review": [],
-     "reasons": [],
+     "reasons": [
+      "no public.groups row for this group (integrator, 2026-11-16: no new group row in lot 6)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -52766,11 +52712,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 1,
-     "status": "pending",
-     "review": [
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -53170,7 +53113,7 @@
    "why": "kpopdle",
    "end_year": null,
    "locked": false,
-   "shortfall": "5 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
+   "shortfall": "4 usable photos of the 6 a subject can have (the research found no more that pass the checks)",
    "photos": [
     {
      "source": "commons",
@@ -53343,12 +53286,14 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "the number of people in the frame is not stated"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -54605,11 +54550,8 @@
      "source_path": null,
      "news_only": false,
      "slot": 2,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -55749,7 +55691,7 @@
      "status": "pending",
      "review": [
       "the licence review is still open on Commons",
-      "the number of people in the frame is not stated"
+      "2 people are in the frame"
      ],
      "reasons": [],
      "age": {
@@ -57522,9 +57464,7 @@
      "slot": 3,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "3 people are in the frame",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -57559,14 +57499,16 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "Commons shows a personality rights warning on the file",
       "3 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -57599,7 +57541,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
+     "slot": 4,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
@@ -57637,7 +57579,7 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
+     "slot": 5,
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file"
@@ -57675,12 +57617,10 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 6,
+     "status": "auto",
      "review": [],
-     "reasons": [
-      "six photos already"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -57807,7 +57747,7 @@
      "status": "pending",
      "review": [
       "Commons shows a personality rights warning on the file",
-      "2 people are in the frame",
+      "4 people are in the frame",
       "a person in the frame is not identified"
      ],
      "reasons": [],
@@ -58702,9 +58642,7 @@
      "slot": 6,
      "status": "pending",
      "review": [
-      "Commons shows a personality rights warning on the file",
-      "the number of people in the frame is not stated",
-      "a person in the frame is not identified"
+      "Commons shows a personality rights warning on the file"
      ],
      "reasons": [],
      "age": {
@@ -58863,15 +58801,13 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 0,
-     "status": "out",
+     "slot": 4,
+     "status": "pending",
      "review": [
       "2 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [
-      "this file is already a photo in the game"
-     ],
+     "reasons": [],
      "age": {
       "ok": true,
       "reason": null
@@ -58904,12 +58840,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 4,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "slot": 5,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -58943,12 +58876,9 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 5,
-     "status": "pending",
-     "review": [
-      "2 people are in the frame",
-      "a person in the frame is not identified"
-     ],
+     "slot": 6,
+     "status": "auto",
+     "review": [],
      "reasons": [],
      "age": {
       "ok": true,
@@ -58982,13 +58912,15 @@
      },
      "source_path": null,
      "news_only": false,
-     "slot": 6,
-     "status": "pending",
+     "slot": 0,
+     "status": "out",
      "review": [
       "2 people are in the frame",
       "a person in the frame is not identified"
      ],
-     "reasons": [],
+     "reasons": [
+      "the thumbnail shows a person who seems under 18 (integrator, 2026-11-16)"
+     ],
      "age": {
       "ok": true,
       "reason": null
@@ -59954,6 +59886,10 @@
    "reason": "locked"
   },
   {
+   "slug": "gfriend",
+   "reason": "no photo passes the checks"
+  },
+  {
    "slug": "hearts2hearts",
    "reason": "locked"
   },
@@ -59968,6 +59904,10 @@
   {
    "slug": "ive",
    "reason": "no photo found"
+  },
+  {
+   "slug": "jinjin-astro",
+   "reason": "no photo passes the checks"
   },
   {
    "slug": "jongseob-p1harmony",
@@ -60024,6 +59964,10 @@
   {
    "slug": "tws",
    "reason": "no photo found"
+  },
+  {
+   "slug": "wayv",
+   "reason": "no photo passes the checks"
   },
   {
    "slug": "ye-on-hearts2hearts",
