@@ -16,12 +16,12 @@
 --         4. a log table (cards_harvest_log) of the entities and photos THIS file added, so the rollback removes only those.
 --         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never public.idols: the Kpopdle source
 --         view is counted before and after, and the file refuses if it moved.
--- How:    one jsonb literal below (353 subjects: 288 people, 65 groups, 10 locked, 1347 photos).
+-- How:    one jsonb literal below (293 subjects: 228 people, 65 groups, 10 locked, 1150 photos).
 --         People resolve at apply time by Wikidata id from public.idols (no row, or two: skipped with a notice); groups by slug from public.groups.
 --         Photos get the smallest free slot of 1 to 6 among the live and pending ones.
 -- Why:    goal of 1,000 cards (lot 6): every Kpopdle idol becomes a subject of its own, the groups get up to six photos, and the groups with a minor
 --         show locked pockets instead of a photo.
--- Rows:   at most 354 entities, 1347 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
+-- Rows:   at most 293 entities, 1150 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
 -- Needs:  001 to 003, 102, 103 and 110 applied before (cards_build_catalog, the photo columns of lot 3), public.groups and public.idols.
 --         Apply after a backup, never between 23:50 and 00:30 UTC, then "Reconstruire le catalogue", then pnpm --filter quiz owner:cards.
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_entities' and column_name = 'age_lock';   expect 1
@@ -29,7 +29,7 @@
 -- Verify: select has_function_privilege('anon', 'public.cards_age_locks(date)', 'execute') or has_function_privilege('authenticated', 'public.cards_age_locks(date)', 'execute');   expect f
 -- Verify: select has_function_privilege('service_role', 'public.cards_age_locks(date)', 'execute');   expect t
 -- Verify: select count(*) from public.cards_entities where age_lock;   expect at most 10 (the notice "locked pockets"; a locked subject with cards, or without a row to resolve, is not set)
--- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1347)
+-- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1150)
 -- Verify: select count(*) from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id);   expect 0
 -- Verify: select count(*) from public.cards_photos where status in ('auto', 'approved') group by entity_id, slot having count(*) > 1;   expect no row
 -- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 10 (the pockets still locked today; fewer when public.idols holds an adult birth date)
@@ -249,7 +249,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -318,7 +318,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -616,54 +616,7 @@ declare
    "qid": null,
    "group": null,
    "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:230104_MOONBIN_&_SANHA_(문빈&산하).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/230104_MOONBIN_%26_SANHA_%28%EB%AC%B8%EB%B9%88%26%EC%82%B0%ED%95%98%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3491,
-     "height": 2130,
-     "sha1": "e7567f5e45b9f03776ee6b12a4a8d508e4647f20",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-01-04",
-     "date_precision": "day",
-     "event": "ASTRO MOONBIN & SANHA 'INCENSE' showcase photo time, Seoul, 4 Jan 2023",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2019_SS_서울패션위크_-_Sanha_and_Bin_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/2019_SS_%EC%84%9C%EC%9A%B8%ED%8C%A8%EC%85%98%EC%9C%84%ED%81%AC_-_Sanha_and_Bin_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3000,
-     "height": 1688,
-     "sha1": "19319d748f6fd0f718b7827359d24919d4d3faf9",
-     "author": "Nine Stars",
-     "author_url": "https://www.youtube.com/channel/UCb6uBWNlCA0kyhRln2aa6JA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-10-19",
-     "date_precision": "day",
-     "event": "Hera Seoul Fashion Week 2019 S/S, Seoul, 19 Oct 2018",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "not the whole lineup of that date; a person in the frame is not identified"
-    }
-   ]
+   "photos": []
   },
   {
    "slug": "ateez",
@@ -814,15 +767,6 @@ declare
    ]
   },
   {
-   "slug": "athena-fifty-fifty",
-   "kind": "idol",
-   "name": "Athena",
-   "qid": "Q129548317",
-   "group": "fifty-fifty",
-   "locked": false,
-   "photos": []
-  },
-  {
    "slug": "babymonster",
    "kind": "group",
    "name": "BABYMONSTER",
@@ -830,131 +774,6 @@ declare
    "group": null,
    "locked": true,
    "photos": []
-  },
-  {
-   "slug": "bae-nmixx",
-   "kind": "idol",
-   "name": "Bae",
-   "qid": "Q109308055",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20260320_NMIXX_Amsterdam_concert_08_Bae.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/20260320_NMIXX_Amsterdam_concert_08_Bae.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1095,
-     "height": 3689,
-     "sha1": "fce353dec591a7351e06e6eacb3c54a4b26222ea",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-20",
-     "date_precision": "day",
-     "event": "2026 concerts in the Netherlands",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_Bae_NMIXX_Airport_Departure_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/11092026_Bae_NMIXX_Airport_Departure_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 759,
-     "height": 1078,
-     "sha1": "18789f760ccbb5eda7be705855e1d91ae11e7f36",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 Bae NMIXX Airport Departure 1",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NMIXX's_Bae_(55196181318)_(cropped).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/NMIXX%27s_Bae_%2855196181318%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 505,
-     "height": 761,
-     "sha1": "b4dca994b20822fbe77f8f73acd20a844bd96cd5",
-     "author": "David Lee from Redmond, WA, USA",
-     "author_url": "https://www.flickr.com/people/46192164@N06",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-04-07",
-     "date_precision": "day",
-     "event": "NMIXX's Bae (55196181318) (cropped)",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:250627_Bae_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/250627_Bae_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 888,
-     "height": 1184,
-     "sha1": "997c2c8fd270aa1724bde05a64425964af1598ba",
-     "author": "티비텐 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-06-27",
-     "date_precision": "day",
-     "event": "250627 Bae (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Nmixx_in_Frankfurt_20260324_(2).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Nmixx_in_Frankfurt_20260324_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 4032,
-     "height": 2268,
-     "sha1": "acf6113a8f5694ebb5e3e6fd8936257755fe85bc",
-     "author": "PFNKa",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:PFNKa&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-24",
-     "date_precision": "day",
-     "event": "Nmixx in Frankfurt (2)",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated"
-    }
-   ]
   },
   {
    "slug": "baekhyun-exo",
@@ -1105,85 +924,6 @@ declare
    ]
   },
   {
-   "slug": "bahiyyih-kep1er",
-   "kind": "idol",
-   "name": "Bahiyyih",
-   "qid": "Q109109100",
-   "group": "kep1er",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Huening_Bahiyyih_230208.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Huening_Bahiyyih_230208.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2064,
-     "height": 1940,
-     "sha1": "a90440faf73342c131b2a55b1b65471a002ddcb1",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-02-08",
-     "date_precision": "day",
-     "event": "Huening Bahiyyih 230208",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:131022Hueningbahiyyih.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/131022Hueningbahiyyih.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1557,
-     "height": 1440,
-     "sha1": "6435b63e2d1c0458de50bb5c9b5d9d8253826c58",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-10-13",
-     "date_precision": "day",
-     "event": "131022Hueningbahiyyih",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Huening_Bahiyyih_at_the_Seoul_Fashion_Week_2024.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Huening_Bahiyyih_at_the_Seoul_Fashion_Week_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1104,
-     "height": 1570,
-     "sha1": "9d3c6239f41d8470f8722df7fc81e684e04feb73",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-02-04",
-     "date_precision": "day",
-     "event": "Huening Bahiyyih at the Seoul Fashion Week 2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "bambam-got7",
    "kind": "idol",
    "name": "BamBam",
@@ -1192,7 +932,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:BamBam_for_Samsonite_15th_anniversary,_10_March_2025_08.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/BamBam_for_Samsonite_15th_anniversary%2C_10_March_2025_08.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1212,7 +952,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -1261,7 +1001,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:뱀뱀(BamBam)_\"Sour_&_Sweet\"_Showcase_press_conference,_March_28,_2023_05.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/%EB%B1%80%EB%B1%80%28BamBam%29_%22Sour_%26_Sweet%22_Showcase_press_conference%2C_March_28%2C_2023_05.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1281,7 +1021,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -1307,7 +1047,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:BamBam_for_5th_TTA_Awards,_February_2021_03.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/BamBam_for_5th_TTA_Awards%2C_February_2021_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1327,7 +1067,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -1386,7 +1126,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Stray_Kids'_Bang_Chan_at_ICN_Airport_in_July_2025_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Stray_Kids%27_Bang_Chan_at_ICN_Airport_in_July_2025_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1406,10 +1146,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_Bang_Chan_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/20240503_Bang_Chan_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1429,10 +1169,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:180515_TenAsia_Bang_Chan_photoshoot.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/180515_TenAsia_Bang_Chan_photoshoot.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1452,10 +1192,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Stray_Kids_Bang_Chan_W_Korea_October_2024.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Stray_Kids_Bang_Chan_W_Korea_October_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1475,12 +1215,12 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
   {
-   "slug": "beomgyu-tomorrow-x-together",
+   "slug": "beomgyu-txt",
    "kind": "idol",
    "name": "Beomgyu",
    "qid": "Q62396696",
@@ -1488,7 +1228,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Choi_Beom-gyu_at_a_Dior_event_in_2025_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Choi_Beom-gyu_at_a_Dior_event_in_2025_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -1508,7 +1248,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -2086,7 +1826,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -2109,7 +1849,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
     }
    ]
   },
@@ -2122,7 +1862,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Carmen_di_Musinsa_Beauty_Festa_Pop-Up_Store_2025.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Carmen_di_Musinsa_Beauty_Festa_Pop-Up_Store_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2142,7 +1882,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -2155,7 +1895,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:김채현_2022.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/%EA%B9%80%EC%B1%84%ED%98%84_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2175,10 +1915,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:김채현_Kim_Chae_Hyun_Doublast_showcase.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/%EA%B9%80%EC%B1%84%ED%98%84_Kim_Chae_Hyun_Doublast_showcase.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2198,7 +1938,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -2234,7 +1974,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lee_Chae-Ryeong_(이채령)_220729.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Lee_Chae-Ryeong_%28%EC%9D%B4%EC%B1%84%EB%A0%B9%29_220729.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2254,7 +1994,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -2405,7 +2145,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:221127_Kim_Chae-won_(LE_SSERAFIM).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/221127_Kim_Chae-won_%28LE_SSERAFIM%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2425,7 +2165,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -2451,7 +2191,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:240329_Kim_Chae-won_(2).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/240329_Kim_Chae-won_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2471,7 +2211,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -2573,7 +2313,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -2647,39 +2387,6 @@ declare
    ]
   },
   {
-   "slug": "chanelle-fifty-fifty",
-   "kind": "idol",
-   "name": "Chanelle",
-   "qid": "Q129547871",
-   "group": "fifty-fifty",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:FIFTY_FIFTY_Chanelle_Moon_at_2024_Billboard_K_Power_100.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/82/FIFTY_FIFTY_Chanelle_Moon_at_2024_Billboard_K_Power_100.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 659,
-     "height": 728,
-     "sha1": "c82e186d515b83b9e9df7a282a1657423be65d47",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-08-27",
-     "date_precision": "day",
-     "event": "FIFTY FIFTY Chanelle Moon at 2024 Billboard K Power 100",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "changbin-stray-kids",
    "kind": "idol",
    "name": "Changbin",
@@ -2711,7 +2418,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_Changbin_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/20240503_Changbin_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -2731,7 +2438,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -2823,7 +2530,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -3155,7 +2862,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Chen_at_Billboard_K_POWER_100_on_August_27,_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Chen_at_Billboard_K_POWER_100_on_August_27%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -3175,109 +2882,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "chenle-nct",
-   "kind": "idol",
-   "name": "Chenle",
-   "qid": "Q30945670",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:ZhongChenle-2023MelonMusicAwards.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/ZhongChenle-2023MelonMusicAwards.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1078,
-     "height": 1468,
-     "sha1": "02953fb29ef6f5e71da3d187effa9173f97150f8",
-     "author": "K-POPIT 케이팝잇 (TV10)",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-12-02",
-     "date_precision": "day",
-     "event": "ZhongChenle-2023MelonMusicAwards",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Zhong_Chenle_SBS_radio2021.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Zhong_Chenle_SBS_radio2021.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1000,
-     "height": 1341,
-     "sha1": "d19245f75b6c2598a098780bf12836fffc04630d",
-     "author": "SBS Radio 에라오",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2021-06-30",
-     "date_precision": "day",
-     "event": "Zhong Chenle SBS radio2021",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Chenle_the_9th_gaonchart_music_awards2.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/78/Chenle_the_9th_gaonchart_music_awards2.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 433,
-     "height": 580,
-     "sha1": "9ba910dcf743bc93c873912b073f629da304c9a3",
-     "author": "NewsInstar",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-01-08",
-     "date_precision": "day",
-     "event": "Gaon Chart Music Awards 2020",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20230815_Huang_Ren-jun.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/20230815_Huang_Ren-jun.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1100,
-     "height": 1480,
-     "sha1": "e43415f323e4178efec77625e884afcd3ab7b0a5",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-08-15",
-     "date_precision": "day",
-     "event": "Huang Ren-jun",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -3362,154 +2967,6 @@ declare
      "event": "Choerry LOONA Marie Claire Korea",
      "stage": false,
      "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "cl-2ne1",
-   "kind": "idol",
-   "name": "CL",
-   "qid": "Q483683",
-   "group": "2ne1",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2NE1_AON_Jakarta_2.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/2NE1_AON_Jakarta_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1361,
-     "height": 948,
-     "sha1": "bc4bf1e0f715661f5baf4ef7400cf6b866f77273",
-     "author": "Denny Beryan",
-     "author_url": null,
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2014-06-08",
-     "date_precision": "day",
-     "event": "All or Nothing World Tour",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:CL_of_2NE1_2013.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/CL_of_2NE1_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 782,
-     "height": 1174,
-     "sha1": "100c56e5f5d2643d3070940160ba195de9e53ab7",
-     "author": "월아조운",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2013-09-24",
-     "date_precision": "day",
-     "event": "CL performing at a 2NE1 concert",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:CL_at_2009_Asia_Song_Festival.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/CL_at_2009_Asia_Song_Festival.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 768,
-     "height": 1296,
-     "sha1": "58578dee656b9e0d1f9ab11d300a97c151ef0ee4",
-     "author": "Kiyoung Kim",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2009-09-18",
-     "date_precision": "day",
-     "event": "2NE1 at 2009 Asia Song Festival",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:CL_스타일_어워즈_2024_(2).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/CL_%EC%8A%A4%ED%83%80%EC%9D%BC_%EC%96%B4%EC%9B%8C%EC%A6%88_2024_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 812,
-     "height": 1026,
-     "sha1": "fe6f9303597dccf01530ff66b90480d3e9cf919e",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-10-17",
-     "date_precision": "day",
-     "event": "CL at the ELLE STYLE AWARDS 2024",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:CL_for_Johnnie_Walker_in_2021_2_(derived).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/CL_for_Johnnie_Walker_in_2021_2_%28derived%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 798,
-     "height": 1274,
-     "sha1": "158766bdca0f634c2e9aa92217f315759a9009c5",
-     "author": "PlayIN",
-     "author_url": "https://www.youtube.com/channel/UC6CN8cZqw1RkUkBHe9NZzvg",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2021-06-08",
-     "date_precision": "day",
-     "event": "CL at 'Johnnie Walker - Keep Walking' campaign event",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:CL_cropped.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/CL_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 783,
-     "height": 1454,
-     "sha1": "d954b20dc2b38250425d75488e6debfd01d6216d",
-     "author": "Korea.net / Korean Culture and Information Service",
-     "author_url": "http://www.korea.net",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2014-11-15",
-     "date_precision": "day",
-     "event": "\"2ne1\" is a popular Korean hip hop/pop girl group",
-     "stage": false,
-     "quality": 3,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -3773,85 +3230,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "daeyoung-nct",
-   "kind": "idol",
-   "name": "Daeyoung",
-   "qid": "Q122349180",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_07.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/2026_NCT_WISH_fansigning_07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "0e46eabc68540b388fc1b402fe6b273940c2833e",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-15",
-     "date_precision": "day",
-     "event": "2026 NCT WISH fansigning 07",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NCT_Jaehee_Music_Core.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/NCT_Jaehee_Music_Core.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1077,
-     "height": 1483,
-     "sha1": "92ac057ab2a82215d4711b5ac15f8baf4c84a19b",
-     "author": "아이도루러브",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-28",
-     "date_precision": "day",
-     "event": "NCT Jaehee Music Core",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_promotion_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/2026_NCT_WISH_promotion_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "59ec86f86f3b670f7925a5d87aa329b97c7a8adf",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-26",
-     "date_precision": "day",
-     "event": "2026 NCT WISH promotion 01",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons; the number of people in the frame is not stated; a person in the frame is not identified; a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -4206,7 +3584,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Daniela_(Katseye)_Music_Bank_2024_1.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Daniela_%28Katseye%29_Music_Bank_2024_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -4226,303 +3604,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "danielle-newjeans",
-   "kind": "idol",
-   "name": "Danielle",
-   "qid": "Q113455624",
-   "group": "newjeans",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NewJeans_Danielle_April_2024.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/NewJeans_Danielle_April_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1616,
-     "height": 2155,
-     "sha1": "05bfc548c1f4ed3a1ea7bf91252d6815c5636e15",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-04-22",
-     "date_precision": "day",
-     "event": "NewJeans' Danielle in April 2024",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20230905_Danielle_(NewJeans).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/20230905_Danielle_%28NewJeans%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1260,
-     "height": 1660,
-     "sha1": "8f1cf1089bc97f3823faf912d93729b16a8e64dc",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-05",
-     "date_precision": "day",
-     "event": "NewJeans(뉴진스) 줌인을 부르는 비주얼",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:240910_NewJeans_Danielle.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/240910_NewJeans_Danielle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 785,
-     "height": 1047,
-     "sha1": "6bb06db4e8cfd0fd705cc50d4a723cedf9158f1e",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-10",
-     "date_precision": "day",
-     "event": "NewJeans Danielle YSL Beauty Photo Call",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:10092024_NewJeans_DANIELLE_yslbeauty_photo_call_7.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/10092024_NewJeans_DANIELLE_yslbeauty_photo_call_7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 749,
-     "height": 1079,
-     "sha1": "172ad8714fa945bdefd5f7a2bcab0c0465b3b288",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2024-09-10",
-     "date_precision": "day",
-     "event": "Danielle at the opening of a YSL Beauty Pop-Up Store in Sept",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NewJeans_Danielle_OLENS_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/NewJeans_Danielle_OLENS_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 815,
-     "height": 1047,
-     "sha1": "2a91d8b056e1e0d27adefc4bf359ee6bb3e6d9d9",
-     "author": "OLensglobal",
-     "author_url": "https://www.youtube.com/@olens_contactlens",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-06-01",
-     "date_precision": "day",
-     "event": "NewJeans X OLENS",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:260507_Danielle_June_Marsh.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/260507_Danielle_June_Marsh.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 577,
-     "height": 721,
-     "sha1": "85d814f69731805813b5f2c6623fa1d6d782d567",
-     "author": "Upload: K-BUZZ",
-     "author_url": "https://www.youtube.com/@KBUZZ",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-05-07",
-     "date_precision": "day",
-     "event": "Member of NewJeans",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "dara-2ne1",
-   "kind": "idol",
-   "name": "Dara",
-   "qid": "Q496170",
-   "group": "2ne1",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sandara_Park_Paris_Fashion_Week_Spring_Summer_2020.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Sandara_Park_Paris_Fashion_Week_Spring_Summer_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3001,
-     "sha1": "305378cc0a1b1a0824d2aad570e46b4dc9d8ce37",
-     "author": "Myles Kalus Anak Jihem",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Myleskalus",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2019-09-29",
-     "date_precision": "day",
-     "event": "Sandara Park at Paris Fashion Week Spring Summer 2020",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sandara_Park_Paris_Fashion_Week_Spring_Summer_2019.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Sandara_Park_Paris_Fashion_Week_Spring_Summer_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2667,
-     "height": 4000,
-     "sha1": "f9757185c0342de52f902364d307939195714582",
-     "author": "Myles Kalus Anak Jihem",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Myleskalus",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2018-09-29",
-     "date_precision": "day",
-     "event": "Paris Fashion Week Spring Summer 2019",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sandara\u2013Asia_Song_Fastival.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Sandara%E2%80%93Asia_Song_Fastival.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3000,
-     "height": 4500,
-     "sha1": "d1e3b6659327adee6dec238e3573985754f891b6",
-     "author": "KIYOUNG KIM from Seoul, South Korea",
-     "author_url": "https://www.flickr.com/people/91077831@N00",
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2009-09-18",
-     "date_precision": "day",
-     "event": "Sandara Park in the The 6th Asia Song Fastival 2009.",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sandara_Park_2018.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Sandara_Park_2018.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1394,
-     "height": 2026,
-     "sha1": "23dd2cb3656dc9eb5a9265acac371f1111e221a2",
-     "author": "Blink 83",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Blink_83&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2017-07-29",
-     "date_precision": "day",
-     "event": "Sandara Park at Penshoppe Fan Con 2018",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sandara_Park_at_One_Step_premiere_3.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Sandara_Park_at_One_Step_premiere_3.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1346,
-     "height": 1546,
-     "sha1": "17c0db72376d36b8eb8f9b7b9b86c3f97ca27514",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2017-03-29",
-     "date_precision": "day",
-     "event": "Sandara Park at One Step premiere",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Dara_at_Twin_Towers_Alive_Event_Malaysia.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Dara_at_Twin_Towers_Alive_Event_Malaysia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 2251,
-     "sha1": "a7297859246990a6ca7d81a73780e13703520f0a",
-     "author": "idolgraphy",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2013-03-23",
-     "date_precision": "day",
-     "event": "Twin Towers Alive Event on March 23, 2013.",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -4556,39 +3638,6 @@ declare
      "fy": 50,
      "news_only": false,
      "review": "the file's date (2017-03-12) differs from the description's (2017-03-11); a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "dayeon-kep1er",
-   "kind": "idol",
-   "name": "Dayeon",
-   "qid": "Q109120276",
-   "group": "kep1er",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:김다연_Kim_Da_Yeon_Doublast_showcase.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/%EA%B9%80%EB%8B%A4%EC%97%B0_Kim_Da_Yeon_Doublast_showcase.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1022,
-     "height": 766,
-     "sha1": "fd5a9fedb06dfc0fbaef351bc0aa4be18141f5bf",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-06-20",
-     "date_precision": "day",
-     "event": "김다연 Kim Da Yeon Doublast showcase",
-     "stage": true,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
     }
    ]
   },
@@ -4795,7 +3844,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:DK_for_10asia_Magazine_February_2016_06.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/DK_for_10asia_Magazine_February_2016_06.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -4815,7 +3864,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -5055,7 +4104,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230707_TREASURE(트레저)_Doyoung_in_Incheon_Airport.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/230707_TREASURE%28%ED%8A%B8%EB%A0%88%EC%A0%80%29_Doyoung_in_Incheon_Airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5075,7 +4124,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -5483,155 +4532,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "eunha-gfriend",
-   "kind": "idol",
-   "name": "Eunha",
-   "qid": "Q21710247",
-   "group": "gfriend",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:200214_당산_팬싸인회_은하.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/200214_%EB%8B%B9%EC%82%B0_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%9D%80%ED%95%98.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1882,
-     "height": 2824,
-     "sha1": "94a13a217b883bb8cda46f04660ceacc0799dd9a",
-     "author": "친한친구",
-     "author_url": "https://gfriend6.tistory.com",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2020-02-14",
-     "date_precision": "day",
-     "event": "당산 팬싸인회",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:170319_광주_팬싸인회_유주_(8).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/170319_%EA%B4%91%EC%A3%BC_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%9C%A0%EC%A3%BC_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2610,
-     "height": 1970,
-     "sha1": "740100b1dc4f17636a71ce8bc9cde2041a0c37ab",
-     "author": "DreemTree",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2017-03-19",
-     "date_precision": "day",
-     "event": "170319 광주 팬싸인회 유주",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20161009_여자친구_은하_유주_김창렬의_올드스쿨_공개방송_(5).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/20161009_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC_%EC%9D%80%ED%95%98_%EC%9C%A0%EC%A3%BC_%EA%B9%80%EC%B0%BD%EB%A0%AC%EC%9D%98_%EC%98%AC%EB%93%9C%EC%8A%A4%EC%BF%A8_%EA%B3%B5%EA%B0%9C%EB%B0%A9%EC%86%A1_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1850,
-     "height": 2760,
-     "sha1": "a2543edb8c5572e48fdc8d8a4845e57df3878f1f",
-     "author": "f2.8",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-10-09",
-     "date_precision": "day",
-     "event": "20161009 여자친구 은하 유주 김창렬의 올드스쿨 공개방송",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:160922_호식이_팬싸인회_여자친구_(6).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/160922_%ED%98%B8%EC%8B%9D%EC%9D%B4_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC_%286%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3030,
-     "height": 2760,
-     "sha1": "cd21005aae9c659efd6d04ad7002f0c08fe3310d",
-     "author": "spring-jieum",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-09-22",
-     "date_precision": "day",
-     "event": "160922 호식이 팬싸인회 여자친구",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:160722_뮤직뱅크_중간_출퇴근길_(여자친구)_찍직_(4).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/160722_%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC_%EC%A4%91%EA%B0%84_%EC%B6%9C%ED%87%B4%EA%B7%BC%EA%B8%B8_%28%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC%29_%EC%B0%8D%EC%A7%81_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3500,
-     "height": 3290,
-     "sha1": "749165f7b2c1f9d23e746c185f8cff756ab7f33e",
-     "author": "달스파이더아영",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-08-16",
-     "date_precision": "day",
-     "event": "160722 뮤직뱅크 중간 출퇴근길 (여자친구) 찍직",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:161022_롯데패밀리콘서트_여자친구_(7).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/161022_%EB%A1%AF%EB%8D%B0%ED%8C%A8%EB%B0%80%EB%A6%AC%EC%BD%98%EC%84%9C%ED%8A%B8_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC_%287%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1400,
-     "height": 2000,
-     "sha1": "5994ef0cae7e3f6c091917116679d75140d097b9",
-     "author": "월아조운's",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-10-22",
-     "date_precision": "day",
-     "event": "Lotte Family Concert",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -5723,7 +4624,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:차은우_@_2019_SS_헤라_서울패션위크_'YCH(와이씨에이치)'_포토월_01.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/%EC%B0%A8%EC%9D%80%EC%9A%B0_%40_2019_SS_%ED%97%A4%EB%9D%BC_%EC%84%9C%EC%9A%B8%ED%8C%A8%EC%85%98%EC%9C%84%ED%81%AC_%27YCH%28%EC%99%80%EC%9D%B4%EC%94%A8%EC%97%90%EC%9D%B4%EC%B9%98%29%27_%ED%8F%AC%ED%86%A0%EC%9B%94_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5743,10 +4644,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:170924_푸드트럭이벤트.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/65/170924_%ED%91%B8%EB%93%9C%ED%8A%B8%EB%9F%AD%EC%9D%B4%EB%B2%A4%ED%8A%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5766,10 +4667,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Cha_Eun-woo,_March_31,_2025.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Cha_Eun-woo%2C_March_31%2C_2025.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5789,7 +4690,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -5815,7 +4716,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:차은우_@_2019_SS_헤라_서울패션위크_'YCH(와이씨에이치)'_포토월_06.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/%EC%B0%A8%EC%9D%80%EC%9A%B0_%40_2019_SS_%ED%97%A4%EB%9D%BC_%EC%84%9C%EC%9A%B8%ED%8C%A8%EC%85%98%EC%9C%84%ED%81%AC_%27YCH%28%EC%99%80%EC%9D%B4%EC%94%A8%EC%97%90%EC%9D%B4%EC%B9%98%29%27_%ED%8F%AC%ED%86%A0%EC%9B%94_06.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5835,10 +4736,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:170602_Astro_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/170602_Astro_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5858,7 +4759,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -5891,7 +4792,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -5973,7 +4874,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231207_Lee_Felix_of_Stray_Kids_on_GQ_Man_of_the_year.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/20231207_Lee_Felix_of_Stray_Kids_on_GQ_Man_of_the_year.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -5993,7 +4894,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -6016,10 +4917,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230628_Lee_Felix_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/20230628_Lee_Felix_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -6039,7 +4940,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -6088,7 +4989,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_Lee_Felix_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/20240503_Lee_Felix_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -6108,7 +5009,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -6303,382 +5204,7 @@ declare
    ]
   },
   {
-   "slug": "gaeul-ive",
-   "kind": "idol",
-   "name": "Gaeul",
-   "qid": "Q109420011",
-   "group": "ive",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Gaeul_of_IVE_\"Show_What_I_Am\"_World_Tour_Kuala_Lumpur_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Gaeul_of_IVE_%22Show_What_I_Am%22_World_Tour_Kuala_Lumpur_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2252,
-     "height": 4000,
-     "sha1": "f659eb10b2b923fc1b99bd7907542c59118c9a43",
-     "author": "Qhairy",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Qhairy",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-04-04",
-     "date_precision": "day",
-     "event": "Gaeul during IVE \"Show What I Am\" World Tour at Kuala Lumpur",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Gaeul_of_IVE_\"Show_What_I_Am\"_World_Tour_Kuala_Lumpur.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Gaeul_of_IVE_%22Show_What_I_Am%22_World_Tour_Kuala_Lumpur.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2252,
-     "height": 4000,
-     "sha1": "3e9c10e25c0f37d89bfaacba9905ed768bc96db0",
-     "author": "Qhairy",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Qhairy",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-04-04",
-     "date_precision": "day",
-     "event": "Gaeul during IVE \"Show What I Am\" at Kuala Lumpur",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Gaeul_of_Ive_at_Senka_Pop-up_Event,_May_19,_2026_(2).png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Gaeul_of_Ive_at_Senka_Pop-up_Event%2C_May_19%2C_2026_%282%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2316,
-     "height": 2160,
-     "sha1": "699c6d8a14fe4522113561545a503dabbf0b288d",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-05-19",
-     "date_precision": "day",
-     "event": "Gaeul of Ive at Senka Pop-up Event, May 19, 2026",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Ive_Gaeul_at_Seoul_Fashion_Week,_1_September_2025_03.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Ive_Gaeul_at_Seoul_Fashion_Week%2C_1_September_2025_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2368,
-     "height": 2160,
-     "sha1": "23c55cbc92773a59ead41f3183dfb098ed8805ec",
-     "author": "티비텐 TV10",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-09-01",
-     "date_precision": "day",
-     "event": "Ive Gaeul at Seoul Fashion Week, 1 September 2025",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:IVE's_Gaeul_In_January_2023.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/IVE%27s_Gaeul_In_January_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1656,
-     "height": 1934,
-     "sha1": "a093b9ecd8aee6597a854a6db6da8491424950d9",
-     "author": "TenAsia",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-04-10",
-     "date_precision": "day",
-     "event": "Other file of this picture was named improperly, so i upload",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Ive's_Gaul_In_January_2023.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Ive%27s_Gaul_In_January_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1929,
-     "height": 1994,
-     "sha1": "43af00081a7dd5aec1bc3726bfb92ba1ecde06c8",
-     "author": "K-POPIT 케이팝잇 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-04-09",
-     "date_precision": "day",
-     "event": "Image under creative commons license, screenshot extracted f",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "gahyun-dreamcatcher",
-   "kind": "idol",
-   "name": "Gahyun",
-   "qid": "Q59313606",
-   "group": "dreamcatcher",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20240223_Dreamcatcher_Offenbach_concert_24_Gahyeon.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/20240223_Dreamcatcher_Offenbach_concert_24_Gahyeon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2172,
-     "height": 2613,
-     "sha1": "2cb71bfd2a9769273e9d7c0ebff521416d1c4aa7",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2024-02-23",
-     "date_precision": "day",
-     "event": "2024 concerts in Germany",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20221117_Dreamcatcher_Tilburg_concert_37_Gahyeon.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/20221117_Dreamcatcher_Tilburg_concert_37_Gahyeon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1532,
-     "height": 4000,
-     "sha1": "3b42d83d134a39110c11e102ba58c8d301833c07",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2022-11-17",
-     "date_precision": "day",
-     "event": "2022 concerts in the Netherlands",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:180612_드림캐쳐_유앤아이_막방미니팬미팅_(5).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/180612_%EB%93%9C%EB%A6%BC%EC%BA%90%EC%B3%90_%EC%9C%A0%EC%95%A4%EC%95%84%EC%9D%B4_%EB%A7%89%EB%B0%A9%EB%AF%B8%EB%8B%88%ED%8C%AC%EB%AF%B8%ED%8C%85_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1000,
-     "height": 1400,
-     "sha1": "003b49eebfa999a10f596b287741e88209964436",
-     "author": "icarus",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2018-06-12",
-     "date_precision": "day",
-     "event": "180612 드림캐쳐 유앤아이 막방미니팬미팅 (5)",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "gfriend",
-   "kind": "group",
-   "name": "GFRIEND",
-   "qid": null,
-   "group": null,
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:GFriend_at_Incheon_International_Airport,_January_2025.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/GFriend_at_Incheon_International_Airport%2C_January_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3505,
-     "height": 1651,
-     "sha1": "37732c5f0dfe777ff24f13d89556d3ee3fcd0a85",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-01-02",
-     "date_precision": "day",
-     "event": "GFriend at Incheon International Airport on January 2, 2025",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190701_쇼케이스_여자친구_(cropped).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/190701_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3033,
-     "height": 1706,
-     "sha1": "567fb3e8c9377fadbdd8574303dba0109061bd70",
-     "author": "뉴스인스타 (NewsInStar)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-07-01",
-     "date_precision": "day",
-     "event": "7월 1일 오후 서울시 광진구 예스24 라이브홀에서 걸그룹 '여자친구'의 일곱 번째 미니앨범 ‘피버 시즌(F",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190424_레드카펫_여자친구.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/190424_%EB%A0%88%EB%93%9C%EC%B9%B4%ED%8E%AB_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3322,
-     "height": 1869,
-     "sha1": "5aedd9e0cc5ea3a689aec2fa8a991b50695a923e",
-     "author": "뉴스인스타 (NewsInStar)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-04-24",
-     "date_precision": "day",
-     "event": "24일 오후 인천광역시 남동구 수산동 남동체육관에서 ‘U+5G 더팩트 뮤직 어워즈(U+5G THE FACT ",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190114_쇼케이스_여자친구.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/190114_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3385,
-     "height": 1904,
-     "sha1": "2b7a74ac3340a68fd88a76da5c65725e9c3ceb98",
-     "author": "뉴스인스타 (NewsInStar)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-01-14",
-     "date_precision": "day",
-     "event": "14일 오후 서울시 광진구 광장동 '예스24 라이브홀'에서 두번째 정규앨범 'Time for us(타임 포 ",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:180106_180107_Season_Of_Gfriend_유주_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/180106_180107_Season_Of_Gfriend_%EC%9C%A0%EC%A3%BC_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 2750,
-     "sha1": "52a7490964277a5f43407e3d29748bd2ed197cf7",
-     "author": "mainline",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2018-01-07",
-     "date_precision": "day",
-     "event": "180106 180107 Season Of Gfriend 유주",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:GFRIEND_at_Korea_Sale_Festa,_30_September_2016.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/GFRIEND_at_Korea_Sale_Festa%2C_30_September_2016.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3782,
-     "height": 2060,
-     "sha1": "a90e199db97b7b92cc474d6cf52383366a8e8d44",
-     "author": "Korea.net",
-     "author_url": "https://www.flickr.com/people/koreanet/",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2016-09-30",
-     "date_precision": "day",
-     "event": "GFRIEND at Korea Sale Festa, 30 September 2016",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": "a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "gidle",
+   "slug": "g-i-dle",
    "kind": "group",
    "name": "(G)I-DLE",
    "qid": null,
@@ -6822,6 +5348,381 @@ declare
      "fy": 50,
      "news_only": false,
      "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+    }
+   ]
+  },
+  {
+   "slug": "gaeul-ive",
+   "kind": "idol",
+   "name": "Gaeul",
+   "qid": "Q109420011",
+   "group": "ive",
+   "locked": false,
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Gaeul_of_IVE_\"Show_What_I_Am\"_World_Tour_Kuala_Lumpur_01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Gaeul_of_IVE_%22Show_What_I_Am%22_World_Tour_Kuala_Lumpur_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2252,
+     "height": 4000,
+     "sha1": "f659eb10b2b923fc1b99bd7907542c59118c9a43",
+     "author": "Qhairy",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Qhairy",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-04-04",
+     "date_precision": "day",
+     "event": "Gaeul during IVE \"Show What I Am\" World Tour at Kuala Lumpur",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Gaeul_of_IVE_\"Show_What_I_Am\"_World_Tour_Kuala_Lumpur.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Gaeul_of_IVE_%22Show_What_I_Am%22_World_Tour_Kuala_Lumpur.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2252,
+     "height": 4000,
+     "sha1": "3e9c10e25c0f37d89bfaacba9905ed768bc96db0",
+     "author": "Qhairy",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Qhairy",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-04-04",
+     "date_precision": "day",
+     "event": "Gaeul during IVE \"Show What I Am\" at Kuala Lumpur",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Gaeul_of_Ive_at_Senka_Pop-up_Event,_May_19,_2026_(2).png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Gaeul_of_Ive_at_Senka_Pop-up_Event%2C_May_19%2C_2026_%282%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2316,
+     "height": 2160,
+     "sha1": "699c6d8a14fe4522113561545a503dabbf0b288d",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-05-19",
+     "date_precision": "day",
+     "event": "Gaeul of Ive at Senka Pop-up Event, May 19, 2026",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "Commons shows a personality rights warning on the file"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Ive_Gaeul_at_Seoul_Fashion_Week,_1_September_2025_03.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Ive_Gaeul_at_Seoul_Fashion_Week%2C_1_September_2025_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2368,
+     "height": 2160,
+     "sha1": "23c55cbc92773a59ead41f3183dfb098ed8805ec",
+     "author": "티비텐 TV10",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2025-09-01",
+     "date_precision": "day",
+     "event": "Ive Gaeul at Seoul Fashion Week, 1 September 2025",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "Commons shows a personality rights warning on the file"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:IVE's_Gaeul_In_January_2023.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/IVE%27s_Gaeul_In_January_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1656,
+     "height": 1934,
+     "sha1": "a093b9ecd8aee6597a854a6db6da8491424950d9",
+     "author": "TenAsia",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-04-10",
+     "date_precision": "day",
+     "event": "Other file of this picture was named improperly, so i upload",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "2 people are in the frame; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Ive's_Gaul_In_January_2023.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Ive%27s_Gaul_In_January_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1929,
+     "height": 1994,
+     "sha1": "43af00081a7dd5aec1bc3726bfb92ba1ecde06c8",
+     "author": "K-POPIT 케이팝잇 TV10",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2023-04-09",
+     "date_precision": "day",
+     "event": "Image under creative commons license, screenshot extracted f",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
+    }
+   ]
+  },
+  {
+   "slug": "gahyun-dreamcatcher",
+   "kind": "idol",
+   "name": "Gahyun",
+   "qid": "Q59313606",
+   "group": "dreamcatcher",
+   "locked": false,
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:20240223_Dreamcatcher_Offenbach_concert_24_Gahyeon.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/20240223_Dreamcatcher_Offenbach_concert_24_Gahyeon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2172,
+     "height": 2613,
+     "sha1": "2cb71bfd2a9769273e9d7c0ebff521416d1c4aa7",
+     "author": "Robbie Klinkenberg",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2024-02-23",
+     "date_precision": "day",
+     "event": "2024 concerts in Germany",
+     "stage": true,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:20221117_Dreamcatcher_Tilburg_concert_37_Gahyeon.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/20221117_Dreamcatcher_Tilburg_concert_37_Gahyeon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1532,
+     "height": 4000,
+     "sha1": "3b42d83d134a39110c11e102ba58c8d301833c07",
+     "author": "Robbie Klinkenberg",
+     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2022-11-17",
+     "date_precision": "day",
+     "event": "2022 concerts in the Netherlands",
+     "stage": true,
+     "quality": 4,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:180612_드림캐쳐_유앤아이_막방미니팬미팅_(5).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/180612_%EB%93%9C%EB%A6%BC%EC%BA%90%EC%B3%90_%EC%9C%A0%EC%95%A4%EC%95%84%EC%9D%B4_%EB%A7%89%EB%B0%A9%EB%AF%B8%EB%8B%88%ED%8C%AC%EB%AF%B8%ED%8C%85_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1000,
+     "height": 1400,
+     "sha1": "003b49eebfa999a10f596b287741e88209964436",
+     "author": "icarus",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2018-06-12",
+     "date_precision": "day",
+     "event": "180612 드림캐쳐 유앤아이 막방미니팬미팅 (5)",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 30,
+     "news_only": false,
+     "review": ""
+    }
+   ]
+  },
+  {
+   "slug": "gfriend",
+   "kind": "group",
+   "name": "GFRIEND",
+   "qid": null,
+   "group": null,
+   "locked": false,
+   "photos": [
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:GFriend_at_Incheon_International_Airport,_January_2025.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/GFriend_at_Incheon_International_Airport%2C_January_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3505,
+     "height": 1651,
+     "sha1": "37732c5f0dfe777ff24f13d89556d3ee3fcd0a85",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2025-01-02",
+     "date_precision": "day",
+     "event": "GFriend at Incheon International Airport on January 2, 2025",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:190701_쇼케이스_여자친구_(cropped).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/190701_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3033,
+     "height": 1706,
+     "sha1": "567fb3e8c9377fadbdd8574303dba0109061bd70",
+     "author": "뉴스인스타 (NewsInStar)",
+     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-07-01",
+     "date_precision": "day",
+     "event": "7월 1일 오후 서울시 광진구 예스24 라이브홀에서 걸그룹 '여자친구'의 일곱 번째 미니앨범 ‘피버 시즌(F",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:190424_레드카펫_여자친구.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/190424_%EB%A0%88%EB%93%9C%EC%B9%B4%ED%8E%AB_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3322,
+     "height": 1869,
+     "sha1": "5aedd9e0cc5ea3a689aec2fa8a991b50695a923e",
+     "author": "뉴스인스타 (NewsInStar)",
+     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-04-24",
+     "date_precision": "day",
+     "event": "24일 오후 인천광역시 남동구 수산동 남동체육관에서 ‘U+5G 더팩트 뮤직 어워즈(U+5G THE FACT ",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:190114_쇼케이스_여자친구.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/190114_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%AC%EC%9E%90%EC%B9%9C%EA%B5%AC.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3385,
+     "height": 1904,
+     "sha1": "2b7a74ac3340a68fd88a76da5c65725e9c3ceb98",
+     "author": "뉴스인스타 (NewsInStar)",
+     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2019-01-14",
+     "date_precision": "day",
+     "event": "14일 오후 서울시 광진구 광장동 '예스24 라이브홀'에서 두번째 정규앨범 'Time for us(타임 포 ",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:180106_180107_Season_Of_Gfriend_유주_(3).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/180106_180107_Season_Of_Gfriend_%EC%9C%A0%EC%A3%BC_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2000,
+     "height": 2750,
+     "sha1": "52a7490964277a5f43407e3d29748bd2ed197cf7",
+     "author": "mainline",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2018-01-07",
+     "date_precision": "day",
+     "event": "180106 180107 Season Of Gfriend 유주",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:GFRIEND_at_Korea_Sale_Festa,_30_September_2016.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/GFRIEND_at_Korea_Sale_Festa%2C_30_September_2016.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3782,
+     "height": 2060,
+     "sha1": "a90e199db97b7b92cc474d6cf52383366a8e8d44",
+     "author": "Korea.net",
+     "author_url": "https://www.flickr.com/people/koreanet/",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2016-09-30",
+     "date_precision": "day",
+     "event": "GFRIEND at Korea Sale Festa, 30 September 2016",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
     }
    ]
   },
@@ -7186,7 +6087,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Got7_cheering_video_for_JYPE_16th_audition_04.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Got7_cheering_video_for_JYPE_16th_audition_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7206,7 +6107,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -7229,7 +6130,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -7252,7 +6153,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -7275,7 +6176,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -7321,7 +6222,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; a person in the frame is not identified"
     }
    ]
   },
@@ -7334,7 +6235,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230513_Park_Gun-wook_(박건욱).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/230513_Park_Gun-wook_%28%EB%B0%95%EA%B1%B4%EC%9A%B1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7354,16 +6255,16 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
   {
-   "slug": "haechan-nct-dream",
+   "slug": "haechan-nct",
    "kind": "idol",
    "name": "Haechan",
    "qid": "Q19730396",
-   "group": "nct-dream",
+   "group": "nct",
    "locked": false,
    "photos": [
     {
@@ -7436,7 +6337,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231006_Haechan_(NCT).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/33/20231006_Haechan_%28NCT%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7456,7 +6357,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -7540,131 +6441,6 @@ declare
    ]
   },
   {
-   "slug": "haewon-nmixx",
-   "kind": "idol",
-   "name": "Haewon",
-   "qid": "Q109567033",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20260320_NMIXX_Amsterdam_concert_05_Haewon.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/20260320_NMIXX_Amsterdam_concert_05_Haewon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1383,
-     "height": 3639,
-     "sha1": "f0a8a2e915c2c59c403059b8eff30b8a6865db0e",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-20",
-     "date_precision": "day",
-     "event": "2026 concerts in the Netherlands",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Haewon_for_Marie_Claire_Korea.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Haewon_for_Marie_Claire_Korea.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2160,
-     "height": 2160,
-     "sha1": "87fbf83cbf8e3ee463114c49a2da5e096e620666",
-     "author": "Marie Claire Korea",
-     "author_url": "https://www.youtube.com/@marieclairekr",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-05-28",
-     "date_precision": "day",
-     "event": "Haewon for Marie Claire Korea",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:221013_Haewon_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/221013_Haewon_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1502,
-     "height": 1862,
-     "sha1": "c7709fe6ae7fb9748d19752ef9b2435d43342ae3",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-10-13",
-     "date_precision": "day",
-     "event": "221013 Haewon (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_Haewon_NMIXX_Airport_Departure_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/11092026_Haewon_NMIXX_Airport_Departure_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 589,
-     "height": 1075,
-     "sha1": "0334615c56aff5557d54bfb3039229383dd62397",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 Haewon NMIXX Airport Departure 1",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:250627_Haewon_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/250627_Haewon_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1127,
-     "height": 1503,
-     "sha1": "8652fc66c432611a54c80d565629526db20a4d87",
-     "author": "티비텐 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-06-27",
-     "date_precision": "day",
-     "event": "250627 Haewon (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    }
-   ]
-  },
-  {
    "slug": "han-stray-kids",
    "kind": "idol",
    "name": "Han",
@@ -7696,7 +6472,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_Han_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/20240503_Han_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7716,7 +6492,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -7762,7 +6538,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -7785,7 +6561,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -7808,18 +6584,9 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
-  },
-  {
-   "slug": "hana-fifty-fifty",
-   "kind": "idol",
-   "name": "Hana",
-   "qid": "Q129548220",
-   "group": "fifty-fifty",
-   "locked": false,
-   "photos": []
   },
   {
    "slug": "hanbin-zerobaseone",
@@ -7830,7 +6597,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sung_Hanbin_at_Gucci_event_on_March_5,_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Sung_Hanbin_at_Gucci_event_on_March_5%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7850,10 +6617,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230513_Sung_Han-bin_(성한빈).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/230513_Sung_Han-bin_%28%EC%84%B1%ED%95%9C%EB%B9%88%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7873,7 +6640,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -7945,7 +6712,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sung_Hanbin_at_2024_KCON_Japan.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Sung_Hanbin_at_2024_KCON_Japan.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -7965,7 +6732,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -8133,7 +6900,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -8156,7 +6923,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -8248,51 +7015,9 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
-  },
-  {
-   "slug": "haram-billlie",
-   "kind": "idol",
-   "name": "Haram",
-   "qid": "Q117805493",
-   "group": "billlie",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:220903_Billlie_(빌리)_Haram.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/220903_Billlie_%28%EB%B9%8C%EB%A6%AC%29_Haram.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 395,
-     "height": 498,
-     "sha1": "2ecaae53f99c5c96c1aff90aece2b37e2f3df00d",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-09-03",
-     "date_precision": "day",
-     "event": "220903 Billlie (빌리) Haram",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "haruna-billlie",
-   "kind": "idol",
-   "name": "Haruna",
-   "qid": "Q117805516",
-   "group": "billlie",
-   "locked": false,
-   "photos": []
   },
   {
    "slug": "haruto-treasure",
@@ -8303,7 +7028,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230707_TREASURE(트레저)_Haruto_in_Incheon_Airport.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/230707_TREASURE%28%ED%8A%B8%EB%A0%88%EC%A0%80%29_Haruto_in_Incheon_Airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -8323,7 +7048,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -8539,7 +7264,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231109_HeeJin_@_MusicBank.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/20231109_HeeJin_%40_MusicBank.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -8559,7 +7284,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -8587,197 +7312,6 @@ declare
    ]
   },
   {
-   "slug": "heeseung-enhypen",
-   "kind": "idol",
-   "name": "Heeseung",
-   "qid": "Q105717901",
-   "group": "enhypen",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:HEESEUNG_(ENHYPEN)_220624.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/HEESEUNG_%28ENHYPEN%29_220624.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2374,
-     "height": 2738,
-     "sha1": "33638ac48f2bc6017b602d19c893360a57f6fad6",
-     "author": "mang2goon",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-06-24",
-     "date_precision": "day",
-     "event": "HEESEUNG (ENHYPEN) 220624",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Heeseung_of_Enhypen_at_Prada_Beauty_event_Sept_11_2024.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Heeseung_of_Enhypen_at_Prada_Beauty_event_Sept_11_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1389,
-     "height": 1852,
-     "sha1": "717da599e277a59cb73eb9f6757776aed046c04f",
-     "author": "K-POPIT 케이팝잇 티비텐",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-11",
-     "date_precision": "day",
-     "event": "Heeseung of Enhypen at Prada Beauty event Sept 11 2024",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Heeseung_241107.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Heeseung_241107.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 501,
-     "height": 763,
-     "sha1": "240d33450ec911e0202df9d29b0cd17f21906e3e",
-     "author": "TV10",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-11-07",
-     "date_precision": "day",
-     "event": "Heeseung 241107",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "hendery-wayv",
-   "kind": "idol",
-   "name": "Hendery",
-   "qid": "Q64604849",
-   "group": "wayv",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hendery_Wong_보는_라디오_201124_07.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Hendery_Wong_%EB%B3%B4%EB%8A%94_%EB%9D%BC%EB%94%94%EC%98%A4_201124_07.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "0ce26eca7cedcc6244dddcf0e9bc7781f28eb252",
-     "author": "SBS Radio 에라오",
-     "author_url": "https://www.youtube.com/channel/UCAmff0euQRf6RwVlbB8PLMw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-11-24",
-     "date_precision": "day",
-     "event": "Hendery Wong 보는 라디오 201124 07",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hendery_Wong_during_fanmeeting_in_December_2019.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Hendery_Wong_during_fanmeeting_in_December_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3001,
-     "sha1": "f8b37b39b67c69379a46666e37cb5a47f4caf8ef",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-06",
-     "date_precision": "day",
-     "event": "Hendery Wong during fanmeeting in December 2019",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hendery_Wong_at_Incheon_International_Airport,_South_Korea,_May_2019_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Hendery_Wong_at_Incheon_International_Airport%2C_South_Korea%2C_May_2019_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3001,
-     "sha1": "9e384ecdbcbea6012be0dedc400dcb2a32dc502d",
-     "author": "Dispatch",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-05-29",
-     "date_precision": "day",
-     "event": "People at Incheon International Airport",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "hikaru-kep1er",
-   "kind": "idol",
-   "name": "Hikaru",
-   "qid": "Q109108909",
-   "group": "kep1er",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:에자키_히카루_Ezaki_Hikaru_Doublast_showcase.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/%EC%97%90%EC%9E%90%ED%82%A4_%ED%9E%88%EC%B9%B4%EB%A3%A8_Ezaki_Hikaru_Doublast_showcase.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 574,
-     "height": 766,
-     "sha1": "e2e295ca66d7c57a883496c0e39ebd4350dab400",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-06-20",
-     "date_precision": "day",
-     "event": "에자키 히카루 Ezaki Hikaru Doublast showcase",
-     "stage": true,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "hongjoong-ateez",
    "kind": "idol",
    "name": "Hongjoong",
@@ -8786,7 +7320,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Hongjoong_in_2024_(3)_03.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Hongjoong_in_2024_%283%29_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -8806,7 +7340,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -9028,7 +7562,7 @@ declare
    ]
   },
   {
-   "slug": "huening-kai-tomorrow-x-together",
+   "slug": "huening-kai-txt",
    "kind": "idol",
    "name": "Huening Kai",
    "qid": "Q61715236",
@@ -9036,7 +7570,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:HueningKai_at_a_Dior_event_in_2025_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/HueningKai_at_a_Dior_event_in_2025_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9056,7 +7590,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -9082,7 +7616,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Huening_Kai_at_the_Seoul_Fashion_Week_2024_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Huening_Kai_at_the_Seoul_Fashion_Week_2024_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9102,7 +7636,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -9156,7 +7690,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Hyoyeon_in_October_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Hyoyeon_in_October_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9176,7 +7710,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -9304,7 +7838,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Hyungwon_-_HMBD_Campaign_by_Marie_Claire_Korea_in_February_2023.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Hyungwon_-_HMBD_Campaign_by_Marie_Claire_Korea_in_February_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9324,7 +7858,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -9485,7 +8019,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Hyunjin_of_Stray_Kids_on_November_24_2023.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Hyunjin_of_Stray_Kids_on_November_24_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9505,10 +8039,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_Hyunjin_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/20240503_Hyunjin_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9528,7 +8062,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -9554,7 +8088,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:22052023_Hyunjin_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/22052023_Hyunjin_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9574,7 +8108,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -9804,7 +8338,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Monsta_X_I.M_Chanel_April_2024.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Monsta_X_I.M_Chanel_April_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9824,7 +8358,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -9929,7 +8463,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230929_I.N.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/20230929_I.N.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -9949,7 +8483,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -9998,7 +8532,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:23052024_I.N_DAMIANI_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/94/23052024_I.N_DAMIANI_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10018,10 +8552,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_I.N_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/20240503_I.N_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10041,7 +8575,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -10064,7 +8598,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -10332,7 +8866,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:ITZY_(있지)_2023_뮤직뱅크_페스티벌_출국_ITZY_Airport_Departure.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/ITZY_%28%EC%9E%88%EC%A7%80%29_2023_%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC_%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%EC%B6%9C%EA%B5%AD_ITZY_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10352,7 +8886,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -10375,7 +8909,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -10467,7 +9001,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -10706,7 +9240,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jackson_Wang_performing_at_KBS_Music_Bank_Incheon_Airport_Sky_Festival,_16_October_2015_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Jackson_Wang_performing_at_KBS_Music_Bank_Incheon_Airport_Sky_Festival%2C_16_October_2015_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10726,10 +9260,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jackson_Wang_at_a_fansigning_event_in_Yeouido,_16_December_2018_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Jackson_Wang_at_a_fansigning_event_in_Yeouido%2C_16_December_2018_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10749,10 +9283,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jackson_Wang_at_a_fansigning_event_in_Mokdong,_15_December_2018_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Jackson_Wang_at_a_fansigning_event_in_Mokdong%2C_15_December_2018_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10772,7 +9306,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -10785,7 +9319,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230707_TREASURE(트레저)_Jaehyuk_in_Incheon_Airport.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/230707_TREASURE%28%ED%8A%B8%EB%A0%88%EC%A0%80%29_Jaehyuk_in_Incheon_Airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10805,7 +9339,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -10910,7 +9444,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231006_Jaehyun_(NCT).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/20231006_Jaehyun_%28NCT%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -10930,7 +9464,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -10950,154 +9484,6 @@ declare
      "event": "Jung Jae-hyun Dream Concert2018",
      "stage": true,
      "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "jaemin-nct",
-   "kind": "idol",
-   "name": "Jaemin",
-   "qid": "Q27431345",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190802_Na_Jae-min_KBS_'뮤직뱅크'_리허설_출근길_직캠_영상.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/60/190802_Na_Jae-min_KBS_%27%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC%27_%EB%A6%AC%ED%97%88%EC%84%A4_%EC%B6%9C%EA%B7%BC%EA%B8%B8_%EC%A7%81%EC%BA%A0_%EC%98%81%EC%83%81.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2500,
-     "height": 3749,
-     "sha1": "369662441bb69c72b05d7e2418a644cd7380d1ce",
-     "author": "뉴스인스타 (News In Star)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-08-02",
-     "date_precision": "day",
-     "event": "Music Bank",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Na_Jae-min_during_the_opening_ceremony_of_the_C_Festival_2019.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Na_Jae-min_during_the_opening_ceremony_of_the_C_Festival_2019.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "32b740d9f5ac9b790032794a0e9934291c163dbb",
-     "author": "Dispatch",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-05-02",
-     "date_precision": "day",
-     "event": "Na Jae-min during the opening ceremony of the C Festival 2019",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:나재민_보는_라디오_201124_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/%EB%82%98%EC%9E%AC%EB%AF%BC_%EB%B3%B4%EB%8A%94_%EB%9D%BC%EB%94%94%EC%98%A4_201124_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2250,
-     "height": 1500,
-     "sha1": "b6b798439a1480408e8aa4f1665d5499b40fbedc",
-     "author": "SBS Radio 에라오",
-     "author_url": "https://www.youtube.com/channel/UCAmff0euQRf6RwVlbB8PLMw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-11-24",
-     "date_precision": "day",
-     "event": "나재민 보는 라디오 201124 02",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Na_Jae-min_SBS_Radio2005052.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Na_Jae-min_SBS_Radio2005052.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1000,
-     "height": 1416,
-     "sha1": "54153e82d403f77f67b5bfd124f65202eb241a58",
-     "author": "SBS Radio",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-05-05",
-     "date_precision": "day",
-     "event": "Na Jae-min SBS Radio2005052",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Na_Jae-min_the_25th_DREAM_CONCERT2.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Na_Jae-min_the_25th_DREAM_CONCERT2.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 794,
-     "height": 1356,
-     "sha1": "0948d6875463cef2acf6580b3fecea8bd288593e",
-     "author": "NINE STARS",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-05-18",
-     "date_precision": "day",
-     "event": "Na Jae-min the 25th DREAM CONCERT2",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jaemin_at_a_press_conference_(2025).png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Jaemin_at_a_press_conference_%282025%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 500,
-     "height": 750,
-     "sha1": "428c4b4188659014a397ca0f01cf63fa22d26f1f",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/watch?v=DdY9qwcqc4Y",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-07-14",
-     "date_precision": "day",
-     "event": "Jaemin at a press conference (2025)",
-     "stage": false,
-     "quality": 1,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -11318,7 +9704,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Siam_Center_x_JAY_B_The_2nd_Exhibition_in_Bangkok_press_conference,_13_January_2025_07.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Siam_Center_x_JAY_B_The_2nd_Exhibition_in_Bangkok_press_conference%2C_13_January_2025_07.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -11338,7 +9724,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -11383,154 +9769,6 @@ declare
    "group": "blackpink",
    "locked": false,
    "photos": []
-  },
-  {
-   "slug": "jeno-nct",
-   "kind": "idol",
-   "name": "Jeno",
-   "qid": "Q28741579",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190802_Lee_Je-no_KBS_'뮤직뱅크'_리허설_출근길_직캠_영상_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/190802_Lee_Je-no_KBS_%27%EB%AE%A4%EC%A7%81%EB%B1%85%ED%81%AC%27_%EB%A6%AC%ED%97%88%EC%84%A4_%EC%B6%9C%EA%B7%BC%EA%B8%B8_%EC%A7%81%EC%BA%A0_%EC%98%81%EC%83%81_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2780,
-     "height": 4169,
-     "sha1": "25fad1992904b6a2938d03490e0eb5a7edf3400e",
-     "author": "뉴스인스타 (News In Star)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-08-02",
-     "date_precision": "day",
-     "event": "Music Bank",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lee_Je-no_Gaon_Chart_Music_Awards_2020.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Lee_Je-no_Gaon_Chart_Music_Awards_2020.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2219,
-     "height": 3000,
-     "sha1": "ff19e052bec889815e4bc360ea74f56b92696527",
-     "author": "NewsInstar",
-     "author_url": "https://www.youtube.com/@newsinstar",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-01-08",
-     "date_precision": "day",
-     "event": "Gaon Chart Music Awards 2020",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lee_Je-no_during_the_opening_ceremony_of_the_C_Festival_2019.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Lee_Je-no_during_the_opening_ceremony_of_the_C_Festival_2019.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "74d7a542a75e8a057c512a05da6c7d7c05a3655a",
-     "author": "Dispatch",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-05-02",
-     "date_precision": "day",
-     "event": "Lee Je-no during the opening ceremony of the C Festival 2019",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:180914_NCT_DREAM_스타필드_고양_팬싸인회_제노.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/180914_NCT_DREAM_%EC%8A%A4%ED%83%80%ED%95%84%EB%93%9C_%EA%B3%A0%EC%96%91_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%A0%9C%EB%85%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 2000,
-     "sha1": "1a821445a0df2296ef269237026ca5fada20ad20",
-     "author": "Explicit",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Explicit",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2018-09-14",
-     "date_precision": "day",
-     "event": "180914 NCT DREAM 스타필드 고양 팬싸인회 제노",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lee_Je-no_at_24th_Dream_Concert.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Lee_Je-no_at_24th_Dream_Concert.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 2272,
-     "sha1": "ec4005609a1e65bd1ddff7e5934b73c4e9bb39e9",
-     "author": "Nine Stars",
-     "author_url": "https://www.youtube.com/channel/UCb6uBWNlCA0kyhRln2aa6JA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-05-12",
-     "date_precision": "day",
-     "event": "Dream Concert 2018",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jeno_at_a_press_conference_(2025).png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Jeno_at_a_press_conference_%282025%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 499,
-     "height": 750,
-     "sha1": "b201603798717f72103600a17b5b594a5f656b26",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/watch?v=DdY9qwcqc4Y",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-07-14",
-     "date_precision": "day",
-     "event": "Jeno at a press conference (2025)",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
   },
   {
    "slug": "jeonghan-seventeen",
@@ -11587,7 +9825,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Yoon_Jeong-han_for_10asia_Magazine_February_2016_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Yoon_Jeong-han_for_10asia_Magazine_February_2016_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -11607,7 +9845,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -11972,7 +10210,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:251127_Park_Jihyo.PNG",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/251127_Park_Jihyo.PNG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -11992,7 +10230,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -12103,10 +10341,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jin_performing_at_The_Red_Bullet_tour_in_Taipei,_8_March_2015_03.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Jin_performing_at_The_Red_Bullet_tour_in_Taipei%2C_8_March_2015_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -12126,10 +10364,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jin_performing_at_'Music_Bank'_in_Mexico,_30_October_2014_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/Jin_performing_at_%27Music_Bank%27_in_Mexico%2C_30_October_2014_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -12149,10 +10387,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jin_performing_at_KCON_2014,_10_August_2014_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Jin_performing_at_KCON_2014%2C_10_August_2014_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -12172,10 +10410,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jin_at_a_fansigning_in_Sinchon,_11_September_2014.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Jin_at_a_fansigning_in_Sinchon%2C_11_September_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -12195,109 +10433,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "jini-nmixx",
-   "kind": "idol",
-   "name": "Jini",
-   "qid": "Q109307988",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jini_at_the_Seoul_Fashion_Week_2024.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Jini_at_the_Seoul_Fashion_Week_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1104,
-     "height": 1570,
-     "sha1": "32fab3898315b68ba948fb4bc069ac7dd42f392a",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-02-04",
-     "date_precision": "day",
-     "event": "Jini at the Seoul Fashion Week 2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jini_at_the_Levi's_Photo_call.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Jini_at_the_Levi%27s_Photo_call.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 450,
-     "height": 450,
-     "sha1": "0f93103e36783d031efb87c6668d0dcf425d1016",
-     "author": "https://www.youtube.com/@tenasia10",
-     "author_url": "https://www.youtube.com/@tenasia10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-05-20",
-     "date_precision": "day",
-     "event": "Jini at the Levi's Photo call",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:221013_Jinni_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/221013_Jinni_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1144,
-     "height": 1780,
-     "sha1": "b9dd61be9787604abdb57a9d1d423458be08a173",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-10-13",
-     "date_precision": "day",
-     "event": "221013 Jinni (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jinni_NMIXX_MusicBank_Fancam_220624_(cropped).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Jinni_NMIXX_MusicBank_Fancam_220624_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 228,
-     "height": 402,
-     "sha1": "5500f9fc9e1d438ac250b7753ed17df4e9d9be10",
-     "author": "https://youtube.com/c/mang2goon",
-     "author_url": "https://youtube.com/c/mang2goon",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-06-24",
-     "date_precision": "day",
-     "event": "Jinni NMIXX MusicBank Fancam 220624 (cropped)",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -12330,7 +10466,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
@@ -12511,7 +10647,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -12557,7 +10693,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -12603,7 +10739,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -12702,108 +10838,6 @@ declare
      "event": "Blackpink World Tour: In Your Area",
      "stage": true,
      "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "jisung-nct",
-   "kind": "idol",
-   "name": "Jisung",
-   "qid": "Q27477017",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Park_Ji-sung_보는_라디오_201124.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Park_Ji-sung_%EB%B3%B4%EB%8A%94_%EB%9D%BC%EB%94%94%EC%98%A4_201124.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 2251,
-     "sha1": "96e4747a31fe4f417f8255139936b539859e5d72",
-     "author": "SBS Radio 에라오",
-     "author_url": "https://www.youtube.com/channel/UCAmff0euQRf6RwVlbB8PLMw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-11-24",
-     "date_precision": "day",
-     "event": "Park Ji-sung 보는 라디오 201124",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:ParkJisung-NCTDream-DREAM()SCAPE_Press_Conference_25Mar2024.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/ParkJisung-NCTDream-DREAM%28%29SCAPE_Press_Conference_25Mar2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 856,
-     "height": 1004,
-     "sha1": "4b3dfe6df056461dc781d68bacdbb78ae3602dc8",
-     "author": "K-POPIT 케이팝잇 (TV10)",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-03-25",
-     "date_precision": "day",
-     "event": "ParkJisung-NCTDream-DREAM()SCAPE Press Conference 25Mar2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Park_Jisung_SBS_radio220407.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Park_Jisung_SBS_radio220407.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1000,
-     "height": 1330,
-     "sha1": "b4fa519f63d13f6903aea94cd568fdbf47691b57",
-     "author": "SBS Radio 에라오",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-04-07",
-     "date_precision": "day",
-     "event": "Park Jisung SBS radio220407",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jisung_at_a_press_conference_(2025).png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Jisung_at_a_press_conference_%282025%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 548,
-     "height": 788,
-     "sha1": "8fb5d63225d474ee7dc3e4c86511cb95bc7b05fe",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/watch?v=DdY9qwcqc4Y",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-07-14",
-     "date_precision": "day",
-     "event": "Jisung at a press conference (2025)",
-     "stage": false,
-     "quality": 1,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -13047,7 +11081,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jiwoo_di_Musinsa_Beauty_Festa_Pop-Up_Store_2025.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Jiwoo_di_Musinsa_Beauty_Festa_Pop-Up_Store_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13067,155 +11101,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "jiwoo-nmixx",
-   "kind": "idol",
-   "name": "Jiwoo",
-   "qid": "Q109308189",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_Jiwoo_NMIXX_Airport_Departure_2.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/11092026_Jiwoo_NMIXX_Airport_Departure_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1295,
-     "height": 2160,
-     "sha1": "fabc480d50c2c8ff42619cee9bdbb7f32aa0bece",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 Jiwoo NMIXX Airport Departure 2",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20260320_NMIXX_Amsterdam_concert_09_Jiwoo.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/20260320_NMIXX_Amsterdam_concert_09_Jiwoo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1172,
-     "height": 3291,
-     "sha1": "fe958035f16466be4796d80f09d5d90d9f661713",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-20",
-     "date_precision": "day",
-     "event": "2026 concerts in the Netherlands",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Nmixx's_Jiwoo_in_April_2023.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Nmixx%27s_Jiwoo_in_April_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 861,
-     "height": 1084,
-     "sha1": "4f2ce321214c569de00bb7823bfcf01fe9bf97dd",
-     "author": "K-POPIT 케이팝잇 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-04-22",
-     "date_precision": "day",
-     "event": "Nmixx's Jiwoo in April 2023",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jiwoo_Nmixx_in_Happy_Jiwoo_Day_livestream.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Jiwoo_Nmixx_in_Happy_Jiwoo_Day_livestream.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 579,
-     "height": 438,
-     "sha1": "db0c640a25112f956873169596ff630f23701f57",
-     "author": "DrinksOrCoffee",
-     "author_url": "https://commons.wikimedia.org/wiki/User:DrinksOrCoffee",
-     "licence": "CC0",
-     "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-     "share_alike": false,
-     "date": "2025-04-12",
-     "date_precision": "day",
-     "event": "Jiwoo Nmixx in Happy Jiwoo Day livestream",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:250627_Jiwoo_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/250627_Jiwoo_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 989,
-     "height": 1318,
-     "sha1": "b637594f3d7b287a9d70108728a248fe66f1aa00",
-     "author": "티비텐 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-06-27",
-     "date_precision": "day",
-     "event": "250627 Jiwoo (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:260520_Kim_Jiwoo_from_NMIXX.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/260520_Kim_Jiwoo_from_NMIXX.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 626,
-     "height": 782,
-     "sha1": "00ef74a711f0f779ab6ba465476ec6d774864854",
-     "author": "Upload: BEARS TV",
-     "author_url": "https://www.youtube.com/@bearstv1982",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-05-20",
-     "date_precision": "day",
-     "event": "260520 Kim Jiwoo from NMIXX",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -13228,7 +11114,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230513_Kim_Ji-woong_(김지웅).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/230513_Kim_Ji-woong_%28%EA%B9%80%EC%A7%80%EC%9B%85%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13248,7 +11134,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -13274,7 +11160,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:231124_Kim_Ji-woong_(1).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/231124_Kim_Ji-woong_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13294,7 +11180,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -13445,7 +11331,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Johnny_Suh_at_thombrowne20_231020.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Johnny_Suh_at_thombrowne20_231020.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13465,10 +11351,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231006_Johnny_(NCT).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/20231006_Johnny_%28NCT%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13488,7 +11374,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -13591,154 +11477,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": "the licence review is still open on Commons"
-    }
-   ]
-  },
-  {
-   "slug": "jonghyun-shinee",
-   "kind": "idol",
-   "name": "Jonghyun",
-   "qid": "Q484484",
-   "group": "shinee",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Jong-hyun_during_at_Shinee_World_IV_in_Seoul_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Kim_Jong-hyun_during_at_Shinee_World_IV_in_Seoul_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3000,
-     "height": 1872,
-     "sha1": "7cbd4e5e53173a5ee1a7297bab0fef3559d61c39",
-     "author": "Sperospera for Jonghyun!",
-     "author_url": "http://sperospera48.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2015-05-17",
-     "date_precision": "day",
-     "event": "Kim Jong-hyun during at Shinee World IV in Seoul on May 17, ",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jonghyun_at_the_SHINee_World_Concert_III_in_Taiwan_08.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Jonghyun_at_the_SHINee_World_Concert_III_in_Taiwan_08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1348,
-     "height": 2073,
-     "sha1": "da2ba0e2de66e4634bcc5d5fe2e68ae197632fec",
-     "author": "Sparking",
-     "author_url": "http://sparking-jh.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-05-11",
-     "date_precision": "day",
-     "event": "Jonghyun at the SHINee World Concert III in Taiwan on May 11",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Jonghyun_at_the_SHINee_World_Concert_III_in_Seoul_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Kim_Jonghyun_at_the_SHINee_World_Concert_III_in_Seoul_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1350,
-     "height": 2163,
-     "sha1": "28a32d6b04b75365a2165ed9483311041628663f",
-     "author": "Like a Diamond",
-     "author_url": "http://gojonghyun.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-03-08",
-     "date_precision": "day",
-     "event": "Jonghyun at the SHINee World Concert III in Seoul on March 8",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jonghyun_at_the_SHINee_World_Concert_III_in_Taiwan_11.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Jonghyun_at_the_SHINee_World_Concert_III_in_Taiwan_11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 977,
-     "sha1": "fbe4bda2bc696b1c70ea4c73e0ebdb3171d0afce",
-     "author": "Sparking",
-     "author_url": "http://sparking-jh.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-05-11",
-     "date_precision": "day",
-     "event": "2010s leather fashion",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Jonghyun_at_the_SHINee_Festival_Tour_in_Shanghai_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Kim_Jonghyun_at_the_SHINee_Festival_Tour_in_Shanghai_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 757,
-     "height": 1114,
-     "sha1": "019b8289706cef810023002ffc244d3dd1b3033d",
-     "author": "Like a Diamond",
-     "author_url": "http://gojonghyun.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2013-11-30",
-     "date_precision": "day",
-     "event": "Jonghyun at the SHINee Festival Tour in Shanghai on November",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Jong-hyun_at_the_SHINee_World_Concert_II_in_Hong_Kong_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Kim_Jong-hyun_at_the_SHINee_World_Concert_II_in_Hong_Kong_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1019,
-     "height": 1200,
-     "sha1": "76f41fad469d9391d743bdb88303b454b6db5612",
-     "author": "Like a Diamond",
-     "author_url": "http://gojonghyun.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2012-10-27",
-     "date_precision": "day",
-     "event": "Kim Jong-hyun at the SHINee World Concert II in Hong Kong on",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
     }
    ]
   },
@@ -13954,7 +11692,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Joshua_Hong_for_10asia_Magazine_February_2016_03.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Joshua_Hong_for_10asia_Magazine_February_2016_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -13974,7 +11712,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -14145,7 +11883,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -14403,7 +12141,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jungwon_of_Enhypen,_October_7,_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Jungwon_of_Enhypen%2C_October_7%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -14423,7 +12161,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -14497,11 +12235,11 @@ declare
    ]
   },
   {
-   "slug": "jungwoo-nct-127",
+   "slug": "jungwoo-nct",
    "kind": "idol",
    "name": "Jungwoo",
    "qid": "Q60831979",
-   "group": "nct-127",
+   "group": "nct",
    "locked": false,
    "photos": [
     {
@@ -14620,7 +12358,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231006_Jungwoo_(NCT).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/20231006_Jungwoo_%28NCT%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -14640,7 +12378,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -14763,7 +12501,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20180922_UCI_Road_World_Championships_Innsbruck_Team_Sangemini_MG-K_VIS_Vega_850_6838.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/20180922_UCI_Road_World_Championships_Innsbruck_Team_Sangemini_MG-K_VIS_Vega_850_6838.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -14783,7 +12521,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -15226,7 +12964,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:221127_Kazuha_(LE_SSERAFIM).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/221127_Kazuha_%28LE_SSERAFIM%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15246,10 +12984,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kazuha_(LE_SSERAFIM)_220507.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Kazuha_%28LE_SSERAFIM%29_220507.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15269,10 +13007,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:260526_Nakamura_Kazuha.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/260526_Nakamura_Kazuha.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15292,7 +13030,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -15384,7 +13122,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:FIFTY_FIFTY_Keena_at_2024_Billboard_K_Power_100.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/FIFTY_FIFTY_Keena_at_2024_Billboard_K_Power_100.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15404,7 +13142,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -15426,7 +13164,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kep1er_leaving_for_promotions_in_Japan_through_Gimpo_International_Airport_on_November_19,_2023.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Kep1er_leaving_for_promotions_in_Japan_through_Gimpo_International_Airport_on_November_19%2C_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15446,10 +13184,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kep1er_Nov'24.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Kep1er_Nov%2724.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15469,7 +13207,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -15653,7 +13391,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:190424_Kihyun_The_Fact_Music_Awards_(3).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/190424_Kihyun_The_Fact_Music_Awards_%283%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -15673,7 +13411,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -15812,62 +13550,6 @@ declare
    "photos": []
   },
   {
-   "slug": "kris-exo",
-   "kind": "idol",
-   "name": "Kris",
-   "qid": "Q6437313",
-   "group": "exo",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:TVXQ_in_Bangkok_2012.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/TVXQ_in_Bangkok_2012.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 924,
-     "height": 725,
-     "sha1": "7604b925079b83997f9565a764adc48d059a0edd",
-     "author": "Sry85",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Sry85",
-     "licence": "CC BY-SA 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "share_alike": true,
-     "date": "2012-11-25",
-     "date_precision": "day",
-     "event": "TVXQ at press conference of SMTown Live World Tour III in Ba",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Joon_Myun_and_Kris_Wu_at_the_Hallyu_Star_Street_on_March_2014_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Kim_Joon_Myun_and_Kris_Wu_at_the_Hallyu_Star_Street_on_March_2014_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1372,
-     "height": 1000,
-     "sha1": "4f1a24712ce16ba40cdbcbe229bcd9049e95d8be",
-     "author": "Waffles Club",
-     "author_url": "http://wafflesclub.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-03-12",
-     "date_precision": "day",
-     "event": "Suho and Kris Wu at the Hallyu Star Street on March 12, 2014",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
    "slug": "kun-nct",
    "kind": "idol",
    "name": "Kun",
@@ -15966,131 +13648,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "kyujin-nmixx",
-   "kind": "idol",
-   "name": "Kyujin",
-   "qid": "Q109308262",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2025.1.23_규진_NMIXX_KYUJIN.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/2025.1.23_%EA%B7%9C%EC%A7%84_NMIXX_KYUJIN.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "0ebb051ca6871c691bc22667e8d94eceb2822c64",
-     "author": "Marie Claire Korea",
-     "author_url": "https://www.youtube.com/@marieclairekr",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-01-23",
-     "date_precision": "day",
-     "event": "2025.1.23 규진 NMIXX KYUJIN",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NMIXX_Kyujin_251225_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/NMIXX_Kyujin_251225_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1080,
-     "height": 1955,
-     "sha1": "b30c60270cdd298674a3ee1157b5fb2807125a09",
-     "author": "Kyusav",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Kyusav&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY 1.0",
-     "licence_url": "https://creativecommons.org/licenses/by/1.0",
-     "share_alike": false,
-     "date": "2025-12-25",
-     "date_precision": "day",
-     "event": "NMIXX Kyujin 251225 (3)",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20260320_NMIXX_Amsterdam_concert_13_Kyujin.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/20260320_NMIXX_Amsterdam_concert_13_Kyujin.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 773,
-     "height": 1986,
-     "sha1": "c93291e98b756f626dd790e254d1b87b5fa36a43",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-20",
-     "date_precision": "day",
-     "event": "2026 concerts in the Netherlands",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_Kyujin_NMIXX_Airport_Departure_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/11092026_Kyujin_NMIXX_Airport_Departure_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 601,
-     "height": 888,
-     "sha1": "e5ecf4114bded4aa3b16286a34faab4923cae923",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 Kyujin NMIXX Airport Departure 1",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:250627_Kyujin_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/250627_Kyujin_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 816,
-     "height": 1088,
-     "sha1": "dfdcaffb2e347974a9c3dd69a2339ec52db0952c",
-     "author": "티비텐 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-06-27",
-     "date_precision": "day",
-     "event": "250627 Kyujin (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
     }
    ]
   },
@@ -16441,7 +13998,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lee_Know_at_the_Gucci_Edit_Room_event,_July_30,_2026_(1).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Lee_Know_at_the_Gucci_Edit_Room_event%2C_July_30%2C_2026_%281%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16461,10 +14018,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lee_Know_at_the_Incheon_Airport,_February_25,_2026_(6).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Lee_Know_at_the_Incheon_Airport%2C_February_25%2C_2026_%286%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16484,10 +14041,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lee_Know_in_Incheon_Airport,_September_7,_2024_(upscaled).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Lee_Know_in_Incheon_Airport%2C_September_7%2C_2024_%28upscaled%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16507,7 +14064,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -16533,7 +14090,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lee_Know_at_the_40th_Golden_Disc_Awards,_January_10,_2026_(1).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Lee_Know_at_the_40th_Golden_Disc_Awards%2C_January_10%2C_2026_%281%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16553,7 +14110,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -16612,7 +14169,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Leeseo_of_Ive_at_the_HAHS_Graduation_Ceremony,_January_8,_2026_(3).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Leeseo_of_Ive_at_the_HAHS_Graduation_Ceremony%2C_January_8%2C_2026_%283%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16632,7 +14189,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -16691,7 +14248,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:ITZY's_Lia_in_August_2023_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/ITZY%27s_Lia_in_August_2023_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16711,10 +14268,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lia_(리아)_220729.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Lia_%28%EB%A6%AC%EC%95%84%29_220729.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16734,10 +14291,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:251110_Choi_Jisu_(Lia)_from_ITZY.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/251110_Choi_Jisu_%28Lia%29_from_ITZY.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16757,10 +14314,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lia_(리아)_220921.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Lia_%28%EB%A6%AC%EC%95%84%29_220921.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -16780,7 +14337,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -16804,154 +14361,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "lily-nmixx",
-   "kind": "idol",
-   "name": "Lily",
-   "qid": "Q26196972",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2025.1.23_릴리_NMIXX_LILY.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/78/2025.1.23_%EB%A6%B4%EB%A6%AC_NMIXX_LILY.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "bcba4754682fabe523af0be44f5546bdfd396f11",
-     "author": "Marie Claire Korea",
-     "author_url": "https://www.youtube.com/@marieclairekr",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2025-01-23",
-     "date_precision": "day",
-     "event": "2025.1.23 릴리 NMIXX LILY",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Canna_lily_Flower.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Canna_lily_Flower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1536,
-     "height": 2048,
-     "sha1": "a7abae3674c112d880c6b3de81828742a3fcfc3b",
-     "author": "Banashri Sarma",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Banashri_Sarma",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-10-17",
-     "date_precision": "day",
-     "event": "Canna lily Flower",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_Lily_NMIXX_Airport_Departure_4.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/11092026_Lily_NMIXX_Airport_Departure_4.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1621,
-     "height": 2160,
-     "sha1": "9c3709069ca3bcdb2b59cc47fcb70c74e8d88b87",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 Lily NMIXX Airport Departure 4",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NMIXX_in_Oakland_-_Lily_focus.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/NMIXX_in_Oakland_-_Lily_focus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1508,
-     "height": 1863,
-     "sha1": "b801e784239a41982f7323ec4a3cbab3c0a34b31",
-     "author": "David Lee",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-04-09",
-     "date_precision": "day",
-     "event": "NMIXX in Oakland - Lily focus",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20260320_NMIXX_Amsterdam_concert_04_Lily.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/20260320_NMIXX_Amsterdam_concert_04_Lily.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 833,
-     "height": 1536,
-     "sha1": "8ed984827f74f982bba28b24c20cffb5380d4169",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-20",
-     "date_precision": "day",
-     "event": "2026 concerts in the Netherlands",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:221013_Lily_(NMIXX)_Airport_Departure.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/221013_Lily_%28NMIXX%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1216,
-     "height": 1580,
-     "sha1": "627f47e4e05503bb9f2c4c6ad70b42eca0f0fa38",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-10-13",
-     "date_precision": "day",
-     "event": "221013 Lily (NMIXX) Airport Departure",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
     }
    ]
   },
@@ -17007,10 +14416,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:BLACKPINK's_Lisa_for_BULGARI_June_2023_01_(cropped).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/BLACKPINK%27s_Lisa_for_BULGARI_June_2023_01_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17030,7 +14439,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -17053,7 +14462,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "4 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 4 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -17227,7 +14636,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Liz_of_Ive_at_K-SWISS_Flagship_Store_Open_Event,_May_7,_2026_(1).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Liz_of_Ive_at_K-SWISS_Flagship_Store_Open_Event%2C_May_7%2C_2026_%281%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17247,7 +14656,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -17280,7 +14689,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; a person in the frame is not identified; a person in the frame is not identified; a person in the frame is not identified"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; a person in the frame is not identified; a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -17318,302 +14727,6 @@ declare
    ]
   },
   {
-   "slug": "lucas-nct",
-   "kind": "idol",
-   "name": "Lucas",
-   "qid": "Q52219380",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lucas_Wong_during_fanmeeting_in_December_2019_03.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Lucas_Wong_during_fanmeeting_in_December_2019_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3001,
-     "sha1": "63273dc28f34e18d3955bae13e6233026a8b0e6e",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-06",
-     "date_precision": "day",
-     "event": "Lucas Wong during fanmeeting in December 2019 03",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lucas_Wong_at_Incheon_International_Airport,_South_Korea,_May_2019_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Lucas_Wong_at_Incheon_International_Airport%2C_South_Korea%2C_May_2019_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3003,
-     "sha1": "091167db1f290f3c0a25d713afa85c604887780d",
-     "author": "Dispatch",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-05-29",
-     "date_precision": "day",
-     "event": "People at Incheon International Airport",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20190404_루카스가_인천국제공항을_통해_출국했다_03.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/20190404_%EB%A3%A8%EC%B9%B4%EC%8A%A4%EA%B0%80_%EC%9D%B8%EC%B2%9C%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD%EC%9D%84_%ED%86%B5%ED%95%B4_%EC%B6%9C%EA%B5%AD%ED%96%88%EB%8B%A4_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3001,
-     "sha1": "e0cecd47f9a41130bdf331c1d70a9e50f166b66e",
-     "author": "dispatchsns",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-04-04",
-     "date_precision": "day",
-     "event": "People at Incheon International Airport",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2019_SS_서울패션위크_-_Lucas_Wong_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/2019_SS_%EC%84%9C%EC%9A%B8%ED%8C%A8%EC%85%98%EC%9C%84%ED%81%AC_-_Lucas_Wong_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "065fd60b520672c27583359ddcfacf1aa8e8e57b",
-     "author": "dispatchsns",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-10-19",
-     "date_precision": "day",
-     "event": "2019 SS Hera Seoul Fashion Week",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2018_아이돌스타_육상_볼링_양궁_리듬_체조_족구_선수권_대회_-_Lucas_Wong_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/2018_%EC%95%84%EC%9D%B4%EB%8F%8C%EC%8A%A4%ED%83%80_%EC%9C%A1%EC%83%81_%EB%B3%BC%EB%A7%81_%EC%96%91%EA%B6%81_%EB%A6%AC%EB%93%AC_%EC%B2%B4%EC%A1%B0_%EC%A1%B1%EA%B5%AC_%EC%84%A0%EC%88%98%EA%B6%8C_%EB%8C%80%ED%9A%8C_-_Lucas_Wong_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3003,
-     "sha1": "85c1fdac527453e00f7736ece62726270a1da106",
-     "author": "dispatchsns",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-09-25",
-     "date_precision": "day",
-     "event": "2018 아이돌스타 육상 볼링 양궁 리듬 체조 족구 선수권 대회 - Lucas Wong 01",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lucas_Wong_at_24th_Dream_Concert_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Lucas_Wong_at_24th_Dream_Concert_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1796,
-     "height": 2620,
-     "sha1": "6c3ed358fb20c1d16ca01b4cdc167a1b43c23cb4",
-     "author": "Nine Stars",
-     "author_url": "https://www.youtube.com/channel/UCb6uBWNlCA0kyhRln2aa6JA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-05-12",
-     "date_precision": "day",
-     "event": "Dream Concert 2018",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "luhan-exo",
-   "kind": "idol",
-   "name": "Luhan",
-   "qid": "Q10788758",
-   "group": "exo",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lu_Han_performing_\"Our_Tomorrow\"_at_Dream_Star_Partner,_January_2015_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Lu_Han_performing_%22Our_Tomorrow%22_at_Dream_Star_Partner%2C_January_2015_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 2693,
-     "sha1": "be76c8489745380c40effd8a698bc01e0cbc43ab",
-     "author": "MERCYPLAY",
-     "author_url": "https://www.youtube.com/channel/UCDEEUKAlGJUfMKHQ1qSeXTA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2015-01-02",
-     "date_precision": "day",
-     "event": "Lu Han performing \"Our Tomorrow\" at Dream Star Partner on Ja",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Korea_KPOP_World_Festival_34.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Korea_KPOP_World_Festival_34.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3029,
-     "height": 2032,
-     "sha1": "4d8f9c3c271a85c989b060615341ce13110356c1",
-     "author": "Korea.net / Korean Culture and Information Service (Jeon Han)",
-     "author_url": "http://www.korea.net",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2013-10-20",
-     "date_precision": "day",
-     "event": "2013 K-POP World Festival in Changwon October 20, 2013 Chang",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:鹿晗杭州演唱会_(1).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/%E9%B9%BF%E6%99%97%E6%9D%AD%E5%B7%9E%E6%BC%94%E5%94%B1%E4%BC%9A_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 1050,
-     "sha1": "3243b0be9f76582ea64afcc6c1e0e5435a5471cc",
-     "author": "GEM_Ady",
-     "author_url": null,
-     "licence": "CC BY 2.5",
-     "licence_url": "https://creativecommons.org/licenses/by/2.5",
-     "share_alike": false,
-     "date": "2018-10-13",
-     "date_precision": "day",
-     "event": "​鹿晗杭州演唱会",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Luhan_at_the_EXO_The_Lost_Planet_in_Jakarta_13.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Luhan_at_the_EXO_The_Lost_Planet_in_Jakarta_13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 818,
-     "height": 1216,
-     "sha1": "9e9952a17821380b738634ddc377c9ab7799025c",
-     "author": "Excentrique",
-     "author_url": "http://excentrique.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-09-06",
-     "date_precision": "day",
-     "event": "Concerts in Indonesia",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Luhan_at_the_EXO_The_Lost_Planet_in_Singapore_03.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Luhan_at_the_EXO_The_Lost_Planet_in_Singapore_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 1026,
-     "sha1": "6fecdbdaf862e9846cf06257dbd33df6d773d777",
-     "author": "Excentrique",
-     "author_url": "http://excentrique.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-08-23",
-     "date_precision": "day",
-     "event": "Concerts in Singapore",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Luhan_at_the_MTV_World_Stage_in_Malaysia_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Luhan_at_the_MTV_World_Stage_in_Malaysia_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1299,
-     "height": 1000,
-     "sha1": "e3c51cbded0aa7c2124dad4dc055190d03a4d2e0",
-     "author": "Excentrique",
-     "author_url": "http://excentrique.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2013-09-08",
-     "date_precision": "day",
-     "event": "Luhan at the MTV World Stage in Malaysia on September 8, 201",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
    "slug": "mamamoo",
    "kind": "group",
    "name": "MAMAMOO",
@@ -17642,7 +14755,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -17665,10 +14778,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:171210_핑거밴드_페스티벌_마마무_솔라_미리보기_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/171210_%ED%95%91%EA%B1%B0%EB%B0%B4%EB%93%9C_%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%EB%A7%88%EB%A7%88%EB%AC%B4_%EC%86%94%EB%9D%BC_%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17688,7 +14801,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -17839,7 +14952,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Manon_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Manon_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17859,7 +14972,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -17918,7 +15031,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Mark_Tuan_at_ShuDaxia_event,_March_2,_2024_04.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Mark_Tuan_at_ShuDaxia_event%2C_March_2%2C_2024_04.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17938,10 +15051,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Mark_Tuan_at_Mnet_Asian_Music_Awards_(MAMA)_2015,_2_December_2015_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Mark_Tuan_at_Mnet_Asian_Music_Awards_%28MAMA%29_2015%2C_2_December_2015_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17961,10 +15074,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Mark_Tuan_outside_\"Music_Bank\"_studios,_31_May_2019.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Mark_Tuan_outside_%22Music_Bank%22_studios%2C_31_May_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -17984,10 +15097,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Mark_Tuan_at_MBC_Gayo_Daejeon,_31_December_2015_03.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Mark_Tuan_at_MBC_Gayo_Daejeon%2C_31_December_2015_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -18007,7 +15120,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -18089,7 +15202,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231006_Mark_(NCT).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/71/20231006_Mark_%28NCT%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -18109,7 +15222,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -18223,7 +15336,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Megan_(Katseye)_Music_Bank_2024_1.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Megan_%28Katseye%29_Music_Bank_2024_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -18243,7 +15356,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -18473,7 +15586,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:220728_에이티즈_ATEEZ_Mingi.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/220728_%EC%97%90%EC%9D%B4%ED%8B%B0%EC%A6%88_ATEEZ_Mingi.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -18493,7 +15606,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -19210,166 +16323,18 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons"
+     "review": "the licence review is still open on Commons; Commons shows a personality rights warning on the file"
     }
    ]
   },
   {
-   "slug": "minnie-i-dle",
+   "slug": "minnie-g-i-dle",
    "kind": "idol",
    "name": "Minnie",
    "qid": "Q56761923",
-   "group": "gidle",
+   "group": "g-i-dle",
    "locked": false,
    "photos": []
-  },
-  {
-   "slug": "minzy-2ne1",
-   "kind": "idol",
-   "name": "Minzy",
-   "qid": "Q483842",
-   "group": "2ne1",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Minzy_2020.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Minzy_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 938,
-     "height": 1371,
-     "sha1": "3f2709ffe5a141ab2e470009fe011dba3177ccfa",
-     "author": "덕후는 사진을 남긴다",
-     "author_url": "https://duckleavepics.tistory.com",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2020-06-25",
-     "date_precision": "day",
-     "event": "200625 Gong Min-ji at Video Star",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Gong_Minzy_in_2018.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Gong_Minzy_in_2018.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 848,
-     "height": 982,
-     "sha1": "1fcc2bc137e25bb0195ed23414e0e566a310eb33",
-     "author": "Korean newspaper \"NewsInstar\"",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-11-07",
-     "date_precision": "day",
-     "event": "November 2018 in South Korea",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Minzy_at_the_Samsung_Passion_Talk_on_September_2013_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Minzy_at_the_Samsung_Passion_Talk_on_September_2013_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 800,
-     "height": 1168,
-     "sha1": "0885d547507f5bcf66c703bcb812b097425796f2",
-     "author": "월아조운's",
-     "author_url": "http://mcjoun.tistory.com/",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2013-09-24",
-     "date_precision": "day",
-     "event": "Minzy at the Samsung Passion Talk on September 2013.",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Minzy_2020_4.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Minzy_2020_4.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 605,
-     "height": 864,
-     "sha1": "9300a5bedf78432634f51b8f0d1631f70ffc8ab3",
-     "author": "덕후는 사진을 남긴다",
-     "author_url": "https://duckleavepics.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2020-06-25",
-     "date_precision": "day",
-     "event": "Minzy leaving a Video Star recording on June 25, 2020.",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Minzy_at_YG_Family_Press_Conference_in_Singapore_in_2014.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Minzy_at_YG_Family_Press_Conference_in_Singapore_in_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 753,
-     "height": 416,
-     "sha1": "7cc591582a0644ce71f32488689a273f603be4b6",
-     "author": "Lizi825",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Lizi825&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2014-09-12",
-     "date_precision": "day",
-     "event": "This is a photo of Minzy at the YG Family press conference i",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:09월_26일_뮤콘_쇼케이스_MUCON_Showcase_(67).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/09%EC%9B%94_26%EC%9D%BC_%EB%AE%A4%EC%BD%98_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_MUCON_Showcase_%2867%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 427,
-     "height": 640,
-     "sha1": "ccfa23ba8d7a6fe9ad48f3ccca2d8a239504f4e0",
-     "author": "사진&여행 (生活의發見)",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2017-09-26",
-     "date_precision": "day",
-     "event": "09월 26일 뮤콘 쇼케이스 MUCON Showcase 공민지(MINZY)",
-     "stage": true,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
   },
   {
    "slug": "miss-a",
@@ -19428,11 +16393,11 @@ declare
    ]
   },
   {
-   "slug": "miyeon-i-dle",
+   "slug": "miyeon-g-i-dle",
    "kind": "idol",
    "name": "Miyeon",
    "qid": "Q56259927",
-   "group": "gidle",
+   "group": "g-i-dle",
    "locked": false,
    "photos": [
     {
@@ -19551,7 +16516,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Miyeon_for_Marie_Claire_Korea_2024_in_white.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Miyeon_for_Marie_Claire_Korea_2024_in_white.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -19571,7 +16536,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -19913,7 +16878,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Mamamoo_Moonbyul_in_2024_(1)_06.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Mamamoo_Moonbyul_in_2024_%281%29_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -19933,7 +16898,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -20241,7 +17206,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:NCT127_-_Fact_Check_press_conference_Oct_6_2023.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/NCT127_-_Fact_Check_press_conference_Oct_6_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20261,7 +17226,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -20389,7 +17354,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:NCT_Dream_at_the_MMA_2023_Awards.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/NCT_Dream_at_the_MMA_2023_Awards.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20409,10 +17374,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:NCT_Dream_Top_Ten_Awards,_2022_1.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/NCT_Dream_Top_Ten_Awards%2C_2022_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20432,7 +17397,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -20481,27 +17446,27 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:NCT_Dream_at_DREAM()SCAPE_Press_Conference.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/NCT_Dream_at_DREAM%28%29SCAPE_Press_Conference.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1318,
-     "height": 586,
-     "sha1": "a3c1ef725f48337f7321d24b5a3c1cf76d384db4",
-     "author": "K-POPIT 케이팝잇 (TV Ten)",
+     "page": "https://commons.wikimedia.org/wiki/File:20230815_Huang_Ren-jun.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/20230815_Huang_Ren-jun.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1100,
+     "height": 1480,
+     "sha1": "e43415f323e4178efec77625e884afcd3ab7b0a5",
+     "author": "K-POPIT 케이팝잇",
      "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
      "licence": "CC BY 3.0",
      "licence_url": "https://creativecommons.org/licenses/by/3.0",
      "share_alike": false,
-     "date": "2024-03-25",
+     "date": "2023-08-15",
      "date_precision": "day",
-     "event": "NCT Dream at DREAM()SCAPE Press Conference",
+     "event": "Huang Ren-jun",
      "stage": false,
-     "quality": 1,
+     "quality": 2,
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "a person in the frame is not identified; a person in the frame is not identified"
     }
    ]
   },
@@ -20522,6 +17487,29 @@ declare
    "group": null,
    "locked": false,
    "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:260507_Danielle_June_Marsh.png",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/260507_Danielle_June_Marsh.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 577,
+     "height": 721,
+     "sha1": "85d814f69731805813b5f2c6623fa1d6d782d567",
+     "author": "Upload: K-BUZZ",
+     "author_url": "https://www.youtube.com/@KBUZZ",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-05-07",
+     "date_precision": "day",
+     "event": "Member of NewJeans",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
     {
      "status": "pending",
      "source": "commons",
@@ -20556,7 +17544,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Ni-Ki_at_Love_Your_W_event_October_14_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Ni-Ki_at_Love_Your_W_event_October_14_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20576,7 +17564,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -20818,6 +17806,29 @@ declare
     {
      "status": "auto",
      "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Nmixx_in_Frankfurt_20260324_(2).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Nmixx_in_Frankfurt_20260324_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 4032,
+     "height": 2268,
+     "sha1": "acf6113a8f5694ebb5e3e6fd8936257755fe85bc",
+     "author": "PFNKa",
+     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:PFNKa&amp;action=edit&amp;redlink=1",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-03-24",
+     "date_precision": "day",
+     "event": "Nmixx in Frankfurt (2)",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:NMIXX_(55196436600).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/NMIXX_%2855196436600%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
      "width": 3024,
@@ -20908,7 +17919,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Nmixx_at_Music_Bank_on_20240830.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Nmixx_at_Music_Bank_on_20240830.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -20928,30 +17939,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_NMIXX_Airport_Departure_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/11092026_NMIXX_Airport_Departure_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1433,
-     "height": 1079,
-     "sha1": "a678ab3206df52be40d8449432e9f7c536c56203",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 NMIXX Airport Departure 1",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 50,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -20987,7 +17975,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Olivia_Hye_210721.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Olivia_Hye_210721.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21007,7 +17995,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -21190,154 +18178,6 @@ declare
    "group": null,
    "locked": false,
    "photos": []
-  },
-  {
-   "slug": "park-bom-2ne1",
-   "kind": "idol",
-   "name": "Park Bom",
-   "qid": "Q494154",
-   "group": "2ne1",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190330_박봄_롯데백화점_잠실_팬싸인회_2.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/190330_%EB%B0%95%EB%B4%84_%EB%A1%AF%EB%8D%B0%EB%B0%B1%ED%99%94%EC%A0%90_%EC%9E%A0%EC%8B%A4_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3000,
-     "height": 4000,
-     "sha1": "36db92ab90472aa4cfc92b26dbce1a9dec0b92d5",
-     "author": "Explicit",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Explicit",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2019-04-01",
-     "date_precision": "day",
-     "event": "Park Bom at a fansign event at Lotte Department Store in Jam",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "6 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Park_Bom_at_2010_Melon_Music_Awards_4.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Park_Bom_at_2010_Melon_Music_Awards_4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2574,
-     "height": 3861,
-     "sha1": "6f42c830ab15e9c6de9a8e04a8e37241b02ad042",
-     "author": "KIYOUNG KIM",
-     "author_url": null,
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2010-12-15",
-     "date_precision": "day",
-     "event": "Melon Music Awards 2010",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Bom_2009_MAMA_2.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Bom_2009_MAMA_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1288,
-     "height": 1936,
-     "sha1": "b6d3de64e343c6a036e75ff2e2581d83a95af4ce",
-     "author": "Kiyoung Kim",
-     "author_url": null,
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2009-11-21",
-     "date_precision": "day",
-     "event": "Mnet Asian Music Awards 2009",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Park_Bom_at_2010_Melon_Music_Awards_2.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Park_Bom_at_2010_Melon_Music_Awards_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1430,
-     "height": 1873,
-     "sha1": "26aed6e243ff07a3556d177ffb512d4865ec1db0",
-     "author": "Kiyoung Kim",
-     "author_url": null,
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2010-12-15",
-     "date_precision": "day",
-     "event": "2010s hair fashion",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Park_Bom_in_2009.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Park_Bom_in_2009.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1288,
-     "height": 1936,
-     "sha1": "f0d9377139bedcfa53866269fb62732cebf17a12",
-     "author": "KIYOUNG KIM",
-     "author_url": "https://www.flickr.com/people/91077831@N00",
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2009-09-18",
-     "date_precision": "day",
-     "event": "Park Bom in 2009",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Bom\u2013Asia_Song_Fastival.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Bom%E2%80%93Asia_Song_Fastival.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1288,
-     "height": 1936,
-     "sha1": "efe68176b5cc051cd737b0dbdf750c1650bf0f46",
-     "author": "KIYOUNG KIM from Seoul, South Korea",
-     "author_url": "https://www.flickr.com/people/91077831@N00",
-     "licence": "CC BY 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by/2.0",
-     "share_alike": false,
-     "date": "2009-09-18",
-     "date_precision": "day",
-     "event": "Park Bom in the The 6th Asia Song Fastival 2009.",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
   },
   {
    "slug": "pentagon",
@@ -21568,7 +18408,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; someone who is not a member is in the frame"
     },
     {
      "status": "pending",
@@ -21650,7 +18490,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Ive's_Rei_@_OPENING_PROJECTxSATUR_PhotoCall,_12_June_2025_03.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Ive%27s_Rei_%40_OPENING_PROJECTxSATUR_PhotoCall%2C_12_June_2025_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21670,10 +18510,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Ive's_Rei_at_Ralph_Lauren_Hannam_store_opening,_26_March_2025_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Ive%27s_Rei_at_Ralph_Lauren_Hannam_store_opening%2C_26_March_2025_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21693,7 +18533,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -21742,7 +18582,7 @@ declare
      "review": "the number of people in the frame is not stated; a person in the frame is not identified"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20231202_IVE's_Naoi_Rei_at_the_MAMA2023_07.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/20231202_IVE%27s_Naoi_Rei_at_the_MAMA2023_07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21762,109 +18602,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "renjun-nct",
-   "kind": "idol",
-   "name": "Renjun",
-   "qid": "Q60229471",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Huang_Renjun_during_the_opening_ceremony_of_the_C_Festival_2019.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Huang_Renjun_during_the_opening_ceremony_of_the_C_Festival_2019.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "9e72c2374d6fe65869fd8ff177b69962ff076408",
-     "author": "Dispatch",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-05-02",
-     "date_precision": "day",
-     "event": "Huang Renjun during the opening ceremony of the C Festival 2019",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Huang_Renjun_at_24th_Dream_Concert_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Huang_Renjun_at_24th_Dream_Concert_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1892,
-     "height": 2837,
-     "sha1": "b02c43ff7e3e753169ad06b30353a2905bc80329",
-     "author": "Nine Stars",
-     "author_url": "https://www.youtube.com/channel/UCb6uBWNlCA0kyhRln2aa6JA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-05-12",
-     "date_precision": "day",
-     "event": "Dream Concert 2018",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Huang_Renjun_going_to_a_Music_Bank_recording_in_April_2018_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Huang_Renjun_going_to_a_Music_Bank_recording_in_April_2018_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2256,
-     "height": 3114,
-     "sha1": "c8c01da6eaaf1e99ee98cac0092ff9a3a4e35a90",
-     "author": "뉴스인스타 (News In Star)",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-04-20",
-     "date_precision": "day",
-     "event": "Music Bank",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:RJ_Ganteng.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/RJ_Ganteng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 800,
-     "height": 1200,
-     "sha1": "11552e5f1ab07be815227bb61b4f14defc106e39",
-     "author": "SM_NCT Dream Official Twitter",
-     "author_url": null,
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2022-03-13",
-     "date_precision": "day",
-     "event": "RJ Ganteng",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -21900,7 +18638,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Riize_-_2023_Love_Your_W_press_line.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Riize_-_2023_Love_Your_W_press_line.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21920,7 +18658,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -21969,7 +18707,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Hong_Seung-han_at_Riize_signing_event_September_10_2023.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Hong_Seung-han_at_Riize_signing_event_September_10_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -21989,7 +18727,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -22011,62 +18749,6 @@ declare
      "quality": 1,
      "fx": 50,
      "fy": 50,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "riku-nct",
-   "kind": "idol",
-   "name": "Riku",
-   "qid": "Q122309465",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_13.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/2026_NCT_WISH_fansigning_13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "25b11ed0fd8c73e4b49b73911a4f7b8fd8961d78",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-15",
-     "date_precision": "day",
-     "event": "2026 NCT WISH fansigning 13",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Maeda_Riku_Music_Core.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Maeda_Riku_Music_Core.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 567,
-     "height": 939,
-     "sha1": "4050d2968b76dff45e28a952403e39c2fe112314",
-     "author": "아이도루러브",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-28",
-     "date_precision": "day",
-     "event": "Maeda Riku Music Core",
-     "stage": true,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
      "news_only": false,
      "review": ""
     }
@@ -22170,7 +18852,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "7 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 7 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -22193,7 +18875,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -22342,39 +19024,6 @@ declare
    ]
   },
   {
-   "slug": "ryo-nct",
-   "kind": "idol",
-   "name": "Ryo",
-   "qid": "Q123153864",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_03.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/2026_NCT_WISH_fansigning_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "c54a87516b6035efebc3a6f1624ece68c97ae2f7",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-15",
-     "date_precision": "day",
-     "event": "2026 NCT WISH fansigning 03",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    }
-   ]
-  },
-  {
    "slug": "ryujin-itzy",
    "kind": "idol",
    "name": "Ryujin",
@@ -22429,7 +19078,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Shin_Ryu-jin_221209.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Shin_Ryu-jin_221209.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22449,10 +19098,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:251110_Shin_Ryujin_from_ITZY.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/251110_Shin_Ryujin_from_ITZY.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22472,10 +19121,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Shin_Ryu-jin_(신류진)_230513.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Shin_Ryu-jin_%28%EC%8B%A0%EB%A5%98%EC%A7%84%29_230513.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22495,10 +19144,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:ITZY's_Shin_Ryujin_in_August_2023_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/34/ITZY%27s_Shin_Ryujin_in_August_2023_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22518,7 +19167,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -22748,7 +19397,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230630_Sakura_(LE_SSERAFIM).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/20230630_Sakura_%28LE_SSERAFIM%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22768,10 +19417,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:221013_Sakura_(LE_SSERAFIM)_Airport_Departure.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/81/221013_Sakura_%28LE_SSERAFIM%29_Airport_Departure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22791,10 +19440,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20241018_Le_Sserafim's_Sakura_Miyawaki_06.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/20241018_Le_Sserafim%27s_Sakura_Miyawaki_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22814,40 +19463,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "sakuya-nct",
-   "kind": "idol",
-   "name": "Sakuya",
-   "qid": "Q122363261",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_05.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/2026_NCT_WISH_fansigning_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "a5df70109e77abe3a7f3d8d2418da470e95d56f1",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-15",
-     "date_precision": "day",
-     "event": "2026 NCT WISH fansigning 2026-02-15",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons; 2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -22975,7 +19591,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20260713_ATEEZ_Choi_San_NARS_PhotoCall.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/33/20260713_ATEEZ_Choi_San_NARS_PhotoCall.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -22995,7 +19611,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -23156,7 +19772,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:2019_SS_서울패션위크_-_Sanha_04.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/3/37/2019_SS_%EC%84%9C%EC%9A%B8%ED%8C%A8%EC%85%98%EC%9C%84%ED%81%AC_-_Sanha_04.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -23176,10 +19792,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Yoon_San-ha_during_the_'Incense_showcase'_photo_time_in_2023.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Yoon_San-ha_during_the_%27Incense_showcase%27_photo_time_in_2023.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -23199,7 +19815,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -23225,7 +19841,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sanha-ASTRO12-1.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Sanha-ASTRO12-1.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -23245,7 +19861,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -23805,85 +20421,6 @@ declare
    ]
   },
   {
-   "slug": "seunghan-riize",
-   "kind": "idol",
-   "name": "Seunghan",
-   "qid": "Q131154617",
-   "group": "riize",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hong_Seunghan_at_fan_signing_event_10_Sept_2023-3.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Hong_Seunghan_at_fan_signing_event_10_Sept_2023-3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1688,
-     "height": 2224,
-     "sha1": "0bb1e80e4a9ffc0e495d94c1671e1323abfbbe92",
-     "author": "TV10 티비텐",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-10",
-     "date_precision": "day",
-     "event": "Hong Seunghan at fan signing event 10 Sept 2023-3",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hong_Seunghan_-_Sealook_OST_Behind_The_Scenes.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Hong_Seunghan_-_Sealook_OST_Behind_The_Scenes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 865,
-     "height": 1081,
-     "sha1": "2d269a41976b683251fea4ab42ab68473e52c8dd",
-     "author": "SEALOOK Official",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-05",
-     "date_precision": "day",
-     "event": "Hong Seunghan - Sealook OST Behind The Scenes",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Hong_Seunghan_-_September_2023_Thailand.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Hong_Seunghan_-_September_2023_Thailand.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 454,
-     "height": 660,
-     "sha1": "6f9f5fa3211a9fc2e49efcb6a8aff96b9c96a7e2",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-26",
-     "date_precision": "day",
-     "event": "Hong Seunghan - September 2023 Thailand",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "seungkwan-seventeen",
    "kind": "idol",
    "name": "Seungkwan",
@@ -24086,7 +20623,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:240919_Stray_Kids_Seungmin.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/240919_Stray_Kids_Seungmin.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -24106,10 +20643,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20240503_Kim_Seungmin_of_Stray_Kids.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/20240503_Kim_Seungmin_of_Stray_Kids.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -24129,7 +20666,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -24328,15 +20865,6 @@ declare
    ]
   },
   {
-   "slug": "sheon-billlie",
-   "kind": "idol",
-   "name": "Sheon",
-   "qid": "Q117747301",
-   "group": "billlie",
-   "locked": false,
-   "photos": []
-  },
-  {
    "slug": "shinee",
    "kind": "group",
    "name": "SHINee",
@@ -24434,7 +20962,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date; someone who is not a member is in the frame"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file; someone who is not a member is in the frame"
     },
     {
      "status": "auto",
@@ -24541,108 +21069,6 @@ declare
    ]
   },
   {
-   "slug": "shotaro-riize",
-   "kind": "idol",
-   "name": "Shotaro",
-   "qid": "Q104604557",
-   "group": "riize",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Shotaro_of_Riize_at_the_2024_Melon_Music_Awards.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Shotaro_of_Riize_at_the_2024_Melon_Music_Awards.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1098,
-     "height": 1398,
-     "sha1": "5ff9aac9dc5a7571a7336f922ac67a82784ac122",
-     "author": "TenAsia",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-11-30",
-     "date_precision": "day",
-     "event": "Melon Music Awards 2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20231124_Osaki_Shotaro_(Riize).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/20231124_Osaki_Shotaro_%28Riize%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1020,
-     "height": 1280,
-     "sha1": "d29523ffb4e045d66cd395bda488fc5abc6d4118",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-24",
-     "date_precision": "day",
-     "event": "Osaki Shotaro (Riize)",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Osaki_Shotaro_-_Sealook_OST_Behind_The_Scenes.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Osaki_Shotaro_-_Sealook_OST_Behind_The_Scenes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 794,
-     "height": 902,
-     "sha1": "e30ef850911ace798b6c56b2522b39e7a68e9976",
-     "author": "SEALOOK Official",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-05",
-     "date_precision": "day",
-     "event": "Osaki Shotaro - Sealook OST Behind The Scenes",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:230910Osaki_Shotaro.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/230910Osaki_Shotaro.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 624,
-     "height": 851,
-     "sha1": "cdb1ee16d0e7777b5637081b8553664f852adbf0",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-10",
-     "date_precision": "day",
-     "event": "230910Osaki Shotaro",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "shownu-monsta-x",
    "kind": "idol",
    "name": "Shownu",
@@ -24674,7 +21100,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Shownu_at_Delvaux_in_May_2023.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Shownu_at_Delvaux_in_May_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -24694,7 +21120,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -24745,15 +21171,15 @@ declare
    ]
   },
   {
-   "slug": "shuhua-i-dle",
+   "slug": "shuhua-g-i-dle",
    "kind": "idol",
    "name": "Shuhua",
    "qid": "Q55287305",
-   "group": "gidle",
+   "group": "g-i-dle",
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Shuhua_Yeh_portrait_at_TIFF_2026.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Shuhua_Yeh_portrait_at_TIFF_2026.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -24773,10 +21199,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20250921_아이들_슈화,_인천공항_출국_I-DLE_SHUHUA_Airport_Departure.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/20250921_%EC%95%84%EC%9D%B4%EB%93%A4_%EC%8A%88%ED%99%94%2C_%EC%9D%B8%EC%B2%9C%EA%B3%B5%ED%95%AD_%EC%B6%9C%EA%B5%AD_I-DLE_SHUHUA_Airport_Departure.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -24796,10 +21222,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:(G)I-DLE's_Shuhua_on_June_2023_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/%28G%29I-DLE%27s_Shuhua_on_June_2023_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -24819,7 +21245,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -24885,210 +21311,6 @@ declare
      "event": "Shuhua attends the Marie Claire Asia Star Awards 2026 in Oct",
      "stage": false,
      "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "sinb-gfriend",
-   "kind": "idol",
-   "name": "SinB",
-   "qid": "Q21709909",
-   "group": "gfriend",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:200215_압구정_팬싸인회_신비.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/200215_%EC%95%95%EA%B5%AC%EC%A0%95_%ED%8C%AC%EC%8B%B8%EC%9D%B8%ED%9A%8C_%EC%8B%A0%EB%B9%84.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1904,
-     "height": 2855,
-     "sha1": "68c4130f39082e898d032a90df1c20e1cf4a79db",
-     "author": "친한친구",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2020-02-15",
-     "date_precision": "day",
-     "event": "200215 압구정 팬싸인회 신비",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:200209_양천_팬사인회_유주_신비_(2).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/94/200209_%EC%96%91%EC%B2%9C_%ED%8C%AC%EC%82%AC%EC%9D%B8%ED%9A%8C_%EC%9C%A0%EC%A3%BC_%EC%8B%A0%EB%B9%84_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2438,
-     "height": 3657,
-     "sha1": "01d613e68c8867317acda77eb5a7dd8e2acf5ad0",
-     "author": "Mainline",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2020-02-09",
-     "date_precision": "day",
-     "event": "200209 양천 팬사인회",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:200207_당산_팬사인회_신비.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/200207_%EB%8B%B9%EC%82%B0_%ED%8C%AC%EC%82%AC%EC%9D%B8%ED%9A%8C_%EC%8B%A0%EB%B9%84.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2479,
-     "height": 3719,
-     "sha1": "4c2283ee31d4a65791f8526b7ce31e3dc5e898e4",
-     "author": "Mainline",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2020-02-07",
-     "date_precision": "day",
-     "event": "200207 당산 팬사인회",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:191114_도쿄_악수회_신비_(5).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/191114_%EB%8F%84%EC%BF%84_%EC%95%85%EC%88%98%ED%9A%8C_%EC%8B%A0%EB%B9%84_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1969,
-     "height": 2954,
-     "sha1": "0311d1aed34265f284eea12739034c32b2c16d0b",
-     "author": "Mainline",
-     "author_url": null,
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2019-11-14",
-     "date_precision": "day",
-     "event": "191114 도쿄 악수회",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190701_쇼케이스_신비_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/190701_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%8B%A0%EB%B9%84_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "b04ac3fb5e146a3c2e4f8dbcac6f99f4cfb76af1",
-     "author": "친한친구",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2019-07-01",
-     "date_precision": "day",
-     "event": "190701 쇼케이스",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:SinB_in_2019_8.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/25/SinB_in_2019_8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2037,
-     "height": 2932,
-     "sha1": "78e97e2eaaf098156548587c1f857d07cdd49f25",
-     "author": "Mainline",
-     "author_url": null,
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2019-04-04",
-     "date_precision": "day",
-     "event": "SinB in 2019",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "sion-nct",
-   "kind": "idol",
-   "name": "Sion",
-   "qid": "Q122272723",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_08.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/2026_NCT_WISH_fansigning_08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "866b5f50d19747ec1bbf9d62bf88ff315bb9def5",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-15",
-     "date_precision": "day",
-     "event": "2026 NCT WISH fansigning 08",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Oh_Sion_Music_Core.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Oh_Sion_Music_Core.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1020,
-     "height": 1446,
-     "sha1": "c822110726f6cb3b963ebae1ded853194053a938",
-     "author": "아이도루러브",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-28",
-     "date_precision": "day",
-     "event": "Oh Sion Music Core",
-     "stage": true,
-     "quality": 2,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -25255,117 +21477,6 @@ declare
    ]
   },
   {
-   "slug": "siyoon-billlie",
-   "kind": "idol",
-   "name": "Siyoon",
-   "qid": "Q117805511",
-   "group": "billlie",
-   "locked": false,
-   "photos": []
-  },
-  {
-   "slug": "sohee-riize",
-   "kind": "idol",
-   "name": "Sohee",
-   "qid": "Q123528913",
-   "group": "riize",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:LEE_SOHEE_LYCKY.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/LEE_SOHEE_LYCKY.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 2250,
-     "sha1": "16e7f31aa801a4b1f9ca55ddfdff4ae255d4e89a",
-     "author": "@RIIZE_official",
-     "author_url": null,
-     "licence": "CC0",
-     "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-     "share_alike": false,
-     "date": "2024-07-26",
-     "date_precision": "day",
-     "event": "LEE SOHEE LYCKY",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sohee_of_Riize_at_the_2024_Melon_Music_Awards.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Sohee_of_Riize_at_the_2024_Melon_Music_Awards.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 930,
-     "height": 1320,
-     "sha1": "27fb4e1c8985be9d8a28037f6b3b988c5f0a8994",
-     "author": "TenAsia",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-11-30",
-     "date_precision": "day",
-     "event": "Melon Music Awards 2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20231124_Lee_So-hee_(Riize).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/20231124_Lee_So-hee_%28Riize%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1020,
-     "height": 1280,
-     "sha1": "42a2a95a1c63476011591c77fbfbce2d4b82fc53",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-24",
-     "date_precision": "day",
-     "event": "Lee So-hee (Riize)",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Lee_Sohee_-_Sealook_OST_Behind_The_Scenes.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Lee_Sohee_-_Sealook_OST_Behind_The_Scenes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 742,
-     "height": 951,
-     "sha1": "89cfdce8f28601b0d05636deef6d35a658c09894",
-     "author": "SEALOOK Official",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-05",
-     "date_precision": "day",
-     "event": "Lee Sohee - Sealook OST Behind The Scenes",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "solar-mamamoo",
    "kind": "idol",
    "name": "Solar",
@@ -25374,7 +21485,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:171118_당진청년의날_토크&뮤직콘서트_마마무_솔라_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/98/171118_%EB%8B%B9%EC%A7%84%EC%B2%AD%EB%85%84%EC%9D%98%EB%82%A0_%ED%86%A0%ED%81%AC%26%EB%AE%A4%EC%A7%81%EC%BD%98%EC%84%9C%ED%8A%B8_%EB%A7%88%EB%A7%88%EB%AC%B4_%EC%86%94%EB%9D%BC_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25394,10 +21505,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Mamamoo_솔라(Solar)_in_May_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Mamamoo_%EC%86%94%EB%9D%BC%28Solar%29_in_May_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25417,7 +21528,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -25443,7 +21554,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:171028_무럭무럭_팬미팅_마마무_솔라_미리보기_04.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/171028_%EB%AC%B4%EB%9F%AD%EB%AC%B4%EB%9F%AD_%ED%8C%AC%EB%AF%B8%ED%8C%85_%EB%A7%88%EB%A7%88%EB%AC%B4_%EC%86%94%EB%9D%BC_%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25463,10 +21574,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:171015_KB배구_홈개막전_축하공연_마마무_솔라_미리보기_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/171015_KB%EB%B0%B0%EA%B5%AC_%ED%99%88%EA%B0%9C%EB%A7%89%EC%A0%84_%EC%B6%95%ED%95%98%EA%B3%B5%EC%97%B0_%EB%A7%88%EB%A7%88%EB%AC%B4_%EC%86%94%EB%9D%BC_%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25486,10 +21597,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:171128_이투스콘서트_마마무_솔라_미리보기_04.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/171128_%EC%9D%B4%ED%88%AC%EC%8A%A4%EC%BD%98%EC%84%9C%ED%8A%B8_%EB%A7%88%EB%A7%88%EB%AC%B4_%EC%86%94%EB%9D%BC_%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25509,12 +21620,12 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
   {
-   "slug": "soobin-tomorrow-x-together",
+   "slug": "soobin-txt",
    "kind": "idol",
    "name": "Soobin",
    "qid": "Q62396828",
@@ -25545,7 +21656,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Choi_Soo-bin_at_a_Dior_event_in_2025_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Choi_Soo-bin_at_a_Dior_event_in_2025_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25565,7 +21676,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -25658,39 +21769,6 @@ declare
      "fy": 30,
      "news_only": false,
      "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "soojin-i-dle",
-   "kind": "idol",
-   "name": "Soojin",
-   "qid": "Q61100297",
-   "group": "gidle",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Seo_Soo-jin_of_(G)I-DLE_in_2020_02.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Seo_Soo-jin_of_%28G%29I-DLE_in_2020_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2110,
-     "height": 1858,
-     "sha1": "7034ecfd12e09a2cb3ffb417bf9b2ef68d3fd30f",
-     "author": "사진기자머길",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2020-08-14",
-     "date_precision": "day",
-     "event": "Captured picture of Seo Soo-jin from Youtube \"[4K] (여자)아이들 수",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -25874,7 +21952,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Katseye_Sophia.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Katseye_Sophia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25894,7 +21972,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -25908,11 +21986,11 @@ declare
    "photos": []
   },
   {
-   "slug": "soyeon-i-dle",
+   "slug": "soyeon-g-i-dle",
    "kind": "idol",
    "name": "Soyeon",
    "qid": "Q26707915",
-   "group": "gidle",
+   "group": "g-i-dle",
    "locked": false,
    "photos": [
     {
@@ -25962,7 +22040,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:(G)I-DLE's_Soyeon_on_June_2023.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/60/%28G%29I-DLE%27s_Soyeon_on_June_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -25982,10 +22060,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:(G)I-DLE_Airport_Departure_2024_Soyeon_1.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/%28G%29I-DLE_Airport_Departure_2024_Soyeon_1.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -26005,7 +22083,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -26028,10 +22106,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230802_Jeon_Soyeon_07.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/20230802_Jeon_Soyeon_07.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -26051,7 +22129,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -26102,10 +22180,10 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Lee_Felix_of_Stray_Kids_at_the_HERA_photocall,_17_April_2026_(1).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Lee_Felix_of_Stray_Kids_at_the_HERA_photocall%2C_17_April_2026_%281%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -26125,7 +22203,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -26148,7 +22226,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -26194,7 +22272,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -26217,63 +22295,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": "not the whole lineup of that date"
-    }
-   ]
-  },
-  {
-   "slug": "sua-billlie",
-   "kind": "idol",
-   "name": "Sua",
-   "qid": "Q22773742",
-   "group": "billlie",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Moon_SuA_Fancam_220902.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Moon_SuA_Fancam_220902.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 247,
-     "height": 401,
-     "sha1": "b3bf644e3edac79ce3392325463ff137f67c9b73",
-     "author": "mang2goon",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-09-22",
-     "date_precision": "day",
-     "event": "Moon SuA Fancam 220902",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Moon_Sua.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Moon_Sua.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 352,
-     "height": 476,
-     "sha1": "dc1406d455ebcddba40ca5668efbe8849704bb1a",
-     "author": "PlayIN",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-04-28",
-     "date_precision": "day",
-     "event": "Moon Sua",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "not the whole lineup of that date; Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -26722,15 +22744,6 @@ declare
    ]
   },
   {
-   "slug": "suhyeon-billlie",
-   "kind": "idol",
-   "name": "Suhyeon",
-   "qid": "Q59594164",
-   "group": "billlie",
-   "locked": false,
-   "photos": []
-  },
-  {
    "slug": "suhyun-akmu",
    "kind": "idol",
    "name": "Suhyun",
@@ -26879,256 +22892,6 @@ declare
    ]
   },
   {
-   "slug": "sullyoon-nmixx",
-   "kind": "idol",
-   "name": "Sullyoon",
-   "qid": "Q109307956",
-   "group": "nmixx",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20260320_NMIXX_Amsterdam_concert_06_Sullyoon.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/20260320_NMIXX_Amsterdam_concert_06_Sullyoon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1222,
-     "height": 3471,
-     "sha1": "c54a3de8a726f7442ff82c805d929aba1d88e393",
-     "author": "Robbie Klinkenberg",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Redalert2fan",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-03-20",
-     "date_precision": "day",
-     "event": "2026 concerts in the Netherlands",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sullyoon_of_NMIXX,_July_23,_2024.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Sullyoon_of_NMIXX%2C_July_23%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1741,
-     "height": 2067,
-     "sha1": "3aed61911c50dbc41f8c18611f85275e9b3d7325",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/@_TV10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-07-23",
-     "date_precision": "day",
-     "event": "Sullyoon of NMIXX, July 23, 2024",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:05092026_NMIXX_SULLYOON_Seoul_Fashion_Week_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/35/05092026_NMIXX_SULLYOON_Seoul_Fashion_Week_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1530,
-     "height": 1079,
-     "sha1": "53b64fa741f2d8ed33e1c4d41663396a57ad8130",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-05",
-     "date_precision": "day",
-     "event": "05092026 NMIXX SULLYOON Seoul Fashion Week 1",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:27082025_NMIXX_SULLYOON_ETRO_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/27082025_NMIXX_SULLYOON_ETRO_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 808,
-     "height": 1079,
-     "sha1": "498d7452f02d9731a01fbbd64cd47905a3431720",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2025-08-27",
-     "date_precision": "day",
-     "event": "27082025 NMIXX SULLYOON ETRO 1",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Nmixx's_Sullyoon_in_April_2023.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/73/Nmixx%27s_Sullyoon_in_April_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 882,
-     "height": 1119,
-     "sha1": "164259f42db452128047a806f5e2696b9d5445ee",
-     "author": "K-POPIT 케이팝잇 TV10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-04-22",
-     "date_precision": "day",
-     "event": "Nmixx's Sullyoon in April 2023",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:11092026_Sullyon_NMIXX_Airport_Departure_1.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/11092026_Sullyon_NMIXX_Airport_Departure_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 634,
-     "height": 1078,
-     "sha1": "40af0764883d001fd880a275b447702385baa38c",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-09-11",
-     "date_precision": "day",
-     "event": "11092026 Sullyon NMIXX Airport Departure 1",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "sungchan-riize",
-   "kind": "idol",
-   "name": "Sungchan",
-   "qid": "Q104370500",
-   "group": "riize",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Sungchan_of_Riize_at_the_2024_Melon_Music_Awards.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Sungchan_of_Riize_at_the_2024_Melon_Music_Awards.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 930,
-     "height": 1254,
-     "sha1": "f13a3b8295ab056dabcf17632cca69be0423e774",
-     "author": "TenAsia",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-11-30",
-     "date_precision": "day",
-     "event": "Melon Music Awards 2024",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:20231124_Jung_Sung-chan_(Riize).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/20231124_Jung_Sung-chan_%28Riize%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1020,
-     "height": 1280,
-     "sha1": "0afe8bac5835edd73798d752268c5c26fde1cf77",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-24",
-     "date_precision": "day",
-     "event": "Jung Sung-chan (Riize)",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Jung_Sungchan_-_Sealook_OST_Behind_The_Scenes.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Jung_Sungchan_-_Sealook_OST_Behind_The_Scenes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 837,
-     "height": 1033,
-     "sha1": "0808263f716e7163d072a2e458d9bf15cb1a4927",
-     "author": "SEALOOK Official",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-11-05",
-     "date_precision": "day",
-     "event": "Jung Sungchan - Sealook OST Behind The Scenes",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:230910_Jung_Sungchan.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/230910_Jung_Sungchan.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 850,
-     "height": 1214,
-     "sha1": "a577c23a7216addb9cb45eeacfbf85c51a4cadfe",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-10",
-     "date_precision": "day",
-     "event": "230910 Jung Sungchan",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "sunghoon-enhypen",
    "kind": "idol",
    "name": "Sunghoon",
@@ -27137,7 +22900,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:231026_Park_Sung-hoon_(박성훈).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/231026_Park_Sung-hoon_%28%EB%B0%95%EC%84%B1%ED%9B%88%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -27157,7 +22920,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -27206,7 +22969,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Sunghoon_at_Love_Your_W_event.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Sunghoon_at_Love_Your_W_event.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -27226,10 +22989,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:240408_Park_Sung-hoon_(2).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/240408_Park_Sung-hoon_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -27249,7 +23012,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -27272,7 +23035,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons"
+     "review": "the licence review is still open on Commons; Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -27467,7 +23230,7 @@ declare
    "photos": []
   },
   {
-   "slug": "taehyun-tomorrow-x-together",
+   "slug": "taehyun-txt",
    "kind": "idol",
    "name": "Taehyun",
    "qid": "Q61715235",
@@ -27498,7 +23261,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kang_Tae-hyun_at_a_Dior_event_in_2025_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Kang_Tae-hyun_at_a_Dior_event_in_2025_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -27518,10 +23281,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:TXT_Taehyun_at_a_Dior_Sauvage_Campaign.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/82/TXT_Taehyun_at_a_Dior_Sauvage_Campaign.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -27541,7 +23304,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -27850,7 +23613,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:230513_Kim_Tae-rae_(김태래).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/230513_Kim_Tae-rae_%28%EA%B9%80%ED%83%9C%EB%9E%98%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -27870,7 +23633,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -28111,161 +23874,152 @@ declare
    ]
   },
   {
-   "slug": "tao-exo",
-   "kind": "idol",
-   "name": "Tao",
-   "qid": "Q10769072",
-   "group": "exo",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Tao_Huang_at_the_SMTown_Live_World_Tour_III_in_Seoul_03.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Tao_Huang_at_the_SMTown_Live_World_Tour_III_in_Seoul_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 4009,
-     "height": 2839,
-     "sha1": "e571b3a2f89761a40b6d0c4e356c5b3dc8317448",
-     "author": "My Verse",
-     "author_url": "http://hzt0502.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2012-08-18",
-     "date_precision": "day",
-     "event": "2012 concerts in South Korea",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Edison_Huang_(Tao_Huang)_at_the_Fashion_Kode_2014_05.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Edison_Huang_%28Tao_Huang%29_at_the_Fashion_Kode_2014_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1299,
-     "height": 1844,
-     "sha1": "f4a3e1f38f7394e4825d71208ac73946576ab124",
-     "author": "Jeon Han for Republic of Korea",
-     "author_url": "https://www.flickr.com/photos/koreanet/",
-     "licence": "CC BY-SA 2.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
-     "share_alike": true,
-     "date": "2014-07-16",
-     "date_precision": "day",
-     "event": "Fashion Kode 2014",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Z.TAO_IS_BLUE_Concert_Shanghai.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Z.TAO_IS_BLUE_Concert_Shanghai.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 837,
-     "height": 1081,
-     "sha1": "b17c161fcfbad05daefb14ff7ffd8d6870279c28",
-     "author": "Mydaydream89",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Mydaydream89",
-     "licence": "CC0",
-     "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-     "share_alike": false,
-     "date": "2019-06-15",
-     "date_precision": "day",
-     "event": "Huang Zitao (Z.TAO) at IS BLUE Concert in Shanghai, June 15,",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Edison_Huang_(Tao_Huang)_at_the_EXO_The_Lost_Planet_in_Jakarta_04.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Edison_Huang_%28Tao_Huang%29_at_the_EXO_The_Lost_Planet_in_Jakarta_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 930,
-     "height": 1489,
-     "sha1": "85a20a5d1f196c30f123d2a7765477df9a7c4ff7",
-     "author": "Excentrique",
-     "author_url": "http://excentrique.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2014-09-06",
-     "date_precision": "day",
-     "event": "Concerts in Indonesia",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Edison_Huang_(Tao_Huang)_at_the_MTV_World_Stage_in_Malaysia_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Edison_Huang_%28Tao_Huang%29_at_the_MTV_World_Stage_in_Malaysia_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1231,
-     "height": 1000,
-     "sha1": "a5a1eb171cc7edc0c6ebe5386b77d51f9f56dee8",
-     "author": "Excentrique",
-     "author_url": "http://excentrique.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2013-09-08",
-     "date_precision": "day",
-     "event": "Tao Huang at the MTV World Stage in Malaysia on September 8,",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Tao_Huang_at_the_SMTown_Live_World_Tour_III_in_Seoul_05.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Tao_Huang_at_the_SMTown_Live_World_Tour_III_in_Seoul_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 900,
-     "height": 1284,
-     "sha1": "9e02066aa4e9cecd1f8ed1208fbb9641298fb146",
-     "author": "My Verse",
-     "author_url": "http://hzt0502.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2012-08-18",
-     "date_precision": "day",
-     "event": "SMTown Live World Tour III",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "team",
    "kind": "group",
    "name": "&TEAM",
    "qid": null,
    "group": null,
    "locked": false,
-   "photos": []
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2024-08-28_&TEAM_fan_event_in_Seoul_09.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/2024-08-28_%26TEAM_fan_event_in_Seoul_09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "3c4ac60c7bf2334c8478df889bd09e6f5825f000",
+     "author": "티비텐 TV10",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-08-28",
+     "date_precision": "day",
+     "event": "&TEAM fan event in Seoul 09",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:K_(&TEAM)._April_6,_2026._\"The_Devil_Wears_Prada_2\"_event_in_Tokyo.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/K_%28%26TEAM%29._April_6%2C_2026._%22The_Devil_Wears_Prada_2%22_event_in_Tokyo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1791,
+     "height": 2239,
+     "sha1": "1da9dc928941f1f2b26af486c116d0f9606887dc",
+     "author": "spiKa 10210921",
+     "author_url": null,
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "share_alike": true,
+     "date": "2026-06-06",
+     "date_precision": "day",
+     "event": "K (&TEAM). April 6, 2026. \"The Devil Wears Prada 2\" event in Tokyo",
+     "stage": false,
+     "quality": 4,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:&TEAM_ATA_promotion_02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/%26TEAM_ATA_promotion_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "d00b5c04bca6c6a9e658e1fc412cb1f6ac877042",
+     "author": "K-POPIT 케이팝잇",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2026-09-02",
+     "date_precision": "day",
+     "event": "&TEAM ATA promotion 02",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "the licence review is still open on Commons"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2025-12-29_&Team_for_Marie_Claire_02.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/2025-12-29_%26Team_for_Marie_Claire_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "8bf11607cdfdda3e4f3aa0181ed8e4ac7506bbad",
+     "author": "Marie Claire Korea",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-12-29",
+     "date_precision": "day",
+     "event": "&Team for Marie Claire 02",
+     "stage": false,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "the licence review is still open on Commons"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2025-11-18_&TEAM_performing_Mismatch_for_SBS_Radio_01.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/2025-11-18_%26TEAM_performing_Mismatch_for_SBS_Radio_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3840,
+     "height": 2160,
+     "sha1": "b538a710aaa2e8960c3581583dd6c798fff3b1db",
+     "author": "SBS Radio 에라오",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2025-11-18",
+     "date_precision": "day",
+     "event": "&TEAM performing Mismatch for SBS Radio 01",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "the licence review is still open on Commons"
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:241002_&Team_(3).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/1/17/241002_%26Team_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1360,
+     "height": 698,
+     "sha1": "686ce732da50f90e72e56b1115e356480bc7662f",
+     "author": "nacco",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2024-10-02",
+     "date_precision": "day",
+     "event": "241002 &Team (3)",
+     "stage": false,
+     "quality": 2,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    }
+   ]
   },
   {
    "slug": "ten-nct",
@@ -28869,39 +24623,6 @@ declare
    ]
   },
   {
-   "slug": "tsuki-billlie",
-   "kind": "idol",
-   "name": "Tsuki",
-   "qid": "Q111113517",
-   "group": "billlie",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:220919_Billlie_Tsuki.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/220919_Billlie_Tsuki.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 716,
-     "height": 946,
-     "sha1": "e2df10838ee0b765832bbff9574aed7107ff5394",
-     "author": "티비텐",
-     "author_url": "https://youtube.com/user/tenasia10",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-09-19",
-     "date_precision": "day",
-     "event": "220919 Billlie Tsuki",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "twice",
    "kind": "group",
    "name": "TWICE",
@@ -29159,7 +24880,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Tomorrow_X_Together_at_a_Dior_event,_April_18,_2025.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Tomorrow_X_Together_at_a_Dior_event%2C_April_18%2C_2025.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -29179,7 +24900,7 @@ declare
      "fx": 50,
      "fy": 50,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -29307,7 +25028,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Tzuyu_at_Gucci_Ancora_on_05032024_(5).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Tzuyu_at_Gucci_Ancora_on_05032024_%285%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -29327,7 +25048,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -29350,155 +25071,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
-    }
-   ]
-  },
-  {
-   "slug": "umji-gfriend",
-   "kind": "idol",
-   "name": "Umji",
-   "qid": "Q24572927",
-   "group": "gfriend",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:220226_팬사인회_(7).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/220226_%ED%8C%AC%EC%82%AC%EC%9D%B8%ED%9A%8C_%287%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2066,
-     "height": 3099,
-     "sha1": "b78b3d452b3169f3cb1f009760d3b31a9af29a61",
-     "author": "My Ode",
-     "author_url": "https://odetogf.tistory.com/",
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2022-02-26",
-     "date_precision": "day",
-     "event": "Umji in 2022",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:191005_에버랜드_라이브_파워_뮤직_엄지_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/25/191005_%EC%97%90%EB%B2%84%EB%9E%9C%EB%93%9C_%EB%9D%BC%EC%9D%B4%EB%B8%8C_%ED%8C%8C%EC%9B%8C_%EB%AE%A4%EC%A7%81_%EC%97%84%EC%A7%80_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3000,
-     "height": 2000,
-     "sha1": "84c91b060b9913d4a53ad8b14453b80a3ee6a81c",
-     "author": "친한친구",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2019-10-05",
-     "date_precision": "day",
-     "event": "191005 에버랜드 라이브 파워 뮤직",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190712_뮤뱅_출근_엄지_(1).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/190712_%EB%AE%A4%EB%B1%85_%EC%B6%9C%EA%B7%BC_%EC%97%84%EC%A7%80_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1947,
-     "height": 2727,
-     "sha1": "e4bc9ae47b573c0921bbbfec8b844d914401d12c",
-     "author": "My Ode",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2019-07-12",
-     "date_precision": "day",
-     "event": "190712 뮤뱅 출근 엄지",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190701_쇼케이스_엄지_(6).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/190701_%EC%87%BC%EC%BC%80%EC%9D%B4%EC%8A%A4_%EC%97%84%EC%A7%80_%286%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3000,
-     "sha1": "1d67e4c56c9715ab20b63f6da1fd1b853e4e84ff",
-     "author": "친한친구",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2019-07-01",
-     "date_precision": "day",
-     "event": "190701 쇼케이스",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190531_코엑스_K-POP_페스티벌_(9).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/65/190531_%EC%BD%94%EC%97%91%EC%8A%A4_K-POP_%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%289%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1907,
-     "height": 2861,
-     "sha1": "e277f46f3b76de5faba90e00bd1084332cb01204",
-     "author": "My Ode",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2019-05-31",
-     "date_precision": "day",
-     "event": "190531 코엑스 K-POP 페스티벌",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:170803_컬투쇼_엄지.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/170803_%EC%BB%AC%ED%88%AC%EC%87%BC_%EC%97%84%EC%A7%80.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3400,
-     "height": 2400,
-     "sha1": "765f31473c3b711dcfe2d3bf27f466c5ccb4650a",
-     "author": "spring-jieum",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2017-08-03",
-     "date_precision": "day",
-     "event": "170803 컬투쇼 엄지",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     }
    ]
   },
@@ -30248,154 +25821,6 @@ declare
    ]
   },
   {
-   "slug": "winwin-nct",
-   "kind": "idol",
-   "name": "Winwin",
-   "qid": "Q56259872",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Winwin_at_Dream_Concert_2017.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Winwin_at_Dream_Concert_2017.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2500,
-     "height": 3751,
-     "sha1": "1d90bfa643437f5004c3cb66dfe514a0e643990b",
-     "author": "tenasia10",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2017-06-03",
-     "date_precision": "day",
-     "event": "Dream Concert 2017",
-     "stage": true,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Winwin_during_fanmeeting_in_December_2019_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Winwin_during_fanmeeting_in_December_2019_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 2999,
-     "sha1": "179e08a42c494b9332847447af512182855f4090",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-06",
-     "date_precision": "day",
-     "event": "Winwin during fanmeeting in December 2019 01",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Winwin_going_to_a_Music_Bank_recording_in_March_2018_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Winwin_going_to_a_Music_Bank_recording_in_March_2018_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1500,
-     "height": 2388,
-     "sha1": "74b5f10035076bd6367889448dccbd0935390872",
-     "author": "dispatchsns",
-     "author_url": "https://www.youtube.com/channel/UC1reoal0esOCQkomB97e9wQ",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-03-30",
-     "date_precision": "day",
-     "event": "Music Bank",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Winwin_performing_at_SBS_MTV_The_Show_in_July_2017_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Winwin_performing_at_SBS_MTV_The_Show_in_July_2017_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1163,
-     "height": 1744,
-     "sha1": "697f68ddb7ac6c7be694d09b762c07abd3efc1cc",
-     "author": "DaftTaengk",
-     "author_url": "https://www.youtube.com/channel/UCrTCkJ8377E7JhsMeyLXtKA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2017-07-22",
-     "date_precision": "day",
-     "event": "Winwin performing at SBS MTV The Show in July 2017 01",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Winwin_2018_DREAM_CONCERT.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/14/Winwin_2018_DREAM_CONCERT.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 732,
-     "height": 1266,
-     "sha1": "07d03d173558736f6d1b09ab0eff736c65baed86",
-     "author": "NINE STARS",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2018-05-12",
-     "date_precision": "day",
-     "event": "Winwin 2018 DREAM CONCERT",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Winwin_performing_at_SMTown_Live_World_Tour_VI_in_Seoul_01.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Winwin_performing_at_SMTown_Live_World_Tour_VI_in_Seoul_01.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1000,
-     "height": 1532,
-     "sha1": "004f87d99956b448b605a8c26fded70f6713afba",
-     "author": "DaftTaengk",
-     "author_url": "https://www.youtube.com/channel/UCrTCkJ8377E7JhsMeyLXtKA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2017-07-08",
-     "date_precision": "day",
-     "event": "SMTown Live World Tour VI",
-     "stage": true,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "wonbin-riize",
    "kind": "idol",
    "name": "Wonbin",
@@ -30572,7 +25997,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons"
+     "review": "the licence review is still open on Commons; Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -30677,7 +26102,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jeon_Won-woo_for_10asia_Magazine_February_2016_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Jeon_Won-woo_for_10asia_Magazine_February_2016_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -30697,7 +26122,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -30779,7 +26204,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jang_Won-young_of_Ive_in_Incheon_Airport,_September_7,_2024.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Jang_Won-young_of_Ive_in_Incheon_Airport%2C_September_7%2C_2024.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -30799,10 +26224,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:251204_Jang_Wonyoung.PNG",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/251204_Jang_Wonyoung.PNG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -30822,10 +26247,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jang_Won-young_of_Ive,_October_15,_2025_(4).png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Jang_Won-young_of_Ive%2C_October_15%2C_2025_%284%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -30845,7 +26270,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -30871,7 +26296,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20241010_Wonyoung_for_Tommy_Hilfiger_05.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/20241010_Wonyoung_for_Tommy_Hilfiger_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -30891,109 +26316,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "woojin-stray-kids",
-   "kind": "idol",
-   "name": "Woojin",
-   "qid": "Q61100680",
-   "group": "stray-kids",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:190419_Stray_Kids_宇珍.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/190419_Stray_Kids_%E5%AE%87%E7%8F%8D.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1431,
-     "height": 1885,
-     "sha1": "81a3f8408426fd0a0d22ca413dc5435bffb5c42a",
-     "author": "NINE STARS",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-04-19",
-     "date_precision": "day",
-     "event": "​Stray Kids 宇珍於2019年4月19日在KBS音樂銀行上班路的媒體拍攝",
-     "stage": false,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:KimWoojin-230903-SBSRadio.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/KimWoojin-230903-SBSRadio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1101,
-     "height": 1467,
-     "sha1": "efe561fd44c643f1318da443bfdb2c193c6d31f4",
-     "author": "Seoul Broadcasting System",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2023-09-03",
-     "date_precision": "day",
-     "event": "South Korean singer Kim Woojin performing \"On My Way\" at SBS",
-     "stage": true,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Woojin_at_the_2019_Golden_Disc_Awards.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Kim_Woojin_at_the_2019_Golden_Disc_Awards.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1150,
-     "height": 1610,
-     "sha1": "830843d89f84a02e5ad9822dca546c9fb421dbf1",
-     "author": "Newsen",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-01-06",
-     "date_precision": "day",
-     "event": "South Korean singer Kim Woojin with Stray Kids at the 2019 G",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kim_Woojin_for_Marie_Claire_Korea,_2019.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Kim_Woojin_for_Marie_Claire_Korea%2C_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 593,
-     "height": 800,
-     "sha1": "8e4f53610ab7180e0e830349de7a1339fb73b5c1",
-     "author": "Marie Claire Korea",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-03-26",
-     "date_precision": "day",
-     "event": "South Korean singer Kim Woojin in a photoshoot for Marie Cla",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -31052,7 +26375,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Jung_Woo_Young_at_Paris_Fashion_Week.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Jung_Woo_Young_at_Paris_Fashion_Week.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -31072,7 +26395,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -31141,7 +26464,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons"
+     "review": "the licence review is still open on Commons; Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -31294,141 +26617,6 @@ declare
    ]
   },
   {
-   "slug": "xiaojun-nct",
-   "kind": "idol",
-   "name": "Xiaojun",
-   "qid": "Q67975453",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Xiaojun_during_fanmeeting_in_December_2019_02.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Xiaojun_during_fanmeeting_in_December_2019_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3001,
-     "sha1": "bc6bce15439512ed19eb963a34d417be2073d703",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-06",
-     "date_precision": "day",
-     "event": "Xiaojun during fanmeeting in December 2019 02",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Xiaojun_at_Gimpo_Airport2.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Xiaojun_at_Gimpo_Airport2.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 872,
-     "height": 1108,
-     "sha1": "bdedc5b486533a7760dcc9d05aeb5f237577444a",
-     "author": "NewsInstar",
-     "author_url": "https://www.youtube.com/channel/UCJBqBa1rBjefsNt_02ybHkA",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-01",
-     "date_precision": "day",
-     "event": "Xiaojun at Gimpo Airport2",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "xiaoting-kep1er",
-   "kind": "idol",
-   "name": "Xiaoting",
-   "qid": "Q109108495",
-   "group": "kep1er",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Xiaoting_220703.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Xiaoting_220703.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2756,
-     "height": 3628,
-     "sha1": "35aa6f258c403fec9da0b7aa2420e3e5e7e9e90e",
-     "author": "Prettytinggg",
-     "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Prettytinggg&amp;action=edit&amp;redlink=1",
-     "licence": "CC BY 1.0",
-     "licence_url": "https://creativecommons.org/licenses/by/1.0",
-     "share_alike": false,
-     "date": "2022-07-03",
-     "date_precision": "day",
-     "event": "Xiaoting 220703",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:션샤오팅_Shen_Xiao_Ting_Doublast_showcase.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/%EC%85%98%EC%83%A4%EC%98%A4%ED%8C%85_Shen_Xiao_Ting_Doublast_showcase.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 735,
-     "height": 764,
-     "sha1": "2287de363809670386c29bdc5e239e44478ebe05",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-06-20",
-     "date_precision": "day",
-     "event": "션샤오팅 Shen Xiao Ting Doublast showcase",
-     "stage": true,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kep1er_at_the_2022_30th_Hanteo_Music_Awards_on_February_11,_2023_58_(cropped).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Kep1er_at_the_2022_30th_Hanteo_Music_Awards_on_February_11%2C_2023_58_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 808,
-     "height": 1125,
-     "sha1": "b1feae0ccc0473a0192e12a169bdafcf7d3e2c52",
-     "author": "Hiyyihjaleh727",
-     "author_url": "https://commons.wikimedia.org/wiki/User:Hiyyihjaleh727",
-     "licence": "CC BY-SA 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
-     "share_alike": true,
-     "date": "2023-02-11",
-     "date_precision": "day",
-     "event": "Kep1er at the 2022 30th Hanteo Music Awards on February 11, 2023 58 (cropped)",
-     "stage": false,
-     "quality": 2,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the number of people in the frame is not stated"
-    }
-   ]
-  },
-  {
    "slug": "xiumin-exo",
    "kind": "idol",
    "name": "Xiumin",
@@ -31577,62 +26765,6 @@ declare
    ]
   },
   {
-   "slug": "yangyang-nct",
-   "kind": "idol",
-   "name": "Yangyang",
-   "qid": "Q67975872",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Liu_Yangyang_during_fanmeeting_in_December_2019_01.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Liu_Yangyang_during_fanmeeting_in_December_2019_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2000,
-     "height": 3003,
-     "sha1": "1583fd8b7df05bffe8171527c1fce3329f596c67",
-     "author": "Bugaboo.TV",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2019-12-06",
-     "date_precision": "day",
-     "event": "Liu Yangyang during fanmeeting in December 2019 01",
-     "stage": true,
-     "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Yangyang_at_Incheon_Airport200110.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Yangyang_at_Incheon_Airport200110.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 476,
-     "height": 818,
-     "sha1": "802b1688b2c3156be97157fbd9a84523000c95da",
-     "author": "NewsInstar",
-     "author_url": null,
-     "licence": "CC BY-SA 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
-     "share_alike": true,
-     "date": "2020-01-10",
-     "date_precision": "day",
-     "event": "Yangyang at Incheon Airport200110",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
    "slug": "ye-on-hearts2hearts",
    "kind": "idol",
    "name": "Ye-on",
@@ -31673,7 +26805,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Hwang_Ye-ji_(황예지)_220729.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Hwang_Ye-ji_%28%ED%99%A9%EC%98%88%EC%A7%80%29_220729.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -31693,7 +26825,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -31765,7 +26897,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:ITZY's_Hwang_Yeji_in_August_2023_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/ITZY%27s_Hwang_Yeji_in_August_2023_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -31785,7 +26917,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -31823,7 +26955,7 @@ declare
    ]
   },
   {
-   "slug": "yeonjun-tomorrow-x-together",
+   "slug": "yeonjun-txt",
    "kind": "idol",
    "name": "Yeonjun",
    "qid": "Q62396954",
@@ -31831,7 +26963,7 @@ declare
    "locked": false,
    "photos": [
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Choi_Yeon-jun_at_a_Dior_event_in_2025_01.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Choi_Yeon-jun_at_a_Dior_event_in_2025_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -31851,7 +26983,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -31946,7 +27078,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:241014_Yeonjun.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/241014_Yeonjun.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -31966,7 +27098,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -32236,48 +27368,6 @@ declare
      "event": "170714 뮤직뱅크 출근길 레드벨벳",
      "stage": false,
      "quality": 4,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "yeseo-busters",
-   "kind": "idol",
-   "name": "Yeseo",
-   "qid": "Q12582984",
-   "group": "busters",
-   "locked": false,
-   "photos": []
-  },
-  {
-   "slug": "yewon-fifty-fifty",
-   "kind": "idol",
-   "name": "Yewon",
-   "qid": "Q129548065",
-   "group": "fifty-fifty",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:FIFTY_FIFTY_Yewon_at_2024_Billboard_K_Power_100.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/FIFTY_FIFTY_Yewon_at_2024_Billboard_K_Power_100.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 613,
-     "height": 742,
-     "sha1": "ca351c13d886ade5c24bd1dfe8f7cf6d98fb340e",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-08-27",
-     "date_precision": "day",
-     "event": "FIFTY FIFTY Yewon at 2024 Billboard K Power 100",
-     "stage": false,
-     "quality": 1,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -32582,15 +27672,6 @@ declare
    ]
   },
   {
-   "slug": "youngeun-kep1er",
-   "kind": "idol",
-   "name": "Youngeun",
-   "qid": "Q109141485",
-   "group": "kep1er",
-   "locked": false,
-   "photos": []
-  },
-  {
    "slug": "youngjae-got7",
    "kind": "idol",
    "name": "Youngjae",
@@ -32622,7 +27703,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Choi_Youngjae_at_Incheon_airport,_16_June_2025_04.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Choi_Youngjae_at_Incheon_airport%2C_16_June_2025_04.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32642,7 +27723,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -32668,7 +27749,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Choi_Youngjae_for_Dive_Studios'_\"B-Side_Track\"_03.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Choi_Youngjae_for_Dive_Studios%27_%22B-Side_Track%22_03.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32688,10 +27769,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Choi_Youngjae_for_Dive_Studios'_\"B-Side_Track\"_05.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Choi_Youngjae_for_Dive_Studios%27_%22B-Side_Track%22_05.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32711,10 +27792,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Youngjae_in_November_2021.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Youngjae_in_November_2021.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32734,7 +27815,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -32849,7 +27930,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kim_Yugyeom_outside_Music_Bank_studios,_23_March_2018.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Kim_Yugyeom_outside_Music_Bank_studios%2C_23_March_2018.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32869,7 +27950,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -32918,7 +27999,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Kim_Yugyeom_on_October_20,_2017.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Kim_Yugyeom_on_October_20%2C_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32938,7 +28019,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -32974,7 +28055,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Yuha_di_Musinsa_Beauty_Festa_Pop-Up_Store_2025.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Yuha_di_Musinsa_Beauty_Festa_Pop-Up_Store_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -32994,7 +28075,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -33073,7 +28154,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "pending",
@@ -33096,10 +28177,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "3 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 3 people are in the frame; a person in the frame is not identified"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:20230918_An_Yu-jin_(안유진).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/20230918_An_Yu-jin_%28%EC%95%88%EC%9C%A0%EC%A7%84%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33119,10 +28200,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:221128_An_Yu-jin_(IVE).jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/221128_An_Yu-jin_%28IVE%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33142,155 +28223,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "yujin-kep1er",
-   "kind": "idol",
-   "name": "Yujin",
-   "qid": "Q28698283",
-   "group": "kep1er",
-   "locked": false,
-   "photos": [
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Choi_Yu-jin_March_2024.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Choi_Yu-jin_March_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 1278,
-     "height": 2005,
-     "sha1": "58bf6491c014dcfaa35a590ab0fbc103a3b6b591",
-     "author": "티비텐",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-03-25",
-     "date_precision": "day",
-     "event": "Choi Yu-jin March 2024",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:CLC_Sorn,_Seungyeon_&_Yujin,_March_2016.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/CLC_Sorn%2C_Seungyeon_%26_Yujin%2C_March_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 2100,
-     "height": 1206,
-     "sha1": "553afb10186be72e5d3696ef0b0ded62451303ec",
-     "author": "shaq32",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-03-19",
-     "date_precision": "day",
-     "event": "Jang Seung-yeon in 2016",
-     "stage": false,
-     "quality": 3,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Kep1er_YUJIN_Seoul_Fashion_Week.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Kep1er_YUJIN_Seoul_Fashion_Week.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 540,
-     "height": 720,
-     "sha1": "356f02e0341c6e9550598d12cbe59ef7ebc08b75",
-     "author": "Ten Asia",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-05",
-     "date_precision": "day",
-     "event": "Kep1er YUJIN Seoul Fashion Week",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Choi_Yu-jin_at_the_Kep1er_'DOUBLAST'_press_conference_on_June_20,_2022.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Choi_Yu-jin_at_the_Kep1er_%27DOUBLAST%27_press_conference_on_June_20%2C_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 432,
-     "height": 702,
-     "sha1": "bcfccf1f644b50c6ecfea3b2d81554b6be76cf14",
-     "author": "K-POPIT 케이팝잇",
-     "author_url": "https://www.youtube.com/channel/UCY9QGuU9mBLBp_OCRNKeVSw",
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2022-06-20",
-     "date_precision": "day",
-     "event": "Choi Yu-jin at the Kep1er 'DOUBLAST' press conference on June 20, 2022",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:170617_CLC_유진_직찍_@_광교호수공원_(3).jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/170617_CLC_%EC%9C%A0%EC%A7%84_%EC%A7%81%EC%B0%8D_%40_%EA%B4%91%EA%B5%90%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 372,
-     "height": 462,
-     "sha1": "e4f665acc2daed062d48e1e90799fccbf2046846",
-     "author": "KIN730 Photo Archieve",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2017-06-17",
-     "date_precision": "day",
-     "event": "170617 CLC 유진 직찍 @ 광교호수공원 (3)",
-     "stage": false,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:160903_CLC_Choi_Yujin_Asia_Music_Stage.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/160903_CLC_Choi_Yujin_Asia_Music_Stage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 700,
-     "height": 1000,
-     "sha1": "0f82957b11602474936c3dcb7c9561ba2656012b",
-     "author": "147company",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2016-03-18",
-     "date_precision": "day",
-     "event": "160903 CLC Choi Yujin Asia Music Stage",
-     "stage": true,
-     "quality": 1,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -33346,7 +28279,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "2 people are in the frame; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; 2 people are in the frame; a person in the frame is not identified"
     },
     {
      "status": "auto",
@@ -33372,7 +28305,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Yuna_at_Incheon_airport_on_20250209_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Yuna_at_Incheon_airport_on_20250209_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33392,10 +28325,10 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:Shin_Yu-na_(신유나)_220722.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Shin_Yu-na_%28%EC%8B%A0%EC%9C%A0%EB%82%98%29_220722.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33415,7 +28348,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "auto",
@@ -33497,7 +28430,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:ILLIT_Yunah_at_Canada_Goose_Photo_Call.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/ILLIT_Yunah_at_Canada_Goose_Photo_Call.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33517,7 +28450,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -33540,7 +28473,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the licence review is still open on Commons"
+     "review": "the licence review is still open on Commons; Commons shows a personality rights warning on the file"
     }
    ]
   },
@@ -33793,7 +28726,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:260110_Le_Sserafim's_Huh_Yunjin_at_GDA_2026_02.jpg",
      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/260110_Le_Sserafim%27s_Huh_Yunjin_at_GDA_2026_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33813,7 +28746,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -33836,16 +28769,16 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": "the number of people in the frame is not stated; a person in the frame is not identified"
+     "review": "Commons shows a personality rights warning on the file; the number of people in the frame is not stated; a person in the frame is not identified"
     }
    ]
   },
   {
-   "slug": "yuqi-i-dle",
+   "slug": "yuqi-g-i-dle",
    "kind": "idol",
    "name": "Yuqi",
    "qid": "Q55287306",
-   "group": "gidle",
+   "group": "g-i-dle",
    "locked": false,
    "photos": [
     {
@@ -33895,7 +28828,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:(G)I-DLE_YUQI_Airport_Departure_on_20250306_02.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/%28G%29I-DLE_YUQI_Airport_Departure_on_20250306_02.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -33915,7 +28848,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     },
     {
      "status": "pending",
@@ -34129,62 +29062,6 @@ declare
      "event": "230720_YURI_005",
      "stage": false,
      "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": ""
-    }
-   ]
-  },
-  {
-   "slug": "yushi-nct",
-   "kind": "idol",
-   "name": "Yushi",
-   "qid": "Q122293880",
-   "group": "nct",
-   "locked": false,
-   "photos": [
-    {
-     "status": "pending",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:2026_NCT_WISH_fansigning_12.jpg",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/2026_NCT_WISH_fansigning_12.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 3840,
-     "height": 2160,
-     "sha1": "c477501cda7fe804e15c03f7289aee45cd95a81e",
-     "author": "numbuzin",
-     "author_url": null,
-     "licence": "CC BY 4.0",
-     "licence_url": "https://creativecommons.org/licenses/by/4.0",
-     "share_alike": false,
-     "date": "2026-02-15",
-     "date_precision": "day",
-     "event": "2026 NCT WISH fansigning 12",
-     "stage": false,
-     "quality": 5,
-     "fx": 50,
-     "fy": 30,
-     "news_only": false,
-     "review": "the licence review is still open on Commons"
-    },
-    {
-     "status": "auto",
-     "source": "commons",
-     "page": "https://commons.wikimedia.org/wiki/File:Tokuno_Yushi_Music_Core.png",
-     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Tokuno_Yushi_Music_Core.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-     "width": 907,
-     "height": 1245,
-     "sha1": "c88ba05d4164a0c58d1704d13cbc84b6144e3713",
-     "author": "아이도루러브",
-     "author_url": null,
-     "licence": "CC BY 3.0",
-     "licence_url": "https://creativecommons.org/licenses/by/3.0",
-     "share_alike": false,
-     "date": "2024-09-28",
-     "date_precision": "day",
-     "event": "Tokuno Yushi Music Core",
-     "stage": true,
-     "quality": 2,
      "fx": 50,
      "fy": 30,
      "news_only": false,
@@ -34464,7 +29341,7 @@ declare
      "review": ""
     },
     {
-     "status": "auto",
+     "status": "pending",
      "source": "commons",
      "page": "https://commons.wikimedia.org/wiki/File:240531_이브_Yves_at_Music_Bank.png",
      "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/240531_%EC%9D%B4%EB%B8%8C_Yves_at_Music_Bank.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
@@ -34484,7 +29361,7 @@ declare
      "fx": 50,
      "fy": 30,
      "news_only": false,
-     "review": ""
+     "review": "Commons shows a personality rights warning on the file"
     }
    ]
   },

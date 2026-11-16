@@ -5,7 +5,7 @@ Verdicts and counts only: nothing about anyone's age or birth.
 
 ## Subjects
 
-- 353 subjects: 288 people, 65 groups.
+- 293 subjects: 228 people, 65 groups.
 - 10 locked pockets (no photo, shown in the binder as "Carte à venir"), by group:
   - babymonster: 2
   - cortis: 3
@@ -13,39 +13,34 @@ Verdicts and counts only: nothing about anyone's age or birth.
 
 ## Photos
 
-- 1062 auto, 285 pending (the owner's review), 322 out.
+- 720 auto, 430 pending (the owner's review), 276 out.
 - Out, by reason (a photo can have several):
-  - six photos already: 258
-  - already a photo in the game: 46
+  - six photos already: 229
+  - already a photo in the game: 32
   - age rule: minor_at_photo: 9
-  - age rule: unknown_birth_date: 7
+  - the photos of Moonbin are left out: 3
   - age rule: another person in the frame under 18: 3
 
 ## Cards the edition rules will give
 
-- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 1264 cards, pairs counted as two (1082 more). Pending photos open nothing until the owner approves them.
+- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 920 cards, pairs counted as two (738 more). Pending photos open nothing until the owner approves them.
 - Full Art locked (six live photos, none with an honest 2x): 0 subjects.
 
 ## Adult idols with fewer than 2 usable photos
 
-- Athena
 - Carmen
-- Chanelle
+- Cha Eunwoo
+- Chaehyun
 - Chanhyuk
 - D.O.
 - Daesung
-- Daeyoung
-- Dayeon
 - Doyoung
 - Go Won
 - Gunwook
 - Haerin
-- Hana
 - Hanni
-- Haram
-- Haruna
 - Haruto
-- Hikaru
+- Huening Kai
 - Hyein
 - Iroha
 - Jaehyuk
@@ -53,6 +48,7 @@ Verdicts and counts only: nothing about anyone's age or birth.
 - Jay
 - Jeongwoo
 - Jihoon
+- Jin
 - Jinjin
 - Jinyoung
 - Jiung
@@ -60,32 +56,26 @@ Verdicts and counts only: nothing about anyone's age or birth.
 - Juhoon
 - Junghwan
 - Junkyu
-- Kris
+- Keena
+- Kihyun
 - Kyungmin
-- Luhan
+- Lia
 - Martin
 - Minhyuk
 - Minnie
 - Ni-Ki
 - Rami
-- Riku
+- Rei
 - Ruka
-- Ryo
-- Sakuya
 - Sana
-- Sheon
-- Sion
-- Siyoon
-- Soojin
+- Sanha
+- Solar
+- Sophia
 - Soul
 - Stella
-- Suhyeon
 - Sunoo
+- Taehyun
 - Taerae
 - Theo
-- Tsuki
 - Yeojin
-- Yeseo
-- Yewon
-- Youngeun
-- Yushi
+- Yuha
