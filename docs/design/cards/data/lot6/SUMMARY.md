@@ -6,27 +6,25 @@ Verdicts and counts only: nothing about anyone's age or birth.
 ## Subjects
 
 - 351 subjects: 286 people, 65 groups.
-- 14 locked pockets (no photo, shown in the binder as "Carte à venir"), by group:
-  - 2ne1: 1
+- 11 locked pockets (no photo, shown in the binder as "Carte à venir"), by group:
   - babymonster: 2
   - cortis: 3
-  - enhypen: 1
   - hearts2hearts: 5
   - team: 1
-  - treasure: 1
 
 ## Photos
 
-- 1047 auto, 279 pending (the owner's review), 310 out.
+- 1049 auto, 283 pending (the owner's review), 326 out.
 - Out, by reason (a photo can have several):
-  - six photos already: 255
-  - already a photo in the game: 44
+  - six photos already: 254
+  - already a photo in the game: 45
+  - age rule: unknown_birth_date: 16
   - age rule: minor_at_photo: 8
   - age rule: another person in the frame under 18: 3
 
 ## Cards the edition rules will give
 
-- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 1236 cards, pairs counted as two (1054 more). Pending photos open nothing until the owner approves them.
+- Before lot 6 (lot 3 photos only): 182 cards. With the auto photos of lot 6: 1240 cards, pairs counted as two (1058 more). Pending photos open nothing until the owner approves them.
 - Full Art locked (six live photos, none with an honest 2x): 0 subjects.
 
 ## Adult idols with fewer than 2 usable photos

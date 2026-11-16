@@ -16,23 +16,23 @@
 --         4. a log table (cards_harvest_log) of the entities and photos THIS file added, so the rollback removes only those.
 --         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never public.idols: the Kpopdle source
 --         view is counted before and after, and the file refuses if it moved.
--- How:    one jsonb literal below (351 subjects: 286 people, 65 groups, 14 locked, 1326 photos).
+-- How:    one jsonb literal below (351 subjects: 286 people, 65 groups, 11 locked, 1332 photos).
 --         People resolve at apply time by Wikidata id from public.idols (no row, or two: skipped with a notice); groups by slug from public.groups.
 --         Photos get the smallest free slot of 1 to 6 among the live and pending ones.
 -- Why:    goal of 1,000 cards (lot 6): every Kpopdle idol becomes a subject of its own, the groups get up to six photos, and the groups with a minor
 --         show locked pockets instead of a photo.
--- Rows:   at most 352 entities, 1326 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
+-- Rows:   at most 352 entities, 1332 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
 -- Needs:  001 to 003, 102, 103 and 110 applied before (cards_build_catalog, the photo columns of lot 3), public.groups and public.idols.
 --         Apply after a backup, never between 23:50 and 00:30 UTC, then "Reconstruire le catalogue", then pnpm --filter quiz owner:cards.
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_entities' and column_name = 'age_lock';   expect 1
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_age_locks';   expect 1
 -- Verify: select has_function_privilege('anon', 'public.cards_age_locks(date)', 'execute') or has_function_privilege('authenticated', 'public.cards_age_locks(date)', 'execute');   expect f
 -- Verify: select has_function_privilege('service_role', 'public.cards_age_locks(date)', 'execute');   expect t
--- Verify: select count(*) from public.cards_entities where age_lock;   expect at most 14 (the notice "locked pockets"; a locked subject with cards, or without a row to resolve, is not set)
--- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1326)
+-- Verify: select count(*) from public.cards_entities where age_lock;   expect at most 11 (the notice "locked pockets"; a locked subject with cards, or without a row to resolve, is not set)
+-- Verify: select count(*) from public.cards_harvest_log where kind = 'photo';   expect the notice "photos added" (at most 1332)
 -- Verify: select count(*) from public.cards_photos p where not exists (select 1 from public.cards_entities e where e.id = p.entity_id);   expect 0
 -- Verify: select count(*) from public.cards_photos where status in ('auto', 'approved') group by entity_id, slot having count(*) > 1;   expect no row
--- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 14 (the pockets still locked today; fewer when public.idols holds an adult birth date)
+-- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 11 (the pockets still locked today; fewer when public.idols holds an adult birth date)
 -- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of 103 or cards_build_catalog() is missing; when the Kpopdle source would change.
 -- Undo:   116-photos-harvest.rollback.sql (removes only what the log says this file added; refused while a player owns a card of these subjects).
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run adds nothing.
@@ -46,8 +46,147 @@ declare
    "name": "2NE1",
    "qid": null,
    "group": null,
-   "locked": true,
-   "photos": []
+   "locked": false,
+   "photos": [
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:Dara_cropped.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Dara_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 638,
+     "height": 1358,
+     "sha1": "ea1f69b4305b767379ce0bb9b46d883191285325",
+     "author": "Korea.net / Korean Culture and Information Service",
+     "author_url": "http://www.korea.net",
+     "licence": "CC BY-SA 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+     "share_alike": true,
+     "date": "2014-11-15",
+     "date_precision": "day",
+     "event": "\"2ne1\" is a popular Korean hip hop/pop girl group",
+     "stage": false,
+     "quality": 3,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "auto",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:CL_2NE1_3.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/CL_2NE1_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 810,
+     "height": 1100,
+     "sha1": "45f1ab060805d2190d6bceddf2003f893450d955",
+     "author": "Idolgraphy",
+     "author_url": null,
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2013-03-23",
+     "date_precision": "day",
+     "event": "130323 2NE1 at Twin Towers Alive Event Malaysia",
+     "stage": false,
+     "quality": 3,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": ""
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2NE1_2012.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/2NE1_2012.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 3208,
+     "height": 2059,
+     "sha1": "15b848f48c433eba7383927d961d9804565aa446",
+     "author": "the.angrycamel from Singapore, Singapore",
+     "author_url": "https://www.flickr.com/people/11777249@N02",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "share_alike": false,
+     "date": "2012-11-02",
+     "date_precision": "day",
+     "event": "2NE1 performing at Clarke Quay in November 2012",
+     "stage": true,
+     "quality": 5,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2NE1_Galaxy_Stage_in_Phu_Tho_Indoor_Stadium,_August_2013.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/d/de/2NE1_Galaxy_Stage_in_Phu_Tho_Indoor_Stadium%2C_August_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 2880,
+     "height": 799,
+     "sha1": "a6b0d44768bb49d0220f1a3a9e1a4e9bcb7c5a55",
+     "author": "Biodin",
+     "author_url": "https://en.wikipedia.org/wiki/User:Biodin",
+     "licence": "CC BY-SA 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+     "share_alike": true,
+     "date": "2014-08-10",
+     "date_precision": "day",
+     "event": "2014 in Ho Chi Minh City",
+     "stage": true,
+     "quality": 4,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2NE1_AON_at_Shanghai_1.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/2NE1_AON_at_Shanghai_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 1194,
+     "height": 854,
+     "sha1": "a4fd55dc10fe1f01f1df02394ccb66d0d0ed3ade",
+     "author": "刘姝彤",
+     "author_url": null,
+     "licence": "CC BY 3.0",
+     "licence_url": "https://creativecommons.org/licenses/by/3.0",
+     "share_alike": false,
+     "date": "2014-04-11",
+     "date_precision": "day",
+     "event": "All or Nothing World Tour",
+     "stage": true,
+     "quality": 3,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    },
+    {
+     "status": "pending",
+     "source": "commons",
+     "page": "https://commons.wikimedia.org/wiki/File:2NE1_everland_3D_pavilion_2013.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/2NE1_everland_3D_pavilion_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+     "width": 674,
+     "height": 450,
+     "sha1": "c1b36dc87714e6da3ff744dad409580da9c70cb2",
+     "author": "WithEverland",
+     "author_url": "https://www.witheverland.com/",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "share_alike": false,
+     "date": "2013-11-10",
+     "date_precision": "day",
+     "event": "2NE1 Everland 3D hologram concert",
+     "stage": true,
+     "quality": 2,
+     "fx": 50,
+     "fy": 50,
+     "news_only": false,
+     "review": "a person in the frame is not identified"
+    }
+   ]
   },
   {
    "slug": "a-na-hearts2hearts",
@@ -5104,7 +5243,7 @@ declare
    "name": "ENHYPEN",
    "qid": null,
    "group": null,
-   "locked": true,
+   "locked": false,
    "photos": []
   },
   {
@@ -28358,7 +28497,7 @@ declare
    "name": "TREASURE",
    "qid": null,
    "group": null,
-   "locked": true,
+   "locked": false,
    "photos": []
   },
   {
