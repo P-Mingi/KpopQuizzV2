@@ -3,10 +3,11 @@
 //   docs/design/cards/data/lot6/SUMMARY.md    counts only (for minors, only the number of locked pockets a group)
 //   <notes>/locked.md                         PRIVATE: each locked pocket with its group, name and opening month
 //
-//   ../../node_modules/.bin/tsx scripts/cards/verify-harvest.mts --candidates <dir> --people <dir> [--notes <dir>] [--subjects <file>] [--today YYYY-MM-DD]
+//   ../../node_modules/.bin/tsx scripts/cards/verify-harvest.mts --candidates <dir> --people <dir> [--groups <dir>] [--notes <dir>] [--subjects <file>] [--today YYYY-MM-DD]
 //
 // Reads docs/design/cards/data/lot6/subjects.json, <candidates>/<slug>.json (lot 3's CandidateFile), every <people>/*.json (private, birth
-// dates: refused inside the repository, as verify-photos.mts does) and lot 3's photos.json (the photos already in the game). Asks the Commons
+// dates: refused inside the repository, as verify-photos.mts does), every <groups>/*.json (private lineup records, default <notes>/groups: a
+// group photo needs a complete one) and lot 3's photos.json (the photos already in the game). Asks the Commons
 // public API about the candidates of the UNLOCKED subjects only (ten titles a request, one request a second). The rules live in
 // src/lib/cards/harvest-checks.ts.
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -14,7 +15,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { mergePeople, runHarvest, titlesToAsk, type HarvestSubject, type Lot3Subject, type PrivatePerson } from '../../src/lib/cards/harvest-checks';
+import { mergePeople, runHarvest, titlesToAsk, type GroupLineup, type HarvestSubject, type Lot3Subject, type PrivatePerson } from '../../src/lib/cards/harvest-checks';
 import type { CandidateFile, CommonsInfo } from '../../src/lib/cards/photo-checks';
 import { REPO, arg, commonsInfo, fileOfPage, outsideRepo } from './commons-io.mts';
 
@@ -33,7 +34,8 @@ async function main(): Promise<void> {
   const notes = arg('--notes') ?? path.join(os.homedir(), 'kpq-o1/notes/cards-lot6');
   const subjectsFile = arg('--subjects') ?? path.join(LOT6_DIR, 'subjects.json');
   const today = arg('--today') ?? new Date().toISOString().slice(0, 10);
-  for (const f of [cand, peopleDir, notes]) {
+  const groupsDir = arg('--groups') ?? path.join(notes, 'groups');
+  for (const f of [cand, peopleDir, notes, groupsDir]) {
     if (!outsideRepo(f)) throw new Error(`refused: ${f} is private research and must stay outside the repository`);
   }
   const subjects = JSON.parse(readFileSync(subjectsFile, 'utf8')) as HarvestSubject[];
@@ -44,8 +46,10 @@ async function main(): Promise<void> {
     candidates.set(c.slug, c);
   }
   const lot3 = (JSON.parse(readFileSync(LOT3_PHOTOS, 'utf8')) as { subjects: Lot3Subject[] }).subjects;
+  const groups = new Map<string, GroupLineup>();
+  if (existsSync(groupsDir)) for (const f of jsonFiles(groupsDir)) { const g = JSON.parse(readFileSync(f, 'utf8')) as GroupLineup; groups.set(g.slug, g); }
 
-  const run = { subjects, people, candidates, lot3, info: new Map<string, CommonsInfo>(), today };
+  const run = { subjects, people, candidates, lot3, info: new Map<string, CommonsInfo>(), today, groups };
   const titles = titlesToAsk(run, fileOfPage);
   console.log(`asking Commons about ${titles.length} files`);
   run.info = await commonsInfo(titles);

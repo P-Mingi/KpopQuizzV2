@@ -10,8 +10,8 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import {
-  checkHarvestSubject, lockOfGroup, lockOfPerson, mergePeople, namedOthers, runHarvest, titlesToAsk,
-  type ExistingPhoto, type HarvestSubject, type PrivatePerson,
+  checkHarvestSubject, lineupComplete, lockOfGroup, lockOfPerson, mergePeople, namedOthers, runHarvest, titlesToAsk,
+  type ExistingPhoto, type GroupLineup, type HarvestSubject, type PrivatePerson,
 } from './harvest-checks';
 import type { Candidate, CommonsInfo } from './photo-checks';
 
@@ -27,6 +27,12 @@ const LATE = person('Q4', 'Dan Late', '2007-03-01', 'duo');             // 18 on
 const LATE_PEER = person('Q5', 'Eve Peer', '1999-09-09', 'duo');
 const GHOST = person('Q6', 'Fay Ghost', null, 'ghosts');
 const PEOPLE = mergePeople([ADULT, ADULT2, TEEN, LATE, LATE_PEER, GHOST]);
+// The private lineup records: the researcher states the whole lineup of each group (a group photo needs it).
+const GROUPS = new Map<string, GroupLineup>([
+  ['trio', { slug: 'trio', complete: true, members: ['Q1', 'Q2', 'Q3'] }],
+  ['duo', { slug: 'duo', complete: true, members: ['Q4', 'Q5'] }],
+  ['ghosts', { slug: 'ghosts', complete: true, members: ['Q6'] }],
+]);
 
 const sub = (slug: string, kind: 'idol' | 'group', qid: string | null, group: string | null = null): HarvestSubject =>
   ({ slug, kind, name: slug, qid, group, idol_id: null, why: 'kpopdle' });
@@ -40,9 +46,9 @@ const cand = (file: string, date: string, o: { [K in keyof Candidate]?: Candidat
   stage: false, people_visible: 1, who: '', focal: { x: 50, y: 30 }, quality: 4, ...(o as Partial<Candidate>),
 });
 const files = (...cs: Candidate[]) => new Map(cs.map((c) => info(c.file as string)));
-const check = (s: HarvestSubject, cs: Candidate[], existing: ExistingPhoto[] = [], extra: Map<string, CommonsInfo> = new Map(), used = { p: new Set<string>(), h: new Set<string>() }) => {
+const check = (s: HarvestSubject, cs: Candidate[], existing: ExistingPhoto[] = [], extra: Map<string, CommonsInfo> = new Map(), used = { p: new Set<string>(), h: new Set<string>() }, groups: Map<string, GroupLineup> = GROUPS) => {
   const lock = s.kind === 'group' ? lockOfGroup(s.slug, PEOPLE, TODAY) : lockOfPerson(PEOPLE.get(s.qid ?? ''), TODAY);
-  return checkHarvestSubject({ subject: s, lock, existing, candidates: cs, info: new Map([...files(...cs), ...extra]), people: PEOPLE, today: TODAY, usedPages: used.p, usedSha1: used.h });
+  return checkHarvestSubject({ subject: s, lock, existing, candidates: cs, info: new Map([...files(...cs), ...extra]), people: PEOPLE, today: TODAY, groups, usedPages: used.p, usedSha1: used.h });
 };
 const old = (n: number, o: Partial<ExistingPhoto> = {}): ExistingPhoto => ({
   slot: n, status: 'approved', page: `https://commons.wikimedia.org/wiki/File:Old_${n}.jpg`, sha1: `old-${n}`, date: `2022-0${n}-10`, event: `Old ${n}`, width: 3000, height: 4000, ...o,
@@ -144,6 +150,24 @@ describe('harvest: one subject', () => {
     expect(out.map((p) => p.status)).toEqual(['auto', 'out', 'out', 'pending']);
     expect(out[1]!.reasons).toContain('age rule: minor_at_photo');
   });
+  it('leaves out every group photo without a complete lineup record: none, not complete, or a listed member without a people row', () => {
+    const photos = [cand('A.jpg', '2026-01-01', { people_visible: 2, members_visible: 2 })];
+    const without = (g: Map<string, GroupLineup>) => check(sub('duo', 'group', 'Q101'), photos, [], new Map(), undefined, g);
+    for (const g of [
+      new Map<string, GroupLineup>(),
+      new Map<string, GroupLineup>([['duo', { slug: 'duo', complete: false, members: ['Q4', 'Q5'] }]]),
+      new Map<string, GroupLineup>([['duo', { slug: 'duo', complete: true, members: ['Q4', 'Q5', 'Q77'] }]]),
+      new Map<string, GroupLineup>([['duo', { slug: 'duo', complete: true, members: [] }]]),
+    ]) {
+      const out = without(g);
+      expect(out.map((p) => p.status)).toEqual(['out']);
+      expect(out[0]!.reasons).toContain('age rule: unknown_lineup');
+    }
+    expect(lineupComplete('duo', GROUPS, PEOPLE)).toBe(true);
+    expect(lineupComplete('duo', undefined, PEOPLE)).toBe(false);
+    // a member listed under another group does not count for this one
+    expect(lineupComplete('duo', new Map([['duo', { slug: 'duo', complete: true, members: ['Q4', 'Q1'] }]]), PEOPLE)).toBe(false);
+  });
   it('never proposes a photo already in the game: the same page, the same sha1, the same occasion; and counts the six slots', () => {
     const s = sub('ada', 'idol', 'Q1', 'trio');
     const used = { p: new Set<string>(), h: new Set<string>() };
@@ -181,7 +205,7 @@ describe('harvest: the outputs', () => {
   const subjects = [sub('ada', 'idol', 'Q1', 'trio'), sub('bea', 'idol', 'Q2', 'trio'), sub('cleo', 'idol', 'Q3', 'trio'), sub('trio', 'group', 'Q100'), sub('duo', 'group', 'Q101')];
   const cs = [cand('A.jpg', '2026-01-01'), cand('B.jpg', '2026-02-01')];
   const run = () => runHarvest({
-    subjects, people: PEOPLE, today: TODAY, info: files(...cs, cand('G.jpg', '2026-01-01'), cand('H.jpg', '2026-02-01')),
+    subjects, people: PEOPLE, today: TODAY, groups: GROUPS, info: files(...cs, cand('G.jpg', '2026-01-01'), cand('H.jpg', '2026-02-01')),
     candidates: new Map([['ada', { slug: 'ada', kind: 'idol' as const, photos: cs }], ['duo', { slug: 'duo', kind: 'group' as const, photos: [cand('G.jpg', '2026-01-01', { people_visible: 2, members_visible: 2 }), cand('H.jpg', '2026-02-01', { people_visible: 2, members_visible: 2 })] }]]),
     lot3: [{ slug: 'ada', kind: 'idol', photos: [old(1)] }],
   });

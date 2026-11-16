@@ -3,6 +3,8 @@
 // sameOccasion, six at most) and the age rule of lot 2 (age-rule.ts), and adds what lot 6 asks:
 //   - a person under 18 today gets no photo at all; a group with a current member under 18, or with a member whose birth date is unknown
 //     or unconfirmed, gets no photo (both are LOCKED: the binder shows a pocket, the admin knows the opening month);
+//   - a group photo needs the group's private lineup record (groups/<slug>.json) saying the lineup is complete, every member listed in it
+//     with a people row: without it, a member under 18 the research missed could be in the frame (ORCH, 2026-11-16);
 //   - an idol photo with anyone else in the frame (people_visible > 1) is pending at best, and out when any named person is under 18 on
 //     the photo date; the age rule runs on each photo's date from the PRIVATE people files;
 //   - the photos already in the game (lot 3's photos.json) are never proposed again: the same page or sha1 is out, sameOccasion is checked
@@ -33,6 +35,10 @@ export interface ExistingPhoto {
   stage?: boolean; quality?: number;
 }
 export interface Lot3Subject { slug: string; kind: 'idol' | 'group'; photos: ExistingPhoto[] }
+/** One file $HOME/kpq-o1/notes/cards-lot6/groups/<slug>.json (PRIVATE, beside the people files): the researcher's statement that `members`
+ *  (QIDs, current and former) is the WHOLE lineup of the group, read in Wikidata and checked against English Wikipedia (`sources`).
+ *  A group photo needs it (ORCH, 2026-11-16): without a complete lineup a member under 18 the research missed could be in the frame. */
+export interface GroupLineup { slug: string; complete: boolean; members: string[]; sources?: string[] }
 
 // ---- people ----
 
@@ -99,6 +105,13 @@ export function groupLineup(slug: string, people: Map<string, PrivatePerson>): L
   return out;
 }
 
+/** True only when the group's lineup record says complete AND every member it lists has a people row with a membership of this group. */
+export function lineupComplete(slug: string, groups: Map<string, GroupLineup> | undefined, people: Map<string, PrivatePerson>): boolean {
+  const rec = groups?.get(slug);
+  if (!rec || rec.complete !== true || rec.members.length === 0) return false;
+  return rec.members.every((q) => people.get(q)?.memberships.some((m) => m.group === slug) === true);
+}
+
 const groupNames = (slug: string, people: Map<string, PrivatePerson>): Set<string> =>
   new Set([...people.values()].filter((p) => p.memberships.some((m) => m.group === slug)).flatMap((p) => [norm(p.name), p.qid]));
 
@@ -153,6 +166,8 @@ const pageKey = (page: string): string => {
 export interface HarvestInput {
   subject: HarvestSubject; lock: Lock; existing: ExistingPhoto[]; candidates: Candidate[]; info: Map<string, CommonsInfo>;
   people: Map<string, PrivatePerson>; today: string;
+  /** The private lineup records (groups/<slug>.json); a group photo is out without a complete one. */
+  groups?: Map<string, GroupLineup> | undefined;
   /** Pages and sha1 already used by an earlier subject of this run or by any photo of lot 3 (a file is one photo of one subject). */
   usedPages: Set<string>; usedSha1: Set<string>;
 }
@@ -200,7 +215,7 @@ export function checkHarvestSubject(inp: HarvestInput): CheckedPhoto[] {
       ? (person
         ? ageVerdict({ kind: 'idol', photo_date: iso, photo_precision: precision, lineup_complete: true, people: [lineupOf(person, null)] }, inp.today)
         : ({ ok: false, reason: 'unknown_lineup' } as const))
-      : ageVerdict({ kind: 'group', photo_date: iso, photo_precision: precision, lineup_complete: lineup.length > 0, people: lineup }, inp.today);
+      : ageVerdict({ kind: 'group', photo_date: iso, photo_precision: precision, lineup_complete: lineup.length > 0 && lineupComplete(subject.slug, inp.groups, inp.people), people: lineup }, inp.today);
     const age: { ok: boolean; reason: AgeReason | null } = verdict.ok ? { ok: true, reason: null } : { ok: false, reason: verdict.reason };
     if (!age.ok) reasons.push(`age rule: ${age.reason}`);
 
@@ -245,7 +260,7 @@ export function checkHarvestSubject(inp: HarvestInput): CheckedPhoto[] {
 
 export interface HarvestRun {
   subjects: HarvestSubject[]; people: Map<string, PrivatePerson>; candidates: Map<string, CandidateFile>; lot3: Lot3Subject[];
-  info: Map<string, CommonsInfo>; today: string;
+  info: Map<string, CommonsInfo>; today: string; groups?: Map<string, GroupLineup> | undefined;
 }
 export interface HarvestSubjectOut {
   slug: string; name: string; kind: 'idol' | 'group'; qid: string | null; group: string | null; idol_id: number | null; why: HarvestSubject['why'];
@@ -295,7 +310,7 @@ export function runHarvest(run: HarvestRun): HarvestResult {
     const existing = lot3.get(s.slug)?.photos ?? [];
     const cand = run.candidates.get(s.slug);
     const photos = checkHarvestSubject({
-      subject: s, lock, existing, candidates: cand?.photos ?? [], info: run.info, people: run.people, today: run.today, usedPages, usedSha1,
+      subject: s, lock, existing, candidates: cand?.photos ?? [], info: run.info, people: run.people, today: run.today, groups: run.groups, usedPages, usedSha1,
     });
     if (lock.locked) left.push({ slug: s.slug, reason: 'locked' });
     else if (!photos.some((p) => p.status !== 'out') && !existing.some((e) => e.status !== 'out')) left.push({ slug: s.slug, reason: photos.length ? 'no photo passes the checks' : 'no photo found' });
