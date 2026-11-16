@@ -38,6 +38,9 @@ import type { NextRequest } from 'next/server';
 
 const reply = (body: unknown, status = 200): NextResponse => NextResponse.json(body, { status, headers: NO_STORE });
 const fail = (error: string, status: number): NextResponse => reply({ error }, status);
+/** A refusal of the database with its own message, for the admin only (integrator, 2026-11-17: the panel showed a guess instead). */
+const refused = (error: string, db: { message?: string } | null): NextResponse =>
+  reply({ error, message: (db?.message ?? '').slice(0, 500) || null }, 409);
 
 const PHOTO_STATUSES = ['auto', 'pending', 'approved', 'rejected', 'removed'] as const;
 const REPORT_STATUSES = ['open', 'closed'] as const;
@@ -228,7 +231,7 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
   // player owns a card or opened a pack: the card numbers never change under a player.
   if (action === 'rebuild') {
     const { data, error } = await db.rpc('cards_build_catalog');
-    if (error) return /owns a card|pack was opened/.test(error.message ?? '') ? fail('locked', 409) : fail('not_ready', 409);
+    if (error) return refused(/owns a card|pack was opened/.test(error.message ?? '') ? 'locked' : 'not_ready', error);
     return reply({ ok: true, summary: data });
   }
 
@@ -243,7 +246,7 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
   if (action === 'append_preview' || action === 'append') {
     if (action === 'append' && body.confirm !== true) return fail('bad_request', 400);
     const { data, error } = await db.rpc('cards_catalog_append', { p_dry_run: action !== 'append' });
-    if (error) return fail('not_ready', 409);
+    if (error) return refused('not_ready', error);
     return reply({ ok: true, summary: data });
   }
 

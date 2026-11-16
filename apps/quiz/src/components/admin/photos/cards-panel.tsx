@@ -226,6 +226,27 @@ export function CatalogBar({ frozen, busy, preview, onRebuild, onPreview, onConf
   );
 }
 
+/** The action's answer, or the database's own message when it refused (the admin route sends it with a 409). */
+async function apiOrMessage<T>(body: Record<string, unknown>): Promise<{ ok: true; data: T } | { ok: false; message: string | null }> {
+  try {
+    const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
+    const j = (await r.json().catch(() => null)) as (T & { message?: string | null }) | null;
+    if (r.ok && j) return { ok: true, data: j };
+    return { ok: false, message: typeof j?.message === 'string' && j.message ? j.message : null };
+  } catch { return { ok: false, message: null }; }
+}
+
+/** What the panel says when the catalog action fails: the database's own message, never a guess at the cause. */
+export function catalogFailure(what: string, message: string | null): string {
+  return message ? `${what} Message de la base : « ${message} »` : `${what} Le serveur n'a pas répondu ; réessaie.`;
+}
+
+/** One half of a group's pair in the focal preview: the picture twice as wide as the half, shifted for half 2. maxWidth none: the admin's
+ *  reset (img max-width 100%) would shrink it to the half and show the wrong window. */
+export function halfImgStyle(part: 1 | 2, pos: [number, number]): React.CSSProperties {
+  return { position: 'absolute', top: 0, left: part === 1 ? 0 : '-100%', width: '200%', maxWidth: 'none', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%` };
+}
+
 async function api<T>(body: Record<string, unknown>): Promise<T | null> {
   try {
     const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
@@ -357,29 +378,29 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     if (saving) return;
     if (!window.confirm('Reconstruire le catalogue avec les photos approuvées ? Les numéros des cartes sont refaits ; c\'est refusé dès qu\'un joueur possède une carte.')) return;
     setSaving(true);
-    const r = await api<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number } }>({ action: 'rebuild' });
+    const r = await apiOrMessage<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number } }>({ action: 'rebuild' });
     setSaving(false);
-    if (r?.ok && r.summary) onSaved(`Catalogue reconstruit : ${r.summary.subjects} sujets, ${r.summary.cards} cartes, ${r.summary.waiting} sujets attendent une deuxième photo, ${r.summary.not_shown} cartes attendent leur fichier.`);
-    else onSaved('Le catalogue n\'a pas été reconstruit (une carte est déjà possédée, ou le fichier 103 n\'est pas appliqué).');
+    if (r.ok && r.data.summary) onSaved(`Catalogue reconstruit : ${r.data.summary.subjects} sujets, ${r.data.summary.cards} cartes, ${r.data.summary.waiting} sujets attendent une deuxième photo, ${r.data.summary.not_shown} cartes attendent leur fichier.`);
+    else onSaved(catalogFailure('Le catalogue n\'a pas été reconstruit.', r.ok ? null : r.message));
   };
 
   /** File 114, after the first pack: the preview first (writes nothing), then the write on a second, explicit click. */
   const previewAppend = async (): Promise<void> => {
     if (saving) return;
     setSaving(true);
-    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append_preview' });
+    const r = await apiOrMessage<{ ok: boolean; summary?: AppendSummary }>({ action: 'append_preview' });
     setSaving(false);
-    if (r?.ok && r.summary) setPreview(r.summary);
-    else onSaved('L\'aperçu n\'a pas pu être calculé (le fichier 114 n\'est pas appliqué ?).');
+    if (r.ok && r.data.summary) setPreview(r.data.summary);
+    else onSaved(catalogFailure('L\'aperçu n\'a pas pu être calculé.', r.ok ? null : r.message));
   };
   const confirmAppend = async (): Promise<void> => {
     if (saving || !preview || preview.cards === 0) return;
     setSaving(true);
-    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append', confirm: true });
+    const r = await apiOrMessage<{ ok: boolean; summary?: AppendSummary }>({ action: 'append', confirm: true });
     setSaving(false);
     setPreview(null);
-    if (r?.ok && r.summary) onSaved(`${appendSentence(r.summary, true)} ${r.summary.not_shown ?? 0} cartes attendent leur fichier.`);
-    else onSaved('Le catalogue n\'a pas été complété. Rien n\'a changé.');
+    if (r.ok && r.data.summary) onSaved(`${appendSentence(r.data.summary, true)} ${r.data.summary.not_shown ?? 0} cartes attendent leur fichier.`);
+    else onSaved(catalogFailure('Le catalogue n\'a pas été complété. Rien n\'a changé.', r.ok ? null : r.message));
   };
 
   const remove = async (): Promise<void> => {
@@ -525,7 +546,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
                       <figure key={part} style={{ flex: 1, margin: 0 }} aria-label={`Carte ${part}/2`}>
                         <div className={s.cardCrop} style={{ aspectRatio: '55 / 85', position: 'relative', overflow: 'hidden' }}>
                           {/* eslint-disable-next-line @next/next/no-img-element -- live preview of one half */}
-                          <img src={src} alt="" draggable={false} style={{ position: 'absolute', top: 0, left: part === 1 ? 0 : '-100%', width: '200%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%` }} />
+                          <img src={src} alt="" draggable={false} style={halfImgStyle(part, pos)} />
                         </div>
                         <figcaption className={s.note}>{part}/2{(part === 1 ? small1 : small2) ? <> &middot; <span className={s.flagReview}>trop petite pour le 2x</span></> : null}</figcaption>
                       </figure>

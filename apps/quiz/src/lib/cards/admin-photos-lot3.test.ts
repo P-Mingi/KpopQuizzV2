@@ -23,7 +23,7 @@ vi.mock('@/lib/supabase/server', () => ({
   }),
 }));
 
-import { dimsOf } from '@/components/admin/photos/cards-panel';
+import { catalogFailure, dimsOf, halfImgStyle } from '@/components/admin/photos/cards-panel';
 
 import { handleAdminPhotos, reviewCopyUrl } from './admin-photos';
 
@@ -49,6 +49,23 @@ describe('admin photos, lot 3', () => {
     h.rpcResult = { data: null, error: { message: 'Could not find the function public.cards_build_catalog' } };
     const b = await post({ action: 'rebuild' });
     expect([b.status, (await b.json()).error]).toEqual([409, 'not_ready']);
+  });
+  it('sends the database\'s own message with a refusal, and the panel shows it, never a guess (integrator, 2026-11-17)', async () => {
+    // safeupdate in production: the API's session refuses a DELETE without WHERE inside cards_build_catalog() (before file 117)
+    h.rpcResult = { data: null, error: { message: 'DELETE requires a WHERE clause' } };
+    const a = await post({ action: 'rebuild' });
+    expect([a.status, await a.json()]).toEqual([409, { error: 'not_ready', message: 'DELETE requires a WHERE clause' }]);
+    h.rpcResult = { data: null, error: { message: 'cards_build_catalog: a pack was opened, the catalog numbers cannot change' } };
+    expect(await (await post({ action: 'rebuild' })).json()).toEqual({ error: 'locked', message: 'cards_build_catalog: a pack was opened, the catalog numbers cannot change' });
+    h.rpcResult = { data: null, error: { message: 'Could not find the function public.cards_catalog_append' } };
+    expect(await (await post({ action: 'append_preview' })).json()).toEqual({ error: 'not_ready', message: 'Could not find the function public.cards_catalog_append' });
+    expect(catalogFailure('Le catalogue n\'a pas été reconstruit.', 'DELETE requires a WHERE clause'))
+      .toBe('Le catalogue n\'a pas été reconstruit. Message de la base : « DELETE requires a WHERE clause »');
+    expect(catalogFailure('Le catalogue n\'a pas été reconstruit.', null)).not.toMatch(/fichier 103|possédée/);
+  });
+  it('the preview of a pair shows each half at twice its width, never shrunk by the img reset (maxWidth none)', () => {
+    expect(halfImgStyle(1, [40, 30])).toMatchObject({ width: '200%', maxWidth: 'none', left: 0, objectPosition: '40% 30%' });
+    expect(halfImgStyle(2, [40, 30])).toMatchObject({ width: '200%', maxWidth: 'none', left: '-100%' });
   });
   it('lists a new photo with Commons\' 800 px copy, a lot 1 photo with its bucket copy', async () => {
     h.list = [

@@ -170,6 +170,8 @@ describe('101-catalog.sql on fixture groups and idols', () => {
       '116-photos-harvest.rollback.sql', '116-photos-harvest.sql',
       // integrator, 2026-11-16: the optional approval of the photos pending for the personality rights warning alone
       '116c-approve-personality-rights.rollback.sql', '116c-approve-personality-rights.sql',
+      // integrator, 2026-11-17: cards_build_catalog() with a WHERE on its DELETE (safeupdate refuses it through the API)
+      '117-catalog-safeupdate.rollback.sql', '117-catalog-safeupdate.sql',
       'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
