@@ -126,27 +126,37 @@ const opening = (p: LineupPerson): string | null => {
   const r = dateRange(p.birth_date, p.birth_precision);
   return r ? monthOf(eighteenthBirthday(r[1])) : null;
 };
-/** Adult today with a confirmed date (the age rule on today), minor, or unknown (no date, or one source only). */
-function personState(p: LineupPerson, today: string): 'adult' | 'minor' | 'unknown' {
+/** Adult today with a confirmed date (the age rule on today), minor, unknown (no date at all), or adult on one source only: a date that
+ *  only one source gives, whose LATEST possible day is 18 or more years back. Such a person is no minor in any reading: no locked pocket
+ *  (ORCH, 2026-11-16: a pocket is for someone who is, or could be, under 18), but the age rule still keeps their photos out. */
+function personState(p: LineupPerson, today: string): 'adult' | 'minor' | 'unknown' | 'adult_one_source' {
   const v = ageVerdict({ kind: 'idol', photo_date: today, photo_precision: 'day', lineup_complete: true, people: [{ ...p, joined: null, left: null, current: true }] }, today);
   if (v.ok) return 'adult';
-  return v.reason === 'minor_today' || v.reason === 'minor_at_photo' ? 'minor' : 'unknown';
+  if (v.reason === 'minor_today' || v.reason === 'minor_at_photo') return 'minor';
+  const r = dateRange(p.birth_date, p.birth_precision);
+  const t = dateRange(today, 'day');
+  return r && t && eighteenthBirthday(r[1]) <= t[0] ? 'adult_one_source' : 'unknown';
 }
+const unlockedState = (s: ReturnType<typeof personState>): boolean => s === 'adult' || s === 'adult_one_source';
 
 export function lockOfPerson(p: PrivatePerson | undefined, today: string): Lock {
   if (!p) return { locked: true, opens: null, cause: 'unknown_birth' };
   const lp = lineupOf(p, null);
   const st = personState(lp, today);
-  if (st === 'adult') return { locked: false };
+  if (unlockedState(st)) return { locked: false };
   return { locked: true, opens: opening(lp), cause: st === 'minor' ? 'minor' : 'unknown_birth' };
 }
 
-/** A group is locked while any current member is under 18 or has no confirmed birth date, or when no member is known at all. */
+/** A group is locked while any current member is, or could be, under 18 (a minor, or no birth date at all), or when no member is known at
+ *  all. A group with no current member (disbanded, or every membership ended in the sources) is read on its former members, as 102 reads a
+ *  disbanded group. */
 export function lockOfGroup(slug: string, people: Map<string, PrivatePerson>, today: string): Lock {
-  const members = groupLineup(slug, people).filter((m) => m.current);
+  const lineup = groupLineup(slug, people);
+  const current = lineup.filter((m) => m.current);
+  const members = current.length ? current : lineup;
   if (members.length === 0) return { locked: true, opens: null, cause: 'no_member' };
   const states = members.map((m) => personState(m, today));
-  if (states.every((s) => s === 'adult')) return { locked: false };
+  if (states.every(unlockedState)) return { locked: false };
   const opens = members.map(opening);
   return {
     locked: true, opens: opens.some((o) => o == null) ? null : (opens as string[]).sort().at(-1) ?? null,

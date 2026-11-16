@@ -86,8 +86,12 @@ describe('harvest: who is locked', () => {
     expect(lockOfPerson(PEOPLE.get('Q3'), TODAY)).toEqual({ locked: true, opens: '2028-06', cause: 'minor' });
     expect(lockOfPerson(PEOPLE.get('Q6'), TODAY)).toEqual({ locked: true, opens: null, cause: 'unknown_birth' });
     expect(lockOfPerson(undefined, TODAY)).toMatchObject({ locked: true, opens: null });
+    // ORCH, 2026-11-16 (listed in the report): a one-source date that is 18 or more years back in every reading is no minor, so no
+    // pocket; the age rule still keeps the photos out (the next describe proves it). Was: locked, cause unknown_birth.
     const unconfirmed = mergePeople([person('Q10', 'Kim', '1990-01-01', null, { birth_confirmed: false })]).get('Q10');
-    expect(lockOfPerson(unconfirmed, TODAY)).toMatchObject({ locked: true, cause: 'unknown_birth' });
+    expect(lockOfPerson(unconfirmed, TODAY)).toEqual({ locked: false });
+    const unconfirmedTeen = mergePeople([person('Q11', 'Lee', '2009-01-01', null, { birth_confirmed: false })]).get('Q11');
+    expect(lockOfPerson(unconfirmedTeen, TODAY)).toMatchObject({ locked: true });
   });
   it('locks a group while any current member is under 18 or unknown, with the youngest member\'s opening month', () => {
     expect(lockOfGroup('trio', PEOPLE, TODAY)).toEqual({ locked: true, opens: '2028-06', cause: 'minor' });
@@ -259,5 +263,30 @@ describe('harvest: the public file never carries the researcher\'s notes (ORCH, 
     expect(text).not.toMatch(/2019-05-05|18th birthday|was 17|2028-06/);
     expect(file.subjects.find((s) => s.slug === 'ada')!.shortfall).toBe('1 usable photo of the 6 a subject can have (the research found no more that pass the checks)');
     expect(file.subjects.find((s) => s.slug === 'cleo')!.shortfall).toBeNull();
+  });
+});
+
+describe('harvest: a locked pocket is for someone who is, or could be, under 18 (ORCH, 2026-11-16)', () => {
+  const ONE = person('Q20', 'One Source', '1998-03-03', 'band', { birth_confirmed: false });   // one source, 28 in every reading
+  const PEER = person('Q21', 'Two Sources', '1997-04-04', 'band');
+  const NODATE = person('Q22', 'No Date', null, 'quiet');
+  const OLD1 = person('Q23', 'Former One', '1990-01-01', null, { memberships: [{ group: 'split', joined: null, left: '2016-11-25', current: false }] });
+  const OLD2 = person('Q24', 'Former Two', '1991-01-01', null, { memberships: [{ group: 'split', joined: null, left: '2016-11-25', current: false }] });
+  const P = mergePeople([ONE, PEER, NODATE, OLD1, OLD2]);
+  it('an adult whose birth date has one source only has no pocket, and the age rule still keeps the photos out', () => {
+    expect(lockOfPerson(P.get('Q20'), TODAY)).toEqual({ locked: false });
+    const lock = lockOfPerson(P.get('Q20'), TODAY);
+    const out = checkHarvestSubject({ subject: sub('one', 'idol', 'Q20', 'band'), lock, existing: [], candidates: [cand('One.jpg', '2025-01-01')], info: files(cand('One.jpg', '2025-01-01')), people: P, today: TODAY, usedPages: new Set(), usedSha1: new Set() });
+    expect(out.map((p) => p.status)).toEqual(['out']);
+    expect(out[0]!.reasons).toContain('age rule: unknown_birth_date');
+    expect(lockOfGroup('band', P, TODAY)).toEqual({ locked: false });
+  });
+  it('a person with no birth date at all keeps the pocket (fail closed)', () => {
+    expect(lockOfPerson(P.get('Q22'), TODAY)).toMatchObject({ locked: true, opens: null, cause: 'unknown_birth' });
+    expect(lockOfGroup('quiet', P, TODAY)).toMatchObject({ locked: true, opens: null });
+  });
+  it('a group with no current member is read on its former members (as 102 reads a disbanded group)', () => {
+    expect(lockOfGroup('split', P, TODAY)).toEqual({ locked: false });
+    expect(lockOfGroup('nobody', P, TODAY)).toEqual({ locked: true, opens: null, cause: 'no_member' });
   });
 });
