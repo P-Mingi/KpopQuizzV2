@@ -202,11 +202,20 @@ begin
     if v_kind = 'group' then
       select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = v_slug;
       if g.id is null then
-        raise notice '116-photos-harvest: skipped % (no public.groups row with that slug)', v_slug;
+        -- the research slug can differ from the database's: exactly one groups row of the same name (letters and digits only)
+        select count(*) into v_n from public.groups gr
+         where regexp_replace(lower(gr.name), '[^a-z0-9]', '', 'g') = regexp_replace(lower(sj ->> 'name'), '[^a-z0-9]', '', 'g');
+        if v_n = 1 then
+          select gr.id, gr.name, gr.slug into g from public.groups gr
+           where regexp_replace(lower(gr.name), '[^a-z0-9]', '', 'g') = regexp_replace(lower(sj ->> 'name'), '[^a-z0-9]', '', 'g');
+        end if;
+      end if;
+      if g.id is null then
+        raise notice '116-photos-harvest: skipped % (no public.groups row with that slug or name)', v_slug;
         c_skipped := c_skipped + 1;
         continue;
       end if;
-      v_ent := 'group:' || v_slug;
+      v_ent := 'group:' || g.slug;
       execute format('select %s from public.groups where id = $1', v_debut_expr) into v_year using g.id;
       insert into public.cards_entities (id, kind, name, group_id, debut_year, qid, sort_key, lock_reasons, active)
       values (v_ent, 'group', g.name, null, v_year, null, lower(g.name) || '|1|' || lower(g.name), '{}'::jsonb, true)
@@ -225,8 +234,17 @@ begin
         continue;
       end if;
       select coalesce(nullif(btrim(x.name), ''), sj ->> 'name') into v_name from public.idols x where x.wikidata_qid = v_qid;
-      -- the group, or the person's own groups row for a soloist
-      select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = coalesce(v_group, v_slug);
+      -- the group: the person's own public.idols row says it (the database is the truth), else the research slug (a soloist: its own row)
+      if v_group is not null then
+        select gr.id, gr.name, gr.slug into g from public.groups gr join public.idols x on x.group_id = gr.id where x.wikidata_qid = v_qid;
+      end if;
+      if g.id is null then
+        select gr.id, gr.name, gr.slug into g from public.groups gr where gr.slug = coalesce(v_group, v_slug);
+      end if;
+      if g.id is not null and v_group is not null and g.slug <> v_group then
+        raise notice '116-photos-harvest: % belongs to % in public.idols (the research said %)', v_slug, g.slug, v_group;
+        v_group := g.slug;
+      end if;
       if g.id is null then
         raise notice '116-photos-harvest: skipped % (no public.groups row for %)', v_slug, coalesce(v_group, v_slug);
         c_skipped := c_skipped + 1;
@@ -396,8 +414,8 @@ end $c116$;
 
   const rollback = `-- 116-photos-harvest.rollback.sql (undo of 116-photos-harvest.sql)
 --
--- What:   removes ONLY what 116 added, as its own log (public.cards_harvest_log) says, inside the explicit lists below: the photos it added
---         (${pages.length} pages at most), the entities it created (${entityIds.length} ids at most), the log, the column cards_entities.age_lock, the
+-- What:   removes ONLY what 116 added, as its own log (public.cards_harvest_log) says: the photos it added (inside the explicit list of
+--         ${pages.length} pages below), the entities it created (the log's ids: a group can take the database's slug at apply time), the log, the column cards_entities.age_lock, the
 --         functions cards_age_locks and cards_age_day. An entity that existed before 116 stays; a photo that existed before stays.
 --         When the catalog already holds cards of these subjects it is built again with cards_build_catalog() (so the numbers stay contiguous),
 --         which is only possible while no pack was opened.
@@ -426,10 +444,10 @@ begin
       from public.cards_harvest_log l join public.cards_photos p on p.id = l.ref::bigint
      where l.kind = 'photo' and p.source_page = any (v_pages);
     select coalesce(array_agg(l.ref), '{}') into v_entity_ids
-      from public.cards_harvest_log l where l.kind = 'entity' and l.ref = any (v_entities);
+      from public.cards_harvest_log l where l.kind = 'entity';
     -- the subjects: the listed ids, and every entity that received a photo of this file (a person found by Wikidata id keeps another id)
     select coalesce(array_agg(distinct x), '{}') into v_subject_ids
-      from unnest(v_entities || coalesce((select array_agg(distinct p.entity_id) from public.cards_photos p where p.id = any (v_photo_ids)), '{}')) x;
+      from unnest(v_entities || v_entity_ids || coalesce((select array_agg(distinct p.entity_id) from public.cards_photos p where p.id = any (v_photo_ids)), '{}')) x;
     if exists (select 1 from public.cards_owned o join public.cards_catalog c on c.card_no = o.card_no
                 where c.entity_id = any (v_subject_ids) or c.photo_id = any (v_photo_ids)) then
       raise exception '116-photos-harvest.rollback: a player owns a card of these subjects, nothing changed';

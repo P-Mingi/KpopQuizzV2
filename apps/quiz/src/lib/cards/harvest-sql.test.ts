@@ -248,3 +248,32 @@ describe('116-photos-harvest.rollback.sql', () => {
     expect(buildHarvest({ checked_on: '2026-11-16', subjects: [] }).sql).toContain('0 subjects');
   });
 });
+
+describe('116-photos-harvest.sql: the research slug that differs from the database (ORCH, 2026-11-16)', () => {
+  it('takes a member\'s group from its public.idols row, finds a group by its name, and the rollback removes what the log says', async () => {
+    const db = await base();
+    await db.exec(`insert into public.idols (group_id, name, birth_date, wikidata_qid, active) values ((select id from public.groups where slug = 'dups'), 'Solo Dup', '1994-02-02', 'Q710', true)`);
+    const p = (n: number) => ({ ...HARVEST.subjects[0]!.photos[0]!, page: `https://commons.wikimedia.org/wiki/File:Alias_${n}.jpg`, sha1: `alias-sha-${n}`, date: `2024-0${n}-03`, event: `Alias ${n}` });
+    const sql = buildHarvest({
+      checked_on: '2026-11-16',
+      subjects: [
+        // the research wrote the group as "dups-research"; public.idols says dups
+        { slug: 'solo-dup-dups-research', kind: 'idol', name: 'Solo Dup', qid: 'Q710', group: 'dups-research', locked: false, photos: [p(1), p(2)] },
+        // a group photo under a slug the database does not have: found by its name (DUPS)
+        { slug: 'dups-research', kind: 'group', name: 'D.U.P.S', qid: null, group: null, locked: false, photos: [{ ...p(3), width: 4000, height: 2600 }] },
+        // no row of that name either: skipped
+        { slug: 'nowhere', kind: 'group', name: 'Nowhere Band', qid: null, group: null, locked: false, photos: [p(4)] },
+      ],
+    });
+    const notices = await run(db, at(sql.sql, '12:00'));
+    expect(notices.join('\n')).toMatch(/solo-dup-dups-research belongs to dups in public\.idols \(the research said dups-research\)/);
+    expect(notices.join('\n')).toMatch(/skipped nowhere \(no public\.groups row with that slug or name\)/);
+    const ents = await rows<{ id: string; group_id: string | null }>(db, `select id, group_id from cards_entities where id in ('idol:solo-dup-dups-research', 'group:dups', 'group:dups-research', 'group:nowhere') order by id`);
+    expect(ents).toEqual([{ id: 'group:dups', group_id: null }, { id: 'idol:solo-dup-dups-research', group_id: 'group:dups' }]);
+    expect(await one<number>(db, `select count(*)::int from cards_photos where entity_id = 'group:dups'`)).toBe(1);
+    expect(await one<number>(db, `select count(*)::int from cards_photos where entity_id = 'idol:solo-dup-dups-research'`)).toBe(2);
+    await run(db, sql.rollback);
+    expect(await one<number>(db, `select count(*)::int from cards_entities where id in ('idol:solo-dup-dups-research', 'group:dups')`)).toBe(0);
+    expect(await one<number>(db, `select count(*)::int from cards_photos where source_page like '%Alias_%'`)).toBe(0);
+  });
+});
