@@ -52,7 +52,8 @@ export function sectionsOf(w: World): Section[] {
   const secs = new Map<string, Section>();
   const order = [...w.entities].sort((a, b) => a.sortKey.localeCompare(b.sortKey));
   for (const e of order) {
-    if (e.kind === 'event') continue;
+    // Lot 6: an age-locked subject is no entity of the binder here (no section, no pocket, no count); a locked group still names the section of its members.
+    if (e.kind === 'event' || e.locked) continue;
     const g = e.kind === 'group' ? e : e.group ? byName.get(e.group) : undefined;
     const key = g ? g.id : 'soloists';
     let s = secs.get(key);
@@ -431,7 +432,7 @@ export function almostState(w: World, p: PlayerData, limit = 4): AlmostState {
   }
   const slugs = entitySlugs(w.entities);
   for (const e of w.entities) {
-    if (e.kind !== 'idol') continue;
+    if (e.kind !== 'idol' || e.locked) continue;
     const cs = w.cards.filter((c) => c.entity === e.id);
     if (cs.length < 3) continue;
     const miss = cs.filter((c) => !p.owned.has(c.n));
@@ -543,7 +544,7 @@ export const QUIZ_BASE = 'https://kpopquiz.org';
 /** The idol page: locked until the player owns a card of the idol; then the editions and the idol's quizzes on kpopquiz.org. */
 export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null {
   const slugs = entitySlugs(w.entities);
-  const e = w.entities.find((x) => x.kind === 'idol' && slugs.get(x.id) === slug);
+  const e = w.entities.find((x) => x.kind === 'idol' && !x.locked && slugs.get(x.id) === slug);
   if (!e) return null;
   const cs = w.cards.filter((c) => c.entity === e.id);
   const unlocked = cs.some((c) => p.owned.has(c.n));

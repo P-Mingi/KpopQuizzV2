@@ -108,6 +108,41 @@ export function cropOf(kind: 'idol' | 'group', w: number, h: number): Pick<Check
   return { window_width: ww, full_ok: fullOk(kind, w, h), small_2x: ww < 640 };
 }
 
+/** The checks every photo shares, lot 3 and lot 6: the Commons answer (file, licence, author, deletion request, type, review, date), a source other
+ *  than Commons, Korea.net's news use, a group photo without the whole lineup, a month-only date. Fills `p` from Commons and pushes the reasons
+ *  that leave a photo out and the notes that send it to the owner. */
+export function sourceChecks(
+  p: { source: Photo3['source']; file: string | null; url: string; width: number; height: number; sha1: string | null; author: string; author_url: string | null;
+       licence: string; licence_url: string; share_alike: boolean; page: string; date: string; date_precision: 'day' | 'month'; news_only: boolean },
+  c: Candidate | null, info: CommonsInfo | undefined, kind: 'idol' | 'group', reasons: string[], review: string[],
+): void {
+  if (p.source === 'commons') {
+    if (!info || info.missing || !info.url) reasons.push('the file is not on Commons');
+    else {
+      p.url = info.url; p.width = info.width; p.height = info.height; p.sha1 = info.sha1;
+      const a = artistOf(info.artist);
+      if (!a.name) reasons.push('no author named');
+      p.author = a.name ?? ''; p.author_url = a.url;
+      if (!licenceOk(info.licence)) reasons.push(`licence not allowed (${info.licence ?? 'none'})`);
+      p.licence = info.licence ?? ''; p.licence_url = info.licenceUrl ?? p.page; p.share_alike = shareAlike(p.licence);
+      const del = deletionFlag(info.categories, info.templates);
+      if (del) reasons.push(`on Commons: ${del.replace(/^(Category|Template):/, '')}`);
+      if (!/^image\/(jpeg|png|webp)$/.test(info.mime ?? '')) reasons.push(`file type ${info.mime ?? 'unknown'}`);
+      if (reviewOpen(info.categories) || c?.licence_review_pending) review.push('the licence review is still open on Commons');
+      const fileDay = dayOf(info.dateOriginal);
+      if (c && fileDay && fileDay.precision === 'day' && p.date_precision === 'day' && fileDay.date !== p.date) {
+        review.push(`the file's date (${fileDay.date}) differs from the description's (${p.date})`);
+      }
+    }
+  } else {
+    review.push(`not a Commons file (${p.source}): check the licence and the author on the source page`);
+    reasons.push('this lot cuts its cards from Commons originals only');
+  }
+  if (p.news_only) review.push('Korea.net marks it for news use');
+  if (c && kind === 'group' && c.lineup_full === false) review.push('not the whole lineup of that date');
+  if (p.date_precision === 'month') review.push('the date is known to the month only');
+}
+
 export interface CheckInput {
   slug: string; kind: 'idol' | 'group'; existing: (Omit<Photo3, 'status' | 'review'> & { file: string }) | null;
   candidates: Candidate[]; info: Map<string, CommonsInfo>; research: ResearchRow | null; confirm: Confirmation[]; today: string;
@@ -139,31 +174,7 @@ export function checkSubject(inp: CheckInput): CheckedPhoto[] {
     const p = { ...base };
     const title = p.file ? `File:${p.file}` : null;
     const info = title ? inp.info.get(title) : undefined;
-    if (p.source === 'commons') {
-      if (!info || info.missing || !info.url) reasons.push('the file is not on Commons');
-      else {
-        p.url = info.url; p.width = info.width; p.height = info.height; p.sha1 = info.sha1;
-        const a = artistOf(info.artist);
-        if (!a.name) reasons.push('no author named');
-        p.author = a.name ?? ''; p.author_url = a.url;
-        if (!licenceOk(info.licence)) reasons.push(`licence not allowed (${info.licence ?? 'none'})`);
-        p.licence = info.licence ?? ''; p.licence_url = info.licenceUrl ?? p.page; p.share_alike = shareAlike(p.licence);
-        const del = deletionFlag(info.categories, info.templates);
-        if (del) reasons.push(`on Commons: ${del.replace(/^(Category|Template):/, '')}`);
-        if (!/^image\/(jpeg|png|webp)$/.test(info.mime ?? '')) reasons.push(`file type ${info.mime ?? 'unknown'}`);
-        if (reviewOpen(info.categories) || c?.licence_review_pending) review.push('the licence review is still open on Commons');
-        const fileDay = dayOf(info.dateOriginal);
-        if (c && fileDay && fileDay.precision === 'day' && p.date_precision === 'day' && fileDay.date !== p.date) {
-          review.push(`the file's date (${fileDay.date}) differs from the description's (${p.date})`);
-        }
-      }
-    } else {
-      review.push(`not a Commons file (${p.source}): check the licence and the author on the source page`);
-      reasons.push('this lot cuts its cards from Commons originals only');
-    }
-    if (p.news_only) review.push('Korea.net marks it for news use');
-    if (c && inp.kind === 'group' && c.lineup_full === false) review.push('not the whole lineup of that date');
-    if (p.date_precision === 'month') review.push('the date is known to the month only');
+    sourceChecks(p, c, info, inp.kind, reasons, review);
     const age = ageOf(p.date, p.date_precision);
     if (!age.ok) reasons.push(`age rule: ${age.reason}`);
     const dup = out.find((q) => q.status !== 'out' && sameOccasion(q, p));

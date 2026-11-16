@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ageOk, cardFileRegex, cutPlan, partFileName, planRemovals, stemOf } from '../../../scripts/cards/card-files.mjs';
+import { ageOk, cardFileRegex, cutPlan, mergePhotoFiles, partFileName, planRemovals, stemOf } from '../../../scripts/cards/card-files.mjs';
 import { MIN_2X, PAIR_RATIO, cardBox, halves, pairBox } from '../../../scripts/cards/card-geometry.mjs';
 
 describe('card geometry, pair window and halves', () => {
@@ -116,5 +116,51 @@ describe('lot 3: several photos a subject (one edition, one photo)', () => {
       ['btob-s2-50-50-h1-1x.webp', 'photo 2 of this subject is no longer live (refused, removed or dropped)'],
       ['btob-s3-50-50-1x.webp', 'old whole-card file of a group'],
     ]);
+  });
+});
+
+describe('lot 6: the owner script reads lot 3 and lot 6 photos as one, with no other change', () => {
+  const photo = (slot: number, page: string, status = 'auto') => ({ slot, status, page, url: `https://upload.example/${page}.jpg`, sha1: `sha-${page}`, focal: { x: 50, y: 30 } });
+  const lot3 = { checked_on: 'a', subjects: [{ slug: 'jimin', name: 'Jimin', kind: 'idol', end_year: null, photos: [photo(1, 'j1', 'approved'), photo(2, 'j2')] }], left_out: [{ slug: 'tws', reason: 'no photo found' }] };
+  const lot6 = {
+    checked_on: 'b',
+    subjects: [
+      { slug: 'jimin', name: 'Jimin', kind: 'idol', end_year: null, photos: [photo(3, 'j3'), photo(4, 'j4', 'pending')] },
+      { slug: 'ada-trio', name: 'Ada', kind: 'idol', end_year: null, photos: [photo(1, 'a1'), photo(2, 'a2')] },
+      { slug: 'cleo-trio', name: 'Cleo', kind: 'idol', end_year: null, photos: [] },
+    ],
+    left_out: [{ slug: 'cleo-trio', reason: 'locked' }, { slug: 'tws', reason: 'again' }],
+  };
+  it('adds the new photos of a known subject after its old ones, a new subject whole, and nothing for a locked one', () => {
+    const m = mergePhotoFiles(lot3, lot6);
+    expect(m.subjects.map((s: { slug: string }) => s.slug)).toEqual(['jimin', 'ada-trio']);
+    expect(m.subjects[0].photos.map((p: { slot: number }) => p.slot)).toEqual([1, 2, 3, 4]);
+    expect(m.subjects[1]).toMatchObject({ slug: 'ada-trio', kind: 'idol', photos: [{ slot: 1 }, { slot: 2 }] });
+    expect(m.left_out).toEqual([{ slug: 'tws', reason: 'no photo found' }, { slug: 'cleo-trio', reason: 'locked' }]);
+    // lot 3's own object is not touched, and no lot 6 file means lot 3 as it was
+    expect(lot3.subjects[0]!.photos).toHaveLength(2);
+    expect(mergePhotoFiles(lot3, null)).toBe(lot3);
+  });
+  it('cuts, keeps and cleans the files of a lot 6 subject like any other: stems, halves, the pocket of a locked subject proposes its strays', () => {
+    const known = ['jimin', 'ada-trio', 'cleo-trio', 'trio'];
+    const current = new Map([
+      ['ada-trio', [{ slot: 1, group: false, fx: 50, fy: 30 }, { slot: 2, group: false, fx: 50, fy: 30 }]],
+      ['trio', [{ slot: 1, group: true, fx: 50, fy: 50 }]],
+    ]);
+    const names = ['ada-trio-50-30-1x.webp', 'ada-trio-s2-50-30-1x.webp', 'ada-trio-s2-50-30-2x.webp', 'trio-50-50-h1-1x.webp', 'trio-50-50-h2-1x.webp', 'cleo-trio-50-30-1x.webp', 'ada-trio-s3-50-30-1x.webp'];
+    const { keep, remove } = planRemovals(names, { known, current });
+    expect(keep).toEqual(names.slice(0, 5));
+    expect(remove.map((r) => r.name)).toEqual(['cleo-trio-50-30-1x.webp', 'ada-trio-s3-50-30-1x.webp']);
+    expect(stemOf('ada-trio', 2, 50, 30)).toBe('ada-trio-s2-50-30');
+    const plan = cutPlan(false, 2000, 3000, 50, 30);
+    expect(plan.parts).toHaveLength(1);
+  });
+  it('the owner script and its wrapper read lot 6 only through mergePhotoFiles and the data directory: nothing else changed', async () => {
+    const { readFileSync } = await import('node:fs');
+    const src = readFileSync(new URL('../../../scripts/cards/publish-card-files.mjs', import.meta.url), 'utf8');
+    expect(src).toContain('mergePhotoFiles(JSON.parse(readFileSync(dataFile(\'photos.json\'), \'utf8\')), lot6Photos)');
+    expect(src).toContain("docs/design/cards/data/lot6");
+    // a locked subject has no photo: nothing is cut or uploaded for it
+    expect(src).toContain("for (const s of chosen) for (const p of s.photos) if (CUT.has(p.status)");
   });
 });

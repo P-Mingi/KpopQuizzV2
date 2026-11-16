@@ -19,6 +19,6 @@ export const metadata: Metadata = { title: 'Opening a focus pack', robots: robot
 export default async function OpenFocusPage({ params }: { params: Promise<{ group: string }> }): Promise<React.ReactElement> {
   const { group } = await params;
   const cat = await loadCatalog();
-  if (!cat || !buildSlim(cat).sections.some((s) => s.id === group && s.id !== 'events')) notFound();
+  if (!cat || !buildSlim(cat).sections.some((s) => s.id === group && s.id !== 'events' && !s.soon)) notFound();
   return <OpeningMount spec={{ kind: 'focus', group }} />;
 }
