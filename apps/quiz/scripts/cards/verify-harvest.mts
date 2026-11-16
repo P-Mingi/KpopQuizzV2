@@ -15,7 +15,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { mergePeople, runHarvest, titlesToAsk, type GroupLineup, type HarvestSubject, type Lot3Subject, type PrivatePerson } from '../../src/lib/cards/harvest-checks';
+import { mergePeople, publicJson, runHarvest, titlesToAsk, type GroupLineup, type HarvestSubject, type Lot3Subject, type PrivatePerson } from '../../src/lib/cards/harvest-checks';
 import type { CandidateFile, CommonsInfo } from '../../src/lib/cards/photo-checks';
 import { REPO, arg, commonsInfo, fileOfPage, outsideRepo } from './commons-io.mts';
 
@@ -57,7 +57,7 @@ async function main(): Promise<void> {
   const out = runHarvest(run);
   mkdirSync(LOT6_DIR, { recursive: true });
   mkdirSync(notes, { recursive: true, mode: 0o700 });
-  writeFileSync(path.join(LOT6_DIR, 'photos.json'), `${JSON.stringify(out.file, null, 1)}\n`);
+  writeFileSync(path.join(LOT6_DIR, 'photos.json'), publicJson(out.file));
   writeFileSync(path.join(LOT6_DIR, 'SUMMARY.md'), out.summary);
   writeFileSync(path.join(notes, 'locked.md'), out.lockedMd, { mode: 0o600 });
   const c = out.counts;

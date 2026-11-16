@@ -166,6 +166,8 @@ describe('101-catalog.sql on fixture groups and idols', () => {
       '107-prefs.rollback.sql', '107-prefs.sql', '108-push.rollback.sql', '108-push.sql', '110-core.rollback.sql', '110-core.sql',
       '111-group-types.rollback.sql', '111-group-types.sql', '112-social.rollback.sql', '112-social.sql', '113-moment.rollback.sql', '113-moment.sql',
       '114-catalog-append.rollback.sql', '114-catalog-append.sql', '115-quiz-of-day-bonus.rollback.sql', '115-quiz-of-day-bonus.sql',
+      // lot 6 brief (integrator, 2026-11-16): the photo harvest and its rollback
+      '116-photos-harvest.rollback.sql', '116-photos-harvest.sql',
       'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {

@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import {
-  checkHarvestSubject, lineupComplete, lockOfGroup, lockOfPerson, mergePeople, namedOthers, runHarvest, titlesToAsk,
+  checkHarvestSubject, LEFT_OUT_PEOPLE, lineupComplete, lockOfGroup, lockOfPerson, mergePeople, namedOthers, publicJson, runHarvest, titlesToAsk,
   type ExistingPhoto, type GroupLineup, type HarvestSubject, type PrivatePerson,
 } from './harvest-checks';
 import type { Candidate, CommonsInfo } from './photo-checks';
@@ -69,6 +69,26 @@ describe('harvest: the people files', () => {
     const one = person('Q7', 'Ivy', '1990-05-05', null, { birth_confirmed: false, birth_sources: [{ site: 'wikidata', value: '1990-05-05' }, { site: 'enwiki', value: '1990-05-05' }] });
     expect(mergePeople([one]).get('Q7')!.birth_confirmed).toBe(true);
     expect(mergePeople([{ ...one, birth_sources: [{ site: 'wikidata', value: '1990-05-05' }] }]).get('Q7')!.birth_confirmed).toBe(false);
+  });
+  it('two sites agree and a third differs: the latest day read is kept, as confirmed (integrator, 2026-11-16)', () => {
+    const agree = [{ site: 'agency', value: '2004-03-03' }, { site: 'jawiki', value: '2004-03-03' }];
+    // the differing site gives a later day: that day is kept
+    const later = mergePeople([
+      person('Q11', 'Kit', '2005-01-01', 'a', { birth_confirmed: false, birth_sources: [{ site: 'musicbrainz', value: '2005-01-01' }] }),
+      person('Q11', 'Kit', '2005-01-01', 'a', { birth_sources: [...agree, { site: 'musicbrainz', value: '2005-01-01' }] }),
+    ]).get('Q11')!;
+    expect(later).toMatchObject({ birth_date: '2005-01-01', birth_precision: 'day', birth_confirmed: true });
+    // the differing site gives an earlier day: the agreed day is the latest
+    const earlier = mergePeople([person('Q12', 'Lux', '2004-03-03', 'a', { birth_sources: [...agree, { site: 'musicbrainz', value: '2003-01-01' }] })]).get('Q12')!;
+    expect(earlier).toMatchObject({ birth_date: '2004-03-03', birth_confirmed: true });
+    // two days that each have two sites: doubt, unconfirmed
+    const pairs = mergePeople([person('Q13', 'Max', '2004-03-03', 'a', {
+      birth_sources: [...agree, { site: 'musicbrainz', value: '2005-01-01' }, { site: 'wikidata', value: '2005-01-01' }],
+    })]).get('Q13')!;
+    expect(pairs.birth_confirmed).toBe(false);
+    // a later day that would make the person a minor locks them
+    const minor = mergePeople([person('Q14', 'Nia', '2004-03-03', 'a', { birth_sources: [...agree, { site: 'musicbrainz', value: '2009-05-05' }] })]).get('Q14')!;
+    expect(lockOfPerson(minor, TODAY)).toEqual({ locked: true, opens: '2027-05', cause: 'minor' });
   });
   it('keeps the widest membership of a person in a group (earliest join, latest leave, current when any row says so)', () => {
     const m = mergePeople([
@@ -203,6 +223,29 @@ describe('harvest: one subject', () => {
     ], [], new Map([...extra, ['File:Dead.jpg', { ...info('Dead.jpg')[1], missing: true, url: null }]]));
     expect(out.map((p) => p.status)).toEqual(['out', 'out', 'out', 'out', 'pending', 'pending', 'out']);
   });
+  it('sends a file with Commons\' personality rights warning to the owner (integrator, 2026-11-16)', () => {
+    const extra = new Map([info('Pr.jpg', { templates: ['Template:Information', 'Template:Personality rights'] }), info('Plain.jpg', { templates: ['Template:Information'] })]);
+    const [pr, plain] = check(sub('ada', 'idol', 'Q1', 'trio'), [cand('Pr.jpg', '2026-01-01'), cand('Plain.jpg', '2026-02-01')], [], extra);
+    expect(pr).toMatchObject({ status: 'pending' });
+    expect(pr!.review.join(' ')).toMatch(/personality rights/);
+    expect(plain).toMatchObject({ status: 'auto' });
+  });
+  it('leaves out every photo of a person the integrator left out, whoever the subject is (2026-11-16)', () => {
+    const who = LEFT_OUT_PEOPLE[0]!;
+    const out = check(sub('duo', 'group', 'Q101'), [
+      cand(`230104 ${who.name.toUpperCase()} & EVE.jpg`, '2026-01-01', { people_visible: 2, members_visible: 2 }),
+      cand('Duo.jpg', '2026-02-01', { people_visible: 2, members_visible: 2, who: `Eve Peer, ${who.name}` }),
+    ]);
+    expect(out.map((p) => p.status)).toEqual(['out', 'out']);
+    expect(out[0]!.reasons.join(' ')).toMatch(/left out \(integrator decision, 2026-11-16\)/);
+    // matched on the subject's QID too, with nothing about the person in the file's text
+    const people = mergePeople([person(who.qid, 'Invented Name', '1995-01-01', null)]);
+    const [byQid] = checkHarvestSubject({
+      subject: sub('x', 'idol', who.qid), lock: { locked: false }, existing: [], candidates: [cand('X.jpg', '2026-01-01')], info: files(cand('X.jpg', '2026-01-01')),
+      people, today: TODAY, usedPages: new Set(), usedSha1: new Set(),
+    });
+    expect(byQid).toMatchObject({ status: 'out' });
+  });
 });
 
 describe('harvest: the outputs', () => {
@@ -233,6 +276,16 @@ describe('harvest: the outputs', () => {
     const { file, summary } = run();
     const text = JSON.stringify(file) + summary;
     expect(text).not.toMatch(/"birth|1995-01-01|2010-06-15|2028-06/i);
+  });
+});
+
+describe('harvest: the public photos.json holds no em or en dash', () => {
+  it('writes a Commons title that has one as the JSON escape, and the data is the same once parsed', () => {
+    const v = { page: `https://commons.wikimedia.org/wiki/File:A_${String.fromCharCode(0x2013)}_B.jpg`, file: `20220112${String.fromCharCode(0x2014)}C.jpg` };
+    const text = publicJson(v);
+    expect(text).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013, 0x2014)}]`));
+    expect(JSON.parse(text)).toEqual(v);
+    expect(text.endsWith('}\n')).toBe(true);
   });
 });
 

@@ -8,7 +8,9 @@
 //   - an idol photo with anyone else in the frame (people_visible > 1) is pending at best, and out when any named person is under 18 on
 //     the photo date; the age rule runs on each photo's date from the PRIVATE people files;
 //   - the photos already in the game (lot 3's photos.json) are never proposed again: the same page or sha1 is out, sameOccasion is checked
-//     against them, and they count among the six slots of a subject.
+//     against them, and they count among the six slots of a subject;
+//   - the integrator's decisions of 2026-11-16: a file with Commons' personality rights warning is pending; Moonbin's photos are out; two
+//     sites that agree on a birth day while another differs: the latest day read is kept, as confirmed.
 // Pure: no file, no network, no clock (today is an argument). The people files hold birth dates and stay outside the repository; nothing
 // here writes one anywhere (the outputs carry verdicts, credits and counts; the opening month goes to the private locked.md only).
 import { ageVerdict, dateRange, eighteenthBirthday, type AgeReason, type DatePrecision, type LineupPerson } from './age-rule';
@@ -43,10 +45,12 @@ export interface GroupLineup { slug: string; complete: boolean; members: string[
 // ---- people ----
 
 const COARSE: Record<DatePrecision, number> = { day: 0, month: 1, year: 2 };
+const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const norm = (s: string): string => s.toLowerCase().normalize('NFKD').replace(/[^a-z0-9ㄱ-힝]+/g, '');
 
 /** Every people file merged by QID. Two rows of one person that disagree on the birth day make the date unconfirmed (and the latest day is
- *  kept: a minor shown by any row stays shown). A date is confirmed when no row disagrees and a row says so, or two sites give that day. */
+ *  kept: a minor shown by any row stays shown). A date is confirmed when no row disagrees and a row says so, or two sites give that day.
+ *  When two sites agree on one day and another site gives a different one, the latest day read is kept, as confirmed (integrator, 2026-11-16). */
 export function mergePeople(rows: PrivatePerson[]): Map<string, PrivatePerson> {
   const by = new Map<string, PrivatePerson[]>();
   for (const r of rows) {
@@ -66,6 +70,19 @@ export function mergePeople(rows: PrivatePerson[]): Map<string, PrivatePerson> {
       if (days.length === 1) {
         const sites = new Set(list.flatMap((r) => (r.birth_sources ?? []).filter((s) => s.value === birth_date).map((s) => s.site)));
         birth_confirmed = list.some((r) => r.birth_confirmed) || sites.size >= 2;
+      }
+      // The sites the rows list: two or more sites agree on ONE day and every other value comes from a single site. The integrator,
+      // 2026-11-16: the latest date read is kept, as confirmed (the strictest reading). Two days that each have two sites: doubt, unconfirmed.
+      const sitesOf = new Map<string, Set<string>>();
+      for (const s of list.flatMap((r) => r.birth_sources ?? [])) {
+        if (DAY.test(s.value)) sitesOf.set(s.value, new Set([...(sitesOf.get(s.value) ?? []), s.site]));
+      }
+      const agreed = [...sitesOf].filter(([, s]) => s.size >= 2).map(([v]) => v);
+      if (agreed.length >= 2) birth_confirmed = false;
+      else if (agreed.length === 1 && dated.every((r) => (r.birth_precision ?? 'day') === 'day')) {
+        birth_date = [...new Set([...days, ...sitesOf.keys()])].sort().at(-1)!;
+        birth_precision = 'day';
+        birth_confirmed = true;
       }
     }
     // one membership a group: joined the earliest (null: from the start), left the latest (null: never), current when any row says so
@@ -194,6 +211,19 @@ export function namedOthers(who: string | undefined, subjectQid: string | null, 
   return (who ?? '').split(/[;,|]/).map((x) => x.trim()).filter((x) => x && x !== subjectQid && norm(x) !== norm(subjectName));
 }
 
+/** Commons' {{Personality rights}} warning (and its redirects named so): the photo goes to the owner's review (integrator, 2026-11-16). */
+export const PERSONALITY_RIGHTS = /^Template:Personality[ _]rights/i;
+/** People whose photos are left out by a decision, whoever the subject is (integrator, 2026-11-16: Moonbin of ASTRO). Matched on the
+ *  subject's QID and on the candidate's who, file, event and page. */
+export const LEFT_OUT_PEOPLE: ReadonlyArray<{ name: string; qid: string; match: RegExp }> = [
+  { name: 'Moonbin', qid: 'Q22100580', match: /moon[ _-]?bin|문빈/i },
+];
+
+/** A public JSON file of the game holds no em or en dash (CLAUDE.md; cards-layout.test.ts reads docs/design/cards): a Commons title that has
+ *  one is written as the JSON escape, so the data is the same once parsed. */
+export const publicJson = (v: unknown): string =>
+  `${JSON.stringify(v, null, 1).replace(/[\u2013\u2014]/g, (c) => (c === '\u2013' ? '\\u2013' : '\\u2014'))}\n`;
+
 const isoOf = (date: string, precision: DatePrecision): string => (precision === 'month' && /^\d{4}-\d{2}$/.test(date) ? `${date}-01` : date);
 
 /** Every NEW photo of one subject, checked. A locked subject has none (its candidates are not even looked up). */
@@ -218,6 +248,9 @@ export function checkHarvestSubject(inp: HarvestInput): CheckedPhoto[] {
     };
     const info = p.file ? inp.info.get(`File:${p.file}`) : undefined;
     sourceChecks(p, c, info, subject.kind, reasons, review);
+    if (info?.templates.some((t) => PERSONALITY_RIGHTS.test(t))) review.push('Commons shows a personality rights warning on the file');
+    const leftOut = LEFT_OUT_PEOPLE.find((x) => x.qid === subject.qid || x.match.test(`${c.who ?? ''} ${c.file ?? ''} ${c.event ?? ''} ${c.page}`));
+    if (leftOut) reasons.push(`the photos of ${leftOut.name} are left out (integrator decision, 2026-11-16)`);
 
     // The age rule on the photo's own date, from the people files.
     const iso = isoOf(p.date, precision);
