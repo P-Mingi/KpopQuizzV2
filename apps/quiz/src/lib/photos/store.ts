@@ -33,8 +33,24 @@ function checkWebp(bytes: Uint8Array | null | undefined, label: string): Checked
 
 const hashOf = (b: Uint8Array): string => createHash('sha256').update(b).digest('hex').slice(0, 16);
 
-async function upload(db: Db, path: string, bytes: Uint8Array): Promise<void> {
-  const { error } = await db.storage.from(BUCKET).upload(path, bytes, { contentType: 'image/webp', cacheControl: '31536000', upsert: true });
+// Supabase's storage answers 5xx for a blip on its side: on 2026-11-15 a banner got 544 DatabaseTimeout (its own connection to the database
+// timed out after 5 s, the database itself was fine). One more try after a short pause, the same bytes under the same name (upsert), then the
+// error. A refusal (4xx: size, type, rights) is never retried.
+export const UPLOAD_RETRY_PAUSE_MS = 1500;
+const serverSide = (error: unknown): boolean => {
+  const e = error as { status?: unknown } | null;
+  const n = typeof e?.status === 'number' ? e.status : Number(e?.status);
+  return Number.isFinite(n) && n >= 500;
+};
+
+async function upload(db: Db, path: string, bytes: Uint8Array, pause: number = UPLOAD_RETRY_PAUSE_MS): Promise<void> {
+  const put = (): Promise<{ error: unknown }> => db.storage.from(BUCKET).upload(path, bytes, { contentType: 'image/webp', cacheControl: '31536000', upsert: true });
+  let { error } = await put();
+  if (error && serverSide(error)) {
+    await new Promise((resolve) => setTimeout(resolve, pause));
+    ({ error } = await put());
+    if (error && serverSide(error)) throw new ImageError('storage_failed', 502, 'Le stockage n\'a pas répondu à temps (incident passager chez Supabase). Réessaie dans une minute.');
+  }
   if (error) throw new ImageError('storage_failed', 502, 'L\'image n\'a pas pu être enregistrée dans le stockage.');
 }
 

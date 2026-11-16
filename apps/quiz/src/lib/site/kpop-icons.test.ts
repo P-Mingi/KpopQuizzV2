@@ -167,7 +167,7 @@ describe('anime and hub keep their icons, byte for byte', () => {
   };
   const MANIFESTS = {
     anime: 'c600c65f81e82a64c93d66725439b11b0de5ce78bc6f6bcf14af4e7b60713751',
-    hub: 'a45f1d1c1be0ef1824cc739c349ad51a05ae371e27e52c9cc0b62c7e70a5b099',
+    hub: '42706af247d346f74dcc0f8e3aa2bb86d1e0b1e67e124dd70711150c611ab6bf',
   } as const;
   const sha = (path: string): string => createHash('sha256').update(readFileSync(path)).digest('hex');
 

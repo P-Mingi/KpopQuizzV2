@@ -5,10 +5,18 @@
 // and the small toast. A guest (401) gets status 'guest' and no wallet: no page shows a fake stack.
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { isError, httpApi } from '@/lib/cards/ui-api';
+import { isError } from '@/lib/cards/ui-api';
+import { createHttpApi } from '@/lib/kpopcards/http-api';
+import { legacyApi } from '@/lib/kpopcards/legacy';
+import { setKcApi } from '@/lib/kpopcards/registry';
+
+import { syncPrefs } from './opening-prefs-sync';
 import { ownedMap } from '@/lib/cards/ui-model';
 
+import { clearPendingDemo, deviceId, pendingDemo } from './demo-store';
+
 import type { CardsApi, RecycleResult } from '@/lib/cards/ui-api';
+import type { KpopCardsApi, LobbyState } from '@/lib/kpopcards/contract';
 import type { OpenResult, OpenedCard, OwnedEntry, WalletState } from '@/lib/cards/types';
 import type { SlimCard, SlimCatalog } from '@/lib/cards/ui-types';
 
@@ -23,7 +31,14 @@ export interface CardsCtx {
   byN: Map<number, SlimCard>;
   owned: Map<number, OwnedEntry>;
   api: CardsApi | null;
+  /** The contract's API (the seeded mock in a development fixture, the fetch client otherwise) and the lobby state it last answered (null for a guest or before the first read). */
+  kc: KpopCardsApi | null;
+  lobby: LobbyState | null;
   fixture: boolean;
+  /** Development fixture only: the prototype's example binder is in place and nothing was opened yet (the prototype shows a line about it). */
+  protoExample: boolean;
+  /** Point A18: the server can draw a demo pack for a signed-out visitor (a secret is set); false: the sign-in call to action only. */
+  demo: boolean;
   lastPack: OpenedCard[] | null;
   newSet: ReadonlySet<number>;
   clearNew: (n?: number) => void;
@@ -42,11 +57,13 @@ export function useCards(): CardsCtx {
   return c;
 }
 
-export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCatalog; fixture: boolean; children: React.ReactNode }): React.ReactElement {
+export function CardsProvider({ catalog, fixture, demo = false, children }: { catalog: SlimCatalog; fixture: boolean; demo?: boolean; children: React.ReactNode }): React.ReactElement {
   const [api, setApi] = useState<CardsApi | null>(null);
+  const [kc, setKc] = useState<KpopCardsApi | null>(null);
   const [status, setStatus] = useState<CardsStatus>('loading');
   const [state, setState] = useState<WalletState | null>(null);
   const [now, setNow] = useState<number | null>(null);
+  const [protoExample, setProtoExample] = useState(false);
   const [lastPack, setLastPack] = useState<OpenedCard[] | null>(null);
   const [newSet, setNewSet] = useState<ReadonlySet<number>>(new Set());
   const [toastMsg, setToastMsg] = useState('');
@@ -60,10 +77,23 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
     let alive = true;
     void (async () => {
       // NODE_ENV is inlined by the build: in production this branch (and the mock with its fixture) is dead code and leaves the bundle.
-      const a = process.env.NODE_ENV !== 'production' && fixture ? (await import('@/lib/cards/ui-mock-api')).createMockApi() : httpApi;
+      const [mock, fx, ex] = process.env.NODE_ENV !== 'production' && fixture ? await Promise.all([import('@/lib/kpopcards/mock-api'), import('@/lib/cards/ui-fixture'), import('./proto-example')]) : [null, null, null];
+      const world = mock && fx ? mock.fixtureWorld(fx.fixtureCatalog()) : null;
+      const themes = fx ? fx.fixtureThemes(fx.fixtureCatalog()) : null;
+      if (world && themes) for (const [id, t] of themes) world.themeOf.set(id, t);
+      const k = mock && world ? mock.createMockApi({ world, example: new URLSearchParams(window.location.search).get('kcstate') !== 'empty', nickname: 'mingi' }) : createHttpApi();
+      const example = new URLSearchParams(window.location.search).get('kcstate') !== 'empty';
+      if (mock && fx && ex && example && 'data' in k && ex.applyProtoExample((k as { data: Parameters<typeof ex.applyProtoExample>[0] }).data, fx.fixtureCatalog().cards, Date.now())) setProtoExample(true);
+      // Development fixture only: the prototype controls on window.__kcMock and the ?kcpack= pattern of the next pack (agent A's
+      // installDevHooks), so the QA harness opens the same pack as the prototype's seed. Dead code in production, like the mock.
+      if (mock && world) mock.installDevHooks(k as Parameters<typeof mock.installDevHooks>[0], window as unknown as Record<string, unknown>, window.location.search);
       if (!alive) return;
+      setKcApi(k);
+      setKc(k);
+      const a = legacyApi(k);
       setApi(a);
-      const r = await a.state();
+      // Development fixture only: ?kcstate=guest shows the signed-out lobby (the QA harness and the prototype's guest view).
+      const r = process.env.NODE_ENV !== 'production' && fixture && new URLSearchParams(window.location.search).get('kcstate') === 'guest' ? null : await a.state();
       if (!alive) return;
       if (r === null) setStatus('guest');
       else if (isError(r)) setStatus('error');
@@ -77,6 +107,10 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
   }, []);
+
+  const prefSound = (state as LobbyState | null)?.prefs?.sound;
+  const prefVibration = (state as LobbyState | null)?.prefs?.vibration;
+  useEffect(() => syncPrefs(kc, prefSound === undefined || prefVibration === undefined ? null : { sound: prefSound, vibration: prefVibration }), [kc, prefSound, prefVibration]);
 
   const refresh = useCallback(async (): Promise<void> => {
     if (!api) return;
@@ -104,9 +138,34 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
 
   const applyResult = useCallback((r: OpenResult): void => {
     setState(r.state);
+    setProtoExample(false);
     setLastPack(r.pack.cards);
     setNewSet((prev) => { const s = new Set(prev); for (const c of r.pack.cards) if (c.isNew) s.add(c.n); return s; });
   }, []);
+
+  // Point A18: a demo pack opened before sign in is attached to the account once the visitor is signed in: the token is posted once (it is
+  // dropped on any answer except a dropped connection, which keeps it for the next visit).
+  const claiming = useRef(false);
+  useEffect(() => {
+    if (status !== 'ready' || !api || claiming.current) return;
+    const token = pendingDemo();
+    if (!token) return;
+    claiming.current = true;
+    void (async () => {
+      const r = await api.demoClaim(token, deviceId());
+      if (isError(r)) {
+        if (r.error !== 'network' && r.error !== 'failed') clearPendingDemo();
+        if (r.error === 'limit') toast('Your demo cards could not be added today. Open a real pack instead.');
+        claiming.current = false;
+        return;
+      }
+      clearPendingDemo();
+      setState(r.state);
+      setNewSet((prev) => { const s = new Set(prev); for (const c of r.added) if (c.isNew) s.add(c.n); return s; });
+      toast(`Your demo pack is in your binder: ${r.added.length} cards.`);
+      claiming.current = false;
+    })();
+  }, [status, api, toast]);
 
   const toggleFav = useCallback(async (n: number): Promise<void> => {
     if (!api || !state) return;
@@ -129,8 +188,8 @@ export function CardsProvider({ catalog, fixture, children }: { catalog: SlimCat
   }, [api]);
 
   const value = useMemo<CardsCtx>(() => ({
-    status, state, now, catalog, byN, owned, api, fixture, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
-  }), [status, state, now, catalog, byN, owned, api, fixture, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
+    status, state, now, catalog, byN, owned, api, kc, lobby: (state as LobbyState | null), fixture, protoExample, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
+  }), [status, state, now, catalog, byN, owned, api, kc, fixture, protoExample, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
 
   return (
     <Ctx.Provider value={value}>

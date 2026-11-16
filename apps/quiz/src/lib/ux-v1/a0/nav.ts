@@ -2,14 +2,15 @@
 // server-rendered nav, the tab bar and the tests agree on one route map. Every
 // item is a real <a href> (16.5): crawlers and keyboards see the real paths.
 
+import { BURROW_PATHS, burrowOpen } from '@/lib/site/hub/daily-guess';
 import { SITE, flagOn } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 import { isUxV12 } from '@/lib/ux-v12';
 
 import type { UxIconName } from './icons';
 
-export type NavKey = 'home' | 'quizzes' | 'groups' | 'blindtest' | 'community' | 'leaderboard' | 'cards';
-export type TabKey = 'home' | 'quizzes' | 'blindtest' | 'community' | 'you' | 'cards';
+export type NavKey = 'home' | 'quizzes' | 'groups' | 'blindtest' | 'community' | 'leaderboard' | 'cards' | 'daily';
+export type TabKey = 'home' | 'quizzes' | 'blindtest' | 'community' | 'you' | 'cards' | 'daily';
 
 export interface NavItem<K extends string> {
   key: K;
@@ -30,7 +31,7 @@ export const NAV_ITEMS: NavItem<NavKey>[] = [
 // Run O1: the top bar of another site names its own topic (Series) and shows only the doors the site has: the feature is on
 // and the route map of the site knows the path. On kpop it is NAV_ITEMS itself, the same array, as today.
 const NAV_FEATURE: Record<NavKey, keyof typeof SITE.features | null> = {
-  home: null, quizzes: 'quizzes', groups: 'topicHubs', blindtest: 'blindTest', community: 'community', leaderboard: 'leaderboards', cards: null,
+  home: null, quizzes: 'quizzes', groups: 'topicHubs', blindtest: 'blindTest', community: 'community', leaderboard: 'leaderboards', cards: null, daily: 'dailyGuess',
 };
 
 // The hub (home v3, 2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): the tabs of its home on every hub page. Its sections live on
@@ -45,11 +46,23 @@ const HUB_NAV: NavItem<NavKey>[] = [
 
 // Bunnyverse Cards (lane U): the hub gets a Cards entry only with NEXT_PUBLIC_NET_CARDS on (the public twin of NET_CARDS: the navigation is client code, so a server flag would not match;
 // docs/o1/requests/CARDS-U.md asks ORCH to register it); off, HUB_NAV itself (the same array) is returned.
-const HUB_NAV_CARDS: NavItem<NavKey>[] = [...HUB_NAV, { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }];
+const HUB_NAV_CARDS: NavItem<NavKey>[] = [...HUB_NAV, { key: 'cards', label: 'KpopCards', href: '/kpopcards', icon: 'layers' }];
+
+// Owner request 2026-11-13 (the passport page lacked it): the Daily games tab of the hub home on every other hub page too, second like on
+// the home, with the same badge (the games left on this device, components/layout/ux-v1/ux-daily-badge.tsx). Only while the Burrow is open
+// (the dailyGuess feature on and its three pages served: lib/site/hub/daily-guess.ts burrowOpen), so a door never leads to a 404.
+const HUB_DAILY: NavItem<NavKey> = { key: 'daily', label: 'Daily games', href: BURROW_PATHS.burrow, icon: 'grid' };
+const withDaily = <K extends string>(items: NavItem<K>[], daily: NavItem<K>): NavItem<K>[] => [items[0]!, daily, ...items.slice(1)];
+const HUB_NAV_DAILY = withDaily(HUB_NAV, HUB_DAILY);
+const HUB_NAV_DAILY_CARDS = withDaily(HUB_NAV_CARDS, HUB_DAILY);
 
 export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {
   if (site.id === 'kpop') return NAV_ITEMS;
-  if (site.id === 'hub') return flagOn(process.env.NEXT_PUBLIC_NET_CARDS) ? HUB_NAV_CARDS : HUB_NAV;
+  if (site.id === 'hub') {
+    const cards = flagOn(process.env.NEXT_PUBLIC_NET_CARDS);
+    if (burrowOpen(site.features)) return cards ? HUB_NAV_DAILY_CARDS : HUB_NAV_DAILY;
+    return cards ? HUB_NAV_CARDS : HUB_NAV;
+  }
   const topic = site.vocabulary.topicPlural;
   return NAV_ITEMS
     .map((it) => (it.key === 'groups' ? { ...it, label: topic.charAt(0).toUpperCase() + topic.slice(1), href: '/series' } : it))
@@ -70,7 +83,7 @@ export const TAB_ITEMS: NavItem<TabKey>[] = [
 // Run C1: the mobile tab bar of another site shows only the doors the site has, like the top bar above. On kpop it is TAB_ITEMS
 // itself, the same array, as today. "You" goes to the site's own passport page: /me on anime, /passport on the hub.
 const TAB_FEATURE: Record<TabKey, keyof typeof SITE.features | null> = {
-  home: null, quizzes: 'quizzes', blindtest: 'blindTest', community: 'community', you: null, cards: null,
+  home: null, quizzes: 'quizzes', blindtest: 'blindTest', community: 'community', you: null, cards: null, daily: 'dailyGuess',
 };
 const YOU_HREF: Record<'anime' | 'hub', string> = { anime: '/me', hub: '/passport' };
 
@@ -79,11 +92,19 @@ const HUB_TABS: NavItem<TabKey>[] = [
   { key: 'you', label: 'You', href: YOU_HREF.hub, icon: 'user' },
 ];
 
-const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'Cards', href: '/cards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
+const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'KpopCards', href: '/kpopcards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
+// The tab bar is narrow: the same door reads "Daily" there.
+const HUB_TAB_DAILY: NavItem<TabKey> = { key: 'daily', label: 'Daily', href: BURROW_PATHS.burrow, icon: 'grid' };
+const HUB_TABS_DAILY = withDaily(HUB_TABS, HUB_TAB_DAILY);
+const HUB_TABS_DAILY_CARDS = withDaily(HUB_TABS_CARDS, HUB_TAB_DAILY);
 
 export function tabItemsFor(site: typeof SITE = SITE): NavItem<TabKey>[] {
   if (site.id === 'kpop') return TAB_ITEMS;
-  if (site.id === 'hub') return flagOn(process.env.NEXT_PUBLIC_NET_CARDS) ? HUB_TABS_CARDS : HUB_TABS;
+  if (site.id === 'hub') {
+    const cards = flagOn(process.env.NEXT_PUBLIC_NET_CARDS);
+    if (burrowOpen(site.features)) return cards ? HUB_TABS_DAILY_CARDS : HUB_TABS_DAILY;
+    return cards ? HUB_TABS_CARDS : HUB_TABS;
+  }
   const id = site.id;
   return TAB_ITEMS
     .map((it) => (it.key === 'you' ? { ...it, href: YOU_HREF[id] } : it))
@@ -94,6 +115,8 @@ export function tabItemsFor(site: typeof SITE = SITE): NavItem<TabKey>[] {
 }
 
 const under = (p: string, base: string): boolean => p === base || p.startsWith(`${base}/`);
+/** The pages of the Burrow on the hub, and their French twins under /fr. */
+const isDaily = (p: string): boolean => Object.values(BURROW_PATHS).some((b) => under(p, b) || under(p, `/fr${b}`));
 /** Group hubs are generated slugs: /bts-quiz, /twice-trivia (route-allowlist rule). */
 const isHub = (p: string): boolean => /^\/[^/]+-(quiz|trivia)\/?$/.test(p);
 
@@ -138,7 +161,7 @@ function v12Section(path: string, member: string): 'blindtest' | 'groups' | null
 
 /** Which top-nav item is active for a path (prototype NAVMAP), or null. `v12` is the
  *  flag (a parameter only so the tests can set it). */
-export function activeNav(pathname: string, v12: boolean = isUxV12(), member: string = SITE.vocabulary.member): NavKey | null {
+export function activeNav(pathname: string, v12: boolean = isUxV12(), member: string = SITE.vocabulary.member, site: typeof SITE = SITE): NavKey | null {
   const p = base(pathname);
   if (p === '/') return 'home';
   if (v12) {
@@ -150,12 +173,13 @@ export function activeNav(pathname: string, v12: boolean = isUxV12(), member: st
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community')) return 'community';
   if (under(p, '/leaderboard')) return 'leaderboard';
-  if (under(p, '/cards')) return 'cards';
+  if (under(p, '/kpopcards') || under(p, '/cards')) return 'cards';
+  if (site.id === 'hub' && isDaily(p)) return 'daily';
   return null;
 }
 
 /** Which bottom tab is active for a path (prototype TABMAP), or null. */
-export function activeTab(pathname: string, v12: boolean = isUxV12(), member: string = SITE.vocabulary.member): TabKey | null {
+export function activeTab(pathname: string, v12: boolean = isUxV12(), member: string = SITE.vocabulary.member, site: typeof SITE = SITE): TabKey | null {
   const p = base(pathname);
   if (p === '/') return 'home';
   if (v12) {
@@ -165,7 +189,8 @@ export function activeTab(pathname: string, v12: boolean = isUxV12(), member: st
   if (under(p, '/quizzes') || under(p, '/q') || under(p, '/groups') || under(p, '/group') || isHub(p)) return 'quizzes';
   if (under(p, '/blindtest') || under(p, '/g')) return 'blindtest';
   if (under(p, '/community') || under(p, '/leaderboard')) return 'community';
-  if (under(p, '/cards')) return 'cards';
+  if (under(p, '/kpopcards') || under(p, '/cards')) return 'cards';
+  if (site.id === 'hub' && isDaily(p)) return 'daily';
   if (under(p, '/profile') || under(p, '/passport') || under(p, '/me') || under(p, '/u') || under(p, '/settings') || under(p, '/notifications')) return 'you';
   return null;
 }

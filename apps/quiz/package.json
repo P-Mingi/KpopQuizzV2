@@ -20,6 +20,7 @@
     "data-guard": "tsx scripts/data-guard.ts",
     "check:docs-secrets": "tsx scripts/check-docs-secrets.mts",
     "check:verse-tokens": "tsx scripts/check-verse-tokens.mts",
+    "owner:cards": "node scripts/cards/owner-cards.mjs",
     "test:unit": "vitest run",
     "test:e2e": "playwright test"
   },

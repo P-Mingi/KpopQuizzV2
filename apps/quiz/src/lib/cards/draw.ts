@@ -9,6 +9,7 @@ import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import { drawPack, indexPool } from './rules';
 
+import type { PackContext } from './rules';
 import type { PoolCard, Rng } from './types';
 
 /** Cryptographic integers in [0, max). */
@@ -19,11 +20,17 @@ export const POOL_TTL_MS = 5 * 60 * 1000;
 type PoolIndex = Map<string, PoolCard[]>;
 let cached: { at: number; index: PoolIndex; size: number } | null = null;
 
+interface PoolEntity {
+  kind: PoolCard['kind'];
+  active: boolean;
+  group_id: string | null;
+}
+
 interface PoolRow {
   card_no: number;
   rarity: PoolCard['rarity'];
   entity_id: string;
-  cards_entities: { kind: PoolCard['kind']; active: boolean } | { kind: PoolCard['kind']; active: boolean }[] | null;
+  cards_entities: PoolEntity | PoolEntity[] | null;
 }
 
 /** Reads the pool: every card in packs whose entity is active. Paged past the 1,000-row cap. */
@@ -32,7 +39,7 @@ export async function readPool(): Promise<PoolCard[]> {
   const rows = await fetchAllRows<PoolRow>(() =>
     db
       .from('cards_catalog')
-      .select('card_no, rarity, entity_id, cards_entities!inner(kind, active)')
+      .select('card_no, rarity, entity_id, cards_entities!inner(kind, active, group_id)')
       .eq('in_packs', true)
       .eq('cards_entities.active', true)
       .order('card_no', { ascending: true }),
@@ -40,7 +47,7 @@ export async function readPool(): Promise<PoolCard[]> {
   const pool: PoolCard[] = [];
   for (const r of rows) {
     const e = Array.isArray(r.cards_entities) ? r.cards_entities[0] : r.cards_entities;
-    if (e?.active) pool.push({ n: r.card_no, kind: e.kind, rarity: r.rarity, entity: r.entity_id });
+    if (e?.active) pool.push({ n: r.card_no, kind: e.kind, rarity: r.rarity, entity: r.entity_id, group: e.group_id });
   }
   return pool;
 }
@@ -58,8 +65,8 @@ export function resetPoolCache(): void {
   cached = null;
 }
 
-/** One pack of 5 card numbers, drawn on the server. */
-export async function drawServerPack(opts: { rng?: Rng; read?: () => Promise<PoolCard[]>; now?: number } = {}): Promise<number[]> {
+/** One pack of 5 card numbers, drawn on the server. `ctx` is the player's own state (lot 3: the Ultra Rare guarantee, the owned halves, the focus). */
+export async function drawServerPack(opts: { rng?: Rng; read?: () => Promise<PoolCard[]>; now?: number; ctx?: PackContext } = {}): Promise<number[]> {
   const index = await loadPool(opts.read, opts.now);
-  return drawPack(index, opts.rng ?? serverRng);
+  return drawPack(index, opts.rng ?? serverRng, opts.ctx);
 }

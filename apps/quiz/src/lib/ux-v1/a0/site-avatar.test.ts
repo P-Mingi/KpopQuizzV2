@@ -6,6 +6,9 @@ import { fileURLToPath } from 'node:url';
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+// Scans every file of src/: the first `it` that reads the tree took 5.0 s (failed at the 5 s default) measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
+
 const SRC = fileURLToPath(new URL('../../../', import.meta.url));
 
 function walk(dir: string, out: string[] = []): string[] {

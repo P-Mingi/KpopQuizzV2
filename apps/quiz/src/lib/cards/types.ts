@@ -1,12 +1,13 @@
 // Bunnyverse Cards: shared types (lane C CORE owns this file; lanes U and B import it).
 // Contract: docs/o1/briefs/CARDS-CONTRACT.md sections 2 and 3.
+import type { FinishedSet } from './goals';
 
 export type Rarity = 'C' | 'U' | 'R' | 'SR' | 'UR' | 'L';
 export type Edition = 'std' | 'stage' | 'holo' | 'era' | 'gold' | 'full';
 export type CardKind = 'idol' | 'group' | 'event';
-export type PackSource = 'stock' | 'ad' | 'shards' | 'bonus';
+export type PackSource = 'stock' | 'ad' | 'shards' | 'bonus' | 'reward';
 export type PhotoSource = 'commons' | 'koreanet' | 'flickr' | 'dvids';
-export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop';
+export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop' | 'photo' | 'size';
 export type PhotoStatus = 'auto' | 'pending' | 'approved' | 'rejected' | 'removed';
 /** Lot 2 (owner idea, 2026-11-12): what part of its photo a card shows. 0 the whole photo (a person's card), 1 the left half and 2 the
  *  right half of a group photo. A group gives a pair of cards per edition, with consecutive numbers (cards_catalog.part, file 102). */
@@ -122,17 +123,55 @@ export interface WalletState {
   shards: number;
   bonusLeft: number;
   owned: OwnedEntry[];
+  /** Lot 3 A13: packs the timer may add a Paris day (TIMER_PACKS_PER_DAY, or CARDS_TIMER_PER_DAY). Optional for older payloads. */
+  timerCap?: number;
+  /** Lot 3 A13: packs the timer added since Paris midnight ("14 of 40 timer packs today"). */
+  timerUsed?: number;
+  /** Lot 3 A13: refills the timer may still add today. At 0 the stack adds nothing until Paris midnight; the packs in it still open. */
+  timerLeft?: number;
+  /** Lot 3 A11: packs left up to and including the one with a Gold card 5 for sure (1 = the next pack); null while no Gold card is in packs. */
+  pityLeft?: number | null;
+  /** Lot 3 A17: true once today's focus pack is opened. */
+  focusUsed?: boolean;
+  /** Lot 3 A17: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
+  wishlist?: number[];
+  /** Lot 4 B4: the shards a rewarded ad gives (CARDS_AD_SHARDS, default AD_SHARDS_DEFAULT). */
+  adShards?: number;
+  /** Lot 4 B3: the last 10 packs, newest first. */
+  recent?: RecentPack[];
+  /** Lot 4 A15 (Goals): reward packs waiting, opened from the Goals tab (source 'reward'). Absent when none wait. */
+  rewardPacks?: number;
   /** The odds of the real catalog (null while the catalog is empty). */
   odds?: CatalogOdds | null;
+}
+
+/** Lot 4 B3: one line of the player's last packs. */
+export interface RecentPack {
+  /** ISO time the pack was opened. */
+  at: string;
+  /** The best edition among its five cards. */
+  best: Edition;
+  source: PackSource;
+  /** The cards new to the player in that pack, null for a pack opened before the moment was recorded. */
+  newCount: number | null;
 }
 
 export interface OpenedCard {
   n: number;
   isNew: boolean;
+  /** Lot 3 A12: true when this new card is the other half of a group edition of which the player already owned one half. */
+  completesPair?: boolean;
 }
 
 export interface OpenResult {
-  pack: { id: string; cards: OpenedCard[] };
+  pack: { id: string; cards: OpenedCard[]; newCount?: number; packNo?: number; /** Lot 4 A15: the sets this pack completed (each pays its reward packs once). */ finished?: FinishedSet[] };
+  state: WalletState;
+}
+
+/** POST /api/cards/ad/grant (lot 4 B4): a rewarded ad gives shards, not a pack. */
+export interface AdResult {
+  gained: number;
+  shards: number;
   state: WalletState;
 }
 
@@ -144,6 +183,8 @@ export interface WalletRow {
   adsToday: number;
   bonusToday: number;
   shards?: number;
+  /** Lot 3 A13: the timer refills since Paris midnight (cards_wallets.timer_today). */
+  timerToday?: number;
 }
 
 /** What walletAt returns: the row after the refill and the Paris midnight, never written. */
@@ -154,6 +195,8 @@ export interface WalletClock {
   parisDay: string;
   adsToday: number;
   bonusToday: number;
+  /** Lot 3 A13: the timer refills since Paris midnight, after this sync. */
+  timerToday: number;
   /** ms since epoch of the next refill, null when the stack is full. */
   nextAt: number | null;
   /** ms since epoch of the next 00:00 Europe/Paris. */
@@ -168,6 +211,8 @@ export interface PoolCard {
   /** Lot 2: the subject (cards_entities.id). The draw picks a subject first, then one of its cards of the rolled rarity (the two halves of a
    *  group), so a group with a pair comes out as often as a subject with one card. Without it, every card is its own subject. */
   entity?: string;
+  /** Lot 3 (C4): the group of the card's subject (cards_entities.group_id of an idol), so a focus pack finds a group's idols. */
+  group?: string | null;
 }
 
 /** An integer in [0, maxExclusive). The server passes crypto.randomInt; the tests pass a seeded generator. */

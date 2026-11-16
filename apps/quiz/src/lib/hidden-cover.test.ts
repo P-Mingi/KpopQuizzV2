@@ -6,6 +6,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { isCoverHidden, isKpdhTrack, KPDH_DEEZER_IDS, withoutHiddenCover, withoutKpdhCover } from '@/lib/blind-test-curated';
 
+// Scans every file of src/: the first `it` that reads the tree took 3.1 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
+
 // Mission U, part C: withoutHiddenCover replaces withoutKpdhCover on every reveal. A soundtrack song
 // loses both covers, an ordinary song is returned untouched (same object), a KPop Demon Hunters song
 // behaves exactly as before, and songs.hide_cover is honoured when the row carries it. The manual

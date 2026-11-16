@@ -211,7 +211,8 @@ describe('the top bar', () => {
     expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn">/);
     expect(nav).not.toContain('both sites');
     expect(nav).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
-  });
+  // 30 s: this is the file's first renderHome(), which loads the whole home graph cold: 1.6 s in one full run, 5.0 s (failed) in another.
+  }, 30_000);
 
   it('is ink and cream: no pink or orange in the bar itself (the wordmark tail and the Burrow badge are the board\'s pink)', async () => {
     const css = (await import('node:fs')).readFileSync(new URL('../../../styles/sites/hub/h2.css', import.meta.url), 'utf8');

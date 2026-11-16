@@ -1,0 +1,31 @@
+{
+  "seed": "20261113",
+  "note": "first pack of the v6 prototype example player, in draw order",
+  "cards": [
+    {
+      "rarity": "U",
+      "isNew": false,
+      "tag": "+1 copy"
+    },
+    {
+      "rarity": "U",
+      "isNew": true,
+      "tag": "New"
+    },
+    {
+      "rarity": "C",
+      "isNew": false,
+      "tag": "+1 copy"
+    },
+    {
+      "rarity": "C",
+      "isNew": true,
+      "tag": "New"
+    },
+    {
+      "rarity": "U",
+      "isNew": true,
+      "tag": "New"
+    }
+  ]
+}

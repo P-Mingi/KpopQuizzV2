@@ -7,7 +7,9 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 
 import { bankBlocks, failure, freshDb, one, readMigration, rows, wantBlocks } from './pglite-harness';
 
-vi.setConfig({ testTimeout: 120_000, hookTimeout: 60_000 });
+// The 115-size loop below runs 345 activations on PGlite: about 120 s of CPU on an idle machine and 360 s next to other work, so the
+// old 120 s limit failed it on its own (measured 121.6 s idle). 600 s keeps a margin and still fails a hang.
+vi.setConfig({ testTimeout: 600_000, hookTimeout: 60_000 });
 
 const EPOCH = '2026-11-01';
 const at = (date: string, time = '12:00:00'): string => `${date}T${time}Z`;

@@ -46,6 +46,40 @@ const ODDS_UNITS: Record<Rarity, number> = { C: 60000, U: 24000, R: 10000, SR: 4
 /** Shards a duplicate is worth in "Recycle extras". */
 export const SHARDS: Record<Rarity, number> = { C: 1, U: 2, R: 5, SR: 12, UR: 30, L: 80 };
 
+/** Lot 3 point B4: one name per rarity, everywhere a player reads it (the edition's name; RARITY_NAMES stays for code and tests only).
+ *  The rarity order is told by the gem and the odds table, never by a second name. */
+export const RARITY_LABEL: Record<Rarity, string> = {
+  C: 'Standard',
+  U: 'Stage',
+  R: 'Holo',
+  SR: 'Era',
+  UR: 'Gold',
+  L: 'Full Art',
+};
+
+/** Lot 3 point A11: after PITY_UR - 1 = 29 packs in a row without a Gold or a Full Art card, the 5th card of the 30th pack is Gold (a pack
+ *  holding a Gold or a Full Art card resets the count). Only while the pool has a Gold card. The SQL twin is cards_apply_pack (104). */
+export const PITY_UR = 30;
+
+/** Lot 3 point A13: the timer adds at most this many packs a Paris day (the midnight top-up is not counted); a pack in the stack always
+ *  opens. CARDS_TIMER_PER_DAY overrides it on the server. */
+export const TIMER_PACKS_PER_DAY = 40;
+
+/** Lot 4 point B4: the shards a rewarded ad gives (fixed, not a pack); CARDS_AD_SHARDS overrides it on the server. */
+export const AD_SHARDS_DEFAULT = 25;
+
+/** Lot 3 point A13: the quiet hours of any reminder the game may send (Paris time, from 22:00 to 08:00). The game sends none today. */
+export const QUIET_HOURS = { from: 22, to: 8 } as const;
+
+/** Lot 3 point A14: the shards a missing card costs to craft: Standard 10, Stage 20, Holo 50, Era 120, Gold 300. A Full Art is NOT craftable
+ *  (no entry). A pack still costs SHARD_PACK_COST. */
+export const CRAFT_COST: Partial<Record<Rarity, number>> = { C: 10, U: 20, R: 50, SR: 120, UR: 300 };
+
+/** The craft cost of a rarity, null for a Full Art (it cannot be crafted). */
+export function craftCost(r: Rarity): number | null {
+  return CRAFT_COST[r] ?? null;
+}
+
 /** Kind weights, among the kinds that have at least one active card of the rolled rarity. Applied only once the catalog has the plan's
  *  form (hasPlanForm): owner decision 2026-11-13. */
 export const KIND_WEIGHTS: Record<CardKind, number> = { idol: 75, group: 15, event: 10 };
@@ -70,7 +104,7 @@ export function hasPlanForm(byKey: Map<string, PoolCard[]>): boolean {
 const OF_RARITY = new WeakMap<Map<string, PoolCard[]>, Map<Rarity, PoolCard[]>>();
 
 /** Every card of a rarity, all kinds together (kind order, then pool order), one stable list per pool so its subjects are cached. */
-function cardsOfRarity(byKey: Map<string, PoolCard[]>, r: Rarity): PoolCard[] {
+export function cardsOfRarity(byKey: Map<string, PoolCard[]>, r: Rarity): PoolCard[] {
   let m = OF_RARITY.get(byKey);
   if (!m) { m = new Map(); OF_RARITY.set(byKey, m); }
   let l = m.get(r);
@@ -94,10 +128,11 @@ export const EDITIONS: Record<Rarity, EditionInfo> = {
   L: { edition: 'full', name: 'Full Art', photoSlot: 3 },
 };
 
-/** The rarities a kind can exist in (idol: all six; group: C U R UR, amendment 1; event: C U R). The binder also shows the locked Era and Full Art pockets (ui-model ladderRarities). */
+/** The rarities a kind can exist in (idol and group: all six, lot 3 owner decision "one edition, one photo": a group follows the same
+ *  ladder, each edition with its own group photo; amendment 1 limited groups to C U R UR; event: C U R). The binder shows the locked pockets. */
 export const KIND_RARITIES: Record<CardKind, readonly Rarity[]> = {
   idol: ['C', 'U', 'R', 'SR', 'UR', 'L'],
-  group: ['C', 'U', 'R', 'UR'],
+  group: ['C', 'U', 'R', 'SR', 'UR', 'L'],
   event: ['C', 'U', 'R'],
 };
 
@@ -108,6 +143,8 @@ export const LOCK_SENTENCES: Record<LockReason, string> = {
   newg: "New group: free photographers haven't caught up yet.",
   hiatus: 'On a break, so no new public appearances to photograph.',
   crop: 'Only appears in group shots, too small to crop for Full Art.',
+  photo: 'Each edition needs its own free photo, and this one has none yet.',
+  size: 'No free photo is large enough yet for a full art card.',
 };
 
 export const SOURCE_NAMES: Record<PhotoSource, string> = {
@@ -130,7 +167,7 @@ export function creditLine(photo: PhotoCredit, idolPhotoNumber: number = photo.s
 }
 
 /** The plan's weights (thousandths of a percent) of the rarities that have at least one card in the pool, in rarity order. */
-function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity, number]> {
+export function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity, number]> {
   const has = (r: Rarity): boolean => KINDS.some((k) => (byKey.get(`${k}|${r}`)?.length ?? 0) > 0);
   const t: Array<[Rarity, number]> = RARITIES.filter(has).map((r) => [r, ODDS_UNITS[r]]);
   if (fifth) {
@@ -147,7 +184,7 @@ function tableOf(byKey: Map<string, PoolCard[]>, fifth: boolean): Array<[Rarity,
 }
 
 /** Rarity roll for one card among the rarities that have a card (renormalised); `fifth` turns a Common into an Uncommon. */
-function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
+export function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
   const total = table.reduce((s, [, w]) => s + w, 0);
   if (total <= 0) throw new Error('cards: the pool has no card for this draw');
   let x = rng(total);
@@ -158,14 +195,49 @@ function rollFrom(table: Array<[Rarity, number]>, rng: Rng): Rarity {
   return (table[table.length - 1] as [Rarity, number])[0];
 }
 
+/** What a per-player draw may add to the plain draw (lot 3). Everything is optional: without it the draw is exactly the lot 2 one. */
+export interface DrawOpts {
+  /** A11: draw this rarity instead of rolling one (the Gold card 5 of the 30th pack). */
+  rarity?: Rarity;
+  /** A12: the card numbers the player owns; the cards drawn so far in the pack are added by drawPack. A group edition of which he owns
+   *  exactly one half gives him the other half. */
+  owned?: ReadonlySet<number>;
+  /** A17: a group (cards_entities.id of kind 'group'); the card comes from its subjects at the rolled rarity, else from the whole pool. */
+  focus?: string | null;
+}
+
+/** The cards of a group for the focus pack: the group's own cards and those of the idols whose group_id is that group. */
+export function focusCards(list: readonly PoolCard[], focus: string): PoolCard[] {
+  return list.filter((c) => c.entity === focus || c.group === focus);
+}
+
+/** One of a subject's cards. With `owned`, a subject of which the player holds some but not all halves gives one he lacks (B11). */
+function pickCard(cards: PoolCard[], rng: Rng, owned: ReadonlySet<number> | undefined): PoolCard {
+  if (cards.length === 1) return cards[0] as PoolCard;
+  if (owned) {
+    const lacking = cards.filter((c) => !owned.has(c.n));
+    if (lacking.length > 0 && lacking.length < cards.length) return lacking.length === 1 ? (lacking[0] as PoolCard) : (lacking[rng(lacking.length)] as PoolCard);
+  }
+  return cards[rng(cards.length)] as PoolCard;
+}
+
+/** A subject at random in a list, then one of its cards. */
+function pickSubject(list: readonly PoolCard[], rng: Rng, owned: ReadonlySet<number> | undefined): PoolCard {
+  const subjects = subjectsOf(list);
+  return pickCard(subjects[rng(subjects.length)] as PoolCard[], rng, owned);
+}
+
 /** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. Exported for the tests. */
-export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean): PoolCard {
-  const rarity = rollFrom(tableOf(byKey, fifth), rng);
+export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean, opts: DrawOpts = {}): PoolCard {
+  const rarity = opts.rarity ?? rollFrom(tableOf(byKey, fifth), rng);
+  if (opts.focus) {
+    // Lot 3 C4: a subject of the focus group at this rarity; a group with no card of the rarity falls back to the plain draw below.
+    const mine = focusCards(cardsOfRarity(byKey, rarity), opts.focus);
+    if (mine.length > 0) return pickSubject(mine, rng, opts.owned);
+  }
   if (!hasPlanForm(byKey)) {
     // Owner decision 2026-11-13: no kind weight before the plan's form; one subject of the rarity at random, then one of its cards.
-    const subjects = subjectsOf(cardsOfRarity(byKey, rarity));
-    const cards = subjects[rng(subjects.length)] as PoolCard[];
-    return (cards.length === 1 ? cards[0] : cards[rng(cards.length)]) as PoolCard;
+    return pickSubject(cardsOfRarity(byKey, rarity), rng, opts.owned);
   }
   const kinds = KINDS.filter((k) => (byKey.get(`${k}|${rarity}`)?.length ?? 0) > 0);
   const total = kinds.reduce((s, k) => s + KIND_WEIGHTS[k], 0);
@@ -181,9 +253,7 @@ export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean
   const list = byKey.get(`${kind}|${rarity}`) as PoolCard[];
   // Lot 2: a subject first, then one of its cards of that rarity (a group's two halves), so a pair does not double a group's chance.
   // With one card per subject this is exactly the former uniform pick (same rng calls, same card).
-  const subjects = subjectsOf(list);
-  const cards = subjects[rng(subjects.length)] as PoolCard[];
-  return (cards.length === 1 ? cards[0] : cards[rng(cards.length)]) as PoolCard;
+  return pickSubject(list, rng, opts.owned);
 }
 
 const SUBJECTS = new WeakMap<readonly PoolCard[], PoolCard[][]>();
@@ -263,11 +333,37 @@ export function indexPool(pool: readonly PoolCard[]): Map<string, PoolCard[]> {
   return byKey;
 }
 
-export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rng: Rng): number[] {
+/** What the player's own state adds to a pack (lot 3). The server fills it; the plain draw is drawPack(pool, rng). */
+export interface PackContext {
+  /** A11: the player's last PITY_UR - 1 packs held no Gold and no Full Art, so card 5 of this pack is Gold. */
+  pity?: boolean;
+  /** A12: the card numbers the player owns now. */
+  owned?: ReadonlySet<number>;
+  /** A17: the group of a focus pack (cards 2 and 4 come from it, at the edition rolled with the normal odds). */
+  focus?: string | null;
+}
+
+/** True for the two rarities that end the Gold count (Gold and Full Art). */
+export const isPityHit = (r: Rarity): boolean => r === 'UR' || r === 'L';
+
+export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rng: Rng, ctx: PackContext = {}): number[] {
   const byKey = pool instanceof Map ? pool : indexPool(pool);
-  const out: number[] = [];
-  for (let i = 0; i < PACK_SIZE; i++) out.push(drawOne(byKey, rng, i === PACK_SIZE - 1).n);
-  return out;
+  const out: PoolCard[] = [];
+  // The cards drawn so far count as owned, so the second draw of a group edition inside one pack gives its other half.
+  const owned = ctx.owned ? new Set(ctx.owned) : undefined;
+  // A11 holds only while the pool has a Gold card.
+  const mustUr = ctx.pity === true && cardsOfRarity(byKey, 'UR').length > 0;
+  for (let i = 0; i < PACK_SIZE; i++) {
+    const last = i === PACK_SIZE - 1;
+    const opts: DrawOpts = {};
+    if (owned) opts.owned = owned;
+    if (ctx.focus && (i === 1 || i === 3)) opts.focus = ctx.focus;
+    if (last && mustUr) opts.rarity = 'UR';
+    const card = drawOne(byKey, rng, last, opts);
+    owned?.add(card.n);
+    out.push(card);
+  }
+  return out.map((c) => c.n);
 }
 
 /* ---------- time (Europe/Paris) ---------- */
@@ -288,6 +384,26 @@ export function parisDayOf(t: number | Date): string {
   const o: Record<string, string> = {};
   for (const p of parisFmt().formatToParts(new Date(t))) o[p.type] = p.value;
   return `${o.year}-${o.month}-${o.day}`;
+}
+
+let hourFmt: Intl.DateTimeFormat | null = null;
+
+/** The Paris hour of an instant, 0 to 23. */
+export function parisHourOf(t: number | Date): number {
+  hourFmt ??= new Intl.DateTimeFormat('en-GB', { timeZone: PARIS_TZ, hour: '2-digit', hourCycle: 'h23' });
+  const h = hourFmt.formatToParts(new Date(t)).find((p) => p.type === 'hour');
+  return Number(h?.value ?? 0) % 24;
+}
+
+/**
+ * Lot 3 B12: true during the quiet hours (Paris time, QUIET_HOURS: 22:00 to 08:00, the start included and the end excluded).
+ * The game sends no reminder today (no push, no email, no title or icon counter). ANY FUTURE REMINDER, in the page or outside it, MUST
+ * call this helper and stay silent when it returns true.
+ */
+export function inQuietHours(now: number | Date = Date.now()): boolean {
+  const h = parisHourOf(now);
+  const { from, to } = QUIET_HOURS;
+  return from > to ? h >= from || h < to : h >= from && h < to;
 }
 
 /**
@@ -316,18 +432,20 @@ function toMs(v: number | string | Date): number {
  * Paris midnight, at `now`. Read only: nothing is written.
  *  - a new Paris day resets ads_today and bonus_today, and tops the stack up to CAP when it is under CAP;
  *  - a full stack keeps its anchor at `now` (the next pack starts counting when a pack is spent);
- *  - otherwise one pack per full PERIOD since the anchor, the anchor advancing by whole periods.
+ *  - otherwise one pack per full PERIOD since the anchor, the anchor advancing by whole periods, up to timerCap refills a Paris day.
  */
-export function walletAt(row: WalletRow, now: number | Date): WalletClock {
+export function walletAt(row: WalletRow, now: number | Date, timerCap: number = Number.POSITIVE_INFINITY): WalletClock {
   const t = +now;
   let stock = row.stock;
   let anchor = toMs(row.anchor);
   let adsToday = row.adsToday;
   let bonusToday = row.bonusToday;
+  let timerToday = row.timerToday ?? 0;
   const today = parisDayOf(t);
   if (row.parisDay !== today) {
     adsToday = 0;
     bonusToday = 0;
+    timerToday = 0;
     if (stock < CAP) {
       stock = CAP;
       anchor = t;
@@ -336,11 +454,16 @@ export function walletAt(row: WalletRow, now: number | Date): WalletClock {
   if (stock >= CAP) {
     anchor = t;
   } else {
+    // Lot 3 A13: a refill adds a pack only while fewer than timerCap were added since Paris midnight (the midnight top-up is not counted).
     const k = Math.floor((t - anchor) / PERIOD_MS);
-    if (k > 0) {
-      stock = Math.min(CAP, stock + k);
-      anchor += k * PERIOD_MS;
+    const room = Math.max(0, timerCap - timerToday);
+    if (k > 0 && room > 0) {
+      const g = Math.min(k, CAP - stock, room);
+      stock += g;
+      timerToday += g;
       if (stock >= CAP) anchor = t;
+      else if (g === room) anchor += g * PERIOD_MS;
+      else anchor += k * PERIOD_MS;
     }
   }
   return {
@@ -349,7 +472,9 @@ export function walletAt(row: WalletRow, now: number | Date): WalletClock {
     parisDay: today,
     adsToday,
     bonusToday,
-    nextAt: stock >= CAP ? null : anchor + PERIOD_MS,
+    timerToday,
+    // At the cap the stack adds nothing until midnight: no next refill.
+    nextAt: stock >= CAP || timerToday >= timerCap ? null : anchor + PERIOD_MS,
     midnightAt: nextParisMidnight(t),
   };
 }

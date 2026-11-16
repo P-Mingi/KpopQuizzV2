@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+// Bunnyverse Cards LOT 3 (owner decision 2026-11-13, "one edition, one photo"): the script now reads docs/design/cards/data/photos.json
+// (verify-photos.mts), several photos a subject, one per edition. Each photo has its own files: slot 1, the photo of lots 1 and 2, keeps the
+// stem <slug>-<fx>-<fy> (its published files stay valid); a lot 3 photo is <slug>-s<slot>-<fx>-<fy>. The preview cuts every photo that
+// is not out, the ones waiting for the owner included (marked "to review"), and lists the photos left out with their reasons; --publish
+// cuts the LIVE photos of cards_photos (auto or approved) at their current focal point; a photo the owner approves later in the admin is
+// cut on the next run. The cleanup keeps the files of every live photo and proposes the rest (a refused or dropped photo, an old focal
+// point, the subjects left out). Everything below about the project address, the host, the key and the cleanup is unchanged.
 // Bunnyverse Cards: the owner's script for the card files (owner mission 2026-11-12, integrator review the same day). Tracked in the
 // repository so it reaches the owner's checkout (out/ is git-ignored); it writes its previews under out/cards-tool/ at the repository root.
 // Every card file is cut from the Commons ORIGINAL of the same photo (same Commons page, same licence, full size: subjects.json
@@ -24,6 +31,10 @@
 //       Then the cleanup: it lists the bucket (Storage API, service key) and PROPOSES to delete every object that is not a file of a current
 //       stem of an included subject: the files of excluded subjects, the old whole-card files of a group, the files at an old focal point.
 //       Names are matched exactly (nct- is also the start of nct-wish-). It prints the list and deletes only if you type: delete
+//   Started by the wrapper `pnpm --filter quiz owner:cards` (scripts/cards/owner-cards.mjs), which has already shown the host and had it typed
+//       back: the wrapper sets CARDS_SUPABASE_URL, CARDS_HOST_CONFIRMED (the host it had typed, compared here with the host of
+//       CARDS_SUPABASE_URL; equal = the typing is not asked a second time) and CARDS_SERVICE_KEY (the key, taken from the environment of this
+//       child process only instead of being typed). Started by hand none of these exist: the host and the key are typed as above.
 // Options: --only slug1,slug2   limit to some subjects (the cleanup then looks at the objects of those slugs only).
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -32,17 +43,18 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { ageOk, cutPlan, isGroup, partFileName, planRemovals } from './card-files.mjs';
+import { cutPlan, partFileName, planRemovals, stemOf } from './card-files.mjs';
 import { SIZES } from './card-geometry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
 const REPO = path.resolve(HERE, '../../../..');
-function findSubjects() {
-  const f = path.join(REPO, 'docs/design/cards/data/subjects.json');
-  if (!existsSync(f)) throw new Error(`subjects.json not found at ${f}`);
+function dataFile(name) {
+  const f = path.join(REPO, 'docs/design/cards/data', name);
+  if (!existsSync(f)) throw new Error(`${name} not found at ${f}${name === 'photos.json' ? ' (run verify-photos.mts first)' : ''}`);
   return f;
 }
+
 /** The Supabase project address for --publish: CARDS_SUPABASE_URL only, explicit, never a fallback. */
 function projectOrigin() {
   const v = (process.env.CARDS_SUPABASE_URL ?? '').trim();
@@ -57,23 +69,28 @@ const args = process.argv.slice(2);
 const PUBLISH = args.includes('--publish');
 const onlyArg = args.indexOf('--only');
 const ONLY = onlyArg >= 0 ? new Set((args[onlyArg + 1] ?? '').split(',').filter(Boolean)) : null;
-const allSubjects = JSON.parse(readFileSync(findSubjects(), 'utf8'));
-const chosen = allSubjects.filter((s) => !ONLY || ONLY.has(s.slug));
-const leftOut = chosen.filter((s) => !ageOk(s));
-const subjects = chosen.filter(ageOk);
-for (const s of subjects) if (!s.original?.url || !s.original?.sha1) throw new Error(`${s.slug}: no Commons original in subjects.json (run fetch-originals.mts, then gen-subjects.mts)`);
+const photosFile = JSON.parse(readFileSync(dataFile('photos.json'), 'utf8'));
+/** Every slug lots 2 and 3 know: the cleanup proposes the files of a known slug that has no live photo (a subject left out). */
+const KNOWN = [...new Set([...JSON.parse(readFileSync(dataFile('subjects.json'), 'utf8')).map((s) => s.slug), ...photosFile.subjects.map((s) => s.slug)])];
+const chosen = photosFile.subjects.filter((s) => !ONLY || ONLY.has(s.slug));
+const LIVE = new Set(['approved', 'auto']);
+const CUT = new Set(['approved', 'auto', 'pending']);
+const isGroup = (s) => s.kind !== 'idol';
+/** The photo of photos.json behind a cards_photos row (same source page). */
+const byPage = new Map(photosFile.subjects.flatMap((s) => s.photos.filter((p) => p.status !== 'out').map((p) => [p.page, { s, p }])));
+for (const s of chosen) for (const p of s.photos) if (CUT.has(p.status) && (!p.url || !p.sha1)) throw new Error(`${s.slug} photo ${p.slot}: no original address or sha1 in photos.json (run verify-photos.mts)`);
 
 let lastFetch = 0;
-/** The Commons original of a subject, one request at a time and at least a second apart, checked against its recorded sha1. */
-async function original(s) {
+/** The Commons original of a photo, one request at a time and at least a second apart, checked against its recorded sha1. */
+async function original(s, p) {
   const wait = lastFetch + 1000 - Date.now();
   if (wait > 0) await new Promise((ok) => setTimeout(ok, wait));
   lastFetch = Date.now();
-  const r = await fetch(s.original.url, { headers: { 'User-Agent': UA } });
-  if (!r.ok) throw new Error(`GET ${s.original.url}: ${r.status}`);
+  const r = await fetch(p.url, { headers: { 'User-Agent': UA } });
+  if (!r.ok) throw new Error(`GET ${p.url}: ${r.status}`);
   const buf = Buffer.from(await r.arrayBuffer());
   const sha1 = createHash('sha1').update(buf).digest('hex');
-  if (sha1 !== s.original.sha1) throw new Error(`${s.slug}: the Commons file changed (sha1 ${sha1}, recorded ${s.original.sha1}); refused, check it on ${s.photo.commons_page}`);
+  if (sha1 !== p.sha1) throw new Error(`${s.slug} photo ${p.slot}: the Commons file changed (sha1 ${sha1}, recorded ${p.sha1}); refused, check it on ${p.page}`);
   return buf;
 }
 
@@ -124,38 +141,45 @@ function readSecret(prompt) {
 async function preview() {
   const dir = path.join(REPO, 'out/cards-tool/preview');
   mkdirSync(dir, { recursive: true });
-  const cells = [];
-  for (const s of subjects) {
-    const src = await original(s);
-    const { parts } = await cut(src, s, s.focal.x, s.focal.y);
-    const stem = `${s.slug}-${s.focal.x}-${s.focal.y}`;
-    for (const p of parts) for (const [k, buf] of Object.entries(p.files)) writeFileSync(path.join(dir, partFileName(stem, p.part, k)), buf);
-    for (const p of parts) {
-      const label = p.part === 0 ? 'card' : `half ${p.part}/2`;
-      console.log(`${s.slug.padEnd(14)} ${label.padEnd(9)} crop ${p.cropWidth}px wide ${p.has2x ? 'ok for 2x' : 'TOO SMALL FOR 2x'} (${p.files['1x'].length} B / ${p.files['2x'].length} B)`);
+  const blocks = [];
+  let nSmall = 0, nCut = 0;
+  for (const s of chosen) {
+    const cells = [];
+    for (const p of s.photos.filter((x) => CUT.has(x.status))) {
+      const src = await original(s, p);
+      const { parts } = await cut(src, s, p.focal.x, p.focal.y);
+      const stem = stemOf(s.slug, p.slot, p.focal.x, p.focal.y);
+      for (const q of parts) for (const [k, buf] of Object.entries(q.files)) writeFileSync(path.join(dir, partFileName(stem, q.part, k)), buf);
+      for (const q of parts) {
+        const label = q.part === 0 ? 'card' : `half ${q.part}/2`;
+        if (!q.has2x) nSmall++;
+        console.log(`${s.slug.padEnd(14)} photo ${p.slot} ${p.status.padEnd(8)} ${label.padEnd(9)} crop ${q.cropWidth}px wide ${q.has2x ? 'ok for 2x' : 'TOO SMALL FOR 2x'}`);
+      }
+      nCut++;
+      cells.push({ p, stem, parts: parts.map((q) => ({ part: q.part, cropWidth: q.cropWidth, has2x: q.has2x })) });
     }
-    cells.push({ s, stem, parts: parts.map((p) => ({ part: p.part, cropWidth: p.cropWidth, has2x: p.has2x, kb1: Math.round(p.files['1x'].length / 1024), kb2: Math.round(p.files['2x'].length / 1024) })) });
+    blocks.push({ s, cells, out: s.photos.filter((x) => x.status === 'out') });
   }
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  const cell = ({ s, stem, parts }) => `<div class="c${parts.length > 1 ? ' pair' : ''}"><div class="im">${parts.map((p) => `<img src="${esc(partFileName(stem, p.part, '1x'))}" alt="${esc(s.name)}${p.part ? ` ${p.part}/2` : ''}">`).join('')}</div>
-<b>${esc(s.name)}</b> <span class="m">${s.kind === 'idol' ? 'person' : 'group, pair of cards'}, focal ${s.focal.x}/${s.focal.y}</span>
-${parts.map((p) => `<div class="m">${p.part ? `half ${p.part}/2: ` : ''}crop ${p.cropWidth}px, 1x ${p.kb1} KB, 2x ${p.kb2} KB${p.has2x ? '' : ' <span class="w">too small for 2x</span>'}</div>`).join('')}
-<div class="m">${esc(s.photo.author)}, ${esc(s.photo.licence)}, cropped</div></div>`;
-  const out = leftOut.length
-    ? `<h2>left out (age rule): ${leftOut.length}</h2><ul>${leftOut.map((s) => `<li>${esc(s.slug)} (${esc(s.name)})${s.age?.reason ? `: ${esc(s.age.reason)}` : ''}</li>`).join('')}</ul>`
-    : '';
-  const html = `<!doctype html><meta charset="utf-8"><title>Cards photo preview</title>
-<style>body{font:14px system-ui;margin:16px;background:#14121a;color:#eee}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.c{background:#201c2b;padding:8px;border-radius:8px}.c.pair{grid-column:span 2}.im{display:flex;gap:2px}.c img{flex:1;min-width:0;width:100%;aspect-ratio:5.5/8.5;object-fit:cover;border-radius:6px;display:block}
-.w{color:#ffb454}.m{font-size:12px;opacity:.8}</style>
-<h1>${cells.length} photos from their Commons originals: a person 5.5:8.5, a group a pair (11:8.5 split in two halves), 1x 320x495</h1><div class="g">
-${cells.map(cell).join('\n')}
-</div>
-${out}`;
+  const cell = (s, { p, stem, parts }) => `<div class="c${parts.length > 1 ? ' pair' : ''}${p.status === 'pending' ? ' rv' : ''}"><div class="im">${parts.map((q) => `<img src="${esc(partFileName(stem, q.part, '1x'))}" alt="${esc(s.name)} photo ${p.slot}${q.part ? ` ${q.part}/2` : ''}">`).join('')}</div>
+<b>photo ${p.slot}</b> <span class="m">${esc(p.status === 'pending' ? 'to review' : p.status)}, quality ${p.quality}${p.stage ? ', stage' : ''}${p.full_ok ? ', full art ok' : ''}, focal ${p.focal.x}/${p.focal.y}</span>
+<div class="m">${esc(p.date)}${p.event ? `, ${esc(p.event)}` : ''}</div>
+${parts.map((q) => `<div class="m">${q.part ? `half ${q.part}/2: ` : ''}crop ${q.cropWidth}px${q.has2x ? '' : ' <span class="w">too small for 2x</span>'}</div>`).join('')}
+${p.status === 'pending' ? `<div class="m w">${esc(p.review.join('; '))}</div>` : ''}
+<div class="m">${esc(p.author)}, ${esc(p.licence)}, <a href="${esc(p.page)}">source</a></div></div>`;
+  const block = ({ s, cells, out }) => `<h2>${esc(s.name)} <span class="m">${s.kind === 'idol' ? 'person' : 'group, a pair per edition'}, ${cells.length} photos${s.returning ? ', returning group' : ''}</span></h2>
+<div class="g">${cells.map((c) => cell(s, c)).join('\n')}</div>
+${out.length ? `<ul class="m">${out.map((p) => `<li>left out: <a href="${esc(p.page)}">${esc(p.file ?? p.page)}</a>: ${esc(p.reasons.join('; '))}</li>`).join('')}</ul>` : ''}`;
+  const html = `<!doctype html><meta charset="utf-8"><title>Cards photo preview, lot 3</title>
+<style>body{font:14px system-ui;margin:16px;background:#14121a;color:#eee}a{color:#9cf}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.c{background:#201c2b;padding:8px;border-radius:8px}.c.rv{outline:2px dashed #ffb454}.c.pair{grid-column:span 2}.im{display:flex;gap:2px}.c img{flex:1;min-width:0;width:100%;aspect-ratio:5.5/8.5;object-fit:cover;border-radius:6px;display:block}
+.w{color:#ffb454}.m{font-size:12px;opacity:.8}h2{margin-top:28px}</style>
+<h1>${nCut} photos of ${chosen.length} subjects from their Commons originals (dashed: waiting for your review in the admin)</h1>
+${blocks.map(block).join('\n')}`;
   writeFileSync(path.join(dir, 'index.html'), html);
-  const nSmall = cells.reduce((n, c) => n + c.parts.filter((p) => !p.has2x).length, 0);
-  console.log(`\n${cells.length} subjects (${leftOut.length} left out by the age rule), ${nSmall} card files too small for 2x. Contact sheet: ${path.join(dir, 'index.html')}`);
-  for (const s of leftOut) console.log(`left out (age rule): ${s.slug}${s.age?.reason ? ` (${s.age.reason})` : ''}`);
+  const left = photosFile.left_out.filter((l) => !ONLY || ONLY.has(l.slug));
+  console.log(`\n${nCut} photos cut, ${nSmall} card files too small for 2x. Contact sheet: ${path.join(dir, 'index.html')}`);
+  for (const l of left) console.log(`left out: ${l.slug} (${l.reason})`);
 }
 
 /** The objects of the bucket 'cards' (Storage API list, paged), top-level names only. */
@@ -177,9 +201,16 @@ async function publish() {
   const host = new URL(origin).host;
   console.log(`Project host: ${host}`);
   console.log(`Files go to the public bucket 'cards' of this project, the rows of cards_photos are updated there, and old files may be proposed for deletion.`);
-  const typed = await ask(`Type the project host to continue: `);
-  if (typed !== host) throw new Error('refused: the host typed does not match; nothing was sent');
-  const key = await readSecret('Supabase service key (typed, not shown): ');
+  const confirmed = (process.env.CARDS_HOST_CONFIRMED ?? '').trim();
+  if (confirmed) {
+    // the wrapper already had this host typed back; it must still be the host of CARDS_SUPABASE_URL
+    if (confirmed !== host) throw new Error('refused: CARDS_HOST_CONFIRMED does not match the host of CARDS_SUPABASE_URL; nothing was sent');
+    console.log('Host already confirmed by owner-cards.');
+  } else {
+    const typed = await ask(`Type the project host to continue: `);
+    if (typed !== host) throw new Error('refused: the host typed does not match; nothing was sent');
+  }
+  const key = (process.env.CARDS_SERVICE_KEY ?? '').trim() || await readSecret('Supabase service key (typed, not shown): ');
   if (!key) throw new Error('no key');
   const H = { apikey: key, Authorization: `Bearer ${key}` };
   const rest = async (p, init = {}) => {
@@ -187,44 +218,47 @@ async function publish() {
     if (!r.ok) throw new Error(`${init.method ?? 'GET'} ${p.split('?')[0]}: ${r.status} ${(await r.text()).slice(0, 200)}`);
     return r;
   };
-  const rowsAll = await (await rest('cards_photos?select=id,source_path,focal_x,focal_y,small_2x,status,storage_path,file_focal_x,file_focal_y&status=in.(auto,approved)&source_path=like.images/group-photos/*&limit=1000')).json();
-  const bySlug = new Map(rowsAll.map((r) => [r.source_path.replace(/^images\/group-photos\//, '').replace(/\.jpg$/, ''), r]));
+  const rowsAll = await (await rest('cards_photos?select=id,entity_id,slot,source_page,focal_x,focal_y,status,storage_path,file_focal_x,file_focal_y&status=in.(auto,approved)&order=id&limit=2000')).json();
+  const slugOf = (row) => row.entity_id.replace(/^(idol|group):/, '');
+  const rows = rowsAll.filter((r) => !ONLY || ONLY.has(slugOf(r)));
   const upload = async (name, body) => {
     const r = await fetch(`${origin}/storage/v1/object/cards/${name}`, { method: 'POST', headers: { ...H, 'Content-Type': 'image/webp', 'x-upsert': 'true' }, body });
     if (!r.ok) throw new Error(`upload ${name}: ${r.status} ${(await r.text()).slice(0, 200)}`);
   };
   let done = 0, skipped = 0;
-  for (const s of leftOut) console.log(`${s.slug}: left out (age rule), not cut, not uploaded`);
-  for (const s of subjects) {
-    const row = bySlug.get(s.slug);
-    if (!row) { console.log(`${s.slug}: no cards_photos row, skipped`); skipped++; continue; }
-    const stem = `${s.slug}-${row.focal_x}-${row.focal_y}`;
-    if (row.storage_path === stem && row.file_focal_x === row.focal_x && row.file_focal_y === row.focal_y) { console.log(`${s.slug}: already cut at ${row.focal_x}/${row.focal_y}`); skipped++; continue; }
-    const src = await original(s);
+  for (const row of rows) {
+    const hit = byPage.get(row.source_page);
+    const slug = slugOf(row);
+    if (!hit) { console.log(`${slug} photo ${row.slot}: not in photos.json, skipped`); skipped++; continue; }
+    const { s, p } = hit;
+    const stem = stemOf(slug, row.slot, row.focal_x, row.focal_y);
+    if (row.storage_path === stem && row.file_focal_x === row.focal_x && row.file_focal_y === row.focal_y) { console.log(`${slug} photo ${row.slot}: already cut at ${row.focal_x}/${row.focal_y}`); skipped++; continue; }
+    const src = await original(s, p);
     const { parts } = await cut(src, s, row.focal_x, row.focal_y);
     const sent = [];
-    for (const p of parts) {
-      for (const k of p.has2x ? ['1x', '2x'] : ['1x']) { // no upscaled 2x file: the site uses the 1x file for a small half
-        await upload(partFileName(stem, p.part, k), p.files[k]);
-        sent.push(partFileName(stem, p.part, k).slice(stem.length));
+    for (const q of parts) {
+      for (const k of q.has2x ? ['1x', '2x'] : ['1x']) { // no upscaled 2x file: the site uses the 1x file for a small card
+        await upload(partFileName(stem, q.part, k), q.files[k]);
+        sent.push(partFileName(stem, q.part, k).slice(stem.length));
       }
     }
-    // The row is set only once every half is up.
+    // The row is set only once every part is up; its cards then enter the packs (trigger cards_photos_ready of 103).
     await rest(`cards_photos?id=eq.${row.id}`, { method: 'PATCH', body: JSON.stringify({ storage_path: stem, file_focal_x: row.focal_x, file_focal_y: row.focal_y }), headers: { Prefer: 'return=minimal' } });
-    console.log(`${s.slug}: uploaded ${sent.join(' ')} at ${row.focal_x}/${row.focal_y}`);
+    console.log(`${slug} photo ${row.slot}: uploaded ${sent.join(' ')} at ${row.focal_x}/${row.focal_y}`);
     done++;
   }
   console.log(`\nuploaded ${done}, skipped ${skipped}`);
 
-  // Cleanup: propose to delete what is not a file of a current stem of an included subject. Nothing is deleted without typing: delete
-  // A subject without a live photo row is not in the catalog (left out at apply time, or its photo refused): its files are dead too.
+  // Cleanup: propose to delete what is not a file of a live photo at its current focal point. Nothing is deleted without typing: delete
   const current = new Map();
-  for (const s of subjects) {
-    const row = bySlug.get(s.slug);
-    if (row) current.set(s.slug, { group: isGroup(s), fx: row.focal_x, fy: row.focal_y });
+  for (const row of rows) {
+    const slug = slugOf(row);
+    const list = current.get(slug) ?? [];
+    list.push({ slot: row.slot, group: row.entity_id.startsWith('group:'), fx: row.focal_x, fy: row.focal_y });
+    current.set(slug, list);
   }
   const names = await listBucket(origin, H);
-  const { keep, remove } = planRemovals(names, { known: allSubjects.map((s) => s.slug), current, only: ONLY });
+  const { keep, remove } = planRemovals(names, { known: KNOWN, current, only: ONLY });
   console.log(`\nbucket cards: ${names.length} objects, ${keep.length} current files kept, ${remove.length} proposed for deletion${ONLY ? ` (only ${[...ONLY].join(', ')})` : ''}`);
   if (remove.length === 0) return;
   for (const r of remove) console.log(`  ${r.name}  (${r.why})`);

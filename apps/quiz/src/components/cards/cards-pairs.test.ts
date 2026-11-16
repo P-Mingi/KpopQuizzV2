@@ -4,7 +4,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' } }));
+vi.mock('@/components/cards/cards-font', () => ({ cardsFace: { variable: 'bvc-card-var' }, cardsMono: { variable: 'bvc-mono-var' }, cardsUi: { variable: 'bvc-ui-var' } }));
 vi.mock('next/navigation', () => ({
   usePathname: () => '/cards', useRouter: () => ({ replace: () => undefined }), useSearchParams: () => new URLSearchParams(),
   notFound: () => { throw new Error('NEXT_HTTP_ERROR_FALLBACK;404'); },
@@ -20,7 +20,7 @@ import { CreditBlock } from './credit-block';
 import { DropRates } from './drop-rates';
 import { EDITIONS, computeOdds } from '@/lib/cards/rules';
 import { buildDetail } from '@/lib/cards/ui-detail';
-import { NO_FILTERS, binderUnits, buildSlim, filterItems, gridPages, oddsView, paginate, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, binderUnits, buildSlim, filterItems, gridCells, gridPages, oddsView, paginate, sortItems } from '@/lib/cards/ui-model';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { OwnedEntry, Rarity } from '@/lib/cards/types';
@@ -83,7 +83,8 @@ describe('buildSlim gives a group two cards a rarity, left half then right half'
   });
   it('keeps the locked Era and Full Art pockets of a group as before', () => {
     const locks = slim.items.filter((i) => i.locked && i.entity === 'group:g0');
-    expect(locks.map((i) => i.locked && i.rarity)).toEqual(['SR', 'L']);
+    // The prototype shows both halves of a locked group edition ("TWICE 1/2", "TWICE 2/2").
+    expect(locks.map((i) => i.locked && i.rarity)).toEqual(['SR', 'SR', 'L', 'L']);
   });
 });
 
@@ -141,6 +142,13 @@ describe('the pair is one unit', () => {
     const run = [...Array.from({ length: 35 }, (_, k) => ({ ...single, i: k })), ...pr];
     const g = gridPages(run, 36);
     expect(g.map((x) => x.length)).toEqual([35, 2]);
+    // The page left one cell short is drawn with a plain empty pocket (a null cell), the last page is not padded.
+    const first = gridCells(g[0]!, true, 36);
+    expect(first).toHaveLength(36);
+    expect(first.slice(0, 35)).toEqual(g[0]);
+    expect(first[35]).toBeNull();
+    expect(gridCells(g[1]!, false, 36)).toEqual(g[1]);
+    expect(gridCells(g[0]!, false, 36)).toHaveLength(35);
   });
 });
 
@@ -164,16 +172,18 @@ describe('filters and sorts keep the pair together', () => {
       expect(binderUnits(out).every((u) => u.length === 2 || u[0]!.locked || !u[0]!.card.part)).toBe(true);
     }
   });
-  it('every sort leaves each pair adjacent, and a pair sorts as one unit (owned when either half is)', () => {
+  it('the number sort leaves each pair adjacent; the edition and newest sorts order the halves one by one, as the prototype does', () => {
     const [a, b] = pairs[3]!;
     const own = owned((b as { card: SlimCard }).card.n);
     for (const sort of ['rarity', 'number', 'newest'] as const) {
       const out = sortItems(slim.items, sort, own);
       expect(out.length).toBe(slim.items.length);
-      expect(binderUnits(out).filter((u) => u.length === 2).length).toBe(pairs.length);
+      if (sort === 'number') expect(binderUnits(out).filter((u) => u.length === 2).length).toBe(pairs.length);
     }
     const byRarity = sortItems(slim.items, 'rarity', own);
-    expect(nums(byRarity.slice(0, 2))).toEqual([(a as { card: SlimCard }).card.n, (b as { card: SlimCard }).card.n]);
+    // only the right half is owned: it comes first, its missing mate sorts with the missing cards
+    expect(nums(byRarity.slice(0, 1))).toEqual([(b as { card: SlimCard }).card.n]);
+    expect(nums(byRarity.slice(0, 2))).not.toContain((a as { card: SlimCard }).card.n);
   });
 });
 
@@ -188,27 +198,26 @@ describe('a half renders its side and its 1/2 label', () => {
     expect(l).toContain('c-pair c-half1');
     expect(r).toContain('c-pair c-half2');
     expect(l).toContain('object-position:40% 20%');
-    expect(l).toContain('Group · 1/2');
-    expect(r).toContain('Group · 2/2');
+    expect(l).toContain('<span class="kw">Group </span><span class="kh">1/2</span>');
+    expect(r).toContain('<span class="kw">Group </span><span class="kh">2/2</span>');
     expect(l).toContain('half-1');
   });
   it('a cut half is its own file and shows as is', () => {
     const html = renderToStaticMarkup(createElement(CardFront, { card: half(2, { img: { src: 'https://p.test/g-h2-1x.webp', srcSet: null, cut: true } }) }));
     expect(html).not.toContain('c-pair');
     expect(html).toContain('g-h2-1x.webp');
-    expect(html).toContain('Group · 2/2');
+    expect(html).toContain('<span class="kh">2/2</span>');
   });
   it('a whole group card keeps its plain tag and no pair box', () => {
     const html = renderToStaticMarkup(createElement(CardFront, { card: half(1, { part: 0, pairN: null }) }));
-    expect(html).toContain('>Group<');
+    expect(html).toContain('<span class="kw">Group</span>');
     expect(html).not.toContain('c-pair');
   });
-  it('the binder prints a pair as one two-cell item with both halves', () => {
+  it('the binder prints the two halves of a pair side by side, each in its own pocket (the prototype draws them so)', () => {
     const html = wrap(createElement(BinderView, { ads: ADS_OFF }));
-    expect((html.match(/pocket-li pair/g) ?? []).length).toBeGreaterThan(0);
-    const m = html.match(/<li class="pocket-li pair"[^>]*>.*?<\/li>/);
-    expect(m![0]).toContain('left half of the group photo');
-    expect(m![0]).toContain('right half of the group photo');
+    expect(html).not.toContain('pocket-li');
+    expect(html).toContain('left half of the group photo');
+    expect(html).toContain('right half of the group photo');
   });
 });
 
@@ -226,13 +235,14 @@ describe('the card page of a half links its other half', () => {
     expect(d1.props.facts.find(([k]) => k === 'Part')).toEqual(['Part', 'Left half, 1 of 2']);
     const h1 = render(g1.num);
     expect(h1).toContain('This card is the left half of the group photo.');
-    expect(h1).toContain(`href="/cards/c/${g2.num}"`);
+    expect(h1).toContain(`href="/kpopcards/c/${g2.num}"`);
     const h2 = render(g2.num);
     expect(h2).toContain('This card is the right half of the group photo.');
-    expect(h2).toContain(`href="/cards/c/${g1.num}"`);
+    expect(h2).toContain(`href="/kpopcards/c/${g1.num}"`);
   });
   it('shows both halves side by side, and a person card has none of it', () => {
-    expect(render(g1.num)).toContain('class="d-pair"');
+    // The prototype's sheet has one "See half" button for the other half, not the two halves side by side.
+    expect(render(g1.num)).toContain('See half 2/2');
     const idol = cat.cards.find((c) => c.kind === 'idol')!;
     const d = buildDetail(cat, idol.num, null)!;
     expect(d.props.pair).toBeNull();
@@ -267,7 +277,7 @@ describe('the drop rates of a pool with one idol subject and one group pair', ()
     expect(html).toContain('one of its two halves at random, so a pair never makes a group come out more often');
     expect(html).toContain(`soloists and members ${Number((odds.kinds.C.idol as number).toFixed(2))}%`);
     const g = oddsView(odds).cardChance.find((x) => x.r === 'C' && x.kind === 'group')!;
-    expect(html).toContain(`Common, groups: ${g.pct.toFixed(2)}% for each of the 2 cards.`);
+    expect(html).toContain(`Standard, groups: ${g.pct.toFixed(2)}% for each of the 2 cards.`);
   });
   it('hides the new lines for an older payload without subjects and cards', () => {
     const { subjects: _s, cards: _c, ...old } = odds;

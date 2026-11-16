@@ -7,6 +7,7 @@ export type ImageErrorCode =
   | 'storage_failed' | 'db_failed' | 'server_error' | 'forbidden'
   | 'not_free' | 'commons_missing' | 'commons_failed'
   // the screen of the character references (lane charrefs, L32)
+  | 'count_changed' | 'too_many' | 'bad_confirm'
   | 'no_candidate' | 'same_picture' | 'ref_source' | 'ref_license_url' | 'bad_license' | 'same_license' | 'refs_missing';
 
 export class ImageError extends Error {

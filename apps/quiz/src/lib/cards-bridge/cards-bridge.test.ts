@@ -74,7 +74,7 @@ describe('home block (bridge 1)', () => {
     expect(el).not.toBeNull();
     const html = renderToStaticMarkup(el!);
     expect(html).toContain('Your packs');
-    expect(html).toContain('/auth/passport/out?to=hub&amp;next=%2Fcards');
+    expect(html).toContain('/auth/passport/out?to=hub&amp;next=%2Fkpopcards');
   });
   it('on, a signed-in fan: the stack of the database and the midnight line', async () => {
     env('1');
@@ -132,7 +132,7 @@ describe('POST /api/cards-bridge/bonus (review 1 finding 1)', () => {
     expect((await (await import('./bonus')).handleBonus(post({ source: 'kpopdle' }), s)).status).toBe(404);
     expect(s.record).not.toHaveBeenCalled();
   });
-  it('a cross-site call is 403 and a source other than kpopdle is 400 (a quiz earns nothing), before any record', async () => {
+  it('a cross-site call is 403 and a source other than kpopdle is 400 (a browser reports no quiz), before any record', async () => {
     env('1', 'hub');
     const { handleBonus } = await import('./bonus');
     const s = src();
@@ -444,7 +444,7 @@ describe('the account menu and the surfaces', () => {
       expect(readFileSync(f, 'utf8')).toContain('NEXT_PUBLIC_NET_CARDS_BRIDGES');
     }
   });
-  it('review 1 finding 1: the end of a kpopquiz.org quiz ships no Cards code (a quiz completion earns no bonus pack)', () => {
+  it('review 1 finding 1: the end of a kpopquiz.org quiz ships no Cards code (the server of the hub records the pack of the quiz of the day itself)', () => {
     expect(readFileSync('src/components/quiz/ux-v1/results.tsx', 'utf8')).not.toMatch(/cards-bridge|NET_CARDS|BonusPackLine/);
   });
 });

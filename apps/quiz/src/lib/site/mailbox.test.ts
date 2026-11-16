@@ -2,10 +2,13 @@
 // of the app (tests excluded) may name a contact@ or support@ address of any site.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { MAILBOX, REGISTRY } from './registry';
 import { SITE_IDS } from './types';
+
+// Scans every file of src/: the first `it` that reads the tree took 4.2 s measured (8 workers, load 13) against the 5 s default. 30 s for this file.
+vi.setConfig({ testTimeout: 30_000 });
 
 const SRC = join(__dirname, '..', '..');
 

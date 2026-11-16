@@ -1,22 +1,20 @@
-// Bunnyverse Cards: POST /api/cards/open { source: 'stock' | 'shards' | 'bonus' } -> { pack: { id, cards: [{ n, isNew }] }, state }.
-// The draw is on the server (crypto.randomInt); cards_apply_pack spends the source and stores the five cards in one transaction.
-// A refusal is 409 { error: 'empty' | 'shards' | 'bonus' }. The rewarded ad has its own routes (ad/ticket, ad/grant).
-import { guard, json, readJson } from '@/lib/cards/api';
-import { openPack } from '@/lib/cards/open-pack';
+// KpopCards: POST /api/cards/open { key, source: 'stock' | 'daily' | 'focus' | 'shards', theme?, focus?, packs?: 1 | 5 } -> OpenResponse.
+// One call is one database transaction (cards_open): the wallet is locked, the key makes a retry or a double tap return the same answer.
+import { cardNo, run } from '@/lib/kpopcards/route';
+import * as srv from '@/lib/kpopcards/server';
 
 import type { NextRequest, NextResponse } from 'next/server';
+import type { OpenRequest } from '@/lib/kpopcards/contract';
 
 export const dynamic = 'force-dynamic';
+void cardNo;
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
-  const g = await guard(req, { write: true });
-  if (!g.ok) return g.res;
-  const body = await readJson(req);
-  const source = body?.source;
-  if (source !== 'stock' && source !== 'shards' && source !== 'bonus') return json({ error: 'bad_request' }, 400);
-  try {
-    return await openPack(g.db, g.userId, source, null);
-  } catch {
-    return json({ error: 'server' }, 500);
-  }
-}
+export const POST = (req: NextRequest): Promise<NextResponse> =>
+  run(req, { write: true, bucket: 'open', key: true }, (c, i) => {
+    const b = i.body;
+    const r: OpenRequest = { key: i.key!, source: b.source as OpenRequest['source'] };
+    if (b.theme !== undefined) r.theme = b.theme as NonNullable<OpenRequest['theme']>;
+    if (b.focus !== undefined) r.focus = b.focus as string;
+    if (b.packs !== undefined) r.packs = b.packs as 1 | 5;
+    return srv.open(c, r);
+  });

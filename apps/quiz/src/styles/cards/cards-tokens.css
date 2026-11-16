@@ -14,7 +14,8 @@
   --t-c:#55607A; --t-u:#0B7A54; --t-r:#1D62C4; --t-sr:#7B3FA8; --t-ur:#8A5A00; --t-l:#B5345F;
   /* rarity, inside the dark cards (unchanged) */
   --r-c:#C9CEDB; --r-u:#4BE3A3; --r-r:#5DB2FF; --r-sr:#BE92FF; --r-ur:#FFC94D; --r-l:#FF76B6;
-  --f-ui:"BVC DM Sans","DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* DM Sans with its optical size (a next/font variable set by the Cards layout), then the site's weight-only file */
+  --f-ui:var(--font-bvc-ui,"BVC DM Sans"),"BVC DM Sans","DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   /* Archivo and Martian Mono: next/font variables set on this same root by the Cards layout (owner go 2026-11-12) */
   --f-card:var(--font-bvc-card,"Archivo"),"Arial Narrow",system-ui,sans-serif;
   --f-mono:var(--font-bvc-mono,"Martian Mono"),ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -22,4 +23,3 @@
   --binder-ground:#E9E4DC; --ring-a:#FFFFFF; --ring-b:#B9B3AA; --ring-c:#EDE9E3; --star-on:#D99A00; --star-edge:#A87400;
   --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.56,.64,1);
 }
-@property --spin{syntax:"<angle>";inherits:false;initial-value:0deg}

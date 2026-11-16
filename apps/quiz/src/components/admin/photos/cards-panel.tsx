@@ -59,6 +59,14 @@ export interface CardPhotoRow {
   cards_entities?: EntityRef | EntityRef[] | null;
   /** Group photos only: the small_2x flag of each half of the pair (the admin route). */
   halves?: { part: 1 | 2; small_2x: boolean }[];
+  /** Lot 3 (one edition, one photo): the original's size, where the photo comes from and why it waits for the owner. */
+  source_width?: number | null; source_height?: number | null; source_page?: string | null; review_note?: string | null;
+  event_name?: string | null; event_date?: string | null; quality?: number | null; stage?: boolean | null;
+}
+
+/** The size of the original when the database has it (lot 3: the admin shows a smaller copy), else the loaded picture's. */
+export function dimsOf(row: Pick<CardPhotoRow, 'source_width' | 'source_height'>, loaded: [number, number] | undefined): [number, number] | undefined {
+  return row.source_width && row.source_height ? [row.source_width, row.source_height] : loaded;
 }
 
 /** One report of "Report a photo", as the admin route answers it (with its card and photo when it names them). */
@@ -163,6 +171,39 @@ export function sourceSrc(row: Pick<CardPhotoRow, 'file_url'>, base: string | un
 
 const clamp = (v: number): number => Math.max(0, Math.min(100, Math.round(v)));
 
+/** What cards_catalog_append(true) answers: what an append would add (file 114). */
+export interface AppendSummary {
+  dry_run?: boolean; cards: number; subjects: number; new_subjects: number; extended_subjects: number; waiting: number;
+  from_no: number | null; to_no: number | null; not_shown?: number;
+}
+
+/** The French sentence of an append preview or result (no dash). */
+export function appendSentence(a: AppendSummary, done: boolean): string {
+  if (a.cards === 0) return `Rien à ajouter. ${a.waiting} sujet${a.waiting > 1 ? 's attendent' : ' attend'} une deuxième photo approuvée.`;
+  const range = a.from_no === a.to_no ? `la carte ${a.from_no}` : `les cartes ${a.from_no} à ${a.to_no}`;
+  const who = `${a.subjects} sujet${a.subjects > 1 ? 's' : ''} (${a.new_subjects} nouveau${a.new_subjects > 1 ? 'x' : ''}, ${a.extended_subjects} complété${a.extended_subjects > 1 ? 's' : ''})`;
+  return `${done ? 'Ajouté' : 'À ajouter'} : ${a.cards} carte${a.cards > 1 ? 's' : ''}, ${who}, ${range}. Aucune carte existante ne change de numéro.`;
+}
+
+/** The catalog button: "Reconstruire" before the first pack, "Ajouter au catalogue" after it (with its preview and a confirmation click). */
+export function CatalogBar({ frozen, busy, preview, onRebuild, onPreview, onConfirm, onCancel }: {
+  frozen: boolean | null; busy: boolean; preview: AppendSummary | null;
+  onRebuild: () => void; onPreview: () => void; onConfirm: () => void; onCancel: () => void;
+}): React.ReactElement | null {
+  if (frozen === null) return null;
+  if (!frozen) return <button type="button" className={s.pill} onClick={onRebuild} disabled={busy}>Reconstruire le catalogue</button>;
+  if (!preview) return <button type="button" className={s.pill} onClick={onPreview} disabled={busy}>Ajouter au catalogue</button>;
+  return (
+    <div className={s.where} role="group" aria-label="Ajouter au catalogue">
+      <p className={s.whereText}>{appendSentence(preview, false)}</p>
+      <div className={s.actions}>
+        {preview.cards > 0 ? <button type="button" className={s.pill} disabled={busy} onClick={onConfirm}>Confirmer l&apos;ajout</button> : null}
+        <button type="button" className={s.secondary} disabled={busy} onClick={onCancel}>{preview.cards > 0 ? 'Annuler' : 'Fermer'}</button>
+      </div>
+    </div>
+  );
+}
+
 async function api<T>(body: Record<string, unknown>): Promise<T | null> {
   try {
     const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
@@ -182,6 +223,8 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   const [reports, setReports] = useState<CardReportRow[] | null>(null);
   const [reportsFailed, setReportsFailed] = useState(false);
   const [closing, setClosing] = useState<number | null>(null);
+  const [frozen, setFrozen] = useState<boolean | null>(null);
+  const [preview, setPreview] = useState<AppendSummary | null>(null);
   const drag = useRef(false);
   const frame = useRef<HTMLDivElement>(null);
 
@@ -222,6 +265,12 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     return () => { live = false; };
   }, [view]);
 
+  useEffect(() => {
+    let live = true;
+    void api<{ ok: boolean; frozen: boolean }>({ action: 'catalog_state' }).then((r) => { if (live) setFrozen(r?.ok ? r.frozen : false); });
+    return () => { live = false; };
+  }, []);
+
   const closeReport = async (id: number): Promise<void> => {
     setClosing(id);
     const r = await api<{ ok: boolean }>({ action: 'close_report', id });
@@ -253,6 +302,51 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     } else onSaved('Le point focal n\'a pas pu être enregistré. Réessaie.');
   };
 
+  /** Lot 3: a photo waiting in "À relire" is approved or refused here; it opens an edition at the next rebuild. */
+  const decide = async (action: 'approve' | 'reject'): Promise<void> => {
+    if (!row || saving) return;
+    setSaving(true);
+    const r = await api<{ ok: boolean }>({ action, id: row.id });
+    setSaving(false);
+    if (r?.ok) {
+      setRows((xs) => xs?.filter((x) => x.id !== row.id) ?? xs);
+      setSel(null);
+      onSaved(action === 'approve'
+        ? 'Photo approuvée. Elle ouvre une édition quand le catalogue est reconstruit (bouton Reconstruire) ou, une fois les paquets ouverts, complété (bouton Ajouter au catalogue), puis son fichier se fait avec publish-card-files.mjs.'
+        : 'Photo refusée : elle ne revient jamais, même après une reconstruction.');
+    } else onSaved('La décision n\'a pas pu être enregistrée. Réessaie.');
+  };
+
+  /** Lot 3: runs cards_build_catalog() again (the edition rule of file 103), refused once a player owns a card or opened a pack. */
+  const rebuild = async (): Promise<void> => {
+    if (saving) return;
+    if (!window.confirm('Reconstruire le catalogue avec les photos approuvées ? Les numéros des cartes sont refaits ; c\'est refusé dès qu\'un joueur possède une carte.')) return;
+    setSaving(true);
+    const r = await api<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number } }>({ action: 'rebuild' });
+    setSaving(false);
+    if (r?.ok && r.summary) onSaved(`Catalogue reconstruit : ${r.summary.subjects} sujets, ${r.summary.cards} cartes, ${r.summary.waiting} sujets attendent une deuxième photo, ${r.summary.not_shown} cartes attendent leur fichier.`);
+    else onSaved('Le catalogue n\'a pas été reconstruit (une carte est déjà possédée, ou le fichier 103 n\'est pas appliqué).');
+  };
+
+  /** File 114, after the first pack: the preview first (writes nothing), then the write on a second, explicit click. */
+  const previewAppend = async (): Promise<void> => {
+    if (saving) return;
+    setSaving(true);
+    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append_preview' });
+    setSaving(false);
+    if (r?.ok && r.summary) setPreview(r.summary);
+    else onSaved('L\'aperçu n\'a pas pu être calculé (le fichier 114 n\'est pas appliqué ?).');
+  };
+  const confirmAppend = async (): Promise<void> => {
+    if (saving || !preview || preview.cards === 0) return;
+    setSaving(true);
+    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append', confirm: true });
+    setSaving(false);
+    setPreview(null);
+    if (r?.ok && r.summary) onSaved(`${appendSentence(r.summary, true)} ${r.summary.not_shown ?? 0} cartes attendent leur fichier.`);
+    else onSaved('Le catalogue n\'a pas été complété. Rien n\'a changé.');
+  };
+
   const remove = async (): Promise<void> => {
     if (!row || saving) return;
     setSaving(true);
@@ -277,7 +371,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   };
 
   const src = row ? sourceSrc(row) : null;
-  const d = row ? dims[row.id] : undefined;
+  const d = row ? dimsOf(row, dims[row.id]) : undefined;
   const group = row ? isGroupPhoto(row) : false;
   const [small1, small2] = row && group ? halvesTooSmall(row, d) : [false, false];
   const small = group ? small1 || small2 : d ? tooSmallFor2x(d[0], d[1]) : false;
@@ -304,6 +398,8 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
       <div className={s.filters}>
         <div className={s.filterGroup} role="group" aria-label="Statut de la photo">{pill('approved', 'Approuvées')}{pill('auto', 'Automatiques')}{pill('pending', 'À relire')}</div>
         <button type="button" className={s.pill} aria-pressed={false} onClick={() => setView('reports')}>Signalements</button>
+        <CatalogBar frozen={frozen} busy={saving} preview={preview} onRebuild={() => void rebuild()} onPreview={() => void previewAppend()}
+          onConfirm={() => void confirmAppend()} onCancel={() => setPreview(null)} />
       </div>
       {failed ? <p className={s.statusErr} role="alert">La liste des photos de cartes n&apos;a pas pu être lue.</p> : null}
       {rows === null && !failed ? <p className={s.note}>Chargement des photos de cartes.</p> : null}
@@ -316,7 +412,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
               <tbody>
                 {rows.map((r) => {
                   const u = sourceSrc(r);
-                  const dm = dims[r.id];
+                  const dm = dimsOf(r, dims[r.id]);
                   return (
                     <tr key={r.id} className={`${s.row} ${r.id === sel ? s.rowOn : ''}`}>
                       <td>
@@ -333,7 +429,18 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
           </div>
           {row ? (
             <aside className={s.cardsEdSide} aria-label="Point focal">
-              <p className={s.asideTitle}>{row.entity_id}</p>
+              <p className={s.asideTitle}>{row.entity_id} &middot; photo {row.slot}</p>
+              <p className={s.note}>
+                {[row.event_date, row.event_name, row.quality ? `qualité ${row.quality}/5` : null, row.stage ? 'photo de scène' : null].filter(Boolean).join(' · ')}
+                {row.source_page ? <> &middot; <a href={row.source_page} target="_blank" rel="noreferrer">page source</a></> : null}
+              </p>
+              {row.status === 'pending' ? (
+                <div role="group" aria-label="Relecture de la photo">
+                  {row.review_note ? <p className={s.flagReview}>{row.review_note}</p> : null}
+                  <button type="button" className={s.primary} onClick={() => void decide('approve')} disabled={saving}>Approuver</button>{' '}
+                  <button type="button" className={s.pill} onClick={() => void decide('reject')} disabled={saving}>Refuser</button>
+                </div>
+              ) : null}
               <p className={s.note}>Clique ou fais glisser sur la photo : {group ? 'le point choisi place la fenêtre de la paire (11 x 8,5, deux cartes côte à côte).' : 'le point choisi reste au centre du cadrage de la carte (5,5 x 8,5).'}</p>
               {src ? (
                 <div

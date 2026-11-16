@@ -1,0 +1,431 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>KpopCards v6</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=DM+Sans:opsz,wght@9..40,400..800&family=Martian+Mono:wdth,wght@75..100,400..600&display=swap">
+<style>
+/* Layout: a review sheet. Each change gets one row: what changed on the left, before and after side by side on the right. */
+:root{
+  --bg:#F4F3F7; --surface:#FFFFFF; --sunk:#EAE8EF; --ink:#18151F; --ink2:#5C5869; --ink3:#7A7586;
+  --line:rgba(24,21,31,.11); --accent:#C2366A; --accent-ink:#A42C59; --accent-soft:#FBE6EE;
+  --ok:#166534; --ok-soft:#DDF5E5; --amber:#8A5300; --amber-soft:#FCF0D6; --blue:#1D58B0; --blue-soft:#E3EDFB; --grey-soft:#ECEAF0;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Martian Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shot-shadow:0 1px 2px rgba(24,21,31,.06),0 8px 24px rgba(24,21,31,.08);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141218; --surface:#1D1A23; --sunk:#26222E; --ink:#F2EFF7; --ink2:#B5AFC2; --ink3:#9690A3;
+  --line:rgba(242,239,247,.12); --accent:#F0679A; --accent-ink:#F58BB2; --accent-soft:#3A1A29;
+  --ok:#7BD99A; --ok-soft:#183324; --amber:#F2C26B; --amber-soft:#3A2C12; --blue:#8DB6F5; --blue-soft:#1A2740; --grey-soft:#2A2631;
+  --shot-shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141218; --surface:#1D1A23; --sunk:#26222E; --ink:#F2EFF7; --ink2:#B5AFC2; --ink3:#9690A3;
+  --line:rgba(242,239,247,.12); --accent:#F0679A; --accent-ink:#F58BB2; --accent-soft:#3A1A29;
+  --ok:#7BD99A; --ok-soft:#183324; --amber:#F2C26B; --amber-soft:#3A2C12; --blue:#8DB6F5; --blue-soft:#1A2740; --grey-soft:#2A2631;
+  --shot-shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35); color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+a{color:var(--accent-ink);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-stretch:85%;letter-spacing:.06em;text-transform:uppercase;font-size:11.5px}
+
+/* head */
+header.top{padding-block:40px 28px;border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--ink3)}
+h1{font-family:var(--f-display);font-stretch:72%;font-weight:850;text-transform:uppercase;font-size:clamp(38px,6vw,68px);line-height:.92;letter-spacing:.005em;margin-top:12px}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{margin-top:16px;max-width:66ch;font-size:17px;color:var(--ink2)}
+.lede b{color:var(--ink)}
+.open{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:1.5px solid var(--accent);color:var(--accent-ink);background:transparent}
+.btn.primary{background:var(--accent);color:#fff}
+.btn:hover{filter:brightness(1.05)}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.note{margin-top:14px;font-size:13.5px;color:var(--ink3);max-width:70ch}
+
+/* coverage */
+.cov{padding-block:36px 8px}
+.cov h2,.sec-title{font-family:var(--f-display);font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:28px;line-height:1;letter-spacing:.01em}
+.cov p.sub{margin-top:8px;color:var(--ink2);max-width:70ch}
+.tbl{margin-top:18px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{width:100%;min-width:640px;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-stretch:85%;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);background:var(--sunk)}
+td:first-child{color:var(--ink3);font-family:var(--f-mono);font-size:12px;white-space:nowrap;padding-top:12px}
+td.what b{color:var(--ink)}
+td.what{color:var(--ink2)}
+tr.grp td{background:var(--sunk);font-family:var(--f-body);font-weight:800;color:var(--ink);font-size:13.5px;white-space:normal}
+.st{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.st.v5{background:var(--accent-soft);color:var(--accent-ink)}
+.st.l3{background:var(--blue-soft);color:var(--blue)}
+.st.l4{background:var(--ok-soft);color:var(--ok)}
+.st.flag{background:var(--amber-soft);color:var(--amber)}
+.st.no{background:var(--grey-soft);color:var(--ink2)}
+.st.srv{background:var(--grey-soft);color:var(--ink2)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:12px;font-size:13.5px;color:var(--ink2);align-items:center}
+
+/* jump list */
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;padding-block:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.toc a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:14px;font-weight:600}
+.toc a:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+/* rows */
+.row{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:28px 40px;padding-block:44px;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+@media (max-width:900px){.row{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:32px}}
+.row .n{color:var(--accent-ink)}
+.row h3{font-family:var(--f-display);font-stretch:78%;font-weight:800;font-size:26px;line-height:1.02;margin-top:8px;text-transform:uppercase;letter-spacing:.005em}
+.row ul{margin:14px 0 0;padding-left:18px;color:var(--ink2);font-size:15px;display:grid;gap:8px}
+.row ul b{color:var(--ink)}
+.row .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.row .why{margin-top:14px;font-size:13.5px;color:var(--ink3)}
+.shots{display:grid;gap:18px;align-items:start;min-width:0}
+.shots.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.shots.phone{grid-template-columns:repeat(2,minmax(0,300px));justify-content:start}
+.shots.phone4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.shots.phone4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.shots.two{grid-template-columns:minmax(0,1fr)}}
+.shots.one{grid-template-columns:minmax(0,1fr)}
+.shots.one.narrow{max-width:640px}
+figure{margin:0;min-width:0}
+figcaption{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:6px;font-family:var(--f-mono);font-stretch:85%;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.tag.b{background:var(--grey-soft);color:var(--ink2)}
+.tag.a{background:var(--accent);color:#fff}
+figcaption span{font-size:13px;color:var(--ink3)}
+.shot{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:12px;overflow:hidden;box-shadow:var(--shot-shadow);background:var(--surface)}
+.shot img{display:block;width:100%;height:auto;max-width:100%}
+.shot.crop{max-height:780px}
+.shot.crop img{object-fit:cover;object-position:top}
+
+.r2{padding-block:36px 0}
+.r2 > .sec-title{margin-top:8px;max-width:22ch}
+.r2 .row:last-child{border-bottom:0}
+.r2 > .n{color:var(--accent-ink)}
+.shots.vid3{grid-template-columns:minmax(0,260px) minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:640px){.shots.vid3{grid-template-columns:repeat(2,minmax(0,1fr))}.shots.vid3 figure:first-child{grid-column:1 / -1;max-width:300px}}
+.vid{display:block;width:100%;height:auto;border-radius:12px;background:#0D0717;box-shadow:var(--shot-shadow)}
+/* closing blocks */
+.later{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-block:44px}
+@media (max-width:760px){.later{grid-template-columns:minmax(0,1fr)}}
+.panel{padding:20px 22px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.panel h3{font-family:var(--f-display);font-stretch:78%;font-weight:800;font-size:22px;text-transform:uppercase}
+.panel ul{margin:12px 0 0;padding-left:18px;color:var(--ink2);font-size:15px;display:grid;gap:7px}
+.panel p{margin-top:10px;color:var(--ink2);font-size:15px}
+footer{padding-block:24px 48px;color:var(--ink3);font-size:13.5px;border-top:1px solid var(--line)}
+
+/* zoom */
+.zoom{position:fixed;inset:0;z-index:50;background:rgba(10,8,14,.86);overflow:auto;padding:calc(56px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.zoom img{display:block;margin:0 auto;max-width:100%;height:auto;border-radius:10px}
+.zoom .x{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#18151F;font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.zoom .x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+@media (prefers-reduced-motion: no-preference){.shot img{transition:transform .25s ease}.shot:hover img{transform:scale(1.01)}}
+
+.kgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+@media (max-width:760px){.kgrid{grid-template-columns:minmax(0,1fr)}}
+.kgrid .panel ul{font-size:14.5px}
+.kgrid a{font-size:13px;white-space:nowrap}
+.cov h2{overflow-wrap:anywhere;font-family:var(--f-display);font-stretch:75%;font-weight:800;text-transform:uppercase;font-size:28px;line-height:1;letter-spacing:.01em}
+header.top .toc{margin-top:22px}
+.row .tbl table{min-width:420px}
+td.what b{color:var(--ink)}
+</style>
+<header class="top">
+  <div class="wrap">
+    <p class="mono eyebrow">KpopCards · bunnyverse.org/kpopcards · prototype v6 and the Kyara audit · 13 November 2026</p>
+    <h1>KpopCards, <em>a site inside Bunnyverse</em></h1>
+    <p class="lede">The card game now has its own name and its own lobby at <b>bunnyverse.org/kpopcards</b>, in the kpopquiz.org look, with the systems that make Kyara hard to put down. Your three notes are fixed: more colour in the boxes, no more overlap in the opening, and a smoother opening.</p>
+    <div class="open">
+      <a class="btn primary" href="kpopcards-v6.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Play KpopCards v6</a>
+      <a class="btn" href="prototype-v5.html" target="_blank" rel="noopener">Open v5 to compare</a>
+    </div>
+    <p class="note">Your progress is saved in this browser only. "Prototype controls" at the bottom of the lobby can make the next pack golden, force a Gold or Full Art, use up the timer, switch to the guest view or turn on reduced motion. Photos are placeholders and the nicknames are invented.</p>
+    <nav class="toc" aria-label="Jump to a part">
+      <a href="#final">Final touches</a><a href="#site">The site</a><a href="#colour">More colour</a><a href="#overlap">Overlap</a><a href="#lag">Lag</a><a href="#hooks">More addictive</a><a href="#audit">Kyara audit</a><a href="#map">Kyara to KpopCards</a><a href="#routes">Pages</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+  <section class="row" id="final">
+    <div>
+      <p class="mono n">Validated · final touches</p>
+      <h3>The version to build, pixel for pixel</h3>
+      <ul>
+        <li><b>The rabbit</b> replaces the card icon next to KpopCards in the top bar.</li>
+        <li><b>A bigger card</b> in the middle of the opening: it now takes the room the empty Open buttons used to keep, up to 340 px wide, still clear of the five slots on every screen we tried.</li>
+        <li><b>The back never shows through the front:</b> in your screenshot the rabbit and a mirrored KPOPCARDS showed on top of the revealed card. Each face now switches at the middle of the flip, so it can't happen in any browser.</li>
+        <li>The Full Art stamp now fades away after about two seconds, so the whole card stays visible.</li>
+      </ul>
+    </div>
+    <div class="shots" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <figure><figcaption><span class="tag b">Before</span><span>card in the opening</span></figcaption><button class="shot" type="button"><img src="img/card-old-1366.webp" width="2732" height="1314" alt="The smaller card before"></button></figure>
+      <figure><figcaption><span class="tag a">After</span><span>bigger card</span></figcaption><button class="shot" type="button"><img src="img/card-now-1366.webp" width="2732" height="1314" alt="The bigger card now"></button></figure>
+      <figure style="max-width:260px"><figcaption><span class="tag b">Before</span><span>phone</span></figcaption><button class="shot" type="button"><img src="img/card-old-390.webp" width="780" height="1328" alt="The smaller card on a phone" loading="lazy"></button></figure>
+      <figure style="max-width:260px"><figcaption><span class="tag a">After</span><span>phone, Full Art</span></figcaption><button class="shot" type="button"><img src="img/fa-final-390.webp" width="780" height="1328" alt="A big Full Art card on a phone" loading="lazy"></button></figure>
+      <figure style="grid-column:1 / -1"><figcaption><span class="tag a">After</span><span>the rabbit in the top bar</span></figcaption><button class="shot" type="button"><img src="img/logo-final.webp" width="1040" height="140" alt="Rabbit logo next to KpopCards" loading="lazy"></button></figure>
+    </div>
+  </section>
+
+  <section class="row" id="site">
+    <div>
+      <p class="mono n">Your note</p>
+      <h3>KpopCards, with its own lobby</h3>
+      <ul>
+        <li>The top bar says <b>KpopCards</b>, with the rabbit, instead of the Bunnyverse wordmark. The pack and the card back say KpopCards too.</li>
+        <li>The lobby is the home page, like Kyara's: the pack in the centre, then <b>Choose your pack</b>, Can't wait, Almost there, your last pull and six colour boxes.</li>
+        <li>Five tabs: <b>Lobby, Collection, Missions, Ranking, Help</b>. A bell lists what is waiting for you, and your avatar shows your level.</li>
+        <li>Everything links to kpopquiz.org: the passport, Kpopdle and the quiz of the day, each worth a pack.</li>
+        <li>The stack now holds <b>10 packs</b>, like Kyara (it was 5).</li>
+      </ul>
+    </div>
+    <div class="shots" style="grid-template-columns:minmax(0,1fr) minmax(0,240px)">
+      <figure><figcaption><span class="tag a">v6</span><span>lobby, 1440 wide</span></figcaption><button class="shot" type="button"><img src="img/lobby-desk.webp" width="2880" height="1720" alt="KpopCards lobby on a computer"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>phone</span></figcaption><button class="shot" type="button"><img src="img/lobby-mob.webp" width="780" height="1328" alt="KpopCards lobby on a phone"></button></figure>
+    </div>
+  </section>
+
+  <section class="row">
+    <div>
+      <p class="mono n">The whole lobby</p>
+      <h3>Top to bottom</h3>
+      <ul>
+        <li>Tap the picture to scroll through the full page at full size.</li>
+      </ul>
+    </div>
+    <div class="shots one narrow">
+      <figure><figcaption><span class="tag a">v6</span><span>full lobby</span></figcaption><button class="shot crop" type="button"><img src="img/lobby-desk-full.webp" width="2880" height="6000" alt="The full KpopCards lobby" loading="lazy"></button></figure>
+    </div>
+  </section>
+
+  <section class="row" id="colour">
+    <div>
+      <p class="mono n">Your note</p>
+      <h3>More colour, better structure</h3>
+      <ul>
+        <li>Each box has its own colour and an icon: <b>violet</b> for your collection, <b>green</b> for this week, the <b>group's own colour</b> for the focus pack, <b>gold</b> for friends, <b>pink</b> for kpopquiz.org, <b>blue</b> for drop rates.</li>
+        <li><b>Your collection</b> shows a ring with your %, your level, the cards to the next level and your three best cards.</li>
+        <li><b>Drop rates</b> gets a colour bar of the editions, so the odds read at a glance.</li>
+        <li>Six boxes in three columns, so nothing sits alone.</li>
+      </ul>
+    </div>
+    <div class="shots two">
+      <figure><figcaption><span class="tag b">Before</span><span>v5</span></figcaption><button class="shot" type="button"><img src="img/boxes-v5.webp" width="2880" height="1720" alt="v5 plain white boxes" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">After</span><span>v6</span></figcaption><button class="shot" type="button"><img src="img/boxes-v6.webp" width="2880" height="1720" alt="v6 colourful boxes" loading="lazy"></button></figure>
+    </div>
+  </section>
+
+  <section class="row" id="overlap">
+    <div>
+      <p class="mono n">Your note</p>
+      <h3>The pack no longer covers the slots</h3>
+      <ul>
+        <li>On a short screen the pack in the opening sat on top of the five empty slots.</li>
+        <li>The pack, the card pile and the final fan now take their size from the screen height, so there is always room for the row of slots under them.</li>
+      </ul>
+    </div>
+    <div class="shots" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+      <figure><figcaption><span class="tag b">Before</span><span>1280 by 600</span></figcaption><button class="shot" type="button"><img src="img/overlap-v5.webp" width="2560" height="1200" alt="v5 pack covering the slots" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">After</span><span>1280 by 600</span></figcaption><button class="shot" type="button"><img src="img/overlap-v6.webp" width="2560" height="1200" alt="v6 pack above the slots" loading="lazy"></button></figure>
+      <figure style="max-width:260px"><figcaption><span class="tag b">Before</span><span>phone</span></figcaption><button class="shot" type="button"><img src="img/overlapm-v5.webp" width="780" height="1328" alt="v5 on a phone" loading="lazy"></button></figure>
+      <figure style="max-width:260px"><figcaption><span class="tag a">After</span><span>phone</span></figcaption><button class="shot" type="button"><img src="img/overlapm-v6.webp" width="780" height="1328" alt="v6 on a phone" loading="lazy"></button></figure>
+    </div>
+  </section>
+
+  <section class="row" id="lag">
+    <div>
+      <p class="mono n">Your note</p>
+      <h3>A smoother opening</h3>
+      <ul>
+        <li><b>Nothing behind the pack is drawn</b> while it is open: the lobby is hidden and its timer stops refreshing.</li>
+        <li><b>Backgrounds fade as layers</b> instead of repainting the whole screen; the light rays are smaller and need no mask.</li>
+        <li><b>Fewer blend effects</b> on cards and packs, and the Full Art rainbow rim turns as one layer instead of being redrawn every frame.</li>
+        <li><b>Particles</b> use one canvas pixel per screen pixel, with a cap of 260 at once.</li>
+        <li>The spotlight dims cards with opacity only, and its glow is a layer that fades in.</li>
+      </ul>
+      <p class="why">Measured on the same pack with the processor slowed 4 times to act like a mid-range phone. Frames per second, higher is smoother.</p>
+    </div>
+    <div>
+      <div class="tbl"><table>
+        <thead><tr><th>Moment</th><th>Phone v5</th><th>Phone v6</th><th>Laptop v5</th><th>Laptop v6</th></tr></thead>
+        <tbody>
+          <tr><td>Pack shown</td><td>50</td><td>49</td><td>47</td><td>49</td></tr>
+          <tr><td>Tear and pile</td><td>46</td><td>52</td><td>48</td><td>52</td></tr>
+          <tr><td>Full Art reveal</td><td>40</td><td>48</td><td>17</td><td>36</td></tr>
+          <tr><td>Card flies down</td><td>23</td><td>55</td><td>15</td><td>47</td></tr>
+          <tr><td>Reveal all and summary</td><td>23</td><td>52</td><td>9</td><td>24</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Phone: 390 by 664, laptop: 1366 by 657, in a test browser without a graphics card, so real devices run faster than these numbers. The slowest moment left is the Full Art summary on a laptop, when the dark stage, the rain and the spotlight all run at once.</p>
+    </div>
+  </section>
+
+  <section class="row" id="hooks">
+    <div>
+      <p class="mono n">Your note: more addictive</p>
+      <h3>Reasons to open one more</h3>
+      <ul>
+        <li><b>Choose your pack:</b> All idols, Girl groups, Boy groups or Soloists. The pack in the centre takes the colours of your choice.</li>
+        <li><b>Pack of the day:</b> one group a day, free once, with a countdown to midnight.</li>
+        <li><b>Golden pack:</b> every 10th pack is golden and its fifth card is Holo or better. A chip counts down: "Golden pack in 2".</li>
+        <li><b>Open 5:</b> five packs rip together, 25 cards are dealt and turn over, the best one last, with the dark stage if it is Gold or Full Art.</li>
+        <li><b>Almost there:</b> the idols and groups one or two cards from complete, with a Craft button when you have the shards.</li>
+        <li><b>Level:</b> one level every 10 cards, with titles from Rookie to Legend. Your level shows on your avatar.</li>
+        <li><b>Ranking:</b> friends by completion %, with each player's showcase of three cards and earned badges.</li>
+        <li>No streak to lose, no paid packs and no card that disappears forever.</li>
+      </ul>
+    </div>
+    <div class="shots" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <figure><figcaption><span class="tag a">v6</span><span>golden pack next</span></figcaption><button class="shot" type="button"><img src="img/golden-lap.webp" width="2732" height="1314" alt="A golden pack on the stage" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>Open 5: 25 cards turning</span></figcaption><button class="shot" type="button"><img src="img/open5-grid-1366.webp" width="2732" height="1314" alt="25 cards dealt from five packs" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>Open 5 with a Gold inside</span></figcaption><button class="shot" type="button"><img src="img/open5-done-1366.webp" width="2732" height="1314" alt="Five packs summary on the dark gold stage" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>Ranking</span></figcaption><button class="shot" type="button"><img src="img/ranking-desk.webp" width="2880" height="1720" alt="Friends ranking with showcases" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>Notifications</span></figcaption><button class="shot" type="button"><img src="img/bell-desk.webp" width="1240" height="840" alt="The notification list" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>Profile, sound, kpopquiz.org</span></figcaption><button class="shot" type="button"><img src="img/profile-desk.webp" width="1240" height="1120" alt="The profile menu with level and switches" loading="lazy"></button></figure>
+    </div>
+  </section>
+
+  <section class="row">
+    <div>
+      <p class="mono n">On a phone</p>
+      <h3>The same lobby in your hand</h3>
+      <ul>
+        <li>The pack, the Open buttons and the timers fit the first screen; Choose your pack scrolls sideways.</li>
+        <li>Open 5 shows 25 cards in five columns.</li>
+      </ul>
+    </div>
+    <div class="shots phone4">
+      <figure><figcaption><span class="tag a">v6</span><span>packs</span></figcaption><button class="shot" type="button"><img src="img/lobby-mob-shelf.webp" width="780" height="1328" alt="Choose your pack on a phone" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>boxes</span></figcaption><button class="shot" type="button"><img src="img/lobby-mob-more.webp" width="780" height="1328" alt="Colour boxes on a phone" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>Open 5</span></figcaption><button class="shot" type="button"><img src="img/open5-done-390.webp" width="780" height="1328" alt="Open 5 summary on a phone" loading="lazy"></button></figure>
+      <figure><figcaption><span class="tag a">v6</span><span>ranking</span></figcaption><button class="shot" type="button"><img src="img/ranking-mob.webp" width="780" height="1328" alt="Ranking on a phone" loading="lazy"></button></figure>
+    </div>
+  </section>
+</div>
+<section class="wrap cov" id="audit" aria-labelledby="audit-t">
+  <p class="mono n" style="color:var(--accent-ink)">Six research agents · public sources only</p>
+  <h2 id="audit-t">The Kyara audit</h2>
+  <p class="sub">kyara.games refuses automated visits (it sits behind a bot check called Anubis), and we don't get around bot checks. So six agents read what others publish about it: open-source fan add-ons that work with the site, referral and review pages, scanner reports, Discord listings, YouTube descriptions and posts on X seen through search results. The look and the exact animations could not be seen; send screenshots or a screen recording of its lobby and a pack opening and I will match them closely.</p>
+
+  <div class="kgrid">
+    <div class="panel"><h3>What it is</h3><ul>
+      <li>A free web card game of about <b>6,457 anime and manga characters</b>, made by one person in their spare time, launched on <b>4 October 2026</b>, in French first. <a href="https://www.parrainlink.com/hightech-numerique/parrainage-kyara">ParrainLink</a>, <a href="https://gridinsoft.com/online-virus-scanner/url/kyara-games">Gridinsoft</a></li>
+      <li>Its official Discord lists about <b>29,000 members</b>; one player claimed 600,000 players by 22 October (unverified). <a href="https://discord.com/invite/kyaragame">Discord</a></li>
+      <li>Built with <b>SvelteKit</b>, installable as a web app, behind Cloudflare. <a href="https://gridinsoft.com/online-virus-scanner/url/kyara-games">Gridinsoft</a>, <a href="https://www.scamadviser.com/check-website/kyara.games">ScamAdviser</a></li>
+      <li>Sign-in with <b>Discord only</b>. No licences: it calls itself an unofficial fan project, and critics on X say its images are AI-made.</li>
+    </ul></div>
+    <div class="panel"><h3>The loop</h3><ul>
+      <li>A free booster <b>every 10 minutes, up to 10 stored</b>, opened 1, 5 or 10 at a time, with a "Tout révéler" (reveal all) button. <a href="https://github.com/H1B0B0/kyara-manager">kyara-manager</a></li>
+      <li>A themed <b>pack of the day</b> at midnight Paris time, and about 18 themed boosters (Shōnen, Isekai, Waifu and others). <a href="https://github.com/mRNeFF/kyareeh-plus">kyareeh-plus</a></li>
+      <li>A <b>golden booster</b> every N boosters, a pity counter (around 250 for a Mythic in a fan copy), featured cards. </li>
+      <li>A "still there?" check that stops people farming boosters with an open tab.</li>
+    </ul></div>
+    <div class="panel"><h3>Cards and collection</h3><ul>
+      <li>Six rarities by colour: grey, green, blue, purple, gold, and a rainbow border for Mythic. Rarity follows how popular a character is. <a href="https://github.com/PsickOSSH/Better-Kyara">Better Kyara</a></li>
+      <li>Albums per series with "?" for missing cards; players built add-ons to show names and completion %. <a href="https://addons.mozilla.org/en-US/firefox/addon/better-kyara/">Firefox add-on</a></li>
+      <li>Each card unlocks a <b>wiki page</b> for its character.</li>
+      <li>Missions for finished series, profile showcase, badges such as Founder and Recruiter, rankings with a friends filter, a notification bell.</li>
+    </ul></div>
+    <div class="panel"><h3>Money and risk</h3><ul>
+      <li>One currency, <b>chakra</b>, from recycling duplicates and selling. A player market with fixed prices, auctions, buy orders and a 5% tax; gifts capped after abuse. <a href="https://www.parrainlink.com/hightech-numerique/parrainage-kyara">ParrainLink</a></li>
+      <li>Referral contests with 3 boosters each and a recruiter leaderboard; follow-to-win giveaways on X.</li>
+      <li>Players call it free and fun, and joke about addiction; complaints are about rarity by popularity and AI images. Trustpilot 3.8 from 8 reviews.</li>
+      <li>A culture of card flipping and bots grew around the market.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="wrap cov" id="map" aria-labelledby="map-t">
+  <h2 id="map-t">Kyara to KpopCards</h2>
+  <p class="sub">Every Kyara system, what KpopCards does instead, and where it is. Your rules stay: packs are never sold for money, no market, no streak to lose, minors can play.</p>
+  <div class="legend"><span class="st v5">In v6</span><span class="st l3">Already built</span><span class="st l4">Lot 5</span><span class="st flag">Later, flag off</span><span class="st no">Never</span></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Kyara</th><th>KpopCards</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Booster every 10 minutes, 10 stored</td><td class="what">Stack of <b>10</b> (was 5), midnight refill, 40 timer packs a day</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>Open 1, 5 or 10</td><td class="what"><b>Open 1 or Open 5</b>, 25 cards dealt and turned, best one last</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>Pack of the day</td><td class="what"><b>Pack of the day:</b> one group a day, free once</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>18 themed boosters</td><td class="what"><b>Choose your pack:</b> All idols, Girl groups, Boy groups, Soloists; more themes later (generation, season)</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>Golden booster every N</td><td class="what"><b>Every 10th pack is golden</b>, fifth card Holo or better, with a countdown chip</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>Reveal all</td><td class="what">Reveal all with a 600 ms spotlight on the best card</td><td><span class="st l3">Already built</span></td></tr>
+      <tr><td>Pity counter</td><td class="what">Gold guarantee by pack 30, always visible</td><td><span class="st l3">Already built</span></td></tr>
+      <tr><td>Featured cards</td><td class="what">Focus pack: 2 of 5 cards from your group</td><td><span class="st l3">Already built</span></td></tr>
+      <tr><td>Albums with "?"</td><td class="what">Collection per group with named silhouettes and a % per group</td><td><span class="st l3">Already built</span></td></tr>
+      <tr><td>Missions per series</td><td class="what">Sets with fixed rewards, ready ones first</td><td><span class="st l3">Already built</span></td></tr>
+      <tr><td>Notification bell</td><td class="what">Bell: packs full, pack of the day, golden pack, sets and weekly reward to claim</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>Profile, badges, rankings</td><td class="what">Level every 10 cards, showcase of 3 starred cards, earned badges, ranking by completion only, friends first, nicknames only</td><td><span class="st v5">In v6</span></td></tr>
+      <tr><td>Wiki page per card</td><td class="what"><b>Idol page</b> unlocked by a card at /kpopcards/idol/name, with that idol's quizzes on kpopquiz.org</td><td><span class="st l4">Lot 5</span></td></tr>
+      <tr><td>Recycling, locks, warnings</td><td class="what">Shards; Gold and Full Art extras are never recycled in bulk (v6); a lock on any card</td><td><span class="st l4">Lot 5</span></td></tr>
+      <tr><td>"Still there?" check</td><td class="what">A quiet server check on timer packs, never costs a pack</td><td><span class="st l4">Lot 5</span></td></tr>
+      <tr><td>Friends</td><td class="what">Friends by one-time code, wishlists visible to friends, no chat</td><td><span class="st l4">Lot 5</span></td></tr>
+      <tr><td>Referral, 3 boosters each</td><td class="what">Invite a friend: +3 packs each, 10 friends at most, no leaderboard</td><td><span class="st flag">Later, flag off</span></td></tr>
+      <tr><td>Cosmetic opening effects and card backs</td><td class="what">Earned by sets and levels, never sold</td><td><span class="st flag">Later, flag off</span></td></tr>
+      <tr><td>Discord-only sign-in</td><td class="what">The kpopquiz.org passport and a demo pack for guests (Discord excludes under-13s)</td><td><span class="st l3">Already built</span></td></tr>
+      <tr><td>Rarity by popularity</td><td class="what">Rarity by edition; an idol is never labelled Common</td><td><span class="st no">Never</span></td></tr>
+      <tr><td>Market, auctions, buy orders, tax, currency gifts</td><td class="what">Not built</td><td><span class="st no">Never</span></td></tr>
+      <tr><td>Referral contests, follow-to-win giveaways, packs-opened leaderboard</td><td class="what">Not built</td><td><span class="st no">Never</span></td></tr>
+      <tr><td>Dark violet theme</td><td class="what">The kpopquiz.org light look, as you asked; the dark stage only for Gold and Full Art pulls</td><td><span class="st v5">In v6</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="wrap cov" id="routes" aria-labelledby="routes-t">
+  <h2 id="routes-t">The pages of KpopCards</h2>
+  <p class="sub">All under bunnyverse.org/kpopcards: a site of its own inside Bunnyverse, sharing the kpopquiz.org passport. kpopcards.bunnyverse.org can redirect here.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Address</th><th>Page</th></tr></thead>
+    <tbody>
+      <tr><td>/kpopcards</td><td class="what"><b>Lobby:</b> the pack, Choose your pack, Can't wait, Almost there, last pull, the six boxes</td></tr>
+      <tr><td>/kpopcards/open/all · girls · boys · solo</td><td class="what">Opening a pack of that theme; <b>?packs=5</b> opens five</td></tr>
+      <tr><td>/kpopcards/open/daily</td><td class="what">The pack of the day</td></tr>
+      <tr><td>/kpopcards/open/focus/twice</td><td class="what">A focus pack for one group</td></tr>
+      <tr><td>/kpopcards/collection and /collection/twice</td><td class="what">The binder, all groups or one group</td></tr>
+      <tr><td>/kpopcards/idol/jennie</td><td class="what">Idol page unlocked by a card, linked to kpopquiz.org (lot 5)</td></tr>
+      <tr><td>/kpopcards/missions</td><td class="what">Sets and the weekly list</td></tr>
+      <tr><td>/kpopcards/ranking and /kpopcards/u/nickname</td><td class="what">Ranking and a player's showcase</td></tr>
+      <tr><td>/kpopcards/odds</td><td class="what">Every pack's odds and the guarantees</td></tr>
+      <tr><td>/kpopcards/help</td><td class="what">How it works, questions, photo credits, report a photo</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="wrap later" aria-label="Sources">
+  <div class="panel">
+    <h3>Sources</h3>
+    <ul>
+      <li><a href="https://www.parrainlink.com/hightech-numerique/parrainage-kyara">ParrainLink</a>, <a href="https://meilleurcodeparrainage.com/code/kyara/">Meilleur code parrainage</a>, <a href="https://musicpocket.fr/jeux-comme-wikimasters">MusicPocket</a></li>
+      <li><a href="https://gridinsoft.com/online-virus-scanner/url/kyara-games">Gridinsoft</a>, <a href="https://www.scamadviser.com/check-website/kyara.games">ScamAdviser</a>, <a href="https://www.trustpilot.com/review/kyara.games">Trustpilot</a></li>
+      <li>Fan code: <a href="https://github.com/A-Finch13/Kyara-Games-Extension">Kyara Games Extension</a>, <a href="https://github.com/PsickOSSH/Better-Kyara">Better Kyara</a>, <a href="https://github.com/mRNeFF/kyareeh-plus">kyareeh-plus</a>, <a href="https://github.com/H1B0B0/kyara-manager">kyara-manager</a>, <a href="https://github.com/A-Finch13/Kyara-BOT">Kyara-BOT</a></li>
+      <li><a href="https://discord.com/invite/kyaragame">Discord invite</a>, <a href="https://discordgate.com/servers/1Rd0yVyUGlI/kyara-tcg-fans-fr">Kyara TCG Fans FR</a>, <a href="https://www.youtube.com/watch?v=i63P3t6wuV4">YouTube review</a></li>
+      <li>Rules: <a href="https://www.dreyfus.fr/en/2026/06/29/what-is-the-legal-status-of-games-involving-monetisable-digital-objects-jonum/">JONUM status (Dreyfus)</a>, <a href="https://www.pocketgamer.biz/pegi-expands-age-ratings-to-cover-loot-boxes-and-in-game-spending">PEGI ratings (PocketGamer.biz)</a>. Research, not legal advice.</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>What I could not see</h3>
+    <p>Kyara's real lobby layout, card frames, colours on screen, the opening animation and its sounds. X, Threads, TikTok and the jeuxvideo.com forums also refused automated reading.</p>
+    <p>To copy the feel closely, send a few screenshots of the lobby and the collection and a screen recording of one pack opening (ideally a Mythic). I will compare frame by frame and adjust KpopCards with our own art, without copying their images, text or code.</p>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Screens rendered from the prototype files at 1440, 1366, 1280 and 390 px wide. Tap any screen to see it full size.</div></footer>
+
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Screen at full size"><button class="x" id="zoom-x" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><img id="zoom-img" alt=""></div>
+
+<script>
+(function(){
+  var z=document.getElementById("zoom"), zi=document.getElementById("zoom-img"), last=null;
+  document.addEventListener("click",function(e){ var b=e.target.closest(".shot"); if(!b) return; var im=b.querySelector("img"); last=b; zi.src=im.src; zi.alt=im.alt; var w=+im.getAttribute("width"); zi.style.width=Math.min(w>1500?w/2:w/2,window.innerWidth-32)+"px"; z.hidden=false; document.documentElement.style.overflow="hidden"; document.getElementById("zoom-x").focus(); });
+  function close(){ z.hidden=true; document.documentElement.style.overflow=""; if(last) last.focus(); }
+  document.getElementById("zoom-x").addEventListener("click",close);
+  z.addEventListener("click",function(e){ if(e.target===z) close(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!z.hidden) close(); });
+})();
+</script>
+
+</body></html>

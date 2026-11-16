@@ -1,7 +1,7 @@
 // Bunnyverse Cards, lane U: the pure model of the pages. From the catalog (cards and entities) it builds the slim cards, the pockets of
 // the binder (a card, or an edition that cannot exist yet with its reason sentence), the sections, and the numbers the pages print.
 // Nothing here invents a number: every count is taken from the catalog and from the player's state.
-import { RARITIES, RARITY_NAMES, SHARDS } from './rules';
+import { RARITIES, RARITY_LABEL, SHARDS } from './rules';
 import { paletteFor } from './ui-palette';
 
 import type { CardKind, CatalogOdds, LockReason, OwnedEntry, Rarity } from './types';
@@ -17,12 +17,31 @@ export function photoPicture(photo: UiPhoto | null): CardPicture | null {
   return null;
 }
 
-export function slimCard(c: UiCard, entityType: string | null = null): SlimCard {
+/** Lot 3 point A5: a rate as the page prints it ("0.3%", "10%"): at most two decimals, none when it is a whole number. Computed from the odds. */
+export function fmtRate(v: number): string {
+  return `${Number(v.toFixed(2))}%`;
+}
+
+/** Lot 3 point A5: the chance of one card being of each rarity, as printed (only the rarities that exist in packs), from computeOdds. */
+export function rateLabels(odds: CatalogOdds | null): Partial<Record<Rarity, string>> {
+  const out: Partial<Record<Rarity, string>> = {};
+  if (!odds) return out;
+  for (const r of RARITIES) if (odds.available.includes(r) && odds.card[r] > 0) out[r] = fmtRate(odds.card[r]);
+  return out;
+}
+
+/** The small label a Full Art card carries ("0.3%"): its rarity's rate from the odds the page shows. null when there is none. */
+export function fullArtRate(odds: CatalogOdds | null): string | null {
+  return rateLabels(odds).L ?? null;
+}
+
+export function slimCard(c: UiCard, entityType: string | null = null, rate: string | null = null): SlimCard {
   return {
     n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear,
     img: photoPicture(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
     part: c.part === 1 || c.part === 2 ? c.part : 0, pairN: c.part === 1 || c.part === 2 ? (c.pairN ?? null) : null,
     ...(c.endYear ? { endYear: c.endYear } : {}),
+    ...(rate && c.rarity === 'L' ? { rate } : {}),
   };
 }
 
@@ -32,6 +51,8 @@ export const SOLOIST = 'Soloist';
 
 const slug = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const EVENTS_SECTION = 'events';
+/** The section of every person without a group line (the prototype's "Soloists" page of the binder). */
+export const SOLOISTS_SECTION = 'Soloists';
 
 /**
  * The editions a subject has a pocket for. Amendment 1: a person or a group has all six pockets (C, U, R, UR exist, Era and Full Art are
@@ -56,7 +77,8 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     else byEntity.set(c.entity, [c]);
   }
   const typeOf = new Map(cat.entities.map((e) => [e.id, e.eventType ?? null]));
-  const cards = cat.cards.map((c) => slimCard(c, typeOf.get(c.entity) ?? null));
+  const faRate = fullArtRate(cat.odds);
+  const cards = cat.cards.map((c) => slimCard(c, typeOf.get(c.entity) ?? null, faRate));
   const firstN = (id: string): number => Math.min(...(byEntity.get(id) ?? []).map((c) => c.n), Number.MAX_SAFE_INTEGER);
   const entities = [...cat.entities].sort((a, b) => firstN(a.id) - firstN(b.id) || a.sortKey.localeCompare(b.sortKey));
   const sections: BinderSection[] = [];
@@ -68,7 +90,7 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     // Review 1 finding 5: an entity with no card (the group line of a person, BLACKPINK for Jennie and Rose) has no pocket and no section
     // of its own; its name is only the group line of its people.
     if (!byEntity.has(e.id)) continue;
-    const secName = e.kind === 'event' ? 'Events' : e.kind === 'group' ? e.name : (e.group ?? e.name);
+    const secName = e.kind === 'event' ? 'Events' : e.kind === 'group' ? e.name : (e.group ?? SOLOISTS_SECTION);
     const sec = e.kind === 'event' ? EVENTS_SECTION : slug(secName);
     if (!seen.has(sec)) {
       seen.add(sec);
@@ -87,7 +109,7 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
       const cs = have.get(r);
       if (cs) {
         for (const c of cs) {
-          items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null) });
+          items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null, faRate) });
           sections.find((x) => x.id === sec)!.ns.push(c.n);
         }
       }
@@ -95,7 +117,10 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
         const reason = lockReasonOf(e.lockReasons, r);
         lk[r] = reason;
         const anchor = (byEntity.get(e.id) ?? [])[0]?.num ?? null;
-        items.push({ i: items.length, sec, locked: true, entity: e.id, name: e.name, group: e.kind === 'idol' ? e.group : e.kind === 'group' ? e.name : null, rarity: r, reason, anchor });
+        // A group edition that cannot exist yet shows its two halves, as the prototype does ("TWICE 1/2", "TWICE 2/2").
+        for (const half of e.kind === 'group' ? [' 1/2', ' 2/2'] : ['']) {
+          items.push({ i: items.length, sec, locked: true, entity: e.id, name: `${e.name}${half}`, group: e.kind === 'idol' ? e.group : e.kind === 'group' ? e.name : null, rarity: r, reason, anchor });
+        }
       }
     }
     locks[e.id] = lk;
@@ -127,12 +152,13 @@ export function countByKind(cards: readonly SlimCard[], owned: Map<number, Owned
 }
 
 /** Extras: every copy above one, and the shards they are worth (the exact figure the Recycle button prints). */
-export function extras(cards: readonly SlimCard[], owned: Map<number, OwnedEntry>): { n: number; shards: number } {
+export function extras(cards: readonly SlimCard[], owned: Map<number, OwnedEntry>, recyclable = false): { n: number; shards: number } {
   let n = 0;
   let shards = 0;
   for (const c of cards) {
     const o = owned.get(c.n);
-    if (o && o.copies > 1) {
+    // `recyclable`: Gold and Full Art extras are never recycled (the prototype's extras(), and the server's recycle since 110).
+    if (o && o.copies > 1 && !(recyclable && (c.rarity === 'UR' || c.rarity === 'L'))) {
       n += o.copies - 1;
       shards += (o.copies - 1) * SHARDS[c.rarity];
     }
@@ -189,19 +215,20 @@ export function filterItems(items: readonly BinderItem[], f: Filters, owned: Map
 
 export type SortKey = 'rarity' | 'number' | 'newest';
 export const SORTS: { key: SortKey; label: string; hint: string }[] = [
-  { key: 'rarity', label: 'Rarity', hint: 'Legendary first, then by number' },
+  { key: 'rarity', label: 'Edition', hint: 'Full Art first, then by number' },
   { key: 'number', label: 'Number', hint: 'By card number' },
   { key: 'newest', label: 'Newest', hint: 'Last pulled first' },
 ];
 
-/** The grid order. Rarity: owned first, Legendary down, then by number. Newest: last pulled first, then by number. A pair sorts as one unit
+/** The grid order. Rarity: owned first, the highest rarity down, then by number. Newest: last pulled first, then by number. A pair sorts as one unit
  *  (owned when either half is, newest by its latest half, by number from its first half) and stays together. */
 export function sortItems(list: readonly BinderItem[], sort: SortKey, owned: Map<number, OwnedEntry>): BinderItem[] {
-  const out = binderUnits(list);
+  // The prototype sorts pockets one by one: the two halves of a pair are two items and part when one is owned and the other is not (the grid still draws a half beside its mate when both sort together).
+  const out: BinderItem[][] = list.map((it) => [it]);
   const rank = (u: BinderItem[]): number => { const it = u[0]!; return RARITIES.indexOf(it.locked ? it.rarity : it.card.rarity); };
   const own = (u: BinderItem[]): number => (u.some((it) => !it.locked && owned.has(it.card.n)) ? 1 : 0);
   const at = (u: BinderItem[]): number => Math.max(...u.map((it) => (it.locked ? -Infinity : Date.parse(owned.get(it.card.n)?.at ?? '') || -Infinity)));
-  // The prototype's rule (owned first, then rarity, Legendary first), with the locked pockets after the issued cards: in a catalog where
+  // The prototype's rule (owned first, then rarity, highest first), with the locked pockets after the issued cards: in a catalog where
   // every Era and Full Art is locked (amendment 1) the grid would otherwise open on pages of empty pockets (decision 31).
   const locked = (u: BinderItem[]): number => (u[0]!.locked ? 1 : 0);
   if (sort === 'rarity') out.sort((a, b) => own(b) - own(a) || locked(a) - locked(b) || rank(b) - rank(a) || a[0]!.i - b[0]!.i);
@@ -246,7 +273,13 @@ export function gridPages(list: readonly BinderItem[], perPage = 36): BinderItem
   return out;
 }
 
-export const rarityName = (r: Rarity): string => RARITY_NAMES[r];
+/** The cells a grid page draws: a page that is not the last one always has its `perPage` cells. A pair is never cut across two pages, so a page
+ *  one cell short ends on a plain empty pocket (null: no card, no number, no silhouette). */
+export function gridCells(page: readonly BinderItem[], more: boolean, perPage = 36): (BinderItem | null)[] {
+  return more && page.length < perPage ? [...page, ...Array.from({ length: perPage - page.length }, () => null)] : [...page];
+}
+
+export const rarityName = (r: Rarity): string => RARITY_LABEL[r];
 
 /** mm:ss for the next-pack timer. */
 export function fmtClock(ms: number): string {
@@ -260,9 +293,9 @@ export function fmtHours(ms: number): string {
   return `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}`;
 }
 
-/** The accessible name of a card: name, edition, rarity. */
-export function cardLabel(c: SlimCard, editionName: string): string {
-  return `${c.name}, ${editionName}, ${RARITY_NAMES[c.rarity]}`;
+/** The accessible name of a card: name and its one rarity name (lot 3 point B4: the edition's name is the rarity's name). */
+export function cardLabel(c: SlimCard): string {
+  return `${c.name}, ${RARITY_LABEL[c.rarity]}`;
 }
 
 /** What the Drop rates box prints, taken from the server's odds (rules.ts computeOdds over the real catalog). Nothing is typed here. */
@@ -275,6 +308,8 @@ export interface OddsView {
   fifth: Partial<Record<Rarity, number>>;
   eachWords: string;
   fifthWords: string;
+  /** The lowest rarity the fifth card can be (the floor of its table), null with no odds. */
+  fifthFloor: Rarity | null;
   /** Lot 2: the order of the draw in plain sentences, from the odds only. Empty when the odds hold no subject and card counts (older payloads). */
   drawSteps: string[];
   /** Lot 2: per rarity, the split between types (soloists and members, groups, events), from odds.kinds. */
@@ -298,13 +333,13 @@ function drawView(odds: CatalogOdds, present: readonly Rarity[]): Pick<OddsView,
   for (const r of present) {
     const ks = KIND_ORDER.filter((k) => (odds.kinds[r]?.[k] ?? 0) > 0 && (subj[r]?.[k] ?? 0) > 0 && (cards[r]?.[k] ?? 0) > 0);
     if (ks.length === 0) continue;
-    typeSplit.push(`${RARITY_NAMES[r]}: ${list(ks.map((k) => `${KIND_WORDS[k]} ${num(Number((odds.kinds[r][k] as number).toFixed(2)))}%`))}.`);
+    typeSplit.push(`${RARITY_LABEL[r]}: ${list(ks.map((k) => `${KIND_WORDS[k]} ${num(Number((odds.kinds[r][k] as number).toFixed(2)))}%`))}.`);
     for (const k of ks) {
       const s = subj[r][k] as number;
       const c = cards[r][k] as number;
       if (c > s) halves = true;
       const p = (odds.card[r] * (odds.kinds[r][k] as number) / 100 / s) * s / c;
-      cardChance.push({ r, kind: k, subjects: s, cards: c, pct: p, label: `${RARITY_NAMES[r]}, ${KIND_WORDS[k]}: ${pct(p)} for each of the ${c} cards.` });
+      cardChance.push({ r, kind: k, subjects: s, cards: c, pct: p, label: `${RARITY_LABEL[r]}, ${KIND_WORDS[k]}: ${pct(p)} for each of the ${c} cards.` });
     }
   }
   if (typeSplit.length === 0) return none;
@@ -336,7 +371,7 @@ const list = (xs: string[]): string => (xs.length <= 1 ? (xs[0] ?? '') : `${xs.s
 export function oddsView(odds: CatalogOdds | null): OddsView {
   const present = odds ? RARITIES.filter((r) => odds.available.includes(r)) : [];
   const absent = RARITIES.filter((r) => !present.includes(r));
-  if (!odds || present.length === 0) return { present: [], absent: [...RARITIES], each: {}, fifth: {}, eachWords: 'No card is in packs yet.', fifthWords: '', drawSteps: [], typeSplit: [], cardChance: [] };
+  if (!odds || present.length === 0) return { present: [], absent: [...RARITIES], each: {}, fifth: {}, eachWords: 'No card is in packs yet.', fifthWords: '', fifthFloor: null, drawSteps: [], typeSplit: [], cardChance: [] };
   const w = odds.planWeights;
   const total = odds.availableWeightTotal;
   const each: OddsView['each'] = {};
@@ -345,11 +380,18 @@ export function oddsView(odds: CatalogOdds | null): OddsView {
   const hasC = present.includes('C');
   const lift = hasC ? present.find((r) => r !== 'C') : undefined;
   const eachWords = absent.length === 0
-    ? `Every rarity has cards, so the plan's odds apply as they are: ${present.map((r) => `${RARITY_NAMES[r]} ${num(w[r])}`).join(', ')} (a total of ${num(total)}).`
-    : `Only ${list(present.map((r) => RARITY_NAMES[r]))} cards exist so far, so their odds from the plan (${list(present.map((r) => num(w[r])))}) are scaled to 100: ${present.map((r) => `${num(w[r])} / ${num(total)} = ${pct(each[r] as number)}`).join(', ')}.`;
+    ? `Every rarity has cards, so the plan's odds apply as they are: ${present.map((r) => `${RARITY_LABEL[r]} ${num(w[r])}`).join(', ')} (a total of ${num(total)}).`
+    : `Only ${list(present.map((r) => RARITY_LABEL[r]))} cards exist so far, so their odds from the plan (${list(present.map((r) => num(w[r])))}) are scaled to 100: ${present.map((r) => `${num(w[r])} / ${num(total)} = ${pct(each[r] as number)}`).join(', ')}.`;
   const parts = present.filter((r) => fifth[r] !== undefined).map((r) => `${r === lift ? `(${num(w[r])} + ${num(w.C)})` : num(w[r])} / ${num(total)} = ${pct(fifth[r] as number)}`);
   const fifthWords = lift
-    ? `The fifth card is drawn the same way, and a Common there becomes ${lift === 'U' ? 'an Uncommon' : `a ${RARITY_NAMES[lift]}`}: ${parts.join(', ')}.`
+    ? `The fifth card is drawn the same way, and a ${RARITY_LABEL.C} there becomes a ${RARITY_LABEL[lift]}: ${parts.join(', ')}.`
     : 'The fifth card is drawn the same way.';
-  return { present, absent, each, fifth, eachWords, fifthWords, ...drawView(odds, present) };
+  const fifthFloor = present.find((r) => fifth[r] !== undefined) ?? null;
+  return { present, absent, each, fifth, eachWords, fifthWords, fifthFloor, ...drawView(odds, present) };
+}
+
+/** Lot 3 point A3: "Page 3 of 9" for one page, "Pages 37 and 38 of 54" for a spread (the last spread of an odd count shows one page). `at` is
+ *  the 0-based first page. */
+export function pageWords(at: number, count: number, single: boolean): string {
+  return single || at + 2 > count ? `Page ${at + 1} of ${count}` : `Pages ${at + 1} and ${at + 2} of ${count}`;
 }

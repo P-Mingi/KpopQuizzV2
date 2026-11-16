@@ -159,8 +159,14 @@ describe('101-catalog.sql on fixture groups and idols', () => {
     const { readdirSync } = await import('node:fs');
     expect(readdirSync(CARDS_SQL).filter((f) => f.endsWith('.sql')).sort()).toEqual([
       '001-schema.rollback.sql', '001-schema.sql', '002-functions.rollback.sql', '002-functions.sql', '003-rls.rollback.sql', '003-rls.sql',
-      '099-idols-members.rollback.sql', '099-idols-members.sql', '101-catalog.rollback.sql', '101-catalog.sql',
-      '102-catalog-rebuild.rollback.sql', '102-catalog-rebuild.sql']);
+      '099-idols-members.rollback.sql', '099-idols-members.sql', '099b-idols-returning.rollback.sql', '099b-idols-returning.sql',
+      '101-catalog.rollback.sql', '101-catalog.sql',
+      '102-catalog-rebuild.rollback.sql', '102-catalog-rebuild.sql', '103-catalog-photos.rollback.sql', '103-catalog-photos.sql',
+      '104-economy.rollback.sql', '104-economy.sql', '105-goals.rollback.sql', '105-goals.sql', '106-demo.rollback.sql', '106-demo.sql',
+      '107-prefs.rollback.sql', '107-prefs.sql', '108-push.rollback.sql', '108-push.sql', '110-core.rollback.sql', '110-core.sql',
+      '111-group-types.rollback.sql', '111-group-types.sql', '112-social.rollback.sql', '112-social.sql', '113-moment.rollback.sql', '113-moment.sql',
+      '114-catalog-append.rollback.sql', '114-catalog-append.sql', '115-quiz-of-day-bonus.rollback.sql', '115-quiz-of-day-bonus.sql',
+      'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
     const d2 = await fixtureDb();

@@ -3,7 +3,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { freshDb, one, rows } from '../dle/pglite-harness';
 
@@ -12,6 +12,9 @@ import { checkVerify } from './verify-lines';
 
 import type { LotQuiz } from './lot-sql';
 import type { PGlite } from '@electric-sql/pglite';
+
+// Each test applies and rolls back a lot on PGlite: 2.5 to 4.3 s measured (4.3 s the slowest, load 13), so the 5 s default is too close. 30 s.
+vi.setConfig({ testTimeout: 30_000 });
 
 const ROOT = path.resolve(__dirname, '../../../../..');
 // The patch under docs/o1/reports (docs/pending-migrations has no owner key): ORCH copies it over the file of main.

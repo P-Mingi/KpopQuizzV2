@@ -8,12 +8,12 @@ import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import { loadPool } from './draw';
-import { adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, cardsOpen } from './flags';
+import { adShards, adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, cardsOpen, timerPerDay } from './flags';
 import { privateLaunchBars, privateLaunchOn } from './private';
-import { CAP, computeOdds } from './rules';
+import { CAP, EDITIONS, computeOdds } from './rules';
 
 import type { NextRequest } from 'next/server';
-import type { CatalogOdds, OwnedEntry, WalletState } from './types';
+import type { CatalogOdds, OwnedEntry, PackSource, Rarity, RecentPack, WalletState } from './types';
 
 type ServiceDb = ReturnType<typeof createServiceRoleClient>;
 
@@ -104,6 +104,10 @@ interface WalletJson {
   bonus_left: number;
   next_at: string | null;
   midnight_at: string;
+  timer_left?: number;
+  timer_used?: number;
+  pity_left?: number | null;
+  focus_used?: boolean;
 }
 
 interface OwnedRow {
@@ -113,12 +117,43 @@ interface OwnedRow {
   last_at: string;
 }
 
-/** The limits one request runs with: the settings, and 0 bonus packs while the bridges are off. */
-export function limits(): { ads: number; bonus: number } {
-  return { ads: adsPerDay(), bonus: cardsBridgesOn() ? bonusPerDay() : 0 };
+/** The limits one request runs with: the settings, and 0 bonus packs while the bridges are off. `timer` is lot 3 B12. */
+export function limits(): { ads: number; bonus: number; timer: number } {
+  return { ads: adsPerDay(), bonus: cardsBridgesOn() ? bonusPerDay() : 0, timer: timerPerDay() };
 }
 
 const iso = (v: string | null): string | null => (v === null ? null : new Date(v).toISOString());
+
+interface RecentJson {
+  opened_at: string;
+  best: Rarity | null;
+  source: PackSource;
+  new_count: number | null;
+}
+
+/** The last 10 packs (lot 4 B3). A failure here never fails the state: the list is empty. */
+async function recentPacks(db: ServiceDb, userId: string): Promise<RecentPack[]> {
+  try {
+    const { data } = await db.rpc('cards_recent_packs', { p_user: userId, p_limit: 10 });
+    if (!Array.isArray(data)) return [];
+    return (data as RecentJson[]).filter((r) => r.best).map((r) => ({
+      at: new Date(r.opened_at).toISOString(), best: EDITIONS[r.best as Rarity].edition, source: r.source, newCount: r.new_count === null ? null : Number(r.new_count),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+/** Reward packs waiting in Goals (cards_wallets.reward_packs). A failed read is 0: the state never fails for it. */
+async function waitingRewardPacks(db: ServiceDb, userId: string): Promise<number> {
+  try {
+    const { data } = await db.from('cards_wallets').select('reward_packs').eq('user_id', userId).maybeSingle();
+    const n = Number((data as { reward_packs?: number } | null)?.reward_packs ?? 0);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  } catch {
+    return 0;
+  }
+}
 
 /** The odds of the real catalog, from the cached pool; null while the catalog is empty or unreadable. */
 async function oddsOrNull(): Promise<CatalogOdds | null> {
@@ -132,12 +167,16 @@ async function oddsOrNull(): Promise<CatalogOdds | null> {
 /** GET /api/cards/state: the wallet after the refill and the Paris midnight (read only), and the binder. */
 export async function loadState(db: ServiceDb, userId: string, now: Date = new Date()): Promise<WalletState> {
   const lim = limits();
-  const { data, error } = await db.rpc('cards_wallet', { p_user: userId, p_now: now.toISOString(), p_ads_limit: lim.ads, p_bonus_cap: lim.bonus });
+  const { data, error } = await db.rpc('cards_wallet', { p_user: userId, p_now: now.toISOString(), p_ads_limit: lim.ads, p_bonus_cap: lim.bonus, p_timer_cap: lim.timer });
   if (error || !data) throw new Error(`cards_wallet: ${error?.message ?? 'no data'}`);
   const w = data as WalletJson;
   const rows = await fetchAllRows<OwnedRow>(() =>
     db.from('cards_owned').select('card_no, copies, favorite, last_at').eq('user_id', userId).order('card_no', { ascending: true }),
   );
+  const wish = await fetchAllRows<{ card_no: number }>(() =>
+    db.from('cards_wishlist').select('card_no').eq('user_id', userId).order('card_no', { ascending: true }),
+  );
+  const rewardPacks = await waitingRewardPacks(db, userId);
   const owned: OwnedEntry[] = rows.map((r) => ({ n: r.card_no, copies: r.copies, fav: r.favorite, at: new Date(r.last_at).toISOString() }));
   return {
     stock: w.stock,
@@ -149,14 +188,25 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
     shards: w.shards,
     bonusLeft: w.bonus_left,
     owned,
+    timerCap: lim.timer,
+    timerUsed: w.timer_used ?? 0,
+    timerLeft: w.timer_left ?? lim.timer,
+    pityLeft: w.pity_left ?? null,
+    focusUsed: w.focus_used === true,
+    wishlist: wish.map((x) => x.card_no),
+    adShards: adShards(),
+    ...(rewardPacks > 0 ? { rewardPacks } : {}),
+    recent: await recentPacks(db, userId),
     odds: await oddsOrNull(),
   };
 }
 
 /** The refusals of cards_apply_pack, by the word after "cards: " in its message. */
-export type PackRefusal = 'empty' | 'shards' | 'bonus' | 'ad_limit' | 'ticket' | 'pack' | 'source' | 'user';
+export type PackRefusal =
+  | 'empty' | 'shards' | 'bonus' | 'ad_limit' | 'ticket' | 'pack' | 'source' | 'user'
+  | 'timer_cap' | 'pity' | 'focus_used' | 'focus' | 'owned' | 'card' | 'wish_limit' | 'no_craft' | 'reward' | 'claimed' | 'goal';
 
 export function refusalOf(message: string | undefined): PackRefusal | null {
-  const m = /cards: (empty|shards|bonus|ad_limit|ticket|pack|source|user)\b/.exec(message ?? '');
+  const m = /cards: (empty|shards|bonus|ad_limit|ticket|pack|source|user|timer_cap|pity|focus_used|focus|owned|card|wish_limit|no_craft|reward|claimed|goal)\b/.exec(message ?? '');
   return m ? (m[1] as PackRefusal) : null;
 }

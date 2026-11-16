@@ -8,6 +8,7 @@ export const PHOTO_API = {
   assets: `${BASE_PATH}/api/admin/photos/assets`,
   fetch: `${BASE_PATH}/api/admin/photos/fetch`,
   refs: `${BASE_PATH}/api/admin/photos/refs`,
+  nonFree: `${BASE_PATH}/api/admin/images/non-free`,
 } as const;
 
 /** What the server read on Wikimedia Commons for a pasted address (CR-021): to pre-fill the form; the save asks Commons again. */
@@ -64,4 +65,26 @@ export async function fetchPicture(url: string): Promise<Blob> {
     throw new Error(body?.error ?? 'L\'image n\'a pas pu être lue à cette adresse.');
   }
   return res.blob();
+}
+
+/** What the server answers to the preview of "Supprimer les images non libres": the counts of its own selection, 10 examples, and whether it refuses. */
+export interface NonFreePreview {
+  readonly counts: { readonly rows: number; readonly files: number; readonly orphans: number };
+  readonly tooMany: boolean;
+  readonly max: number;
+  readonly examples: readonly { readonly slug: string; readonly license: string; readonly why: string }[];
+}
+
+export interface NonFreeReport { readonly rows: number; readonly files: number; readonly orphans: number; readonly failedChunks: number }
+
+/** One call of the route; the server's own words on a refusal (409 when the selection changed, 422 when it is too big, 400 on a wrong word). */
+export async function callNonFree<T>(body: Record<string, unknown>, fetcher: typeof fetch = fetch): Promise<{ ok: true; data: T } | { ok: false; error: string }> {
+  try {
+    const res = await fetcher(PHOTO_API.nonFree, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const json = (await res.json().catch(() => null)) as (Record<string, unknown> & { ok?: boolean; error?: string }) | null;
+    if (res.ok && json && json.ok === true) return { ok: true, data: json as T };
+    return { ok: false, error: json && typeof json.error === 'string' ? json.error : res.status === 404 ? 'Réservé à l\'admin : reconnecte-toi.' : 'La demande a échoué. Réessaie.' };
+  } catch {
+    return { ok: false, error: 'Le réseau ne répond pas. Réessaie.' };
+  }
 }

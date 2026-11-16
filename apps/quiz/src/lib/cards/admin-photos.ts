@@ -16,6 +16,13 @@
 //   reports      { status?, limit?, after? }   the reports of "Report a photo" (default open), each with its card (number, name) and its
 //                                              photo (source address, author, licence, status) when it names them
 //   close_report { id }                        closes a report (the trigger erases its contact)
+//   rebuild      {}                            lot 3: runs cards_build_catalog() (file 103), the edition rule, after the owner's review;
+//                                              409 locked once a player owns a card or opened a pack, 409 not_ready before file 103
+//   catalog_state {}                          { ok, frozen }: frozen once a player owns a card or opened a pack (the condition under which
+//                                              cards_build_catalog() refuses), so the panel offers "Ajouter au catalogue" instead of "Reconstruire"
+//   append_preview {}                         file 114: cards_catalog_append(true), what an append would add; writes nothing
+//   append       { confirm: true }            file 114: cards_catalog_append(false), adds the new editions and subjects after the last number,
+//                                              renumbers nothing; without confirm: true it is refused (400); 409 not_ready before file 114
 // The hub build and the anime build (review 1 finding 6: the photos admin, and its Cartes tab, is the admin of bunnyverse.org/anime; both
 // builds read the same database); 404 on kpopquiz.org. Same-origin writes only. Reads and writes go through the service role.
 import { adminNotFound } from '@/lib/admin/guard';
@@ -46,8 +53,9 @@ interface ReportPhoto { id: number; entity_id: string; source_path: string | nul
 
 /** The photos of one status (the list action), only the small_2x ones on request. */
 function photosOf(db: Db, status: string, small2x: boolean) {
+  // '*': the lot 3 columns (quality, stage, sha1, event_date_precision, news_only) exist only once file 103 is applied.
   const q = db.from('cards_photos')
-    .select('id, entity_id, slot, source, source_page, file_url, author, author_url, licence, licence_url, share_alike, checked_at, event_name, event_date, focal_x, focal_y, source_path, source_width, source_height, storage_path, file_focal_x, file_focal_y, small_2x, status, review_note, modified, cards_entities(name, kind, group_id, lock_reasons)')
+    .select('*, cards_entities(name, kind, group_id, lock_reasons)')
     .eq('status', status);
   return small2x ? q.eq('small_2x', true) : q;
 }
@@ -105,6 +113,16 @@ async function reportRefs<T extends ReportRow>(db: Db, rows: T[]): Promise<Array
   }));
 }
 
+/** Lot 3: a new photo has no bucket copy; the admin shows Commons' own 800 px copy of the file (the original can be 6,000 px). The owner's
+ *  admin only: the game never loads a picture from another site. */
+export function reviewCopyUrl(r: { source_page?: string | null; file_url?: string | null }): string | null {
+  const m = r.source_page ? /^https:\/\/commons\.wikimedia\.org\/wiki\/(File:[^?#]+)$/.exec(r.source_page) : null;
+  if (!m) return r.file_url ?? null;
+  let name = m[1]!.slice(5);
+  try { name = decodeURIComponent(name); } catch { /* already plain */ }
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(name.replace(/ /g, '_'))}?width=800`;
+}
+
 async function setStatus(db: Db, id: number, status: 'approved' | 'rejected' | 'removed', review: string | null): Promise<NextResponse> {
   const patch: Record<string, unknown> = { status };
   if (review !== null) patch.review_note = review;
@@ -140,7 +158,7 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     let rows = (data ?? []) as { id: number; source_path?: string | null; file_url?: string | null }[];
     // The Cartes tab shows the source photo: file_url becomes the public address of the bucket copy (images/group-photos/<slug>.jpg).
     if (list) {
-      rows = rows.map((r) => (r.source_path ? { ...r, file_url: publicObjectUrl(r.source_path) } : r));
+      rows = rows.map((r) => (r.source_path ? { ...r, file_url: publicObjectUrl(r.source_path) } : { ...r, file_url: reviewCopyUrl(r as { source_page?: string | null; file_url?: string | null }) }));
       rows = (await withHalves(db, rows as PhotoListRow[] as (PhotoListRow & { source_path?: string | null; file_url?: string | null })[])) as typeof rows;
     }
     else {
@@ -184,6 +202,29 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     const upd = await db.from('cards_entities').update({ lock_reasons: next }).eq('id', entity);
     if (upd.error) return fail('server', 500);
     return reply({ ok: true, entity, lock_reasons: next });
+  }
+
+  // Lot 3: the edition rule of file 103 again (after the owner approved or refused photos of "A relire"). The database refuses it once a
+  // player owns a card or opened a pack: the card numbers never change under a player.
+  if (action === 'rebuild') {
+    const { data, error } = await db.rpc('cards_build_catalog');
+    if (error) return /owns a card|pack was opened/.test(error.message ?? '') ? fail('locked', 409) : fail('not_ready', 409);
+    return reply({ ok: true, summary: data });
+  }
+
+  // The catalog is frozen once a player holds a card or opened a pack: the numbers cannot change, only grow (file 114).
+  if (action === 'catalog_state') {
+    const [owned, packs] = await Promise.all([db.from('cards_owned').select('card_no').limit(1), db.from('cards_packs').select('id').limit(1)]);
+    if (owned.error || packs.error) return fail('server', 500);
+    return reply({ ok: true, frozen: (owned.data ?? []).length > 0 || (packs.data ?? []).length > 0 });
+  }
+
+  // File 114: the preview never writes; the write needs the explicit confirm: true of the second click.
+  if (action === 'append_preview' || action === 'append') {
+    if (action === 'append' && body.confirm !== true) return fail('bad_request', 400);
+    const { data, error } = await db.rpc('cards_catalog_append', { p_dry_run: action !== 'append' });
+    if (error) return fail('not_ready', 409);
+    return reply({ ok: true, summary: data });
   }
 
   if (action === 'close_report') {

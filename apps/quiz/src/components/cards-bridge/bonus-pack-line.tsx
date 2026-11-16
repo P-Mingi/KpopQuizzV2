@@ -2,8 +2,8 @@
 
 // Bunnyverse Cards, lane B, bridge 3: "+1 pack, open it on Bunnyverse", after a Kpopdle win (hub). Shown only once the server has recorded an
 // earned bonus pack for the day and the allowance is still above 0 (review 1 finding 1); a guest, a failed call, nothing earned or an allowance
-// of 0 shows nothing. It is a link: the pack is opened on bunnyverse.org/cards. The end of a kpopquiz.org quiz has no line: a quiz completion
-// is a score the browser reports, so it earns no bonus pack until the owner rules (docs/o1/requests/CARDS.md).
+// of 0 shows nothing. It is a link: the pack is opened on bunnyverse.org/cards. The end of a kpopquiz.org quiz has no line: the quiz of the day's pack
+// is recorded by the hub's server itself (115-quiz-of-day-bonus.sql, read when the lobby opens), so the browser reports nothing and ships no Cards code.
 import { bonusLine } from '@/lib/cards-bridge/copy';
 import { CARDS_PATH, cardsHref } from '@/lib/cards-bridge/links';
 

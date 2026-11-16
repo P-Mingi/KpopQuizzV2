@@ -20,6 +20,8 @@ import { loadHomeTopFans } from '@/lib/site/hub/home-topfans';
 import { loadHomeSession } from '@/lib/site/hub/home-viewer';
 import { loadHomeSurprise } from '@/lib/site/hub/home-surprise';
 import { getLiveIcons, iconsOf } from '@/lib/photos/icons-read';
+import { getLiveAssets } from '@/lib/photos/public-read';
+import { pageStickers } from '@/lib/photos/stickers';
 import { safeBlock } from '@/lib/site/hub/home-safe';
 import { robotsFor } from '@/lib/site/indexing';
 import { NETWORK, SITE } from '@/lib/site/registry';
@@ -49,11 +51,13 @@ export default async function HubHome(): Promise<React.ReactElement> {
   // Any error of the account reads as signed out, and a block whose data fails is null: the page never fails because the database is down.
   const session = await loadHomeSession();
   const userId = session?.userId ?? null;
-  const [doors, today, quick, hot, crossover, fans, surprise, assets, icons] = await Promise.all([
+  const [doors, today, quick, hot, crossover, fans, surprise, assets, icons, live] = await Promise.all([
     loadHomeDoors(), loadHomeToday(), loadHomeQuick(), loadHomeHot(), loadHomeCrossover(), loadHomeTopFans(), loadHomeSurprise(userId), loadHomeAssets(),
     // The icon slots fail closed to the defaults of each slot: a row always draws an icon.
     safeBlock('icons', () => getLiveIcons(), iconsOf([])),
+    // The owner's stickers: the same one-minute cached read as the image slots (getLiveAssets answers [] on any failure).
+    getLiveAssets(),
   ]);
   const done = await loadHomeDone(userId, today);
-  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, icons, burrow: burrowOpen() }} />;
+  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, icons, burrow: burrowOpen(), stickers: pageStickers(live, 'home') }} />;
 }

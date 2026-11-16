@@ -5,10 +5,12 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { dleClient } from '@/lib/dle/client';
 import { secondsUntilReset } from '@/lib/dle/day';
+import { PREVIEW_INDEX_PATH, makePreview } from '@/lib/dle/preview';
 import { createBrowserClient } from '@/lib/supabase/client';
 
 import type { DleClient, DleRpc } from '@/lib/dle/client';
 import type { KeyStore } from '@/lib/dle/local';
+import type { DlePreview } from '@/lib/dle/preview';
 
 /** A storage for the server and for a browser that refuses one: nothing is remembered. */
 const NO_STORE: KeyStore = { getItem: () => null, setItem: () => {}, removeItem: () => {} };
@@ -48,4 +50,23 @@ export function clock(seconds: number | null): string {
   const s = Math.max(0, seconds);
   const pad = (n: number): string => String(n).padStart(2, '0');
   return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`;
+}
+
+/**
+ * The owner's private preview (lib/dle/preview.ts), asked for AFTER the page, only when the server said the build may offer it (PRIVATE_LAUNCH=1 on
+ * the hub) and only for the Otakudle games. Anyone but the verified admin gets a 404 and the page stays what it is; nothing is kept on the device.
+ */
+export function useDlePreview(enabled: boolean): DlePreview | null {
+  const [ids, setIds] = useState<unknown>(null);
+  useEffect(() => {
+    if (!enabled) return undefined;
+    let alive = true;
+    const base = process.env.__NEXT_ROUTER_BASEPATH || '';
+    fetch(`${base}${PREVIEW_INDEX_PATH}`, { credentials: 'same-origin', cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j: { ok?: boolean; ids?: unknown } | null) => { if (alive && j && j.ok === true) setIds(j.ids); })
+      .catch(() => undefined);
+    return () => { alive = false; };
+  }, [enabled]);
+  return useMemo(() => (enabled ? makePreview(ids, process.env.__NEXT_ROUTER_BASEPATH || '') : null), [enabled, ids]);
 }

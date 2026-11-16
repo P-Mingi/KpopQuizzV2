@@ -16,7 +16,7 @@ import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/l
 
 import { REGISTRY, hubRouteAllow } from './registry';
 import {
-  INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
+  HUB_ONLY_FILES, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
   SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath,
   isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, keyFileBlocksFor, middlewareStep, redirectsFor, rewritesFor,
   siteStaticParams,
@@ -223,7 +223,7 @@ describe('anime and hub rewrites (Next matcher)', () => {
       // Only the catch-all and the home rule read a public path; the root-file and brand rules
       // read a dotted path the catch-all skips; the pretty rules read the prefixed path.
       for (const r of rewritesFor(site).slice(2)) {
-        expect(PER_SITE_ROOT_FILES.includes(r.source) || PER_SITE_BRAND_FILES.includes(r.source) || INDEXNOW_KEY_FILE_RE.test(r.source) || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
+        expect(PER_SITE_ROOT_FILES.includes(r.source) || PER_SITE_BRAND_FILES.includes(r.source) || (site === 'hub' && HUB_ONLY_FILES.some((h) => h.source === r.source)) || INDEXNOW_KEY_FILE_RE.test(r.source) || r.source.startsWith(`/sites/${site}/`), r.source).toBe(true);
       }
       for (const f of PER_SITE_BRAND_FILES) {
         expect(rewritesFor(site).filter((r) => r.source === f), f).toEqual([{ source: f, destination: brandPath(site, f) }]);
@@ -231,9 +231,17 @@ describe('anime and hub rewrites (Next matcher)', () => {
     }
   });
 
-  it('non-kpop builds drop every kpop redirect', () => {
+  it('non-kpop builds drop every kpop redirect; the hub has only the KpopCards host alias (integrator 2026-11-13)', () => {
     expect(redirectsFor('anime')).toEqual([]);
-    expect(redirectsFor('hub')).toEqual([]);
+    // was [] before KpopCards: every hub redirect now applies only to the host kpopcards.bunnyverse.org, nothing else changes
+    const hub = redirectsFor('hub')!;
+    expect(hub.length).toBe(4);
+    for (const r of hub) {
+      expect(r.has).toEqual([{ type: 'host', value: 'kpopcards.bunnyverse.org' }]);
+      expect(r.permanent).toBe(true);
+      expect(r.destination.startsWith('https://bunnyverse.org/kpopcards')).toBe(true);
+    }
+    expect(hub.map((r) => r.source)).toEqual(['/kpopcards/:path*', '/kpopcards', '/', '/:path*']);
   });
 
   it('internalPath', () => {
@@ -529,8 +537,10 @@ describe('brand files of anime and hub (lane L1, owner decision D-099)', () => {
     for (const icon of manifest.icons) {
       expect(icon.src.startsWith(`${base}/`), icon.src).toBe(true);
       const file = icon.src.slice(base.length);
-      expect(PER_SITE_BRAND_FILES.includes(file), icon.src).toBe(true);
-      expect(statSync(join(folder(site), file)).isFile(), icon.src).toBe(true);
+      // lot 4 (the installable hub): the hub's own app icons (public/brand/hub/pwa-*.png) are not root brand files
+      const own = site === 'hub' && /^\/brand\/hub\/pwa-[a-z0-9-]+\.png$/.test(icon.src);
+      expect(PER_SITE_BRAND_FILES.includes(file) || own, icon.src).toBe(true);
+      expect(statSync(own ? join(PUBLIC_DIR, icon.src) : join(folder(site), file)).isFile(), icon.src).toBe(true);
     }
   });
 
@@ -658,13 +668,17 @@ describe('middleware step and the sites/[site] guard', () => {
       '/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece', '/fr/otakudle/dragon-ball', '/fr/credits',
     ]));
     // Bunnyverse Cards (lane U) is the second family closed by a flag: NET_CARDS off, its pages answer as any unknown URL; on, each public address is in the map.
-    const cards = new Set(['/cards', '/cards/binder', '/cards/c/xnum', '/cards/report']);
+    // KpopCards lives under /kpopcards; the old /cards tree is one catch-all page that redirects (308) to it (lib/cards/kc-paths.ts).
+    const cards = new Set([
+      '/kpopcards', '/kpopcards/open/xtheme', '/kpopcards/open/focus/xgroup', '/kpopcards/collection', '/kpopcards/collection/xgroup', '/kpopcards/c/xnum', '/kpopcards/idol/xname',
+      '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/xnickname', '/kpopcards/odds', '/kpopcards/help', '/kpopcards/credits', '/kpopcards/report', '/cards/x[...rest]',
+    ]);
     for (const p of cards) {
       expect(pages, `cards page ${p}`).toContain(p);
-      expect(middlewareStep('hub', p), `hub ${p} with NET_CARDS off`).toBe('not-found');
+      expect(middlewareStep('hub', p.replace('xtheme', 'all').replace('xgroup', 'twice').replace('xnum', 'BV1-0001').replace('xname', 'jennie').replace('xnickname', 'mingi').replace('x[...rest]', 'binder')), `hub ${p} with NET_CARDS off`).toBe('not-found');
     }
-    expect(hubRouteAllow({ dailyGuess: true }, false)).not.toContain('/cards');
-    expect(hubRouteAllow({ dailyGuess: true }, true)).toEqual(expect.arrayContaining(['/cards', '/cards/binder', '/cards/c/{num}', '/cards/report']));
+    expect(hubRouteAllow({ dailyGuess: true }, false)).not.toContain('/kpopcards');
+    expect(hubRouteAllow({ dailyGuess: true }, true)).toEqual(expect.arrayContaining(['/kpopcards', '/kpopcards/collection/{group}', '/kpopcards/c/{num}', '/kpopcards/help', '/kpopcards/report', '/cards', '/cards/**']));
     for (const p of pages.filter((q) => !closed.has(q) && !cards.has(q))) expect(middlewareStep('hub', p), `hub ${p}`).not.toBe('not-found');
   });
 

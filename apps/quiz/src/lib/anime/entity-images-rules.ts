@@ -196,6 +196,10 @@ const CODE_WORDS: Readonly<Record<ImageErrorCode | 'not_found', string>> = {
   bad_license: 'Choose a licence from the list.',
   same_license: 'This is the licence of the reference, not a free one.',
   refs_missing: 'The references table is not there yet.',
+  // the button "Supprimer les images non libres" (Photos tab) words its own answers; these only keep the table complete
+  count_changed: 'The selection changed since the preview. Open the preview again.',
+  too_many: 'Too many pictures are selected. Nothing was deleted.',
+  bad_confirm: 'Type the confirmation word.',
 };
 
 const KNOWN_CODES = CODE_WORDS as Readonly<Record<string, string>>;
