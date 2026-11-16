@@ -2,8 +2,8 @@
 --
 -- What:   removes ONLY what 116 added, as its own log (public.cards_harvest_log) says: the photos it added (inside the explicit list of
 --         1115 pages below), the entities it created (the log's ids: a group can take the database's slug at apply time), the public.idols rows it added
---         while they are still without a birth date and flagged (a row the owner completed stays, with a notice), the log, the column
---         cards_entities.age_lock, the functions cards_age_locks and cards_age_day. An entity that existed before 116 stays; a photo that existed before stays.
+--         while they are still without a birth date and flagged (a row the owner completed stays, with a notice), the group types it added, the log, the column
+--         cards_entities.age_lock, the functions cards_age_locks and cards_age_day, the trigger cards_116_idols_guard and its function. An entity that existed before 116 stays; a photo that existed before stays.
 --         When the catalog already holds cards of these subjects it is built again with cards_build_catalog() (so the numbers stay contiguous),
 --         which is only possible while no pack was opened.
 -- Refuses: while a player owns a card of these subjects; while a pack was opened and the catalog holds a card of these subjects (the numbers cannot change then).
@@ -1165,6 +1165,11 @@ begin
     delete from public.cards_photos p where p.id = any (v_photo_ids);
     get diagnostics v_n = row_count;
     raise notice '116-photos-harvest.rollback: % photos removed', v_n;
+    if to_regclass('public.cards_group_types') is not null then
+      delete from public.cards_group_types t where t.entity_id in (select l.ref from public.cards_harvest_log l where l.kind = 'type');
+      get diagnostics v_n = row_count;
+      raise notice '116-photos-harvest.rollback: % group types removed', v_n;
+    end if;
     -- an entity this file created goes only when no photo is left on it: the people first, then the group lines no member needs any more
     delete from public.cards_entities e
      where e.kind = 'idol' and e.id = any (v_entity_ids) and not exists (select 1 from public.cards_photos p where p.entity_id = e.id);
@@ -1184,6 +1189,8 @@ begin
     end if;
   end if;
 
+  drop trigger if exists cards_116_idols_guard on public.idols;
+  drop function if exists public.cards_116_idols_guard();
   drop function if exists public.cards_age_locks(date);
   drop function if exists public.cards_age_day(date);
   alter table public.cards_entities drop column if exists age_lock;

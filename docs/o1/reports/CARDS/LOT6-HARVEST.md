@@ -66,16 +66,41 @@ The checkers counted people and never identified anyone.
 8. The exact Kpopdle list replaces the provisional one: 60 provisional idols outside Kpopdle are no longer subjects; member slugs take the
    database group slug (`g-i-dle`, `nct`, `txt`).
 
-## For the owner (rule 13)
+## After the integrator's go (2026-11-16)
 
-1. Back up, then apply `docs/pending-migrations/cards/116-photos-harvest.sql` (one DO block, `-- Verify:` lines, additive: it never
-   updates or deletes an existing photo, status or `public.idols` row). Never between 23:50 and 00:30 UTC.
-2. Optional, from ORCH, outside the repository: the birth dates of the 7 new rows (point 2 above).
-3. Press "Reconstruire le catalogue" in the admin.
-4. Run `pnpm --filter quiz owner:cards`.
+1. **The dates file (116b)** is handed to the owner by its path on the owner's Mac, outside the repository
+   (`OWNER-ONE-SHOT.md`, step 3). In production the policy `idols_public_read` shows active rows only and `dle_src_kpop_idol` is not
+   readable by `anon`: the dates stay private while the 7 rows stay inactive. 116 now adds a trigger, `cards_116_idols_guard`, that refuses
+   `active = true` on a row of its log while the person is under 18 or has no birth date (the flagged rows show in the admin queue of
+   idols to review, whose "approve" sets `active = true`). A Verify line checks that no such row is active, and a test proves that a
+   pocket opens at read time, through a rebuild, without ever making the row active.
+2. **116c** (`docs/pending-migrations/cards/116c-approve-personality-rights.sql`, optional, the owner decides): one DO block that approves
+   the 187 photos pending for the personality rights warning alone. It refuses with nothing changed unless exactly those 187 qualify
+   (pending, added by 116, that reason alone; Carmen's photo once her date is filled) and no pack was ever opened. Verify lines and a
+   rollback.
+3. **The owner's script still runs:** after 116 and the rebuild, `ALL-verify.sql` would have answered `TOUT_OK` false, so
+   `owner:cards` would have refused. Two of its rows checked exact sets (the subjects 102's age rule leaves out, the photos of 103 and no
+   other): they now leave out what 116's log added (lot 6 checks those with its own rules). The third was a real gap: 111 typed only
+   the groups that had an entity, so 116 now gives the groups it brings in their type from 111's list (two sources each; 34 of the lot's
+   groups are in that list, the others stay without a type, as 111 decided). `ALL-099-115.sql` and `ALL-rollback.sql` are byte for byte the
+   files run in production; only `ALL-verify.sql` changes. A test runs the bundle, 116, the rebuild, approvals and a rebuild again on the
+   production-like fixture: `TOUT_OK` true each time.
+4. **main:** `origin/main` (00eb85a) is already in `o1/cards-harvest`.
 
-The rollback is `116-photos-harvest.rollback.sql`: it removes what the log says 116 added, and keeps a `public.idols` row the owner has
-completed. 116, the dates file and the rollback ran in full on the test database.
+## For the owner
+
+The page is `docs/o1/reports/CARDS/OWNER-ONE-SHOT.md`, one pass in this order: backup, 116, 116b from the private folder, 116c (optional),
+the Verify lines, the merge, "Reconstruire le catalogue", the terminal script, the first real pack. 116 and 116b ran in full on the test
+database, with the rollback of 116. The guard and the rollback of 116c are proven on PGlite with invented photos: the real file only
+qualifies on the production photos, and refuses anywhere else.
+
+## New tests of this pass
+
+- `approve-sql.test.ts`: 116c's guard (exactly N, a held photo once its person has a date, no pack, the time window), its Verify lines, a
+  second run refused, its rollback, and the committed file equal to what `photos.json` gives.
+- `harvest-allverify.test.ts`: `ALL-verify.sql` answers `TOUT_OK` after the bundle, 116 and a rebuild, and after approvals and a rebuild.
+- `harvest-sql.test.ts`: a pocket opens at read time without making its row active; the trigger refuses `active = true` under 18 or
+  without a date; the lock functions only read; 111's types for the groups of the lot, none invented, removed by the rollback.
 
 ## Tests (Node 22)
 

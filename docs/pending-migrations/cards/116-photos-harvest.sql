@@ -15,8 +15,12 @@
 --            opening the entity is a normal entity without a photo, until a photo goes through the circuit;
 --         4. a public.idols row for a person of the lot who has none, as the integrator decided for lot 6: active false, needs_review true,
 --            NO birth date, review_reason starting with '116-photos-harvest'. The Kpopdle source view reads no such row. Without a birth date
---            the person is locked (a pocket) or, for an adult, the photos wait as pending until the owner fills the date (two agreeing sources);
---         5. a log table (cards_harvest_log) of the entities, the idols rows and the photos THIS file added, so the rollback removes only those.
+--            the person is locked (a pocket) or, for an adult, the photos wait as pending until the owner fills the date (two agreeing sources).
+--            A trigger (cards_116_idols_guard) refuses active = true on these rows while the person is under 18 or has no birth date: policy
+--            idols_public_read shows active rows only, so a minor's date never becomes public, whatever the path (the admin's approve too);
+--         5. the type of a group this file brings in (girl, boy, mixed) when file 111's list has it (two public sources each, read on 2026-11-13):
+--            111 wrote a type only for a group that had an entity then, and no other type is invented (34 in the list for this lot);
+--         6. a log table (cards_harvest_log) of the entities, the idols rows, the group types and the photos THIS file added, so the rollback removes only those.
 --         It writes no cards_catalog row (the owner presses "Reconstruire le catalogue" afterwards) and never changes an existing public.idols
 --         row: the Kpopdle source view is counted before and after, and the file refuses if it moved.
 -- How:    one jsonb literal below (293 subjects: 228 people, 65 groups, 10 locked, 1115 photos).
@@ -26,7 +30,7 @@
 --         Photos get the smallest free slot of 1 to 6 among the live and pending ones.
 -- Why:    goal of 1,000 cards (lot 6): every Kpopdle idol becomes a subject of its own, the groups get up to six photos, and the groups with a minor
 --         show locked pockets instead of a photo.
--- Rows:   at most 293 entities, 10 public.idols rows, 1115 photos, 1 column, 1 table, 2 functions. The real counts are the notices (Messages tab).
+-- Rows:   at most 293 entities, 10 public.idols rows, 1115 photos, 34 group types, 1 column, 1 table, 3 functions, 1 trigger. The real counts are the notices (Messages tab).
 -- Needs:  001 to 003, 102, 103 and 110 applied before (cards_build_catalog, the photo columns of lot 3), public.groups and public.idols.
 --         Apply after a backup, never between 23:50 and 00:30 UTC, then "Reconstruire le catalogue", then pnpm --filter quiz owner:cards.
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_entities' and column_name = 'age_lock';   expect 1
@@ -39,6 +43,9 @@
 -- Verify: select count(*) from public.cards_photos where status in ('auto', 'approved') group by entity_id, slot having count(*) > 1;   expect no row
 -- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%';   expect the notice "idols rows added" (at most 10)
 -- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%' and (active or not needs_review or birth_date is not null);   expect 0 (until the owner fills a date)
+-- Verify: select count(*) from public.idols where review_reason like '116-photos-harvest%' and active;   expect 0 (always: a pocket opens at read time and never makes one of these rows active, so idols_public_read never shows its date)
+-- Verify: select count(*) from pg_trigger where tgname = 'cards_116_idols_guard' and not tgisinternal;   expect 1 (refuses active = true on these rows while the person is under 18 or has no birth date)
+-- Verify: select count(*) from public.cards_group_types t where not exists (select 1 from public.cards_entities e where e.id = t.entity_id and e.kind = 'group');   expect 0 (the notice "group types added": at most 34)
 -- Verify: select count(*) from public.dle_src_kpop_idol s join public.idols i on i.id::text = s.entity_id where i.review_reason like '116-photos-harvest%';   expect 0 (no row of this file in Kpopdle)
 -- Verify: select count(*) from public.cards_age_locks() where locked;   expect at most 10 (the pockets still locked today; fewer when public.idols holds an adult birth date)
 -- Refuses: between 23:50 and 00:30 UTC; when a cards table, public.groups, public.idols, a column of public.idols (124) or of 103, or cards_build_catalog() is missing; when the Kpopdle source would change.
@@ -28893,6 +28900,9 @@ declare
   v_iid integer;
   v_new boolean;
   v_hold boolean;
+  v_types constant jsonb := $types$[{"id":"group:akmu","gender":"mixed","source_a":"en.wikipedia.org short description \"South Korean sibling duo\" (AKMU)","source_b":"ko.wikipedia.org short description \"대한민국의 남매 음악 듀오\""},{"id":"group:apink","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Apink)","source_b":"Wikidata item Q483286, instance of Q641066 (girl group)"},{"id":"group:artms","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Artms)","source_b":"Wikidata item Q119692734, instance of Q641066 (girl group)"},{"id":"group:astro","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (Astro (South Korean band))","source_b":"Wikidata item Q23004252, instance of Q216337 (boy band)"},{"id":"group:billlie","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Billlie)","source_b":"Wikidata item Q108888399, instance of Q641066 (girl group)"},{"id":"group:btob","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (BtoB (band))","source_b":"ko.wikipedia.org short description \"대한민국의 6인조 보이 그룹\""},{"id":"group:cortis","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (Cortis)","source_b":"Wikidata item Q135668928, instance of Q216337 (boy band)"},{"id":"group:dreamcatcher","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Dreamcatcher (group))","source_b":"ko.wikipedia.org short description \"대한민국의 7인조 걸 그룹\""},{"id":"group:fifty-fifty","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Fifty Fifty (group))","source_b":"Wikidata item Q116731010, instance of Q641066 (girl group)"},{"id":"group:fromis-9","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Fromis 9)","source_b":"Wikidata item Q41398331, instance of Q641066 (girl group)"},{"id":"group:hearts2hearts","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Hearts2Hearts)","source_b":"Wikidata item Q131746784, instance of Q641066 (girl group)"},{"id":"group:ikon","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (IKon)","source_b":"ko.wikipedia.org short description \"대한민국의 6인조 보이 그룹\""},{"id":"group:illit","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Illit)","source_b":"Wikidata item Q122179261, instance of Q641066 (girl group)"},{"id":"group:kara","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean K-pop girl group\" (Kara (South Korean group))","source_b":"ko.wikipedia.org short description \"대한민국의 5인조 걸 그룹\""},{"id":"group:katseye","gender":"girl","source_a":"en.wikipedia.org short description \"Los Angeles-based girl group\" (Katseye)","source_b":"Wikidata item Q123480242, instance of Q641066 (girl group)"},{"id":"group:kiss-of-life","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Kiss of Life (group))","source_b":"Wikidata item Q118314702, instance of Q641066 (girl group)"},{"id":"group:loona","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Loona)","source_b":"Wikidata item Q28025953, instance of Q641066 (girl group)"},{"id":"group:loossemble","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Loossemble)","source_b":"Wikidata item Q121975741, instance of Q641066 (girl group)"},{"id":"group:miss-a","gender":"girl","source_a":"en.wikipedia.org short description \"Chinese-Korean girl group\" (Miss A)","source_b":"Wikidata item Q284740, instance of Q641066 (girl group)"},{"id":"group:monsta-x","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy group\" (Monsta X)","source_b":"ko.wikipedia.org short description \"대한민국의 6인조 보이 그룹\""},{"id":"group:nct","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (NCT (group))","source_b":"Wikidata item Q23725822, instance of Q216337 (boy band)"},{"id":"group:nct-wish","gender":"boy","source_a":"en.wikipedia.org short description \"Japanese-Korean boy band\" (NCT Wish)","source_b":"ko.wikipedia.org short description \"일본과 대한민국의 6인조 보이 그룹\""},{"id":"group:p1harmony","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (P1Harmony)","source_b":"ko.wikipedia.org short description \"대한민국의 6인조 보이 그룹\""},{"id":"group:pentagon","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy group\" (Pentagon (South Korean band))","source_b":"Wikidata item Q23936742, instance of Q216337 (boy band)"},{"id":"group:purple-kiss","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Purple Kiss)","source_b":"Wikidata item Q97780109, instance of Q641066 (girl group)"},{"id":"group:sistar","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Sistar)","source_b":"Wikidata item Q223048, instance of Q641066 (girl group)"},{"id":"group:stayc","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (STAYC)","source_b":"Wikidata item Q101541493, instance of Q641066 (girl group)"},{"id":"group:t-ara","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (T-ara)","source_b":"Wikidata item Q495383, instance of Q641066 (girl group)"},{"id":"group:tws","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (TWS (group))","source_b":"Wikidata item Q124091148, instance of Q216337 (boy band)"},{"id":"group:viviz","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Viviz)","source_b":"Wikidata item Q108853211, instance of Q641066 (girl group)"},{"id":"group:winner","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (Winner (band))","source_b":"Wikidata item Q15116397, instance of Q216337 (boy band)"},{"id":"group:zerobaseone","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (Zerobaseone)","source_b":"Wikidata item Q117808633, instance of Q216337 (boy band)"},{"id":"group:blackpink","gender":"girl","source_a":"en.wikipedia.org short description \"South Korean girl group\" (Blackpink)","source_b":"Wikidata item Q25056945, instance of Q641066 (girl group)"},{"id":"group:bts","gender":"boy","source_a":"en.wikipedia.org short description \"South Korean boy band\" (BTS)","source_b":"Wikidata item Q13580495, instance of Q216337 (boy band)"}]$types$::jsonb;
+  ty jsonb;
+  c_types integer := 0;
   c_idols integer := 0;
   c_held integer := 0;
   c_entities integer := 0;
@@ -28934,7 +28944,7 @@ begin
   -- 1. The column, the log, the debut year of a group (a debut column when groups has one, else the year of inception_date, as 103).
   alter table public.cards_entities add column if not exists age_lock boolean not null default false;
   create table if not exists public.cards_harvest_log (
-    kind text not null constraint cards_harvest_log_kind_check check (kind in ('entity', 'idol', 'photo')),
+    kind text not null constraint cards_harvest_log_kind_check check (kind in ('entity', 'idol', 'photo', 'type')),
     ref text not null,
     added_on date not null default current_date,
     constraint cards_harvest_log_pkey primary key (kind, ref)
@@ -29144,7 +29154,20 @@ begin
     end loop;
   end loop;
 
-  -- 5. The age lock, at read time: the day a person turns 18 (29 February: 1 March of a common year, as age-rule.ts) and the function.
+  -- 5. The type of a group this file brought in, from file 111's list (111 skipped a group that had no entity); never another type.
+  if to_regclass('public.cards_group_types') is not null then
+    for ty in select x.value from jsonb_array_elements(v_types) x loop
+      if exists (select 1 from public.cards_entities e where e.id = ty ->> 'id' and e.kind = 'group')
+         and not exists (select 1 from public.cards_group_types t where t.entity_id = ty ->> 'id') then
+        insert into public.cards_group_types (entity_id, gender, source_a, source_b, checked_on)
+        values (ty ->> 'id', ty ->> 'gender', ty ->> 'source_a', ty ->> 'source_b', date '2026-11-13');
+        insert into public.cards_harvest_log (kind, ref) values ('type', ty ->> 'id') on conflict do nothing;
+        c_types := c_types + 1;
+      end if;
+    end loop;
+  end if;
+
+  -- 6. The age lock, at read time: the day a person turns 18 (29 February: 1 March of a common year, as age-rule.ts) and the function.
   create or replace function public.cards_age_day(p_birth date)
     returns date
     language sql immutable set search_path = public
@@ -29192,6 +29215,26 @@ begin
       from grp g
   $f$;
 
+  -- A row this file added to public.idols never becomes active while the person is under 18 or has no birth date (integrator, lot 6):
+  -- policy idols_public_read shows active rows only, so the date stays private. The pocket opens at read time (cards_age_locks), never
+  -- through this table; the guard also stops a manual "approve" (the flagged rows show in the admin queue of idols to review).
+  create or replace function public.cards_116_idols_guard()
+    returns trigger
+    language plpgsql set search_path = public
+    as $f$
+    begin
+      if new.active and not old.active
+         and exists (select 1 from public.cards_harvest_log l where l.kind = 'idol' and l.ref = old.id::text)
+         and (new.birth_date is null or public.cards_age_day(new.birth_date) > current_date) then
+        raise exception '116-photos-harvest: this public.idols row of the cards lot 6 stays inactive while the person is under 18 or has no birth date';
+      end if;
+      return new;
+    end
+  $f$;
+  drop trigger if exists cards_116_idols_guard on public.idols;
+  create trigger cards_116_idols_guard before update of active on public.idols for each row execute function public.cards_116_idols_guard();
+  revoke all on function public.cards_116_idols_guard() from public, anon, authenticated;
+
   revoke all on function public.cards_age_day(date) from public, anon, authenticated;
   revoke all on function public.cards_age_locks(date) from public, anon, authenticated;
   grant execute on function public.cards_age_day(date) to service_role;
@@ -29200,7 +29243,7 @@ begin
     raise exception '116-photos-harvest: a browser role can execute cards_age_locks';
   end if;
 
-  -- 6. Checks and the Verify output.
+  -- 7. Checks and the Verify output.
   if to_regclass('public.dle_src_kpop_idol') is not null then
     execute 'select count(*) from public.dle_src_kpop_idol' into v_dle_after;
     if v_dle_after is distinct from v_dle_before then
@@ -29215,5 +29258,6 @@ begin
   raise notice '116-photos-harvest: % subjects, % entities added (% of them group lines of a member), % locked pockets, photos added % (% to review), % skipped',
     c_subjects, c_entities + c_lines, c_lines, c_locked, c_photos, c_pending, c_skipped;
   raise notice '116-photos-harvest: idols rows added % (inactive, flagged, no birth date); photos waiting for a birth date in public.idols %', c_idols, c_held;
+  raise notice '116-photos-harvest: group types added % (from file 111)', c_types;
   raise notice '116-photos-harvest: now press "Reconstruire le catalogue" in the admin, then pnpm --filter quiz owner:cards';
 end $c116$;
