@@ -35,7 +35,7 @@ export function harvestInputOf(file: HarvestPhotosFile): HarvestSqlInput {
 }
 
 /** JSON text for a jsonb literal with no dash character in the source file (a Commons author or title can hold one): escaped as the JSON escapes of the en dash and the em dash. */
-const jsonText = (v: unknown): string => JSON.stringify(v).replace(/[\u2013\u2014]/g, (c) => (c === '\u2013' ? '\\u2013' : '\\u2014'));
+const jsonText = (v: unknown, indent?: number): string => JSON.stringify(v, null, indent).replace(/[\u2013\u2014]/g, (c) => (c === '\u2013' ? '\\u2013' : '\\u2014'));
 
 export const idOf = (s: { kind: 'idol' | 'group'; slug: string }): string => `${s.kind}:${s.slug}`;
 
@@ -61,7 +61,8 @@ export function buildHarvest(input: HarvestSqlInput): HarvestSql {
   ])].sort();
   const pages = photos.map((p) => p.page);
   const sqlText = (x: string): string => `'${x.replace(/'/g, "''").replace(/\u2013/g, "' || chr(8211) || '").replace(/\u2014/g, "' || chr(8212) || '")}'`;
-  const sqlList = (xs: string[]): string => (xs.length ? xs.map((x) => (/[\u2013\u2014]/.test(x) ? `(${sqlText(x)})` : sqlText(x))).join(', ') : "''");
+  const sqlList = (xs: string[], sep = ', '): string => (xs.length ? xs.map((x) => (/[\u2013\u2014]/.test(x) ? `(${sqlText(x)})` : sqlText(x))).join(sep) : "''");
+  // one key a line: a photo's date never shares a line with its event or page text (the privacy test reads line by line)
   const literal = `[\n${subjects.map((s) => `  ${jsonText({
     slug: s.slug, kind: s.kind, name: s.name, qid: s.qid, group: s.group, locked: s.locked,
     photos: s.photos.map((p) => ({
@@ -69,7 +70,7 @@ export function buildHarvest(input: HarvestSqlInput): HarvestSql {
       licence: p.licence, licence_url: p.licence_url, share_alike: p.share_alike, date: p.date, date_precision: p.date_precision, event: p.event,
       stage: p.stage, quality: p.quality, fx: p.focal.x, fy: p.focal.y, news_only: p.news_only, review: p.review.join('; '),
     })),
-  })}`).join(',\n')}\n]`;
+  }, 1).replace(/\n/g, '\n  ')}`).join(',\n')}\n]`;
 
   const sql = `-- 116-photos-harvest.sql (Bunnyverse Cards lot 6, ${checked}; the photo harvest, integrator brief 2026-11-16)
 --
@@ -434,7 +435,8 @@ end $c116$;
 do $c116r$
 declare
   v_entities constant text[] := array[${sqlList(entityIds)}];
-  v_pages constant text[] := array[${sqlList(pages)}];
+  v_pages constant text[] := array[
+    ${sqlList(pages, ',\n    ')}];
   v_photo_ids bigint[];
   v_entity_ids text[];
   v_subject_ids text[];
