@@ -118,3 +118,38 @@ describe('kpopdle-photos.mjs --publish tries again without a second row', () => 
     expect(waits).toEqual([5000]);
   });
 });
+
+describe('restAll (common.mjs) tries a read again', () => {
+  interface Common { restAll: (cfg: { url: string; serviceKey: string }, table: string, query: string, opts?: { sleep?: (ms: number) => Promise<void> }) => Promise<unknown[]> }
+  const cfg = { url: 'https://example.supabase.co', serviceKey: SECRET };
+  async function common(): Promise<Common> {
+    return (await import(/* @vite-ignore */ '../../../scripts/cards/kpopdle-photos/common.mjs')) as unknown as Common;
+  }
+
+  it('a 520 then a 200: the rows are read, after one wait', async () => {
+    const urls: string[] = [];
+    let n = 0;
+    vi.stubGlobal('fetch', async (url: string) => {
+      urls.push(url);
+      n++;
+      if (n === 1) return new Response('<html>520</html>', { status: 520 });
+      return new Response(JSON.stringify(url.includes('offset=0') ? [{ id: 1 }, { id: 2 }] : []), { status: 200 });
+    });
+    const waits: number[] = [];
+    const rows = await (await common()).restAll(cfg, 'idols', 'select=id', { sleep: async (ms) => { waits.push(ms); } });
+    expect(rows).toEqual([{ id: 1 }, { id: 2 }]);
+    expect(urls.filter((u) => u.includes('offset=0'))).toHaveLength(2);
+    expect(waits).toEqual([5000]);
+  });
+
+  it('a 401: an error at once, without a second try, and without the key in its words', async () => {
+    let n = 0;
+    vi.stubGlobal('fetch', async () => { n++; return new Response('{"message":"Invalid API key"}', { status: 401 }); });
+    const waits: number[] = [];
+    const read = (await common()).restAll(cfg, 'idols', 'select=id', { sleep: async (ms) => { waits.push(ms); } });
+    await expect(read).rejects.toThrow('read idols: HTTP 401');
+    await read.catch((e: Error) => expect(e.message).not.toContain(SECRET));
+    expect(n).toBe(1);
+    expect(waits).toEqual([]);
+  });
+});

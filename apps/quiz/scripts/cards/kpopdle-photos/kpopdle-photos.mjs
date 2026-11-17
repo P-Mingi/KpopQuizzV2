@@ -21,7 +21,7 @@
 // Options: --replace (replace the picture of an idol that already has one), --idols-dir <folder> (more photos than the site's).
 // The service key is never printed or written. An idol left without a photo is not an error: the game shows its designed card (the colours of
 // the group, the name set in type), never initials on a flat block. sharp comes from the repo's node_modules (a dependency of the workspace).
-// Lot CPUB-RETRY (integrator, 2026-11-17): each upload and each write of entity_images is tried up to 4 times on a passing error (fetchRetry
+// Lot CPUB-RETRY (integrator, 2026-11-17): each read (restAll), each upload and each write of entity_images is tried up to 4 times on a passing error (fetchRetry
 // of ../card-files.mjs: 408, 429, 5xx, Cloudflare's 520 to 524, the network; Retry-After respected, at most 60 s). Each one is idempotent
 // before it is tried again: an upload replaces (x-upsert), the PATCH sets the same values, and the new row is an upsert on the table's
 // unique key (on_conflict=site_id,kind,slug, Prefer resolution=merge-duplicates): a POST whose answer was lost after the insert does not
@@ -147,13 +147,13 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const cfg = await loadConfig();
   if (!cfg.serviceKey) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not set in this terminal (see the top of this file)');
 
-  const entities = await restAll(cfg, 'dle_entities', `select=entity_id&game_id=eq.${GAME}`);
+  const entities = await restAll(cfg, 'dle_entities', `select=entity_id&game_id=eq.${GAME}`, { sleep: deps.sleep });
   const ids = entities.map((e) => Number(e.entity_id)).filter((n) => Number.isInteger(n) && n > 0);
   if (!ids.length) throw new Error(`the game ${GAME} has no idol`);
-  const idols = await restAll(cfg, 'idols', `select=id,name,photo_url,group_id&id=in.(${ids.join(',')})&order=id`);
-  const groups = await restAll(cfg, 'groups', 'select=id,name&site_id=eq.kpop&order=id');
+  const idols = await restAll(cfg, 'idols', `select=id,name,photo_url,group_id&id=in.(${ids.join(',')})&order=id`, { sleep: deps.sleep });
+  const groups = await restAll(cfg, 'groups', 'select=id,name&site_id=eq.kpop&order=id', { sleep: deps.sleep });
   const groupName = new Map(groups.map((g) => [g.id, g.name]));
-  const existing = await restAll(cfg, 'entity_images', 'select=slug,path,thumb_path&site_id=eq.kpop&kind=eq.idol');
+  const existing = await restAll(cfg, 'entity_images', 'select=slug,path,thumb_path&site_id=eq.kpop&kind=eq.idol', { sleep: deps.sleep });
   const have = new Map(existing.map((r) => [String(r.slug), r]));
 
   const list = idols.map((x) => ({ id: x.id, name: x.name, group: groupName.get(x.group_id) ?? '', photo_url: x.photo_url }))
