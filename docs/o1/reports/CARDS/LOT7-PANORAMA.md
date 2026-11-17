@@ -64,6 +64,11 @@ ZEROBASEONE and NewJeans when every pending photo is approved (rejections only).
   the admin's choice 2 or 3 with the preview of the parts and of the panorama. Screenshots: `docs/o1/evidence/cards/lot7/`.
 - **Owner's script**: thirds and panoramas cut and uploaded (2x per the 640 px rule), one PATCH with the file columns; the files of a
   photo that stays in 2 stay valid and only gain its `-p2` panorama.
+- **117 corrected** (integrator, 2026-11-17): the 117 of #233 was refused in production, with nothing changed, because a paste from Windows
+  gives CRLF line endings and the md5 of the new body no longer matched. Every md5 guard of 117, 118 and their rollbacks now reads
+  `md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g'))` (the characters Postgres `\s` matches, written out so no locale can widen
+  them), for the old version, the new one and "already applied"; `crlf-sql.test.ts` applies 117 and 118 and their rollbacks with CRLF.
+- **Locked pockets**: a group edition that cannot exist yet shows "1/3, 2/3, 3/3" when most of the group's issued editions are in 3 cards.
 - **ALL-verify**: knows the parts of a group photo, so `TOUT_OK` stays true after 118 and the rebuild (the owner's script needs it).
 
 ## Checks and notes
@@ -74,4 +79,3 @@ ZEROBASEONE and NewJeans when every pending photo is approved (rejections only).
 - The admin's disabled main button now reads dark on light grey on every admin page (it was faded to about 2.6:1).
 - The fixture's panoramas and its photo in 3 cards show only with `CARDS_UI_FIXTURE_PANO=1` (the QA harness keeps comparing the
   prototype's card numbers box by box).
-- Not changed: a locked group edition still shows "1/2, 2/2" pockets (the size of a photo that does not exist yet is unknown).

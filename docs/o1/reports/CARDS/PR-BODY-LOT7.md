@@ -23,6 +23,10 @@ the owner's page: `docs/o1/reports/CARDS/OWNER-LOT7.md`; the lanes' spec: `LOT7-
    columns; a photo that stays in 2 keeps its files and only gains its panorama.
 6. **ALL-verify** knows the parts of a group photo: `TOUT_OK` stays true after 118 and the rebuild (the owner's script checks it).
    `ALL-099-115.sql` and `ALL-rollback.sql` unchanged.
+7. **117 corrected** (integrator): the 117 of #233 was refused in production (a paste from Windows gives CRLF line endings, so the md5 of
+   the new body did not match; nothing changed). Every md5 guard of 117, 118 and their rollbacks ignores spaces and line endings now:
+   `md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g'))`, fingerprints recomputed; `crlf-sql.test.ts` applies them with CRLF.
+8. **Locked pockets** of a group edition that cannot exist yet: "1/3, 2/3, 3/3" for a group whose issued editions are in 3 cards.
 
 Screenshots (desktop 1440 x 860 and mobile 390 x 844, the fixture's neutral pictures): `docs/o1/evidence/cards/lot7/`.
 
