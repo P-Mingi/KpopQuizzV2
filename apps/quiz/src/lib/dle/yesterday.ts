@@ -16,5 +16,10 @@ export function yesterdayName(day: Pick<DleDay, 'date' | 'game_no' | 'yesterday'
 
 /** "Yesterday’s idol was X" / "L’idol d’hier était X": the game's own line ("Yesterday’s idol:") without its colon, then the verb, then the name. */
 export function yesterdayWasText(locale: DleLocale, line: string, name: string): string {
-  return `${line.replace(/\s*:\s*$/, '')} ${locale === 'fr' ? 'était' : 'was'} ${name}`;
+  return `${yesterdayLead(locale, line)}${name}`;
+}
+
+/** The sentence up to the name, with its trailing space: "L’idol d’hier était ". The page colours the name apart (owner, 2026-11-17). */
+export function yesterdayLead(locale: DleLocale, line: string): string {
+  return `${line.replace(/\s*:\s*$/, '')} ${locale === 'fr' ? 'était' : 'was'} `;
 }

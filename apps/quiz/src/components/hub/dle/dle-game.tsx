@@ -12,7 +12,7 @@ import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { suggest } from '@/lib/dle/search';
 import { correctCounts, shareText } from '@/lib/dle/share';
 import { utcDate } from '@/lib/dle/day';
-import { yesterdayWasText } from '@/lib/dle/yesterday';
+import { yesterdayLead } from '@/lib/dle/yesterday';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
@@ -524,7 +524,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <span>{t.enterHelp}</span>
               {!over && guesses.length > 0 ? <button type="button" className="hub-dle-giveup" disabled={busy} onClick={() => void giveUp()}>{t.giveUp}</button> : null}
             </div>
-            {yesterday ? <p className="hub-dle-yline">{yesterdayWasText(locale, w.yesterdayLine, yesterday)}</p> : null}
+            {yesterday ? <p className="hub-dle-yline">{yesterdayLead(locale, w.yesterdayLine)}<strong className="hub-dle-ylast">{yesterday}</strong></p> : null}
             {error ? <p role="alert" className="hub-dle-error">{error}</p> : null}
             {!over && lastCount >= 4 ? (
               <div role="status" className="hub-dle-close hub-dle-toast">

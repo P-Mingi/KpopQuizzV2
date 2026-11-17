@@ -17,6 +17,7 @@ export interface DleCopy {
   readonly footTag: string; readonly footAbout: string; readonly footPrivacy: string; readonly footLegal: string; readonly footCredits: string;
   // the Terrier
   readonly burrowH1: string; readonly burrowLead: string; readonly nextPuzzles: string; readonly gamesLabel: string; readonly day: string; readonly yesterday: string;
+  readonly whatIsTitle: (brand: string) => string;
   readonly of: (done: number, total: number) => string;
   readonly play: string; readonly continueTo: (mode: string) => string; readonly seeResults: string; readonly soon: string; readonly toPlay: string;
   readonly foundIn: (n: number) => string; readonly gaveUp: string; readonly inProgress: (n: number) => string;
@@ -85,6 +86,7 @@ const EN: DleCopy = {
   found: 'Found!', answerWas: 'The answer was', wonLine: (n, r) => `In ${n} ${n === 1 ? 'guess' : 'guesses'}.${r ? ` ${r} fans found it today.` : ''}`, gaveUpLine: (n, l) => `You gave up after ${n} ${n === 1 ? 'guess' : 'guesses'}. Your ${l} streak still holds.`,
   streakChip: (l, n) => `${l} streak: ${n} ${n === 1 ? 'day' : 'days'}`, bars: 'Right cells on each guess', shareTitle: 'Your share, without the answer', copy: 'Copy', copied: 'Copied', share: 'Share',
   whatNow: 'What next', backToBurrow: 'Back to the daily games', allDone: 'All done today', allDoneLine: 'New puzzles at midnight UTC.', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show a card with the name.',
+  whatIsTitle: (brand) => `What is ${brand}?`,
   yesterdayLine: 'Yesterday’s idol:', howTitle: 'How to play Kpopdle Idol?',
   how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 10 mistakes.',
   how2: 'Only adult idols of major groups are in the game. Every photo is licensed and credited; without a licence, we show a card with the name.',
@@ -131,6 +133,7 @@ const FR: DleCopy = {
   found: 'Trouvée !', answerWas: 'La réponse était', wonLine: (n, r) => `En ${n} ${n === 1 ? 'essai' : 'essais'}.${r ? ` ${r} fans ont trouvé aujourd’hui.` : ''}`, gaveUpLine: (n, l) => `Tu as abandonné après ${n} ${n === 1 ? 'essai' : 'essais'}. Ta série ${l} tient quand même.`,
   streakChip: (l, n) => `Série ${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, bars: 'Cases justes à chaque essai', shareTitle: 'Ton partage, sans la réponse', copy: 'Copier', copied: 'Copié', share: 'Partager',
   whatNow: 'Et maintenant', backToBurrow: 'Retour aux jeux du jour', allDone: 'Tout est fait aujourd’hui', allDoneLine: 'Nouvelles énigmes à minuit UTC.', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on montre une carte avec le nom.',
+  whatIsTitle: (brand) => `Qu’est-ce que ${brand} ?`,
   yesterdayLine: 'L’idol d’hier :', howTitle: 'Comment jouer à Kpopdle Idol ?',
   how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 10 erreurs.',
   how2: 'Seules les idols adultes des groupes majeurs entrent dans le jeu. Les photos sont toutes sous licence et créditées ; sans licence, on affiche une carte avec le nom.',

@@ -75,10 +75,12 @@ export function toLiveAsset(r: AssetRow): LiveAsset | null {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- the app's clients are untyped
 type Db = any;
 
-export async function loadLiveAssets(db: Db): Promise<LiveAsset[]> {
-  const rows = await fetchAllRows<AssetRow>(() => db.from('site_assets_public')
-    .select('key, type, page, settings, path, mid_path, thumb_path, width, height, needs_credit, source_url, author, license, license_note, published_at')
-    .order('key', { ascending: true }));
+export async function loadLiveAssets(db: Db, type?: LiveAsset['type']): Promise<LiveAsset[]> {
+  const rows = await fetchAllRows<AssetRow>(() => {
+    const q = db.from('site_assets_public')
+      .select('key, type, page, settings, path, mid_path, thumb_path, width, height, needs_credit, source_url, author, license, license_note, published_at');
+    return (type ? q.eq('type', type) : q).order('key', { ascending: true });
+  });
   return rows.map(toLiveAsset).filter((a): a is LiveAsset => a !== null);
 }
 
@@ -113,6 +115,23 @@ export async function getLiveAssets(): Promise<LiveAsset[]> {
     console.error('[photos] site_assets_public read failed:', (err as Error)?.message ?? err);
     return [];
   }
+}
+
+/**
+ * The live stickers, read straight from the view on every render of a page (no cache of their own). The owner's size, side and place are saved by an admin on another
+ * build, which cannot expire this build's caches; behind the one-minute cache of getLiveAssets, inside a page that is itself rebuilt every minute, a saved size showed only
+ * after two rounds (about two to three minutes and several visits). Read here, it shows from the next rebuild of the page (the page's own 60 s). One retry; when the read
+ * still fails, the cached read answers (never an empty page for a blip).
+ */
+export async function getLiveStickers(): Promise<LiveAsset[]> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      return await loadLiveAssets(createPublicReadClient(), 'sticker');
+    } catch (err) {
+      if (isMissingView(err)) break;
+    }
+  }
+  return (await getLiveAssets()).filter((a) => a.type === 'sticker');
 }
 
 /** The focal point of a slot as CSS object-position. */

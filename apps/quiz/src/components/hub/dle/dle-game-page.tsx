@@ -4,7 +4,7 @@ import { IconMark } from '@/components/photos/icon-mark';
 import { siteHasCredits } from '@/lib/credits/site-credits';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { getLiveIcons } from '@/lib/photos/icons-read';
-import { getLiveAssets } from '@/lib/photos/public-read';
+import { getLiveStickers } from '@/lib/photos/public-read';
 import { pageStickers } from '@/lib/photos/stickers';
 import { seriesArtOf } from '@/lib/dle/card-art';
 import { previewConfigured } from '@/lib/dle/preview';
@@ -89,8 +89,8 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const seriesGames = g.series ? [] : builtGames().filter((x) => x.series && worldOf(x.id) === world);
   const universeGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
   const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
-  // The owner's stickers of the world's page (admin Photos, Stickers): the same cached read as the banners, so no second query.
-  const stickers = pageStickers(await getLiveAssets(), world.id);
+  // The owner's stickers of the world's page (admin Photos, Stickers): read fresh at each build of the page (lib/photos/public-read.ts getLiveStickers), so a saved size is not held back by the cache of the banners.
+  const stickers = pageStickers(await getLiveStickers(), world.id);
   return (
     <DleChrome
       locale={locale} enPath={g.path} className={`hub-dle-game hub-dle-${world.tone} ${dleMarquee.variable}`} showCredits={showCredits}
@@ -175,7 +175,18 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
               </div>
             </div>
           </details>
-          {pool && day ? <p className="hub-dle-answer">{gameAnswerBlock(game, locale, pool.entities.length, day.date)}</p> : null}
+          {pool && day ? (
+            // The answer block, folded like the two toggles around it (owner, 2026-11-17); the text stays in the server HTML.
+            <details className="hub-dle-howto hub-dle-about">
+              <summary>
+                <span><Ic d={libraryIcon('star')} size={20} /><h2>{t.whatIsTitle(g.brand)}</h2></span>
+                <Ic d={D.chev} size={20} className="hub-dle-chev" />
+              </summary>
+              <div>
+                <p className="hub-dle-answer">{gameAnswerBlock(game, locale, pool.entities.length, day.date)}</p>
+              </div>
+            </details>
+          ) : null}
           {groups.length ? (
             <details className="hub-dle-howto">
               <summary>
