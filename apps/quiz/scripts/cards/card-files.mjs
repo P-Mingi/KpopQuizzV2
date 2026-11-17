@@ -138,3 +138,14 @@ export function mergePhotoFiles(base, extra) {
   const seen = new Set(base.left_out.map((l) => l.slug));
   return { ...base, subjects, left_out: [...base.left_out, ...extra.left_out.filter((l) => !seen.has(l.slug))] };
 }
+
+/** Statuses of a Commons download worth another try (a timeout, the rate limit, a busy server); a 404 or a 403 is not tried again. */
+export const RETRY_STATUS = new Set([408, 429, 500, 502, 503, 504]);
+
+/** The wait in ms before try `n + 1` of a download: the server's Retry-After in seconds (at most 60) when it sends a number, else 5 s after the
+ *  first try and 20 s after the second. */
+export function retryWait(n, retryAfter) {
+  const t = retryAfter === null || retryAfter === undefined ? '' : String(retryAfter).trim();
+  if (/^\d+$/.test(t)) return Math.min(Number(t), 60) * 1000;
+  return n === 1 ? 5000 : 20000;
+}

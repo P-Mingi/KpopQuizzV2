@@ -41,6 +41,19 @@
 // file 118 the script behaves as before). A photo whose files match its focal point and parts and has file_pano is skipped; a pair cut before
 // lot 7 at its current focal point only gains its -p2 panorama (its halves stay valid and are not uploaded again).
 // Options: --only slug1,slug2   limit to some subjects (the cleanup then looks at the objects of those slugs only).
+// The non-interactive mode (integrator, 2026-11-17: the owner publishes from GitHub Actions, .github/workflows/cards-publish.yml):
+//   CARDS_SUPABASE_URL=https://<project>.supabase.co CARDS_SERVICE_KEY=... node apps/quiz/scripts/cards/publish-card-files.mjs --publish
+//       --non-interactive --host <project host> [--keep-going] [--cache-dir <folder>] [--report <file.json>]
+//   Nothing is typed and no terminal is needed: the host comes from --host (it must be the host of CARDS_SUPABASE_URL, else nothing is sent),
+//   the service key from CARDS_SERVICE_KEY only (never printed, never written). The cleanup only LISTS in this mode: it never deletes.
+//   --keep-going (either mode): a photo whose original fails (download failed after its retries, the Commons file changed: another sha1,
+//       an unreadable image) is skipped, listed, and the run goes on; the run then ends with exit code 2. A refusal of Supabase (upload,
+//       PATCH, the bucket list) still stops the run (exit 1): it would fail for every photo. A failed photo keeps its row unchanged.
+//   --cache-dir <folder>: the Commons originals, one file per recorded sha1 (a file that no longer has its sha1 is downloaded again); a
+//       second run downloads only what is missing.
+//   --report <file.json>: the counts (photos, cards, panoramas), the failed photos and why, the cleanup's counts; written at the end and
+//       when the run stops. scripts/cards/publish-summary.mjs turns it into the job summary.
+//   CARDS_DATA_DIR (tests): another folder with the layout of docs/design/cards/data.
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -48,14 +61,15 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { cutPlan, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, stemOf } from './card-files.mjs';
+import { RETRY_STATUS, cutPlan, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, retryWait, stemOf } from './card-files.mjs';
 import { SIZES, panoSizes } from './card-geometry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
 const REPO = path.resolve(HERE, '../../../..');
+const DATA_DIR = process.env.CARDS_DATA_DIR ? path.resolve(process.env.CARDS_DATA_DIR) : null;
 function dataFile(name) {
-  const f = path.join(REPO, 'docs/design/cards/data', name);
+  const f = path.join(DATA_DIR ?? path.join(REPO, 'docs/design/cards/data'), name);
   if (!existsSync(f)) throw new Error(`${name} not found at ${f}${name === 'photos.json' ? ' (run verify-photos.mts first)' : ''}`);
   return f;
 }
@@ -74,13 +88,19 @@ const args = process.argv.slice(2);
 const PUBLISH = args.includes('--publish');
 const onlyArg = args.indexOf('--only');
 const ONLY = onlyArg >= 0 ? new Set((args[onlyArg + 1] ?? '').split(',').filter(Boolean)) : null;
+const argValue = (name) => { const i = args.indexOf(name); return i >= 0 ? String(args[i + 1] ?? '').trim() : null; };
+const NON_INTERACTIVE = args.includes('--non-interactive');
+const KEEP_GOING = args.includes('--keep-going');
+const HOST_ARG = argValue('--host');
+const CACHE_DIR = argValue('--cache-dir') ? path.resolve(argValue('--cache-dir')) : null;
+const REPORT_FILE = argValue('--report') ? path.resolve(argValue('--report')) : null;
 // Lot 6 (the photo harvest): lot 3's photos.json and, when it exists, lot6/photos.json are read as one (new subjects, new photos of known ones).
-const lot6Dir = path.join(REPO, 'docs/design/cards/data/lot6');
+const lot6Dir = DATA_DIR ? path.join(DATA_DIR, 'lot6') : path.join(REPO, 'docs/design/cards/data/lot6');
 const lot6Photos = existsSync(path.join(lot6Dir, 'photos.json')) ? JSON.parse(readFileSync(path.join(lot6Dir, 'photos.json'), 'utf8')) : null;
 const lot6Slugs = existsSync(path.join(lot6Dir, 'subjects.json')) ? JSON.parse(readFileSync(path.join(lot6Dir, 'subjects.json'), 'utf8')).map((s) => s.slug) : [];
 // Lot 7: the preview reads each group photo's cards (2 or 3) and the focal point its window needs from lot7/parts.json (the data of 118, by
 // source page); a photo that file rejects is not cut. --publish reads the database instead (parts and focal_x/y of cards_photos).
-const lot7File = path.join(REPO, 'docs/design/cards/data/lot7/parts.json');
+const lot7File = DATA_DIR ? path.join(DATA_DIR, 'lot7/parts.json') : path.join(REPO, 'docs/design/cards/data/lot7/parts.json');
 const LOT7 = new Map(existsSync(lot7File) ? JSON.parse(readFileSync(lot7File, 'utf8')).photos.map((e) => [e.page, e]) : []);
 const photosFile = mergePhotoFiles(JSON.parse(readFileSync(dataFile('photos.json'), 'utf8')), lot6Photos);
 /** Every slug lots 2, 3 and 6 know: the cleanup proposes the files of a known slug that has no live photo (a subject left out, a locked pocket). */
@@ -93,17 +113,41 @@ const isGroup = (s) => s.kind !== 'idol';
 const byPage = new Map(photosFile.subjects.flatMap((s) => s.photos.filter((p) => p.status !== 'out').map((p) => [p.page, { s, p }])));
 for (const s of chosen) for (const p of s.photos) if (CUT.has(p.status) && (!p.url || !p.sha1)) throw new Error(`${s.slug} photo ${p.slot}: no original address or sha1 in photos.json (run verify-photos.mts)`);
 
+/** A failure of one photo's source (its Commons original or its image): --keep-going skips that photo and goes on. */
+class PhotoError extends Error {}
+const sha1Of = (buf) => createHash('sha1').update(buf).digest('hex');
+const sleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
+const TRIES = 3;
+
 let lastFetch = 0;
-/** The Commons original of a photo, one request at a time and at least a second apart, checked against its recorded sha1. */
+/** The Commons original of a photo, one request at a time and at least a second apart, checked against its recorded sha1. A download that
+ *  fails on the network or with a busy status is tried up to 3 times. With --cache-dir, the file of that sha1 is used when it is there. */
 async function original(s, p) {
-  const wait = lastFetch + 1000 - Date.now();
-  if (wait > 0) await new Promise((ok) => setTimeout(ok, wait));
-  lastFetch = Date.now();
-  const r = await fetch(p.url, { headers: { 'User-Agent': UA } });
-  if (!r.ok) throw new Error(`GET ${p.url}: ${r.status}`);
-  const buf = Buffer.from(await r.arrayBuffer());
-  const sha1 = createHash('sha1').update(buf).digest('hex');
-  if (sha1 !== p.sha1) throw new Error(`${s.slug} photo ${p.slot}: the Commons file changed (sha1 ${sha1}, recorded ${p.sha1}); refused, check it on ${p.page}`);
+  const cached = CACHE_DIR ? path.join(CACHE_DIR, p.sha1) : null;
+  if (cached && existsSync(cached)) {
+    const buf = readFileSync(cached);
+    if (sha1Of(buf) === p.sha1) return buf;
+  }
+  let buf = null, why = '';
+  for (let n = 1; n <= TRIES && !buf; n++) {
+    const wait = lastFetch + 1000 - Date.now();
+    if (wait > 0) await sleep(wait);
+    lastFetch = Date.now();
+    let retry = false, retryAfter = null;
+    try {
+      const r = await fetch(p.url, { headers: { 'User-Agent': UA } });
+      if (r.ok) buf = Buffer.from(await r.arrayBuffer());
+      else { why = `GET ${p.url}: ${r.status}`; retry = RETRY_STATUS.has(r.status); retryAfter = r.headers.get('retry-after'); }
+    } catch (e) {
+      why = `GET ${p.url}: ${String(e?.message ?? e)}`; retry = true;
+    }
+    if (!buf && retry && n < TRIES) await sleep(retryWait(n, retryAfter));
+    else if (!buf) break;
+  }
+  if (!buf) throw new PhotoError(why);
+  const sha1 = sha1Of(buf);
+  if (sha1 !== p.sha1) throw new PhotoError(`${s.slug} photo ${p.slot}: the Commons file changed (sha1 ${sha1}, recorded ${p.sha1}); refused, check it on ${p.page}`);
+  if (cached) { mkdirSync(CACHE_DIR, { recursive: true }); writeFileSync(cached, buf); }
   return buf;
 }
 
@@ -219,14 +263,36 @@ async function listBucket(origin, H) {
   return names;
 }
 
+/** What the run did, for --report (and the job summary): counts and names only, never a secret. */
+const report = {
+  mode: NON_INTERACTIVE ? 'non-interactive' : 'interactive', host: null, keepGoing: KEEP_GOING,
+  photos: { uploaded: 0, upToDate: 0, notInData: 0, failed: 0 }, cards: 0, panoramas: 0, failed: [],
+  cleanup: null, stopped: null,
+};
+/** The service key, once read: any message that would carry it (an error body echoing a header) shows [redacted] instead. */
+let SECRET = null;
+const redact = (t) => (SECRET ? String(t).split(SECRET).join('[redacted]') : String(t));
+function writeReport() {
+  if (!REPORT_FILE) return;
+  mkdirSync(path.dirname(REPORT_FILE), { recursive: true });
+  writeFileSync(REPORT_FILE, `${JSON.stringify(report, null, 2)}\n`);
+}
+
 async function publish() {
   const origin = projectOrigin();
-  if (!process.stdin.isTTY) throw new Error('--publish needs a terminal (the host and the key are typed)');
   const host = new URL(origin).host;
+  if (NON_INTERACTIVE) {
+    // nothing is typed: the host comes from --host, and it must be the host of CARDS_SUPABASE_URL
+    if (!HOST_ARG) throw new Error('refused: --non-interactive needs --host <project host>; nothing was sent');
+    if (HOST_ARG !== host) throw new Error('refused: --host does not match the host of CARDS_SUPABASE_URL; nothing was sent');
+  } else if (!process.stdin.isTTY) throw new Error('--publish needs a terminal (the host and the key are typed)');
+  report.host = host;
   console.log(`Project host: ${host}`);
   console.log(`Files go to the public bucket 'cards' of this project, the rows of cards_photos are updated there, and old files may be proposed for deletion.`);
   const confirmed = (process.env.CARDS_HOST_CONFIRMED ?? '').trim();
-  if (confirmed) {
+  if (NON_INTERACTIVE) {
+    console.log('Host given by --host (non-interactive: nothing is typed, the cleanup only lists).');
+  } else if (confirmed) {
     // the wrapper already had this host typed back; it must still be the host of CARDS_SUPABASE_URL
     if (confirmed !== host) throw new Error('refused: CARDS_HOST_CONFIRMED does not match the host of CARDS_SUPABASE_URL; nothing was sent');
     console.log('Host already confirmed by owner-cards.');
@@ -234,8 +300,10 @@ async function publish() {
     const typed = await ask(`Type the project host to continue: `);
     if (typed !== host) throw new Error('refused: the host typed does not match; nothing was sent');
   }
-  const key = (process.env.CARDS_SERVICE_KEY ?? '').trim() || await readSecret('Supabase service key (typed, not shown): ');
-  if (!key) throw new Error('no key');
+  const key = NON_INTERACTIVE ? (process.env.CARDS_SERVICE_KEY ?? '').trim()
+    : (process.env.CARDS_SERVICE_KEY ?? '').trim() || await readSecret('Supabase service key (typed, not shown): ');
+  if (!key) throw new Error(NON_INTERACTIVE ? 'refused: --non-interactive needs CARDS_SERVICE_KEY in the environment; nothing was sent' : 'no key');
+  SECRET = key;
   const H = { apikey: key, Authorization: `Bearer ${key}` };
   const rest = async (p, init = {}) => {
     const r = await fetch(`${origin}/rest/v1/${p}`, { ...init, headers: { ...H, 'Content-Type': 'application/json', ...(init.headers ?? {}) } });
@@ -253,14 +321,25 @@ async function publish() {
   for (const row of rows) {
     const hit = byPage.get(row.source_page);
     const slug = slugOf(row);
-    if (!hit) { console.log(`${slug} photo ${row.slot}: not in photos.json, skipped`); skipped++; continue; }
+    if (!hit) { console.log(`${slug} photo ${row.slot}: not in photos.json, skipped`); skipped++; report.photos.notInData++; continue; }
     const { s, p } = hit;
     const stem = stemOf(slug, row.slot, row.focal_x, row.focal_y);
     // select=* gives the lot 7 columns (parts, file_parts, file_pano) only once file 118 is applied; before it the script is what it was.
     const { parts: n, action } = fileAction(row, stem, isGroup(s));
-    if (action === 'skip') { console.log(`${slug} photo ${row.slot}: already cut at ${row.focal_x}/${row.focal_y}${isGroup(s) && 'file_pano' in row ? ` in ${n}, with its panorama` : ''}`); skipped++; continue; }
-    const src = await original(s, p);
-    const { parts, pano } = await cut(src, s, row.focal_x, row.focal_y, n, action === 'pano');
+    if (action === 'skip') { console.log(`${slug} photo ${row.slot}: already cut at ${row.focal_x}/${row.focal_y}${isGroup(s) && 'file_pano' in row ? ` in ${n}, with its panorama` : ''}`); skipped++; report.photos.upToDate++; continue; }
+    let parts, pano;
+    try {
+      const src = await original(s, p);
+      ({ parts, pano } = await cut(src, s, row.focal_x, row.focal_y, n, action === 'pano'));
+    } catch (e) {
+      // --keep-going: this photo's original failed (download, sha1, image); its row is left as it is and the run goes on
+      const reason = redact(e?.message ?? e);
+      if (!KEEP_GOING) throw e;
+      report.failed.push({ slug, slot: row.slot, page: row.source_page, reason });
+      report.photos.failed++;
+      console.log(`${slug} photo ${row.slot}: FAILED, skipped (--keep-going): ${reason}`);
+      continue;
+    }
     const sent = [];
     if (action === 'full') {
       for (const q of parts) {
@@ -282,8 +361,12 @@ async function publish() {
     await rest(`cards_photos?id=eq.${row.id}`, { method: 'PATCH', body: JSON.stringify(body), headers: { Prefer: 'return=minimal' } });
     console.log(`${slug} photo ${row.slot}: uploaded ${sent.join(' ')} at ${row.focal_x}/${row.focal_y}`);
     done++;
+    report.photos.uploaded++;
+    if (action === 'full') report.cards += parts.length;
+    if (pano && 'file_pano' in row) report.panoramas++;
   }
-  console.log(`\nuploaded ${done}, skipped ${skipped}`);
+  console.log(`\nuploaded ${done}, skipped ${skipped}${report.failed.length ? `, failed ${report.failed.length}` : ''}`);
+  const code = report.failed.length ? 2 : 0;
 
   // Cleanup: propose to delete what is not a file of a live photo at its current focal point. Nothing is deleted without typing: delete
   const current = new Map();
@@ -296,16 +379,28 @@ async function publish() {
   const names = await listBucket(origin, H);
   const { keep, remove } = planRemovals(names, { known: KNOWN, current, only: ONLY });
   console.log(`\nbucket cards: ${names.length} objects, ${keep.length} current files kept, ${remove.length} proposed for deletion${ONLY ? ` (only ${[...ONLY].join(', ')})` : ''}`);
-  if (remove.length === 0) return;
+  report.cleanup = { objects: names.length, kept: keep.length, proposed: remove.length, deleted: 0 };
+  if (remove.length === 0) return code;
   for (const r of remove) console.log(`  ${r.name}  (${r.why})`);
+  if (NON_INTERACTIVE) { console.log('non-interactive: nothing deleted (this mode only lists; run the script by hand in a terminal to delete)'); return code; }
   const go = await ask(`\nType delete to delete these ${remove.length} files from the public bucket 'cards' (anything else: nothing is deleted): `);
-  if (go !== 'delete') { console.log('nothing deleted'); return; }
+  if (go !== 'delete') { console.log('nothing deleted'); return code; }
   for (let i = 0; i < remove.length; i += 100) {
     const batch = remove.slice(i, i + 100).map((r) => r.name);
     const r = await fetch(`${origin}/storage/v1/object/cards`, { method: 'DELETE', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ prefixes: batch }) });
     if (!r.ok) throw new Error(`delete from cards: ${r.status} ${(await r.text()).slice(0, 200)}`);
   }
   console.log(`deleted ${remove.length} files`);
+  report.cleanup.deleted = remove.length;
+  return code;
 }
 
-(PUBLISH ? publish() : preview()).catch((e) => { console.error(String(e.message ?? e)); process.exit(1); });
+// Exit codes: 0 done; 1 stopped (a refusal, a Supabase error, or a photo's failure without --keep-going); 2 done, but photos failed (--keep-going).
+(PUBLISH ? publish() : preview())
+  .then((code) => { if (PUBLISH) writeReport(); if (code) process.exit(code); })
+  .catch((e) => {
+    report.stopped = redact(e?.message ?? e);
+    if (PUBLISH) writeReport();
+    console.error(redact(e?.message ?? e));
+    process.exit(1);
+  });

@@ -516,7 +516,8 @@
     "docs/pending-migrations/cards/**",
     "docs/design/cards/**",
     "docs/o1/evidence/cards/**",
-    "docs/o1/reports/CARDS/**"
+    "docs/o1/reports/CARDS/**",
+    ".github/workflows/cards-publish.yml"
   ],
   "_sequenced": [
     [
