@@ -8,10 +8,10 @@ import { KC, LEVEL_TITLES, THEME_IDS, THEME_NAMES, levelOf, titleOf } from './co
 import { indexPool } from './draw';
 
 import type { PoolCard, Rarity } from '../cards/types';
-import type { UiCard, UiEntity } from '../cards/ui-types';
+import type { UiCard, UiEntity, UiPanorama } from '../cards/ui-types';
 import type {
   AlmostItem, AlmostState, BellItem, CardMoment, IdolPage, CardRef, CollectionGroup, CollectionItem, CollectionQuery, CollectionState, DailyPack, GroupRef, LevelState,
-  LobbyState, MissionSet, MissionsState, OddsPack, OddsRow, OddsState, PlayerPage, Prefs, RankRow, RecyclePreview, ThemeId, ThemeInfo, WeekItem, WeekMini,
+  LobbyState, MissionSet, MissionsState, OddsPack, OddsRow, OddsState, PanoItem, PanoRef, PlayerPage, Prefs, RankRow, RecyclePreview, ThemeId, ThemeInfo, WeekItem, WeekMini,
 } from './contract';
 
 /* ------------------------------------------------------------------ the catalog */
@@ -22,6 +22,8 @@ export interface World {
   entities: UiEntity[];
   /** The theme of each group and idol entity: 'girls', 'boys', or 'solo' for an idol with no group card. An entity missing here belongs to no themed pack (it is still in All idols). */
   themeOf: Map<string, ThemeId>;
+  /** Lot 7: the panoramas of the catalog (one per group photo whose parts are in packs). Absent before file 118: then nothing below shows a panorama. */
+  panoramas?: UiPanorama[];
 }
 
 export const slugify = (s: string): string =>
@@ -68,14 +70,33 @@ export function sectionsOf(w: World): Section[] {
   return list;
 }
 
-export const cardRef = (c: UiCard): CardRef => ({ n: c.n, num: c.num, name: c.name, edition: c.edition, kind: c.kind, group: c.group, ...(c.part ? { part: c.part } : {}) });
+export const cardRef = (c: UiCard): CardRef => ({ n: c.n, num: c.num, name: c.name, edition: c.edition, kind: c.kind, group: c.group, ...(c.part ? { part: c.part } : {}), ...(c.part && c.parts ? { parts: c.parts } : {}) });
+
+/** Lot 7: a panorama as the contract's reference (its picture comes from the catalog). */
+export const panoRef = (pn: UiPanorama): PanoRef => ({ p: pn.p, num: pn.num, name: pn.name, edition: pn.edition, parts: pn.parts, cards: [...pn.cards] });
+
+/** Lot 7: the panorama a card completes for this player, when he holds every other part of its photo (and the card itself) and not the panorama yet. The server grants
+ *  it in the same transaction as the open or the craft: the twin of what 118's cards_open and cards_craft do. Null otherwise. */
+export function panoCompletedBy(w: World, p: Pick<PlayerData, 'owned' | 'panos'>, n: number): UiPanorama | null {
+  if (!w.panoramas) return null;
+  const c = w.cards.find((x) => x.n === n);
+  if (!c || c.pano === undefined || !c.setNs) return null;
+  if (p.panos?.has(c.pano)) return null;
+  if (!c.setNs.every((m) => m === n || p.owned.has(m))) return null;
+  return w.panoramas.find((x) => x.p === c.pano) ?? null;
+}
 export const groupRef = (s: Section): GroupRef => ({ id: s.id, slug: s.slug, name: s.name, kind: s.kind });
 
 /* ------------------------------------------------------------------ the player */
 
 export interface OwnedRow { copies: number; fav: boolean; locked: boolean; seen: boolean; firstAt: number; lastAt: number; packNo?: number | null; how?: 'pack' | 'craft' | 'demo' }
 
+/** Lot 7: a panorama the player holds (cards_panoramas_owned). */
+export interface PanoOwned { at: number; source: 'pack' | 'craft'; seen: boolean }
+
 export interface PlayerData {
+  /** Lot 7: the panoramas the player holds by pano_no. Absent reads as none (a database without file 118). */
+  panos?: Map<number, PanoOwned>;
   nickname: string | null;
   createdAt: number;
   owned: Map<number, OwnedRow>;
@@ -112,7 +133,7 @@ export const STILL_THERE_AFTER_MS = 2 * 3600 * 1000;
 
 export function emptyPlayer(now: number, nickname: string | null = null): PlayerData {
   return {
-    nickname, createdAt: now, owned: new Map(), wishlist: new Set(), shards: 0, stock: KC.STACK_CAP, anchor: now, timerToday: 0, parisDay: parisDayOf(now), adsToday: 0,
+    nickname, createdAt: now, owned: new Map(), panos: new Map(), wishlist: new Set(), shards: 0, stock: KC.STACK_CAP, anchor: now, timerToday: 0, parisDay: parisDayOf(now), adsToday: 0,
     opened: 0, sinceGold: 0, bonusEarned: 0, bonusUsed: 0, dailyDay: null, focusDay: null, claimedSets: new Set(), week: { id: weekStartOf(now), packs: 0, dle: 0, newc: 0, claimed: false },
     prefs: { sound: true, vibration: true, theme: 'all', focus: null }, lastSeen: now, recent: [], last: null, friends: [], code: null,
   };
@@ -330,6 +351,7 @@ export function lobbyState(i: LobbyInput): LobbyState {
       quizOfDay: { enabled: bonusCap > 0, done: quizDone },
     },
     nickname: p.nickname, serverNow: new Date(now).toISOString(),
+    ...(w.panoramas ? { panoramas: [...(p.panos?.keys() ?? [])].filter((x) => w.panoramas!.some((q) => q.p === x)).sort((a, b) => a - b) } : {}),
   };
 }
 
@@ -343,7 +365,7 @@ function pockets(w: World, p: PlayerData, secs: Section[]): Pocket[] {
   const entById = new Map(w.entities.map((e) => [e.id, e]));
   const out: Pocket[] = [];
   let i = 0;
-  const paired = w.cards.some((c) => c.part === 1 || c.part === 2);
+  const paired = w.cards.some((c) => c.part === 1 || c.part === 2 || c.part === 3);
   for (const s of secs) {
     // The group's idols first, then the group card, as the prototype's binder.
     const ids = [...s.ids].sort((a, b) => (entById.get(a)!.kind === 'group' ? 1 : 0) - (entById.get(b)!.kind === 'group' ? 1 : 0));
@@ -356,7 +378,7 @@ function pockets(w: World, p: PlayerData, secs: Section[]): Pocket[] {
           for (const c of here) {
             const o = p.owned.get(c.n);
             out.push({ i: i++, section: s.slug, entityName: c.name, groupName: c.group ?? '', kind: c.kind, item: {
-              type: 'card', n: c.n, num: c.num, name: c.name, edition: c.edition, kind: c.kind, group: c.group, section: s.slug, ...(c.part ? { part: c.part } : {}),
+              type: 'card', n: c.n, num: c.num, name: c.name, edition: c.edition, kind: c.kind, group: c.group, section: s.slug, ...(c.part ? { part: c.part } : {}), ...(c.part && c.parts ? { parts: c.parts } : {}), ...(c.part && c.pano !== undefined ? { pano: c.pano } : {}),
               owned: !!o, copies: o?.copies ?? 0, silhouette: !o, fav: !!o?.fav, wished: p.wishlist.has(c.n), locked: !!o?.locked, isNew: !!o && !o.seen, pairN: c.pairN ?? null,
             } });
           }
@@ -369,6 +391,20 @@ function pockets(w: World, p: PlayerData, secs: Section[]): Pocket[] {
     }
   }
   return out;
+}
+
+/** Lot 7: the Panoramas section of the binder: every panorama of a section the binder shows, owned or not, with its own completion (never in `totals`). */
+export function panoramasOf(w: World, p: PlayerData, secs: Section[] = sectionsOf(w), group?: string): { owned: number; total: number; pct: number; items: PanoItem[] } | undefined {
+  if (!w.panoramas) return undefined;
+  const all: PanoItem[] = [];
+  for (const pn of [...w.panoramas].sort((a, b) => a.p - b.p)) {
+    const s = secs.find((x) => x.entity === pn.entity || x.ids.includes(pn.entity));
+    if (!s) continue;
+    const o = p.panos?.get(pn.p);
+    all.push({ ...panoRef(pn), owned: !!o, section: s.slug, grantedAt: o ? new Date(o.at).toISOString() : null });
+  }
+  const owned = all.filter((x) => x.owned).length;
+  return { owned, total: all.length, pct: pctOf(owned, all.length), items: group ? all.filter((x) => x.section === group) : all };
 }
 
 export function collectionState(w: World, p: PlayerData, q: CollectionQuery = {}): CollectionState {
@@ -410,6 +446,7 @@ export function collectionState(w: World, p: PlayerData, q: CollectionQuery = {}
   return {
     groups, items: list.slice((page - 1) * per, page * per).map((x) => x.item), page, pages, matches: list.length,
     totals: { owned: own, total: w.cards.length, pct: pctOf(own, w.cards.length), idols: of('idol'), groups: of('group'), notIssued: all.filter((x) => x.item.type === 'not_issued').length },
+    ...(w.panoramas ? { panoramas: panoramasOf(w, p, secs, q.group)! } : {}),
   };
 }
 

@@ -4,13 +4,14 @@
 import { randomInt } from 'node:crypto';
 
 import { loadCatalog } from '../cards/catalog';
+import { fetchAllRows } from '@/lib/db/fetch-all';
 import { adShards, adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, timerPerDay } from '../cards/flags';
 import { EDITIONS, SHARDS } from '../cards/rules';
 import { ERROR_STATUS, KC, THEME_IDS, levelOf, titleOf } from './contract';
 import { planKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
-  QUIZ_BASE, momentQuiz, almostState, badgesOf, cardRef, collectionState, dailyGroup, emptyPlayer, groupCards, groupRef, idolPage, lobbyState, missionsState, oddsState, pctOf,
+  QUIZ_BASE, momentQuiz, almostState, badgesOf, cardRef, panoRef, collectionState, dailyGroup, emptyPlayer, groupCards, groupRef, idolPage, lobbyState, missionsState, oddsState, pctOf,
   playerPage, poolCards, rankRows, recyclePreview, sectionsOf, showcaseOf, themeCards,
 } from './model';
 
@@ -19,7 +20,7 @@ import type { CatalogPayload } from '../cards/types';
 import type { Rng } from '../cards/types';
 import type { UiCard, UiEntity } from '../cards/ui-types';
 import type {
-  ApiError, ApiResult, CardMoment, CardRef, ClaimResponse, CollectionQuery, CraftResponse, ErrorCode, FinishedSetV, FriendRow, FriendsState, LobbyState, LockResponse,
+  ApiError, ApiResult, CardMoment, CardRef, PanoRef, ClaimResponse, CollectionQuery, CraftResponse, ErrorCode, FinishedSetV, FriendRow, FriendsState, LobbyState, LockResponse,
   OpenRequest, OpenResponse, OpenedPack, PackKind, PlayerPage, PrefsRequest, RankingState, RecycleResponse, Edition, ThemeId,
 } from './contract';
 import type { OwnedRow, PlayerData, PlayerSummary, World } from './model';
@@ -51,7 +52,7 @@ export const statusOf = (e: ApiError): number => ERROR_STATUS[e.error];
 const GENDER_THEME: Record<string, ThemeId | undefined> = { girl: 'girls', boy: 'boys' };
 
 /** The catalog as a World: the theme of each group and idol, the way cards_theme_of (110) decides it. Pure. */
-export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'>, types: ReadonlyMap<string, string>): World {
+export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'> & Partial<Pick<CatalogPayload, 'panoramas'>>, types: ReadonlyMap<string, string>): World {
   const entities: UiEntity[] = cat.entities.map((e) => ({
     id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear !== undefined ? { endYear: e.endYear } : {}),
     ...(e.locked ? { locked: true as const } : {}),
@@ -78,7 +79,8 @@ export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'>, types
       }
     }
   }
-  return { cards, entities, themeOf };
+  // Lot 7: the panoramas of the catalog (absent before file 118: then no answer carries a panorama).
+  return { cards, entities, themeOf, ...(cat.panoramas ? { panoramas: cat.panoramas } : {}) };
 }
 
 let cachedWorld: { at: number; world: World } | null = null;
@@ -160,10 +162,27 @@ export async function loadPlayer(c: Ctx): Promise<PlayerData> {
   const day = (data as PlayerJson).wallet.paris_day;
   const nick = await nicknameOf(c.db, c.userId);
   const p = playerFrom(data as PlayerJson, nick, [], day);
+  p.panos = await loadPanos(c);
   const today = new Date(c.now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
   if (p.dailyDay) p.dailyDay = today;
   if (p.focusDay) p.focusDay = today;
   return p;
+}
+
+/** Lot 7: the panoramas the player holds (cards_panoramas_owned, read with the service role, paged). Only when the catalog has panoramas; a failed read, or a database
+ *  without file 118, answers none (fail soft: never an error page). */
+export async function loadPanos(c: Ctx): Promise<NonNullable<PlayerData['panos']>> {
+  const out: NonNullable<PlayerData['panos']> = new Map();
+  try {
+    const w = await loadWorld(c.db, c.now);
+    if (!w.panoramas || w.panoramas.length === 0) return out;
+    const rows = await fetchAllRows<{ pano_no: number; granted_at: string; source: 'pack' | 'craft'; seen: boolean | null }>(() =>
+      c.db.from('cards_panoramas_owned').select('pano_no, granted_at, source, seen').eq('user_id', c.userId).order('pano_no', { ascending: true }));
+    for (const r of rows) out.set(r.pano_no, { at: Date.parse(r.granted_at), source: r.source === 'craft' ? 'craft' : 'pack', seen: r.seen === true });
+  } catch {
+    out.clear();
+  }
+  return out;
 }
 
 async function lobbyOf(c: Ctx, w: World, p?: PlayerData, quizDone?: boolean): Promise<LobbyState> {
@@ -343,7 +362,9 @@ export async function friendRemove(c: Ctx, nickname: string) {
 interface OpenJson {
   replayed: boolean;
   packs: { id: string; pack_no: number; source: OpenRequest['source']; theme: PackKind | null; group: string | null; golden: boolean; guarantee: boolean; new_count: number;
-    cards: { n: number; isNew: boolean; completesPair: boolean; golden: boolean; guarantee: boolean }[] }[];
+    /** Lot 7 (118): the pano_no of the panorama a card gave, and the pack's list of them. */
+    panoramas?: number[];
+    cards: { n: number; isNew: boolean; completesPair: boolean; golden: boolean; guarantee: boolean; pano?: number | null }[] }[];
   finished: FinishedSetV[];
   owned_before: number;
   owned_after: number;
@@ -355,12 +376,18 @@ const EDITION_ORDER: Edition[] = ['std', 'stage', 'holo', 'era', 'gold', 'full']
 export function openResponseFrom(w: World, j: OpenJson, state: LobbyState): OpenResponse {
   const sections = sectionsOf(w);
   const cardOf = new Map(w.cards.map((x) => [x.n, x]));
+  // Lot 7: a pano_no of the answer as the contract's reference; one the catalog does not list (a panorama of a locked group) is left out.
+  const panoOf = (no: number): PanoRef | null => { const q = w.panoramas?.find((x) => x.p === no); return q ? panoRef(q) : null; };
   const packs: OpenedPack[] = j.packs.map((p) => {
     const theme: PackKind = p.theme ?? 'all';
-    const cards = p.cards.map((x) => ({ ...x, edition: cardOf.get(x.n)?.edition ?? 'std', theme }));
+    const cards = p.cards.map(({ pano, ...x }) => {
+      const ref = pano !== undefined && pano !== null ? panoOf(pano) : null;
+      return { ...x, edition: cardOf.get(x.n)?.edition ?? 'std', theme, ...(ref ? { pano: ref } : {}) };
+    });
     const best = cards.reduce<Edition>((m, x) => (EDITION_ORDER.indexOf(x.edition) > EDITION_ORDER.indexOf(m) ? x.edition : m), 'std');
     const g = p.group ? sections.find((s) => s.id === p.group) : null;
-    return { id: p.id, packNo: p.pack_no, source: p.source, theme, group: g ? groupRef(g) : null, golden: p.golden, guarantee: p.guarantee, cards, newCount: p.new_count, best };
+    return { id: p.id, packNo: p.pack_no, source: p.source, theme, group: g ? groupRef(g) : null, golden: p.golden, guarantee: p.guarantee, cards, newCount: p.new_count, best,
+      ...(w.panoramas || p.panoramas ? { panoramas: (p.panoramas ?? []).map(panoOf).filter((x): x is PanoRef => x !== null) } : {}) };
   });
   const all = packs.flatMap((p) => p.cards);
   const newCards = all.filter((x) => x.isNew).length;
@@ -374,6 +401,7 @@ export function openResponseFrom(w: World, j: OpenJson, state: LobbyState): Open
     summary: {
       newCards, copies, copiesShards, best, goldenPacks: packs.filter((p) => p.golden).length, guaranteePacks: packs.filter((p) => p.guarantee).length, finished: j.finished,
       levelUp: after > before ? { from: before, to: after, title: titleOf(after) } : null,
+      ...(w.panoramas || packs.some((p) => p.panoramas) ? { panoramas: packs.flatMap((p) => p.panoramas ?? []) } : {}),
       headline: newCards > 0 ? `${newCards} new card${newCards === 1 ? '' : 's'} for your collection` : 'Only copies this time',
     },
   };
@@ -452,8 +480,11 @@ export async function claim(c: Ctx, key: string, target: string): Promise<ApiRes
 export async function craft(c: Ctx, key: string, n: number): Promise<ApiResult<CraftResponse>> {
   const { data, error } = await c.db.rpc('cards_craft', { p_user: c.userId, p_key: key, p_card_no: n, p_now: new Date(c.now).toISOString(), p_timer_cap: timerPerDay() });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
-  const d = data as { replayed: boolean; card_no: number; cost: number; finished: FinishedSetV[] };
-  return { n: d.card_no, cost: d.cost, finished: d.finished ?? [], replayed: d.replayed, state: await lobbyOf(c, await loadWorld(c.db, c.now)) };
+  const d = data as { replayed: boolean; card_no: number; cost: number; finished: FinishedSetV[]; pano?: number | null };
+  const w = await loadWorld(c.db, c.now);
+  // Lot 7: the panorama the craft gave (pano_no or null; absent before file 118).
+  const q = d.pano === undefined || d.pano === null ? null : w.panoramas?.find((x) => x.p === d.pano);
+  return { n: d.card_no, cost: d.cost, finished: d.finished ?? [], replayed: d.replayed, state: await lobbyOf(c, w), ...(d.pano !== undefined || w.panoramas ? { pano: q ? panoRef(q) : null } : {}) };
 }
 
 export async function recycle(c: Ctx, key: string, confirm: boolean, n?: number): Promise<ApiResult<RecycleResponse>> {
