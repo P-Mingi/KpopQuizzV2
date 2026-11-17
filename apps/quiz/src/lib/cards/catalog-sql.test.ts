@@ -2,7 +2,7 @@
 // finding 15). The real schema files 001 to 003 are run, then
 // 101-catalog.sql on fixture groups and idols rows, and the rules of the brief are checked: adult rule (decision 17), group line (18),
 // contiguous numbers in the order of decision 2, 4 cards per subject, the Verify notices, idempotence, the rollback.
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { vi, beforeAll, describe, expect, it } from 'vitest';
@@ -172,6 +172,9 @@ describe('101-catalog.sql on fixture groups and idols', () => {
       '116c-approve-personality-rights.rollback.sql', '116c-approve-personality-rights.sql',
       // integrator, 2026-11-17: cards_build_catalog() with a WHERE on its DELETE (safeupdate refuses it through the API)
       '117-catalog-safeupdate.rollback.sql', '117-catalog-safeupdate.sql',
+      // lot 7 (orchestrator's contract, 2026-11-17): 118 and its rollback, written by gen-parts-sql.mts from the data lane's parts.json, so they
+      // are in the folder from the day parts.json is committed
+      ...(existsSync(path.join(CARDS_SQL, '../../design/cards/data/lot7/parts.json')) ? ['118-group-parts.rollback.sql', '118-group-parts.sql'] : []),
       'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
