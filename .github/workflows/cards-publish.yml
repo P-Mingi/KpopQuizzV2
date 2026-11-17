@@ -4,7 +4,9 @@ name: Cards publish
 # Actions > Cards publish > Run workflow, then the reviewer of the environment "cards-publish" approves. Never on a push or a pull request.
 #   1. publish-card-files.mjs --publish --non-interactive --keep-going: cuts the live photos of cards_photos from their Commons originals,
 #      uploads the cards and the panoramas to the bucket 'cards', sets the rows. The cleanup only lists (it never deletes in this mode).
-#      A photo whose original fails is skipped and listed; the job then ends red, the others are published.
+#      Every request is tried up to 4 times on a passing error (5xx, Cloudflare's 520 to 524, the rate limit, the network). A photo whose
+#      original fails, or whose upload or PATCH still fails after its tries, is skipped and listed; the job then ends red, the others are
+#      published. It stops at once on a 401, 403 or 404 of the project, or after 5 photos in a row failing on it.
 #   2. kpopdle-photos.mjs --publish, when the input kpopdle is "oui".
 #   3. The summary of the job: cards, panoramas, the failed photos and why, the Kpopdle idols served.
 # The service key is the secret SUPABASE_SERVICE_ROLE_KEY of the environment "cards-publish" (only after the reviewer's approval), given to

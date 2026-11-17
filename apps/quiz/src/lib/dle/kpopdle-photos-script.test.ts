@@ -207,7 +207,8 @@ describe('the run', () => {
   it('--idols-dir changes the note, an upload that fails is a line of the report and not a crash, and the key is still never printed', async () => {
     arrange();
     mockFetch({ failUploads: true });
-    const res = await kp.main(['--publish', '--idols-dir', idolsDir], { siteDir: path.join(tmp, 'elsewhere'), reportFile, sharp, pauseMs: 0 });
+    // the 500 is tried again (lot CPUB-RETRY, fetchRetry): no real wait between the tries in a test
+    const res = await kp.main(['--publish', '--idols-dir', idolsDir], { siteDir: path.join(tmp, 'elsewhere'), reportFile, sharp, pauseMs: 0, sleep: async () => {} });
     expect(res.published).toBe(0);
     expect(logs.some((l) => l.includes('!! ') && l.includes('storage HTTP 500'))).toBe(true);
     expect(logs.join('\n')).not.toContain(SECRET);

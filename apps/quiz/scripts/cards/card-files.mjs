@@ -139,8 +139,10 @@ export function mergePhotoFiles(base, extra) {
   return { ...base, subjects, left_out: [...base.left_out, ...extra.left_out.filter((l) => !seen.has(l.slug))] };
 }
 
-/** Statuses of a Commons download worth another try (a timeout, the rate limit, a busy server); a 404 or a 403 is not tried again. */
-export const RETRY_STATUS = new Set([408, 429, 500, 502, 503, 504]);
+/** Statuses worth another try, for a Commons download and for every request to the Supabase project: a timeout, the rate limit, a busy
+ *  server, and the passing errors of Cloudflare in front of Supabase (520 to 524; lot CPUB-RETRY: a 520 on one upload stopped the first
+ *  run of cards-publish). A 400, 401, 403, 404, 409 or 413 is never tried again: the same request would get the same answer. */
+export const RETRY_STATUS = new Set([408, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524]);
 
 /** The wait in ms before try `n + 1` of a download: the server's Retry-After in seconds (at most 60) when it sends a number, else 5 s after the
  *  first try and 20 s after the second. */
@@ -148,4 +150,27 @@ export function retryWait(n, retryAfter) {
   const t = retryAfter === null || retryAfter === undefined ? '' : String(retryAfter).trim();
   if (/^\d+$/.test(t)) return Math.min(Number(t), 60) * 1000;
   return n === 1 ? 5000 : 20000;
+}
+
+const realSleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
+
+/** One request with its tries (lot CPUB-RETRY): `doFetch(n)` is called for try n (1, 2, ...) and must send the same idempotent request each
+ *  time (an upload with x-upsert, a PATCH of the same values, a read, an upsert). Tried again on a status of RETRY_STATUS and when doFetch
+ *  throws (the network), after retryWait (the server's Retry-After, at most 60 s). Returns the last answer, ok or not (the caller reads its
+ *  status); throws the last network error when every try threw. Pure: the fetch and the sleep are given. */
+export async function fetchRetry(doFetch, { tries = 4, sleep = realSleep } = {}) {
+  for (let n = 1; ; n++) {
+    let r;
+    try {
+      r = await doFetch(n);
+    } catch (e) {
+      if (n >= tries) throw e;
+      await sleep(retryWait(n, null));
+      continue;
+    }
+    if (r.ok || !RETRY_STATUS.has(r.status) || n >= tries) return r;
+    const retryAfter = r.headers?.get?.('retry-after') ?? null;
+    try { await r.body?.cancel?.(); } catch { /* the body of an answer tried again is not read */ }
+    await sleep(retryWait(n, retryAfter));
+  }
 }

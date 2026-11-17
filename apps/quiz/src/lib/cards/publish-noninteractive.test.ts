@@ -45,6 +45,7 @@ beforeAll(async () => {
     { slug: 'cid', kind: 'idol', file: 'cid.jpg', img: await rect(1000, 1500, 50), served: other },
     { slug: 'dee', kind: 'idol', file: 'dee.jpg', img: await rect(1000, 1500, 60), status: 404 },
     { slug: 'eve', kind: 'idol', file: 'eve.jpg', img: await rect(1000, 1500, 70) },
+    { slug: 'fay', kind: 'idol', file: 'fay.jpg', img: await rect(1000, 1500, 80) },
   ];
   dataDir = mkdtempSync(path.join(tmpdir(), 'cards-pub-data-'));
   const subjects = photos.map((p) => ({
@@ -72,13 +73,18 @@ function rows(only?: string[]): Record<string, unknown>[] {
     row(6, 'dee', 'idol'),
     row(7, 'eve', 'idol'),
     { ...row(8, 'zed', 'idol'), source_page: 'https://commons.test/wiki/File:not-in-the-data.jpg' },
+    // only when asked for (lot CPUB-RETRY: five photos that reach the project)
+    row(9, 'fay', 'idol'),
   ];
-  return only ? all.filter((r) => only.includes(String(r.entity_id).split(':')[1]!)) : all;
+  return only ? all.filter((r) => only.includes(String(r.entity_id).split(':')[1]!)) : all.filter((r) => r.entity_id !== 'idol:fay');
 }
 
 interface Server { base: string; reqs: Req[]; close: () => Promise<void> }
-async function server(opts: { rows: Record<string, unknown>[]; rowsError?: boolean }): Promise<Server> {
+/** `project(method, path, n)`: a status the project answers instead (with Retry-After: 0) to the n-th request of that method and path. */
+type ProjectFault = (method: string, path: string, n: number) => number | null;
+async function server(opts: { rows: Record<string, unknown>[]; rowsError?: boolean; project?: ProjectFault }): Promise<Server> {
   const reqs: Req[] = [];
+  const seen = new Map<string, number>();
   const busy = new Set(['eve.jpg']); // answers 503 once, then the file
   const srv = createServer((req: IncomingMessage, res: ServerResponse) => {
     const chunks: Buffer[] = [];
@@ -98,6 +104,10 @@ async function server(opts: { rows: Record<string, unknown>[]; rowsError?: boole
         res.writeHead(200, { 'Content-Type': 'image/jpeg' }); res.end(ph.served ?? ph.img); return;
       }
       if (host !== HOST) { res.writeHead(500); res.end('unexpected host'); return; }
+      const n = (seen.get(`${req.method} ${p}`) ?? 0) + 1;
+      seen.set(`${req.method} ${p}`, n);
+      const fault = opts.project?.(req.method ?? '', p, n) ?? null;
+      if (fault !== null) { res.writeHead(fault, { 'Retry-After': '0', 'Content-Type': 'text/plain' }); res.end(`error ${fault}`); return; }
       if (req.method === 'GET' && p.startsWith('/rest/v1/cards_photos?')) {
         if (opts.rowsError) { json(401, { message: `Invalid API key ${String(req.headers.apikey)}` }); return; }
         json(200, opts.rows); return;
@@ -269,6 +279,84 @@ describe('publish-card-files.mjs --non-interactive refuses, and stops without --
       const text = readFileSync(path.join(dir, 'report.json'), 'utf8');
       expect(text).not.toContain(KEY);
       expect(existsSync(path.join(dir, 'originals'))).toBe(false);
+    } finally { await s.close(); }
+  });
+});
+
+describe('lot CPUB-RETRY: passing errors of the project are tried again; --keep-going skips a photo the project still refuses', () => {
+  const tries = (s: Server, method: string, prefix: string): number => s.reqs.filter((q) => q.host === HOST && q.method === method && q.path.startsWith(prefix)).length;
+
+  it('a 520 on the rows, an upload and the PATCH, then OK: the photo is published, exit 0', async () => {
+    const s = await server({
+      rows: rows(['ada']),
+      project: (m, p, n) => (n === 1 && ((m === 'GET' && p.startsWith('/rest/v1/cards_photos?')) || p === '/storage/v1/object/cards/ada-50-50-1x.webp' || m === 'PATCH') ? 520 : null),
+    });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-ok-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.err).toBe('');
+      expect(r.code).toBe(0);
+      expect(tries(s, 'GET', '/rest/v1/cards_photos?')).toBe(2);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/ada-50-50-1x.webp')).toBe(2);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/ada-50-50-2x.webp')).toBe(1);
+      expect(tries(s, 'PATCH', '/rest/v1/cards_photos?id=eq.1')).toBe(2);
+      expect(JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'))).toMatchObject({ photos: { uploaded: 1, failed: 0 }, failed: [], stopped: null });
+    } finally { await s.close(); }
+  });
+
+  it('--keep-going: an upload still failing after 4 tries skips its photo (row unchanged, listed), the next photo is published, exit 2', async () => {
+    const s = await server({ rows: rows(['trio', 'duo']), project: (_m, p) => (p === '/storage/v1/object/cards/trio-50-50-t2-1x.webp' ? 520 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-skip-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.code).toBe(2);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/trio-50-50-t2-1x.webp')).toBe(4);
+      expect(r.out).toContain('trio photo 1: FAILED on the project, skipped (--keep-going): upload trio-50-50-t2-1x.webp: 520 error 520');
+      expect(tries(s, 'PATCH', '/rest/v1/cards_photos?id=eq.2')).toBe(0);
+      expect(tries(s, 'PATCH', '/rest/v1/cards_photos?id=eq.3')).toBe(1);
+      const rep = JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'));
+      expect(rep).toMatchObject({ photos: { uploaded: 1, failed: 1 }, panoramas: 1, stopped: null });
+      expect(rep.failed).toEqual([{ slug: 'trio', slot: 1, page: 'https://commons.test/wiki/File:trio.jpg', reason: 'upload trio-50-50-t2-1x.webp: 520 error 520' }]);
+      expect(r.out + r.err + JSON.stringify(rep)).not.toContain(KEY);
+    } finally { await s.close(); }
+  });
+
+  it('--keep-going: 5 photos in a row failing on the project stop the run, exit 1', async () => {
+    const s = await server({ rows: rows(['ada', 'trio', 'duo', 'eve', 'fay']), project: (m, p) => (m === 'POST' && p.startsWith('/storage/v1/object/cards/') ? 503 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-five-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.code).toBe(1);
+      expect(r.err).toContain('stopped: 5 photos in a row failed on the project (the last: upload fay-50-50-1x.webp: 503 error 503)');
+      const rep = JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'));
+      expect(rep.failed.map((f: { slug: string }) => f.slug)).toEqual(['ada', 'trio', 'duo', 'eve', 'fay']);
+      expect(rep.stopped).toContain('stopped: 5 photos in a row');
+      expect(s.reqs.some((q) => q.method === 'PATCH')).toBe(false);
+      expect(s.reqs.some((q) => q.path === '/storage/v1/object/list/cards')).toBe(false);
+    } finally { await s.close(); }
+  });
+
+  it('--keep-going: a 401 of the project stops at once, without a second try and before the next photo', async () => {
+    const s = await server({ rows: rows(['ada', 'eve']), project: (_m, p) => (p === '/storage/v1/object/cards/ada-50-50-1x.webp' ? 401 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-401-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.code).toBe(1);
+      expect(r.err).toContain('upload ada-50-50-1x.webp: 401');
+      expect(tries(s, 'POST', '/storage/v1/object/cards/')).toBe(1);
+      expect(s.reqs.filter((q) => q.host === 'commons.test').map((q) => q.path)).toEqual(['/orig/ada.jpg']);
+    } finally { await s.close(); }
+  });
+
+  it('without --keep-going an upload still failing after its tries stops the run, exit 1, the row unchanged', async () => {
+    const s = await server({ rows: rows(['ada']), project: (_m, p) => (p === '/storage/v1/object/cards/ada-50-50-2x.webp' ? 524 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-stop-'));
+      const r = await run(ciArgs(dir), ciEnv(s.base));
+      expect(r.code).toBe(1);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/ada-50-50-2x.webp')).toBe(4);
+      expect(r.err).toContain('upload ada-50-50-2x.webp: 524');
+      expect(s.reqs.some((q) => q.method === 'PATCH')).toBe(false);
     } finally { await s.close(); }
   });
 });
