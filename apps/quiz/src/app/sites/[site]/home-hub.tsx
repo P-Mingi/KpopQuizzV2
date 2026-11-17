@@ -6,6 +6,7 @@
 // Home v3 (2026-10-29, docs/strategy/o1/dle/prototype/Home.dc.html): two columns, images first; the images of the slots come from
 // site_assets (empty until step 2), the quizzes of the day the fan finished today from their plays, the Burrow stays hidden until the
 // dailyGuess flag is on and its pages exist.
+import { cardsBridgesHubOn } from '@/lib/cards-bridge/flags';
 import { HomePage } from '@/components/hub/home/home-page';
 import { ht } from '@/lib/site/hub/copy';
 import { burrowOpen } from '@/lib/site/hub/daily-guess';
@@ -59,5 +60,5 @@ export default async function HubHome(): Promise<React.ReactElement> {
     getLiveAssets(),
   ]);
   const done = await loadHomeDone(userId, today);
-  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, icons, burrow: burrowOpen(), stickers: pageStickers(live, 'home') }} />;
+  return <HomePage data={{ viewer: session?.viewer ?? null, doors, surprise, today, done, quick, hot, crossover, fans, assets, icons, burrow: burrowOpen(), stickers: pageStickers(live, 'home'), ...(cardsBridgesHubOn() ? { cards: true } : {}) }} />;
 }

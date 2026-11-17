@@ -11,6 +11,20 @@ const PILL: React.CSSProperties = {
   marginLeft: 8, padding: '1px 8px', borderRadius: 999, background: 'var(--ux-pink-soft)', color: 'var(--ux-pink-soft-ink)', fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap', verticalAlign: 'middle',
 };
 
+/** Bunnyverse bridges: the row to KpopCards, drawn only when the quiz page gave `cardsBridge` (NET_CARDS_BRIDGES on). A plain link: no read, no report, no Cards code. */
+export function QuizEndCards({ href }: { href: string }): React.ReactElement {
+  return (
+    <a className="ux-row" href={href} rel="nofollow" data-testid="cards-end-row">
+      <span className="ux-thumb is-glyph"><Icon name="grid" /></span>
+      <span className="ux-row-grow">
+        <span className="ux-rt" style={INK}>KpopCards</span>
+        <span className="ux-rs">Free K-pop photocards on Bunnyverse. Open a pack.</span>
+      </span>
+      <span className="ux-btn ux-btn-ghost ux-btn-sm" aria-hidden="true">Open</span>
+    </a>
+  );
+}
+
 export function QuizEndBridge({ bridge }: { bridge: NonNullable<P4RunQuiz['bridge']> }): React.ReactElement {
   if (bridge.kind === 'kpopdle') {
     return (

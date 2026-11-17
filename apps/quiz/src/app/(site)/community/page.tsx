@@ -7,6 +7,7 @@ import { BadgePanel, HappeningPanel, MobileRail } from '@/components/community/u
 import { P8ViewerProvider } from '@/components/community/ux-v1/viewer';
 import { WarStrip } from '@/components/community/ux-v1/war-strip';
 import { UxPage } from '@/components/ux-v1/page';
+import { loadCardsPulls } from '@/lib/cards-bridge/pulls';
 import { getEditorialLive } from '@/lib/editorial/live';
 import { safeFetch } from '@/lib/error-handling';
 import { UX_V1 } from '@/lib/ux-v1';
@@ -50,7 +51,7 @@ async function loadCommunity() {
   const verse = verseScope(groups);
   // v12 editorial threads and blogs: false (and no read) unless the flag is on and the SQL is applied.
   const src = feedSources(features, verse, now, await getEditorialLive());
-  const [threads, blogs, debates, fanDebates, challenges, editorial, today, happening, pulse, badges, war] = await Promise.all([
+  const [threads, blogs, debates, fanDebates, challenges, editorial, today, happening, pulse, badges, war, pulls] = await Promise.all([
     // The posts are the page: give a slow database 8s before falling back (the
     // timed-out read still fills its cache for the next visit).
     safeFetch<FeedPost[] | null>(src.threads, null, '[p8] threads', 8000),
@@ -64,18 +65,20 @@ async function loadCommunity() {
     safeFetch(getPulse(utcDate(now), features, verse.groupIds), { posts: 0, votesToday: 0, newQuizzesWeek: 0 }, '[p8] pulse'),
     safeFetch(getBadgeWatch(3, utcDate(now), verse.open), [], '[p8] badges'),
     safeFetch(getWarEntries(), [], '[p8] war'),
+    // Bunnyverse Cards (NET_CARDS_BRIDGES, off by default): the live feed of Holo and above pulls. Null while off: no read, the rail is today's.
+    loadCardsPulls(now),
   ]);
   const posts = mergeFeed([threads ?? [], blogs ?? [], debates ?? [], fanDebates ?? [], challenges ?? [], editorial], now);
   // Every always-on source failed (DB blip): say so, never "no posts yet".
   const loadFailed = threads === null && blogs === null && debates === null;
   // Every group and General K-pop (never the hidden quarantine row): community posts go anywhere (v12).
   const editorGroups = groups.filter((g) => !g.slug.startsWith('zzz-')).map((g) => ({ id: g.id, name: g.name, slug: g.slug }));
-  return { features, verse, posts, loadFailed, editorGroups, today, happening, pulse, badges, war };
+  return { features, verse, posts, loadFailed, editorGroups, today, happening, pulse, badges, war, pulls };
 }
 
 export default async function CommunityPage(): Promise<React.ReactElement> {
   if (!UX_V1) notFound();
-  const { features, verse, posts, loadFailed, editorGroups, today, happening, pulse, badges, war } = await loadCommunity();
+  const { features, verse, posts, loadFailed, editorGroups, today, happening, pulse, badges, war, pulls } = await loadCommunity();
 
   const mtop = (
     <>
@@ -100,6 +103,7 @@ export default async function CommunityPage(): Promise<React.ReactElement> {
             <aside className="p8-rail" aria-label="Community activity">
               {today ? <DebatePanel debate={today} /> : null}
               <HappeningPanel rows={happening} pulse={pulse} />
+              {pulls}
               <BadgePanel rows={badges} />
             </aside>
           </div>

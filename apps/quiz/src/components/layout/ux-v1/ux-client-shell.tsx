@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
+import { NavBridgeLinks } from '@/components/cards-bridge/nav-bridges';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { flagOn } from '@/lib/site/registry';
 import { isBuilderCanvas, worldForPath } from '@/lib/world';
@@ -13,6 +14,8 @@ import { UxNavActions } from './ux-nav-actions';
 import { UxNavLinks } from './ux-nav-links';
 import { UxProviders } from './ux-providers';
 import { UxTabBar } from './ux-tab-bar';
+
+import type { NavBridge } from '@/lib/cards-bridge/nav';
 
 // Audit 02 P2-1 (risk 8): the Verse footer is only drawn on Verse routes, so its code is a chunk that every other page never fetches (it is still server-rendered where it shows).
 const VerseFooter = dynamic(() => import('@/components/verse/verse-footer').then((m) => m.VerseFooter));
@@ -36,6 +39,8 @@ export interface UxClientShellProps {
   bare?: boolean;
   /** Daily games step 4: the pages of the Terrier bring their own bar and footer too. Set only by the hub layout, only with the dailyGuess flag on. */
   barePaths?: readonly string[];
+  /** Bunnyverse bridges: the KpopCards and Bunnyverse buttons of the top bar. Set only by UxShell, only with NET_CARDS_BRIDGES on; absent, the bar is today's. */
+  navBridges?: readonly NavBridge[];
 }
 
 /** Footer per world, like the legacy SiteFooter: none on the builder canvas, the
@@ -54,7 +59,7 @@ function Footer({ showFandoms, year }: { showFandoms: boolean; year: number }): 
  * loaded through UxShellLoader (next/dynamic) so its code ships only to pages
  * that render it (flag on). The page itself arrives as server-rendered children.
  */
-export function UxClientShell({ children, showFandoms, year, bare, barePaths }: UxClientShellProps): React.ReactElement {
+export function UxClientShell({ children, showFandoms, year, bare, barePaths, navBridges }: UxClientShellProps): React.ReactElement {
   const pathname = usePathname() || '/';
   if (bare && (pathname === '/' || barePaths?.includes(pathname))) {
     return (
@@ -76,6 +81,7 @@ export function UxClientShell({ children, showFandoms, year, bare, barePaths }: 
             <div className="ux-wrap ux-nav-in">
               <UxBrand />
               <UxNavLinks />
+              {navBridges ? <NavBridgeLinks items={navBridges} /> : null}
               <UxNavActions {...(CARDS_MENU
                 ? { accountExtra: (close: () => void) => <>{CardsMenuLink ? <CardsMenuLink close={close} /> : null}{NET_MENU ? <NetSitesMenu /> : null}</> }
                 : NET_MENU ? { accountExtra: () => <NetSitesMenu /> } : {})} />

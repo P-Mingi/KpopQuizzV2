@@ -6,6 +6,7 @@ import { isConfiguredImageHost } from '@/lib/image-hosts';
 import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
 import { averagePct } from '@/lib/ux-v1/p4/engine';
 import { parseResultLevels } from '@/lib/quiz/result-levels';
+import { cardsEndBridge } from '@/lib/cards-bridge/quiz-end';
 import { quizEndBridge } from '@/lib/passerelles/quiz-end';
 import {
   getP4Creator, getP4GroupPlaylist, getP4GroupQuizCount, getP4HallOfFame, relaxedRunsLive,
@@ -79,6 +80,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
 
   // P5 (CR-025): the daily game row of the results screen. Null while its switch is off: then the key is left out and the props are today's.
   const bridge = quizEndBridge();
+  const cardsBridge = cardsEndBridge();
   const run: P4RunQuiz = {
     id: quiz.id,
     slug: quiz.slug,
@@ -108,6 +110,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     resultLevels: parseResultLevels(quiz.settings),
     attempts: quiz.total_completions ?? 0,
     ...(bridge ? { bridge } : {}),
+    ...(cardsBridge ? { cardsBridge } : {}),
   };
 
   const breadcrumbJsonLd = {
