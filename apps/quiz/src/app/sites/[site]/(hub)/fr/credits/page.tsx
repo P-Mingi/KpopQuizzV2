@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { HubCreditsPage, creditSections } from '@/components/hub/credits/hub-credits';
 import { DleChrome } from '@/components/hub/dle/dle-chrome';
 import { getCreditNames } from '@/lib/anime/entity-images-read';
+import { getKpopdleIdolPictures } from '@/lib/dle/idol-pictures-read';
 import { CREDITS_FR, dleAlternates, dleRobots } from '@/lib/dle/seo';
 import { getLiveAssets, getPublicPictures } from '@/lib/photos/public-read';
 import { dleOpen } from '@/lib/site/hub/daily-guess';
@@ -13,7 +14,9 @@ import type { Metadata } from 'next';
 export const revalidate = 60;
 
 async function sections(): Promise<ReturnType<typeof creditSections>> {
-  const [pictures, assets] = await Promise.all([getPublicPictures(), getLiveAssets()]);
+  const [shown, assets, idolSet] = await Promise.all([getPublicPictures(), getLiveAssets(), getKpopdleIdolPictures()]);
+  // The KpopCards photos that stand on the tiles of Kpopdle (only the ones that need a credit, only where no trivia picture comes first).
+  const pictures = [...shown, ...idolSet.credits];
   const names = pictures.some((p) => p.kind === 'character' || p.kind === 'series')
     ? await getCreditNames().catch(() => ({ series: {}, character: {} }))
     : { series: {}, character: {} };

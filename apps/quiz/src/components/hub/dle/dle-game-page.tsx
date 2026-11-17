@@ -4,11 +4,13 @@ import { IconMark } from '@/components/photos/icon-mark';
 import { siteHasCredits } from '@/lib/credits/site-credits';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { getLiveIcons } from '@/lib/photos/icons-read';
-import { getLiveAssets } from '@/lib/photos/public-read';
+import { getLiveStickers } from '@/lib/photos/public-read';
 import { pageStickers } from '@/lib/photos/stickers';
 import { seriesArtOf } from '@/lib/dle/card-art';
 import { previewConfigured } from '@/lib/dle/preview';
 import { blindLinksOf, getAnimeSeriesSlugs, getBlindtestSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
+import { EMPTY_IDOL_PICTURES } from '@/lib/dle/idol-pictures';
+import { getKpopdleIdolPictures } from '@/lib/dle/idol-pictures-read';
 import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
@@ -64,7 +66,9 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  const [day, pool, images, icons, pictures, slugs, blindSlugs, showCredits] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getLiveIcons(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits()]);
+  const [day, pool, images, icons, pictures, slugs, blindSlugs, hasCredits, idolSet] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getLiveIcons(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits(), game === 'kpopdle-idol' ? getKpopdleIdolPictures() : Promise.resolve(EMPTY_IDOL_PICTURES)]);
+  // The credit link also shows when a KpopCards photo that needs a credit stands on a tile (it is listed on /credits).
+  const showCredits = hasCredits || idolSet.credits.length > 0;
   // The banner of the page's own slot when the admin has one (banner:otakudle/one-piece), else the world's.
   const banner = images[`banner:${g.path.slice(1)}`] ?? images[world.bannerSlot];
   const other = otherWorld(world);
@@ -89,8 +93,8 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const seriesGames = g.series ? [] : builtGames().filter((x) => x.series && worldOf(x.id) === world);
   const universeGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
   const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
-  // The owner's stickers of the world's page (admin Photos, Stickers): the same cached read as the banners, so no second query.
-  const stickers = pageStickers(await getLiveAssets(), world.id);
+  // The owner's stickers of the world's page (admin Photos, Stickers): read fresh at each build of the page (lib/photos/public-read.ts getLiveStickers), so a saved size is not held back by the cache of the banners.
+  const stickers = pageStickers(await getLiveStickers(), world.id);
   return (
     <DleChrome
       locale={locale} enPath={g.path} className={`hub-dle-game hub-dle-${world.tone} ${dleMarquee.variable}`} showCredits={showCredits}
@@ -123,7 +127,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
       <main id="main" tabIndex={-1} className="hub-dle-main">
         <PageStickers stickers={stickers} />
         <DleGame
-          locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
+          locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={{ ...idolSet.pictures, ...pictures }} thumbs={idolSet.thumbs}
           quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} icons={icons}
           seriesArt={seriesArt} ownerPreview={world.universe === 'anime' && previewConfigured()}
         />
@@ -175,7 +179,18 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
               </div>
             </div>
           </details>
-          {pool && day ? <p className="hub-dle-answer">{gameAnswerBlock(game, locale, pool.entities.length, day.date)}</p> : null}
+          {pool && day ? (
+            // The answer block, folded like the two toggles around it (owner, 2026-11-17); the text stays in the server HTML.
+            <details className="hub-dle-howto hub-dle-about">
+              <summary>
+                <span><Ic d={libraryIcon('star')} size={20} /><h2>{t.whatIsTitle(g.brand)}</h2></span>
+                <Ic d={D.chev} size={20} className="hub-dle-chev" />
+              </summary>
+              <div>
+                <p className="hub-dle-answer">{gameAnswerBlock(game, locale, pool.entities.length, day.date)}</p>
+              </div>
+            </details>
+          ) : null}
           {groups.length ? (
             <details className="hub-dle-howto">
               <summary>

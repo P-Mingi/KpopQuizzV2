@@ -242,7 +242,7 @@ html.ux-v1[data-site="hub"] .hub-dle-thumb-art::after { content: ""; position: a
 html.ux-v1[data-site="hub"] .hub-dle-thumb-pat { color: #1F1B17; text-shadow: none; background: radial-gradient(rgba(31, 27, 23, .16) 1.1px, transparent 1.6px) 0 0 / 8px 8px, linear-gradient(165deg, var(--dle-a, #DCE3EE) 0%, var(--dle-b, #97A9C9) 100%); box-shadow: inset 0 0 0 1px rgba(31, 27, 23, .14); }
 html.ux-v1[data-site="hub"] .hub-dle-boxnote { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 14px; font-size: 13px; color: var(--hub-dle-muted); }
 html.ux-v1[data-site="hub"] .hub-dle-giveup { min-height: 36px; padding: 0 4px; border: 0; background: transparent; font: inherit; font-size: 13px; font-weight: 700; color: var(--hub-dle-muted); text-decoration: underline; cursor: pointer; }
-html.ux-v1[data-site="hub"] .hub-dle-yline { margin: 0; font-size: 14px; line-height: 1.4; color: var(--hub-dle-text); text-align: center; overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-dle-yline { margin: -10px 0 0; font-size: 14px; line-height: 1.4; color: var(--hub-dle-text); text-align: center; overflow-wrap: anywhere; }
 html.ux-v1[data-site="hub"] .hub-dle-error { margin: 0; font-size: 14px; font-weight: 600; color: #A3302B; text-align: center; }
 html.ux-v1[data-site="hub"] .hub-dle-close { display: inline-flex; align-items: center; gap: 10px; min-height: 42px; padding: 0 16px 0 7px; border-radius: 999px; background: var(--hub-dle-dark); color: var(--hub-dle-dark-ink); font-size: 14px; font-weight: 700; }
 html.ux-v1[data-site="hub"] .hub-dle-close-ic { width: 28px; height: 28px; border-radius: 50%; background: var(--hub-dle-c); display: grid; place-items: center; color: #FFFFFF; }
@@ -313,7 +313,7 @@ html.ux-v1[data-site="hub"] .hub-dle-gateway strong { font-size: 15px; font-weig
 
 /* ---- the grid */
 html.ux-v1[data-site="hub"] .hub-dle-gridsec { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-html.ux-v1[data-site="hub"] .hub-dle-gridhead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+html.ux-v1[data-site="hub"] .hub-dle-gridhead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--hub-dle-line-2); }
 html.ux-v1[data-site="hub"] .hub-dle-gridhead h2 { margin: 0; font-size: 20px; font-weight: 800; }
 html.ux-v1[data-site="hub"] .hub-dle-gridhead h2 .hub-dle-num { color: var(--hub-ink-2); font-size: 16px; }
 html.ux-v1[data-site="hub"] .hub-dle-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 13px; font-weight: 600; color: var(--hub-dle-text); }
@@ -355,7 +355,10 @@ html.ux-v1[data-site="hub"] .hub-dle-empty { display: flex; align-items: center;
 html.ux-v1[data-site="hub"] .hub-dle-empty img { width: 48px; height: 48px; flex: none; }
 
 /* ---- the guide */
-html.ux-v1[data-site="hub"] .hub-dle-guide { width: 100%; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+html.ux-v1[data-site="hub"] .hub-dle-guide { width: 100%; max-width: 760px; margin: 28px auto 0; display: flex; flex-direction: column; gap: 14px; }
+html.ux-v1[data-site="hub"] .hub-dle-ylast { font-weight: 800; color: var(--hub-dle-c); }
+html.ux-v1.dark[data-site="hub"] .hub-dle-ylast { color: var(--hub-dle-ink); }
+@media (prefers-color-scheme: dark) { html.ux-v1[data-site="hub"]:not(.light) .hub-dle-ylast { color: var(--hub-dle-ink); } }
 html.ux-v1[data-site="hub"] .hub-dle-yfold { text-align: center; font-size: 14px; color: var(--hub-dle-muted); }
 html.ux-v1[data-site="hub"] .hub-dle-yfold summary { list-style: none; cursor: pointer; display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px 12px; min-height: 36px; }
 html.ux-v1[data-site="hub"] .hub-dle-yfold summary::-webkit-details-marker { display: none; }

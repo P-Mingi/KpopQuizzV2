@@ -1,0 +1,47 @@
+// The four small things of the owner on the Kpopdle page (2026-11-17): the answer block folded in a toggle (text kept in the server HTML),
+// the name of yesterday's idol in the game's pink, a thin line under the head of the guesses, more room above the guide.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { describe, expect, it } from 'vitest';
+
+import { gameAnswerBlock } from '@/lib/dle/seo';
+import { dleCopy } from '@/lib/dle/copy';
+
+const SRC = join(__dirname, '../../..');
+const read = (p: string): string => readFileSync(join(SRC, p), 'utf8');
+const css = read('styles/sites/hub/dle.css');
+const rule = (sel: string): string => new RegExp(`${sel.replace(/[.]/g, '\\.')} \\{([^}]*)\\}`).exec(css)![1]!;
+
+describe('the answer block in a toggle', () => {
+  it('is inside a details with its own h2, after the how-to toggle, and the text is still rendered by the server component', () => {
+    const page = read('components/hub/dle/dle-game-page.tsx');
+    const i = page.indexOf('<details className="hub-dle-howto hub-dle-about">');
+    expect(i).toBeGreaterThan(page.indexOf('<details className="hub-dle-howto">'));
+    const block = page.slice(i, page.indexOf('</details>', i));
+    expect(block).toContain('<h2>{t.whatIsTitle(g.brand)}</h2>');
+    expect(block).toContain('<p className="hub-dle-answer">{gameAnswerBlock(game, locale, pool.entities.length, day.date)}</p>');
+    expect(page).not.toMatch(/<\/details>\s*\{pool && day \? <p className="hub-dle-answer">/);
+  });
+
+  it('has a title in both languages and the block keeps its words', () => {
+    expect(dleCopy('fr').whatIsTitle('Kpopdle')).toBe('Qu’est-ce que Kpopdle ?');
+    expect(dleCopy('en').whatIsTitle('Kpopdle')).toBe('What is Kpopdle?');
+    expect(gameAnswerBlock('kpopdle-idol', 'fr', 216, '2026-11-16')).toContain('Le jeu compte 216 idols au 16 novembre 2026. Nouvelle idol à minuit UTC.');
+  });
+});
+
+describe('the line of yesterday and the head of the guesses', () => {
+  it('names the idol in the game pink (the token of the page), apart from the sentence, and brings the line closer to the box', () => {
+    expect(read('components/hub/dle/dle-game.tsx')).toContain('<strong className="hub-dle-ylast">{yesterday}</strong>');
+    expect(rule('.hub-dle-ylast')).toContain('color: var(--hub-dle-c)');
+    expect(rule('.hub-dle-yline')).toMatch(/margin: -10px 0 0;/);
+  });
+
+  it('has a thin divider under the "Tes essais" head, and room above the guide', () => {
+    const head = rule('.hub-dle-gridhead');
+    expect(head).toContain('border-bottom: 1px solid var(--hub-dle-line-2)');
+    expect(head).toContain('padding-bottom: 14px');
+    expect(rule('.hub-dle-guide')).toContain('margin: 28px auto 0');
+  });
+});

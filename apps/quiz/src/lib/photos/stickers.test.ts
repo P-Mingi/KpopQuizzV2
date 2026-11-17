@@ -69,7 +69,7 @@ describe('the stickers of a page', () => {
 
   it('Kpopdle, Otakudle, the daily games page and the home draw theirs, at the top of their main column', () => {
     const game = read('components/hub/dle/dle-game-page.tsx');
-    expect(game).toContain('const stickers = pageStickers(await getLiveAssets(), world.id);');
+    expect(game).toContain('const stickers = pageStickers(await getLiveStickers(), world.id);');
     expect(game).toMatch(/<main id="main" tabIndex=\{-1\} className="hub-dle-main">\n\s*<PageStickers stickers=\{stickers\} \/>/);
     expect(read('components/hub/dle/burrow-page.tsx')).toContain("stickers={pageStickers(live, 'daily')}");
     expect(read('components/hub/dle/burrow-board.tsx')).toMatch(/<main id="main" tabIndex=\{-1\} className="hub-dle-burrow">\n\s*<PageStickers stickers=\{stickers\} \/>/);
@@ -91,6 +91,32 @@ describe('the stickers of a page', () => {
     const h2 = read('styles/sites/hub/h2.css');
     expect(h2).toContain('.hub-h2-main { display: block; position: relative; }');
     expect(h2).toMatch(/\.hub-h2-wrap \{ max-width: 1180px;/);
+  });
+});
+
+describe('a saved sticker size reaches the page (owner, 2026-11-17)', () => {
+  it('the game page and the daily page read the stickers fresh, not through the one-minute cache of the banners', () => {
+    expect(read('components/hub/dle/dle-game-page.tsx')).toContain("import { getLiveStickers } from '@/lib/photos/public-read';");
+    expect(read('components/hub/dle/burrow-page.tsx')).toContain('siteHasCredits(), getLiveStickers()]');
+    const pr = read('lib/photos/public-read.ts');
+    expect(pr).toMatch(/export async function getLiveStickers\(\)/);
+    expect(pr).toContain("loadLiveAssets(createPublicReadClient(), 'sticker')");
+  });
+
+  it('the size read from the view is the size drawn: width in the style and in the attribute', () => {
+    const [s] = pageStickers([asset({ settings: { ...SETTINGS, w: 233 } })], 'kpopdle');
+    expect(s!.settings.w).toBe(233);
+    const html = renderToStaticMarkup(createElement(PageStickers, { stickers: [s!] }));
+    expect(html).toContain('width="233"');
+    expect(html).toContain('width:233px');
+  });
+
+  it('loadLiveAssets can ask for the stickers only', async () => {
+    const { loadLiveAssets } = await import('./public-read');
+    const seen: string[] = [];
+    const q = { select: () => q, eq: (c: string, v: string) => { seen.push(`${c}=${v}`); return q; }, order: () => q, range: () => Promise.resolve({ data: [], error: null }) };
+    await loadLiveAssets({ from: () => q }, 'sticker');
+    expect(seen).toEqual(['type=sticker']);
   });
 });
 

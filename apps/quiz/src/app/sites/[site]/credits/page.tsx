@@ -19,6 +19,7 @@ import { CREDITS_DESCRIPTION as ANIME_DESCRIPTION, CREDITS_PATH, CREDITS_TITLE a
 import { CREDITS_DESCRIPTION as HUB_DESCRIPTION, CREDITS_TITLE as HUB_TITLE, HubCreditsPage, creditSections } from '@/components/hub/credits/hub-credits';
 import { getCreditNames, getOwnerCreditRows } from '@/lib/anime/entity-images-read';
 import { SERIES_IMAGE_CREDITS } from '@/lib/anime/series-images.generated';
+import { getKpopdleIdolPictures } from '@/lib/dle/idol-pictures-read';
 import { getLiveAssets, getPublicPictures } from '@/lib/photos/public-read';
 import { CardsCreditsSection } from '@/components/cards/credits-section';
 import { loadCatalog } from '@/lib/cards/ui-catalog';
@@ -37,7 +38,9 @@ import type { Metadata } from 'next';
 export const revalidate = 3600;
 
 async function hubSections(): Promise<ReturnType<typeof creditSections>> {
-  const [pictures, assets] = await Promise.all([getPublicPictures(), getLiveAssets()]);
+  const [shown, assets, idolSet] = await Promise.all([getPublicPictures(), getLiveAssets(), getKpopdleIdolPictures()]);
+  // The KpopCards photos that stand on the tiles of Kpopdle (only the ones that need a credit, only where no trivia picture comes first).
+  const pictures = [...shown, ...idolSet.credits];
   const names = pictures.some((p) => p.kind === 'character' || p.kind === 'series')
     ? await getCreditNames().catch(() => ({ series: {}, character: {} }))
     : { series: {}, character: {} };

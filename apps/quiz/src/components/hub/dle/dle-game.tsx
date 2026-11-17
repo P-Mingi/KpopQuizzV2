@@ -12,7 +12,7 @@ import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { suggest } from '@/lib/dle/search';
 import { correctCounts, shareText } from '@/lib/dle/share';
 import { utcDate } from '@/lib/dle/day';
-import { yesterdayWasText } from '@/lib/dle/yesterday';
+import { yesterdayLead } from '@/lib/dle/yesterday';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
@@ -48,6 +48,8 @@ export interface DleGameProps {
   readonly stats: DleStats | null;
   readonly pool: DlePool | null;
   readonly pictures: Readonly<Record<string, DlePicture>>;
+  /** The tiles the server resolved beyond the pool's own thumbs (Kpopdle idols: a verified trivia picture, else a KpopCards photo), by entity id. */
+  readonly thumbs?: Readonly<Record<string, { readonly src: string; readonly position: string | null }>>;
   /** Group name to its address on KpopQuiz: the result's links (a name it does not know gets none). */
   readonly quizLinks: Readonly<Record<string, string>>;
   /** Group name to the address of its blind test on KpopQuiz (P5, link 3); empty for a game of another world. */
@@ -197,7 +199,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, thumbs, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -212,6 +214,8 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const lookOf = (e: Pick<DlePublicEntity, 'id' | 'attrs'>, size: 'tile' | 'full' = 'tile'): AvatarLook => ({
     art: seriesArt?.[parentName(g, w.subKey, e.attrs)] ?? null,
     preview: (size === 'full' ? pv?.full(e.id) : pv?.tile(e.id)) ?? null,
+    thumb: thumbs?.[e.id]?.src ?? null,
+    position: thumbs?.[e.id]?.position ?? null,
   });
 
   const [date, setDate] = useState<string | null>(null);
@@ -524,7 +528,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <span>{t.enterHelp}</span>
               {!over && guesses.length > 0 ? <button type="button" className="hub-dle-giveup" disabled={busy} onClick={() => void giveUp()}>{t.giveUp}</button> : null}
             </div>
-            {yesterday ? <p className="hub-dle-yline">{yesterdayWasText(locale, w.yesterdayLine, yesterday)}</p> : null}
+            {yesterday ? <p className="hub-dle-yline">{yesterdayLead(locale, w.yesterdayLine)}<strong className="hub-dle-ylast">{yesterday}</strong></p> : null}
             {error ? <p role="alert" className="hub-dle-error">{error}</p> : null}
             {!over && lastCount >= 4 ? (
               <div role="status" className="hub-dle-close hub-dle-toast">
