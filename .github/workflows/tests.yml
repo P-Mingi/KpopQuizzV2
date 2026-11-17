@@ -24,7 +24,9 @@ jobs:
   # and stays fast.
   unit:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # 15 (owner, 2026-11-17): the suite takes 5 to 10 minutes on a runner (the PGlite files of KpopCards); at 10 a slow runner cancelled a
+    # green run of #234 with 610 of 616 files done.
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -78,6 +80,10 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: Build the quiz app
+        # 4 GB of heap (owner, 2026-11-17): at Node's default (about 2 GB here) the TypeScript pass of next build ran out of memory on #234
+        # ("JavaScript heap out of memory" at 2,039 MB).
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm --filter quiz build
 
       - name: Start the built app on :3021
