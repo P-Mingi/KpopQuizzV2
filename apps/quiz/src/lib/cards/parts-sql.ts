@@ -307,7 +307,7 @@ export function dataLiteral(data: PartsData): string {
     return { page: p.page, parts: p.parts, heads_box: heads, note: p.note, focal_from: xy(p.focal_from, `${at}.focal_from`), focal: xy(p.focal, `${at}.focal`),
       review: p.review, rejected: p.rejected, by: p.by };
   });
-  const json = JSON.stringify({ checked_on: data.checked_on, photos }).replace(/[–—]/g, (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`);
+  const json = JSON.stringify({ checked_on: data.checked_on, photos }).replace(/[\u2013\u2014]/g, (c) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`);
   if (json.includes('$parts$')) throw new Error('parts data: a text holds the quote $parts$');
   return json;
 }
