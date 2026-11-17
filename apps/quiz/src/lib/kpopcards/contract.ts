@@ -23,7 +23,7 @@ export type { CardKind, Edition, OwnedEntry, Rarity, RecentPack };
 
 export const KC = {
   /** The stack holds this many packs (was 5). */
-  STACK_CAP: 10,
+  STACK_CAP: 7,
   /** A pack from the timer every 10 minutes. */
   PERIOD_MIN: 10,
   /** At most this many timer packs a Paris day (the midnight top-up is not counted). */

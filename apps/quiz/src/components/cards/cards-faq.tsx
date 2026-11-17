@@ -9,7 +9,7 @@ import { KC } from '@/lib/kpopcards/contract';
 
 import { REMOVAL_PROMISE } from './report-form';
 
-// The stack of KpopCards holds 10 packs (KC.STACK_CAP); CAP of lib/cards/rules.ts is the old Bunnyverse Cards stack of 5.
+// The stack of KpopCards holds 7 packs (KC.STACK_CAP); CAP of lib/cards/rules.ts is the old Bunnyverse Cards stack of 5.
 const CAP = KC.STACK_CAP;
 
 /** The shards of a rewarded ad (lot 4 B4): the default of CARDS_AD_SHARDS (lib/cards/rules.ts). */
