@@ -72,6 +72,7 @@
     "!scripts/o1/prod-proxy/**",
     "scripts/o1-owner-guard.mjs",
     "scripts/o1-hooks/**",
+    ".github/workflows/indexnow.yml",
     ".gitignore",
     "package.json",
     "pnpm-lock.yaml",
