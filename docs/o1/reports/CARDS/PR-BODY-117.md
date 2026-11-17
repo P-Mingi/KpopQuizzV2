@@ -20,12 +20,22 @@ Editor has no such guard, which is why the function works there and not from the
 5. **The preview of a pair's halves** in the admin: each half's picture gets `maxWidth: 'none'`, so the admin's `img` reset no longer
    shrinks it to the half (half 2/2 showed the wrong window).
 
+6. **Otakudle, the owner's private preview (integrator, 2026-11-17):** on the card of the result ("full") the preview picture of the
+   character is small (1,012 files of about 160 x 240, 56 of 360 x 480) and the card stretched it to more than 800 px wide, so it blurred.
+   Now a preview picture narrower than half the card's rendered width is shown at most twice its natural size (never larger than the card),
+   centred, over the same picture blurred and darkened that fills the card; the name and the series stay on top as before. The browser
+   measures the picture once it has loaded and again when the card is resized (`components/hub/dle/dle-card-preview.tsx`, rule
+   `dle-card-fit.ts`, styles in `styles/sites/hub/dle.css`). Unchanged: the tiles of the list and of the guesses, and the public view (the
+   series photo and the name). No larger file was looked for (the pictures are not free; the preview is private).
+   Before and after, with neutral placeholder pictures of the same sizes on an 860 x 560 card:
+   `docs/o1/evidence/cards/otakudle-preview/before-160.png`, `after-160.png`, `before-360.png`, `after-360.png`.
+
 ## For the owner
 
 1. Backup, then apply `docs/pending-migrations/cards/117-catalog-safeupdate.sql` in the SQL Editor (never between 23:50 and 00:30 UTC).
    The notice says "117-catalog-safeupdate: cards_build_catalog() deletes with WHERE true".
 2. The Verify lines of its header (four queries).
-3. Merge this PR (the admin's message and the preview of the halves).
+3. Merge this PR (the admin's message, the preview of the halves, and the Otakudle preview card).
 4. "Reconstruire le catalogue" then works from the admin.
 
 117 and the merge are independent: either can come first. `ALL-verify.sql` does not read the body of `cards_build_catalog()`, so
@@ -37,6 +47,10 @@ Editor has no such guard, which is why the function works there and not from the
 - 117 on PGlite on the production-like fixture: the body changes only by its `WHERE`, the rebuild gives the same catalog as before,
   a second run changes nothing, a body that is not 103's is refused, the rollback gives 103's body back.
 - Exact test value changed on the integrator's request (listed): `catalog-sql.test.ts`'s file set gains the two 117 files.
+- Otakudle: `dle-card.test.ts` gains the size rule (160 x 240 and 360 x 480 on an 820 x 560 card, half the card or wider covers it as
+  before, unknown sizes change nothing) and the markup (the preview goes through the measured part; the series photo does not). The
+  `components/hub`, `lib/dle` and stickers suites (501 tests) and `tsc --noEmit`: green. The screenshots come from the real component,
+  bundled into a local page with the site's `dle.css`.
 
 Not merged: the owner merges.
 
