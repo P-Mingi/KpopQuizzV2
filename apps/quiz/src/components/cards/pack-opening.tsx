@@ -679,7 +679,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
             <div className={`fan${spot ? ' spot' : ''}`} id="fan" ref={fanRef} style={{ '--spot': SPOT_GLOW[bestRarity] } as Vars}>
               {rows.map((x, i) => (
                 <div
-                  key={x.card.n} className={`fc${i < 2 ? ' lft' : ''}${i === bestIdx ? ' best' : ''}`}
+                  key={`${i}-${x.card.n}`} className={`fc${i < 2 ? ' lft' : ''}${i === bestIdx ? ' best' : ''}`}
                   style={{ transform: `translateX(${(i - 2) * spreadPct}%) translateY(${Math.abs(i - 2) * 16}px) rotate(${(i - 2) * (narrow ? 7 : 9)}deg)`, zIndex: i === 2 ? 5 : 5 - Math.abs(i - 2) }}
                 >
                   {demo ? (
@@ -708,7 +708,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
         ) : null}
       </div>
       <div className="pulled" id="pulled" ref={pulledRef}>
-        {phase === 'summary' || multi ? null : slots.map((x, i) => (i < idx ? <div key={x.card.n} className="pop" style={{ position: 'relative' }}><CardFront card={x.card} /></div> : <i key={x.card.n} className="slot" />))}
+        {phase === 'summary' || multi ? null : slots.map((x, i) => (i < idx ? <div key={`${i}-${x.card.n}`} className="pop" style={{ position: 'relative' }}><CardFront card={x.card} /></div> : <i key={`${i}-${x.card.n}`} className="slot" />))}
       </div>
       <div className="ov-actions" id="ov-actions">
         {phase === 'summary' && demo ? (
