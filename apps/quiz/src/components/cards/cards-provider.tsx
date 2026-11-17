@@ -18,7 +18,7 @@ import { clearPendingDemo, deviceId, pendingDemo } from './demo-store';
 import type { CardsApi, RecycleResult } from '@/lib/cards/ui-api';
 import type { KpopCardsApi, LobbyState } from '@/lib/kpopcards/contract';
 import type { OpenResult, OpenedCard, OwnedEntry, WalletState } from '@/lib/cards/types';
-import type { SlimCard, SlimCatalog } from '@/lib/cards/ui-types';
+import type { SlimCard, SlimCatalog, SlimPano } from '@/lib/cards/ui-types';
 
 export type CardsStatus = 'loading' | 'guest' | 'ready' | 'error';
 
@@ -30,6 +30,9 @@ export interface CardsCtx {
   catalog: SlimCatalog;
   byN: Map<number, SlimCard>;
   owned: Map<number, OwnedEntry>;
+  /** Lot 7: the panoramas of the catalog by pano_no, and the pano_no of those the player holds (the wallet's `panoramas`). */
+  panoByP: Map<number, SlimPano>;
+  panoOwned: ReadonlySet<number>;
   api: CardsApi | null;
   /** The contract's API (the seeded mock in a development fixture, the fetch client otherwise) and the lobby state it last answered (null for a guest or before the first read). */
   kc: KpopCardsApi | null;
@@ -72,6 +75,8 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
 
   const byN = useMemo(() => new Map(catalog.cards.map((c) => [c.n, c])), [catalog]);
   const owned = useMemo(() => ownedMap(state?.owned ?? []), [state]);
+  const panoByP = useMemo(() => new Map((catalog.panos ?? []).map((p) => [p.p, p])), [catalog]);
+  const panoOwned = useMemo<ReadonlySet<number>>(() => new Set(state?.panoramas ?? []), [state]);
 
   useEffect(() => {
     let alive = true;
@@ -188,8 +193,8 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
   }, [api]);
 
   const value = useMemo<CardsCtx>(() => ({
-    status, state, now, catalog, byN, owned, api, kc, lobby: (state as LobbyState | null), fixture, protoExample, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
-  }), [status, state, now, catalog, byN, owned, api, kc, fixture, protoExample, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
+    status, state, now, catalog, byN, owned, panoByP, panoOwned, api, kc, lobby: (state as LobbyState | null), fixture, protoExample, demo, lastPack, newSet, clearNew: (n?: number) => setNewSet((prev) => { if (n === undefined) return new Set(); const s = new Set(prev); s.delete(n); return s; }), applyResult, refresh, toggleFav, recycle, toast,
+  }), [status, state, now, catalog, byN, owned, panoByP, panoOwned, api, kc, fixture, protoExample, demo, lastPack, newSet, applyResult, refresh, toggleFav, recycle, toast]);
 
   return (
     <Ctx.Provider value={value}>

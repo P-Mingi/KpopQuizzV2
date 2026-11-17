@@ -32,12 +32,17 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const ladder: Rung[] = ladderRarities(entity.kind).map((r) => {
     const cs = mine.filter((x) => x.rarity === r).sort((a, b) => (a.part ?? 0) - (b.part ?? 0) || a.n - b.n);
     const c = cs[0];
-    const m = c && (c.part === 1) ? cs.find((x) => x.part === 2 && x.n === c.pairN) : undefined;
+    const m = c && (c.part === 1 && (c.parts ?? 2) === 2) ? cs.find((x) => x.part === 2 && x.n === c.pairN) : undefined;
     return { rarity: r, card: c ? slimCard(c, entity.eventType ?? null, faRate) : null, ...(m ? { mate: slimCard(m, entity.eventType ?? null, faRate) } : {}), reason: lockReasonOf(entity.lockReasons, r), anchor: card.num };
   });
-  const half = card.part === 1 || card.part === 2 ? card.part : 0;
-  const mateCard = half && card.pairN != null ? cat.cards.find((x) => x.n === card.pairN && x.entity === card.entity) : undefined;
-  const pair: DetailProps['pair'] = half ? { side: half === 1 ? 'left' : 'right', mate: mateCard ? slimCard(mateCard, entity.eventType ?? null, faRate) : null } : null;
+  const half = card.part === 1 || card.part === 2 || card.part === 3 ? card.part : 0;
+  const parts = card.parts ?? 2;
+  const mateCard = half && parts === 2 && card.pairN != null ? cat.cards.find((x) => x.n === card.pairN && x.entity === card.entity) : undefined;
+  // Lot 7: a photo in 3 cards has two other parts, in part order.
+  const others = half && parts === 3 ? (card.setNs ?? []).filter((n) => n !== card.n).flatMap((n) => { const x = cat.cards.find((y) => y.n === n && y.entity === card.entity); return x ? [slimCard(x, entity.eventType ?? null, faRate)] : []; }) : [];
+  const pair: DetailProps['pair'] = half
+    ? { side: parts === 3 ? (half === 1 ? 'left' : half === 2 ? 'middle' : 'right') : half === 1 ? 'left' : 'right', mate: mateCard ? slimCard(mateCard, entity.eventType ?? null, faRate) : null, ...(parts === 3 ? { others } : {}) }
+    : null;
   const lockR = RARITIES.find((r) => r === lock);
   const missing = lockR ? ladder.find((x) => x.rarity === lockR && !x.card) : undefined;
   const locked = !!missing;
@@ -50,7 +55,7 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
   const groupLine = entity.group || SOLOIST;
   const allFacts: [string, string | null][] =
     entity.kind === 'idol' ? [['Group', groupLine], ['Debut', year !== null ? (entity.group ? `${year}, with the group` : String(year)) : null], ['Edition', edition], ['Number', card.num]]
-    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Disbanded', entity.endYear ? String(entity.endYear) : null], ['Edition', edition], ...(half ? [['Part', `${half === 1 ? 'Left' : 'Right'} half, ${half} of 2`] as [string, string]] : []), ['Number', card.num]]
+    : entity.kind === 'group' ? [['Debut', year !== null ? String(year) : null], ['Disbanded', entity.endYear ? String(entity.endYear) : null], ['Edition', edition], ...(half ? [['Part', parts === 3 ? `${half === 1 ? 'Left' : half === 2 ? 'Middle' : 'Right'} third, ${half} of 3` : `${half === 1 ? 'Left' : 'Right'} half, ${half} of 2`] as [string, string]] : []), ...(card.pano !== undefined && cat.panoramas?.some((p) => p.p === card.pano) ? [['Panorama', `Hold all ${parts} cards of this photo to get it`] as [string, string]] : []), ['Number', card.num]]
     : [['Type', entity.eventType ?? 'Event'], ['Year', year !== null ? String(year) : null], ['Edition', edition], ['Number', card.num]];
   const facts = allFacts.filter((f): f is [string, string] => f[1] !== null && f[1] !== '');
   const subParts = entity.kind === 'idol' ? [groupLine, year !== null ? `debut ${year}` : null]

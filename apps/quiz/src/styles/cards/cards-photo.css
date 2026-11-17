@@ -6,6 +6,9 @@
 .bvc .c-pair{position:absolute;top:0;bottom:0;width:200%;display:block}
 .bvc .c-pair.c-half1{left:0}
 .bvc .c-pair.c-half2{left:-100%}
+/* Lot 7: a photo in 3 cards, a window three cards wide: the third part shows its right side */
+.bvc .c-pair.c-p3{width:300%}
+.bvc .c-pair.c-p3.c-half3{left:-200%}
 .bvc .c-pair + .c-foil{z-index:2}
 /* the page shell */
 .bvc{min-height:100vh}

@@ -8,26 +8,27 @@
 // Complete. On a phone the filters open in a panel from the bottom (the Filters button), and the active filters show as chips under the tools.
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { kcPath } from '@/lib/cards/kc-paths';
 import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
 import { isApiError } from '@/lib/kpopcards/contract';
-import { NO_FILTERS, SORTS, countByKind, extras, filterItems, gridCells, gridPages, ownedCount, pageWords, paginate, partWord, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, PANO_SECTION, SORTS, countByKind, extras, filterItems, filterPanos, gridCells, gridPages, ownedCount, pageWords, paginate, panoCount, partLabel, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
 import { CardFront, Gem, Ico, LOCK_ICON } from './card-art';
 import { useCards } from './cards-provider';
 import { PocketFoot } from './fav-star';
+import { PanoOpenContext, PanoPocket, PanoSheet } from './pano-pocket';
 import { WishHeart } from './wish-toggle';
 import { reducedMotion } from './fx';
 import { flyReward } from './reward-fly';
 
 import type { AdsContext } from '@/lib/cards/ads';
 import type { Filters, SortKey } from '@/lib/cards/ui-model';
-import type { BinderItem } from '@/lib/cards/ui-types';
+import type { BinderItem, SlimPano } from '@/lib/cards/ui-types';
 import type { CardKind, Rarity } from '@/lib/cards/types';
 
 const GRID_PER_PAGE = 36;
@@ -101,7 +102,7 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
         <span className="miss">
           <span className="mno">{d.num}</span>
           <span className={`mic gc-${d.rarity}`}><Gem r={d.rarity} className="" /></span>
-          <span><span className="mnm">{d.name}</span><span className="med">{ed}{d.part ? <> &middot; {d.part}/2</> : null}</span></span>
+          <span><span className="mnm">{d.name}</span><span className="med">{ed}{d.part ? <> &middot; {partLabel(d)}</> : null}</span></span>
         </span>
       </Link>
       <PocketFoot n={d.n} name={d.name} edition={ed} slot={<WishHeart n={d.n} name={d.name} edition={ed} />} />
@@ -110,8 +111,19 @@ function Pocket({ item }: { item: BinderItem }): React.ReactElement {
 }
 
 /** The pockets of a run of cells, in reading order (a pair's halves sit side by side, each in its own pocket as the prototype draws them). A null cell is an empty pocket. */
-function Cells({ cells }: { cells: readonly (BinderItem | null)[] }): React.ReactElement {
-  return <>{cells.map((a, k) => (a ? <Pocket key={a.i} item={a} /> : <div key={`e${k}`} className="pw"><span className="pocket empty" /><div className="pw-foot" /></div>))}</>;
+function Cells({ cells, hung = [] }: { cells: readonly (BinderItem | null)[]; /** Lot 7: the panoramas of the page, each drawn in a row of its own before the cell at `at`. */ hung?: readonly { at: number; pano: SlimPano }[] }): React.ReactElement {
+  const at = (k: number): React.ReactNode => hung.filter((h) => h.at === k).map((h) => <PanoPocket key={`p${h.pano.p}`} pano={h.pano} />);
+  return (
+    <>
+      {cells.map((a, k) => (
+        <Fragment key={a ? a.i : `e${k}`}>
+          {at(k)}
+          {a ? <Pocket item={a} /> : <div className="pw"><span className="pocket empty" /><div className="pw-foot" /></div>}
+        </Fragment>
+      ))}
+      {at(cells.length)}
+    </>
+  );
 }
 
 type Show = Filters['show'] | 'want';
@@ -134,8 +146,8 @@ function PageOf({ page, index, sections, done }: { page: ReturnType<typeof pagin
         <span>Page {index + 1}</span>
       </div>
       <div className="pockets">
-        <Cells cells={page.cells} />
-        {Array.from({ length: Math.max(0, PER_PAGE - page.cells.length) }, (_, i) => EMPTY(`f${i}`))}
+        <Cells cells={page.cells} hung={page.hung} />
+        {Array.from({ length: Math.max(0, PER_PAGE - page.used) }, (_, i) => EMPTY(`f${i}`))}
       </div>
     </div>
   );
@@ -143,7 +155,7 @@ function PageOf({ page, index, sections, done }: { page: ReturnType<typeof pagin
 
 export function BinderView({ ads, only = null }: { ads: AdsContext; /** One group: its section id (a group's slug); null: every group. */ only?: string | null }): React.ReactElement {
   const c = useCards();
-  const { status, state, catalog, owned, toast } = c;
+  const { status, state, catalog, owned, toast, panoOwned } = c;
   const router = useRouter();
   const path = usePathname();
   const params = useSearchParams();
@@ -155,6 +167,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   // Lot 3 A17: only the cards of the wishlist (a value of "Show", on top of the other filters).
   const [show, setShow] = useState<Show>('all');
   const [panel, setPanel] = useState(false);
+  const [viewPano, setViewPano] = useState<SlimPano | null>(null);
   const [page, setPage] = useState(0);
   const [gpage, setGpage] = useState(0);
   const [single, setSingle] = useState(false);
@@ -192,11 +205,19 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
     const l = filterItems(scoped, { ...f, show: show === 'want' ? 'all' : show }, owned);
     return show === 'want' ? l.filter((i) => !i.locked && wishSet.has(i.card.n)) : l;
   }, [scoped, f, show, owned, wishSet]);
-  const pages = useMemo(() => paginate(list, PER_PAGE), [list]);
+  // Lot 7: the Panoramas section (its own page, /collection/panoramas, and the last pages of the whole binder). A panorama is never in the card list: the
+  // ones that hang under their parts ride with the last part, the section lists them all, one a row, under the same filters.
+  const isPano = only === PANO_SECTION;
+  const panoShow = useMemo(() => (only === null || isPano ? filterPanos(catalog.panos, { ...f, show: show === 'want' ? 'fav' : show }, panoOwned) : []), [catalog.panos, f, show, only, isPano, panoOwned]);
+  const pages = useMemo(() => paginate(list, PER_PAGE, 3, panoShow), [list, panoShow]);
   const gridList = useMemo(() => (view === 'grid' ? gridPages(sortItems(list, sort, owned), GRID_PER_PAGE) : []), [list, sort, owned, view]);
+  const pc0 = useMemo(() => panoCount(catalog.panos, panoOwned), [catalog.panos, panoOwned]);
   const total = scopedCards.length;
   const own = ownedCount(scopedCards, owned);
-  const pct = total ? Math.round((own / total) * 1000) / 10 : 0;
+  // The head of the page counts the panoramas on the Panoramas page, and the cards everywhere else (a panorama is never in the cards' count).
+  const headTotal = isPano ? pc0.total : total;
+  const headOwn = isPano ? pc0.own : own;
+  const pct = headTotal ? Math.round((headOwn / headTotal) * 1000) / 10 : 0;
   const kinds = useMemo(() => countByKind(scopedCards, owned), [scopedCards, owned]);
   // Lot 6: the pockets of age-locked subjects are not editions that are not issued yet, and count nowhere.
   const lockedCount = scoped.filter((i) => i.locked && !i.soon).length;
@@ -217,9 +238,9 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const gp = Math.max(0, Math.min(gpage, gpc - 1));
   const secDone = useMemo(() => {
     const m = new Map<string, boolean>();
-    for (const s of catalog.sections) m.set(s.id, s.ns.length > 0 && s.ns.every((n) => owned.has(n)));
+    for (const s of catalog.sections) m.set(s.id, s.panos ? s.panos.length > 0 && s.panos.every((p) => panoOwned.has(p)) : s.ns.length > 0 && s.ns.every((n) => owned.has(n)));
     return m;
-  }, [catalog.sections, owned]);
+  }, [catalog.sections, owned, panoOwned]);
 
   const refilter = (next: Filters, nextShow: Show = show): void => { setF(next); setShow(nextShow); setPage(0); setGpage(0); };
 
@@ -309,9 +330,13 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
       <button type="button" className="btn-quiet" onClick={() => gGo(1, !!bottom)} disabled={gp >= gpc - 1}>Next <span aria-hidden="true">&rarr;</span></button>
     </nav>
   );
-  const kindsLine = (['idol', 'group', 'event'] as CardKind[]).filter((k) => kinds[k].all > 0).map((k) => `${({ idol: 'Idols', group: 'Group photos', event: 'Events' })[k]} ${kinds[k].own} of ${kinds[k].all}`).join(' \u00B7 ');
+  const kindsLine = isPano ? 'Never counted in your cards' : (['idol', 'group', 'event'] as CardKind[]).filter((k) => kinds[k].all > 0).map((k) => `${({ idol: 'Idols', group: 'Group photos', event: 'Events' })[k]} ${kinds[k].own} of ${kinds[k].all}`).join(' \u00B7 ');
+  // Lot 7: this group's panoramas, with their own count (a panorama is no card: it is in no total above).
+  const scopePanos = only !== null && !isPano ? catalog.panos.filter((p) => scopedCards.some((cd) => p.cards.includes(cd.n))) : catalog.panos;
+  const panoOwn = scopePanos.filter((p) => panoOwned.has(p.p)).length;
 
   return (
+    <PanoOpenContext.Provider value={setViewPano}>
     <div className="wrap page">
       <div className="b-head">
         <div>
@@ -319,9 +344,9 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
           <p className="lede" style={{ marginTop: 6 }}>{sec ? <>Your {sec.name} binder. <Link href={kcPath.collection}>All groups</Link></> : 'Your binder, one page per group. Tap any card to see it in full.'}</p>
         </div>
         <div className="b-progress">
-          <div className="lbl"><span><b className="num" id="b-own">{own}</b> of <b className="num" id="b-total">{total}</b> cards</span><span className="num" id="b-pct">{pct}%</span></div>
+          <div className="lbl"><span><b className="num" id="b-own">{headOwn}</b> of <b className="num" id="b-total">{headTotal}</b> {isPano ? 'panoramas' : 'cards'}</span><span className="num" id="b-pct">{pct}%</span></div>
           <span className="bar"><i id="b-bar" style={{ width: `${pct}%` }} /></span>
-          <div className="b-kinds" id="b-kinds">{kindsLine}{lockedCount ? `${kindsLine ? ' \u00B7 ' : ''}${lockedCount} editions not issued yet` : ''}</div>
+          <div className="b-kinds" id="b-kinds">{kindsLine}{lockedCount ? `${kindsLine ? ' \u00B7 ' : ''}${lockedCount} editions not issued yet` : ''}{!isPano && scopePanos.length ? `${kindsLine || lockedCount ? ' \u00B7 ' : ''}Panoramas ${panoOwn} of ${scopePanos.length}` : ''}</div>
         </div>
       </div>
       {guest ? (
@@ -378,12 +403,14 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
               <span className="lbl" aria-hidden="true">Sort</span>
               {SORTS.map((s) => <button key={s.key} type="button" className="fpill" data-v={s.key} aria-pressed={sort === s.key} title={s.hint} onClick={() => { setGpage(0); setUrl({ sort: s.key === 'rarity' ? null : s.key, view: 'grid' }); }}>{s.label}</button>)}
             </div>
-            <Pager id="pg-top" />
+            {isPano ? null : <Pager id="pg-top" />}
           </div>
           <div className="grid" id="grid">
-            {gridList.length ? <Cells cells={gridCells(gridList[gp] ?? [], gp < gpc - 1, GRID_PER_PAGE)} /> : <p className="g-empty">No card matches these filters.</p>}
+            {isPano ? (panoShow.length ? panoShow.map((p) => <PanoPocket key={p.p} pano={p} />) : <p className="g-empty">No panorama matches these filters.</p>)
+              : gridList.length ? <Cells cells={gridCells(gridList[gp] ?? [], gp < gpc - 1, GRID_PER_PAGE)} /> : <p className="g-empty">No card matches these filters.</p>}
           </div>
-          <Pager id="pg-bot" bottom />
+          {isPano ? null : <Pager id="pg-bot" bottom />}
+          {only === null && catalog.panos.length ? <p className="pano-strip"><b>Panoramas {pc0.own} of {pc0.total}</b> The whole photo of a group, when you hold every card of it. <Link href={kcPath.group(PANO_SECTION)}>See the Panoramas</Link></p> : null}
         </div>
       ) : (
         <div className="b-body" id="b-body">
@@ -408,9 +435,9 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
           </div>
           <nav className="idx" id="idx" aria-label="Binder sections">
             {catalog.sections.map((s) => {
-              const o = s.ns.filter((n) => owned.has(n)).length;
+              const o = s.panos ? s.panos.filter((p) => panoOwned.has(p)).length : s.ns.filter((n) => owned.has(n)).length;
               const complete = secDone.get(s.id) === true;
-              const inner = <><i /><span>{s.name}</span>{complete ? <span className="ok" title="Complete"><Ico name="check" /></span> : <small>{o}/{s.ns.length}</small>}</>;
+              const inner = <><i /><span>{s.name}</span>{complete ? <span className="ok" title="Complete"><Ico name="check" /></span> : <small>{o}/{s.panos ? s.panos.length : s.ns.length}</small>}</>;
               return only !== null ? (
                 <Link key={s.id} href={kcPath.group(s.id)} className="idx-link" style={{ '--t': s.color } as React.CSSProperties} aria-current={only === s.id ? 'true' : 'false'}>{inner}</Link>
               ) : (
@@ -421,7 +448,9 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
         </div>
       )}
       {panel ? <div className="fscrim" id="fscrim" onClick={closePanel} /> : null}
+      {viewPano ? <PanoSheet pano={viewPano} onClose={() => setViewPano(null)} /> : null}
       <footer className="foot"><Link href={kcPath.credits}>Photo credits</Link><Link href={kcPath.report}>Report a photo</Link><span>Every photo is free to reuse, credited on the card.</span></footer>
     </div>
+    </PanoOpenContext.Provider>
   );
 }
