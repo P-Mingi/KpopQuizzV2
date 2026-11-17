@@ -35,6 +35,11 @@
 //       back: the wrapper sets CARDS_SUPABASE_URL, CARDS_HOST_CONFIRMED (the host it had typed, compared here with the host of
 //       CARDS_SUPABASE_URL; equal = the typing is not asked a second time) and CARDS_SERVICE_KEY (the key, taken from the environment of this
 //       child process only instead of being typed). Started by hand none of these exist: the host and the key are typed as above.
+// Lot 7 (owner, 2026-11-17): a group photo gives `parts` cards, 2 (halves, -h1 -h2) or 3 (thirds, 5.5 x 8.5 each, -t1 to -t3), and a panorama,
+// the whole window (<stem>-p2-1x.webp, <stem>-p3-1x.webp; its 2x only when every part has its 2x). --publish cuts coalesce(parts, 2) parts and
+// the panorama, then sets storage_path, file_focal_x/y, file_parts and file_pano in ONE PATCH (only the columns the database has: before
+// file 118 the script behaves as before). A photo whose files match its focal point and parts and has file_pano is skipped; a pair cut before
+// lot 7 at its current focal point only gains its -p2 panorama (its halves stay valid and are not uploaded again).
 // Options: --only slug1,slug2   limit to some subjects (the cleanup then looks at the objects of those slugs only).
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -43,8 +48,8 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { cutPlan, mergePhotoFiles, partFileName, planRemovals, stemOf } from './card-files.mjs';
-import { SIZES } from './card-geometry.mjs';
+import { cutPlan, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, stemOf } from './card-files.mjs';
+import { SIZES, panoSizes } from './card-geometry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
@@ -106,18 +111,21 @@ function ask(prompt) {
   });
 }
 
-/** Cuts a subject at a focal point: a person gives one part (0), a group its two halves (1, 2), each with its 1x and 2x WebP. */
-async function cut(src, s, fx, fy) {
+/** Cuts a subject at a focal point: a person gives one part (0), a group its `n` parts (halves 1-2 or thirds 1-3), each with its 1x and 2x WebP,
+ *  and its panorama (the whole window; `pano.files['2x']` only when every part has its 2x). `onlyPano`: no part is encoded (a pair cut before lot 7). */
+async function cut(src, s, fx, fy, n = 2, onlyPano = false) {
   const meta = await sharp(src).metadata();
-  const plan = cutPlan(isGroup(s), meta.width, meta.height, fx, fy);
-  const parts = [];
-  for (const p of plan.parts) {
-    const base = sharp(src).extract({ left: p.left, top: p.top, width: p.width, height: p.height });
+  const plan = cutPlan(isGroup(s), meta.width, meta.height, fx, fy, n);
+  const encode = async (box, sizes, only) => {
+    const base = sharp(src).extract({ left: box.left, top: box.top, width: box.width, height: box.height });
     const files = {};
-    for (const [k, [w, h]] of Object.entries(SIZES)) files[k] = await base.clone().resize(w, h, { fit: 'cover' }).webp({ quality: 82 }).toBuffer();
-    parts.push({ part: p.part, files, cropWidth: p.cropWidth, has2x: p.has2x });
-  }
-  return { parts, window: plan.window };
+    for (const [k, [w, h]] of Object.entries(sizes)) if (!only || only.includes(k)) files[k] = await base.clone().resize(w, h, { fit: 'cover' }).webp({ quality: 82 }).toBuffer();
+    return files;
+  };
+  const parts = [];
+  for (const p of plan.parts) parts.push({ part: p.part, files: onlyPano ? {} : await encode(p, SIZES), cropWidth: p.cropWidth, has2x: p.has2x });
+  const pano = plan.pano ? { files: await encode(plan.pano, panoSizes(n), plan.pano.has2x ? null : ['1x']), has2x: plan.pano.has2x } : null;
+  return { parts, pano, window: plan.window };
 }
 
 function readSecret(prompt) {
@@ -151,32 +159,37 @@ async function preview() {
     const cells = [];
     for (const p of s.photos.filter((x) => CUT.has(x.status))) {
       const src = await original(s, p);
-      const { parts } = await cut(src, s, p.focal.x, p.focal.y);
+      const n = p.parts === 3 ? 3 : 2;
+      const { parts, pano } = await cut(src, s, p.focal.x, p.focal.y, n);
       const stem = stemOf(s.slug, p.slot, p.focal.x, p.focal.y);
-      for (const q of parts) for (const [k, buf] of Object.entries(q.files)) writeFileSync(path.join(dir, partFileName(stem, q.part, k)), buf);
+      for (const q of parts) for (const [k, buf] of Object.entries(q.files)) writeFileSync(path.join(dir, partFileName(stem, q.part, k, n)), buf);
+      if (pano) for (const [k, buf] of Object.entries(pano.files)) writeFileSync(path.join(dir, panoFileName(stem, n, k)), buf);
       for (const q of parts) {
-        const label = q.part === 0 ? 'card' : `half ${q.part}/2`;
+        const label = q.part === 0 ? 'card' : `${q.part}/${n}`;
         if (!q.has2x) nSmall++;
         console.log(`${s.slug.padEnd(14)} photo ${p.slot} ${p.status.padEnd(8)} ${label.padEnd(9)} crop ${q.cropWidth}px wide ${q.has2x ? 'ok for 2x' : 'TOO SMALL FOR 2x'}`);
       }
       nCut++;
-      cells.push({ p, stem, parts: parts.map((q) => ({ part: q.part, cropWidth: q.cropWidth, has2x: q.has2x })) });
+      if (pano) console.log(`${s.slug.padEnd(14)} photo ${p.slot} ${p.status.padEnd(8)} panorama ${(`${pano.has2x ? 'ok for 2x' : 'TOO SMALL FOR 2x'}`)}`);
+      cells.push({ p, stem, n, parts: parts.map((q) => ({ part: q.part, cropWidth: q.cropWidth, has2x: q.has2x })), pano: pano ? { has2x: pano.has2x } : null });
     }
     blocks.push({ s, cells, out: s.photos.filter((x) => x.status === 'out') });
   }
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  const cell = (s, { p, stem, parts }) => `<div class="c${parts.length > 1 ? ' pair' : ''}${p.status === 'pending' ? ' rv' : ''}"><div class="im">${parts.map((q) => `<img src="${esc(partFileName(stem, q.part, '1x'))}" alt="${esc(s.name)} photo ${p.slot}${q.part ? ` ${q.part}/2` : ''}">`).join('')}</div>
+  const cell = (s, { p, stem, n, parts, pano }) => `<div class="c${parts.length > 1 ? ` pair${n === 3 ? ' tri' : ''}` : ''}${p.status === 'pending' ? ' rv' : ''}"><div class="im">${parts.map((q) => `<img src="${esc(partFileName(stem, q.part, '1x', n))}" alt="${esc(s.name)} photo ${p.slot}${q.part ? ` ${q.part}/${n}` : ''}">`).join('')}</div>
+${pano ? `<div class="pano"><img src="${esc(panoFileName(stem, n, '1x'))}" alt="${esc(s.name)} photo ${p.slot} panorama"></div>` : ''}
 <b>photo ${p.slot}</b> <span class="m">${esc(p.status === 'pending' ? 'to review' : p.status)}, quality ${p.quality}${p.stage ? ', stage' : ''}${p.full_ok ? ', full art ok' : ''}, focal ${p.focal.x}/${p.focal.y}</span>
 <div class="m">${esc(p.date)}${p.event ? `, ${esc(p.event)}` : ''}</div>
-${parts.map((q) => `<div class="m">${q.part ? `half ${q.part}/2: ` : ''}crop ${q.cropWidth}px${q.has2x ? '' : ' <span class="w">too small for 2x</span>'}</div>`).join('')}
+${parts.map((q) => `<div class="m">${q.part ? `${q.part}/${n}: ` : ''}crop ${q.cropWidth}px${q.has2x ? '' : ' <span class="w">too small for 2x</span>'}</div>`).join('')}
+${pano ? `<div class="m">panorama: the whole window${pano.has2x ? ', has its 2x' : ' <span class="w">no 2x (a part is too small)</span>'}</div>` : ''}
 ${p.status === 'pending' ? `<div class="m w">${esc(p.review.join('; '))}</div>` : ''}
 <div class="m">${esc(p.author)}, ${esc(p.licence)}, <a href="${esc(p.page)}">source</a></div></div>`;
-  const block = ({ s, cells, out }) => `<h2>${esc(s.name)} <span class="m">${s.kind === 'idol' ? 'person' : 'group, a pair per edition'}, ${cells.length} photos${s.returning ? ', returning group' : ''}</span></h2>
+  const block = ({ s, cells, out }) => `<h2>${esc(s.name)} <span class="m">${s.kind === 'idol' ? 'person' : 'group, 2 or 3 cards and a panorama per edition'}, ${cells.length} photos${s.returning ? ', returning group' : ''}</span></h2>
 <div class="g">${cells.map((c) => cell(s, c)).join('\n')}</div>
 ${out.length ? `<ul class="m">${out.map((p) => `<li>left out: <a href="${esc(p.page)}">${esc(p.file ?? p.page)}</a>: ${esc(p.reasons.join('; '))}</li>`).join('')}</ul>` : ''}`;
   const html = `<!doctype html><meta charset="utf-8"><title>Cards photo preview, lot 3</title>
 <style>body{font:14px system-ui;margin:16px;background:#14121a;color:#eee}a{color:#9cf}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.c{background:#201c2b;padding:8px;border-radius:8px}.c.rv{outline:2px dashed #ffb454}.c.pair{grid-column:span 2}.im{display:flex;gap:2px}.c img{flex:1;min-width:0;width:100%;aspect-ratio:5.5/8.5;object-fit:cover;border-radius:6px;display:block}
+.c{background:#201c2b;padding:8px;border-radius:8px}.c.rv{outline:2px dashed #ffb454}.c.pair{grid-column:span 2}.c.tri{grid-column:span 3}.pano img{width:100%;aspect-ratio:auto;margin-top:4px;border-radius:6px;display:block}.im{display:flex;gap:2px}.c img{flex:1;min-width:0;width:100%;aspect-ratio:5.5/8.5;object-fit:cover;border-radius:6px;display:block}
 .w{color:#ffb454}.m{font-size:12px;opacity:.8}h2{margin-top:28px}</style>
 <h1>${nCut} photos of ${chosen.length} subjects from their Commons originals (dashed: waiting for your review in the admin)</h1>
 ${blocks.map(block).join('\n')}`;
@@ -222,7 +235,7 @@ async function publish() {
     if (!r.ok) throw new Error(`${init.method ?? 'GET'} ${p.split('?')[0]}: ${r.status} ${(await r.text()).slice(0, 200)}`);
     return r;
   };
-  const rowsAll = await (await rest('cards_photos?select=id,entity_id,slot,source_page,focal_x,focal_y,status,storage_path,file_focal_x,file_focal_y&status=in.(auto,approved)&order=id&limit=2000')).json();
+  const rowsAll = await (await rest('cards_photos?select=*&status=in.(auto,approved)&order=id&limit=2000')).json();
   const slugOf = (row) => row.entity_id.replace(/^(idol|group):/, '');
   const rows = rowsAll.filter((r) => !ONLY || ONLY.has(slugOf(r)));
   const upload = async (name, body) => {
@@ -236,18 +249,30 @@ async function publish() {
     if (!hit) { console.log(`${slug} photo ${row.slot}: not in photos.json, skipped`); skipped++; continue; }
     const { s, p } = hit;
     const stem = stemOf(slug, row.slot, row.focal_x, row.focal_y);
-    if (row.storage_path === stem && row.file_focal_x === row.focal_x && row.file_focal_y === row.focal_y) { console.log(`${slug} photo ${row.slot}: already cut at ${row.focal_x}/${row.focal_y}`); skipped++; continue; }
+    // select=* gives the lot 7 columns (parts, file_parts, file_pano) only once file 118 is applied; before it the script is what it was.
+    const { parts: n, action } = fileAction(row, stem, isGroup(s));
+    if (action === 'skip') { console.log(`${slug} photo ${row.slot}: already cut at ${row.focal_x}/${row.focal_y}${isGroup(s) && 'file_pano' in row ? ` in ${n}, with its panorama` : ''}`); skipped++; continue; }
     const src = await original(s, p);
-    const { parts } = await cut(src, s, row.focal_x, row.focal_y);
+    const { parts, pano } = await cut(src, s, row.focal_x, row.focal_y, n, action === 'pano');
     const sent = [];
-    for (const q of parts) {
-      for (const k of q.has2x ? ['1x', '2x'] : ['1x']) { // no upscaled 2x file: the site uses the 1x file for a small card
-        await upload(partFileName(stem, q.part, k), q.files[k]);
-        sent.push(partFileName(stem, q.part, k).slice(stem.length));
+    if (action === 'full') {
+      for (const q of parts) {
+        for (const k of q.has2x ? ['1x', '2x'] : ['1x']) { // no upscaled 2x file: the site uses the 1x file for a small card
+          await upload(partFileName(stem, q.part, k, n), q.files[k]);
+          sent.push(partFileName(stem, q.part, k, n).slice(stem.length));
+        }
       }
     }
-    // The row is set only once every part is up; its cards then enter the packs (trigger cards_photos_ready of 103).
-    await rest(`cards_photos?id=eq.${row.id}`, { method: 'PATCH', body: JSON.stringify({ storage_path: stem, file_focal_x: row.focal_x, file_focal_y: row.focal_y }), headers: { Prefer: 'return=minimal' } });
+    // The panorama: its 1x always, its 2x only when every part has its 2x.
+    if (pano && 'file_pano' in row) {
+      for (const k of pano.has2x ? ['1x', '2x'] : ['1x']) {
+        await upload(panoFileName(stem, n, k), pano.files[k]);
+        sent.push(panoFileName(stem, n, k).slice(stem.length));
+      }
+    }
+    // The row is set only once every part and the panorama are up, in ONE PATCH; its cards then enter the packs (trigger cards_photos_ready of 103).
+    const body = filePatch({ stem, fx: row.focal_x, fy: row.focal_y, parts: n, pano: Boolean(pano) && 'file_pano' in row }, { fileParts: 'file_parts' in row, filePano: 'file_pano' in row });
+    await rest(`cards_photos?id=eq.${row.id}`, { method: 'PATCH', body: JSON.stringify(body), headers: { Prefer: 'return=minimal' } });
     console.log(`${slug} photo ${row.slot}: uploaded ${sent.join(' ')} at ${row.focal_x}/${row.focal_y}`);
     done++;
   }
@@ -258,7 +283,7 @@ async function publish() {
   for (const row of rows) {
     const slug = slugOf(row);
     const list = current.get(slug) ?? [];
-    list.push({ slot: row.slot, group: row.entity_id.startsWith('group:'), fx: row.focal_x, fy: row.focal_y });
+    list.push({ slot: row.slot, group: row.entity_id.startsWith('group:'), fx: row.focal_x, fy: row.focal_y, parts: row.parts === 3 ? 3 : 2 });
     current.set(slug, list);
   }
   const names = await listBucket(origin, H);
