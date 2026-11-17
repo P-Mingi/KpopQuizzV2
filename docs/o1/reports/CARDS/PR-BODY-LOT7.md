@@ -28,9 +28,11 @@ Screenshots (desktop 1440 x 860 and mobile 390 x 844, the fixture's neutral pict
 
 ## For the owner
 
-`docs/o1/reports/CARDS/OWNER-LOT7.md`, in one pass: backup; 116c first if you want it and have not applied it (118 changes the note of
-6 of its photos); 118 and its Verify lines; merge; "Reconstruire le catalogue"; the 37 "To review" photos if you want; `pnpm --filter quiz
-owner:cards`; the first real pack. 117 (PR #233) must be applied before 118.
+`docs/o1/reports/CARDS/OWNER-LOT7.md`, in one pass: backup; the corrected 117 (this PR: its md5 guards ignore spaces and line endings, so a
+paste from Windows works; the 117 of #233 was refused in production for that reason, with nothing changed); 118 and its Verify lines;
+merge; "Reconstruire le catalogue"; the "To review" photos of the five groups that leave the packs (DAY6, PENTAGON, STAYC, GOT7, ITZY:
+listed photo by photo on the owner's page) if you want them back; `pnpm --filter quiz owner:cards`; the first real pack. 116c is already
+applied in production.
 
 ## Checks
 
