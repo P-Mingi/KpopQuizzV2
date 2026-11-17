@@ -1,11 +1,11 @@
 // Bunnyverse Cards, lane U: the pure model of the pages. From the catalog (cards and entities) it builds the slim cards, the pockets of
 // the binder (a card, or an edition that cannot exist yet with its reason sentence), the sections, and the numbers the pages print.
 // Nothing here invents a number: every count is taken from the catalog and from the player's state.
-import { RARITIES, RARITY_LABEL, SHARDS } from './rules';
+import { RARITIES, RARITY_LABEL, SHARDS, creditLine } from './rules';
 import { paletteFor } from './ui-palette';
 
 import type { CardKind, CatalogOdds, LockReason, OwnedEntry, Rarity } from './types';
-import type { BinderItem, BinderSection, CardPicture, SlimCard, SlimCatalog, UiCard, UiCatalog, UiEntity, UiPhoto } from './ui-types';
+import type { BinderItem, BinderSection, CardPicture, PanoPicture, SlimCard, SlimCatalog, SlimPano, UiCard, UiCatalog, UiEntity, UiPanorama, UiPhoto } from './ui-types';
 
 /** The picture of a card (amendment 1, point 7): the cropped WebP while it was cut at the current focal point, else the source photo. */
 export function photoPicture(photo: UiPhoto | null): CardPicture | null {
@@ -39,11 +39,35 @@ export function slimCard(c: UiCard, entityType: string | null = null, rate: stri
   return {
     n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear,
     img: photoPicture(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
-    part: c.part === 1 || c.part === 2 ? c.part : 0, pairN: c.part === 1 || c.part === 2 ? (c.pairN ?? null) : null,
+    part: c.part === 1 || c.part === 2 || c.part === 3 ? c.part : 0, pairN: c.part === 1 || c.part === 2 ? (c.pairN ?? null) : null,
+    // Lot 7: a part keeps the size of its set, the numbers of every part and the number of its panorama.
+    ...(c.part && c.parts ? { parts: c.parts } : {}), ...(c.part && c.setNs ? { setNs: c.setNs } : {}), ...(c.part && c.pano !== undefined ? { pano: c.pano } : {}),
     ...(c.endYear ? { endYear: c.endYear } : {}),
     ...(rate && c.rarity === 'L' ? { rate } : {}),
   };
 }
+
+/** Lot 7: the picture of a panorama: its own file (the whole window), else the parts' files side by side, else the source photo that CSS crops. */
+export function panoPicture(p: UiPanorama): PanoPicture | null {
+  const i = p.image;
+  if (!i) return null;
+  if (i.url) return { kind: 'file', src: i.url, srcSet: i.url2x ? `${i.url} 1x, ${i.url2x} 2x` : null, parts: [] };
+  if (i.partUrls && i.partUrls.length === p.parts) return { kind: 'parts', src: i.partUrls[0]!, srcSet: null, parts: [...i.partUrls] };
+  if (i.sourceUrl) return { kind: 'source', src: i.sourceUrl, srcSet: null, parts: [] };
+  return null;
+}
+
+/** Lot 7: a catalog panorama as the pages draw it. */
+export function slimPano(p: UiPanorama, entity?: Pick<UiEntity, 'debutYear' | 'endYear'>): SlimPano {
+  return {
+    p: p.p, num: p.num, entity: p.entity, rarity: p.rarity, edition: p.edition, name: p.name, debutYear: entity?.debutYear ?? null,
+    ...(entity?.endYear ? { endYear: entity.endYear } : {}), parts: p.parts, cards: [...p.cards], img: panoPicture(p),
+    fx: p.image?.focalX ?? 50, fy: p.image?.focalY ?? 50, credit: p.photo ? creditLine(p.photo, p.photo.slot) : null,
+  };
+}
+
+/** The id of the Panoramas section of the binder (/kpopcards/collection/panoramas). */
+export const PANO_SECTION = 'panoramas';
 
 /** The group line of a person without one (decision 18, review 1 finding 12): 101 gives a person a group line only when the idols row sits
  *  in another group, so none means a soloist. */
@@ -79,6 +103,10 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
   const typeOf = new Map(cat.entities.map((e) => [e.id, e.eventType ?? null]));
   const faRate = fullArtRate(cat.odds);
   const cards = cat.cards.map((c) => slimCard(c, typeOf.get(c.entity) ?? null, faRate));
+  // Lot 7: the panorama of each group edition hangs under the last part of its photo.
+  const entityOf = new Map(cat.entities.map((e) => [e.id, e] as const));
+  const panos = (cat.panoramas ?? []).map((p) => slimPano(p, entityOf.get(p.entity)));
+  const panoOf = new Map(panos.map((p) => [`${p.entity}|${p.rarity}`, p] as const));
   const firstN = (id: string): number => Math.min(...(byEntity.get(id) ?? []).map((c) => c.n), Number.MAX_SAFE_INTEGER);
   const entities = [...cat.entities].sort((a, b) => firstN(a.id) - firstN(b.id) || a.sortKey.localeCompare(b.sortKey));
   const sections: BinderSection[] = [];
@@ -109,10 +137,11 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     for (const r of ladderRarities(e.kind)) {
       const cs = have.get(r);
       if (cs) {
-        for (const c of cs) {
-          items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null, faRate) });
+        const hung = e.kind === 'group' && cs.length >= 2 && cs.every((c) => !!c.part) ? panoOf.get(`${e.id}|${r}`) : undefined;
+        cs.forEach((c, k) => {
+          items.push({ i: items.length, sec, card: slimCard(c, e.eventType ?? null, faRate), ...(hung && k === cs.length - 1 ? { pano: hung } : {}) });
           sections.find((x) => x.id === sec)!.ns.push(c.n);
-        }
+        });
       }
       else {
         const reason = lockReasonOf(e.lockReasons, r);
@@ -129,7 +158,9 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
     editions[e.id] = Object.fromEntries([...have].map(([r, cs]) => [r, cs[0]!.n]));
   }
   addSoonPockets(entities, items, sections, seen);
-  return { cards, items, sections, locks, editions };
+  // Lot 7: the Panoramas section has its own count (over the panoramas, never over the cards), after every group.
+  if (panos.length) sections.push({ id: PANO_SECTION, name: 'Panoramas', color: paletteFor('panoramas').dot, ns: [], panos: panos.map((p) => p.p) });
+  return { cards, items, sections, locks, editions, panos };
 }
 
 /**
@@ -198,21 +229,32 @@ export interface Filters { q: string; kind: 'all' | CardKind; rar: Partial<Recor
 export const NO_FILTERS: Filters = { q: '', kind: 'all', rar: {}, show: 'all' };
 
 /**
- * Lot 2: the pockets as units. The two halves of a group pair (part 1 then part 2 of the same subject, linked by pairN) are ONE unit that is
- * never split: not by a filter, a sort, a row or a page. Every other pocket is a unit of its own.
+ * Lot 2: the pockets as units. The parts of a group photo (part 1, then 2, then 3 for a photo in 3 cards) of one subject and edition are ONE
+ * unit that is never split: not by a filter, a sort, a row or a page. Every other pocket is a unit of its own. Lot 7: a pair may now be a run of 3.
  */
 export function isPairStart(a: BinderItem | null | undefined, b: BinderItem | null | undefined): boolean {
   return !!a && !!b && !a.locked && !b.locked && a.card.part === 1 && b.card.part === 2 && b.card.entity === a.card.entity && a.card.pairN === b.card.n;
+}
+
+/** Lot 7: `b` is the part after `a` in the same set (same subject and edition, the next part number, and listed in the set's numbers). */
+export function isNextPart(a: BinderItem | null | undefined, b: BinderItem | null | undefined): boolean {
+  if (!a || !b || a.locked || b.locked) return false;
+  const x = a.card;
+  const y = b.card;
+  if (!x.part || y.part !== x.part + 1 || y.entity !== x.entity || y.rarity !== x.rarity) return false;
+  return x.setNs ? x.setNs.includes(y.n) : x.pairN === y.n;
 }
 
 export function binderUnits(list: readonly BinderItem[]): BinderItem[][] {
   const out: BinderItem[][] = [];
   for (let k = 0; k < list.length; k++) {
     const a = list[k]!;
-    const b = list[k + 1];
-    if (isPairStart(a, b)) {
-      out.push([a, b!]);
-      k++;
+    if (!a.locked && a.card.part === 1 && isNextPart(a, list[k + 1])) {
+      const u: BinderItem[] = [a, list[k + 1]!];
+      const size = a.card.parts ?? 2;
+      while (u.length < size && isNextPart(u[u.length - 1], list[k + u.length])) u.push(list[k + u.length]!);
+      out.push(u);
+      k += u.length - 1;
     } else out.push([a]);
   }
   return out;
@@ -270,23 +312,52 @@ export interface BinderPage {
   sec: string;
   items: BinderItem[];
   cont: boolean;
-  /** The cells of the page in reading order: a pocket, or null for a cell left empty so a pair starts in its row (a pair takes two cells
-   *  of one row). Not padded to the page size. */
+  /** The cells of the page in reading order: a pocket, or null for a cell left empty so a set starts in its row (a pair takes two cells of
+   *  one row, a photo in 3 cards a whole row). Not padded to the page size. */
   cells: (BinderItem | null)[];
+  /** Lot 7: the cells the page uses, a panorama row counting for a full row (it is not in `cells`). Equal to cells.length without one. */
+  used: number;
+  /** Lot 7: the panoramas of the page, each in a row of its own: `at` is the index in `cells` it is drawn before (always at a row start). */
+  hung: { at: number; pano: SlimPano }[];
 }
-/** Pages of nine pockets (3 a row), one group per run of pages: a section never shares a page with the next one, and a pair is never cut:
- *  it takes two cells of one row (a cell is left empty when only one is free in the row) and never starts a page it cannot finish. */
-export function paginate(list: readonly BinderItem[], perPage = 9, cols = 3): BinderPage[] {
+/** The empty cells needed so a unit of `len` cells does not cross the end of a row (a unit of the row's width starts the row). */
+function rowPad(used: number, len: number, cols: number): number {
+  if (cols <= 1 || len < 2) return 0;
+  const left = (cols - (used % cols)) % cols;
+  return left !== 0 && left < len ? left : 0;
+}
+/** Pages of nine pockets (3 a row), one group per run of pages: a section never shares a page with the next one, and a set is never cut:
+ *  a pair takes two cells of one row, a photo in 3 cards a whole row (a cell is left empty when the row cannot hold it), and never starts a
+ *  page it cannot finish. Lot 7: the panorama of a set takes the row under its parts, on the same page. `panos` (the Panoramas section) are
+ *  paged after every group, one a row. */
+export function paginate(list: readonly BinderItem[], perPage = 9, cols = 3, panos: readonly SlimPano[] = []): BinderPage[] {
   const out: BinderPage[] = [];
   let c: BinderPage | null = null;
   for (const u of binderUnits(list)) {
     const it = u[0]!;
-    const pad = u.length === 2 && cols > 1 && c && c.cells.length % cols === cols - 1 ? 1 : 0;
-    if (!c || c.sec !== it.sec || c.cells.length + pad + u.length > perPage) {
-      c = { sec: it.sec, items: [], cells: [], cont: !!(c && c.sec === it.sec) };
+    const pano = u[u.length - 1]!.locked ? undefined : (u[u.length - 1] as { pano?: SlimPano }).pano;
+    const need = (pano ? Math.ceil(u.length / cols) * cols + cols : u.length);
+    const pad = c && c.sec === it.sec ? rowPad(c.used, u.length, cols) : 0;
+    if (!c || c.sec !== it.sec || c.used + pad + need > perPage) {
+      c = { sec: it.sec, items: [], cells: [], cont: !!(c && c.sec === it.sec), used: 0, hung: [] };
       out.push(c);
-    } else if (pad) c.cells.push(null);
-    for (const x of u) { c.items.push(x); c.cells.push(x); }
+    } else for (let k = 0; k < pad; k++) { c.cells.push(null); c.used++; }
+    for (const x of u) { c.items.push(x); c.cells.push(x); c.used++; }
+    if (pano) {
+      // The parts' row is closed with empty pockets, then the panorama takes the row under it.
+      while (c.used % cols !== 0) { c.cells.push(null); c.used++; }
+      c.hung.push({ at: c.cells.length, pano });
+      c.used += cols;
+    }
+  }
+  let pg: BinderPage | null = null;
+  for (const p of panos) {
+    if (!pg || pg.used + cols > perPage) {
+      pg = { sec: PANO_SECTION, items: [], cells: [], cont: !!pg, used: 0, hung: [] };
+      out.push(pg);
+    }
+    pg.hung.push({ at: 0, pano: p });
+    pg.used += cols;
   }
   return out;
 }
@@ -389,9 +460,36 @@ function drawView(odds: CatalogOdds, present: readonly Rarity[]): Pick<OddsView,
   return { drawSteps, typeSplit, cardChance };
 }
 
-/** "left half" or "right half" of a group photo, '' for a whole card. */
-export function partWord(c: Pick<SlimCard, 'part'>): string {
+/** "left half" or "right half" of a pair, "left third", "middle third" or "right third" of a photo in 3 cards, '' for a whole card. */
+export function partWord(c: Pick<SlimCard, 'part'> & { parts?: SlimCard['parts'] }): string {
+  if (c.parts === 3) return c.part === 1 ? 'left third' : c.part === 2 ? 'middle third' : c.part === 3 ? 'right third' : '';
   return c.part === 1 ? 'left half' : c.part === 2 ? 'right half' : '';
+}
+
+/** Lot 7: "1/3" for the first card of a photo in 3, "2/2" for the second of a pair; '' for a whole card. */
+export function partLabel(c: Pick<SlimCard, 'part'> & { parts?: SlimCard['parts'] }): string {
+  return c.part ? `${c.part}/${c.parts ?? 2}` : '';
+}
+
+/** Lot 7: the panoramas the Panoramas section shows under the binder's filters. A panorama is a group edition: the type filter keeps it for
+ *  All and Group photos, the edition filter reads its rarity, "Owned" and "Missing" read the player's panoramas, and no panorama is a favorite
+ *  or on the wishlist (those two are about one card). */
+export function filterPanos(panos: readonly SlimPano[], f: Filters, owned: ReadonlySet<number>): SlimPano[] {
+  const q = f.q.trim().toLowerCase();
+  const anyR = RARITIES.some((r) => f.rar[r]);
+  return panos.filter((p) => {
+    if (f.kind !== 'all' && f.kind !== 'group') return false;
+    if (anyR && !f.rar[p.rarity]) return false;
+    if (f.show === 'owned' && !owned.has(p.p)) return false;
+    if (f.show === 'missing' && owned.has(p.p)) return false;
+    if (f.show === 'fav') return false;
+    return !q || p.name.toLowerCase().includes(q);
+  });
+}
+
+/** Lot 7: the owned and the total of the Panoramas section (its own completion, never added to the cards'). */
+export function panoCount(panos: readonly SlimPano[], owned: ReadonlySet<number>): { own: number; total: number } {
+  return { own: panos.filter((p) => owned.has(p.p)).length, total: panos.length };
 }
 
 const num = (v: number): string => String(Number(v.toFixed(4)));

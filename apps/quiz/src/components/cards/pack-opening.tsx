@@ -18,18 +18,19 @@ import {
 } from '@/lib/cards/opening-plan';
 import { PACK_SIZE, RARITIES, RARITY_LABEL, SHARDS } from '@/lib/cards/rules';
 
-import { CardBack, CardFront, Gem } from './card-art';
+import { CardBack, CardFront, Gem, PanoFront } from './card-art';
 import { useCards } from './cards-provider';
 import { Fx, attachTilt, onReducedMotionChange, reducedMotion } from './fx';
 import { listenForGesture, openingOutput } from './opening-output';
+import { PanoReveal, panoLine } from './pano-reveal';
 import { FADE_MS, StepRunner, finishAnimations, leaveWait, spotlightIndex } from './reveal-steps';
 
 import '@/styles/cards/cards-opening.css';
 
 import type { OpenedCard, PackSource, Rarity } from '@/lib/cards/types';
-import type { SlimCard } from '@/lib/cards/ui-types';
+import type { SlimCard, SlimPano } from '@/lib/cards/ui-types';
 
-type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'multi' | 'grid' | 'summary';
+type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'multi' | 'grid' | 'summary' | 'pano';
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
 /** The face of the pack: three colours, the name under the word, the address of the page ("all", "daily", "focus/twice"), golden or not. */
@@ -104,10 +105,12 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
   const ctx = useCards();
   const router = useRouter();
   const rows = useMemo(
-    () => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew, pair: c.completesPair === true, pity: c.pity === true })).filter((r) => r.card),
-    [cards, ctx.byN],
+    () => cards.map((c) => ({ card: ctx.byN.get(c.n) as SlimCard, isNew: c.isNew, pair: c.completesPair === true, pity: c.pity === true, pano: (c.pano !== undefined ? ctx.panoByP.get(c.pano) : undefined) ?? null })).filter((r) => r.card),
+    [cards, ctx.byN, ctx.panoByP],
   );
   const len = rows.length;
+  // Lot 7: the panoramas this opening gave, once each, in the order of the cards that completed them.
+  const newPanos = useMemo(() => rows.flatMap((r) => (r.pano ? [r.pano] : [])).filter((p, k, a) => a.findIndex((x) => x.p === p.p) === k), [rows]);
   const multi = packs === 5;
   const bestRarity: Rarity = rows.reduce<Rarity>((b, r) => (rarityIndex(r.card.rarity) > rarityIndex(b) ? r.card.rarity : b), 'C');
   const warn = warnLevel(bestRarity);
@@ -130,6 +133,9 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
   const [dealt, setDealt] = useState(false);
   const [turned, setTurned] = useState(false);
   const [, setReducedState] = useState(() => reducedMotion());
+  // Lot 7: the panoramas still to show (a set completed), one reveal at a time over the opening; `then` runs when the last one is left.
+  const [panoQ, setPanoQ] = useState<{ list: SlimPano[]; at: number; then: () => void } | null>(null);
+  const panoRef = useRef<{ list: SlimPano[]; at: number; then: () => void } | null>(null);
 
   // The machine lives in a ref so the timers never read a stale render.
   const m = useRef({ phase: (multi ? 'multi' : 'pack') as Phase, idx: 0, flipped: false, queued: false, waiting: false, shownAt: 0, fast: false, summarySpot: false });
@@ -388,6 +394,24 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
     ]);
   };
 
+  /** Lot 7: the dedicated reveal of the panoramas that sets completed, one after the other, then `then`. The opening waits under it (phase 'pano'). */
+  const showPanos = (list: SlimPano[], then: () => void): void => {
+    if (!list.length || demo) { then(); return; }
+    const back = m.current.phase;
+    m.current.phase = 'pano';
+    const q = { list, at: 0, then: () => { m.current.phase = back; then(); } };
+    panoRef.current = q;
+    setPanoQ(q);
+  };
+  const panoNext = (): void => {
+    const q = panoRef.current;
+    if (!q) return;
+    if (q.at + 1 < q.list.length) { const n = { ...q, at: q.at + 1 }; panoRef.current = n; setPanoQ(n); return; }
+    panoRef.current = null;
+    setPanoQ(null);
+    later(q.then, 0);
+  };
+
   const sendDown = (): void => {
     const i = m.current.idx;
     const red = reducedRef.current;
@@ -409,7 +433,14 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
       stage(false);
       m.current.idx = i + 1; m.current.flipped = false;
       setIdxState(i + 1); setFlippedState(false);
-      if (i + 1 >= len) toSummary(false);
+      const pn = rows[i]!.pano;
+      const after = (): void => {
+        if (i + 1 >= len) toSummary(false);
+        else { setHint(<><b>Tap the card</b> to reveal it &middot; {i + 2} of {len}</>); later(() => pileRef.current?.focus(), 30); }
+      };
+      // Lot 7: the card that completed a set gives its panorama: a reveal of its own before the next card.
+      if (pn && !demo) showPanos([pn], after);
+      else if (i + 1 >= len) toSummary(false);
       else setHint(<><b>Tap the card</b> to reveal it &middot; {i + 2} of {len}</>);
     }]]);
   };
@@ -449,12 +480,16 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
     }]]);
   };
   const multiDone = (): void => {
-    if (m.current.phase === 'summary') return;
-    m.current.summarySpot = true;
-    setPhase('summary');
-    setSpot(true);
-    if (!demo) analytics.gameComplete({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard', score: PACK_SIZE * packs, max: PACK_SIZE * packs });
-    later(() => addRef.current?.focus(), 80);
+    if (m.current.phase === 'summary' || m.current.phase === 'pano') return;
+    const fin = (): void => {
+      m.current.summarySpot = true;
+      setPhase('summary');
+      setSpot(true);
+      if (!demo) analytics.gameComplete({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard', score: PACK_SIZE * packs, max: PACK_SIZE * packs });
+      later(() => addRef.current?.focus(), 80);
+    };
+    // Lot 7: the sets these packs completed show their panorama first.
+    showPanos(newPanos, fin);
   };
 
   /** Reveal all: one pack goes straight to its summary with the best card held up; five packs run the deal to its end. */
@@ -509,6 +544,17 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
       You finished {s.name}. +{s.packs ?? 1} pack{(s.packs ?? 1) > 1 ? 's' : ''} in Missions
     </span>
   ));
+  // Lot 7: the summary lists the panoramas this opening gave (the dedicated reveal was shown as the sets completed; "Reveal all" skips it).
+  const panoSum = newPanos.length && !demo ? (
+    <div className="pano-sum" aria-label="Panoramas you got">
+      {newPanos.map((p) => (
+        <div key={p.p} className="pano-sum-i pop">
+          <div className="pano-sum-card" style={{ '--np': p.parts } as Vars}><PanoFront pano={p} /></div>
+          <p>{panoLine(p)}</p>
+        </div>
+      ))}
+    </div>
+  ) : null;
   const againLabel = stockLeft >= 5 && multi ? 'Open 5 more' : `Open another (${stockLeft} left)`;
   const path = `kpopcards/open/${look.path}${multi ? `?packs=${packs}` : ''}`;
   const slots = multi ? [] : rows;
@@ -520,7 +566,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
         <span className="ov-step"><span className="ov-path" id="ov-path">{path}</span><span id="ov-step">{stepText}</span></span>
         {phase !== 'summary' ? <button type="button" id="ov-skip" className="btn-quiet skip" onClick={skip}>Reveal all</button> : <span />}
       </div>
-      <div id="ov-mid" className={`ov-mid${phase === 'grid' || (phase === 'summary' && multi) ? ' scroll' : ''}`} onClick={multi && phase !== 'summary' ? () => skipAnim() : undefined}>
+      <div id="ov-mid" className={`ov-mid${phase === 'grid' || (phase === 'summary' && (multi || panoSum)) ? ' scroll' : ''}`} onClick={multi && phase !== 'summary' ? () => skipAnim() : undefined}>
         {phase === 'multi' ? (
           <>
             <div className="ov-hint" id="ov-hint" aria-live="polite">{hint}</div>
@@ -581,7 +627,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                 <>
                   <span className="rtag pop"><Gem r={current.card.rarity} className={`gem gc-${current.card.rarity}`} />{RARITY_LABEL[current.card.rarity]}</span>
                   {demo ? null : current.isNew ? <span className="rtag new pop">New</span> : <span className="rtag dup pop">+1 copy</span>}
-                  {current.pair ? <span className="rtag half pop">Completes the pair</span> : null}
+                  {current.pair ? <span className="rtag half pop">{current.card.parts === 3 ? 'Completes the set' : 'Completes the pair'}</span> : null}
                   {current.pity ? <span className="rtag pity pop">Gold guarantee</span> : null}
                   {current.card.rarity === 'L' ? <span className="rnext pop"><b>Tap again</b> {idx < len - 1 ? 'for the next card' : 'to see your pull'}</span> : null}
                 </>
@@ -619,9 +665,11 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                 {!demo ? <span className="tot"><b>{len - newCount}</b>{len - newCount === 1 ? 'copy' : 'copies'}, worth {dupShards} shards</span> : null}
                 <span className="tot">Best: <b className={`rt-${RARITIES[best]}`}>{RARITY_LABEL[RARITIES[best]!]}</b></span>
                 {goldenPacks > 0 ? <span className="tot gold"><b>{goldenPacks}</b>golden pack{goldenPacks > 1 ? 's' : ''}</span> : null}
+                {newPanos.length && !demo ? <span className="tot"><b>{newPanos.length}</b>panorama{newPanos.length > 1 ? 's' : ''}</span> : null}
                 {finLines}
               </div>
             ) : null}
+            {phase === 'summary' ? panoSum : null}
           </>
         ) : null}
         {phase === 'summary' && !multi ? (
@@ -640,7 +688,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                     </div>
                   ) : (
                     <>
-                      <Link href={hrefOf(x.card)} className="fc-b" aria-label={`${x.card.name}, ${RARITY_LABEL[x.card.rarity]}${x.isNew ? ', new' : ', copy'}${x.pair ? ', completes the pair' : ''}. See the card.`}>
+                      <Link href={hrefOf(x.card)} className="fc-b" aria-label={`${x.card.name}, ${RARITY_LABEL[x.card.rarity]}${x.isNew ? ', new' : ', copy'}${x.pair ? (x.card.parts === 3 ? ', completes the set' : ', completes the pair') : ''}. See the card.`}>
                         <span className={`rtag ${x.isNew ? 'new' : 'dup'}`}>{x.isNew ? 'New' : '+1 copy'}</span>
                         <CardFront card={x.card} />
                       </Link>
@@ -653,7 +701,9 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
               {demo ? null : <span className="tot"><b>{newCount}</b>new</span>}
               {!demo && newCount < len ? <span className="tot"><b>{len - newCount}</b>{len - newCount === 1 ? 'copy' : 'copies'}, worth {dupShards} shard{dupShards === 1 ? '' : 's'}</span> : null}
               <span className="tot">Best: <b className={`rt-${RARITIES[best]}`}>{RARITY_LABEL[RARITIES[best]!]}</b></span>
+              {newPanos.length && !demo ? <span className="tot"><b>{newPanos.length}</b>panorama{newPanos.length > 1 ? 's' : ''}</span> : null}
             </div>
+            {panoSum}
           </>
         ) : null}
       </div>
@@ -674,6 +724,10 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
           </>
         ) : null}
       </div>
+      {panoQ ? (() => {
+        const p = panoQ.list[panoQ.at]!;
+        return <PanoReveal key={p.p} pano={p} parts={p.cards.map((n) => ctx.byN.get(n)).filter((c): c is SlimCard => !!c)} onDone={panoNext} from="pack" />;
+      })() : null}
       <canvas id="fx" ref={canvas} aria-hidden="true" />
     </div>
   );

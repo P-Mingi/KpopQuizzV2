@@ -9,7 +9,7 @@ import { SOLOIST } from '@/lib/cards/ui-model';
 import { eventShort, monogram, nameSize, paletteFor } from '@/lib/cards/ui-palette';
 
 import type { Rarity } from '@/lib/cards/types';
-import type { SlimCard } from '@/lib/cards/ui-types';
+import type { SlimCard, SlimPano } from '@/lib/cards/ui-types';
 
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
@@ -66,7 +66,8 @@ function Photo({ card, img }: { card: SlimCard; img: NonNullable<SlimCard['img']
   // Lot 2: a half of a group photo from the source photo (no cut file yet): the 11:8.5 window of the pair is a box twice as wide as the
   // card, cover-cropped at the focal point; half 1 shows its left side (offset 0), half 2 its right side (offset -100%). A cut half is its
   // own file and shows as is.
-  if ((card.part === 1 || card.part === 2) && !img.cut) return <span className={`c-pair c-half${card.part}`} data-part={card.part}>{el}</span>;
+  // Lot 7: a photo in 3 cards has a window three cards wide (16.5:8.5); the third part shows its right side (offset -200%).
+  if ((card.part === 1 || card.part === 2 || card.part === 3) && !img.cut) return <span className={`c-pair c-half${card.part}${card.parts === 3 ? ' c-p3' : ''}`} data-part={card.part}>{el}</span>;
   return el;
 }
 
@@ -125,16 +126,16 @@ export function metaLine(card: SlimCard): string {
 }
 
 /** The kind tag of a group or event card: a half of a group photo says which half of the pair it is ("Group · 1/2"). */
-export function kindTag(card: Pick<SlimCard, 'kind' | 'part'>): string | null {
-  if (card.kind === 'group') return card.part === 1 || card.part === 2 ? `Group · ${card.part}/2` : 'Group';
+export function kindTag(card: Pick<SlimCard, 'kind' | 'part' | 'parts'>): string | null {
+  if (card.kind === 'group') return card.part === 1 || card.part === 2 || card.part === 3 ? `Group · ${card.part}/${card.parts ?? 2}` : 'Group';
   return card.kind === 'event' ? 'Event' : null;
 }
 
 /** The chip of a card's kind, as the prototype draws it: "Group 1/2", the word going away on a card under 150 px (the container query keeps "1/2"). */
-function KindChip({ card }: { card: Pick<SlimCard, 'kind' | 'part'> }): React.ReactElement | null {
+function KindChip({ card }: { card: Pick<SlimCard, 'kind' | 'part' | 'parts'> }): React.ReactElement | null {
   if (card.kind === 'group') {
-    const half = card.part === 1 || card.part === 2;
-    return <span className="c-kind"><span className="kw">Group{half ? ' ' : ''}</span>{half ? <span className="kh">{card.part}/2</span> : null}</span>;
+    const half = card.part === 1 || card.part === 2 || card.part === 3;
+    return <span className="c-kind"><span className="kw">Group{half ? ' ' : ''}</span>{half ? <span className="kh">{card.part}/{card.parts ?? 2}</span> : null}</span>;
   }
   return card.kind === 'event' ? <span className="c-kind">Event</span> : null;
 }
@@ -142,9 +143,9 @@ function KindChip({ card }: { card: Pick<SlimCard, 'kind' | 'part'> }): React.Re
 /** The front of a card: the markup of the prototype's cardHTML (the rim of a Full Art, the rarity line under the name, the sheen and the glare). */
 export function CardFront({ card, className = '' }: { card: SlimCard; className?: string }): React.ReactElement {
   const p = paletteFor(card.entity);
-  const half = card.part === 1 || card.part === 2;
+  const half = card.part === 1 || card.part === 2 || card.part === 3;
   return (
-    <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${half ? ` h${card.part} half half-${card.part}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
+    <div className={`card r-${card.rarity} ed-${card.edition} k-${card.kind}${half ? ` h${card.part} half half-${card.part}${card.parts === 3 ? ' p3' : ''}` : ''} ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars}>
       <div className="c-in">
         {card.edition === 'full' ? <i className="c-rim" /> : null}
         <div className="c-art"><Art card={card} /><i className="c-foil" /></div>
@@ -184,3 +185,58 @@ export const LOCK_ICON = (
 export const STAR_ICON = (
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.65 5.37 5.93.86-4.29 4.18 1.01 5.9L12 16.93l-5.3 2.79 1.01-5.9-4.29-4.18 5.93-.86z" /></svg>
 );
+
+/** Lot 7: the picture of a panorama: its own file (the whole window), the parts' files side by side, or the source photo cropped in CSS to the window. */
+function PanoPhoto({ pano }: { pano: SlimPano }): React.ReactElement | null {
+  const img = pano.img;
+  if (!img) return null;
+  if (img.kind === 'parts') {
+    return (
+      <span className="c-strip">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        {img.parts.map((u, k) => <img key={k} className="c-photo" src={u} alt="" loading="lazy" decoding="async" draggable={false} />)}
+      </span>
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className="c-photo" src={img.src} srcSet={img.srcSet ?? undefined} sizes={img.srcSet ? `${pano.parts * 320}px` : undefined} alt="" loading="lazy" decoding="async" draggable={false}
+      style={img.kind === 'source' ? { objectPosition: `${pano.fx}% ${pano.fy}%` } : undefined}
+    />
+  );
+}
+
+/** The meta line of a panorama: the group's years, as the group cards print them. */
+export function panoMeta(pano: Pick<SlimPano, 'debutYear' | 'endYear'>): string {
+  if (pano.endYear) return `Disbanded ${pano.endYear}`;
+  return pano.debutYear ? `Debut ${pano.debutYear}` : 'Group';
+}
+
+/**
+ * Lot 7: the front of a panorama, the landscape card of a complete group photo, in the frame of the v6 card: its edition's finish, its P number,
+ * the group's name, the rarity line, the credit on its page. It is the window of the photo (11:8.5 or 16.5:8.5), the parts' frame kept at the
+ * size of ONE part (every size in the CSS is a share of the card width divided by the number of parts).
+ */
+export function PanoFront({ pano, className = '' }: { pano: SlimPano; className?: string }): React.ReactElement {
+  const p = paletteFor(pano.entity);
+  const r = pano.rarity;
+  return (
+    <div className={`card pano pano-${pano.parts} r-${r} ed-${pano.edition} k-group ${className}`.trim()} style={{ '--a': p.a, '--b': p.b, '--c': p.c } as Vars} data-pano={pano.p}>
+      <div className="c-in">
+        {pano.edition === 'full' ? <i className="c-rim" /> : null}
+        <div className="c-art"><i className="c-bg" /><PanoPhoto pano={pano} /><i className="c-foil" /></div>
+        <span className="c-kind"><span className="kw">Panorama</span></span>
+        <div className="c-plate">
+          <b className="c-name" style={{ '--nf': `${nameSize(pano.name)}cqi` } as Vars}>{pano.name}</b>
+          <div className={`c-rar rc-${r}`}><Gem r={r} className="" /><span>{RARITY_LABEL[r]}</span></div>
+          <div className="c-meta">
+            <span>{panoMeta(pano)}</span>
+            <span className="c-no">{pano.num}</span>
+          </div>
+        </div>
+        <i className="c-frame" /><i className="c-sheen" /><i className="c-glare" />
+      </div>
+    </div>
+  );
+}

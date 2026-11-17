@@ -26,3 +26,9 @@ overflow, journey, accessibility, flip and fps checks. Config: `apps/quiz/e2e/o1
 - Boxes: the key selectors of `helpers/screens.ts`, document coordinates, first 12 matches each, tolerance 2 px.
 - Self-check: `KC_SELF=1 ... visual` compares the prototype with itself (must be 0%); `KC_TARGET=proto ... journeys|overflow|a11y|flip` runs those specs on the prototype to prove the specs themselves.
 - Images go to `qa/img/<screen>/<viewport>-{proto,app,diff}.png` (never committed); each spec appends to `qa/img/results.jsonl`.
+
+## Lot 7 screenshots (panoramas)
+Dev server with the panorama fixture (a photo in 3 cards and a panorama per group photo; both spellings of the flag, the browser mock reads the NEXT_PUBLIC one):
+`NET_CARDS=1 CARDS_UI_FIXTURE=1 CARDS_UI_FIXTURE_FULL=1 CARDS_UI_FIXTURE_PANO=1 NEXT_PUBLIC_CARDS_UI_FIXTURE_PANO=1 NEXT_PUBLIC_SITE_ID=hub NEXT_PUBLIC_UX_V1=1 NEXT_PUBLIC_UX_V12=1 next dev -p 3136`
+then `node e2e/o1/CARDS/lot7-shots.mjs` (from apps/quiz: `node e2e/o1/CARDS/kpopcards/lot7-shots.mjs [name filter]`) writes docs/o1/evidence/cards/lot7/*.png (1440x860 and 390x844).
+Dev query controls (proto-example.ts applyDevOwn): `kcset=BTS:R:all`, `kcrar=R:BTS/3`, `kcpano=BTS:R`, `kcshards=900`. The admin panel needs a signed-in admin: its shots render the real component on a throwaway page with the admin route answered by Playwright.

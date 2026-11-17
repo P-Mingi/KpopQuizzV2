@@ -43,7 +43,7 @@ export interface DetailProps {
   why: { title: string; sentences: string[]; need: string } | null;
   lockSentence: string | null;
   /** Lot 2: set for a half of a group photo: which side it is, and the other half (null when that half is not in packs). */
-  pair?: { side: 'left' | 'right'; mate: SlimCard | null } | null;
+  pair?: { side: 'left' | 'middle' | 'right'; mate: SlimCard | null; /** Lot 7: the other two parts of a photo in 3 cards. */ others?: SlimCard[] } | null;
   /** Lot 3 point A5: the chance of one card being of each edition ("10%"), from the odds the Packs page shows; only editions in packs. */
   rates: Partial<Record<Rarity, string>>;
   /** The credit block, rendered on the server. */
@@ -181,14 +181,15 @@ export function CardDetail(p: DetailProps): React.ReactElement {
         </div>
         <div className="d-info">
           <div className="d-title">
-            <Title>{p.entityName}{card && card.part ? ` ${card.part}/2` : ''}</Title>
+            <Title>{p.entityName}{card && card.part ? ` ${card.part}/${card.parts ?? 2}` : ''}</Title>
             {card && o ? <FavStar n={card.n} name={card.name} edition={edName} className="in" /> : null}
             {card && o ? <LockButton n={card.n} name={card.name} /> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
           <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}{p.rates[rarity] ? ` · ${p.rates[rarity]} of cards` : ''}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && o ? <span className="tag">{o.copies > 1 ? `${o.copies} copies` : '1 copy'}</span> : null}</div>
-          {card && !o && status === 'ready' ? (
-            <div className="d-acts">
+          {/* Lot 7: the craft button stays mounted once the card is owned (it draws nothing then), so the reveal of the panorama a craft gave can finish. */}
+          {card && status === 'ready' ? (
+            <div className="d-acts" style={o ? { display: 'none' } : undefined}>
               <CraftButton n={card.n} rarity={card.rarity} name={p.entityName} after={<WantButton n={card.n} name={p.entityName} edition={edName} />} />
             </div>
           ) : null}
@@ -198,7 +199,13 @@ export function CardDetail(p: DetailProps): React.ReactElement {
               <small id="d-half">{owned.has(mate.n) ? 'You have the other half.' : o ? `Missing half: the next ${edName} of ${p.entityName} you draw is the other half.` : 'Own one half, and the same edition gives you the other.'}</small>
             </div>
           ) : null}
-          {card && half ? (
+          {card && half && half.others?.length ? (
+            <div className="d-acts">
+              {half.others.map((x) => <button key={x.n} type="button" className="btn-quiet" onClick={() => router.push(`${kcPath.card(x.num)}${keep()}`)}>See part {x.part}/{x.parts ?? 3}</button>)}
+              <small id="d-half">{half.others.every((x) => owned.has(x.n)) ? 'You have the other parts.' : `Hold all ${card.parts ?? 3} cards of this photo, and the panorama is yours.`}</small>
+            </div>
+          ) : null}
+          {card && half && !half.others ? (
             <p className="sr-only" id="d-half-words">
               This card is the {half.side} half of the group photo.{' '}
               {mate ? <>The {half.side === 'left' ? 'right' : 'left'} half is <Link className="d-mate" href={`${kcPath.card(mate.num)}${keep()}`}>card {mate.num}</Link>. Own both to see the whole picture.</> : 'Its other half is not in packs.'}

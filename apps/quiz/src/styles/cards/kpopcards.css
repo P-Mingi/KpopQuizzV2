@@ -606,10 +606,13 @@
 /* group photos: two halves of one picture */
 .bvc .k-group .c-crowd{width:200%;right:auto;left:0}
 .bvc .k-group.h2 .c-crowd{left:-100%}
+.bvc .k-group.p3 .c-crowd{width:300%}
+.bvc .k-group.h3 .c-crowd{left:-200%}
 .bvc .k-group .c-crowd i{width:22%;margin:0 -2.5%}
 .bvc .k-group .c-art::before{content:"";position:absolute;top:0;bottom:0;width:7cqi;z-index:2;pointer-events:none}
 .bvc .k-group.h1 .c-art::before{right:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.16))}
 .bvc .k-group.h2 .c-art::before{left:0;background:linear-gradient(270deg,transparent,rgba(255,255,255,.16))}
+.bvc .k-group.h3 .c-art::before{left:0;background:linear-gradient(270deg,transparent,rgba(255,255,255,.16))}
 /* motion: light layers move with transform and opacity only */
 .bvc .c-glare{inset:-50%;border-radius:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.42),rgba(255,255,255,.08) 14%,transparent 28%);transform:translate3d(var(--gx,0%),var(--gy,0%),0)}
 .bvc .ed-holo .c-foil,.bvc .ed-full .c-foil,.bvc .ed-era .c-foil{inset:-40%;background-size:auto;background-position:0 0;transform:translate3d(var(--fx,0%),var(--fy,0%),0);transition:none}
