@@ -54,6 +54,11 @@
 //       unreadable image), or whose upload or PATCH still fails after its tries, is skipped, listed with its reason, and the run goes on; the
 //       run then ends with exit code 2. A failed photo keeps its row unchanged (the PATCH comes last). Guards, exit 1 at once: a 401, 403 or
 //       404 of the project (the key, the bucket: every photo would fail), or 5 photos in a row failing on the project.
+//   The live photos are read page by page (lot CPUB-RETRY, run Cards publish #2: one read with limit=2000 got the first 1,000 rows only, the
+//       max rows of the API, and the last 101 live photos were never seen): order=id, limit=1000, offset, until a page has fewer than 1,000
+//       rows, each page with its tries. Guard, exit 1 before any write: the rows read must be the total of the first page's Content-Range
+//       (Prefer: count=exact), and no id twice. The cleanup starts from these complete rows: a live photo never read would have had its
+//       files proposed for deletion. The report counts the live photos read (photos.live).
 //   --cache-dir <folder>: the Commons originals, one file per recorded sha1 (a file that no longer has its sha1 is downloaded again); a
 //       second run downloads only what is missing.
 //   --report <file.json>: the counts (photos, cards, panoramas), the failed photos and why, the cleanup's counts; written at the end and
@@ -66,7 +71,7 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { RETRY_STATUS, cutPlan, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, retryWait, stemOf } from './card-files.mjs';
+import { PAGE_ROWS, RETRY_STATUS, cutPlan, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, readAllRows, retryWait, stemOf } from './card-files.mjs';
 import { SIZES, panoSizes } from './card-geometry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -291,7 +296,7 @@ async function listBucket(origin, H) {
 /** What the run did, for --report (and the job summary): counts and names only, never a secret. */
 const report = {
   mode: NON_INTERACTIVE ? 'non-interactive' : 'interactive', host: null, keepGoing: KEEP_GOING,
-  photos: { uploaded: 0, upToDate: 0, notInData: 0, failed: 0 }, cards: 0, panoramas: 0, failed: [],
+  photos: { live: null, uploaded: 0, upToDate: 0, notInData: 0, failed: 0 }, cards: 0, panoramas: 0, failed: [],
   cleanup: null, stopped: null,
 };
 /** The service key, once read: any message that would carry it (an error body echoing a header) shows [redacted] instead. */
@@ -331,7 +336,13 @@ async function publish() {
   SECRET = key;
   const H = { apikey: key, Authorization: `Bearer ${key}` };
   const rest = (p, init = {}) => projectFetch(`${init.method ?? 'GET'} ${p.split('?')[0]}`, `${origin}/rest/v1/${p}`, { ...init, headers: { ...H, 'Content-Type': 'application/json', ...(init.headers ?? {}) } });
-  const rowsAll = await (await rest('cards_photos?select=*&status=in.(auto,approved)&order=id&limit=2000')).json();
+  // Every live photo, page by page (the API answers at most 1,000 rows a read); a count that differs stops the run here, before any write.
+  const { rows: rowsAll } = await readAllRows(
+    (offset, first) => rest(`cards_photos?select=*&status=in.(auto,approved)&order=id&limit=${PAGE_ROWS}&offset=${offset}`, first ? { headers: { Prefer: 'count=exact' } } : {}),
+    'GET cards_photos', { key: (row) => row.id },
+  );
+  report.photos.live = rowsAll.length;
+  console.log(`live photos read: ${rowsAll.length}`);
   const slugOf = (row) => row.entity_id.replace(/^(idol|group):/, '');
   const rows = rowsAll.filter((r) => !ONLY || ONLY.has(slugOf(r)));
   const upload = (name, body) => projectFetch(`upload ${name}`, `${origin}/storage/v1/object/cards/${name}`, { method: 'POST', headers: { ...H, 'Content-Type': 'image/webp', 'x-upsert': 'true' }, body });

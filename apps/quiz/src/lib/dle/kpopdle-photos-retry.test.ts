@@ -44,7 +44,10 @@ function project(opts: { lostAnswer?: boolean; flakyUpload?: boolean } = {}) {
   const table = new Map<string, Record<string, unknown>>();
   let posts = 0, uploads = 0;
   const json = (b: unknown, s = 200): Response => new Response(JSON.stringify(b), { status: s, headers: { 'content-type': 'application/json' } });
-  const page = (url: string, rows: unknown[]): Response => json(url.includes('offset=0') ? rows : []);
+  const page = (url: string, rows: unknown[]): Response => {
+    const got = url.includes('offset=0') ? rows : [];
+    return new Response(JSON.stringify(got), { status: 200, headers: { 'content-type': 'application/json', 'content-range': `${got.length ? `0-${got.length - 1}` : '*'}/${rows.length}` } });
+  };
   vi.stubGlobal('fetch', async (url: string, o: { method?: string; body?: unknown; headers?: Record<string, string> } = {}) => {
     const m = o.method ?? 'GET';
     calls.push({ url, m, prefer: o.headers?.Prefer });
@@ -133,7 +136,7 @@ describe('restAll (common.mjs) tries a read again', () => {
       urls.push(url);
       n++;
       if (n === 1) return new Response('<html>520</html>', { status: 520 });
-      return new Response(JSON.stringify(url.includes('offset=0') ? [{ id: 1 }, { id: 2 }] : []), { status: 200 });
+      return new Response(JSON.stringify(url.includes('offset=0') ? [{ id: 1 }, { id: 2 }] : []), { status: 200, headers: { 'content-range': '0-1/2' } });
     });
     const waits: number[] = [];
     const rows = await (await common()).restAll(cfg, 'idols', 'select=id', { sleep: async (ms) => { waits.push(ms); } });
@@ -151,5 +154,36 @@ describe('restAll (common.mjs) tries a read again', () => {
     await read.catch((e: Error) => expect(e.message).not.toContain(SECRET));
     expect(n).toBe(1);
     expect(waits).toEqual([]);
+  });
+
+  /** A project that answers like PostgREST: limit and offset, at most `maxRows` rows a read, the total in Content-Range when asked for. */
+  function postgrest(total: number, { maxRows = 1000, announce = total }: { maxRows?: number; announce?: number } = {}) {
+    const reads: { offset: string | null; limit: string | null; prefer: string | null }[] = [];
+    vi.stubGlobal('fetch', async (url: string, o: { headers?: Record<string, string> } = {}) => {
+      const u = new URL(url);
+      const prefer = o.headers?.Prefer ?? null;
+      reads.push({ offset: u.searchParams.get('offset'), limit: u.searchParams.get('limit'), prefer });
+      const offset = Number(u.searchParams.get('offset'));
+      const n = Math.max(0, Math.min(Number(u.searchParams.get('limit')), maxRows, total - offset));
+      const rows = Array.from({ length: n }, (_, i) => ({ id: offset + i + 1 }));
+      const range = `${n ? `${offset}-${offset + n - 1}` : '*'}/${prefer?.includes('count=exact') ? announce : '*'}`;
+      return new Response(JSON.stringify(rows), { status: 200, headers: { 'content-range': range } });
+    });
+    return reads;
+  }
+
+  it('1,101 rows, at most 1,000 a read: every row is read, in two pages, the count asked on the first', async () => {
+    const reads = postgrest(1101);
+    const rows = await (await common()).restAll(cfg, 'entity_images', 'select=slug&order=slug', { sleep: async () => {} });
+    expect(rows).toHaveLength(1101);
+    expect(rows.at(-1)).toEqual({ id: 1101 });
+    expect(reads).toEqual([{ offset: '0', limit: '1000', prefer: 'count=exact' }, { offset: '1000', limit: '1000', prefer: null }]);
+  });
+
+  it('a total that is not the rows read is an error (a project answering 500 rows a read, a row added during the read)', async () => {
+    postgrest(1101, { maxRows: 500 });
+    await expect((await common()).restAll(cfg, 'idols', 'select=id&order=id')).rejects.toThrow('read idols: 500 rows read, the project counts 1101; stopped before any write');
+    postgrest(1101, { announce: 1102 });
+    await expect((await common()).restAll(cfg, 'idols', 'select=id&order=id')).rejects.toThrow('read idols: 1101 rows read, the project counts 1102');
   });
 });

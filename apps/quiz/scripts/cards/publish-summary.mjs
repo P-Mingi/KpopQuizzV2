@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // publish-summary.mjs: the summary of a run of .github/workflows/cards-publish.yml (integrator, 2026-11-17), written to the job's page
 // (GITHUB_STEP_SUMMARY), else printed. It reads only the two reports the run leaves: the JSON of publish-card-files.mjs --report (counts,
-// failed photos and why, the cleanup's counts) and the CSV of kpopdle-photos.mjs --publish (one line per idol). Neither carries a secret;
+// failed photos and why, the cleanup's counts, the live photos read) and the CSV of kpopdle-photos.mjs --publish (one line per idol). Neither carries a secret;
 // the summary repeats nothing else.
 //   node apps/quiz/scripts/cards/publish-summary.mjs --cards <report.json> --kpopdle-csv <report.csv> --kpopdle oui|non
 import { appendFileSync, existsSync, readFileSync } from 'node:fs';
@@ -51,6 +51,8 @@ export function summaryMarkdown({ cards, kpopdle }) {
   } else {
     L.push(`Project: \`${cell(cards.host ?? 'not reached')}\`, ${cell(cards.mode)} mode${cards.keepGoing ? ', --keep-going' : ''}.`, '');
     L.push('| | Count |', '| --- | ---: |');
+    // lot CPUB-RETRY (run Cards publish #2 read 1,000 of 1,101 live photos): the total read comes first, so a gap with the lines below shows
+    L.push(`| Live photos read (auto or approved) | ${cards.photos.live ?? 'not read'} |`);
     L.push(`| Photos published | ${cards.photos.uploaded} |`);
     L.push(`| Cards published (one per part, one per person) | ${cards.cards} |`);
     L.push(`| Panoramas published | ${cards.panoramas} |`);

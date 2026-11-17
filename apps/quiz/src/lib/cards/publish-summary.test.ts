@@ -57,6 +57,14 @@ describe('the job summary', () => {
     expect(md).toContain('| Kim, "Q" | Group | storage HTTP 500 |');
   });
 
+  it('shows the live photos read first, so a gap with the photos handled shows (lot CPUB-RETRY, run Cards publish #2)', () => {
+    const md = summaryMarkdown({ cards: { ...REPORT, photos: { ...REPORT.photos, live: 1101 } }, kpopdle: { asked: false, csv: null } });
+    expect(md).toContain('| | Count |\n| --- | ---: |\n| Live photos read (auto or approved) | 1101 |\n| Photos published | 12 |');
+    // a run stopped before the read, or a report written before this line existed
+    expect(summaryMarkdown({ cards: { ...REPORT, photos: { ...REPORT.photos, live: null } }, kpopdle: { asked: false, csv: null } })).toContain('| Live photos read (auto or approved) | not read |');
+    expect(summaryMarkdown({ cards: REPORT, kpopdle: { asked: false, csv: null } })).toContain('| Live photos read (auto or approved) | not read |');
+  });
+
   it('a cell stays on one line', () => {
     expect(cell('a\nb|c\r\n')).toBe('a b\\|c');
     expect(cell(null)).toBe('');

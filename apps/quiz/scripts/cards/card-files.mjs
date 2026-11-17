@@ -174,3 +174,53 @@ export async function fetchRetry(doFetch, { tries = 4, sleep = realSleep } = {})
     await sleep(retryWait(n, retryAfter));
   }
 }
+
+/** Supabase answers a PostgREST read with at most its max rows (1,000), whatever the `limit` asked (lot CPUB-RETRY, run Cards publish #2:
+ *  cards_photos read with limit=2000 gave the first 1,000 of the 1,101 live photos, and the last 101 were never seen). A read of rows goes
+ *  page by page instead, PAGE_ROWS at a time. */
+export const PAGE_ROWS = 1000;
+
+/** The total of a PostgREST answer asked with `Prefer: count=exact`: the number after the slash of its Content-Range ("0-999/1101",
+ *  an empty read has a star before the slash); null when there is none ("0-999/*", or no header). */
+export function contentRangeTotal(header) {
+  const m = /\/(\d+)$/.exec(String(header ?? '').trim());
+  return m ? Number(m[1]) : null;
+}
+
+/**
+ * Every row of a PostgREST read, page by page (lot CPUB-RETRY). `readPage(offset, first)` sends the read of the page at `offset`, `limit`
+ * PAGE_ROWS, its query ordered on a unique key (so the pages neither skip nor repeat a row), with `Prefer: count=exact` when `first`; it does
+ * its own tries (fetchRetry) and returns an ok answer or throws. The pages are read until one has fewer than PAGE_ROWS rows. Guards, each
+ * one throws before the caller writes anything: the first page has no total in its Content-Range; the rows read are not that total (a
+ * server that answers fewer rows a page than asked, a row added or removed during the read); `key` (optional) gives two rows the same key.
+ * `what` names the read in the messages. Returns { rows, total }.
+ * @param {(offset: number, first: boolean) => Promise<Response>} readPage
+ * @param {string} what
+ * @param {{ key?: ((row: any) => unknown) | null, pageRows?: number }} [opts]
+ * @returns {Promise<{ rows: any[], total: number }>}
+ */
+export async function readAllRows(readPage, what, { key = null, pageRows = PAGE_ROWS } = {}) {
+  const rows = [];
+  let total = null;
+  for (let offset = 0; ; offset += pageRows) {
+    const r = await readPage(offset, offset === 0);
+    if (offset === 0) {
+      total = contentRangeTotal(r.headers?.get?.('content-range'));
+      if (total === null) throw new Error(`${what}: no total in the Content-Range of the first page (Prefer: count=exact); stopped before any write`);
+    }
+    const page = await r.json();
+    if (!Array.isArray(page)) throw new Error(`${what}: the answer is not a list of rows; stopped before any write`);
+    rows.push(...page);
+    if (page.length < pageRows || rows.length > total) break;
+  }
+  if (rows.length !== total) throw new Error(`${what}: ${rows.length} rows read, the project counts ${total}; stopped before any write`);
+  if (key) {
+    const seen = new Set();
+    for (const row of rows) {
+      const k = key(row);
+      if (seen.has(k)) throw new Error(`${what}: the row ${k} was read twice (the rows changed during the read); stopped before any write`);
+      seen.add(k);
+    }
+  }
+  return { rows, total };
+}
