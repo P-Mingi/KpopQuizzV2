@@ -114,7 +114,38 @@ export const THEME_NAMES: Record<ThemeId, string> = { all: 'All idols', girls: '
 export type PackKind = ThemeId | 'daily' | 'focus';
 
 /** A card as a list shows it. `n` is the card number everywhere; the catalog (GET /api/cards/catalog) gives names and pictures. */
-export interface CardRef { n: number; num: string; name: string; edition: Edition; kind: CardKind; group: string | null; part?: 0 | 1 | 2 }
+export interface CardRef {
+  n: number; num: string; name: string; edition: Edition; kind: CardKind; group: string | null;
+  /** 1 to 3 for a part of a group photo (lot 7: a photo gives 2 or 3 cards), 0 or absent for a whole card. */
+  part?: 0 | 1 | 2 | 3;
+  /** Lot 7: the number of cards of the photo, with `part`. */
+  parts?: 2 | 3;
+}
+
+/** Lot 7 (owner, 2026-11-17): a panorama, the whole landscape picture of a group photo, given once by the server when the player holds every
+ *  part of that photo (2 or 3 cards). Its own numbers (P-0001), never in a pack, never crafted, never recycled; it stays if a part is recycled. */
+export interface PanoRef {
+  /** pano_no. */
+  p: number;
+  /** 'P-0001'. */
+  num: string;
+  /** The group's name. */
+  name: string;
+  /** The edition of its parts. */
+  edition: Edition;
+  parts: 2 | 3;
+  /** The card numbers of its parts, part 1 first. */
+  cards: number[];
+}
+
+/** Lot 7: a panorama of the binder's Panoramas section (its own completion). */
+export interface PanoItem extends PanoRef {
+  owned: boolean;
+  /** The binder section of its group. */
+  section: string;
+  /** ISO time it was given, null while missing. */
+  grantedAt: string | null;
+}
 
 export interface GroupRef { id: string; slug: string; name: string; kind: 'group' | 'solo' }
 
@@ -261,6 +292,8 @@ export interface OpenedCardV {
   /** This card is the one the Gold guarantee gave (the 30th pack). */
   guarantee: boolean;
   theme: PackKind;
+  /** Lot 7: the panorama this card gave (it was the last missing part of its photo), granted in the same transaction as the pack. */
+  pano?: PanoRef;
 }
 
 export interface OpenedPack {
@@ -278,6 +311,8 @@ export interface OpenedPack {
   cards: OpenedCardV[];
   newCount: number;
   best: Edition;
+  /** Lot 7: the panoramas this pack gave, in the order of the cards that completed them. */
+  panoramas?: PanoRef[];
 }
 
 export interface FinishedSetV { id: string; name: string; packs: number }
@@ -296,6 +331,8 @@ export interface OpenSummary {
   levelUp: { from: number; to: number; title: string } | null;
   /** "3 new cards for your collection" or "Only copies this time". */
   headline: string;
+  /** Lot 7: every panorama these packs gave. */
+  panoramas?: PanoRef[];
 }
 
 export interface OpenResponse {
@@ -335,7 +372,11 @@ export interface CollectionGroup extends GroupRef {
 
 export type CollectionItem =
   | {
-      type: 'card'; n: number; num: string; name: string; edition: Edition; kind: CardKind; group: string | null; section: string; part?: 0 | 1 | 2;
+      type: 'card'; n: number; num: string; name: string; edition: Edition; kind: CardKind; group: string | null; section: string; part?: 0 | 1 | 2 | 3;
+      /** Lot 7: the number of cards of the photo, on a part. */
+      parts?: 2 | 3;
+      /** Lot 7: the pano_no of the photo's panorama, on a part. */
+      pano?: number;
       owned: boolean; copies: number;
       /** A missing card is a named silhouette: the page prints `name` and `edition` on the pocket. */
       silhouette: boolean;
@@ -351,6 +392,8 @@ export interface CollectionState {
   /** Items matching the filters, and the totals of the whole catalog. */
   matches: number;
   totals: { owned: number; total: number; pct: number; idols: { owned: number; total: number }; groups: { owned: number; total: number }; notIssued: number };
+  /** Lot 7: the Panoramas section, with its own completion (never counted in `totals`). Absent before file 118. */
+  panoramas?: { owned: number; total: number; pct: number; items: PanoItem[] };
 }
 
 /* ------------------------------------------------------------------ almost there: GET /api/cards/almost */
@@ -554,7 +597,11 @@ export interface RecycleRequest {
 export interface RecycleResponse { recycled: number; shards: number; skipped: RecyclePreview['skipped']; replayed: boolean; state: LobbyState }
 
 export interface CraftRequest { key: string; n: number }
-export interface CraftResponse { n: number; cost: number; finished: FinishedSetV[]; replayed: boolean; state: LobbyState }
+export interface CraftResponse {
+  n: number; cost: number; finished: FinishedSetV[]; replayed: boolean; state: LobbyState;
+  /** Lot 7: the panorama this craft gave (the crafted card was the last missing part of its photo), null otherwise. */
+  pano?: PanoRef | null;
+}
 
 /* ------------------------------------------------------------------ ads, demo, still there */
 
