@@ -76,6 +76,7 @@
     ".gitignore",
     "package.json",
     "pnpm-lock.yaml",
+    ".github/workflows/tests.yml",
     "apps/quiz/package.json",
     "apps/quiz/playwright.config.ts",
     "apps/quiz/vercel.json",

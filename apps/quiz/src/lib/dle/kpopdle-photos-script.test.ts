@@ -59,7 +59,11 @@ const FILES = ['Doyoung NCT 127.jpg', 'Doyoung Treasure.jpg', 'Mark NCT 127.jpg'
   'G-Dragon BIGBANG.jpg', 'Twin Alpha.jpg', 'Twin Alpha 2.jpg', 'Han Solo X.jpg', 'Jun Beta.jpg'];
 
 const json = (b: unknown, s = 200): Response => new Response(JSON.stringify(b), { status: s, headers: { 'content-type': 'application/json' } });
-const page = (url: string, rows: unknown[]): Response => json(url.includes('offset=0') ? rows : []);
+/** A page of a read, like PostgREST: the rows at offset 0 (every read here fits in one page), the total in Content-Range (lot CPUB-RETRY). */
+const page = (url: string, rows: unknown[]): Response => {
+  const got = url.includes('offset=0') ? rows : [];
+  return new Response(JSON.stringify(got), { status: 200, headers: { 'content-type': 'application/json', 'content-range': `${got.length ? `0-${got.length - 1}` : '*'}/${rows.length}` } });
+};
 
 function mockFetch(over: { failUploads?: boolean } = {}): void {
   vi.stubGlobal('fetch', async (url: string, o: { method?: string; body?: unknown; headers?: Record<string, string> } = {}) => {
@@ -207,7 +211,8 @@ describe('the run', () => {
   it('--idols-dir changes the note, an upload that fails is a line of the report and not a crash, and the key is still never printed', async () => {
     arrange();
     mockFetch({ failUploads: true });
-    const res = await kp.main(['--publish', '--idols-dir', idolsDir], { siteDir: path.join(tmp, 'elsewhere'), reportFile, sharp, pauseMs: 0 });
+    // the 500 is tried again (lot CPUB-RETRY, fetchRetry): no real wait between the tries in a test
+    const res = await kp.main(['--publish', '--idols-dir', idolsDir], { siteDir: path.join(tmp, 'elsewhere'), reportFile, sharp, pauseMs: 0, sleep: async () => {} });
     expect(res.published).toBe(0);
     expect(logs.some((l) => l.includes('!! ') && l.includes('storage HTTP 500'))).toBe(true);
     expect(logs.join('\n')).not.toContain(SECRET);

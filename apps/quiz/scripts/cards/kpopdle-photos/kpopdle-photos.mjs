@@ -21,6 +21,13 @@
 // Options: --replace (replace the picture of an idol that already has one), --idols-dir <folder> (more photos than the site's).
 // The service key is never printed or written. An idol left without a photo is not an error: the game shows its designed card (the colours of
 // the group, the name set in type), never initials on a flat block. sharp comes from the repo's node_modules (a dependency of the workspace).
+// Lot CPUB-RETRY (integrator, 2026-11-17): each read (restAll), each upload and each write of entity_images is tried up to 4 times on a passing error (fetchRetry
+// of ../card-files.mjs: 408, 429, 5xx, Cloudflare's 520 to 524, the network; Retry-After respected, at most 60 s). Each one is idempotent
+// before it is tried again: an upload replaces (x-upsert), the PATCH sets the same values, and the new row is an upsert on the table's
+// unique key (on_conflict=site_id,kind,slug, Prefer resolution=merge-duplicates): a POST whose answer was lost after the insert does not
+// make a second row. The DELETE of the old files stays best effort.
+// Each read goes page by page (restAll: 1,000 rows a page, ordered on a unique key) and must give the total the project counts
+// (Content-Range, Prefer: count=exact), else the run stops before any write: the API answers at most 1,000 rows a read.
 
 import { createHash } from 'node:crypto';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
@@ -28,6 +35,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { fetchRetry } from '../card-files.mjs';
 import { REPO, loadConfig, restAll, serviceHeaders } from './common.mjs';
 
 const BUCKET = 'entity-images';
@@ -88,25 +96,29 @@ async function render(sharp, bytes) {
   return { x1, x2, thumb, small: Math.min(meta.width ?? 0, meta.height ?? 0) < BOX.w };
 }
 
-async function upload(cfg, p, bytes) {
-  const res = await fetch(`${cfg.url}/storage/v1/object/${BUCKET}/${p}`, {
+async function upload(cfg, p, bytes, sleep) {
+  const res = await fetchRetry(() => fetch(`${cfg.url}/storage/v1/object/${BUCKET}/${p}`, {
     method: 'POST', headers: serviceHeaders(cfg.serviceKey, { 'Content-Type': 'image/webp', 'x-upsert': 'true', 'cache-control': 'max-age=31536000' }), body: bytes,
-  });
+  }), { sleep });
   if (!res.ok) throw new Error(`storage HTTP ${res.status}`);
 }
 
-async function rest(cfg, method, query, body) {
-  const res = await fetch(`${cfg.url}/rest/v1/entity_images?${query}`, {
-    method, headers: serviceHeaders(cfg.serviceKey, { 'Content-Type': 'application/json', Prefer: 'return=minimal' }), ...(body ? { body: JSON.stringify(body) } : {}),
-  });
+/** The new row of an idol is an upsert on UNIQUE (site_id, kind, slug): tried again after a lost answer, it never makes a second row. */
+export const UPSERT_QUERY = 'on_conflict=site_id,kind,slug';
+export const UPSERT_PREFER = 'resolution=merge-duplicates,return=minimal';
+
+async function rest(cfg, method, query, body, { prefer = 'return=minimal', sleep } = {}) {
+  const res = await fetchRetry(() => fetch(`${cfg.url}/rest/v1/entity_images?${query}`, {
+    method, headers: serviceHeaders(cfg.serviceKey, { 'Content-Type': 'application/json', Prefer: prefer }), ...(body ? { body: JSON.stringify(body) } : {}),
+  }), { sleep });
   if (!res.ok) throw new Error(`entity_images HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
 }
 
-async function publishOne(cfg, sharp, item, dir, old, fromSite) {
+async function publishOne(cfg, sharp, item, dir, old, fromSite, sleep) {
   const { x1, x2, thumb, small } = await render(sharp, await readFile(path.join(dir, item.file)));
   const base = `kpop/idol/${item.idol.id}/${createHash('sha256').update(x1).digest('hex').slice(0, 16)}`;
   const p1 = `${base}.webp`; const p2 = `${base}-2x.webp`; const pt = `${base}-96.webp`;
-  await upload(cfg, p1, x1); await upload(cfg, p2, x2); await upload(cfg, pt, thumb);
+  await upload(cfg, p1, x1, sleep); await upload(cfg, p2, x2, sleep); await upload(cfg, pt, thumb, sleep);
   const fields = {
     path: p1, width: BOX.w, height: BOX.h, thumb_path: pt, focal_x: 50, focal_y: 50, source_url: null, author: null, license: 'other',
     license_url: null, commons_file: null, license_verified: true,
@@ -114,8 +126,8 @@ async function publishOne(cfg, sharp, item, dir, old, fromSite) {
       : `Photo supplied by the owner (${item.file}), source not recorded.`,
   };
   const q = `site_id=eq.kpop&kind=eq.idol&slug=eq.${item.idol.id}`;
-  if (old) await rest(cfg, 'PATCH', q, fields);
-  else await rest(cfg, 'POST', 'select=id', [{ site_id: 'kpop', kind: 'idol', slug: String(item.idol.id), created_by: null, ...fields }]);
+  if (old) await rest(cfg, 'PATCH', q, fields, { sleep });
+  else await rest(cfg, 'POST', UPSERT_QUERY, [{ site_id: 'kpop', kind: 'idol', slug: String(item.idol.id), created_by: null, ...fields }], { prefer: UPSERT_PREFER, sleep });
   if (old && old.path && old.path !== p1) {
     await fetch(`${cfg.url}/storage/v1/object/${BUCKET}`, {
       method: 'DELETE', headers: serviceHeaders(cfg.serviceKey, { 'Content-Type': 'application/json' }),
@@ -137,13 +149,13 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   const cfg = await loadConfig();
   if (!cfg.serviceKey) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not set in this terminal (see the top of this file)');
 
-  const entities = await restAll(cfg, 'dle_entities', `select=entity_id&game_id=eq.${GAME}`);
+  const entities = await restAll(cfg, 'dle_entities', `select=entity_id&game_id=eq.${GAME}&order=entity_id`, { sleep: deps.sleep });
   const ids = entities.map((e) => Number(e.entity_id)).filter((n) => Number.isInteger(n) && n > 0);
   if (!ids.length) throw new Error(`the game ${GAME} has no idol`);
-  const idols = await restAll(cfg, 'idols', `select=id,name,photo_url,group_id&id=in.(${ids.join(',')})&order=id`);
-  const groups = await restAll(cfg, 'groups', 'select=id,name&site_id=eq.kpop&order=id');
+  const idols = await restAll(cfg, 'idols', `select=id,name,photo_url,group_id&id=in.(${ids.join(',')})&order=id`, { sleep: deps.sleep });
+  const groups = await restAll(cfg, 'groups', 'select=id,name&site_id=eq.kpop&order=id', { sleep: deps.sleep });
   const groupName = new Map(groups.map((g) => [g.id, g.name]));
-  const existing = await restAll(cfg, 'entity_images', 'select=slug,path,thumb_path&site_id=eq.kpop&kind=eq.idol');
+  const existing = await restAll(cfg, 'entity_images', 'select=slug,path,thumb_path&site_id=eq.kpop&kind=eq.idol&order=slug', { sleep: deps.sleep });
   const have = new Map(existing.map((r) => [String(r.slug), r]));
 
   const list = idols.map((x) => ({ id: x.id, name: x.name, group: groupName.get(x.group_id) ?? '', photo_url: x.photo_url }))
@@ -170,7 +182,7 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
   let published = 0;
   for (const m of ready) {
     try {
-      const r = await publishOne(cfg, sharp, m, dir, have.get(String(m.idol.id)) ?? null, fromSite);
+      const r = await publishOne(cfg, sharp, m, dir, have.get(String(m.idol.id)) ?? null, fromSite, deps.sleep);
       published++;
       report.push([m.idol.id, m.idol.name, m.idol.group, m.file, r.small ? 'published, small source: may look soft' : 'published']);
       if (published % 20 === 0) console.log(`  ${published} published...`);

@@ -46,9 +46,19 @@
 //       --non-interactive --host <project host> [--keep-going] [--cache-dir <folder>] [--report <file.json>]
 //   Nothing is typed and no terminal is needed: the host comes from --host (it must be the host of CARDS_SUPABASE_URL, else nothing is sent),
 //   the service key from CARDS_SERVICE_KEY only (never printed, never written). The cleanup only LISTS in this mode: it never deletes.
-//   --keep-going (either mode): a photo whose original fails (download failed after its retries, the Commons file changed: another sha1,
-//       an unreadable image) is skipped, listed, and the run goes on; the run then ends with exit code 2. A refusal of Supabase (upload,
-//       PATCH, the bucket list) still stops the run (exit 1): it would fail for every photo. A failed photo keeps its row unchanged.
+//   Every request to the project (the rows, each upload, each PATCH, the bucket list) is tried up to 4 times on a passing error (a status of
+//       RETRY_STATUS: 408, 429, 5xx, Cloudflare's 520 to 524; or the network), after the server's Retry-After (at most 60 s), else 5 s then
+//       20 s (lot CPUB-RETRY: a 520 on one upload stopped the first run). Each one is idempotent: an upload replaces (x-upsert), a PATCH sets
+//       the same values again. A 400, 401, 403, 404, 409 or 413 is not tried again.
+//   --keep-going (either mode): a photo whose original fails (download failed after its tries, the Commons file changed: another sha1, an
+//       unreadable image), or whose upload or PATCH still fails after its tries, is skipped, listed with its reason, and the run goes on; the
+//       run then ends with exit code 2. A failed photo keeps its row unchanged (the PATCH comes last). Guards, exit 1 at once: a 401, 403 or
+//       404 of the project (the key, the bucket: every photo would fail), or 5 photos in a row failing on the project.
+//   The live photos are read page by page (lot CPUB-RETRY, run Cards publish #2: one read with limit=2000 got the first 1,000 rows only, the
+//       max rows of the API, and the last 101 live photos were never seen): order=id, limit=1000, offset, until a page has fewer than 1,000
+//       rows, each page with its tries. Guard, exit 1 before any write: the rows read must be the total of the first page's Content-Range
+//       (Prefer: count=exact), and no id twice. The cleanup starts from these complete rows: a live photo never read would have had its
+//       files proposed for deletion. The report counts the live photos read (photos.live).
 //   --cache-dir <folder>: the Commons originals, one file per recorded sha1 (a file that no longer has its sha1 is downloaded again); a
 //       second run downloads only what is missing.
 //   --report <file.json>: the counts (photos, cards, panoramas), the failed photos and why, the cleanup's counts; written at the end and
@@ -61,7 +71,7 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { RETRY_STATUS, cutPlan, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, retryWait, stemOf } from './card-files.mjs';
+import { PAGE_ROWS, RETRY_STATUS, cutPlan, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, readAllRows, retryWait, stemOf } from './card-files.mjs';
 import { SIZES, panoSizes } from './card-geometry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -250,12 +260,32 @@ ${blocks.map(block).join('\n')}`;
   for (const l of left) console.log(`left out: ${l.slug} (${l.reason})`);
 }
 
+/** A request to the Supabase project that failed after its tries: `status` is its HTTP status, null when the network failed. */
+class SupabaseError extends Error {
+  constructor(message, status) { super(message); this.status = status; }
+}
+/** A status of the project that would fail for every photo (the key, the bucket): the run stops at once, --keep-going or not. */
+const FATAL_STATUS = new Set([401, 403, 404]);
+/** --keep-going stops after this many photos in a row failing on the project. */
+const SUPABASE_FAILS_IN_A_ROW = 5;
+
+/** One request to the project, with its tries (fetchRetry): the answer when it is ok, else a SupabaseError named `what`. */
+async function projectFetch(what, url, init) {
+  let r;
+  try {
+    r = await fetchRetry(() => fetch(url, init));
+  } catch (e) {
+    throw new SupabaseError(`${what}: ${String(e?.message ?? e)}`, null);
+  }
+  if (!r.ok) throw new SupabaseError(`${what}: ${r.status} ${(await r.text()).slice(0, 200)}`, r.status);
+  return r;
+}
+
 /** The objects of the bucket 'cards' (Storage API list, paged), top-level names only. */
 async function listBucket(origin, H) {
   const names = [];
   for (let offset = 0; ; offset += 1000) {
-    const r = await fetch(`${origin}/storage/v1/object/list/cards`, { method: 'POST', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ prefix: '', limit: 1000, offset, sortBy: { column: 'name', order: 'asc' } }) });
-    if (!r.ok) throw new Error(`list bucket cards: ${r.status} ${(await r.text()).slice(0, 200)}`);
+    const r = await projectFetch('list bucket cards', `${origin}/storage/v1/object/list/cards`, { method: 'POST', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ prefix: '', limit: 1000, offset, sortBy: { column: 'name', order: 'asc' } }) });
     const page = await r.json();
     for (const o of page) if (o.id !== null && o.id !== undefined) names.push(o.name); // a null id is a folder
     if (page.length < 1000) break;
@@ -266,7 +296,7 @@ async function listBucket(origin, H) {
 /** What the run did, for --report (and the job summary): counts and names only, never a secret. */
 const report = {
   mode: NON_INTERACTIVE ? 'non-interactive' : 'interactive', host: null, keepGoing: KEEP_GOING,
-  photos: { uploaded: 0, upToDate: 0, notInData: 0, failed: 0 }, cards: 0, panoramas: 0, failed: [],
+  photos: { live: null, uploaded: 0, upToDate: 0, notInData: 0, failed: 0 }, cards: 0, panoramas: 0, failed: [],
   cleanup: null, stopped: null,
 };
 /** The service key, once read: any message that would carry it (an error body echoing a header) shows [redacted] instead. */
@@ -305,19 +335,18 @@ async function publish() {
   if (!key) throw new Error(NON_INTERACTIVE ? 'refused: --non-interactive needs CARDS_SERVICE_KEY in the environment; nothing was sent' : 'no key');
   SECRET = key;
   const H = { apikey: key, Authorization: `Bearer ${key}` };
-  const rest = async (p, init = {}) => {
-    const r = await fetch(`${origin}/rest/v1/${p}`, { ...init, headers: { ...H, 'Content-Type': 'application/json', ...(init.headers ?? {}) } });
-    if (!r.ok) throw new Error(`${init.method ?? 'GET'} ${p.split('?')[0]}: ${r.status} ${(await r.text()).slice(0, 200)}`);
-    return r;
-  };
-  const rowsAll = await (await rest('cards_photos?select=*&status=in.(auto,approved)&order=id&limit=2000')).json();
+  const rest = (p, init = {}) => projectFetch(`${init.method ?? 'GET'} ${p.split('?')[0]}`, `${origin}/rest/v1/${p}`, { ...init, headers: { ...H, 'Content-Type': 'application/json', ...(init.headers ?? {}) } });
+  // Every live photo, page by page (the API answers at most 1,000 rows a read); a count that differs stops the run here, before any write.
+  const { rows: rowsAll } = await readAllRows(
+    (offset, first) => rest(`cards_photos?select=*&status=in.(auto,approved)&order=id&limit=${PAGE_ROWS}&offset=${offset}`, first ? { headers: { Prefer: 'count=exact' } } : {}),
+    'GET cards_photos', { key: (row) => row.id },
+  );
+  report.photos.live = rowsAll.length;
+  console.log(`live photos read: ${rowsAll.length}`);
   const slugOf = (row) => row.entity_id.replace(/^(idol|group):/, '');
   const rows = rowsAll.filter((r) => !ONLY || ONLY.has(slugOf(r)));
-  const upload = async (name, body) => {
-    const r = await fetch(`${origin}/storage/v1/object/cards/${name}`, { method: 'POST', headers: { ...H, 'Content-Type': 'image/webp', 'x-upsert': 'true' }, body });
-    if (!r.ok) throw new Error(`upload ${name}: ${r.status} ${(await r.text()).slice(0, 200)}`);
-  };
-  let done = 0, skipped = 0;
+  const upload = (name, body) => projectFetch(`upload ${name}`, `${origin}/storage/v1/object/cards/${name}`, { method: 'POST', headers: { ...H, 'Content-Type': 'image/webp', 'x-upsert': 'true' }, body });
+  let done = 0, skipped = 0, failsInARow = 0;
   for (const row of rows) {
     const hit = byPage.get(row.source_page);
     const slug = slugOf(row);
@@ -341,24 +370,38 @@ async function publish() {
       continue;
     }
     const sent = [];
-    if (action === 'full') {
-      for (const q of parts) {
-        for (const k of q.has2x ? ['1x', '2x'] : ['1x']) { // no upscaled 2x file: the site uses the 1x file for a small card
-          await upload(partFileName(stem, q.part, k, n), q.files[k]);
-          sent.push(partFileName(stem, q.part, k, n).slice(stem.length));
+    try {
+      if (action === 'full') {
+        for (const q of parts) {
+          for (const k of q.has2x ? ['1x', '2x'] : ['1x']) { // no upscaled 2x file: the site uses the 1x file for a small card
+            await upload(partFileName(stem, q.part, k, n), q.files[k]);
+            sent.push(partFileName(stem, q.part, k, n).slice(stem.length));
+          }
         }
       }
-    }
-    // The panorama: its 1x always, its 2x only when every part has its 2x.
-    if (pano && 'file_pano' in row) {
-      for (const k of pano.has2x ? ['1x', '2x'] : ['1x']) {
-        await upload(panoFileName(stem, n, k), pano.files[k]);
-        sent.push(panoFileName(stem, n, k).slice(stem.length));
+      // The panorama: its 1x always, its 2x only when every part has its 2x.
+      if (pano && 'file_pano' in row) {
+        for (const k of pano.has2x ? ['1x', '2x'] : ['1x']) {
+          await upload(panoFileName(stem, n, k), pano.files[k]);
+          sent.push(panoFileName(stem, n, k).slice(stem.length));
+        }
       }
+      // The row is set only once every part and the panorama are up, in ONE PATCH; its cards then enter the packs (trigger cards_photos_ready of 103).
+      const body = filePatch({ stem, fx: row.focal_x, fy: row.focal_y, parts: n, pano: Boolean(pano) && 'file_pano' in row }, { fileParts: 'file_parts' in row, filePano: 'file_pano' in row });
+      await rest(`cards_photos?id=eq.${row.id}`, { method: 'PATCH', body: JSON.stringify(body), headers: { Prefer: 'return=minimal' } });
+    } catch (e) {
+      // --keep-going: an upload or the PATCH still failed after its tries; the row was not set (the PATCH comes last) and the run goes on,
+      // unless the project refuses the key or the bucket (401, 403, 404) or 5 photos in a row failed on it
+      if (!KEEP_GOING || !(e instanceof SupabaseError) || FATAL_STATUS.has(e.status)) throw e;
+      const reason = redact(e.message);
+      report.failed.push({ slug, slot: row.slot, page: row.source_page, reason });
+      report.photos.failed++;
+      failsInARow++;
+      console.log(`${slug} photo ${row.slot}: FAILED on the project, skipped (--keep-going): ${reason}`);
+      if (failsInARow >= SUPABASE_FAILS_IN_A_ROW) throw new Error(`stopped: ${failsInARow} photos in a row failed on the project (the last: ${reason})`);
+      continue;
     }
-    // The row is set only once every part and the panorama are up, in ONE PATCH; its cards then enter the packs (trigger cards_photos_ready of 103).
-    const body = filePatch({ stem, fx: row.focal_x, fy: row.focal_y, parts: n, pano: Boolean(pano) && 'file_pano' in row }, { fileParts: 'file_parts' in row, filePano: 'file_pano' in row });
-    await rest(`cards_photos?id=eq.${row.id}`, { method: 'PATCH', body: JSON.stringify(body), headers: { Prefer: 'return=minimal' } });
+    failsInARow = 0;
     console.log(`${slug} photo ${row.slot}: uploaded ${sent.join(' ')} at ${row.focal_x}/${row.focal_y}`);
     done++;
     report.photos.uploaded++;

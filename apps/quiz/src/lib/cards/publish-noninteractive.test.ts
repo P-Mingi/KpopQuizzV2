@@ -4,7 +4,9 @@
 // Proved: nothing is typed and no terminal is needed; the host comes from --host and must be the project's; the key comes from the
 // environment, goes to the project only and is never printed nor written; --keep-going skips a photo whose original fails (sha1 changed,
 // download failed), lists it, goes on and ends with exit code 2; a busy answer is tried again; the cleanup lists and never deletes; the
-// report has the counts; --cache-dir saves the originals and a second run does not download them again.
+// report has the counts; --cache-dir saves the originals and a second run does not download them again. Lot CPUB-RETRY (run Cards publish
+// #2): the server answers like PostgREST, at most 1,000 rows a read and the total in Content-Range; the 1,101 live photos are all read, page
+// by page, a total that differs stops the run before any write, and the cleanup proposes no file of a photo beyond the first 1,000 rows.
 import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -45,6 +47,7 @@ beforeAll(async () => {
     { slug: 'cid', kind: 'idol', file: 'cid.jpg', img: await rect(1000, 1500, 50), served: other },
     { slug: 'dee', kind: 'idol', file: 'dee.jpg', img: await rect(1000, 1500, 60), status: 404 },
     { slug: 'eve', kind: 'idol', file: 'eve.jpg', img: await rect(1000, 1500, 70) },
+    { slug: 'fay', kind: 'idol', file: 'fay.jpg', img: await rect(1000, 1500, 80) },
   ];
   dataDir = mkdtempSync(path.join(tmpdir(), 'cards-pub-data-'));
   const subjects = photos.map((p) => ({
@@ -72,13 +75,24 @@ function rows(only?: string[]): Record<string, unknown>[] {
     row(6, 'dee', 'idol'),
     row(7, 'eve', 'idol'),
     { ...row(8, 'zed', 'idol'), source_page: 'https://commons.test/wiki/File:not-in-the-data.jpg' },
+    // only when asked for (lot CPUB-RETRY: five photos that reach the project)
+    row(9, 'fay', 'idol'),
   ];
-  return only ? all.filter((r) => only.includes(String(r.entity_id).split(':')[1]!)) : all;
+  return only ? all.filter((r) => only.includes(String(r.entity_id).split(':')[1]!)) : all.filter((r) => r.entity_id !== 'idol:fay');
 }
 
 interface Server { base: string; reqs: Req[]; close: () => Promise<void> }
-async function server(opts: { rows: Record<string, unknown>[]; rowsError?: boolean }): Promise<Server> {
+/** `project(method, path, n)`: a status the project answers instead (with Retry-After: 0) to the n-th request of that method and path. */
+type ProjectFault = (method: string, path: string, n: number) => number | null;
+/** `maxRows`: the most rows the project answers a read (Supabase: 1,000); `announce`: the total its Content-Range gives instead of the rows'
+ *  number; `bucket`: the objects of the bucket 'cards'; `originals`: more Commons files, by file name. */
+interface ServerOpts {
+  rows: Record<string, unknown>[]; rowsError?: boolean; project?: ProjectFault;
+  maxRows?: number; announce?: number; bucket?: { name: string; id: string }[]; originals?: Map<string, Buffer>;
+}
+async function server(opts: ServerOpts): Promise<Server> {
   const reqs: Req[] = [];
+  const seen = new Map<string, number>();
   const busy = new Set(['eve.jpg']); // answers 503 once, then the file
   const srv = createServer((req: IncomingMessage, res: ServerResponse) => {
     const chunks: Buffer[] = [];
@@ -92,20 +106,34 @@ async function server(opts: { rows: Record<string, unknown>[]; rowsError?: boole
       const json = (code: number, v: unknown) => { res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(v)); };
       if (host === 'commons.test') {
         const file = decodeURIComponent(p.replace(/^\/orig\//, ''));
+        const more = opts.originals?.get(file);
+        if (more) { res.writeHead(200, { 'Content-Type': 'image/jpeg' }); res.end(more); return; }
         const ph = photos.find((x) => x.file === file);
         if (!ph || ph.status === 404) { res.writeHead(404); res.end('not found'); return; }
         if (busy.delete(file)) { res.writeHead(503, { 'Retry-After': '0' }); res.end('busy'); return; }
         res.writeHead(200, { 'Content-Type': 'image/jpeg' }); res.end(ph.served ?? ph.img); return;
       }
       if (host !== HOST) { res.writeHead(500); res.end('unexpected host'); return; }
+      const n = (seen.get(`${req.method} ${p}`) ?? 0) + 1;
+      seen.set(`${req.method} ${p}`, n);
+      const fault = opts.project?.(req.method ?? '', p, n) ?? null;
+      if (fault !== null) { res.writeHead(fault, { 'Retry-After': '0', 'Content-Type': 'text/plain' }); res.end(`error ${fault}`); return; }
       if (req.method === 'GET' && p.startsWith('/rest/v1/cards_photos?')) {
         if (opts.rowsError) { json(401, { message: `Invalid API key ${String(req.headers.apikey)}` }); return; }
-        json(200, opts.rows); return;
+        // like PostgREST: limit and offset, at most maxRows rows a read whatever the limit, the total in Content-Range when asked for
+        const limit = Math.min(Number(url.searchParams.get('limit') ?? Infinity), opts.maxRows ?? 1000);
+        const offset = Number(url.searchParams.get('offset') ?? 0);
+        const page = opts.rows.slice(offset, offset + limit);
+        const total = String(req.headers.prefer ?? '').includes('count=exact') ? String(opts.announce ?? opts.rows.length) : '*';
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Content-Range': `${page.length ? `${offset}-${offset + page.length - 1}` : '*'}/${total}` });
+        res.end(JSON.stringify(page)); return;
       }
       if (req.method === 'PATCH' && p.startsWith('/rest/v1/cards_photos?id=eq.')) { res.writeHead(204); res.end(); return; }
       if (req.method === 'POST' && p.startsWith('/storage/v1/object/cards/')) { json(200, { Key: p }); return; }
       if (req.method === 'POST' && p === '/storage/v1/object/list/cards') {
-        json(200, [{ name: 'bea-50-50-1x.webp', id: 'a' }, { name: 'ada-40-40-1x.webp', id: 'b' }, { name: 'ada-40-40-2x.webp', id: 'c' }]); return;
+        const { limit = 100, offset = 0 } = JSON.parse(body.toString('utf8') || '{}') as { limit?: number; offset?: number };
+        const all = opts.bucket ?? [{ name: 'bea-50-50-1x.webp', id: 'a' }, { name: 'ada-40-40-1x.webp', id: 'b' }, { name: 'ada-40-40-2x.webp', id: 'c' }];
+        json(200, all.slice(offset, offset + limit)); return;
       }
       res.writeHead(500); res.end('unexpected request');
     });
@@ -270,5 +298,164 @@ describe('publish-card-files.mjs --non-interactive refuses, and stops without --
       expect(text).not.toContain(KEY);
       expect(existsSync(path.join(dir, 'originals'))).toBe(false);
     } finally { await s.close(); }
+  });
+});
+
+describe('lot CPUB-RETRY: passing errors of the project are tried again; --keep-going skips a photo the project still refuses', () => {
+  const tries = (s: Server, method: string, prefix: string): number => s.reqs.filter((q) => q.host === HOST && q.method === method && q.path.startsWith(prefix)).length;
+
+  it('a 520 on the rows, an upload and the PATCH, then OK: the photo is published, exit 0', async () => {
+    const s = await server({
+      rows: rows(['ada']),
+      project: (m, p, n) => (n === 1 && ((m === 'GET' && p.startsWith('/rest/v1/cards_photos?')) || p === '/storage/v1/object/cards/ada-50-50-1x.webp' || m === 'PATCH') ? 520 : null),
+    });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-ok-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.err).toBe('');
+      expect(r.code).toBe(0);
+      expect(tries(s, 'GET', '/rest/v1/cards_photos?')).toBe(2);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/ada-50-50-1x.webp')).toBe(2);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/ada-50-50-2x.webp')).toBe(1);
+      expect(tries(s, 'PATCH', '/rest/v1/cards_photos?id=eq.1')).toBe(2);
+      expect(JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'))).toMatchObject({ photos: { uploaded: 1, failed: 0 }, failed: [], stopped: null });
+    } finally { await s.close(); }
+  });
+
+  it('--keep-going: an upload still failing after 4 tries skips its photo (row unchanged, listed), the next photo is published, exit 2', async () => {
+    const s = await server({ rows: rows(['trio', 'duo']), project: (_m, p) => (p === '/storage/v1/object/cards/trio-50-50-t2-1x.webp' ? 520 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-skip-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.code).toBe(2);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/trio-50-50-t2-1x.webp')).toBe(4);
+      expect(r.out).toContain('trio photo 1: FAILED on the project, skipped (--keep-going): upload trio-50-50-t2-1x.webp: 520 error 520');
+      expect(tries(s, 'PATCH', '/rest/v1/cards_photos?id=eq.2')).toBe(0);
+      expect(tries(s, 'PATCH', '/rest/v1/cards_photos?id=eq.3')).toBe(1);
+      const rep = JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'));
+      expect(rep).toMatchObject({ photos: { uploaded: 1, failed: 1 }, panoramas: 1, stopped: null });
+      expect(rep.failed).toEqual([{ slug: 'trio', slot: 1, page: 'https://commons.test/wiki/File:trio.jpg', reason: 'upload trio-50-50-t2-1x.webp: 520 error 520' }]);
+      expect(r.out + r.err + JSON.stringify(rep)).not.toContain(KEY);
+    } finally { await s.close(); }
+  });
+
+  it('--keep-going: 5 photos in a row failing on the project stop the run, exit 1', async () => {
+    const s = await server({ rows: rows(['ada', 'trio', 'duo', 'eve', 'fay']), project: (m, p) => (m === 'POST' && p.startsWith('/storage/v1/object/cards/') ? 503 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-five-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.code).toBe(1);
+      expect(r.err).toContain('stopped: 5 photos in a row failed on the project (the last: upload fay-50-50-1x.webp: 503 error 503)');
+      const rep = JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'));
+      expect(rep.failed.map((f: { slug: string }) => f.slug)).toEqual(['ada', 'trio', 'duo', 'eve', 'fay']);
+      expect(rep.stopped).toContain('stopped: 5 photos in a row');
+      expect(s.reqs.some((q) => q.method === 'PATCH')).toBe(false);
+      expect(s.reqs.some((q) => q.path === '/storage/v1/object/list/cards')).toBe(false);
+    } finally { await s.close(); }
+  });
+
+  it('--keep-going: a 401 of the project stops at once, without a second try and before the next photo', async () => {
+    const s = await server({ rows: rows(['ada', 'eve']), project: (_m, p) => (p === '/storage/v1/object/cards/ada-50-50-1x.webp' ? 401 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-401-'));
+      const r = await run(ciArgs(dir, ['--keep-going']), ciEnv(s.base));
+      expect(r.code).toBe(1);
+      expect(r.err).toContain('upload ada-50-50-1x.webp: 401');
+      expect(tries(s, 'POST', '/storage/v1/object/cards/')).toBe(1);
+      expect(s.reqs.filter((q) => q.host === 'commons.test').map((q) => q.path)).toEqual(['/orig/ada.jpg']);
+    } finally { await s.close(); }
+  });
+
+  it('without --keep-going an upload still failing after its tries stops the run, exit 1, the row unchanged', async () => {
+    const s = await server({ rows: rows(['ada']), project: (_m, p) => (p === '/storage/v1/object/cards/ada-50-50-2x.webp' ? 524 : null) });
+    try {
+      const dir = mkdtempSync(path.join(tmpdir(), 'cards-retry-stop-'));
+      const r = await run(ciArgs(dir), ciEnv(s.base));
+      expect(r.code).toBe(1);
+      expect(tries(s, 'POST', '/storage/v1/object/cards/ada-50-50-2x.webp')).toBe(4);
+      expect(r.err).toContain('upload ada-50-50-2x.webp: 524');
+      expect(s.reqs.some((q) => q.method === 'PATCH')).toBe(false);
+    } finally { await s.close(); }
+  });
+});
+
+describe('lot CPUB-RETRY: the live photos are read page by page (Cards publish #2: the API answers at most 1,000 rows a read)', () => {
+  const N = 1101;
+  const slug = (i: number): string => `m${String(i).padStart(4, '0')}`;
+  const bigDir = mkdtempSync(path.join(tmpdir(), 'cards-pub-1101-data-'));
+  const dir = mkdtempSync(path.join(tmpdir(), 'cards-pub-1101-run-'));
+  const STALE = ['m0500-40-40-1x.webp', 'm1050-40-40-1x.webp']; // an old focal point, one row in the first 1,000 and one beyond
+  let img: Buffer;
+  let bigRows: Record<string, unknown>[] = [];
+  let s: Server;
+  let r: Run;
+  const bigRun = (srv: Server, out: string): Promise<Run> => run(ciArgs(out, ['--keep-going']), { ...ciEnv(srv.base), CARDS_DATA_DIR: bigDir });
+
+  beforeAll(async () => {
+    img = await rect(1000, 1500, 90);
+    const subjects = Array.from({ length: N }, (_, k) => {
+      const sl = slug(k + 1);
+      return { slug: sl, name: sl.toUpperCase(), kind: 'idol', photos: [{ slot: 1, page: `https://commons.test/wiki/File:${sl}.jpg`, url: `https://commons.test/orig/${sl}.jpg`, sha1: sha1(img), status: 'approved', focal: { x: 50, y: 50 } }] };
+    });
+    writeFileSync(path.join(bigDir, 'photos.json'), JSON.stringify({ subjects, left_out: [] }));
+    writeFileSync(path.join(bigDir, 'subjects.json'), JSON.stringify(subjects.map((x) => ({ slug: x.slug }))));
+    // 1,100 photos already published at their focal point; the last one (id 1101, beyond the first 1,000 rows) is still to publish
+    bigRows = Array.from({ length: N }, (_, k) => {
+      const sl = slug(k + 1);
+      const done = k + 1 < N;
+      return {
+        id: k + 1, entity_id: `idol:${sl}`, slot: 1, source_page: `https://commons.test/wiki/File:${sl}.jpg`, status: 'approved', focal_x: 50, focal_y: 50,
+        storage_path: done ? `${sl}-50-50` : null, file_focal_x: done ? 50 : null, file_focal_y: done ? 50 : null, parts: null, file_parts: done ? 2 : null, file_pano: false,
+      };
+    });
+    const bucket = [...bigRows.flatMap((row) => (row.storage_path ? ['1x', '2x'].map((k) => `${String(row.storage_path)}-${k}.webp`) : [])), ...STALE]
+      .sort().map((name, i) => ({ name, id: `o${i}` }));
+    s = await server({ rows: bigRows, bucket, originals: new Map([[`${slug(N)}.jpg`, img]]) });
+    r = await bigRun(s, dir);
+  });
+  afterAll(async () => { await s.close(); });
+
+  it('reads the 1,101 live photos in two pages (order=id, limit=1000, offset; Prefer: count=exact on the first) and handles every one', () => {
+    expect(r.err).toBe('');
+    expect(r.code).toBe(0);
+    const reads = s.reqs.filter((q) => q.method === 'GET' && q.path.startsWith('/rest/v1/cards_photos?')).map((q) => {
+      const u = new URL(q.path, 'http://x');
+      return [u.searchParams.get('order'), u.searchParams.get('limit'), u.searchParams.get('offset'), q.headers.prefer ?? null];
+    });
+    expect(reads).toEqual([['id', '1000', '0', 'count=exact'], ['id', '1000', '1000', null]]);
+    expect(r.out).toContain('live photos read: 1101');
+    const rep = JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'));
+    expect(rep.photos).toEqual({ live: 1101, uploaded: 1, upToDate: 1100, notInData: 0, failed: 0 });
+    // the photo beyond the first 1,000 rows is published: its files and its PATCH
+    expect(s.reqs.filter((q) => q.method === 'POST' && q.path.startsWith('/storage/v1/object/cards/')).map((q) => q.path.replace('/storage/v1/object/cards/', ''))).toEqual(['m1101-50-50-1x.webp', 'm1101-50-50-2x.webp']);
+    expect(s.reqs.filter((q) => q.method === 'PATCH').map((q) => q.path)).toEqual(['/rest/v1/cards_photos?id=eq.1101']);
+  });
+
+  it('the cleanup starts from the 1,101 rows: no file of a photo beyond the first 1,000 rows is proposed, only the old focal points', () => {
+    const rep = JSON.parse(readFileSync(path.join(dir, 'report.json'), 'utf8'));
+    expect(rep.cleanup).toEqual({ objects: 2 * 1100 + 2, kept: 2 * 1100, proposed: 2, deleted: 0 });
+    const proposed = r.out.split('\n').map((l) => /^ {2}(\S+\.webp) {2}\(/.exec(l)?.[1]).filter(Boolean);
+    expect(proposed).toEqual(STALE);
+    expect(s.reqs.filter((q) => q.path === '/storage/v1/object/list/cards')).toHaveLength(3);
+    expect(s.reqs.some((q) => q.method === 'DELETE')).toBe(false);
+  });
+
+  it('a total in Content-Range that is not the rows read stops the run, exit 1, before any write', async () => {
+    const stops = async (opts: { announce?: number; maxRows?: number }, words: string): Promise<void> => {
+      const srv = await server({ rows: bigRows, ...opts });
+      try {
+        const out = mkdtempSync(path.join(tmpdir(), 'cards-pub-count-'));
+        const res = await bigRun(srv, out);
+        expect(res.code).toBe(1);
+        expect(res.err).toContain(`GET cards_photos: ${words}; stopped before any write`);
+        expect(srv.reqs.some((q) => q.method !== 'GET' || q.host !== HOST)).toBe(false);
+        const rep = JSON.parse(readFileSync(path.join(out, 'report.json'), 'utf8'));
+        expect(rep.stopped).toContain(words);
+        expect(rep.photos).toMatchObject({ live: null, uploaded: 0 });
+        expect(rep.cleanup).toBeNull();
+      } finally { await srv.close(); }
+    };
+    await stops({ announce: 1102 }, '1101 rows read, the project counts 1102'); // a row added between the count and the last page
+    await stops({ maxRows: 500 }, '500 rows read, the project counts 1101'); // a project that answers fewer rows a read than asked
   });
 });

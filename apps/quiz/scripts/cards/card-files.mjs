@@ -139,8 +139,10 @@ export function mergePhotoFiles(base, extra) {
   return { ...base, subjects, left_out: [...base.left_out, ...extra.left_out.filter((l) => !seen.has(l.slug))] };
 }
 
-/** Statuses of a Commons download worth another try (a timeout, the rate limit, a busy server); a 404 or a 403 is not tried again. */
-export const RETRY_STATUS = new Set([408, 429, 500, 502, 503, 504]);
+/** Statuses worth another try, for a Commons download and for every request to the Supabase project: a timeout, the rate limit, a busy
+ *  server, and the passing errors of Cloudflare in front of Supabase (520 to 524; lot CPUB-RETRY: a 520 on one upload stopped the first
+ *  run of cards-publish). A 400, 401, 403, 404, 409 or 413 is never tried again: the same request would get the same answer. */
+export const RETRY_STATUS = new Set([408, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524]);
 
 /** The wait in ms before try `n + 1` of a download: the server's Retry-After in seconds (at most 60) when it sends a number, else 5 s after the
  *  first try and 20 s after the second. */
@@ -148,4 +150,77 @@ export function retryWait(n, retryAfter) {
   const t = retryAfter === null || retryAfter === undefined ? '' : String(retryAfter).trim();
   if (/^\d+$/.test(t)) return Math.min(Number(t), 60) * 1000;
   return n === 1 ? 5000 : 20000;
+}
+
+const realSleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
+
+/** One request with its tries (lot CPUB-RETRY): `doFetch(n)` is called for try n (1, 2, ...) and must send the same idempotent request each
+ *  time (an upload with x-upsert, a PATCH of the same values, a read, an upsert). Tried again on a status of RETRY_STATUS and when doFetch
+ *  throws (the network), after retryWait (the server's Retry-After, at most 60 s). Returns the last answer, ok or not (the caller reads its
+ *  status); throws the last network error when every try threw. Pure: the fetch and the sleep are given. */
+export async function fetchRetry(doFetch, { tries = 4, sleep = realSleep } = {}) {
+  for (let n = 1; ; n++) {
+    let r;
+    try {
+      r = await doFetch(n);
+    } catch (e) {
+      if (n >= tries) throw e;
+      await sleep(retryWait(n, null));
+      continue;
+    }
+    if (r.ok || !RETRY_STATUS.has(r.status) || n >= tries) return r;
+    const retryAfter = r.headers?.get?.('retry-after') ?? null;
+    try { await r.body?.cancel?.(); } catch { /* the body of an answer tried again is not read */ }
+    await sleep(retryWait(n, retryAfter));
+  }
+}
+
+/** Supabase answers a PostgREST read with at most its max rows (1,000), whatever the `limit` asked (lot CPUB-RETRY, run Cards publish #2:
+ *  cards_photos read with limit=2000 gave the first 1,000 of the 1,101 live photos, and the last 101 were never seen). A read of rows goes
+ *  page by page instead, PAGE_ROWS at a time. */
+export const PAGE_ROWS = 1000;
+
+/** The total of a PostgREST answer asked with `Prefer: count=exact`: the number after the slash of its Content-Range ("0-999/1101",
+ *  an empty read has a star before the slash); null when there is none ("0-999/*", or no header). */
+export function contentRangeTotal(header) {
+  const m = /\/(\d+)$/.exec(String(header ?? '').trim());
+  return m ? Number(m[1]) : null;
+}
+
+/**
+ * Every row of a PostgREST read, page by page (lot CPUB-RETRY). `readPage(offset, first)` sends the read of the page at `offset`, `limit`
+ * PAGE_ROWS, its query ordered on a unique key (so the pages neither skip nor repeat a row), with `Prefer: count=exact` when `first`; it does
+ * its own tries (fetchRetry) and returns an ok answer or throws. The pages are read until one has fewer than PAGE_ROWS rows. Guards, each
+ * one throws before the caller writes anything: the first page has no total in its Content-Range; the rows read are not that total (a
+ * server that answers fewer rows a page than asked, a row added or removed during the read); `key` (optional) gives two rows the same key.
+ * `what` names the read in the messages. Returns { rows, total }.
+ * @param {(offset: number, first: boolean) => Promise<Response>} readPage
+ * @param {string} what
+ * @param {{ key?: ((row: any) => unknown) | null, pageRows?: number }} [opts]
+ * @returns {Promise<{ rows: any[], total: number }>}
+ */
+export async function readAllRows(readPage, what, { key = null, pageRows = PAGE_ROWS } = {}) {
+  const rows = [];
+  let total = null;
+  for (let offset = 0; ; offset += pageRows) {
+    const r = await readPage(offset, offset === 0);
+    if (offset === 0) {
+      total = contentRangeTotal(r.headers?.get?.('content-range'));
+      if (total === null) throw new Error(`${what}: no total in the Content-Range of the first page (Prefer: count=exact); stopped before any write`);
+    }
+    const page = await r.json();
+    if (!Array.isArray(page)) throw new Error(`${what}: the answer is not a list of rows; stopped before any write`);
+    rows.push(...page);
+    if (page.length < pageRows || rows.length > total) break;
+  }
+  if (rows.length !== total) throw new Error(`${what}: ${rows.length} rows read, the project counts ${total}; stopped before any write`);
+  if (key) {
+    const seen = new Set();
+    for (const row of rows) {
+      const k = key(row);
+      if (seen.has(k)) throw new Error(`${what}: the row ${k} was read twice (the rows changed during the read); stopped before any write`);
+      seen.add(k);
+    }
+  }
+  return { rows, total };
 }

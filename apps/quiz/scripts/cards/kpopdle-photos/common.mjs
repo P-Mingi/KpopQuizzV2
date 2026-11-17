@@ -2,6 +2,8 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { PAGE_ROWS, fetchRetry, readAllRows } from '../card-files.mjs';
+
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 // apps/quiz/scripts/cards/kpopdle-photos -> the repo folder
 export const REPO = path.resolve(SCRIPT_DIR, '..', '..', '..', '..', '..');
@@ -22,13 +24,18 @@ export function serviceHeaders(key, extra = {}) {
   return { apikey: key, Authorization: `Bearer ${key}`, ...extra };
 }
 
-export async function restAll(cfg, table, query) {
-  const rows = [];
-  for (let offset = 0; ; offset += 1000) {
-    const res = await fetch(`${cfg.url}/rest/v1/${table}?${query}&limit=1000&offset=${offset}`, { headers: serviceHeaders(cfg.serviceKey) });
+/** Every row of a read, page by page (readAllRows of ../card-files.mjs, lot CPUB-RETRY): limit 1000 and an offset, until a page has fewer
+ *  than 1000 rows; `query` orders the rows on a unique key, so the pages neither skip nor repeat a row. The first page asks Prefer:
+ *  count=exact, and the rows read must be that total (a server that answers fewer rows a page, a row added during the read: an error, before
+ *  any write). Each page is tried again on a passing error (fetchRetry: a read is idempotent); a refusal (401, 403, 404, ...) is not tried
+ *  again. `sleep` (tests) replaces the wait between two tries. */
+export async function restAll(cfg, table, query, { sleep } = {}) {
+  const { rows } = await readAllRows(async (offset, first) => {
+    const res = await fetchRetry(() => fetch(`${cfg.url}/rest/v1/${table}?${query}&limit=${PAGE_ROWS}&offset=${offset}`, {
+      headers: serviceHeaders(cfg.serviceKey, first ? { Prefer: 'count=exact' } : {}),
+    }), { sleep });
     if (!res.ok) throw new Error(`read ${table}: HTTP ${res.status}`);
-    const page = await res.json();
-    rows.push(...page);
-    if (page.length < 1000) return rows;
-  }
+    return res;
+  }, `read ${table}`);
+  return rows;
 }
