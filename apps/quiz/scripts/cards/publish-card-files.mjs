@@ -71,8 +71,8 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { PAGE_ROWS, RETRY_STATUS, cutPlan, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, readAllRows, retryWait, stemOf } from './card-files.mjs';
-import { SIZES, panoSizes } from './card-geometry.mjs';
+import { cutImage } from './card-cut.mjs';
+import { PAGE_ROWS, RETRY_STATUS, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, readAllRows, retryWait, stemOf } from './card-files.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
@@ -169,22 +169,9 @@ function ask(prompt) {
   });
 }
 
-/** Cuts a subject at a focal point: a person gives one part (0), a group its `n` parts (halves 1-2 or thirds 1-3), each with its 1x and 2x WebP,
- *  and its panorama (the whole window; `pano.files['2x']` only when every part has its 2x). `onlyPano`: no part is encoded (a pair cut before lot 7). */
-async function cut(src, s, fx, fy, n = 2, onlyPano = false) {
-  const meta = await sharp(src).metadata();
-  const plan = cutPlan(isGroup(s), meta.width, meta.height, fx, fy, n);
-  const encode = async (box, sizes, only) => {
-    const base = sharp(src).extract({ left: box.left, top: box.top, width: box.width, height: box.height });
-    const files = {};
-    for (const [k, [w, h]] of Object.entries(sizes)) if (!only || only.includes(k)) files[k] = await base.clone().resize(w, h, { fit: 'cover' }).webp({ quality: 82 }).toBuffer();
-    return files;
-  };
-  const parts = [];
-  for (const p of plan.parts) parts.push({ part: p.part, files: onlyPano ? {} : await encode(p, SIZES), cropWidth: p.cropWidth, has2x: p.has2x });
-  const pano = plan.pano ? { files: await encode(plan.pano, panoSizes(n), plan.pano.has2x ? null : ['1x']), has2x: plan.pano.has2x } : null;
-  return { parts, pano, window: plan.window };
-}
+/** Cuts a subject at a focal point (card-cut.mjs): the photo is read upright (its EXIF Orientation applied, lane PHOTOCHECK 2026-11-17), a person
+ *  gives one part (0), a group its `n` parts and its panorama. `onlyPano`: no part is encoded (a pair cut before lot 7). */
+const cut = (src, s, fx, fy, n = 2, onlyPano = false) => cutImage(sharp, src, isGroup(s), fx, fy, n, onlyPano);
 
 function readSecret(prompt) {
   return new Promise((resolve, reject) => {
