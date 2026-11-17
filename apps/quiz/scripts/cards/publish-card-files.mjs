@@ -78,6 +78,10 @@ const ONLY = onlyArg >= 0 ? new Set((args[onlyArg + 1] ?? '').split(',').filter(
 const lot6Dir = path.join(REPO, 'docs/design/cards/data/lot6');
 const lot6Photos = existsSync(path.join(lot6Dir, 'photos.json')) ? JSON.parse(readFileSync(path.join(lot6Dir, 'photos.json'), 'utf8')) : null;
 const lot6Slugs = existsSync(path.join(lot6Dir, 'subjects.json')) ? JSON.parse(readFileSync(path.join(lot6Dir, 'subjects.json'), 'utf8')).map((s) => s.slug) : [];
+// Lot 7: the preview reads each group photo's cards (2 or 3) and the focal point its window needs from lot7/parts.json (the data of 118, by
+// source page); a photo that file rejects is not cut. --publish reads the database instead (parts and focal_x/y of cards_photos).
+const lot7File = path.join(REPO, 'docs/design/cards/data/lot7/parts.json');
+const LOT7 = new Map(existsSync(lot7File) ? JSON.parse(readFileSync(lot7File, 'utf8')).photos.map((e) => [e.page, e]) : []);
 const photosFile = mergePhotoFiles(JSON.parse(readFileSync(dataFile('photos.json'), 'utf8')), lot6Photos);
 /** Every slug lots 2, 3 and 6 know: the cleanup proposes the files of a known slug that has no live photo (a subject left out, a locked pocket). */
 const KNOWN = [...new Set([...JSON.parse(readFileSync(dataFile('subjects.json'), 'utf8')).map((s) => s.slug), ...lot6Slugs, ...(lot6Photos?.subjects ?? []).map((s) => s.slug), ...photosFile.subjects.map((s) => s.slug)])];
@@ -157,9 +161,12 @@ async function preview() {
   let nSmall = 0, nCut = 0;
   for (const s of chosen) {
     const cells = [];
-    for (const p of s.photos.filter((x) => CUT.has(x.status))) {
+    for (const p0 of s.photos.filter((x) => CUT.has(x.status))) {
+      const l7 = isGroup(s) ? LOT7.get(p0.page) : undefined;
+      if (l7?.rejected) continue;
+      const p = l7 ? { ...p0, focal: l7.focal ?? p0.focal } : p0;
       const src = await original(s, p);
-      const n = p.parts === 3 ? 3 : 2;
+      const n = l7?.parts === 3 ? 3 : 2;
       const { parts, pano } = await cut(src, s, p.focal.x, p.focal.y, n);
       const stem = stemOf(s.slug, p.slot, p.focal.x, p.focal.y);
       for (const q of parts) for (const [k, buf] of Object.entries(q.files)) writeFileSync(path.join(dir, partFileName(stem, q.part, k, n)), buf);
