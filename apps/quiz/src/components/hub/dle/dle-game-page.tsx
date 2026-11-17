@@ -9,6 +9,8 @@ import { pageStickers } from '@/lib/photos/stickers';
 import { seriesArtOf } from '@/lib/dle/card-art';
 import { previewConfigured } from '@/lib/dle/preview';
 import { blindLinksOf, getAnimeSeriesSlugs, getBlindtestSlugs, getDleDay, getDleImages, getDlePictures, getDlePool, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
+import { EMPTY_IDOL_PICTURES } from '@/lib/dle/idol-pictures';
+import { getKpopdleIdolPictures } from '@/lib/dle/idol-pictures-read';
 import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
@@ -64,7 +66,9 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  const [day, pool, images, icons, pictures, slugs, blindSlugs, showCredits] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getLiveIcons(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits()]);
+  const [day, pool, images, icons, pictures, slugs, blindSlugs, hasCredits, idolSet] = await Promise.all([getDleDay(game), getDlePool(game), getDleImages(), getLiveIcons(), getDlePictures(g.photoKind), world.universe === 'anime' ? getAnimeSeriesSlugs() : getKpopGroupSlugs(), world.universe === 'kpop' ? getBlindtestSlugs() : Promise.resolve({}), siteHasCredits(), game === 'kpopdle-idol' ? getKpopdleIdolPictures() : Promise.resolve(EMPTY_IDOL_PICTURES)]);
+  // The credit link also shows when a KpopCards photo that needs a credit stands on a tile (it is listed on /credits).
+  const showCredits = hasCredits || idolSet.credits.length > 0;
   // The banner of the page's own slot when the admin has one (banner:otakudle/one-piece), else the world's.
   const banner = images[`banner:${g.path.slice(1)}`] ?? images[world.bannerSlot];
   const other = otherWorld(world);
@@ -123,7 +127,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
       <main id="main" tabIndex={-1} className="hub-dle-main">
         <PageStickers stickers={stickers} />
         <DleGame
-          locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={pictures}
+          locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={{ ...idolSet.pictures, ...pictures }} thumbs={idolSet.thumbs}
           quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} icons={icons}
           seriesArt={seriesArt} ownerPreview={world.universe === 'anime' && previewConfigured()}
         />

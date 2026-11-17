@@ -71,7 +71,10 @@ const cached = unstable_cache(
 export async function siteHasCredits(site: SiteId = SITE_ID): Promise<boolean> {
   try {
     // OtakuQuiz already reads its rows through a cache of its own (an hour); the hub and kpopquiz.org read the views through the cache above.
-    return site === 'anime' ? await animeHasCredits() : await cached(site);
+    if (site === 'anime') return await animeHasCredits();
+    if (await cached(site)) return true;
+    // The hub also lists the KpopCards photos that stand on the tiles of Kpopdle when they need a credit (lib/dle/idol-pictures-read.ts, cached five minutes).
+    return site === 'hub' ? await (await import('@/lib/dle/idol-pictures-read')).kpopdleHasCardCredits() : false;
   } catch {
     return false;
   }
