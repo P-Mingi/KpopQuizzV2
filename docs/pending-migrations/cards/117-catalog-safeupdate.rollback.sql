@@ -1,7 +1,7 @@
 -- 117-catalog-safeupdate.rollback.sql (undo of 117-catalog-safeupdate.sql)
 --
 -- What:   gives back 103's body of cards_build_catalog() (its DELETE without WHERE: the admin's button answers 400 again in production).
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and md5(prosrc) = '563246d17ba3275013beeb33efae9fd2';   expect 1
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) = '15d03cbdd3ac9f4e329beb9573a997fe';   expect 1
 -- o1-transaction: single, ONE DO block. Idempotent: a second run changes nothing.
 
 do $c117r$
@@ -13,12 +13,12 @@ begin
     raise notice '117-catalog-safeupdate.rollback: cards_build_catalog() is missing, nothing to do';
     return;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
-  if v_md5 = '563246d17ba3275013beeb33efae9fd2' then
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
+  if v_md5 = '15d03cbdd3ac9f4e329beb9573a997fe' then
     raise notice '117-catalog-safeupdate.rollback: already 103''s body, nothing changed';
     return;
   end if;
-  if v_md5 <> 'fec85968cf62eee611bf4f342d853090' then
+  if v_md5 <> '3267a298f23abdbdaf7d709885d45c79' then
     raise exception '117-catalog-safeupdate.rollback: cards_build_catalog() is not the version of 117 (md5 %), nothing changed', v_md5;
   end if;
 

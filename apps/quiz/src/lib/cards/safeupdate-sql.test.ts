@@ -12,7 +12,7 @@ import { OUTPUTS, readCards } from '../../../scripts/cards/bundle-sql.mjs';
 
 import { prodStateSql } from './bundle-fixture';
 import { at } from './harvest-fixture';
-import { SAFEUPDATE_DAY, buildSafeupdate, catalogFunctionOf103 } from './safeupdate-sql';
+import { MD5_BODY_SQL, SAFEUPDATE_DAY, buildSafeupdate, catalogFunctionOf103 } from './safeupdate-sql';
 import { CARDS_SQL } from './sql-harness';
 
 vi.setConfig({ testTimeout: 300_000, hookTimeout: 300_000 });
@@ -45,7 +45,7 @@ describe('117-catalog-safeupdate.sql', () => {
   it('changes the DELETE only, keeps the privileges, the rebuild gives the same catalog, and a second run changes nothing', async () => {
     const db = await prod();
     const old = await body(db);
-    expect(await one(db, `select md5(prosrc) from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure`)).toBe(S.md5Old);
+    expect(await one(db, `select ${MD5_BODY_SQL} from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure`)).toBe(S.md5Old);
     await db.exec('select public.cards_build_catalog()');
     const catalog = (await db.query('select card_no, entity_id, rarity, edition, photo_id, part from public.cards_catalog order by card_no')).rows;
     const notices: string[] = [];
@@ -53,7 +53,7 @@ describe('117-catalog-safeupdate.sql', () => {
     expect(notices.join('\n')).toMatch(/deletes with WHERE true/);
     const now = await body(db);
     expect(now).toBe(old.replace('    delete from public.cards_catalog;', '    delete from public.cards_catalog where true;'));
-    expect(await one(db, `select md5(prosrc) from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure`)).toBe(S.md5New);
+    expect(await one(db, `select ${MD5_BODY_SQL} from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure`)).toBe(S.md5New);
     // the Verify lines hold
     expect(await one(db, `select has_function_privilege('anon', 'public.cards_build_catalog()', 'execute') or has_function_privilege('authenticated', 'public.cards_build_catalog()', 'execute')`)).toBe(false);
     expect(await one(db, `select has_function_privilege('service_role', 'public.cards_build_catalog()', 'execute')`)).toBe(true);

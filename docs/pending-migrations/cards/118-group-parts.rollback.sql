@@ -6,7 +6,7 @@
 --         3 part photo exists (nothing is owned, so numbers may change), drops cards_panoramas_owned, cards_panoramas, cards_parts_log, the five columns of
 --         cards_photos, and puts the part check back to 0 to 2.
 -- Why:    without 118 a group photo is a pair again and no panorama exists; deploy the code from before first (or switch the panorama display off).
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and md5(prosrc) in ('fec85968cf62eee611bf4f342d853090', '213cfc4d68cfce457c613a5d00a58e7f', '57fae8120ed7f583726a816f14e802ec', '488ecfcdc89eec063f57e4335f3dc56e');   expect 4
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) in ('3267a298f23abdbdaf7d709885d45c79', 'd015068e7ae143bc9e24655e74fe2e5d', '3233e2628cae60bb7bf4f76149cf7952', '707bf7425f0b803fb4e9c8b1d34d7d4a');   expect 4
 -- Verify: select count(*) from pg_tables where schemaname = 'public' and tablename in ('cards_panoramas', 'cards_panoramas_owned', 'cards_parts_log');   expect 0
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_photos' and column_name in ('parts', 'file_parts', 'file_pano', 'heads_box', 'parts_note');   expect 0
 -- Undo:   run 118-group-parts.sql again.
@@ -26,24 +26,24 @@ begin
      or to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)') is null then
     raise exception '118-group-parts.rollback: cards_build_catalog, cards_catalog_append, cards_open or cards_craft is missing, nothing changed';
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_build_catalog()');
-  if v_md5 = 'fec85968cf62eee611bf4f342d853090' then v_old := v_old + 1;
-  elsif v_md5 = 'e22b40f5f0ba774a6527fa1d2e25afaa' then v_new := v_new + 1;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_build_catalog()');
+  if v_md5 = '3267a298f23abdbdaf7d709885d45c79' then v_old := v_old + 1;
+  elsif v_md5 = '00b63db362c757cb3c4138c98afba368' then v_new := v_new + 1;
   else raise exception '118-group-parts.rollback: cards_build_catalog() is not the version of 118 (md5 %), nothing changed', v_md5;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)');
-  if v_md5 = '213cfc4d68cfce457c613a5d00a58e7f' then v_old := v_old + 1;
-  elsif v_md5 = 'f4c3d41e0dd74327b4b0c62e16c6a44e' then v_new := v_new + 1;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)');
+  if v_md5 = 'd015068e7ae143bc9e24655e74fe2e5d' then v_old := v_old + 1;
+  elsif v_md5 = 'bf4e41c1827742d2463d8e4ef5a15144' then v_new := v_new + 1;
   else raise exception '118-group-parts.rollback: cards_catalog_append() is not the version of 118 (md5 %), nothing changed', v_md5;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)');
-  if v_md5 = '57fae8120ed7f583726a816f14e802ec' then v_old := v_old + 1;
-  elsif v_md5 = '483bb9d38dd3d079f4ec2f156ac387f6' then v_new := v_new + 1;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)');
+  if v_md5 = '3233e2628cae60bb7bf4f76149cf7952' then v_old := v_old + 1;
+  elsif v_md5 = '01ba80721797a59fa83b113e29971969' then v_new := v_new + 1;
   else raise exception '118-group-parts.rollback: cards_open() is not the version of 118 (md5 %), nothing changed', v_md5;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)');
-  if v_md5 = '488ecfcdc89eec063f57e4335f3dc56e' then v_old := v_old + 1;
-  elsif v_md5 = '1a5bbb715be9999b2123ce88fba23615' then v_new := v_new + 1;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)');
+  if v_md5 = '707bf7425f0b803fb4e9c8b1d34d7d4a' then v_old := v_old + 1;
+  elsif v_md5 = 'e81a6565c61b3a26dc138f8de8a2a484' then v_new := v_new + 1;
   else raise exception '118-group-parts.rollback: cards_craft() is not the version of 118 (md5 %), nothing changed', v_md5;
   end if;
   if v_new = 0 and to_regclass('public.cards_parts_log') is null and to_regclass('public.cards_panoramas') is null
@@ -674,16 +674,16 @@ begin
   alter table public.cards_catalog drop constraint if exists cards_catalog_part_check;
   alter table public.cards_catalog add constraint cards_catalog_part_check check (part between 0 and 2);
 
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_build_catalog()')) <> 'fec85968cf62eee611bf4f342d853090' then
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_build_catalog()')) <> '3267a298f23abdbdaf7d709885d45c79' then
     raise exception '118-group-parts.rollback: cards_build_catalog() is not the old body, nothing changed';
   end if;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)')) <> '213cfc4d68cfce457c613a5d00a58e7f' then
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)')) <> 'd015068e7ae143bc9e24655e74fe2e5d' then
     raise exception '118-group-parts.rollback: cards_catalog_append() is not the old body, nothing changed';
   end if;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)')) <> '57fae8120ed7f583726a816f14e802ec' then
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)')) <> '3233e2628cae60bb7bf4f76149cf7952' then
     raise exception '118-group-parts.rollback: cards_open() is not the old body, nothing changed';
   end if;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)')) <> '488ecfcdc89eec063f57e4335f3dc56e' then
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)')) <> '707bf7425f0b803fb4e9c8b1d34d7d4a' then
     raise exception '118-group-parts.rollback: cards_craft() is not the old body, nothing changed';
   end if;
   notify pgrst, 'reload schema';

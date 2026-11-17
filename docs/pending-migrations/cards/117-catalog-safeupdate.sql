@@ -1,7 +1,8 @@
 -- 117-catalog-safeupdate.sql (Bunnyverse Cards, 2026-11-17; "Reconstruire le catalogue" answered 400 in production)
 --
+-- Replaces: the 117 of PR #233 (same effect; its md5 guards ignore whitespace, so a file pasted with CRLF line endings is accepted).
 -- What:   gives the one DELETE of cards_build_catalog() (file 103) a WHERE: "delete from public.cards_catalog where true;". Nothing else
---         changes: the rest of the function is 103's, byte for byte (md5 of the body checked before and after), and its privileges
+--         changes: the rest of the function is 103's, byte for byte (md5 of the body, whitespace folded, checked before and after), and its privileges
 --         stay what 103 set (service_role only).
 -- Why:    Supabase loads the extension safeupdate for the API's sessions (PostgREST): a DELETE or an UPDATE without WHERE is refused there,
 --         inside a function too ("DELETE requires a WHERE clause"). The admin's button calls cards_build_catalog() through the API; the SQL
@@ -10,7 +11,7 @@
 --         this DELETE is the only UPDATE or DELETE without a WHERE.
 -- Rows:   no row; one function replaced. The notice says "117: ...".
 -- Needs:  103 applied (in production since 2026-11-15). Apply after a backup, never between 23:50 and 00:30 UTC.
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and md5(prosrc) = 'fec85968cf62eee611bf4f342d853090';   expect 1
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) = '3267a298f23abdbdaf7d709885d45c79';   expect 1
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and prosrc like '%delete from public.cards_catalog;%';   expect 0
 -- Verify: select has_function_privilege('anon', 'public.cards_build_catalog()', 'execute') or has_function_privilege('authenticated', 'public.cards_build_catalog()', 'execute');   expect f
 -- Verify: select has_function_privilege('service_role', 'public.cards_build_catalog()', 'execute');   expect t
@@ -30,12 +31,12 @@ begin
   if to_regprocedure('public.cards_build_catalog()') is null then
     raise exception '117-catalog-safeupdate: cards_build_catalog() is missing (apply 103 first), nothing changed';
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
-  if v_md5 = 'fec85968cf62eee611bf4f342d853090' then
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
+  if v_md5 = '3267a298f23abdbdaf7d709885d45c79' then
     raise notice '117-catalog-safeupdate: already applied, nothing changed';
     return;
   end if;
-  if v_md5 <> '563246d17ba3275013beeb33efae9fd2' then
+  if v_md5 <> '15d03cbdd3ac9f4e329beb9573a997fe' then
     raise exception '117-catalog-safeupdate: cards_build_catalog() is not the version of 103 (md5 %), nothing changed', v_md5;
   end if;
 
@@ -171,7 +172,7 @@ begin
   revoke all on function public.cards_build_catalog() from public, anon, authenticated;
   grant execute on function public.cards_build_catalog() to service_role;
 
-  if (select md5(prosrc) from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure) <> 'fec85968cf62eee611bf4f342d853090' then
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure) <> '3267a298f23abdbdaf7d709885d45c79' then
     raise exception '117-catalog-safeupdate: the new body is not the expected one, nothing changed';
   end if;
   raise notice '117-catalog-safeupdate: cards_build_catalog() deletes with WHERE true; "Reconstruire le catalogue" works through the API';

@@ -13,7 +13,15 @@ const START = '  create or replace function public.cards_build_catalog()';
 const OLD = '    delete from public.cards_catalog;';
 const NEW = '    delete from public.cards_catalog where true;';
 
-const md5 = (s: string): string => createHash('md5').update(s, 'utf8').digest('hex');
+/** The md5 guards read a function body without its whitespace: a file pasted from Windows has CRLF line endings, so pg_proc.prosrc differs
+ *  by bytes (production, 2026-11-17: "the new body is not the expected one"). Runs of the characters Postgres matches, exactly
+ *  [ \t\n\r\f\v]+, become one space, then md5; the SQL does the same with regexp_replace. */
+export const normalizeBody = (s: string): string => s.replace(/[ \t\n\r\f\v]+/g, ' ');
+export const md5Normalized = (s: string): string => createHash('md5').update(normalizeBody(s), 'utf8').digest('hex');
+/** The SQL expression of the same fingerprint of the body of the function being read (pg_proc.prosrc). */
+export const MD5_BODY_SQL = "md5(regexp_replace(prosrc, '[ \\t\\n\\r\\f\\v]+', ' ', 'g'))";
+const md5 = md5Normalized;
+const MD5P = MD5_BODY_SQL;
 
 /** cards_build_catalog() as 103 writes it: the whole statement, and its body as pg_proc.prosrc holds it (between the $f$ quotes). */
 export function catalogFunctionOf103(text103: string): { statement: string; body: string } {
@@ -38,8 +46,9 @@ export function buildSafeupdate(text103: string, day: string): SafeupdateSql {
 
   const sql = `-- 117-catalog-safeupdate.sql (Bunnyverse Cards, ${day}; "Reconstruire le catalogue" answered 400 in production)
 --
+-- Replaces: the 117 of PR #233 (same effect; its md5 guards ignore whitespace, so a file pasted with CRLF line endings is accepted).
 -- What:   gives the one DELETE of cards_build_catalog() (file 103) a WHERE: "delete from public.cards_catalog where true;". Nothing else
---         changes: the rest of the function is 103's, byte for byte (md5 of the body checked before and after), and its privileges
+--         changes: the rest of the function is 103's, byte for byte (md5 of the body, whitespace folded, checked before and after), and its privileges
 --         stay what 103 set (service_role only).
 -- Why:    Supabase loads the extension safeupdate for the API's sessions (PostgREST): a DELETE or an UPDATE without WHERE is refused there,
 --         inside a function too ("DELETE requires a WHERE clause"). The admin's button calls cards_build_catalog() through the API; the SQL
@@ -48,7 +57,7 @@ export function buildSafeupdate(text103: string, day: string): SafeupdateSql {
 --         this DELETE is the only UPDATE or DELETE without a WHERE.
 -- Rows:   no row; one function replaced. The notice says "117: ...".
 -- Needs:  103 applied (in production since 2026-11-15). Apply after a backup, never between 23:50 and 00:30 UTC.
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and md5(prosrc) = '${md5New}';   expect 1
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and ${MD5P} = '${md5New}';   expect 1
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and prosrc like '%delete from public.cards_catalog;%';   expect 0
 -- Verify: select has_function_privilege('anon', 'public.cards_build_catalog()', 'execute') or has_function_privilege('authenticated', 'public.cards_build_catalog()', 'execute');   expect f
 -- Verify: select has_function_privilege('service_role', 'public.cards_build_catalog()', 'execute');   expect t
@@ -68,7 +77,7 @@ begin
   if to_regprocedure('public.cards_build_catalog()') is null then
     raise exception '117-catalog-safeupdate: cards_build_catalog() is missing (apply 103 first), nothing changed';
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
+  select ${MD5P} into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
   if v_md5 = '${md5New}' then
     raise notice '117-catalog-safeupdate: already applied, nothing changed';
     return;
@@ -80,7 +89,7 @@ begin
 ${fixed}
 ${grants}
 
-  if (select md5(prosrc) from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure) <> '${md5New}' then
+  if (select ${MD5P} from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure) <> '${md5New}' then
     raise exception '117-catalog-safeupdate: the new body is not the expected one, nothing changed';
   end if;
   raise notice '117-catalog-safeupdate: cards_build_catalog() deletes with WHERE true; "Reconstruire le catalogue" works through the API';
@@ -90,7 +99,7 @@ end $c117$;
   const rollback = `-- 117-catalog-safeupdate.rollback.sql (undo of 117-catalog-safeupdate.sql)
 --
 -- What:   gives back 103's body of cards_build_catalog() (its DELETE without WHERE: the admin's button answers 400 again in production).
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and md5(prosrc) = '${md5Old}';   expect 1
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname = 'cards_build_catalog' and ${MD5P} = '${md5Old}';   expect 1
 -- o1-transaction: single, ONE DO block. Idempotent: a second run changes nothing.
 
 do $c117r$
@@ -102,7 +111,7 @@ begin
     raise notice '117-catalog-safeupdate.rollback: cards_build_catalog() is missing, nothing to do';
     return;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
+  select ${MD5P} into v_md5 from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure;
   if v_md5 = '${md5Old}' then
     raise notice '117-catalog-safeupdate.rollback: already 103''s body, nothing changed';
     return;
