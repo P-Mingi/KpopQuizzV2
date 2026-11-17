@@ -23,8 +23,8 @@
 --         panoramas are written. The notice says "118-group-parts: photos set to 2 ..., to 3 ..., focal points moved ..., kept ..., to review ..., rejected ..., pages not found ...".
 -- Needs:  103 and 117 (cards_build_catalog), 110 (cards_open, cards_craft), 114 (cards_catalog_append), 116 for the photos. Apply after a backup, never between
 --         23:50 and 00:30 UTC.
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and md5(prosrc) in ('e22b40f5f0ba774a6527fa1d2e25afaa', 'f4c3d41e0dd74327b4b0c62e16c6a44e', '483bb9d38dd3d079f4ec2f156ac387f6', '1a5bbb715be9999b2123ce88fba23615');   expect 4
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and md5(prosrc) in ('fec85968cf62eee611bf4f342d853090', '213cfc4d68cfce457c613a5d00a58e7f', '57fae8120ed7f583726a816f14e802ec', '488ecfcdc89eec063f57e4335f3dc56e');   expect 0
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) in ('00b63db362c757cb3c4138c98afba368', 'bf4e41c1827742d2463d8e4ef5a15144', '01ba80721797a59fa83b113e29971969', 'e81a6565c61b3a26dc138f8de8a2a484');   expect 4
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) in ('3267a298f23abdbdaf7d709885d45c79', 'd015068e7ae143bc9e24655e74fe2e5d', '3233e2628cae60bb7bf4f76149cf7952', '707bf7425f0b803fb4e9c8b1d34d7d4a');   expect 0
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and prosecdef and proconfig = array['search_path=public'];   expect 4
 -- Verify: select count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'));   expect 0
 -- Verify: select count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in ('cards_build_catalog', 'cards_catalog_append', 'cards_open', 'cards_craft') and has_function_privilege('service_role', p.oid, 'execute');   expect 4
@@ -84,32 +84,32 @@ begin
   end if;
 
   -- Already applied: the four functions are this file's. A second run changes nothing.
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_build_catalog()');
-  if v_md5 = 'e22b40f5f0ba774a6527fa1d2e25afaa' then v_ok := v_ok + 1; end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)');
-  if v_md5 = 'f4c3d41e0dd74327b4b0c62e16c6a44e' then v_ok := v_ok + 1; end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)');
-  if v_md5 = '483bb9d38dd3d079f4ec2f156ac387f6' then v_ok := v_ok + 1; end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)');
-  if v_md5 = '1a5bbb715be9999b2123ce88fba23615' then v_ok := v_ok + 1; end if;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_build_catalog()');
+  if v_md5 = '00b63db362c757cb3c4138c98afba368' then v_ok := v_ok + 1; end if;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)');
+  if v_md5 = 'bf4e41c1827742d2463d8e4ef5a15144' then v_ok := v_ok + 1; end if;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)');
+  if v_md5 = '01ba80721797a59fa83b113e29971969' then v_ok := v_ok + 1; end if;
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)');
+  if v_md5 = 'e81a6565c61b3a26dc138f8de8a2a484' then v_ok := v_ok + 1; end if;
   if v_ok = 4 then
     raise notice '118-group-parts: already applied, nothing changed';
     return;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_build_catalog()');
-  if v_md5 <> 'fec85968cf62eee611bf4f342d853090' then
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_build_catalog()');
+  if v_md5 <> '3267a298f23abdbdaf7d709885d45c79' then
     raise exception '118-group-parts: cards_build_catalog() is not the version of 117 (md5 %), nothing changed', v_md5;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)');
-  if v_md5 <> '213cfc4d68cfce457c613a5d00a58e7f' then
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)');
+  if v_md5 <> 'd015068e7ae143bc9e24655e74fe2e5d' then
     raise exception '118-group-parts: cards_catalog_append() is not the version of 114 (md5 %), nothing changed', v_md5;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)');
-  if v_md5 <> '57fae8120ed7f583726a816f14e802ec' then
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)');
+  if v_md5 <> '3233e2628cae60bb7bf4f76149cf7952' then
     raise exception '118-group-parts: cards_open() is not the version of 110 (md5 %), nothing changed', v_md5;
   end if;
-  select md5(prosrc) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)');
-  if v_md5 <> '488ecfcdc89eec063f57e4335f3dc56e' then
+  select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) into v_md5 from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)');
+  if v_md5 <> '707bf7425f0b803fb4e9c8b1d34d7d4a' then
     raise exception '118-group-parts: cards_craft() is not the version of 110 (md5 %), nothing changed', v_md5;
   end if;
 
@@ -907,10 +907,10 @@ begin
 
   -- ---------- checks ----------
   v_ok := 0;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_build_catalog()')) = 'e22b40f5f0ba774a6527fa1d2e25afaa' then v_ok := v_ok + 1; end if;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)')) = 'f4c3d41e0dd74327b4b0c62e16c6a44e' then v_ok := v_ok + 1; end if;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)')) = '483bb9d38dd3d079f4ec2f156ac387f6' then v_ok := v_ok + 1; end if;
-  if (select md5(prosrc) from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)')) = '1a5bbb715be9999b2123ce88fba23615' then v_ok := v_ok + 1; end if;
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_build_catalog()')) = '00b63db362c757cb3c4138c98afba368' then v_ok := v_ok + 1; end if;
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_catalog_append(boolean)')) = 'bf4e41c1827742d2463d8e4ef5a15144' then v_ok := v_ok + 1; end if;
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)')) = '01ba80721797a59fa83b113e29971969' then v_ok := v_ok + 1; end if;
+  if (select md5(regexp_replace(prosrc, '[ \t\n\r\f\v]+', ' ', 'g')) from pg_proc where oid = to_regprocedure('public.cards_craft(uuid, text, integer, timestamptz, integer)')) = 'e81a6565c61b3a26dc138f8de8a2a484' then v_ok := v_ok + 1; end if;
   if v_ok <> 4 then
     raise exception '118-group-parts: a new body is not the expected one, nothing changed';
   end if;

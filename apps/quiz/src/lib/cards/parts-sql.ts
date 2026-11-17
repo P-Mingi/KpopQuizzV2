@@ -6,7 +6,7 @@
 // panorama (cards_panoramas, P-0001 and up) that the server gives once, in the transaction of the open or the craft that completes the set.
 // The four functions are the old ones with a handful of exact replacements (every replacement must match exactly once, else the generator
 // throws): the old text is extracted from the older file, its md5 is checked at apply time, the new one is checked after.
-import { createHash } from 'node:crypto';
+import { MD5_BODY_SQL, md5Normalized } from './safeupdate-sql';
 
 /** The day of the file (lot 7 contract). */
 export const PARTS_DAY = '2026-11-17';
@@ -30,7 +30,8 @@ export interface PartsSources { text117: string; text114: string; text110: strin
 
 export const REJECTED_NOTE = 'Rejected by the lot 7 thumbnail check: a person seems under 18';
 
-const md5 = (s: string): string => createHash('md5').update(s, 'utf8').digest('hex');
+const md5 = md5Normalized;
+const MD5P = MD5_BODY_SQL;
 
 /** A function as a file writes it: the whole statement and its body as pg_proc.prosrc holds it (between the $f$ quotes). */
 export function extractFunction(text: string, start: string, label: string): { statement: string; body: string } {
@@ -359,8 +360,8 @@ export function buildParts(src: PartsSources, data: PartsData, day: string = PAR
 --         panoramas are written. The notice says "118-group-parts: photos set to 2 ..., to 3 ..., focal points moved ..., kept ..., to review ..., rejected ..., pages not found ...".
 -- Needs:  103 and 117 (cards_build_catalog), 110 (cards_open, cards_craft), 114 (cards_catalog_append), 116 for the photos. Apply after a backup, never between
 --         23:50 and 00:30 UTC.
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and md5(prosrc) in (${inList(md5New)});   expect 4
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and md5(prosrc) in (${inList(md5Old)});   expect 0
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and ${MD5P} in (${inList(md5New)});   expect 4
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and ${MD5P} in (${inList(md5Old)});   expect 0
 -- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and prosecdef and proconfig = array['search_path=public'];   expect 4
 -- Verify: select count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in (${names}) and (has_function_privilege('anon', p.oid, 'execute') or has_function_privilege('authenticated', p.oid, 'execute'));   expect 0
 -- Verify: select count(*) from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname in (${names}) and has_function_privilege('service_role', p.oid, 'execute');   expect 4
@@ -417,13 +418,13 @@ begin
   end if;
 
   -- Already applied: the four functions are this file's. A second run changes nothing.
-${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${regproc(f)};
+${FNS.map((f) => `  select ${MD5P} into v_md5 from pg_proc where oid = ${regproc(f)};
   if v_md5 = '${md5New[f]}' then v_ok := v_ok + 1; end if;`).join('\n')}
   if v_ok = 4 then
     raise notice '118-group-parts: already applied, nothing changed';
     return;
   end if;
-${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${regproc(f)};
+${FNS.map((f) => `  select ${MD5P} into v_md5 from pg_proc where oid = ${regproc(f)};
   if v_md5 <> '${md5Old[f]}' then
     raise exception '118-group-parts: ${NAME[f]}() is not the version of ${FROM[f]} (md5 %), nothing changed', v_md5;
   end if;`).join('\n')}
@@ -558,7 +559,7 @@ ${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${reg
 ${FNS.map((f) => `${newFn[f].statement}\n${grants(f, '  ')}\n`).join('\n')}
   -- ---------- checks ----------
   v_ok := 0;
-${FNS.map((f) => `  if (select md5(prosrc) from pg_proc where oid = ${regproc(f)}) = '${md5New[f]}' then v_ok := v_ok + 1; end if;`).join('\n')}
+${FNS.map((f) => `  if (select ${MD5P} from pg_proc where oid = ${regproc(f)}) = '${md5New[f]}' then v_ok := v_ok + 1; end if;`).join('\n')}
   if v_ok <> 4 then
     raise exception '118-group-parts: a new body is not the expected one, nothing changed';
   end if;
@@ -580,7 +581,7 @@ end $c118$;
 --         3 part photo exists (nothing is owned, so numbers may change), drops cards_panoramas_owned, cards_panoramas, cards_parts_log, the five columns of
 --         cards_photos, and puts the part check back to 0 to 2.
 -- Why:    without 118 a group photo is a pair again and no panorama exists; deploy the code from before first (or switch the panorama display off).
--- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and md5(prosrc) in (${inList(md5Old)});   expect 4
+-- Verify: select count(*) from pg_proc where pronamespace = 'public'::regnamespace and proname in (${names}) and ${MD5P} in (${inList(md5Old)});   expect 4
 -- Verify: select count(*) from pg_tables where schemaname = 'public' and tablename in ('cards_panoramas', 'cards_panoramas_owned', 'cards_parts_log');   expect 0
 -- Verify: select count(*) from information_schema.columns where table_schema = 'public' and table_name = 'cards_photos' and column_name in ('parts', 'file_parts', 'file_pano', 'heads_box', 'parts_note');   expect 0
 -- Undo:   run 118-group-parts.sql again.
@@ -597,7 +598,7 @@ begin
   if ${FNS.map((f) => `${regproc(f)} is null`).join('\n     or ')} then
     raise exception '118-group-parts.rollback: cards_build_catalog, cards_catalog_append, cards_open or cards_craft is missing, nothing changed';
   end if;
-${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${regproc(f)};
+${FNS.map((f) => `  select ${MD5P} into v_md5 from pg_proc where oid = ${regproc(f)};
   if v_md5 = '${md5Old[f]}' then v_old := v_old + 1;
   elsif v_md5 = '${md5New[f]}' then v_new := v_new + 1;
   else raise exception '118-group-parts.rollback: ${NAME[f]}() is not the version of 118 (md5 %), nothing changed', v_md5;
@@ -641,7 +642,7 @@ ${FNS.map((f) => `${oldFn[f].statement}\n${grants(f, '  ')}\n`).join('\n')}
   alter table public.cards_catalog drop constraint if exists cards_catalog_part_check;
   alter table public.cards_catalog add constraint cards_catalog_part_check check (part between 0 and 2);
 
-${FNS.map((f) => `  if (select md5(prosrc) from pg_proc where oid = ${regproc(f)}) <> '${md5Old[f]}' then
+${FNS.map((f) => `  if (select ${MD5P} from pg_proc where oid = ${regproc(f)}) <> '${md5Old[f]}' then
     raise exception '118-group-parts.rollback: ${NAME[f]}() is not the old body, nothing changed';
   end if;`).join('\n')}
   notify pgrst, 'reload schema';
