@@ -1,0 +1,126 @@
+name: Cards publish
+
+# KpopCards: the owner publishes the card files from GitHub (integrator, 2026-11-17: the owner has no access to the Mac). By hand only:
+# Actions > Cards publish > Run workflow, then the reviewer of the environment "cards-publish" approves. Never on a push or a pull request.
+#   1. publish-card-files.mjs --publish --non-interactive --keep-going: cuts the live photos of cards_photos from their Commons originals,
+#      uploads the cards and the panoramas to the bucket 'cards', sets the rows. The cleanup only lists (it never deletes in this mode).
+#      A photo whose original fails is skipped and listed; the job then ends red, the others are published.
+#   2. kpopdle-photos.mjs --publish, when the input kpopdle is "oui".
+#   3. The summary of the job: cards, panoramas, the failed photos and why, the Kpopdle idols served.
+# The service key is the secret SUPABASE_SERVICE_ROLE_KEY of the environment "cards-publish" (only after the reviewer's approval), given to
+# the two publish steps through their environment only: never on a command line, never printed (GitHub also masks it in the logs).
+# This is the one workflow that takes a service key to a runner (tests.yml and seo-gates.yml keep the anon key only).
+
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: 'The Supabase project host, typed exactly: rdkgouofytwfdpbxbzio.supabase.co (anything else stops the job)'
+        required: true
+        type: string
+      kpopdle:
+        description: 'Then publish the Kpopdle idol photos (kpopdle-photos.mjs --publish)'
+        required: true
+        type: choice
+        options:
+          - non
+          - oui
+        default: non
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cards-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: cards-publish
+    timeout-minutes: 300
+    steps:
+      - name: Check the host, the branch and the secret
+        env:
+          HOST: ${{ inputs.host }}
+          REF: ${{ github.ref }}
+          SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ "$HOST" != "rdkgouofytwfdpbxbzio.supabase.co" ]; then
+            echo "::error::refused: the input host must be exactly rdkgouofytwfdpbxbzio.supabase.co; nothing was sent"
+            exit 1
+          fi
+          if [ "$REF" != "refs/heads/main" ]; then
+            echo "::error::refused: run this workflow from main; nothing was sent"
+            exit 1
+          fi
+          if [ -z "$SERVICE_KEY" ]; then
+            echo "::error::refused: the environment cards-publish has no secret SUPABASE_SERVICE_ROLE_KEY; nothing was sent"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # The Commons originals of the previous runs (one file per sha1): a new run downloads only what is missing.
+      - name: Restore the Commons originals
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/cards-originals
+          key: cards-originals-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            cards-originals-
+
+      - name: Publish the card files
+        id: cards
+        env:
+          HOST: ${{ inputs.host }}
+          CARDS_SUPABASE_URL: https://rdkgouofytwfdpbxbzio.supabase.co
+          CARDS_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ORIGINALS: ${{ runner.temp }}/cards-originals
+          REPORT: ${{ runner.temp }}/cards-report.json
+        run: |
+          mkdir -p "$ORIGINALS"
+          set +e
+          node apps/quiz/scripts/cards/publish-card-files.mjs --publish --non-interactive --host "$HOST" --keep-going --cache-dir "$ORIGINALS" --report "$REPORT"
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          # 2: done, but some photos failed (listed in the summary); the job is set red at its end, after the Kpopdle step
+          if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then exit "$code"; fi
+
+      - name: Save the Commons originals
+        if: always() && steps.cards.outcome != 'skipped'
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/cards-originals
+          key: cards-originals-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Publish the Kpopdle idol photos
+        if: inputs.kpopdle == 'oui'
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node apps/quiz/scripts/cards/kpopdle-photos/kpopdle-photos.mjs --publish
+
+      - name: Summary
+        if: always() && steps.cards.outcome != 'skipped'
+        env:
+          REPORT: ${{ runner.temp }}/cards-report.json
+          KPOPDLE: ${{ inputs.kpopdle }}
+        run: node apps/quiz/scripts/cards/publish-summary.mjs --cards "$REPORT" --kpopdle-csv apps/quiz/scripts/cards/kpopdle-photos/kpopdle-photos-report.csv --kpopdle "$KPOPDLE"
+
+      - name: Red when photos failed
+        if: steps.cards.outputs.code == '2'
+        run: |
+          echo "::error::some photos failed and were skipped (see the summary); the other photos are published"
+          exit 1
