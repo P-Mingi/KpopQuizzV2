@@ -119,6 +119,6 @@ UI fixture (`ui-fixture.ts`) gains a photo in 3 and panoramas so every screen ca
 
 ## Common rules
 
-No em or en dash anywhere (write `–` and `—` in a regex, then check the file: the Write tool turns them into real dashes). No new
+No em or en dash anywhere (write `\u2013` and `\u2014` in a regex, then check the file: the Write tool turns them into real dashes). No new
 npm dependency. Ratchet law: an exact test value changes only on a rule of the owner or the integrator, and each change is listed in the
 commit. Never `--no-verify`. No push, no connector, no production write. Commits use the worktree's agent (CARDS).

@@ -29,11 +29,11 @@ const EMPTY = build([]);
 
 describe('118-group-parts.sql: the file', () => {
   it('is one DO block with its header, no dash, one clock read, and the rollback too', () => {
-    const t = build([entry(page(1), { note: 'a note – with a dash — here' })]);
+    const t = build([entry(page(1), { note: 'a note \u2013 with a dash \u2014 here' })]);
     expect(t.sql.match(/^do \$c118\$$/gm)).toHaveLength(1);
     expect(t.rollback.match(/^do \$c118r\$$/gm)).toHaveLength(1);
     for (const k of ['What:', 'Why:', 'Scope:', 'Rows:', 'Needs:', 'Verify:', 'Refuses:', 'Undo:', 'o1-transaction: single, ONE DO block']) expect(t.sql).toContain(`-- ${k}`);
-    expect(t.sql + t.rollback).not.toMatch(/[–—]/);
+    expect(t.sql + t.rollback).not.toMatch(/[\u2013\u2014]/);
     expect(t.sql).toContain('\\u2013');
     expect(t.sql.match(/\(now\(\) at time zone 'UTC'\)::time/g)).toHaveLength(1);
     expect(t.sql.match(/^-- Verify:/gm)!.length).toBeGreaterThanOrEqual(10);

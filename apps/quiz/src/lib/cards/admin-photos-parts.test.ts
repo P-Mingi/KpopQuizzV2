@@ -87,7 +87,7 @@ describe('admin photos, lot 7: the rule\'s warning', () => {
     const w = partsWarningOf({ ...wide, parts: null, heads_box: heads });
     expect(w).toMatch(/^The 11:8.5 window of 2 cards would cut someone at the focal point 50\/50/);
     expect(w).toMatch(/3 cards/);
-    expect(w).not.toMatch(/[–—]/);
+    expect(w).not.toMatch(/[\u2013\u2014]/);
   });
   it('is null in 3 cards when the 16.5:8.5 window keeps everyone, and warns again when it does not', () => {
     expect(partsWarningOf({ ...wide, parts: 3, heads_box: heads })).toBeNull();
