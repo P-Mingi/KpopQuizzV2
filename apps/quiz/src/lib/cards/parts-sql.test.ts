@@ -281,6 +281,33 @@ async function addGroupParts(db: Awaited<ReturnType<typeof prodDb>>): Promise<vo
   for (const [i, p] of ZZ.entries()) await db.query('update cards_photos set parts = $1 where entity_id = $2 and slot = $3', [p.parts, 'group:zz', i + 1]);
 }
 
+describe('118-group-parts.sql: the 2x flag of a photo follows its window', () => {
+  it('a photo going to 3 whose thirds fall under 640 px while its halves did not gets small_2x true, a photo in 2 keeps today\'s value, and the rollback restores it', async () => {
+    const db = await prodDb();
+    // 1800 x 1000: halves of the 11:8.5 window are 647 px, thirds of the 16.5:8.5 window are 600 px; 1500 x 1200: halves 750 px
+    await addGroup(db, 'group:zw', [{ w: 1800, h: 1000, q: 3, parts: null }, { w: 1500, h: 1200, q: 3, parts: null }, { w: 2600, h: 1000, q: 3, parts: null }], 'zw');
+    const flags = () => rows<{ slot: number; small_2x: boolean }>(db, `select slot, small_2x from cards_photos where entity_id = 'group:zw' order by slot`);
+    // the fixture inserts with the column default; set today's value the way 103 computes it (a half under 640)
+    await db.exec(`update cards_photos set small_2x = (floor(least(source_width::numeric, source_height::numeric * 11 / 8.5))::integer / 2 < 640) where entity_id = 'group:zw'`);
+    const before = await flags();
+    expect(before.map((f) => f.small_2x)).toEqual([false, false, false]);
+    const pages = (await rows<{ source_page: string }>(db, `select source_page from cards_photos where entity_id = 'group:zw' order by slot`)).map((r) => r.source_page);
+    const T = build([entry(pages[0]!, { parts: 3 }), entry(pages[1]!, { parts: 2 }), entry(pages[2]!, { parts: 3 })]);
+    await run(db, T.sql);
+    const after = await flags();
+    // 1800x1000 in 3: 600 px parts (true); 1500x1200 in 2: unchanged; 2600x1000 in 3: 1941/3 = 647 px (false)
+    expect(after.map((f) => f.small_2x)).toEqual([true, false, false]);
+    expect(await rows(db, `select photo_id, small_2x from cards_parts_log order by photo_id`)).toEqual([{ photo_id: await one(db, `select id from cards_photos where source_page = '${pages[0]}'`), small_2x: false }]);
+    // the flag equals the geometry of the owner's script
+    for (const [i, p] of [[1800, 1000, 3], [1500, 1200, 2], [2600, 1000, 3]].entries()) {
+      const [w, h, n] = p as [number, number, number];
+      expect(after[i]!.small_2x).toBe(splitParts(groupBox(w, h, n, 50, 50), n).some((q: { width: number }) => q.width < 640));
+    }
+    await db.exec(T.rollback);
+    expect(await flags()).toEqual(before);
+  });
+});
+
 describe('118-group-parts.sql: safeupdate', () => {
   it('no cards_* function of the database holds an UPDATE or a DELETE without a WHERE once 118 is applied', async () => {
     const db = await prodDb();

@@ -348,7 +348,7 @@ export function buildParts(src: PartsSources, data: PartsData, day: string = PAR
 --                             missing part rule for 2 and 3 parts, completesPair on the last part, the panorama given once, answer gains pano and
 --                             panoramas), cards_craft (110's: the same grant, answer gains pano)
 --           data              ${data.photos.length} group photos from docs/design/cards/data/lot7/parts.json (checked on ${data.checked_on}), by source_page: parts, heads_box,
---                             parts_note; the focal point only when it is still the one the verdict was read at (else a notice per photo); a photo
+--                             parts_note and small_2x (the 2x flag of the new window); the focal point only when it is still the one the verdict was read at (else a notice per photo); a photo
 --                             where someone would be cut even in 3 cards goes to pending ("To review: ..."); a photo that seems to show a person under
 --                             18 is rejected. Old status, note and focal go to cards_parts_log first.
 -- Why:    lot 7 (owner and integrator, 2026-11-17): a wide group photo cut in two loses people; the smallest window that keeps everyone gives 2 or 3
@@ -402,6 +402,7 @@ declare
   v_fy integer;
   v_nx integer;
   v_ny integer;
+  v_small boolean;
 begin
   perform set_config('lock_timeout', '5s', true);
   if v_utc >= time '23:50' or v_utc < time '00:30' then
@@ -480,7 +481,8 @@ ${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${reg
     status text,
     review_note text,
     focal_x integer,
-    focal_y integer
+    focal_y integer,
+    small_2x boolean
   );
   alter table public.cards_panoramas enable row level security;
   alter table public.cards_panoramas_owned enable row level security;
@@ -493,7 +495,7 @@ ${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${reg
                   nullif(x.focal, 'null'::jsonb) as focal, coalesce(x.review, false) as review, coalesce(x.rejected, false) as rejected
              from jsonb_to_recordset(v_data -> 'photos') as x(page text, parts integer, heads_box jsonb, note text, focal_from jsonb, focal jsonb, review boolean, rejected boolean) loop
     v_found := 0;
-    for p in select ph.id, ph.status, ph.review_note, ph.focal_x, ph.focal_y
+    for p in select ph.id, ph.status, ph.review_note, ph.focal_x, ph.focal_y, ph.small_2x, ph.source_width, ph.source_height
                from public.cards_photos ph join public.cards_entities e on e.id = ph.entity_id
               where ph.source_page = d.page and e.kind = 'group' order by ph.id loop
       v_found := v_found + 1;
@@ -533,11 +535,17 @@ ${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${reg
           end if;
         end if;
       end if;
-      if v_status is distinct from p.status or v_note is distinct from p.review_note or v_fx is distinct from p.focal_x or v_fy is distinct from p.focal_y then
-        insert into public.cards_parts_log (photo_id, status, review_note, focal_x, focal_y) values (p.id, p.status, p.review_note, p.focal_x, p.focal_y)
+      -- the photo's own 2x flag follows its window: a part (the narrowest is floor(window / parts)) under 640 px; for 2 parts it is today's value
+      v_small := p.small_2x;
+      if p.source_width is not null and p.source_height is not null then
+        v_small := floor(least(p.source_width::numeric, p.source_height::numeric * (d.parts * 5.5) / 8.5))::integer / d.parts < 640;
+      end if;
+      if v_status is distinct from p.status or v_note is distinct from p.review_note or v_fx is distinct from p.focal_x or v_fy is distinct from p.focal_y
+         or v_small is distinct from p.small_2x then
+        insert into public.cards_parts_log (photo_id, status, review_note, focal_x, focal_y, small_2x) values (p.id, p.status, p.review_note, p.focal_x, p.focal_y, p.small_2x)
         on conflict (photo_id) do nothing;
       end if;
-      update public.cards_photos set parts = d.parts, heads_box = d.heads_box, parts_note = d.note, focal_x = v_fx, focal_y = v_fy where id = p.id;
+      update public.cards_photos set parts = d.parts, heads_box = d.heads_box, parts_note = d.note, focal_x = v_fx, focal_y = v_fy, small_2x = v_small where id = p.id;
       if v_status is distinct from p.status or v_note is distinct from p.review_note then
         update public.cards_photos set status = v_status, review_note = v_note where id = p.id;
       end if;
@@ -567,7 +575,7 @@ end $c118$;
   const rollback = `-- 118-group-parts.rollback.sql (undo of 118-group-parts.sql)
 --
 -- What:   refused once a pack was opened, a card or a panorama is owned. Gives back the four functions (the text of 117's cards_build_catalog, 114's
---         cards_catalog_append, 110's cards_open and cards_craft, md5 checked), puts the photo rows of cards_parts_log back (status, note, focal point:
+--         cards_catalog_append, 110's cards_open and cards_craft, md5 checked), puts the photo rows of cards_parts_log back (status, note, focal point, small_2x:
 --         what the owner changed on those rows since is replaced by the logged values), rebuilds the catalog with the old function when a card of a
 --         3 part photo exists (nothing is owned, so numbers may change), drops cards_panoramas_owned, cards_panoramas, cards_parts_log, the five columns of
 --         cards_photos, and puts the part check back to 0 to 2.
@@ -614,7 +622,7 @@ ${FNS.map((f) => `  select md5(prosrc) into v_md5 from pg_proc where oid = ${reg
 
   -- the photo rows 118 changed, as they were
   if to_regclass('public.cards_parts_log') is not null then
-    execute 'update public.cards_photos p set status = l.status, review_note = l.review_note, focal_x = l.focal_x, focal_y = l.focal_y
+    execute 'update public.cards_photos p set status = l.status, review_note = l.review_note, focal_x = l.focal_x, focal_y = l.focal_y, small_2x = l.small_2x
       from public.cards_parts_log l where l.photo_id = p.id';
   end if;
 
