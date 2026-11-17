@@ -88,6 +88,12 @@ function Moment({ n, owned }: { n: number; owned: boolean }): React.ReactElement
   );
 }
 
+/** Lot 7: how the editions' photos are split: the two halves of a pair, the three parts of a photo in 3 cards, or both when the editions differ. */
+export function splitWords(ladder: readonly Rung[]): string {
+  const sizes = new Set(ladder.flatMap((x) => (x.card ? [x.card.parts === 3 ? 3 : 2] : [])));
+  return sizes.size === 2 ? 'two or three parts' : sizes.has(3) ? 'the three parts' : 'the two halves';
+}
+
 /** The prototype's reason box under the ladder: why an idol or a group has fewer than six editions. */
 function reasonText(p: DetailProps): { title: string; text: string } | null {
   const have = p.ladder.filter((x) => x.card);
@@ -96,7 +102,7 @@ function reasonText(p: DetailProps): { title: string; text: string } | null {
   const top = n >= 1 ? RARITY_LABEL[have[n - 1]!.rarity] : '';
   const locked = p.ladder.find((x) => !x.card && x.reason && x.reason !== 'one');
   const why = locked?.reason ? `${LOCK_SENTENCES[locked.reason]} ` : '';
-  if (p.entityKind === 'group') return { title: `Why ${p.entityName} has ${n} editions`, text: `Each edition uses its own group photo, split into the two halves. ${p.entityName} has ${n} free group photos so far, so ${n} editions, Standard up to ${top}.` };
+  if (p.entityKind === 'group') return { title: `Why ${p.entityName} has ${n} editions`, text: `Each edition uses its own group photo, split into ${splitWords(p.ladder)}. ${p.entityName} has ${n} free group photos so far, so ${n} editions, Standard up to ${top}.` };
   return { title: `Why ${p.entityName} has ${n < 2 ? 'no cards yet' : `${n} editions`}`, text: n < 2 ? `Not in packs yet. ${p.entityName} has one free photo so far, and an idol joins packs with two. ${why}`.trim() : `Each edition uses its own free photo, from a different day. ${p.entityName} has ${n} so far, so ${n} editions, Standard up to ${top}. ${why}The next edition is issued as soon as another photo is approved.` };
 }
 

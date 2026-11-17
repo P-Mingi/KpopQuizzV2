@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { kcPath } from '@/lib/cards/kc-paths';
 import { RARITY_LABEL } from '@/lib/cards/rules';
+import { partLabel } from '@/lib/cards/ui-model';
 import { isApiError } from '@/lib/kpopcards/contract';
 import { newKey } from '@/lib/kpopcards/registry';
 
@@ -28,7 +29,7 @@ const WORDS: Record<string, string> = {
 };
 
 export function wishText(w: readonly CardRef[]): string {
-  return w.map((c) => `${c.name}${c.part ? ` ${c.part}/2` : ''}, ${edName(c.edition)}`).join(' · ');
+  return w.map((c) => `${c.name}${c.part ? ` ${partLabel(c)}` : ''}, ${edName(c.edition)}`).join(' · ');
 }
 
 export function FriendsPanel({ onChange }: { onChange?: () => void }): React.ReactElement {

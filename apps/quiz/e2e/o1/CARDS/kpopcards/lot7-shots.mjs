@@ -11,6 +11,9 @@ const VPS = { desktop: { width: 1440, height: 860 }, mobile: { width: 390, heigh
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const browser = await chromium.launch();
+// Next's dev overlay badge counts the dev server's own 404 of a preloaded chunk (_next/static/chunks/_claude_worktrees_..._src_0g1lxzu._.js, on every
+// page of the app, the hub root included): it is not ours, so the shots hide the overlay. Our console errors (duplicate keys) are fixed.
+const hideDevBadge = (page) => page.addStyleTag({ content: 'nextjs-portal{display:none!important}' });
 async function shot(name, url, vp, fn) {
   if (only && !name.includes(only)) return;
   const ctx = await browser.newContext({ viewport: VPS[vp], deviceScaleFactor: 1, reducedMotion: 'no-preference' });
@@ -19,6 +22,7 @@ async function shot(name, url, vp, fn) {
   await page.goto(`${BASE}${url}`, { waitUntil: 'load', timeout: 120000 });
   await wait(2500);
   if (fn) await fn(page);
+  await hideDevBadge(page);
   const clip = page._clip;
   if (clip) await page.locator(clip).first().screenshot({ path: `${OUT}${name}-${vp}.png` });
   else await page.screenshot({ path: `${OUT}${name}-${vp}.png`, fullPage: false });
@@ -111,6 +115,7 @@ for (const vp of ['desktop', 'mobile']) {
     await page.goto(`${BASE}/lot7-admin-preview`, { waitUntil: 'load', timeout: 120000 });
     await wait(3000);
     await fn(page, (v) => { refuse = v; });
+    await hideDevBadge(page);
     await page.screenshot({ path: `${OUT}${name}-${vp}.png`, fullPage: true });
     console.log('shot', `${name}-${vp}`);
     await ctx.close();

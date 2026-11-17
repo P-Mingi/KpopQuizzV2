@@ -23,7 +23,9 @@ export interface GroupCard {
   focalX: number;
   focalY: number;
   /** Lot 2: 1 or 2 for a half of a group photo (absent for a whole card). */
-  part?: 1 | 2;
+  part?: 1 | 2 | 3;
+  /** Lot 7: the number of cards of the photo (2 or 3), with `part`. Only set for a photo in 3 (absent reads as 2, as every pair did before lot 7). */
+  parts?: 2 | 3;
   /** Lot 2: with `part`, true when photoUrl is the whole source photo (no half file cut yet): the tile shows its half of the 11:8.5 window in CSS. */
   css?: boolean;
 }
@@ -52,7 +54,7 @@ export async function readGroupCards(slug: string, db: SupabaseClient = createSe
   const rows = cat.data as CatalogRow[];
   const ids = [...new Set(rows.flatMap((r) => (r.photo_id === null ? [] : [r.photo_id])))];
   const ph = ids.length
-    ? await db.from('cards_photos').select('id,focal_x,focal_y,storage_path,source_path,file_focal_x,file_focal_y,small_2x').in('id', ids).in('status', ['auto', 'approved']).limit(1000)
+    ? await db.from('cards_photos').select('*').in('id', ids).in('status', ['auto', 'approved']).limit(1000)
     : { data: [], error: null };
   if (ph.error) return [];
   const photos = new Map((ph.data as PhotoRow[]).map((p) => [p.id, p]));
@@ -62,8 +64,8 @@ export async function readGroupCards(slug: string, db: SupabaseClient = createSe
     const p = r.photo_id === null ? undefined : photos.get(r.photo_id);
     if (!p) return [];
     const img = cardImage(p, base, r);
-    // '*' so part and small_2x come once file 102 is applied; before it every row is a whole card.
-    return [{ n: r.card_no, num: r.num, name: names.get(r.entity_id) ?? '', rarity: r.rarity, photoUrl: img.url, focalX: img.focalX, focalY: img.focalY, ...(img.part === 1 || img.part === 2 ? { part: img.part, css: img.css === true } : {}) }];
+    // '*' (the catalog rows and the photos) so part, small_2x and, with file 118, parts and file_parts come once they exist; before, every row is a whole card or a pair.
+    return [{ n: r.card_no, num: r.num, name: names.get(r.entity_id) ?? '', rarity: r.rarity, photoUrl: img.url, focalX: img.focalX, focalY: img.focalY, ...(img.part === 1 || img.part === 2 || img.part === 3 ? { part: img.part, ...(img.parts === 3 ? { parts: 3 as const } : {}), css: img.css === true } : {}) }];
   });
 }
 

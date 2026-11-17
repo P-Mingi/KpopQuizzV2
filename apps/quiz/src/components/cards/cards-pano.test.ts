@@ -161,3 +161,27 @@ describe('no dash in the new copy', () => {
     for (const f of files) expect(bad.test(readFileSync(join(__dirname, '../..', f), 'utf8')), f).toBe(false);
   });
 });
+
+describe('the other pages say 1/3 for a photo in 3 cards, never /2', () => {
+  it('the wishlist line', async () => {
+    const { wishText } = await import('./friends-panel');
+    const c = (part: 0 | 1 | 2 | 3, parts?: 2 | 3) => ({ n: part, num: 'BV1-0001', name: 'TWICE', edition: 'holo' as const, kind: 'group' as const, group: null, part, ...(parts ? { parts } : {}) });
+    expect(wishText([c(1, 3), c(3, 3), c(2, 2), c(0)])).toBe('TWICE 1/3, Holo · TWICE 3/3, Holo · TWICE 2/2, Holo · TWICE, Holo');
+  });
+  it('the group page of the hub: the tile of a missing part, from the group cards', async () => {
+    const { CardsGroupGrid } = await import('@/components/cards-bridge/cards-group-grid');
+    const base = { name: 'TWICE', rarity: 'R', photoUrl: 'https://p/a.jpg', focalX: 50, focalY: 50, css: true };
+    const html = renderToStaticMarkup(createElement(CardsGroupGrid, { cards: [{ ...base, n: 1, num: 'BV1-0001', part: 1, parts: 3 }, { ...base, n: 2, num: 'BV1-0002', part: 3, parts: 3 }, { ...base, n: 3, num: 'BV1-0003', part: 2 }] }));
+    expect(html).toContain('BV1-0001 · 1/3');
+    expect(html).toContain('BV1-0002 · 3/3');
+    expect(html).toContain('BV1-0003 · 2/2');
+    expect(html).not.toContain('1/2');
+  });
+  it('the detail text names the three parts of a photo in 3, keeps the halves for a pair, and says both when mixed', async () => {
+    const { splitWords } = await import('./card-detail');
+    const rung = (parts?: 2 | 3) => ({ rarity: 'C' as const, reason: null, anchor: 'x', card: { n: 1, parts } as unknown as SlimCard });
+    expect(splitWords([rung(3), rung(3)])).toBe('the three parts');
+    expect(splitWords([rung(), rung(2)])).toBe('the two halves');
+    expect(splitWords([rung(2), rung(3)])).toBe('two or three parts');
+  });
+});
