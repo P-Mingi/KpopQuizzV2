@@ -470,9 +470,9 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
     if (saving) return;
     if (!window.confirm('Reconstruire le catalogue avec les photos approuvées ? Les numéros des cartes sont refaits ; c\'est refusé dès qu\'un joueur possède une carte.')) return;
     setSaving(true);
-    const r = await apiOrMessage<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number } }>({ action: 'rebuild' });
+    const r = await apiOrMessage<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number; panoramas?: number } }>({ action: 'rebuild' });
     setSaving(false);
-    if (r.ok && r.data.summary) onSaved(`Catalogue reconstruit : ${r.data.summary.subjects} sujets, ${r.data.summary.cards} cartes, ${r.data.summary.waiting} sujets attendent une deuxième photo, ${r.data.summary.not_shown} cartes attendent leur fichier.`);
+    if (r.ok && r.data.summary) onSaved(`Catalogue reconstruit : ${r.data.summary.subjects} sujets, ${r.data.summary.cards} cartes${typeof r.data.summary.panoramas === 'number' ? `, ${r.data.summary.panoramas} panoramas` : ''}, ${r.data.summary.waiting} sujets attendent une deuxième photo, ${r.data.summary.not_shown} cartes attendent leur fichier.`);
     else onSaved(catalogFailure('Le catalogue n\'a pas été reconstruit.', r.ok ? null : r.message));
   };
 
