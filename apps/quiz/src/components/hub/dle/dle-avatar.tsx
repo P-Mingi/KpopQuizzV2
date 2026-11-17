@@ -40,10 +40,13 @@ export function parentName(game: Pick<DleGameDef, 'series'>, subKey: string, att
  * What a tile or the result card draws behind a name when there is no licensed photo (lot 3 DLE, E3):
  *   art      the public path of the series photo already in place on the anime pages (the free photos of objects and places), or null
  *   preview  the owner's private preview image (lib/dle/preview.ts), or null. Never set for anyone else.
+ *   thumb    a licensed picture the server resolved for this entity (lib/dle/idol-pictures.ts: a verified trivia picture, else a KpopCards photo), with its object-position
  */
 export interface AvatarLook {
   readonly art?: string | null;
   readonly preview?: string | null;
+  readonly thumb?: string | null;
+  readonly position?: string | null;
 }
 
 interface AvatarProps {
@@ -65,13 +68,14 @@ export function Avatar({ entity, tone, size, radius, font, look }: AvatarProps):
   const [a, b] = tintOf(tone || entity.name);
   const style = { width: size, height: size, borderRadius: radius, fontSize: font, '--dle-a': a, '--dle-b': b } as React.CSSProperties;
   // A plain img everywhere: the 96 px file made at upload, a bundled file, or the preview route (no Vercel image optimisation, no cache of the preview).
-  const src = entity.thumb ?? look?.preview ?? null;
+  const resolved = entity.thumb ? null : look?.thumb ?? null;
+  const src = entity.thumb ?? resolved ?? look?.preview ?? null;
   const art = src ? null : look?.art ?? null;
   return (
     <span aria-hidden="true" className={`hub-dle-thumb${src ? '' : art ? ' hub-dle-thumb-art' : ' hub-dle-thumb-pat'}`} style={style}>
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt="" width={size} height={size} loading="lazy" decoding="async" />
+        <img src={src} alt="" width={size} height={size} loading="lazy" decoding="async" style={resolved && look?.position ? { objectPosition: look.position } : undefined} />
       ) : art ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={art} alt="" width={size} height={size} loading="lazy" decoding="async" />
