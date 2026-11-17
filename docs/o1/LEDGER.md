@@ -457,3 +457,4 @@ Measured after Wave 0 (rule: give the owner a dated estimate).
   revoke all on public.pinterest_auth, public.pinterest_boards, public.pinterest_pins, public.quiz_pinterest_cards from anon, authenticated;
   commit;
   ```
+- D-132 (2026-11-17) .github/workflows/tests.yml, owned by nobody, assigned to ORCH: the owner gave the go for the unit job at 15 minutes and 4 GB of heap for the e2e build (lot CPUB-RETRY, the cancelled and out-of-memory runs of #234). Only this file: the rest of .github stays unowned. Written at the end of the list so that it does not touch D-131 (PR #237).
