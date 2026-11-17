@@ -3,18 +3,21 @@
 // whitespace ([ \t\n\r\f\v]+ becomes one space, then md5), in 117, 118 and both rollbacks. Proved on the production-like state: 117 and 118
 // applied with CRLF line endings succeed, a second CRLF run says "already applied", the rollbacks work in CRLF, the corrected 117 is fine on a
 // database where nothing of 117 is applied and on one where the 117 of #233 is applied, and the fingerprint is the same in TypeScript and Postgres.
-import { execSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { describe, expect, it, vi } from 'vitest';
 
 import { MD5_BODY_SQL, SAFEUPDATE_DAY, buildSafeupdate, md5Normalized, normalizeBody } from './safeupdate-sql';
 import { prodDb, rd, run } from './parts-fixture';
-import { CARDS_SQL, one } from './sql-harness';
+import { one } from './sql-harness';
 
 vi.setConfig({ testTimeout: 300_000, hookTimeout: 300_000 });
 
 const crlf = (s: string): string => s.replace(/\n/g, '\r\n');
+/** The git blob id of docs/pending-migrations/cards/117-catalog-safeupdate.sql at b6a06ce (PR #233): `git rev-parse b6a06ce:<that path>`. */
+const OLD_117_BLOB = '8cf8ec6f02c519136d04b72c14c1ddbf63f69828';
 const fp = (db: Awaited<ReturnType<typeof prodDb>>, fn: string): Promise<string> =>
   one<string>(db, `select ${MD5_BODY_SQL} from pg_proc where oid = '${fn}'::regprocedure`);
 const FNS = ['public.cards_build_catalog()', 'public.cards_catalog_append(boolean)',
@@ -68,8 +71,12 @@ describe('117 and 118 pasted with CRLF line endings', () => {
 
   it('the corrected 117 is accepted where the 117 of #233 is applied (same body, other fingerprint expression)', async () => {
     const db = await base103();
-    // the body the 117 of #233 left: 103's with WHERE true
-    const old117 = execSync('git show b6a06ce:docs/pending-migrations/cards/117-catalog-safeupdate.sql', { cwd: path.resolve(CARDS_SQL, '../../..') }).toString();
+    // the body the 117 of #233 left: 103's with WHERE true. The file of #233 (commit b6a06ce) is kept as a fixture, because CI checks out one
+    // commit only and cannot read the history; its git blob id proves it is that file, byte for byte.
+    const raw = readFileSync(path.join(__dirname, 'fixtures/117-of-pr-233.sql'));
+    const blob = createHash('sha1').update(`blob ${raw.length}\0`).update(raw).digest('hex');
+    expect(blob).toBe(OLD_117_BLOB);
+    const old117 = raw.toString('utf8');
     await db.exec(old117.replace("(now() at time zone 'UTC')::time", "time '12:00'"));
     expect(await one(db, `select prosrc like '%delete from public.cards_catalog where true;%' from pg_proc where oid = 'public.cards_build_catalog()'::regprocedure`)).toBe(true);
     const notices = await run(db, crlf(rd('117-catalog-safeupdate.sql')));
