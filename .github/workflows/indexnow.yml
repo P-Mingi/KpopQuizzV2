@@ -33,8 +33,11 @@ jobs:
           mkdir -p current prev
           curl -fsS https://kpopquiz.org/sitemap.xml -o current/sitemap.xml
       - name: Fetch the sitemap of the last submission
+        # The job has no checkout, so gh cannot read the repository from a .git folder: GH_REPO names it (without it every run
+        # since #220 stopped here with "failed to determine base repo: ... not a git repository").
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           id=$(gh run list --workflow indexnow.yml --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
           if [ -n "$id" ]; then gh run download "$id" --name sitemap-snapshot --dir prev || echo "no snapshot in run $id"; fi
