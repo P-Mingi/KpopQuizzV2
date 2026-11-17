@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { ageOk, cardFileRegex, cutPlan, mergePhotoFiles, partFileName, planRemovals, stemOf } from '../../../scripts/cards/card-files.mjs';
-import { MIN_2X, PAIR_RATIO, cardBox, halves, pairBox } from '../../../scripts/cards/card-geometry.mjs';
+import { ageOk, cardFileRegex, cutPlan, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, stemOf } from '../../../scripts/cards/card-files.mjs';
+import { MIN_2X, PAIR_RATIO, TRIPLE_RATIO, cardBox, halves, pairBox, panoSizes } from '../../../scripts/cards/card-geometry.mjs';
 
 describe('card geometry, pair window and halves', () => {
   it('the pair window is 11:8.5 and its halves add up to it', () => {
@@ -162,5 +162,175 @@ describe('lot 6: the owner script reads lot 3 and lot 6 photos as one, with no o
     expect(src).toContain("docs/design/cards/data/lot6");
     // a locked subject has no photo: nothing is cut or uploaded for it
     expect(src).toContain("for (const s of chosen) for (const p of s.photos) if (CUT.has(p.status)");
+  });
+});
+
+describe('lot 7: thirds and the panorama', () => {
+  type P = { part: number; left: number; top: number; width: number; height: number; cropWidth: number; has2x: boolean };
+  it('a pair plan is exactly the halves of before, with a panorama of the whole window', () => {
+    for (const [w, h] of [[4000, 3000], [1281, 853], [1279, 3000], [900, 2000]] as const) {
+      const box = pairBox(w, h, 40, 70);
+      const plan = cutPlan(true, w, h, 40, 70);
+      expect(plan.window).toEqual(box);
+      expect(plan.parts.map((p: P) => ({ part: p.part, left: p.left, top: p.top, width: p.width, height: p.height }))).toEqual(halves(box));
+      expect(cutPlan(true, w, h, 40, 70, 2)).toEqual(plan);
+      expect(plan.pano).toEqual({ ...box, has2x: plan.parts.every((p: P) => p.has2x) });
+    }
+  });
+  it('a person has no panorama', () => {
+    expect(cutPlan(false, 4000, 1000, 50, 50).pano).toBeNull();
+    expect(cutPlan(false, 4000, 1000, 50, 50, 3).parts).toHaveLength(1);
+  });
+  it('thirds: three parts of the 16.5:8.5 window that add up to it, left to right', () => {
+    for (const [w, h] of [[4000, 3000], [3000, 1200], [1920, 3000], [1000, 400]] as const) {
+      const plan = cutPlan(true, w, h, 30, 60, 3);
+      expect(Math.abs(plan.window.width / plan.window.height - TRIPLE_RATIO)).toBeLessThan(0.02);
+      expect(plan.parts.map((p: P) => p.part)).toEqual([1, 2, 3]);
+      expect(plan.parts.reduce((a: number, p: P) => a + p.width, 0)).toBe(plan.window.width);
+      expect(plan.parts[0]!.left).toBe(plan.window.left);
+      expect(plan.parts[1]!.left).toBe(plan.parts[0]!.left + plan.parts[0]!.width);
+      expect(plan.parts[2]!.left).toBe(plan.parts[1]!.left + plan.parts[1]!.width);
+      expect(plan.parts.every((p: P) => p.height === plan.window.height && p.top === plan.window.top)).toBe(true);
+      expect(plan.pano).toEqual({ ...plan.window, has2x: plan.parts.every((p: P) => p.has2x) });
+    }
+  });
+  it('the 2x flags at the 640 px boundary: a third of a 1919 wide window has no 2x, of 1920 has', () => {
+    // a photo exactly 1920 wide and tall enough that the window is the whole width: thirds of 640
+    const ok = cutPlan(true, 1920, 1000, 50, 50, 3);
+    expect(ok.window.width).toBe(1920);
+    expect(ok.parts.map((p: P) => p.width)).toEqual([640, 640, 640]);
+    expect(ok.parts.every((p: P) => p.has2x)).toBe(true);
+    expect(ok.pano!.has2x).toBe(true);
+    const no = cutPlan(true, 1919, 1000, 50, 50, 3);
+    expect(no.window.width).toBe(1919);
+    expect(no.parts.map((p: P) => p.width)).toEqual([639, 640, 640]);
+    expect(no.parts.map((p: P) => p.has2x)).toEqual([false, true, true]);
+    expect(no.pano!.has2x).toBe(false);
+    // the panorama 2x is all or nothing, in a pair as well
+    expect(cutPlan(true, 1279, 3000, 0, 0).pano!.has2x).toBe(false);
+    expect(cutPlan(true, 1280, 3000, 0, 0).pano!.has2x).toBe(true);
+    expect(MIN_2X).toBe(640);
+  });
+  it('panorama sizes follow the parts', () => {
+    expect(panoSizes(2)).toEqual({ '1x': [640, 495], '2x': [1280, 989] });
+    expect(panoSizes(3)).toEqual({ '1x': [960, 495], '2x': [1920, 989] });
+  });
+  it('file names: halves, thirds, panoramas', () => {
+    expect(partFileName('x-50-30', 2, '1x')).toBe('x-50-30-h2-1x.webp');
+    expect(partFileName('x-50-30', 2, '1x', 2)).toBe('x-50-30-h2-1x.webp');
+    expect(partFileName('x-50-30', 1, '1x', 3)).toBe('x-50-30-t1-1x.webp');
+    expect(partFileName('x-s2-50-30', 3, '2x', 3)).toBe('x-s2-50-30-t3-2x.webp');
+    expect(partFileName('x-50-30', 0, '1x', 3)).toBe('x-50-30-1x.webp');
+    expect(panoFileName('x-50-30', 2, '1x')).toBe('x-50-30-p2-1x.webp');
+    expect(panoFileName('x-50-30', 3, '2x')).toBe('x-50-30-p3-2x.webp');
+  });
+  it('the regex matches thirds and panoramas, anchored, longest slug first', () => {
+    const re = cardFileRegex(['nct', 'nct-wish']);
+    for (const n of ['nct-50-30-t1-1x.webp', 'nct-wish-s2-20-40-t3-2x.webp', 'nct-50-30-p2-1x.webp', 'nct-wish-20-40-p3-2x.webp']) expect(re.test(n)).toBe(true);
+    expect(re.exec('nct-wish-20-40-p3-2x.webp')![1]).toBe('nct-wish');
+    expect(re.exec('nct-wish-s2-20-40-t3-2x.webp')![6]).toBe('2x');
+    for (const n of ['nct-50-30-t4-1x.webp', 'nct-50-30-t0-1x.webp', 'nct-50-30-p1-1x.webp', 'nct-50-30-p4-1x.webp', 'nct-50-30-t1-3x.webp', 'nct-50-30-t1-1x.webp.bak', 'x-nct-50-30-t1-1x.webp', 'nct-50-30-t1p2-1x.webp']) expect(re.test(n)).toBe(false);
+  });
+});
+
+describe('lot 7: the cleanup knows the parts', () => {
+  const known = ['trio', 'duo', 'solo'];
+  const current = new Map<string, unknown>([
+    ['trio', [{ slot: 1, group: true, fx: 50, fy: 50, parts: 3 }]],
+    ['duo', [{ slot: 1, group: true, fx: 40, fy: 50, parts: 2 }, { slot: 2, group: true, fx: 40, fy: 50 }]],
+    ['solo', [{ slot: 1, group: false, fx: 10, fy: 20 }]],
+  ]);
+  const run = (names: string[]) => planRemovals(names, { known, current: current as never });
+  const why = (names: string[]) => run(names).remove.map((r: { name: string; why: string }) => [r.name, r.why]);
+  it('a photo in 3 keeps its thirds and -p3 at its focal point', () => {
+    const names = ['trio-50-50-t1-1x.webp', 'trio-50-50-t2-2x.webp', 'trio-50-50-t3-1x.webp', 'trio-50-50-p3-1x.webp', 'trio-50-50-p3-2x.webp'];
+    expect(run(names).keep).toEqual(names);
+    expect(run(names).remove).toEqual([]);
+  });
+  it('a photo in 3 proposes its old halves and -p2 with a plain reason', () => {
+    expect(why(['trio-50-50-h1-1x.webp', 'trio-50-50-h2-2x.webp', 'trio-50-50-p2-1x.webp', 'trio-50-50-1x.webp'])).toEqual([
+      ['trio-50-50-h1-1x.webp', 'half file of a photo now in 3 cards'],
+      ['trio-50-50-h2-2x.webp', 'half file of a photo now in 3 cards'],
+      ['trio-50-50-p2-1x.webp', 'panorama file for 2 cards of a photo now in 3'],
+      ['trio-50-50-1x.webp', 'old whole-card file of a group'],
+    ]);
+  });
+  it('a photo in 2 (explicit or default) keeps its halves and -p2, proposes thirds and -p3', () => {
+    const keepNames = ['duo-40-50-h1-1x.webp', 'duo-40-50-h2-2x.webp', 'duo-40-50-p2-1x.webp', 'duo-40-50-p2-2x.webp', 'duo-s2-40-50-h1-1x.webp', 'duo-s2-40-50-p2-1x.webp'];
+    expect(run(keepNames).keep).toEqual(keepNames);
+    expect(why(['duo-40-50-t1-1x.webp', 'duo-40-50-p3-1x.webp', 'duo-s2-40-50-t3-2x.webp'])).toEqual([
+      ['duo-40-50-t1-1x.webp', 'third file of a photo now in 2 cards'],
+      ['duo-40-50-p3-1x.webp', 'panorama file for 3 cards of a photo now in 2'],
+      ['duo-s2-40-50-t3-2x.webp', 'third file of a photo now in 2 cards'],
+    ]);
+  });
+  it('an old focal point still goes for parts and panoramas', () => {
+    expect(why(['trio-50-40-t1-1x.webp', 'trio-50-40-p3-1x.webp', 'duo-40-60-p2-1x.webp'])).toEqual([
+      ['trio-50-40-t1-1x.webp', 'old focal point (now 50/50)'],
+      ['trio-50-40-p3-1x.webp', 'old focal point (now 50/50)'],
+      ['duo-40-60-p2-1x.webp', 'old focal point (now 40/50)'],
+    ]);
+  });
+  it('a person never keeps a part or a panorama file, even with parts set', () => {
+    expect(why(['solo-10-20-1x.webp', 'solo-10-20-h1-1x.webp', 'solo-10-20-t2-1x.webp', 'solo-10-20-p2-1x.webp', 'solo-10-20-p3-2x.webp']).map((x: unknown[]) => x[1])).toEqual([
+      'half file of a person', 'part file of a person', 'panorama file of a person', 'panorama file of a person']);
+    expect(run(['solo-10-20-1x.webp']).keep).toEqual(['solo-10-20-1x.webp']);
+    const withParts = planRemovals(['solo-10-20-p3-1x.webp'], { known, current: new Map([['solo', { group: false, fx: 10, fy: 20, parts: 3 }]]) });
+    expect(withParts.keep).toEqual([]);
+  });
+  it('the lot 2 object form still means slot 1 with parts 2', () => {
+    const r = planRemovals(['duo-40-50-h1-1x.webp', 'duo-40-50-p2-1x.webp', 'duo-40-50-t1-1x.webp'], { known, current: new Map([['duo', { group: true, fx: 40, fy: 50 }]]) });
+    expect(r.keep).toEqual(['duo-40-50-h1-1x.webp', 'duo-40-50-p2-1x.webp']);
+    expect(r.remove.map((x: { name: string }) => x.name)).toEqual(['duo-40-50-t1-1x.webp']);
+  });
+});
+
+describe('lot 7: what the script does with a row, and the PATCH body', () => {
+  const stem = 'g-50-30';
+  const base = { storage_path: stem, focal_x: 50, focal_y: 30, file_focal_x: 50, file_focal_y: 30 };
+  it('a database before 118: behaves exactly as today, no panorama', () => {
+    expect(fileAction({ ...base }, stem, true)).toEqual({ parts: 2, action: 'skip' });
+    expect(fileAction({ ...base, file_focal_x: 40 }, stem, true)).toEqual({ parts: 2, action: 'full' });
+    expect(fileAction({ ...base, storage_path: null }, stem, false)).toEqual({ parts: 2, action: 'full' });
+    expect(fileAction({ ...base }, stem, false)).toEqual({ parts: 2, action: 'skip' });
+  });
+  it('after 118: a photo with matching files and a panorama is skipped', () => {
+    expect(fileAction({ ...base, parts: 3, file_parts: 3, file_pano: true }, stem, true)).toEqual({ parts: 3, action: 'skip' });
+    expect(fileAction({ ...base, parts: null, file_parts: null, file_pano: true }, stem, true)).toEqual({ parts: 2, action: 'skip' });
+  });
+  it('a pair cut before lot 7 at its focal point only gains its panorama', () => {
+    expect(fileAction({ ...base, parts: null, file_parts: null, file_pano: false }, stem, true)).toEqual({ parts: 2, action: 'pano' });
+    expect(fileAction({ ...base, parts: 2, file_parts: 2, file_pano: false }, stem, true)).toEqual({ parts: 2, action: 'pano' });
+  });
+  it('a change of parts or of focal point cuts everything again', () => {
+    expect(fileAction({ ...base, parts: 3, file_parts: null, file_pano: true }, stem, true)).toEqual({ parts: 3, action: 'full' });
+    expect(fileAction({ ...base, parts: 2, file_parts: 3, file_pano: true }, stem, true)).toEqual({ parts: 2, action: 'full' });
+    expect(fileAction({ ...base, parts: 2, file_parts: 2, file_pano: true, file_focal_y: 31 }, stem, true)).toEqual({ parts: 2, action: 'full' });
+  });
+  it('a person is skipped when its files match and never gets a panorama or parts', () => {
+    expect(fileAction({ ...base, parts: 3, file_parts: null, file_pano: false }, stem, false)).toEqual({ parts: 2, action: 'skip' });
+  });
+  it('the PATCH body carries only the columns the database has', () => {
+    const plan = { stem, fx: 50, fy: 30, parts: 3, pano: true };
+    expect(filePatch(plan, { fileParts: false, filePano: false })).toEqual({ storage_path: stem, file_focal_x: 50, file_focal_y: 30 });
+    expect(filePatch(plan, { fileParts: true, filePano: false })).toEqual({ storage_path: stem, file_focal_x: 50, file_focal_y: 30, file_parts: 3 });
+    expect(filePatch(plan)).toEqual({ storage_path: stem, file_focal_x: 50, file_focal_y: 30, file_parts: 3, file_pano: true });
+    expect(filePatch({ ...plan, parts: 2, pano: false })).toMatchObject({ file_parts: 2, file_pano: false });
+    expect(Object.keys(filePatch({ ...plan, parts: 7 }))).toContain('file_parts');
+    expect((filePatch({ ...plan, parts: 7 }) as { file_parts?: number }).file_parts).toBe(2);
+  });
+});
+
+describe('lot 7: the owner script wiring (source checks, nothing is run)', () => {
+  it('reads every column, patches once with the helper, keeps the confirmations', async () => {
+    const { readFileSync } = await import('node:fs');
+    const src = readFileSync(new URL('../../../scripts/cards/publish-card-files.mjs', import.meta.url), 'utf8');
+    expect(src).toContain('cards_photos?select=*&status=in.(auto,approved)');
+    expect(src.match(/method: 'PATCH'/g)).toHaveLength(1);
+    expect(src).toContain('JSON.stringify(body)');
+    expect(src).toContain("'file_parts' in row");
+    expect(src).toContain("'file_pano' in row");
+    expect(src).toContain("go !== 'delete'");
+    expect(src).toContain("if (typed !== host) throw new Error('refused: the host typed does not match");
   });
 });
