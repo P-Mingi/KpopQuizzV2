@@ -189,9 +189,12 @@
 .bvc .ov .mgrid.spot .mc.best { transform: scale(1.06); z-index: 2; }
 
 /* ---------- lot 7: the reveal of a panorama (a set is complete). Only transform and opacity animate. ---------- */
-.bvc .ov .pano-sum { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 22px; margin-top: 18px; }
-.bvc .ov .pano-sum-i { display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: 100%; }
-.bvc .ov .pano-sum-card { width: min(300px, 80vw); }
+.bvc .ov .ov-mid.scroll > .fan, .bvc .ov .ov-mid.scroll > .pano-sum, .bvc .ov .ov-mid.scroll > .totals { flex-shrink: 0; }
+.bvc .ov .ov-mid.scroll > .fan { height: 262px; }
+.bvc .ov .ov-mid.scroll > .totals { margin-top: 30px; }
+.bvc .ov .pano-sum { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin-top: 8px; }
+.bvc .ov .pano-sum-i { display: flex; flex-direction: column; align-items: center; gap: 6px; max-width: 100%; }
+.bvc .ov .pano-sum-card { width: min(250px, 70vw); }
 .bvc .ov .pano-sum-i p { margin: 0; font-size: 14px; font-weight: 600; text-align: center; max-width: 30ch; }
 .bvc .ov .fxc { position: fixed; inset: 0; z-index: 90; pointer-events: none; width: 100%; height: 100%; }
 .bvc .ov.pano-ov { z-index: 100; cursor: pointer; }

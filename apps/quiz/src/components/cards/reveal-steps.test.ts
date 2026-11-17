@@ -112,3 +112,40 @@ describe('finishAnimations (point A5, the CSS side)', () => {
     expect(() => finishAnimations({ getAnimations: () => [bad] } as unknown as Element)).not.toThrow();
   });
 });
+
+// Lot 7: the reveal of a panorama (a set is complete).
+import { PANO_DWELL_MS, PANO_JOIN_MS, panoPlan } from './reveal-steps';
+
+describe('the reveal of a panorama', () => {
+  it('the parts join, then the card shows, then the line: in that order, in 700 ms and a little more', () => {
+    const p = panoPlan('C');
+    expect(p.joinMs).toBe(PANO_JOIN_MS);
+    expect(p.labelAt).toBeGreaterThan(p.joinMs);
+    expect(PANO_DWELL_MS).toBe(DWELL_HIGH_MS);
+  });
+  it('a set is a moment even in Standard: the sting has at least three notes; Gold and Full Art add the rings, Full Art the boom, the rain from Gold', () => {
+    expect(panoPlan('C').ri).toBe(2);
+    expect(panoPlan('C').bang).toBe(false);
+    expect(panoPlan('UR').bang).toBe(true);
+    expect(panoPlan('UR').rain).not.toBeNull();
+    expect(panoPlan('UR').boom).toBe(false);
+    expect(panoPlan('L').boom).toBe(true);
+    expect(panoPlan('R').rain).toBeNull();
+  });
+  it('a tap that jumped the animation has no burst and a smaller rain', () => {
+    expect(panoPlan('R').burst).not.toBeNull();
+    expect(panoPlan('R', { fast: true }).burst).toBeNull();
+    expect(panoPlan('L').rain!.n).toBeGreaterThan(panoPlan('L', { fast: true }).rain!.n);
+  });
+  it('under reduced motion it is a 200 ms fade: no burst, no rings, no sweep', () => {
+    const p = panoPlan('L', { reduced: true });
+    expect(p.joinMs).toBe(FADE_MS);
+    expect(p.burst).toBeNull();
+    expect(p.bang).toBe(false);
+    expect(p.sweep).toBe(false);
+  });
+  it('the line the player reads is plain English and says the group', async () => {
+    const { panoLine } = await import('./pano-reveal');
+    expect(panoLine({ name: 'TWICE' })).toBe('Set complete: the panorama of TWICE is yours');
+  });
+});

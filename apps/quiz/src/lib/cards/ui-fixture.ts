@@ -204,7 +204,8 @@ export function fixtureThemes(cat: UiCatalog): Map<string, 'girls' | 'boys' | 's
 
 let memo: UiCatalog | null = null;
 export function fixtureCatalog(): UiCatalog {
-  const pano = process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_PANO === '1';
+  // The browser's mock world reads this catalog too, and a browser bundle only inlines NEXT_PUBLIC_ variables: the dev server sets both spellings.
+  const pano = process.env.NODE_ENV !== 'production' && (process.env.CARDS_UI_FIXTURE_PANO === '1' || process.env.NEXT_PUBLIC_CARDS_UI_FIXTURE_PANO === '1');
   if (process.env.NODE_ENV === 'development' && process.env.CARDS_UI_FIXTURE_SHAPE !== 'small') return (memo ??= buildProtoCatalog({ pano }));
   memo ??= buildFixtureCatalog({ pairs: pano || (process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_PAIRS === '1'), full: process.env.NODE_ENV !== 'production' && process.env.CARDS_UI_FIXTURE_FULL === '1', pano });
   return memo;

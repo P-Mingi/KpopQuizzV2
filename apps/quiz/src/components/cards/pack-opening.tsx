@@ -550,7 +550,6 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
       {newPanos.map((p) => (
         <div key={p.p} className="pano-sum-i pop">
           <div className="pano-sum-card" style={{ '--np': p.parts } as Vars}><PanoFront pano={p} /></div>
-          <span className="rtag half">Set complete</span>
           <p>{panoLine(p)}</p>
         </div>
       ))}
@@ -628,7 +627,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                 <>
                   <span className="rtag pop"><Gem r={current.card.rarity} className={`gem gc-${current.card.rarity}`} />{RARITY_LABEL[current.card.rarity]}</span>
                   {demo ? null : current.isNew ? <span className="rtag new pop">New</span> : <span className="rtag dup pop">+1 copy</span>}
-                  {current.pair ? <span className="rtag half pop">Completes the pair</span> : null}
+                  {current.pair ? <span className="rtag half pop">{current.card.parts === 3 ? 'Completes the set' : 'Completes the pair'}</span> : null}
                   {current.pity ? <span className="rtag pity pop">Gold guarantee</span> : null}
                   {current.card.rarity === 'L' ? <span className="rnext pop"><b>Tap again</b> {idx < len - 1 ? 'for the next card' : 'to see your pull'}</span> : null}
                 </>
@@ -689,7 +688,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
                     </div>
                   ) : (
                     <>
-                      <Link href={hrefOf(x.card)} className="fc-b" aria-label={`${x.card.name}, ${RARITY_LABEL[x.card.rarity]}${x.isNew ? ', new' : ', copy'}${x.pair ? ', completes the pair' : ''}. See the card.`}>
+                      <Link href={hrefOf(x.card)} className="fc-b" aria-label={`${x.card.name}, ${RARITY_LABEL[x.card.rarity]}${x.isNew ? ', new' : ', copy'}${x.pair ? (x.card.parts === 3 ? ', completes the set' : ', completes the pair') : ''}. See the card.`}>
                         <span className={`rtag ${x.isNew ? 'new' : 'dup'}`}>{x.isNew ? 'New' : '+1 copy'}</span>
                         <CardFront card={x.card} />
                       </Link>

@@ -25,15 +25,15 @@
 .bvc .pano .c-bg::before{background-size:100% 100%;opacity:.7}
 /* small panorama (one part under 150 px): only the name and the gem, as a small card does */
 @container (max-width:298px){
-  .bvc .pano-2 .c-meta > span:first-child,.bvc .pano-2 .c-kind .kw{display:none}
+  .bvc .pano-2 .c-meta > span:first-child,.bvc .pano-2 .c-kind{display:none}
+  .bvc .pano-2 .c-meta{justify-content:flex-end}
   .bvc .pano-2 .c-name{font-size:max(8.5px,calc(var(--nf,13cqi) / var(--np)))}
-  .bvc .pano-2 .c-rar em,.bvc .pano-2 .c-meta{display:none}
   .bvc .pano-2 .c-rar{font-size:max(8px,calc(6.6 * var(--cq)))}
 }
 @container (max-width:447px){
-  .bvc .pano-3 .c-meta > span:first-child,.bvc .pano-3 .c-kind .kw{display:none}
+  .bvc .pano-3 .c-meta > span:first-child,.bvc .pano-3 .c-kind{display:none}
+  .bvc .pano-3 .c-meta{justify-content:flex-end}
   .bvc .pano-3 .c-name{font-size:max(8.5px,calc(var(--nf,13cqi) / var(--np)))}
-  .bvc .pano-3 .c-rar em,.bvc .pano-3 .c-meta{display:none}
   .bvc .pano-3 .c-rar{font-size:max(8px,calc(6.6 * var(--cq)))}
 }
 /* the pocket of a panorama: in the row under its parts, as wide as its parts */
