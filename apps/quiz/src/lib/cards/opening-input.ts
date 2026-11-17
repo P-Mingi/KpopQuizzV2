@@ -6,7 +6,7 @@ import { RARITIES } from '@/lib/cards/rules';
 import type { OpenedPack, OpenResponse, FinishedSetV } from '@/lib/kpopcards/contract';
 import type { Edition, Rarity } from '@/lib/cards/types';
 
-export interface OpeningCardIn { n: number; isNew: boolean; completesPair: boolean; pity: boolean; edition: Edition }
+export interface OpeningCardIn { n: number; isNew: boolean; completesPair: boolean; pity: boolean; edition: Edition; /** Lot 7: the pano_no this card gave (it completed its photo's set). */ pano?: number }
 export interface OpeningInput {
   cards: OpeningCardIn[];
   packs: 1 | 5;
@@ -31,7 +31,7 @@ export const isBigEdition = (e: Edition): boolean => RARITIES.indexOf(RARITY_OF[
 export function openingInput(res: OpenResponse): OpeningInput {
   const first = res.packs[0];
   if (!first) throw new Error('openingInput: an open answer with no pack');
-  const cards = res.packs.flatMap((p) => p.cards.map((c) => ({ n: c.n, isNew: c.isNew, completesPair: c.completesPair, pity: c.guarantee, edition: c.edition })));
+  const cards = res.packs.flatMap((p) => p.cards.map((c) => ({ n: c.n, isNew: c.isNew, completesPair: c.completesPair, pity: c.guarantee, edition: c.edition, ...(c.pano ? { pano: c.pano.p } : {}) })));
   const five = res.packs.length >= 5;
   return {
     cards, packs: five ? 5 : 1, golden: !five && first.golden, goldenPacks: res.summary.goldenPacks, source: first.source, theme: first.theme, group: first.group,

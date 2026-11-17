@@ -592,17 +592,49 @@ checks as (
     from (select '0 owned, 0 packs' as a,
                  (select (select count(*) from public.cards_owned) || ' owned, ' || (select count(*) from public.cards_packs) || ' packs') as o) x
   union all
-  select 6 as n, '102-catalog-rebuild.sql' as fichier, 'line 27: cards per part = the edition rule of 103 on the photos live now: a person one card an edition, a group a pair (true after Reconstruire le catalogue)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select format('0: %s, 1: %s, 2: %s', coalesce(sum(r.editions) filter (where r.kind = 'idol'), 0),
-       coalesce(sum(r.editions) filter (where r.kind = 'group'), 0), coalesce(sum(r.editions) filter (where r.kind = 'group'), 0)) from (select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
-       from (select e.id, e.kind, least(count(*), 6) as n,
-                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
-               from public.cards_entities e
-               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
-               cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
-              where e.kind in ('idol', 'group')
-              group by e.id, e.kind) z) r) as a,
-                 case when exists (select 1 from pg_attribute where attrelid = to_regclass('public.cards_catalog') and attname = 'part' and attnum > 0 and not attisdropped) then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select format('0: %s, 1: %s, 2: %s', count(*) filter (where part = 0), count(*) filter (where part = 1), count(*) filter (where part = 2)) from public.cards_catalog)::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
+  select 6 as n, '102-catalog-rebuild.sql' as fichier, 'line 27: cards per part = the edition rule of 103 on the photos live now: a person one card an edition, a group photo 2 or 3 cards (lot 7; a pair before 118) (true after Reconstruire le catalogue)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
+    from (select (with 
+     ent as materialized (
+       select en.id, en.kind = 'group' as grp from public.cards_entities en
+        where en.kind in ('idol', 'group') and exists (select 1 from public.cards_photos p where p.entity_id = en.id)),
+     have as materialized (
+       select e.id, '{}'::text[] as have, '{}'::bigint[] as used from ent e),
+     u as materialized (
+       select p.entity_id as id, p.id as pid, coalesce((to_jsonb(p) ->> 'stage')::boolean, false) as stage, (p.storage_path is not null or p.source_path is not null) as shown, n.np,
+              w.cw / n.np >= 640 as full_ok,
+              row_number() over (partition by p.entity_id order by coalesce((to_jsonb(p) ->> 'quality')::integer, 3) desc, w.cw / n.np desc, w.cw desc, p.event_date desc nulls last, p.slot) as rk
+         from public.cards_photos p join ent e on e.id = p.entity_id join have h on h.id = e.id
+         cross join lateral (select case when e.grp then coalesce((to_jsonb(p) ->> 'parts')::integer, 2) else 1 end as np) n
+         cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when n.np > 1 then n.np * 5.5 else 5.5 end) / 8.5))::integer as cw) w
+        where p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null and not (p.id = any (h.used))),
+     s as materialized (
+       select e.id, e.grp, cardinality(h.have) > 0 as in_,
+              array(select t.r from unnest(array['C', 'U', 'R', 'SR', 'UR', 'L']) with ordinality as t(r, o) where not (t.r = any (h.have)) order by t.o) as missing,
+              (select count(*) from u where u.id = e.id)::integer as nu
+         from ent e join have h on h.id = e.id),
+     k as materialized (select s.*, least(s.nu, cardinality(s.missing)) as k from s),
+     o as materialized (
+       select k.*, (select x.pid from u x where x.id = k.id and x.full_ok order by x.rk limit 1) as best_full
+         from k where not (k.k = 0 or (not k.in_ and k.k < 2))),
+     op as materialized (
+       select o.id, o.grp, o.in_,
+              case when 'L' = any (o.missing[1:o.k]) and o.best_full is null then array_remove(o.missing[1:o.k], 'L') else o.missing[1:o.k] end as open_,
+              case when 'L' = any (o.missing[1:o.k]) then o.best_full end as lpick
+         from o),
+     sp as materialized (
+       select op.*, case when 'U' = any (op.open_) then
+                (select x.pid from u x where x.id = op.id and x.stage and x.pid is distinct from op.lpick order by x.rk desc limit 1) end as upick
+         from op where cardinality(op.open_) > 0),
+     picks as materialized (
+       select sp.id, sp.grp, x.pid from sp cross join lateral (
+         select sp.lpick as pid where sp.lpick is not null
+         union all select sp.upick where sp.upick is not null
+         union all select r.pid from (select y.pid, row_number() over (order by y.rk) as rn from u y
+                                       where y.id = sp.id and y.pid is distinct from sp.lpick and y.pid is distinct from sp.upick) r
+                    where r.rn <= cardinality(sp.open_) - (sp.lpick is not null)::integer - (sp.upick is not null)::integer) x) select format('0: %s, 1: %s, 2: %s, 3: %s',
+       count(*) filter (where not pk.grp), count(*) filter (where pk.grp), count(*) filter (where pk.grp and u.np >= 2), count(*) filter (where pk.grp and u.np >= 3))
+     from picks pk join u on u.pid = pk.pid) as a,
+                 case when exists (select 1 from pg_attribute where attrelid = to_regclass('public.cards_catalog') and attname = 'part' and attnum > 0 and not attisdropped) then convert_from(decode(substring(query_to_xml($q$select encode(convert_to((select format('0: %s, 1: %s, 2: %s, 3: %s', count(*) filter (where part = 0), count(*) filter (where part = 1), count(*) filter (where part = 2), count(*) filter (where part = 3)) from public.cards_catalog)::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
   select 7 as n, '102-catalog-rebuild.sql' as fichier, 'line 28: numbers 1 to N, contiguous' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
     from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select (select count(*) from public.cards_catalog)::bigint as n) x) as a,
@@ -640,14 +672,45 @@ checks as (
                  (select (select count(*) from public.cards_owned) || ' owned, ' || (select count(*) from public.cards_packs) || ' packs') as o) x
   union all
   select 15 as n, '103-catalog-photos.sql' as fichier, 'line 29: numbers 1 to N, contiguous, N = the cards of the edition rule on the photos live now (the notice "... N cards"; true after Reconstruire le catalogue)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((select coalesce(sum(r.editions * case when r.kind = 'group' then 2 else 1 end), 0) from (select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
-       from (select e.id, e.kind, least(count(*), 6) as n,
-                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
-               from public.cards_entities e
-               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
-               cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
-              where e.kind in ('idol', 'group')
-              group by e.id, e.kind) z) r))::bigint as n) x) as a,
+    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((with 
+     ent as materialized (
+       select en.id, en.kind = 'group' as grp from public.cards_entities en
+        where en.kind in ('idol', 'group') and exists (select 1 from public.cards_photos p where p.entity_id = en.id)),
+     have as materialized (
+       select e.id, '{}'::text[] as have, '{}'::bigint[] as used from ent e),
+     u as materialized (
+       select p.entity_id as id, p.id as pid, coalesce((to_jsonb(p) ->> 'stage')::boolean, false) as stage, (p.storage_path is not null or p.source_path is not null) as shown, n.np,
+              w.cw / n.np >= 640 as full_ok,
+              row_number() over (partition by p.entity_id order by coalesce((to_jsonb(p) ->> 'quality')::integer, 3) desc, w.cw / n.np desc, w.cw desc, p.event_date desc nulls last, p.slot) as rk
+         from public.cards_photos p join ent e on e.id = p.entity_id join have h on h.id = e.id
+         cross join lateral (select case when e.grp then coalesce((to_jsonb(p) ->> 'parts')::integer, 2) else 1 end as np) n
+         cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when n.np > 1 then n.np * 5.5 else 5.5 end) / 8.5))::integer as cw) w
+        where p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null and not (p.id = any (h.used))),
+     s as materialized (
+       select e.id, e.grp, cardinality(h.have) > 0 as in_,
+              array(select t.r from unnest(array['C', 'U', 'R', 'SR', 'UR', 'L']) with ordinality as t(r, o) where not (t.r = any (h.have)) order by t.o) as missing,
+              (select count(*) from u where u.id = e.id)::integer as nu
+         from ent e join have h on h.id = e.id),
+     k as materialized (select s.*, least(s.nu, cardinality(s.missing)) as k from s),
+     o as materialized (
+       select k.*, (select x.pid from u x where x.id = k.id and x.full_ok order by x.rk limit 1) as best_full
+         from k where not (k.k = 0 or (not k.in_ and k.k < 2))),
+     op as materialized (
+       select o.id, o.grp, o.in_,
+              case when 'L' = any (o.missing[1:o.k]) and o.best_full is null then array_remove(o.missing[1:o.k], 'L') else o.missing[1:o.k] end as open_,
+              case when 'L' = any (o.missing[1:o.k]) then o.best_full end as lpick
+         from o),
+     sp as materialized (
+       select op.*, case when 'U' = any (op.open_) then
+                (select x.pid from u x where x.id = op.id and x.stage and x.pid is distinct from op.lpick order by x.rk desc limit 1) end as upick
+         from op where cardinality(op.open_) > 0),
+     picks as materialized (
+       select sp.id, sp.grp, x.pid from sp cross join lateral (
+         select sp.lpick as pid where sp.lpick is not null
+         union all select sp.upick where sp.upick is not null
+         union all select r.pid from (select y.pid, row_number() over (order by y.rk) as rn from u y
+                                       where y.id = sp.id and y.pid is distinct from sp.lpick and y.pid is distinct from sp.upick) r
+                    where r.rn <= cardinality(sp.open_) - (sp.lpick is not null)::integer - (sp.upick is not null)::integer) x) select coalesce(sum(case when pk.grp then u.np else 1 end), 0) from picks pk join u on u.pid = pk.pid))::bigint as n) x) as a,
                  (select coalesce(min(card_no)::text, '-') || ', ' || coalesce(max(card_no)::text, '-') || ', ' || count(*) from public.cards_catalog) as o) x
   union all
   select 16 as n, '103-catalog-photos.sql' as fichier, 'line 30: photos on two editions' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
@@ -926,39 +989,41 @@ checks as (
                             and p.source_width is not null and p.source_height is not null) as n
              from public.cards_entities en
             where en.kind in ('idol', 'group') and exists (select 1 from public.cards_photos p where p.entity_id = en.id)) z) as a,
-                 case when to_regprocedure('public.cards_catalog_append(boolean)') is not null then convert_from(decode(substring(query_to_xml($q$select encode(convert_to(((with ent as (
+                 case when to_regprocedure('public.cards_catalog_append(boolean)') is not null then convert_from(decode(substring(query_to_xml($q$select encode(convert_to(((with 
+     ent as materialized (
        select en.id, en.kind = 'group' as grp from public.cards_entities en
         where en.kind in ('idol', 'group') and exists (select 1 from public.cards_photos p where p.entity_id = en.id)),
-     have as (
+     have as materialized (
        select e.id, coalesce(array_agg(distinct c.rarity) filter (where c.rarity is not null), '{}') as have,
               coalesce(array_agg(c.photo_id) filter (where c.photo_id is not null), '{}') as used
          from ent e left join public.cards_catalog c on c.entity_id = e.id group by e.id),
-     u as (
-       select p.entity_id as id, p.id as pid, p.stage, (p.storage_path is not null or p.source_path is not null) as shown,
-              case when e.grp then w.cw / 2 >= 640 else w.cw >= 640 end as full_ok,
-              row_number() over (partition by p.entity_id order by coalesce(p.quality, 3) desc, w.cw desc, p.event_date desc nulls last, p.slot) as rk
+     u as materialized (
+       select p.entity_id as id, p.id as pid, coalesce((to_jsonb(p) ->> 'stage')::boolean, false) as stage, (p.storage_path is not null or p.source_path is not null) as shown, n.np,
+              w.cw / n.np >= 640 as full_ok,
+              row_number() over (partition by p.entity_id order by coalesce((to_jsonb(p) ->> 'quality')::integer, 3) desc, w.cw / n.np desc, w.cw desc, p.event_date desc nulls last, p.slot) as rk
          from public.cards_photos p join ent e on e.id = p.entity_id join have h on h.id = e.id
-         cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.grp then 11 else 5.5 end) / 8.5))::integer as cw) w
+         cross join lateral (select case when e.grp then coalesce((to_jsonb(p) ->> 'parts')::integer, 2) else 1 end as np) n
+         cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when n.np > 1 then n.np * 5.5 else 5.5 end) / 8.5))::integer as cw) w
         where p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null and not (p.id = any (h.used))),
-     s as (
+     s as materialized (
        select e.id, e.grp, cardinality(h.have) > 0 as in_,
               array(select t.r from unnest(array['C', 'U', 'R', 'SR', 'UR', 'L']) with ordinality as t(r, o) where not (t.r = any (h.have)) order by t.o) as missing,
               (select count(*) from u where u.id = e.id)::integer as nu
          from ent e join have h on h.id = e.id),
-     k as (select s.*, least(s.nu, cardinality(s.missing)) as k from s),
-     o as (
+     k as materialized (select s.*, least(s.nu, cardinality(s.missing)) as k from s),
+     o as materialized (
        select k.*, (select x.pid from u x where x.id = k.id and x.full_ok order by x.rk limit 1) as best_full
          from k where not (k.k = 0 or (not k.in_ and k.k < 2))),
-     op as (
+     op as materialized (
        select o.id, o.grp, o.in_,
               case when 'L' = any (o.missing[1:o.k]) and o.best_full is null then array_remove(o.missing[1:o.k], 'L') else o.missing[1:o.k] end as open_,
               case when 'L' = any (o.missing[1:o.k]) then o.best_full end as lpick
          from o),
-     sp as (
+     sp as materialized (
        select op.*, case when 'U' = any (op.open_) then
                 (select x.pid from u x where x.id = op.id and x.stage and x.pid is distinct from op.lpick order by x.rk desc limit 1) end as upick
          from op where cardinality(op.open_) > 0),
-     picks as (
+     picks as materialized (
        select sp.id, sp.grp, x.pid from sp cross join lateral (
          select sp.lpick as pid where sp.lpick is not null
          union all select sp.upick where sp.upick is not null
@@ -966,7 +1031,7 @@ checks as (
                                        where y.id = sp.id and y.pid is distinct from sp.lpick and y.pid is distinct from sp.upick) r
                     where r.rn <= cardinality(sp.open_) - (sp.lpick is not null)::integer - (sp.upick is not null)::integer) x),
      t as (
-       select coalesce(sum(cardinality(sp.open_) * case when sp.grp then 2 else 1 end), 0)::integer as cards, count(*)::integer as subjects,
+       select coalesce((select sum(case when pk.grp then u.np else 1 end) from picks pk join u on u.pid = pk.pid), 0)::integer as cards, count(*)::integer as subjects,
               (count(*) filter (where not sp.in_))::integer as new_subjects, (count(*) filter (where sp.in_))::integer as extended_subjects
          from sp)
      select jsonb_build_object('dry_run', true, 'cards', t.cards, 'subjects', t.subjects, 'new_subjects', t.new_subjects,
@@ -974,18 +1039,49 @@ checks as (
               'waiting', (select count(*) from k where not k.in_ and k.k < 2),
               'from_no', case when t.cards > 0 then (select coalesce(max(card_no), 0) from public.cards_catalog) + 1 end,
               'to_no', case when t.cards > 0 then (select coalesce(max(card_no), 0) from public.cards_catalog) + t.cards end,
-              'not_shown', (select coalesce(sum(case when pk.grp then 2 else 1 end), 0) from picks pk join u on u.pid = pk.pid where not u.shown))::text
+              'not_shown', (select coalesce(sum(case when pk.grp then u.np else 1 end), 0) from picks pk join u on u.pid = pk.pid where not u.shown))::text
        from t))::text, 'UTF8'), 'hex') as v$q$, true, false, '')::text from '<v>([0-9a-f]*)</v>'), 'hex'), 'UTF8') end as o) x
   union all
   select 78 as n, '114-catalog-append.sql' as fichier, 'line 27: numbers 1 to N, contiguous, N = the edition rule of 103 on the photos live now (this file adds no card)' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok
-    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((select coalesce(sum(r.editions * case when r.kind = 'group' then 2 else 1 end), 0) from (select z.kind, case when z.n < 2 then 0 when z.n = 6 and not z.full_any then 5 else z.n end as editions
-       from (select e.id, e.kind, least(count(*), 6) as n,
-                    bool_or(case when e.kind = 'group' then w.cw / 2 >= 640 else w.cw >= 640 end) as full_any
-               from public.cards_entities e
-               join public.cards_photos p on p.entity_id = e.id and p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null
-               cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when e.kind = 'group' then 11 else 5.5 end) / 8.5))::integer as cw) w
-              where e.kind in ('idol', 'group')
-              group by e.id, e.kind) z) r))::bigint as n) x) as a,
+    from (select (select case when x.n = 0 then '-, -, 0' else '1, ' || x.n || ', ' || x.n end from (select ((with 
+     ent as materialized (
+       select en.id, en.kind = 'group' as grp from public.cards_entities en
+        where en.kind in ('idol', 'group') and exists (select 1 from public.cards_photos p where p.entity_id = en.id)),
+     have as materialized (
+       select e.id, '{}'::text[] as have, '{}'::bigint[] as used from ent e),
+     u as materialized (
+       select p.entity_id as id, p.id as pid, coalesce((to_jsonb(p) ->> 'stage')::boolean, false) as stage, (p.storage_path is not null or p.source_path is not null) as shown, n.np,
+              w.cw / n.np >= 640 as full_ok,
+              row_number() over (partition by p.entity_id order by coalesce((to_jsonb(p) ->> 'quality')::integer, 3) desc, w.cw / n.np desc, w.cw desc, p.event_date desc nulls last, p.slot) as rk
+         from public.cards_photos p join ent e on e.id = p.entity_id join have h on h.id = e.id
+         cross join lateral (select case when e.grp then coalesce((to_jsonb(p) ->> 'parts')::integer, 2) else 1 end as np) n
+         cross join lateral (select floor(least(p.source_width::numeric, p.source_height::numeric * (case when n.np > 1 then n.np * 5.5 else 5.5 end) / 8.5))::integer as cw) w
+        where p.status in ('auto', 'approved') and p.source_width is not null and p.source_height is not null and not (p.id = any (h.used))),
+     s as materialized (
+       select e.id, e.grp, cardinality(h.have) > 0 as in_,
+              array(select t.r from unnest(array['C', 'U', 'R', 'SR', 'UR', 'L']) with ordinality as t(r, o) where not (t.r = any (h.have)) order by t.o) as missing,
+              (select count(*) from u where u.id = e.id)::integer as nu
+         from ent e join have h on h.id = e.id),
+     k as materialized (select s.*, least(s.nu, cardinality(s.missing)) as k from s),
+     o as materialized (
+       select k.*, (select x.pid from u x where x.id = k.id and x.full_ok order by x.rk limit 1) as best_full
+         from k where not (k.k = 0 or (not k.in_ and k.k < 2))),
+     op as materialized (
+       select o.id, o.grp, o.in_,
+              case when 'L' = any (o.missing[1:o.k]) and o.best_full is null then array_remove(o.missing[1:o.k], 'L') else o.missing[1:o.k] end as open_,
+              case when 'L' = any (o.missing[1:o.k]) then o.best_full end as lpick
+         from o),
+     sp as materialized (
+       select op.*, case when 'U' = any (op.open_) then
+                (select x.pid from u x where x.id = op.id and x.stage and x.pid is distinct from op.lpick order by x.rk desc limit 1) end as upick
+         from op where cardinality(op.open_) > 0),
+     picks as materialized (
+       select sp.id, sp.grp, x.pid from sp cross join lateral (
+         select sp.lpick as pid where sp.lpick is not null
+         union all select sp.upick where sp.upick is not null
+         union all select r.pid from (select y.pid, row_number() over (order by y.rk) as rn from u y
+                                       where y.id = sp.id and y.pid is distinct from sp.lpick and y.pid is distinct from sp.upick) r
+                    where r.rn <= cardinality(sp.open_) - (sp.lpick is not null)::integer - (sp.upick is not null)::integer) x) select coalesce(sum(case when pk.grp then u.np else 1 end), 0) from picks pk join u on u.pid = pk.pid))::bigint as n) x) as a,
                  (select coalesce(min(card_no)::text, '-') || ', ' || coalesce(max(card_no)::text, '-') || ', ' || count(*) from public.cards_catalog) as o) x
   union all
   select 79 as n, '115-quiz-of-day-bonus.sql' as fichier, 'line 31: the sources the check of cards_bonus_earned lists' as controle, a as attendu, o as obtenu, coalesce(a = o, false) as ok

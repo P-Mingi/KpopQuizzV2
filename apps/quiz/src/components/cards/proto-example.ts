@@ -46,3 +46,34 @@ export function applyProtoExample(p: PlayerData, cards: UiCard[], now: number): 
   p.recent = bests.map((best, k) => ({ at: now - (k * 2 + 1) * 3600000 - k * 600000, best, source: k === 2 ? ('focus' as unknown as 'bonus') : k === 4 ? ('shards' as const) : ('stock' as const), newCount: nw[k]! }));
   return true;
 }
+
+/**
+ * Lot 7, development fixture only (dead code in production, like the rest of this file): query controls of the dev server so the panorama screens can be
+ * reached without luck. `kcset=NAME:RARITY:HAVE` gives the player the first HAVE parts (or `all`) of the group photo of NAME at that edition and takes the other parts away; `kcrar=RARITY:NAME/PART`
+ * gives every card of that edition except that part, which it takes away (so a forced new card of the edition is exactly it); `kcpano=NAME:RARITY` gives the panorama; `kcshards=N`.
+ * Entries are separated by commas.
+ */
+export function applyDevOwn(p: PlayerData, cards: UiCard[], search: string, now: number): void {
+  const q = new URLSearchParams(search);
+  const give = (c: UiCard): void => { if (!p.owned.has(c.n)) p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: true, firstAt: now - 86400000, lastAt: now - 86400000, packNo: 1, how: 'pack' }); };
+  const parts = (name: string, r: string): UiCard[] => cards.filter((c) => c.kind === 'group' && c.name === name && c.rarity === r && c.part).sort((a, b) => (a.part ?? 0) - (b.part ?? 0));
+  for (const e of (q.get('kcset') ?? '').split(',').filter(Boolean)) {
+    const [name, r, have] = e.split(':');
+    const list = parts(name ?? '', r ?? '');
+    const k = have === 'all' ? list.length : Number(have);
+    list.slice(0, k).forEach(give);
+    list.slice(k).forEach((c) => { p.owned.delete(c.n); });
+  }
+  for (const e of (q.get('kcrar') ?? '').split(',').filter(Boolean)) {
+    const [r, skip] = e.split(':');
+    const [sn, sp] = (skip ?? '').split('/');
+    for (const c of cards) { if (c.rarity !== r) continue; if (c.name === sn && c.part === Number(sp)) p.owned.delete(c.n); else give(c); }
+  }
+  for (const e of (q.get('kcpano') ?? '').split(',').filter(Boolean)) {
+    const [name, r] = e.split(':');
+    const pn = parts(name ?? '', r ?? '')[0]?.pano;
+    if (pn !== undefined) (p.panos ??= new Map()).set(pn, { at: now - 3600000, source: 'pack', seen: true });
+  }
+  const sh = Number(q.get('kcshards'));
+  if (Number.isFinite(sh) && sh > 0) p.shards = sh;
+}

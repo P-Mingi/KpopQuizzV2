@@ -15,11 +15,11 @@ export const isEconError = <T extends object>(r: T | EconError): r is EconError 
 const kc = (): KpopCardsApi | null => getKcApi();
 const toErr = (e: { error: string }): EconError => ({ error: e.error });
 
-export async function craftCard(n: number): Promise<{ card: { n: number; rarity: string; cost: number; finished?: FinishedSet[] } } | EconError> {
+export async function craftCard(n: number): Promise<{ card: { n: number; rarity: string; cost: number; finished?: FinishedSet[]; /** Lot 7: the pano_no this craft gave (it completed its photo's set). */ pano?: number } } | EconError> {
   const api = kc();
   if (!api) return { error: 'network' };
   const r = await api.craft({ key: newKey(), n });
-  return isApiError(r) ? toErr(r) : { card: { n: r.n, rarity: '', cost: r.cost, finished: r.finished.map((f) => ({ id: f.id, kind: 'group' as const, name: f.name, packs: f.packs })) } };
+  return isApiError(r) ? toErr(r) : { card: { n: r.n, rarity: '', cost: r.cost, finished: r.finished.map((f) => ({ id: f.id, kind: 'group' as const, name: f.name, packs: f.packs })), ...(r.pano ? { pano: r.pano.p } : {}) } };
 }
 export async function wishCard(n: number, on: boolean): Promise<{ on: boolean; count: number } | EconError> {
   const api = kc();
@@ -33,7 +33,7 @@ export async function openFocus(group: string): Promise<OpenResult | EconError> 
   const r = await api.open({ key: newKey(), source: 'focus', focus: group, packs: 1 });
   if (isApiError(r)) return toErr(r);
   const p = r.packs[0]!;
-  return { pack: { id: p.id, cards: p.cards.map((c) => ({ n: c.n, isNew: c.isNew, completesPair: c.completesPair })), newCount: p.newCount, packNo: p.packNo }, state: r.state };
+  return { pack: { id: p.id, cards: p.cards.map((c) => ({ n: c.n, isNew: c.isNew, completesPair: c.completesPair, ...(c.pano ? { pano: c.pano.p } : {}) })), newCount: p.newCount, packNo: p.packNo }, state: r.state };
 }
 
 /** What the player is told when the server refuses. */

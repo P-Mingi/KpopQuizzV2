@@ -94,6 +94,8 @@
 .actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .primary { flex: 1 1 200px; min-height: 48px; border-radius: 999px; border: 0; background: #1F1B17; color: #FAF8F5; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; padding: 0 18px; }
 .primary:disabled, .secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+/* a disabled main button keeps a readable label (dark text on a light grey, about 6:1) instead of light text on a half-faded dark pill */
+.primary:disabled { opacity: 1; background: #E5E0DA; color: #57514B; }
 .secondary { min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #E5E0DA; background: #FFFFFF; font: inherit; font-weight: 700; font-size: 15px; color: #1F1B17; cursor: pointer; }
 .danger { min-height: 48px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #E5E0DA; background: #FFFFFF; font: inherit; font-weight: 700; font-size: 14px; color: #A3302B; cursor: pointer; }
 .note { font-size: 13px; line-height: 1.45; color: #57514B; margin: 0; }

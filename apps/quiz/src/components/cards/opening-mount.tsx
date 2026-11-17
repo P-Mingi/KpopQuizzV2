@@ -77,7 +77,7 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
       }
       analytics.gameStart({ site: 'hub', game: 'cards', mode: 'classic', kind: 'cards_standard' });
       const last = r.packs[r.packs.length - 1]!;
-      c.applyResult({ pack: { id: last.id, cards: last.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair })), newCount: last.newCount, packNo: last.packNo }, state: r.state });
+      c.applyResult({ pack: { id: last.id, cards: last.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair, ...(x.pano ? { pano: x.pano.p } : {}) })), newCount: last.newCount, packNo: last.packNo }, state: r.state });
       const inp = openingInput(r);
       const cards = inp.cards as unknown as OpenedCard[];
       // The source names the pack in the opening's step line (the prototype's #ov-step: "Pack of the day", "Focus pack", "Pack bought with shards").

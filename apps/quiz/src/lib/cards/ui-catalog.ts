@@ -16,10 +16,15 @@ export function fromPayload(p: CatalogPayload): UiCatalog {
       const photo: UiPhoto | null = c.photo
         ? { ...c.photo, url: i?.url ?? null, url2x: i?.url2x ?? null, fileFocalX: i?.fileFocalX ?? null, fileFocalY: i?.fileFocalY ?? null, sourceUrl: i?.sourceUrl ?? null, focalX: i?.focalX ?? 50, focalY: i?.focalY ?? 30 }
         : null;
-      // Lot 2: a half of a group photo keeps its part and the number of its other half.
-      const half = c.part === 1 || c.part === 2 ? { part: c.part, pairN: c.pairN ?? null } : {};
+      // Lot 2: a half of a group photo keeps its part and the number of its other half. Lot 7: a part (1 to 3) also keeps the number of
+      // cards of its photo, the numbers of every part and its panorama.
+      const half = c.part === 1 || c.part === 2 || c.part === 3
+        ? { part: c.part, pairN: c.pairN ?? null, ...(c.parts ? { parts: c.parts } : {}), ...(c.setNs ? { setNs: c.setNs } : {}), ...(c.pano !== undefined ? { pano: c.pano } : {}) }
+        : {};
       return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo, ...half, ...(c.endYear ? { endYear: c.endYear } : {}) };
     }),
+    // Lot 7: the panoramas pass through as they are (their picture is resolved by the server).
+    ...(p.panoramas ? { panoramas: p.panoramas } : {}),
   };
 }
 

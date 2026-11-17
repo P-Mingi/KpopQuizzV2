@@ -1,0 +1,68 @@
+/* KpopCards lot 7: the panorama, the landscape card of a complete group photo, and its pockets. It is the v6 card frame at the window of the photo
+   (11:8.5 for 2 cards, 16.5:8.5 for 3). Every size of the card is a share of the card width, so on a panorama they are divided by the number of
+   parts (--np): the plate, the name and the frame keep the size they have on ONE part. */
+.bvc .card.pano{--np:2;--cq:calc(1cqi / var(--np));aspect-ratio:11/8.5;border-radius:calc(5.2% / var(--np)) / 3.8%}
+.bvc .card.pano.pano-3{--np:3;aspect-ratio:16.5/8.5}
+.bvc .pano .c-plate{padding:calc(18 * var(--cq)) calc(7 * var(--cq)) calc(4.5 * var(--cq))}
+.bvc .pano .c-name{font-size:calc(var(--nf,13cqi) / var(--np));-webkit-line-clamp:1}
+.bvc .pano .c-rar{gap:calc(1.6 * var(--cq));margin-top:calc(2.2 * var(--cq));font-size:calc(6.6 * var(--cq))}
+.bvc .pano .c-rar svg{width:calc(6.8 * var(--cq));height:calc(6.8 * var(--cq));filter:none}
+.bvc .pano .c-meta{gap:calc(2 * var(--cq));margin-top:calc(2.2 * var(--cq));font-size:calc(5.2 * var(--cq))}
+.bvc .pano .c-kind{top:calc(5.5 * var(--cq));left:calc(5.5 * var(--cq));font-size:calc(4.6 * var(--cq));padding:calc(1 * var(--cq)) calc(2.6 * var(--cq))}
+.bvc .pano .c-frame{inset:calc(3.2 * var(--cq));border-radius:calc(3.6 * var(--cq));border-width:max(1px,calc(.55 * var(--cq)))}
+.bvc .pano .c-strip{position:absolute;inset:0;display:flex}
+.bvc .pano .c-strip .c-photo{position:relative;flex:1 1 0;min-width:0;width:auto}
+.bvc .pano.k-group .c-crowd{width:100%;left:0}
+.bvc .pano.k-group .c-art::before{display:none}
+.bvc .pano.ed-holo .c-frame{box-shadow:0 0 calc(2 * var(--cq)) rgba(93,178,255,.6)}
+.bvc .pano.ed-gold .c-art{inset:calc(3.6 * var(--cq));border-radius:calc(3 * var(--cq))}
+.bvc .pano.ed-gold .c-frame{inset:calc(3.6 * var(--cq));border:none;box-shadow:inset 0 0 0 max(1px,calc(.5 * var(--cq))) rgba(255,240,190,.9),inset 0 0 calc(4 * var(--cq)) rgba(255,200,90,.5)}
+.bvc .pano.ed-gold .c-plate{left:calc(3.6 * var(--cq));right:calc(3.6 * var(--cq));bottom:calc(3.6 * var(--cq));border-radius:0 0 calc(3 * var(--cq)) calc(3 * var(--cq))}
+.bvc .pano.ed-full{box-shadow:0 0 0 calc(.6 * var(--cq)) rgba(255,255,255,.18),0 12px 30px rgba(0,0,0,.5),0 0 26px rgba(255,118,182,.35)}
+.bvc .pano.ed-full .c-in::before{padding:calc(1.1 * var(--cq))}
+.bvc .pano.ed-full .c-name{font-size:calc(var(--nf,13cqi) * 1.12 / var(--np))}
+.bvc .pano.ed-era .c-art::after{left:calc(5.5 * var(--cq));font-size:calc(11 * var(--cq));text-shadow:0 0 calc(3 * var(--cq)) rgba(190,146,255,.9)}
+.bvc .pano .c-bg::before{background-size:100% 100%;opacity:.7}
+/* small panorama (one part under 150 px): only the name and the gem, as a small card does */
+@container (max-width:298px){
+  .bvc .pano-2 .c-meta > span:first-child,.bvc .pano-2 .c-kind{display:none}
+  .bvc .pano-2 .c-meta{justify-content:flex-end}
+  .bvc .pano-2 .c-name{font-size:max(8.5px,calc(var(--nf,13cqi) / var(--np)))}
+  .bvc .pano-2 .c-rar{font-size:max(8px,calc(6.6 * var(--cq)))}
+}
+@container (max-width:447px){
+  .bvc .pano-3 .c-meta > span:first-child,.bvc .pano-3 .c-kind{display:none}
+  .bvc .pano-3 .c-meta{justify-content:flex-end}
+  .bvc .pano-3 .c-name{font-size:max(8.5px,calc(var(--nf,13cqi) / var(--np)))}
+  .bvc .pano-3 .c-rar{font-size:max(8px,calc(6.6 * var(--cq)))}
+}
+/* the pocket of a panorama: in the row under its parts, as wide as its parts */
+.bvc .pw.pano-pw{grid-column:span var(--np,2)}
+.bvc .pw.pano-pw.w3{--np:3}
+.bvc .pw.pano-pw.w2{--np:2}
+.bvc .pano-gap{min-width:0}
+.bvc .pocket.pano-pocket{aspect-ratio:11/8.5;border-radius:calc(5.2% / var(--np,2)) / 3.8%}
+.bvc .pw.w3 .pocket.pano-pocket{aspect-ratio:16.5/8.5}
+.bvc .pocket.pano-pocket .miss .mno{font-size:max(10px,calc(7.4cqi / var(--np,2)))}
+.bvc .pocket.pano-pocket .miss .mic svg{width:calc(20cqi / var(--np,2));height:calc(20cqi / var(--np,2))}
+.bvc .pocket.pano-pocket .miss .mnm{font-size:max(11px,calc(10cqi / var(--np,2)))}
+.bvc .pocket.pano-pocket .miss .med{font-size:max(10px,calc(7.4cqi / var(--np,2)))}
+.bvc .pocket.pano-pocket.locked{border:1px dashed var(--border-h)}
+.bvc button.pocket.pano-pocket{cursor:pointer;font:inherit;color:inherit}
+.bvc .pano-cap{font-size:12.5px;color:var(--txt2);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bvc .pano-cap b{color:var(--txt1)}
+.bvc .pano-cap .ok{color:var(--ok);font-weight:700}
+/* the Panoramas of the grid view (the section's own page) */
+.bvc .grid .pw.pano-pw{grid-column:span var(--np,2)}
+@media (max-width:760px){.bvc .grid .pw.pano-pw{grid-column:span min(var(--np,2),3)}}
+.bvc .pano-strip{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding:12px 16px;border-radius:14px;background:var(--surface-alt);font-size:14.5px;color:var(--txt2)}
+.bvc .pano-strip b{color:var(--txt1)}
+/* the large view */
+.bvc .pano-sheet{position:relative;margin:auto;width:min(860px,100%);display:flex;flex-direction:column;gap:18px;padding:26px;border-radius:20px;background:var(--surface);box-shadow:0 24px 60px rgba(26,23,20,.25);animation:kc-sheetin .35s var(--ease)}
+@media (max-width:760px){.bvc .pano-sheet{padding:18px}}
+.bvc .pano-sheet h2{font-size:clamp(24px,3.2vw,32px);font-weight:800;letter-spacing:-.02em;line-height:1.05;padding-right:48px}
+.bvc .pano-big{width:100%;perspective:1400px}
+.bvc .pano-big .card{box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.bvc .pano-parts-list{display:flex;flex-wrap:wrap;gap:8px}
+.bvc .pano-parts-list a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--border-h);background:var(--surface);color:var(--txt1);font-weight:600;font-size:14px;text-decoration:none}
+.bvc .pano-parts-list a:hover{background:var(--surface-alt)}

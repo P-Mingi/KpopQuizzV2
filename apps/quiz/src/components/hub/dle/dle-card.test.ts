@@ -160,3 +160,29 @@ describe('the rules of the private preview', () => {
     expect(makePreview({ ids: [] }, '')).toBeNull();
   });
 });
+
+describe('the owner preview on a wide card (Otakudle, 2026-11-17)', () => {
+  it('a picture narrower than half the card is shown at most twice its size, never larger than the card', async () => {
+    const { smallPreviewSize } = await import('./dle-card-fit');
+    // 160 x 240 on an 820 x 560 card: twice its size
+    expect(smallPreviewSize(160, 240, 820, 560)).toEqual({ width: 320, height: 480 });
+    // 360 x 480 on a 820 x 560 card: narrower than 410, twice would be 960 high, so the card's height caps it
+    expect(smallPreviewSize(360, 480, 820, 560)).toEqual({ width: 420, height: 560 });
+    // half the card or wider: it covers the card as before
+    expect(smallPreviewSize(410, 600, 820, 560)).toBeNull();
+    expect(smallPreviewSize(160, 240, 300, 440)).toBeNull();
+    // unknown sizes: nothing changes
+    expect(smallPreviewSize(0, 0, 820, 560)).toBeNull();
+    expect(smallPreviewSize(160, 240, 0, 0)).toBeNull();
+  });
+
+  it('the preview goes through the measured part, hidden until measured; the series photo of the public view does not', () => {
+    const pv = renderToStaticMarkup(createElement(DleCard, { name: 'Zoro', sub: 'One Piece', tone: 'One Piece', look: { art: '/series/one-piece.webp', preview: '/api/admin/dle-preview/img?id=12&s=full' } }));
+    expect(pv).toContain('class="hub-dle-card-pv" data-fit="wait"');
+    expect(pv).toContain('class="hub-dle-card-img"');
+    expect(pv).not.toContain('hub-dle-card-pv-bg');
+    const pub = renderToStaticMarkup(createElement(DleCard, { name: 'Luffy', sub: 'One Piece', tone: 'One Piece', look: { art: '/series/one-piece.webp' } }));
+    expect(pub).not.toContain('hub-dle-card-pv');
+    expect(pub).toContain('<img src="/series/one-piece.webp" alt="" class="hub-dle-card-img"');
+  });
+});

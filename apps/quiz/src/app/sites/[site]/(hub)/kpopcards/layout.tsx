@@ -5,6 +5,7 @@
 import '@/styles/cards/cards-tokens.css';
 import '@/styles/cards/kpopcards.css';
 import '@/styles/cards/cards-photo.css';
+import '@/styles/cards/cards-pano.css';
 
 import { notFound } from 'next/navigation';
 

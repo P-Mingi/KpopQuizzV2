@@ -11,7 +11,10 @@ export type LockReason = 'one' | 'sameday' | 'newg' | 'hiatus' | 'crop' | 'photo
 export type PhotoStatus = 'auto' | 'pending' | 'approved' | 'rejected' | 'removed';
 /** Lot 2 (owner idea, 2026-11-12): what part of its photo a card shows. 0 the whole photo (a person's card), 1 the left half and 2 the
  *  right half of a group photo. A group gives a pair of cards per edition, with consecutive numbers (cards_catalog.part, file 102). */
-export type CardPart = 0 | 1 | 2;
+export type CardPart = 0 | 1 | 2 | 3;
+/** Lot 7 (owner, 2026-11-17): a group photo gives 2 cards (the 11:8.5 window, halves 1 and 2) or 3 cards (the 16.5:8.5 window, thirds 1 to
+ *  3), consecutive numbers either way. Part 3 exists only on a photo in 3 cards. */
+export type GroupParts = 2 | 3;
 
 export interface PhotoCredit {
   id: number;
@@ -47,8 +50,47 @@ export interface CardImage {
   /** The public URL of the source photo (bucket images/group-photos/<slug>.jpg), null without a source_path. */
   sourceUrl: string | null;
   /** Lot 2: 1 or 2 for a half of a group photo. The pair's window is 11:8.5 (two cards side by side), placed in the photo by the focal
-   *  point; a half shows its side of that window. A cut half is the file <stem>-h<part>-1x.webp (and -2x). 0 or absent: the whole card. */
+   *  point; a half shows its side of that window. A cut half is the file <stem>-h<part>-1x.webp (and -2x). 0 or absent: the whole card.
+   *  Lot 7: on a photo in 3 cards the window is 16.5:8.5 and a third is the file <stem>-t<part>-1x.webp (and -2x). */
   part?: CardPart;
+  /** Lot 7: the number of cards of the photo (2 or 3), with `part`; absent on a whole card. */
+  parts?: GroupParts;
+}
+
+/** Lot 7: the picture of a panorama, the whole window of the photo (11:8.5 for 2 cards, 16.5:8.5 for 3), shown in landscape. */
+export interface PanoImage {
+  /** The panorama file <stem>-p<parts>-1x.webp (320 x parts by 495) when the owner's script cut it at the current focal point and parts;
+   *  else null (then `partUrls` or the source photo). */
+  url: string | null;
+  /** Its 2x file (640 x parts by 989), only when every part is at least 640 px wide in the original. */
+  url2x: string | null;
+  /** The 1x files of the parts, left to right, when they are cut but the panorama file is not: the page shows them side by side. */
+  partUrls: string[] | null;
+  /** The source photo to crop in CSS to the window (object-fit: cover, object-position from the focal point) when nothing is cut. */
+  sourceUrl: string | null;
+  focalX: number;
+  focalY: number;
+  /** True when a part is narrower than 640 px in the original (no honest 2x). */
+  small2x: boolean;
+}
+
+/** Lot 7: one panorama of the catalog, P-0001 and up (cards_panoramas, file 118). It is never in a pack, never crafted, never recycled: a
+ *  player gets it once, from the server, when the open or the craft that completes its photo's set (every part) commits. */
+export interface CatalogPanorama {
+  /** pano_no, the integer key. */
+  p: number;
+  /** 'P-0001'. */
+  num: string;
+  entity: string;
+  rarity: Rarity;
+  edition: Edition;
+  /** The group's name. */
+  name: string;
+  parts: GroupParts;
+  /** The card numbers of its parts, part 1 first. */
+  cards: number[];
+  photo: PhotoCredit | null;
+  image: PanoImage | null;
 }
 
 export interface CatalogCard {
@@ -75,6 +117,12 @@ export interface CatalogCard {
   part?: CardPart;
   /** Lot 2: the card_no of the other half of the pair (same subject, same edition), null when it is not in packs. */
   pairN?: number | null;
+  /** Lot 7: the number of cards of the photo (2 or 3), on a part; absent on a whole card. */
+  parts?: GroupParts;
+  /** Lot 7: the card numbers of every part of the photo, part 1 first (this card included), on a part; absent on a whole card. */
+  setNs?: number[];
+  /** Lot 7: the panorama of the photo (its pano_no), on a part; absent on a whole card. */
+  pano?: number;
 }
 
 /** An idol, a group or an event, with the reasons its missing editions are missing (LOCK_SENTENCES keys). */
@@ -103,6 +151,8 @@ export interface CatalogPayload {
   odds: CatalogOdds | null;
   cards: CatalogCard[];
   entities: CatalogEntity[];
+  /** Lot 7: the panoramas whose parts are in packs, by pano_no. Absent before file 118. */
+  panoramas?: CatalogPanorama[];
 }
 
 /** One line of the player's binder as the API returns it. */
@@ -147,6 +197,8 @@ export interface WalletState {
   rewardPacks?: number;
   /** The odds of the real catalog (null while the catalog is empty). */
   odds?: CatalogOdds | null;
+  /** Lot 7: the pano_no of every panorama the player holds. Absent before file 118. */
+  panoramas?: number[];
 }
 
 /** Lot 4 B3: one line of the player's last packs. */
@@ -163,12 +215,18 @@ export interface RecentPack {
 export interface OpenedCard {
   n: number;
   isNew: boolean;
-  /** Lot 3 A12: true when this new card is the other half of a group edition of which the player already owned one half. */
+  /** Lot 3 A12: true when this new card is the other half of a group edition of which the player already owned one half. Lot 7: true when
+   *  this new card is the last missing part of its photo (2 or 3 cards). */
   completesPair?: boolean;
+  /** Lot 7: the pano_no of the panorama this card's photo gave the player (the set is complete), granted in the same transaction. */
+  pano?: number;
 }
 
 export interface OpenResult {
-  pack: { id: string; cards: OpenedCard[]; newCount?: number; packNo?: number; /** Lot 4 A15: the sets this pack completed (each pays its reward packs once). */ finished?: FinishedSet[] };
+  pack: {
+    id: string; cards: OpenedCard[]; newCount?: number; packNo?: number; /** Lot 4 A15: the sets this pack completed (each pays its reward packs once). */ finished?: FinishedSet[];
+    /** Lot 7: the panoramas this pack gave (pano_no), in the order of the cards that completed them. */ panoramas?: number[];
+  };
   state: WalletState;
 }
 

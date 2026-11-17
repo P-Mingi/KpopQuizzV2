@@ -7,16 +7,20 @@
 // Lot 2 (owner idea, 2026-11-12): a GROUP photo gives a PAIR of cards, the 11:8.5 window at the one focal point split in two halves (1/2 left,
 // 2/2 right). For a group the tab shows that window and its two halves side by side, with one focal control for the pair (the same "focal"
 // action, writing focal_x and focal_y only) and a "trop petite pour le 2x" flag per half (row.halves, from the cards_catalog rows of the photo).
+// Lot 7 (owner, 2026-11-17): a group photo gives 2 OR 3 cards. Each group photo has a choice 2 or 3 (action "parts"), the preview of its parts (2 or 3
+// slices of the window, 11:8.5 or 16.5:8.5) and of the panorama (the whole window, landscape), the rule's note and its warning when the window cuts someone.
 // Review 1 finding 6: the tab also holds the reports inbox (the open reports with their card, photo and message, and a button to close each),
 // removing a photo (its cards leave the packs, the copies already won stay) and the lock reason of the Era and Full Art pockets, hiatus
 // included (decision 4: the owner sets it here). The tab lives in the admin of bunnyverse.org/anime, which lib/cards/admin-photos.ts serves.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { LOCK_SENTENCES } from '@/lib/cards/rules';
+import { keepsEveryone } from '@/lib/cards/parts-rule';
 import { withBasePath } from '@/lib/site/base-path';
 
 import s from './photos-admin.module.css';
 
+import type { HeadsBox } from '@/lib/cards/parts-rule';
 import type { LockReason } from '@/lib/cards/types';
 
 export const CARD_RATIO = 55 / 85;
@@ -31,6 +35,31 @@ export function tooSmallFor2x(w: number, h: number): boolean {
 }
 
 export const PAIR_RATIO = 110 / 85;
+/** Lot 7: the window of a photo in 3 cards (16.5:8.5). */
+export const TRIPLE_RATIO = 165 / 85;
+export type PartsCount = 2 | 3;
+export const windowRatio = (parts: PartsCount): number => (parts === 3 ? TRIPLE_RATIO : PAIR_RATIO);
+/** The number of cards of a photo row: its `parts`, 2 when the column is empty (every photo of lots 2 to 6 is a pair). */
+export function partsOf(row: Pick<CardPhotoRow, 'parts'>): PartsCount {
+  return row.parts === 3 ? 3 : 2;
+}
+/** The width of one card of a photo in `parts` cards (the floor, as the owner's script cuts it). */
+export function partCropWidth(w: number, h: number, parts: PartsCount): number {
+  return Math.floor(Math.min(w, h * windowRatio(parts)) / parts);
+}
+/** Per card: true when it is narrower than the 2x file. The flags of the database while its cards are the chosen number, else read from the picture. */
+export function partsTooSmall(row: Pick<CardPhotoRow, 'halves' | 'parts'>, dims: [number, number] | undefined, parts: PartsCount): boolean[] {
+  if (parts === 2 && partsOf(row) === 2 && row.halves && row.halves.length > 0) return ([1, 2] as const).map((p) => row.halves?.find((x) => x.part === p)?.small_2x === true);
+  const small = dims ? dims[0] > 0 && dims[1] > 0 && partCropWidth(dims[0], dims[1], parts) < TWO_X_WIDTH : false;
+  return Array.from({ length: parts }, () => small);
+}
+/** The rule's warning for the CHOSEN number of cards at the focal point on screen (the server's `partsWarning` is for the saved choice and the saved point). */
+export function partsWarningFor(row: Pick<CardPhotoRow, 'heads_box'>, dims: [number, number] | undefined, parts: PartsCount, pos: readonly [number, number]): string | null {
+  const b = row.heads_box;
+  if (!b || !dims || dims[0] <= 0 || dims[1] <= 0) return null;
+  if (keepsEveryone(dims[0], dims[1], parts, pos[0], pos[1], b)) return null;
+  return `La fenêtre de ${parts} cartes (${parts === 3 ? '16,5 x 8,5' : '11 x 8,5'}) coupe quelqu'un au point focal ${pos[0]} / ${pos[1]}. Déplace le point focal${parts === 2 ? ' ou passe cette photo à 3 cartes' : ''}.`;
+}
 
 /** A group photo gives a pair of cards (lot 2). */
 export function isGroupPhoto(row: Pick<CardPhotoRow, 'entity_id' | 'cards_entities'>): boolean {
@@ -59,6 +88,8 @@ export interface CardPhotoRow {
   cards_entities?: EntityRef | EntityRef[] | null;
   /** Group photos only: the small_2x flag of each half of the pair (the admin route). */
   halves?: { part: 1 | 2; small_2x: boolean }[];
+  /** Lot 7: the cards of the photo (2 or 3, null reads as 2), where the heads are, the rule's line, what the owner's files were cut for, and the rule's warning (server). */
+  parts?: 2 | 3 | null; heads_box?: HeadsBox | null; parts_note?: string | null; file_parts?: 2 | 3 | null; file_pano?: boolean; partsWarning?: string | null;
   /** Lot 3 (one edition, one photo): the original's size, where the photo comes from and why it waits for the owner. */
   source_width?: number | null; source_height?: number | null; source_page?: string | null; review_note?: string | null;
   event_name?: string | null; event_date?: string | null; quality?: number | null; stage?: boolean | null;
@@ -226,6 +257,75 @@ export function CatalogBar({ frozen, busy, preview, onRebuild, onPreview, onConf
   );
 }
 
+/** The action's answer, or the database's own message when it refused (the admin route sends it with a 409). */
+async function apiOrMessage<T>(body: Record<string, unknown>): Promise<{ ok: true; data: T } | { ok: false; message: string | null }> {
+  try {
+    const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
+    const j = (await r.json().catch(() => null)) as (T & { message?: string | null }) | null;
+    if (r.ok && j) return { ok: true, data: j };
+    return { ok: false, message: typeof j?.message === 'string' && j.message ? j.message : null };
+  } catch { return { ok: false, message: null }; }
+}
+
+/** What the panel says when the catalog action fails: the database's own message, never a guess at the cause. */
+export function catalogFailure(what: string, message: string | null): string {
+  return message ? `${what} Message de la base : « ${message} »` : `${what} Le serveur n'a pas répondu ; réessaie.`;
+}
+
+/** One half of a group's pair in the focal preview: the picture twice as wide as the half, shifted for half 2. maxWidth none: the admin's
+ *  reset (img max-width 100%) would shrink it to the half and show the wrong window. */
+export function halfImgStyle(part: 1 | 2 | 3, pos: [number, number], parts: PartsCount = 2): React.CSSProperties {
+  // Lot 7: the picture is `parts` cards wide and shifted by whole cards: part 1 at 0, part 2 at -100 %, part 3 at -200 %.
+  return { position: 'absolute', top: 0, left: part === 1 ? 0 : `-${(part - 1) * 100}%`, width: `${parts * 100}%`, maxWidth: 'none', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%` };
+}
+
+/** Lot 7: the choice 2 or 3 cards of a group photo, with the rule's line and its warning. Disabled while a write runs or when the photo cannot change. */
+export function PartsChoice({ parts, busy, note, warning, onChoose }: { parts: PartsCount; busy: boolean; note: string | null; warning: string | null; onChoose: (p: PartsCount) => void }): React.ReactElement {
+  return (
+    <div role="group" aria-label="Nombre de cartes de la photo">
+      <p className={s.asideTitle}>Cartes de cette photo</p>
+      <div className={s.filterGroup}>
+        {([2, 3] as const).map((n) => (
+          <button key={n} type="button" className={s.pill} aria-pressed={parts === n} disabled={busy} onClick={() => { if (n !== parts) onChoose(n); }}>{n} cartes{n === 2 ? ' (11 x 8,5)' : ' (16,5 x 8,5)'}</button>
+        ))}
+      </div>
+      {note ? <p className={s.note}>{note}</p> : null}
+      {warning ? <p className={s.flagReview} role="status" style={{ whiteSpace: 'normal', marginTop: 6 }}>{warning}</p> : null}
+    </div>
+  );
+}
+
+/** Lot 7: the window of the photo, its cards side by side (2 or 3 slices of it) and the panorama (the whole window, landscape). */
+export function PartsPreview({ src, pos, parts, small }: { src: string; pos: [number, number]; parts: PartsCount; small: readonly boolean[] }): React.ReactElement {
+  const ratio = parts === 3 ? '165 / 85' : '110 / 85';
+  return (
+    <div aria-label={`Cadrage de ${parts} cartes`}>
+      <div className={s.cardCrop} aria-label="Fenêtre de la photo" style={{ aspectRatio: ratio, width: '100%' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- live preview of the window */}
+        <img src={src} alt="" draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%`, display: 'block' }} />
+      </div>
+      <div style={{ display: 'flex', gap: 2, marginTop: 6 }} aria-label={`Les ${parts} cartes`}>
+        {Array.from({ length: parts }, (_, k) => (k + 1) as 1 | 2 | 3).map((part) => (
+          <figure key={part} style={{ flex: 1, margin: 0 }} aria-label={`Carte ${part}/${parts}`}>
+            <div className={s.cardCrop} style={{ aspectRatio: '55 / 85', position: 'relative', overflow: 'hidden', width: '100%' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element -- live preview of one card */}
+              <img src={src} alt="" draggable={false} style={halfImgStyle(part, pos, parts)} />
+            </div>
+            <figcaption className={s.note}>{part}/{parts}{small[part - 1] ? <> &middot; <span className={s.flagReview}>trop petite pour le 2x</span></> : null}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <figure style={{ margin: '10px 0 0' }} aria-label="Panorama">
+        <div className={s.cardCrop} style={{ aspectRatio: ratio, position: 'relative', overflow: 'hidden', width: '100%' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- live preview of the panorama */}
+          <img src={src} alt="" draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%`, display: 'block' }} />
+        </div>
+        <figcaption className={s.note}>Panorama : la photo entière, donnée au joueur qui a les {parts} cartes.</figcaption>
+      </figure>
+    </div>
+  );
+}
+
 async function api<T>(body: Record<string, unknown>): Promise<T | null> {
   try {
     const r = await fetch(withBasePath('/api/admin/cards/photos'), { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
@@ -249,6 +349,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   const [closing, setClosing] = useState<number | null>(null);
   const [frozen, setFrozen] = useState<boolean | null>(null);
   const [preview, setPreview] = useState<AppendSummary | null>(null);
+  const [choosing, setChoosing] = useState(false);
   const drag = useRef(false);
   const frame = useRef<HTMLDivElement>(null);
 
@@ -353,33 +454,45 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   };
 
   /** Lot 3: runs cards_build_catalog() again (the edition rule of file 103), refused once a player owns a card or opened a pack. */
+  /** Lot 7: the owner's choice of 2 or 3 cards. The database's own message when it refuses (a pack was opened and the photo is on a catalog card). */
+  const choose = async (n: PartsCount): Promise<void> => {
+    if (!row || choosing) return;
+    setChoosing(true);
+    const r = await apiOrMessage<{ ok: boolean }>({ action: 'parts', photo: row.id, parts: n });
+    setChoosing(false);
+    if (r.ok && r.data.ok) {
+      setRows((xs) => xs?.map((x) => (x.id === row.id ? { ...x, parts: n } : x)) ?? xs);
+      onSaved(`Cette photo donne ${n} cartes. Les fichiers se refont avec le script du propriétaire (publish-card-files) ; le catalogue se reconstruit tant qu'aucun paquet n'est ouvert.`);
+    } else onSaved(catalogFailure('Le nombre de cartes n\'a pas pu changer.', r.ok ? null : r.message));
+  };
+
   const rebuild = async (): Promise<void> => {
     if (saving) return;
     if (!window.confirm('Reconstruire le catalogue avec les photos approuvées ? Les numéros des cartes sont refaits ; c\'est refusé dès qu\'un joueur possède une carte.')) return;
     setSaving(true);
-    const r = await api<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number } }>({ action: 'rebuild' });
+    const r = await apiOrMessage<{ ok: boolean; summary?: { subjects: number; waiting: number; cards: number; not_shown: number; panoramas?: number } }>({ action: 'rebuild' });
     setSaving(false);
-    if (r?.ok && r.summary) onSaved(`Catalogue reconstruit : ${r.summary.subjects} sujets, ${r.summary.cards} cartes, ${r.summary.waiting} sujets attendent une deuxième photo, ${r.summary.not_shown} cartes attendent leur fichier.`);
-    else onSaved('Le catalogue n\'a pas été reconstruit (une carte est déjà possédée, ou le fichier 103 n\'est pas appliqué).');
+    if (r.ok && r.data.summary) onSaved(`Catalogue reconstruit : ${r.data.summary.subjects} sujets, ${r.data.summary.cards} cartes${typeof r.data.summary.panoramas === 'number' ? `, ${r.data.summary.panoramas} panoramas` : ''}, ${r.data.summary.waiting} sujets attendent une deuxième photo, ${r.data.summary.not_shown} cartes attendent leur fichier.`);
+    else onSaved(catalogFailure('Le catalogue n\'a pas été reconstruit.', r.ok ? null : r.message));
   };
 
   /** File 114, after the first pack: the preview first (writes nothing), then the write on a second, explicit click. */
   const previewAppend = async (): Promise<void> => {
     if (saving) return;
     setSaving(true);
-    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append_preview' });
+    const r = await apiOrMessage<{ ok: boolean; summary?: AppendSummary }>({ action: 'append_preview' });
     setSaving(false);
-    if (r?.ok && r.summary) setPreview(r.summary);
-    else onSaved('L\'aperçu n\'a pas pu être calculé (le fichier 114 n\'est pas appliqué ?).');
+    if (r.ok && r.data.summary) setPreview(r.data.summary);
+    else onSaved(catalogFailure('L\'aperçu n\'a pas pu être calculé.', r.ok ? null : r.message));
   };
   const confirmAppend = async (): Promise<void> => {
     if (saving || !preview || preview.cards === 0) return;
     setSaving(true);
-    const r = await api<{ ok: boolean; summary?: AppendSummary }>({ action: 'append', confirm: true });
+    const r = await apiOrMessage<{ ok: boolean; summary?: AppendSummary }>({ action: 'append', confirm: true });
     setSaving(false);
     setPreview(null);
-    if (r?.ok && r.summary) onSaved(`${appendSentence(r.summary, true)} ${r.summary.not_shown ?? 0} cartes attendent leur fichier.`);
-    else onSaved('Le catalogue n\'a pas été complété. Rien n\'a changé.');
+    if (r.ok && r.data.summary) onSaved(`${appendSentence(r.data.summary, true)} ${r.data.summary.not_shown ?? 0} cartes attendent leur fichier.`);
+    else onSaved(catalogFailure('Le catalogue n\'a pas été complété. Rien n\'a changé.', r.ok ? null : r.message));
   };
 
   const remove = async (): Promise<void> => {
@@ -408,8 +521,10 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
   const src = row ? sourceSrc(row) : null;
   const d = row ? dimsOf(row, dims[row.id]) : undefined;
   const group = row ? isGroupPhoto(row) : false;
-  const [small1, small2] = row && group ? halvesTooSmall(row, d) : [false, false];
-  const small = group ? small1 || small2 : d ? tooSmallFor2x(d[0], d[1]) : false;
+  const nParts: PartsCount = row ? partsOf(row) : 2;
+  const smalls = row && group ? partsTooSmall(row, d, nParts) : [false, false];
+  const small = group ? smalls.some(Boolean) : d ? tooSmallFor2x(d[0], d[1]) : false;
+  const warning = row && group ? partsWarningFor(row, d, nParts, pos) : null;
   const pill = (v: typeof status, label: string): React.ReactElement => <button type="button" className={s.pill} aria-pressed={view === 'photos' && status === v} onClick={() => { setView('photos'); setStatus(v); }}>{label}</button>;
 
   if (view === 'locks') {
@@ -471,7 +586,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
                         {u ? <img src={u} alt="" width={44} height={44} className={s.phImg} loading="lazy" onLoad={(e) => { const im = e.currentTarget; setDims((x) => ({ ...x, [r.id]: [im.naturalWidth, im.naturalHeight] })); }} /> : null}
                       </td>
                       <td className={s.cellName}><button type="button" className={s.outline} onClick={() => setSel(r.id)} aria-pressed={r.id === sel}>{r.entity_id}</button></td>
-                      <td>{(isGroupPhoto(r) ? halvesTooSmall(r, dm).some(Boolean) : dm && tooSmallFor2x(dm[0], dm[1])) ? <span className={s.flagReview}>Trop petite pour le 2x</span> : <span className={s.flagOk}>{r.storage_path ? 'Fichier carte envoyé' : 'Photo source seule'}</span>}</td>
+                      <td>{(isGroupPhoto(r) ? partsTooSmall(r, dm, partsOf(r)).some(Boolean) : dm && tooSmallFor2x(dm[0], dm[1])) ? <span className={s.flagReview}>Trop petite pour le 2x</span> : <span className={s.flagOk}>{r.storage_path ? 'Fichier carte envoyé' : 'Photo source seule'}</span>}</td>
                     </tr>
                   );
                 })}
@@ -492,7 +607,7 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
                   <button type="button" className={s.pill} onClick={() => void decide('reject')} disabled={saving}>Refuser</button>
                 </div>
               ) : null}
-              <p className={s.note}>Clique ou fais glisser sur la photo : {group ? 'le point choisi place la fenêtre de la paire (11 x 8,5, deux cartes côte à côte).' : 'le point choisi reste au centre du cadrage de la carte (5,5 x 8,5).'}</p>
+              <p className={s.note}>Clique ou fais glisser sur la photo : {group ? 'le point choisi place la fenêtre de la photo (11 x 8,5 pour 2 cartes, 16,5 x 8,5 pour 3, côte à côte).' : 'le point choisi reste au centre du cadrage de la carte (5,5 x 8,5).'}</p>
               {src ? (
                 <div
                   ref={frame} className={s.focalFrame} role="group" aria-label="Photo source" tabIndex={0}
@@ -514,33 +629,17 @@ export function CardsPanel({ head, onSaved }: { head: React.ReactNode; onSaved: 
                   <span className={s.focalCross} style={{ left: `${pos[0]}%`, top: `${pos[1]}%` }} aria-hidden="true" />
                 </div>
               ) : <p className={s.statusErr}>Pas d&apos;adresse de photo source pour cette fiche.</p>}
-              {src && group ? (
-                <div aria-label="Cadrage de la paire">
-                  <div className={s.cardCrop} aria-label="Fenêtre de la paire" style={{ aspectRatio: '110 / 85' }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element -- live preview of the pair window */}
-                    <img src={src} alt="" draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%`, display: 'block' }} />
-                  </div>
-                  <div style={{ display: 'flex', gap: 2, marginTop: 6 }}>
-                    {([1, 2] as const).map((part) => (
-                      <figure key={part} style={{ flex: 1, margin: 0 }} aria-label={`Carte ${part}/2`}>
-                        <div className={s.cardCrop} style={{ aspectRatio: '55 / 85', position: 'relative', overflow: 'hidden' }}>
-                          {/* eslint-disable-next-line @next/next/no-img-element -- live preview of one half */}
-                          <img src={src} alt="" draggable={false} style={{ position: 'absolute', top: 0, left: part === 1 ? 0 : '-100%', width: '200%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%` }} />
-                        </div>
-                        <figcaption className={s.note}>{part}/2{(part === 1 ? small1 : small2) ? <> &middot; <span className={s.flagReview}>trop petite pour le 2x</span></> : null}</figcaption>
-                      </figure>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
+              {group ? <PartsChoice parts={nParts} busy={choosing || saving} note={row.parts_note ?? null} warning={warning ?? row.partsWarning ?? null} onChoose={(n) => void choose(n)} /> : null}
+              {group && row.file_parts && row.file_parts !== nParts ? <p className={s.flagReview} role="status" style={{ whiteSpace: 'normal' }}>Les fichiers sont coupés pour {row.file_parts} cartes : à refaire avec publish-card-files.</p> : null}
+              {src && group ? <PartsPreview src={src} pos={pos} parts={nParts} small={smalls} /> : null}
               {src && !group ? (
                 <div className={s.cardCrop} aria-label="Cadrage de la carte" style={{ aspectRatio: '55 / 85' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element -- live preview of the crop */}
                   <img src={src} alt="" draggable={false} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: `${pos[0]}% ${pos[1]}%`, display: 'block' }} />
                 </div>
               ) : null}
-              <p className={s.note}>Point focal : <span className={s.num}>{pos[0]} / {pos[1]}</span>{d ? <> &middot; photo <span className={s.num}>{d[0]} x {d[1]}</span>, {group ? 'chaque carte de la paire' : 'cadrage'} <span className={s.num}>{group ? halfCropWidth(d[0], d[1]) : Math.round(cropWidth(d[0], d[1]))} px</span> de large</> : null}</p>
-              {small ? <p className={s.flagReview} role="status">{group ? `Trop petite pour le 2x : ${small1 && small2 ? 'les deux cartes' : `la carte ${small1 ? '1/2' : '2/2'}`} de la paire font moins de ${TWO_X_WIDTH} px de large.` : `Trop petite pour le 2x : le cadrage fait moins de ${TWO_X_WIDTH} px de large.`}</p> : null}
+              <p className={s.note}>Point focal : <span className={s.num}>{pos[0]} / {pos[1]}</span>{d ? <> &middot; photo <span className={s.num}>{d[0]} x {d[1]}</span>, {group ? 'chaque carte' : 'cadrage'} <span className={s.num}>{group ? partCropWidth(d[0], d[1], nParts) : Math.round(cropWidth(d[0], d[1]))} px</span> de large</> : null}</p>
+              {small ? <p className={s.flagReview} role="status">{group ? `Trop petite pour le 2x : ${smalls.every(Boolean) ? 'toutes les cartes' : `la carte ${smalls.findIndex(Boolean) + 1}/${nParts}`} de la photo font moins de ${TWO_X_WIDTH} px de large.` : `Trop petite pour le 2x : le cadrage fait moins de ${TWO_X_WIDTH} px de large.`}</p> : null}
               <button type="button" className={s.primary} onClick={() => void save()} disabled={saving || (pos[0] === row.focal_x && pos[1] === row.focal_y)}>{saving ? 'Enregistrement' : 'Enregistrer le point focal'}</button>
               <LockEditor lockReasons={entityOf(row)?.lock_reasons} busy={saving} onSet={(r, why) => void setLock(r, why)} />
               <RemovePhoto busy={saving} onRemove={() => void remove()} />

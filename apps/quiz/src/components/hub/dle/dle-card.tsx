@@ -1,7 +1,9 @@
 // Lot 3 DLE (E3): the card of the result when there is no licensed picture of the answer. Series photo already in place on the anime pages (one of the
 // free photos of objects and places) or, with none, the colours of the group with a pattern; the name set in type, the series or the group above it.
-// Decorative for assistive technology: the name is the heading beside it. Pure: no hook, no client code, drawn on the server too.
+// Decorative for assistive technology: the name is the heading beside it. Pure: no hook, no client code, drawn on the server too; only the owner's
+// private preview picture goes through the small client part dle-card-preview.tsx (it measures the picture).
 import { tintOf } from './dle-avatar';
+import { DleCardPreview } from './dle-card-preview';
 
 import type { AvatarLook } from './dle-avatar';
 
@@ -34,8 +36,11 @@ export function DleCard({ name, sub, tone, look, previewLabel = 'Owner preview' 
       className={`hub-dle-card ${image ? 'hub-dle-card-art' : 'hub-dle-card-pat'}`}
       style={{ '--dle-a': a, '--dle-b': b } as React.CSSProperties}
     >
-      {image ? (
-        // A plain img: a bundled file, or the owner's preview route; never the image optimiser.
+      {look?.preview ? (
+        // The owner's private preview: measured in the browser, so a small picture is not stretched (smallPreviewSize).
+        <DleCardPreview src={look.preview} />
+      ) : image ? (
+        // A plain img: a bundled file (the series photo of the public view), never the image optimiser.
         // eslint-disable-next-line @next/next/no-img-element
         <img src={image} alt="" className="hub-dle-card-img" loading="lazy" decoding="async" />
       ) : <span className="hub-dle-card-dots" />}

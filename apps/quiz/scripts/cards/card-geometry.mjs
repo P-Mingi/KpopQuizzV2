@@ -32,5 +32,32 @@ export function halves(box) {
   ];
 }
 
-/** The file stem suffix of a part: '' for a whole card, '-h1' and '-h2' for the halves (<stem>-h1-1x.webp). */
-export const partSuffix = (part) => (part === 1 || part === 2 ? `-h${part}` : '');
+/** The file stem suffix of a part: '' for a whole card, '-h1' and '-h2' for the halves of a pair (<stem>-h1-1x.webp), '-t1' to '-t3' for
+ *  the thirds of a photo in 3 cards (lot 7). `parts` is the number of cards of the photo (2 when absent: the files of lots 2 to 6). */
+export const partSuffix = (part, parts = 2) => (part >= 1 && part <= parts ? `-${parts === 3 ? 't' : 'h'}${part}` : '');
+
+/* ---------- lot 7 (owner, 2026-11-17): a group photo in 2 OR 3 cards, and its panorama ---------- */
+
+/** The window of a photo in 3 cards: 16.5:8.5, three cards side by side. */
+export const TRIPLE_RATIO = 16.5 / 8.5;
+
+/** The window ratio of a group photo in `parts` cards (2: 11:8.5, 3: 16.5:8.5). */
+export const groupRatio = (parts) => (parts === 3 ? TRIPLE_RATIO : PAIR_RATIO);
+
+/** A group photo's window in `parts` cards, placed by its one focal point. */
+export const groupBox = (w, h, parts, fx, fy) => windowBox(w, h, groupRatio(parts), fx, fy);
+
+/** The parts of a window, left to right: part i spans [floor(width * (i - 1) / n), floor(width * i / n)). With n = 2 it is exactly halves(). */
+export function splitParts(box, n) {
+  const out = [];
+  for (let i = 1; i <= n; i++) {
+    const a = Math.floor((box.width * (i - 1)) / n);
+    const b = Math.floor((box.width * i) / n);
+    out.push({ part: i, left: box.left + a, top: box.top, width: b - a, height: box.height });
+  }
+  return out;
+}
+
+/** The panorama of a group photo is its whole window: the file suffix ('-p2' or '-p3') and its sizes, one card height for each size. */
+export const panoSuffix = (parts) => `-p${parts === 3 ? 3 : 2}`;
+export const panoSizes = (parts) => ({ '1x': [SIZES['1x'][0] * parts, SIZES['1x'][1]], '2x': [SIZES['2x'][0] * parts, SIZES['2x'][1]] });

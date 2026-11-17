@@ -43,7 +43,7 @@ export interface DetailProps {
   why: { title: string; sentences: string[]; need: string } | null;
   lockSentence: string | null;
   /** Lot 2: set for a half of a group photo: which side it is, and the other half (null when that half is not in packs). */
-  pair?: { side: 'left' | 'right'; mate: SlimCard | null } | null;
+  pair?: { side: 'left' | 'middle' | 'right'; mate: SlimCard | null; /** Lot 7: the other two parts of a photo in 3 cards. */ others?: SlimCard[] } | null;
   /** Lot 3 point A5: the chance of one card being of each edition ("10%"), from the odds the Packs page shows; only editions in packs. */
   rates: Partial<Record<Rarity, string>>;
   /** The credit block, rendered on the server. */
@@ -88,6 +88,12 @@ function Moment({ n, owned }: { n: number; owned: boolean }): React.ReactElement
   );
 }
 
+/** Lot 7: how the editions' photos are split: the two halves of a pair, the three parts of a photo in 3 cards, or both when the editions differ. */
+export function splitWords(ladder: readonly Rung[]): string {
+  const sizes = new Set(ladder.flatMap((x) => (x.card ? [x.card.parts === 3 ? 3 : 2] : [])));
+  return sizes.size === 2 ? 'two or three parts' : sizes.has(3) ? 'the three parts' : 'the two halves';
+}
+
 /** The prototype's reason box under the ladder: why an idol or a group has fewer than six editions. */
 function reasonText(p: DetailProps): { title: string; text: string } | null {
   const have = p.ladder.filter((x) => x.card);
@@ -96,7 +102,7 @@ function reasonText(p: DetailProps): { title: string; text: string } | null {
   const top = n >= 1 ? RARITY_LABEL[have[n - 1]!.rarity] : '';
   const locked = p.ladder.find((x) => !x.card && x.reason && x.reason !== 'one');
   const why = locked?.reason ? `${LOCK_SENTENCES[locked.reason]} ` : '';
-  if (p.entityKind === 'group') return { title: `Why ${p.entityName} has ${n} editions`, text: `Each edition uses its own group photo, split into the two halves. ${p.entityName} has ${n} free group photos so far, so ${n} editions, Standard up to ${top}.` };
+  if (p.entityKind === 'group') return { title: `Why ${p.entityName} has ${n} editions`, text: `Each edition uses its own group photo, split into ${splitWords(p.ladder)}. ${p.entityName} has ${n} free group photos so far, so ${n} editions, Standard up to ${top}.` };
   return { title: `Why ${p.entityName} has ${n < 2 ? 'no cards yet' : `${n} editions`}`, text: n < 2 ? `Not in packs yet. ${p.entityName} has one free photo so far, and an idol joins packs with two. ${why}`.trim() : `Each edition uses its own free photo, from a different day. ${p.entityName} has ${n} so far, so ${n} editions, Standard up to ${top}. ${why}The next edition is issued as soon as another photo is approved.` };
 }
 
@@ -181,14 +187,15 @@ export function CardDetail(p: DetailProps): React.ReactElement {
         </div>
         <div className="d-info">
           <div className="d-title">
-            <Title>{p.entityName}{card && card.part ? ` ${card.part}/2` : ''}</Title>
+            <Title>{p.entityName}{card && card.part ? ` ${card.part}/${card.parts ?? 2}` : ''}</Title>
             {card && o ? <FavStar n={card.n} name={card.name} edition={edName} className="in" /> : null}
             {card && o ? <LockButton n={card.n} name={card.name} /> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
           <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}{p.rates[rarity] ? ` · ${p.rates[rarity]} of cards` : ''}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && o ? <span className="tag">{o.copies > 1 ? `${o.copies} copies` : '1 copy'}</span> : null}</div>
-          {card && !o && status === 'ready' ? (
-            <div className="d-acts">
+          {/* Lot 7: the craft button stays mounted once the card is owned (it draws nothing then), so the reveal of the panorama a craft gave can finish. */}
+          {card && status === 'ready' ? (
+            <div className="d-acts" style={o ? { display: 'none' } : undefined}>
               <CraftButton n={card.n} rarity={card.rarity} name={p.entityName} after={<WantButton n={card.n} name={p.entityName} edition={edName} />} />
             </div>
           ) : null}
@@ -198,7 +205,13 @@ export function CardDetail(p: DetailProps): React.ReactElement {
               <small id="d-half">{owned.has(mate.n) ? 'You have the other half.' : o ? `Missing half: the next ${edName} of ${p.entityName} you draw is the other half.` : 'Own one half, and the same edition gives you the other.'}</small>
             </div>
           ) : null}
-          {card && half ? (
+          {card && half && half.others?.length ? (
+            <div className="d-acts">
+              {half.others.map((x) => <button key={x.n} type="button" className="btn-quiet" onClick={() => router.push(`${kcPath.card(x.num)}${keep()}`)}>See part {x.part}/{x.parts ?? 3}</button>)}
+              <small id="d-half">{half.others.every((x) => owned.has(x.n)) ? 'You have the other parts.' : `Hold all ${card.parts ?? 3} cards of this photo, and the panorama is yours.`}</small>
+            </div>
+          ) : null}
+          {card && half && !half.others ? (
             <p className="sr-only" id="d-half-words">
               This card is the {half.side} half of the group photo.{' '}
               {mate ? <>The {half.side === 'left' ? 'right' : 'left'} half is <Link className="d-mate" href={`${kcPath.card(mate.num)}${keep()}`}>card {mate.num}</Link>. Own both to see the whole picture.</> : 'Its other half is not in packs.'}

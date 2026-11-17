@@ -3,6 +3,7 @@
 // Bunnyverse Cards, lane B, bridge 2: the grid of a group page. The server markup is what a guest sees (every card as a back); after hydration a
 // signed-in fan gets the cards they own in colour and the rest as backs. The count follows.
 import { groupCardsCount } from '@/lib/cards-bridge/copy';
+import { partLabel, partWord } from '@/lib/cards/ui-model';
 
 import { useCardsMe } from './use-cards-me';
 
@@ -22,16 +23,16 @@ export function CardsGroupGrid({ cards }: { cards: readonly GroupCard[] }): Reac
             <li key={c.n} className="cb-card" data-owned="1" title={`${c.name} ${c.num}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               {c.part && c.css ? (
-                // Lot 2: a half from the whole source photo: a box twice the tile wide, offset to its side.
-                <span className="cb-pair" data-part={c.part} style={{ left: c.part === 1 ? 0 : '-100%' }}>
-                  <img src={c.photoUrl} alt={`${c.name}, card ${c.num}, ${c.part === 1 ? 'left' : 'right'} half`} loading="lazy" width={168} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
+                // Lot 2: a half from the whole source photo: a box twice the tile wide, offset to its side. Lot 7: a photo in 3 cards, a box three tiles wide.
+                <span className="cb-pair" data-part={c.part} style={{ left: c.part === 1 ? 0 : `-${(c.part - 1) * 100}%`, ...(c.parts === 3 ? { width: '300%' } : {}) }}>
+                  <img src={c.photoUrl} alt={`${c.name}, card ${c.num}, ${partWord(c)}`} loading="lazy" width={168} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
                 </span>
               ) : (
-                <img src={c.photoUrl} alt={`${c.name}, card ${c.num}${c.part ? `, ${c.part === 1 ? 'left' : 'right'} half` : ''}`} loading="lazy" width={84} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
+                <img src={c.photoUrl} alt={`${c.name}, card ${c.num}${c.part ? `, ${partWord(c)}` : ''}`} loading="lazy" width={84} height={130} style={{ objectPosition: `${c.focalX}% ${c.focalY}%` }} />
               )}
             </li>
           ) : (
-            <li key={c.n} className="cb-card is-missing" data-owned="0"><span>{c.num}{c.part ? ` · ${c.part}/2` : ''}</span></li>
+            <li key={c.n} className="cb-card is-missing" data-owned="0"><span>{c.num}{c.part ? ` · ${partLabel(c)}` : ''}</span></li>
           );
         })}
       </ul>
