@@ -1,5 +1,7 @@
 ## What this PR does
 
+Builds on #233, whose head is merged in here: until #233 is merged into main, this diff also shows its commits.
+
 KpopCards lot 7 (owner, 2026-11-17): a group photo gives 2 OR 3 cards, the smallest window that keeps everyone, and a player who holds
 every part of a photo (2/2 or 3/3) gets, once, the whole landscape picture as a panorama. Report: `docs/o1/reports/CARDS/LOT7-PANORAMA.md`;
 the owner's page: `docs/o1/reports/CARDS/OWNER-LOT7.md`; the lanes' spec: `LOT7-CONTRACT.md`.
