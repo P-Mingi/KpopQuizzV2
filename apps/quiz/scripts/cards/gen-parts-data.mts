@@ -14,7 +14,7 @@ import { REPO, arg, outsideRepo } from './commons-io.mts';
 import type { PartsItem, PrivateVerdict, WindowCheck } from '../../src/lib/cards/parts-data';
 
 const need = (name: string): string => {
-  const v = arg(name);
+  const v = arg(`--${name}`);
   if (!v) throw new Error(`--${name} <file> is required`);
   if (!outsideRepo(v)) throw new Error(`--${name}: the private checks stay outside the repository`);
   return v;
@@ -25,10 +25,12 @@ const items = JSON.parse(readFileSync(need('index'), 'utf8')) as Array<PartsItem
 const verdicts = new Map<string, PrivateVerdict>();
 for (const v of lines(need('verdicts'))) verdicts.set(String(v.id), v as PrivateVerdict);
 const checks = new Map<string, WindowCheck[]>();
-const checksFile = arg('checks');
+const checksFile = arg('--checks');
 if (checksFile) {
   if (!outsideRepo(checksFile)) throw new Error('--checks: the private checks stay outside the repository');
   for (const c of lines(checksFile)) {
+    // a second look that seems to show a person under 18 rejects the photo too (lot 6 limit)
+    if (c.seems_minor === true) { verdicts.set(String(c.id), { seems_minor: true }); continue; }
     const list = checks.get(String(c.id)) ?? [];
     list.push({ parts: c.parts as 2 | 3, cuts: c.cuts === true, ...(c.unclear === true ? { unclear: true } : {}) });
     checks.set(String(c.id), list);
@@ -43,7 +45,7 @@ const counts = countsOf(entries);
 
 const out = path.join(REPO, 'docs/design/cards/data/lot7');
 mkdirSync(out, { recursive: true });
-const checkedOn = arg('day') ?? '2026-11-17';
+const checkedOn = arg('--day') ?? '2026-11-17';
 writeFileSync(path.join(out, 'parts.json'), `${JSON.stringify({
   checked_on: checkedOn,
   rule: 'lot 7 (integrator, 2026-11-17): a group photo gives 2 cards (11:8.5) when that window keeps every head of the people the photo shows whole, else 3 cards (16.5:8.5) when that window does, else it waits for the owner (To review, 3 proposed); without a usable thumbnail the ratio decides; a thumbnail that seems to show a person under 18 rejects the photo (lot 6 limit). Geometry only: no name, no age.',
