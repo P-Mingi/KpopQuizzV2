@@ -74,41 +74,33 @@ export async function POST(
   // self-like, or before migration 115 lands). The client uses it to float "+X".
   let xpGained = 0;
 
+  // L33 (security audit): one like per user. The count is moved by a trigger on public.likes (one row per user and quiz), so this route
+  // only writes that row; increment_like_count and decrement_like_count are closed. A visitor with no account has no like to record.
+  if (!user) {
+    return NextResponse.json({ error: 'Sign in to like a quiz' }, { status: 401 });
+  }
+
   try {
     if (action === 'like') {
-      if (user) {
-        // Authenticated: record in likes table and bump the count.
-        await supabase.from('likes').upsert(
-          { user_id: user.id, quiz_id: id },
-          { onConflict: 'user_id,quiz_id', ignoreDuplicates: true },
-        );
+      // The upsert ignores a repeat: the unique key keeps one row, so the trigger counts one like.
+      await supabase.from('likes').upsert(
+        { user_id: user.id, quiz_id: id },
+        { onConflict: 'user_id,quiz_id', ignoreDuplicates: true },
+      );
 
-        await supabase.rpc('increment_like_count', { quiz_uuid: id });
-
-        // Award like XP once per (liker, quiz) ever, self-likes excluded (the
-        // guard lives in award_like_xp). award_xp is revoked from authenticated,
-        // so this runs through the service role. Non-critical + best-effort: if
-        // migration 115 is not applied yet, we swallow the error and award 0.
-        try {
-          const admin = createServiceRoleClient();
-          const { data: xpRes } = await admin.rpc('award_like_xp', { p_quiz_id: id, p_liker_id: user.id });
-          xpGained = (xpRes as { liker?: number } | null)?.liker ?? 0;
-        } catch (xpErr) {
-          console.warn('[like] award_like_xp skipped:', (xpErr as Error)?.message ?? xpErr);
-        }
-      } else {
-        // Anonymous: just bump the count
-        await supabase.rpc('increment_like_count', { quiz_uuid: id });
+      // Award like XP once per (liker, quiz) ever, self-likes excluded (the
+      // guard lives in award_like_xp). award_xp is revoked from authenticated,
+      // so this runs through the service role. Non-critical + best-effort: if
+      // migration 115 is not applied yet, we swallow the error and award 0.
+      try {
+        const admin = createServiceRoleClient();
+        const { data: xpRes } = await admin.rpc('award_like_xp', { p_quiz_id: id, p_liker_id: user.id });
+        xpGained = (xpRes as { liker?: number } | null)?.liker ?? 0;
+      } catch (xpErr) {
+        console.warn('[like] award_like_xp skipped:', (xpErr as Error)?.message ?? xpErr);
       }
     } else {
-      if (user) {
-        // Authenticated: remove DB entry then decrement
-        await supabase.from('likes').delete().match({ user_id: user.id, quiz_id: id });
-        await supabase.rpc('decrement_like_count', { quiz_uuid: id });
-      } else {
-        // Anonymous: just lower the count
-        await supabase.rpc('decrement_like_count', { quiz_uuid: id });
-      }
+      await supabase.from('likes').delete().match({ user_id: user.id, quiz_id: id });
     }
 
     const { data: updated } = await supabase
