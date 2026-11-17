@@ -7,7 +7,7 @@
 // 11:8.5 and the 16.5:8.5 windows from it; (2) the checker looks at each placed window drawn on the thumbnail and says whether it cuts
 // anyone (WindowCheck). A window the second look says cuts someone is not used: 2 then goes to 3, 3 goes to "To review". A second look that
 // is unclear or missing leaves the geometry's answer.
-import { decideParts, placeWindow } from './parts-rule';
+import { decideParts, keepsWho, peopleCount, placeWindow } from './parts-rule';
 
 import type { HeadsBox, Parts, PartsVerdict } from './parts-rule';
 
@@ -89,11 +89,11 @@ export function partsEntry(it: PartsItem, raw: PrivateVerdict | undefined, check
     if (at3 && says(3) !== true) {
       return {
         ...base, parts: 3, focal: { x: at3.fx, y: at3.fy }, review: false, by: 'thumbnail', checked: true,
-        note: `3 cards: on the thumbnail the 11:8.5 window cuts someone, the 16.5:8.5 window keeps all ${v.people} people${at3.moved ? ` once its focal point moves to ${at3.fx}/${at3.fy}` : ''}`,
+        note: `3 cards: on the thumbnail the 11:8.5 window cuts someone, the 16.5:8.5 window keeps ${keepsWho(v.people)}${at3.moved ? ` once its focal point moves to ${at3.fx}/${at3.fy}` : ''}`,
       };
     }
   }
-  return { ...base, parts: 3, focal: from, review: true, by: 'thumbnail', checked: true, note: `To review: on the thumbnail someone is cut even in 3 cards (${v?.people ?? 0} people in the photo)` };
+  return { ...base, parts: 3, focal: from, review: true, by: 'thumbnail', checked: true, note: `To review: on the thumbnail someone is cut even in 3 cards (${peopleCount(v?.people ?? 0)} in the photo)` };
 }
 
 export interface PartsCounts { photos: number; two: number; three: number; review: number; rejected: number; moved: number; byRatio: number; byCheck: number }

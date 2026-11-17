@@ -93,6 +93,18 @@ export function lockReasonOf(lockReasons: Partial<Record<Rarity, LockReason>>, r
 
 /** Builds the slim catalog: ordered pockets (idols, then the group cards, per group, then the events), the sections and the locks. Only the
  *  entities that have at least one card get pockets. */
+/**
+ * Lot 7 (integrator, 2026-11-17): the labels of the pockets of a group edition that cannot exist yet. Its photo does not exist, so its size
+ * is not known: it follows the group's issued editions, 3 pockets ("1/3", "2/3", "3/3") when most of them are in 3 cards (a tie gives 3),
+ * else 2 ("1/2", "2/2"), as before lot 7 for a group with no card in 3.
+ */
+export function lockedPartLabels(issued: ReadonlyArray<ReadonlyArray<Pick<UiCard, 'part'>>>): string[] {
+  const sets = issued.filter((cs) => cs.length >= 2 && cs.every((c) => !!c.part));
+  const three = sets.filter((cs) => cs.length === 3).length;
+  const n = three > 0 && three * 2 >= sets.length ? 3 : 2;
+  return Array.from({ length: n }, (_, k) => ` ${k + 1}/${n}`);
+}
+
 export function buildSlim(cat: UiCatalog): SlimCatalog {
   const byEntity = new Map<string, UiCard[]>();
   for (const c of cat.cards) {
@@ -133,6 +145,7 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
       else have.set(c.rarity, [c]);
     }
     for (const l of have.values()) l.sort((a, b) => (a.part ?? 0) - (b.part ?? 0) || a.n - b.n);
+    const lockedHalves = e.kind === 'group' ? lockedPartLabels([...have.values()]) : [''];
     const lk: Partial<Record<Rarity, LockReason | null>> = {};
     for (const r of ladderRarities(e.kind)) {
       const cs = have.get(r);
@@ -147,8 +160,9 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
         const reason = lockReasonOf(e.lockReasons, r);
         lk[r] = reason;
         const anchor = (byEntity.get(e.id) ?? [])[0]?.num ?? null;
-        // A group edition that cannot exist yet shows its two halves, as the prototype does ("TWICE 1/2", "TWICE 2/2").
-        for (const half of e.kind === 'group' ? [' 1/2', ' 2/2'] : ['']) {
+        // A group edition that cannot exist yet shows its parts, as the prototype does ("TWICE 1/2", "TWICE 2/2"); lot 7: a group whose
+        // issued editions are in 3 cards shows "1/3", "2/3", "3/3" (lockedPartLabels).
+        for (const half of lockedHalves) {
           items.push({ i: items.length, sec, locked: true, entity: e.id, name: `${e.name}${half}`, group: e.kind === 'idol' ? e.group : e.kind === 'group' ? e.name : null, rarity: r, reason, anchor });
         }
       }
