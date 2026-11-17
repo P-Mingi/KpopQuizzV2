@@ -8,13 +8,13 @@ import { drawKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
   badgesOf, cardRef, idolPage, momentQuiz, quizSlug, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
-  recyclePreview, almostState, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf,
+  recyclePreview, almostState, panoCompletedBy, panoRef, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf,
 } from './model';
 
 import type { UiCard, UiCatalog } from '../cards/ui-types';
 import type { Rng, Rarity } from '../cards/types';
 import type {
-  ApiError, ClaimRequest, CraftRequest, DemoClaimRequest, FriendRedeemRequest, KpopCardsApi, OpenRequest, OpenedCardV, OpenedPack, PackKind, RecycleRequest, ThemeId,
+  ApiError, ClaimRequest, CraftRequest, DemoClaimRequest, FriendRedeemRequest, KpopCardsApi, OpenRequest, OpenedCardV, OpenedPack, PackKind, PanoRef, RecycleRequest, ThemeId,
 } from './contract';
 import type { PlayerData, PlayerSummary, World } from './model';
 
@@ -41,7 +41,7 @@ export function fixtureWorld(cat: UiCatalog): World {
     themeOf.set(g.id, t);
     for (const m of members) themeOf.set(m.id, t);
   });
-  return { cards: cat.cards, entities: cat.entities, themeOf };
+  return { cards: cat.cards, entities: cat.entities, themeOf, ...(cat.panoramas ? { panoramas: cat.panoramas } : {}) };
 }
 
 export interface ForcedCard { rarity: Rarity; isNew: boolean }
@@ -203,7 +203,9 @@ export function createMockApi(opts: MockOptions): MockApi {
   function addCard(c: UiCard, packNo: number): { isNew: boolean; pair: boolean } {
     const o = p.owned.get(c.n);
     let pair = false;
-    if (!o && c.pairN) pair = p.owned.has(c.pairN);
+    // Lot 7: a card completes its set when it is new and every other part of its photo (2 or 3 cards) is owned.
+    if (!o && c.setNs && c.setNs.length > 1) pair = c.setNs.every((m) => m === c.n || p.owned.has(m));
+    else if (!o && c.pairN) pair = p.owned.has(c.pairN);
     if (o) { o.copies += 1; o.lastAt = now(); } else p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: false, firstAt: now(), lastAt: now(), packNo, how: 'pack' });
     return { isNew: !o, pair };
   }
@@ -263,6 +265,7 @@ export function createMockApi(opts: MockOptions): MockApi {
       if (source === 'daily') p.dailyDay = day;
       if (source === 'focus') p.focusDay = day;
       const packs: OpenedPack[] = [];
+      const givenPanos: PanoRef[] = [];
       let copiesShards = 0, copies = 0, newCards = 0, goldenPacks = 0, guaranteePacks = 0;
       let bestRank = 0;
       for (let i = 0; i < n; i++) {
@@ -301,12 +304,17 @@ export function createMockApi(opts: MockOptions): MockApi {
           forcedRarity = null;
         }
         const cards: OpenedCardV[] = [];
+        const packPanos: PanoRef[] = [];
         let nw = 0;
         drawn.cards.forEach((cn, idx) => {
           const c = w.cards.find((x) => x.n === cn)!;
           const r = addCard(c, packNo);
           if (r.isNew) nw++; else { copies++; copiesShards += SHARDS[c.rarity]; }
-          cards.push({ n: cn, edition: c.edition, isNew: r.isNew, completesPair: r.pair, golden: drawn.golden && idx === 4, guarantee: drawn.guarantee && idx === 4, theme: kind });
+          // Lot 7: the card that completes its photo's set gives the panorama, once (the same transaction as the pack).
+          const pn = r.isNew ? panoCompletedBy(w, p, cn) : null;
+          let pano: PanoRef | undefined;
+          if (pn) { (p.panos ??= new Map()).set(pn.p, { at: now(), source: 'pack', seen: false }); pano = panoRef(pn); packPanos.push(pano); givenPanos.push(pano); }
+          cards.push({ n: cn, edition: c.edition, isNew: r.isNew, completesPair: r.pair, golden: drawn.golden && idx === 4, guarantee: drawn.guarantee && idx === 4, theme: kind, ...(pano ? { pano } : {}) });
         });
         const best = drawn.cards.map((cn) => w.cards.find((x) => x.n === cn)!.rarity).reduce<Rarity>((m, r) => (['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(r) > ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(m) ? r : m), 'C');
         bestRank = Math.max(bestRank, ['C', 'U', 'R', 'SR', 'UR', 'L'].indexOf(best));
@@ -315,7 +323,7 @@ export function createMockApi(opts: MockOptions): MockApi {
         p.week.packs += 1; p.week.newc += nw;
         newCards += nw; if (drawn.golden) goldenPacks++; if (drawn.guarantee) guaranteePacks++;
         const grp = source === 'daily' ? dailyGroup(w, day) : source === 'focus' ? sectionsOf(w).find((s) => s.id === req.focus) ?? null : null;
-        packs.push({ id: `mock-${seed}-${packNo}`, packNo, source, theme: kind, group: grp ? { id: grp.id, slug: grp.slug, name: grp.name, kind: grp.kind } : null, golden: drawn.golden, guarantee: drawn.guarantee, cards, newCount: nw, best: EDITIONS[best].edition });
+        packs.push({ id: `mock-${seed}-${packNo}`, packNo, source, theme: kind, group: grp ? { id: grp.id, slug: grp.slug, name: grp.name, kind: grp.kind } : null, golden: drawn.golden, guarantee: drawn.guarantee, cards, newCount: nw, best: EDITIONS[best].edition, ...(w.panoramas ? { panoramas: packPanos } : {}) });
         p.recent.unshift({ at: now(), best, source: source === 'shards' ? 'shards' : source === 'bonus' ? 'bonus' : 'stock', newCount: nw });
         p.recent = p.recent.slice(0, 10);
         p.last = { at: now(), packNo, cards: cards.map((x) => ({ n: x.n, isNew: x.isNew })) };
@@ -326,6 +334,7 @@ export function createMockApi(opts: MockOptions): MockApi {
       const res = {
         packs, replayed: false,
         summary: { newCards, copies, copiesShards, best, goldenPacks, guaranteePacks, finished, levelUp: after > before ? { from: before, to: after, title: titleOf(after) } : null,
+          ...(w.panoramas ? { panoramas: givenPanos } : {}),
           headline: newCards > 0 ? `${newCards} new card${newCards > 1 ? 's' : ''} for your collection` : 'Only copies this time' },
         state: view(),
       };
@@ -489,7 +498,10 @@ export function createMockApi(opts: MockOptions): MockApi {
       p.owned.set(c.n, { copies: 1, fav: false, locked: false, seen: false, firstAt: now(), lastAt: now(), packNo: p.opened, how: 'craft' });
       p.wishlist.delete(c.n); p.week.newc += 1;
       const finished = missionSets(w, p).filter((s) => s.done && !done0.has(s.id) && !s.claimed).map((s) => ({ id: s.id, name: s.name, packs: s.packs }));
-      const res = { n: c.n, cost, finished, replayed: false, state: view() };
+      // Lot 7: the crafted card can be the last missing part of its photo: the panorama comes in the same call, once.
+      const pn = panoCompletedBy(w, p, c.n);
+      if (pn) (p.panos ??= new Map()).set(pn.p, { at: now(), source: 'craft', seen: false });
+      const res = { n: c.n, cost, finished, replayed: false, state: view(), ...(w.panoramas ? { pano: pn ? panoRef(pn) : null } : {}) };
       idem.set(req.key, { op: 'craft', res });
       return res;
     },

@@ -6,6 +6,11 @@
 //                                              11:8.5 window at the one focal point, two halves), so its row carries halves: [{ part: 1, small_2x },
 //                                              { part: 2, small_2x }], read from the cards_catalog rows of that photo (select *, so a database without
 //                                              file 102 still answers) and falling back to the photo's own small_2x
+//                                              Lot 7: every row also carries parts (2 or 3, null reads as 2), heads_box, parts_note, file_parts, file_pano
+//                                              (null before file 118) and partsWarning: a plain line when the window of its cards at the CURRENT focal point
+//                                              would cut someone (parts-rule.ts keepsEveryone), null when it keeps everyone or when no heads_box is known
+//   parts        { photo, parts: 2 | 3 }       lot 7: the number of cards a group photo gives (cards_photos.parts, where id = photo); 409 with the
+//                                              database's own message once a pack was opened and the photo is on a catalog card, or before file 118
 //   approve      { id, note? }                 status approved (a second live photo in the same slot is refused: 409 slot_taken)
 //   reject       { id, note? }                 status rejected; its cards leave the packs (trigger cards_photo_retire)
 //   remove       { id, note? }                 status removed (the 48 hour answer to a report); same retirement
@@ -31,7 +36,10 @@ import { SITE_ID } from '@/lib/site/registry';
 
 import { NO_STORE, readJson, ownSite } from './api';
 import { publicObjectUrl } from './catalog';
+import { keepsEveryone } from './parts-rule';
 import { LOCK_SENTENCES, RARITIES } from './rules';
+
+import type { HeadsBox } from './parts-rule';
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
@@ -91,6 +99,37 @@ async function withHalves<T extends PhotoListRow>(db: Db, rows: T[]): Promise<Ar
   const res = await db.from('cards_catalog').select('*').in('photo_id', groups.map((r) => r.id));
   const catalog = res.error ? [] : ((res.data ?? []) as CatalogHalf[]);
   return rows.map((r) => (isGroupRow(r) ? { ...r, halves: halvesOf(r, catalog) } : r));
+}
+
+/** Lot 7: heads_box as the rule reads it, or null when the column is absent or holds anything else than five numbers. */
+export function headsBoxOf(v: unknown): HeadsBox | null {
+  if (typeof v !== 'object' || v === null) return null;
+  const o = v as Record<string, unknown>;
+  const n = (k: string): number | null => (typeof o[k] === 'number' && Number.isFinite(o[k]) ? (o[k] as number) : null);
+  const x0 = n('x0'), x1 = n('x1'), y0 = n('y0'), y1 = n('y1'), hw = n('hw');
+  return x0 === null || x1 === null || y0 === null || y1 === null || hw === null ? null : { x0, x1, y0, y1, hw };
+}
+
+/** The columns lot 7 adds to a photo row, as the admin's list answers them. */
+export interface PartsFields { parts: 2 | 3 | null; heads_box: HeadsBox | null; parts_note: string | null; file_parts: 2 | 3 | null; file_pano: boolean; partsWarning: string | null }
+
+/** Lot 7: the rule's warning for a photo as it is now: its cards (parts, 2 when null) at its current focal point. Null without a heads_box or the photo's size. */
+export function partsWarningOf(r: { parts?: unknown; heads_box?: unknown; focal_x?: unknown; focal_y?: unknown; source_width?: unknown; source_height?: unknown }): string | null {
+  const box = headsBoxOf(r.heads_box);
+  const w = r.source_width, h = r.source_height, fx = r.focal_x, fy = r.focal_y;
+  if (!box || typeof w !== 'number' || typeof h !== 'number' || w <= 0 || h <= 0 || typeof fx !== 'number' || typeof fy !== 'number') return null;
+  const parts = r.parts === 3 ? 3 : 2;
+  if (keepsEveryone(w, h, parts, fx, fy, box)) return null;
+  return `The ${parts === 3 ? '16.5:8.5' : '11:8.5'} window of ${parts} cards would cut someone at the focal point ${fx}/${fy}. Move the focal point${parts === 2 ? ' or give this photo 3 cards' : ''}.`;
+}
+
+/** The lot 7 fields of one photo row (pure). Before file 118 the columns are absent: parts and file_parts read null, file_pano false, no warning. */
+export function partsFieldsOf(r: Record<string, unknown>): PartsFields {
+  const two3 = (v: unknown): 2 | 3 | null => (v === 2 || v === 3 ? v : null);
+  return {
+    parts: two3(r.parts), heads_box: headsBoxOf(r.heads_box), parts_note: typeof r.parts_note === 'string' ? r.parts_note : null,
+    file_parts: two3(r.file_parts), file_pano: r.file_pano === true, partsWarning: partsWarningOf(r),
+  };
 }
 
 /** The card and the photo a report names, for the reports inbox: two reads by key, whatever the number of reports. Null on a failed read. */
@@ -183,6 +222,7 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     if (list) {
       rows = rows.map((r) => (r.source_path ? { ...r, file_url: publicObjectUrl(r.source_path) } : { ...r, file_url: reviewCopyUrl(r as { source_page?: string | null; file_url?: string | null }) }));
       rows = (await withHalves(db, rows as PhotoListRow[] as (PhotoListRow & { source_path?: string | null; file_url?: string | null })[])) as typeof rows;
+      rows = rows.map((r) => ({ ...r, ...partsFieldsOf(r as unknown as Record<string, unknown>) }));
     }
     else {
       const withRefs = await reportRefs(db, rows as ReportRow[]);
@@ -206,6 +246,22 @@ export async function handleAdminPhotos(req: NextRequest): Promise<NextResponse>
     if (id === null || x === null || y === null) return fail('bad_request', 400);
     const { data, error } = await db.from('cards_photos').update({ focal_x: x, focal_y: y }).eq('id', id).select('id, focal_x, focal_y').maybeSingle();
     if (error) return fail('server', 500);
+    return data ? reply({ ok: true, photo: data }) : fail('not_found', 404);
+  }
+
+  // Lot 7: the owner's choice of 2 or 3 cards for a group photo. The write has its WHERE on the id; the database refuses it (and says why) once a pack was
+  // opened and the photo is on a catalog card; the same guard is checked here first so a database without that trigger still refuses.
+  if (action === 'parts') {
+    const id = posInt(body.photo);
+    const parts = body.parts;
+    if (id === null || (parts !== 2 && parts !== 3)) return fail('bad_request', 400);
+    const [packs, onCard] = await Promise.all([db.from('cards_packs').select('id').limit(1), db.from('cards_catalog').select('card_no').eq('photo_id', id).limit(1)]);
+    if (packs.error || onCard.error) return fail('server', 500);
+    if ((packs.data ?? []).length > 0 && (onCard.data ?? []).length > 0) {
+      return refused('locked', { message: 'cards: a pack was opened and this photo is on a catalog card, its number of cards can no longer change' });
+    }
+    const { data, error } = await db.from('cards_photos').update({ parts }).eq('id', id).select('id, parts').maybeSingle();
+    if (error) return refused(/pack was opened|owns a card|opened/.test(error.message ?? '') ? 'locked' : 'not_ready', error);
     return data ? reply({ ok: true, photo: data }) : fail('not_found', 404);
   }
 
