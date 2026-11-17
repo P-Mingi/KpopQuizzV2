@@ -46,6 +46,11 @@ export interface PartsDecision {
 
 const clamp = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, v));
 
+/** "all 5 people", "the one person": the people of a photo in a note. */
+export const keepsWho = (n: number): string => (n === 1 ? 'the one person' : `all ${n} people`);
+/** "5 people", "1 person". */
+export const peopleCount = (n: number): string => `${n} ${n === 1 ? 'person' : 'people'}`;
+
 /** The area that must stay inside the window, in percent of the photo: the heads plus their margins. */
 export function neededArea(w: number, h: number, b: HeadsBox): { l: number; r: number; t: number; b: number } {
   const hv = (b.hw * w) / h; // a head's width in percent of the photo's HEIGHT
@@ -114,12 +119,12 @@ export function decideParts(w: number, h: number, fx: number, fy: number, v: Par
         return {
           parts, fx: at.fx, fy: at.fy, moved: at.moved, review: false, by: 'thumbnail',
           note: parts === 2
-            ? `2 cards: the 11:8.5 window keeps all ${v.people} people${at.moved ? ` once its focal point moves to ${at.fx}/${at.fy}` : ''}`
-            : `3 cards: the 11:8.5 window would cut someone, the 16.5:8.5 window keeps all ${v.people} people${at.moved ? ` once its focal point moves to ${at.fx}/${at.fy}` : ''}`,
+            ? `2 cards: the 11:8.5 window keeps ${keepsWho(v.people)}${at.moved ? ` once its focal point moves to ${at.fx}/${at.fy}` : ''}`
+            : `3 cards: the 11:8.5 window would cut someone, the 16.5:8.5 window keeps ${keepsWho(v.people)}${at.moved ? ` once its focal point moves to ${at.fx}/${at.fy}` : ''}`,
         };
       }
     }
-    return { parts: 3, fx, fy, moved: false, review: true, by: 'thumbnail', note: `To review: someone would be cut even in 3 cards (${v.people} people in the photo)` };
+    return { parts: 3, fx, fy, moved: false, review: true, by: 'thumbnail', note: `To review: someone would be cut even in 3 cards (${peopleCount(v.people)} in the photo)` };
   }
   const r = partsByRatio(w, h);
   return { parts: r.parts, fx, fy, moved: false, review: r.review, by: 'ratio', note: r.note };
