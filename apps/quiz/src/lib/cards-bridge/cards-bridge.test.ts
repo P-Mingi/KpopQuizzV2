@@ -388,26 +388,44 @@ describe('group block (bridge 2)', () => {
   });
 });
 
-describe('review 1 finding 16: the Collection counts owned cards among the catalog cards only', () => {
-  it('both counts join the catalog (in packs) and its entity (active)', async () => {
+describe('review 1 finding 16 and the owner decision of 2026-11-18: the Collection counts owned cards among the catalog cards, the ones out of packs included', () => {
+  it('owned has every owned card of an active entity; total is the cards in packs and his own cards out of packs', async () => {
     env('1');
     const { readCollection } = await import('./collection');
     const calls: Array<{ table: string; cols: string; filters: Array<[string, unknown]> }> = [];
+    // owned (all) 8, owned out of packs 2, cards in packs 10
     const db = { from: (table: string) => {
       const rec = { table, cols: '', filters: [] as Array<[string, unknown]> };
       calls.push(rec);
       const o: Record<string, unknown> = {};
       o.select = (cols: string) => { rec.cols = cols; return o; };
       for (const k of ['eq', 'gt']) o[k] = (c: string, v: unknown) => { rec.filters.push([c, v]); return o; };
-      o.then = (r: (v: unknown) => void) => r({ count: table === 'cards_owned' ? 3 : 10, error: null });
+      o.then = (r: (v: unknown) => void) => r({ count: table === 'cards_catalog' ? 10 : rec.filters.some(([c]) => c === 'cards_catalog.in_packs') ? 2 : 8, error: null });
       return o;
     } } as never;
-    expect(await readCollection('u1', db)).toEqual({ owned: 3, total: 10 });
-    const [own, all] = calls;
+    expect(await readCollection('u1', db)).toEqual({ owned: 8, total: 12 });
+    const [own, out, all] = calls;
     expect(own).toMatchObject({ table: 'cards_owned', cols: 'card_no, cards_catalog!inner(in_packs, cards_entities!inner(active))' });
-    expect(own!.filters).toEqual([['user_id', 'u1'], ['copies', 0], ['cards_catalog.in_packs', true], ['cards_catalog.cards_entities.active', true]]);
+    expect(own!.filters).toEqual([['user_id', 'u1'], ['copies', 0], ['cards_catalog.cards_entities.active', true]]);
+    expect(out!.filters).toEqual([['user_id', 'u1'], ['copies', 0], ['cards_catalog.in_packs', false], ['cards_catalog.cards_entities.active', true]]);
     expect(all).toMatchObject({ table: 'cards_catalog', cols: 'card_no, cards_entities!inner(active)' });
     expect(all!.filters).toEqual([['in_packs', true], ['cards_entities.active', true]]);
+  });
+  it('never more than 100 %: owned is never over the total, and an empty catalog shows nothing', async () => {
+    env('1');
+    const { readCollection } = await import('./collection');
+    const db = (own: number, out: number, live: number) => ({ from: (t: string) => {
+      const f: Array<[string, unknown]> = [];
+      const o: Record<string, unknown> = {};
+      o.select = () => o;
+      for (const k of ['eq', 'gt']) o[k] = (c: string, v: unknown) => { f.push([c, v]); return o; };
+      o.then = (r: (v: unknown) => void) => r({ count: t === 'cards_catalog' ? live : f.some(([c]) => c === 'cards_catalog.in_packs') ? out : own, error: null });
+      return o;
+    } }) as never;
+    const c = await readCollection('u1', db(61, 1, 60));
+    expect(c).toEqual({ owned: 61, total: 61 });
+    expect(c!.owned).toBeLessThanOrEqual(c!.total);
+    expect(await readCollection('u1', db(0, 0, 0))).toBeNull();
   });
 });
 
@@ -421,7 +439,8 @@ describe('Collection (bridge 4)', () => {
   it('counts come from the database; an empty catalog shows nothing', async () => {
     env('1');
     const { readCollection } = await import('./collection');
-    const db = (own: number, total: number) => ({ from: (t: string) => { const o: Record<string, unknown> = {}; for (const k of ['select', 'eq', 'gt']) o[k] = () => o; o.then = (r: (v: unknown) => void) => r({ count: t === 'cards_owned' ? own : total, error: null }); return o; } }) as never;
+    // none of his cards is out of packs here (the query that counts those answers 0): the total is the cards in packs
+    const db = (own: number, total: number) => ({ from: (t: string) => { const f: Array<[string, unknown]> = []; const o: Record<string, unknown> = {}; o.select = () => o; for (const k of ['eq', 'gt']) o[k] = (c: string, v: unknown) => { f.push([c, v]); return o; }; o.then = (r: (v: unknown) => void) => r({ count: t !== 'cards_owned' ? total : f.some(([c]) => c === 'cards_catalog.in_packs') ? 0 : own, error: null }); return o; } }) as never;
     expect(await readCollection('u1', db(12, 300))).toEqual({ owned: 12, total: 300 });
     expect(await readCollection('u1', db(0, 0))).toBeNull();
     const { collectionSection } = await import('@/components/cards-bridge/collection-section');

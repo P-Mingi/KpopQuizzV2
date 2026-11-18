@@ -234,7 +234,7 @@ describe('124: an owned card that left the packs keeps its moment and its place 
     expect(await failure(db, 'select public.cards_moment($1::uuid, 2)', [a])).toMatch(/cards: card/);
 
     await db.exec(readCardsSql('124-photoless-owned.sql'));
-    const sum = (): Promise<string> => one<string>(db, "select md5(string_agg(prosrc, '|' order by proname)) from pg_proc where proname in ('cards_moment', 'cards_profile_of')");
+    const sum = (): Promise<string> => one<string>(db, "select md5(string_agg(prosrc, '|' order by proname)) from pg_proc where proname in ('cards_moment', 'cards_profile_of', 'cards_ranking', 'cards_goals_progress')");
     const once = await sum();
     await db.exec(readCardsSql('124-photoless-owned.sql'));
     expect(await sum()).toBe(once);
@@ -249,16 +249,108 @@ describe('124: an owned card that left the packs keeps its moment and its place 
     const after = await one<{ showcase: number[]; owned: number }>(db, "select public.cards_profile($1::uuid, 'alice')", [a]);
     expect(after.showcase[0]).toBe(2);
     expect(after.showcase).toHaveLength(3);
-    // the count of cards stays the cards in packs
-    expect(after.owned).toBe(before.owned);
-    expect(after.owned).toBe(2);
-    expect(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of') and prosrc like '%124 (owner decision 2026-11-18)%'")).toBe(2);
+    // the count of cards counts the card that left (owner decision 2026-11-18): without 124 it had dropped to 2
+    expect(before.owned).toBe(2);
+    expect(after.owned).toBe(3);
+    expect((after as unknown as { retired: number }).retired).toBe(1);
+    expect(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of', 'cards_ranking', 'cards_goals_progress') and prosrc like '%124 (owner decision 2026-11-18)%'")).toBe(4);
     expect(Number(await one(db, "select count(*) from public.cards_owned where user_id = $1", [a]))).toBe(3);
 
     await db.exec(readCardsSql('124-photoless-owned.rollback.sql'));
-    expect(Number(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of') and prosrc like '%124 (owner decision 2026-11-18)%'"))).toBe(0);
+    expect(Number(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of', 'cards_ranking', 'cards_goals_progress') and prosrc like '%124 (owner decision 2026-11-18)%'"))).toBe(0);
     expect(await failure(db, 'select public.cards_moment($1::uuid, 2)', [a])).toMatch(/cards: card/);
     await db.exec(readCardsSql('124-photoless-owned.rollback.sql'));
     expect(Number(await one(db, "select count(*) from public.cards_owned where user_id = $1", [a]))).toBe(3);
+  });
+});
+
+/** What a player reads of his counts: his number of cards, his badges, every set (total, owned), and the order of the ranking. */
+async function snap(db: PGlite, u: string): Promise<{ owned: number; retired: number; badges: string[]; sets: { set_id: string; total: number; owned: number }[]; order: string[] }> {
+  const prof = await one<{ owned: number; retired?: number; badges: string[] }>(db, 'select public.cards_profile_of($1::uuid, $1::uuid)', [u]);
+  const sets = await rows<{ set_id: string; total: number; owned: number }>(db, 'select set_id, total, owned from public.cards_goals_progress($1::uuid, null) order by set_id', [u]);
+  const rank = await one<{ nickname: string }[]>(db, "select public.cards_ranking($1::uuid, 'all', 50)", [u]);
+  return { owned: prof.owned, retired: prof.retired ?? 0, badges: prof.badges, sets, order: rank.map((r) => r.nickname) };
+}
+
+describe('124: an owned card that left the packs keeps counting everywhere it counted', () => {
+  it('the number of cards, the badges, the sets and the ranking are the same before and after a removal; a card nobody owns is in no set; a second run and the rollback', async () => {
+    const db = await socialDb();
+    await db.exec(readCardsSql('113-moment.sql'));
+    const a = await player(db, 'alice');
+    const b = await player(db, 'bobby');
+    const c = await player(db, 'cyrus');
+    // alice: 6 of the 7 cards of Group One (1 to 7) and the Gold card of the other idol of Group Two; bobby: 5 cards; cyrus: 6 cards, a name after alice's
+    await own(db, a, [1, 2, 3, 4, 5, 6, 14]);
+    await own(db, b, [12, 13, 14, 15, 16]);
+    await own(db, c, [18, 19, 20, 21, 22, 23]);
+    const base = await snap(db, a);
+    expect(base.owned).toBe(7);
+    expect(base.order).toEqual(['alice', 'cyrus', 'bobby']);
+    const gold = base.sets.find((s) => s.set_id === 'gold')!;
+    expect(gold).toMatchObject({ total: 3, owned: 2 });
+    const baseB = await snap(db, b);
+
+    // the removal 119 makes: the owned Gold card 4 and the owned card 3 lose their photo and leave the packs. Card 26 (out of packs, nobody owns it) is there since the start.
+    await db.query('update public.cards_catalog set photo_id = null, in_packs = false where card_no in (3, 4)');
+    const hurt = await snap(db, a);
+    expect(hurt.owned).toBe(5); // without 124 the player drops
+    expect(hurt.sets.find((s) => s.set_id === 'gold')).toMatchObject({ total: 2, owned: 1 });
+
+    await db.exec(readCardsSql('124-photoless-owned.sql'));
+    const sum = (): Promise<string> => one<string>(db, "select md5(string_agg(prosrc, '|' order by proname)) from pg_proc where proname in ('cards_moment', 'cards_profile_of', 'cards_ranking', 'cards_goals_progress')");
+    const once = await sum();
+    await db.exec(readCardsSql('124-photoless-owned.sql'));
+    expect(await sum()).toBe(once);
+
+    const fixed = await snap(db, a);
+    expect(fixed.owned).toBe(base.owned);
+    expect(fixed.retired).toBe(2);
+    expect(fixed.badges).toEqual(base.badges);
+    expect(fixed.sets).toEqual(base.sets);
+    expect(fixed.order).toEqual(base.order);
+    // a set never shows more than it holds, and the sets of a player who owns neither card do not hold them
+    for (const s of fixed.sets) expect(s.owned).toBeLessThanOrEqual(s.total);
+    const fixedB = await snap(db, b);
+    expect(fixedB.retired).toBe(0);
+    expect(fixedB.owned).toBe(baseB.owned);
+    expect(fixedB.sets.find((s) => s.set_id === 'gold')).toMatchObject({ total: 2, owned: 1 });
+    expect(fixedB.sets.find((s) => s.set_id === 'group:G1')).toMatchObject({ total: 5 });
+    // the card out of packs that nobody owns (26) is in no set of anybody
+    for (const u of [a, b, c]) {
+      const n = await one<number>(db, "select count(*)::integer from public.cards_goals_progress($1::uuid, array[26]) where total > 0", [u]);
+      expect(n).toBe(0);
+    }
+    // nothing was written: no card, wallet row or claim moved
+    expect(Number(await one(db, 'select count(*) from public.cards_owned where user_id = $1', [a]))).toBe(7);
+    expect(Number(await one(db, 'select count(*) from public.cards_sets_claimed'))).toBe(0);
+
+    // the rollback gives the counts of 112 and 105 back (the player drops again), and a second rollback changes nothing
+    await db.exec(readCardsSql('124-photoless-owned.rollback.sql'));
+    expect(Number(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of', 'cards_ranking', 'cards_goals_progress') and prosrc like '%124 (owner decision 2026-11-18)%'"))).toBe(0);
+    expect(await snap(db, a)).toEqual(hurt);
+    await db.exec(readCardsSql('124-photoless-owned.rollback.sql'));
+    expect(await snap(db, a)).toEqual(hurt);
+    await db.exec(readCardsSql('124-photoless-owned.sql'));
+    expect(await snap(db, a)).toEqual(fixed);
+  });
+
+  it('a card that comes back into the packs is counted once (no double count), and a group complete badge stays earned after its card leaves', async () => {
+    const db = await socialDb();
+    await db.exec(readCardsSql('113-moment.sql'));
+    const a = await player(db, 'alice');
+    await db.exec(readCardsSql('124-photoless-owned.sql'));
+    // every card of Group One: 1, 2 to 7 (card 27 is of an inactive idol)
+    await own(db, a, [1, 2, 3, 4, 5, 6, 7]);
+    const done = await snap(db, a);
+    expect(done.badges).toContain('Group One complete');
+    await db.query('update public.cards_catalog set photo_id = null, in_packs = false where card_no in (7)');
+    const gone = await snap(db, a);
+    expect(gone.badges).toEqual(done.badges);
+    expect(gone.sets.find((s) => s.set_id === 'group:G1')).toMatchObject({ total: 7, owned: 7 });
+    await db.query('update public.cards_catalog set in_packs = true where card_no = 7');
+    const back = await snap(db, a);
+    expect(back.owned).toBe(7);
+    expect(back.retired).toBe(0);
+    expect(back.sets).toEqual(done.sets);
   });
 });
