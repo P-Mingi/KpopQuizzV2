@@ -21,7 +21,7 @@ import { THEMES, THEME_KEY, isThemeId, packLook, themeBy } from '@/lib/cards/kc-
 import { whenLabel } from '@/lib/cards/kc-time';
 import { weekOf } from '@/lib/cards/kc-views';
 import { PERIOD_MS, RARITIES, RARITY_LABEL, SHARD_PACK_COST } from '@/lib/cards/rules';
-import { fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
+import { countedCards, fmtClock, fmtHours, ownedCount } from '@/lib/cards/ui-model';
 import { pushState, turnOff, turnOn } from '@/lib/cards/push-client';
 
 import { CardFront, Gem, Ico } from './card-art';
@@ -92,11 +92,14 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   useEffect(() => { void pushState().then(setPush); }, []);
   useEffect(() => tilt(packRef.current, 12), []);
 
+  // Owner decision 2026-11-18: his cards that are out of packs count in his number of cards and in his total.
+  const counted = useMemo(() => countedCards(catalog, owned), [catalog, owned]);
   const total = catalog.cards.length;
+  const ownTotal = counted.length;
   const daily = useMemo(() => { const g = w ? w.daily.group : dailyGuest; if (!g) return null; const p = paletteFor(`group:${g.name}`); return { slug: g.slug, name: g.name, a: p.a, c: p.c }; }, [w, dailyGuest]);
   // The pack of the day joins the shelf once the wallet is read; the snapping row must not stay on the pack that was first, so it starts at the left again (as the prototype's does).
   useEffect(() => { const el = document.getElementById('shelf'); if (el) el.scrollLeft = 0; }, [!!daily]);
-  const own = useMemo(() => ownedCount(catalog.cards, owned), [catalog.cards, owned]);
+  const own = useMemo(() => ownedCount(counted, owned), [counted, owned]);
   const lv = w ? { label: `Level ${w.level.level} \u00B7 ${w.level.title}`, nextLabel: `${w.level.toNext} more card${w.level.toNext === 1 ? '' : 's'} to level ${w.level.nextLevel}`, progress: w.level.progress / 10 } : { label: guest ? 'Level -' : '', nextLabel: guest ? 'Cards to collect to level up' : '', progress: 0 };
   const stock = w?.stock ?? 0;
   const cap = w?.cap ?? KC.STACK_CAP;
@@ -372,8 +375,8 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
           <div className="mx m-coll">
             <div className="mx-head"><span className="mx-ico"><Ico name="binder" /></span><h2 className="h2">Your collection</h2></div>
             <div className="coll-row">
-              <span className="ringbig"><svg viewBox="0 0 80 80" aria-hidden="true"><circle className="bg" cx="40" cy="40" r="34" /><circle className="fg" id="coll-ring" cx="40" cy="40" r="34" strokeDasharray="213.6" strokeDashoffset={(213.6 * (1 - (total ? own / total : 0))).toFixed(1)} /></svg><b className="num" id="a-pct">{total ? Math.round((own / total) * 100) : 0}%</b></span>
-              <div className="coll-txt"><p><b className="num" id="a-own">{own}</b> of <span className="num" id="a-total">{total}</span> cards</p><p className="lvl" id="a-lvl">{lv.label}</p><span className="bar"><i id="a-bar" style={{ width: `${lv.progress * 100}%` }} /></span><small id="a-next">{lv.nextLabel}</small></div>
+              <span className="ringbig"><svg viewBox="0 0 80 80" aria-hidden="true"><circle className="bg" cx="40" cy="40" r="34" /><circle className="fg" id="coll-ring" cx="40" cy="40" r="34" strokeDasharray="213.6" strokeDashoffset={(213.6 * (1 - (ownTotal ? own / ownTotal : 0))).toFixed(1)} /></svg><b className="num" id="a-pct">{total ? Math.round((own / total) * 100) : 0}%</b></span>
+              <div className="coll-txt"><p><b className="num" id="a-own">{own}</b> of <span className="num" id="a-total">{ownTotal}</span> cards</p><p className="lvl" id="a-lvl">{lv.label}</p><span className="bar"><i id="a-bar" style={{ width: `${lv.progress * 100}%` }} /></span><small id="a-next">{lv.nextLabel}</small></div>
             </div>
             <div className="mini-fan" id="mini-fan" aria-hidden="true">{topCards.map((d, i) => <span key={d.n} style={{ '--i': i } as Vars}><CardFront card={d} /></span>)}</div>
             <Link href={kcPath.collection} className="mx-btn">Open the collection</Link>

@@ -192,18 +192,21 @@ function sectionOf(c: Pick<SlimCard, 'kind' | 'name' | 'group'>): { id: string; 
  * Owner decision 2026-11-18: the cards a player owns that are out of packs stay in the binder. Each one takes the pocket of its edition (the locked
  * pocket "Not issued" of its subject), or, when the subject has no pocket for it, a place at the end of its section (a section is made if the subject's
  * group has none). The card is a SlimCard with `soon` (the "New photo coming" frame) until a photo is live again. Pure; the same catalog comes
- * back when the player owns none. `cards`, the sections' numbers and every count are left as they are: these cards are out of the pool and out of
- * the totals, they only have to be there to be seen.
+ * back when the player owns none. `cards` is left as it is (these cards are out of the pool and the odds), but they COUNT for their owner: each one
+ * joins the numbers of its section (`ns`, so the progress of the group and its "complete" mark keep it) and countedCards() gives the cards a count reads.
  */
 export function withOwnedRetired(cat: SlimCatalog, owned: ReadonlyMap<number, unknown>): SlimCatalog {
   const mine = cat.retired.filter((c) => owned.has(c.n)).sort((a, b) => a.n - b.n);
   if (mine.length === 0) return cat;
   const items: BinderItem[] = cat.items.slice();
   let sections: BinderSection[] = cat.sections.slice();
+  const joined = new Map<string, number[]>();
+  const join = (sec: string, n: number): void => { joined.set(sec, [...(joined.get(sec) ?? []), n]); };
   for (const c of mine) {
     const at = items.findIndex((it) => it.locked && !it.soon && it.entity === c.entity && it.rarity === c.rarity);
     if (at >= 0) {
       items[at] = { i: at, sec: items[at]!.sec, card: c };
+      join(items[at]!.sec, c.n);
       continue;
     }
     const sec = sectionOf(c);
@@ -219,8 +222,16 @@ export function withOwnedRetired(cat: SlimCatalog, owned: ReadonlyMap<number, un
     let last = -1;
     items.forEach((it, k) => { if (it.sec === sec.id) last = k; });
     items.splice(last < 0 ? items.length : last + 1, 0, { i: 0, sec: sec.id, card: c });
+    join(sec.id, c.n);
   }
+  sections = sections.map((x) => (joined.has(x.id) ? { ...x, ns: [...x.ns, ...joined.get(x.id)!] } : x));
   return { ...cat, items: items.map((it, k) => ({ ...it, i: k })), sections };
+}
+
+/** The cards a count reads for one player: the cards in packs and the ones he owns that are out of packs (owner decision 2026-11-18). Never the pool of a draw. */
+export function countedCards(cat: Pick<SlimCatalog, 'cards' | 'retired'>, owned: ReadonlyMap<number, unknown>): SlimCard[] {
+  const mine = (cat.retired ?? []).filter((c) => owned.has(c.n));
+  return mine.length === 0 ? cat.cards : [...cat.cards, ...mine];
 }
 
 /**

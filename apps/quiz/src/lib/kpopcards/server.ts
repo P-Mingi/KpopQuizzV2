@@ -12,7 +12,7 @@ import { planKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
   QUIZ_BASE, momentQuiz, almostState, badgesOf, cardRef, panoRef, collectionState, dailyGroup, emptyPlayer, groupCards, groupRef, idolPage, lobbyState, missionsState, oddsState, pctOf,
-  playerPage, poolCards, rankRows, recyclePreview, sectionsOf, showcaseOf, themeCards,
+  ownedRetired, playerPage, poolCards, rankRows, recyclePreview, sectionsOf, showcaseOf, themeCards, totalOf,
 } from './model';
 
 import type { createServiceRoleClient } from '@/lib/supabase/server';
@@ -238,7 +238,9 @@ export async function level(c: Ctx) {
   const [w, p] = await Promise.all([loadWorld(c.db, c.now), loadPlayer(c)]);
   const l = lobbyState({ w, p, now: c.now, odds: false }).level;
   const n = l.cards;
-  return { level: l, pct: pctOf(n, w.cards.length), owned: n, total: w.cards.length, badges: badgesOf(w, new Set(p.owned.keys()), p.createdAt) };
+  // Owner decision 2026-11-18: his cards out of packs are in his count and in his total.
+  const total = w.cards.length + ownedRetired(w, p).length;
+  return { level: l, pct: pctOf(n, total), owned: n, total, badges: badgesOf(w, new Set(p.owned.keys()), p.createdAt) };
 }
 
 export async function odds(c: Ctx) {
@@ -281,7 +283,7 @@ export async function idol(c: Ctx, slug: string): Promise<ApiResult<ReturnType<t
 
 /* ------------------------------------------------------------------ people */
 
-interface ProfileJson { nickname: string; owned: number; showcase: number[]; badges: string[]; friend: boolean; me: boolean; wishlist: number[] | null }
+interface ProfileJson { nickname: string; owned: number; /** 124: how many of `owned` are out of packs (absent before the file is applied). */ retired?: number; showcase: number[]; badges: string[]; friend: boolean; me: boolean; wishlist: number[] | null }
 
 /** `owned`: the list is cards the person holds (a showcase), so a card that is out of packs keeps its place (owner decision 2026-11-18); a wishlist is not: nobody can get that card now. */
 const refOf = (w: World, n: number, owned: boolean): CardRef | null => {
@@ -290,7 +292,7 @@ const refOf = (w: World, n: number, owned: boolean): CardRef | null => {
 };
 const refs = (w: World, ns: number[] | null, owned = false): CardRef[] => (ns ?? []).map((n) => refOf(w, n, owned)).filter((x): x is CardRef => x !== null);
 
-const summaryOf = (w: World, j: ProfileJson): PlayerSummary => ({ nickname: j.nickname, owned: j.owned, showcase: refs(w, j.showcase, true), badges: j.badges, friend: j.friend, me: j.me });
+const summaryOf = (w: World, j: ProfileJson): PlayerSummary => ({ nickname: j.nickname, owned: j.owned, retired: j.retired ?? 0, showcase: refs(w, j.showcase, true), badges: j.badges, friend: j.friend, me: j.me });
 
 export async function ranking(c: Ctx, scope: 'friends' | 'all'): Promise<ApiResult<RankingState>> {
   const w = await loadWorld(c.db, c.now);
@@ -317,7 +319,7 @@ export async function friends(c: Ctx): Promise<ApiResult<FriendsState>> {
   const d = data as { friends: ProfileJson[]; code: { code: string; expires_at: string } | null };
   const rows: FriendRow[] = d.friends.map((j) => {
     const lv = levelOf(j.owned);
-    return { nickname: j.nickname, level: lv, title: titleOf(lv), pct: pctOf(j.owned, w.cards.length), wishlist: refs(w, j.wishlist) };
+    return { nickname: j.nickname, level: lv, title: titleOf(lv), pct: pctOf(j.owned, totalOf(w.cards.length, j.retired)), wishlist: refs(w, j.wishlist) };
   });
   return { friends: rows, code: d.code ? { code: d.code.code, expiresAt: new Date(d.code.expires_at).toISOString() } : null, max: KC.FRIENDS_MAX };
 }
@@ -374,7 +376,11 @@ interface OpenJson {
 const EDITION_ORDER: Edition[] = ['std', 'stage', 'holo', 'era', 'gold', 'full'];
 
 /** The answer of POST /open from cards_open's answer (pure). */
-export function openResponseFrom(w: World, j: OpenJson, state: LobbyState): OpenResponse {
+/**
+ * `retiredOwned`: how many cards the player owns that are out of packs. cards_open counts the cards in packs only (owned_before, owned_after); a card out of packs
+ * counts for the level (owner decision 2026-11-18) and no opening changes how many he has, so it is added to both: a level-up is read the way the lobby reads it.
+ */
+export function openResponseFrom(w: World, j: OpenJson, state: LobbyState, retiredOwned = 0): OpenResponse {
   const sections = sectionsOf(w);
   const cardOf = new Map(w.cards.map((x) => [x.n, x]));
   // Lot 7: a pano_no of the answer as the contract's reference; one the catalog does not list (a panorama of a locked group) is left out.
@@ -395,8 +401,8 @@ export function openResponseFrom(w: World, j: OpenJson, state: LobbyState): Open
   const copies = all.length - newCards;
   const copiesShards = all.filter((x) => !x.isNew).reduce((s, x) => s + SHARDS[cardOf.get(x.n)!.rarity], 0);
   const best = packs.reduce<Edition>((m, p) => (EDITION_ORDER.indexOf(p.best) > EDITION_ORDER.indexOf(m) ? p.best : m), 'std');
-  const before = levelOf(j.owned_before);
-  const after = levelOf(j.owned_after);
+  const before = levelOf(j.owned_before + retiredOwned);
+  const after = levelOf(j.owned_after + retiredOwned);
   return {
     packs, replayed: j.replayed, state,
     summary: {
@@ -463,7 +469,7 @@ export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResp
   });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
   const p = await loadPlayer(c);
-  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }));
+  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }), ownedRetired(w, p).length);
 }
 
 export async function claim(c: Ctx, key: string, target: string): Promise<ApiResult<ClaimResponse>> {
