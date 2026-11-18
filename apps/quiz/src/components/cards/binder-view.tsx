@@ -229,7 +229,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
     return () => { live = false; };
   }, [c.kc, c.status, owned]);
   // The server's figure (locked cards, Gold and Full Art extras left out); the local one until it answers.
-  const local = useMemo(() => extras(catalog.cards, owned, true), [catalog.cards, owned]);
+  const local = useMemo(() => extras([...catalog.cards, ...catalog.retired], owned, true), [catalog.cards, catalog.retired, owned]);
   const ex = preview ? { n: preview.extras, shards: preview.shards } : local;
   const pc = Math.max(1, pages.length);
   const step = single ? 1 : 2;

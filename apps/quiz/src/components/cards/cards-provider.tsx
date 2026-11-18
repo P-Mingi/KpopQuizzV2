@@ -11,7 +11,7 @@ import { legacyApi } from '@/lib/kpopcards/legacy';
 import { setKcApi } from '@/lib/kpopcards/registry';
 
 import { syncPrefs } from './opening-prefs-sync';
-import { ownedMap } from '@/lib/cards/ui-model';
+import { ownedMap, withOwnedRetired } from '@/lib/cards/ui-model';
 
 import { clearPendingDemo, deviceId, pendingDemo } from './demo-store';
 
@@ -60,7 +60,7 @@ export function useCards(): CardsCtx {
   return c;
 }
 
-export function CardsProvider({ catalog, fixture, demo = false, children }: { catalog: SlimCatalog; fixture: boolean; demo?: boolean; children: React.ReactNode }): React.ReactElement {
+export function CardsProvider({ catalog: base, fixture, demo = false, children }: { catalog: SlimCatalog; fixture: boolean; demo?: boolean; children: React.ReactNode }): React.ReactElement {
   const [api, setApi] = useState<CardsApi | null>(null);
   const [kc, setKc] = useState<KpopCardsApi | null>(null);
   const [status, setStatus] = useState<CardsStatus>('loading');
@@ -73,8 +73,10 @@ export function CardsProvider({ catalog, fixture, demo = false, children }: { ca
   const [toastOn, setToastOn] = useState(false);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const byN = useMemo(() => new Map(catalog.cards.map((c) => [c.n, c])), [catalog]);
   const owned = useMemo(() => ownedMap(state?.owned ?? []), [state]);
+  // Owner decision 2026-11-18: the cards the player owns that are out of packs stay in the binder, as the "New photo coming" frame.
+  const catalog = useMemo(() => withOwnedRetired(base, owned), [base, owned]);
+  const byN = useMemo(() => new Map([...base.retired, ...base.cards].map((c) => [c.n, c])), [base]);
   const panoByP = useMemo(() => new Map((catalog.panos ?? []).map((p) => [p.p, p])), [catalog]);
   const panoOwned = useMemo<ReadonlySet<number>>(() => new Set(state?.panoramas ?? []), [state]);
 

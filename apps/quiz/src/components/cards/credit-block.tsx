@@ -6,7 +6,11 @@ import { reportHref, safeHref, shareAlikeName } from '@/lib/cards/ui-credit';
 
 import type { UiPhoto } from '@/lib/cards/ui-types';
 
-export function CreditBlock({ photo, num, kind = 'idol' }: { photo: UiPhoto | null; num: string; kind?: 'idol' | 'group' | 'event' }): React.ReactElement {
+export function CreditBlock({ photo, num, kind = 'idol', soon = false }: { photo: UiPhoto | null; num: string; kind?: 'idol' | 'group' | 'event'; soon?: boolean }): React.ReactElement {
+  // Owner decision 2026-11-18: a card whose photo left has no photo to credit: it says a new one is coming (no author, no licence, no Commons line).
+  if (soon) {
+    return <p className="credit" data-testid="card-credit">A new photo is coming for this card. It keeps its number and its place in your binder until then. <a href={reportHref({ num })}>Report a problem</a></p>;
+  }
   if (!photo) {
     return <p className="credit" data-testid="card-credit">The art of this card is drawn. No photo is used on it. <a href={reportHref({ num })}>Report a problem</a></p>;
   }

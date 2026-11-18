@@ -17,7 +17,7 @@ import { useCards } from './cards-provider';
 
 export function IdolView({ slug }: { slug: string }): React.ReactElement {
   const { catalog, owned, status, kc } = useCards();
-  const info = findIdol(catalog, slug);
+  const info = findIdol(catalog, slug, (n) => owned.has(n));
   const [page, setPage] = useState<IdolPage | null>(null);
   useEffect(() => { if (kc) void kc.idol(slug).then((r) => setPage(isApiError(r) ? null : r)); }, [kc, slug]);
   if (!info) {

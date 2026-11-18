@@ -159,7 +159,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
     if (w?.last) return w.last.cards.map((p) => ({ card: byN.get(p.n), isNew: p.isNew })).filter((x) => x.card);
     return [];
   }, [lastPack, owned, byN, w?.last]);
-  const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
+  const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x && !x.soon).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
   const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists' && !s.soon), [catalog.sections]);
   // The prototype's default focus group is TWICE (S.focus "twice"); a catalog without it starts on its first group.
   useEffect(() => { if (!focusG && groups[0]) setFocusG((groups.find((g) => g.name === 'TWICE') ?? groups[0]).id); }, [focusG, groups]);

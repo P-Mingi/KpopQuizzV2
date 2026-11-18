@@ -29,7 +29,7 @@ const redeem = (db: PGlite, u: string, c: string, at = T0, k = key()): Promise<{
   one(db, 'select public.cards_friend_redeem($1::uuid, $2, $3, $4::timestamptz)', [u, k, c, at]);
 
 describe('the 111 and 112 files are one DO block', () => {
-  it.each([['111-group-types.sql', 'c111'], ['111-group-types.rollback.sql', 'c111r'], ['112-social.sql', 'c112'], ['112-social.rollback.sql', 'c112r'], ['113-moment.sql', 'c113'], ['113-moment.rollback.sql', 'c113r']])('%s', (file, tag) => {
+  it.each([['111-group-types.sql', 'c111'], ['111-group-types.rollback.sql', 'c111r'], ['112-social.sql', 'c112'], ['112-social.rollback.sql', 'c112r'], ['113-moment.sql', 'c113'], ['113-moment.rollback.sql', 'c113r'], ['124-photoless-owned.sql', 'c124'], ['124-photoless-owned.rollback.sql', 'c124r']])('%s', (file, tag) => {
     const sql = readFileSync(path.join(CARDS_SQL, file), 'utf8');
     const outer = `$${tag}$`;
     const code2 = sql.split('\n').filter((l) => !l.startsWith('--')).join('\n').trim();
@@ -215,5 +215,50 @@ describe('113: the moment of a card', () => {
     expect((await one<{ quiz_slug: string | null }>(db, 'select public.cards_moment($1::uuid, 2)', [u])).quiz_slug).toBeNull();
     await db.exec(readCardsSql('113-moment.rollback.sql'));
     expect(Number(await one(db, "select count(*) from pg_proc where proname = 'cards_moment'"))).toBe(0);
+  });
+});
+
+describe('124: an owned card that left the packs keeps its moment and its place in a showcase', () => {
+  it('answers for the owner only, leaves the count of cards in packs alone, changes nothing on a second run, and the rollback gives 112 and 113 back', async () => {
+    const db = await socialDb();
+    await db.exec(readCardsSql('113-moment.sql'));
+    const a = await player(db, 'alice');
+    const b = await player(db, 'bobby');
+    await db.query(`insert into public.cards_wallets (user_id, stock, anchor, paris_day, created_at) values ($1, 5, now(), current_date, '2026-11-01T00:00:00Z')`, [a]);
+    await own(db, a, [2, 3, 4]);
+    await db.query('update public.cards_owned set favorite = true where user_id = $1 and card_no = 2', [a]);
+    // what 119 does to a card whose photo leaves: no photo, out of the packs. Card 6 is out of the packs too, and nobody owns it.
+    await db.query('update public.cards_catalog set photo_id = null, in_packs = false where card_no in (2, 6)');
+    const before = await one<{ showcase: number[]; owned: number }>(db, "select public.cards_profile($1::uuid, 'alice')", [a]);
+    expect(before.showcase).not.toContain(2);
+    expect(await failure(db, 'select public.cards_moment($1::uuid, 2)', [a])).toMatch(/cards: card/);
+
+    await db.exec(readCardsSql('124-photoless-owned.sql'));
+    const sum = (): Promise<string> => one<string>(db, "select md5(string_agg(prosrc, '|' order by proname)) from pg_proc where proname in ('cards_moment', 'cards_profile_of')");
+    const once = await sum();
+    await db.exec(readCardsSql('124-photoless-owned.sql'));
+    expect(await sum()).toBe(once);
+
+    const m = await one<{ n: number; event: unknown; yours: { copies: number } | null }>(db, 'select public.cards_moment($1::uuid, 2)', [a]);
+    expect(m.n).toBe(2);
+    expect(m.event).toBeNull();
+    expect(m.yours?.copies).toBe(1);
+    // not the owner, or a card out of the packs nobody owns: still "cards: card"
+    expect(await failure(db, 'select public.cards_moment($1::uuid, 2)', [b])).toMatch(/cards: card/);
+    expect(await failure(db, 'select public.cards_moment($1::uuid, 6)', [a])).toMatch(/cards: card/);
+    const after = await one<{ showcase: number[]; owned: number }>(db, "select public.cards_profile($1::uuid, 'alice')", [a]);
+    expect(after.showcase[0]).toBe(2);
+    expect(after.showcase).toHaveLength(3);
+    // the count of cards stays the cards in packs
+    expect(after.owned).toBe(before.owned);
+    expect(after.owned).toBe(2);
+    expect(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of') and prosrc like '%124 (owner decision 2026-11-18)%'")).toBe(2);
+    expect(Number(await one(db, "select count(*) from public.cards_owned where user_id = $1", [a]))).toBe(3);
+
+    await db.exec(readCardsSql('124-photoless-owned.rollback.sql'));
+    expect(Number(await one(db, "select count(*) from pg_proc where proname in ('cards_moment', 'cards_profile_of') and prosrc like '%124 (owner decision 2026-11-18)%'"))).toBe(0);
+    expect(await failure(db, 'select public.cards_moment($1::uuid, 2)', [a])).toMatch(/cards: card/);
+    await db.exec(readCardsSql('124-photoless-owned.rollback.sql'));
+    expect(Number(await one(db, "select count(*) from public.cards_owned where user_id = $1", [a]))).toBe(3);
   });
 });

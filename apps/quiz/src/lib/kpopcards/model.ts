@@ -24,6 +24,8 @@ export interface World {
   themeOf: Map<string, ThemeId>;
   /** Lot 7: the panoramas of the catalog (one per group photo whose parts are in packs). Absent before file 118: then nothing below shows a panorama. */
   panoramas?: UiPanorama[];
+  /** Owner decision 2026-11-18: the cards out of packs. A player who owns one keeps it (the binder, the card page, a showcase, the idol page); it is never drawn, counted or in the odds, so it is not in `cards`. */
+  retired?: UiCard[];
 }
 
 export const slugify = (s: string): string =>
@@ -487,7 +489,8 @@ export function almostState(w: World, p: PlayerData, limit = 4): AlmostState {
 
 export function recyclePreview(w: World, p: PlayerData): RecyclePreview {
   let extras = 0, shards = 0, locked = 0, gold = 0;
-  for (const c of w.cards) {
+  // The database recycles the extras of every card the player holds, a card out of packs too (owner decision 2026-11-18: it stays in the binder): the figure counts them.
+  for (const c of [...w.cards, ...(w.retired ?? [])]) {
     const o = p.owned.get(c.n);
     if (!o || o.copies < 2) continue;
     const x = o.copies - 1;
@@ -583,7 +586,8 @@ export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null
   const slugs = entitySlugs(w.entities);
   const e = w.entities.find((x) => x.kind === 'idol' && !x.locked && slugs.get(x.id) === slug);
   if (!e) return null;
-  const cs = w.cards.filter((c) => c.entity === e.id);
+  // Owner decision 2026-11-18: a card the player owns that is out of packs still opens the idol's page and is one of its editions.
+  const cs = [...w.cards.filter((c) => c.entity === e.id), ...(w.retired ?? []).filter((c) => c.entity === e.id && p.owned.has(c.n))];
   const unlocked = cs.some((c) => p.owned.has(c.n));
   const gs = e.group ? sectionsOf(w).find((s) => s.name === e.group) : null;
   const quizzes = [{ title: `${e.name} quizzes on kpopquiz.org`, url: `${QUIZ_BASE}/${quizSlug(e)}` }];
@@ -603,7 +607,7 @@ export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null
 /** The quiz link of a card: the idol's own page, else its group's, from the slug the database found (cards_moment) or, in the mock, from the entity. */
 export function momentQuiz(w: World, n: number, slug: string | null): CardMoment['quiz'] {
   if (!slug) return null;
-  const card = w.cards.find((c) => c.n === n);
+  const card = w.cards.find((c) => c.n === n) ?? w.retired?.find((c) => c.n === n);
   const e = card ? w.entities.find((x) => x.id === card.entity) : undefined;
   const bySlug = w.entities.find((x) => x.id.replace(/^[a-z]+:/, '') === slug);
   const name = bySlug?.name ?? e?.name ?? slug;

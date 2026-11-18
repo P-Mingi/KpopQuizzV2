@@ -52,7 +52,7 @@ export const statusOf = (e: ApiError): number => ERROR_STATUS[e.error];
 const GENDER_THEME: Record<string, ThemeId | undefined> = { girl: 'girls', boy: 'boys' };
 
 /** The catalog as a World: the theme of each group and idol, the way cards_theme_of (110) decides it. Pure. */
-export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'> & Partial<Pick<CatalogPayload, 'panoramas'>>, types: ReadonlyMap<string, string>): World {
+export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'> & Partial<Pick<CatalogPayload, 'panoramas' | 'retired'>>, types: ReadonlyMap<string, string>): World {
   const entities: UiEntity[] = cat.entities.map((e) => ({
     id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear !== undefined ? { endYear: e.endYear } : {}),
     ...(e.locked ? { locked: true as const } : {}),
@@ -80,7 +80,7 @@ export function worldFrom(cat: Pick<CatalogPayload, 'cards' | 'entities'> & Part
     }
   }
   // Lot 7: the panoramas of the catalog (absent before file 118: then no answer carries a panorama).
-  return { cards, entities, themeOf, ...(cat.panoramas ? { panoramas: cat.panoramas } : {}) };
+  return { cards, entities, themeOf, ...(cat.panoramas ? { panoramas: cat.panoramas } : {}), ...(cat.retired?.length ? { retired: cat.retired as unknown as UiCard[] } : {}) };
 }
 
 let cachedWorld: { at: number; world: World } | null = null;
@@ -283,13 +283,14 @@ export async function idol(c: Ctx, slug: string): Promise<ApiResult<ReturnType<t
 
 interface ProfileJson { nickname: string; owned: number; showcase: number[]; badges: string[]; friend: boolean; me: boolean; wishlist: number[] | null }
 
-const refOf = (w: World, n: number): CardRef | null => {
-  const card = w.cards.find((x) => x.n === n);
+/** `owned`: the list is cards the person holds (a showcase), so a card that is out of packs keeps its place (owner decision 2026-11-18); a wishlist is not: nobody can get that card now. */
+const refOf = (w: World, n: number, owned: boolean): CardRef | null => {
+  const card = w.cards.find((x) => x.n === n) ?? (owned ? w.retired?.find((x) => x.n === n) : undefined);
   return card ? cardRef(card) : null;
 };
-const refs = (w: World, ns: number[] | null): CardRef[] => (ns ?? []).map((n) => refOf(w, n)).filter((x): x is CardRef => x !== null);
+const refs = (w: World, ns: number[] | null, owned = false): CardRef[] => (ns ?? []).map((n) => refOf(w, n, owned)).filter((x): x is CardRef => x !== null);
 
-const summaryOf = (w: World, j: ProfileJson): PlayerSummary => ({ nickname: j.nickname, owned: j.owned, showcase: refs(w, j.showcase), badges: j.badges, friend: j.friend, me: j.me });
+const summaryOf = (w: World, j: ProfileJson): PlayerSummary => ({ nickname: j.nickname, owned: j.owned, showcase: refs(w, j.showcase, true), badges: j.badges, friend: j.friend, me: j.me });
 
 export async function ranking(c: Ctx, scope: 'friends' | 'all'): Promise<ApiResult<RankingState>> {
   const w = await loadWorld(c.db, c.now);
