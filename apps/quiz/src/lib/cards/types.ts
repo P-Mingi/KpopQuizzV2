@@ -123,6 +123,8 @@ export interface CatalogCard {
   setNs?: number[];
   /** Lot 7: the panorama of the photo (its pano_no), on a part; absent on a whole card. */
   pano?: number;
+  /** Owner decision 2026-11-18: true on a card that is out of packs (no live photo now). It is in `CatalogPayload.retired`, never in `cards`; a player who owns it keeps it in the binder as the "New photo coming" frame. */
+  retired?: true;
 }
 
 /** An idol, a group or an event, with the reasons its missing editions are missing (LOCK_SENTENCES keys). */
@@ -153,6 +155,8 @@ export interface CatalogPayload {
   entities: CatalogEntity[];
   /** Lot 7: the panoramas whose parts are in packs, by pano_no. Absent before file 118. */
   panoramas?: CatalogPanorama[];
+  /** Cards out of packs (their photo left, rights or the photo check): the "New photo coming" cards of the players who own them. Never drawn, never counted, never in the odds. Absent when there is none. */
+  retired?: CatalogCard[];
 }
 
 /** One line of the player's binder as the API returns it. */

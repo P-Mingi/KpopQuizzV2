@@ -36,9 +36,12 @@ export function fullArtRate(odds: CatalogOdds | null): string | null {
 }
 
 export function slimCard(c: UiCard, entityType: string | null = null, rate: string | null = null): SlimCard {
+  const img = photoPicture(c.photo);
   return {
     n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear,
-    img: photoPicture(c.photo), fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
+    img, fx: c.photo?.focalX ?? 50, fy: c.photo?.focalY ?? 30, sub: entityType,
+    // Owner decision 2026-11-18: out of packs with no picture now = the "New photo coming" frame; with a picture again it is an ordinary card.
+    ...(c.retired && !img ? { soon: true as const } : {}),
     part: c.part === 1 || c.part === 2 || c.part === 3 ? c.part : 0, pairN: c.part === 1 || c.part === 2 ? (c.pairN ?? null) : null,
     // Lot 7: a part keeps the size of its set, the numbers of every part and the number of its panorama.
     ...(c.part && c.parts ? { parts: c.parts } : {}), ...(c.part && c.setNs ? { setNs: c.setNs } : {}), ...(c.part && c.pano !== undefined ? { pano: c.pano } : {}),
@@ -174,7 +177,50 @@ export function buildSlim(cat: UiCatalog): SlimCatalog {
   addSoonPockets(entities, items, sections, seen);
   // Lot 7: the Panoramas section has its own count (over the panoramas, never over the cards), after every group.
   if (panos.length) sections.push({ id: PANO_SECTION, name: 'Panoramas', color: paletteFor('panoramas').dot, ns: [], panos: panos.map((p) => p.p) });
-  return { cards, items, sections, locks, editions, panos };
+  const typeOfEntity = new Map(cat.entities.map((e) => [e.id, e.eventType ?? null] as const));
+  const retired = (cat.retired ?? []).map((c) => slimCard(c, typeOfEntity.get(c.entity) ?? null, faRate));
+  return { cards, items, sections, locks, editions, panos, retired };
+}
+
+/** The section a card of a subject belongs to (the id buildSlim gives it). */
+function sectionOf(c: Pick<SlimCard, 'kind' | 'name' | 'group'>): { id: string; name: string } {
+  const name = c.kind === 'event' ? 'Events' : c.kind === 'group' ? c.name : (c.group ?? SOLOISTS_SECTION);
+  return { id: c.kind === 'event' ? EVENTS_SECTION : slug(name), name };
+}
+
+/**
+ * Owner decision 2026-11-18: the cards a player owns that are out of packs stay in the binder. Each one takes the pocket of its edition (the locked
+ * pocket "Not issued" of its subject), or, when the subject has no pocket for it, a place at the end of its section (a section is made if the subject's
+ * group has none). The card is a SlimCard with `soon` (the "New photo coming" frame) until a photo is live again. Pure; the same catalog comes
+ * back when the player owns none. `cards`, the sections' numbers and every count are left as they are: these cards are out of the pool and out of
+ * the totals, they only have to be there to be seen.
+ */
+export function withOwnedRetired(cat: SlimCatalog, owned: ReadonlyMap<number, unknown>): SlimCatalog {
+  const mine = cat.retired.filter((c) => owned.has(c.n)).sort((a, b) => a.n - b.n);
+  if (mine.length === 0) return cat;
+  const items: BinderItem[] = cat.items.slice();
+  let sections: BinderSection[] = cat.sections.slice();
+  for (const c of mine) {
+    const at = items.findIndex((it) => it.locked && !it.soon && it.entity === c.entity && it.rarity === c.rarity);
+    if (at >= 0) {
+      items[at] = { i: at, sec: items[at]!.sec, card: c };
+      continue;
+    }
+    const sec = sectionOf(c);
+    const known = sections.findIndex((x) => x.id === sec.id);
+    if (known < 0) {
+      const color = c.kind === 'event' ? paletteFor('events').dot : paletteFor(`group:${sec.name}`).dot;
+      const pano = sections.findIndex((x) => x.id === PANO_SECTION);
+      sections = pano < 0 ? [...sections, { id: sec.id, name: sec.name, color, ns: [] }] : [...sections.slice(0, pano), { id: sec.id, name: sec.name, color, ns: [] }, ...sections.slice(pano)];
+    } else if (sections[known]!.soon) {
+      const { soon: _soon, ...rest } = sections[known]!;
+      sections[known] = rest;
+    }
+    let last = -1;
+    items.forEach((it, k) => { if (it.sec === sec.id) last = k; });
+    items.splice(last < 0 ? items.length : last + 1, 0, { i: 0, sec: sec.id, card: c });
+  }
+  return { ...cat, items: items.map((it, k) => ({ ...it, i: k })), sections };
 }
 
 /**

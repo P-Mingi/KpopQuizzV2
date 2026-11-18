@@ -119,7 +119,7 @@ export function panoImage(p: ImagePhotoRow, parts: GroupParts, someSmall2x: bool
 }
 
 /** Builds the payload from the table reads (pure, tested without a database). */
-export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: PhotoRow[], generatedAt: string, base?: string, locked: ReadonlySet<string> = new Set(), panoramaRows: readonly PanoramaRow[] | null = null): CatalogPayload {
+export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: PhotoRow[], generatedAt: string, base?: string, locked: ReadonlySet<string> = new Set(), panoramaRows: readonly PanoramaRow[] | null = null, retiredRows: readonly CardRow[] = []): CatalogPayload {
   const ent = new Map(entities.map((e) => [e.id, e]));
   const photo = new Map(photos.map((p) => [p.id, p]));
   const outEntities: CatalogEntity[] = entities.map((e) => {
@@ -185,8 +185,25 @@ export function buildCatalog(cards: CardRow[], entities: EntityRow[], photos: Ph
       image: p ? panoImage(p, parts, ns.some((n) => cardByN.get(n)?.small_2x === true), base) : null,
     };
   });
+  // Owner decision 2026-11-18: a card out of packs (photo_id null or a photo no longer live) stays in the binder of the players who own it, as the
+  // "New photo coming" frame. It is listed apart: it is not in `cards`, so it is never drawn, counted or in the odds. It carries no pair, no set, no
+  // panorama (it is one frame); a card whose photo is live again (photo_id set and in packs) is in `cards` and is not listed here.
+  const inPool = new Set(outCards.map((c) => c.n));
+  const retired: CatalogCard[] = [];
+  for (const c of retiredRows) {
+    const e = ent.get(c.entity_id);
+    if (!e || locked.has(c.entity_id) || inPool.has(c.card_no)) continue;
+    const p = c.photo_id === null ? undefined : photo.get(c.photo_id);
+    retired.push({
+      n: c.card_no, num: c.num, entity: c.entity_id, kind: e.kind, rarity: c.rarity, edition: c.edition, name: e.name,
+      group: e.group_id ? (ent.get(e.group_id)?.name ?? null) : e.kind === 'group' ? e.name : null,
+      debutYear: e.debut_year, ...(typeof e.end_year === 'number' ? { endYear: e.end_year } : {}),
+      photo: p ? { id: p.id, slot: p.slot, author: p.author, authorUrl: p.author_url, licence: p.licence, licenceUrl: p.licence_url, source: p.source, sourcePage: p.source_page, shareAlike: p.share_alike, modified: p.modified } : null,
+      image: p ? cardImage(p, base) : null, retired: true,
+    });
+  }
   const pool = outCards.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, entity: c.entity }));
-  return { generatedAt, odds: pool.length > 0 ? computeOdds(pool) : null, cards: outCards, entities: outEntities, ...(panoramas ? { panoramas } : {}) };
+  return { generatedAt, odds: pool.length > 0 ? computeOdds(pool) : null, cards: outCards, entities: outEntities, ...(panoramas ? { panoramas } : {}), ...(retired.length > 0 ? { retired } : {}) };
 }
 
 /** One row of cards_age_locks() (file 116). opens_month is read by the admin only: it never enters the payload. */
@@ -211,7 +228,7 @@ let cached: { at: number; payload: CatalogPayload } | null = null;
 export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayload> {
   if (cached && now - cached.at < CATALOG_TTL_MS) return cached.payload;
   const db = createServiceRoleClient();
-  const [cards, entities, photos] = await Promise.all([
+  const [cards, entities, photos, retiredRows] = await Promise.all([
     fetchAllRows<CardRow>(() =>
       // '*': part and small_2x exist only once file 102 is applied; before it every card reads as a whole card.
       db.from('cards_catalog').select('*').eq('in_packs', true).order('card_no', { ascending: true })),
@@ -223,6 +240,8 @@ export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayl
       db.from('cards_photos')
         .select('*')
         .in('status', ['auto', 'approved']).order('id', { ascending: true })),
+    // The cards out of packs (owner decision 2026-11-18): a player who owns one keeps it in the binder. A failed read lists none: the catalog stays whole.
+    fetchAllRows<CardRow>(() => db.from('cards_catalog').select('*').eq('in_packs', false).order('card_no', { ascending: true })).catch((): CardRow[] => []),
   ]);
   // Lot 6: the age lock is computed by the database at read time; the answer is cached with the catalog (5 minutes), so a pocket opens by itself.
   let answer: AgeLockRow[] | null = [];
@@ -237,7 +256,7 @@ export async function loadCatalog(now: number = Date.now()): Promise<CatalogPayl
   } catch {
     panoramas = null;
   }
-  const payload = buildCatalog(cards, entities, photos, new Date(now).toISOString(), undefined, lockedIds(entities, answer), panoramas);
+  const payload = buildCatalog(cards, entities, photos, new Date(now).toISOString(), undefined, lockedIds(entities, answer), panoramas, retiredRows);
   cached = { at: now, payload };
   return payload;
 }
