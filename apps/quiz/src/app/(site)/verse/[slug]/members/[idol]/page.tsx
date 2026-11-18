@@ -8,6 +8,7 @@ import { InfoboxCard } from '@/components/verse/editor/infobox-card';
 import { DiscussionThread } from '@/components/verse/discussion-thread';
 import { WatchButton } from '@/components/verse/watch-button';
 import { MoreAboutThis } from '@/components/verse/pages/more-about-this';
+import { loadCardsIdol } from '@/lib/cards-bridge/group';
 import { getIdol } from '@/lib/verse/idol';
 import { getSection } from '@/lib/verse/content';
 import { renderTipTapJSON } from '@/lib/verse/render-content';
@@ -68,6 +69,8 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
 
   const lore = await getSection('idol', String(d.id), 'lore');
   const loreHtml = lore.content ? renderTipTapJSON(lore.content) : '';
+  // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): "<idol> cards". Null while off: the tree below is today's.
+  const cardsLink = await loadCardsIdol(d.group, { name: d.name, slug: idol });
 
   return (
     <article className="mt-2">
@@ -142,6 +145,8 @@ export default async function IdolPage({ params }: { params: Promise<{ slug: str
               <Link href={`/blindtest/group-${d.group.slug}`} className="verse-tile rounded-xl border border-default bg-surface px-4 py-3 text-sm font-semibold no-underline" style={{ color: 'var(--verse-ink)' }}>Blind test</Link>
             </div>
           </section>
+
+          {cardsLink}
 
           {/* Related members */}
           {d.bandmates.length ? (

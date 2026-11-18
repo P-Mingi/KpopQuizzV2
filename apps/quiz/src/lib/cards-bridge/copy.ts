@@ -22,6 +22,20 @@ export function groupCardsTitle(name: string): string {
   return `${name} cards`;
 }
 
+/** The anchor to the group's own page of the binder. */
+export function groupCollectionLink(name: string): string {
+  return `${name} cards on Bunnyverse`;
+}
+
+/** The anchor of an idol page to the idol's cards. */
+export function idolCardsLink(name: string): string {
+  return `${name} cards`;
+}
+
+export function idolCardsCount(count: number): string {
+  return `${count} ${count === 1 ? 'card' : 'cards'} on Bunnyverse`;
+}
+
 export function groupCardsCount(owned: number | null, total: number): string {
   return owned === null ? `${total} ${total === 1 ? 'card' : 'cards'}` : `${owned} of ${total} owned`;
 }
