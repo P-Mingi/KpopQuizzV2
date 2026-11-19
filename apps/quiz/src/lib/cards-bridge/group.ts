@@ -36,6 +36,9 @@ type PhotoRow = ImagePhotoRow & { id: number };
 
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
+/** The binder's and the hub idol page's slug of a name (the same function as slugOf of lib/cards/kc-idol.ts, copied so this file imports nothing of the Cards pages; a test pins them equal). */
+export const slugOf = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 export function photoPublicUrl(base: string | undefined, path: string | null): string | null {
   if (!base || !path || path.includes('..') || path.startsWith('/')) return null;
   return `${base.replace(/\/$/, '')}/storage/v1/object/public/cards/${path.split('/').map(encodeURIComponent).join('/')}`;
@@ -77,6 +80,68 @@ export async function loadCardsGroup(group: { readonly name: string; readonly sl
     return await cardsGroup(group.name, group.slug);
   } catch (err) {
     console.error('[group-hub] Cards block hidden:', (err as Error)?.message ?? err);
+    return null;
+  }
+}
+
+/**
+ * The slug of this page's section of the hub binder (/kpopcards/collection/<section>), or null. The binder files a group under the slug of its
+ * group card's name, and a soloist without a group line under "soloists" (lib/cards/ui-model.ts). null on any failure or for a page the
+ * catalog does not know: the block then keeps its link to the whole binder, never a path that could 404.
+ */
+export async function readGroupCollection(slug: string, db: SupabaseClient = createServiceRoleClient()): Promise<string | null> {
+  if (!SLUG.test(slug)) return null;
+  const ents = await db.from('cards_entities').select('id,name,group_id').eq('active', true).or(`id.eq.group:${slug},id.eq.idol:${slug}`).limit(10);
+  if (ents.error || !ents.data?.length) return null;
+  const rows = ents.data as Array<EntityRow & { group_id: string | null }>;
+  const group = rows.find((r) => r.id === `group:${slug}`);
+  if (group) return slugOf(group.name) || null;
+  const solo = rows.find((r) => r.id === `idol:${slug}` && r.group_id === null);
+  return solo ? 'soloists' : null;
+}
+
+export interface IdolCards {
+  /** The hub's page of the idol: /kpopcards/idol/<this>. */
+  slug: string;
+  name: string;
+  /** Real cards of the idol (in packs, with a photo that is still in use). */
+  count: number;
+}
+
+/** The cards of one idol of a group page, found by the stage name the hub's idol page uses. null when the idol has none (then no link). */
+export async function readIdolCards(groupSlug: string, idolName: string, idolPageSlug: string, db: SupabaseClient = createServiceRoleClient()): Promise<IdolCards | null> {
+  if (!SLUG.test(groupSlug) || !SLUG.test(idolPageSlug)) return null;
+  const target = slugOf(idolName);
+  if (!target) return null;
+  const ents = await db.from('cards_entities').select('id,name').eq('active', true).or(`group_id.eq.group:${groupSlug},id.eq.idol:${idolPageSlug}`).limit(1000);
+  if (ents.error || !ents.data?.length) return null;
+  const mine = (ents.data as EntityRow[]).filter((e) => e.id.startsWith('idol:') && slugOf(e.name) === target);
+  if (!mine.length) return null;
+  const cat = await db.from('cards_catalog').select('card_no,entity_id,photo_id').eq('in_packs', true).in('entity_id', mine.map((e) => e.id)).order('card_no').limit(1000);
+  if (cat.error || !cat.data?.length) return null;
+  const rows = cat.data as Array<{ card_no: number; entity_id: string; photo_id: number | null }>;
+  const ids = [...new Set(rows.flatMap((r) => (r.photo_id === null ? [] : [r.photo_id])))];
+  if (!ids.length) return null;
+  const ph = await db.from('cards_photos').select('id').in('id', ids).in('status', ['auto', 'approved']).limit(1000);
+  if (ph.error) return null;
+  const live = new Set((ph.data as Array<{ id: number }>).map((p) => p.id));
+  // The hub's idol page shows the first entity of that name; its cards are the ones counted.
+  const first = rows.find((r) => r.photo_id !== null && live.has(r.photo_id));
+  if (!first) return null;
+  const count = rows.filter((r) => r.entity_id === first.entity_id && r.photo_id !== null && live.has(r.photo_id)).length;
+  return { slug: target, name: mine.find((e) => e.id === first.entity_id)?.name ?? idolName, count };
+}
+
+/** The "{Idol} cards" link of one idol page, ready to place, or null: then the page renders exactly the tree it renders without this file. */
+export async function loadCardsIdol(group: { readonly slug: string }, idol: { readonly name: string; readonly slug: string }): Promise<React.ReactElement | null> {
+  if (!cardsBridgesKpopOn()) return null;
+  try {
+    const found = await readIdolCards(group.slug, idol.name, idol.slug);
+    if (!found) return null;
+    const { cardsIdol } = await import('@/components/cards-bridge/cards-idol');
+    return cardsIdol(found);
+  } catch (err) {
+    console.error('[idol-page] Cards link hidden:', (err as Error)?.message ?? err);
     return null;
   }
 }
