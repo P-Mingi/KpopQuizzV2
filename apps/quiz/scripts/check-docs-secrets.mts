@@ -207,7 +207,8 @@ function scan(file: string): Finding[] {
 
     EMAIL.lastIndex = 0;
     for (const m of text.matchAll(EMAIL)) {
-      if (!ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0]) && !isProjectDomainEmail(m[0]) && !isV12FakeDomainPattern(file, m[0])) {
+      // A Commons file name (Jackson@Got7.jpg) is not an email: .jpg, .png and the other image extensions are not top-level domains.
+      if (!/\.(jpe?g|png|gif|webp|svg|tiff?)$/i.test(m[0]) && !ALLOWED_EMAILS.has(m[0].toLowerCase()) && !isPlaceholderEmail(m[0]) && !isProjectDomainEmail(m[0]) && !isV12FakeDomainPattern(file, m[0])) {
         findings.push({ file, line: lineNo, pattern: 'EMAIL-NOT-ALLOWLISTED' });
       }
     }
