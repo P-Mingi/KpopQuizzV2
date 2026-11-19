@@ -51,18 +51,18 @@ describe('the seeded mock of the KpopCards contract', () => {
     expect(await a.open({ key: k(6), source: 'stock' })).toEqual({ error: 'empty' });
     expect(await a.open({ key: k(7), source: 'stock', packs: 5 })).toEqual({ error: 'stack_short' });
   });
-  it('the stack holds ten, the timer adds a pack every ten minutes', async () => {
+  it('the stack holds seven, the timer adds a pack every ten minutes', async () => {
     let t = T0;
     const a = createMockApi({ world: WORLD, seed: 6, now: () => t, example: false });
     const s0 = await a.state();
     if (isApiError(s0)) throw new Error('x');
     expect(s0.cap).toBe(KC.STACK_CAP);
-    expect(s0.stock).toBe(10);
+    expect(s0.stock).toBe(7);
     await a.open({ key: k(8), source: 'stock' });
     t += 25 * 60000;
     const s1 = await a.state();
     if (isApiError(s1)) throw new Error('x');
-    expect(s1.stock).toBe(10);
+    expect(s1.stock).toBe(7);
   });
   it('answers every read of the contract', async () => {
     const a = createMockApi({ world: WORLD, seed: 7, now: () => T0 });

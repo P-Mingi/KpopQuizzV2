@@ -8,6 +8,10 @@ name: Cards publish
 #      original fails, or whose upload or PATCH still fails after its tries, is skipped and listed; the job then ends red, the others are
 #      published. It stops at once on a 401, 403 or 404 of the project, or after 5 photos in a row failing on it.
 #   2. kpopdle-photos.mjs --publish, when the input kpopdle is "oui".
+#   2b. kpopdle-commons.mjs --publish, when the input kpopdle_commons is "oui" (off by default): the Kpopdle faces become the Commons photos of the
+#      cards (live, subject 18 or older, verdict OK of lane PHOTOCHECK, best rank), cropped to the Kpopdle format from the originals cache; an idol
+#      with no such photo loses the old photo and shows its drawn card. It reads the committed verdict file
+#      docs/design/cards/data/kpopdle-faces/photocheck.csv and stops when it is missing or has no rank column.
 #   3. The summary of the job: cards, panoramas, the failed photos and why, the Kpopdle idols served.
 # The service key is the secret SUPABASE_SERVICE_ROLE_KEY of the environment "cards-publish" (only after the reviewer's approval), given to
 # the two publish steps through their environment only: never on a command line, never printed (GitHub also masks it in the logs).
@@ -22,6 +26,14 @@ on:
         type: string
       kpopdle:
         description: 'Then publish the Kpopdle idol photos (kpopdle-photos.mjs --publish)'
+        required: true
+        type: choice
+        options:
+          - non
+          - oui
+        default: non
+      kpopdle_commons:
+        description: 'Then replace the Kpopdle faces by the Commons photos of the cards (kpopdle-commons.mjs --publish; needs the committed PHOTOCHECK verdict file)'
         required: true
         type: choice
         options:
@@ -113,6 +125,13 @@ jobs:
         env:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node apps/quiz/scripts/cards/kpopdle-photos/kpopdle-photos.mjs --publish
+
+      - name: Publish the Kpopdle Commons faces
+        if: inputs.kpopdle_commons == 'oui'
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ORIGINALS: ${{ runner.temp }}/cards-originals
+        run: node apps/quiz/scripts/cards/kpopdle-photos/kpopdle-commons.mjs --verdicts docs/design/cards/data/kpopdle-faces/photocheck.csv --cache-dir "$ORIGINALS" --publish
 
       - name: Summary
         if: always() && steps.cards.outcome != 'skipped'
