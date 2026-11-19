@@ -72,6 +72,19 @@ function Photo({ card, img }: { card: SlimCard; img: NonNullable<SlimCard['img']
 }
 
 function Art({ card }: { card: SlimCard }): React.ReactElement {
+  // Owner decision 2026-11-18: a card the player owns whose photo left shows its number, edition and name on this frame, no image, until a new photo comes.
+  if (card.soon) {
+    return (
+      <>
+        <i className="c-bg" />
+        <span className="c-soon" data-soon="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-i-camera" /></svg>
+          <b>New photo</b>
+          <b>coming</b>
+        </span>
+      </>
+    );
+  }
   if (card.kind === 'idol') {
     return (
       <>

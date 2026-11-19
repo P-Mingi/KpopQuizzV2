@@ -14,7 +14,7 @@ import { kcPath } from '@/lib/cards/kc-paths';
 import { LOCK_SENTENCES, RARITIES, RARITY_LABEL } from '@/lib/cards/rules';
 import { isError } from '@/lib/cards/ui-api';
 import { isApiError } from '@/lib/kpopcards/contract';
-import { NO_FILTERS, PANO_SECTION, SORTS, countByKind, extras, filterItems, filterPanos, gridCells, gridPages, ownedCount, pageWords, paginate, panoCount, partLabel, partWord, sortItems } from '@/lib/cards/ui-model';
+import { NO_FILTERS, PANO_SECTION, SORTS, countByKind, countedCards, extras, filterItems, filterPanos, gridCells, gridPages, ownedCount, pageWords, paginate, panoCount, partLabel, partWord, sortItems } from '@/lib/cards/ui-model';
 import { BinderBanner } from '@/components/cards-bridge/ads-client';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 
@@ -200,7 +200,9 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
   const sec = only ? catalog.sections.find((s) => s.id === only) ?? null : null;
   const wishSet = useMemo(() => new Set(state?.wishlist ?? []), [state?.wishlist]);
   const scoped = useMemo(() => (only ? catalog.items.filter((i) => i.sec === only) : catalog.items), [catalog.items, only]);
-  const scopedCards = useMemo(() => (only ? catalog.cards.filter((cd) => (sec?.ns ?? []).includes(cd.n)) : catalog.cards), [catalog.cards, only, sec]);
+  // Owner decision 2026-11-18: his cards that are out of packs are in his collection, so they are in every count of the head.
+  const counted = useMemo(() => countedCards(catalog, owned), [catalog, owned]);
+  const scopedCards = useMemo(() => (only ? counted.filter((cd) => (sec?.ns ?? []).includes(cd.n)) : counted), [counted, only, sec]);
   const list = useMemo(() => {
     const l = filterItems(scoped, { ...f, show: show === 'want' ? 'all' : show }, owned);
     return show === 'want' ? l.filter((i) => !i.locked && wishSet.has(i.card.n)) : l;
@@ -229,7 +231,7 @@ export function BinderView({ ads, only = null }: { ads: AdsContext; /** One grou
     return () => { live = false; };
   }, [c.kc, c.status, owned]);
   // The server's figure (locked cards, Gold and Full Art extras left out); the local one until it answers.
-  const local = useMemo(() => extras(catalog.cards, owned, true), [catalog.cards, owned]);
+  const local = useMemo(() => extras([...catalog.cards, ...catalog.retired], owned, true), [catalog.cards, catalog.retired, owned]);
   const ex = preview ? { n: preview.extras, shards: preview.shards } : local;
   const pc = Math.max(1, pages.length);
   const step = single ? 1 : 2;
