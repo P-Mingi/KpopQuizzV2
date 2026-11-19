@@ -53,6 +53,9 @@ describe('the cards_* functions of the database, as production builds them', () 
     await db.exec(readCards(OUTPUTS.bundle));
     const later = readdirSync(CARDS_SQL).filter((f) => /^\d{3}-[a-z0-9-]+\.sql$/.test(f) && !f.endsWith('.rollback.sql') && Number(f.slice(0, 3)) >= 116).sort();
     expect(later).toEqual(expect.arrayContaining(['116-photos-harvest.sql', '117-catalog-safeupdate.sql']));
+    // 122 (lot LAUNCH-PREP, the pulls feed) reads two tables of the multisite schema, which this cards database does not build: empty
+    // stand-ins, only so 122 applies and its function is scanned too
+    await db.exec('create table if not exists public.world_memberships (user_id uuid); create table if not exists public.editorial_accounts (user_id uuid);');
     for (const f of later) await db.exec(at(readFileSync(path.join(CARDS_SQL, f), 'utf8'), '12:00'));
     const fns = (await db.query<{ name: string; src: string }>(`select p.proname as name, p.prosrc as src from pg_proc p
       where p.pronamespace = 'public'::regnamespace and p.proname like 'cards\\_%' order by 1`)).rows;

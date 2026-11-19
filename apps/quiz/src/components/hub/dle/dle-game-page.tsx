@@ -1,6 +1,8 @@
 // Daily games step 4: a game's page (board Kpopdle.dc.html, v2 sections 6 and 11.3): the banner, the marquee, the game, then the guide Google reads: yesterday's answer, how to play and the columns in a fold kept in the HTML, the answer
 // block, the pool in clear, the hop to the other game. Server component. A game with no pool (off, or a failed read) keeps the guide and says it is not available; the metadata then says noindex.
 import { IconMark } from '@/components/photos/icon-mark';
+import { cardsBridgesHubOn } from '@/lib/cards-bridge/flags';
+import { CARDS_PATH } from '@/lib/cards-bridge/links';
 import { siteHasCredits } from '@/lib/credits/site-credits';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import { getLiveIcons } from '@/lib/photos/icons-read';
@@ -130,6 +132,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={{ ...idolSet.pictures, ...pictures }} thumbs={idolSet.thumbs}
           quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} icons={icons}
           seriesArt={seriesArt} ownerPreview={world.universe === 'anime' && previewConfigured()}
+          {...(cardsBridgesHubOn() ? { cardsHref: CARDS_PATH } : {})}
         />
         {seriesGames.length ? (
           <nav aria-labelledby="dle-series-h" className="hub-dle-seriesnav">
