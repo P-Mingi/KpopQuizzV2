@@ -48,7 +48,7 @@ describe('the privacy policy and advertising', () => {
       'Google AdSense', 'rewarded ad', 'certified consent tool', 'Transparency and Consent Framework (TCF)',
       'Personalised ads are shown only with your consent', 'Without it, ads are not personalised',
       'never ask for personalised ads for a player we know to be under 18', 'cookies',
-      'marked as child directed',
+      'No ad request is marked as child directed for a whole country',
     ]) expect(text, s).toContain(s);
   });
 
@@ -85,13 +85,18 @@ describe('each claim is true of the code', () => {
     expect(client).toContain("if (!ctx.enabled || state === 'hidden') return null;");
   });
 
-  it('the United States and an unknown country are marked child directed', () => {
-    expect(ads).toContain("country === null || country === 'US'");
-    expect(ads).toContain('ATTR_CHILD_DIRECTED');
+  // Owner, 2026-11-20 (lot LAUNCH-POLISH): no general teen tagging. No country is marked child directed; only a player the site knows to be under 18
+  // is tagged under the age of consent (and the site holds no age today).
+  it('no country is marked child directed; only a player known to be under 18 is tagged under the age of consent', () => {
+    expect(ads).not.toContain("country === 'US'");
+    expect(ads).not.toContain('ATTR_CHILD_DIRECTED');
+    expect(ads).toContain("if (ctx.knownMinor) a[ATTR_UNDER_AGE] = '1';");
   });
 
   it('the site asks no age: nothing in the cards or the ads code reads an age or a birth date of the player', () => {
-    for (const src of [ads, client, read('lib/cards/ads-server.ts')]) expect(src).not.toMatch(/birth|age_band|ageBand|is_minor|under18/i);
+    // the code, not its comments (a comment may say that no birth date is held)
+    const code = (src: string): string => src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+    for (const src of [ads, client, read('lib/cards/ads-server.ts')]) expect(code(src)).not.toMatch(/birth|age_band|ageBand|is_minor|under18/i);
   });
 
   it('the demo claim stores hashes only, the report keeps its IP in memory only', () => {

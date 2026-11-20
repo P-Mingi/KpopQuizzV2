@@ -92,7 +92,7 @@ export function HubTerms(): React.ReactElement {
         <li>Cards, packs and shards have no money value. They cannot be sold, bought, traded for money or moved out of the game, and there is no market.</li>
         <li>You get packs from the timer, from sets and the weekly list, and from bonuses. Extra copies of a card become shards, and shards
           can craft a card you are missing.</li>
-        <li>You can choose to watch a rewarded ad for a pack or for shards. It is never required. There is a daily limit, and the reward is
+        <li>You can choose to watch a rewarded ad for a pack. It is never required. There is a daily limit, and the reward is
           given only once the ad has been viewed.</li>
         <li>The server draws every pack. The odds of each pack are published in the game.</li>
         <li>Do not use bots, scripts or several accounts to get more packs, and do not try to get an ad reward without watching the ad. We may

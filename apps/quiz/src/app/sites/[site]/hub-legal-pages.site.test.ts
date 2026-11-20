@@ -71,7 +71,7 @@ describe('the hub serves /terms, /contact and /dmca', () => {
     const t = text(html(await load('hub', 'terms')));
     for (const s of [
       'Your account', 'Your public profile', 'KpopCards', 'Photos on the cards', 'Minors', 'Advertising',
-      'There is nothing to buy', 'have no money value', 'rewarded ad for a pack or for shards', 'report form', 'within 48 hours',
+      'There is nothing to buy', 'have no money value', 'rewarded ad for a pack.', 'report form', 'within 48 hours',
       'at least 15 years old', 'under 18', 'Card coming', 'Google or Discord', 'French law applies',
     ]) expect(t, s).toContain(s);
     // Terms of the other two sites are named as theirs, from the registry.
