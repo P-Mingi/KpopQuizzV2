@@ -21,7 +21,7 @@ vi.mock('@/components/ux-v1/sign-in-sheet', () => ({ useSignIn: () => vi.fn() })
 
 import { LobbyView } from './lobby-view';
 
-const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, childDirected: false, consentRequired: true, test: false };
+const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, knownMinor: false, consentRequired: true, test: false };
 const html = renderToStaticMarkup(createElement(LobbyView, { odds: null, ads: ADS_OFF, dailyGuest: { slug: 'twice', name: 'TWICE' } }));
 
 describe('the guest lobby', () => {

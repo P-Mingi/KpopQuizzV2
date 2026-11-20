@@ -10,7 +10,7 @@
 // his console (the list names it); the parameters this code reads are isolated in SSV below.
 import { createPublicKey, verify as cryptoVerify } from 'node:crypto';
 
-import type { TcData } from './ads';
+import type { AdPersonalisation } from './ads';
 
 export const VERIFIER_KEYS_URL = 'https://www.gstatic.com/admob/reward/verifier-keys.json';
 
@@ -175,20 +175,9 @@ export function createKeyCache(): KeyCache {
 
 // ---- the consent mode of the ad request -----------------------------------------------------------------------------------------------------
 
-export type AdPersonalisation = 'personalised' | 'non_personalised';
-
-/**
- * Personalised ads only when the consent message says the user agreed to the TCF purposes personalised ads need (1 store and access, 3 create a
- * personalised ads profile, 4 select personalised ads). Everything else (no consent message answer, a refusal, a partial answer, an unknown country)
- * is a NON personalised request: the request carries the non personalised flag. Outside the consent regions the network's own rules apply.
- */
-export function adPersonalisation(tc: TcData | null, consentRequired: boolean): AdPersonalisation {
-  if (!consentRequired) return 'personalised';
-  if (!tc || tc.gdprApplies === false) return tc?.gdprApplies === false ? 'personalised' : 'non_personalised';
-  const done = tc.eventStatus === 'tcloaded' || tc.eventStatus === 'useractioncomplete';
-  const c = tc.purpose?.consents ?? {};
-  return done && c['1'] === true && c['3'] === true && c['4'] === true ? 'personalised' : 'non_personalised';
-}
+// The consent mode of the ad request is decided in ads.ts (one rule for the claim path and the signed-callback path); re-exported for callers of this file.
+export { adPersonalisation } from './ads';
+export type { AdPersonalisation } from './ads';
 
 /** What the browser puts on the rewarded request: the ticket as the custom data (the network echoes it in the signed callback), our user id, and the
  *  non personalised flag. Nothing here grants anything. */

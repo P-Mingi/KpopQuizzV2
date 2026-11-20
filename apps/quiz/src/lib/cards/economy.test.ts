@@ -217,9 +217,9 @@ describe('B4, the main button', () => {
     expect(mainButton({ ...base, shards: 50 })).toMatchObject({ kind: 'shards', label: 'Open with 50 shards', disabled: false });
     expect(mainButton({ ...base, shards: 49 }).kind).toBe('ad');
   });
-  it('else an ad is left: Watch an ad for 25 shards (the amount of the server)', () => {
-    expect(mainButton(base)).toMatchObject({ kind: 'ad', label: 'Watch an ad for 25 shards', disabled: false });
-    expect(mainButton({ ...base, adShards: 40 }).label).toBe('Watch an ad for 40 shards');
+  it('else an ad is left: Watch an ad, get 1 pack (launch polish: an ad gives a pack, the same words as the screen before the ad)', () => {
+    expect(mainButton(base)).toMatchObject({ kind: 'ad', label: 'Watch an ad, get 1 pack', disabled: false });
+    expect(mainButton({ ...base, adShards: 40 }).label).toBe('Watch an ad, get 1 pack');
   });
   it('else the timer: Next pack in 7:12', () => {
     expect(mainButton({ ...base, adsLeft: 0 })).toEqual({ kind: 'wait', label: 'Next pack in 7:12', disabled: true });
@@ -253,7 +253,7 @@ describe('the odds page sentences and the focus picker', () => {
     expect(s.timer).toContain('40 packs a day');
     expect(s.craft).toContain('Gold 300');
     expect(s.craft).not.toMatch(/Full Art \d/);
-    expect(s.ad).toBe('A rewarded ad gives 25 shards.');
+    expect(s.ad).toBe('A rewarded ad you choose to watch gives 1 pack, up to a few a day. Those packs cannot be traded or given.');
     expect(economySentences(12, ['C', 'U'], 40).timer).toContain('12 packs');
   });
   it('the groups of the picker, by name, once each', () => {

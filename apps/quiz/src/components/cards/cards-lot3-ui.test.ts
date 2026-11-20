@@ -37,7 +37,7 @@ import type { Rarity } from '@/lib/cards/types';
 import type { AdsContext } from '@/lib/cards/ads';
 import type { SlimCard } from '@/lib/cards/ui-types';
 
-const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, childDirected: false, consentRequired: true, test: false };
+const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, knownMinor: false, consentRequired: true, test: false };
 const cat = buildFixtureCatalog();
 const slim = buildSlim(cat);
 const ALL_SIX = computeOdds(RARITIES.map((rarity, i) => ({ n: i + 1, kind: 'idol' as const, rarity })));

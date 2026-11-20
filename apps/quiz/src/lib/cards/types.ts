@@ -234,11 +234,21 @@ export interface OpenResult {
   state: WalletState;
 }
 
-/** POST /api/cards/ad/grant (lot 4 B4): a rewarded ad gives shards, not a pack. */
+/** The retired POST /api/cards/ad/grant (a 404 now). Kept for the dev fixture's client shape; the real answer is AdClaimResult. */
 export interface AdResult {
   gained: number;
   shards: number;
   state: WalletState;
+}
+
+/** POST /api/cards/ad/claim (launch polish): a rewarded ad that was viewed gives 1 pack, once per ticket, within the daily cap. `granted` false: the ticket was
+ *  spent for nothing (reason 'daily_cap'), or this is a replay of an earlier answer. */
+export interface AdClaimResult {
+  granted: boolean;
+  replayed: boolean;
+  reason?: string;
+  /** The stack after the claim, when a pack was given. */
+  stock?: number;
 }
 
 /** A stored wallet row (cards_wallets), times as ms since epoch, ISO string or Date. */

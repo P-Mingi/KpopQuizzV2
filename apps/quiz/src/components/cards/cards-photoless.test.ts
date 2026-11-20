@@ -42,7 +42,7 @@ import type { AdsContext } from '@/lib/cards/ads';
 import type { PoolCard } from '@/lib/cards/types';
 import type { UiCatalog } from '@/lib/cards/ui-types';
 
-const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, childDirected: false, consentRequired: true, test: false };
+const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, knownMinor: false, consentRequired: true, test: false };
 
 /** The fixture catalog with one idol card taken out of the packs (what 119 does): no photo, listed in `retired`. */
 function withRetired(): { cat: UiCatalog; gone: UiCatalog['cards'][number] } {

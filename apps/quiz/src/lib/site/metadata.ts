@@ -5,6 +5,7 @@
 // no K-pop description, keywords, authors, Pinterest verification tag or kpop origin
 // (F0 report, slice 13: the spike layout had to reset them; this removes the need).
 
+import { adsenseMetaOther } from './adsense';
 import { withBasePath } from './base-path';
 import { KPOP_THEME_COLOR } from './kpop';
 import { SITE } from './registry';
@@ -18,6 +19,8 @@ import type { SiteConfig } from './types';
  */
 export function siteRootMetadata(kpopMetadata: Metadata, site: SiteConfig = SITE): Metadata {
   if (site.id === 'kpop') return kpopMetadata;
+  // Launch polish, lane ADS: the AdSense site verification tag, hub only, from NEXT_PUBLIC_ADSENSE_PUB_ID alone (no ad flag): see lib/site/adsense.ts.
+  const other = site.id === 'hub' ? adsenseMetaOther(process.env.NEXT_PUBLIC_ADSENSE_PUB_ID) : {};
   const image = { url: site.brand.ogTemplate, width: 1200, height: 630, alt: site.brand.name };
   return {
     metadataBase: new URL(site.url),
@@ -28,6 +31,7 @@ export function siteRootMetadata(kpopMetadata: Metadata, site: SiteConfig = SITE
     // Next writes icon and manifest URLs as they are (no metadataBase): the anime build serves them under its base path.
     icons: { icon: [{ url: withBasePath(site.brand.favicon), type: 'image/svg+xml' }] },
     manifest: withBasePath('/site.webmanifest'),
+    ...(Object.keys(other).length > 0 ? { other } : {}),
   };
 }
 

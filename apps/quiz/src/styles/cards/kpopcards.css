@@ -1346,3 +1346,11 @@ html.rm .bvc .c-rim{animation:none}
 .bvc .c-soon{position:absolute;left:0;right:0;top:20%;display:flex;flex-direction:column;align-items:center;gap:1.4cqi;color:rgba(255,255,255,.88);font-family:var(--f-mono);font-stretch:80%;font-size:5.6cqi;letter-spacing:.14em;text-transform:uppercase;text-align:center;z-index:1}
 .bvc .c-soon svg{width:15cqi;height:15cqi;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.85;margin-bottom:2cqi}
 .bvc .c-soon b{font-weight:600}
+/* Launch polish (ads): the screen before each rewarded ad. Nothing starts until its Watch button is pressed. */
+.bvc .ad-intro{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:80;width:min(92vw,380px);padding:22px 22px 18px;border-radius:20px;background:#fff;color:#2a1740;box-shadow:0 0 0 100vmax rgba(20,0,40,.55),0 24px 60px -12px rgba(20,0,40,.6);text-align:left}
+.bvc .ad-intro h2{margin:0 0 8px;font-size:20px;font-weight:800}
+.bvc .ad-intro p{margin:0 0 10px;font-size:15px;line-height:1.45}
+.bvc .ad-intro a{color:#B5345F;font-weight:700;text-decoration:underline}
+.bvc .ad-intro div{display:flex;gap:10px;margin-top:14px}
+.bvc .ad-intro button{flex:1;min-height:46px;border:0;border-radius:999px;font:inherit;font-weight:800;cursor:pointer;background:#f1e8f7;color:#2a1740}
+.bvc .ad-intro button:first-child{background:linear-gradient(135deg,#FF3E86,#C55BFF);color:#fff}
