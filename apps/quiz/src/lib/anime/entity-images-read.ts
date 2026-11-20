@@ -12,7 +12,7 @@ import { forSite } from '@/lib/site/scope';
 import { IMAGES_LIST_TAG } from '@/lib/entity-images/constants';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
-import { characterImageSlug, isLicenseCode, ownerCreditRows, ownerPictureOf } from './entity-images-rules';
+import { characterImageSlug, isLicenseCode, onlyVerifiedCharacters, ownerCreditRows, ownerPictureOf } from './entity-images-rules';
 import { setOwnerSeriesPictures } from './entity-images-store';
 
 import type { EntityImage, OwnerCreditRow, OwnerPicture } from './entity-images-rules';
@@ -27,11 +27,32 @@ export interface ImagesDb {
   from(table: string): any; // eslint-disable-line @typescript-eslint/no-explicit-any -- the builder is untyped on this app's clients
 }
 
-/** Every image row of the anime site, or [] when the read fails. */
+/** The view of the verified pictures (SQL 022): only rows with license_verified (and a 96 px file) are in it, and the browser roles may read it. */
+export const VERIFIED_VIEW = 'entity_images_public';
+
+/**
+ * The slugs of the characters whose picture the owner verified (license_verified). The table's own column is not readable by the browser
+ * roles, so the view says it. Throws on a failed read: the caller then shows no character picture (fail closed), never an unverified one.
+ */
+export async function loadVerifiedCharacterSlugs(db: ImagesDb): Promise<Set<string>> {
+  const rows = await fetchAllRows<{ slug: string }>(() => forSite(db.from(VERIFIED_VIEW).select('slug'), 'anime').eq('kind', 'character').order('slug', { ascending: true }));
+  return new Set(rows.map((r) => r.slug));
+}
+
+/** Every image row of the anime site, or [] when the read fails. A character picture is kept only when it is license_verified (owner, 2026-11-20); a series picture is kept as before. */
 export async function loadEntityImageRows(db: ImagesDb): Promise<EntityImage[]> {
   try {
     const rows = await fetchAllRows<EntityImage>(() => forSite(db.from('entity_images').select(ENTITY_IMAGE_COLUMNS), 'anime').order('slug', { ascending: true }));
-    return rows.filter((r) => (r.kind === 'series' || r.kind === 'character') && isLicenseCode(r.license) && typeof r.path === 'string' && r.path !== '');
+    const valid = rows.filter((r) => (r.kind === 'series' || r.kind === 'character') && isLicenseCode(r.license) && typeof r.path === 'string' && r.path !== '');
+    if (!valid.some((r) => r.kind === 'character')) return valid;
+    let verified: Set<string>;
+    try {
+      verified = await loadVerifiedCharacterSlugs(db);
+    } catch (err) {
+      console.error('[entity-images] verified read failed:', (err as Error)?.message ?? err);
+      verified = new Set();
+    }
+    return onlyVerifiedCharacters(valid, verified);
   } catch (err) {
     console.error('[entity-images] read failed:', (err as Error)?.message ?? err);
     return [];
@@ -48,7 +69,7 @@ export const getEntityImageRows = unstable_cache(
     }
     return loadEntityImageRows(db);
   },
-  ['db:anime:entity-images:v2'],
+  ['db:anime:entity-images:v3'],
   { revalidate: CACHE_TTL.stats, tags: [ENTITY_IMAGES_TAG] },
 );
 

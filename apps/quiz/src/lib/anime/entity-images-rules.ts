@@ -77,6 +77,15 @@ export interface EntityImage {
   readonly updated_at: string;
 }
 
+/**
+ * The safety net of the character pictures (owner, 2026-11-20): of the rows, every series row stays, and a character row stays only when its
+ * slug is in the verified set (the slugs of public.entity_images_public). An unverified picture is never shown; the page then draws its
+ * no-image fallback. Pure, so the server read and the browser read share it.
+ */
+export function onlyVerifiedCharacters<T extends { readonly kind: string; readonly slug: string }>(rows: readonly T[], verified: ReadonlySet<string>): T[] {
+  return rows.filter((r) => r.kind !== 'character' || verified.has(r.slug));
+}
+
 /** What the owner types before an image is saved. */
 export interface ImageMeta {
   readonly source_url: string;
