@@ -18,13 +18,13 @@ All on the hub Vercel project (Production). None on the kpopquiz.org project, no
 | `NET_CARDS_ADS` | `1` | off | After Google approves and the consent message is live |
 | `NEXT_PUBLIC_NET_CARDS_ADS` | `1` (read at build, so redeploy after setting) | off | Same time as `NET_CARDS_ADS` |
 | `NEXT_PUBLIC_CARDS_AD_PROVIDER` | `adsense` or `applixir` | `adsense` | Leave unset. `applixir` is for later and sends the player down the signed callback path (needs `NET_CARDS_AD_PACKS`, see LAUNCH-PREP-ADS.md) |
-| `CARDS_AD_PACKS_PER_DAY` | whole number 0 to 20 (0 turns ad packs off) | 3 | Optional |
+| `CARDS_AD_PACKS_PER_DAY` | whole number 0 to 20 (0 turns ad packs off) | 3 | Optional. The ONE daily cap of the ad: the ticket route, the claim and the "ads left" of the lobby all read it. FAQ, help and odds page quote it |
 | `CARDS_AD_MIN_SECONDS` | whole number 5 to 120 | 15 | Optional. The shortest time between asking for the ad and being able to claim the pack. Google rewarded videos run 15 to 30 seconds, so 15 is the shortest real ad |
 | `NEXT_PUBLIC_CARDS_BANNER_SLOT` | 6 to 20 digits | unset: no banner | Optional, the one banner on the binder pages |
 | `NEXT_PUBLIC_CARDS_ADS_TEST` | `1` | off | Only while trying with Google's test mode |
-| `NET_CARDS`, `CARDS_ADS_PER_DAY` | as before | | Unchanged. `CARDS_ADS_PER_DAY` above 0 is still needed for the ticket route |
+| `NET_CARDS` | as before | | Unchanged |
 
-Replaced: `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT` no longer exists. One variable now serves the verification tag, `/ads.txt` and the ad script. If you had set the old name, set `NEXT_PUBLIC_ADSENSE_PUB_ID` instead.
+Removed: `CARDS_ADS_PER_DAY` (it only counted the retired shard ad; `CARDS_AD_PACKS_PER_DAY` is the one cap now) and `CARDS_AD_SHARDS`. Replaced: `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT` no longer exists. One variable now serves the verification tag, `/ads.txt` and the ad script. If you had set the old name, set `NEXT_PUBLIC_ADSENSE_PUB_ID` instead.
 
 A malformed value (a bare `pub-...`, 15 or 17 digits, a letter, a space inside) is treated as not set: no tag, `/ads.txt` answers 404, no ad.
 

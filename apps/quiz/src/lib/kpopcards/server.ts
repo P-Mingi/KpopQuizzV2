@@ -5,7 +5,7 @@ import { randomInt } from 'node:crypto';
 
 import { loadCatalog } from '../cards/catalog';
 import { fetchAllRows } from '@/lib/db/fetch-all';
-import { adShards, adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, timerPerDay } from '../cards/flags';
+import { adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, timerPerDay } from '../cards/flags';
 import { EDITIONS, SHARDS } from '../cards/rules';
 import { ERROR_STATUS, KC, THEME_IDS, levelOf, titleOf } from './contract';
 import { planKcPack, indexPool } from './draw';
@@ -166,6 +166,13 @@ export async function loadPlayer(c: Ctx): Promise<PlayerData> {
   const today = new Date(c.now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
   if (p.dailyDay) p.dailyDay = today;
   if (p.focusDay) p.focusDay = today;
+  // The ads left today are the ad packs not yet earned (cards_ad_events), the one cap of the ad: a pack ad does not move the wallet's own counter.
+  if (cardsAdsOn()) {
+    try {
+      const { data: ev } = await c.db.from('cards_ad_events').select('transaction_id').eq('user_id', c.userId).eq('paris_day', today).eq('granted', true);
+      p.adsToday = Array.isArray(ev) ? ev.length : p.adsToday;
+    } catch { /* keep the wallet's counter: the lobby only shows a hint, the ticket route enforces the cap */ }
+  }
   return p;
 }
 
@@ -189,7 +196,7 @@ async function lobbyOf(c: Ctx, w: World, p?: PlayerData, quizDone?: boolean): Pr
   // The recording comes first: cards_player (read by loadPlayer) counts the rows it writes.
   const done = quizDone ?? (p ? false : await recordBonus(c));
   const pd = p ?? (await loadPlayer(c));
-  return lobbyState({ w, p: pd, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone: done });
+  return lobbyState({ w, p: pd, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone: done });
 }
 
 /**
@@ -469,7 +476,7 @@ export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResp
   });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
   const p = await loadPlayer(c);
-  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }), ownedRetired(w, p).length);
+  return openResponseFrom(w, data as OpenJson, lobbyState({ w, p, now: c.now, timerCap: lim.timer, adsPerDay: lim.ads, adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }), ownedRetired(w, p).length);
 }
 
 export async function claim(c: Ctx, key: string, target: string): Promise<ApiResult<ClaimResponse>> {
@@ -481,7 +488,7 @@ export async function claim(c: Ctx, key: string, target: string): Promise<ApiRes
   const d = data as { replayed: boolean; target: string; packs: number; shards: number };
   const quizDone = await recordBonus(c);
   const [w, p] = await Promise.all([loadWorld(c.db, c.now), loadPlayer(c)]);
-  return { target: d.target, packs: d.packs, shards: d.shards, replayed: d.replayed, missions: missionsState(w, p, c.now), state: lobbyState({ w, p, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adShards: adShards(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }) };
+  return { target: d.target, packs: d.packs, shards: d.shards, replayed: d.replayed, missions: missionsState(w, p, c.now), state: lobbyState({ w, p, now: c.now, timerCap: timerPerDay(), adsPerDay: adsPerDay(), adsEnabled: cardsAdsOn(), bonusPerDay: bonusCap(), quizDone }) };
 }
 
 export async function craft(c: Ctx, key: string, n: number): Promise<ApiResult<CraftResponse>> {

@@ -246,7 +246,8 @@ describe('the Help text (point A18)', () => {
     expect(html).toContain('Packs are never sold');
     expect(html).toContain('Wikimedia Commons');
     expect(html).toContain('We remove a reported photo within 48 hours.');
-    expect(html).toContain('a fixed 25 shards');
+    expect(html).toContain('a rewarded ad gives 1 pack, up to 3 a day');
+    expect(html).not.toMatch(/ad gives[^.]*shards/);
     expect(html).toContain('never between 22:00 and 08:00');
     expect(html).toContain('the fifth card of pack 30 is Gold');
     expect(html).toContain('50 shards open a pack');

@@ -193,8 +193,6 @@ export interface WalletState {
   focusUsed?: boolean;
   /** Lot 3 A17: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
   wishlist?: number[];
-  /** Lot 4 B4: the shards a rewarded ad gives (CARDS_AD_SHARDS, default AD_SHARDS_DEFAULT). */
-  adShards?: number;
   /** Lot 4 B3: the last 10 packs, newest first. */
   recent?: RecentPack[];
   /** Lot 4 A15 (Goals): reward packs waiting, opened from the Goals tab (source 'reward'). Absent when none wait. */

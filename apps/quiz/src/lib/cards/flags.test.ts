@@ -42,16 +42,17 @@ describe('the Cards switches', () => {
     expect(cardsAdsPublicOn({ site: 'hub', env })).toBe(true);
     expect(cardsAdsOn({ site: 'kpop', env })).toBe(false);
     expect(cardsAdsPublicOn({ site: 'kpop', env })).toBe(false);
-    expect(cardsAdsOn({ site: 'hub', env: { ...env, CARDS_ADS_PER_DAY: '0' } })).toBe(false);
+    expect(cardsAdsOn({ site: 'hub', env: { ...env, CARDS_AD_PACKS_PER_DAY: '0' } })).toBe(false);
     expect(cardsAdsOn({ site: 'hub', env: { NET_CARDS_ADS: '1' } })).toBe(false);
   });
-  it('the settings default to 10 and 3 and ignore garbage', () => {
-    expect(adsPerDay({ env: {} })).toBe(10);
+  it('the settings default to 3 (ad packs) and 3 (bonus) and ignore garbage', () => {
+    expect(adsPerDay({ env: {} })).toBe(3);
     expect(bonusPerDay({ env: {} })).toBe(3);
-    expect(adsPerDay({ env: { CARDS_ADS_PER_DAY: '4' } })).toBe(4);
+    expect(adsPerDay({ env: { CARDS_AD_PACKS_PER_DAY: '4' } })).toBe(4);
     expect(bonusPerDay({ env: { CARDS_BONUS_PER_DAY: '5' } })).toBe(5);
-    expect(adsPerDay({ env: { CARDS_ADS_PER_DAY: 'abc' } })).toBe(10);
-    expect(adsPerDay({ env: { CARDS_ADS_PER_DAY: '-2' } })).toBe(10);
+    expect(adsPerDay({ env: { CARDS_AD_PACKS_PER_DAY: 'abc' } })).toBe(3);
+    expect(adsPerDay({ env: { CARDS_AD_PACKS_PER_DAY: '99' } })).toBe(20);
+    expect(adsPerDay({ env: { CARDS_AD_PACKS_PER_DAY: '-2' } })).toBe(3);
     expect(bonusPerDay({ env: { CARDS_BONUS_PER_DAY: '' } })).toBe(3);
     expect(bonusPerDay({ env: { CARDS_BONUS_PER_DAY: '99999' } })).toBe(3);
     expect(bonusPerDay({ env: { CARDS_BONUS_PER_DAY: '500' } })).toBe(20);

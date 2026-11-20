@@ -3,9 +3,9 @@
 import { describe, expect, it } from 'vitest';
 
 import { WISHLIST_MAX, craftView, economySentences, focusGroups, mainButton, pityLine, pityProgress, restingLine, timerLine, timerResting } from './economy';
-import { adShards, timerPerDay } from './flags';
+import { adsPerDay, timerPerDay } from './flags';
 import {
-  AD_SHARDS_DEFAULT, CRAFT_COST, PACK_SIZE, PERIOD_MS, PITY_UR, QUIET_HOURS, RARITY_LABEL, TIMER_PACKS_PER_DAY, craftCost, drawPack, indexPool, inQuietHours, walletAt,
+  CRAFT_COST, PACK_SIZE, PERIOD_MS, PITY_UR, QUIET_HOURS, RARITY_LABEL, TIMER_PACKS_PER_DAY, craftCost, drawPack, indexPool, inQuietHours, walletAt,
 } from './rules';
 
 import type { PoolCard, Rarity } from './types';
@@ -209,7 +209,7 @@ describe('the Gold note', () => {
 });
 
 describe('B4, the main button', () => {
-  const base = { stock: 0, shards: 0, adsLeft: 10, adsAvailable: true, adShards: 25, nextMs: 432_000 };
+  const base = { stock: 0, shards: 0, adsLeft: 10, adsAvailable: true, nextMs: 432_000 };
   it('a pack in the stack: Open a pack', () => {
     expect(mainButton({ ...base, stock: 2, shards: 500 })).toEqual({ kind: 'open', label: 'Open a pack', disabled: false });
   });
@@ -219,7 +219,6 @@ describe('B4, the main button', () => {
   });
   it('else an ad is left: Watch an ad, get 1 pack (launch polish: an ad gives a pack, the same words as the screen before the ad)', () => {
     expect(mainButton(base)).toMatchObject({ kind: 'ad', label: 'Watch an ad, get 1 pack', disabled: false });
-    expect(mainButton({ ...base, adShards: 40 }).label).toBe('Watch an ad, get 1 pack');
   });
   it('else the timer: Next pack in 7:12', () => {
     expect(mainButton({ ...base, adsLeft: 0 })).toEqual({ kind: 'wait', label: 'Next pack in 7:12', disabled: true });
@@ -229,12 +228,11 @@ describe('B4, the main button', () => {
   it('no refill coming today: the timer line says midnight', () => {
     expect(mainButton({ ...base, adsLeft: 0, nextMs: null })).toEqual({ kind: 'wait', label: 'More packs at midnight', disabled: true });
   });
-  it('the ad amount is 25 unless CARDS_AD_SHARDS says otherwise', () => {
-    expect(AD_SHARDS_DEFAULT).toBe(25);
-    expect(adShards({ env: {} })).toBe(25);
-    expect(adShards({ env: { CARDS_AD_SHARDS: '40' } })).toBe(40);
-    expect(adShards({ env: { CARDS_AD_SHARDS: '0' } })).toBe(1);
-    expect(adShards({ env: { CARDS_AD_SHARDS: 'x' } })).toBe(25);
+  it('an ad gives 1 pack, up to CARDS_AD_PACKS_PER_DAY a day (default 3): the one cap, and the odds page says it', () => {
+    expect(adsPerDay({ env: {} })).toBe(3);
+    expect(adsPerDay({ env: { CARDS_AD_PACKS_PER_DAY: '5' } })).toBe(5);
+    expect(economySentences(40, undefined, adsPerDay({ env: { CARDS_AD_PACKS_PER_DAY: '5' } })).ad).toContain('gives 1 pack, up to 5 a day');
+    expect(economySentences(40).ad).not.toMatch(/shard/i);
   });
   it('PERIOD_MS is the 10 minute timer the label counts down', () => {
     expect(PERIOD_MS).toBe(600_000);
@@ -253,7 +251,7 @@ describe('the odds page sentences and the focus picker', () => {
     expect(s.timer).toContain('40 packs a day');
     expect(s.craft).toContain('Gold 300');
     expect(s.craft).not.toMatch(/Full Art \d/);
-    expect(s.ad).toBe('A rewarded ad you choose to watch gives 1 pack, up to a few a day. Those packs cannot be traded or given.');
+    expect(s.ad).toBe('A rewarded ad you choose to watch gives 1 pack, up to 3 a day. Packs and cards won this way cannot be traded or given.');
     expect(economySentences(12, ['C', 'U'], 40).timer).toContain('12 packs');
   });
   it('the groups of the picker, by name, once each', () => {
