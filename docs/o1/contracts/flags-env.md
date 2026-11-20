@@ -76,10 +76,11 @@ Every other variable the app reads today (`NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_B
 `COMMUNITY_FEATURES_ENABLED`, `SONGS_IS_CURATED`, `CRON_SECRET`, `ADMIN_USER_IDS`, `DEV_LOGIN_*`, the Discord,
 Spotify, YouTube and Reddit keys, `UX_P4_CHALLENGE_SECRET`, `INDEXNOW_TRIGGER_TOKEN`, `SUPABASE_SERVICE_ROLE_KEY`)
 keeps its meaning on kpop. The anime and hub projects set only what their routes read (L1 lists them per project).
-Bunnyverse Cards adds settings that are not switches: `CARDS_ADS_PER_DAY` (server, default 10, 0 turns ads off, at most 100),
+Bunnyverse Cards adds settings that are not switches: `CARDS_AD_PACKS_PER_DAY` (server, the one daily cap of the rewarded ad, default 3, 0 turns the ad off, at most 20; it replaces `CARDS_ADS_PER_DAY` and `CARDS_AD_SHARDS`, lot LAUNCH-POLISH), `CARDS_AD_MIN_SECONDS` (server, default 15, 5 to 120: the shortest time between an ad ticket and its claim),
 `CARDS_BONUS_PER_DAY` (server, default 3 until the owner rules, 0 turns bonus packs off, at most 20), the development-only
-`CARDS_UI_FIXTURE` (never honoured in a production build), and the AdSense names `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT`,
-`NEXT_PUBLIC_CARDS_BANNER_SLOT` and `NEXT_PUBLIC_CARDS_ADS_TEST` (empty: no ad script loads).
+`CARDS_UI_FIXTURE` (never honoured in a production build), and the AdSense names `NEXT_PUBLIC_ADSENSE_PUB_ID` (hub, `ca-pub-` and 16 digits;
+set alone it only serves the verification meta tag and `/ads.txt`; it replaces `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT`), `NEXT_PUBLIC_CARDS_AD_PROVIDER`
+(`adsense`, the default, or `applixir`), `NEXT_PUBLIC_CARDS_BANNER_SLOT` and `NEXT_PUBLIC_CARDS_ADS_TEST` (no ad script loads unless the ad flags are on).
 `NEXT_PUBLIC_SITE_URL` stays a kpop override: anime and hub take their canonical origin from the registry.
 
 ## 4. Origins outside production (F0 decision)
