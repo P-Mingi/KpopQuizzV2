@@ -448,14 +448,18 @@ export const KPOP_ONLY_SAMPLES: readonly string[] = [
 
 /**
  * kpop paths whose anime twin exists (CR-001, TWINS rows 31 to 36): routes of anime, still
- * 404 on the hub (Q0a's leak suite expects 404 for them on hub only).
+ * 404 on the hub (Q0a's leak suite expects 404 for them on hub only). /dmca left the list on 2026-11-20: the hub has its own DMCA page
+ * now, with /terms and /contact (see HUB_LEGAL_SAMPLES).
  */
 export const TWIN_SAMPLES: readonly string[] = [
   '/quizzes', '/quizzes/popular-today', '/quizzes/popular-this-week', '/quizzes/popular-this-month',
-  '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard', '/dmca',
+  '/new', '/most-liked', '/trending', '/trivia', '/faq', '/leaderboard',
   // Owner, 2026-11-09: /profile, the Passport door, a redirect to /me on kpop and on anime (moved from KPOP_ONLY_SAMPLES).
   '/profile',
 ];
+
+/** The legal pages the hub serves since the launch polish (owner, 2026-11-20): kpop, anime and hub all answer them. */
+export const HUB_LEGAL_SAMPLES: readonly string[] = ['/terms', '/contact', '/dmca'];
 
 /**
  * kpop paths shaped like an anime route (/{series}-quiz, /{series}-trivia):

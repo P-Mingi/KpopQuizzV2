@@ -16,7 +16,7 @@ import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/l
 
 import { REGISTRY, hubRouteAllow } from './registry';
 import {
-  HUB_ONLY_FILES, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
+  HUB_LEGAL_SAMPLES, HUB_ONLY_FILES, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
   SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath,
   isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, keyFileBlocksFor, middlewareStep, redirectsFor, rewritesFor,
   siteStaticParams,
@@ -381,6 +381,17 @@ describe('the route map of anime and hub', () => {
     }
     for (const p of ['/naruto-openings-quiz', '/opening-of-the-day']) expect(isKnownRouteFor('anime', p, flags), p).toBe(true);
     expect(isKnownRouteWith('/blindtest/ranked', flags)).toBe(true);
+  });
+
+  it('launch polish: /terms, /contact and /dmca are routes of kpop, anime and hub, and pass the hub middleware', () => {
+    for (const p of HUB_LEGAL_SAMPLES) {
+      expect(isKnownRouteFor('hub', p, flags), `hub ${p}`).toBe(true);
+      expect(isKnownRouteFor('anime', p, flags), `anime ${p}`).toBe(true);
+      expect(isKnownRouteWith(p, flags), `kpop ${p}`).toBe(true);
+      expect(middlewareStep('hub', p), `hub step ${p}`).toBe('pass');
+      expect(REGISTRY.hub.routes.allow, p).toContain(p);
+      expect(TWIN_SAMPLES, p).not.toContain(p);
+    }
   });
 
   it('hub routes of BACKLOG 5.1 are known, quiz routes are not', () => {
