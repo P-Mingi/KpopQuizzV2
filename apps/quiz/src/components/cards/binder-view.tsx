@@ -43,15 +43,15 @@ function cardHref(num: string, sp: URLSearchParams, lock?: string): string {
   return `${kcPath.card(num)}${s ? `?${s}` : ''}`;
 }
 
-/** Lot 6: the pocket of an age-locked subject: its name and "Carte à venir". No date, no link, no number, no star, no heart, no "new" mark. */
+/** Lot 6: the pocket of an age-locked subject: its name and "Card coming". No date, no link, no number, no star, no heart, no "new" mark. */
 export function SoonPocket({ name }: { name: string }): React.ReactElement {
   return (
     <div className="pw">
-      <div className="pocket locked soon" role="img" aria-label={`${name}, Carte à venir`}>
+      <div className="pocket locked soon" role="img" aria-label={`${name}, Card coming`}>
         <span className="miss">
           <span className="mno" aria-hidden="true">&nbsp;</span>
           <span className="mic" aria-hidden="true">{LOCK_ICON}</span>
-          <span><span className="mnm">{name}</span><span className="med">Carte à venir</span></span>
+          <span><span className="mnm">{name}</span><span className="med">Card coming</span></span>
         </span>
       </div>
       <div className="pw-foot" />
