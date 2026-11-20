@@ -25,6 +25,18 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
       },
       {
+        // Launch polish, lane ADS: Google's crawlers named explicitly, so AdSense (Mediapartners-Google, which reads a page to choose its ads) and search
+        // (Googlebot) never depend on how a crawler reads the * group, and no later rule can lock them out. Same rules as *.
+        userAgent: 'Googlebot',
+        allow: ['/', ...API_RENDER_ALLOW],
+        disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
+      },
+      {
+        userAgent: 'Mediapartners-Google',
+        allow: ['/', ...API_RENDER_ALLOW],
+        disallow: ['/api/', '/auth/', '/admin/', '/settings/', '/onboarding/'],
+      },
+      {
         // SEO (owner, 2026-10-14): ChatGPT search's crawler, named explicitly so its access
         // never depends on how it reads the * group. Same rules as *.
         userAgent: 'OAI-SearchBot',

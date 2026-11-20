@@ -97,6 +97,23 @@ describe('cards_ad_pack_grant', () => {
     expect(await stock(db, u)).toBe(2);
     expect(await one(db, 'select count(*) from cards_ad_events')).toBe(0);
   });
+  it('the web claim (launch polish): transaction id web:<ticket>, one pack per ticket whatever the retries, and a ticket spent by the signed callback cannot be claimed again', async () => {
+    const db = await world();
+    const u = await newUser(db);
+    await setWallet(db, u, { stock: 1, anchor: T0 });
+    const t = await ticket(db, u);
+    expect(await call(db, t, `web:${t}`)).toMatchObject({ granted: true, replayed: false, stock: 2 });
+    for (let i = 0; i < 3; i++) expect(await call(db, t, `web:${t}`)).toMatchObject({ granted: false, replayed: true, was_granted: true });
+    expect(await stock(db, u)).toBe(2);
+    // the same ticket under another transaction id (the signed path) is a second claim of a spent ticket: refused
+    expect(await failure(db, 'select public.cards_ad_pack_grant($1::uuid, $2, $3, $4::timestamptz, 3, 40)', [t, 'ssv-tx-1', 'u', T0])).toMatch(/cards: ticket/);
+    // two web claims of two tickets count against the same daily cap as the signed callback
+    const t2 = await ticket(db, u);
+    expect(await call(db, t2, 'ssv-tx-2')).toMatchObject({ granted: true, ads_today: 2 });
+    const t3 = await ticket(db, u);
+    expect(await call(db, t3, `web:${t3}`, T0, 2)).toMatchObject({ granted: false, reason: 'daily_cap' });
+    expect(await stock(db, u)).toBe(3);
+  });
   it('the stack may pass 7 by the grant (like a claimed set), the timer never adds above 7, and a player with no wallet starts at 7', async () => {
     const db = await world();
     const u = await newUser(db);

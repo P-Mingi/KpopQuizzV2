@@ -169,7 +169,6 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   const focusGroup = groups.find((g) => g.id === focusG) ?? groups[0] ?? null;
   const focusUsed = w?.focusUsed === true;
   const adsLeft = w?.adsLeft ?? 0;
-  const adShards = w?.adShards ?? 25;
   const shards = w?.shards ?? 0;
   const pityLeft = w?.guarantee.left ?? null;
   const dailyUsed = w?.daily.used === true;
@@ -292,8 +291,8 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
               <span className="ribbon">Free</span>
               <span className="t-ico"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M10 9.5v5l4.5-2.5z" /></svg></span>
               <h3>Watch an ad</h3>
-              <p className="big"><span>Shards</span><small>for each ad</small></p>
-              <p id="ad-s">Two ads open a pack. Sign in to watch.</p>
+              <p className="big"><span>+1</span><small>pack</small></p>
+              <p id="ad-s">Watch an ad, get 1 pack. Sign in to watch.</p>
               <div className="t-act"><button type="button" className="btn-ad" onClick={() => signIn({ title: 'Sign in to watch an ad', sub: 'Shards belong to your account.' })}><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Sign in to watch</span></button></div>
             </div>
           ) : null}
@@ -302,14 +301,14 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
               <span className="ribbon">Free</span>
               <span className="t-ico"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M10 9.5v5l4.5-2.5z" /></svg></span>
               <h3>Watch an ad</h3>
-              <p className="big"><span>+{adShards}</span><small>shards</small></p>
-              <p id="ad-s">{adsLeft > 0 ? `${adsLeft} left today. Two ads open a pack.` : 'No ads left today. More after midnight.'}</p>
+              <p className="big"><span>+1</span><small>pack</small></p>
+              <p id="ad-s">{adsLeft > 0 ? 'Watch an ad, get 1 pack. You choose to watch.' : 'No ads left today. More after midnight.'}</p>
               <div className="t-act">
                 {adsLeft > 0 && c.fixture ? (
                   // Development fixture only: no ad provider here, so the button draws the same and grants through the mock.
                   <button type="button" className="btn-ad" ref={adBtn} onClick={() => { void c.kc?.adTicket().then((t) => (isApiError(t) ? null : c.kc!.adGrant({ key: newKey(), ticket: t.ticket }))).then((r) => { if (r && !isApiError(r)) { toast(`+${r.gained} shards from the ad.`); flyReward(document.getElementById('pill-shards'), r.gained, adBtn.current); void c.refresh(); } }); }}><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></button>
                 ) : adsLeft > 0 ? (
-                  <RewardedAdButton ctx={ads} className="btn-ad" buttonRef={adBtn} onAvailable={setAdReady} onGranted={(r) => { toast(`+${r.gained} shards from the ad.`); flyReward(document.getElementById('pill-shards'), r.gained, adBtn.current); void c.refresh(); }} label={<><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></>} />
+                  <RewardedAdButton ctx={ads} className="btn-ad" buttonRef={adBtn} onAvailable={setAdReady} onGranted={(r) => { if (r.granted) { toast('+1 pack from the ad.'); flyReward(document.getElementById('pill-packs'), 1, adBtn.current); } else if (!r.replayed) toast('No more ad packs today. Back after midnight.'); void c.refresh(); }} label={<><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Watch an ad</span></>} />
                 ) : <button type="button" className="btn-ad" disabled><span className="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg></span><span id="ad-lbl">Back at midnight</span></button>}
               </div>
             </div>

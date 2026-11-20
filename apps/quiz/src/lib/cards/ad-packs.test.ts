@@ -124,13 +124,13 @@ describe('the key list and its cache', () => {
 
 describe('the consent mode of the ad request', () => {
   const ok = { gdprApplies: true, eventStatus: 'useractioncomplete', purpose: { consents: { '1': true, '3': true, '4': true } } };
-  it('personalised only with the consent for purposes 1, 3 and 4; everything else is non personalised', () => {
-    expect(adPersonalisation(ok, true)).toBe('personalised');
-    expect(adPersonalisation(null, true)).toBe('non_personalised');
-    expect(adPersonalisation({ ...ok, purpose: { consents: { '1': true } } }, true)).toBe('non_personalised');
-    expect(adPersonalisation({ ...ok, eventStatus: 'cmpuishown' }, true)).toBe('non_personalised');
-    expect(adPersonalisation({ gdprApplies: false }, true)).toBe('personalised');
-    expect(adPersonalisation(null, false)).toBe('personalised');
+  it('personalised only with the consent for purposes 1, 3 and 4; everything else is non personalised, in every country (owner, 2026-11-20)', () => {
+    expect(adPersonalisation(ok)).toBe('personalised');
+    expect(adPersonalisation(null)).toBe('non_personalised');
+    expect(adPersonalisation({ ...ok, purpose: { consents: { '1': true } } })).toBe('non_personalised');
+    expect(adPersonalisation({ ...ok, eventStatus: 'cmpuishown' })).toBe('non_personalised');
+    // Was personalised before the owner's rule: no consent message answer means no personalisation, in a region without a consent law too.
+    expect(adPersonalisation({ gdprApplies: false })).toBe('non_personalised');
   });
   it('the request carries the ticket as custom data and the non personalised flag', () => {
     expect(rewardedRequestOptions(TICKET, USER, 'non_personalised')).toEqual({ customData: TICKET, userId: USER, nonPersonalizedAds: true });

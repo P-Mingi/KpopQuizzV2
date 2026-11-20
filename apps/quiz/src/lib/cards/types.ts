@@ -241,6 +241,16 @@ export interface AdResult {
   state: WalletState;
 }
 
+/** POST /api/cards/ad/claim (launch polish): a rewarded ad that was viewed gives 1 pack, once per ticket, within the daily cap. `granted` false: the ticket was
+ *  spent for nothing (reason 'daily_cap'), or this is a replay of an earlier answer. */
+export interface AdClaimResult {
+  granted: boolean;
+  replayed: boolean;
+  reason?: string;
+  /** The stack after the claim, when a pack was given. */
+  stock?: number;
+}
+
 /** A stored wallet row (cards_wallets), times as ms since epoch, ISO string or Date. */
 export interface WalletRow {
   stock: number;
