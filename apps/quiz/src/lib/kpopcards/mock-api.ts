@@ -512,8 +512,9 @@ export function createMockApi(opts: MockOptions): MockApi {
       if (k && 'hit' in k) return { ...(k.hit as object), replayed: true } as never;
       touch();
       if (p.adsToday >= KC.ADS_PER_DAY) return err('ad_limit');
-      p.adsToday += 1; p.shards += KC.AD_SHARDS;
-      const res = { gained: KC.AD_SHARDS, shards: p.shards, replayed: false, state: view() };
+      // Dev fixture of the pack flow (launch polish): an ad gives 1 pack (the server route is /api/cards/ad/claim); no shards. `gained` is 0 shards.
+      p.adsToday += 1; p.stock += 1;
+      const res = { gained: 0, shards: p.shards, replayed: false, state: view() };
       idem.set(req.key, { op: 'ad', res });
       return res;
     },

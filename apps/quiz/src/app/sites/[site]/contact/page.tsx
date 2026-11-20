@@ -1,14 +1,19 @@
-// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/contact/page.tsx, rows 26c: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/contact/page.tsx, rows 26c and the hub's: one page file at the root of app/sites/[site] for both sites (not in the (anime) or (hub)
+// group: one path cannot have two files, as /credits and /legal). It dispatches on SITE_ID: anime keeps its page below, hub renders components/hub/legal/hub-legal-pages.tsx, any other build is a 404.
+import { notFound } from 'next/navigation';
+
+import { HubContact, hubContactMetadata } from '@/components/hub/legal/hub-legal-pages';
+import { SITE_ID } from '@/lib/site/registry';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+const animeMetadata: Metadata = {
   title: 'Contact',
   description:
     'Get in touch with the OtakuQuiz team. Questions, feedback, or a quiz idea? Email us or join the community on Reddit.',
   alternates: { canonical: '/contact' },
 };
 
-export default function ContactPage(): React.ReactElement {
+function AnimeContactPage(): React.ReactElement {
   return (
     <div className="py-8 max-w-xl">
       <h1 className="text-2xl font-bold text-[var(--text-primary)]">Contact</h1>
@@ -49,4 +54,16 @@ export default function ContactPage(): React.ReactElement {
       </div>
     </div>
   );
+}
+
+export function generateMetadata(): Metadata {
+  if (SITE_ID === 'hub') return hubContactMetadata();
+  if (SITE_ID !== 'anime') notFound();
+  return animeMetadata;
+}
+
+export default function ContactPage(): React.ReactElement {
+  if (SITE_ID === 'hub') return <HubContact />;
+  if (SITE_ID !== 'anime') notFound();
+  return <AnimeContactPage />;
 }

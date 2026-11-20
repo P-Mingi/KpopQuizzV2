@@ -142,7 +142,7 @@ export interface CatalogEntity {
   /** {"SR":"one","L":"crop"}: why a missing edition is missing. */
   lockReasons: Partial<Record<Rarity, LockReason>>;
   /** Lot 6: true while the subject is age-locked (a minor, a group with a minor, a birth date not known): the binder shows a pocket with its
-   *  name and "Carte à venir". A boolean ONLY: the month it opens is never sent to a browser (the admin reads it from cards_age_locks()). The
+   *  name and "Card coming". A boolean ONLY: the month it opens is never sent to a browser (the admin reads it from cards_age_locks()). The
    *  entity has no card and is left out of every list but the binder. Absent when not locked. */
   locked?: true;
 }
@@ -193,8 +193,6 @@ export interface WalletState {
   focusUsed?: boolean;
   /** Lot 3 A17: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
   wishlist?: number[];
-  /** Lot 4 B4: the shards a rewarded ad gives (CARDS_AD_SHARDS, default AD_SHARDS_DEFAULT). */
-  adShards?: number;
   /** Lot 4 B3: the last 10 packs, newest first. */
   recent?: RecentPack[];
   /** Lot 4 A15 (Goals): reward packs waiting, opened from the Goals tab (source 'reward'). Absent when none wait. */
@@ -234,11 +232,21 @@ export interface OpenResult {
   state: WalletState;
 }
 
-/** POST /api/cards/ad/grant (lot 4 B4): a rewarded ad gives shards, not a pack. */
+/** The retired POST /api/cards/ad/grant (a 404 now). Kept for the dev fixture's client shape; the real answer is AdClaimResult. */
 export interface AdResult {
   gained: number;
   shards: number;
   state: WalletState;
+}
+
+/** POST /api/cards/ad/claim (launch polish): a rewarded ad that was viewed gives 1 pack, once per ticket, within the daily cap. `granted` false: the ticket was
+ *  spent for nothing (reason 'daily_cap'), or this is a replay of an earlier answer. */
+export interface AdClaimResult {
+  granted: boolean;
+  replayed: boolean;
+  reason?: string;
+  /** The stack after the claim, when a pack was given. */
+  stock?: number;
 }
 
 /** A stored wallet row (cards_wallets), times as ms since epoch, ISO string or Date. */

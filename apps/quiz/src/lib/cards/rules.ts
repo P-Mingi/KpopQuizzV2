@@ -19,7 +19,9 @@ export const PERIOD_S = 600;
 export const PERIOD_MS = PERIOD_S * 1000;
 export const PACK_SIZE = 5;
 export const SHARD_PACK_COST = 50;
-export const ADS_PER_DAY_DEFAULT = 10;
+/** Rewarded ads a Paris day, and the packs they give: ONE cap, CARDS_AD_PACKS_PER_DAY (default 3, 0 turns ad packs off, at most 20). */
+export const ADS_PER_DAY_DEFAULT = 3;
+export const ADS_PER_DAY_MAX = 20;
 export const BONUS_PER_DAY_DEFAULT = 3;
 export const PARIS_TZ = 'Europe/Paris';
 
@@ -65,8 +67,6 @@ export const PITY_UR = 30;
  *  opens. CARDS_TIMER_PER_DAY overrides it on the server. */
 export const TIMER_PACKS_PER_DAY = 40;
 
-/** Lot 4 point B4: the shards a rewarded ad gives (fixed, not a pack); CARDS_AD_SHARDS overrides it on the server. */
-export const AD_SHARDS_DEFAULT = 25;
 
 /** Lot 3 point A13: the quiet hours of any reminder the game may send (Paris time, from 22:00 to 08:00). The game sends none today. */
 export const QUIET_HOURS = { from: 22, to: 8 } as const;

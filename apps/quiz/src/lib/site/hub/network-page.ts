@@ -95,7 +95,19 @@ export const PRIVACY_SECTIONS: readonly PrivacySection[] = [
       p('privacy.keeps.kpop'),
     ],
   },
+  {
+    // Launch polish (owner, 2026-11-20): what KpopCards keeps (the packs and the wallet, friend codes, nicknames, push, the demo claim, the report form).
+    title: 'privacy.cards.title',
+    blocks: [
+      p('privacy.cards.intro'),
+      list('privacy.cards.i1', 'privacy.cards.i2', 'privacy.cards.i3', 'privacy.cards.i4', 'privacy.cards.i5', 'privacy.cards.i6', 'privacy.cards.i7', 'privacy.cards.i8'),
+      p('privacy.cards.p2'),
+      p('privacy.cards.p3'),
+    ],
+  },
   { title: 'privacy.audience.title', blocks: [p('privacy.audience.p1'), p('privacy.audience.p2')] },
+  // Launch polish (owner, 2026-11-20): Google AdSense, the rewarded ad, the consent (TCF), personalised ads, under 18, cookies.
+  { title: 'privacy.ads.title', blocks: [p('privacy.ads.p1'), p('privacy.ads.p2'), p('privacy.ads.p3'), p('privacy.ads.p4'), p('privacy.ads.p5'), p('privacy.ads.p6')] },
   {
     title: 'privacy.cookies.title',
     blocks: [
@@ -110,7 +122,7 @@ export const PRIVACY_SECTIONS: readonly PrivacySection[] = [
     title: 'privacy.services.title',
     blocks: [
       p('privacy.services.intro'),
-      list('privacy.services.s1', 'privacy.services.s2', 'privacy.services.s3', 'privacy.services.s4', 'privacy.services.s5'),
+      list('privacy.services.s1', 'privacy.services.s2', 'privacy.services.s3', 'privacy.services.s4', 'privacy.services.s5', 'privacy.services.s6', 'privacy.services.s7'),
       p('privacy.services.p2'),
       p('privacy.services.p3'),
       p('privacy.services.p4'),

@@ -26,17 +26,17 @@ const BANNED = /K-?pop|kpopquiz|Kpop_Verse|Discord/i;
 const MAILBOX = 'hello@kpopquiz.org';
 
 describe('the anime pages that were kpop copies', () => {
-  const pages: Array<[string, () => Promise<{ default: () => unknown; metadata?: unknown }>]> = [
+  const pages: Array<[string, () => Promise<{ default: () => unknown; metadata?: unknown; generateMetadata?: () => unknown }>]> = [
     ['about', () => import('./(anime)/about/page') as never],
     ['editorial policy', () => import('./(anime)/editorial-policy/page') as never],
-    ['contact', () => import('./(anime)/contact/page') as never],
-    ['terms', () => import('./(anime)/terms/page') as never],
+    ['contact', () => import('./contact/page') as never],
+    ['terms', () => import('./terms/page') as never],
   ];
   for (const [name, load] of pages) {
     it(`${name}: no kpop word, host or mailbox${name === 'contact' ? ' (the Reddit link is the one allowed leftover)' : ''}`, async () => {
       const mod = await onSite('anime', load);
       const out = await (mod.default as () => unknown)();
-      const html = renderToString(out as React.ReactElement) + JSON.stringify((mod as { metadata?: unknown }).metadata ?? {});
+      const html = renderToString(out as React.ReactElement) + JSON.stringify(mod.generateMetadata?.() ?? mod.metadata ?? {});
       const banned = name === 'contact' ? /K-?pop(?!_)|kpopquiz|Discord/i : BANNED;
       // the one network mailbox (owner, 2026-10-25) is the only kpopquiz.org text these pages may print; Discord is named only as a way
       // to sign in (owner, 2026-10-28: bunnyverse.org signs in with Google and Discord)

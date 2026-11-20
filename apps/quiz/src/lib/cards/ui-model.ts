@@ -235,7 +235,7 @@ export function countedCards(cat: Pick<SlimCatalog, 'cards' | 'retired'>, owned:
 }
 
 /**
- * Lot 6: the pockets of the age-locked subjects. Each one has its name and no more ("Carte à venir"): no rarity, no number, no date, no link.
+ * Lot 6: the pockets of the age-locked subjects. Each one has its name and no more ("Card coming"): no rarity, no number, no date, no link.
  * A person gets one pocket, a group its pair (1/2 and 2/2). They go into the section of the group (the person's group line, the group's own
  * name), after its last pocket; a section with nothing else is marked `soon` so no pack and no lobby box is made from it. They add nothing
  * to `cards`, `locks`, `editions` or a section's card numbers: nothing counts them.
@@ -335,7 +335,7 @@ export function filterItems(items: readonly BinderItem[], f: Filters, owned: Map
   const q = f.q.trim().toLowerCase();
   const anyR = RARITIES.some((r) => f.rar[r]);
   const matches = (it: BinderItem): boolean => {
-    // Lot 6: a "Carte à venir" pocket is never a search result and never a "missing", "owned" or "favourite" card: it shows only with no filter at all.
+    // Lot 6: a "Card coming" pocket is never a search result and never a "missing", "owned" or "favourite" card: it shows only with no filter at all.
     if (it.locked && it.soon) return f.show === 'all' && !q && !anyR && f.kind === 'all';
     const kind: CardKind = it.locked ? 'idol' : it.card.kind;
     const rar = it.locked ? it.rarity : it.card.rarity;

@@ -38,8 +38,7 @@ export const KC = {
   SHARD_PACK: 50,
   /** Kpopdle bonus packs a Paris day (CARDS_BONUS_PER_DAY, default 3), each earned by one won Kpopdle play. */
   BONUS_PER_DAY: 3,
-  AD_SHARDS: 25,
-  ADS_PER_DAY: 10,
+  ADS_PER_DAY: 3,
   /** One level every 10 distinct cards. */
   CARDS_PER_LEVEL: 10,
   SHOWCASE: 3,
@@ -622,7 +621,7 @@ export interface HelpData {
   how: { title: string; text: string }[];
   faq: { q: string; a: string }[];
   /** The rules in numbers, so a page never types them. */
-  rules: { stackCap: number; periodMinutes: number; timerPerDay: number; goldByPack: number; goldenEvery: number; shardPack: number; adShards: number; adsPerDay: number };
+  rules: { stackCap: number; periodMinutes: number; timerPerDay: number; goldByPack: number; goldenEvery: number; shardPack: number; adsPerDay: number };
   reportRoles: { id: 'person' | 'photographer' | 'agency' | 'other'; label: string }[];
   creditsNote: string;
 }

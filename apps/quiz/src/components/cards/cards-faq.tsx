@@ -3,8 +3,9 @@
 // lib/cards/rules.ts. No FAQPage JSON-LD (the pages are closed to search engines while the hub is private).
 import Link from 'next/link';
 
+import { adsPerDay } from '@/lib/cards/flags';
 import { kcPath } from '@/lib/cards/kc-paths';
-import { AD_SHARDS_DEFAULT, CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
+import { CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
 import { KC } from '@/lib/kpopcards/contract';
 
 import { REMOVAL_PROMISE } from './report-form';
@@ -12,8 +13,10 @@ import { REMOVAL_PROMISE } from './report-form';
 // The stack of KpopCards holds 7 packs (KC.STACK_CAP); CAP of lib/cards/rules.ts is the old Bunnyverse Cards stack of 5.
 const CAP = KC.STACK_CAP;
 
-/** The shards of a rewarded ad (lot 4 B4): the default of CARDS_AD_SHARDS (lib/cards/rules.ts). */
-export const AD_SHARDS = AD_SHARDS_DEFAULT;
+/** The packs a day a rewarded ad can give (CARDS_AD_PACKS_PER_DAY, default 3), read when the page renders. */
+function AdsAnswer(): React.ReactElement {
+  return <>Only if you choose: a rewarded ad gives 1 pack, up to {adsPerDay()} a day. Packs and cards won this way cannot be traded or given. Ads never show in front of a pack, and kpopquiz.org has none.</>;
+}
 
 export interface FaqItem { id: string; q: string; a: React.ReactNode }
 
@@ -41,7 +44,7 @@ export const FAQ: readonly FaqItem[] = [
     id: 'photos', q: 'Where do the photos come from?',
     a: <>Only photos under a free licence, mostly from Wikimedia Commons, with everyone in them 18 or older on the day. The author and licence are on every card and on the credits page. <b>Report a photo</b> and it leaves the game within 48 hours. {REMOVAL_PROMISE}</>,
   },
-  { id: 'ads', q: 'Why are there ads?', a: <>Only if you choose: a rewarded ad gives a fixed {AD_SHARDS} shards, up to 10 a day. Ads never show in front of a pack, and kpopquiz.org has none.</> },
+  { id: 'ads', q: 'Why are there ads?', a: <AdsAnswer /> },
   {
     id: 'notify', q: 'Will it send me notifications?',
     a: <>Only if you turn them on: one when your stack of {CAP} is full, never between 22:00 and 08:00. The timer gives up to {TIMER_PACKS_PER_DAY} packs a day, so leaving a tab open all day brings nothing more.</>,

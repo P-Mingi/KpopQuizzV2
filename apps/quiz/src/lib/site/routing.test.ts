@@ -16,7 +16,7 @@ import { KNOWN_ROUTES, UX_V1_ROUTES, UX_V12_ROUTES, isKnownRouteWith } from '@/l
 
 import { REGISTRY, hubRouteAllow } from './registry';
 import {
-  HUB_ONLY_FILES, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
+  HUB_LEGAL_SAMPLES, HUB_ONLY_FILES, INDEXNOW_KEY_FILE_RE, KPOP_DATA_SAMPLES, KPOP_ONLY_SAMPLES, PER_SITE_BRAND_FILES, PER_SITE_ROOT_FILES, KPOP_ONLY_DOTTED_ROUTES,
   SESSION_PATTERNS, TWIN_SAMPLES, afterFilesFor, brandPath, compileRoutePattern, fallbackFor, indexNowKeyFile, internalPath,
   isKnownRouteFor, isServedSite, isSessionPathFor, isSitesPath, keyFileBlocksFor, middlewareStep, redirectsFor, rewritesFor,
   siteStaticParams,
@@ -383,6 +383,17 @@ describe('the route map of anime and hub', () => {
     expect(isKnownRouteWith('/blindtest/ranked', flags)).toBe(true);
   });
 
+  it('launch polish: /terms, /contact and /dmca are routes of kpop, anime and hub, and pass the hub middleware', () => {
+    for (const p of HUB_LEGAL_SAMPLES) {
+      expect(isKnownRouteFor('hub', p, flags), `hub ${p}`).toBe(true);
+      expect(isKnownRouteFor('anime', p, flags), `anime ${p}`).toBe(true);
+      expect(isKnownRouteWith(p, flags), `kpop ${p}`).toBe(true);
+      expect(middlewareStep('hub', p), `hub step ${p}`).toBe('pass');
+      expect(REGISTRY.hub.routes.allow, p).toContain(p);
+      expect(TWIN_SAMPLES, p).not.toContain(p);
+    }
+  });
+
   it('hub routes of BACKLOG 5.1 are known, quiz routes are not', () => {
     // /daily is the Burrow of the daily games on the hub since launch day (2026-11-07, RUNBOOK K8c), not a daily quiz: known with the hub's dailyGuess on.
     for (const p of ['/', '/privacy', '/passport', '/u/mina_92', '/settings', '/settings/worlds', '/login', '/directory', '/auth/arrive', '/api/passport/redeem', '/daily']) {
@@ -409,8 +420,8 @@ describe('the route map of anime and hub', () => {
     expect(() => compileRoutePattern('/a/**/b')).toThrow();
   });
 
-  it('per-site root files are the three files the rewrites serve', () => {
-    expect(PER_SITE_ROOT_FILES).toEqual(['/robots.txt', '/sitemap.xml', '/llms.txt']);
+  it('per-site root files are the four files the rewrites serve (/ads.txt joined for the AdSense verification of the hub: a 404 on every other site)', () => {
+    expect(PER_SITE_ROOT_FILES).toEqual(['/robots.txt', '/sitemap.xml', '/llms.txt', '/ads.txt']);
   });
 
   it('the brand files are every root file of public/ but the IndexNow key files, which are one per site', () => {
@@ -603,7 +614,7 @@ describe('middleware step and the sites/[site] guard', () => {
     it('every route handler of the hub tree, and the root ones it shares', () => {
       const root = join(APP_DIR, 'sites/[site]');
       const handlers = filesUnder(root).filter((f) => /\/route\.tsx?$/.test(f) && !f.includes('/(anime)/')).map((f) => f.slice(root.length).replace(/\/route\.tsx?$/, ''));
-      expect(handlers.sort()).toEqual(['/llms.txt', '/robots.txt', '/sitemap-hub.xml', '/sitemap.xml']);
+      expect(handlers.sort()).toEqual(['/ads.txt', '/llms.txt', '/robots.txt', '/sitemap-hub.xml', '/sitemap.xml']);
       const api = filesUnder(join(APP_DIR, 'api')).filter((f) => /\/route\.tsx?$/.test(f)).map((f) => f.slice(APP_DIR.length).replace(/\/route\.tsx?$/, ''));
       expect(api.length).toBeGreaterThan(0);
       for (const p of [...handlers, ...api, '/auth/callback', '/auth/confirm']) expect(middlewareStep('hub', p), `hub ${p}`).toBe('pass');

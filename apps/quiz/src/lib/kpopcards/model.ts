@@ -323,7 +323,7 @@ export function missionsState(w: World, p: PlayerData, now: number): MissionsSta
 
 /* ------------------------------------------------------------------ lobby */
 
-export interface LobbyInput { w: World; p: PlayerData; now: number; bonusPerDay?: number; /** The quiz of the day's pack is among the bonus packs earned today (cards_bonus_sync). */ quizDone?: boolean; timerCap?: number; adsPerDay?: number; adShards?: number; adsEnabled?: boolean; odds?: boolean }
+export interface LobbyInput { w: World; p: PlayerData; now: number; bonusPerDay?: number; /** The quiz of the day's pack is among the bonus packs earned today (cards_bonus_sync). */ quizDone?: boolean; timerCap?: number; adsPerDay?: number; adsEnabled?: boolean; odds?: boolean }
 
 export function lobbyState(i: LobbyInput): LobbyState {
   const { w, p, now } = i;
@@ -362,7 +362,6 @@ export function lobbyState(i: LobbyInput): LobbyState {
     stock: wal.stock, cap: KC.STACK_CAP, nextAt: wal.nextAt === null ? null : new Date(wal.nextAt).toISOString(), midnightAt: new Date(wal.midnightAt).toISOString(),
     adsLeft: Math.max(0, adsPer - wal.adsToday), adsEnabled: i.adsEnabled ?? true, shards: p.shards, bonusLeft, owned: [...p.owned].map(([n, o]) => ({ n, copies: o.copies, fav: o.fav, at: new Date(o.lastAt).toISOString() })),
     timerCap, timerUsed: wal.timerToday, timerLeft: Math.max(0, timerCap - wal.timerToday), pityLeft: guarantee.left, focusUsed: p.focusDay === day, wishlist: [...p.wishlist].sort((a, b) => a - b),
-    adShards: i.adShards ?? KC.AD_SHARDS,
     recent: p.recent.slice(0, 10).map((r) => ({ at: new Date(r.at).toISOString(), best: EDITIONS[r.best].edition, source: r.source, newCount: r.newCount })),
     odds: i.odds === false ? null : computeOdds(poolCards(w)),
     theme: p.prefs.theme, themes: themeInfos(w), daily, golden, guarantee, level: levelState(ownedCount), prefs: p.prefs, bell, week, claimable: ms.claimable, newCards,

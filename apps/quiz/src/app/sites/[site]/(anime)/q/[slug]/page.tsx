@@ -35,7 +35,8 @@ import { getSeriesHub } from '@/lib/anime/series';
 import { arcName, hasTriviaPage as seriesHasTrivia, quizSpoilerLevel, shieldArcs, uniqueFacts } from '@/lib/anime/series-model';
 import { maskTaggedQuestions, withoutTaggedQuestions } from '@/lib/anime/spoilers';
 
-import { quizDescription, quizTitle } from '@/lib/seo/quiz-meta';
+import { isTeamQuizCreator } from '@/lib/editorial/accounts';
+import { quizAuthorJsonLd, quizDescription, quizTitle, TEAM_BYLINE } from '@/lib/seo/quiz-meta';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
@@ -137,7 +138,7 @@ export async function generateMetadata({ params }: QuizPageProps): Promise<Metad
   const creatorNote = sanitizeCreatorNote(quiz.settings?.creator_note);
   const description = quizDescription({
     title: quiz.title, difficulty: quiz.difficulty, questionCount: questionLen, groupName: quiz.group_name,
-    creator: quiz.creator_username, plays: quiz.play_count, creatorNote: creatorNote ?? null,
+    creator: quiz.creator_username, creatorIsTeam: await isTeamQuizCreator((quiz as { creator_id?: string }).creator_id), plays: quiz.play_count, creatorNote: creatorNote ?? null,
   });
   const title = quizTitle(quiz.title, questionLen);
   const ogImageUrl = `/api/og/${slug}`;
@@ -237,7 +238,8 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
   // C4: perfect count is only meaningful when a perfect run == qcount;
   // otherwise the underlying rows do not match "perfect" as a user reads it.
   const introPerfCount = perQuestionScore ? extraStats.perfectScoreCount : 0;
-  const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${quiz.creator_username}.`;
+  const teamQuiz = await isTeamQuizCreator((quiz as { creator_id?: string }).creator_id);
+  const base = `Test your ${quiz.group_name} knowledge with this ${quiz.difficulty} ${questionCount}-question quiz by ${teamQuiz ? TEAM_BYLINE : quiz.creator_username}.`;
   let socialProof: string;
   if (plays === 0) {
     // Branch A: brand new
@@ -364,6 +366,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     fandomName: quiz.fandom_name,
     creatorId: (quiz as { creator_id?: string }).creator_id ?? null,
     creatorUsername: quiz.creator_username,
+    creatorIsTeam: teamQuiz,
     creatorXp: (quiz as { creator_xp?: number | null }).creator_xp ?? null,
     creatorAvatarUrl: quiz.creator_avatar_url,
     creatorAvatarBg: quiz.creator_avatar_bg,
@@ -396,7 +399,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     '@context': 'https://schema.org',
     '@type': 'Quiz',
     name: quiz.title,
-    description: `A ${quiz.group_name} quiz created by ${quiz.creator_username} on OtakuQuiz`,
+    description: `A ${quiz.group_name} quiz created by ${teamQuiz ? TEAM_BYLINE : quiz.creator_username} on OtakuQuiz`,
     educationalAlignment: {
       '@type': 'AlignmentObject',
       alignmentType: 'educationalSubject',
@@ -405,11 +408,7 @@ export default async function QuizPage({ params }: QuizPageProps): Promise<React
     educationalLevel: quiz.difficulty,
     assesses: quiz.group_name,
     keywords: `${quiz.group_name}, anime, ${quiz.difficulty} quiz`,
-    author: {
-      '@type': 'Person',
-      name: quiz.creator_username,
-      url: `${SITE.url}/u/${quiz.creator_username}`,
-    },
+    author: quizAuthorJsonLd(quiz.creator_username, teamQuiz),
     dateCreated: quiz.created_at,
     // Not updated_at: record_play bumps it on every play (a play is not an edit).
     dateModified: quiz.created_at,

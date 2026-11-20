@@ -1,18 +1,18 @@
-// Bunnyverse Cards, lane B: the ads layer. Hidden with no publisher id; US requests child-directed; consent regions fail closed; the grant is called
-// only from adViewed; a dismissed ad grants nothing; no ad available hides the button.
+// Bunnyverse Cards, lane B: the ads layer. Hidden with no publisher id; no blanket child or teen tag, a known minor only; consent regions fail closed; the
+// grant is called only from adViewed; a dismissed ad grants nothing; no ad available hides the button.
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 
-import { adsContext, ATTR_CHILD_DIRECTED, cmpSrc, consentAllows, createRewardController, scriptAttributes } from './ads';
+import { adsContext, ATTR_UNDER_AGE, cmpSrc, consentAllows, createRewardController, scriptAttributes } from './ads';
 
 import type { RewardBreak, RewardState } from './ads';
 
-const ENV = { NET_CARDS_ADS: '1', NEXT_PUBLIC_NET_CARDS_ADS: '1', NEXT_PUBLIC_CARDS_ADSENSE_CLIENT: 'ca-pub-1234567890123456', NEXT_PUBLIC_CARDS_BANNER_SLOT: '1234567890' };
+const ENV = { NET_CARDS_ADS: '1', NEXT_PUBLIC_NET_CARDS_ADS: '1', NEXT_PUBLIC_ADSENSE_PUB_ID: 'ca-pub-1234567890123456', NEXT_PUBLIC_CARDS_BANNER_SLOT: '1234567890' };
 
 describe('context', () => {
   it('no publisher id, or a flag off, or another site: disabled, no script attributes', () => {
-    expect(adsContext({ ...ENV, NEXT_PUBLIC_CARDS_ADSENSE_CLIENT: undefined }, 'FR', 'hub').enabled).toBe(false);
-    expect(adsContext({ ...ENV, NEXT_PUBLIC_CARDS_ADSENSE_CLIENT: 'pub-1' }, 'FR', 'hub').enabled).toBe(false);
+    expect(adsContext({ ...ENV, NEXT_PUBLIC_ADSENSE_PUB_ID: undefined }, 'FR', 'hub').enabled).toBe(false);
+    expect(adsContext({ ...ENV, NEXT_PUBLIC_ADSENSE_PUB_ID: 'pub-1234567890123456' }, 'FR', 'hub').enabled).toBe(false);
     expect(adsContext({ ...ENV, NET_CARDS_ADS: '0' }, 'FR', 'hub').enabled).toBe(false);
     expect(adsContext({ ...ENV, NEXT_PUBLIC_NET_CARDS_ADS: undefined }, 'FR', 'hub').enabled).toBe(false);
     expect(adsContext(ENV, 'FR', 'kpop').enabled).toBe(false);
@@ -26,27 +26,23 @@ describe('context', () => {
     expect(c.enabled).toBe(true);
     expect(c.bannerSlot).toBeNull();
   });
-  it('US is child-directed, others are not; the attribute is on the tag only for US', () => {
-    const us = adsContext(ENV, 'us', 'hub');
-    expect(us.childDirected).toBe(true);
-    expect(scriptAttributes(us)![ATTR_CHILD_DIRECTED]).toBe('1');
-    const jp = adsContext(ENV, 'JP', 'hub');
-    expect(jp.childDirected).toBe(false);
-    expect(ATTR_CHILD_DIRECTED in scriptAttributes(jp)!).toBe(false);
-    expect(scriptAttributes(jp)!.src).toBe('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456');
-  });
-  it('review 1 finding 14: an unknown country is child-directed (fail closed), and the tag says so', () => {
-    for (const c of [null, undefined, '', 'XYZ', '1']) {
+  it('owner 2026-11-20: no country is tagged under age or child directed; the tag is for a KNOWN minor only', () => {
+    for (const c of ['US', 'us', 'JP', 'FR', null, undefined, '', 'XYZ']) {
       const u = adsContext(ENV, c, 'hub');
-      expect(u.country, String(c)).toBeNull();
-      expect(u.childDirected, String(c)).toBe(true);
-      expect(scriptAttributes(u)![ATTR_CHILD_DIRECTED], String(c)).toBe('1');
+      expect(u.knownMinor, String(c)).toBe(false);
+      const a = scriptAttributes(u)!;
+      expect(ATTR_UNDER_AGE in a, String(c)).toBe(false);
+      expect(Object.keys(a).some((k) => /child|teen|under-age/.test(k)), String(c)).toBe(false);
     }
+    const minor = adsContext(ENV, 'JP', 'hub', { knownMinor: true });
+    expect(minor.knownMinor).toBe(true);
+    expect(scriptAttributes(minor)![ATTR_UNDER_AGE]).toBe('1');
+    expect(scriptAttributes(adsContext(ENV, 'JP', 'hub'))!.src).toBe('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456');
   });
-  it('review 1 finding 14: the unconfirmed names stay in one place each, listed for the owner', async () => {
+  it('the unconfirmed names stay in one place each, listed for the owner', async () => {
     const { UNCONFIRMED_FOR_OWNER } = await import('./ads');
     const src = (await import('node:fs')).readFileSync('src/lib/cards/ads.ts', 'utf8');
-    expect(UNCONFIRMED_FOR_OWNER).toEqual(['data-tag-for-child-directed-treatment', 'data-adbreak-test', 'https://fundingchoicesmessages.google.com/i/']);
+    expect(UNCONFIRMED_FOR_OWNER).toEqual(['data-tag-for-under-age-of-consent', 'data-adbreak-test', 'https://fundingchoicesmessages.google.com/i/']);
     for (const v of UNCONFIRMED_FOR_OWNER) expect(src.split(`'${v}'`).length - 1, v).toBe(1);
   });
   it('consent regions: EEA, UK, Switzerland and an unknown country need the CMP; the US and Japan do not', () => {
@@ -92,6 +88,7 @@ describe('rewarded flow', () => {
     const show = vi.fn();
     s.brk.beforeReward(show);
     expect(s.states).toEqual(['ready']);
+    s.c.agree();
     await s.c.click();
     expect(s.ticket).toHaveBeenCalledTimes(1);
     expect(show).toHaveBeenCalledTimes(1);
@@ -105,6 +102,7 @@ describe('rewarded flow', () => {
     const s = setup();
     s.c.probe();
     s.brk.beforeReward(vi.fn());
+    s.c.agree();
     await s.c.click();
     s.brk.adDismissed();
     s.brk.adBreakDone({ breakStatus: 'dismissed' });
@@ -115,6 +113,7 @@ describe('rewarded flow', () => {
     s.c.probe();
     const show = vi.fn();
     s.brk.beforeReward(show);
+    s.c.agree();
     await s.c.click();
     expect(show).not.toHaveBeenCalled();
     expect(s.states.at(-1)).toBe('hidden');

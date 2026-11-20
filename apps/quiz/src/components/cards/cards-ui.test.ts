@@ -36,7 +36,7 @@ import type { CardKind, LockReason, Rarity } from '@/lib/cards/types';
 import type { AdsContext } from '@/lib/cards/ads';
 
 const NOT_FOUND = /NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/;
-const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, childDirected: false, consentRequired: true, test: false };
+const ADS_OFF: AdsContext = { enabled: false, client: null, bannerSlot: null, country: null, knownMinor: false, consentRequired: true, test: false };
 const cat = buildFixtureCatalog();
 const slim = buildSlim(cat);
 const h1s = (html: string): number => (html.match(/<h1[\s>]/g) ?? []).length;

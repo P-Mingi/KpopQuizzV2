@@ -61,6 +61,15 @@ export async function isEditorialUser(userId: string | null | undefined): Promis
   return (await getTeamMap()).has(userId);
 }
 
+/** True when an active editorial (Team) account made the quiz: the one rule of the quiz pages of every site. A failed read means "not a Team quiz". */
+export async function isTeamQuizCreator(creatorId: string | null | undefined): Promise<boolean> {
+  try {
+    return await isEditorialUser(creatorId ?? null);
+  } catch {
+    return false;
+  }
+}
+
 /** Drop the rows whose user is an editorial account (boards, fan counts, activity). */
 export function withoutTeam<T>(rows: T[], team: ReadonlySet<string>, userOf: (r: T) => string | null | undefined): T[] {
   if (!team.size) return rows;

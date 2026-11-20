@@ -262,8 +262,9 @@ describe('what the display reads is what the admin wrote', () => {
   });
 
   it('a focal point set in the admin is the object-position the display draws', async () => {
-    await upload({ kind: 'character', slug: 'death-note/light-yagami', file: await picture(700, 900) });
-    await saveFocal(routedFetch(), { kind: 'character', slug: 'death-note/light-yagami', x: 20, y: 35 });
+    // A series picture: a character picture reaches the display only once its licence is verified (entity_images_public), which a fresh upload is not.
+    await upload({ kind: 'series', slug: 'death-note', file: await picture(700, 900) });
+    await saveFocal(routedFetch(), { kind: 'series', slug: 'death-note', x: 20, y: 35 });
     const rows = await loadEntityImageRows(state.db as never);
     expect(ownerPictureOf(rows[0]!, SUPABASE).position).toBe('20% 35%');
   });
