@@ -311,3 +311,35 @@ describe('R10 the provider is interchangeable behind one interface', () => {
     expect(read('app/api/cards/ad/ssv/route.ts')).toContain('adPacksOn(env())');
   });
 });
+
+describe('R11 every player-facing line says what the code does: an ad gives 1 pack, up to CARDS_AD_PACKS_PER_DAY a day, only if the player chooses', () => {
+  const SRC_FILES = files(SRC, isSource);
+  it('no file says an ad gives shards, or keeps the retired shard setting', () => {
+    const bad = /(ads?|advert\w*)[^.\n`'"]{0,30}\b(gives?|for|earns?)\b[^.\n`'"]{0,20}\bshards?\b|shards?\b[^.\n`'"]{0,20}\b(from|for) (an?|each|the) ads?\b|CARDS_AD_SHARDS|AD_SHARDS|adShards|CARDS_ADS_PER_DAY/i;
+    const hits = SRC_FILES.filter((f) => {
+      const t = readFileSync(f, 'utf8');
+      // the retirement note of the grant route and the rule comments of this layer may name the old thing
+      return bad.test(t.replace(/^\s*\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, ''));
+    }).map((f) => path.relative(SRC, f));
+    expect(hits).toEqual([]);
+  });
+  it('the help data, the odds sentences and the FAQ state the cap from its flag helper', async () => {
+    const { helpData } = await import('@/lib/kpopcards/help-data');
+    const { economySentences } = await import('./economy');
+    const h = helpData();
+    expect(JSON.stringify(h)).toContain('a rewarded ad gives 1 pack, up to 3 a day');
+    expect(h.rules.adsPerDay).toBe(3);
+    expect(economySentences(40).ad).toContain('gives 1 pack, up to 3 a day');
+    const faq = readFileSync(path.join(SRC, 'components/cards/cards-faq.tsx'), 'utf8');
+    expect(faq).toContain('a rewarded ad gives 1 pack, up to {adsPerDay()} a day');
+    vi.stubEnv('CARDS_AD_PACKS_PER_DAY', '5');
+    expect(JSON.stringify(helpData())).toContain('up to 5 a day');
+    vi.unstubAllEnvs();
+  });
+  it('one cap: the ticket, the lobby count and the claim all read CARDS_AD_PACKS_PER_DAY', () => {
+    expect(read('lib/cards/flags.ts')).toContain('CARDS_AD_PACKS_PER_DAY: process.env.CARDS_AD_PACKS_PER_DAY');
+    expect(read('lib/cards/api.ts')).toContain('ads: adsPerDay()');
+    expect(read('app/api/cards/ad/ticket/route.ts')).toContain('adPacksPerDay(');
+    expect(read('app/api/cards/ad/claim/route.ts')).toContain('adPacksPerDay(env)');
+  });
+});

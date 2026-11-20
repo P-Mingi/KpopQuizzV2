@@ -112,7 +112,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   const look = packLook({ theme, golden });
   const face = PackFace({ c: look.c, title: look.title, golden: look.golden });
 
-  const main = mainButton({ stock, shards: w?.shards ?? 0, adsLeft: w?.adsLeft ?? 0, adsAvailable: adReady && !!w?.adsEnabled, adShards: w?.adShards ?? 25, nextMs: w?.nextAt ? nextMs : null });
+  const main = mainButton({ stock, shards: w?.shards ?? 0, adsLeft: w?.adsLeft ?? 0, adsAvailable: adReady && !!w?.adsEnabled, nextMs: w?.nextAt ? nextMs : null });
   const hasPack = stock > 0;
   const canShards = (w?.shards ?? 0) >= SHARD_PACK_COST;
 

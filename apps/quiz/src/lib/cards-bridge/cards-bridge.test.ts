@@ -226,13 +226,13 @@ describe('the wallet read passes the bonus cap', () => {
 });
 
 describe('review 1 finding 17: the bridges', () => {
-  it('the wallet read caps the settings like the hub: at most 20 bonus packs and 100 ads', async () => {
+  it('the wallet read caps the settings like the hub: at most 20 bonus packs and 20 ad packs', async () => {
     rpc.mockResolvedValue({ data: {}, error: null });
     env('1');
     vi.stubEnv('CARDS_BONUS_PER_DAY', '50');
-    vi.stubEnv('CARDS_ADS_PER_DAY', '500');
+    vi.stubEnv('CARDS_AD_PACKS_PER_DAY', '500');
     await (await import('./me')).defaultSource().wallet('u1', new Date('2026-11-12T10:00:00Z'));
-    expect(rpc.mock.calls[0]![1]).toMatchObject({ p_bonus_cap: 20, p_ads_limit: 100 });
+    expect(rpc.mock.calls[0]![1]).toMatchObject({ p_bonus_cap: 20, p_ads_limit: 20 });
   });
   it('the cards of the group block have the photocard shape, 55:85', async () => {
     env('1');

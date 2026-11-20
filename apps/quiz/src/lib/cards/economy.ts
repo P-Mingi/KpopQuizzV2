@@ -76,7 +76,6 @@ export interface MainButtonInput {
   adsLeft: number;
   /** False when the ad layer is off or cannot play an ad now. */
   adsAvailable: boolean;
-  adShards: number;
   /** Milliseconds until the next timer refill, null when none is coming today. */
   nextMs: number | null;
 }
@@ -98,7 +97,7 @@ export function mainButton(i: MainButtonInput): MainButton {
 /** The plain sentences of the odds page for the economy rules. `timerCap` is the server's CARDS_TIMER_PER_DAY or TIMER_PACKS_PER_DAY;
  *  `present` the rarities that have a card in packs (a rarity's craft cost is told only once such a card exists). */
 export function economySentences(
-  timerCap: number, present: readonly Rarity[] = RARITIES, _adShards = 25,
+  timerCap: number, present: readonly Rarity[] = RARITIES, adsPerDay = 3,
 ): { pity: string; half: string; focus: string; timer: string; craft: string; ad: string } {
   const gold = RARITY_LABEL.UR;
   const craftable = RARITIES.filter((r) => present.includes(r) && CRAFT_COST[r] !== undefined);
@@ -108,6 +107,6 @@ export function economySentences(
     focus: 'Once a day you can pick a group for one pack from your stack: its 2nd and 4th cards come from that group (same odds for each edition), the other three are drawn as usual.',
     timer: `The timer adds at most ${timerCap} packs a day, Paris time. A pack already in your stack always opens.`,
     craft: `A card you are missing can be crafted with shards: ${craftable.map((r) => `${RARITY_LABEL[r]} ${CRAFT_COST[r]}`).join(', ')}. ${RARITY_LABEL.L} cards can't be crafted.`,
-    ad: 'A rewarded ad you choose to watch gives 1 pack, up to a few a day. Those packs cannot be traded or given.',
+    ad: `A rewarded ad you choose to watch gives 1 pack, up to ${adsPerDay} a day. Packs and cards won this way cannot be traded or given.`,
   };
 }

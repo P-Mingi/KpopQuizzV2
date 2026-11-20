@@ -3,7 +3,7 @@
 // a card are listed, because an edition with no card can never come out.
 import { RARITY_LABEL } from '@/lib/cards/rules';
 import { economySentences } from '@/lib/cards/economy';
-import { adShards, timerPerDay } from '@/lib/cards/flags';
+import { adsPerDay, timerPerDay } from '@/lib/cards/flags';
 import { oddsView } from '@/lib/cards/ui-model';
 
 import { Gem } from './card-art';
@@ -18,7 +18,7 @@ const pct = (v: number | undefined): string => `${(v ?? 0).toFixed(2)}%`;
  */
 export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; rules?: React.ReactNode }): React.ReactElement {
   const t = oddsView(odds);
-  const econ = economySentences(timerPerDay(), t.present, adShards());
+  const econ = economySentences(timerPerDay(), t.present, adsPerDay());
   return (
     <div className="rates" id="rates">
       {/* Lot 3 point A10: one table, one row per edition that exists in packs (computeOdds of the real pool), the first four cards and the fifth. */}

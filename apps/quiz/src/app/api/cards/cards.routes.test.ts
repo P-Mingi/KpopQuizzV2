@@ -301,7 +301,7 @@ describe('GET /api/cards/state: the lobby', () => {
     expect(res.status).toBe(200);
     const b = await res.json();
     expect(b).toMatchObject({
-      cap: 7, shards: 12, adShards: 25, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2], focusUsed: false,
+      cap: 7, shards: 12, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2], focusUsed: false,
       golden: { next: false, packsUntil: 3, opened: 7 }, guarantee: { streak: 3, by: 30 }, level: { level: 1, title: 'Rookie' },
       prefs: { sound: true, vibration: true, theme: 'all', focus: null },
       owned: [{ n: 4, copies: 2, fav: true }], daily: { used: false, group: { id: 'group:G', name: 'Group' } },
@@ -313,10 +313,11 @@ describe('GET /api/cards/state: the lobby', () => {
   });
   it('the settings flow through and adsEnabled follows NET_CARDS_ADS', async () => {
     vi.stubEnv('CARDS_TIMER_PER_DAY', '12');
-    vi.stubEnv('CARDS_ADS_PER_DAY', '4');
+    vi.stubEnv('CARDS_AD_PACKS_PER_DAY', '4');
     let b = await (await state(req('/api/cards/state'))).json();
     expect(h.rpcCalls.find((c) => c.fn === 'cards_player')?.args).toMatchObject({ p_timer_cap: 12 });
-    expect([b.timerCap, b.adsLeft, b.adsEnabled]).toEqual([12, 2, true]);
+    // ads left = the cap (4) minus the ad packs earned today (cards_ad_events: none here), not the wallet's own counter (2)
+    expect([b.timerCap, b.adsLeft, b.adsEnabled]).toEqual([12, 4, true]);
     vi.stubEnv('NET_CARDS_ADS', '');
     b = await (await state(req('/api/cards/state'))).json();
     expect(b.adsEnabled).toBe(false);
@@ -462,10 +463,10 @@ describe('the rewarded ad', () => {
     h.rpcResult.cards_issue_ticket = { data: UUID };
     res = await ticket(req('/api/cards/ad/ticket', {}));
     expect([res.status, await res.json()]).toEqual([200, { ticket: UUID }]);
-    expect(h.rpcCalls.at(-1)).toMatchObject({ fn: 'cards_issue_ticket', args: { p_user: 'u1', p_ads_limit: 10 } });
+    expect(h.rpcCalls.at(-1)).toMatchObject({ fn: 'cards_issue_ticket', args: { p_user: 'u1', p_ads_limit: 3 } });
   });
   it('0 ads a day turns the ticket off', async () => {
-    vi.stubEnv('CARDS_ADS_PER_DAY', '0');
+    vi.stubEnv('CARDS_AD_PACKS_PER_DAY', '0');
     expect((await ticket(req('/api/cards/ad/ticket', {}))).status).toBe(409);
     expect(h.rpcCalls).toEqual([]);
   });

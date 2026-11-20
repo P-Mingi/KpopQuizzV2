@@ -8,7 +8,7 @@ import { teamRefusal } from '@/lib/editorial/team-refusal';
 import { createServerClient, createServiceRoleClient } from '@/lib/supabase/server';
 
 import { loadPool } from './draw';
-import { adShards, adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, cardsOpen, timerPerDay } from './flags';
+import { adsPerDay, bonusPerDay, cardsAdsOn, cardsBridgesOn, cardsOpen, timerPerDay } from './flags';
 import { privateLaunchBars, privateLaunchOn } from './private';
 import { CAP, EDITIONS, computeOdds } from './rules';
 
@@ -194,7 +194,6 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
     pityLeft: w.pity_left ?? null,
     focusUsed: w.focus_used === true,
     wishlist: wish.map((x) => x.card_no),
-    adShards: adShards(),
     ...(rewardPacks > 0 ? { rewardPacks } : {}),
     recent: await recentPacks(db, userId),
     odds: await oddsOrNull(),
