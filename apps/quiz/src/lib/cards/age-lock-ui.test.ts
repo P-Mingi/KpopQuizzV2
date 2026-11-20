@@ -2,7 +2,7 @@
 // locked member, two adults with cards), a second group with a locked member only, and a normal soloist. Proved:
 //   - the public payload carries a boolean `locked` and never a month or a date (asserted on the serialized text), a locked subject has no card
 //     in it, an answer from the database that is missing or late locks (fail closed);
-//   - the binder shows a pocket "Carte à venir" for each locked subject (a pair for a group), in its group's section, and nothing counts it:
+//   - the binder shows a pocket "Card coming" for each locked subject (a pair for a group), in its group's section, and nothing counts it:
 //     the cards, a section's card numbers, the completion by kind, the locks and editions of the ladder, the odds;
 //   - a locked subject is never a search result, a missing, owned or favourite card, a focus pack or a lobby group; it has no star, no heart,
 //     no "new" mark and no link; no ranking line, set, goal, almost-there line, idol page, theme or pack of the day is made of it;
@@ -125,7 +125,7 @@ describe('the public payload sends a boolean, never a month or a date', () => {
   });
 });
 
-describe('the binder: a pocket "Carte à venir" that nothing counts', () => {
+describe('the binder: a pocket "Card coming" that nothing counts', () => {
   it('adds a pocket for a person and a pair for a group, in the section of their group, after its last pocket', () => {
     const s = slim();
     // (the editions Ada and Bea do not have yet are the existing "not issued" pockets, left out here)
@@ -177,10 +177,10 @@ describe('the binder: a pocket "Carte à venir" that nothing counts', () => {
     expect(pages.flatMap((p) => p.items).filter((i) => i.locked && i.soon)).toHaveLength(6);
     expect(pages.filter((p) => p.sec === 'trio').flatMap((p) => p.items).filter((i) => i.locked && i.soon).map((i) => (i.locked ? i.name : ''))).toEqual(['Cleo', 'TRIO 1/2', 'TRIO 2/2']);
   });
-  it('a pocket has the name and "Carte à venir", no link, no date, no star, no heart, no new mark', () => {
+  it('a pocket has the name and "Card coming", no link, no date, no star, no heart, no new mark', () => {
     const html = renderToStaticMarkup(h(SoonPocket, { name: 'TRIO 1/2' }));
     expect(html).toContain('TRIO 1/2');
-    expect(html).toContain('Carte à venir');
+    expect(html).toContain('Card coming');
     expect(html).not.toMatch(/<a |href=|<button|newb|class="cnt"|\d{4}/);
   });
   it('the binder takes the pocket before any link, star, heart or count: source order and the counters leave it out', () => {

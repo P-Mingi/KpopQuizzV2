@@ -2,6 +2,7 @@
 // hub brand and the words of a site come from the registry (NETWORK, siteConfig), never from the copy text.
 
 import { COPY as H1 } from '@/copy/hub/h1';
+import { CARDS_PRIVACY_FACTS as CF } from '@/lib/cards/privacy-facts';
 import { HANDOFF_LOG_DAYS, DELETION_GRACE_DAYS, leavableSites } from '@/lib/passport/deletion/policy';
 import { PASSPORT_SECONDS } from '@/lib/passport/types';
 import { siteAddress } from '@/lib/site/brand';
@@ -25,8 +26,8 @@ function siteList(): string {
 /** The mailbox of the hub: the one network mailbox, from the registry. */
 export const HUB_EMAIL = MAILBOX;
 
-/** The day the privacy text last changed: bump it with every change of a privacy.* string (the hub cookies, 2026-10-28; the Bunnyverse name and bunnyverse.org, 2026-10-29). */
-export const PRIVACY_REVISED = '2026-10-29';
+/** The day the privacy text last changed: bump it with every change of a privacy.* string (the hub cookies, 2026-10-28; the Bunnyverse name and bunnyverse.org, 2026-10-29; the KpopCards and advertising sections, 2026-11-20). */
+export const PRIVACY_REVISED = '2026-11-20';
 
 /** The minimum age on the three sites (owner, 2026-10-24). */
 export const MIN_AGE = 15;
@@ -55,10 +56,18 @@ const BASE_VARS: HubCopyVars = {
   logDays: HANDOFF_LOG_DAYS,
   graceDays: DELETION_GRACE_DAYS,
   minAge: MIN_AGE,
+  // KpopCards (privacy.cards.*, privacy.ads.*): the numbers the SQL and the code decide, from lib/cards/privacy-facts.ts.
+  friendCodeHours: CF.friendCodeHours,
+  maxFriends: CF.maxFriends,
+  maxPush: CF.maxPush,
+  demoClaimDays: CF.demoClaimDays,
+  removalHours: CF.removalHours,
+  quietFrom: `${String(CF.quietFrom).padStart(2, '0')}:00`,
+  quietTo: `${String(CF.quietTo).padStart(2, '0')}:00`,
   // How long the sign-in return cookie lives (lib/auth/oauth-return.ts OAUTH_RETURN_SECONDS / 60; privacy-final.test.ts keeps them equal
   // without importing that module here).
   oauthMinutes: 10,
-  // The last change of the privacy text (PRIVACY_REVISED), "29 October 2026": shown on the draft and on the live page.
+  // The last change of the privacy text (PRIVACY_REVISED), "20 November 2026": shown on the draft and on the live page.
   revised: formatLaunchDate(PRIVACY_REVISED) ?? '',
   // The launch date (NET_LAUNCH_DATE), "24 October 2026"; empty while it is missing (the page prints the line only when it has one).
   date: formatLaunchDate(process.env.NET_LAUNCH_DATE) ?? '',

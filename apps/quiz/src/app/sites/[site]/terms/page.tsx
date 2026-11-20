@@ -1,11 +1,15 @@
-// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/terms/page.tsx, rows 26b: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/terms/page.tsx, rows 26b and the hub's: one page file at the root of app/sites/[site] for both sites (not in the (anime) or (hub)
+// group: one path cannot have two files, as /credits and /legal). It dispatches on SITE_ID: anime keeps its page below, hub renders components/hub/legal/hub-legal-pages.tsx, any other build is a 404.
+import { notFound } from 'next/navigation';
+
+import { HubTerms, hubTermsMetadata } from '@/components/hub/legal/hub-legal-pages';
 import { siteAddress } from '@/lib/site/brand';
 import { robotsFor } from '@/lib/site/indexing';
-import { SITE } from '@/lib/site/registry';
+import { SITE, SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+const animeMetadata: Metadata = {
   title: 'Terms of Service',
   // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
   description: 'OtakuQuiz terms of service: who can play and create quizzes, what you may not publish, who owns your quizzes, how moderation works and how to contact us.',
@@ -13,7 +17,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/terms' },
 };
 
-export default function TermsPage(): React.ReactElement {
+function AnimeTermsPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Terms of Service</h1>
@@ -129,4 +133,16 @@ export default function TermsPage(): React.ReactElement {
       </p>
     </div>
   );
+}
+
+export function generateMetadata(): Metadata {
+  if (SITE_ID === 'hub') return hubTermsMetadata();
+  if (SITE_ID !== 'anime') notFound();
+  return animeMetadata;
+}
+
+export default function TermsPage(): React.ReactElement {
+  if (SITE_ID === 'hub') return <HubTerms />;
+  if (SITE_ID !== 'anime') notFound();
+  return <AnimeTermsPage />;
 }

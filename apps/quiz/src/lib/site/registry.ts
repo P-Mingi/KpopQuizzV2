@@ -307,6 +307,8 @@ export function dleLivePaths(): readonly string[] {
 export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>, cards: boolean = flagOn(process.env.NET_CARDS)): readonly RoutePattern[] {
   return [
     '/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits',
+    // Launch polish (owner, 2026-11-20): the terms, the contact page and the DMCA page, twins of OtakuQuiz's (app/sites/[site]/terms|contact|dmca).
+    '/terms', '/contact', '/dmca',
     ...(features.dailyGuess === true ? dleLivePaths() : []),
     // Bunnyverse Cards (lane U): the pages are in the map only with NET_CARDS on; off, they answer as any unknown URL.
     ...(cards ? CARDS_PATHS : []),

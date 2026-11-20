@@ -155,9 +155,9 @@ describe('point 1: closed is a draft, open is the policy', () => {
   it('the sitemap of the hub: not listed while closed, listed with the launch date once open', async () => {
     expect((await hubSitemap('', '2026-11-01')).map((e) => e.path)).toEqual(['/']);
     const open = await hubSitemap('1', '2026-11-01');
-    expect(open.map((e) => e.path)).toEqual(['/', '/privacy', '/legal']);
-    expect(open[1]!.lastModified?.toISOString()).toBe('2026-11-01T00:00:00.000Z');
-    expect(open[2]!.lastModified?.toISOString()).toBe('2026-11-01T00:00:00.000Z');
+    // Launch polish (owner, 2026-11-20): /terms, /contact and /dmca join the legal pages.
+    expect(open.map((e) => e.path)).toEqual(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca']);
+    for (const e of open.slice(1)) expect(e.lastModified?.toISOString(), e.path).toBe('2026-11-01T00:00:00.000Z');
   });
 });
 
@@ -247,13 +247,14 @@ describe('points 7 and 8', () => {
     const { text } = await render();
     expect(text).toContain('On KpopQuiz, your bio, banner and favourite groups belong to your account profile. The other sites do not show them.');
   });
-  it('names Vercel Web Analytics: no cookie, anonymous events, no personal data, no advertising', async () => {
+  it('names Vercel Web Analytics: no cookie, anonymous events, no personal data', async () => {
     const { text } = await render();
     expect(text).toContain('Vercel Web Analytics');
     expect(text).toContain('sets no cookie');
     expect(text).toContain('keeps no personal data');
     expect(text).toContain('anonymous events');
-    expect(text).toContain('We show no advertising');
+    // Launch polish (owner, 2026-11-20): the sites carry ads now, so "no advertising" is gone (privacy-cards-ads.test.ts).
+    expect(text).not.toContain('no advertising');
   });
 });
 
@@ -302,8 +303,9 @@ describe('points 9 and 10: the cookies of cookies.md and the page match', () => 
     expect(KEYS.map((k) => COPY[k]).join(' ')).not.toContain('pp_seeded');
   });
 
-  it('says it uses no advertising, tracking or third party analytics cookie', () => {
-    expect(COPY['privacy.cookies.intro']).toContain('no advertising cookies, no tracking cookies and no third party analytics cookies');
+  it('says it sets no tracking or third party analytics cookie, and points to the advertising section for Google', () => {
+    expect(COPY['privacy.cookies.intro']).toContain('We set no tracking cookies and no third party analytics cookies');
+    expect(COPY['privacy.cookies.intro']).not.toContain('no advertising cookies');
   });
 });
 
@@ -432,9 +434,9 @@ describe('Bunnyverse cookies: one address for the hub and /anime', () => {
   it('the page says when its text last changed, draft or live', async () => {
     const { fillHub, PRIVACY_REVISED } = await import('./copy');
     // 2026-10-29: the policy now names Bunnyverse and bunnyverse.org (filled from the registry), so the date moved with it.
-    expect(PRIVACY_REVISED).toBe('2026-10-29');
-    expect(fillHub(COPY['privacy.revised'])).toBe('Last updated on 29 October 2026.');
+    expect(PRIVACY_REVISED).toBe('2026-11-20');
+    expect(fillHub(COPY['privacy.revised'])).toBe('Last updated on 20 November 2026.');
     const { text } = await render();
-    expect(text).toContain('Last updated on 29 October 2026.');
+    expect(text).toContain('Last updated on 20 November 2026.');
   });
 });

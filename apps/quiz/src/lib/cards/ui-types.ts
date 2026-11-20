@@ -116,7 +116,7 @@ export type BinderItem =
   | {
       i: number; sec: string; locked: true; entity: string; name: string; group: string | null; rarity: Rarity; reason: LockReason | null;
       /** A card of the same entity the lock page hangs on. */ anchor: string | null;
-      /** Lot 6: a pocket of an age-locked subject ("Carte à venir", no date, not a link). It is no edition: no rarity, no card, no count. */
+      /** Lot 6: a pocket of an age-locked subject ("Card coming", no date, not a link). It is no edition: no rarity, no card, no count. */
       soon?: true;
     };
 

@@ -142,7 +142,7 @@ export interface CatalogEntity {
   /** {"SR":"one","L":"crop"}: why a missing edition is missing. */
   lockReasons: Partial<Record<Rarity, LockReason>>;
   /** Lot 6: true while the subject is age-locked (a minor, a group with a minor, a birth date not known): the binder shows a pocket with its
-   *  name and "Carte à venir". A boolean ONLY: the month it opens is never sent to a browser (the admin reads it from cards_age_locks()). The
+   *  name and "Card coming". A boolean ONLY: the month it opens is never sent to a browser (the admin reads it from cards_age_locks()). The
    *  entity has no card and is left out of every list but the binder. Absent when not locked. */
   locked?: true;
 }

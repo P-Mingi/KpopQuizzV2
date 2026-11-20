@@ -1,22 +1,26 @@
-// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/dmca/page.tsx, rows 36: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+// Run O1 twin (rule 18) of apps/quiz/src/app/(site)/dmca/page.tsx, rows 36 and the hub's: one page file at the root of app/sites/[site] for both sites (not in the (anime) or (hub)
+// group: one path cannot have two files, as /credits and /legal). It dispatches on SITE_ID: anime keeps its page below, hub renders components/hub/legal/hub-legal-pages.tsx, any other build is a 404.
+import { notFound } from 'next/navigation';
+
+import { HubDmca, hubDmcaMetadata } from '@/components/hub/legal/hub-legal-pages';
 import Link from 'next/link';
 
 import { siteAddress } from '@/lib/site/brand';
 import { robotsFor } from '@/lib/site/indexing';
-import { SITE } from '@/lib/site/registry';
+import { SITE, SITE_ID } from '@/lib/site/registry';
 
 import type { Metadata } from 'next';
 
 // V-BUILDER-3 step 3 (L-047): the public DMCA / takedown page. A legit public page (indexable,
 // one H1), linked from the footer + allowlisted. States the process + the contact path.
-export const metadata: Metadata = {
+const animeMetadata: Metadata = {
   title: 'DMCA & Image Takedown',
   description: 'How to report a copyrighted image on OtakuQuiz and have it taken down.',
   robots: robotsFor(true),
   alternates: { canonical: '/dmca' },
 };
 
-export default function DmcaPage(): React.ReactElement {
+function AnimeDmcaPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">DMCA &amp; Image Takedown</h1>
@@ -65,4 +69,16 @@ export default function DmcaPage(): React.ReactElement {
       </p>
     </div>
   );
+}
+
+export function generateMetadata(): Metadata {
+  if (SITE_ID === 'hub') return hubDmcaMetadata();
+  if (SITE_ID !== 'anime') notFound();
+  return animeMetadata;
+}
+
+export default function DmcaPage(): React.ReactElement {
+  if (SITE_ID === 'hub') return <HubDmca />;
+  if (SITE_ID !== 'anime') notFound();
+  return <AnimeDmcaPage />;
 }

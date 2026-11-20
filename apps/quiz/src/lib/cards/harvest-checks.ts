@@ -424,7 +424,7 @@ export function runHarvest(run: HarvestRun): HarvestResult {
     'Verdicts and counts only: nothing about anyone\'s age or birth.', '',
     '## Subjects', '',
     `- ${counts.subjects} subjects: ${counts.people} people, ${counts.groups} groups.`,
-    `- ${counts.locked} locked pockets (no photo, shown in the binder as "Carte à venir"), by group:`,
+    `- ${counts.locked} locked pockets (no photo, shown in the binder as "Card coming"), by group:`,
     ...Object.entries(lockedByGroup).sort(([a], [b]) => a.localeCompare(b)).map(([g, n]) => `  - ${g}: ${n}`), '',
     '## Photos', '',
     `- ${counts.auto} auto, ${counts.pending} pending (the owner's review), ${counts.out} out.`,
