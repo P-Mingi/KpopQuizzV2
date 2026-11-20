@@ -39,7 +39,7 @@ import { renderUxQuizPage } from './ux-page';
 
 import { playedText, qualifiedQuizTitle, quizAuthorJsonLd, quizDescription, TEAM_BYLINE } from '@/lib/seo/quiz-meta';
 import { quizPageTitle } from '@/lib/seo/quiz-title-overrides';
-import { isEditorialUser } from '@/lib/editorial/accounts';
+import { isTeamQuizCreator } from '@/lib/editorial/accounts';
 
 import type { Metadata } from 'next';
 import type { BreadcrumbItem } from '@/components/ui/breadcrumbs';
@@ -109,11 +109,7 @@ function shownTitle(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>
 
 /** True when an active editorial (Team) account made the quiz: its search snippet and JSON-LD say "the KpopQuiz Team", never a handle that reads like a fan (audit 04 P0-2). A failed read means "not a Team quiz". */
 async function isTeamQuiz(quiz: NonNullable<Awaited<ReturnType<typeof getQuizBySlug>>>): Promise<boolean> {
-  try {
-    return await isEditorialUser((quiz as { creator_id?: string }).creator_id ?? null);
-  } catch {
-    return false;
-  }
+  return isTeamQuizCreator((quiz as { creator_id?: string }).creator_id ?? null);
 }
 
 /**

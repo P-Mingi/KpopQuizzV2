@@ -2,7 +2,7 @@
 // anime scope, the pictures by series and by character, the names of /credits with no locked character, and an empty answer on any failure.
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { ENTITY_IMAGE_COLUMNS, characterPictures, loadCreditNames, loadEntityImageRows, seriesPictures } from './entity-images-read';
+import { ENTITY_IMAGE_COLUMNS, VERIFIED_VIEW, characterPictures, loadCreditNames, loadEntityImageRows, seriesPictures } from './entity-images-read';
 import { ownerSeriesPicture, setOwnerSeriesPictures } from './entity-images-store';
 
 import type { ImagesDb } from './entity-images-read';
@@ -38,19 +38,21 @@ afterEach(() => { setOwnerSeriesPictures({}); vi.restoreAllMocks(); });
 describe('loadEntityImageRows', () => {
   it('reads only the display columns, scoped to the anime site', async () => {
     const seen = { filters: [] as string[], selects: [] as string[], ranges: [] as Array<[number, number]> };
-    const rows = await loadEntityImageRows(fakeDb({ entity_images: [row(), row({ kind: 'character', slug: 'death-note/light' })] }, seen));
+    const rows = await loadEntityImageRows(fakeDb({ entity_images: [row(), row({ kind: 'character', slug: 'death-note/light' })], [VERIFIED_VIEW]: [{ slug: 'death-note/light' }] }, seen));
     expect(rows).toHaveLength(2);
-    expect(seen.selects).toEqual([`entity_images:${ENTITY_IMAGE_COLUMNS}`]);
+    expect(seen.selects).toEqual([`entity_images:${ENTITY_IMAGE_COLUMNS}`, `${VERIFIED_VIEW}:slug`]);
     expect(seen.filters).toContain('entity_images.site_id=anime');
+    expect(seen.filters).toContain(`${VERIFIED_VIEW}.site_id=anime`);
+    expect(seen.filters).toContain(`${VERIFIED_VIEW}.kind=character`);
     expect(ENTITY_IMAGE_COLUMNS.split(', ').sort()).toEqual(['author', 'focal_x', 'focal_y', 'height', 'kind', 'license', 'license_note', 'path', 'slug', 'source_url', 'updated_at', 'width']);
   });
 
   it('pages past the 1000 row cap', async () => {
     const many = Array.from({ length: 2300 }, (_, i) => row({ kind: 'character', slug: `s/c${i}` }));
     const seen = { filters: [] as string[], selects: [] as string[], ranges: [] as Array<[number, number]> };
-    const rows = await loadEntityImageRows(fakeDb({ entity_images: many }, seen));
+    const rows = await loadEntityImageRows(fakeDb({ entity_images: many, [VERIFIED_VIEW]: many.map((r) => ({ slug: r.slug })) }, seen));
     expect(rows).toHaveLength(2300);
-    expect(seen.ranges).toEqual([[0, 999], [1000, 1999], [2000, 2999]]);
+    expect(seen.ranges).toEqual([[0, 999], [1000, 1999], [2000, 2999], [0, 999], [1000, 1999], [2000, 2999]]);
   });
 
   it('drops a row it does not understand', async () => {
@@ -62,6 +64,29 @@ describe('loadEntityImageRows', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
     expect(await loadEntityImageRows(fakeDb({}, undefined, true))).toEqual([]);
     expect(spy).toHaveBeenCalled();
+  });
+});
+
+// Owner, 2026-11-20: OtakuQuiz shows only license_verified character pictures (prod holds unverified fandom.com ones).
+describe('the verified safety net', () => {
+  const chars = [row({ kind: 'character', slug: 'death-note/light' }), row({ kind: 'character', slug: 'death-note/ryuk', license: 'other' })];
+  const series = row({ slug: 'death-note' });
+  it('returns a verified character picture and never an unverified one', async () => {
+    const rows = await loadEntityImageRows(fakeDb({ entity_images: [series, ...chars], [VERIFIED_VIEW]: [{ slug: 'death-note/light' }] }));
+    expect(rows.map((r) => r.slug).sort()).toEqual(['death-note', 'death-note/light']);
+    expect(Object.keys(characterPictures(rows, 'death-note'))).toEqual(['light']);
+  });
+  it('shows no character picture (the page draws its fallback) when none is verified, and keeps the series picture', async () => {
+    const rows = await loadEntityImageRows(fakeDb({ entity_images: [series, ...chars], [VERIFIED_VIEW]: [] }));
+    expect(rows.map((r) => r.slug)).toEqual(['death-note']);
+    expect(characterPictures(rows, 'death-note')).toEqual({});
+  });
+  it('fails closed: when the verified list cannot be read no character picture shows', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const base = fakeDb({ entity_images: [series, ...chars] });
+    const db: ImagesDb = { from: (t: string) => (t === VERIFIED_VIEW ? { select() { throw new Error('view missing'); } } : base.from(t)) };
+    const rows = await loadEntityImageRows(db);
+    expect(rows.map((r) => r.slug)).toEqual(['death-note']);
   });
 });
 

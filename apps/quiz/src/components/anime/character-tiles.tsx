@@ -9,7 +9,7 @@ import { useSpoilerProgress } from '@/components/spoilers/use-spoiler-progress';
 import { Icon } from '@/components/ux-v1/icon';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { t, tPlural } from '@/lib/anime/copy';
-import { characterImageSlug, ownerPictureOf } from '@/lib/anime/entity-images-rules';
+import { characterImageSlug, onlyVerifiedCharacters, ownerPictureOf } from '@/lib/anime/entity-images-rules';
 import { MIN_OSHI_PICKS } from '@/lib/anime/types';
 
 import type { MemberTile } from '@/components/group/ux-v1/member-tiles';
@@ -93,7 +93,10 @@ function useRevealed(seriesSlug: string, groupId: number, arc: number, ready: bo
             const { data: imgs } = await createBrowserClient().from('entity_images')
               .select('kind, slug, path, width, height, focal_x, focal_y, source_url, author, license, license_note, updated_at')
               .eq('site_id', 'anime').eq('kind', 'character').in('slug', keys);
-            for (const i of (Array.isArray(imgs) ? imgs : []) as EntityImage[]) pics[i.slug.slice(seriesSlug.length + 1)] = ownerPictureOf(i);
+            // Only a license_verified picture shows (the view lists the verified ones; the table's own column is not readable here). A failed read shows none.
+            const { data: ok } = await createBrowserClient().from('entity_images_public').select('slug').eq('site_id', 'anime').eq('kind', 'character').in('slug', keys);
+            const verified = new Set((Array.isArray(ok) ? ok : []).map((r: { slug: string }) => r.slug));
+            for (const i of onlyVerifiedCharacters((Array.isArray(imgs) ? imgs : []) as EntityImage[], verified)) pics[i.slug.slice(seriesSlug.length + 1)] = ownerPictureOf(i);
           }
         } catch { /* the tiles keep their monograms */ }
         if (live) setRevealed(rows.map((c) => ({ ...c, picks: null, ...(pics[c.slug] ? { image: pics[c.slug]! } : {}) })));

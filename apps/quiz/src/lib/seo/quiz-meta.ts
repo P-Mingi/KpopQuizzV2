@@ -143,8 +143,8 @@ export { TEAM_AUTHOR_NAME, TEAM_BYLINE };
 /** The JSON-LD author of a quiz: the Team as an Organization (link to /about), else the fan creator as a Person. */
 export function quizAuthorJsonLd(creator: string, creatorIsTeam: boolean): Record<string, unknown> {
   return creatorIsTeam
-    ? { '@type': 'Organization', name: TEAM_AUTHOR_NAME, url: 'https://kpopquiz.org/about' }
-    : { '@type': 'Person', name: creator, url: `https://kpopquiz.org/u/${creator}` };
+    ? { '@type': 'Organization', name: TEAM_AUTHOR_NAME, url: `${SITE.url}/about` }
+    : { '@type': 'Person', name: creator, url: `${SITE.url}/u/${creator}` };
 }
 
 /** "Played 1,784 times." A play is not a person, so the count never says fans (audit 04 P0-3). */
