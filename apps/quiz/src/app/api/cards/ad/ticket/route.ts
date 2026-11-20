@@ -1,5 +1,5 @@
 // Bunnyverse Cards: POST /api/cards/ad/ticket -> { ticket } before a rewarded ad, or 409 { error: 'limit' | 'disabled' }.
-// Single use: ad/claim (a pack) or ad/grant (older, shards) spends it once. Ads are off (disabled) unless NET_CARDS_ADS is on and CARDS_ADS_PER_DAY is above 0.
+// Single use: ad/claim (a pack) spends it once (ad/grant is retired). Ads are off (disabled) unless NET_CARDS_ADS is on and CARDS_ADS_PER_DAY is above 0.
 // Launch polish: no ticket either (limit) once the player has had today's ad packs (CARDS_AD_PACKS_PER_DAY), so no ad is shown for nothing.
 import { guard, json, limits } from '@/lib/cards/api';
 import { adPacksPerDay } from '@/lib/cards/ad-packs';

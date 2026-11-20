@@ -234,7 +234,7 @@ export interface OpenResult {
   state: WalletState;
 }
 
-/** POST /api/cards/ad/grant (lot 4 B4): a rewarded ad gives shards, not a pack. */
+/** The retired POST /api/cards/ad/grant (a 404 now). Kept for the dev fixture's client shape; the real answer is AdClaimResult. */
 export interface AdResult {
   gained: number;
   shards: number;

@@ -164,7 +164,6 @@ const ROUTES: Array<[string, () => Promise<Response>]> = [
   ['state', () => state(req('/api/cards/state'))],
   ['open', () => open(withKey('/api/cards/open', { source: 'stock' }))],
   ['ad/ticket', () => ticket(req('/api/cards/ad/ticket', {}))],
-  ['ad/grant', () => grant(withKey('/api/cards/ad/grant', { ticket: UUID }))],
   ['craft', () => craft(withKey('/api/cards/craft', { n: 2 }))],
   ['wish', () => wish(req('/api/cards/wish', { n: 3, on: true }))],
   ['recycle', () => recycle(withKey('/api/cards/recycle', { confirm: true }))],
@@ -240,7 +239,6 @@ describe('the session', () => {
       ['craft', () => craft(req('/api/cards/craft', { n: 2 }))],
       ['recycle', () => recycle(req('/api/cards/recycle', { confirm: true }))],
       ['claim', () => claim(req('/api/cards/missions/claim', { target: 'holo' }))],
-      ['grant', () => grant(req('/api/cards/ad/grant', { ticket: UUID }))],
       ['redeem', () => friendRedeem(req('/api/cards/friends/redeem', { code: 'ABCD-EFGH' }))],
     ] as Array<[string, () => Promise<Response>]>) {
       h.rpcCalls = [];
@@ -474,29 +472,23 @@ describe('the rewarded ad', () => {
 });
 
 describe('the other writes of the contract', () => {
-  it('grant (lot 4 B4): spends the ticket through cards_ad_grant with the key, gives the ad shards and no pack', async () => {
-    const res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
-    expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ gained: 25, shards: 37, replayed: false, state: { cap: 7 } });
-    expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')).toMatchObject({ args: { p_user: 'u1', p_key: K, p_ticket: UUID, p_ads_limit: 10, p_shards: 25, p_timer_cap: 40 } });
-    expect(h.rpcCalls.some((c) => c.fn === 'cards_open')).toBe(false);
-  });
-  it('grant: CARDS_AD_SHARDS and CARDS_ADS_PER_DAY flow through; a bad, replayed or foreign ticket is 409; the limit is 409 ad_limit; ads off is disabled', async () => {
-    vi.stubEnv('CARDS_AD_SHARDS', '40');
-    vi.stubEnv('CARDS_ADS_PER_DAY', '6');
-    await grant(withKey('/api/cards/ad/grant', { ticket: UUID }));
-    expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')?.args).toMatchObject({ p_shards: 40, p_ads_limit: 6 });
-    h.rpcResult.cards_ad_grant = { error: { message: 'cards: ticket' } };
-    let res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'ticket' }]);
-    for (const t of ['nope', 5, undefined, '']) expect((await grant(withKey('/api/cards/ad/grant', { ticket: t }))).status).toBe(409);
-    h.rpcResult.cards_ad_grant = { error: { message: 'cards: ad_limit' } };
-    res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID }));
-    expect([res.status, await res.json()]).toEqual([409, { error: 'ad_limit' }]);
-    vi.stubEnv('NET_CARDS_ADS', '');
-    h.rpcCalls = [];
-    expect((await grant(withKey('/api/cards/ad/grant', { ticket: UUID }))).status).toBe(400);
-    expect(h.rpcCalls).toEqual([]);
+  it('grant is RETIRED (launch polish): a 404 whatever the flags, signed in or not, with or without a key, and it never touches the database', async () => {
+    for (const ads of ['1', '', '0']) {
+      for (const pub of ['1', '']) {
+        vi.stubEnv('NET_CARDS_ADS', ads);
+        vi.stubEnv('NEXT_PUBLIC_NET_CARDS_ADS', pub);
+        for (const user of [{ id: 'u1' }, null]) {
+          h.user = user;
+          h.rpcCalls = [];
+          for (const r of [withKey('/api/cards/ad/grant', { ticket: UUID }), req('/api/cards/ad/grant', { ticket: UUID })]) {
+            const res = await grant(r);
+            expect([ads, pub, res.status, await res.json()]).toEqual([ads, pub, 404, { error: 'not_found' }]);
+          }
+          expect(h.rpcCalls).toEqual([]);
+        }
+      }
+    }
+    expect(h.serviceMade).toBe(0);
   });
   it('craft: spends through cards_craft with the key; bad numbers are 400; the refusals are 409', async () => {
     const res = await craft(withKey('/api/cards/craft', { n: 2 }));

@@ -56,7 +56,7 @@ AdSense gives no server callback on the web, so the server cannot see the ad. It
 
 Honest limit: the server cannot prove the ad played, only that a ticket was asked for, waited for and not reused. A player who skips the ad in the browser can still claim a pack after the delay, up to the daily cap. A signed callback closes this: AppLixir has one, and its path (`/api/cards/ad/ssv`, `NET_CARDS_AD_PACKS`) is kept, off. Say so if you want to move to it.
 
-The older shard ad (`POST /api/cards/ad/grant`, 25 shards) is still in the code and the page no longer calls it. It trusts the browser the same way. Retiring it is a decision for the integrator.
+The older 25-shard ad (`POST /api/cards/ad/grant`) is retired: the route answers 404 whatever the flags, because it granted on the browser's word. The SQL function `cards_ad_grant` stays in the database, unused.
 
 ## Google's rules and where each is proved
 
