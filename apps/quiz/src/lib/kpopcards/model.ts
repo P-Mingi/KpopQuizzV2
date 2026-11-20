@@ -24,6 +24,8 @@ export interface World {
   themeOf: Map<string, ThemeId>;
   /** Lot 7: the panoramas of the catalog (one per group photo whose parts are in packs). Absent before file 118: then nothing below shows a panorama. */
   panoramas?: UiPanorama[];
+  /** Owner decision 2026-11-18: the cards out of packs. A player who owns one keeps it (the binder, the card page, a showcase, the idol page); it is never drawn, counted or in the odds, so it is not in `cards`. */
+  retired?: UiCard[];
 }
 
 export const slugify = (s: string): string =>
@@ -240,19 +242,37 @@ export function levelState(owned: number): LevelState {
   return { level, title: titleOf(level), cards: owned, toNext: KC.CARDS_PER_LEVEL - (owned % KC.CARDS_PER_LEVEL), progress: owned % KC.CARDS_PER_LEVEL, nextLevel: level + 1, titles: LEVEL_TITLES };
 }
 
-export const pctOf = (owned: number, total: number): number => (total > 0 ? Math.round((owned / total) * 1000) / 10 : 0);
+/** A progress never shows more than 100 %. */
+export const pctOf = (owned: number, total: number): number => (total > 0 ? Math.min(100, Math.round((owned / total) * 1000) / 10) : 0);
+
+/**
+ * Owner decision 2026-11-18: a card the player owns that is out of packs (no live photo now) keeps counting everywhere it counted: the number of cards, the level,
+ * the progress of the collection and of its group, the sets, the badges. For THIS player it is one of the cards of the collection, so his owned never goes over
+ * his total. A card out of packs that he does not own is counted for nobody. Nothing here is drawn: the pool, the odds and the packs read `w.cards`.
+ */
+export function ownedRetired(w: World, p: Pick<PlayerData, 'owned'>): UiCard[] {
+  return (w.retired ?? []).filter((c) => p.owned.has(c.n));
+}
+
+/** The world the COUNTS of one player read: the cards in packs and the cards he owns that are out of packs. Never used for a draw. */
+export function countWorld(w: World, p: Pick<PlayerData, 'owned'>): World {
+  const extra = ownedRetired(w, p);
+  return extra.length === 0 ? w : { ...w, cards: [...w.cards, ...extra] };
+}
 
 export const FOUNDER_UNTIL = Date.parse('2027-03-01T00:00:00Z');
 
 export function badgesOf(w: World, ownedNs: ReadonlySet<number>, createdAt: number): string[] {
   const out: string[] = [];
   if (createdAt < FOUNDER_UNTIL) out.push('Founder');
+  // The cards the player owns that are out of packs count as his cards (owner decision 2026-11-18); `ownedNs` holds only cards he owns.
+  const cards = [...w.cards, ...(w.retired ?? []).filter((c) => ownedNs.has(c.n))];
   for (const s of sectionsOf(w)) {
-    const cs = w.cards.filter((c) => s.ids.includes(c.entity));
+    const cs = cards.filter((c) => s.ids.includes(c.entity));
     if (s.kind === 'group' && cs.length > 0 && cs.every((c) => ownedNs.has(c.n))) out.push(`${s.name} complete`);
   }
-  if (w.cards.some((c) => c.rarity === 'UR' && ownedNs.has(c.n))) out.push('First Gold');
-  if (w.cards.some((c) => c.rarity === 'L' && ownedNs.has(c.n))) out.push('First Full Art');
+  if (cards.some((c) => c.rarity === 'UR' && ownedNs.has(c.n))) out.push('First Gold');
+  if (cards.some((c) => c.rarity === 'L' && ownedNs.has(c.n))) out.push('First Full Art');
   if (ownedNs.size >= 100) out.push('100 cards');
   return out;
 }
@@ -281,7 +301,7 @@ export function weekMini(p: PlayerData, now: number, goals = { packs: 20, dle: 3
 
 export function missionSets(w: World, p: PlayerData): MissionSet[] {
   const ownedNs = new Set(p.owned.keys());
-  const sets = goalSets(w.cards, w.entities, ownedNs, p.claimedSets);
+  const sets = goalSets(countWorld(w, p).cards, w.entities, ownedNs, p.claimedSets);
   const list: MissionSet[] = sets.map((s) => {
     const done = s.total > 0 && s.owned >= s.total;
     const type = s.kind === 'group' ? 'Group' : s.kind === 'solo' ? 'Soloists' : s.kind === 'year' ? 'Debut' : 'Edition';
@@ -309,7 +329,9 @@ export function lobbyState(i: LobbyInput): LobbyState {
   const { w, p, now } = i;
   const timerCap = i.timerCap ?? KC.TIMER_PER_DAY;
   const wal = walletNow(p, now, timerCap);
-  const ownedCount = [...p.owned.keys()].filter((n) => w.cards.some((c) => c.n === n)).length;
+  // The level counts every card the player owns that the catalog knows, the ones out of packs too (owner decision 2026-11-18).
+  const known = new Set([...w.cards, ...(w.retired ?? [])].map((c) => c.n));
+  const ownedCount = [...p.owned.keys()].filter((n) => known.has(n)).length;
   const day = parisDayOf(now);
   const dg = dailyGroup(w, day);
   const daily: DailyPack = { group: dg ? groupRef(dg) : { id: '', slug: '', name: '', kind: 'group' }, used: p.dailyDay === day, endsAt: new Date(wal.midnightAt).toISOString() };
@@ -407,7 +429,9 @@ export function panoramasOf(w: World, p: PlayerData, secs: Section[] = sectionsO
   return { owned, total: all.length, pct: pctOf(owned, all.length), items: group ? all.filter((x) => x.section === group) : all };
 }
 
-export function collectionState(w: World, p: PlayerData, q: CollectionQuery = {}): CollectionState {
+export function collectionState(world: World, p: PlayerData, q: CollectionQuery = {}): CollectionState {
+  // Owner decision 2026-11-18: the cards the player owns that are out of packs are in his collection and in its counts.
+  const w = countWorld(world, p);
   const secs = sectionsOf(w);
   const all = pockets(w, p, secs);
   const groups: CollectionGroup[] = secs.map((s) => {
@@ -452,7 +476,8 @@ export function collectionState(w: World, p: PlayerData, q: CollectionQuery = {}
 
 /* ------------------------------------------------------------------ almost there */
 
-export function almostState(w: World, p: PlayerData, limit = 4): AlmostState {
+export function almostState(world: World, p: PlayerData, limit = 4): AlmostState {
+  const w = countWorld(world, p);
   const secs = sectionsOf(w);
   const items: (AlmostItem & { left: number })[] = [];
   const mk = (c: UiCard): AlmostItem['craft'] => {
@@ -487,7 +512,8 @@ export function almostState(w: World, p: PlayerData, limit = 4): AlmostState {
 
 export function recyclePreview(w: World, p: PlayerData): RecyclePreview {
   let extras = 0, shards = 0, locked = 0, gold = 0;
-  for (const c of w.cards) {
+  // The database recycles the extras of every card the player holds, a card out of packs too (owner decision 2026-11-18: it stays in the binder): the figure counts them.
+  for (const c of [...w.cards, ...(w.retired ?? [])]) {
     const o = p.owned.get(c.n);
     if (!o || o.copies < 2) continue;
     const x = o.copies - 1;
@@ -552,20 +578,25 @@ export function oddsState(w: World, now: number, dailyOfDay?: Section | null): O
 
 /* ------------------------------------------------------------------ ranking and players */
 
-export interface PlayerSummary { nickname: string; owned: number; showcase: CardRef[]; badges: string[]; friend: boolean; me: boolean }
+/** `retired`: how many of the cards he owns are out of packs; they are part of HIS total (owner decision 2026-11-18), so his percentage never goes over 100. */
+export interface PlayerSummary { nickname: string; owned: number; showcase: CardRef[]; badges: string[]; friend: boolean; me: boolean; retired?: number }
+
+/** The total a player's percentage is read against: the cards in packs and his own cards that are out of packs. */
+export const totalOf = (total: number, retired: number | undefined): number => total + Math.max(0, retired ?? 0);
 
 export function rankRows(players: readonly PlayerSummary[], total: number): RankRow[] {
   const sorted = [...players].sort((a, b) => b.owned - a.owned || a.nickname.localeCompare(b.nickname));
   return sorted.map((x, i) => {
     // A real count is a whole number; the mock's example players carry the prototype's whole percentages, so their count is rounded as the prototype's lvFor does.
     const lv = levelOf(Math.round(x.owned));
-    return { pos: i + 1, nickname: x.nickname, level: lv, title: titleOf(lv), pct: pctOf(x.owned, total), me: x.me, friend: x.friend, showcase: x.showcase, badges: x.badges };
+    return { pos: i + 1, nickname: x.nickname, level: lv, title: titleOf(lv), pct: pctOf(x.owned, totalOf(total, x.retired)), me: x.me, friend: x.friend, showcase: x.showcase, badges: x.badges };
   });
 }
 
 export function playerPage(s: PlayerSummary, total: number, wishlist: CardRef[] | null): PlayerPage {
   const lv = levelOf(Math.round(s.owned));
-  return { nickname: s.nickname, level: lv, title: titleOf(lv), pct: pctOf(s.owned, total), owned: s.owned, total, showcase: s.showcase, badges: s.badges, me: s.me, friend: s.friend, wishlist: s.me || s.friend ? wishlist : null };
+  const mine = totalOf(total, s.retired);
+  return { nickname: s.nickname, level: lv, title: titleOf(lv), pct: pctOf(s.owned, mine), owned: s.owned, total: mine, showcase: s.showcase, badges: s.badges, me: s.me, friend: s.friend, wishlist: s.me || s.friend ? wishlist : null };
 }
 
 /* ------------------------------------------------------------------ idol pages */
@@ -583,7 +614,8 @@ export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null
   const slugs = entitySlugs(w.entities);
   const e = w.entities.find((x) => x.kind === 'idol' && !x.locked && slugs.get(x.id) === slug);
   if (!e) return null;
-  const cs = w.cards.filter((c) => c.entity === e.id);
+  // Owner decision 2026-11-18: a card the player owns that is out of packs still opens the idol's page and is one of its editions.
+  const cs = [...w.cards.filter((c) => c.entity === e.id), ...(w.retired ?? []).filter((c) => c.entity === e.id && p.owned.has(c.n))];
   const unlocked = cs.some((c) => p.owned.has(c.n));
   const gs = e.group ? sectionsOf(w).find((s) => s.name === e.group) : null;
   const quizzes = [{ title: `${e.name} quizzes on kpopquiz.org`, url: `${QUIZ_BASE}/${quizSlug(e)}` }];
@@ -603,7 +635,7 @@ export function idolPage(w: World, p: PlayerData, slug: string): IdolPage | null
 /** The quiz link of a card: the idol's own page, else its group's, from the slug the database found (cards_moment) or, in the mock, from the entity. */
 export function momentQuiz(w: World, n: number, slug: string | null): CardMoment['quiz'] {
   if (!slug) return null;
-  const card = w.cards.find((c) => c.n === n);
+  const card = w.cards.find((c) => c.n === n) ?? w.retired?.find((c) => c.n === n);
   const e = card ? w.entities.find((x) => x.id === card.entity) : undefined;
   const bySlug = w.entities.find((x) => x.id.replace(/^[a-z]+:/, '') === slug);
   const name = bySlug?.name ?? e?.name ?? slug;

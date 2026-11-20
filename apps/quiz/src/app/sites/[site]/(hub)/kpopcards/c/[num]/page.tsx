@@ -48,7 +48,7 @@ export default async function CardPage({ params, searchParams }: Props): Promise
   return (
     <>
       <Suspense fallback={<div className="wrap page" aria-busy="true"><p className="lede">Loading your collection.</p></div>}><BinderView ads={ads} /></Suspense>
-      <Suspense fallback={null}><CardDetail {...d.props} inSheet credit={<CreditBlock photo={d.photo} num={d.card.num} kind={d.entity.kind} />} /></Suspense>
+      <Suspense fallback={null}><CardDetail {...d.props} inSheet credit={<CreditBlock photo={d.photo} num={d.card.num} kind={d.entity.kind} soon={d.soon} />} /></Suspense>
     </>
   );
 }

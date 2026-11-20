@@ -10,7 +10,6 @@ import { describe, expect, it, vi } from 'vitest';
 vi.setConfig({ testTimeout: 120_000, hookTimeout: 120_000 });
 
 import { CARDS_SQL, SCHEMA_FILES, freshCardsDb, readCardsSql } from '../cards/sql-harness';
-import { KC } from './contract';
 import { PLAIN, T0, coreDb, failure, key, newUser, one, openSql, own, rows, setWallet, tryOpen, wallet } from './sql-fixture';
 import { dailyGroup, fixtureWorldForSql } from './sql-twin';
 
@@ -40,7 +39,7 @@ describe('the stack of ten and the timer', () => {
   it('a new wallet holds 10 packs, the cap is 10, and the timer adds a pack every 10 minutes up to the cap', async () => {
     const db = await coreDb();
     const u = await newUser(db);
-    expect((await wallet(db, u)).stock).toBe(KC.STACK_CAP);
+    expect((await wallet(db, u)).stock).toBe(10); // 110 alone: a stack of 10 (120 brings it to 7)
     expect((await wallet(db, u)).cap).toBe(10);
     await openSql(db, u, { draws: [PLAIN] });
     expect((await wallet(db, u)).stock).toBe(9);

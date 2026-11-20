@@ -182,19 +182,19 @@ export function CardDetail(p: DetailProps): React.ReactElement {
               </div>
             </div>
           )}
-          <p className="d-hint">{card ? <>Tap to see the back {'·'} drag to tilt</> : 'This edition is not issued yet'}</p>
+          <p className="d-hint">{card ? <>Tap to see the back {'·'} drag to tilt{card.soon ? <> {'·'} A new photo is coming</> : null}</> : 'This edition is not issued yet'}</p>
           {card ? p.credit : null}
         </div>
         <div className="d-info">
           <div className="d-title">
             <Title>{p.entityName}{card && card.part ? ` ${card.part}/${card.parts ?? 2}` : ''}</Title>
             {card && o ? <FavStar n={card.n} name={card.name} edition={edName} className="in" /> : null}
-            {card && o ? <LockButton n={card.n} name={card.name} /> : null}
+            {card && o && !card.soon ? <LockButton n={card.n} name={card.name} /> : null}
           </div>
           <p className="d-sub">{p.sub}</p>
           <div className="tags"><span className="tag"><Gem r={rarity} className={`gem gc-${rarity}`} />{RARITY_LABEL[rarity]}{p.rates[rarity] ? ` · ${p.rates[rarity]} of cards` : ''}</span>{card ? <span className="tag num">{card.num}</span> : null}{card && o ? <span className="tag">{o.copies > 1 ? `${o.copies} copies` : '1 copy'}</span> : null}</div>
           {/* Lot 7: the craft button stays mounted once the card is owned (it draws nothing then), so the reveal of the panorama a craft gave can finish. */}
-          {card && status === 'ready' ? (
+          {card && status === 'ready' && !card.soon ? (
             <div className="d-acts" style={o ? { display: 'none' } : undefined}>
               <CraftButton n={card.n} rarity={card.rarity} name={p.entityName} after={<WantButton n={card.n} name={p.entityName} edition={edName} />} />
             </div>

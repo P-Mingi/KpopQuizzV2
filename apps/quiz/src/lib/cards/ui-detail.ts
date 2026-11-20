@@ -14,6 +14,8 @@ export interface Detail {
   entity: UiEntity;
   /** True when the page shows an edition that cannot exist yet. */
   locked: boolean;
+  /** Owner decision 2026-11-18: the card is out of packs with no photo now (the "New photo coming" frame). */
+  soon: boolean;
 }
 
 const NUM = /^BV\d+-\d{4,}$/;
@@ -23,10 +25,13 @@ export function isCardNum(v: string): boolean {
 
 export function buildDetail(cat: UiCatalog, num: string, lock: string | null): Detail | null {
   if (!isCardNum(num)) return null;
-  const card = cat.cards.find((c) => c.num === num);
+  // A card out of packs is still a page: its owner keeps it (owner decision 2026-11-18).
+  const card = cat.cards.find((c) => c.num === num) ?? (cat.retired ?? []).find((c) => c.num === num);
   const entity = card ? cat.entities.find((e) => e.id === card.entity) : undefined;
   if (!card || !entity) return null;
-  const mine = cat.cards.filter((c) => c.entity === entity.id);
+  const soon = !!card.retired && slimCard(card).soon === true;
+  // The ladder of editions: the cards in packs and, on the page of a card out of packs, that card too (its own rung).
+  const mine = [...cat.cards.filter((c) => c.entity === entity.id), ...(card.retired ? [card] : [])];
   const faRate = fullArtRate(cat.odds);
   // Lot 2: a rung of a group is its pair (left half first); the rung points at the first card, the mate is the other half.
   const ladder: Rung[] = ladderRarities(entity.kind).map((r) => {
@@ -80,5 +85,5 @@ export function buildDetail(cat: UiCatalog, num: string, lock: string | null): D
     ladder, why, pair: locked ? null : pair, rates: rateLabels(cat.odds),
     lockSentence: locked ? (missing!.reason ? LOCK_SENTENCES[missing!.reason] : 'No free photo can make this edition yet.') : null,
   };
-  return { props, card, photo: card.photo, entity, locked };
+  return { props, card, photo: card.photo, entity, locked, soon };
 }

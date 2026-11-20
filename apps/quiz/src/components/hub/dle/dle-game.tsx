@@ -63,6 +63,8 @@ export interface DleGameProps {
   readonly seriesArt?: Readonly<Record<string, string>>;
   /** Lot 3 DLE (E2): true only when this build may offer the owner's private preview (PRIVATE_LAUNCH=1 on the hub). A boolean, never an address: the pictures are asked for after the page, by the admin routes. */
   readonly ownerPreview?: boolean;
+  /** Bunnyverse bridges: the address of KpopCards, set by the page only with NET_CARDS and NET_CARDS_BRIDGES on; the result then ends with a link to it. */
+  readonly cardsHref?: string;
 }
 
 const CONFETTI: Readonly<Record<'k' | 'a', readonly string[]>> = {
@@ -199,7 +201,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, thumbs, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, thumbs, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false, cardsHref }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -585,6 +587,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               </div>
             </div>
             <DleAfter locale={locale} game={game} quizHref={quizHref} blindHref={blindHref} parentLabel={targetShown} kpopName={kpopName} allDone={allDone} clockText={clock(left)} />
+            {cardsHref ? <p style={{ marginTop: 12 }} data-testid="dle-cards-link"><a className="ux-lnk" href={cardsHref}>Open free card packs on KpopCards</a></p> : null}
           </div>
         </section>
       ) : null}

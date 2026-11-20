@@ -46,6 +46,8 @@ export interface P4RunQuiz {
    * (lib/passerelles/quiz-end.ts), so a page without it carries today's props.
    */
   bridge?: { kind: 'kpopdle' | 'otakudle'; href: string };
+  /** Bunnyverse bridges: the row to KpopCards under a result. The key exists only with NET_CARDS_BRIDGES on (lib/cards-bridge/quiz-end.ts). */
+  cardsBridge?: { href: string };
 }
 
 export interface LoadedChallenge extends ChallengePublic {

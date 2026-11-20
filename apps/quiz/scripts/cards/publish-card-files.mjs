@@ -71,8 +71,8 @@ import { fileURLToPath } from 'node:url';
 
 import sharp from 'sharp';
 
-import { PAGE_ROWS, RETRY_STATUS, cutPlan, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, readAllRows, retryWait, stemOf } from './card-files.mjs';
-import { SIZES, panoSizes } from './card-geometry.mjs';
+import { cutImage } from './card-cut.mjs';
+import { PAGE_ROWS, RETRY_STATUS, fetchRetry, fileAction, filePatch, mergePhotoFiles, panoFileName, partFileName, planRemovals, readAllRows, retryWait, stemOf } from './card-files.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 
@@ -112,7 +112,11 @@ const lot6Slugs = existsSync(path.join(lot6Dir, 'subjects.json')) ? JSON.parse(r
 // source page); a photo that file rejects is not cut. --publish reads the database instead (parts and focal_x/y of cards_photos).
 const lot7File = DATA_DIR ? path.join(DATA_DIR, 'lot7/parts.json') : path.join(REPO, 'docs/design/cards/data/lot7/parts.json');
 const LOT7 = new Map(existsSync(lot7File) ? JSON.parse(readFileSync(lot7File, 'utf8')).photos.map((e) => [e.page, e]) : []);
-const photosFile = mergePhotoFiles(JSON.parse(readFileSync(dataFile('photos.json'), 'utf8')), lot6Photos);
+// Lane REFILL (2026-11-18): lot8/photos.json, the new photos of 123-refill.sql (approved rows with no file yet), read the same way after lot 6, so
+// a row of 123 is found by its source page like any other (never "not in photos.json").
+const lot8Dir = DATA_DIR ? path.join(DATA_DIR, 'lot8') : path.join(REPO, 'docs/design/cards/data/lot8');
+const lot8Photos = existsSync(path.join(lot8Dir, 'photos.json')) ? JSON.parse(readFileSync(path.join(lot8Dir, 'photos.json'), 'utf8')) : null;
+const photosFile = mergePhotoFiles(mergePhotoFiles(JSON.parse(readFileSync(dataFile('photos.json'), 'utf8')), lot6Photos), lot8Photos);
 /** Every slug lots 2, 3 and 6 know: the cleanup proposes the files of a known slug that has no live photo (a subject left out, a locked pocket). */
 const KNOWN = [...new Set([...JSON.parse(readFileSync(dataFile('subjects.json'), 'utf8')).map((s) => s.slug), ...lot6Slugs, ...(lot6Photos?.subjects ?? []).map((s) => s.slug), ...photosFile.subjects.map((s) => s.slug)])];
 const chosen = photosFile.subjects.filter((s) => !ONLY || ONLY.has(s.slug));
@@ -169,22 +173,9 @@ function ask(prompt) {
   });
 }
 
-/** Cuts a subject at a focal point: a person gives one part (0), a group its `n` parts (halves 1-2 or thirds 1-3), each with its 1x and 2x WebP,
- *  and its panorama (the whole window; `pano.files['2x']` only when every part has its 2x). `onlyPano`: no part is encoded (a pair cut before lot 7). */
-async function cut(src, s, fx, fy, n = 2, onlyPano = false) {
-  const meta = await sharp(src).metadata();
-  const plan = cutPlan(isGroup(s), meta.width, meta.height, fx, fy, n);
-  const encode = async (box, sizes, only) => {
-    const base = sharp(src).extract({ left: box.left, top: box.top, width: box.width, height: box.height });
-    const files = {};
-    for (const [k, [w, h]] of Object.entries(sizes)) if (!only || only.includes(k)) files[k] = await base.clone().resize(w, h, { fit: 'cover' }).webp({ quality: 82 }).toBuffer();
-    return files;
-  };
-  const parts = [];
-  for (const p of plan.parts) parts.push({ part: p.part, files: onlyPano ? {} : await encode(p, SIZES), cropWidth: p.cropWidth, has2x: p.has2x });
-  const pano = plan.pano ? { files: await encode(plan.pano, panoSizes(n), plan.pano.has2x ? null : ['1x']), has2x: plan.pano.has2x } : null;
-  return { parts, pano, window: plan.window };
-}
+/** Cuts a subject at a focal point (card-cut.mjs): the photo is read upright (its EXIF Orientation applied, lane PHOTOCHECK 2026-11-17), a person
+ *  gives one part (0), a group its `n` parts and its panorama. `onlyPano`: no part is encoded (a pair cut before lot 7). */
+const cut = (src, s, fx, fy, n = 2, onlyPano = false) => cutImage(sharp, src, isGroup(s), fx, fy, n, onlyPano);
 
 function readSecret(prompt) {
   return new Promise((resolve, reject) => {
@@ -220,7 +211,7 @@ async function preview() {
       if (l7?.rejected) continue;
       const p = l7 ? { ...p0, focal: l7.focal ?? p0.focal } : p0;
       const src = await original(s, p);
-      const n = l7?.parts === 3 ? 3 : 2;
+      const n = (l7?.parts ?? p0.parts) === 3 ? 3 : 2;
       const { parts, pano } = await cut(src, s, p.focal.x, p.focal.y, n);
       const stem = stemOf(s.slug, p.slot, p.focal.x, p.focal.y);
       for (const q of parts) for (const [k, buf] of Object.entries(q.files)) writeFileSync(path.join(dir, partFileName(stem, q.part, k, n)), buf);

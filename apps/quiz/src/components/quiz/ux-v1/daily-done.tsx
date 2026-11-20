@@ -14,7 +14,7 @@ import { SITE } from '@/lib/site/registry';
 import { streakView } from '@/lib/ux-v1/a0/streak';
 import { progressMarks } from '@/lib/ux-v1/p4/engine';
 
-import { QuizEndBridge } from './quiz-end-bridge';
+import { QuizEndBridge, QuizEndCards } from './quiz-end-bridge';
 import { useDailyToday } from './use-daily-today';
 
 import type { QuestionData } from '@/lib/ux-v1/p4/engine';
@@ -95,6 +95,7 @@ export function DailyDone({ quiz, questions, answers, score, max }: {
           </Link>
         ) : null}
         {quiz.bridge ? <QuizEndBridge bridge={quiz.bridge} /> : null}
+        {quiz.cardsBridge ? <QuizEndCards href={quiz.cardsBridge.href} /> : null}
         {daily?.yesterday ? (
           <Link className="ux-row" href={`/q/${daily.yesterday.slug}`} data-testid="p4-daily-yesterday">
             <span className="ux-thumb is-glyph"><Icon name="redo" /></span>

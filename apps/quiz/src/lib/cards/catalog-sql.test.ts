@@ -175,6 +175,11 @@ describe('101-catalog.sql on fixture groups and idols', () => {
       // lot 7 (orchestrator's contract, 2026-11-17): 118 and its rollback, written by gen-parts-sql.mts from the data lane's parts.json, so they
       // are in the folder from the day parts.json is committed
       ...(existsSync(path.join(CARDS_SQL, '../../design/cards/data/lot7/parts.json')) ? ['118-group-parts.rollback.sql', '118-group-parts.sql'] : []),
+      // lots LAUNCH-PREP and REFILL (integrator, 2026-11-17 and 18): each lane's file and its rollback, as soon as the file is in the folder; the
+      // same lines in every branch of these lots, so the branches merge in any order
+      ...['119-photocheck', '120-cap-7', '121-ad-packs', '122-pulls-feed', '123-refill', '124-photoless-owned']
+        .filter((f) => existsSync(path.join(CARDS_SQL, `${f}.sql`)))
+        .flatMap((f) => [`${f}.rollback.sql`, `${f}.sql`]),
       'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {

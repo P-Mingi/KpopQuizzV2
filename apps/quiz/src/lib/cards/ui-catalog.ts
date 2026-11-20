@@ -4,14 +4,11 @@
 //   a read that fails answers null and the pages say the cards are not available (fail closed, never an error page).
 import { cardsFixtureOn } from './ui-flag';
 
-import type { CatalogPayload } from './types';
-import type { UiCatalog, UiPhoto } from './ui-types';
+import type { CatalogCard, CatalogPayload } from './types';
+import type { UiCard, UiCatalog, UiPhoto } from './ui-types';
 
 export function fromPayload(p: CatalogPayload): UiCatalog {
-  return {
-    odds: p.odds,
-    entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear ? { endYear: e.endYear } : {}), ...(e.locked ? { locked: true as const } : {}) })),
-    cards: p.cards.map((c) => {
+  const card = (c: CatalogCard): UiCard => {
       const i = c.image;
       const photo: UiPhoto | null = c.photo
         ? { ...c.photo, url: i?.url ?? null, url2x: i?.url2x ?? null, fileFocalX: i?.fileFocalX ?? null, fileFocalY: i?.fileFocalY ?? null, sourceUrl: i?.sourceUrl ?? null, focalX: i?.focalX ?? 50, focalY: i?.focalY ?? 30 }
@@ -21,8 +18,13 @@ export function fromPayload(p: CatalogPayload): UiCatalog {
       const half = c.part === 1 || c.part === 2 || c.part === 3
         ? { part: c.part, pairN: c.pairN ?? null, ...(c.parts ? { parts: c.parts } : {}), ...(c.setNs ? { setNs: c.setNs } : {}), ...(c.pano !== undefined ? { pano: c.pano } : {}) }
         : {};
-      return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo, ...half, ...(c.endYear ? { endYear: c.endYear } : {}) };
-    }),
+      return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo, ...half, ...(c.endYear ? { endYear: c.endYear } : {}), ...(c.retired ? { retired: true as const } : {}) };
+  };
+  return {
+    odds: p.odds,
+    entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear ? { endYear: e.endYear } : {}), ...(e.locked ? { locked: true as const } : {}) })),
+    cards: p.cards.map(card),
+    ...(p.retired?.length ? { retired: p.retired.map(card) } : {}),
     // Lot 7: the panoramas pass through as they are (their picture is resolved by the server).
     ...(p.panoramas ? { panoramas: p.panoramas } : {}),
   };

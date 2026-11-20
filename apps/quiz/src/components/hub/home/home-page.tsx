@@ -16,6 +16,7 @@ import { homeUrl } from '@/lib/site/hub/home-types';
 import { websiteJsonLdFor } from '@/lib/site/jsonld';
 
 import { HomeCommunity, communitySub } from './home-community';
+import { HomeCards } from './home-cards';
 import { HomeCrossover } from './home-crossover';
 import { HomeDayProvider } from './home-day';
 import { HomeFilterProvider } from './home-filter';
@@ -58,6 +59,8 @@ export interface HomeData {
   readonly burrow: boolean;
   /** The owner's stickers of the home (admin Photos, Stickers, page home); none when absent. */
   readonly stickers?: readonly PageSticker[];
+  /** Bunnyverse bridges: the KpopCards band and tab. Set only with NET_CARDS and NET_CARDS_BRIDGES on (lib/cards-bridge/flags.ts); absent, the home is today's. */
+  readonly cards?: boolean;
 }
 
 function card(q: HomeQuiz): HotCard {
@@ -91,7 +94,7 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
       {hot ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(hotItemListJsonLd(ht('hp.hot.listName'), hot.all)) }} /> : null}
       <HomeFilterProvider>
         <HomeDayProvider games={games}>
-          <HomeNav viewer={viewer} sections={{ hot: !!hot, blindtest: !!today?.blindtest, community }} burrow={burrow} />
+          <HomeNav viewer={viewer} sections={{ hot: !!hot, blindtest: !!today?.blindtest, community }} burrow={burrow} {...(data.cards ? { cards: true } : {})} />
           <main id="main" tabIndex={-1} className="hub-h2-main">
             <PageStickers stickers={stickers} />
             <HomeHero
@@ -104,6 +107,7 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
               todayShown={todayShown}
             />
             {todayShown ? <HomeToday today={today} viewer={viewer} done={data.done} assets={assets} icons={icons} burrow={burrow} /> : null}
+            {data.cards ? <HomeCards /> : null}
             {data.doors.length > 0 ? <HomeSites doors={data.doors} assets={assets} /> : null}
             {(hot && lists) || quick ? (
               <section id={hot ? 'hot' : undefined} aria-labelledby={hot ? 'hot-h' : 'quick-h'} className="hub-h2-band hub-h2-wrap">

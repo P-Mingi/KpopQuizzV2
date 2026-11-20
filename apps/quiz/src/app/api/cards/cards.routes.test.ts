@@ -303,7 +303,7 @@ describe('GET /api/cards/state: the lobby', () => {
     expect(res.status).toBe(200);
     const b = await res.json();
     expect(b).toMatchObject({
-      cap: 10, shards: 12, adShards: 25, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2], focusUsed: false,
+      cap: 7, shards: 12, adShards: 25, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2], focusUsed: false,
       golden: { next: false, packsUntil: 3, opened: 7 }, guarantee: { streak: 3, by: 30 }, level: { level: 1, title: 'Rookie' },
       prefs: { sound: true, vibration: true, theme: 'all', focus: null },
       owned: [{ n: 4, copies: 2, fav: true }], daily: { used: false, group: { id: 'group:G', name: 'Group' } },
@@ -477,7 +477,7 @@ describe('the other writes of the contract', () => {
   it('grant (lot 4 B4): spends the ticket through cards_ad_grant with the key, gives the ad shards and no pack', async () => {
     const res = await grant(withKey('/api/cards/ad/grant', { ticket: UUID.toUpperCase() }));
     expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ gained: 25, shards: 37, replayed: false, state: { cap: 10 } });
+    expect(await res.json()).toMatchObject({ gained: 25, shards: 37, replayed: false, state: { cap: 7 } });
     expect(h.rpcCalls.find((c) => c.fn === 'cards_ad_grant')).toMatchObject({ args: { p_user: 'u1', p_key: K, p_ticket: UUID, p_ads_limit: 10, p_shards: 25, p_timer_cap: 40 } });
     expect(h.rpcCalls.some((c) => c.fn === 'cards_open')).toBe(false);
   });
@@ -501,7 +501,7 @@ describe('the other writes of the contract', () => {
   it('craft: spends through cards_craft with the key; bad numbers are 400; the refusals are 409', async () => {
     const res = await craft(withKey('/api/cards/craft', { n: 2 }));
     expect(res.status).toBe(200);
-    expect(await res.json()).toMatchObject({ n: 2, cost: 50, replayed: false, finished: [], state: { cap: 10 } });
+    expect(await res.json()).toMatchObject({ n: 2, cost: 50, replayed: false, finished: [], state: { cap: 7 } });
     expect(h.rpcCalls.find((c) => c.fn === 'cards_craft')?.args).toMatchObject({ p_user: 'u1', p_key: K, p_card_no: 2, p_timer_cap: 40 });
     for (const n of ['x', 1.5, 0, undefined]) expect((await craft(withKey('/api/cards/craft', { n }))).status).toBe(400);
     for (const [m, e] of [['cards: shards', 'shards'], ['cards: owned', 'owned'], ['cards: card', 'card'], ['cards: no_craft', 'no_craft']] as const) {
@@ -548,7 +548,7 @@ describe('the other writes of the contract', () => {
   });
   it('missions/claim: the target is checked; the refusals map to their codes; the week is its own target', async () => {
     const res = await claim(withKey('/api/cards/missions/claim', { target: 'holo' }));
-    expect(await res.json()).toMatchObject({ target: 'holo', packs: 3, replayed: false, missions: { setsTotal: expect.any(Number) }, state: { cap: 10 } });
+    expect(await res.json()).toMatchObject({ target: 'holo', packs: 3, replayed: false, missions: { setsTotal: expect.any(Number) }, state: { cap: 7 } });
     expect(h.rpcCalls.find((c) => c.fn === 'cards_claim')?.args).toMatchObject({ p_key: K, p_target: 'holo' });
     for (const t of ['', 'nope', 'group:', 'year:99', 5]) expect((await claim(withKey('/api/cards/missions/claim', { target: t }))).status, String(t)).toBe(400);
     h.rpcResult.cards_claim = { error: { message: 'cards: goal' } };
@@ -568,7 +568,7 @@ describe('the other writes of the contract', () => {
     expect((await lock(req('/api/cards/lock', { n: 4, on: true }))).status).toBe(409);
     expect(await (await seen(req('/api/cards/seen', { ns: [1, 2] }))).json()).toEqual({ newCards: 0 });
     expect((await seen(req('/api/cards/seen', { ns: ['a'] }))).status).toBe(400);
-    expect(await (await stillThere(req('/api/cards/still-there', {}))).json()).toMatchObject({ ok: true, state: { cap: 10 } });
+    expect(await (await stillThere(req('/api/cards/still-there', {}))).json()).toMatchObject({ ok: true, state: { cap: 7 } });
   });
   it('friends: a code, a failed redeem is a code error with the status of the contract, the list', async () => {
     expect(await (await friendCode(req('/api/cards/friends/code', {}))).json()).toEqual({ code: 'ABCD-EFGH', expiresAt: '2026-11-13T10:00:00.000Z' });
@@ -590,7 +590,7 @@ describe('the other writes of the contract', () => {
     const o = await (await odds(req('/api/cards/odds'))).json();
     expect(o.packs.map((p: { id: string }) => p.id)).toContain('golden');
     expect(o.guarantees.map((g: { id: string }) => g.id)).toEqual(['five', 'gold', 'golden', 'pair', 'focus', 'daily']);
-    expect((await (await help(req('/api/cards/help'))).json()).rules).toMatchObject({ stackCap: 10, goldByPack: 30 });
+    expect((await (await help(req('/api/cards/help'))).json()).rules).toMatchObject({ stackCap: 7, goldByPack: 30 });
   });
   it('the moment of a card: the event with its precision, my first copy, the quiz link; bad numbers are refused', async () => {
     const b = await (await cardMoment(req('/api/cards/card/2'), { params: Promise.resolve({ n: '2' }) })).json();

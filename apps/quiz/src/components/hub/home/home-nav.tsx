@@ -32,7 +32,7 @@ export interface HomeSections {
   readonly community: boolean;
 }
 
-export function HomeNav({ viewer, sections, burrow }: { viewer: HomeViewer | null; sections: HomeSections; burrow: boolean }): React.ReactElement {
+export function HomeNav({ viewer, sections, burrow, cards }: { viewer: HomeViewer | null; sections: HomeSections; burrow: boolean; cards?: boolean }): React.ReactElement {
   const joined = viewer ? (['kpop', 'anime'] as const).filter((s) => viewer.sites[s]) : [];
   const levelsAria = joined.map((s) => ht('hp.nav.levelOf', { name: siteName(s), level: viewer!.sites[s]!.level })).join(', ');
   return (
@@ -51,6 +51,7 @@ export function HomeNav({ viewer, sections, burrow }: { viewer: HomeViewer | nul
             </a>
           ) : null}
           {sections.hot ? <a href="#hot" className="hub-h2-tab">{ht('hp.nav.quizzes')}</a> : null}
+          {cards ? <a href="/kpopcards" className="hub-h2-tab">KpopCards</a> : null}
           {sections.community ? <a href="#community" className="hub-h2-tab">{ht('hp.nav.community')}</a> : null}
         </div>
         <div className="hub-h2-actions">

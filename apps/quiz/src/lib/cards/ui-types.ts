@@ -62,6 +62,8 @@ export interface UiCatalog {
   entities: UiEntity[];
   /** Lot 7: the panoramas of the catalog (absent before file 118 and in older fixtures). */
   panoramas?: UiPanorama[];
+  /** Cards out of packs, kept for the players who own them (owner decision 2026-11-18). Absent or empty: none. */
+  retired?: UiCard[];
 }
 
 /** Lot 7: a panorama as the pages read it (the payload's shape: its picture is already resolved by lib/cards/catalog.ts). */
@@ -99,6 +101,8 @@ export interface SlimCard {
   pano?: number;
   /** Lot 3 point A5: on a Full Art card, its rate as the page prints it ("0.3%"), from the odds; absent on the other editions. */
   rate?: string;
+  /** Owner decision 2026-11-18: the card is out of packs and has no photo now. It is drawn as the "New photo coming" frame (its number, edition and name, no image), and it takes its photo back the day a new one arrives. */
+  soon?: true;
 }
 
 /** One pocket of the binder: a card, or an edition that cannot exist yet. */
@@ -171,4 +175,6 @@ export interface SlimCatalog {
   editions: Record<string, Partial<Record<Rarity, number>>>;
   /** Lot 7: every panorama of the catalog, in catalog order. Never counted in the cards' totals or in a group's completion. */
   panos: SlimPano[];
+  /** Cards out of packs (owner decision 2026-11-18). Not in `cards`, `items` or the sections: the player's own are put into the binder by withOwnedRetired. */
+  retired: SlimCard[];
 }
