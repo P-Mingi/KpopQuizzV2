@@ -3,7 +3,7 @@
 A checklist for the owner, click by click. Every fact comes from the repo at main 7a8dddd (paths under `apps/quiz/` unless they start with `docs/`).
 No secret value is written here: a secret is "set by the owner in Vercel". When a value only the owner has is needed, the line says "owner: set it".
 Other lanes of this lot are still changing three things this file names: the hub legal pages (LEGAL), OtakuQuiz (OTAKU) and the ad variables (ADS).
-Lines marked **(ORCH to confirm)** are filled from the code of main and may move when those lanes merge.
+Filled from the merged branch o1/launch-polish (lanes LEGAL, OTAKU and ADS of lot LAUNCH-POLISH, 2026-11-20), checked by ORCH against the code.
 
 Sources: `docs/o1/reports/L1/LAUNCH-PREP-AUDIT.md` section 6, `docs/launch/o1/ENV.md`, `docs/launch/o1/PRIVATE-LAUNCH.md`, `docs/launch/o1/VERIFY.md`,
 `docs/o1/reports/CARDS/LAUNCH-PREP-ADS.md`, and the code that reads each variable.
@@ -54,11 +54,14 @@ Cards pages are `noindex` on every build (`robotsFor(false)`), so opening Cards 
 
 | Variable | Project | Value | What it does | Read at |
 |---|---|---|---|---|
-| `NEXT_PUBLIC_ADSENSE_PUB_ID` **(ORCH to confirm: lane ADS adds or renames it; main still reads `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT`)** | `fandomverse` | the AdSense publisher id, shape `ca-pub-` followed by 10 to 20 digits (`PUBLISHER_RE`, `src/lib/cards/ads.ts:21`). **owner: set it**, only the owner's AdSense console shows it | per the integrator's decision: only the AdSense verification meta tag and `/ads.txt`; independent of the ad flags. In main today the same id also gates the ad script | `src/lib/cards/ads.ts:adsContext`, `src/lib/cards/ads-server.ts:17` |
-| `NET_CARDS_ADS` | `fandomverse` | `1` (only after Google approves the account) | server half of the rewarded ad: ticket and grant routes. Needs NET_CARDS on | `src/lib/cards/flags.ts:cardsAdsOn`, `src/lib/cards-bridge/flags.ts:25` |
-| `NEXT_PUBLIC_NET_CARDS_ADS` | `fandomverse` | `1`, with NET_CARDS_ADS | public half: the ad button, the binder banner, the consent banner | build (inlined), `src/lib/cards/flags.ts:cardsAdsPublicOn` |
+| `NEXT_PUBLIC_ADSENSE_PUB_ID` | `fandomverse` | the AdSense publisher id exactly as the console shows it: `ca-pub-` followed by 16 digits (`CLIENT_RE`, `src/lib/site/adsense.ts:12`); a malformed value serves nothing. It replaces `NEXT_PUBLIC_CARDS_ADSENSE_CLIENT`, which no longer exists. **owner: set it** | independent of the ad flags: the `google-adsense-account` meta tag in the hub page head and `/ads.txt` (`google.com, pub-<16 digits>, DIRECT, f08c47fec0942fa0`, the `ca-` dropped), on the hub only; with the ad flags on it is also the ad client | build (inlined), `src/lib/site/adsense.ts` |
+| `NET_CARDS_ADS` | `fandomverse` | `1` (only after Google approves the account) | server half of the rewarded ad: the ticket route and the claim route (`POST /api/cards/ad/claim`, a pack through `cards_ad_pack_grant` of SQL 121). Off: both answer 404. Needs NET_CARDS on. The old 25-shard route `POST /api/cards/ad/grant` is retired (404 whatever the flags) | `src/lib/cards/flags.ts:cardsAdsOn`, `src/lib/cards-bridge/flags.ts:25` |
+| `NEXT_PUBLIC_NET_CARDS_ADS` | `fandomverse` | `1`, with NET_CARDS_ADS | public half: the ad tile and its screen ("Watch an ad, get 1 pack", with a link to `/kpopcards/odds`), the binder banner, Google's consent message | build (inlined), `src/lib/cards/flags.ts:cardsAdsPublicOn` |
 | `NEXT_PUBLIC_CARDS_BANNER_SLOT`, `NEXT_PUBLIC_CARDS_ADS_TEST` | `fandomverse` | slot: 6 to 20 digits (`SLOT_RE`); test: `1` for test mode only | optional banner slot; test mode for the first try | `src/lib/cards/ads.ts` |
-| `CARDS_ADS_PER_DAY`, `CARDS_AD_SHARDS` | `fandomverse` | optional, defaults 10 a day and 25 shards | limits | `src/lib/cards/flags.ts` |
+| `NEXT_PUBLIC_CARDS_AD_PROVIDER` | `fandomverse` | `adsense` (default) or `applixir` | `adsense`: the web claim path above; `applixir`: the signed server callback of LAUNCH-PREP (`NET_CARDS_AD_PACKS`), for a later provider; keep the default | build (inlined), `src/lib/cards/ads.ts` |
+| `CARDS_AD_PACKS_PER_DAY` | `fandomverse` | a whole number 0 to 20, default 3; 0 turns the ad off | the one daily cap of the rewarded ad (packs per player, Paris day); past it the ticket route refuses, so no ad is shown for nothing; the FAQ, help and odds texts print it | runtime, `src/lib/cards/ads-server.ts` |
+| `CARDS_AD_MIN_SECONDS` | `fandomverse` | a whole number 5 to 120, default 15 | the shortest time between the ticket and the claim | runtime, `src/lib/cards/ads-server.ts` |
+| `CARDS_ADS_PER_DAY`, `CARDS_AD_SHARDS` | none | no longer exist (lot LAUNCH-POLISH): the shard ad is retired; the one daily cap of the ad is `CARDS_AD_PACKS_PER_DAY`. Remove them from Vercel if they are set | nothing reads them | none |
 | `NET_CARDS_AD_PACKS`, `CARDS_AD_SSV_AD_UNIT`, `CARDS_AD_PACKS_PER_DAY` | `fandomverse` | later and separate: the pack ad needs its own ad unit and SQL 121 (`docs/o1/reports/CARDS/LAUNCH-PREP-ADS.md`); the browser button for it is not built in main | not part of the opening | `src/app/api/cards/ad/ssv/route.ts:18-20` |
 
 Kept as they are, never set at opening: `NEXT_PUBLIC_SITE_URL` on the hub and on OtakuQuiz (never set), `NEXT_PUBLIC_NET_ORIGINS`, `SITE_ID`, any `DEV_LOGIN_*` (all listed in `docs/launch/o1/ENV.md` 1.6).
@@ -79,19 +82,19 @@ One change at a time, one redeploy per project per step, checks after each. If a
 SQL (apply in the Supabase SQL Editor: one file at a time, each is one DO block, after a backup, never between 23:50 and 00:30 UTC; `docs/pending-migrations/`):
 
 - [ ] Applied before the train: `L33-l1-security-audit.sql` (`multisite/launch/`), `cards/120-cap-7.sql`, `cards/121-ad-packs.sql` (121 refuses to run without 120), `cards/122-pulls-feed.sql`.
-- [ ] Cards 099 to 115 were applied on 2026-11-15. **Not confirmed in the repo: 116, 116c, 117, 118** (119 needs 001 to 118). Owner or ORCH: confirm they are applied, apply what is missing in numeric order.
+- [ ] Cards 099 to 115 were applied on 2026-11-15; 117 and 118 are applied (integrator, 2026-11-17); 116 is applied (the prod export of 2026-11-17 holds the lot 6 photos and the lot 7 columns). **Not confirmed: 116c** (optional, the approval of the photos pending for the personality rights warning alone). Owner: confirm or skip it.
 - [ ] **Not confirmed in the repo: `L30`, `L31`, `L32`** (`multisite/launch/`). `PRIVATE-LAUNCH.md` step 3 asks for the three queries that prove the character references are gone (expected NULL, 0, 0); run them.
 - [ ] The train (the one PR with all lanes) is merged and the three projects show the same commit, Ready.
 - [ ] Run the GitHub workflow **Cards publish** (Actions, Cards publish, Run workflow; type the Supabase host the form asks for; the reviewer of environment `cards-publish` approves). It uses a service key kept in GitHub, not in this file.
 - [ ] After that run, in this order: `cards/124-photoless-owned.sql`, then `cards/119-photocheck.sql`, then `cards/123-refill.sql` (124 first: the code that draws the "photo coming" frame is live after the train, and 124 keeps owned counts right when 119 takes photos away). Then run **Cards publish** again so the 139 new photos of 123 are cut. Expected, after 119 and 123 and the second publish: 1,050 cards in the packs (`docs/o1/reports/CARDS/REFILL.md`).
-- [ ] Still pending after all of the above: nothing in the Cards range 099 to 124 and L30 to L33, once the confirmations above are done. 121 stays dormant (the pack ad flag is off).
+- [ ] Still pending after all of the above: nothing in the Cards range 099 to 124 and L30 to L33, once the confirmations above are done. 121 serves the rewarded ad pack (the web claim) once the ad flags are on; no SQL 125 was needed.
 
 Content gates (`docs/launch/o1/PRIVATE-LAUNCH.md` step 4 and the audit, section 7):
 
 - [ ] The "non free images" query returns 0 and the "orphan files" query returns 0 (both are in `PRIVATE-LAUNCH.md`, step 4). Otherwise do not open OtakuQuiz: those images show on series hubs and "which character" pages the minute the gate drops.
-- [ ] The hub legal pages of lane LEGAL are in the build: `/terms`, `/contact`, `/dmca`, `/privacy`, `/legal` **(ORCH to confirm the final list when LEGAL reports; on main the hub has no `/terms`, `/contact` or `/dmca`)**.
-- [ ] The privacy text matches what opens: no advertising sentence while ads are off; a Cards line before NET_CARDS opens (audit section 2).
-- [ ] Owner decisions still open in the audit: the credit-by-footer-link for Kpopdle tiles (section 1), the locked pocket wording (section 4: main prints the French "Carte à venir"; the owner asked for "Card coming", no date), the Team badge on OtakuQuiz (section 5).
+- [ ] The hub legal pages are in the build: `/terms`, `/contact`, `/dmca` (new, lot LAUNCH-POLISH), `/privacy` (with its KpopCards and Advertising sections), `/legal`.
+- [ ] The privacy text matches what opens: the hub privacy policy has its KpopCards section (Cards opens with the hub) and its Advertising section (Google AdSense, the rewarded ad for 1 pack, consent through Google's message, personalised only with consent, no country marked child directed); it describes the ads as they run once the flags are on (step D).
+- [ ] Owner decision still open in the audit: the credit-by-footer-link for Kpopdle tiles (section 1). Done in lot LAUNCH-POLISH: the locked pocket says "Card coming" (no date), and OtakuQuiz quiz pages show the Team badge with the byline "OtakuQuiz Team".
 
 ## 4. Step A: OtakuQuiz (project `otakuquiz`)
 
@@ -167,25 +170,31 @@ Rollback (kpopquiz): remove `NET_CARDS_BRIDGES` (and `NEXT_PUBLIC_NET_CARDS_BRID
 
 ## 7. Step D: ads (hub), last
 
-At opening the ads stay off: NET_CARDS_ADS and NEXT_PUBLIC_NET_CARDS_ADS are not set, no ad script is written, no consent banner shows, and the privacy text says there is no advertising (the audit, section 2: that sentence becomes false the day ads open).
+At opening the ads stay off: NET_CARDS_ADS and NEXT_PUBLIC_NET_CARDS_ADS are not set, so no ad script is written, no consent message shows, no ad tile shows, and the ticket and claim routes answer 404. The privacy policy already describes Google AdSense, the rewarded ad, the consent message and the cookies (lot LAUNCH-POLISH). The owner's AdSense steps in full: `docs/o1/reports/CARDS/LAUNCH-POLISH-ADS.md`.
 
 D1, may be done at opening (once the owner has the id):
 
-- [ ] `NEXT_PUBLIC_ADSENSE_PUB_ID` = the publisher id (owner: set it). Redeploy `fandomverse`. **(ORCH to confirm the name with lane ADS.)** Effect: the AdSense verification meta tag in the page head and `https://bunnyverse.org/ads.txt`, nothing else.
-- [ ] Check: `curl -s https://bunnyverse.org/ads.txt` answers 200 with the line from the AdSense console (owner: copy it from there, it is not written in the repo); the home source holds the verification meta tag **(ORCH to confirm the exact tag with lane ADS)**; no `adsbygoogle.js` script in the page source while the flags are off.
+- [ ] `NEXT_PUBLIC_ADSENSE_PUB_ID` = the publisher id, `ca-pub-` and 16 digits (owner: set it). Redeploy `fandomverse`. Effect: the AdSense verification meta tag and `/ads.txt` on the hub, nothing else.
+- [ ] Check, once the hub is public (`/ads.txt` is gated like every page while PRIVATE_LAUNCH is on): `curl -s https://bunnyverse.org/ads.txt` answers 200 with exactly `google.com, pub-<the 16 digits>, DIRECT, f08c47fec0942fa0`; the home source holds `<meta name="google-adsense-account" content="ca-pub-<the 16 digits>">`; no `adsbygoogle.js` script in the page source while the flags are off; `curl -s https://bunnyverse.org/robots.txt` lets `Googlebot` and `Mediapartners-Google` through.
 - [ ] In the AdSense console, ask Google to verify the site. Wait for the approval. Nothing below happens before it.
 
 D2, only after Google approves the account:
 
-- [ ] Owner: check in the AdSense console the three values flagged in `src/lib/cards/ads.ts` (`UNCONFIRMED_FOR_OWNER`: the child-directed attribute, the test attribute, the consent script address).
-- [ ] Owner: configure the certified consent message (CMP) for the EEA, the UK and Switzerland with the ad vendor listed (`LAUNCH-PREP-ADS.md` item 5).
-- [ ] Privacy text: rewrite the two sentences "We show no advertising" and "no advertising cookies" (`src/copy/hub/h1.ts:227,229`), name the vendor, the daily limit and the consent choice. This is a code change and a merge, before the flags.
+- [ ] Owner: create the rewarded ad unit (or turn on H5 Games ads with the reward type) in the console.
+- [ ] Owner: check in the console the three values flagged in `src/lib/cards/ads.ts` (`UNCONFIRMED_FOR_OWNER`: the under-age attribute, the test attribute, the consent script address).
+- [ ] Owner: set up the consent message in Privacy and messaging (Google's certified CMP, TCF on), for the EEA, the UK and Switzerland. It is the only consent tool of the site.
+- [ ] Optional: `CARDS_AD_PACKS_PER_DAY` (default 3) and `CARDS_AD_MIN_SECONDS` (default 15). Leave `NEXT_PUBLIC_CARDS_AD_PROVIDER` unset (adsense).
 - [ ] Set `NET_CARDS_ADS` = `1` and `NEXT_PUBLIC_NET_CARDS_ADS` = `1`. Optional: `NEXT_PUBLIC_CARDS_ADS_TEST` = `1` for the first try only, then remove it. Redeploy `fandomverse` (the public one is inlined at build).
-- [ ] Checks: in the EEA, the UK or Switzerland (or with an unknown country, which counts as a consent region) the consent message shows **before** any ad request; a refusal or no answer gives no personalised ad; in the US and with an unknown country requests are marked child directed; the ad button is absent if the player has not chosen to watch; no ad plays without the player's tap; the reward is 25 shards (`CARDS_AD_SHARDS`), at most 10 a day.
+- [ ] Checks:
+  - in the EEA, the UK, Switzerland, or with an unknown country, Google's consent message shows before any ad request, and a refusal gives no ad request (the ad tile stays hidden);
+  - personalised ads only with consent to purposes 1, 3 and 4, otherwise non-personalised;
+  - no country is marked child directed (owner, no general teen tagging); the site knows no player's age, so no request is marked under age today;
+  - the ad tile opens a screen "Watch an ad, get 1 pack" with a link to the odds; nothing plays without the player's tap and yes; one yes covers one ad;
+  - after the ad: 1 pack, only after Google's "viewed" event, at least `CARDS_AD_MIN_SECONDS` after the ticket, once per ticket, within `CARDS_AD_PACKS_PER_DAY`.
 
-Rollback: remove `NET_CARDS_ADS` and `NEXT_PUBLIC_NET_CARDS_ADS`, redeploy `fandomverse`: no script, no banner, no button. `NEXT_PUBLIC_ADSENSE_PUB_ID` can stay (meta tag and ads.txt only), remove it too to take those down.
+Known limit, accepted: AdSense gives no server callback on the web, so the server cannot prove the ad played; a player who skips it can still claim after the delay, within the daily cap. A provider with a signed callback (AppLixir, `NEXT_PUBLIC_CARDS_AD_PROVIDER=applixir` with the LAUNCH-PREP callback) closes it later.
 
-The pack ad (`NET_CARDS_AD_PACKS`, SQL 121 already applied) is a separate later step with its own owner list in `LAUNCH-PREP-ADS.md`; it is not part of this opening.
+Rollback: remove `NET_CARDS_ADS` and `NEXT_PUBLIC_NET_CARDS_ADS`, redeploy `fandomverse`: no script, no banner, no tile, the routes answer 404. `NEXT_PUBLIC_ADSENSE_PUB_ID` can stay (meta tag and ads.txt only); remove it too to take those down.
 
 ## 8. Which variables need a new build
 
@@ -220,7 +229,7 @@ Expected after step B:
 - robots.txt: one file for bunnyverse.org, `Sitemap:` lines name only bunnyverse.org addresses, `/api/`, `/auth/`, `/settings/`, `/onboarding/` disallowed, the OtakuQuiz rules under `/anime/...` (`src/app/sites/[site]/robots.txt/route.ts`).
 - `sitemap.xml` is an index that lists the hub pages and `/anime/sitemap.xml`; the hub pages list holds `/`, the Terrier pages that answer, `/privacy`, `/legal`; `/credits` is **not** in it on purpose (`src/lib/dle/seo.ts:153`).
 - No `x-robots-tag: noindex` on bunnyverse.org. The hub home and `/anime` have no `noindex` meta. `/kpopcards` keeps its `noindex`.
-- Legal pages: 200 on the hub for `/privacy`, `/legal`, `/terms`, `/contact`, `/dmca` **(ORCH to confirm the list)**; the Commons credits: `/kpopcards/credits` and `/credits` list authors and licences, and a card page `/kpopcards/c/<num>` shows its credit block under the card (`credit-block.tsx`).
+- Legal pages: 200 on the hub for `/privacy`, `/legal`, `/terms`, `/contact`, `/dmca`; the Commons credits: `/kpopcards/credits` and `/credits` list authors and licences, and a card page `/kpopcards/c/<num>` shows its credit block under the card (`credit-block.tsx`).
 - Locked pockets: the name and "Card coming" only, never a date.
 
 Search Console (owner, after step B): submit `https://bunnyverse.org/sitemap.xml` for bunnyverse.org; it covers `/anime`. kpopquiz.org keeps its own.
@@ -243,6 +252,6 @@ SQL files each have a `.rollback.sql` beside them in `docs/pending-migrations/`;
 1. The launch date for `NET_LAUNCH_DATE` (`YYYY-MM-DD`), and the day of each step.
 2. Does Cards open with the hub (step B) or later? The runbook assumes with it.
 3. The AdSense publisher id, and the `ads.txt` line from the AdSense console.
-4. The locked pocket wording: "Card coming" or the French "Carte à venir" (one line of copy, `binder-view.tsx:50,54`).
-5. Confirm SQL 116, 116c, 117, 118, L30, L31, L32 are applied.
+4. The credit of the Kpopdle tiles: on `/credits` only, or also by a footer link (audit, section 1).
+5. Confirm SQL 116c (optional), L30, L31 and L32 are applied.
 6. Whether kpopquiz already holds any `NET_KPOPDLE_*` or `NET_CARDS*` variable (the table above assumes none).
