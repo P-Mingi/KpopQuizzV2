@@ -11,6 +11,7 @@ import { createPortal } from 'react-dom';
 import { useSignIn } from '@/components/ux-v1/sign-in-sheet';
 import { analytics } from '@/lib/analytics';
 import { kcPath } from '@/lib/cards/kc-paths';
+import { nextSpec, runKey } from '@/lib/cards/kc-open';
 import { isApiError as isKcError } from '@/lib/kpopcards/contract';
 import { newKey } from '@/lib/kpopcards/registry';
 import { openingInput } from '@/lib/cards/opening-input';
@@ -35,14 +36,19 @@ const ERRORS: Record<string, string> = {
 
 interface Dealt { cards: OpenedCard[]; source: OpeningSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'golden' | 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
 
-export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement | null {
+export function OpeningMount({ spec: pageSpec }: { spec: OpenSpec }): React.ReactElement | null {
   const c = useCards();
   const { status, api, kc, catalog, toast, now } = c;
   const router = useRouter();
   const signIn = useSignIn();
   const [dealt, setDealt] = useState<Dealt | null>(null);
   const started = useRef<string | null>(null);
-  const key = JSON.stringify(spec);
+  // The opening runs on its own spec and round, not on the address alone: "Open another" from /open/all goes to the SAME address, which would change nothing.
+  const [run, setRun] = useState<{ spec: OpenSpec; round: number; page: string }>({ spec: pageSpec, round: 0, page: JSON.stringify(pageSpec) });
+  const pageKey = JSON.stringify(pageSpec);
+  if (run.page !== pageKey) setRun(JSON.stringify(run.spec) === pageKey ? { ...run, page: pageKey } : { spec: pageSpec, round: run.round + 1, page: pageKey });
+  const spec = run.spec;
+  const key = runKey(run.spec, run.round);
   const w = c.lobby;
 
   useEffect(() => {
@@ -99,15 +105,18 @@ export function OpeningMount({ spec }: { spec: OpenSpec }): React.ReactElement |
   // `look` and `packs` are the opening's extra props (see scratchpad B-mounts.md); the existing ones are cards, source, onClose and demo.
   const faRate = catalog.cards.find((x) => x.rate)?.rate;
   const extra = { look, packs: spec.kind === 'theme' ? spec.packs : 1, ...dealt.extra, fullArtOdds: faRate ? Number.parseFloat(faRate) : null };
-  const theme = spec.kind === 'theme' ? spec.theme : 'all';
   // The opening sits in the `.bvc` root, OUTSIDE `.kc-main`: while it is open the page area is hidden (visibility), so inside it nothing would show.
   return createPortal(
     <PackOpening
       cards={dealt.cards} source={dealt.source} {...extra}
       onClose={(then) => {
-        if (then === 'stock') router.replace(spec.kind === 'theme' ? kcPath.open(theme as ThemeId) : kcPath.open('all'));
-        else if (then === 'stock5') router.replace(kcPath.open('all', 5));
-        else router.push(kcPath.lobby);
+        if (then === 'stock' || then === 'stock5') {
+          // Draw the next pack now (new round, the old cards dropped) and keep the address in step with it.
+          const next = nextSpec(spec, then);
+          setDealt(null);
+          setRun((r) => ({ spec: next, round: r.round + 1, page: r.page }));
+          router.replace(next.kind === 'theme' ? kcPath.open(next.theme as ThemeId, next.packs) : kcPath.open('all'));
+        } else router.push(kcPath.lobby);
       }}
       {...(dealt.demo ? { demo: { onSignIn: () => { router.push(kcPath.lobby); signIn({ title: 'Sign in to keep your cards', sub: 'Your demo pack is added to your binder.' }); } } } : {})}
     />,
