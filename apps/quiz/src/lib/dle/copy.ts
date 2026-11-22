@@ -210,7 +210,8 @@ export function valueLabel(key: string, v: unknown, locale: DleLocale, opts?: { 
     if (x !== null) return x;
   }
   if (key === 'series') return locale === 'fr' ? VALUE_FR[s] ?? s : s;
-  if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Féminin' : 'Female') : s === 'male' ? (locale === 'fr' ? 'Masculin' : 'Male') : s;
+  // L35 (owner 2026-11-22, "no ?"): a character whose work gives no gender (Hange, Neferpitou) is "unspecified", said in words.
+  if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Féminin' : 'Female') : s === 'male' ? (locale === 'fr' ? 'Masculin' : 'Male') : s === 'unspecified' ? (locale === 'fr' ? 'Non précisé' : 'Unspecified') : s;
   if (key === 'role') {
     if (s === 'none') return locale === 'fr' ? 'Aucun' : 'None';
     if (locale === 'fr' && ROLE_FR[s]) return ROLE_FR[s]!;

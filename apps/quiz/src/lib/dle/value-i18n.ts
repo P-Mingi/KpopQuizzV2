@@ -101,8 +101,8 @@ export const HAKI: Readonly<Record<DleLocale, Readonly<Record<string, string>>>>
 export const NO_FRUIT_TYPE: Readonly<Record<DleLocale, string>> = { en: 'None', fr: 'Aucun' };
 
 export const GENDER: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
-  en: { male: 'Male', female: 'Female' },
-  fr: { male: 'Masculin', female: 'Féminin' },
+  en: { male: 'Male', female: 'Female', unspecified: 'Unspecified' },
+  fr: { male: 'Masculin', female: 'Féminin', unspecified: 'Non précisé' },
 };
 
 /** What a stored label (the `l` of a value) says in French; a label that is not here is shown as it is. */
