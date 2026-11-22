@@ -67,22 +67,16 @@ describe('home block (bridge 1)', () => {
     expect(moduleLoaded).not.toHaveBeenCalled();
     vi.doUnmock('@/components/cards-bridge/packs-home');
   });
-  it('on, a guest: the guest line and a link through the signed-in jump', async () => {
+  it('on: the KpopCards banner of the hub, its button through the signed-in jump to bunnyverse.org/kpopcards (lane KCBANNER replaced the Your packs block)', async () => {
     env('1');
-    useMe.mockReturnValue(null);
     const el = await (await import('./home')).loadCardsHome();
     expect(el).not.toBeNull();
     const html = renderToStaticMarkup(el!);
-    expect(html).toContain('Your packs');
-    expect(html).toContain('/auth/passport/out?to=hub&amp;next=%2Fkpopcards');
-  });
-  it('on, a signed-in fan: the stack of the database and the midnight line', async () => {
-    env('1');
-    useMe.mockReturnValue({ signedIn: true, wallet: { stock: 3, cap: 5, nextAt: null, midnightAt: null, bonusLeft: 0 } });
-    const html = renderToStaticMarkup((await (await import('./home')).loadCardsHome())!);
-    expect(html).toContain('3 of 5 packs ready');
-    expect(html).toContain('Your stack is full.');
-    expect(html).toContain('topped up to 5');
+    expect(html).toContain('KpopCards');
+    expect(html).toContain('Free K-pop photocards.');
+    expect(html).toContain('href="/auth/passport/out?to=hub&amp;next=%2Fkpopcards&amp;via=k.pp"');
+    expect(html).not.toContain('Your packs');
+    expect(html).not.toContain('cb-home');
   });
   it('the hub build never draws it', async () => {
     env('1', 'hub');
@@ -475,7 +469,7 @@ describe('laws', () => {
     for (const f of own) expect(readFileSync(f, 'utf8'), f).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`));
   });
   it('kpopquiz.org code never touches an ad script', () => {
-    for (const f of [...files('src/lib/cards-bridge'), 'src/components/cards-bridge/cards-home.tsx', 'src/components/cards-bridge/cards-group.tsx', 'src/components/cards-bridge/bonus-pack-line.tsx']) {
+    for (const f of [...files('src/lib/cards-bridge'), 'src/components/cards-bridge/cards-banner.tsx', 'src/components/cards-bridge/cards-group.tsx', 'src/components/cards-bridge/bonus-pack-line.tsx']) {
       expect(readFileSync(f, 'utf8'), f).not.toMatch(/adsbygoogle|googlesyndication|lib\/cards\/ads/);
     }
   });

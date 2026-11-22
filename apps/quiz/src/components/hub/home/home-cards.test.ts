@@ -5,6 +5,7 @@ import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { PERIOD_S, RARITY_LABEL } from '@/lib/cards/rules';
+import { CARDS_BANNER_CSS } from '@/components/cards-bridge/banner-styles';
 import { HomeCards, cardsFacts } from './home-cards';
 
 const DASH = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
@@ -15,12 +16,13 @@ const css = readFileSync(new URL('../../../styles/sites/hub/h2.css', import.meta
 describe('the KpopCards band of the hub home', () => {
   const html = renderToStaticMarkup(h(HomeCards));
 
-  it('has one solid button, in the colour of a site, to /kpopcards, with the arrow', () => {
-    const ctas = [...html.matchAll(/<a [^>]*class="hub-h2-cta[ "][^>]*>/g)].map((m) => m[0]);
+  it('has one solid button, painted by the banner own rules (lane KCBANNER), to /kpopcards, with the arrow', () => {
+    const ctas = [...html.matchAll(/<a [^>]*class="kcb-btn"[^>]*>/g)].map((m) => m[0]);
     expect(ctas).toHaveLength(1);
     expect(ctas[0]).toContain('href="/kpopcards"');
-    expect(ctas[0]).toMatch(/class="hub-h2-cta hub-h2-cta-site hub-h2-btn"/);
-    expect(html).toMatch(/Open KpopCards<svg class="hub-h2-arrow"/);
+    expect(html.match(/<a /g)).toHaveLength(1);
+    expect(html).toMatch(/Open KpopCards<svg class="kcb-arrow"/);
+    expect(CARDS_BANNER_CSS).toMatch(/#kpopcards \.kcb-btn \{[^}]*background: linear-gradient\(135deg, #D13A6E, #B42A5C\)/);
   });
 
   it('every button of the hub home carries a colour: no bare hub-h2-cta in the home components', () => {
@@ -52,17 +54,24 @@ describe('the KpopCards band of the hub home', () => {
     expect(imgs).toHaveLength(1);
     expect(imgs[0]).toMatch(/mascot-default\.png/);
     expect(imgs[0]).toContain('alt=""');
-    expect(html).toMatch(/<div class="hub-h2-kc-fan" aria-hidden="true">/);
+    expect(html).toMatch(/<div class="kcb-fan" aria-hidden="true">/);
     expect(html).toContain(`>${RARITY_LABEL.R}<`);
     expect(html).toContain(`>${RARITY_LABEL.UR}<`);
   });
 
-  it('every class of the band has a rule in the hub stylesheet, and the fan only moves without reduced motion', () => {
-    const classes = new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1]!.split(' ')).filter((c) => c.startsWith('hub-h2-')));
-    for (const c of classes) expect(css, c).toMatch(new RegExp(`\\.${c}[ ,{:.]`));
-    const hover = css.split('\n').filter((l) => /\.hub-h2-kc:hover/.test(l));
+  it('every class of the band has a rule in the banner own styles, and the fan only moves without reduced motion', () => {
+    const classes = new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap((m) => m[1]!.split(' ')).filter((c) => c.startsWith('kcb-')));
+    for (const c of classes) expect(CARDS_BANNER_CSS, c).toMatch(new RegExp(`\\.${c}[ ,{:.]`));
+    const hover = CARDS_BANNER_CSS.split('\n').filter((l) => /#kpopcards:hover/.test(l));
     expect(hover.length).toBeGreaterThan(0);
-    const block = css.slice(css.indexOf('@media (hover: hover) and (prefers-reduced-motion: no-preference) {'));
+    const block = CARDS_BANNER_CSS.slice(CARDS_BANNER_CSS.indexOf('@media (hover: hover) and (prefers-reduced-motion: no-preference) {'));
     for (const l of hover) expect(block, l).toContain(l.trim());
+  });
+
+  it('the band left the hub sheet: h2.css holds no rule of the banner, and the band is the hub wrapper around the shared component', () => {
+    expect(css).not.toMatch(new RegExp(`${'hub-h2'}-kc`));
+    expect(css).not.toMatch(/hub-kc-/);
+    expect(html).toMatch(/^<div class="hub-h2-band hub-h2-wrap"><style>/);
+    expect(html).toContain('<section id="kpopcards" aria-labelledby="kpopcards-h" data-testid="home-cards">');
   });
 });
