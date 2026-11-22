@@ -14,7 +14,7 @@ vi.mock('@/components/hub/dle/dle-font', () => ({ dleMarquee: { variable: 'marqu
 
 const DASH = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
 const css = readFileSync(new URL('../../../styles/sites/hub/dle.css', import.meta.url), 'utf8');
-const POOL = { game: 'otakudle', attributes: [], entities: [] };
+const POOL = { game: 'otakudle', universe: 'anime', attributes: [], entities: [] };
 
 describe('the icons of the hints', () => {
   it('every hint key of every game, and every key a slot may serve, has its own icon', () => {
@@ -28,7 +28,7 @@ describe('the icons of the hints', () => {
     const { DleGame } = await import('./dle-game');
     for (const g of DLE_GAMES.filter((x) => x.hints.length > 0 && x.built)) {
       for (const locale of ['en', 'fr'] as const) {
-        const html = renderToStaticMarkup(createElement(DleGame, { locale, game: g.id, gameNo: 4, stats: null, pool: { ...POOL, game: g.id }, pictures: {}, quizLinks: {}, kpopName: 'KpopQuiz' }));
+        const html = renderToStaticMarkup(createElement(DleGame, { locale, game: g.id, gameNo: 4, stats: null, pool: { ...POOL, game: g.id, universe: g.universe }, pictures: {}, quizLinks: {}, kpopName: 'KpopQuiz' }));
         const boxes = [...html.matchAll(/<div class="hub-dle-hint(?: [^"]*)?">(.*?)<\/div><\/div>/g)].map((m) => m[1]!);
         expect(boxes, `${g.id} ${locale}`).toHaveLength(g.hints.length);
         for (const b of boxes) expect(b).toMatch(/^<span aria-hidden="true" class="hub-dle-hint-ic"><svg [^>]*><path d="[^"]+"><\/path><\/svg><\/span><div class="hub-dle-hint-body"><span class="hub-dle-hint-label">/);
