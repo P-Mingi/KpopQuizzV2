@@ -20,7 +20,7 @@ import { clock, deviceStore, useDleClient, useDlePreview, useResetCountdown } fr
 import { DleSeriesReview } from './dle-series-review';
 import { IconMark } from '@/components/photos/icon-mark';
 
-import { D, Flame, Ic, Spark, libraryIcon, savedIcon } from './dle-icons';
+import { D, Flame, Ic, Spark, hintIcon, libraryIcon, savedIcon } from './dle-icons';
 import { Avatar, firstValue, parentName } from './dle-avatar';
 import { DleCard } from './dle-card';
 
@@ -484,6 +484,8 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               const miss = h.after - errors;
               return (
                 <div key={h.key} className={`hub-dle-hint${ready ? ' hub-dle-hint-ready hub-dle-pulse' : shown ? ' hub-dle-hint-shown' : ''}`}>
+                  <span aria-hidden="true" className="hub-dle-hint-ic"><Ic d={hintIcon(served?.key ?? h.key)} size={17} width={2} /></span>
+                  <div className="hub-dle-hint-body">
                   <span className="hub-dle-hint-label">{hintLabel(w, h, served?.key ?? null)}</span>
                   {!unlocked && over ? <span className="hub-dle-hint-lock"><Ic d={D.lock} size={13} width={2.4} />{t.hintClosed}</span> : null}
                   {!unlocked && !over ? (
@@ -494,6 +496,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
                   ) : null}
                   {ready ? <button type="button" className="hub-dle-hint-btn" onClick={() => setRevealed((r) => [...r, h.key])}>{t.seeHint}</button> : null}
                   {shown ? <span className="hub-dle-hint-value hub-dle-toast">{value ?? t.hintNone}</span> : null}
+                  </div>
                 </div>
               );
             })}
