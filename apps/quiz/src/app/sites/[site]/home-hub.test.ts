@@ -13,7 +13,7 @@ import { COPY } from '@/copy/hub/h1';
 // Launch day (2026-11-07, RUNBOOK K8c): the hub's flag is on in the registry, so the page as served has the Burrow; the closed page is the one a
 // revert of that PR brings back, rendered here with the feature set to false.
 
-vi.mock('@/components/hub/home/home-font', () => ({ dmSans: { variable: 'dm-sans-var' }, dmMono: { variable: 'dm-mono-var' } }));
+vi.mock('@/components/hub/home/home-font', () => ({ dmSans: { variable: 'dm-sans-var' }, dmMono: { variable: 'dm-mono-var' }, bigShoulders: { variable: 'big-shoulders-var' } }));
 
 // The data modules: each answers what `blocks[name]` holds (the samples by default), `undefined` meaning the sample and null the missing block.
 const blocks = vi.hoisted(() => ({ values: {} as Record<string, unknown>, calls: [] as Array<[string, unknown]> }));
@@ -207,7 +207,7 @@ describe('the top bar', () => {
     expect(nav).toContain('<a href="/daily" class="hub-h2-tab">Daily games</a>');
     expect(nav).not.toContain('hub-h2-badge');
     expect(nav).not.toContain('lang="fr"');
-    // the search button is a link to the search page of KpopQuiz (the filter of Hot now is All), named after that site (review fix)
+    // the search button is a link to the search page of KpopQuiz (KpopQuiz since the Hot filter went), named after that site (review fix)
     expect(nav).toMatch(/<a href="https:\/\/kpopquiz\.org\/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn">/);
     expect(nav).not.toContain('both sites');
     expect(nav).toMatch(/<button[^>]*aria-haspopup="dialog"[^>]*>Sign in<\/button>/);
@@ -585,78 +585,118 @@ describe('the sources of the facts (review fix: SEO rules 3.8 and 5.5)', () => {
 
 describe('Popular this week', () => {
   const popular = (html: string): string => block(html, '<div class="hub-h2-hot"', 'div');
+  const panelOf = (hot: string, id: 'hot-k-h' | 'hot-a-h'): string => block(hot, `<section aria-labelledby="${id}"`, 'section');
 
-  it('is the band of the ranked list: the heading, its line, the filter by site, no Start easy chip (one dimension, audit P2-4)', async () => {
+  // Lot HUB-HOT-B (2026-11-22, direction B): two panels, the top three of each site by plays of the week; the filter is gone.
+  it('is the band of the two panels: the eyebrow with the ISO week, the h2, the new line, an h3 per panel, no filter and no Start easy', async () => {
     const html = await renderHome();
     const band = block(html, '<section id="hot"', 'section');
     expect(band).toContain('aria-labelledby="hot-h"');
     const hot = popular(html);
+    expect(hot).toMatch(/<p class="hub-h2-eyebrow hub-h2-hot-eyebrow">Week \d{1,2} · (\d{1,2}-\d{1,2} [A-Z][a-z]{2}|\d{1,2} [A-Z][a-z]{2}-\d{1,2} [A-Z][a-z]{2})<\/p>/);
     expect(hot).toContain('<h2 id="hot-h" class="hub-h2-h2">Popular this week</h2>');
-    expect(hot).toContain('Ranked by plays this week on KpopQuiz and OtakuQuiz.');
+    expect(hot).toContain('The top three on each side, ranked by plays this week.');
     expect(hot).not.toContain('Hot right now');
-    expect(hot).toContain('<div role="group" aria-label="Filter" class="hub-h2-fchips">');
-    const chips = (h: string): string[] => [...h.matchAll(/<button type="button" aria-pressed="(true|false)" class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)<\/button>/g)].map((m) => `${m[1]} ${m[2]}`);
-    expect(chips(hot)).toEqual(['true All', 'false KpopQuiz', 'false OtakuQuiz']);
+    expect([...hot.matchAll(/<h3 id="[^"]+" class="hub-h2-pnl-h3"><span[^>]*><\/span>([^<]+)<\/h3>/g)].map((m) => m[1])).toEqual(['KpopQuiz', 'OtakuQuiz']);
+    expect(hot).not.toContain('hub-h2-fchip');
+    expect(hot).not.toContain('role="group"');
     expect(hot).not.toContain('Start easy');
+    expect([String.fromCharCode(0x2013), String.fromCharCode(0x2014)].some((d) => hot.includes(d))).toBe(false);
   });
 
-  it('leaves a site chip out when that site has no hot quiz (review fix)', async () => {
+  it('lists the top three of each site, each linked to its own site, with "See all" named after the site list it opens', async () => {
+    const hot = popular(await renderHome());
+    const k = panelOf(hot, 'hot-k-h');
+    const a = panelOf(hot, 'hot-a-h');
+    const hrefs = (h: string): string[] => [...h.matchAll(/<a href="([^"]+)" class="hub-h2-t[12] /g)].map((m) => m[1]!);
+    expect(hrefs(k)).toHaveLength(3);
+    expect(hrefs(a)).toHaveLength(3);
+    expect(hrefs(k).every((h) => h.startsWith('https://kpopquiz.org/q/'))).toBe(true);
+    // OtakuQuiz lives in the folder /anime of bunnyverse.org (2026-10-28): the site of a link is its registry url, folder included.
+    expect(hrefs(a).every((h) => h.startsWith('https://bunnyverse.org/anime/q/'))).toBe(true);
+    expect(k).toContain('Ultimate BTS era quiz - only real ARMYs survive');
+    expect(a).toContain('Name and Face: Death Note True or False');
+    expect(k).toContain('aria-label="All K-pop quizzes on KpopQuiz" class="hub-h2-pnl-all">See all');
+    expect(a).toContain('aria-label="All anime quizzes on OtakuQuiz" class="hub-h2-pnl-all">See all');
+    // the fourth to sixth quizzes of the ranking are not on the page band
+    expect(hot).not.toContain('K-pop company quiz');
+    expect(hot).not.toContain('Four Seasons and a Finale');
+  });
+
+  it('shows the plays of the WEEK (the count the ranking is made of), never the total ("2.7k plays"), most first inside each panel', async () => {
+    const hot = popular(await renderHome());
+    const k = panelOf(hot, 'hot-k-h');
+    expect([...k.matchAll(/hub-h2-pc hub-h2-num">([^<]+)</g)].map((m) => m[1])).toEqual(['340 plays this week', '300 this week', '260 this week']);
+    const a = panelOf(hot, 'hot-a-h');
+    expect([...a.matchAll(/hub-h2-pc hub-h2-num">([^<]+)</g)].map((m) => m[1])).toEqual(['58 plays this week', '44 this week', '31 this week']);
+    expect(hot).not.toMatch(/\d(\.\d)?k plays/);
+  });
+
+  it('ranks by plays of the week, not by the order of the picks, and leaves out a quiz with no play this week', async () => {
     const s = await import('@/lib/site/hub/home-samples.test-support');
     const h = s.sampleHot();
-    blocks.values.getHot = { ...h, anime: [], all: h.kpop, easy: h.easy!.filter((c) => c.site === 'kpop') };
+    const [a, b, c, d] = h.kpop;
+    blocks.values.getHot = { ...h, kpop: [{ ...a!, weekPlays: 10 }, { ...b!, weekPlays: 0 }, { ...c!, weekPlays: 90 }, { ...d!, weekPlays: 40 }] };
+    const k = panelOf(popular(await renderHome()), 'hot-k-h');
+    expect([...k.matchAll(/hub-h2-pc hub-h2-num">([^<]+)</g)].map((m) => m[1])).toEqual(['90 plays this week', '40 this week', '10 this week']);
+    expect(k).not.toContain('SKZ true or false');
+  });
+
+  it('keeps three slots when a site has fewer than three quizzes, and says "No plays yet this week" with See all when it has none', async () => {
+    const s = await import('@/lib/site/hub/home-samples.test-support');
+    const h = s.sampleHot();
+    blocks.values.getHot = { ...h, kpop: h.kpop.map((q) => ({ ...q, weekPlays: 0 })), anime: h.anime.slice(0, 1) };
     const hot = popular(await renderHome());
-    const chips = [...hot.matchAll(/class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)<\/button>/g)].map((m) => m[1]);
-    expect(chips).toEqual(['All', 'KpopQuiz']);
+    const k = panelOf(hot, 'hot-k-h');
+    expect(k).toContain('<p class="hub-h2-meta">No plays yet this week</p>');
+    expect(k).toContain('class="hub-h2-pnl-all">See all');
+    expect(k).not.toContain('hub-h2-t1 ');
+    const a = panelOf(hot, 'hot-a-h');
+    expect(a.match(/class="hub-h2-t1 /g)).toHaveLength(1);
+    expect(a.match(/<li aria-hidden="true" class="hub-h2-slot-2"><\/li>/g)).toHaveLength(2);
   });
 
-  it('lists six quizzes, three of each site alternating, each linked to its own site', async () => {
-    const html = await renderHome();
-    const hot = popular(html);
-    const ol = block(hot, '<ol class="hub-h2-rows"', 'ol');
-    const hrefs = [...ol.matchAll(/<a href="([^"]+)" class="hub-h2-rr/g)].map((m) => m[1]!);
-    expect(hrefs).toHaveLength(6);
-    // OtakuQuiz lives in the folder /anime of bunnyverse.org (2026-10-28): the site of a link is its registry url, folder included.
-    const siteOf = (h: string): string => (h.startsWith('https://kpopquiz.org/') ? 'kpop' : h.startsWith('https://bunnyverse.org/anime/') ? 'anime' : h);
-    expect(hrefs.map(siteOf)).toEqual(['kpop', 'anime', 'kpop', 'anime', 'kpop', 'anime']);
-    expect(hot).toContain('Ultimate BTS era quiz - only real ARMYs survive');
-    expect(hot).toContain('Name and Face: Death Note True or False');
-    expect(hot).toContain('KpopQuiz · BTS · Medium');
-    expect(hot).toContain('OtakuQuiz · Death Note · Medium · True or false');
-    expect(count(hot, /class="hub-h2-chip hub-h2-chip-s hub-h2-hplays"/g)).toBe(3);
-    expect(hot).toContain('<span class="hub-h2-meta hub-h2-num hub-h2-hplays">2.7k plays</span>');
-    expect(hot).toMatch(/>All K-pop quizzes on KpopQuiz<svg/);
-    expect(hot).toMatch(/>All anime quizzes on OtakuQuiz<svg/);
-  });
-
-  it('shows the quiz\'s own cover when it has one, else its group\'s photo as its own site shows it (owner, 2026-10-30), else the initials of its group on the colour of its site', async () => {
+  it('draws the banner from the group picture first (as its own pages show it), then the cover, else the name in type; the thumbnails go cover, group picture, initials', async () => {
     const hot = popular(await renderHome());
     const { SAMPLE_COVER } = await import('@/lib/site/hub/home-samples.test-support');
-    expect(hot).toContain(`<img src="${SAMPLE_COVER}" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>`);
-    // Owner decision 2026-10-30 (was: one image, the cover): BLACKPINK has no cover of its own and shows the group photo kpopquiz.org
-    // shows (public/idols, groupPhotoUrl), with no credit, as there. Exactly these two images, in the order of the rows.
-    expect(hot).toContain('<img src="/idols/BLACKPINK.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
-    expect([...hot.matchAll(/<img src="([^"]+)"/g)].map((m) => m[1])).toEqual([SAMPLE_COVER, '/idols/BLACKPINK.jpg']);
-    expect(count(hot, /<img /g)).toBe(2);
-    // No photo under the group or series of the others: the initials, as before.
-    for (const tile of ['DN', 'SK', 'OP', 'CM']) expect(hot).toContain(`<span aria-hidden="true" class="hub-h2-th hub-h2-th-48">${tile}</span>`);
+    const k = panelOf(hot, 'hot-k-h');
+    // BTS has both a cover and a group photo: the banner shows the group photo (owner direction B), not the cover.
+    expect(k).toContain('<img src="/idols/BTS.jpg" alt="" width="420" height="150" loading="lazy" decoding="async" class="hub-h2-t1-img"/>');
+    expect(k).not.toContain(SAMPLE_COVER);
+    // Stray Kids has neither: the initials; BLACKPINK has no cover: the group photo of kpopquiz.org, with no credit as there.
+    expect(k).toContain('class="hub-h2-big hub-h2-t2-init">SK</span>');
+    expect(k).toContain('<img src="/idols/BLACKPINK.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
+    // Death Note has no picture under its series: the name in type on the banner.
+    const a = panelOf(hot, 'hot-a-h');
+    expect(a).toContain('<span aria-hidden="true" class="hub-h2-t1-type hub-h2-big">Death Note</span>');
+    expect(a).not.toContain('<img');
   });
 
-  it('shows the photo OtakuQuiz shows for a series (its free photo), never the initials over it (owner, 2026-10-30)', async () => {
+  it('shows the photo OtakuQuiz shows for a series (its free photo) on the banner, never the name in type over it (owner, 2026-10-30)', async () => {
     const s = await import('@/lib/site/hub/home-samples.test-support');
     const h = s.sampleHot();
     const frieren = h.anime.find((c) => c.group === 'Frieren')!;
-    blocks.values.getHot = { ...h, all: [h.kpop[1]!, frieren] };
-    const hot = popular(await renderHome());
-    expect(hot).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-th-48"><img src="/series/frieren.webp" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/></span>');
-    expect(hot).not.toContain('class="hub-h2-th hub-h2-th-48">Fr</span>');
-    expect(hot).toContain('class="hub-h2-th hub-h2-th-48">SK</span>');
+    blocks.values.getHot = { ...h, anime: [frieren] };
+    const a = panelOf(popular(await renderHome()), 'hot-a-h');
+    expect(a).toContain('<img src="/series/frieren.webp" alt="" width="420" height="150"');
+    expect(a).not.toContain('hub-h2-t1-type');
   });
 
-  it('the structured data keeps its own name: the ItemList is "Hot right now" though the heading is "Popular this week" (a point for the owner)', async () => {
+  it('puts the NEW tag on the line of the count of the second and third places, and Rank in text for screen readers', async () => {
+    const hot = popular(await renderHome());
+    const a = panelOf(hot, 'hot-a-h');
+    // every OtakuQuiz sample quiz is new (no total plays yet): the tag sits on the line of the count of rows 2 and 3, beside the subject on the first place
+    expect(a.match(/<span class="hub-h2-t2-line"><span class="hub-h2-pc hub-h2-num">[^<]+<\/span><span class="hub-h2-ntag">New<\/span><\/span>/g)).toHaveLength(2);
+    expect(a).toContain('<span class="hub-h2-t1-top"><span class="hub-h2-meta hub-h2-pm-sub">Death Note</span><span class="hub-h2-ntag">New</span></span>');
+    expect(hot.match(/<span class="hub-h2-sr">Rank <\/span>/g)).toHaveLength(6);
+  });
+
+  it('the structured data keeps its own name: the ItemList is "Hot right now" though the heading is "Popular this week", and it still lists the six quizzes of the ranking', async () => {
     const html = await renderHome();
     expect(html).toContain('Popular this week');
     const list = [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)].map((m) => JSON.parse(m[1]!.replace(/&quot;/g, '"')) as Record<string, unknown>)[1]!;
     expect(list.name).toBe('Hot right now');
+    expect(list.itemListElement).toHaveLength(6);
     expect(COPY['hp.hot.listName']).toBe('Hot right now');
   });
 });

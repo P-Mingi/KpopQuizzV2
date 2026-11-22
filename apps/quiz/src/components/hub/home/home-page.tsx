@@ -13,14 +13,14 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import { ht } from '@/lib/site/hub/copy';
 import { hotItemListJsonLd } from '@/lib/site/hub/home-jsonld';
 import { homeUrl } from '@/lib/site/hub/home-types';
+import { isoWeek, weekRange } from '@/lib/site/hub/home-week';
 import { websiteJsonLdFor } from '@/lib/site/jsonld';
 
 import { HomeCommunity, communitySub } from './home-community';
 import { HomeCards } from './home-cards';
 import { HomeCrossover } from './home-crossover';
 import { HomeDayProvider } from './home-day';
-import { HomeFilterProvider } from './home-filter';
-import { dmMono, dmSans } from './home-font';
+import { bigShoulders, dmMono, dmSans } from './home-font';
 import { HomeFooter } from './home-footer';
 import { HomeHero, surprisePool } from './home-hero';
 import { HomeHot } from './home-hot';
@@ -33,7 +33,7 @@ import { HomeToday } from './home-today';
 import { DAY_GAMES } from './home-day-logic';
 import { PageStickers } from '../page-stickers';
 
-import type { HotCard } from './home-hot';
+import type { HotCard, HotPanel } from './home-hot';
 import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { HomeAssets } from '@/lib/site/hub/home-assets';
 import type { PageSticker } from '@/lib/photos/stickers';
@@ -61,6 +61,8 @@ export interface HomeData {
   readonly stickers?: readonly PageSticker[];
   /** Bunnyverse bridges: the KpopCards band and tab. Set only with NET_CARDS and NET_CARDS_BRIDGES on (lib/cards-bridge/flags.ts); absent, the home is today's. */
   readonly cards?: boolean;
+  /** The moment the page is built at (the week of the eyebrow of Popular this week); tests set it, the page reads the clock. */
+  readonly now?: Date;
 }
 
 function card(q: HomeQuiz): HotCard {
@@ -69,30 +71,40 @@ function card(q: HomeQuiz): HotCard {
     tile: q.tile,
     title: q.title,
     href: homeUrl(q),
-    line: ht('hp.hot.line', { name: siteName(q.site), group: q.group, meta: q.format ? `${q.level} · ${q.format}` : q.level }),
-    plays: q.plays,
+    subject: q.group,
+    level: q.level,
+    format: q.format ?? null,
+    // The plays of the week, the count the ranking is made of (lot HUB-HOT-B); null when the data does not carry it.
+    weekPlays: q.weekPlays ?? null,
     isNew: q.isNew,
-    // The quiz's own cover, else the photo of its group or series (owner decision 2026-10-30), else null for the initials.
-    cover: q.cover ?? q.photo ?? null,
+    cover: q.cover,
+    // The picture of the group or series, the one its own pages show (owner decision 2026-10-30, lib/site/hub/home-hot.ts).
+    groupImage: q.photo ?? null,
   };
 }
 
 export function HomePage({ data }: { data: HomeData }): React.ReactElement {
   const { hot, viewer, today, quick, crossover, assets, icons, burrow, stickers = [] } = data;
   const description = ht('hp.meta.description');
-  const lists = hot
-    ? { all: hot.all.map(card), kpop: hot.kpop.map(card), anime: hot.anime.map(card), easy: hot.easy.map(card) }
+  const now = data.now ?? new Date();
+  const panels: HotPanel[] | null = hot
+    ? (['kpop', 'anime'] as const).map((site) => ({
+        site,
+        name: siteName(site),
+        items: (hot.top?.[site] ?? []).map(card),
+        seeAllHref: homeUrl({ site, path: hot.allPaths[site] }),
+        seeAllLabel: ht(site === 'kpop' ? 'hp.hot.allKpop' : 'hp.hot.allAnime', { name: siteName(site) }),
+      }))
     : null;
   const hasFans = data.fans.kpop.length > 0 || data.fans.anime.length > 0;
   const community = communitySub(!!today?.debate, hasFans) !== null;
   const games = burrow ? DAY_GAMES : [];
   const todayShown = !!today || burrow;
-  const splitOne = !(hot && lists) || !quick ? ' hub-h2-split-one' : '';
+  const splitOne = !(hot && panels) || !quick ? ' hub-h2-split-one' : '';
   return (
-    <div className={`hub-h2-home ${dmSans.variable} ${dmMono.variable}`}>
+    <div className={`hub-h2-home ${dmSans.variable} ${dmMono.variable} ${bigShoulders.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(websiteJsonLdFor(description)) }} />
       {hot ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(hotItemListJsonLd(ht('hp.hot.listName'), hot.all)) }} /> : null}
-      <HomeFilterProvider>
         <HomeDayProvider games={games}>
           <HomeNav viewer={viewer} sections={{ hot: !!hot, blindtest: !!today?.blindtest, community }} burrow={burrow} {...(data.cards ? { cards: true } : {})} />
           <main id="main" tabIndex={-1} className="hub-h2-main">
@@ -109,24 +121,22 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
             {todayShown ? <HomeToday today={today} viewer={viewer} done={data.done} assets={assets} icons={icons} burrow={burrow} /> : null}
             {data.cards ? <HomeCards /> : null}
             {data.doors.length > 0 ? <HomeSites doors={data.doors} assets={assets} /> : null}
-            {(hot && lists) || quick ? (
+            {(hot && panels) || quick ? (
               <section id={hot ? 'hot' : undefined} aria-labelledby={hot ? 'hot-h' : 'quick-h'} className="hub-h2-band hub-h2-wrap">
                 <div className={`hub-h2-split${splitOne}`}>
-                  {hot && lists ? (
+                  {hot && panels ? (
                     <HomeHot
-                      lists={lists}
-                      allLinks={[
-                        { site: 'kpop', href: homeUrl({ site: 'kpop', path: hot.allPaths.kpop }), label: ht('hp.hot.allKpop', { name: siteName('kpop') }) },
-                        { site: 'anime', href: homeUrl({ site: 'anime', path: hot.allPaths.anime }), label: ht('hp.hot.allAnime', { name: siteName('anime') }) },
-                      ]}
+                      panels={panels}
                       labels={{
                         title: ht('hp.hot.title'),
-                        sub: ht('hp.hot.sub', { kpopName: siteName('kpop'), animeName: siteName('anime') }),
-                        filter: ht('hp.hot.filter'),
-                        all: ht('hp.hot.all'),
-                        kpop: siteName('kpop'),
-                        anime: siteName('anime'),
+                        sub: ht('hp.hot.sub'),
+                        eyebrow: ht('hp.hot.eyebrow', { week: isoWeek(now), range: weekRange(now) }),
+                        seeAll: ht('hp.hot.seeAll'),
+                        rank: ht('hp.hot.rank'),
                         newLabel: ht('hp.hot.new'),
+                        empty: ht('hp.hot.empty'),
+                        weekPlays: ht('hp.hot.weekPlays', { n: '{n}' }),
+                        weekShort: ht('hp.hot.weekShort', { n: '{n}' }),
                       }}
                     />
                   ) : null}
@@ -140,7 +150,6 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
           </main>
           <HomeFooter burrow={burrow} />
         </HomeDayProvider>
-      </HomeFilterProvider>
     </div>
   );
 }

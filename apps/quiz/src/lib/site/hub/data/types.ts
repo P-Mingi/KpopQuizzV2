@@ -47,6 +47,9 @@ export interface HubQuizCard {
 
 export interface HubHotCard extends HubQuizCard {
   readonly rank: number;
+  /** Lot HUB-HOT-B: the plays of the quiz over the last 7 UTC days (today included), the raw count the ranking is built from; the home
+   *  prints it ("N plays this week"). Missing from a value cached before it existed: read it as unknown. */
+  readonly weekPlays?: number;
 }
 
 /** Hot right now: six ranked quizzes for each filter of the home (All, KpopQuiz, OtakuQuiz, Start easy). */

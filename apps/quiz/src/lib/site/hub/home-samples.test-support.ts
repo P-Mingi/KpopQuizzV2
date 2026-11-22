@@ -10,11 +10,11 @@ type Site = 'kpop' | 'anime';
 const NAME: Record<Site, string> = { kpop: 'KpopQuiz', anime: 'OtakuQuiz' };
 const ORIGIN: Record<Site, string> = { kpop: 'https://kpopquiz.org', anime: 'https://bunnyverse.org/anime' };
 
-export function quizCard(site: Site, tile: string, group: string, title: string, meta: string, plays: string, slug: string, cover: string | null = null): HubQuizCard {
+export function quizCard(site: Site, tile: string, group: string, title: string, meta: string, plays: string, slug: string, cover: string | null = null, weekPlays?: number): HubQuizCard {
   const [level = ''] = meta.split(' · ');
   return {
     id: `${site}:${slug}`, site, siteName: NAME[site], slug, path: `/q/${slug}`, href: `${ORIGIN[site]}/q/${slug}`, title, group, groupSlug: group.toLowerCase(),
-    tile, difficulty: level.toLowerCase(), meta, plays, isNew: plays === '', hasPlays: plays !== '', questionCount: 10, cover,
+    tile, difficulty: level.toLowerCase(), meta, plays, isNew: plays === '', hasPlays: plays !== '', questionCount: 10, cover, ...(weekPlays === undefined ? {} : { weekPlays }),
   };
 }
 
@@ -22,20 +22,20 @@ export function quizCard(site: Site, tile: string, group: string, title: string,
 export const SAMPLE_COVER = 'https://sample.supabase.co/storage/v1/object/public/images/covers/ultimate-bts-era-quiz.jpg';
 
 const KPOP_HOT: readonly HubQuizCard[] = [
-  quizCard('kpop', 'BTS', 'BTS', 'Ultimate BTS era quiz - only real ARMYs survive', 'Medium', '2.7k plays', 'ultimate-bts-era-quiz', SAMPLE_COVER),
-  quizCard('kpop', 'SK', 'Stray Kids', 'SKZ true or false - only real STAYs pass', 'Easy · True or false', '2.1k plays', 'skz-true-or-false'),
-  quizCard('kpop', 'BP', 'BLACKPINK', 'BLACKPINK ultimate fan challenge', 'Medium', '1.7k plays', 'blackpink-ultimate-fan-challenge'),
-  quizCard('kpop', 'K', 'K-pop', 'K-pop company quiz - match the group to the label', 'Easy', '1.7k plays', 'kpop-company-quiz'),
-  quizCard('kpop', 'K', 'K-pop', 'Which K-pop group debuted first? Timeline challenge', 'Medium', '1.3k plays', 'which-kpop-group-debuted-first'),
-  quizCard('kpop', 'IL', 'ILLIT', 'are u a real GLLIT?!!', 'Easy · Find the intruder', '1.1k plays', 'are-u-a-real-gllit'),
+  quizCard('kpop', 'BTS', 'BTS', 'Ultimate BTS era quiz - only real ARMYs survive', 'Medium', '2.7k plays', 'ultimate-bts-era-quiz', SAMPLE_COVER, 340),
+  quizCard('kpop', 'SK', 'Stray Kids', 'SKZ true or false - only real STAYs pass', 'Easy · True or false', '2.1k plays', 'skz-true-or-false', null, 300),
+  quizCard('kpop', 'BP', 'BLACKPINK', 'BLACKPINK ultimate fan challenge', 'Medium', '1.7k plays', 'blackpink-ultimate-fan-challenge', null, 260),
+  quizCard('kpop', 'K', 'K-pop', 'K-pop company quiz - match the group to the label', 'Easy', '1.7k plays', 'kpop-company-quiz', null, 120),
+  quizCard('kpop', 'K', 'K-pop', 'Which K-pop group debuted first? Timeline challenge', 'Medium', '1.3k plays', 'which-kpop-group-debuted-first', null, 90),
+  quizCard('kpop', 'IL', 'ILLIT', 'are u a real GLLIT?!!', 'Easy · Find the intruder', '1.1k plays', 'are-u-a-real-gllit', null, 0),
 ];
 const ANIME_HOT: readonly HubQuizCard[] = [
-  quizCard('anime', 'DN', 'Death Note', 'Name and Face: Death Note True or False', 'Medium · True or false', '', 'name-and-face-death-note-true-or-false'),
-  quizCard('anime', 'OP', 'One Piece', 'Raising the Flag: One Piece Basics', 'Easy', '', 'raising-the-flag-one-piece-basics'),
-  quizCard('anime', 'CM', 'Chainsaw Man', 'One Opening, Many Endings: Chainsaw Man Theme Songs', 'Medium', '', 'one-opening-many-endings-chainsaw-man-theme-songs'),
-  quizCard('anime', 'Fr', 'Frieren', "Journey's Beginning: Frieren Basics", 'Easy', '', 'journeys-beginning-frieren-basics'),
-  quizCard('anime', 'SF', 'Spy x Family', 'Cover Story or Truth: Spy x Family True or False', 'Medium · True or false', '', 'cover-story-or-truth-spy-x-family-true-or-false'),
-  quizCard('anime', 'Ha', 'Haikyu!!', 'Four Seasons and a Finale: The Haikyu!! Timeline', 'Hard', '', 'four-seasons-and-a-finale-the-haikyu-timeline'),
+  quizCard('anime', 'DN', 'Death Note', 'Name and Face: Death Note True or False', 'Medium · True or false', '', 'name-and-face-death-note-true-or-false', null, 58),
+  quizCard('anime', 'OP', 'One Piece', 'Raising the Flag: One Piece Basics', 'Easy', '', 'raising-the-flag-one-piece-basics', null, 44),
+  quizCard('anime', 'CM', 'Chainsaw Man', 'One Opening, Many Endings: Chainsaw Man Theme Songs', 'Medium', '', 'one-opening-many-endings-chainsaw-man-theme-songs', null, 31),
+  quizCard('anime', 'Fr', 'Frieren', "Journey's Beginning: Frieren Basics", 'Easy', '', 'journeys-beginning-frieren-basics', null, 12),
+  quizCard('anime', 'SF', 'Spy x Family', 'Cover Story or Truth: Spy x Family True or False', 'Medium · True or false', '', 'cover-story-or-truth-spy-x-family-true-or-false', null, 0),
+  quizCard('anime', 'Ha', 'Haikyu!!', 'Four Seasons and a Finale: The Haikyu!! Timeline', 'Hard', '', 'four-seasons-and-a-finale-the-haikyu-timeline', null, 0),
 ];
 
 const ranked = (cards: readonly HubQuizCard[]): HubHotCard[] => cards.map((c, i) => ({ ...c, rank: i + 1 }));

@@ -72,6 +72,19 @@ export function completionRate(days: ReadonlyMap<string, DayCount> | undefined, 
   return started >= HOT_MIN_STARTED ? Math.min(1, plays / started) : null;
 }
 
+/** Lot HUB-HOT-B: the plays of a quiz over the window (the last 7 UTC days, today included), as the ranking counts them, before any decay. */
+export function weekPlaysOf(days: ReadonlyMap<string, DayCount> | undefined, now: Date): number {
+  let total = 0;
+  if (days) {
+    for (const [day, c] of days) {
+      const age = ageInDays(day, now);
+      if (age < 0 || age >= HOT_WINDOW_DAYS) continue;
+      total += c.plays;
+    }
+  }
+  return total;
+}
+
 /** completion times (1 + likes / plays), clamped; an unknown completion counts as 1. */
 export function quality(q: ScoreInput, completion: number | null): number {
   const likes = q.like_count ?? 0;
@@ -202,8 +215,9 @@ export function pickHot(input: HotInput): HotPicks {
 }
 
 /** The three lists of the home from the picks. */
-export function composeHot(picks: HotPicks, origins: HubOrigins, now: Date, plays: HubHot['basis']['plays']): HubHot {
-  const card = (q: QuizRow, i: number): HubHotCard => ({ ...toCard(q, origins, now), rank: i + 1 });
+export function composeHot(picks: HotPicks, origins: HubOrigins, now: Date, plays: HubHot['basis']['plays'], byQuiz?: PlaysByQuiz): HubHot {
+  // Lot HUB-HOT-B: with the per-day counts, each card carries its plays of the week (read only, the very counts the score is made of).
+  const card = (q: QuizRow, i: number): HubHotCard => ({ ...toCard(q, origins, now), rank: i + 1, ...(byQuiz ? { weekPlays: weekPlaysOf(byQuiz.get(q.id), now) } : {}) });
   const ranked = (rows: readonly QuizRow[]): HubHotCard[] => rows.map(card);
   const all = alternate(picks.kpop, picks.anime).map(card);
   return {
@@ -330,7 +344,7 @@ export async function readHot(origins: HubOrigins, now: Date, deps: HotDeps): Pr
     now,
   });
   if (picks.kpop.length === 0 && picks.anime.length === 0) return null;
-  return composeHot(picks, origins, now, source);
+  return composeHot(picks, origins, now, source, plays);
 }
 
 /** The ids of today's quizzes of the day, from the daily block. No quiz of the day (or a failed read) gives no exclusion. */
