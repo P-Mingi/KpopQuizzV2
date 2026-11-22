@@ -482,3 +482,9 @@ html.ux-v1[data-site="hub"] .hub-h2-kc-bt { position: absolute; left: 0; right: 
   html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-holo { --hub-kc-x: -78px; }
   html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-gold { --hub-kc-x: 78px; }
 }
+/* Owner, 2026-11-22 ("on Bunnyverse the navbar should also be at the bottom"): up to 900 px the phone tab bar of the shell carries the links
+   (components/layout/ux-v1/ux-client-shell.tsx draws it on the bare home too), so the top bar keeps the brand, search and the account. */
+@media (max-width: 900px) {
+  html.ux-v1[data-site="hub"] .hub-h2-tabs { display: none; }
+  html.ux-v1[data-site="hub"] .hub-h2-actions { margin-left: auto; }
+}
