@@ -1,5 +1,5 @@
 // Launch polish, lane ADS: the AdSense verification of the hub. NEXT_PUBLIC_ADSENSE_PUB_ID is `ca-pub-` and 16 digits; the meta tag takes it as it is,
-// /ads.txt takes it without "ca-". Neither depends on any ad flag. A malformed value serves nothing. Hub only. robots.txt lets Google's crawlers in.
+// /ads.txt takes it without "ca-". Neither depends on any ad flag. A malformed value serves nothing. The hub and kpopquiz.org (2026-11-23). robots.txt lets Google's crawlers in.
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const ID = 'ca-pub-1234567890123456';
@@ -56,13 +56,16 @@ describe('the verification meta tag, hub only, with no ad flag', () => {
     vi.stubEnv('NEXT_PUBLIC_ADSENSE_PUB_ID', 'pub-1234567890123456');
     expect(siteRootMetadata({}, SITE).other).toBeUndefined();
   });
-  it('kpop (returned untouched) and anime never carry the tag, whatever the variable says', async () => {
+  // Integrator, LAUNCH-POLISH-2 E (2026-11-23): kpopquiz.org carries the tag too (this case said "kpop (returned untouched) and anime never").
+  it('kpop gets the tag on its own object with a good id (untouched without one); anime never carries it', async () => {
     vi.stubEnv('NEXT_PUBLIC_ADSENSE_PUB_ID', ID);
     const { siteRootMetadata } = await import('./metadata');
     const { REGISTRY } = await import('./registry');
-    const kpopRoot = { title: 'x' };
-    expect(siteRootMetadata(kpopRoot, REGISTRY.kpop)).toBe(kpopRoot);
+    const kpopRoot = { title: 'x', other: { 'p:domain_verify': 'abc' } };
+    expect(siteRootMetadata(kpopRoot, REGISTRY.kpop)).toEqual({ title: 'x', other: { 'p:domain_verify': 'abc', 'google-adsense-account': ID } });
     expect(siteRootMetadata({}, REGISTRY.anime).other).toBeUndefined();
+    vi.stubEnv('NEXT_PUBLIC_ADSENSE_PUB_ID', 'ca-pub-12');
+    expect(siteRootMetadata(kpopRoot, REGISTRY.kpop)).toBe(kpopRoot);
   });
 });
 

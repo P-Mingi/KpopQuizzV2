@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { KPOP_ADS_PRIVACY } from '@/lib/privacy/kpop-ads-privacy';
+
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   // SEO (owner, 2026-10-14): Bing flagged the description as too short; 130 to 155 characters.
@@ -13,7 +15,7 @@ export default function PrivacyPage(): React.ReactElement {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <h1 className="text-2xl font-medium mb-2">Privacy Policy</h1>
-      <p className="text-sm text-secondary mb-8">Last updated: October 24, 2026</p>
+      <p className="text-sm text-secondary mb-8">Last updated: November 23, 2026</p>
 
       <p className="text-sm text-secondary leading-relaxed">
         KpopQuiz (kpopquiz.org) respects your privacy. This policy explains what data we collect, how we
@@ -69,10 +71,18 @@ export default function PrivacyPage(): React.ReactElement {
       <p className="text-sm text-secondary leading-relaxed">KpopQuiz uses:</p>
       <ul className="list-disc pl-5 space-y-1 text-sm text-secondary leading-relaxed mt-2">
         <li>Authentication cookies (managed by Supabase) to keep you signed in</li>
-        <li>No tracking cookies</li>
+        <li>No tracking cookies of our own</li>
         <li>No third-party analytics cookies</li>
         <li>Local storage for UI preferences (such as dismissed banners)</li>
       </ul>
+      <p className="text-sm text-secondary leading-relaxed mt-3">
+        Where ads run, Google sets its own cookies: see Advertising below.
+      </p>
+
+      <h2 className="text-lg font-medium mt-8 mb-3">Advertising</h2>
+      {Object.values(KPOP_ADS_PRIVACY).map((text) => (
+        <p key={text.slice(0, 24)} className="text-sm text-secondary leading-relaxed mt-3">{text}</p>
+      ))}
 
       <h2 className="text-lg font-medium mt-8 mb-3">4. Third-party services</h2>
       <p className="text-sm text-secondary leading-relaxed">
@@ -82,6 +92,7 @@ export default function PrivacyPage(): React.ReactElement {
         <li>Supabase (database and authentication) - stores your account and quiz data</li>
         <li>Vercel (hosting) - serves the website</li>
         <li>Google OAuth and Discord OAuth - for sign-in only</li>
+        <li>Google AdSense - ads, once they run, and the consent message that goes with them</li>
       </ul>
       <p className="text-sm text-secondary leading-relaxed mt-3">
         Each of these services has their own privacy policy. We encourage you to review them.

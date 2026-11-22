@@ -18,9 +18,13 @@ import type { SiteConfig } from './types';
  * untouched on the kpop build; every other site gets a root built from its registry entry.
  */
 export function siteRootMetadata(kpopMetadata: Metadata, site: SiteConfig = SITE): Metadata {
-  if (site.id === 'kpop') return kpopMetadata;
-  // Launch polish, lane ADS: the AdSense site verification tag, hub only, from NEXT_PUBLIC_ADSENSE_PUB_ID alone (no ad flag): see lib/site/adsense.ts.
-  const other = site.id === 'hub' ? adsenseMetaOther(process.env.NEXT_PUBLIC_ADSENSE_PUB_ID) : {};
+  // Launch polish, lane ADS: the AdSense site verification tag, from NEXT_PUBLIC_ADSENSE_PUB_ID alone (no ad flag): see lib/site/adsense.ts. The hub,
+  // and kpopquiz.org since LAUNCH-POLISH-2 E (2026-11-23): with the variable unset the kpop object is returned untouched (the same bytes).
+  const other = site.id === 'hub' || site.id === 'kpop' ? adsenseMetaOther(process.env.NEXT_PUBLIC_ADSENSE_PUB_ID) : {};
+  if (site.id === 'kpop') {
+    if (Object.keys(other).length === 0) return kpopMetadata;
+    return { ...kpopMetadata, other: { ...((kpopMetadata.other as Record<string, string> | undefined) ?? {}), ...other } };
+  }
   const image = { url: site.brand.ogTemplate, width: 1200, height: 630, alt: site.brand.name };
   return {
     metadataBase: new URL(site.url),
