@@ -19,6 +19,9 @@ export interface PassportSiteRow {
   readonly levelName: string;
   readonly plays: number;
   readonly streak: number;
+  /** Owner 2026-11-22 (the passport redesign): how far into the level, 0 to 100, and the XP still needed for the next one. */
+  readonly progress: number;
+  readonly xpToNext: number;
   /** The signed-in jump to the fan's own passport page on that site. */
   readonly href: string;
 }
@@ -28,7 +31,14 @@ export interface CommonPassport {
   readonly totalXp: number;
   readonly level: number;
   readonly levelName: string;
+  readonly progress: number;
+  readonly xpToNext: number;
   readonly sites: readonly PassportSiteRow[];
+}
+
+/** The XP still needed for the next level, from getLevelInfo. */
+function toNext(lv: ReturnType<typeof getLevelInfo>): number {
+  return lv.xpForNextLevel === null ? 0 : Math.max(0, lv.xpForNextLevel - lv.currentXp);
 }
 
 const num = (v: unknown): number => Math.max(0, Math.trunc(Number(v) || 0));
@@ -40,11 +50,11 @@ export function buildCommonPassport(rows: readonly MyPassportRow[], username: st
     if (!r || !isSiteId(id) || REGISTRY[id].kind !== 'world' || r.activated_at === null || r.activated_at === undefined) return [];
     const xp = num(r.xp);
     const lv = getLevelInfo(xp, id);
-    return [{ id, name: REGISTRY[id].brand.name, xp, level: lv.level, levelName: lv.name, plays: num(r.plays), streak: num(r.daily_streak), href: bridgeHref(id, '/me', 'pp') }];
+    return [{ id, name: REGISTRY[id].brand.name, xp, level: lv.level, levelName: lv.name, plays: num(r.plays), streak: num(r.daily_streak), progress: lv.progress, xpToNext: toNext(lv), href: bridgeHref(id, '/me', 'pp') }];
   });
   const totalXp = sites.reduce((sum, s) => sum + s.xp, 0);
   const total = getLevelInfo(totalXp, 'hub');
-  return { username, totalXp, level: total.level, levelName: total.name, sites };
+  return { username, totalXp, level: total.level, levelName: total.name, progress: total.progress, xpToNext: toNext(total), sites };
 }
 
 /** The signed-in fan's passport, or null (signed out, no stamp, or any error). */
@@ -72,6 +82,33 @@ const WORDS = {
   site: 'Lv {level} · {name}',
   stats: '{xp} XP · {plays} plays · {streak} day streak',
   open: 'Open on {name}',
+  // The redesign (owner, 2026-11-22: "make this page beautiful, with some of the information showing live").
+  eyebrow: 'Your passport',
+  levelChip: 'Level {level}',
+  inAll: 'XP in all',
+  toNext: '{xp} XP to level {next}',
+  statXp: 'XP',
+  statPlays: 'Plays',
+  statStreak: 'Day streak',
+  sitesH: 'Your sites',
+  liveH: 'Right now',
+  live: 'Live',
+  dailyH: 'Daily games',
+  dailyLeft: '{n} of {total} left today',
+  dailyDone: 'All {total} done today',
+  dailyReset: 'New puzzles in {clock}',
+  dailyCta: 'Play',
+  packsH: 'KpopCards',
+  packsReady: '{n} packs ready',
+  packsReady1: '1 pack ready',
+  packsNone: 'No pack ready yet',
+  packsNext: 'Next free pack in {clock}',
+  packsFull: 'Your stack is full',
+  packsCta: 'Open a pack',
+  collH: 'Collection',
+  collLine: '{owned} of {total} cards',
+  collPct: '{pct}% complete',
+  collCta: 'Open your binder',
 } as const;
 
 export function passportWords(key: keyof typeof WORDS, vars: Readonly<Record<string, string | number>> = {}): string {

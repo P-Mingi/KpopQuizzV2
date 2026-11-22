@@ -26,11 +26,13 @@ export async function readCollection(userId: string, db: SupabaseClient = create
   return { owned: owned.count, total: live.count + retired.count };
 }
 
-async function load(on: boolean, userId: string): Promise<React.ReactElement | null> {
+async function load(on: boolean, userId: string, hub = false): Promise<React.ReactElement | null> {
   if (!on) return null;
   try {
     const c = await readCollection(userId);
     if (!c) return null;
+    // Owner, 2026-11-22 (the passport redesign): the hub passport draws the same two numbers as a card of its own.
+    if (hub) return (await import('@/components/hub/hub-passport-collection')).hubCollectionCard(c);
     const { collectionSection } = await import('@/components/cards-bridge/collection-section');
     return collectionSection(c);
   } catch (err) {
@@ -42,4 +44,4 @@ async function load(on: boolean, userId: string): Promise<React.ReactElement | n
 /** kpopquiz.org /me. */
 export const loadCollectionKpop = (userId: string): Promise<React.ReactElement | null> => load(cardsBridgesKpopOn(), userId);
 /** bunnyverse.org /passport. */
-export const loadCollectionHub = (userId: string): Promise<React.ReactElement | null> => load(cardsBridgesHubOn(), userId);
+export const loadCollectionHub = (userId: string): Promise<React.ReactElement | null> => load(cardsBridgesHubOn(), userId, true);

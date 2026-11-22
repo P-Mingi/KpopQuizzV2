@@ -1,6 +1,8 @@
 // Run O1 (ADM back): reads and writes of public.entity_images and of the bucket 'entity-images', through the SERVICE ROLE client
 // (the table has no write policy). Server only. The caller has already checked that the user is an admin.
 import { ADMIN_COLUMNS, BUCKET, DEFAULT_FOCAL, IMAGE_SITE, folderOf, path2x } from './constants';
+import { ANIME_MIX_SLUG } from '@/lib/anime/types';
+
 import { ImageError } from './errors';
 
 import type { ImageKind } from './constants';
@@ -46,7 +48,8 @@ export async function assertEntity(db: Db, kind: ImageKind, slug: string): Promi
   if (!g) throw new ImageError('unknown_entity', 404, kind === 'series' ? 'That series does not exist.' : 'That character does not exist.');
   const { data: s, error: se } = await db.from('series').select('group_id').eq('group_id', g.id).maybeSingle();
   if (se) throw new ImageError('db_failed', 500, 'The database could not be read.');
-  if (!s) throw new ImageError('unknown_entity', 404, 'That series does not exist.');
+  // o1/adminpics: the Anime Mix group (the general quizzes) has no row in `series`, yet its card shows a picture the owner may replace.
+  if (!s && !(kind === 'series' && seriesSlug === ANIME_MIX_SLUG)) throw new ImageError('unknown_entity', 404, 'That series does not exist.');
   if (kind === 'character') {
     const { data: c, error: ce } = await db.from('characters').select('id').eq('group_id', g.id).eq('slug', characterSlug ?? '').maybeSingle();
     if (ce) throw new ImageError('db_failed', 500, 'The database could not be read.');

@@ -21,6 +21,22 @@ export const D = {
   eye: ICON_LIBRARY.eye!,
 } as const;
 
+/** Owner, 2026-11-22: a small icon on every hint box, by the key the box shows (a slot several keys can fill follows the served key). */
+const HINT_LETTER = 'M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM8.5 16l3.5-8 3.5 8M9.8 13.2h4.4';
+const HINT_FRUIT = 'M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 5c0-1.5.8-2.5 2.5-3M8 13a4 4 0 0 1 4-4 2.5 2.5 0 0 1 0 5 1.2 1.2 0 0 1 0-2.4';
+export const HINT_ICONS: Readonly<Record<string, string>> = {
+  fandom: ICON_LIBRARY.heart!,
+  voice_actor_ja: ICON_LIBRARY.mic!,
+  signature_technique: ICON_LIBRARY.sparkle!,
+  devil_fruit_name: HINT_FRUIT,
+  initial: HINT_LETTER,
+};
+
+/** The icon of a hint key; a key with none gets the bulb of the hints title. */
+export function hintIcon(key: string): string {
+  return HINT_ICONS[key] ?? ICON_LIBRARY.bulb!;
+}
+
 const FLAME = 'M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.4 1.2-4 2.5-5.2.2 1.7 1 2.7 2 3.2-.4-3.4.5-6.4.5-9z';
 
 export function Ic({ d, size = 18, width = 2, className }: { d: string; size?: number; width?: number; className?: string }): React.ReactElement {

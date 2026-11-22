@@ -194,6 +194,10 @@ const ROLE_FR: Readonly<Record<string, string>> = { main: 'Principal', supportin
 const SPECIES_FR: Readonly<Record<string, string>> = {
   human: 'Humain', demon: 'Démon', curse: 'Fléau', panda: 'Panda', saiyan: 'Saiyan', pig: 'Cochon', creature: 'Créature', shinigami: 'Shinigami', quincy: 'Quincy',
   'mod-soul': 'Âme modifiée', hybrid: 'Hybride', devil: 'Diable', fiend: 'Fiend', elf: 'Elfe', dwarf: 'Nain',
+  // L35 (owner 2026-11-22, "no ?"): the species words the Otakudle fill adds, and the fish-man that had no French yet.
+  alien: 'Extraterrestre', 'artificial-intelligence': 'Intelligence artificielle', 'chimera-ant': 'Fourmi-chimère', genie: 'Génie', giant: 'Géant',
+  'hit-race': 'Race de Hit', merfolk: 'Peuple sirène', mink: 'Mink', monarch: 'Monarque', shadow: 'Ombre', 'snow-folk': 'Peuple des neiges',
+  'fish-man': 'Homme-poisson',
 };
 const DEMOGRAPHIC: Readonly<Record<string, string>> = { shonen: 'Shōnen', shojo: 'Shōjo', seinen: 'Seinen', josei: 'Josei', kodomo: 'Kodomo' };
 
@@ -210,7 +214,8 @@ export function valueLabel(key: string, v: unknown, locale: DleLocale, opts?: { 
     if (x !== null) return x;
   }
   if (key === 'series') return locale === 'fr' ? VALUE_FR[s] ?? s : s;
-  if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Féminin' : 'Female') : s === 'male' ? (locale === 'fr' ? 'Masculin' : 'Male') : s;
+  // L35 (owner 2026-11-22, "no ?"): a character whose work gives no gender (Hange, Neferpitou) is "unspecified", said in words.
+  if (key === 'gender') return s === 'female' ? (locale === 'fr' ? 'Féminin' : 'Female') : s === 'male' ? (locale === 'fr' ? 'Masculin' : 'Male') : s === 'unspecified' ? (locale === 'fr' ? 'Non précisé' : 'Unspecified') : s;
   if (key === 'role') {
     if (s === 'none') return locale === 'fr' ? 'Aucun' : 'None';
     if (locale === 'fr' && ROLE_FR[s]) return ROLE_FR[s]!;

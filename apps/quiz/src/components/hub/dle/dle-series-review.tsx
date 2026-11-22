@@ -30,7 +30,7 @@ export function SeriesReviewGrid({ items, base = '' }: { items: readonly SeriesR
   if (items.length === 0) return null;
   const verified = items.filter((i) => i.verified).length;
   return (
-    <section aria-labelledby="dle-sr-h" className="hub-dle-sr">
+    <section aria-labelledby="dle-sr-h" className="hub-dle-review">
       <h2 id="dle-sr-h">Aperçu privé : séries restantes</h2>
       <p>
         {items.length} séries, {verified} vérifiée{verified > 1 ? 's' : ''}, {items.length - verified} non vérifiée{items.length - verified > 1 ? 's' : ''}.

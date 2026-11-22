@@ -1,6 +1,8 @@
 // Daily games step 4: the frame of the pages of the Terrier (boards Main.dc.html and Kpopdle.dc.html): the bar with the tabs of the hub, the page, the footer. Server component; the tools are islands. The
 // bar and the footer of the home speak English only, so these carry the two languages; same classes for the wordmark, so one rule draws both. No link to kpopquiz.org in the footer (rule 16).
 import { HubWordmark, RabbitMark } from '@/components/hub/home/home-ui';
+import { cardsBridgesHubOn } from '@/lib/cards-bridge/flags';
+import { CARDS_PATH } from '@/lib/cards-bridge/links';
 import { HUB_EMAIL } from '@/lib/site/hub/copy';
 import { dleCopy } from '@/lib/dle/copy';
 import { DAILY_PATH, localePath } from '@/lib/dle/games';
@@ -46,6 +48,8 @@ export function DleChrome({ locale, enPath, current, tools, className, showCredi
             <a href={withBasePath('/')} className="hub-dle-tab">{t.navHome}</a>
             <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-dle-tab hub-dle-tab-on" aria-current={current ? 'page' : 'true'}>{t.navBurrow}<DleLeftBadge locale={locale} /></a>
             <a href={withBasePath('/#hot')} className="hub-dle-tab">{t.navQuizzes}</a>
+            {/* Owner, 2026-11-22: KpopCards in this bar too, as on the home and the other hub pages (same gate: NET_CARDS and NET_CARDS_BRIDGES). */}
+            {cardsBridgesHubOn() ? <a href={withBasePath(CARDS_PATH)} className="hub-dle-tab">KpopCards</a> : null}
             <a href={withBasePath('/#community')} className="hub-dle-tab">{t.navCommunity}</a>
           </div>
           <div className="hub-dle-actions">

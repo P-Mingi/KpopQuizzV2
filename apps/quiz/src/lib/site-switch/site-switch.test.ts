@@ -43,10 +43,19 @@ describe('which destinations are open', () => {
     expect(m.items[1]!.href).toBe('/auth/passport/out?to=anime&next=%2F&via=k.pp');
     expect(m.items[2]!.href).toBe('/auth/passport/out?to=hub&next=%2F&via=k.pp');
   });
-  it('OtakuQuiz: nothing while its private launch gate is on or NET_CARDS_BRIDGES is off', async () => {
-    for (const vars of [CLOSED_ANIME, { PRIVATE_LAUNCH: '0' }, {}]) {
+  // Owner, 2026-11-22: OtakuQuiz always shows the switcher (this case replaces "nothing while its gate is on or NET_CARDS_BRIDGES is off").
+  it('OtakuQuiz: always the switcher; behind its private launch gate the hub too (same gate, same cookie)', async () => {
+    for (const vars of [CLOSED_ANIME, { PRIVATE_LAUNCH: '1', PRIVATE_LAUNCH_KEY: 'a'.repeat(64), PRIVATE_LAUNCH_ALLOW: '11111111-1111-1111-1111-111111111111' }]) {
       env('anime', vars);
-      expect((await import('./model')).siteSwitch(), JSON.stringify(vars)).toBeNull();
+      expect((await import('./model')).siteSwitch()!.items.map((i) => i.id), JSON.stringify(vars)).toEqual(['kpop', 'anime', 'hub']);
+    }
+  });
+  it('OtakuQuiz in public with NET_CARDS_BRIDGES off: KpopQuiz and OtakuQuiz only, never a link to the closed hub', async () => {
+    for (const vars of [{ PRIVATE_LAUNCH: '0' }, {}, { PRIVATE_LAUNCH: '0', NET_CARDS_BRIDGES: '0' }]) {
+      env('anime', vars);
+      const m = (await import('./model')).siteSwitch()!;
+      expect(m.items.map((i) => i.id), JSON.stringify(vars)).toEqual(['kpop', 'anime']);
+      expect(m.items[0]!.href).toBe('/auth/passport/out?to=kpop&next=%2F&via=a.pp');
     }
   });
   it('OtakuQuiz: KpopQuiz (jump), OtakuQuiz (current) and Bunnyverse (same origin) once its gate is off', async () => {

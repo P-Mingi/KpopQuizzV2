@@ -74,6 +74,11 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
   'Red Ribbon Army': 'Armée du Ruban rouge',
   'Frieza Force': 'Armée de Freezer',
   'Galactic Patrol': 'Patrouille galactique',
+  // L36 (owner 2026-11-22, "no ?"): the values the fill sets that read differently in French.
+  "Hit's race": 'Race de Hit',
+  'Supreme Kais': 'Kaïoshins',
+  // A planet or a sea that no allowed source gives (L36): said, never a "?".
+  Unknown: 'Inconnu',
   // Anime series, when a column shows one (Otakudle, all series)
   'Attack on Titan': 'L’Attaque des Titans',
   'The Apothecary Diaries': 'Les Carnets de l’apothicaire',
@@ -82,8 +87,8 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
 
 /** The good or evil of a character at the start (Dragon Ball). */
 export const ALIGNMENT: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
-  en: { good: 'Good', evil: 'Evil' },
-  fr: { good: 'Gentil', evil: 'Méchant' },
+  en: { good: 'Good', evil: 'Evil', neutral: 'Neutral' },
+  fr: { good: 'Gentil', evil: 'Méchant', neutral: 'Neutre' },
 };
 
 /** The three Hakis and "none" (One Piece). */
@@ -96,8 +101,8 @@ export const HAKI: Readonly<Record<DleLocale, Readonly<Record<string, string>>>>
 export const NO_FRUIT_TYPE: Readonly<Record<DleLocale, string>> = { en: 'None', fr: 'Aucun' };
 
 export const GENDER: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
-  en: { male: 'Male', female: 'Female' },
-  fr: { male: 'Masculin', female: 'Féminin' },
+  en: { male: 'Male', female: 'Female', unspecified: 'Unspecified' },
+  fr: { male: 'Masculin', female: 'Féminin', unspecified: 'Non précisé' },
 };
 
 /** What a stored label (the `l` of a value) says in French; a label that is not here is shown as it is. */
