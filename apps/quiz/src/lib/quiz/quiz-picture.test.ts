@@ -29,7 +29,9 @@ describe('the picture of a quiz without a cover of its own', () => {
 
   it('the quiz page uses that order: its own cover, the group or series photo, the fallback cover', () => {
     const src = readFileSync(new URL('../../app/(site)/q/[slug]/ux-page.tsx', import.meta.url), 'utf8');
-    expect(src).toContain('const cover = quiz.cover_image_url ?? groupPhoto ?? quizFallbackCover(site, quiz.group_slug);');
+    expect(src).toContain('const cover = quiz.cover_image_url ?? groupPhoto;');
+    expect(src).toContain('const coverOrFallback = cover ?? quizFallbackCover(site, quiz.group_slug);');
+    expect(src).toContain('const shownCover = coverOrFallback && isConfiguredImageHost(coverOrFallback) ? coverOrFallback : groupPhoto;');
     expect(src).toContain('const groupPhoto = quizGroupPhoto(site, quiz.group_slug);');
     expect(src).toContain('photo: quizGroupPhoto(site, r.group_slug) ?? r.cover_image_url ?? quizFallbackCover(site, r.group_slug)');
     expect(src).not.toMatch(/groupPhotoUrl\(/);

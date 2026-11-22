@@ -72,9 +72,11 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
   // Before, it read the kpop group photos only, so a General K-pop quiz and every anime quiz without a cover of its own drew the typographic cover.
   const site = SITE_ID === 'anime' ? 'anime' : 'kpop';
   const groupPhoto = quizGroupPhoto(site, quiz.group_slug);
-  const cover = quiz.cover_image_url ?? groupPhoto ?? quizFallbackCover(site, quiz.group_slug);
+  const cover = quiz.cover_image_url ?? groupPhoto;
+  // Last before the typographic cover, as on the card: General K-pop's fallback cover (kpopquiz.org only).
+  const coverOrFallback = cover ?? quizFallbackCover(site, quiz.group_slug);
   // Like the card: a cover from a host next/image does not accept (it would throw during render) falls back to the group photo (audit 02 P2-1, risk 7).
-  const shownCover = cover && isConfiguredImageHost(cover) ? cover : groupPhoto;
+  const shownCover = coverOrFallback && isConfiguredImageHost(coverOrFallback) ? coverOrFallback : groupPhoto;
   const settings = quiz.settings ?? { timer: true, timer_seconds: 15, shuffle: false, show_answers: true };
   const prompts = a.seoQuestions
     .map((q) => (typeof q.question === 'string' ? q.question.trim() : ''))
