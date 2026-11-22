@@ -10,12 +10,14 @@ import { formatCount } from '@/lib/dle/copy';
 import { DAILY_PATH, dleGame } from '@/lib/dle/games';
 import { readDay } from '@/lib/dle/read';
 import { editorialHref } from '@/lib/network/links';
+import { GAME_ICON_BOX_STYLE, loadGameIcons } from '@/lib/photos/game-icons';
 import { dailyGuessOn } from '@/lib/site/hub/daily-guess';
 import { REGISTRY } from '@/lib/site/registry';
 import { isKnownRouteFor } from '@/lib/site/routing';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import type { DleDay } from '@/lib/dle/types';
+import type { GameIcon } from '@/lib/photos/game-icons';
 import type { SiteFeatures } from '@/lib/site/types';
 
 const GAME = 'kpopdle-idol';
@@ -67,7 +69,8 @@ const CSS = `
 }
 `;
 
-export function KpopdleHomeCard({ view }: { view: KpopdleHomeView }): React.ReactElement {
+/** `icon` is the picture the owner set for Kpopdle in the admin (o1/adminpics); with none the card draws its grid of squares, as before. */
+export function KpopdleHomeCard({ view, icon }: { view: KpopdleHomeView; icon?: GameIcon | undefined }): React.ReactElement {
   const facts = [
     `${KPOPDLE_CLUES} clues per guess`,
     'unlimited tries',
@@ -80,8 +83,12 @@ export function KpopdleHomeCard({ view }: { view: KpopdleHomeView }): React.Reac
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <SectionHeader id="p1-kd-h" icon="grid" title="Daily game" action={{ href: editorialHref('hub', DAILY_PATH), label: 'All daily games' }} />
       <div className="p1-kd-card">
-        <span className="p1-kd-tiles" aria-hidden="true">
-          {TILES.map((t, i) => <span key={i} className={TILE_CLASS[t]} />)}
+        <span className="p1-kd-tiles" aria-hidden="true" {...(icon ? { style: GAME_ICON_BOX_STYLE } : {})}>
+          {icon ? (
+            // The owner's icon: a fixed WebP of the bucket, so a plain img (no image optimiser), the size and rounding of the grid it replaces.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={icon.src} alt="" width={100} height={80} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: icon.position }} />
+          ) : TILES.map((t, i) => <span key={i} className={TILE_CLASS[t]} />)}
         </span>
         <div className="p1-kd-main">
           <p className="p1-kd-no ux-num">Kpopdle · Idol no. {view.gameNo}</p>
@@ -102,5 +109,5 @@ export function KpopdleHomeCard({ view }: { view: KpopdleHomeView }): React.Reac
 export async function kpopdleHome(): Promise<React.ReactElement | null> {
   if (!kpopdleHomeOpen()) return null;
   const view = kpopdleHomeView(await readDay(createPublicReadClient(), GAME));
-  return view ? <KpopdleHomeCard view={view} /> : null;
+  return view ? <KpopdleHomeCard view={view} icon={(await loadGameIcons())[GAME]} /> : null;
 }
