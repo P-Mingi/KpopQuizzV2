@@ -155,15 +155,19 @@ export function subText(g: DleGameDef, e: DlePoolEntity, subKey: string, locale:
 interface GridWords { right: string; near: string; wrong: string; unknown: string; up: string; down: string }
 
 /** The table of the guesses, newest first: a header per column of the pool (8 for a game of one series), a row per guess. */
-export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words, look }: {
+export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words, look, placeholder = false }: {
   readonly locale: DleLocale; readonly game: DleGameId; readonly pool: DlePool | null; readonly guesses: readonly DleGuess[];
   readonly byId: ReadonlyMap<string, DlePoolEntity>; readonly wonId: string | null; readonly fresh: string | null; readonly words: GridWords;
   /** What a tile draws behind a name when the character has no licensed photo (series photo, owner's preview). */
   readonly look?: (e: DlePoolEntity) => AvatarLook;
+  /** Before the first guess of a play still open: one row of empty cells under the real headers, so a player sees where the clues will land. Never with a guess in the table. */
+  readonly placeholder?: boolean;
 }): React.ReactElement {
   const g = dleGame(game);
   const w = gameCopy(game, locale);
+  const showEmpty = placeholder && guesses.length === 0;
   return (
+    <>
     <div className="hub-dle-gridwrap">
       <table className={`hub-dle-grid${(pool?.attributes.length ?? 0) > 7 ? ' hub-dle-grid-wide' : ''}`}>
         <caption className="hub-dle-sr">{w.tableCaption}</caption>
@@ -174,6 +178,12 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
           </tr>
         </thead>
         <tbody>
+          {showEmpty ? (
+            <tr aria-hidden="true" className="hub-dle-emptyrow" data-testid="dle-empty-row">
+              <th scope="row"><span className="hub-dle-rowhead hub-dle-rowhead-empty"><span className="hub-dle-avatar-empty" /><span className="hub-dle-rowname-empty" /></span></th>
+              {(pool?.attributes ?? []).map((a) => <td key={a.key}><div className="hub-dle-tile hub-dle-t-empty" /></td>)}
+            </tr>
+          ) : null}
           {[...guesses].reverse().map((row) => {
             const e = byId.get(row.id);
             const isTarget = wonId !== null && row.id === wonId;
@@ -198,6 +208,8 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
         </tbody>
       </table>
     </div>
+    {showEmpty ? <p className="hub-dle-emptycap" data-testid="dle-empty-caption">{dleCopy(locale).emptyCells}</p> : null}
+    </>
   );
 }
 
@@ -602,10 +614,10 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             <span><Ic d={D.up} size={14} width={2.6} />{w.arrowHelp ?? t.arrowHelp}</span>
           </div>
         </div>
-        {guesses.length ? (
+        {guesses.length || (pool && pool.attributes.length > 0 && !over && !off) ? (
           <DleGrid
             locale={locale} game={game} pool={pool} guesses={guesses} byId={byId} wonId={play?.status === 'won' ? play.target?.id ?? null : null} fresh={fresh}
-            words={words} look={lookOf}
+            words={words} look={lookOf} placeholder
           />
         ) : (
           <div className="hub-dle-empty">
