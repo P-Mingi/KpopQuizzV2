@@ -111,6 +111,20 @@ const A_ACC = '#C2410C';
  * that the board's README asks to add (lib/site/hub/home-assets.ts HOME_ASSET_KEYS, keyed by HOME_SLOT_KEY; the two game cards are the board's).
  * Keys are lower case (022's site_assets_key_check).
  */
+/**
+ * The four games whose daily card shows a drawn grid of squares: Kpopdle on the home of kpopquiz.org, the three anime games on the home of OtakuQuiz.
+ * The slot key is icon:<game id of lib/dle/games.ts> (site_assets_key_check allows it); the type stays card_image, so the slot uploads, publishes and
+ * is gated by the licence like the other card images.
+ */
+export const GAME_ICON_GAMES = [
+  { game: 'kpopdle-idol', name: 'Kpopdle', tone: 'k', where: 'Accueil KpopQuiz, jeu du jour' },
+  { game: 'otakudle', name: 'Otakudle', tone: 'a', where: 'Accueil OtakuQuiz, Jeux du jour' },
+  { game: 'otakudle-one-piece', name: 'Otakudle One Piece', tone: 'a', where: 'Accueil OtakuQuiz, Jeux du jour' },
+  { game: 'otakudle-dragon-ball', name: 'Otakudle Dragon Ball', tone: 'a', where: 'Accueil OtakuQuiz, Jeux du jour' },
+] as const;
+export type GameIconGame = (typeof GAME_ICON_GAMES)[number]['game'];
+export const gameIconKey = (game: string): string => `icon:${game}`;
+
 export const IMAGE_SLOTS: readonly ImageSlot[] = [
   { key: 'banner:kpopdle', type: 'banner', page: 'kpopdle', name: 'Kpopdle', where: 'bunnyverse.org/kpopdle', bg: K_BG, accent: K_ACC, ratio: '16 / 5' },
   { key: 'banner:otakudle', type: 'banner', page: 'otakudle', name: 'Otakudle', where: 'bunnyverse.org/otakudle', bg: A_BG, accent: A_ACC, ratio: '16 / 5' },
@@ -137,6 +151,9 @@ export const IMAGE_SLOTS: readonly ImageSlot[] = [
   { key: SERIES_MODE_FALLBACK, type: 'card_image', page: 'daily', name: 'Mode Un Otakudle par série (toutes les séries)', where: 'Jeux du jour, pastille et ligne des séries sans image propre', bg: A_BG, accent: A_ACC, ratio: '1 / 1' },
   // One small square per series (daily:mode-byseries-<id>), each falling back to the one above.
   ...DLE_SERIES.map((x): ImageSlot => ({ key: seriesModeKey(x.id), type: 'card_image', page: 'daily', name: `Mode ${x.name} du jour`, where: 'Jeux du jour, pastille et ligne', bg: A_BG, accent: A_ACC, ratio: '1 / 1', fallback: SERIES_MODE_FALLBACK })),
+  // o1/adminpics: the drawn grid of small squares on the daily game cards of the two home pages (kpopquiz.org and OtakuQuiz) is replaced by the owner's
+  // icon when its slot has a live picture (lib/photos/game-icons.ts). Appended last, so the order of the slots above never moves.
+  ...GAME_ICON_GAMES.map((x): ImageSlot => ({ key: gameIconKey(x.game), type: 'card_image', page: 'daily', name: `Icône de la carte ${x.name}`, where: x.where, bg: x.tone === 'k' ? K_BG : A_BG, accent: x.tone === 'k' ? K_ACC : A_ACC, ratio: '5 / 4' })),
 ];
 
 /** The site_assets key of each image slot of the home v3 (lib/site/hub/home-assets.ts reads them through site_assets_public). */

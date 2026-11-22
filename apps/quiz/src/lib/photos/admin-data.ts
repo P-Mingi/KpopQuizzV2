@@ -3,6 +3,7 @@
 // not there yet (022, or 011 for the anime tabs) is said so, never filled with made-up rows: the tab shows that sentence instead.
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { seriesImageOf } from '@/lib/anime/series-images';
+import { ANIME_MIX_SLUG } from '@/lib/anime/types';
 import { withBasePath } from '@/lib/site/base-path';
 
 import { publicUrl } from '@/lib/entity-images/store';
@@ -140,6 +141,22 @@ function legacyUrl(raw: string | null | undefined): string | null {
 
 const byName = (a: { name: string }, b: { name: string }): number => a.name.localeCompare(b.name, 'en', { sensitivity: 'base' });
 
+/**
+ * o1/adminpics: Anime Mix, the group of the general quizzes, has no row in `series`, yet its cards show a picture (the Tokyo night photo of
+ * public/series/anime-mix.webp). It is added to the list of the series so the owner can replace it; the picture is saved as the series kind with
+ * the slug anime-mix, the very row the display already reads for that slug. Nothing is added when the group is missing or already listed.
+ */
+export function withAnimeMixRow(rows: readonly AdminRow[], animeGroups: readonly { name: string; slug: string }[], imageFor: (slug: string) => AdminImage | null): AdminRow[] {
+  const mix = animeGroups.find((g) => g.slug === ANIME_MIX_SLUG);
+  if (!mix || rows.some((r) => r.slug === mix.slug)) return [...rows];
+  const bundled = seriesImageOf(mix.slug);
+  return [...rows, {
+    kind: 'series' as const, slug: mix.slug, name: mix.name, context: 'Quiz généraux (cartes Classic)',
+    legacy: bundled ? { url: bundled.file, sourceUrl: bundled.attribution?.sourceUrl ?? null, author: bundled.attribution?.author ?? null } : null,
+    review: false, fresh: false, image: imageFor(mix.slug),
+  }].sort(byName);
+}
+
 export async function loadPhotosAdmin(db: Db): Promise<PhotosAdminData> {
   const img = await readImages(db);
   const [hasAgencies, hasAssets, hasSeries, hasChars] = await Promise.all([
@@ -222,6 +239,7 @@ export async function loadPhotosAdmin(db: Db): Promise<PhotosAdminData> {
       const n = g ? countOf.get(g.id) ?? 0 : 0;
       return { ...r, context: n === 1 ? '1 personnage' : `${n} personnages` };
     });
+    seriesRows = withAnimeMixRow(seriesRows, animeGroups, (slug) => imageOf(imageMap.get(`series|${slug}`)));
   }
 
   let assets: AssetVersion[] = [];

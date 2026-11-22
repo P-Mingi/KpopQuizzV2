@@ -10,10 +10,12 @@ import { dleGame } from '@/lib/dle/games';
 import { readDay } from '@/lib/dle/read';
 import { editorialHref } from '@/lib/network/links';
 import { hubGameOpen } from '@/lib/passerelles/open';
+import { GAME_ICON_BOX_STYLE, loadGameIcons } from '@/lib/photos/game-icons';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import type { DleGameId } from '@/lib/dle/games';
 import type { DleDay } from '@/lib/dle/types';
+import type { GameIcon, GameIcons } from '@/lib/photos/game-icons';
 
 /** The games of the module, in the order of the chain (Plan.dc.html, link 8). */
 export const ANIME_DAILY_GAMES: readonly DleGameId[] = ['otakudle', 'otakudle-one-piece', 'otakudle-dragon-ball'];
@@ -57,7 +59,8 @@ const CSS = `
 }
 `;
 
-export function AnimeDailyCard({ view }: { view: AnimeDailyCardView }): React.ReactElement {
+/** `icon` is the picture the owner set for this game in the admin (o1/adminpics); with none the card draws its grid of squares, as before. */
+export function AnimeDailyCard({ view, icon }: { view: AnimeDailyCardView; icon?: GameIcon | undefined }): React.ReactElement {
   const g = dleGame(view.game);
   const w = gameCopy(view.game, 'en');
   const facts = [
@@ -67,8 +70,12 @@ export function AnimeDailyCard({ view }: { view: AnimeDailyCardView }): React.Re
   ].filter((x): x is string => x !== null);
   return (
     <div className="p5-ad-card" data-game={view.game}>
-      <span className="p5-ad-tiles" aria-hidden="true">
-        {TILES.map((t, i) => <span key={i} className={TILE_CLASS[t]} />)}
+      <span className="p5-ad-tiles" aria-hidden="true" {...(icon ? { style: GAME_ICON_BOX_STYLE } : {})}>
+        {icon ? (
+          // The owner's icon: a fixed WebP of the bucket, so a plain img (no image optimiser), the size and rounding of the grid it replaces.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={icon.src} alt="" width={100} height={80} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: icon.position }} />
+        ) : TILES.map((t, i) => <span key={i} className={TILE_CLASS[t]} />)}
       </span>
       <div className="p5-ad-main">
         <p className="p5-ad-no ux-num">{w.noLabel ?? g.brand} · no. {view.gameNo}</p>
@@ -83,13 +90,13 @@ export function AnimeDailyCard({ view }: { view: AnimeDailyCardView }): React.Re
   );
 }
 
-export function AnimeDailyModule({ views }: { views: readonly AnimeDailyCardView[] }): React.ReactElement {
+export function AnimeDailyModule({ views, icons }: { views: readonly AnimeDailyCardView[]; icons?: GameIcons | undefined }): React.ReactElement {
   return (
     <section className="ux-sec ux-sec-lg" aria-labelledby="p5-ad-h">
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <SectionHeader id="p5-ad-h" icon="grid" title="Daily games" />
       <div className="p5-ad-list">
-        {views.map((v) => <AnimeDailyCard key={v.game} view={v} />)}
+        {views.map((v) => <AnimeDailyCard key={v.game} view={v} icon={icons?.[v.game]} />)}
       </div>
       <p className="p1-note p5-ad-foot">Free daily games on bunnyverse.org, a new character every day.</p>
     </section>
@@ -107,5 +114,5 @@ export async function animeDailyHome(): Promise<React.ReactElement | null> {
     if (r.status === 'fulfilled' && r.value) views.push(r.value);
     else if (r.status === 'rejected') console.error('[home] daily game hidden:', (r.reason as Error)?.message ?? r.reason);
   }
-  return views.length > 0 ? <AnimeDailyModule views={views} /> : null;
+  return views.length > 0 ? <AnimeDailyModule views={views} icons={await loadGameIcons()} /> : null;
 }
