@@ -74,6 +74,11 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
   'Red Ribbon Army': 'Armée du Ruban rouge',
   'Frieza Force': 'Armée de Freezer',
   'Galactic Patrol': 'Patrouille galactique',
+  // L36 (owner 2026-11-22, "no ?"): the values the fill sets that read differently in French.
+  "Hit's race": 'Race de Hit',
+  'Supreme Kais': 'Kaïoshins',
+  // A planet or a sea that no allowed source gives (L36): said, never a "?".
+  Unknown: 'Inconnu',
   // Anime series, when a column shows one (Otakudle, all series)
   'Attack on Titan': 'L’Attaque des Titans',
   'The Apothecary Diaries': 'Les Carnets de l’apothicaire',
@@ -82,8 +87,8 @@ export const VALUE_FR: Readonly<Record<string, string>> = {
 
 /** The good or evil of a character at the start (Dragon Ball). */
 export const ALIGNMENT: Readonly<Record<DleLocale, Readonly<Record<string, string>>>> = {
-  en: { good: 'Good', evil: 'Evil' },
-  fr: { good: 'Gentil', evil: 'Méchant' },
+  en: { good: 'Good', evil: 'Evil', neutral: 'Neutral' },
+  fr: { good: 'Gentil', evil: 'Méchant', neutral: 'Neutre' },
 };
 
 /** The three Hakis and "none" (One Piece). */
