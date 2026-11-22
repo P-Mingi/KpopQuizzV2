@@ -92,7 +92,8 @@ const HUB_TABS: NavItem<TabKey>[] = [
   { key: 'you', label: 'You', href: YOU_HREF.hub, icon: 'user' },
 ];
 
-const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'KpopCards', href: '/kpopcards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
+// The tab bar is narrow: with six tabs "KpopCards" ran into "Community" (owner, 2026-11-22), so the tab reads "Cards" there, like "Daily" below.
+const HUB_TABS_CARDS: NavItem<TabKey>[] = [...HUB_TABS.slice(0, -1), { key: 'cards', label: 'Cards', href: '/kpopcards', icon: 'layers' }, ...HUB_TABS.slice(-1)];
 // The tab bar is narrow: the same door reads "Daily" there.
 const HUB_TAB_DAILY: NavItem<TabKey> = { key: 'daily', label: 'Daily', href: BURROW_PATHS.burrow, icon: 'grid' };
 const HUB_TABS_DAILY = withDaily(HUB_TABS, HUB_TAB_DAILY);

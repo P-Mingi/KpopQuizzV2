@@ -71,6 +71,9 @@ export function UxClientShell({ children, showFandoms, year, bare, barePaths, na
         <div className="ux-app">
           <a className="ux-skip" href="#main">Skip to content</a>
           {children}
+          {/* Owner, 2026-11-22 ("on Bunnyverse the navbar should also be at the bottom"): the hub home and the daily games pages draw their own
+              top bar but get the same phone tab bar as every other page (shown up to 900 px by CSS; their top tabs hide there, as .ux-links do). */}
+          <UxChromeGate part="tabbar"><UxTabBar /></UxChromeGate>
           <UxRouteFocus />
         </div>
       </UxProviders>

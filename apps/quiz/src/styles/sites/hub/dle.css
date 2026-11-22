@@ -494,10 +494,18 @@ html.ux-v1[data-site="hub"] .hub-dle-still .hub-dle-shine, html.ux-v1[data-site=
   html.ux-v1[data-site="hub"] .hub-dle-shine, html.ux-v1[data-site="hub"] .hub-dle-confetti { display: none; }
 }
 /* ---- the owner's check of the remaining series pictures (private preview, 2026-11-14) */
-html.ux-v1[data-site="hub"] .hub-dle-sr { width: 100%; max-width: 760px; margin: 24px auto 0; display: flex; flex-direction: column; gap: 10px; }
-html.ux-v1[data-site="hub"] .hub-dle-sr h2 { margin: 0; font-size: 18px; font-weight: 800; }
-html.ux-v1[data-site="hub"] .hub-dle-sr p { margin: 0; font-size: 14px; color: var(--hub-dle-muted); }
-html.ux-v1[data-site="hub"] .hub-dle-sr ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-html.ux-v1[data-site="hub"] .hub-dle-sr li { display: flex; flex-direction: column; gap: 3px; font-size: 12px; padding: 8px; border-radius: 14px; border: 1px solid var(--hub-dle-line); background: var(--hub-dle-card); overflow-wrap: anywhere; }
-html.ux-v1[data-site="hub"] .hub-dle-sr li img { width: 96px; height: 128px; object-fit: cover; border-radius: 10px; background: var(--hub-dle-soft); }
-html.ux-v1[data-site="hub"] .hub-dle-sr li code { font-weight: 700; }
+/* The owner's series review (dle-series-review.tsx). It was named hub-dle-sr, the class of the screen-reader-only text (line 27): that rule
+   widened every hidden label to the page width and the dle pages scrolled sideways on a phone (owner 2026-11-22, seen at 375 px). */
+html.ux-v1[data-site="hub"] .hub-dle-review { width: 100%; max-width: 760px; margin: 24px auto 0; display: flex; flex-direction: column; gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-dle-review h2 { margin: 0; font-size: 18px; font-weight: 800; }
+html.ux-v1[data-site="hub"] .hub-dle-review p { margin: 0; font-size: 14px; color: var(--hub-dle-muted); }
+html.ux-v1[data-site="hub"] .hub-dle-review ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+html.ux-v1[data-site="hub"] .hub-dle-review li { display: flex; flex-direction: column; gap: 3px; font-size: 12px; padding: 8px; border-radius: 14px; border: 1px solid var(--hub-dle-line); background: var(--hub-dle-card); overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-dle-review li img { width: 96px; height: 128px; object-fit: cover; border-radius: 10px; background: var(--hub-dle-soft); }
+html.ux-v1[data-site="hub"] .hub-dle-review li code { font-weight: 700; }
+/* Owner, 2026-11-22: up to 900 px the phone tab bar carries the links of the hub (the shell draws it on these pages too), so the bar keeps the
+   brand and the game's tools. */
+@media (max-width: 900px) {
+  html.ux-v1[data-site="hub"] .hub-dle-tabs { display: none; }
+  html.ux-v1[data-site="hub"] .hub-dle-actions { margin-left: auto; }
+}
