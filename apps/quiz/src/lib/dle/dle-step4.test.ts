@@ -439,6 +439,22 @@ describe('the screens', () => {
     expect(tintOf('TWICE')).toEqual(tintOf('TWICE'));
   });
 
+  it('the Otakudle block draws the admin picture: its card image, else its banner; the colours and the vertical writing only when neither exists', async () => {
+    const { BurrowBoard } = await import('@/components/hub/dle/burrow-board');
+    const img = (u: string) => ({ src: `https://x.test/${u}.webp`, small: `https://x.test/${u}-s.webp`, mid: null, position: '50% 50%' });
+    const draw = (images: Record<string, ReturnType<typeof img>>) => renderToStaticMarkup(createElement(BurrowBoard, { locale: 'fr', dateLabel: 'd', facts: {}, quizLinks: {}, images }));
+    const card = draw({ 'home:otakudle': img('card-o'), 'banner:otakudle': img('banner-o') });
+    expect(card).toContain('src="https://x.test/card-o.webp"');
+    expect(card).not.toContain('banner-o.webp');
+    const banner = draw({ 'banner:otakudle': img('banner-o') });
+    expect(banner).toContain('src="https://x.test/banner-o.webp"');
+    expect(banner).not.toContain('オタクドル');
+    expect(banner).toContain('오늘의 아이돌');
+    const none = draw({});
+    expect(none).toContain('オタクドル');
+    expect(none).not.toMatch(/<img[^>]+src="https?:/);
+  });
+
   it('the French credits share the page and its rules', async () => {
     const { creditSections, HubCreditsPage } = await import('@/components/hub/credits/hub-credits');
     expect(renderToStaticMarkup(createElement(HubCreditsPage, { sections: [], locale: 'fr' }))).toContain('Crédits photos');
