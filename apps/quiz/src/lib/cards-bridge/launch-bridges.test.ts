@@ -36,30 +36,24 @@ const ON = { NET_CARDS: '1', NET_CARDS_BRIDGES: '1' };
 beforeEach(() => { rpc.mockReset(); teamIds.mockReset(); teamIds.mockResolvedValue(new Set<string>()); vi.spyOn(console, 'error').mockImplementation(() => undefined); });
 afterEach(() => { vi.unstubAllEnvs(); vi.resetModules(); vi.restoreAllMocks(); });
 
-describe('the nav buttons (kpopquiz.org and OtakuQuiz)', () => {
-  it('kpopquiz.org: both closed with the flags off, with NET_CARDS alone and with NET_CARDS_BRIDGES alone', async () => {
+describe('the nav button (kpopquiz.org)', () => {
+  it('kpopquiz.org: closed with the flags off, with NET_CARDS alone and with NET_CARDS_BRIDGES alone', async () => {
     for (const vars of [{}, { NET_CARDS: '1' }, { NET_CARDS_BRIDGES: '1' }, { NET_CARDS: '0', NET_CARDS_BRIDGES: '1' }]) {
       env('kpop', vars);
       expect((await import('./nav')).navBridges(), JSON.stringify(vars)).toBeNull();
       expect((await import('./flags')).hubHomeLinkOn()).toBe(false);
     }
   });
-  it('kpopquiz.org: KpopCards and Bunnyverse buttons, both through the signed-in jump, with both flags on', async () => {
+  it('kpopquiz.org: the KpopCards button through the signed-in jump with both flags on (the Bunnyverse button is now an entry of the site switcher)', async () => {
     env('kpop', ON);
     const items = (await import('./nav')).navBridges()!;
-    expect(items.map((i) => i.key)).toEqual(['cards', 'hub']);
+    expect(items.map((i) => i.key)).toEqual(['cards']);
     expect(items[0]!.href).toBe('/auth/passport/out?to=hub&next=%2Fkpopcards&via=k.pp');
-    expect(items[1]!.href).toBe('/auth/passport/out?to=hub&next=%2F&via=k.pp');
   });
-  it('OtakuQuiz: no button while the private launch gate is on, or NET_CARDS_BRIDGES is off; the hub button only when both allow it', async () => {
-    env('anime', { NET_CARDS_BRIDGES: '1', PRIVATE_LAUNCH: '1', PRIVATE_LAUNCH_KEY: 'a'.repeat(64), PRIVATE_LAUNCH_ALLOW: '11111111-1111-1111-1111-111111111111' });
-    expect((await import('./nav')).navBridges()).toBeNull();
-    env('anime', { PRIVATE_LAUNCH: '0' });
-    expect((await import('./nav')).navBridges()).toBeNull();
+  it('OtakuQuiz carries no bridge button of this kind, whatever the gate says (its Bunnyverse link is in the site switcher)', async () => {
     env('anime', { NET_CARDS_BRIDGES: '1', PRIVATE_LAUNCH: '0' });
-    const items = (await import('./nav')).navBridges()!;
-    expect(items.map((i) => i.key)).toEqual(['hub']);
-    expect(items[0]!.href).toMatch(/^https:\/\/[^/]+\/$/);
+    expect((await import('./nav')).navBridges()).toBeNull();
+    expect((await import('./flags')).hubHomeLinkOn()).toBe(true);
   });
   it('the hub build draws no nav button of this kind (its own nav has the KpopCards entry)', async () => {
     env('hub', ON);
@@ -68,10 +62,10 @@ describe('the nav buttons (kpopquiz.org and OtakuQuiz)', () => {
   it('the buttons render as nofollow links, and nothing for an empty list', async () => {
     const { NavBridgeLinks } = await import('@/components/cards-bridge/nav-bridges');
     expect(renderToStaticMarkup(h(NavBridgeLinks, { items: [] }))).toBe('');
-    const html = renderToStaticMarkup(h(NavBridgeLinks, { items: [{ key: 'cards', label: 'KpopCards', href: '/x' }, { key: 'hub', label: 'Bunnyverse', href: '/y' }] }));
+    const html = renderToStaticMarkup(h(NavBridgeLinks, { items: [{ key: 'cards', label: 'KpopCards', href: '/x' }] }));
     expect(html).toContain('href="/x"');
     expect(html).toContain('rel="nofollow"');
-    expect(html).toContain('Bunnyverse</a>');
+    expect(html).toContain('KpopCards</a>');
   });
   it('the shell gets the list only when open: the prop is absent while off', async () => {
     env('kpop');
@@ -80,7 +74,7 @@ describe('the nav buttons (kpopquiz.org and OtakuQuiz)', () => {
     expect(Object.keys(off.props as object)).not.toContain('navBridges');
     env('kpop', ON);
     const m = await import('@/components/layout/ux-v1/ux-shell');
-    expect((m.UxShell({ children: null }).props as { navBridges: unknown[] }).navBridges).toHaveLength(2);
+    expect((m.UxShell({ children: null }).props as { navBridges: unknown[] }).navBridges).toHaveLength(1);
   });
 });
 
