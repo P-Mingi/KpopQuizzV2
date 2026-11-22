@@ -23,7 +23,7 @@ export function hubCollectionCard(c: Collection): React.ReactElement {
         <div className="hub-pp-coll-text">
           <h2 id="hub-pp-coll-h" className="hub-pp-h2">{ht('collH')}</h2>
           <p className="hub-pp-coll-line"><span className="hub-pp-num">{ht('collLine', { owned: fmt(c.owned), total: fmt(c.total) })}</span></p>
-          <span aria-hidden="true" className="hub-pp-bar hub-pp-bar-cards"><span style={{ '--pp-p': `${pct}%` } as React.CSSProperties} /></span>
+          <span aria-hidden="true" className="hub-pp-bar hub-pp-bar-cards"><span style={{ '--hub-pp-p': `${pct}%` } as React.CSSProperties} /></span>
           <p className="hub-pp-meta">{ht('collPct', { pct })}</p>
         </div>
         <a className="hub-pp-cta hub-pp-cta-solid" href={cardsHref(BINDER_PATH)}>

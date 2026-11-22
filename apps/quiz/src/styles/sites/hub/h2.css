@@ -437,14 +437,14 @@ html.ux-v1[data-site="hub"] .hub-h2-kc .hub-h2-arrow { transition: transform .2s
 html.ux-v1[data-site="hub"] .hub-h2-kc .hub-h2-cta:hover .hub-h2-arrow { transform: translateX(3px); }
 
 html.ux-v1[data-site="hub"] .hub-h2-kc-fan { position: relative; height: 280px; }
-html.ux-v1[data-site="hub"] .hub-h2-kc-card { --kc-r: 0deg; --kc-x: 0px; --kc-y: 0px; position: absolute; left: 50%; top: 50%; width: 152px; aspect-ratio: 55 / 85; overflow: hidden; border-radius: 12px; transform: translate(-50%, -50%) translate(var(--kc-x), var(--kc-y)) rotate(var(--kc-r)); transition: transform .45s cubic-bezier(.2, .8, .2, 1); box-shadow: 0 2px 3px rgba(0, 0, 0, .35), 0 16px 32px rgba(0, 0, 0, .45); }
+html.ux-v1[data-site="hub"] .hub-h2-kc-card { --hub-kc-r: 0deg; --hub-kc-x: 0px; --hub-kc-y: 0px; position: absolute; left: 50%; top: 50%; width: 152px; aspect-ratio: 55 / 85; overflow: hidden; border-radius: 12px; transform: translate(-50%, -50%) translate(var(--hub-kc-x), var(--hub-kc-y)) rotate(var(--hub-kc-r)); transition: transform .45s cubic-bezier(.2, .8, .2, 1); box-shadow: 0 2px 3px rgba(0, 0, 0, .35), 0 16px 32px rgba(0, 0, 0, .45); }
 html.ux-v1[data-site="hub"] .hub-h2-kc-card::after { content: ""; position: absolute; inset: 8px; border-radius: 8px; border: 1.5px solid rgba(255, 255, 255, .45); pointer-events: none; }
-html.ux-v1[data-site="hub"] .hub-h2-kc-holo { --kc-r: -15deg; --kc-x: -84px; --kc-y: 10px; background: repeating-linear-gradient(115deg, rgba(255, 255, 255, 0) 0 6%, rgba(255, 255, 255, .35) 9%, rgba(255, 255, 255, 0) 12%), linear-gradient(150deg, #5DB2FF 0%, #BE92FF 32%, #FF76B6 58%, #FFE27A 82%, #7CF29A 100%); }
-html.ux-v1[data-site="hub"] .hub-h2-kc-gold { --kc-r: 15deg; --kc-x: 84px; --kc-y: 10px; background: repeating-linear-gradient(65deg, rgba(255, 255, 255, 0) 0 8%, rgba(255, 255, 255, .3) 11%, rgba(255, 255, 255, 0) 14%), linear-gradient(135deg, #8A5E12 0%, #FFC94D 30%, #FFF1B8 46%, #E0A526 64%, #8A5E12 100%); }
+html.ux-v1[data-site="hub"] .hub-h2-kc-holo { --hub-kc-r: -15deg; --hub-kc-x: -84px; --hub-kc-y: 10px; background: repeating-linear-gradient(115deg, rgba(255, 255, 255, 0) 0 6%, rgba(255, 255, 255, .35) 9%, rgba(255, 255, 255, 0) 12%), linear-gradient(150deg, #5DB2FF 0%, #BE92FF 32%, #FF76B6 58%, #FFE27A 82%, #7CF29A 100%); }
+html.ux-v1[data-site="hub"] .hub-h2-kc-gold { --hub-kc-r: 15deg; --hub-kc-x: 84px; --hub-kc-y: 10px; background: repeating-linear-gradient(65deg, rgba(255, 255, 255, 0) 0 8%, rgba(255, 255, 255, .3) 11%, rgba(255, 255, 255, 0) 14%), linear-gradient(135deg, #8A5E12 0%, #FFC94D 30%, #FFF1B8 46%, #E0A526 64%, #8A5E12 100%); }
 html.ux-v1[data-site="hub"] .hub-h2-kc-gold::after { border-color: rgba(90, 60, 8, .45); }
 html.ux-v1[data-site="hub"] .hub-h2-kc-ed { position: absolute; top: 16px; left: 16px; padding: 4px 8px; border-radius: 999px; font-family: var(--font-dm-mono), "DM Mono", ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap; color: #FFFFFF; background: rgba(20, 12, 40, .55); }
 html.ux-v1[data-site="hub"] .hub-h2-kc-gold .hub-h2-kc-ed { left: auto; right: 16px; color: #3B2A06; background: rgba(255, 255, 255, .55); }
-html.ux-v1[data-site="hub"] .hub-h2-kc-back { z-index: 1; --kc-y: -4px; display: grid; place-items: center; background: radial-gradient(circle at 50% 44%, rgba(255, 77, 141, .6), transparent 46%), repeating-conic-gradient(from 0deg at 50% 44%, #24124A 0 7.5deg, #1A0D38 7.5deg 15deg); }
+html.ux-v1[data-site="hub"] .hub-h2-kc-back { z-index: 1; --hub-kc-y: -4px; display: grid; place-items: center; background: radial-gradient(circle at 50% 44%, rgba(255, 77, 141, .6), transparent 46%), repeating-conic-gradient(from 0deg at 50% 44%, #24124A 0 7.5deg, #1A0D38 7.5deg 15deg); }
 html.ux-v1[data-site="hub"] .hub-h2-kc-back::before { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .2) 45%, transparent 60%); background-size: 260% 100%; background-position: 100% 0; animation: hub-h2-kc-sheen 4.5s ease-in-out 1s infinite; pointer-events: none; }
 html.ux-v1[data-site="hub"] .hub-h2-kc-mk { position: relative; width: 76px; height: 76px; margin-top: -18px; object-fit: contain; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .45)); }
 html.ux-v1[data-site="hub"] .hub-h2-kc-bt { position: absolute; left: 0; right: 0; bottom: 22px; text-align: center; font-size: 11px; font-weight: 800; letter-spacing: .3em; color: rgba(255, 255, 255, .85); }
@@ -454,8 +454,8 @@ html.ux-v1[data-site="hub"] .hub-h2-kc-bt { position: absolute; left: 0; right: 
   html.ux-v1[data-site="hub"] .hub-h2-kc { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 32px 24px; }
   html.ux-v1[data-site="hub"] .hub-h2-kc-fan { order: -1; height: 216px; }
   html.ux-v1[data-site="hub"] .hub-h2-kc-card { width: 120px; }
-  html.ux-v1[data-site="hub"] .hub-h2-kc-holo { --kc-x: -70px; }
-  html.ux-v1[data-site="hub"] .hub-h2-kc-gold { --kc-x: 70px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc-holo { --hub-kc-x: -70px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc-gold { --hub-kc-x: 70px; }
   html.ux-v1[data-site="hub"] .hub-h2-kc-mk { width: 60px; height: 60px; }
   html.ux-v1[data-site="hub"] .hub-h2-kc-ed { top: 12px; left: 12px; font-size: 10px; }
   html.ux-v1[data-site="hub"] .hub-h2-kc-gold .hub-h2-kc-ed { left: auto; right: 12px; }
@@ -474,11 +474,11 @@ html.ux-v1[data-site="hub"] .hub-h2-kc-bt { position: absolute; left: 0; right: 
 }
 /* The fan opens on hover only with a pointer that hovers and no request for reduced motion. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-holo { --kc-r: -20deg; --kc-x: -100px; --kc-y: 16px; }
-  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-gold { --kc-r: 20deg; --kc-x: 100px; --kc-y: 16px; }
-  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-back { --kc-y: -12px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-holo { --hub-kc-r: -20deg; --hub-kc-x: -100px; --hub-kc-y: 16px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-gold { --hub-kc-r: 20deg; --hub-kc-x: 100px; --hub-kc-y: 16px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-back { --hub-kc-y: -12px; }
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) and (max-width: 860px) {
-  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-holo { --kc-x: -78px; }
-  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-gold { --kc-x: 78px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-holo { --hub-kc-x: -78px; }
+  html.ux-v1[data-site="hub"] .hub-h2-kc:hover .hub-h2-kc-gold { --hub-kc-x: 78px; }
 }

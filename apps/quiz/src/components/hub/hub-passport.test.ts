@@ -20,7 +20,7 @@ const row = (site: 'kpop' | 'anime', xp: number, plays: number, streak: number):
   site_id: site, joined_at: '2026-01-01', joined_via: 'direct' as MyPassportRow['joined_via'], via_code: null, activated_at: '2026-01-01', xp, plays, daily_streak: streak, quizzes_created: 0, show_elsewhere: true,
 });
 const passport = buildCommonPassport([row('kpop', 1531, 28, 1), row('anime', 20, 2, 0)], 'mingi');
-const css = readFileSync(new URL('../../styles/sites/hub/passport.css', import.meta.url), 'utf8');
+const css = readFileSync(new URL('../../styles/sites/hub/pp.css', import.meta.url), 'utf8');
 
 describe('the passport data', () => {
   it('adds the progress into the level and the XP to the next one, total and per site, from getLevelInfo', async () => {

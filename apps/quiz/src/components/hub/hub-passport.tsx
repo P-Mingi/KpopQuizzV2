@@ -3,7 +3,7 @@
 // Owner, 2026-11-22: "make this page beautiful (UX and UI), with some of the information showing live". The page is now a hero (the
 // fan, the total level in a ring, the XP to the next level), a live row (the daily games left today and, with the cards bridges on, the
 // packs ready and the next free pack, both ticking in the browser), one card per site in its colour, and the Collection card. Every
-// number is the one the page had; the rings and bars only draw them. Styles: styles/sites/hub/passport.css (hub-pp-*).
+// number is the one the page had; the rings and bars only draw them. Styles: styles/sites/hub/pp.css (hub-pp-*).
 import { HubMeAvatar } from '@/components/hub/hub-me-avatar';
 import { UxPage } from '@/components/ux-v1/page';
 import { passportWords as ht } from '@/lib/site/hub/passport-page';
@@ -20,7 +20,7 @@ function Ring({ progress, size, stroke }: { progress: number; size: number; stro
   const c = 2 * Math.PI * r;
   const p = Math.max(0, Math.min(100, progress));
   return (
-    <svg aria-hidden="true" className="hub-pp-ring" width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ '--pp-c': c.toFixed(2), '--pp-off': (c * (1 - p / 100)).toFixed(2) } as React.CSSProperties}>
+    <svg aria-hidden="true" className="hub-pp-ring" width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ '--hub-pp-c': c.toFixed(2), '--hub-pp-off': (c * (1 - p / 100)).toFixed(2) } as React.CSSProperties}>
       <circle className="hub-pp-ring-track" cx={size / 2} cy={size / 2} r={r} strokeWidth={stroke} fill="none" />
       <circle className="hub-pp-ring-arc" cx={size / 2} cy={size / 2} r={r} strokeWidth={stroke} fill="none" strokeLinecap="round" strokeDasharray={c.toFixed(2)} transform={`rotate(-90 ${size / 2} ${size / 2})`} />
     </svg>
@@ -28,7 +28,7 @@ function Ring({ progress, size, stroke }: { progress: number; size: number; stro
 }
 
 function Bar({ progress }: { progress: number }): React.ReactElement {
-  return <span aria-hidden="true" className="hub-pp-bar"><span style={{ '--pp-p': `${Math.max(0, Math.min(100, progress))}%` } as React.CSSProperties} /></span>;
+  return <span aria-hidden="true" className="hub-pp-bar"><span style={{ '--hub-pp-p': `${Math.max(0, Math.min(100, progress))}%` } as React.CSSProperties} /></span>;
 }
 
 const FLAME = 'M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2.4 1.2-4 2.5-5.2.2 1.7 1 2.7 2 3.2-.4-3.4.5-6.4.5-9z';
@@ -70,7 +70,7 @@ function SiteCard({ s }: { s: PassportSiteRow }): React.ReactElement {
 export function HubPassport({ passport, collection }: { passport: CommonPassport; collection?: React.ReactElement }): React.ReactElement {
   const initial = (passport.username ?? '?').charAt(0).toUpperCase();
   return (
-    <UxPage width="wide" className="hub-pp">
+    <UxPage width="wide" className="hub-pp-page">
       <section className="hub-pp-hero" aria-labelledby="hub-pp-h">
         <span className="hub-pp-me">
           <Ring progress={passport.progress} size={112} stroke={6} />
