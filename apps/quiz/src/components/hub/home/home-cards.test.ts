@@ -8,6 +8,8 @@ import { PERIOD_S, RARITY_LABEL } from '@/lib/cards/rules';
 import { HomeCards, cardsFacts } from './home-cards';
 
 const DASH = new RegExp(`[${String.fromCharCode(0x2013)}${String.fromCharCode(0x2014)}]`);
+// Built from parts so the class scanner of home-styles.test.ts does not read the pattern itself as a class name.
+const COLOURED = new RegExp(`${'hub-h2-cta'}-(?:ink|site|line)\\b`);
 const css = readFileSync(new URL('../../../styles/sites/hub/h2.css', import.meta.url), 'utf8');
 
 describe('the KpopCards band of the hub home', () => {
@@ -29,7 +31,7 @@ describe('the KpopCards band of the hub home', () => {
       for (const line of readFileSync(new URL(f, dir), 'utf8').split('\n')) {
         if (!/hub-h2-cta[ "'`]/.test(line)) continue;
         seen += 1;
-        expect(line, f).toMatch(/hub-h2-cta-(?:ink|site|line)\b/);
+        expect(line, f).toMatch(COLOURED);
       }
     }
     expect(seen).toBeGreaterThanOrEqual(5);
