@@ -8,7 +8,7 @@ import { dleCopy, formatCount, gameCopy } from '@/lib/dle/copy';
 import { utcDate } from '@/lib/dle/day';
 import { builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
-import { DLE_WORLDS, liveGame, liveModes, modeImage, worldHref } from '@/lib/dle/worlds';
+import { DLE_WORLDS, coverImage, liveGame, liveModes, modeImage, worldHref } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
 import { PageStickers } from '../page-stickers';
@@ -101,7 +101,7 @@ export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks, stick
     const modes = liveModes(w);
     const first = modes[0] ? liveGame(modes[0]) : null;
     const href = worldHref(w, locale);
-    const cover = images[w.coverSlot];
+    const cover = coverImage(images, w);
     const done = modes.filter((m) => stateOf(m, plays).kind === 'done').length;
     const next = modes.find((m) => stateOf(m, plays).kind !== 'done');
     const started = done > 0 || modes.some((m) => stateOf(m, plays).kind === 'prog');

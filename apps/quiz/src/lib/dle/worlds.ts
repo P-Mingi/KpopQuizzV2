@@ -91,6 +91,15 @@ export function modeImage<T>(images: Readonly<Record<string, T>>, mode: DleMode)
   return images[mode.slot] ?? (mode.slotFallback ? images[mode.slotFallback] : undefined);
 }
 
+/**
+ * The large image of a game's block on the Terrier: its card image (admin slot home:<game>), else the banner the owner set for the same game
+ * (banner:<game>, "Bannière Otakudle" in the admin). The two slots sit side by side in the admin under one name, and a banner saved for the
+ * game used to leave its block on the colours and the vertical writing while the page of the game showed it (owner, 2026-11-22).
+ */
+export function coverImage<T>(images: Readonly<Record<string, T>>, world: Pick<DleWorld, 'coverSlot' | 'bannerSlot'>): T | undefined {
+  return images[world.coverSlot] ?? images[world.bannerSlot];
+}
+
 /** The game of a mode when it has a page, else null. */
 export function liveGame(mode: DleMode): DleGameDef | null {
   if (!mode.game) return null;
