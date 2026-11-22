@@ -28,6 +28,13 @@ const FILES: [file: string, tag: string][] = [
   ['L28-l1-quiz-merges.rollback.sql', 'o1l28r'],
   ['L32-l1-character-refs.sql', 'o1l32'],
   ['L32-l1-character-refs.rollback.sql', 'o1l32r'],
+  // Owner 2026-11-22 ("no ?"): the three fills.
+  ['L34-l1-kpopdle-fill.sql', 'o1l34'],
+  ['L34-l1-kpopdle-fill.rollback.sql', 'o1l34r'],
+  ['L35-l1-otakudle-fill.sql', 'o1l35'],
+  ['L35-l1-otakudle-fill.rollback.sql', 'o1l35r'],
+  ['L36-l1-series-fill.sql', 'o1l36'],
+  ['L36-l1-series-fill.rollback.sql', 'o1l36r'],
 ];
 
 describe('launch files the owner may run from the Supabase SQL Editor are one DO block', () => {

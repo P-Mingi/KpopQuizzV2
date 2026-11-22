@@ -9,6 +9,8 @@
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
 
 do $o1l35r$
+begin
+-- the body is one inner block (its declare section), so the outer block starts with begin (editor-safe-sql.test.ts)
 declare
   fixes constant jsonb := '[
 {"id": "F001", "series": "attack-on-titan", "slug": "hange-zoe", "col": "gender", "old_v": null, "new_v": "unspecified"},
@@ -207,4 +209,5 @@ end;
 
 notify pgrst, 'reload schema';
 
+end;
 end $o1l35r$;
