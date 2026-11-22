@@ -3,7 +3,8 @@ import { P4EmbedButton } from '@/components/quiz/ux-v1/embed-island';
 import { safeFetch } from '@/lib/error-handling';
 import { getGroupArticleLinks } from '@/lib/articles/group-links';
 import { isConfiguredImageHost } from '@/lib/image-hosts';
-import { groupPhotoUrl } from '@/lib/ux-v1/a0/group-photos';
+import { quizFallbackCover, quizGroupPhoto } from '@/lib/quiz/quiz-picture';
+import { SITE_ID } from '@/lib/site/registry';
 import { averagePct } from '@/lib/ux-v1/p4/engine';
 import { parseResultLevels } from '@/lib/quiz/result-levels';
 import { cardsEndBridge } from '@/lib/cards-bridge/quiz-end';
@@ -67,8 +68,11 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     safeFetch(getP4GroupPlaylist(quiz.group_slug), null, '[q/[slug] ux] playlist'),
   ]);
 
-  const groupPhoto = groupPhotoUrl(quiz.group_slug);
-  const cover = quiz.cover_image_url ?? groupPhoto;
+  // Owner, 2026-11-22 ("the images are not showing anymore"): the page draws the picture its quiz card draws, never less (lib/quiz/quiz-picture.ts).
+  // Before, it read the kpop group photos only, so a General K-pop quiz and every anime quiz without a cover of its own drew the typographic cover.
+  const site = SITE_ID === 'anime' ? 'anime' : 'kpop';
+  const groupPhoto = quizGroupPhoto(site, quiz.group_slug);
+  const cover = quiz.cover_image_url ?? groupPhoto ?? quizFallbackCover(site, quiz.group_slug);
   // Like the card: a cover from a host next/image does not accept (it would throw during render) falls back to the group photo (audit 02 P2-1, risk 7).
   const shownCover = cover && isConfiguredImageHost(cover) ? cover : groupPhoto;
   const settings = quiz.settings ?? { timer: true, timer_seconds: 15, shuffle: false, show_answers: true };
@@ -104,7 +108,7 @@ export async function renderUxQuizPage(a: Args): Promise<React.ReactElement> {
     keepPlaying: a.related
       .filter((r) => r.group_slug === quiz.group_slug)
       .slice(0, 2)
-      .map((r) => ({ slug: r.slug, title: r.title, quizType: r.quiz_type, difficulty: r.difficulty, plays: r.play_count, photo: groupPhotoUrl(r.group_slug) ?? r.cover_image_url })),
+      .map((r) => ({ slug: r.slug, title: r.title, quizType: r.quiz_type, difficulty: r.difficulty, plays: r.play_count, photo: quizGroupPhoto(site, r.group_slug) ?? r.cover_image_url ?? quizFallbackCover(site, r.group_slug) })),
     playlist,
     // SEO Mission 2: a level-result quiz (the Team "BTS ARMY level test"); null for every other quiz.
     resultLevels: parseResultLevels(quiz.settings),
