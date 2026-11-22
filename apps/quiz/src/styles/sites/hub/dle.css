@@ -351,6 +351,11 @@ html.ux-v1[data-site="hub"] .hub-dle-flip { animation: hub-dle-flip .42s cubic-b
 html.ux-v1[data-site="hub"] .hub-dle-t-correct.hub-dle-flip { animation: hub-dle-flip .42s cubic-bezier(.2, .7, .2, 1) both, hub-dle-pop .4s cubic-bezier(.3, 1.7, .5, 1) forwards; }
 @keyframes hub-dle-flip { from { transform: perspective(400px) rotateX(85deg); opacity: .15; } to { transform: none; opacity: 1; } }
 @keyframes hub-dle-pop { 0% { transform: scale(1); } 45% { transform: scale(1.09); } 100% { transform: scale(1); } }
+html.ux-v1[data-site="hub"] .hub-dle-t-empty { background: transparent; box-shadow: none; border: 1.5px dashed var(--hub-dle-line-2); }
+html.ux-v1[data-site="hub"] .hub-dle-rowhead-empty { background: transparent; border: 1.5px dashed var(--hub-dle-line-2); gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-dle-avatar-empty { flex: none; width: 44px; height: 44px; border-radius: 12px; border: 1.5px dashed var(--hub-dle-line-2); }
+html.ux-v1[data-site="hub"] .hub-dle-rowname-empty { flex: 1; min-width: 0; height: 10px; border-radius: 5px; background: var(--hub-dle-line); }
+html.ux-v1[data-site="hub"] .hub-dle-emptycap { margin: 0; font-size: 14px; font-weight: 600; color: var(--hub-dle-muted); text-align: center; }
 html.ux-v1[data-site="hub"] .hub-dle-empty { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 18px; border: 1.5px dashed var(--hub-dle-line-2); background: var(--hub-dle-card); font-size: 16px; color: var(--hub-dle-text); }
 html.ux-v1[data-site="hub"] .hub-dle-empty img { width: 48px; height: 48px; flex: none; }
 

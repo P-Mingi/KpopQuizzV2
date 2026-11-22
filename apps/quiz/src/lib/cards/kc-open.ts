@@ -17,3 +17,18 @@ export function specOf(parts: { segments: readonly string[]; packs?: string | nu
   }
   return null;
 }
+
+/**
+ * The spec of the next opening after "Open another" (`stock`) or "Open 5 more" (`stock5`). From /open/all the address of the next pack is the SAME address
+ * (a themed pack is /open/<theme>, five are /open/all?packs=5), so a router.replace to it changes nothing: the page cannot tell a new opening from the
+ * one it shows. The mount therefore keeps the spec and a round counter itself and draws again when the round moves (see `runKey`).
+ */
+export function nextSpec(spec: OpenSpec, then: 'stock' | 'stock5'): OpenSpec {
+  if (then === 'stock5') return { kind: 'theme', theme: 'all', packs: 5 };
+  return { kind: 'theme', theme: spec.kind === 'theme' ? spec.theme : 'all', packs: 1 };
+}
+
+/** The key of one opening: the spec and the round. Two openings of the same spec (open another from /open/all) differ by their round. */
+export function runKey(spec: OpenSpec, round: number): string {
+  return `${JSON.stringify(spec)}#${round}`;
+}

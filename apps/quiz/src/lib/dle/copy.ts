@@ -33,7 +33,7 @@ export interface DleCopy {
   readonly proposeLabel: string; readonly guessLabel: string; readonly placeholder: string; readonly validate: string; readonly suggestions: string; readonly enterKey: string; readonly enterHelp: string; readonly giveUp: string;
   readonly close4: (n: number, of: number) => string; readonly close6: (n: number, of: number) => string;
   readonly tries: string; readonly legend: string; readonly right: string; readonly near: string; readonly wrong: string; readonly unknownCell: string; readonly arrowHelp: string; readonly tableCaption: string; readonly rowHead: string;
-  readonly empty: string; readonly announceGuess: (n: number, name: string) => string; readonly announceWon: (name: string, n: number) => string;
+  readonly emptyCells: string; readonly empty: string; readonly announceGuess: (n: number, name: string) => string; readonly announceWon: (name: string, n: number) => string;
   readonly answerUp: string; readonly answerDown: string;
   readonly found: string; readonly answerWas: string; readonly wonLine: (n: number, rank: string | null) => string; readonly gaveUpLine: (n: number, label: string) => string;
   readonly streakChip: (label: string, n: number) => string; readonly bars: string; readonly shareTitle: string; readonly copy: string; readonly copied: string; readonly share: string;
@@ -81,7 +81,7 @@ const EN: DleCopy = {
   proposeLabel: 'Propose an idol', guessLabel: 'Your guess', placeholder: 'Your guess: stage name, Korean name or group', validate: 'Guess', suggestions: 'Suggestions', enterKey: 'Enter', enterHelp: 'Enter picks the first suggestion', giveUp: 'Give up',
   close4: (n, o) => `Well spotted: ${n} right cells out of ${o}`, close6: (n, o) => `So close: ${n} right cells out of ${o}`,
   tries: 'Your guesses', legend: 'Legend', right: 'Right', near: 'Close', wrong: 'Wrong', unknownCell: 'Not comparable', arrowHelp: 'The answer is more recent', tableCaption: 'Each guess compared with the idol of the day', rowHead: 'Idol',
-  empty: 'Propose a first idol to see the cells fill up.', announceGuess: (n, name) => `Guess ${n}: ${name}.`, announceWon: (name, n) => `Found: ${name}, in ${n} ${n === 1 ? 'guess' : 'guesses'}.`,
+  emptyCells: 'Your clues will show here', empty: 'Propose a first idol to see the cells fill up.', announceGuess: (n, name) => `Guess ${n}: ${name}.`, announceWon: (name, n) => `Found: ${name}, in ${n} ${n === 1 ? 'guess' : 'guesses'}.`,
   answerUp: 'the answer is higher', answerDown: 'the answer is lower',
   found: 'Found!', answerWas: 'The answer was', wonLine: (n, r) => `In ${n} ${n === 1 ? 'guess' : 'guesses'}.${r ? ` ${r} fans found it today.` : ''}`, gaveUpLine: (n, l) => `You gave up after ${n} ${n === 1 ? 'guess' : 'guesses'}. Your ${l} streak still holds.`,
   streakChip: (l, n) => `${l} streak: ${n} ${n === 1 ? 'day' : 'days'}`, bars: 'Right cells on each guess', shareTitle: 'Your share, without the answer', copy: 'Copy', copied: 'Copied', share: 'Share',
@@ -128,7 +128,7 @@ const FR: DleCopy = {
   proposeLabel: 'Proposer une idol', guessLabel: 'Ton essai', placeholder: 'Ton essai : nom de scène, nom coréen ou groupe', validate: 'Valider', suggestions: 'Suggestions', enterKey: 'Entrée', enterHelp: 'Entrée choisit la première suggestion', giveUp: 'Abandonner',
   close4: (n, o) => `Bien vu : ${n} cases justes sur ${o}`, close6: (n, o) => `Tout près : ${n} cases justes sur ${o}`,
   tries: 'Tes essais', legend: 'Légende', right: 'Juste', near: 'Proche', wrong: 'Faux', unknownCell: 'Non comparable', arrowHelp: 'La réponse est plus récente', tableCaption: 'Comparaison de chaque essai avec l’idol du jour', rowHead: 'Idol',
-  empty: 'Propose une première idol pour voir les cases se remplir.', announceGuess: (n, name) => `Essai ${n} : ${name}.`, announceWon: (name, n) => `Trouvé : ${name}, en ${n} ${n === 1 ? 'essai' : 'essais'}.`,
+  emptyCells: 'Tes indices apparaîtront ici', empty: 'Propose une première idol pour voir les cases se remplir.', announceGuess: (n, name) => `Essai ${n} : ${name}.`, announceWon: (name, n) => `Trouvé : ${name}, en ${n} ${n === 1 ? 'essai' : 'essais'}.`,
   answerUp: 'la réponse est plus grande', answerDown: 'la réponse est plus petite',
   found: 'Trouvée !', answerWas: 'La réponse était', wonLine: (n, r) => `En ${n} ${n === 1 ? 'essai' : 'essais'}.${r ? ` ${r} fans ont trouvé aujourd’hui.` : ''}`, gaveUpLine: (n, l) => `Tu as abandonné après ${n} ${n === 1 ? 'essai' : 'essais'}. Ta série ${l} tient quand même.`,
   streakChip: (l, n) => `Série ${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, bars: 'Cases justes à chaque essai', shareTitle: 'Ton partage, sans la réponse', copy: 'Copier', copied: 'Copié', share: 'Partager',

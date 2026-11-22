@@ -1,4 +1,5 @@
 import { navBridges } from '@/lib/cards-bridge/nav';
+import { siteSwitch } from '@/lib/site-switch/model';
 import { dleLivePaths, SITE, SITE_ID } from '@/lib/site/registry';
 import { verseHidden } from '@/lib/verse/visibility';
 
@@ -18,6 +19,8 @@ import { UxShellLoader } from './ux-shell-loader';
 export function UxShell({ children }: { children: React.ReactNode }): React.ReactElement {
   // Bunnyverse bridges (NET_CARDS_BRIDGES, off by default): the buttons of the top bar. The prop is absent while off, so the shell is today's.
   const bridges = navBridges();
+  // Site switcher (KpopQuiz, OtakuQuiz, Bunnyverse): null, hence no prop, while every sister site is closed.
+  const switcher = siteSwitch();
   return (
     // Run O1 (H2a): the hub build alone asks for the bare shell on its home (the prop is absent, not undefined, on kpop and anime).
     // Daily games step 4: the pages of the Terrier too, with the flag on; off, the prop is absent and those paths get the shell of any unknown URL.
@@ -25,6 +28,7 @@ export function UxShell({ children }: { children: React.ReactNode }): React.Reac
       showFandoms={!verseHidden()}
       year={new Date().getFullYear()}
       {...(bridges ? { navBridges: bridges } : {})}
+      {...(switcher ? { siteSwitch: switcher } : {})}
       {...(SITE_ID === 'hub' ? { bare: true, ...(SITE.features.dailyGuess ? { barePaths: dleLivePaths() } : {}) } : {})}
     >
       {children}
