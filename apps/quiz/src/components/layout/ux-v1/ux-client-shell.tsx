@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
 import { NavBridgeLinks } from '@/components/cards-bridge/nav-bridges';
+import { SiteSwitch } from '@/components/site-switch/site-switch';
 import { UxBrand } from '@/components/ux-v1/brand';
 import { flagOn } from '@/lib/site/registry';
 import { isBuilderCanvas, worldForPath } from '@/lib/world';
@@ -16,6 +17,7 @@ import { UxProviders } from './ux-providers';
 import { UxTabBar } from './ux-tab-bar';
 
 import type { NavBridge } from '@/lib/cards-bridge/nav';
+import type { SiteSwitchModel } from '@/lib/site-switch/model';
 
 // Audit 02 P2-1 (risk 8): the Verse footer is only drawn on Verse routes, so its code is a chunk that every other page never fetches (it is still server-rendered where it shows).
 const VerseFooter = dynamic(() => import('@/components/verse/verse-footer').then((m) => m.VerseFooter));
@@ -41,6 +43,8 @@ export interface UxClientShellProps {
   barePaths?: readonly string[];
   /** Bunnyverse bridges: the KpopCards and Bunnyverse buttons of the top bar. Set only by UxShell, only with NET_CARDS_BRIDGES on; absent, the bar is today's. */
   navBridges?: readonly NavBridge[];
+  /** The site switcher (KpopQuiz, OtakuQuiz, Bunnyverse). Set only by UxShell, only while a sister site is open; absent, the bar is today's. */
+  siteSwitch?: SiteSwitchModel;
 }
 
 /** Footer per world, like the legacy SiteFooter: none on the builder canvas, the
@@ -59,7 +63,7 @@ function Footer({ showFandoms, year }: { showFandoms: boolean; year: number }): 
  * loaded through UxShellLoader (next/dynamic) so its code ships only to pages
  * that render it (flag on). The page itself arrives as server-rendered children.
  */
-export function UxClientShell({ children, showFandoms, year, bare, barePaths, navBridges }: UxClientShellProps): React.ReactElement {
+export function UxClientShell({ children, showFandoms, year, bare, barePaths, navBridges, siteSwitch }: UxClientShellProps): React.ReactElement {
   const pathname = usePathname() || '/';
   if (bare && (pathname === '/' || barePaths?.includes(pathname))) {
     return (
@@ -80,6 +84,7 @@ export function UxClientShell({ children, showFandoms, year, bare, barePaths, na
           <header className="ux-nav ux-chrome" id="ux-nav">
             <div className="ux-wrap ux-nav-in">
               <UxBrand />
+              {siteSwitch ? <SiteSwitch model={siteSwitch} /> : null}
               <UxNavLinks />
               {navBridges ? <NavBridgeLinks items={navBridges} /> : null}
               <UxNavActions {...(CARDS_MENU
