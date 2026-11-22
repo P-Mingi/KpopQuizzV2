@@ -20,4 +20,17 @@ describe('the words of the values the fills set', () => {
     expect(valueLabel('gender', 'unspecified', 'fr')).toBe('Non précisé');
     expect(seriesValueLabel('gender', 'unspecified', 'fr')).toBe('Non précisé');
   });
+
+  it('L35: every new species word reads in French, and in English as a capitalised word', () => {
+    const FR: Record<string, string> = {
+      alien: 'Extraterrestre', 'artificial-intelligence': 'Intelligence artificielle', 'chimera-ant': 'Fourmi-chimère', genie: 'Génie', giant: 'Géant',
+      'hit-race': 'Race de Hit', merfolk: 'Peuple sirène', mink: 'Mink', monarch: 'Monarque', shadow: 'Ombre', 'snow-folk': 'Peuple des neiges',
+    };
+    for (const [w, fr] of Object.entries(FR)) {
+      expect(valueLabel('species', w, 'fr'), w).toBe(fr);
+      expect(valueLabel('species', w, 'en'), w).toMatch(/^[A-Z][a-z ]+$/);
+    }
+    expect(valueLabel('species', 'chimera-ant', 'en')).toBe('Chimera ant');
+    expect(valueLabel('species', 'chimera-ant', 'fr')).toBe('Fourmi-chimère');
+  });
 });
