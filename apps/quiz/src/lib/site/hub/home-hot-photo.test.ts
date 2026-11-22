@@ -25,13 +25,13 @@ vi.mock('@/lib/anime/entity-images-read', () => ({
 afterEach(() => { setOwnerSeriesPictures({}); primed.calls = 0; });
 
 describe('the photos of Hot right now', () => {
-  it('keep the own cover as it was, and add the photo of the group or series to a quiz without one', async () => {
+  it('keep the own cover as it was, and add the photo of the group or series to every quiz that has one', async () => {
     const { loadHomeHot } = await import('./home-hot');
     const hot = (await loadHomeHot())!;
     expect(primed.calls).toBe(1);
     const byGroup = (list: typeof hot.kpop, group: string) => list.find((q) => q.group === group)!;
-    // BTS has its own cover: the cover stays, no photo.
-    expect(byGroup(hot.kpop, 'BTS')).toMatchObject({ cover: SAMPLE_COVER, photo: null });
+    // BTS has its own cover: the cover stays, and (lot HUB-HOT-B: the banner of the first place shows the group picture first) the photo of the group is given too.
+    expect(byGroup(hot.kpop, 'BTS')).toMatchObject({ cover: SAMPLE_COVER, photo: '/idols/BTS.jpg' });
     // BLACKPINK: no cover; the group photo of kpopquiz.org.
     expect(byGroup(hot.kpop, 'BLACKPINK')).toMatchObject({ cover: null, photo: '/idols/BLACKPINK.jpg' });
     // No photo under these group keys of the samples: none (the initials).

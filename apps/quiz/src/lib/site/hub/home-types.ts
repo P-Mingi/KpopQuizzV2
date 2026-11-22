@@ -38,6 +38,9 @@ export interface HomeQuiz extends HomeLink {
   /** Owner decision 2026-10-30: the photo of its group (K-pop) or series (anime) as its own site shows it, for a quiz with no cover of its
    *  own (lib/site/hub/home-photo.ts), or null. Missing on a quiz mapped before it existed: read it as null. */
   readonly photo?: string | null;
+  /** Lot HUB-HOT-B: the plays of the last 7 UTC days, the count the ranking is made of (null: unknown, a value cached before it existed).
+   *  Missing on a quiz mapped before it existed: read it as null. */
+  readonly weekPlays?: number | null;
 }
 
 /** A site card of the first row: its name, the real count of its quizzes, what it is about, one quiz and the way in. */
@@ -126,6 +129,8 @@ export interface HomeHot {
   readonly kpop: readonly HomeQuiz[];
   readonly anime: readonly HomeQuiz[];
   readonly easy: readonly HomeQuiz[];
+  /** Lot HUB-HOT-B: the three of each site, by plays of the week (lib/site/hub/home-hot.ts topThree): a quiz with no play this week is not in. */
+  readonly top: Readonly<Record<HomeSite, readonly HomeQuiz[]>>;
   readonly allPaths: Readonly<Record<HomeSite, string>>;
 }
 

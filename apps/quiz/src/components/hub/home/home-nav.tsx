@@ -9,7 +9,7 @@
 // the same count as the badge of every other hub page (the dle games left on this device), drawn once the browser knows it; the Community tab leads to
 // the Community band and leaves with it; the level chip keeps "Lv N" and is named after the passport of the fan, a level per site.
 // Review fixes: the level chip of a signed-in fan is the way to their passport page (/passport); the search button is named after the site
-// whose search it opens (it follows the Hot filter), never "both sites".
+// whose search it opens (KpopQuiz since the Hot filter went, lot HUB-HOT-B), never "both sites".
 import { BURROW_PATHS } from '@/lib/site/hub/daily-guess';
 import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
@@ -17,7 +17,7 @@ import { homeUrl } from '@/lib/site/hub/home-types';
 import { HubMeAvatar } from '@/components/hub/hub-me-avatar';
 
 import { HomeNavBadge } from './home-day';
-import { HomeSearch } from './home-filter';
+import { HomeSearch } from './home-search';
 import { PASSPORT_PATH, siteName } from './home-names';
 import { HomeSignIn } from './home-signin';
 import { HubWordmark, RabbitMark } from './home-ui';
@@ -55,10 +55,7 @@ export function HomeNav({ viewer, sections, burrow, cards }: { viewer: HomeViewe
           {sections.community ? <a href="#community" className="hub-h2-tab">{ht('hp.nav.community')}</a> : null}
         </div>
         <div className="hub-h2-actions">
-          <HomeSearch
-            hrefs={{ kpop: homeUrl({ site: 'kpop', path: '/search' }), anime: homeUrl({ site: 'anime', path: '/search' }) }}
-            labels={{ kpop: ht('hp.nav.search', { name: siteName('kpop') }), anime: ht('hp.nav.search', { name: siteName('anime') }) }}
-          />
+          <HomeSearch href={homeUrl({ site: 'kpop', path: '/search' })} label={ht('hp.nav.search', { name: siteName('kpop') })} />
           {viewer ? (
             <a href={PASSPORT_PATH} aria-label={levelsAria ? ht('hp.nav.levelAria', { levels: levelsAria }) : undefined} className="hub-h2-me">
               <span aria-hidden="true" className="hub-h2-me-av"><HubMeAvatar initial={viewer.username.charAt(0).toUpperCase()} size={34} /></span>{ht('hp.nav.level', { level: viewer.level })}

@@ -30,7 +30,9 @@ vi.mock('./data', async () => {
 
 import { loadHomeCrossover } from './home-crossover';
 import { loadHomeDoors } from './home-doors';
-import { loadHomeHot } from './home-hot';
+import { loadHomeHot, topThree } from './home-hot';
+
+import type { HomeQuiz } from './home-types';
 import { loadHomeQuick } from './home-quick';
 import { loadHomeSurprise } from './home-surprise';
 import { loadHomeToday } from './home-today';
@@ -208,6 +210,28 @@ describe('60 seconds', () => {
 });
 
 describe('Hot right now', () => {
+  it('gives the plays of the week of each quiz, and the top three of each site by that count (lot HUB-HOT-B)', async () => {
+    const hot = await loadHomeHot();
+    expect(hot!.kpop.map((q) => q.weekPlays)).toEqual([340, 300, 260, 120, 90, 0]);
+    expect(hot!.top.kpop.map((q) => q.weekPlays)).toEqual([340, 300, 260]);
+    expect(hot!.top.anime.map((q) => q.weekPlays)).toEqual([58, 44, 31]);
+    // a card cached before the count existed has none: read as unknown, never as 0
+    const { sampleHot } = await import('./home-samples.test-support');
+    const old = sampleHot();
+    mod.values.getHot = { ...old, kpop: old.kpop.map(({ weekPlays: _w, ...c }) => c) };
+    expect((await loadHomeHot())!.kpop.every((q) => q.weekPlays === null)).toBe(true);
+    expect((await loadHomeHot())!.top.kpop.map((q) => q.title)).toEqual(old.kpop.slice(0, 3).map((q) => q.title));
+  });
+
+  it('topThree: most plays of the week first, ties by rank, a quiz with none out, fewer than three allowed', () => {
+    const q = (id: string, weekPlays: number | null) => ({ id, weekPlays }) as unknown as HomeQuiz;
+    expect(topThree([q('a', 5), q('b', 9), q('c', 5), q('d', 7)]).map((x) => (x as unknown as { id: string }).id)).toEqual(['b', 'd', 'a']);
+    expect(topThree([q('a', 0), q('b', 2)]).map((x) => (x as unknown as { id: string }).id)).toEqual(['b']);
+    expect(topThree([q('a', 0), q('b', 0)])).toEqual([]);
+    expect(topThree([q('a', null), q('b', 3), q('c', null)]).map((x) => (x as unknown as { id: string }).id)).toEqual(['b', 'a', 'c']);
+    expect(topThree([])).toEqual([]);
+  });
+
   it('maps the three lists in rank order with the level, the format and the canonical path of each quiz', async () => {
     const hot = await loadHomeHot();
     expect(hot!.all.map((q) => q.site)).toEqual(['kpop', 'anime', 'kpop', 'anime', 'kpop', 'anime']);

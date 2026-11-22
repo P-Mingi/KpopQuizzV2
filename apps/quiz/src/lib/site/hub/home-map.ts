@@ -46,7 +46,7 @@ export function splitMeta(meta: string): { level: string; format?: string } {
 }
 
 /** A quiz card of the data modules as a quiz of the Hot now list. */
-export function toHomeQuiz(card: HubQuizCard): HomeQuiz {
+export function toHomeQuiz(card: HubQuizCard & { readonly weekPlays?: number }): HomeQuiz {
   const { level, format } = splitMeta(card.meta);
   return {
     site: card.site,
@@ -60,6 +60,7 @@ export function toHomeQuiz(card: HubQuizCard): HomeQuiz {
     isNew: card.isNew,
     // A card cached before the cover joined the shape has none.
     cover: card.cover ?? null,
+    weekPlays: typeof card.weekPlays === 'number' ? card.weekPlays : null,
   };
 }
 

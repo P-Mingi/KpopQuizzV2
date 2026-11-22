@@ -5,7 +5,7 @@ vi.mock('next/cache', () => ({ unstable_cache: <T>(fn: T) => fn }));
 vi.mock('@/lib/supabase/server', () => ({ createPublicReadClient: () => ({}), createServiceRoleClient: () => ({}) }));
 
 import {
-  aggregatePlays, alternate, completionRate, composeHot, editorialOrder, firstAnimePlay, hotScore, isStartup, loadPlays, pickHot, quality, rankQuizzes, readHot,
+  aggregatePlays, alternate, completionRate, composeHot, editorialOrder, firstAnimePlay, hotScore, isStartup, loadPlays, pickHot, quality, rankQuizzes, readHot, weekPlaysOf,
 } from './hot';
 import { fakeDb, ORIGINS, quizRow } from './test-support';
 
@@ -202,6 +202,22 @@ describe('pickHot', () => {
     const anime = [q({ id: 'a1', slug: 'frieren-basics', site_id: 'anime', group_id: 20, created_at: '2026-10-24T00:00:00Z' })];
     const hot = composeHot(pickHot(input({ kpop: [q({ id: 'k1', slug: 'bts-era' })], plays, anime, animeFirstPlayAt: null })), ORIGINS, NOW, 'plays-rows');
     expect(hot.all.map((c) => c.href)).toEqual(['https://kpop.example/q/bts-era', 'https://anime.example/q/frieren-basics']);
+  });
+
+  it('counts the plays of the week raw, over the last 7 UTC days (today included), and gives each card its count (lot HUB-HOT-B)', () => {
+    // NOW is 2026-10-25: the window is 10-19 to 10-25; 10-18 is out, a future day is out, and no decay applies to the count
+    const d = days([['2026-10-25', 4], ['2026-10-24', 3], ['2026-10-19', 2], ['2026-10-18', 50], ['2026-10-26', 9]]);
+    expect(weekPlaysOf(d, NOW)).toBe(9);
+    expect(weekPlaysOf(undefined, NOW)).toBe(0);
+    const anime = [q({ id: 'a1', slug: 'frieren-basics', site_id: 'anime', group_id: 20, created_at: '2026-10-24T00:00:00Z' })];
+    const byQuiz: PlaysByQuiz = new Map([['k1', d]]);
+    const picks = pickHot(input({ kpop: [q({ id: 'k1', slug: 'bts-era' })], plays: byQuiz, anime, animeFirstPlayAt: null }));
+    const hot = composeHot(picks, ORIGINS, NOW, 'plays-rows', byQuiz);
+    expect(hot.kpop.map((c) => c.weekPlays)).toEqual([9]);
+    expect(hot.anime.map((c) => c.weekPlays)).toEqual([0]);
+    expect(hot.all.map((c) => c.weekPlays)).toEqual([9, 0]);
+    // without the per-day counts (an older call) the cards carry none
+    expect(composeHot(picks, ORIGINS, NOW, 'plays-rows').kpop[0]).not.toHaveProperty('weekPlays');
   });
 
   it('picks Start easy: the easy quizzes of each site in the Hot order, two per group at most, six per site, the sites alternating', () => {

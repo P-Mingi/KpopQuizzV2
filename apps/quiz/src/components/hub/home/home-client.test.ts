@@ -7,12 +7,12 @@ import { pickSurprise } from '@/lib/site/hub/data/surprise-pick';
 import { HomeBlindtest } from './home-blindtest';
 import { clockText, HomeCountdown, secondsToReset, wordsText } from './home-countdown';
 import { HomeFans } from './home-fans';
-import { HomeFilterProvider, HomeSearch, searchSite, searchTarget } from './home-filter';
-import { HomeHot, hotChips } from './home-hot';
+import { bannerSource, gaugeBars, HomeHot, thumbSource } from './home-hot';
+import { HomeSearch } from './home-search';
 import { HomeQuestion } from './home-question';
 import { HomeSurprise } from './home-surprise';
 
-import type { HotCard } from './home-hot';
+import type { HotCard, HotLabels, HotPanel } from './home-hot';
 
 // Lot H2a: the islands of the new home, as the design's script has them. Their first render (what the server prints, before any click)
 // and the rules of their small logic; the clicks themselves are driven in a browser (docs/o1/reports/H2/).
@@ -55,28 +55,12 @@ describe('Surprise me', () => {
   });
 });
 
-describe('the search button follows the Hot now filter', () => {
-  it('opens the search of OtakuQuiz on the OtakuQuiz filter and the search of KpopQuiz on the two others', () => {
-    expect(searchSite('all')).toBe('kpop');
-    expect(searchSite('kpop')).toBe('kpop');
-    expect(searchSite('anime')).toBe('anime');
-  });
-
-  // Review fix: the button was named "Search both sites" while it opens one site's search; its name now says which site.
-  const hrefs = { kpop: 'https://k.test/search', anime: 'https://a.test/search' };
-  const labels = { kpop: 'Search KpopQuiz', anime: 'Search OtakuQuiz' };
-
-  it('starts on the search page of KpopQuiz (the filter is All), as a link named after that site', () => {
-    const html = renderToStaticMarkup(createElement(HomeFilterProvider, null, createElement(HomeSearch, { hrefs, labels })));
+describe('the search button of the top bar', () => {
+  // Lot HUB-HOT-B: the filter of Popular this week is gone, so the button no longer follows it: it is the search of KpopQuiz, named after that site.
+  it('is a link to the search page of KpopQuiz, named after that site', () => {
+    const html = renderToStaticMarkup(createElement(HomeSearch, { href: 'https://k.test/search', label: 'Search KpopQuiz' }));
     expect(html).toBe('<a href="https://k.test/search" aria-label="Search KpopQuiz" class="hub-h2-iconbtn hub-h2-btn"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></a>');
     expect(html).not.toContain('both');
-  });
-
-  it('names the site it goes to on every filter: its name and its address always agree', () => {
-    expect(searchTarget('all', hrefs, labels)).toEqual({ href: 'https://k.test/search', label: 'Search KpopQuiz' });
-    expect(searchTarget('kpop', hrefs, labels)).toEqual({ href: 'https://k.test/search', label: 'Search KpopQuiz' });
-    expect(searchTarget('easy', hrefs, labels)).toEqual({ href: 'https://k.test/search', label: 'Search KpopQuiz' });
-    expect(searchTarget('anime', hrefs, labels)).toEqual({ href: 'https://a.test/search', label: 'Search OtakuQuiz' });
   });
 });
 
@@ -153,50 +137,94 @@ describe('the question', () => {
   });
 });
 
-describe('Hot right now', () => {
-  const card = (n: number, site: 'kpop' | 'anime', cover: string | null = null): HotCard => ({
-    site, tile: `T${n}`, title: `Quiz ${n}`, href: `https://x.test/${n}`, line: `Site · G${n} · Easy`, plays: site === 'kpop' ? '1k plays' : '', isNew: site === 'anime', cover,
+describe('Popular this week', () => {
+  const card = (n: number, site: 'kpop' | 'anime', over: Partial<HotCard> = {}): HotCard => ({
+    site, tile: `T${n}`, title: `Quiz ${n}`, href: `https://x.test/${n}`, subject: `Group ${n}`, level: 'Medium', format: null, weekPlays: 1000 - n, isNew: false, cover: null, groupImage: null, ...over,
   });
-  const labels = { title: 'Hot', sub: 'Sub', filter: 'Filter', all: 'All', kpop: 'KpopQuiz', anime: 'OtakuQuiz', newLabel: 'New' };
-  const links = [{ site: 'kpop' as const, href: 'https://x.test/k', label: 'All K-pop' }, { site: 'anime' as const, href: 'https://x.test/a', label: 'All anime' }];
-  it('starts on All, with three chips (Start easy is gone, home v4), the rows (rank, image or initials, title, line, plays or New) and the two ways to every quiz of a site', () => {
-    const lists = { all: [card(1, 'kpop', 'https://img.test/1.jpg'), card(2, 'anime')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] };
-    const html = renderToStaticMarkup(createElement(HomeHot, { lists, labels, allLinks: links }));
+  const labels: HotLabels = {
+    title: 'Hot', sub: 'Sub', eyebrow: 'Week 47 · 16-22 Nov', seeAll: 'See all', rank: 'Rank', newLabel: 'New', empty: 'No plays yet', weekPlays: '{n} plays this week', weekShort: '{n} this week',
+  };
+  const panel = (site: 'kpop' | 'anime', items: HotCard[]): HotPanel => ({
+    site, name: site === 'kpop' ? 'KpopQuiz' : 'OtakuQuiz', items, seeAllHref: `https://x.test/${site}`, seeAllLabel: `All quizzes on ${site}`,
+  });
+  const render = (panels: HotPanel[]): string => renderToStaticMarkup(createElement(HomeHot, { panels, labels }));
+
+  it('prints the eyebrow, the h2, the sub, and one panel per site with an h3, a See all link with its own name, and three slots', () => {
+    const html = render([panel('kpop', [card(1, 'kpop'), card(2, 'kpop'), card(3, 'kpop')]), panel('anime', [card(4, 'anime'), card(5, 'anime'), card(6, 'anime')])]);
+    expect(html).toContain('<p class="hub-h2-eyebrow hub-h2-hot-eyebrow">Week 47 · 16-22 Nov</p>');
     expect(html).toContain('<h2 id="hot-h" class="hub-h2-h2">Hot</h2>');
-    expect([...html.matchAll(/aria-pressed="(true|false)" class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)</g)].map((m) => [m[1], m[2]]))
-      .toEqual([['true', 'All'], ['false', 'KpopQuiz'], ['false', 'OtakuQuiz']]);
-    expect(html).not.toContain('Start easy');
-    expect(html.match(/class="hub-h2-rr /g)).toHaveLength(2);
-    expect(html).toContain('<img src="https://img.test/1.jpg" alt="" width="48" height="48" loading="lazy" decoding="async" class="hub-h2-th-img"/>');
-    expect(html).toContain('<span aria-hidden="true" class="hub-h2-th hub-h2-th-48">T2</span>');
-    expect(html).toContain('<span class="hub-h2-meta hub-h2-num hub-h2-hplays">1k plays</span>');
-    expect(html).toContain('<span class="hub-h2-chip hub-h2-chip-s hub-h2-hplays">New</span>');
-    expect(html).toContain('Site · G1 · Easy');
-    expect(html).toMatch(/>All K-pop<svg/);
+    expect([...html.matchAll(/<h3 id="(hot-[ka]-h)" class="hub-h2-pnl-h3">(?:<span[^>]*><\/span>)?([^<]+)</g)].map((m) => [m[1], m[2]])).toEqual([['hot-k-h', 'KpopQuiz'], ['hot-a-h', 'OtakuQuiz']]);
+    expect(html).toContain('aria-label="All quizzes on kpop" class="hub-h2-pnl-all">See all');
+    expect(html.match(/class="hub-h2-t1 /g)).toHaveLength(2);
+    expect(html.match(/class="hub-h2-t2 /g)).toHaveLength(4);
+    expect(html).not.toContain('fchip');
+    expect(html).not.toContain('aria-pressed');
   });
 
-  it('never draws a Start easy chip, with an easy list or without one (home v4: the filter is the site only)', () => {
-    const lists = { all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] };
-    const html = renderToStaticMarkup(createElement(HomeHot, { lists, labels, allLinks: links }));
-    expect(html).not.toContain('Start easy');
-    expect(html.match(/class="hub-h2-fchip"/g)).toHaveLength(3);
-    expect(hotChips(lists, labels).map((c) => c.id)).toEqual(['all', 'kpop', 'anime']);
+  it('shows the plays OF THE WEEK on every entry: "N plays this week" on the first place, "N this week" on the others, with a thousands separator', () => {
+    const html = render([panel('kpop', [card(1, 'kpop', { weekPlays: 3412 }), card(2, 'kpop', { weekPlays: 1204 }), card(3, 'kpop', { weekPlays: 7 })]), panel('anime', [])]);
+    expect(html).toContain('<span class="hub-h2-pc hub-h2-num">3,412 plays this week</span>');
+    expect(html).toContain('<span class="hub-h2-pc hub-h2-num">1,204 this week</span>');
+    expect(html).toContain('<span class="hub-h2-pc hub-h2-num">7 this week</span>');
   });
 
-  it('leaves a site chip out when its list is empty (review fix), and never shows another list under a chip', () => {
-    const chipsOf = (html: string): string[] => [...html.matchAll(/class="hub-h2-fchip">(?:<span aria-hidden="true" class="[^"]+"><\/span>)?([^<]+)</g)].map((m) => m[1]!);
-    const noAnime = { all: [card(1, 'kpop'), card(3, 'kpop')], kpop: [card(1, 'kpop'), card(3, 'kpop')], anime: [], easy: [] };
-    let html = renderToStaticMarkup(createElement(HomeHot, { lists: noAnime, labels, allLinks: links }));
-    expect(chipsOf(html)).toEqual(['All', 'KpopQuiz']);
-    expect(html).not.toContain('OtakuQuiz');
-    const noKpop = { all: [card(2, 'anime')], kpop: [], anime: [card(2, 'anime')], easy: [card(2, 'anime')] };
-    html = renderToStaticMarkup(createElement(HomeHot, { lists: noKpop, labels, allLinks: links }));
-    expect(chipsOf(html)).toEqual(['All', 'OtakuQuiz']);
-    // the first render shows the All list itself
-    expect(html.match(/class="hub-h2-rr /g)).toHaveLength(1);
-    expect(hotChips({ all: [card(1, 'kpop')], kpop: [], anime: [], easy: [] }, labels).map((c) => c.id)).toEqual(['all']);
-    expect(hotChips({ all: [card(1, 'kpop')], kpop: [card(1, 'kpop')], anime: [card(2, 'anime')], easy: [card(3, 'kpop')] }, labels).map((c) => c.id))
-      .toEqual(['all', 'kpop', 'anime']);
+  it('keeps the line of the count (empty) when the week count is unknown, and puts the NEW tag on the line of the count, never on a line of its own', () => {
+    const html = render([panel('kpop', [card(1, 'kpop', { weekPlays: null }), card(2, 'kpop', { isNew: true }), card(3, 'kpop')])]);
+    expect(html).toContain('<span class="hub-h2-pc hub-h2-num"></span>');
+    expect(html).toContain('<span class="hub-h2-t2-line"><span class="hub-h2-pc hub-h2-num">998 this week</span><span class="hub-h2-ntag">New</span></span>');
+    expect(html.match(/hub-h2-ntag/g)).toHaveLength(1);
+  });
+
+  it('hides "Rank" for screen readers, draws the rank in the notch of the first place and beside the thumb of the others', () => {
+    const html = render([panel('kpop', [card(1, 'kpop'), card(2, 'kpop'), card(3, 'kpop')])]);
+    expect(html).toContain('<span class="hub-h2-t1-rank hub-h2-big"><span class="hub-h2-sr">Rank </span>1</span>');
+    expect(html).toContain('<span class="hub-h2-t2-rank hub-h2-big"><span class="hub-h2-sr">Rank </span>2</span>');
+    expect(html).toContain('<span class="hub-h2-t2-rank hub-h2-big"><span class="hub-h2-sr">Rank </span>3</span>');
+  });
+
+  it('keeps the three slots with fewer than three quizzes: the empty ones are hidden and keep the class of their height', () => {
+    const one = render([panel('kpop', [card(1, 'kpop')])]);
+    expect(one.match(/<li class="hub-h2-slot-1">/g)).toHaveLength(1);
+    expect(one.match(/<li aria-hidden="true" class="hub-h2-slot-2"><\/li>/g)).toHaveLength(2);
+    const two = render([panel('kpop', [card(1, 'kpop'), card(2, 'kpop')])]);
+    expect(two.match(/<li aria-hidden="true" class="hub-h2-slot-2"><\/li>/g)).toHaveLength(1);
+    expect(two.match(/class="hub-h2-t2 /g)).toHaveLength(1);
+  });
+
+  it('says "No plays yet this week" with See all when a site has no quiz', () => {
+    const html = render([panel('kpop', []), panel('anime', [card(4, 'anime')])]);
+    expect(html).toContain('<div class="hub-h2-pnl-list hub-h2-pnl-none"><p class="hub-h2-meta">No plays yet</p></div>');
+    expect(html.match(/class="hub-h2-pnl-all"/g)).toHaveLength(2);
+    expect(html.match(/class="hub-h2-t1 /g)).toHaveLength(1);
+  });
+
+  it('draws a difficulty gauge of three bars always followed by the word, and the format after it on the first place', () => {
+    expect([gaugeBars('Easy'), gaugeBars('Medium'), gaugeBars('Hard'), gaugeBars('?')]).toEqual([1, 2, 3, 0]);
+    const html = render([panel('kpop', [card(1, 'kpop', { level: 'Easy', format: 'True or false' }), card(2, 'kpop', { level: 'Hard' })])]);
+    expect(html).toContain('<span aria-hidden="true" class="hub-h2-gauge hub-h2-gauge-1"><i class="hub-h2-gb"></i><i class="hub-h2-gb"></i><i class="hub-h2-gb"></i></span><span class="hub-h2-pm-w">Easy</span><span class="hub-h2-pm-f">· True or false</span>');
+    expect(html).toContain('hub-h2-gauge hub-h2-gauge-3"><i class="hub-h2-gb"></i><i class="hub-h2-gb"></i><i class="hub-h2-gb"></i></span><span class="hub-h2-pm-w">Hard</span>');
+  });
+
+  it('picks the banner of the first place: the group or series picture, then the cover, then the name in type', () => {
+    expect(bannerSource({ groupImage: '/g.jpg', cover: '/c.jpg' })).toBe('/g.jpg');
+    expect(bannerSource({ groupImage: null, cover: '/c.jpg' })).toBe('/c.jpg');
+    expect(bannerSource({ groupImage: null, cover: null })).toBeNull();
+    const img = (items: HotCard[]): string => render([panel('kpop', items)]);
+    expect(img([card(1, 'kpop', { groupImage: '/g.jpg', cover: '/c.jpg' })])).toContain('<img src="/g.jpg" alt="" width="420" height="150" loading="lazy" decoding="async" class="hub-h2-t1-img"/>');
+    expect(img([card(1, 'kpop', { cover: '/c.jpg' })])).toContain('<img src="/c.jpg" alt="" width="420" height="150"');
+    const type = img([card(1, 'kpop', { subject: 'Stray Kids' })]);
+    expect(type).toContain('<span aria-hidden="true" class="hub-h2-t1-type hub-h2-big">Stray Kids</span>');
+    expect(type).not.toContain('<img');
+  });
+
+  it('picks the thumbnail of the others: the cover, then the group or series picture, then the initials', () => {
+    expect(thumbSource({ groupImage: '/g.jpg', cover: '/c.jpg' })).toBe('/c.jpg');
+    expect(thumbSource({ groupImage: '/g.jpg', cover: null })).toBe('/g.jpg');
+    expect(thumbSource({ groupImage: null, cover: null })).toBeNull();
+    const html = render([panel('kpop', [card(1, 'kpop'), card(2, 'kpop', { cover: '/c.jpg', groupImage: '/g.jpg' }), card(3, 'kpop', { groupImage: '/g3.jpg' })]), panel('anime', [card(4, 'anime'), card(5, 'anime'), card(7, 'anime')])]);
+    expect(html).toContain('<img src="/c.jpg" alt="" width="48" height="48"');
+    expect(html).toContain('<img src="/g3.jpg" alt="" width="48" height="48"');
+    expect(html).toContain('class="hub-h2-big hub-h2-t2-init">T7</span>');
   });
 });
 
