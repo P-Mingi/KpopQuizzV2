@@ -1,5 +1,6 @@
 // LAUNCH-POLISH-3 A (owner, 2026-11-23): the hub has the site switcher in every header it draws itself. The home's bar is pinned in
-// app/sites/[site]/home-hub.test.ts (the top bar); here the bar of the daily games pages (DleChrome, English and French, also the credits page),
+// app/sites/[site]/home-hub.test.ts (the top bar); here the bar of the daily games pages (DleChrome, English and French, also the credits page; the
+// menu speaks French on the French pages, integrator 2026-11-23),
 // the helper, and the source of every hub header: the switcher is the brand, the logo link stays only as the fallback of a build with no model.
 import { readFileSync } from 'node:fs';
 import { createElement } from 'react';
@@ -35,6 +36,16 @@ describe('the bar of the daily games pages on the hub', () => {
     expect(nav).toMatch(/<a class="ux-sw-i" href="\/auth\/passport\/out\?to=kpop&amp;next=%2F&amp;via=f\.pp" rel="nofollow" data-site="kpop">/);
     expect(nav).toMatch(/<a class="ux-sw-i" href="https:\/\/bunnyverse\.org\/anime\/" rel="nofollow" data-site="anime">/);
     expect(nav).not.toContain('class="hub-dle-brand"');
+  });
+  it.each([
+    ['en', 'Switch site', ['K-pop quizzes', 'Anime quizzes', 'Every site, one passport']],
+    ['fr', 'Changer de site', ['Quiz K-pop', 'Quiz anime', 'Tous les sites, un seul passeport']],
+  ] as const)('speaks the language of the page (%s): the label of the menu and the line under each site name', async (locale, label, lines) => {
+    const nav = bar(await chrome(locale));
+    expect(nav).toContain(`aria-label="${label}"`);
+    expect(nav).toContain(`<p class="ux-sw-lab" aria-hidden="true">${label}</p>`);
+    expect([...nav.matchAll(/<small>([^<]*)<\/small>/g)].map((m) => m[1])).toEqual(lines);
+    for (const n of ['KpopQuiz', 'OtakuQuiz', 'Bunnyverse']) expect(nav).toContain(`<b>${n}</b>`);
   });
   it('keeps the logo link when there is no model (a build with no switcher)', async () => {
     vi.resetModules();
