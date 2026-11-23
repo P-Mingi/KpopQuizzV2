@@ -81,6 +81,9 @@ let before: Record<string, string>;
 let after: Record<string, string>;
 let afterAgain: Record<string, string>;
 let afterRollback: Record<string, string>;
+// The world where the real L34 already wrote Cemter of Inspiration (L34 as it is now): L37 is a no-op on the label there.
+let worldN: { before: Record<string, string>; after: Record<string, string>; again: Record<string, string>; rolled: Record<string, string>; label: string | null;
+  agencies: { slug: string; created_at: string }[]; source: { source_ref: string }[]; preLabel: string | null };
 let pre: { heeseung: { in_pool: boolean; can_be_target: boolean } | undefined; akmu: string | null; bounties: unknown[] };
 
 beforeAll(async () => {
@@ -105,6 +108,21 @@ beforeAll(async () => {
   await liveGames(db, [OP, 'otakudle-dragon-ball']);
   await db.exec(readLaunch('L36-l1-series-fill.sql'));
   await db.exec(`select public.dle_refresh_entities('kpopdle-idol')`);
+  // World N: L34 as it is now holds Cemter of Inspiration. L37 changes no label, adds only the official source, and its rollback leaves the label (L34's).
+  const agencyRows = (): Promise<{ slug: string; created_at: string }[]> => rows(db, `select slug, to_char(created_at at time zone 'utc', 'YYYY-MM-DD HH24:MI:SS') as created_at from public.agencies where name = 'Cemter of Inspiration'`);
+  const nBefore = await fingerprint();
+  const nPreLabel = await label('akmu');
+  await db.exec(L37);
+  const nAfter = await fingerprint();
+  const nLabel = await label('akmu');
+  const nAgencies = await agencyRows();
+  const nSource = await rows<{ source_ref: string }>(db, `select source_ref from public.entity_sources s join public.groups g on g.id::text = s.entity_id where s.entity_type = 'group' and g.slug = 'akmu' and s.field = 'record_label' and s.source = 'official'`);
+  await db.exec(L37);
+  const nAgain = await fingerprint();
+  await db.exec(L37R);
+  worldN = { before: nBefore, after: nAfter, again: nAgain, rolled: await fingerprint(), label: nLabel, agencies: nAgencies, source: nSource, preLabel: nPreLabel };
+  // World O: production where the OLD L34 was applied (AKMU on YG, no agency row of L34): the case L37 has to move.
+  await db.exec(`update public.groups set record_label = 'YG Entertainment' where site_id = 'kpop' and slug = 'akmu'; delete from public.agencies where name = 'Cemter of Inspiration'; select public.dle_refresh_entities('kpopdle-idol');`);
   before = await fingerprint();
   pre = { heeseung: await inPool('115'), akmu: await label('akmu'), bounties: await Promise.all(UNKNOWN_SLUGS.map((x) => bounty(x))) };
   await db.exec(L37);
@@ -122,12 +140,32 @@ describe('before L37', () => {
   });
 });
 
+describe('L37 on a world where the real L34 already wrote Cemter of Inspiration', () => {
+  it('the label was already there; L37 changes no label, keeps the one agency row of L34, adds only the official source', () => {
+    expect(worldN.preLabel).toBe('Cemter of Inspiration');
+    expect(worldN.label).toBe('Cemter of Inspiration');
+    expect(worldN.agencies).toHaveLength(1);
+    expect(worldN.agencies[0]!.created_at).toMatch(/^2026-11-22 00:00:00/);
+    expect(worldN.source).toEqual([{ source_ref: 'official_akmu post, new agency' }]);
+    expect(worldN.after.groups).toBe(worldN.before.groups);
+    expect(worldN.after.agencies).toBe(worldN.before.agencies);
+    expect(worldN.after.sources).not.toBe(worldN.before.sources);
+  });
+
+  it('a second run changes nothing, and the rollback gives the world back exactly (the label stays, it was L34\'s)', () => {
+    expect(worldN.again).toEqual(worldN.after);
+    expect(worldN.rolled).toEqual(worldN.before);
+  });
+});
+
 describe('L37: AKMU agency', () => {
   it('the group reads Cemter of Inspiration, the agency row and its official source exist, the two idols read it in the game', async () => {
+    expect(pre.akmu).toBe('YG Entertainment');
     expect(await label('akmu')).toBe('Cemter of Inspiration');
     expect(await one(db, `select count(*)::int from public.agencies where name = 'Cemter of Inspiration' and slug = 'cemter-of-inspiration' and created_at = timestamptz '2026-11-23 00:00:00+00'`)).toBe(1);
     expect(await rows(db, `select source, source_url from public.entity_sources s join public.groups g on g.id::text = s.entity_id where s.entity_type = 'group' and g.slug = 'akmu' and s.field = 'record_label' and s.source = 'official'`))
       .toEqual([{ source: 'official', source_url: 'https://x.com/official_akmu/status/2018339122465976823' }]);
+    expect(await one(db, `select source_ref from public.entity_sources s join public.groups g on g.id::text = s.entity_id where s.entity_type = 'group' and g.slug = 'akmu' and s.field = 'record_label' and s.source = 'official'`)).toBe('official_akmu post, new agency (L37 moved the label)');
     const cells = await rows<{ name: string; v: string[]; p: string[] }>(db, `select name, attrs -> 'agency' -> 'v' as v, attrs -> 'agency' -> 'p' as p from public.dle_entities where game_id = 'kpopdle-idol' and name in ('Lee Chan-hyuk', 'Lee Su-hyun') order by name`);
     expect(cells.length).toBe(2);
     for (const c of cells) { expect(c.v).toEqual(['Cemter of Inspiration']); expect(c.p).toEqual(['Cemter of Inspiration']); }
@@ -244,8 +282,10 @@ describe('re-reading the earlier files does not undo L37, except L34 on AKMU (do
     for (const s of UNKNOWN_SLUGS) expect(await bounty(s), s).toEqual({ v: 'Unknown' });
   });
 
-  it('L34 again would put YG back on AKMU: the header of L37 says so', () => {
-    expect(L37).toMatch(/Re-reading L34 later WOULD put "YG Entertainment" back on AKMU/);
+  it('L34 again keeps AKMU on Cemter of Inspiration (its truth table holds the new name), and the header of L37 says the hazard is closed', async () => {
+    await db.exec(readLaunch('L34-l1-kpopdle-fill.sql'));
+    expect(await label('akmu')).toBe('Cemter of Inspiration');
+    expect(L37).toMatch(/a re-run of L34 never puts YG back/);
     expect(L37).toMatch(/Applied AFTER L34, L35 and L36/);
   });
 });

@@ -1,9 +1,10 @@
 -- L37-l1-launch-polish-data.rollback.sql (lane DATA37, run O1): undoes L37-l1-launch-polish-data.sql.
 --
--- What:   puts the label of AKMU back to "YG Entertainment" (only where it still reads "Cemter of Inspiration"), deletes the entity_sources row and the public.agencies row L37 wrote (the agency only when
+-- What:   puts the label of AKMU back to "YG Entertainment" (only where L37 moved it and it still reads "Cemter of Inspiration"), deletes the entity_sources row and the public.agencies row L37 wrote (the agency only when
 --         no group uses it and no child hangs on it), sets the three bounties (Dragon, Rayleigh, Oden) back to {"v": 0, "l": "No bounty"} (only where they still read Unknown), lets Heeseung back into the
 --         pool (only the dle_curation row whose note starts with "L37:"), restores 019's dle_compare byte for byte (only when no bounty of any game is still a non-number, otherwise it stays, warning),
 --         and refreshes the two snapshots. A second run changes nothing.
+--         The first Verify line holds where L37 moved the label; where L34 had already written "Cemter of Inspiration" it stays.
 -- Needs:  the state L37 leaves; undo it before L36's rollback.
 -- WHEN:   apply by the owner after a backup, never during a build, never between 23:50 and 00:30 UTC, one launch file at a time, the Verify lines run after it.
 -- Verify: select record_label from public.groups where site_id = 'kpop' and slug = 'akmu';   expect YG Entertainment
@@ -28,7 +29,11 @@ end;
 
 -- 1. AKMU.
 begin
-  update public.groups set record_label = 'YG Entertainment' where site_id = 'kpop' and slug = 'akmu' and record_label = 'Cemter of Inspiration';
+  -- The label goes back only when L37 moved it (the source_ref of its official row says so); where L34 had already written it, it stays.
+  update public.groups g set record_label = 'YG Entertainment'
+  where g.site_id = 'kpop' and g.slug = 'akmu' and g.record_label = 'Cemter of Inspiration'
+    and exists (select 1 from public.entity_sources s where s.entity_type = 'group' and s.entity_id = g.id::text and s.field = 'record_label' and s.source = 'official'
+      and s.fetched_at = timestamptz '2026-11-23 00:00:00+00' and s.source_ref like '%(L37 moved the label)');
   delete from public.entity_sources s using public.groups g
   where s.entity_type = 'group' and s.entity_id = g.id::text and g.site_id = 'kpop' and g.slug = 'akmu' and s.field = 'record_label' and s.source = 'official'
     and s.fetched_at = timestamptz '2026-11-23 00:00:00+00';

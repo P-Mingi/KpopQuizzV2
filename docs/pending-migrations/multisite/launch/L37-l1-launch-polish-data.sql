@@ -15,9 +15,9 @@
 --            (value-i18n.ts seriesValueLabel), and the bounty help of copy.ts says it. dle_compare is the only function that casts a number column.
 --         Nothing else: no birth date or year is written, can_be_target is not touched (the answers stay as they are), no bank is rebuilt, updated_at of the facts is not touched.
 -- Needs:  019, 020, L20, 022, 024, L15, L21, L34, L36. Applied AFTER L34, L35 and L36 (normal order L34, L35, L36, L37).
---         Re-reading L36 later changes nothing here: it finds the three bounties neither empty nor its old value and leaves them alone (warning). Re-reading L34 later WOULD put "YG Entertainment" back on AKMU
---         (its rule is "label differs from the truth table, after lower-casing and dropping non letters"): do not re-run L34 after L37. The clean fix is one line in L34's table (the AKMU entry, line "name":"AKMU":
---         label "Cemter of Inspiration", url and rev of the AKMU page) to be made by the integrator at the final merge; L37 stays idempotent on top of it.
+--         Re-reading L36 later changes nothing here: it finds the three bounties neither empty nor its old value and leaves them alone (warning). L34 now holds "Cemter of Inspiration" in its AKMU entry,
+--         so a re-run of L34 never puts YG back, and L37 works in both worlds: where an older L34 left "YG Entertainment" it moves the label, writes the agency row and the official source; where L34
+--         already wrote "Cemter of Inspiration" it changes no label, the agency row of L34 stays, and it adds only the official source (its source_ref says whether it moved the label, the rollback reads it).
 -- WHEN:   apply by the owner after a backup, never during a build, never between 23:50 and 00:30 UTC, one launch file at a time, the Verify lines run after it. The snapshots of kpopdle-idol and of
 --         otakudle-one-piece are refreshed in the same transaction; no answer changes, the bank is not redrawn.
 -- Effect: kpopquiz.org: the Label line of AKMU. Kpopdle: the agency cell of the two AKMU idols; Heeseung is not a possible guess. Otakudle One Piece: the bounty cell of three characters reads Unknown.
@@ -56,22 +56,24 @@ declare
   v_url constant text := 'https://x.com/official_akmu/status/2018339122465976823';
   v_cur text;
   v_gid integer;
+  v_ref text;
 begin
   select g.id, g.record_label into v_gid, v_cur from public.groups g where g.site_id = 'kpop' and g.slug = 'akmu';
   if v_gid is null then
     raise warning 'L37: the group akmu is not there (apply 021d first), the agency is left alone';
   elsif v_cur is not distinct from v_label then
-    null;
+    v_ref := 'official_akmu post, new agency';
   elsif v_cur is not distinct from v_old then
     insert into public.agencies (slug, name, sources, created_at)
     values ('cemter-of-inspiration', v_label, array[v_url, 'https://en.wikipedia.org/wiki/AKMU'], timestamptz '2026-11-23 00:00:00+00')
     on conflict do nothing;
     update public.groups set record_label = v_label where id = v_gid and site_id = 'kpop' and slug = 'akmu' and record_label = v_old;
+    v_ref := 'official_akmu post, new agency (L37 moved the label)';
   else
     raise warning 'L37: the label of akmu is %, neither % nor %: left alone', v_cur, v_old, v_label;
   end if;
   insert into public.entity_sources (entity_type, entity_id, field, source, source_ref, source_url, fetched_at)
-  select 'group', g.id::text, 'record_label', 'official', 'official_akmu post, new agency', v_url, timestamptz '2026-11-23 00:00:00+00'
+  select 'group', g.id::text, 'record_label', 'official', coalesce(v_ref, 'official_akmu post, new agency'), v_url, timestamptz '2026-11-23 00:00:00+00'
   from public.groups g where g.site_id = 'kpop' and g.slug = 'akmu' and g.record_label = v_label
   on conflict (entity_type, entity_id, field, source) do nothing;
 end;
