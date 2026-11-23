@@ -243,7 +243,7 @@ export const ICON_GROUPS: readonly { readonly title: string; readonly items: rea
   // slot (home:kpopdle, home:qotd-k...) is filled, else this icon. The two games take the symbols of the dle pages (idol, char), so a symbol
   // means the same thing everywhere (HOME-AUDIT P1-8).
   { title: 'Accueil, jeux du jour', items: [
-    { id: 'today-kpopdle', name: 'Kpopdle', where: 'Accueil, carte Kpopdle', page: 'home', defaults: { mode: 'icon', icon: 'idol', circle: true, color: 'k' } },
+    { id: 'today-kpopdle', name: 'Kpopdle', where: 'Accueil bunnyverse.org et kpopquiz.org, carte Kpopdle', page: 'home', defaults: { mode: 'icon', icon: 'idol', circle: true, color: 'k' } },
     { id: 'today-otakudle', name: 'Otakudle', where: 'Accueil, carte Otakudle', page: 'home', defaults: { mode: 'icon', icon: 'char', circle: true, color: 'a' } },
     { id: 'today-qotd-k', name: 'Quiz K-pop du jour', where: 'Accueil, ligne quiz K-pop', page: 'home', defaults: { mode: 'icon', icon: 'help', circle: true, color: 'k' } },
     { id: 'today-qotd-a', name: 'Quiz anime du jour', where: 'Accueil, ligne quiz anime', page: 'home', defaults: { mode: 'icon', icon: 'help', circle: true, color: 'a' } },

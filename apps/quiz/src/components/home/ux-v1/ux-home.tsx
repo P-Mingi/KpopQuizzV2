@@ -53,11 +53,16 @@ export async function UxHome({ head, afterHeader }: {
   await settleRender(health);
   // Not a health.read: a Kpopdle that is down hides its module, it never costs the home its cache (CR-018).
   // P5 (CR-025), link 10: on the OtakuQuiz build the same place holds the Daily games module instead (the two loaders are closed on the other site, so each build gets at most one).
-  const kpopdle = (await loadKpopdleHome()) ?? (await loadAnimeDailyHome());
-  // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the "Your packs" block rides in the quiz-of-the-day slot, right under it. Null while off: the row is today's.
+  // Owner, 2026-11-23: "Put the daily game and daily quiz side by side". On kpopquiz.org the Kpopdle card sits next to the quiz of the day (p1-today:
+  // two columns from 961px, one under the other below); the OtakuQuiz Daily games module keeps its place under Continue playing.
+  const kpopdle = await loadKpopdleHome();
+  const animeDaily = kpopdle ? null : await loadAnimeDailyHome();
+  // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the KpopCards banner rides in the quiz-of-the-day slot, right under it, with a
+  // gap above it (owner, 2026-11-23: the banner touched the quiz of the day). Null while off: the row is today's.
   const cardsHome = await loadCardsHome();
   const qotdOnly = qotd ? <QotdRow qotd={qotd} /> : null;
-  const qotdRow = cardsHome ? <>{qotdOnly}{cardsHome}</> : qotdOnly;
+  const today = qotdOnly && kpopdle ? <div className="p1-today">{qotdOnly}{kpopdle}</div> : (qotdOnly ?? kpopdle);
+  const qotdRow = cardsHome ? <>{today}<div className="p1-cards">{cardsHome}</div></> : today;
 
   return (
     <UxPage width="wide" className="p1-home">
@@ -76,8 +81,8 @@ export async function UxHome({ head, afterHeader }: {
 
       {/* Every run saved on this device shows here (C2-004), even when its quiz is
           also in a list below: it is the fan's own run, with its resume link. */}
-      {/* With the Kpopdle module (CR-018, off by default) the two share this one place of the tree, as afterHeader above, so the page data of a home without it keeps its bytes. */}
-      {kpopdle ? <><ContinuePlaying />{kpopdle}</> : <ContinuePlaying />}
+      {/* With the OtakuQuiz Daily games module the two share this one place of the tree, as afterHeader above, so the page data of a home without it keeps its bytes. */}
+      {animeDaily ? <><ContinuePlaying />{animeDaily}</> : <ContinuePlaying />}
 
       {groups.groups.length > 0 ? (
         <section className="ux-sec ux-sec-lg" aria-labelledby="p1-groups-h">
