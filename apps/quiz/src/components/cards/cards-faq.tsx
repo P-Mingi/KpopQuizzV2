@@ -7,6 +7,7 @@ import { adsPerDay } from '@/lib/cards/flags';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
 import { KC } from '@/lib/kpopcards/contract';
+import { editionCount } from '@/lib/kpopcards/seo';
 import { dupBiasExempt, dupBiasRule } from '@/lib/kpopcards/dup-text';
 
 import { REMOVAL_PROMISE } from './report-form';
@@ -60,7 +61,7 @@ export function CardsFaq({ children }: { children?: React.ReactNode }): React.Re
     <>
       <div className="steps" aria-labelledby="faq-how">
         <div className="stepc"><span className="n">1</span><b>Open</b><p>A free pack every {PERIOD_S / 60} minutes, up to {CAP} waiting. The stack fills up again at midnight, Paris time.</p></div>
-        <div className="stepc"><span className="n">2</span><b>Collect</b><p>Every idol has up to 6 editions, from Standard to Full Art, and each edition uses its own photo.</p></div>
+        <div className="stepc"><span className="n">2</span><b>Collect</b><p>Every idol has up to {editionCount()} editions, from {RARITY_LABEL.C} to {RARITY_LABEL.L}, and each edition uses its own photo.</p></div>
         <div className="stepc"><span className="n">3</span><b>Complete</b><p>Sets and the weekly list give packs. Extra copies turn into shards, and shards craft the cards you miss.</p></div>
       </div>
       {children}

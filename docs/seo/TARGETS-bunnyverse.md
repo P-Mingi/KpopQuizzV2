@@ -50,3 +50,17 @@ named gap in the plan; blank when none was recorded yet.
   layout.
 - Numbers: the count of quizzes of each site (rounded down by `atLeast`, the shared helper of lib/stats/site-stats.ts), plays from 100 plays,
   the songs and seconds of the blind test of the day: all from the data modules of lib/site/hub/data, never typed.
+
+## KpopCards (bunnyverse.org/kpopcards), added 2026-11-23 (lot SEO-LAUNCH-1, lane B)
+
+The four rows of agent 3 (section 4 of `Claude outputs/seo/BUNNYVERSE-SEO-STRATEGY.md`), same columns as the table above. The three indexable pages
+are rendered on the server and enter the hub sitemap only when `NET_CARDS` and `NET_INDEXING` are both on (`cardsSitemapRows`,
+`lib/kpopcards/seo.ts`). Every other KpopCards page stays noindex for good: `/kpopcards/c/{num}`, `/idol/{name}`, `/collection`,
+`/collection/{group}`, `/open/*`, `/missions`, `/ranking`, `/u/*` and `/report` (rule 1.4 and 9.2: per-user, or only the entity changes).
+
+| Cluster | Queries | URL | Intent | Language | Evidence | KPI | Status |
+|---|---|---|---|---|---|---|---|
+| kpop photocard game | kpop photocard game, kpop card game online, free kpop photocard game, kpop photocard collecting game, kpop photocard simulator | /kpopcards | play a free K-pop photocard game in the browser | en | [P] SERP gap (agent3 2026-11-23); kpopquiz.org GSC 0 of 724 | impressions, clicks at 90 days | built: server HTML (H1, answer block, question H2s, JSON-LD), indexable once NET_CARDS and NET_INDEXING are on |
+| kpopcards odds | kpopcards odds, kpopcards drop rates | /kpopcards/odds | odds and guarantees | en | rule 12 | none (trust) | built, indexable once NET_CARDS and NET_INDEXING are on; "Updated" only when a rate changes |
+| how kpopcards works | kpopcards help, how to play kpopcards | /kpopcards/help | the rules | en | brand | brand impressions | built, indexable once NET_CARDS and NET_INDEXING are on |
+| kpopcards photo credits | kpopcards credits | /kpopcards/credits | credits | en | rule 12 | none | noindex, follow (a duplicate of /credits, which is the indexable credits page) until the credits dedupe |

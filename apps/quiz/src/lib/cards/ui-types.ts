@@ -56,6 +56,8 @@ export interface UiEntity {
 }
 
 export interface UiCatalog {
+  /** When the server read the catalog (ISO, the payload's generatedAt): the date a public count of the cards is "as of" (lib/kpopcards/seo.ts). Absent in the fixture and older mocks. */
+  generatedAt?: string;
   /** The odds of the real catalog, computed by the server (rules.ts computeOdds); null when no card is in packs. */
   odds: CatalogOdds | null;
   cards: UiCard[];
