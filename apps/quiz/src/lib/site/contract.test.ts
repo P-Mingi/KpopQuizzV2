@@ -2024,7 +2024,7 @@ describe('link allowlist (link-allowlist.md, link-allowlist.json)', () => {
     }
     const ids = json.links.map((l) => l.id);
     for (const id of ['footer', 'about-kpop', 'about-anime', 'team-article', 'network-page']) expect(ids).toContain(id);
-    expect(json.links.find((l) => l.id === 'footer')).toMatchObject({ from: ['kpop', 'anime'], page: '*', to: ['hub'], maxPerPage: 1 });
+    expect(json.links.find((l) => l.id === 'footer')).toMatchObject({ from: ['anime'], page: '*', to: ['hub'], maxPerPage: 1 }); // owner 2026-11-23, rule 16: kpop dropped from the footer row
     for (const f of ['link-allowlist.md', 'link-allowlist.json', 'formats.md', 'fixtures.md']) {
       const t = read(`${CONTRACTS}${f}`);
       expect(DASHES.test(t) || EMOJI.test(t) || NAMING_TRAPS.test(t), f).toBe(false);

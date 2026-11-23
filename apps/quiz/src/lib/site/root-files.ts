@@ -7,6 +7,7 @@ import { builtGames, DAILY_PATH } from '@/lib/dle/games';
 import { readDay, settleDleRead } from '@/lib/dle/read';
 import { dleSitemapRows } from '@/lib/dle/seo';
 import { cardsSitemapRows } from '@/lib/kpopcards/seo';
+import { HUB_ABOUT_PATH, HUB_ABOUT_UPDATED } from '@/lib/site/hub/about';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { loadSeriesDirectory } from '@/lib/anime/directory';
@@ -145,7 +146,7 @@ async function liveDleGames(db: SeriesDb): Promise<{ readonly ids: readonly DleG
 
 /**
  * The URLs a non-kpop site lists, in the order a crawler should meet them.
- *   hub:   its home, and its /privacy, /legal, /terms, /contact and /dmca once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
+ *   hub:   its home, and its /privacy, /legal, /terms, /contact, /dmca and /about once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
  *          (/legal is indexable only once its [BRACKETED] facts are filled: lib/site/hub/legal.ts fails an open build that still prints one.)
  *   anime: its home, /series, every series hub that has at least `seo.minPublishedForIndexableHub` published quizzes
  *          (below it the hub page is noindex, so it stays out), the Which character are you page of every series that has a quiz
@@ -173,6 +174,7 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
       { path: '/terms', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/contact', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/dmca', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
+      { path: HUB_ABOUT_PATH, lastModified: new Date(`${HUB_ABOUT_UPDATED}T00:00:00Z`), changeFrequency: 'yearly', priority: 0.5 },
     ];
   }
   if (site.id !== 'anime') throw new Error('sitemapEntriesFor: kpop has app/sitemap.ts');

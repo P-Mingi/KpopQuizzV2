@@ -1,7 +1,7 @@
 // Run O1, lot H2a: the footer of the new home: the wordmark with the rabbit and what the hub is, Privacy, the legal notice, the one mailbox.
 // Home v3 (2026-10-29, Home.dc.html): no link to kpopquiz.org (SEO rule 16: sister sites link to each other only in context, never in a
 // footer). The column of the hub lists the Burrow (once it is open) and OtakuQuiz, which lives on bunnyverse.org; the board's "Our sites",
-// "Editorial policy" and "About" are not drawn while the hub has no such page (a footer link to nowhere would be a dead door).
+// "Editorial policy" is not drawn while the hub has no such page (a footer link to nowhere would be a dead door). /about exists since SEO-LAUNCH-1 and is linked below.
 import { BURROW_PATHS } from '@/lib/site/hub/daily-guess';
 import { ht, HUB_EMAIL } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
@@ -25,6 +25,7 @@ export function HomeFooter({ burrow }: { burrow: boolean }): React.ReactElement 
           </div>
           <div className="hub-h2-foot-col">
             <span className="hub-h2-foot-h">{ht('hp.foot.about')}</span>
+            <a href="/about" className="hub-h2-foot-a">{ht('hp.foot.aboutLink')}</a>
             <a href="/privacy" className="hub-h2-foot-a">{ht('hp.foot.privacy')}</a>
             <a href="/legal" className="hub-h2-foot-a">{ht('hp.foot.legal')}</a>
             <span className="hub-h2-foot-mail">{HUB_EMAIL}</span>

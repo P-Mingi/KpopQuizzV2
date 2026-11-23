@@ -5,6 +5,8 @@
 
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
+import { HUB_ORGANIZATION_ID } from '@/lib/site/jsonld';
+
 export const SITE_URL = 'https://kpopquiz.org';
 // hello@ is the only routed mailbox of kpopquiz.org (owner, 2026-10-25).
 export const CONTACT_EMAIL = 'hello@kpopquiz.org';
@@ -30,10 +32,15 @@ export function founderPerson(): Record<string, unknown> {
 /** The live public profiles of the site (owner-confirmed). */
 export const ORG_SAME_AS: readonly string[] = [SOCIAL_LINKS.discord.invite, SOCIAL_LINKS.reddit.url];
 
+/** The stable @ids of kpopquiz.org (SEO-LAUNCH-1, lane C): its Organization and its WebSite, the first with Bunnyverse as parent. */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+
 export function organizationJsonLd(): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': ORGANIZATION_ID,
     name: 'KpopQuiz',
     alternateName: 'kpopquiz.org',
     url: SITE_URL,
@@ -41,5 +48,6 @@ export function organizationJsonLd(): Record<string, unknown> {
     email: CONTACT_EMAIL,
     founder: founderPerson(),
     sameAs: [...ORG_SAME_AS],
+    parentOrganization: { '@id': HUB_ORGANIZATION_ID },
   };
 }

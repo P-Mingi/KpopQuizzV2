@@ -154,7 +154,7 @@ describe('the sitemap of the hub, the flag on', () => {
     // Launch day (RUNBOOK K8c): the registry's own hub is this one, so the sitemap bunnyverse.org serves is the same list.
     expect(await sitemapEntriesFor(REGISTRY.hub, dbOf(everyGame(DATE)) as never)).toEqual(entries);
     const en = [DAILY_PATH, ...builtGames().map((g) => g.path)];
-    expect(entries.map((e) => e.path)).toEqual(['/', ...en, ...(DLE_FR_REVIEWED ? en.map((p) => localePath(p, 'fr')) : []), '/privacy', '/legal', '/terms', '/contact', '/dmca']);
+    expect(entries.map((e) => e.path)).toEqual(['/', ...en, ...(DLE_FR_REVIEWED ? en.map((p) => localePath(p, 'fr')) : []), '/privacy', '/legal', '/terms', '/contact', '/dmca', '/about']);
     for (const e of entries.filter((x) => en.includes(x.path))) expect(e.lastModified?.toISOString(), e.path).toBe(`${DATE}T00:05:00.000Z`);
     for (const e of entries) {
       expect(e.path, e.path).not.toMatch(/dle-share|burrow|credits|[?#]/);
@@ -177,7 +177,7 @@ describe('the sitemap of the hub, the flag on', () => {
     expect(one.find((e) => e.path === '/otakudle')?.lastModified?.toISOString()).toBe(`${DATE}T00:05:00.000Z`);
     // No game answering: no row of the Terrier at all (the Burrow says noindex then), the home and the legal pages stay.
     expect(dle(await pathsOf({}))).toEqual([]);
-    expect(await pathsOf({})).toEqual(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca']);
+    expect(await pathsOf({})).toEqual(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca', '/about']);
   });
 
   it('every row is a page the hub serves with the flag on, and none is served with it off', () => {

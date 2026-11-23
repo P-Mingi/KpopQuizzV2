@@ -1,16 +1,21 @@
 // Run O1 twin (rule 18) of apps/quiz/src/app/(site)/about/page.tsx, rows 24: copied by scripts/o1/twins-codemod.mjs; kpop modules imported, not copied.
+// SEO-LAUNCH-1, lane C: one page file at the root of app/sites/[site] for both sites (not in the (anime) or (hub) group: one path cannot have two files, as /contact and /terms). It dispatches on
+// SITE_ID: anime keeps its page below, hub renders components/hub/about/hub-about.tsx, any other build is a 404.
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+
+import { HubAbout, hubAboutMetadata } from '@/components/hub/about/hub-about';
 
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { FOUNDER } from '@/lib/seo/org';
 import { siteAddress } from '@/lib/site/brand';
-import { MAILBOX, SITE } from '@/lib/site/registry';
+import { MAILBOX, SITE, SITE_ID } from '@/lib/site/registry';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 import type { PublicStats } from '@/lib/stats/site-stats';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
+const animeMetadata: Metadata = {
   title: 'About OtakuQuiz',
   description:
     'OtakuQuiz is a free fan-made site to play and create anime quizzes about every series, with leaderboards.',
@@ -89,7 +94,7 @@ const FEATURES = [
   },
 ];
 
-export default async function AboutPage(): Promise<React.ReactElement> {
+async function AnimeAboutPage(): Promise<React.ReactElement> {
   const STATS = statsOf(await getPublicStatsOrNull());
   return (
     <div className="py-8 max-w-2xl mx-auto">
@@ -200,4 +205,16 @@ export default async function AboutPage(): Promise<React.ReactElement> {
       </p>
     </div>
   );
+}
+
+export function generateMetadata(): Metadata {
+  if (SITE_ID === 'hub') return hubAboutMetadata();
+  if (SITE_ID !== 'anime') notFound();
+  return animeMetadata;
+}
+
+export default async function AboutPage(): Promise<React.ReactElement> {
+  if (SITE_ID === 'hub') return <HubAbout />;
+  if (SITE_ID !== 'anime') notFound();
+  return AnimeAboutPage();
 }

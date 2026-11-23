@@ -47,6 +47,8 @@ html.ux-v1[data-site="hub"] .hub-dle-iconbtn:hover { transform: translateY(-1px)
 html.ux-v1[data-site="hub"] .hub-dle-streak { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 14px; border-radius: 999px; background: var(--hub-dle-soft, var(--hub-k-soft)); color: var(--hub-dle-ink, var(--hub-k-ink)); font-weight: 700; font-size: 14px; white-space: nowrap; }
 html.ux-v1[data-site="hub"] .hub-dle-flame { display: inline-block; animation: hub-dle-flame 1.4s ease-in-out infinite; transform-origin: bottom; }
 @keyframes hub-dle-flame { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.12) rotate(3deg); } }
+html.ux-v1[data-site="hub"] .hub-dle-langhint { margin: 0; padding: 8px 16px; text-align: center; font-size: 14px; border-bottom: 1px solid var(--hub-dle-line); background: var(--hub-dle-card); }
+html.ux-v1[data-site="hub"] .hub-dle-langhint a { font-weight: 700; text-decoration: underline; }
 html.ux-v1[data-site="hub"] .hub-dle-lang { display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; border: 1px solid var(--hub-dle-line); background: var(--hub-dle-card); }
 html.ux-v1[data-site="hub"] .hub-dle-lang a { min-width: 40px; height: 36px; padding: 0 10px; border-radius: 999px; display: grid; place-items: center; text-decoration: none; font-weight: 600; font-size: 14px; }
 html.ux-v1[data-site="hub"] .hub-dle-root .hub-dle-lang-on { background: var(--ux-ink); color: var(--ux-page); font-weight: 700; }

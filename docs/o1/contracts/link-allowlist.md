@@ -26,7 +26,7 @@ and is not a cross-site link in this sense. On top of the rows:
 
 | id | from | page | to | href | rel | query | max | source |
 |---|---|---|---|---|---|---|---|---|
-| footer | kpop, anime | * | hub | / | followed | no | 1 | Q B01, D1; flag NEXT_PUBLIC_NET_FOOTER |
+| footer | anime | * | hub | / | followed | no | 1 | Q B01, D1; flag NEXT_PUBLIC_NET_FOOTER; kpop dropped 2026-11-23 (rule 16: no site-wide footer link from kpopquiz.org) |
 | about-kpop | kpop | /about | anime | / | followed | no | 1 | Q B17, D6; kpopquiz.org/about, launch file |
 | about-anime | anime | /about | kpop, hub | / | followed | no | 1 | Q B17, D6; otakuquiz.org/about (O1) |
 | team-article | kpop | (none yet) | anime | / | followed | no | 1 | Q B17, D6; one Team article on kpopquiz.org, its path set by a CR at launch |
@@ -48,6 +48,9 @@ and is not a cross-site link in this sense. On top of the rows:
 | anime-series-one-piece | anime | /one-piece-quiz | hub | /otakudle/one-piece | followed | no | 1 | CR-025; link 11: the card The One Piece character of the day on the series page; the hub's dailyGuess |
 | anime-series-dragon-ball | anime | /dragon-ball-quiz | hub | /otakudle/dragon-ball | followed | no | 1 | CR-025; link 12: the card The Dragon Ball character of the day on the series page; the hub's dailyGuess |
 | anime-quiz-end | anime | /q/** | hub | /otakudle | followed | no | 1 | CR-025; link 13: Daily challenge, the mystery character, in Keep playing after an anime quiz; the hub's dailyGuess |
+| kpop-games-kpopdle | kpop | /kpop-games | hub | /kpopdle | followed | no | 1 | SEO-LAUNCH-1 lane C, owner 2026-11-23, rule 8.3: the Kpopdle section of /kpop-games, anchor Kpopdle; the hub's dailyGuess |
+| guess-idol-kpopdle | kpop | /guess-the-kpop-idol | hub | /kpopdle | followed | no | 1 | SEO-LAUNCH-1 lane C, owner 2026-11-23: one sentence in context, anchor Kpopdle, the daily idol game; the hub's dailyGuess |
+| hub-about | hub | /about | kpop, anime | /** | followed | no | (none) | SEO-LAUNCH-1 lane C, owner 2026-11-23: the trust page names the sister sites and links the editorial policy of kpopquiz.org |
 
 Page and href patterns: `*` any page, `/x/**` the path `/x` and everything below it, `/*-quiz` one path segment that ends with `-quiz` (CR-025: the group hubs, `/twice-quiz`, and nothing deeper), otherwise the exact path; `(none
 yet)` is `null` in the JSON (the row admits nothing until a CR names the page). The copy of each line is Q's (B01, B02,

@@ -22,6 +22,7 @@ import { KpopHomeSurprise } from '@/components/home/ux-v1/kpop-home-surprise';
 import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { ORGANIZATION_ID, WEBSITE_ID } from '@/lib/seo/org';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 
 // Imported here, not added to the UX sheet: every page links that one sheet, and this block belongs to this page (CR-015).
@@ -267,11 +268,13 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
 const WEBSITE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': WEBSITE_ID,
   name: 'KpopQuiz',
   // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
   alternateName: 'kpopquiz.org',
   url: 'https://kpopquiz.org',
   description: 'K-pop quizzes made by fans, played by thousands.',
+  publisher: { '@id': ORGANIZATION_ID },
   potentialAction: {
     '@type': 'SearchAction',
     target: {

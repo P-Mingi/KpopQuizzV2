@@ -962,7 +962,7 @@ describe('every link is the canonical page of its own site', () => {
       expect(isKnownRouteFor('hub', b, { v1: true, v12: true }), b).toBe(true);
     }
     // LAUNCH-POLISH-3 A: the switcher's KpopQuiz row is the signed-in jump of this site (same-origin, a path of the hub's own).
-    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#community', '#main', '/auth/passport/out?to=kpop&amp;next=%2F&amp;via=f.pp', ...burrow]);
+    const own = new Set(['/', '/privacy', '/legal', '/about', '#hot', '#today', '#community', '#main', '/auth/passport/out?to=kpop&amp;next=%2F&amp;via=f.pp', ...burrow]);
     expect(hrefs).toContain('https://kpopquiz.org/search');
     for (const h of hrefs) {
       if (h.startsWith('/_next') || own.has(h) || /^\/u\/[a-z0-9_]+$/.test(h)) continue;
