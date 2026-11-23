@@ -47,7 +47,7 @@ export function DleChrome({ locale, enPath, current, tools, className, showCredi
               <RabbitMark size={36} className="hub-dle-brand-mk" />
               <HubWordmark className="hub-dle-brand-name" />
             </a>
-          )} />
+          )} locale={locale} />
           <div className="hub-dle-tabs">
             <a href={withBasePath('/')} className="hub-dle-tab">{t.navHome}</a>
             <a href={withBasePath(localePath(DAILY_PATH, locale))} className="hub-dle-tab hub-dle-tab-on" aria-current={current ? 'page' : 'true'}>{t.navBurrow}<DleLeftBadge locale={locale} /></a>

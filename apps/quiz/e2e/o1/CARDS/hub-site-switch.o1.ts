@@ -45,12 +45,12 @@ const model = {
 
 type Bar = 'home' | 'dle';
 
-function pageOf(theme: 'light' | 'dark', bar: Bar): string {
-  const { SiteSwitch } = loadModule(`${SRC}components/site-switch/site-switch.tsx`) as { SiteSwitch: (p: { model: unknown }) => React.ReactElement };
-  const html = renderToStaticMarkup(createElement(SiteSwitch, { model })).replace('class="ux-sw"', 'class="ux-sw" data-open=""');
+function pageOf(theme: 'light' | 'dark', bar: Bar, locale: 'en' | 'fr' = 'en'): string {
+  const { SiteSwitch } = loadModule(`${SRC}components/site-switch/site-switch.tsx`) as { SiteSwitch: (p: { model: unknown; locale?: 'en' | 'fr' }) => React.ReactElement };
+  const html = renderToStaticMarkup(createElement(SiteSwitch, { model, locale })).replace('class="ux-sw"', 'class="ux-sw" data-open=""');
   const p = bar === 'home' ? 'hub-h2' : 'hub-dle';
   const tabs = ['Home', 'Daily games', 'Quizzes', 'Community'].map((t, i) => `<a href="#" class="${p}-tab${i === 0 ? ` ${p}-tab-on` : ''}">${t}</a>`).join('');
-  return `<!doctype html><html lang="en" class="ux-v1${theme === 'dark' ? ' dark' : ''}" data-site="hub"><head><meta charset="utf-8"><style>*,*::before,*::after{box-sizing:border-box}${css}</style></head>`
+  return `<!doctype html><html lang="${locale}" class="ux-v1${theme === 'dark' ? ' dark' : ''}" data-site="hub"><head><meta charset="utf-8"><style>*,*::before,*::after{box-sizing:border-box}${css}</style></head>`
     + `<body style="margin:0"><div class="ux-app"><header class="${p}-head"><nav class="${p}-nav">${html}<div class="${p}-tabs">${tabs}</div><div class="${p}-actions"><button class="${p}-btn">Sign in</button></div></nav></header><main style="height:1200px">x</main></div></body></html>`;
 }
 
@@ -100,4 +100,29 @@ for (const bar of ['home', 'dle'] as const) {
       expect(await page.evaluate(() => [...document.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().right > document.documentElement.clientWidth + 0.5).map((e) => e.className))).toEqual([]);
     });
   }
+}
+
+// The French pages of the hub (the daily games under /fr, integrator 2026-11-23): the menu speaks French, every line under a site name holds on one
+// line at both widths, and the sizes are those of the English menu.
+for (const width of [1024, 375] as const) {
+  test(`dle bar, ${width} px, French: "Changer de site", the French lines on one line each, the same sizes`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.setContent(pageOf('light', 'dle', 'fr'));
+    const r = await rects(page);
+    expect(Math.round(r.menu.width)).toBe(width === 1024 ? 340 : 355);
+    for (const h of r.rows) expect(h).toBeGreaterThanOrEqual(width === 1024 ? 60 : 64);
+    await semantics(page);
+    const words = await page.evaluate(() => ({
+      label: document.querySelector('.ux-sw-lab')!.textContent,
+      aria: document.querySelector('.ux-sw-menu')!.getAttribute('aria-label'),
+      lines: [...document.querySelectorAll('.ux-sw-t small')].map((e) => ({ text: e.textContent, oneLine: e.getBoundingClientRect().height < 2 * parseFloat(getComputedStyle(e).lineHeight) - 1 })),
+    }));
+    expect(words.label).toBe('Changer de site');
+    expect(words.aria).toBe('Changer de site');
+    expect(words.lines).toEqual([
+      { text: 'Quiz K-pop', oneLine: true },
+      { text: 'Quiz anime', oneLine: true },
+      { text: 'Tous les sites, un seul passeport', oneLine: true },
+    ]);
+  });
 }
