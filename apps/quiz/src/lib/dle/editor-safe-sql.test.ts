@@ -35,6 +35,9 @@ const FILES: [file: string, tag: string][] = [
   ['L35-l1-otakudle-fill.rollback.sql', 'o1l35r'],
   ['L36-l1-series-fill.sql', 'o1l36'],
   ['L36-l1-series-fill.rollback.sql', 'o1l36r'],
+  // Integrator 2026-11-23 (LAUNCH-POLISH-2, task D): AKMU's agency, Heeseung out of the pool, the One Piece bounty "Unknown".
+  ['L37-l1-launch-polish-data.sql', 'o1l37'],
+  ['L37-l1-launch-polish-data.rollback.sql', 'o1l37r'],
 ];
 
 describe('launch files the owner may run from the Supabase SQL Editor are one DO block', () => {
