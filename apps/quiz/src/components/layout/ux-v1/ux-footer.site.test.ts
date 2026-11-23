@@ -62,7 +62,9 @@ describe('UxFooter', () => {
     const hrefs = anchorHrefs(html).filter((x) => x.startsWith('/'));
     // Daily games step 2: /credits joined the hub's route map (twins row H-11). CR-021: its footer link is no longer in the served HTML: it exists
     // only while an image needs a credit, and UxCreditsLink draws it in the browser after asking /api/site-credits.
-    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca', '/passport', '/login', '/directory'], x).toContain(x);
+    // SEO-LAUNCH-1 (owner, 2026-11-23, item C.6): the hub's /about joined its route map, so the footer links it (trust page, rule 12).
+    for (const x of hrefs) expect(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca', '/passport', '/login', '/directory', '/about'], x).toContain(x);
+    expect(hrefs).toContain('/about');
     expect(hrefs).toContain('/privacy');
     expect(hrefs).toContain('/legal');
     // Launch polish (owner, 2026-11-20): the terms, the contact page and the DMCA page are in the hub's route map, so the footer links them.
