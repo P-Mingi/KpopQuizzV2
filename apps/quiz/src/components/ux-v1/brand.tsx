@@ -12,6 +12,18 @@ const BASE_PATH = process.env.__NEXT_ROUTER_BASEPATH || '';
 // their markup is today's.
 const TAIL_CLASS = wordmarkTailClass();
 
+/** The rabbit and the wordmark, without a link: the content of the brand link, and of the site switcher button where the switcher replaces it. */
+export function UxBrandMark(): React.ReactElement {
+  return (
+    <>
+      {/* Run O1 (H2a, owner 2026-10-25): the rabbit is the mark of the three sites, then the wordmark of the site: it replaces the letter tile
+          (F, O) of the hub and the anime site. */}
+      <Image src={`${BASE_PATH}/mascot/mascot-default.png`} alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
+      <span>{brandWordmark().head}<b className={TAIL_CLASS}>{brandWordmark().tail}</b></span>
+    </>
+  );
+}
+
 /**
  * The brand mark: the rabbit mascot, then the wordmark. DESIGN-SPEC 17.1 first
  * kept the live pink "K" tile; the owner asked on 2026-10-04 (F7b) for the rabbit of
@@ -23,14 +35,7 @@ const TAIL_CLASS = wordmarkTailClass();
  * The link is Home (16.5: logo = Home).
  */
 export function UxBrand({ href = '/', label = `${SITE.brand.name} home` }: { href?: string | null; label?: string }): React.ReactElement {
-  const inner = (
-    <>
-      {/* Run O1 (H2a, owner 2026-10-25): the rabbit is the mark of the three sites, then the wordmark of the site: it replaces the letter tile
-          (F, O) of the hub and the anime site. */}
-      <Image src={`${BASE_PATH}/mascot/mascot-default.png`} alt="" width={28} height={28} loading="eager" className="ux-brand-rabbit" aria-hidden="true" />
-      <span>{brandWordmark().head}<b className={TAIL_CLASS}>{brandWordmark().tail}</b></span>
-    </>
-  );
+  const inner = <UxBrandMark />;
   if (href === null) return <span className="ux-brand">{inner}</span>;
   return <Link href={href} className="ux-brand" aria-label={label}>{inner}</Link>;
 }
