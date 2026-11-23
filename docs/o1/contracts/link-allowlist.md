@@ -26,7 +26,7 @@ and is not a cross-site link in this sense. On top of the rows:
 
 | id | from | page | to | href | rel | query | max | source |
 |---|---|---|---|---|---|---|---|---|
-| footer | anime | * | hub | / | followed | no | 1 | Q B01, D1; flag NEXT_PUBLIC_NET_FOOTER; kpop dropped 2026-11-23 (rule 16: no site-wide footer link from kpopquiz.org) |
+| footer | anime | * | hub | / | followed | no | 1 | Q B01, D1; flag NEXT_PUBLIC_NET_FOOTER; kpop dropped 2026-11-23 (rule 16: no site-wide footer link from kpopquiz.org); unused while NEXT_PUBLIC_NET_FOOTER stays off (the flag gates NetFooterLine) |
 | about-kpop | kpop | /about | anime | / | followed | no | 1 | Q B17, D6; kpopquiz.org/about, launch file |
 | about-anime | anime | /about | kpop, hub | / | followed | no | 1 | Q B17, D6; otakuquiz.org/about (O1) |
 | team-article | kpop | (none yet) | anime | / | followed | no | 1 | Q B17, D6; one Team article on kpopquiz.org, its path set by a CR at launch |
