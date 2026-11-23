@@ -377,6 +377,7 @@ html.ux-v1[data-site="hub"] .hub-dle-yesterday { margin: 0; text-align: center; 
 html.ux-v1[data-site="hub"] .hub-dle-yesterday strong { color: var(--ux-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-root .hub-dle-yesterday a { font-weight: 700; color: var(--hub-dle-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-answer { margin: 0; font-size: 15px; line-height: 1.6; color: var(--hub-ink-3); max-width: 66ch; }
+html.ux-v1[data-site="hub"] .hub-dle-intro { max-width: 62ch; text-align: center; }
 html.ux-v1[data-site="hub"] .hub-dle-howto { border-radius: 18px; background: var(--hub-dle-card); border: 1px solid var(--hub-dle-line); }
 html.ux-v1[data-site="hub"] .hub-dle-howto summary { min-height: 58px; padding: 0 18px; }
 html.ux-v1[data-site="hub"] .hub-dle-howto summary > span { display: inline-flex; align-items: center; gap: 10px; }

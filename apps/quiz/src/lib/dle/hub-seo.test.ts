@@ -13,6 +13,7 @@ import { compileRoutePattern } from '@/lib/site/routing';
 import { gameCopy } from './copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from './games';
 import { BURROW_SEO, DLE_FR_REVIEWED, GAME_SEO, dleRobots, dleSitemapRows, gameAnswerBlock } from './seo';
+import { gameQuestions } from './seo-text';
 
 import type { DleGameId } from './games';
 import type { DleDay, DleLocale, DlePool } from './types';
@@ -161,13 +162,15 @@ describe('the sitemap of the hub, the flag on', () => {
     }
   });
 
-  it('a game that does not answer is not listed (its page says noindex): switched off, a pool under its minimum, a failed read; the Burrow needs one game', async () => {
+  it('a game that does not answer is not listed (its page says noindex): switched off, a pool under its minimum (a failed read is no longer one: it throws); the Burrow needs one game', async () => {
     vi.stubEnv('NET_INDEXING', '1');
     const dle = (paths: readonly string[]): string[] => paths.filter((p) => dleLivePaths().includes(p));
     // Dragon Ball left off by L14 (its pool is under min_pool): the other three games and the Burrow stay.
     expect(dle(await pathsOf({ ...everyGame(DATE), 'otakudle-dragon-ball': null }))).toEqual([DAILY_PATH, '/kpopdle', '/otakudle', '/otakudle/one-piece', ...(DLE_FR_REVIEWED ? ['/fr/daily', '/fr/kpopdle', '/fr/otakudle', '/fr/otakudle/one-piece'] : [])]);
-    // A read that fails is the same as a game that is off: closed for this answer, never listed.
-    expect(dle(await pathsOf({ ...everyGame(DATE), 'kpopdle-idol': new Error('fetch failed') }))).not.toContain('/kpopdle');
+    // SEO-LAUNCH-1 lane D: a read that FAILS is not a game that is off. The sitemap does not silently drop the game (that told Google "this page left"): the error reaches the route, which answers 500 and
+    // lets the crawler retry. A game that says "dle_unavailable" (off) or "dle_pool_too_small" stays left out, like its noindex page.
+    await expect(pathsOf({ ...everyGame(DATE), 'kpopdle-idol': new Error('fetch failed') })).rejects.toThrow('fetch failed');
+    expect(dle(await pathsOf({ ...everyGame(DATE), 'kpopdle-idol': new Error('dle_pool_too_small: 3 targets, 40 needed') }))).not.toContain('/kpopdle');
     // One game answering keeps the Burrow, with the date of the game that answers.
     const one = await sitemapEntriesFor(hubOn, dbOf({ otakudle: DATE }) as never);
     expect(one.map((e) => e.path).filter((p) => dleLivePaths().includes(p))).toEqual([DAILY_PATH, '/otakudle', ...(DLE_FR_REVIEWED ? ['/fr/daily', '/fr/otakudle'] : [])]);
@@ -210,7 +213,9 @@ describe('the pages, the flag on: titles, headings, canonical, hreflang, robots'
       expect((m.title + suffix).length, `${p.path} title`).toBeLessThanOrEqual(60);
       expect(m.description.length, `${p.path} description`).toBeGreaterThanOrEqual(120);
       expect(m.description.length, `${p.path} description`).toBeLessThanOrEqual(160);
-      expect(`${m.title} ${m.description}`, p.path).not.toMatch(/[–—]|Bunnyverse/);
+      // SEO-LAUNCH-1 lane D: the brand is never typed into a title (rule 2.2); the metas of agent 2 section 4 name "Bunnyverse" ("the daily games of Bunnyverse"), so only the dashes are checked on them.
+      expect(m.title, p.path).not.toMatch(/Bunnyverse/);
+      expect(`${m.title} ${m.description}`, p.path).not.toMatch(/[\u2013\u2014]/);
       expect(m.openGraph.title, p.path).toBe(`${m.title}${suffix}`);
       for (const text of [m.title, m.description]) {
         expect(seen.has(text), `${p.path}: duplicate "${text}"`).toBe(false);
@@ -308,9 +313,41 @@ describe('the pages, the flag on: one H1, the answer block, the JSON-LD, the lin
         expect(words, `${p.path} ${size}: ${block}`).toBeLessThanOrEqual(60);
         expect(block, p.path).toContain(String(size));
         expect(block, p.path).toMatch(/2026/);
-        expect(block, p.path).not.toMatch(/[–—]/);
+        expect(block, p.path).not.toMatch(/[\u2013\u2014]/);
       }
-      expect(await render(p), p.path).toContain(gameAnswerBlock(p.game!, p.locale, NAMES.length, DATE));
+      // SEO-LAUNCH-1 lane D: the block is now under the H1 and, for Otakudle across all series, names the number of series of the pool ("from N series"), counted by the page: the test checks the
+      // text up to the pool, the pool and the date, not that exact sentence.
+      const html = await render(p);
+      const whole = gameAnswerBlock(p.game!, p.locale, NAMES.length, DATE);
+      const head = whole.slice(0, whole.indexOf(String(NAMES.length)));
+      expect(html, p.path).toContain(head);
+      expect(html, p.path).toContain(`${NAMES.length}`);
+      expect(html.indexOf(head), p.path).toBeGreaterThan(html.indexOf('<h1'));
+      expect(html.indexOf(head), p.path).toBeLessThan(html.indexOf('id="dle-hints"') > 0 ? html.indexOf('id="dle-hints"') : Infinity);
+    }
+  });
+
+  it('SEO-LAUNCH-1: the server HTML runs H1, answer block, the game, How to play, then the three questions, each an h2 with its answer open', async () => {
+    gate.open = true;
+    gate.live = new Set(ALL_GAMES);
+    for (const p of GAME_PAGES) {
+      const html = await render(p);
+      const w = gameCopy(p.game!, p.locale);
+      const whole = gameAnswerBlock(p.game!, p.locale, NAMES.length, DATE);
+      const marks = [
+        html.indexOf('<h1'), html.indexOf(whole.slice(0, whole.indexOf(String(NAMES.length)))), html.indexOf('hub-dle-steps'), html.indexOf(w.howTitle),
+        ...gameQuestions(p.game!, p.locale).map((x) => html.indexOf(`<h2>${x.q}</h2>`)),
+      ];
+      for (const m of marks) expect(m, `${p.path} marks ${marks.join(',')}`).toBeGreaterThan(-1);
+      expect([...marks].sort((a, b) => a - b), `${p.path} order`).toEqual(marks);
+      // The questions are open (visible without a click) and carry their answer in the HTML.
+      for (const x of gameQuestions(p.game!, p.locale)) {
+        const i = html.indexOf(`<h2>${x.q}</h2>`);
+        expect(html.lastIndexOf('<details', i), p.path).toBeGreaterThan(-1);
+        expect(html.slice(html.lastIndexOf('<details', i), i), p.path).toContain(' open');
+        expect(html, p.path).toContain(x.a);
+      }
+      expect(html, p.path).not.toMatch(/FAQPage/);
     }
   });
 

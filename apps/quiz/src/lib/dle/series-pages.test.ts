@@ -203,7 +203,8 @@ describe('the words, in English and French', () => {
     expect(new Set(SERIES_GAMES.flatMap((id) => LOCALES.map((l) => GAME_SEO[id]!.description[l]))).size).toBe(4);
     const j = gameJsonLd('otakudle-one-piece', 'fr');
     expect(j.url).toBe('https://bunnyverse.org/fr/otakudle/one-piece');
-    expect(j.name).toBe('Otakudle Le personnage One Piece du jour');
+    expect(j.name).toBe('Otakudle One Piece by Bunnyverse');
+    expect(j.alternateName).toEqual(['Otakudle One Piece', 'Otakudle Le personnage One Piece du jour']);
     expect(JSON.stringify(j)).not.toMatch(/aggregateRating|numberOfPlayers/);
   });
 

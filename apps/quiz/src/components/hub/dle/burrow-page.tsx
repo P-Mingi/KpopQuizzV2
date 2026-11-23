@@ -18,7 +18,7 @@ import type { DleGameId } from '@/lib/dle/games';
 import type { DleLocale } from '@/lib/dle/types';
 
 export async function burrowFacts(): Promise<Readonly<Partial<Record<DleGameId, BurrowGameFacts>>>> {
-  const days = await Promise.all(builtGames().map(async (g) => [g.id, await getDleDay(g.id)] as const));
+  const days = await Promise.all(builtGames().map(async (g) => [g.id, await getDleDay(g.id, { strict: true })] as const));
   const out: Partial<Record<DleGameId, BurrowGameFacts>> = {};
   for (const [id, d] of days) {
     if (d) out[id] = { gameNo: d.game_no, stats: d.stats, yesterday: d.yesterday ? { gameNo: d.yesterday.game_no, answer: d.yesterday.answer } : null };

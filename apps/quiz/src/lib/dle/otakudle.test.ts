@@ -427,7 +427,8 @@ describe('Kpopdle Idol has no debut song hint (owner, for launch)', () => {
 describe('the words and the SEO of /otakudle', () => {
   it('section 11: the titles of v2, 60 or fewer with the suffix, descriptions of 120 to 160, the brand never typed, no competitor', () => {
     const seo = GAME_SEO.otakudle!;
-    expect(seo.title.en).toBe('Otakudle: Guess the Anime Character Daily');
+    // SEO-LAUNCH-1 lane D (owner, 2026-11-23): the title of agent 2 section 4, the same words as the H1.
+    expect(seo.title.en).toBe('Otakudle: Guess the Anime Character of the Day');
     expect(seo.title.fr).toBe('Otakudle : devine le perso d’anime du jour');
     for (const l of ['en', 'fr'] as const) {
       expect(`${seo.title[l]} | Bunnyverse`.length, l).toBeLessThanOrEqual(60);
