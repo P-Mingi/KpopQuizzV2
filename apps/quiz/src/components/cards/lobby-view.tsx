@@ -183,8 +183,9 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   return (
     <div className="wrap page packs2 lobby">
       <div className="p-head2">
-        <h1 className="h1" id="t-lobby">Your packs</h1>
-        <p className="lede">A free pack every 10 minutes, up to {cap} waiting. The stack is full again at midnight, Paris time.</p>
+        {/* The one H1 of /kpopcards is in the server HTML above (CardsIntro); "Your packs" is the H2 of this section. */}
+        <h2 className="h1" id="t-lobby">Your packs</h2>
+        <p className="lede">A free pack every {KC.PERIOD_MIN} minutes, up to {cap} waiting. The stack is full again at midnight, Paris time.</p>
       </div>
       {guest ? (
         <div className="guest" id="guest">
@@ -226,7 +227,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
           <div className="ichips">
             <span className="ichip">
               <span className="ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="bg" cx="24" cy="24" r="20" /></svg></span>
-              <span className="ct"><b className="num">10:00</b><small>next pack · every 10 mins</small></span>
+              <span className="ct"><b className="num">10:00</b><small>next pack · every {KC.PERIOD_MIN} mins</small></span>
             </span>
             <span className="ichip">
               <span className="moon"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg></span>
@@ -234,7 +235,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
             </span>
             <span className="ichip gold">
               <span className="moon gold"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-UR" /></svg></span>
-              <span className="ct"><b className="num">30 packs</b><small>to a sure Gold</small></span>
+              <span className="ct"><b className="num">{KC.GOLD_BY_PACK} packs</b><small>to a sure Gold</small></span>
               <span className="pity" aria-hidden="true"><i /></span>
             </span>
           </div>

@@ -6,6 +6,7 @@
 import { builtGames, DAILY_PATH } from '@/lib/dle/games';
 import { readDay } from '@/lib/dle/read';
 import { dleSitemapRows } from '@/lib/dle/seo';
+import { cardsSitemapRows } from '@/lib/kpopcards/seo';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { loadSeriesDirectory } from '@/lib/anime/directory';
@@ -165,6 +166,7 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
     return [
       home,
       ...dle,
+      ...cardsSitemapRows(),
       { path: '/privacy', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/legal', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       // Launch polish (owner, 2026-11-20): the terms, the contact page and the DMCA page, indexable like /legal (components/hub/legal).
