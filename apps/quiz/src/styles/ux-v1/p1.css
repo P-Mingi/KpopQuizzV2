@@ -226,11 +226,11 @@
 .p1-qdone { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; background: var(--ux-pink-soft); color: var(--ux-pink-soft-ink); font-size: 12px; font-weight: 600; line-height: 1.6; }
 
 /* Owner, 2026-11-23: "Put the daily game and daily quiz side by side" (ux-home.tsx). On kpopquiz.org the quiz of the day and the Kpopdle card
-   share one row from 961px, the same height, each with its button at its foot; below, one under the other (on a phone the quiz of the day is the
-   header's chip, so the Kpopdle card shows alone). The KpopCards banner under them keeps the same 24px gap (it touched the quiz of the day). */
+   share one row from 761px (owner: "both in the same row side by side"), the same height, each with its button at its foot; on a phone the quiz
+   of the day is the header's chip, so the Kpopdle card shows alone. A narrow Kpopdle card puts its picture above its text (kpopdle-home.tsx). The KpopCards banner under them keeps the same 24px gap (it touched the quiz of the day). */
 .p1-today { display: grid; gap: 24px; }
 .p1-cards { margin-top: 24px; }
-@media (min-width: 961px) {
+@media (min-width: 761px) {
   .p1-today { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
   .p1-today .p1-qotd { flex-direction: column; align-items: flex-start; gap: 16px; padding: 22px 24px; }
   .p1-today .p1-qd-main { flex: 1 1 auto; width: 100%; }

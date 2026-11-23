@@ -56,7 +56,7 @@ const TILE_CLASS = { '': 'p1-kd-t', n: 'p1-kd-t p1-kd-near', o: 'p1-kd-t p1-kd-o
 // a pink label (the h2 "Daily game") with the game number beside it, the title, one line of facts, then the actions at the foot of the card. ux-home.tsx
 // sets it next to the quiz of the day (p1-today in styles/ux-v1/p1.css); alone, it takes the full width with the same layout.
 const CSS = `
-.p1-kd { height: 100%; }
+.p1-kd { height: 100%; container: p1kd / inline-size; }
 .p1-kd-card { position: relative; box-sizing: border-box; display: flex; align-items: flex-start; gap: 20px; height: 100%; padding: 22px 24px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); transition: border-color .15s; }
 .p1-kd-card:has(.p1-kd-go:hover) { border-color: var(--ux-pink-ink); }
 .p1-kd-tiles { flex: none; display: grid; grid-template-columns: repeat(4, 16px); gap: 4px; padding: 12px; border-radius: 16px; background: var(--ux-pink-soft); }
@@ -76,6 +76,11 @@ const CSS = `
 .p1-kd-go { flex: 0 0 auto; height: 44px; justify-content: center; }
 .p1-kd-go svg { width: 14px; height: 14px; }
 .p1-kd-acts .ux-lnk { font-size: 14px; }
+/* Next to the quiz of the day on a mid-size screen the card is narrow: the picture goes above the text, as on a phone. */
+@container p1kd (max-width: 440px) {
+  .p1-kd-card { flex-direction: column; gap: 14px; }
+  .p1-kd-main { width: 100%; }
+}
 @media (max-width: 560px) {
   /* The same stack as the Daily games cards of OtakuQuiz (anime-daily-home.tsx): tiles, text, then the full-width button. */
   .p1-kd-card { flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; }

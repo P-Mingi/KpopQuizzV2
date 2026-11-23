@@ -54,7 +54,7 @@ export async function UxHome({ head, afterHeader }: {
   // Not a health.read: a Kpopdle that is down hides its module, it never costs the home its cache (CR-018).
   // P5 (CR-025), link 10: on the OtakuQuiz build the same place holds the Daily games module instead (the two loaders are closed on the other site, so each build gets at most one).
   // Owner, 2026-11-23: "Put the daily game and daily quiz side by side". On kpopquiz.org the Kpopdle card sits next to the quiz of the day (p1-today:
-  // two columns from 961px, one under the other below); the OtakuQuiz Daily games module keeps its place under Continue playing.
+  // two columns from 761px, the owner's "same row"; on a phone the quiz of the day is the header chip); the OtakuQuiz Daily games module keeps its place under Continue playing.
   const kpopdle = await loadKpopdleHome();
   const animeDaily = kpopdle ? null : await loadAnimeDailyHome();
   // Bunnyverse Cards (lane B, NET_CARDS_BRIDGES, off by default): the KpopCards banner rides in the quiz-of-the-day slot, right under it, with a

@@ -60,13 +60,17 @@ describe('1 and 2. the quiz of the day and the Kpopdle card side by side, a gap 
     expect(anime).toHaveBeenCalledTimes(1);
   });
 
-  it('the styles: two equal columns from 961px, one under the other below, the 24px gaps', () => {
+  it('the styles: two equal columns from 761px ("both in the same row side by side"), the 24px gaps; a narrow Kpopdle card stacks its picture', () => {
     const css = src('../../../styles/ux-v1/p1.css');
     expect(css).toContain('.p1-today { display: grid; gap: 24px; }');
     expect(css).toContain('.p1-cards { margin-top: 24px; }');
-    const wide = css.slice(css.indexOf('@media (min-width: 961px)'));
+    const wide = css.slice(css.indexOf('@media (min-width: 761px)'));
     expect(wide).toContain('.p1-today { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }');
     expect(wide).toContain('.p1-today .p1-qotd { flex-direction: column;');
+    expect(css).not.toContain('961px');
+    const kd = src('./kpopdle-home.tsx');
+    expect(kd).toContain('.p1-kd { height: 100%; container: p1kd / inline-size; }');
+    expect(kd).toContain('@container p1kd (max-width: 440px) {\n  .p1-kd-card { flex-direction: column; gap: 14px; }');
   });
 });
 
