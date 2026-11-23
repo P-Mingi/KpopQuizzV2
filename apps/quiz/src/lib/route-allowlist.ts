@@ -32,6 +32,8 @@ export const KNOWN_ROUTES = [
   '/kpop-games',
   '/login', '/onboarding', '/settings', '/admin', '/banned', '/auth/', '/api/',
   '/sitemap.xml', '/robots.txt', '/llms.txt',
+  // LAUNCH-POLISH-2 E (2026-11-23): /ads.txt of kpopquiz.org (app/ads.txt/route.ts, the AdSense line; 404 while the variable is unset).
+  '/ads.txt',
   // O1 audit 03 P2-1: the segment sitemaps, /sitemaps/<segment>.xml (app/sitemaps/[segment]/route.ts).
   '/sitemaps/',
   // '/me' (the passport, where /profile redirects) and '/notifications' (the
