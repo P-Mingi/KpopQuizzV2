@@ -2,6 +2,7 @@
 import { adsPerDay } from '../cards/flags';
 
 import { KC } from './contract';
+import { dupBiasExempt, dupBiasRule } from './dup-text';
 
 import type { HelpData } from './contract';
 
@@ -18,6 +19,7 @@ export function helpData(): HelpData {
     faq: [
       { q: 'Is it free?', a: 'Yes. Packs come from the timer, the pack of the day, sets and the weekly list. No pack is sold for money.' },
       { q: 'Why does an idol have fewer editions than another?', a: 'Each edition uses its own free photo, taken on a different day. When another free photo is approved, the next edition is issued.' },
+      { q: 'How often do I get a card I already own?', a: `${dupBiasRule()} ${dupBiasExempt()}` },
       { q: 'What happens to my extra copies?', a: 'You can recycle them into shards. One copy of every card stays, locked cards are never recycled, and Gold and Full Art extras are never recycled in bulk.' },
       { q: 'What does the lock do?', a: 'A locked card can never be recycled by mistake.' },
       { q: 'Who can see my collection?', a: 'Your nickname, level, completion, three starred cards and badges are public in the ranking. Your wishlist is visible to your friends only. There is no chat.' },

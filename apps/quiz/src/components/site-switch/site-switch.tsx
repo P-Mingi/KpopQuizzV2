@@ -5,6 +5,11 @@
 // separator and the Bunnyverse row (black chip, arrow). On a phone (up to 760px) the panel spans the width under the bar with 10px margins and a
 // scrim behind it, rows of 64px. Tokens of the site only, no new font or dependency. The links are always in the served HTML (nofollow, through
 // the signed-in jump), so a closed panel changes nothing for a crawler. The Home link is still in the nav links and the tab bar.
+// Hub (owner, 2026-11-23): the same component in the bars of the hub (the shell's, the home's and the daily games'); there the current row is Bunnyverse
+// (a non-link row after the separator, with the check), KpopQuiz and OtakuQuiz are links. 'use client' so the hub's server bars can render it.
+// French (integrator, 2026-11-23): on the hub's French pages (the daily games under /fr) the menu speaks French; the site names stay as they are.
+'use client';
+
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { UxBrandMark } from '@/components/ux-v1/brand';
@@ -12,7 +17,12 @@ import { Icon } from '@/components/ux-v1/icon';
 
 import type { SiteSwitchModel, SwitchItem } from '@/lib/site-switch/model';
 
-const BLURB: Readonly<Record<string, string>> = { kpop: 'K-pop quizzes', anime: 'Anime quizzes', hub: 'Every site, one passport' };
+export type SwitchLocale = 'en' | 'fr';
+/** The words of the menu: its label and the line under each site name. */
+export const SWITCH_COPY: Readonly<Record<SwitchLocale, { readonly label: string; readonly blurb: Readonly<Record<string, string>> }>> = {
+  en: { label: 'Switch site', blurb: { kpop: 'K-pop quizzes', anime: 'Anime quizzes', hub: 'Every site, one passport' } },
+  fr: { label: 'Changer de site', blurb: { kpop: 'Quiz K-pop', anime: 'Quiz anime', hub: 'Tous les sites, un seul passeport' } },
+};
 const INITIAL: Readonly<Record<string, string>> = { kpop: 'K', anime: 'O', hub: 'B' };
 // Chip fills: the accent fill of each site (registry tokens pink-fill: kpop #D13A6E, OtakuQuiz #C2410C), white initial, 4.5:1 or more in both
 // themes (kpop 4.9, OtakuQuiz 5.18). The Bunnyverse chip is the ink of the hub; in dark mode it turns to the light ink so it stays visible.
@@ -48,7 +58,8 @@ const CSS = [
   '@media (prefers-reduced-motion:reduce){.ux-sw-btn .ux-sw-chev{transition:none}}',
 ].join('');
 
-export function SiteSwitch({ model }: { model: SiteSwitchModel }): React.ReactElement {
+export function SiteSwitch({ model, locale = 'en' }: { model: SiteSwitchModel; locale?: SwitchLocale }): React.ReactElement {
+  const copy = SWITCH_COPY[locale];
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const root = useRef<HTMLDivElement>(null);
@@ -74,23 +85,23 @@ export function SiteSwitch({ model }: { model: SiteSwitchModel }): React.ReactEl
         <Icon name="chev" className="ux-sw-chev" />
       </button>
       <div className="ux-sw-scrim" aria-hidden="true" onClick={() => setOpen(false)} />
-      <nav className="ux-sw-menu" id={menuId} aria-label="Switch site">
-        <p className="ux-sw-lab" aria-hidden="true">Switch site</p>
+      <nav className="ux-sw-menu" id={menuId} aria-label={copy.label}>
+        <p className="ux-sw-lab" aria-hidden="true">{copy.label}</p>
         <ul className="ux-sw-list">
-          {quiz.map((it) => <li key={it.id}><Row item={it} /></li>)}
+          {quiz.map((it) => <li key={it.id}><Row item={it} blurb={copy.blurb[it.id] ?? ''} /></li>)}
           {hub ? <li className="ux-sw-sep" role="separator" /> : null}
-          {hub ? <li><Row item={hub} /></li> : null}
+          {hub ? <li><Row item={hub} blurb={copy.blurb.hub ?? ''} /></li> : null}
         </ul>
       </nav>
     </div>
   );
 }
 
-function Row({ item }: { item: SwitchItem }): React.ReactElement {
+function Row({ item, blurb }: { item: SwitchItem; blurb: string }): React.ReactElement {
   const body = (
     <>
       <span className="ux-sw-chip" data-chip={item.id} style={item.id === 'hub' ? undefined : { background: CHIP_FILL[item.id] ?? '#1F1B17' }} aria-hidden="true">{INITIAL[item.id] ?? item.label.slice(0, 1)}</span>
-      <span className="ux-sw-t"><b>{item.label}</b><small>{BLURB[item.id] ?? ''}</small></span>
+      <span className="ux-sw-t"><b>{item.label}</b><small>{blurb}</small></span>
       {item.href === null ? <Check /> : item.id === 'hub' ? <Arrow /> : null}
     </>
   );
