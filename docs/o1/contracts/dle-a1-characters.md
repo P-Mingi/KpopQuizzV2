@@ -117,7 +117,7 @@ Two more games on the same engine, one series each: `otakudle-one-piece` (page `
 | | affiliation | multi (one crew in common is near) | the current crews, main one first |
 | | devil_fruit_type | single | `Paramecia`, `Zoan`, `Logia`, `none` |
 | | haki | multi (overlapping sets are near) | `observation`, `armament`, `conqueror`; `none` for no haki |
-| | bounty | number, arrows | berries; `0` with `l` "No bounty" |
+| | bounty | number, arrows | berries; `0` with `l` "No bounty"; the text `"Unknown"` for a bounty that exists but was never revealed (L37: Dragon, Rayleigh, Oden): two Unknown match, Unknown against anything else is wrong with no arrow and never close |
 | | height_cm | number, arrows | cm; a single Fandom source is accepted (owner exception) |
 | | sea_of_origin | single | the sea |
 | | debut_arc | ordinal, arrows | the arc order, `l` the arc name |
