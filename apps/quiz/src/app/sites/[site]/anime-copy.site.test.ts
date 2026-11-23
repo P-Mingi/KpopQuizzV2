@@ -27,7 +27,7 @@ const MAILBOX = 'hello@kpopquiz.org';
 
 describe('the anime pages that were kpop copies', () => {
   const pages: Array<[string, () => Promise<{ default: () => unknown; metadata?: unknown; generateMetadata?: () => unknown }>]> = [
-    ['about', () => import('./(anime)/about/page') as never],
+    ['about', () => import('./about/page') as never],
     ['editorial policy', () => import('./(anime)/editorial-policy/page') as never],
     ['contact', () => import('./contact/page') as never],
     ['terms', () => import('./terms/page') as never],

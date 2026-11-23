@@ -25,7 +25,9 @@ describe('organizationJsonLdFor', () => {
       const { organizationJsonLdFor } = await onSite(site, () => import('./jsonld'));
       const org = organizationJsonLdFor();
       expect(org).toMatchObject({ '@type': 'Organization', name, url: origin });
-      expect(String(org.logo)).toMatch(new RegExp(`^${origin.replace(/[.]/g, '\\.')}/brand/${site}/`));
+      // SEO-LAUNCH-1 (owner request, 2026-11-23): the hub's Organization carries the rabbit of its own bar, no longer kpopquiz's pink star of public/brand/hub/logo-512.png.
+      if (site === 'hub') expect(org.logo).toBe('https://bunnyverse.org/mascot/mascot-default.png');
+      else expect(String(org.logo)).toMatch(new RegExp(`^${origin.replace(/[.]/g, '\\.')}/brand/${site}/`));
       expect(org).not.toHaveProperty('founder');
       expect(org).not.toHaveProperty('sameAs');
       // The organization mailbox is the one network mailbox (owner, 2026-10-25), the same on every site.

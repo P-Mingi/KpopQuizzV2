@@ -166,12 +166,26 @@ export function writeSettings(store: KeyStore, s: DleSettings): void {
 }
 
 /**
- * The language rule (v2 section 4): a choice is kept; with none, a browser in French reads French, any other language reads English. It runs in
- * the browser only, never from the IP address, and a crawler always gets the page it asked for. Returns the locale to go to, or null to stay.
+ * The language the visitor wants (v2 section 4): a choice is kept; with none, a browser in French reads French, any other language reads English. It runs in
+ * the browser only, never from the IP address. Since SEO-LAUNCH-1 only an explicit choice redirects (savedLanguageTarget); with none, this feeds a visible link (languageHint).
+ * Returns the locale wanted if it is not the current one, or null.
  */
 export function languageTarget(choice: LangChoice, browserLanguage: string | undefined, current: DleLocale): DleLocale | null {
   const wanted: DleLocale = choice !== 'auto' ? choice : /^fr\b/i.test(browserLanguage ?? '') ? 'fr' : 'en';
   return wanted === current ? null : wanted;
+}
+
+/**
+ * SEO-LAUNCH-1, rule 10.5 (no language redirect without a choice): a page moves the visitor to the other language only when the visitor saved an explicit choice (settings or the FR/EN
+ * switch). With no choice ('auto') nothing moves: the page stays what the URL says, for the visitor and for a crawler alike. Returns the locale to go to, or null to stay.
+ */
+export function savedLanguageTarget(choice: LangChoice, current: DleLocale): DleLocale | null {
+  return choice !== 'auto' && choice !== current ? choice : null;
+}
+
+/** With no saved choice, the language the visitor's browser prefers when it is not the page's: the page offers a visible link to it, it never redirects. Null: no hint. */
+export function languageHint(choice: LangChoice, browserLanguage: string | undefined, current: DleLocale): DleLocale | null {
+  return choice === 'auto' ? languageTarget('auto', browserLanguage, current) : null;
 }
 
 // ---- transfer and erase ---------------------------------------------------------------------------------------------------------

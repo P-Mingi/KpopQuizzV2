@@ -156,8 +156,10 @@ describe('point 1: closed is a draft, open is the policy', () => {
     expect((await hubSitemap('', '2026-11-01')).map((e) => e.path)).toEqual(['/']);
     const open = await hubSitemap('1', '2026-11-01');
     // Launch polish (owner, 2026-11-20): /terms, /contact and /dmca join the legal pages.
-    expect(open.map((e) => e.path)).toEqual(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca']);
-    for (const e of open.slice(1)) expect(e.lastModified?.toISOString(), e.path).toBe('2026-11-01T00:00:00.000Z');
+    // SEO-LAUNCH-1 (lane C): /about joins them, dated by its own last change (lib/site/hub/about.ts), not by the launch date.
+    expect(open.map((e) => e.path)).toEqual(['/', '/privacy', '/legal', '/terms', '/contact', '/dmca', '/about']);
+    for (const e of open.slice(1, -1)) expect(e.lastModified?.toISOString(), e.path).toBe('2026-11-01T00:00:00.000Z');
+    expect(open.at(-1)?.lastModified?.toISOString()).toBe('2026-11-23T00:00:00.000Z');
   });
 });
 

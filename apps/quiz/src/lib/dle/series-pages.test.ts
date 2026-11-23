@@ -12,7 +12,7 @@ import { isKnownRouteFor, rewritesFor } from '@/lib/site/routing';
 
 import { dleCopy, gameCopy, hintValueLabel, valueLabel } from './copy';
 import { DLE_GAMES, builtGames, dleGame, futurePaths, livePaths, localePath, seriesPath } from './games';
-import { GAME_SEO, dleAlternates, dleRobots, gameAnswerBlock, gameJsonLd } from './seo';
+import { DLE_FR_REVIEWED, GAME_SEO, dleAlternates, dleRobots, gameAnswerBlock, gameJsonLd } from './seo';
 import { parseShareImage } from './share-image';
 import { shareText } from './share';
 import { ALIGNMENT, HAKI, LABEL_FR, VALUE_FR, seriesValueLabel } from './value-i18n';
@@ -553,7 +553,7 @@ describe('the pages behind the flag', () => {
     }
   });
 
-  it('flag on: the metadata is the page\'s own: title, canonical, hreflang both ways, index in English, noindex in French until the owner reviewed it', async () => {
+  it('flag on: the metadata is the page\'s own: title, canonical, hreflang both ways, index in English, index in French once the owner reviewed it (DLE_FR_REVIEWED)', async () => {
     for (const [rel, id, l] of PAGES) {
       gate.open = true;
       gate.day = DAY(id);
@@ -566,7 +566,8 @@ describe('the pages behind the flag', () => {
       expect(meta.alternates).toEqual(dleAlternates(enPath, l));
       expect(meta.alternates.canonical).toBe(l === 'fr' ? `/fr${enPath}` : enPath);
       expect(meta.alternates.languages).toEqual({ en: enPath, fr: `/fr${enPath}`, 'x-default': enPath });
-      expect(meta.robots.index, `${rel} index`).toBe(l === 'en');
+      // Owner rule of 2026-11-23: the French pages are reviewed, so they say index like the English ones.
+      expect(meta.robots.index, `${rel} index`).toBe(l === 'en' || DLE_FR_REVIEWED);
       expect(meta.robots).toEqual(dleRobots(l, true));
     }
     // a game with no pool says noindex, in English too

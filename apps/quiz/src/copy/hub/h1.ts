@@ -178,6 +178,7 @@ export const COPY = {
   'hp.foot.tag': 'Daily games and quizzes for K-pop and anime fans. One passport shared by {kpopName} and {animeName}. Every fact sourced.',
   'hp.foot.burrow': 'Daily games',
   'hp.foot.about': 'About',
+  'hp.foot.aboutLink': 'About us',
   'hp.foot.privacy': 'Privacy',
   'hp.foot.legal': 'Legal notice',
   'home.cardPitch': 'Fan-made quizzes about {topicPlural} and their {memberPlural}.',

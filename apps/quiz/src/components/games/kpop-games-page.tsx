@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { NetEditorialLink } from '@/components/network/net-editorial-link';
 import { UxPage } from '@/components/ux-v1/page';
 import {
   DIFFICULTY_MIN_ATTEMPTS,
@@ -18,6 +19,7 @@ import {
   groupGrid,
   monthLabel,
 } from '@/lib/games/registry';
+import { hubGameOpen } from '@/lib/passerelles/open';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 import { exact } from '@/lib/stats/site-stats';
 import { jsonLdScript } from '@/lib/verse/jsonld';
@@ -149,6 +151,18 @@ export function KpopGamesPage({ data }: { data: KpopGamesData }): React.ReactEle
           ) : null}
         </section>
       ))}
+
+      {/* SEO-LAUNCH-1 (lane C, owner 2026-11-23, rule 8.3): Kpopdle, the daily idol game of the sister site, one followed link in context (link-allowlist row kpop-games-kpopdle). It is not
+          one of the games counted above: they are the games of this site. Only while the hub serves the page. */}
+      {hubGameOpen('kpopdle-idol') ? (
+        <section className="ux-sec kg-sec" aria-labelledby="kg-daily-h">
+          <h2 id="kg-daily-h" className="ux-h2">Is there a daily K-pop idol guessing game?</h2>
+          <p>
+            Yes. <NetEditorialLink dst="hub" path="/kpopdle">Kpopdle</NetEditorialLink> is a free daily game on our sister site Bunnyverse: guess the K-pop idol of the day from the group, the agency,
+            the birth year and more. Guesses are unlimited and a new idol comes at midnight UTC.
+          </p>
+        </section>
+      ) : null}
 
       <section className="ux-sec kg-sec" aria-labelledby="kg-friends-h">
         <h2 id="kg-friends-h" className="ux-h2">K-pop games to play with friends</h2>

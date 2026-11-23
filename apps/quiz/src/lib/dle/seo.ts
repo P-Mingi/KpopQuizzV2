@@ -1,6 +1,7 @@
 // Daily games step 4: the SEO of the pages of the Terrier (RAPPORT-JEUX-DU-JOUR-v2.md section 11). Titles, descriptions, answer blocks, hreflang, robots, JSON-LD, sitemap rows. Pure: every
 // number arrives as an argument. The answer of the day is never here: only the pool and yesterday's name are ever on a page, and only in the HTML.
 import { indexingOpenFor, robotsFor } from '../site/indexing';
+import { HUB_ORGANIZATION_ID } from '../site/jsonld';
 import { NETWORK } from '../site/registry';
 
 import { DAILY_PATH, FR_CREDITS_PATH, builtGames, dleGame, localePath } from './games';
@@ -10,10 +11,12 @@ import type { DleLocale } from './types';
 import type { Metadata } from 'next';
 
 /**
- * Rule 10 of the rulebook: a French page is indexed once its native reviewer approved it. The owner reads the French at the launch (v2 section 4) and sets this to true. Until
- * then every /fr page says noindex and stays out of the sitemap; hreflang is already reciprocal, the pages being true equivalents.
+ * Rule 10.3 of the rulebook: a French page is indexed once its native reviewer approved it, recorded as who and when (reviewed_by, reviewed_at), like every review of the repo.
+ * Owner, 2026-11-23: he read the French pages of the hub (/fr/daily, /fr/kpopdle, /fr/otakudle and its series, /fr/credits) and approved them. The review lives here, in code, not in
+ * the database: nothing to apply. Set `reviewed_by` to null to take every /fr page back to noindex, out of the sitemap and out of the hreflang of the English pages.
  */
-export const DLE_FR_REVIEWED = false;
+export const DLE_FR_REVIEW: { readonly reviewed_by: string | null; readonly reviewed_at: string | null } = { reviewed_by: 'owner', reviewed_at: '2026-11-23' };
+export const DLE_FR_REVIEWED: boolean = DLE_FR_REVIEW.reviewed_by !== null && DLE_FR_REVIEW.reviewed_at !== null;
 
 type L10n = Readonly<Record<DleLocale, string>>;
 
@@ -86,10 +89,14 @@ export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: nu
   return GAME_SEO[game]?.description[locale] ?? '';
 }
 
-/** Canonical on the clean address of the page, hreflang reciprocal between the two locales, x-default on English (rule 10.5). */
-export function dleAlternates(enPath: string, locale: DleLocale): NonNullable<Metadata['alternates']> {
+/**
+ * Canonical on the clean address of the page; hreflang reciprocal between the two locales, x-default on English (rule 10.5), only between true equivalents that are both indexable:
+ * never an hreflang to a noindex page, so with `hreflang` false (French not reviewed, or the page has no content and says noindex) the page carries its canonical alone.
+ */
+export function dleAlternates(enPath: string, locale: DleLocale, hreflang: boolean = DLE_FR_REVIEWED): NonNullable<Metadata['alternates']> {
   const fr = localePath(enPath, 'fr');
-  return { canonical: locale === 'fr' ? fr : enPath, languages: { en: enPath, fr, 'x-default': enPath } };
+  const canonical = locale === 'fr' ? fr : enPath;
+  return hreflang ? { canonical, languages: { en: enPath, fr, 'x-default': enPath } } : { canonical };
 }
 
 /** A page says index only when it has its content and, in French, once the owner reviewed it. */
@@ -100,7 +107,7 @@ export function dleRobots(locale: DleLocale, hasContent: boolean): NonNullable<M
 export function dleMetadata(enPath: string, locale: DleLocale, seo: { readonly title: L10n; readonly description: L10n }, hasContent: boolean, image: string): Metadata {
   const title = seo.title[locale];
   const description = seo.description[locale];
-  const alternates = dleAlternates(enPath, locale);
+  const alternates = dleAlternates(enPath, locale, hasContent && DLE_FR_REVIEWED);
   return {
     title, description, alternates, robots: dleRobots(locale, hasContent),
     openGraph: { type: 'website', siteName: 'Bunnyverse', title: `${title} | Bunnyverse`, description, url: `${NETWORK.url}${String(alternates.canonical)}`, images: [{ url: image, width: 1200, height: 630, alt: 'Bunnyverse' }], locale: locale === 'fr' ? 'fr_FR' : 'en_US' },
@@ -131,7 +138,7 @@ export function gameJsonLd(game: DleGameId, locale: DleLocale): Record<string, u
     operatingSystem: 'Any',
     genre: 'Puzzle',
     isAccessibleForFree: true,
-    publisher: { '@type': 'Organization', name: 'Bunnyverse', url: NETWORK.url },
+    publisher: { '@id': HUB_ORGANIZATION_ID },
   };
 }
 

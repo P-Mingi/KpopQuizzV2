@@ -78,6 +78,8 @@ export function DleChrome({ locale, enPath, current, tools, className, showCredi
             </div>
             <div className="hub-h2-foot-col">
               <span className="hub-h2-foot-h">{t.footAbout}</span>
+              {/* The trust page (rule 12) is in English only, so both languages link the same address. */}
+              <a href={withBasePath('/about')} className="hub-h2-foot-a">{locale === 'fr' ? 'À propos de Bunnyverse' : 'About Bunnyverse'}</a>
               <a href={withBasePath('/privacy')} className="hub-h2-foot-a">{t.footPrivacy}</a>
               <a href={withBasePath('/legal')} className="hub-h2-foot-a">{t.footLegal}</a>
               {showCredits ? <a href={withBasePath(localePath('/credits', locale))} className="hub-h2-foot-a">{t.footCredits}</a> : null}
