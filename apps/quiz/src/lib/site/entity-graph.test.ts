@@ -34,7 +34,8 @@ describe('the entity graph', () => {
     const { organizationJsonLdFor, HUB_ORGANIZATION_ID } = await onSite('anime', () => import('./jsonld'));
     const org = organizationJsonLdFor();
     expect(org['@id']).toBe('https://bunnyverse.org/anime/#organization');
-    expect(org.parentOrganization).toEqual({ '@id': HUB_ORGANIZATION_ID });
+    // SEO-LAUNCH-1 review fix 10: the parent is an inline Organization (type, id, name, url), not a bare @id reference.
+    expect(org.parentOrganization).toEqual({ '@type': 'Organization', '@id': HUB_ORGANIZATION_ID, name: 'Bunnyverse', url: 'https://bunnyverse.org' });
     expect(org).not.toHaveProperty('sameAs');
   });
 
@@ -44,7 +45,7 @@ describe('the entity graph', () => {
     expect(ORGANIZATION_ID).toBe('https://kpopquiz.org/#organization');
     expect(WEBSITE_ID).toBe('https://kpopquiz.org/#website');
     expect(org['@id']).toBe(ORGANIZATION_ID);
-    expect(org.parentOrganization).toEqual({ '@id': 'https://bunnyverse.org/#organization' });
+    expect(org.parentOrganization).toEqual({ '@type': 'Organization', '@id': 'https://bunnyverse.org/#organization', name: 'Bunnyverse', url: 'https://bunnyverse.org' });
     expect(JSON.stringify(org.sameAs)).not.toMatch(/bunnyverse|otakuquiz/i);
   });
 

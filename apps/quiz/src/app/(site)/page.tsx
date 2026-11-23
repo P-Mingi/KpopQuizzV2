@@ -273,7 +273,7 @@ const WEBSITE_JSON_LD = {
   // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
   alternateName: 'kpopquiz.org',
   url: 'https://kpopquiz.org',
-  description: 'K-pop quizzes made by fans, played by thousands.',
+  description: 'K-pop quizzes made by fans, for fans: play and create quizzes about BTS, BLACKPINK, Stray Kids, aespa, NewJeans and many more groups.',
   publisher: { '@id': ORGANIZATION_ID },
   potentialAction: {
     '@type': 'SearchAction',

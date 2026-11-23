@@ -345,7 +345,8 @@ describe('the pages, the flag on: one H1, the answer block, the JSON-LD, the lin
         const i = html.indexOf(`<h2>${x.q}</h2>`);
         expect(html.lastIndexOf('<details', i), p.path).toBeGreaterThan(-1);
         expect(html.slice(html.lastIndexOf('<details', i), i), p.path).toContain(' open');
-        expect(html, p.path).toContain(x.a);
+        // Review fix 17: "Bunnyverse" of the third answer is a link to /about, so the text is compared without its tags.
+        expect(html.replace(/<[^>]+>/g, ''), p.path).toContain(x.a);
       }
       expect(html, p.path).not.toMatch(/FAQPage/);
     }

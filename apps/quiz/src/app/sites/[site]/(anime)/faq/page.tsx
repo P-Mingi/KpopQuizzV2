@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions',
   description:
-    'Answers to common questions about OtakuQuiz: is it free, do you need an account, how to create a anime quiz, which series are covered, the mini-games, and more.',
+    'Answers to common questions about OtakuQuiz: is it free, do you need an account, how to create an anime quiz, which series are covered, the mini-games, and more.',
   alternates: { canonical: '/faq' },
   openGraph: {
     title: 'OtakuQuiz FAQ',

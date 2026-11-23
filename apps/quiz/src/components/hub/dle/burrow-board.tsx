@@ -35,6 +35,8 @@ type ModeState = { readonly kind: 'done'; readonly won: boolean; readonly guesse
 interface BurrowBoardProps {
   readonly locale: DleLocale;
   readonly dateLabel: string;
+  /** The answer block under the H1 (lib/dle/seo.ts burrowAnswerBlock, 40 to 60 words, server HTML, never the answer of the day). */
+  readonly answer?: string;
   readonly facts: Readonly<Partial<Record<DleGameId, BurrowGameFacts>>>;
   readonly images: DleImages;
   /** Group name to the address of its quiz on KpopQuiz: the link of an answer. */
@@ -49,7 +51,7 @@ function stateOf(mode: DleMode, plays: Readonly<Record<string, ModeState>>): Mod
   return plays[g.id] ?? { kind: 'todo' };
 }
 
-export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks, stickers = [] }: BurrowBoardProps): React.ReactElement {
+export function BurrowBoard({ locale, dateLabel, answer, facts, images, quizLinks, stickers = [] }: BurrowBoardProps): React.ReactElement {
   const t = dleCopy(locale);
   const client = useDleClient();
   const left = useResetCountdown();
@@ -171,7 +173,7 @@ export function BurrowBoard({ locale, dateLabel, facts, images, quizLinks, stick
           <div>
             <p className="hub-dle-date">{dateLabel}</p>
             <h1 id="dle-h1">{t.burrowH1}</h1>
-            <p className="hub-dle-lead">{t.burrowLead}</p>
+            {answer ? <p className="hub-dle-lead" id="dle-answer">{answer}</p> : null}
           </div>
         </div>
         <p className="hub-dle-next"><Ic d={D.clock} size={17} />{t.nextPuzzles} <span className="hub-dle-num">{clock(left)}</span></p>

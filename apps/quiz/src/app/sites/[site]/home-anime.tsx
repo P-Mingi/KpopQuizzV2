@@ -41,7 +41,7 @@ function homeCopy(quizzes: string | null): { title: string; social: string; desc
   return {
     title: `Anime Quiz - ${n}Free Fan-Made Quizzes for Every Series`,
     social: `Anime Quiz - ${n}Free Fan-Made Quizzes | OtakuQuiz`,
-    description: `Play ${n}free anime quizzes made by real fans. Test your knowledge of your favourite series. No sign-up.`,
+    description: `Play ${n}free anime quizzes made by real fans, with a spoiler shield that hides what you have not watched. Test your knowledge of your favourite series.`,
   };
 }
 

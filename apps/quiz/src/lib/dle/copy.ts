@@ -16,7 +16,7 @@ export interface DleCopy {
   readonly streakDays: (n: number) => string; readonly streakSr: string;
   readonly footTag: string; readonly footAbout: string; readonly footPrivacy: string; readonly footLegal: string; readonly footCredits: string;
   // the Terrier
-  readonly burrowH1: string; readonly burrowLead: string; readonly nextPuzzles: string; readonly gamesLabel: string; readonly day: string; readonly yesterday: string;
+  readonly burrowH1: string; readonly nextPuzzles: string; readonly gamesLabel: string; readonly day: string; readonly yesterday: string;
   readonly whatIsTitle: (brand: string) => string;
   readonly of: (done: number, total: number) => string;
   readonly play: string; readonly continueTo: (mode: string) => string; readonly seeResults: string; readonly soon: string; readonly toPlay: string;
@@ -65,7 +65,7 @@ const EN: DleCopy = {
   help: 'How to play', stats: 'Statistics', settings: 'Settings and language', close: 'Close',
   streakDays: (n) => `${n} ${n === 1 ? 'day' : 'days'}`, streakSr: 'K-pop streak',
   footTag: 'Quizzes and daily games for K-pop and anime fans.', footAbout: 'About', footPrivacy: 'Privacy', footLegal: 'Legal notice', footCredits: 'Photo credits',
-  burrowH1: 'Daily K-pop and anime games', burrowLead: 'Two games, one puzzle each, the same for everyone.', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
+  burrowH1: 'Daily K-pop and anime games', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
   of: (d, t) => `${d} of ${t}`,
   play: 'Play', continueTo: (m) => `Continue: ${lowerFirst(m)}`, seeResults: 'See my results', soon: 'soon', toPlay: 'to play',
   foundIn: (n) => `found in ${n}`, gaveUp: 'gave up', inProgress: (n) => `in progress · ${n}`,
@@ -112,7 +112,7 @@ const FR: DleCopy = {
   help: 'Comment jouer', stats: 'Statistiques', settings: 'Réglages et langue', close: 'Fermer',
   streakDays: (n) => `${n} ${n === 1 ? 'jour' : 'jours'}`, streakSr: 'de série K-pop',
   footTag: 'Des quiz et des jeux du jour pour les fans de K-pop et d’anime.', footAbout: 'À propos', footPrivacy: 'Confidentialité', footLegal: 'Mentions légales', footCredits: 'Crédits photos',
-  burrowH1: 'Jeux du jour K-pop et anime', burrowLead: 'Deux jeux, une énigme chacun, la même pour tout le monde.', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
+  burrowH1: 'Jeux du jour K-pop et anime', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
   of: (d, t) => `${d} sur ${t}`,
   play: 'Jouer', continueTo: (m) => `Continuer : ${lowerFirst(m)}`, seeResults: 'Voir mes résultats', soon: 'bientôt', toPlay: 'à jouer',
   foundIn: (n) => `trouvé en ${n}`, gaveUp: 'abandon', inProgress: (n) => `en cours · ${n}`,
@@ -317,11 +317,11 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
       empty: 'Propose un premier personnage pour voir les cases se remplir.', nextIn: 'nouveau personnage dans',
       stepsLabel: 'Les jeux Otakudle', stepDone: 'trouvé', yesterdayLine: 'Le personnage d’hier :', howTitle: 'Comment jouer à Otakudle ?',
       how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
-      how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
       poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
       dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
       dlgFoot: 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata et de Wikipedia.',
-      noPhoto: 'Pas d’image du personnage : les visuels d’anime appartiennent aux studios. On en affichera seulement avec une licence écrite.',
+      noPhoto: 'Pas d’image pour ce personnage : les visuels d’anime appartiennent à leurs ayants droit.',
       found: 'Trouvé !', dlgNear: 'Proche. Deux ans d’écart au plus, un studio ou un genre en commun.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'de série anime', yesterdayShow: 'Afficher, sans spoiler',
     };
   }
@@ -333,11 +333,11 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
     empty: 'Propose a first character to see the cells fill up.', nextIn: 'next character in',
     stepsLabel: 'The Otakudle games', stepDone: 'found', yesterdayLine: 'Yesterday’s character:', howTitle: 'How to play Otakudle?',
     how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, genres, year, studio, gender, species and role. Full when right, striped when close, grey when wrong. Hints open after 5 and 10 mistakes.',
-    how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. No character art without a licence.',
+    how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. Character pictures belong to their rights holders.',
     poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
     dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
     dlgFoot: 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata and Wikipedia.',
-    noPhoto: 'No picture of the character: anime art belongs to the studios. We will show some only with a written licence.',
+    noPhoto: 'No picture for this character yet: anime art belongs to its rights holders.',
     found: 'Found!', dlgNear: 'Close. Two years apart at most, one studio in common, or one genre in common.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'anime streak', yesterdayShow: 'Show, no spoilers',
   };
 };
@@ -434,8 +434,8 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
       fr: 'Le nom du fruit du démon s’ouvre après 5 erreurs (« Pas de fruit du démon » pour un personnage qui n’en a pas), l’initiale du nom après 10.',
     },
     dataNote: {
-      en: 'The values follow the story up to the Egghead arc, the last arc finished in the anime. No column says who is alive or dead. No character art without a licence.',
-      fr: 'Les valeurs suivent l’histoire jusqu’à l’arc d’Egghead, le dernier arc terminé dans l’anime. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      en: 'The values follow the story up to the Egghead arc, the last arc finished in the anime. No column says who is alive or dead. Character pictures belong to their rights holders.',
+      fr: 'Les valeurs suivent l’histoire jusqu’à l’arc d’Egghead, le dernier arc terminé dans l’anime. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
     },
     near: { en: 'Close. The same affiliation family (pirates, Marines, World Government, Revolutionary Army) or one Haki in common.', fr: 'Proche. La même famille d’affiliation (pirates, Marine, Gouvernement mondial, Armée révolutionnaire) ou un Haki en commun.' },
   },
@@ -452,8 +452,8 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
       fr: 'À 5 erreurs, l’indice est la technique signature, ou le doubleur japonais quand le personnage n’en a pas. L’initiale du nom s’ouvre après 10.',
     },
     dataNote: {
-      en: 'The values go up to Dragon Ball Daima. No column says who is alive or dead. No character art without a licence.',
-      fr: 'Les valeurs vont jusqu’à Dragon Ball Daima. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      en: 'The values go up to Dragon Ball Daima. No column says who is alive or dead. Character pictures belong to their rights holders.',
+      fr: 'Les valeurs vont jusqu’à Dragon Ball Daima. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
     },
     near: { en: 'Close. One team or organisation in common.', fr: 'Proche. Une équipe ou une organisation en commun.' },
     hintsPending: { en: { signature_technique: 'Technique or voice actor' }, fr: { signature_technique: 'Technique ou doubleur' } },

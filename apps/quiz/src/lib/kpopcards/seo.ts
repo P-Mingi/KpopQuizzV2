@@ -8,12 +8,13 @@ import { adsPerDay, timerPerDay } from '@/lib/cards/flags';
 import { economySentences } from '@/lib/cards/economy';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { CARDS_PRIVACY_FACTS } from '@/lib/cards/privacy-facts';
-import { PACK_SIZE, PERIOD_S, RARITY_LABEL } from '@/lib/cards/rules';
+import { PACK_SIZE, RARITY_LABEL } from '@/lib/cards/rules';
 import { cardsOn } from '@/lib/cards/ui-flag';
 import { oddsView } from '@/lib/cards/ui-model';
 import { KC as CONTRACT } from '@/lib/kpopcards/contract';
-import { dupBiasPct } from '@/lib/kpopcards/dup-text';
+import { dupBiasBrief } from '@/lib/kpopcards/dup-text';
 import { indexingOpenFor, robotsFor } from '@/lib/site/indexing';
+import { HUB_ORGANIZATION_ID } from '@/lib/site/jsonld';
 import { NETWORK, REGISTRY } from '@/lib/site/registry';
 import { atLeast } from '@/lib/stats/site-stats';
 
@@ -135,17 +136,16 @@ const pct = (v: number | undefined): string => `${(v ?? 0).toFixed(2)}%`;
 
 /**
  * The answer block of /kpopcards/odds, computed from the catalog odds (oddsView) and KC.GOLD_BY_PACK: the chance of each edition for cards 1 to 4, the
- * floor of the fifth card, the Gold guarantee and the duplicate rule. Without odds it states the rules only.
+ * Gold guarantee and the duplicate rule in the words of dupBiasRule (the fifth card's floor is in the table under it). Without odds it states the rules only.
  */
 export function oddsAnswer(odds: CatalogOdds | null): string {
   const t = oddsView(odds);
   const gold = RARITY_LABEL.UR;
-  const guarantee = `Pack ${CONTRACT.GOLD_BY_PACK} brings a sure ${gold} if the ${CONTRACT.GOLD_BY_PACK - 1} before had no ${gold} or ${RARITY_LABEL.L}.`;
-  const dup = `A drawn rarity has a ${dupBiasPct()} chance to be a card you own.`;
+  const guarantee = `A ${gold} card is sure by pack ${CONTRACT.GOLD_BY_PACK}.`;
+  const dup = dupBiasBrief();
   if (t.present.length === 0) return `${CARDS_BRAND} odds are the same for everyone. ${guarantee} ${dup}`;
   const rates = t.present.map((r) => `${RARITY_LABEL[r]} ${pct(t.each[r])}`).join(', ');
-  const fifth = t.fifthFloor ? ` Card 5 is ${RARITY_LABEL[t.fifthFloor]} or better.` : '';
-  return `${CARDS_BRAND} odds are the same for everyone. Cards 1 to 4: ${rates}.${fifth} ${t.present.includes('UR') ? guarantee : ''} ${dup}`.replace(/ {2,}/g, ' ');
+  return `${CARDS_BRAND} odds are the same for everyone. Cards 1 to 4: ${rates}. ${t.present.includes('UR') ? guarantee : ''} ${dup}`.replace(/ {2,}/g, ' ');
 }
 
 /** The words of a text, as the answer-block rule counts them. */
@@ -164,7 +164,7 @@ export function landingQuestions(): readonly LandingQuestion[] {
       id: 'how', q: 'How do you play KpopCards?',
       lead: 'You open a free pack, keep the cards you draw and complete sets for more packs.',
       more: [
-        `Open: a free pack of ${PACK_SIZE} cards every ${PERIOD_S / 60} minutes, up to ${CONTRACT.STACK_CAP} waiting. The stack fills up again at midnight, Paris time.`,
+        `Open: a free pack of ${PACK_SIZE} cards every ${packPeriodMin()} minutes, up to ${CONTRACT.STACK_CAP} waiting. The stack fills up again at midnight, Paris time.`,
         `Collect: every idol has up to ${numberWord(editionCount())} editions, from ${RARITY_LABEL.C} to ${RARITY_LABEL.L}, and each edition uses its own photo.`,
         'Complete: sets and the weekly list give packs. Extra copies turn into shards, and shards craft the cards you miss.',
       ],
@@ -245,7 +245,7 @@ export function cardsGameJsonLd(stats: CardsStats | null): Record<string, unknow
     browserRequirements: 'Requires JavaScript',
     genre: 'Card collecting',
     isAccessibleForFree: true,
-    publisher: { '@type': 'Organization', name: NETWORK.name, url: NETWORK.url },
+    publisher: { '@id': HUB_ORGANIZATION_ID },
   };
 }
 

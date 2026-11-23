@@ -5,7 +5,7 @@
 
 import { SOCIAL_LINKS } from '@kpopquiz/shared/social-links';
 
-import { HUB_ORGANIZATION_ID } from '@/lib/site/jsonld';
+import { hubParentOrganization } from '@/lib/site/jsonld';
 
 export const SITE_URL = 'https://kpopquiz.org';
 // hello@ is the only routed mailbox of kpopquiz.org (owner, 2026-10-25).
@@ -48,6 +48,6 @@ export function organizationJsonLd(): Record<string, unknown> {
     email: CONTACT_EMAIL,
     founder: founderPerson(),
     sameAs: [...ORG_SAME_AS],
-    parentOrganization: { '@id': HUB_ORGANIZATION_ID },
+    parentOrganization: hubParentOrganization(),
   };
 }

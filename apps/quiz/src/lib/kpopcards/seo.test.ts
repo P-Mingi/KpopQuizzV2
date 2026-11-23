@@ -5,6 +5,7 @@ import { robotsFor } from '@/lib/site/indexing';
 
 import { buildFixtureCatalog } from '@/lib/cards/ui-fixture';
 import { KC } from '@/lib/kpopcards/contract';
+import { dupBiasRule } from '@/lib/kpopcards/dup-text';
 import { atLeast } from '@/lib/stats/site-stats';
 
 import {
@@ -107,9 +108,10 @@ describe('the answer block of /kpopcards/odds', () => {
     expect(odds).not.toBeNull();
     const a = oddsAnswer(odds);
     expect(a).toMatch(/Cards 1 to 4: Standard \d+\.\d\d%, Stage \d+\.\d\d%/);
-    expect(a).toContain(`Pack ${KC.GOLD_BY_PACK} brings a sure Gold if the ${KC.GOLD_BY_PACK - 1} before had no Gold or Full Art.`);
-    expect(a).toContain(`${Math.round(KC.DUP_BIAS * 100)}% chance to be a card you own`);
-    expect(a).toMatch(/Card 5 is Stage or better\./);
+    // Review fix 8: the answer block reuses the words of dupBiasRule ("when you own one") and names the two exempt cards; the guarantee is one short sentence.
+    expect(a).toContain(`A Gold card is sure by pack ${KC.GOLD_BY_PACK}.`);
+    expect(a).toContain(`${Math.round(KC.DUP_BIAS * 100)}% chance to be a card you already own, when you own one, except the Gold guarantee and the golden fifth card`);
+    expect(dupBiasRule()).toContain('when you own one');
     expect(wordCount(a)).toBeGreaterThanOrEqual(40);
     expect(wordCount(a)).toBeLessThanOrEqual(60);
     expect(a).not.toMatch(DASH);
@@ -117,7 +119,7 @@ describe('the answer block of /kpopcards/odds', () => {
   it('with no odds it states the rules only, no percentage', () => {
     const a = oddsAnswer(null);
     expect(a).not.toMatch(/%.*%/);
-    expect(a).toContain(`Pack ${KC.GOLD_BY_PACK}`);
+    expect(a).toContain(`by pack ${KC.GOLD_BY_PACK}`);
   });
 });
 

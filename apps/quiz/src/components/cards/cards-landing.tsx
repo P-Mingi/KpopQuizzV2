@@ -45,7 +45,7 @@ export function CardsQuestions(): React.ReactElement {
         {' · '}
         <Link href="/credits">Photo credits</Link>
       </p>
-      <p className="hint" id="kc-disclaimer">{DISCLAIMER}</p>
+      <p className="hint" id="kc-disclaimer">{DISCLAIMER} KpopCards is made by <Link href="/about">Bunnyverse</Link>.</p>
     </section>
   );
 }

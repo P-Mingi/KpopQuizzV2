@@ -1,7 +1,7 @@
 // Daily games step 4: the page of the Terrier, /daily and /fr/daily (board Main.dc.html, v2 sections 2 and 11). Server component: it reads what is public (the number of the day, the stats above their floor, yesterday's answers) and hands it to the
 // two columns. It fails closed: no read, no number, the page keeps its two games and every image keeps the colours of the game.
 import { siteHasCredits } from '@/lib/credits/site-credits';
-import { burrowGamesJsonLd, breadcrumbJsonLd } from '@/lib/dle/seo';
+import { breadcrumbJsonLd, burrowAnswerBlock, burrowGamesJsonLd } from '@/lib/dle/seo';
 import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, localePath } from '@/lib/dle/games';
 import { getAnimeSeriesSlugs, getDleDay, getDleImages, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
@@ -38,6 +38,7 @@ export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<Rea
   }
   const banner = images['banner:daily'];
   const label = new Intl.DateTimeFormat(locale === 'fr' ? 'fr-FR' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date());
+  const dateLabel = label.charAt(0).toUpperCase() + label.slice(1);
   return (
     <DleChrome locale={locale} enPath={DAILY_PATH} current showCredits={showCredits}>
       <DleJsonLd data={[burrowGamesJsonLd(locale), breadcrumbJsonLd([{ name: t.navBurrow, path: localePath(DAILY_PATH, locale) }])]} />
@@ -49,7 +50,7 @@ export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<Rea
           <span aria-hidden="true" className="hub-dle-banner-fade" />
         </figure>
       ) : null}
-      <BurrowBoard locale={locale} dateLabel={label.charAt(0).toUpperCase() + label.slice(1)} facts={facts} images={images} quizLinks={quizLinks} stickers={pageStickers(live, 'daily')} />
+      <BurrowBoard locale={locale} dateLabel={dateLabel} answer={burrowAnswerBlock(locale, dateLabel)} facts={facts} images={images} quizLinks={quizLinks} stickers={pageStickers(live, 'daily')} />
     </DleChrome>
   );
 }

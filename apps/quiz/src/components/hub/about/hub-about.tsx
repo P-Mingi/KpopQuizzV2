@@ -7,7 +7,7 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import { FOUNDER, SITE_URL as KPOP_URL } from '@/lib/seo/org';
 import { siteHasCredits } from '@/lib/credits/site-credits';
 import { cardsOn } from '@/lib/cards/ui-flag';
-import { HUB_ABOUT_ANSWER, HUB_ABOUT_DESCRIPTION, HUB_ABOUT_PATH, HUB_ABOUT_TITLE } from '@/lib/site/hub/about';
+import { HUB_ABOUT_ANSWER, HUB_ABOUT_DESCRIPTION, HUB_ABOUT_PATH, HUB_ABOUT_SOURCES, HUB_ABOUT_TITLE } from '@/lib/site/hub/about';
 import { HUB_EMAIL } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 import { burrowOpen } from '@/lib/site/hub/daily-guess';
@@ -75,14 +75,14 @@ export async function HubAbout(): Promise<React.ReactElement> {
 
       <h2 className={H2}>How is the content made?</h2>
       <ul className="list-disc pl-5 space-y-2 text-sm text-secondary leading-relaxed">
-        <li><b>Sources.</b> Facts come from official sites and verified accounts, Wikidata, MusicBrainz and Wikipedia. We do not copy fan databases or lyrics.</li>
-        <li><b>AI drafts, a person reviews.</b> AI may help to draft a text or a list. A person checks it against the sources before it is published, and corrections are logged with their date.</li>
-        <li><b>Photos.</b> We use official pictures, pictures under a free licence with their author and licence shown, or our own.{credits ? <> The <Link href="/credits" className={A}>photo credits</Link> list them.</> : null}</li>
+        <li><b>Daily game data.</b> The daily games read their facts from open sources ({HUB_ABOUT_SOURCES}, and the official sites of the artists) with our own data pipelines. We do not copy fan databases or lyrics.</li>
+        <li><b>Team content.</b> Content published by a Team account goes through editorial review. AI may help to draft it, and a person reviews it before it is published.</li>
+        <li><b>Fan quizzes.</b> Fans write the quizzes and each one shows its creator. Players can report a quiz, and the team reviews the reports.</li>
+        <li><b>Pictures.</b> Idol photos are under a free licence, with their author and licence shown. Character pictures of anime belong to their rights holders. To have a picture removed, write to {HUB_EMAIL}.{credits ? <> The <Link href="/credits" className={A}>photo credits</Link> list the licensed photos.</> : null}</li>
         <li><b>Real data only.</b> Counts and scores shown on the sites come from recorded plays, never from estimates.</li>
       </ul>
       <p className={`${P} mt-3`}>
-        The rules for sources, AI help, images and corrections are written in the{' '}
-        <a href={`${KPOP_URL}/editorial-policy`} className={A}>editorial policy of KpopQuiz</a>, which applies to the sites of the network.
+        The rules for sources, AI help, images and corrections of KpopQuiz are written in <a href={`${KPOP_URL}/editorial-policy`} className={A}>kpopquiz.org&apos;s editorial policy</a>.
       </p>
 
       <h2 className={H2}>Who are the Team accounts?</h2>

@@ -48,6 +48,11 @@ export const HUB_ORGANIZATION_LOGO = '/mascot/mascot-default.png';
 /** The parent: Bunnyverse, https://bunnyverse.org/#organization. */
 export const HUB_ORGANIZATION_ID = entityId(NETWORK.url, 'organization');
 
+/** The parent as a child names it: an inline Organization (id, name, url), so a reader of the child's markup alone still sees who the parent is (SEO-LAUNCH-1 review, fix 10). */
+export function hubParentOrganization(): Record<string, unknown> {
+  return { '@type': 'Organization', '@id': HUB_ORGANIZATION_ID, name: NETWORK.name, url: NETWORK.url };
+}
+
 /** The WebSite of a home that has no search (the hub): its own name and origin. */
 export function websiteJsonLdFor(description: string, site: SiteConfig = SITE): Record<string, unknown> {
   return {
@@ -79,7 +84,7 @@ export function organizationJsonLdFor(site: SiteConfig = SITE): Record<string, u
     url: site.url,
     logo: `${site.url}${site.kind === 'hub' ? HUB_ORGANIZATION_LOGO : org.logo}`,
     ...(org.email ? { email: org.email } : {}),
-    ...(site.kind === 'hub' ? {} : { parentOrganization: { '@id': HUB_ORGANIZATION_ID } }),
+    ...(site.kind === 'hub' ? {} : { parentOrganization: hubParentOrganization() }),
   };
 }
 

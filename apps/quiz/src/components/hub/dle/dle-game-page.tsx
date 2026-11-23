@@ -195,7 +195,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
                 <Ic d={D.chev} size={20} className="hub-dle-chev" />
               </summary>
               <div>
-                <p>{x.a}</p>
+                <p>{x.link && x.a.startsWith(x.link.text) ? <><a href={withBasePath(x.link.href)}>{x.link.text}</a>{x.a.slice(x.link.text.length)}</> : x.a}</p>
               </div>
             </details>
           ))}

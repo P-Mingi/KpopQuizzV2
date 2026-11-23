@@ -7,6 +7,7 @@ import { builtGames, DAILY_PATH } from '@/lib/dle/games';
 import { readDay, settleDleRead } from '@/lib/dle/read';
 import { dleSitemapRows } from '@/lib/dle/seo';
 import { cardsSitemapRows } from '@/lib/kpopcards/seo';
+import { hubBurrowOpen, hubGameOpen } from '@/lib/passerelles/open';
 import { HUB_ABOUT_PATH, HUB_ABOUT_UPDATED } from '@/lib/site/hub/about';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
@@ -213,6 +214,7 @@ export function llmsText(
   children: readonly SiteConfig[] = zoneChildrenOf(site),
   raw: string | undefined = process.env.NET_INDEXING,
   cards: boolean = cardsOn(),
+  credits: boolean = false,
 ): string {
   const { name } = site.brand;
   const title = site.seo.llmsTxt.title;
@@ -223,12 +225,14 @@ export function llmsText(
   if (site.id === 'hub') {
     // SEO-LAUNCH-1 lane A: fixed facts and real routes, no typed number. The games come from the code (builtGames), the sites in its
     // sub-folders (/anime) once open (openZoneChildren), KpopCards only with NET_CARDS (its pages are a 404 without it).
-    const built = builtGames();
+    // Review fix 19: a sentence about a game, KpopCards or /credits is written only when that page answers (the hub's dailyGuess switch and route map, NET_CARDS, a credits page that lists something).
+    const built = builtGames().filter((g) => hubGameOpen(g.id, site.features));
+    const burrow = built.length > 0 && hubBurrowOpen(site.features);
     const kpopdle = built.find((g) => g.brand === 'Kpopdle');
     const otakudle = built.find((g) => g.brand === 'Otakudle' && !g.series);
     const seriesGames = built.filter((g) => g.series !== undefined);
     const kpopquiz = REGISTRY.kpop.url;
-    const daily = built.length ? `- ${DAILY_PATH}: the daily games of the day, in one place\n` : '';
+    const daily = burrow ? `- ${DAILY_PATH}: the daily games of the day, in one place\n` : '';
     const games = [
       kpopdle ? `- ${kpopdle.path}: Kpopdle by ${name}, the daily K-pop idol game. Guess the idol of the day from clues that compare each guess with the idol. Unlimited guesses, a new idol at midnight UTC, the same for everyone\n` : '',
       otakudle ? `- ${otakudle.path}: Otakudle by ${name}, the daily anime character game, spoiler-free\n` : '',
@@ -241,24 +245,24 @@ export function llmsText(
 `
       : '';
     const zones = openZoneChildren(children, raw).map((c) => `- ${basePathOf(c.url)}: ${c.brand.name} at ${c.url.replace(/^https?:\/\//, '')}, the anime quiz site of the network (its own llms.txt: ${basePathOf(c.url)}/llms.txt)\n`).join('');
+    const offers = [burrow ? 'daily guessing games' : '', cards ? 'a free photocard game' : '', 'anime quizzes'].filter(Boolean);
+    const here = [burrow ? 'The daily games' : '', cards ? 'KpopCards' : ''].filter(Boolean);
     return `# ${title}
 
-> ${name} is a K-pop and anime games site: daily guessing games, a free photocard game and anime quizzes. It is run by the founder of kpopquiz.org, its sister site.
+> ${name} is a K-pop and anime fan site${offers.length ? `: ${offers.length > 1 ? `${offers.slice(0, -1).join(', ')} and ${offers[offers.length - 1]}` : offers[0]}` : ''}. It is run by the founder of kpopquiz.org, its sister site.
 
 ## What this site is
 ${name} is an independent fan project. It is not affiliated with the artists, their agencies or the studios of the series it features.
-The daily games and KpopCards live here. The K-pop quizzes live on the sister site ${kpopquiz.replace(/^https?:\/\//, '')}, run by the same founder.
+${here.length ? `${here.join(' and ')} ${here.length > 1 || here[0] === 'The daily games' ? 'live' : 'lives'} here. ` : ''}The K-pop quizzes live on the sister site ${kpopquiz.replace(/^https?:\/\//, '')}, run by the same founder.
 One ${name} account is shared by these sites; each keeps its own scores and community.
 
 ## Games and sites
 ${daily}${games}${cardsLines}${zones}- ${kpopquiz}: kpopquiz.org, the K-pop quiz site, sister site of ${name}
 
 ## Sources and policies
-- /credits: the licensed photos of the games, with their authors and licences
-- /privacy: what one account shares between the sites
+${credits ? '- /credits: the licensed photos of the games, with their authors and licences\n' : ''}- /privacy: what one account shares between the sites
 - /terms, /legal, /contact, /dmca: terms, legal notice, contact and takedown requests
-- Kpopdle clues come from Wikidata, MusicBrainz and official sites
-
+${kpopdle ? '- Kpopdle clues come from Wikidata, MusicBrainz and official sites\n' : ''}
 ## What we do not publish
 We do not publish simulated scores, invented play counts, or fabricated opponents.
 `;
@@ -270,7 +274,7 @@ We do not publish simulated scores, invented play counts, or fabricated opponent
 ## What this site is
 ${address} is an independent anime quiz site. Visitors play quizzes about anime series, with a spoiler shield that keeps
 questions beyond the episode or chapter a visitor has reached out of sight. Fans write the quizzes and each one shows its creator. A few
-accounts labelled Team publish through an editorial review. A quiz that players report is hidden until it is reviewed.
+accounts labelled Team publish through an editorial review. Reported quizzes are reviewed by the team.
 
 ## Best entry points
 - ${b}/quizzes: every published quiz, filterable by series and type
