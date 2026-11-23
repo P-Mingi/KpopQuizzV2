@@ -171,3 +171,12 @@ describe('the markup', () => {
     }
   });
 });
+
+// LAUNCH-POLISH-2 F (2026-11-23), seen in the browser: the shell drew the logo AND the switcher button (two "KpopQuiz" side by side).
+describe('the shell draws the brand once', () => {
+  it('the switcher replaces the logo link when it shows; without it, the logo link', () => {
+    const src = readFileSync(new URL('../../components/layout/ux-v1/ux-client-shell.tsx', import.meta.url), 'utf8');
+    expect(src).toContain('{siteSwitch ? <SiteSwitch model={siteSwitch} /> : <UxBrand />}');
+    expect(src.match(/<UxBrand \/>/g)).toHaveLength(1);
+  });
+});
