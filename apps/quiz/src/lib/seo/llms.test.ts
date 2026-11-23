@@ -50,6 +50,13 @@ describe('buildLlmsTxt', () => {
     expect(txt).not.toContain('llms-full');
   });
 
+  it('names the network and its Kpopdle in one line, and nothing about anime (SEO-LAUNCH-1 lane A)', () => {
+    const txt = buildLlmsTxt(STATS, TARGET_CLUSTERS);
+    expect(txt).toContain('- Network: kpopquiz.org is the sister site of Bunnyverse (bunnyverse.org)');
+    expect(txt).toContain('Kpopdle');
+    expect(txt).not.toMatch(/anime/i);
+  });
+
   it('contains no em or en dash', () => {
     expect(buildLlmsTxt(STATS, TARGET_CLUSTERS)).not.toMatch(/[\u2013\u2014]/);
     expect(buildLlmsTxt(null, TARGET_CLUSTERS)).not.toMatch(/[\u2013\u2014]/);

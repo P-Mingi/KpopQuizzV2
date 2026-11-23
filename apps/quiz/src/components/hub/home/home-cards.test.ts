@@ -5,6 +5,7 @@ import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { PERIOD_S, RARITY_LABEL } from '@/lib/cards/rules';
+import { KC } from '@/lib/kpopcards/contract';
 import { CARDS_BANNER_CSS } from '@/components/cards-bridge/banner-styles';
 import { HomeCards, cardsFacts } from './home-cards';
 
@@ -39,11 +40,12 @@ describe('the KpopCards band of the hub home', () => {
     expect(seen).toBeGreaterThanOrEqual(5);
   });
 
-  it('the facts come from the rules: the timer period and one edition per rarity; no dash', () => {
+  it('the facts come from the contract and the rules: the timer period (KC.PERIOD_MIN, equal to the rules) and up to one edition per rarity; no dash', () => {
     const facts = cardsFacts();
-    expect(facts[0]).toBe(`A free pack every ${PERIOD_S / 60} minutes`);
+    expect(facts[0]).toBe(`A free pack every ${KC.PERIOD_MIN} minutes`);
+    expect(KC.PERIOD_MIN * 60).toBe(PERIOD_S);
     expect(Object.keys(RARITY_LABEL)).toHaveLength(6);
-    expect(facts[1]).toBe('Six editions of every idol');
+    expect(facts[1]).toBe('Up to six editions per idol');
     expect(facts[2]).toBe('No money, no market');
     for (const f of facts) expect(html).toContain(`<li>${f}</li>`);
     expect(html).not.toMatch(DASH);

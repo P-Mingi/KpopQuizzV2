@@ -40,7 +40,7 @@ function homeCopy(quizzes: string | null): { title: string; social: string; desc
   return {
     title: `Anime Quiz - ${n}Free Fan-Made Quizzes for Every Series`,
     social: `Anime Quiz - ${n}Free Fan-Made Quizzes | OtakuQuiz`,
-    description: `Play ${n}free anime quizzes made by real fans. Test your knowledge of every anime series. No sign-up.`,
+    description: `Play ${n}free anime quizzes made by real fans. Test your knowledge of your favourite series. No sign-up.`,
   };
 }
 
@@ -253,8 +253,9 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
 
 /* ---------- Page ---------- */
 
-// The site's WebSite JSON-LD (+ SearchAction). One object for both homes so the
-// UX v1 home emits byte-identical structured data.
+// The site's WebSite JSON-LD. One object for both homes so the UX v1 home emits byte-identical structured data. SEO-LAUNCH-1 lane A: no
+// SearchAction (SKILL.md section 7) and no claim about players (an invented "played by thousands" is gone, rule 0): the description says
+// only what the site is.
 const WEBSITE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -262,15 +263,7 @@ const WEBSITE_JSON_LD = {
   // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
   alternateName: SITE.seo.organization.alternateName,
   url: SITE.url,
-  description: 'Anime quizzes made by fans, played by thousands.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${SITE.url}/search?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
+  description: 'Anime quizzes made by fans, with a spoiler shield.',
 };
 
 export default function HomePage(): React.ReactElement {
