@@ -120,6 +120,9 @@ export const GENRE: Readonly<Record<DleLocale, Readonly<Record<string, string>>>
   },
 };
 
+/** The stored value of a bounty that was never revealed (L37): a text in a number column, compared by dle_compare as equal only to itself, with no arrow and never close. */
+export const BOUNTY_UNKNOWN = 'Unknown';
+
 export const LABEL_FR: Readonly<Record<string, string>> = {
   'No bounty': 'Pas de prime',
 };
@@ -160,6 +163,8 @@ export function seriesValueLabel(key: string, v: string | number, locale: DleLoc
     case 'haki': return HAKI[locale][s] ?? s;
     case 'devil_fruit_type': return s === 'none' ? NO_FRUIT_TYPE[locale] : s;
     case 'bounty': {
+      // A bounty that was never revealed (Dragon, Rayleigh, Oden; L37): the word "Unknown", never "No bounty" (which is the value 0).
+      if (v === BOUNTY_UNKNOWN) return locale === 'fr' ? 'Inconnue' : 'Unknown';
       if (label) return locale === 'fr' ? LABEL_FR[label] ?? label : label;
       return typeof v === 'number' ? formatBounty(v, locale) : s;
     }
