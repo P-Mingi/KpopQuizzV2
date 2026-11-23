@@ -42,7 +42,7 @@ describe('the KpopCards tab', () => {
     expect(out).toContain('2026-11-23 09:00');
     expect(out).toContain('no nickname');
     expect(out).toContain('>never<');
-    expect(out).toContain('href="/kpopcards/u/alice"');
+    expect(out).toContain('href="https://bunnyverse.org/kpopcards/u/alice"');
     expect(out).toContain('2 players match');
     expect(out.match(/<tr/g)).toHaveLength(3);
   });

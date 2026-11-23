@@ -41,7 +41,8 @@ describe('the call', () => {
     expect(statsArgs(DEFAULT_QUERY)).toMatchObject({ p_search: null, p_offset: 0 });
   });
   it('is ready with a good answer, missing when the function is not there, and error otherwise, without ever throwing', async () => {
-    const rpc = (r: unknown) => () => ({ rpc: vi.fn(async () => r) });
+    type Answer = { data: unknown; error: { code?: string; message?: string } | null };
+    const rpc = (r: Answer) => () => ({ rpc: vi.fn(async (_fn: string, _args: Record<string, unknown>) => r) });
     expect(await loadCardsStats(rpc({ data: ANSWER, error: null }), DEFAULT_QUERY)).toEqual({ state: 'ready', data: ANSWER });
     expect(await loadCardsStats(rpc({ data: null, error: { code: 'PGRST202', message: 'Could not find the function public.cards_admin_stats' } }), DEFAULT_QUERY)).toEqual({ state: 'missing' });
     expect(await loadCardsStats(rpc({ data: null, error: { code: '42883', message: 'function cards_admin_stats does not exist' } }), DEFAULT_QUERY)).toEqual({ state: 'missing' });

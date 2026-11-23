@@ -9,6 +9,7 @@ import {
   STATS_ADS, STATS_PAGE_SIZE, STATS_WINDOWS, fmtInt, fmtPct, fmtWhen, pagesOf, sortHref, statsHref,
 } from '@/lib/cards/admin-stats';
 import { withBasePath } from '@/lib/site/base-path';
+import { REGISTRY } from '@/lib/site/registry';
 
 import type { StatsAnswer, StatsQuery, StatsResult, StatsRow, StatsSort } from '@/lib/cards/admin-stats';
 
@@ -42,9 +43,10 @@ const COLS: ReadonlyArray<{ key: StatsSort; label: string; title: string }> = [
 function cell(r: StatsRow, key: StatsSort): React.ReactNode {
   switch (key) {
     case 'username':
-      // The player page lives on the hub (same site address, outside this build's /anime), so a plain link; the page itself says when a player keeps it private.
+      // The player page lives on the hub, outside this build's /anime: an absolute address of the hub (a root-relative one is a base path
+      // trap on this build, base-path-sinks.test.ts). The page itself says when a player keeps it private.
       return r.username
-        ? <a href={`/kpopcards/u/${encodeURIComponent(r.username)}`} className="anime-adm-kc-name">{r.username}</a>
+        ? <a href={`${REGISTRY.hub.url}/kpopcards/u/${encodeURIComponent(r.username)}`} className="anime-adm-kc-name">{r.username}</a>
         : <span className="anime-adm-kc-none">no nickname</span>;
     case 'first_seen': return fmtWhen(r.first_seen);
     case 'last_seen': return fmtWhen(r.last_seen);
