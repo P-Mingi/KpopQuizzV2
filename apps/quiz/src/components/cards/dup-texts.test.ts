@@ -23,6 +23,7 @@ describe('the duplicate rule in the texts', () => {
     expect(dupBiasRule()).toContain('Otherwise it is any card of that rarity');
     expect(dupBiasRule()).toContain('The odds of each rarity do not change');
     expect(dupBiasExempt()).toContain('The Gold guarantee and the fifth card of a golden pack never work this way');
+    expect(dupBiasExempt()).toContain('A pack never holds the same card twice, when its rarity has other cards.');
     expect(dupBiasExempt()).toContain('Duplicates still give shards and can be recycled');
     expect(dupBiasRule() + dupBiasExempt()).not.toMatch(DASH);
   });
@@ -36,6 +37,7 @@ describe('the duplicate rule in the texts', () => {
     expect(t).toContain('35% chance');
     expect(t).toContain('you already own');
     expect(t).toContain('never work this way');
+    expect(t).toContain('never holds the same card twice');
     expect(t).toContain('shards');
     expect(t).not.toMatch(DASH);
   });

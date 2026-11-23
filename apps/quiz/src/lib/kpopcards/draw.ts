@@ -99,8 +99,10 @@ export function resolvePlan(plan: KcPlan, golden: boolean, pity: boolean): { car
 
 /** The inputs of the duplicate bias for one pack (the TypeScript twin of cards_dup_pick in 126-dup-bias.sql, used by the dev mock). */
 export interface DupBiasInput {
-  /** The cards of the pack's pool (in packs, active, in the pack kind's pool): the candidates are the owned ones among them. */
+  /** The cards of the pack's pool (in packs, active, in the pack kind's pool): the bias candidates are the owned ones among them. */
   pool: readonly PoolCard[];
+  /** Every card in packs: the redraw of a repeat may leave the pool only when the drawn card was itself out of it (the guarantee and the golden fallback). */
+  universe?: readonly PoolCard[];
   /** The rarity of any card in packs (the drawn card may come from outside the pool: the guarantee promise). */
   rarityOf: (n: number) => Rarity;
   /** The card numbers the player owns before the pack. */
@@ -111,32 +113,48 @@ export interface DupBiasInput {
   focus?: string | null;
   /** The chance of the bias, KC.DUP_BIAS. */
   bias: number;
-  /** True when card 5 is the Gold guarantee or the golden fifth card: it never leans toward an owned card. */
+  /** True when card 5 is the Gold guarantee or the golden fifth card: it never leans toward an owned card (it is still checked for a repeat). */
   fifthExempt: boolean;
   rng: Rng;
 }
 
 /**
- * The bias: for each card (not the exempt one), with chance `bias` the card becomes a uniformly random card of the SAME rarity among those the player
- * owns (cards of this pack before it count) that are in the pool, belong to the focus group for cards 2 and 4 when the group has a card of that
- * rarity, and are not a part whose photo still has a part the player lacks (the missing part rule would turn it into a new card). Else it stays.
+ * The bias and the repeat check, card by card. (a) Unless exempt, with chance `bias` the card becomes a uniformly random card of the SAME rarity among
+ * those the player owned BEFORE the pack that are in the pool, belong to the focus group for cards 2 and 4 when the group has a card of that rarity, are
+ * not a part whose photo still has a part the player lacks (the missing part rule would turn it into a new card), and are not already in the pack.
+ * (b) A card already in the pack is redrawn among the other cards of its rarity (same checks, none already in the pack); with none it stays.
  */
 export function applyDupBias(cards: readonly number[], o: DupBiasInput): number[] {
-  const owned = new Set(o.owned);
+  const now = new Set(o.owned);
   const out: number[] = [];
   const unit = 10000;
   const hit = Math.round(o.bias * unit);
   cards.forEach((card, k) => {
     let final = card;
+    const rarity = o.rarityOf(card);
+    const inFocus = (c: PoolCard): boolean => c.entity === o.focus || c.group === o.focus;
+    const focusOn = !!o.focus && (k === 1 || k === 3);
+    const focusOk = (list: readonly PoolCard[]): ((c: PoolCard) => boolean) => {
+      const on = focusOn && list.some((c) => c.rarity === rarity && inFocus(c));
+      return (c) => !on || inFocus(c);
+    };
+    let done = false;
     if (!(k === PACK_SIZE - 1 && o.fifthExempt) && o.rng(unit) < hit) {
-      const rarity = o.rarityOf(card);
-      const inFocus = (c: PoolCard): boolean => c.entity === o.focus || c.group === o.focus;
-      const focusOn = !!o.focus && (k === 1 || k === 3) && o.pool.some((c) => c.rarity === rarity && inFocus(c));
-      const cands = o.pool.filter((c) => c.rarity === rarity && owned.has(c.n) && (!focusOn || inFocus(c))
-        && !o.siblings(c.n).some((m) => !owned.has(m)));
+      const ok = focusOk(o.pool);
+      const cands = o.pool.filter((c) => c.rarity === rarity && o.owned.has(c.n) && !out.includes(c.n) && ok(c) && !o.siblings(c.n).some((m) => !now.has(m)));
+      if (cands.length > 0) {
+        final = (cands[o.rng(cands.length)] as PoolCard).n;
+        done = true;
+      }
+    }
+    if (!done && out.includes(final)) {
+      const inPool = o.pool.some((c) => c.n === final);
+      const list = inPool ? o.pool : o.universe ?? o.pool;
+      const ok = focusOk(list);
+      const cands = list.filter((c) => c.rarity === rarity && !out.includes(c.n) && ok(c));
       if (cands.length > 0) final = (cands[o.rng(cands.length)] as PoolCard).n;
     }
-    owned.add(final);
+    now.add(final);
     out.push(final);
   });
   return out;

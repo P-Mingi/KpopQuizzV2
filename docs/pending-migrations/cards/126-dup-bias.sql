@@ -3,9 +3,12 @@
 -- What:   in ONE DO block:
 --           cards_dup_bias()   NEW, the one constant of the rule (the chance of the bias, a number between 0 and 1)
 --           cards_dup_pick()   NEW, the bias: after a card's rarity is drawn, with the chance cards_dup_bias() the card becomes a uniformly random card of
---                              the SAME rarity that the player already owns (that cards_open would accept for this pack kind), else the drawn card stays
+--                              the SAME rarity that the player already owned before the pack (that cards_open would accept for this pack kind), else
+--                              the drawn card stays; then, for every card, a card already out in this pack is redrawn among the other cards of its rarity
+--                              (a pack never holds the same card twice when its rarity has other cards)
 --           cards_open         replaced by the body of 125 byte for byte, except one step in the store loop: before the missing part rule, every card
---                              that is not exempt goes through cards_dup_pick. Exempt: the fifth card of a Gold guarantee pack and of a golden pack.
+--                              goes through cards_dup_pick (the bias is skipped for the fifth card of a Gold guarantee pack and of a golden pack, the
+--                              repeat check is not).
 --         The rarity odds are not touched (the rarity of every card is the one the plan gave). The validation loop is not touched (it checks the plan
 --         the web server sent). Duplicates, shards and recycling are the existing circuit. Missions pay packs, never cards: no other path is changed.
 -- Why:    the owner's rule of 2026-11-23: a player owns 10 percent of the cards after 23 packs, so packs give too many new cards. The web code reads the
@@ -34,7 +37,7 @@ begin
 
   -- Where the database stands: the constant, the helper, and the call in cards_open.
   v_bias := to_regprocedure('public.cards_dup_bias()') is not null;
-  v_pick := to_regprocedure('public.cards_dup_pick(uuid, integer, text, text, text)') is not null;
+  v_pick := to_regprocedure('public.cards_dup_pick(uuid, integer, text, text, text, integer[], boolean)') is not null;
   v_open := position('cards_dup_pick' in (select prosrc from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)'))) > 0;
   if v_bias and v_pick and v_open then
     raise notice '126-dup-bias: already applied, nothing changed';
@@ -55,37 +58,62 @@ begin
       select 0.35::numeric
     $f$;
 
-  -- The bias itself. p_card is the card the draw gave. With the chance cards_dup_bias(), it returns a uniformly random card among the player's
-  -- cards of the SAME rarity that cards_open would accept for this pack (in packs, active entity, in the pool of the pack kind, and for the cards 2
-  -- and 4 of a focus pack, p_focus not null, in the focus group when that group has a card of the rarity), leaving out the owned parts whose photo
-  -- still has a missing part in packs (the missing part rule would turn them into a new card). With no such card, or when the roll fails, it
-  -- returns p_card unchanged.
-  create or replace function public.cards_dup_pick(p_user uuid, p_card integer, p_kind text, p_group text, p_focus text default null)
+  -- The bias, then the repeat check. p_card is the card the draw gave, p_pack the cards already out in this pack (final), p_exempt true for the fifth
+  -- card of a Gold guarantee pack or a golden pack. (a) Unless exempt, with the chance cards_dup_bias() it returns a uniformly random card among the
+  -- player's cards of the SAME rarity that cards_open would accept for this pack (in packs, active entity, in the pool of the pack kind, and for the
+  -- cards 2 and 4 of a focus pack, p_focus not null, in the focus group when that group has a card of the rarity), leaving out the owned parts whose
+  -- photo still has a missing part in packs (the missing part rule would turn them into a new card) and the cards already in this pack (the cards
+  -- stored by this pack are owned, so what is left is owned before the pack). (b) A card that is already in the pack is redrawn uniformly among the
+  -- cards of the same rarity that pass the same checks (out of the pool only when the drawn card was itself out of it, as the guarantee and the
+  -- golden fallback allow) and are not in the pack; with none, it stays. Else it returns p_card unchanged.
+  create or replace function public.cards_dup_pick(p_user uuid, p_card integer, p_kind text, p_group text, p_focus text default null,
+                                                   p_pack integer[] default '{}', p_exempt boolean default false)
     returns integer
     language plpgsql volatile security definer set search_path = public
     as $f$
   declare
     v_rarity text;
     v_pick integer;
+    v_pool boolean;
   begin
     select c.rarity into v_rarity from public.cards_catalog c where c.card_no = p_card;
-    if v_rarity is null or random() >= public.cards_dup_bias() then
+    if v_rarity is null then
       return p_card;
     end if;
-    select o.card_no into v_pick
-      from public.cards_owned o
-      join public.cards_catalog c on c.card_no = o.card_no
-      join public.cards_entities e on e.id = c.entity_id
-     where o.user_id = p_user and c.rarity = v_rarity and c.in_packs and e.active
-       and public.cards_in_pool(c.card_no, p_kind, p_group)
-       and (p_focus is null or c.entity_id = p_focus or e.group_id = p_focus
-            or not exists (select 1 from public.cards_catalog g join public.cards_entities ge on ge.id = g.entity_id
-                            where g.rarity = v_rarity and g.in_packs and ge.active and (g.entity_id = p_focus or ge.group_id = p_focus)))
-       and not (c.part > 0 and exists (select 1 from public.cards_catalog h
-                                        where h.entity_id = c.entity_id and h.rarity = c.rarity and h.part > 0 and h.in_packs
-                                          and not exists (select 1 from public.cards_owned o2 where o2.user_id = p_user and o2.card_no = h.card_no)))
-     order by random() limit 1;
-    return coalesce(v_pick, p_card);
+    if not p_exempt and random() < public.cards_dup_bias() then
+      select o.card_no into v_pick
+        from public.cards_owned o
+        join public.cards_catalog c on c.card_no = o.card_no
+        join public.cards_entities e on e.id = c.entity_id
+       where o.user_id = p_user and c.rarity = v_rarity and c.in_packs and e.active
+         and not (c.card_no = any (coalesce(p_pack, '{}')))
+         and public.cards_in_pool(c.card_no, p_kind, p_group)
+         and (p_focus is null or c.entity_id = p_focus or e.group_id = p_focus
+              or not exists (select 1 from public.cards_catalog g join public.cards_entities ge on ge.id = g.entity_id
+                              where g.rarity = v_rarity and g.in_packs and ge.active and (g.entity_id = p_focus or ge.group_id = p_focus)))
+         and not (c.part > 0 and exists (select 1 from public.cards_catalog h
+                                          where h.entity_id = c.entity_id and h.rarity = c.rarity and h.part > 0 and h.in_packs
+                                            and not exists (select 1 from public.cards_owned o2 where o2.user_id = p_user and o2.card_no = h.card_no)))
+       order by random() limit 1;
+      if v_pick is not null then
+        return v_pick;
+      end if;
+    end if;
+    if p_card = any (coalesce(p_pack, '{}')) then
+      v_pool := public.cards_in_pool(p_card, p_kind, p_group);
+      select c.card_no into v_pick
+        from public.cards_catalog c
+        join public.cards_entities e on e.id = c.entity_id
+       where c.rarity = v_rarity and c.in_packs and e.active
+         and not (c.card_no = any (coalesce(p_pack, '{}')))
+         and (not v_pool or public.cards_in_pool(c.card_no, p_kind, p_group))
+         and (p_focus is null or c.entity_id = p_focus or e.group_id = p_focus
+              or not exists (select 1 from public.cards_catalog g join public.cards_entities ge on ge.id = g.entity_id
+                              where g.rarity = v_rarity and g.in_packs and ge.active and (g.entity_id = p_focus or ge.group_id = p_focus)))
+       order by random() limit 1;
+      return coalesce(v_pick, p_card);
+    end if;
+    return p_card;
   end
   $f$;
 
@@ -263,14 +291,13 @@ begin
       v_cards_out := '[]'::jsonb;
       for v_k in 1..5 loop
         v_card := v_cards[v_k];
-        -- lot LAUNCH-POLISH-3, fewer new cards: a card that is not the Gold guarantee nor the golden fifth card may become a card of the same rarity
-        -- the player already owns (cards of this pack stored before count as owned)
-        if not (v_k = 5 and (v_pity or v_golden)) then
-          v_pick := public.cards_dup_pick(p_user, v_card, v_kind, v_group, case when p_source = 'focus' and v_k in (2, 4) then p_focus else null end);
-          if v_pick <> v_card then
-            v_card := v_pick;
-            v_cards[v_k] := v_pick;
-          end if;
+        -- lot LAUNCH-POLISH-3, fewer new cards and no repeat: a card may become a card of the same rarity the player owned before this pack (not for the
+        -- Gold guarantee nor the golden fifth card), and a card already out in this pack is redrawn among the other cards of its rarity, when it has some
+        v_pick := public.cards_dup_pick(p_user, v_card, v_kind, v_group, case when p_source = 'focus' and v_k in (2, 4) then p_focus else null end,
+                                        v_cards[1:v_k - 1], v_k = 5 and (v_pity or v_golden));
+        if v_pick <> v_card then
+          v_card := v_pick;
+          v_cards[v_k] := v_pick;
         end if;
         select c.entity_id, c.rarity, c.part into v_c from public.cards_catalog c where c.card_no = v_card;
         -- lot 7, the missing part rule: a part the player owns, while another part of the same photo (entity and rarity) in packs is missing, becomes
@@ -354,9 +381,9 @@ begin
   $f$;
 
   revoke all on function public.cards_dup_bias() from public, anon, authenticated;
-  revoke all on function public.cards_dup_pick(uuid, integer, text, text, text) from public, anon, authenticated;
+  revoke all on function public.cards_dup_pick(uuid, integer, text, text, text, integer[], boolean) from public, anon, authenticated;
   grant execute on function public.cards_dup_bias() to service_role;
-  grant execute on function public.cards_dup_pick(uuid, integer, text, text, text) to service_role;
+  grant execute on function public.cards_dup_pick(uuid, integer, text, text, text, integer[], boolean) to service_role;
 
   -- Checks: the constant is a chance, cards_open calls the helper, and no browser role can execute any of the three.
   if public.cards_dup_bias() is null or public.cards_dup_bias() <= 0 or public.cards_dup_bias() >= 1 then raise exception '126-dup-bias: cards_dup_bias is not a chance, nothing changed'; end if;

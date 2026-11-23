@@ -53,23 +53,60 @@ describe('applyDupBias', () => {
       expect(free[0]).toBe(1);
     }
   });
-  it('a card stored earlier in the pack counts as owned', () => {
+  it('only cards owned before the pack are candidates, and a card already out in the pack is never picked again', () => {
     const out = applyDupBias([1, 2, 3, 4, 5], { pool: POOL, rarityOf, owned: new Set([9]), siblings: none, bias: 1, fifthExempt: false, rng: seededRng(1) });
-    expect(out).toEqual([9, 9, 9, 9, 9]);
+    expect(out[0]).toBe(9);
+    expect(out.slice(1)).toEqual([2, 3, 4, 5]);
+  });
+  it('no card twice in 10,000 simulated packs, the exempt fifth card included, the rarity of each card kept', () => {
+    const rng = seededRng(77);
+    const owned = new Set<number>([...Array.from({ length: 10 }, (_, i) => i * 10 + 1), ...Array.from({ length: 10 }, (_, i) => 100 + i * 10 + 1)]);
+    let dup = 0;
+    let total = 0;
+    for (let p = 0; p < 10000; p++) {
+      const input = Array.from({ length: 5 }, () => 1 + rng(200));
+      const exempt = p % 2 === 0;
+      const out = applyDupBias(input, { pool: POOL, rarityOf, owned, siblings: none, bias: KC.DUP_BIAS, fifthExempt: exempt, rng });
+      expect(new Set(out).size).toBe(5);
+      out.forEach((n, k) => {
+        expect(rarityOf(n)).toBe(rarityOf(input[k]!));
+        if (!(k === 4 && exempt)) { total += 1; if (owned.has(n)) dup += 1; }
+      });
+    }
+    expect(Math.abs(dup / total - (KC.DUP_BIAS + (1 - KC.DUP_BIAS) * 0.1))).toBeLessThan(0.02);
+  });
+  it('the exempt fifth card is redrawn when it repeats, inside its rarity, and a rarity with one card keeps the repeat', () => {
+    const rng = seededRng(4);
+    for (let i = 0; i < 40; i++) {
+      const out = applyDupBias([150, 1, 2, 3, 150], { pool: POOL, rarityOf, owned: new Set(), siblings: none, bias: 0, fifthExempt: true, rng });
+      expect(out[4]).not.toBe(150);
+      expect(rarityOf(out[4]!)).toBe('U');
+    }
+    const one: PoolCard[] = [{ n: 1, kind: 'idol', rarity: 'U', entity: 'idol:a', group: null }, { n: 2, kind: 'idol', rarity: 'C', entity: 'idol:b', group: null }];
+    expect(applyDupBias([1, 2, 1], { pool: one, rarityOf: (n) => (n === 1 ? 'U' : 'C'), owned: new Set(), siblings: none, bias: 0, fifthExempt: false, rng })).toEqual([1, 2, 1]);
+  });
+  it('a repeat of a card out of the pool is redrawn from the whole catalog (the guarantee fallback)', () => {
+    const inPool: PoolCard[] = [{ n: 1, kind: 'idol', rarity: 'C', entity: 'idol:a', group: null }];
+    const all: PoolCard[] = [...inPool, { n: 9, kind: 'idol', rarity: 'UR', entity: 'idol:b', group: null }, { n: 10, kind: 'idol', rarity: 'UR', entity: 'idol:c', group: null }];
+    const r = (n: number): 'C' | 'UR' => (n === 1 ? 'C' : 'UR');
+    const out = applyDupBias([9, 1, 1, 1, 9], { pool: inPool, universe: all, rarityOf: r, owned: new Set(), siblings: none, bias: 0, fifthExempt: true, rng: seededRng(6) });
+    expect(out[4]).toBe(10);
   });
   it('the cards 2 and 4 of a focus pack stay in the focus group when it has a card of the rarity', () => {
     const pool: PoolCard[] = [
       { n: 1, kind: 'idol', rarity: 'C', entity: 'idol:a', group: 'group:g' }, { n: 2, kind: 'idol', rarity: 'C', entity: 'idol:b', group: 'group:g' },
       { n: 3, kind: 'idol', rarity: 'C', entity: 'idol:c', group: null }, { n: 4, kind: 'idol', rarity: 'U', entity: 'idol:c', group: null },
+      { n: 5, kind: 'idol', rarity: 'C', entity: 'idol:d', group: null },
     ];
     const r = (n: number): 'C' | 'U' => (n === 4 ? 'U' : 'C');
     const rng = seededRng(2);
     for (let i = 0; i < 30; i++) {
-      const out = applyDupBias([3, 1, 3, 2, 4], { pool, rarityOf: r, owned: new Set([3]), siblings: none, bias: 1, fifthExempt: false, rng, focus: 'group:g' });
-      expect(out[0]).toBe(3);
+      const out = applyDupBias([3, 1, 5, 2, 4], { pool, rarityOf: r, owned: new Set([3, 5]), siblings: none, bias: 1, fifthExempt: false, rng, focus: 'group:g' });
       expect(out[1]).toBe(1);
-      expect([1, 2]).toContain(out[3]);
-      expect([1, 3]).toContain(out[2]);
+      expect(out[3]).toBe(2);
+      expect([3, 5]).toContain(out[0]);
+      expect([3, 5]).toContain(out[2]);
+      expect(new Set(out).size).toBe(5);
     }
     // the group has no card of that rarity: the whole pool is allowed
     const u = applyDupBias([3, 4, 3, 4, 4], { pool, rarityOf: r, owned: new Set([4]), siblings: none, bias: 1, fifthExempt: false, rng, focus: 'group:g' });
@@ -83,7 +120,7 @@ describe('applyDupBias', () => {
     const sib = (n: number): readonly number[] => (n === 1 || n === 2 ? [1, 2] : []);
     const rng = seededRng(8);
     for (let i = 0; i < 30; i++) {
-      expect(applyDupBias([4, 4, 4, 4, 4], { pool, rarityOf: () => 'U', owned: new Set([1, 3]), siblings: sib, bias: 1, fifthExempt: false, rng })).toEqual([3, 3, 3, 3, 3]);
+      expect(applyDupBias([4], { pool, rarityOf: () => 'U', owned: new Set([1, 3]), siblings: sib, bias: 1, fifthExempt: false, rng })).toEqual([3]);
     }
     const both = new Set<number>();
     for (let i = 0; i < 40; i++) both.add(applyDupBias([4], { pool, rarityOf: () => 'U', owned: new Set([1, 2]), siblings: sib, bias: 1, fifthExempt: false, rng })[0]!);
@@ -95,22 +132,26 @@ describe('the mock leans toward owned cards like the database', () => {
   const WORLD = fixtureWorld(fixtureCatalog());
   const T0 = Date.parse('2026-11-13T10:00:00Z');
   const k = (i: number): string => `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
-  it('over 40 packs the mock gives fewer new cards than the plain draw of the same size', async () => {
-    const a = createMockApi({ world: WORLD, seed: 21, now: () => T0, example: false });
+  it('over 40 packs and 6 seeds the mock gives fewer new cards than the same draw without the bias', async () => {
     let nw = 0;
-    for (let i = 0; i < 40; i++) {
-      a.data.stock = 5;
-      const r = await a.open({ key: k(100 + i), source: 'stock' });
-      if (isApiError(r)) throw new Error(r.error);
-      nw += (r as OpenResponse).packs[0]!.newCount;
-    }
-    const rng = seededRng(21);
-    const all = indexPool(poolCards(WORLD));
-    const owned = new Set<number>();
     let plain = 0;
-    for (let i = 0; i < 40; i++) {
-      const d = drawKcPack(all, all, rng, { pity: false, golden: false, owned });
-      for (const n of d.cards) { if (!owned.has(n)) plain += 1; owned.add(n); }
+    for (let seed = 21; seed < 27; seed++) {
+      const a = createMockApi({ world: WORLD, seed, now: () => T0, example: false });
+      for (let i = 0; i < 40; i++) {
+        a.data.stock = 5;
+        const r = await a.open({ key: k(100 + i), source: 'stock' });
+        if (isApiError(r)) throw new Error(r.error);
+        nw += (r as OpenResponse).packs[0]!.newCount;
+      }
+      const rng = seededRng(seed);
+      const all = indexPool(poolCards(WORLD));
+      const owned = new Set<number>();
+      for (let i = 0; i < 40; i++) {
+        const d = drawKcPack(all, all, rng, { pity: false, golden: false, owned });
+        // the same no-repeat step with the chance at 0, so only the bias differs
+        const cards = applyDupBias(d.cards, { pool: poolCards(WORLD), rarityOf: (cn) => WORLD.cards.find((x) => x.n === cn)!.rarity, owned: new Set(owned), siblings: none, bias: 0, fifthExempt: false, rng });
+        for (const n of cards) { if (!owned.has(n)) plain += 1; owned.add(n); }
+      }
     }
     expect(nw).toBeLessThan(plain * 0.95);
   });

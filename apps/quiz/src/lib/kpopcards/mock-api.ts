@@ -283,7 +283,7 @@ export function createMockApi(opts: MockOptions): MockApi {
         const { drawn, kind, pool: packPool } = packOf(source, theme, req.focus, golden, pity, ownedNs());
         // Fewer new cards (the twin of cards_dup_pick, 126-dup-bias.sql): the same bias, the same exemptions (the Gold guarantee and the golden fifth card).
         drawn.cards.splice(0, 5, ...applyDupBias(drawn.cards, {
-          pool: [...packPool.values()].flat(), rarityOf: (cn) => w.cards.find((x) => x.n === cn)!.rarity, owned: ownedNs(), siblings: siblingsOf,
+          pool: [...packPool.values()].flat(), universe: poolCards(w), rarityOf: (cn) => w.cards.find((x) => x.n === cn)!.rarity, owned: ownedNs(), siblings: siblingsOf,
           focus: source === 'focus' ? req.focus ?? null : null, bias: KC.DUP_BIAS, fifthExempt: drawn.golden || drawn.guarantee, rng,
         }));
         if (forcedPack) {

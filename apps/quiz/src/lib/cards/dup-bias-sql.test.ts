@@ -30,14 +30,13 @@ function statement(text: string, name: string): string {
   return text.slice(a, close + 4);
 }
 /** The one change 126 makes to the body of 125: these lines, before the select of the store loop. */
-const INSERTED = `        -- lot LAUNCH-POLISH-3, fewer new cards: a card that is not the Gold guarantee nor the golden fifth card may become a card of the same rarity
-        -- the player already owns (cards of this pack stored before count as owned)
-        if not (v_k = 5 and (v_pity or v_golden)) then
-          v_pick := public.cards_dup_pick(p_user, v_card, v_kind, v_group, case when p_source = 'focus' and v_k in (2, 4) then p_focus else null end);
-          if v_pick <> v_card then
-            v_card := v_pick;
-            v_cards[v_k] := v_pick;
-          end if;
+const INSERTED = `        -- lot LAUNCH-POLISH-3, fewer new cards and no repeat: a card may become a card of the same rarity the player owned before this pack (not for the
+        -- Gold guarantee nor the golden fifth card), and a card already out in this pack is redrawn among the other cards of its rarity, when it has some
+        v_pick := public.cards_dup_pick(p_user, v_card, v_kind, v_group, case when p_source = 'focus' and v_k in (2, 4) then p_focus else null end,
+                                        v_cards[1:v_k - 1], v_k = 5 and (v_pity or v_golden));
+        if v_pick <> v_card then
+          v_card := v_pick;
+          v_cards[v_k] := v_pick;
         end if;
 `;
 const bodyMd5 = (db: Db, fn: string): Promise<string> => one<string>(db, `select md5(prosrc) from pg_proc where oid = '${fn}'::regprocedure`);
@@ -130,7 +129,7 @@ describe('126-dup-bias.sql: apply, run twice, refuse, roll back', () => {
     expect(await bodyMd5(db, OPEN)).toBe(m);
     expect(await one(db, `select count(*)::int from pg_proc where proname in ('cards_dup_bias', 'cards_dup_pick')`)).toBe(0);
     const mixed = await after();
-    await mixed.exec('drop function public.cards_dup_pick(uuid, integer, text, text, text)');
+    await mixed.exec('drop function public.cards_dup_pick(uuid, integer, text, text, text, integer[], boolean)');
     expect(await failure(mixed, rd(UP))).toMatch(/the state is mixed/);
     const mixed2 = await before();
     await mixed2.exec('create function public.cards_dup_bias() returns numeric language sql immutable as $b$ select 0.5::numeric $b$');
@@ -170,25 +169,49 @@ describe('126-dup-bias.sql: the share of duplicates over 10,000 simulated draws'
     await db.query(`insert into cards_owned (user_id, card_no, copies, first_at, last_at)
       select $1::uuid, b + i, 1, now(), now() from generate_series(0, 99, 10) i, (values (90000), (91000)) v(b)`, [u]);
     expect(await one(db, 'select count(*)::int from cards_owned where user_id = $1', [u])).toBe(20);
-    await db.exec('select setseed(0.31)');
-    const r = (await db.query<{ total: number; dup: number; moved: number; rar_bad: number; c_in: number; c_out: number; u_in: number; u_out: number; c_dup: number; u_dup: number; c_n: number; u_n: number }>(`
-      with ins as (select case when random() < 0.5 then 90000 else 91000 end + floor(random() * 100)::int as c from generate_series(1, 10000)),
-           outp as (select c, public.cards_dup_pick($1::uuid, c, 'all', null, null) as o from ins),
-           j as (select x.c, x.o, ci.rarity as ri, co.rarity as ro, exists (select 1 from cards_owned w where w.user_id = $1::uuid and w.card_no = x.o) as dup
-                   from outp x join cards_catalog ci on ci.card_no = x.c join cards_catalog co on co.card_no = x.o)
+    // 10,000 simulated packs of 5 cards: each input is uniform over the 200 soloist cards, the pack-so-far array accumulates, nothing is stored (so the
+    // owned share stays 10 percent); the fifth card is exempt from the bias like a guarantee or golden card would be in half of the packs
+    const t0 = Date.now();
+    await db.exec(`
+      create table zz_res (pack int, k int, c int, o int);
+      select setseed(0.31);
+      do $t$
+      declare p int; k int; arr int[]; c int; o int;
+      begin
+        for p in 1..10000 loop
+          arr := '{}';
+          for k in 1..5 loop
+            c := case when random() < 0.5 then 90000 else 91000 end + floor(random() * 100)::int;
+            o := public.cards_dup_pick('${u}'::uuid, c, 'all', null, null, arr, k = 5 and p % 2 = 0);
+            arr := arr || o;
+            insert into zz_res values (p, k, c, o);
+          end loop;
+        end loop;
+      end $t$;`);
+    // eslint-disable-next-line no-console
+    console.log(`10,000 simulated packs of 5 cards: ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+    const r = (await db.query<{ total: number; dup: number; moved: number; rar_bad: number; c_in: number; c_out: number; u_in: number; u_out: number; c_dup: number; u_dup: number; c_n: number; u_n: number; twice: number; packs: number; dup_nofifth: number; n_nofifth: number }>(`
+      with j as (select x.pack, x.k, x.c, x.o, ci.rarity as ri, co.rarity as ro, exists (select 1 from cards_owned w where w.user_id = $1::uuid and w.card_no = x.o) as dup
+                   from zz_res x join cards_catalog ci on ci.card_no = x.c join cards_catalog co on co.card_no = x.o)
       select count(*)::int as total, count(*) filter (where dup)::int as dup, count(*) filter (where c <> o)::int as moved,
              count(*) filter (where ri <> ro)::int as rar_bad,
              count(*) filter (where ri = 'C')::int as c_in, count(*) filter (where ro = 'C')::int as c_out,
              count(*) filter (where ri = 'U')::int as u_in, count(*) filter (where ro = 'U')::int as u_out,
              count(*) filter (where ri = 'C' and dup)::int as c_dup, count(*) filter (where ri = 'U' and dup)::int as u_dup,
-             count(*) filter (where ri = 'C')::int as c_n, count(*) filter (where ri = 'U')::int as u_n
+             count(*) filter (where ri = 'C')::int as c_n, count(*) filter (where ri = 'U')::int as u_n,
+             (select count(*)::int from (select pack, o from zz_res group by pack, o having count(*) > 1) t) as twice,
+             (select count(distinct pack)::int from zz_res) as packs,
+             count(*) filter (where dup and not (k = 5 and pack % 2 = 0))::int as dup_nofifth, count(*) filter (where not (k = 5 and pack % 2 = 0))::int as n_nofifth
         from j`, [u])).rows[0]!;
-    expect(r.total).toBe(10000);
+    // eslint-disable-next-line no-console
+    console.log(`duplicate share (cards 1 to 4 and the fifth of odd packs): ${(r.dup_nofifth / r.n_nofifth).toFixed(4)}, packs with a card twice: ${r.twice}`);
+    expect(r.total).toBe(50000);
+    expect(r.packs).toBe(10000);
+    // no card twice in any of the 10,000 packs
+    expect(r.twice).toBe(0);
     const expected = KC.DUP_BIAS + (1 - KC.DUP_BIAS) * 0.1;
     expect(expected).toBeCloseTo(0.415, 10);
-    expect(Math.abs(r.dup / r.total - expected)).toBeLessThan(0.02);
-    expect(Math.abs(r.c_dup / r.c_n - expected)).toBeLessThan(0.03);
-    expect(Math.abs(r.u_dup / r.u_n - expected)).toBeLessThan(0.03);
+    expect(Math.abs(r.dup_nofifth / r.n_nofifth - expected)).toBeLessThan(0.02);
     // the rarity of every output is the rarity of its input, so the distribution of rarities is exactly the same
     expect(r.rar_bad).toBe(0);
     expect(r.c_out).toBe(r.c_in);
@@ -196,7 +219,7 @@ describe('126-dup-bias.sql: the share of duplicates over 10,000 simulated draws'
     expect(r.moved).toBeGreaterThan(0);
     // a player who owns nothing gets the draw back every time
     const nobody = await newUser(db);
-    expect(await one(db, `select count(*)::int from generate_series(1, 300) g where public.cards_dup_pick($1::uuid, 90005, 'all', null, null) <> 90005`, [nobody])).toBe(0);
+    expect(await one(db, `select count(*)::int from generate_series(1, 300) g where public.cards_dup_pick($1::uuid, 90005, 'all', null, null, '{}', false) <> 90005`, [nobody])).toBe(0);
   });
 });
 
@@ -240,7 +263,7 @@ describe('126-dup-bias.sql: through cards_open', () => {
     }
   });
 
-  it('the other cards do lean toward owned cards (the bias is on), and cards stored earlier in the same pack count as owned', async () => {
+  it('the other cards do lean toward owned cards (the bias is on), but only toward cards owned before the pack, and never twice the same card', async () => {
     const db = await after();
     await setBias(db, 1);
     const cat = await catalog(db);
@@ -249,10 +272,11 @@ describe('126-dup-bias.sql: through cards_open', () => {
     const u = await newUser(db);
     await setWallet(db, u, { stock: 5, opened: 0 });
     await own(db, u, [C[0]!]);
-    // the plan has four different unowned C cards: with the bias at 1 the first becomes the owned C[0]; it then counts as owned for the next, which stays on it
+    // the plan has four different unowned C cards: with the bias at 1 the first becomes the owned C[0]; it is out in this pack, so the next ones stay
+    // what the plan gave (a card stored by this pack is not a candidate of the bias: no repeat)
     const r = await openSql(db, u, { draws: [{ c: [C[1]!, C[2]!, C[3]!, C[4]!, U[0]!] }] });
-    expect(r.packs[0]!.cards.map((c) => c.n)).toEqual([C[0], C[0], C[0], C[0], U[0]]);
-    expect(r.packs[0]!.cards.map((c) => c.isNew)).toEqual([false, false, false, false, true]);
+    expect(r.packs[0]!.cards.map((c) => c.n)).toEqual([C[0], C[2], C[3], C[4], U[0]]);
+    expect(r.packs[0]!.cards.map((c) => c.isNew)).toEqual([false, true, true, true, true]);
     // with the bias at 0 the pack is the plan, the draw of 125
     await setBias(db, 0);
     const v = await newUser(db);
@@ -357,9 +381,85 @@ describe('126-dup-bias.sql: through cards_open', () => {
     await setWallet(db, u, { stock: 5, opened: 0 });
     await own(db, u, [C[0]!], undefined, 1);
     const r = await openSql(db, u, { draws: [{ c: [C[1]!, C[2]!, C[3]!, C[4]!, U0] }] });
-    expect(r.packs[0]!.new_count).toBe(1);
-    expect(await one(db, 'select copies from cards_owned where user_id = $1 and card_no = $2', [u, C[0]])).toBe(5);
-    expect(await one(db, 'select new_count from cards_packs where user_id = $1', [u])).toBe(1);
-    expect(r.owned_after - r.owned_before).toBe(1);
+    expect(r.packs[0]!.new_count).toBe(4);
+    expect(await one(db, 'select copies from cards_owned where user_id = $1 and card_no = $2', [u, C[0]])).toBe(2);
+    expect(await one(db, 'select new_count from cards_packs where user_id = $1', [u])).toBe(4);
+    expect(r.owned_after - r.owned_before).toBe(4);
+  });
+
+  const twice = async (db: Db, u: string): Promise<number> =>
+    one<number>(db, `select count(*)::int from cards_packs p where p.user_id = $1 and p.opened_at < '2026-11-13'::timestamptz and (select count(distinct x) from unnest(p.cards) x) < 5`, [u]);
+  const noRepeat = (r: Awaited<ReturnType<typeof openSql>>): void => { for (const p of r.packs) expect(new Set(p.cards.map((c) => c.n)).size).toBe(5); };
+
+  it.each([0, 1])('a plan with deliberate repeats stores no pack with a card twice (the chance at %i), the golden and the guarantee card keep their rarity', async (bias) => {
+    const db = await after();
+    await setBias(db, bias);
+    const cat = await catalog(db);
+    const rar = (n: number): string => cat.find((c) => c.card_no === n)!.rarity;
+    const C = idols(cat, 'C');
+    const U = idols(cat, 'U');
+    const R = idols(cat, 'R');
+    const UR = idols(cat, 'UR');
+    for (let i = 0; i < 15; i++) {
+      // plain: the same Standard card four times
+      const a = await newUser(db);
+      await setWallet(db, a, { stock: 5, opened: 0 });
+      await own(db, a, [C[0]!, C[1]!, C[2]!, U[0]!].slice(0, i % 5));
+      noRepeat(await openSql(db, a, { draws: [{ c: [C[0]!, C[0]!, C[0]!, C[0]!, U[0]!] }] }));
+      // golden: g equals card 1, a Holo card; the fifth card is another Holo card (the rarity is kept), still golden
+      const g = await newUser(db);
+      await setWallet(db, g, { stock: 5, opened: 9 });
+      await own(db, g, [R[1]!, R[2]!].slice(0, i % 3));
+      const gr = await openSql(db, g, { draws: [{ c: [R[0]!, C[1]!, C[2]!, C[3]!, U[0]!], g: R[0]!, u: UR[0]! }] });
+      noRepeat(gr);
+      expect(gr.packs[0]!.golden).toBe(true);
+      expect(gr.packs[0]!.cards[4]!.golden).toBe(true);
+      expect(rar(gr.packs[0]!.cards[4]!.n)).toBe('R');
+      // guarantee: u equals card 1, a Gold card; the fifth card is another Gold card, still the guarantee
+      const u = await newUser(db);
+      await setWallet(db, u, { stock: 5, opened: 30 });
+      await packs30(db, u, 30);
+      await own(db, u, [UR[1]!].slice(0, i % 2));
+      const ur = await openSql(db, u, { draws: [{ c: [UR[0]!, C[1]!, C[2]!, C[3]!, U[0]!], g: R[0]!, u: UR[0]! }] });
+      noRepeat(ur);
+      expect(ur.packs[0]!.guarantee).toBe(true);
+      expect(rar(ur.packs[0]!.cards[4]!.n)).toBe('UR');
+      expect(await twice(db, a) + (await twice(db, g)) + (await twice(db, u))).toBe(0);
+    }
+  });
+
+  it.each([0, 1])('the missing part rule and the repeat check together (the chance at %i): the missing part is the one stored, no card twice', async (bias) => {
+    const db = await after();
+    await setBias(db, bias);
+    const cat = await catalog(db);
+    const C = idols(cat, 'C');
+    const parts = new Map<string, number[]>();
+    for (const c of cat.filter((x) => x.rarity === 'U' && x.part > 0)) parts.set(c.entity_id, [...(parts.get(c.entity_id) ?? []), c.card_no]);
+    const [p1, p2] = [...parts.values()].find((v) => v.length === 2)! as [number, number];
+    for (let i = 0; i < 20; i++) {
+      const u = await newUser(db);
+      await setWallet(db, u, { stock: 5, opened: 0 });
+      await own(db, u, [p1]);
+      // card 1 is the owned part 1, which the rule turns into part 2; card 5 is part 2 too: it is a repeat of what is out, so it is redrawn
+      const r = await openSql(db, u, { draws: [{ c: [p1, C[1]!, C[2]!, C[3]!, p2] }] });
+      noRepeat(r);
+      expect(r.packs[0]!.cards[0]).toMatchObject({ n: p2, isNew: true });
+      expect(await twice(db, u)).toBe(0);
+    }
+  });
+
+  it('a rarity with a single card keeps the repeat (nothing else to give)', async () => {
+    const db = await after();
+    const cat = await catalog(db);
+    const C = idols(cat, 'C');
+    const UR = idols(cat, 'UR');
+    await db.exec(`update cards_catalog set in_packs = false where rarity = 'UR' and card_no <> ${UR[0]}`);
+    for (const bias of [0, 1]) {
+      await setBias(db, bias);
+      const u = await newUser(db);
+      await setWallet(db, u, { stock: 5, opened: 0 });
+      const r = await openSql(db, u, { draws: [{ c: [UR[0]!, C[1]!, C[2]!, C[3]!, UR[0]!] }] });
+      expect(r.packs[0]!.cards.map((c) => c.n)).toEqual([UR[0], C[1], C[2], C[3], UR[0]]);
+    }
   });
 });

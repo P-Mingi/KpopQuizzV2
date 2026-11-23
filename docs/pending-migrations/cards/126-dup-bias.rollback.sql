@@ -19,7 +19,7 @@ begin
   if to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)') is null then raise exception '126-dup-bias.rollback: run 125 and 126 first (cards_open is missing)'; end if;
 
   v_bias := to_regprocedure('public.cards_dup_bias()') is not null;
-  v_pick := to_regprocedure('public.cards_dup_pick(uuid, integer, text, text, text)') is not null;
+  v_pick := to_regprocedure('public.cards_dup_pick(uuid, integer, text, text, text, integer[], boolean)') is not null;
   v_open := position('cards_dup_pick' in (select prosrc from pg_proc where oid = to_regprocedure('public.cards_open(uuid, text, text, text, text, jsonb, timestamptz, integer, integer, integer)'))) > 0;
   if not v_bias and not v_pick and not v_open then
     raise notice '126-dup-bias.rollback: already rolled back, nothing changed';
@@ -284,7 +284,7 @@ begin
   end
   $f$;
 
-  drop function public.cards_dup_pick(uuid, integer, text, text, text);
+  drop function public.cards_dup_pick(uuid, integer, text, text, text, integer[], boolean);
   drop function public.cards_dup_bias();
 
   -- Checks: cards_open is the body of 125 again and the two functions are gone.

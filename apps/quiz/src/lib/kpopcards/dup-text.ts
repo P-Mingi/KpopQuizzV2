@@ -11,4 +11,4 @@ export const dupBiasRule = (): string =>
 
 /** What the bias never touches, and what a duplicate is worth. */
 export const dupBiasExempt = (): string =>
-  'The Gold guarantee and the fifth card of a golden pack never work this way. Duplicates still give shards and can be recycled.';
+  'The Gold guarantee and the fifth card of a golden pack never work this way. A pack never holds the same card twice, when its rarity has other cards. Duplicates still give shards and can be recycled.';
