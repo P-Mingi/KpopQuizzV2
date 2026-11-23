@@ -193,8 +193,15 @@ describe('the top bar', () => {
     expect(nav).toContain(`<nav aria-label="${COPY['hp.nav.main']}"`);
     expect(nav).toContain('src="/_next/image?url=%2Fmascot%2Fmascot-default.png');
     // the board's wordmark: "Bunny" in ink, "verse" in the accent, split from the registry name
-    expect(nav).toContain('<span class="hub-h2-brand-name">Bunny<span class="hub-h2-brand-tail">verse</span></span>');
+    // LAUNCH-POLISH-3 A: the site switcher is the brand of the bar, so the wordmark is the one of its button (UxBrandMark: a <b> tail, same class)
+    expect(nav).toMatch(/<button[^>]*class="ux-sw-btn"[^>]*>.*Bunny<b class="hub-h2-brand-tail">verse<\/b>/);
     expect(nav).toContain('<a href="/" class="hub-h2-tab hub-h2-tab-on" aria-current="page">Home</a>');
+    // the switcher: Bunnyverse is the current row (not a link, the check), KpopQuiz and OtakuQuiz are links; the logo link of old is gone
+    expect(nav).toContain('data-testid="site-switch"');
+    expect(nav).toMatch(/<span class="ux-sw-i" aria-current="page" data-site="hub">.*data-end="check"/);
+    expect(nav).toMatch(/<a class="ux-sw-i" href="[^"]+" rel="nofollow" data-site="kpop">/);
+    expect(nav).toMatch(/<a class="ux-sw-i" href="https:\/\/bunnyverse\.org\/anime\/" rel="nofollow" data-site="anime">/);
+    expect(nav).not.toContain('class="hub-h2-brand"');
     for (const [href, label] of [['#hot', 'Quizzes'], ['#community', 'Community']] as const) {
       expect(nav).toContain(`<a href="${href}" class="hub-h2-tab">${label}</a>`);
     }
@@ -941,7 +948,10 @@ describe('every link is the canonical page of its own site', () => {
     // https and nofollow noopener. Every other link is checked below, as before.
     const SOURCE = /<a href="([^"]+)" rel="nofollow noopener" class="hub-h2-srclink">/g;
     expect([...page.matchAll(SOURCE)].map((m) => m[1])).toEqual(['https://en.wikipedia.org/wiki/In_Bloom', 'https://en.wikipedia.org/wiki/Frieren', 'https://en.wikipedia.org/wiki/IVE']);
-    const html = page.replace(SOURCE, '<a>');
+    // LAUNCH-POLISH-3 A: the two link rows of the site switcher (KpopQuiz, OtakuQuiz) are nofollow by design (same as on the other sites); their hrefs stay checked below.
+    const SWITCH = / rel="nofollow" data-site="(kpop|anime)"/g;
+    expect([...page.matchAll(SWITCH)].map((m) => m[1])).toEqual(['kpop', 'anime']);
+    const html = page.replace(SOURCE, '<a>').replace(SWITCH, '');
     expect(html).not.toContain('nofollow');
     const hrefs = [...html.matchAll(/ href="([^"]+)"/g)].map((m) => m[1]!);
     // launch day (RUNBOOK K8c): the pages of the Burrow are the hub's own, each a route of its map, never a 404
@@ -951,7 +961,8 @@ describe('every link is the canonical page of its own site', () => {
       expect(hrefs, b).toContain(b);
       expect(isKnownRouteFor('hub', b, { v1: true, v12: true }), b).toBe(true);
     }
-    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#community', '#main', ...burrow]);
+    // LAUNCH-POLISH-3 A: the switcher's KpopQuiz row is the signed-in jump of this site (same-origin, a path of the hub's own).
+    const own = new Set(['/', '/privacy', '/legal', '#hot', '#today', '#community', '#main', '/auth/passport/out?to=kpop&amp;next=%2F&amp;via=f.pp', ...burrow]);
     expect(hrefs).toContain('https://kpopquiz.org/search');
     for (const h of hrefs) {
       if (h.startsWith('/_next') || own.has(h) || /^\/u\/[a-z0-9_]+$/.test(h)) continue;

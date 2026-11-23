@@ -15,6 +15,7 @@ import { ht } from '@/lib/site/hub/copy';
 import { homeUrl } from '@/lib/site/hub/home-types';
 
 import { HubMeAvatar } from '@/components/hub/hub-me-avatar';
+import { HubSiteSwitch } from '@/components/hub/hub-site-switch';
 
 import { HomeNavBadge } from './home-day';
 import { HomeSearch } from './home-search';
@@ -38,10 +39,13 @@ export function HomeNav({ viewer, sections, burrow, cards }: { viewer: HomeViewe
   return (
     <header className="hub-h2-head">
       <nav aria-label={ht('hp.nav.main')} className="hub-h2-nav">
-        <a href="/" className="hub-h2-brand">
-          <RabbitMark size={40} className="hub-h2-brand-mk" />
-          <HubWordmark className="hub-h2-brand-name" />
-        </a>
+        {/* Owner, 2026-11-23: the site switcher is the brand of the bar (KpopQuiz, OtakuQuiz, Bunnyverse); Home stays the first tab. */}
+        <HubSiteSwitch fallback={(
+          <a href="/" className="hub-h2-brand">
+            <RabbitMark size={40} className="hub-h2-brand-mk" />
+            <HubWordmark className="hub-h2-brand-name" />
+          </a>
+        )} />
         <div className="hub-h2-tabs">
           <a href="/" className="hub-h2-tab hub-h2-tab-on" aria-current="page">{ht('hp.nav.home')}</a>
           {burrow ? (

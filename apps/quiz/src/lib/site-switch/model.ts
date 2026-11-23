@@ -1,7 +1,7 @@
-// Site switcher (owner, 2026-11-22): one control in the top bar of kpopquiz.org and OtakuQuiz to hop between KpopQuiz, OtakuQuiz and Bunnyverse.
+// Site switcher (owner, 2026-11-22; the hub too, 2026-11-23): one control in the top bar of kpopquiz.org, OtakuQuiz and Bunnyverse to hop between KpopQuiz, OtakuQuiz and Bunnyverse.
 // Pure and server side. A destination is listed only while its site is open, under the SAME gate the site itself uses (lib/cards-bridge/flags.ts:
 // kpopquiz.org sees the hub and OtakuQuiz, which share the hub's private launch gate, through NET_CARDS_BRIDGES; OtakuQuiz shows itself and the
-// others: see openSisters). With no open sister the answer is null and the shell's props carry no key: the HTML is
+// others: see openSisters; the hub lists KpopQuiz and OtakuQuiz, see openSisters). With no open sister the answer is null and the shell's props carry no key: the HTML is
 // today's. kpopquiz.org and the hub's other builds never draw a link to a closed page. This replaces the separate "Bunnyverse" button of the
 // bridges (lib/cards-bridge/nav.ts keeps "KpopCards", a different destination).
 import { cardsBridgesKpopOn, hubHomeLinkOn } from '@/lib/cards-bridge/flags';
@@ -30,6 +30,8 @@ const ORDER: readonly SiteId[] = ['kpop', 'anime', 'hub'];
 
 function hrefTo(dst: SiteId): string {
   if (SITE_ID === 'kpop') return dst === 'hub' ? cardsHref('/') : bridgeHref(dst, '/', 'pp');
+  // Bunnyverse: OtakuQuiz is on the same origin (one session, a plain address); kpopquiz.org takes the signed-in jump, the one OtakuQuiz uses.
+  if (SITE_ID === 'hub') return dst === 'anime' ? `${REGISTRY.anime.url}/` : bridgeHref(dst, '/', 'pp');
   // OtakuQuiz: the hub is on the same origin (one session, a plain address); kpopquiz.org takes the signed-in jump.
   return dst === 'hub' ? `${REGISTRY.hub.url}/` : bridgeHref(dst, '/', 'pp');
 }
@@ -44,6 +46,9 @@ function openSisters(): readonly SiteId[] {
     const hubOpen = readPrivateLaunch('anime', process.env).on || hubHomeLinkOn();
     return hubOpen ? ['kpop', 'hub'] : ['kpop'];
   }
+  // Owner, 2026-11-23: the hub has the switcher too, with KpopQuiz and OtakuQuiz. kpopquiz.org is public; OtakuQuiz and the hub share ONE private
+  // launch gate (one cookie, one allow list), so whoever sees a hub page may see OtakuQuiz: both are always listed, the current row is Bunnyverse.
+  if (SITE_ID === 'hub') return ['kpop', 'anime'];
   return [];
 }
 

@@ -5,6 +5,10 @@
 // separator and the Bunnyverse row (black chip, arrow). On a phone (up to 760px) the panel spans the width under the bar with 10px margins and a
 // scrim behind it, rows of 64px. Tokens of the site only, no new font or dependency. The links are always in the served HTML (nofollow, through
 // the signed-in jump), so a closed panel changes nothing for a crawler. The Home link is still in the nav links and the tab bar.
+// Hub (owner, 2026-11-23): the same component in the bars of the hub (the shell's, the home's and the daily games'); there the current row is Bunnyverse
+// (a non-link row after the separator, with the check), KpopQuiz and OtakuQuiz are links. 'use client' so the hub's server bars can render it.
+'use client';
+
 import { useEffect, useId, useRef, useState } from 'react';
 
 import { UxBrandMark } from '@/components/ux-v1/brand';

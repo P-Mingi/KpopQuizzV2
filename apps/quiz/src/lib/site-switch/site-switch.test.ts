@@ -67,9 +67,18 @@ describe('which destinations are open', () => {
     expect(m.items[1]!.href).toBeNull();
     expect(m.items[2]!.href).toMatch(/^https:\/\/[^/]+\/$/);
   });
-  it('the hub draws none', async () => {
-    env('hub', ON);
-    expect((await import('./model')).siteSwitch()).toBeNull();
+  // LAUNCH-POLISH-3 A (owner, 2026-11-23): the hub has the switcher too (this case replaces "the hub draws none"), whatever the flags: OtakuQuiz and the
+  // hub share one private launch gate, kpopquiz.org is public.
+  it('the hub: KpopQuiz (jump), OtakuQuiz (same origin), Bunnyverse (current), with the flags on or off', async () => {
+    for (const vars of [ON, {}, CLOSED_ANIME, { PRIVATE_LAUNCH: '0' }]) {
+      env('hub', vars);
+      const m = (await import('./model')).siteSwitch()!;
+      expect(m.current, JSON.stringify(vars)).toBe('hub');
+      expect(m.items.map((i) => [i.id, i.label])).toEqual([['kpop', 'KpopQuiz'], ['anime', 'OtakuQuiz'], ['hub', 'Bunnyverse']]);
+      expect(m.items[0]!.href).toBe('/auth/passport/out?to=kpop&next=%2F&via=f.pp');
+      expect(m.items[1]!.href).toBe('https://bunnyverse.org/anime/');
+      expect(m.items[2]!.href).toBeNull();
+    }
   });
   it('the shell passes the model only when open: the prop is absent while closed', async () => {
     env('kpop');
@@ -128,6 +137,20 @@ describe('the markup', () => {
     expect(html).toContain('min-height:60px');
     expect(html).toContain('min-height:64px');
   });
+  // LAUNCH-POLISH-3 A: on the hub the current row is Bunnyverse: after the separator, not a link (no arrow), the check, aria-current page.
+  it('the hub: the Bunnyverse row is the current one (span, check, no arrow), after the separator; KpopQuiz and OtakuQuiz are nofollow links', async () => {
+    const html = await render('hub', {});
+    expect((html.match(/aria-current="page"/g) ?? []).length).toBe(1);
+    expect(html).toMatch(/<span class="ux-sw-i" aria-current="page" data-site="hub">.*data-chip="hub"[^>]*>B<\/span><span class="ux-sw-t"><b>Bunnyverse<\/b><small>Every site, one passport<\/small>.*data-end="check"/);
+    expect(html).not.toContain('data-end="arrow"');
+    expect((html.match(/data-end="check"/g) ?? []).length).toBe(1);
+    expect((html.match(/<a class="ux-sw-i"/g) ?? []).length).toBe(2);
+    expect(html).toMatch(/<a class="ux-sw-i" href="\/auth\/passport\/out\?to=kpop[^"]*" rel="nofollow" data-site="kpop">/);
+    expect(html).toMatch(/<a class="ux-sw-i" href="https:\/\/bunnyverse\.org\/anime\/" rel="nofollow" data-site="anime">/);
+    expect(html.indexOf('role="separator"')).toBeGreaterThan(html.indexOf('data-site="anime"'));
+    expect(html.indexOf('role="separator"')).toBeLessThan(html.indexOf('data-site="hub"'));
+    expect(html.match(/<button[^>]*>.*?<\/button>/)![0]).toMatch(/Bunny<b[^>]*>verse<\/b>/);
+  });
   it('the current row is not a link and carries the check; the other rows are links', async () => {
     const html = await render('kpop', ON);
     expect((html.match(/aria-current="page"/g) ?? []).length).toBe(1);
@@ -166,7 +189,7 @@ describe('the markup', () => {
     expect(html).not.toContain('ux-sw');
   });
   it('no en or em dash in what this feature wrote', () => {
-    for (const f of ['lib/site-switch/model.ts', 'components/site-switch/site-switch.tsx', 'lib/cards-bridge/nav.ts']) {
+    for (const f of ['lib/site-switch/model.ts', 'components/site-switch/site-switch.tsx', 'components/hub/hub-site-switch.tsx', 'lib/cards-bridge/nav.ts']) {
       expect(readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8'), f).not.toMatch(DASH);
     }
   });
