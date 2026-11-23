@@ -98,8 +98,8 @@ const EN: DleCopy = {
   dlgFoot: 'A new idol every day at midnight UTC, the same for everyone. The data comes from Wikidata, MusicBrainz and official sites.',
   dlgStats: 'Your statistics', sPlays: 'Plays', sWins: 'Wins', sAvg: 'Average guesses', sFirst: 'First try', sStreak: 'Current streak', sBest: 'Best streak', sHist: 'Guesses per win',
   sHistAria: (l) => `Distribution: ${l}`, sHistItem: (w, g) => `${w} ${w === 1 ? 'win' : 'wins'} in ${g}`, sShare: 'Share my stats', sNote: 'Kept on this device. Transfer them from the settings.', sNone: 'No finished game on this device yet.',
-  sShareText: (b, g, w, p, best, url) => `${b} · ${g}: ${w} wins in ${p} plays, best streak ${best}\n${url}`,
-  dlgSettings: 'Settings', gameLang: 'Game language', auto: 'Automatic', autoHelp: 'Your browser’s language if it is French. Any other language: English.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
+  sShareText: (b, g, w, p, best, url) => `${b} by Bunnyverse · ${g}: ${w} wins in ${p} plays, best streak ${best}\n${url}`,
+  dlgSettings: 'Settings', gameLang: 'Game language', auto: 'Automatic', autoHelp: 'The language of the page you open. If your browser uses the other one, a link offers it.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
   display: 'Display', colorblind: 'Colour-blind mode', colorblindHelp: 'Blue for right, orange for close', reduced: 'Reduced motion', reducedHelp: 'Also follows your device’s setting',
   transfer: 'Transfer my data', transferHelp: 'Copy this text on this device, paste it on the other one.', transferCopy: 'Copy my data', transferApply: 'Add the pasted data', transferDone: 'Done.', transferBad: 'This text is not an export.', erase: 'Erase on this device', eraseDone: 'Erased.',
 };
@@ -145,8 +145,8 @@ const FR: DleCopy = {
   dlgFoot: 'Nouvelle idol chaque jour à minuit UTC, la même pour tout le monde. Les données viennent de Wikidata, MusicBrainz et des sites officiels.',
   dlgStats: 'Tes statistiques', sPlays: 'Parties', sWins: 'Victoires', sAvg: 'Essais en moyenne', sFirst: 'Du premier coup', sStreak: 'Série en cours', sBest: 'Meilleure série', sHist: 'Essais par victoire',
   sHistAria: (l) => `Répartition : ${l}`, sHistItem: (w, g) => `${w} ${w === 1 ? 'victoire' : 'victoires'} en ${g}`, sShare: 'Partager mes stats', sNote: 'Gardées sur cet appareil. Transfère-les depuis les réglages.', sNone: 'Aucune partie finie sur cet appareil pour l’instant.',
-  sShareText: (b, g, w, p, best, url) => `${b} · ${g} : ${w} victoires en ${p} parties, meilleure série ${best}\n${url}`,
-  dlgSettings: 'Réglages', gameLang: 'Langue du jeu', auto: 'Automatique', autoHelp: 'Langue du navigateur : français. Autre langue que français ou anglais : anglais.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
+  sShareText: (b, g, w, p, best, url) => `${b} by Bunnyverse · ${g} : ${w} victoires en ${p} parties, meilleure série ${best}\n${url}`,
+  dlgSettings: 'Réglages', gameLang: 'Langue du jeu', auto: 'Automatique', autoHelp: 'La langue de la page ouverte. Si votre navigateur est dans l’autre langue, un lien vous la propose.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
   display: 'Affichage', colorblind: 'Mode daltonien', colorblindHelp: 'Bleu pour juste, orange pour proche', reduced: 'Animations réduites', reducedHelp: 'Suit aussi le réglage de ton appareil',
   transfer: 'Transférer mes données', transferHelp: 'Copie ce texte sur cet appareil, colle-le sur l’autre.', transferCopy: 'Copier mes données', transferApply: 'Ajouter les données collées', transferDone: 'C’est fait.', transferBad: 'Ce texte n’est pas un export.', erase: 'Effacer sur cet appareil', eraseDone: 'Effacé.',
 };

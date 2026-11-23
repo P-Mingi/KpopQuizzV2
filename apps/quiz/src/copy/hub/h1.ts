@@ -175,7 +175,7 @@ export const COPY = {
   'hp.seo.qotdWhatOne': 'A new quiz on {name}, every day',
   'hp.seo.bt': 'Blind test of the day',
   'hp.seo.btWhat': '{songs} songs, {seconds} seconds each',
-  'hp.foot.tag': 'Daily games and quizzes for K-pop and anime fans. One passport shared by {kpopName} and {animeName}. Every fact sourced.',
+  'hp.foot.tag': 'Daily games and quizzes for K-pop and anime fans. One passport shared by {kpopName} and {animeName}.',
   'hp.foot.burrow': 'Daily games',
   'hp.foot.about': 'About',
   'hp.foot.aboutLink': 'About us',

@@ -21,6 +21,7 @@ import { UxHome } from '@/components/home/ux-v1/ux-home';
 import { AnimeHomeSurprise } from '@/components/anime/home-surprise';
 import { UX_V1 } from '@/lib/ux-v1';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
+import { organizationId, websiteId } from '@/lib/site/jsonld';
 import { SITE } from '@/lib/site/registry';
 import { atLeast, getPublicStatsOrNull } from '@/lib/stats/site-stats';
 
@@ -259,6 +260,9 @@ async function HomeFeaturedJsonLd(): Promise<React.ReactElement | null> {
 const WEBSITE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  // SEO-LAUNCH-1 (lane C's entity graph): the stable @id of this WebSite and its publisher, OtakuQuiz's Organization (whose parent is Bunnyverse).
+  '@id': websiteId(),
+  publisher: { '@id': organizationId() },
   name: SITE.brand.name,
   // Owner, 2026-10-14: the site name Google may show, and the brand fans type.
   alternateName: SITE.seo.organization.alternateName,

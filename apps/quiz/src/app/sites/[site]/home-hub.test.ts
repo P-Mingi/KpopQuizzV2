@@ -925,7 +925,9 @@ describe('the footer', () => {
   it('has the wordmark, what the hub is, OtakuQuiz, privacy, the legal notice and the mailbox, and no link to kpopquiz.org (rule 16)', async () => {
     const html = await renderHome();
     const foot = block(html, '<footer class="hub-h2-foot"', 'footer');
-    expect(foot).toContain('Daily games and quizzes for K-pop and anime fans. One passport shared by KpopQuiz and OtakuQuiz. Every fact sourced.');
+    // SEO-LAUNCH-1 (owner, 2026-11-23, item A.6): "Every fact sourced" was a blanket claim with no source behind it; the line says only what the site is.
+    expect(foot).toContain('Daily games and quizzes for K-pop and anime fans. One passport shared by KpopQuiz and OtakuQuiz.');
+    expect(foot).not.toContain('Every fact sourced');
     expect(foot).toContain('<span class="hub-h2-foot-word">Bunny<span class="hub-h2-brand-tail">verse</span></span>');
     expect(foot).toContain('href="https://bunnyverse.org/anime"');
     expect(foot).not.toContain('kpopquiz.org/');
