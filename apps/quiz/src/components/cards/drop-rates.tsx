@@ -5,6 +5,7 @@ import { RARITY_LABEL } from '@/lib/cards/rules';
 import { economySentences } from '@/lib/cards/economy';
 import { adsPerDay, timerPerDay } from '@/lib/cards/flags';
 import { oddsView } from '@/lib/cards/ui-model';
+import { dupBiasExempt, dupBiasRule } from '@/lib/kpopcards/dup-text';
 
 import { Gem } from './card-art';
 
@@ -44,7 +45,7 @@ export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; ru
           <p><b>How a card is drawn</b></p>
           <ol className="draw">{t.drawSteps.map((x) => <li key={x}>{x}</li>)}</ol>
           <ul className="draw" aria-label="Type split by edition">{t.typeSplit.map((x) => <li key={x}>{x}</li>)}</ul>
-          <p><b>The chance of one given card</b></p>
+          <p><b>The chance of one given card</b> (before the duplicate rule in Pack rules)</p>
           <ul className="draw" aria-label="Chance of one given card">{t.cardChance.map((x) => <li key={`${x.r}-${x.kind}`}>{x.label}</li>)}</ul>
         </>
       ) : null}
@@ -55,6 +56,7 @@ export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; ru
           <li>Each card is drawn on its own.{t.fifthFloor ? ` The fifth card of every pack is ${RARITY_LABEL[t.fifthFloor]} or better.` : ''}</li>
           <li>Packs are never sold and cards can&apos;t be sold.</li>
           {/* Lots 3 and 4 (lane ECON): the guarantee, the missing half, the focus pack and the economy, in plain sentences. */}
+          <li>{dupBiasRule()} {dupBiasExempt()}</li>
           <li>{econ.pity}</li>
           <li>{econ.half}</li>
           <li>{econ.focus}</li>

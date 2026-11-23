@@ -24,6 +24,9 @@ export type { CardKind, Edition, OwnedEntry, Rarity, RecentPack };
 export const KC = {
   /** The stack holds this many packs (was 5, then 10, then 7; the owner's rule of 2026-11-23 is 5 again). The SQL twin is 125-cap-5.sql. */
   STACK_CAP: 5,
+  /** Fewer new cards (the owner's rule of 2026-11-23): once a card's rarity is drawn, this chance that it is a card of that rarity the player already owns
+   *  (when he owns one). Read ONLY by the texts and the dev mock; the database holds the real constant, cards_dup_bias() of 126-dup-bias.sql (a test keeps them equal). */
+  DUP_BIAS: 0.35,
   /** A pack from the timer every 10 minutes. */
   PERIOD_MIN: 10,
   /** At most this many timer packs a Paris day (the midnight top-up is not counted). */

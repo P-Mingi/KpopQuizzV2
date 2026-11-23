@@ -96,3 +96,48 @@ export function resolvePlan(plan: KcPlan, golden: boolean, pity: boolean): { car
   else if (golden && plan.g !== null) cards[4] = plan.g;
   return { cards, golden, guarantee: pity && plan.u !== null };
 }
+
+/** The inputs of the duplicate bias for one pack (the TypeScript twin of cards_dup_pick in 126-dup-bias.sql, used by the dev mock). */
+export interface DupBiasInput {
+  /** The cards of the pack's pool (in packs, active, in the pack kind's pool): the candidates are the owned ones among them. */
+  pool: readonly PoolCard[];
+  /** The rarity of any card in packs (the drawn card may come from outside the pool: the guarantee promise). */
+  rarityOf: (n: number) => Rarity;
+  /** The card numbers the player owns before the pack. */
+  owned: ReadonlySet<number>;
+  /** Every card number of the same photo (all the parts), or an empty list for a whole card; only the parts in packs. */
+  siblings: (n: number) => readonly number[];
+  /** A focus pack: the group of the cards 2 and 4. */
+  focus?: string | null;
+  /** The chance of the bias, KC.DUP_BIAS. */
+  bias: number;
+  /** True when card 5 is the Gold guarantee or the golden fifth card: it never leans toward an owned card. */
+  fifthExempt: boolean;
+  rng: Rng;
+}
+
+/**
+ * The bias: for each card (not the exempt one), with chance `bias` the card becomes a uniformly random card of the SAME rarity among those the player
+ * owns (cards of this pack before it count) that are in the pool, belong to the focus group for cards 2 and 4 when the group has a card of that
+ * rarity, and are not a part whose photo still has a part the player lacks (the missing part rule would turn it into a new card). Else it stays.
+ */
+export function applyDupBias(cards: readonly number[], o: DupBiasInput): number[] {
+  const owned = new Set(o.owned);
+  const out: number[] = [];
+  const unit = 10000;
+  const hit = Math.round(o.bias * unit);
+  cards.forEach((card, k) => {
+    let final = card;
+    if (!(k === PACK_SIZE - 1 && o.fifthExempt) && o.rng(unit) < hit) {
+      const rarity = o.rarityOf(card);
+      const inFocus = (c: PoolCard): boolean => c.entity === o.focus || c.group === o.focus;
+      const focusOn = !!o.focus && (k === 1 || k === 3) && o.pool.some((c) => c.rarity === rarity && inFocus(c));
+      const cands = o.pool.filter((c) => c.rarity === rarity && owned.has(c.n) && (!focusOn || inFocus(c))
+        && !o.siblings(c.n).some((m) => !owned.has(m)));
+      if (cands.length > 0) final = (cands[o.rng(cands.length)] as PoolCard).n;
+    }
+    owned.add(final);
+    out.push(final);
+  });
+  return out;
+}

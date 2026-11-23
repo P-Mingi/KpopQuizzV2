@@ -7,6 +7,7 @@ import { adsPerDay } from '@/lib/cards/flags';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
 import { KC } from '@/lib/kpopcards/contract';
+import { dupBiasExempt, dupBiasRule } from '@/lib/kpopcards/dup-text';
 
 import { REMOVAL_PROMISE } from './report-form';
 
@@ -29,7 +30,7 @@ export const FAQ: readonly FaqItem[] = [
   { id: 'crypto', q: 'Is there crypto, NFTs or a marketplace?', a: <>No. Cards have no money value, there is no market and no auction, and no card is ever numbered to look scarce.</> },
   {
     id: 'odds', q: 'How do the odds work?',
-    a: <>Each card is drawn on its own with the <Link href={kcPath.odds}>odds</Link> of the lobby, the same for everyone. The fifth card is Stage or better. <b>{RARITY_LABEL.UR} guarantee:</b> if {PITY_UR - 1} packs in a row bring nothing {RARITY_LABEL.UR} or better, the fifth card of pack {PITY_UR} is {RARITY_LABEL.UR}.</>,
+    a: <>Each card is drawn on its own with the <Link href={kcPath.odds}>odds</Link> of the lobby, the same for everyone. The fifth card is Stage or better. {dupBiasRule()} {dupBiasExempt()} <b>{RARITY_LABEL.UR} guarantee:</b> if {PITY_UR - 1} packs in a row bring nothing {RARITY_LABEL.UR} or better, the fifth card of pack {PITY_UR} is {RARITY_LABEL.UR}.</>,
   },
   {
     id: 'shards', q: 'What are shards?',

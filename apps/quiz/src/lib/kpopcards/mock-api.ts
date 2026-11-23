@@ -4,13 +4,14 @@
 // The catalog is given by the caller (see MockOptions.world). Never a source of truth: nothing is stored outside the object, and the clock is injectable.
 import { EDITIONS, SHARDS, craftCost } from '../cards/rules';
 import { ERROR_STATUS, KC, THEME_IDS, isApiError, levelOf, titleOf } from './contract';
-import { drawKcPack, indexPool } from './draw';
+import { applyDupBias, drawKcPack, indexPool } from './draw';
 import { helpData } from './help-data';
 import {
   badgesOf, cardRef, idolPage, momentQuiz, quizSlug, collectionState, dailyGroup, emptyPlayer, groupCards, lobbyState, missionsState, missionSets, oddsState, pctOf, playerPage, poolCards, rankRows,
   recyclePreview, almostState, panoCompletedBy, panoRef, sectionsOf, showcaseOf, themeCards, weekMini, walletNow, weekStartOf,
 } from './model';
 
+import type { PoolIndex } from './draw';
 import type { UiCard, UiCatalog } from '../cards/ui-types';
 import type { Rng, Rarity } from '../cards/types';
 import type {
@@ -185,20 +186,26 @@ export function createMockApi(opts: MockOptions): MockApi {
   const sec = (c: UiCard): void => { void c; };
   void sec;
 
-  function packOf(source: OpenRequest['source'], theme: ThemeId, focus: string | undefined, golden: boolean, pity: boolean, owned: Set<number>): { drawn: ReturnType<typeof drawKcPack>; kind: PackKind } {
+  function packOf(source: OpenRequest['source'], theme: ThemeId, focus: string | undefined, golden: boolean, pity: boolean, owned: Set<number>): { drawn: ReturnType<typeof drawKcPack>; kind: PackKind; pool: PoolIndex } {
     const all = indexPool(poolCards(w));
     if (source === 'daily') {
       const g = dailyGroup(w, p.parisDay)!;
       const pool = indexPool(poolCards(w).filter((c) => groupCards(w, g.id).some((x) => x.n === c.n)));
-      return { drawn: drawKcPack(pool, all, rng, { pity, golden, owned }), kind: 'daily' };
+      return { drawn: drawKcPack(pool, all, rng, { pity, golden, owned }), kind: 'daily', pool };
     }
     if (source === 'focus') {
-      return { drawn: drawKcPack(all, all, rng, { pity, golden, owned, focus: focus ?? null }), kind: 'focus' };
+      return { drawn: drawKcPack(all, all, rng, { pity, golden, owned, focus: focus ?? null }), kind: 'focus', pool: all };
     }
     const cs = themeCards(w, theme);
     const pool = theme === 'all' ? all : indexPool(poolCards(w).filter((c) => cs.some((x) => x.n === c.n)));
-    return { drawn: drawKcPack(pool, all, rng, { pity, golden, owned }), kind: theme };
+    return { drawn: drawKcPack(pool, all, rng, { pity, golden, owned }), kind: theme, pool };
   }
+
+  /** The other cards of a part's photo (every part in packs), empty for a whole card: the missing part rule of the database. */
+  const siblingsOf = (n: number): readonly number[] => {
+    const c = w.cards.find((x) => x.n === n);
+    return c?.setNs && c.setNs.length > 1 ? c.setNs : c?.pairN ? [n, c.pairN] : [];
+  };
 
   function addCard(c: UiCard, packNo: number): { isNew: boolean; pair: boolean } {
     const o = p.owned.get(c.n);
@@ -273,7 +280,12 @@ export function createMockApi(opts: MockOptions): MockApi {
         const golden = forceGoldenNext || packNo % KC.GOLDEN_EVERY === 0;
         const pity = forceGuarantee || (p.sinceGold >= KC.GOLD_BY_PACK - 1 && w.cards.some((c) => c.rarity === 'UR'));
         forceGoldenNext = false; forceGuarantee = false;
-        const { drawn, kind } = packOf(source, theme, req.focus, golden, pity, ownedNs());
+        const { drawn, kind, pool: packPool } = packOf(source, theme, req.focus, golden, pity, ownedNs());
+        // Fewer new cards (the twin of cards_dup_pick, 126-dup-bias.sql): the same bias, the same exemptions (the Gold guarantee and the golden fifth card).
+        drawn.cards.splice(0, 5, ...applyDupBias(drawn.cards, {
+          pool: [...packPool.values()].flat(), rarityOf: (cn) => w.cards.find((x) => x.n === cn)!.rarity, owned: ownedNs(), siblings: siblingsOf,
+          focus: source === 'focus' ? req.focus ?? null : null, bias: KC.DUP_BIAS, fifthExempt: drawn.golden || drawn.guarantee, rng,
+        }));
         if (forcedPack) {
           // The pattern of the dev control: new cards are unowned cards of the rarity, copies are owned ones (given first when he has none).
           const used = new Set<number>();
