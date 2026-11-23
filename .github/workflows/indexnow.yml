@@ -8,8 +8,13 @@ name: IndexNow submit
 # a different lastmod (src/lib/indexnow-diff.ts). With no previous snapshot (first run) it submits 0 and records the baseline, so an
 # unchanged push submits 0. Only main triggers it (the seo-indexation branch trigger is gone).
 #
+# Two jobs, one per domain. `submit` is kpopquiz.org. `submit-hub` is bunnyverse.org, the hub and /anime (SEO-LAUNCH-1, lane C): its /sitemap.xml is a
+# sitemap index, so the snapshot is the flattened urlset of /sitemap-hub.xml and /anime/sitemap.xml (the children the index lists), never the index itself.
+# The route of the hub build compares that snapshot with the same two children, and its key (the hub key, at the root of bunnyverse.org) covers the /anime URLs too.
+#
 # SETUP (one time):
-#   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy).
+#   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy). Set it on the kpopquiz project AND on the bunnyverse.org (fandomverse) project,
+#      with the SAME value (the hub job answers 401 without it).
 #   2. GitHub: repo Settings > Secrets and variables > Actions > New secret
 #      INDEXNOW_TOKEN with the SAME value.
 # workflow_dispatch lets you run it manually from the Actions tab to test.
@@ -24,6 +29,7 @@ permissions:
 
 jobs:
   submit:
+    name: submit (kpopquiz.org)
     runs-on: ubuntu-latest
     steps:
       - name: Wait for the Vercel deploy to go live
@@ -59,4 +65,56 @@ jobs:
         with:
           name: sitemap-snapshot
           path: current/sitemap.xml
+          retention-days: 90
+
+  submit-hub:
+    name: submit (bunnyverse.org, hub and /anime)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the Vercel deploy to go live
+        run: sleep 120
+      - name: Fetch the live sitemaps of the hub and of OtakuQuiz, flattened into one urlset
+        run: |
+          mkdir -p current prev
+          curl -fsS https://bunnyverse.org/sitemap-hub.xml -o hub.xml
+          # /anime/sitemap.xml is listed by the index only once the hub is open; a missing one is not an error.
+          curl -fsS https://bunnyverse.org/anime/sitemap.xml -o anime.xml || : > anime.xml
+          python3 - <<'PY'
+          import re
+          urls = []
+          for name in ('hub.xml', 'anime.xml'):
+              try:
+                  text = open(name, encoding='utf-8').read()
+              except OSError:
+                  continue
+              urls += re.findall(r'<url>.*?</url>', text, re.S)
+          head = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          open('current/sitemap-hub-flat.xml', 'w', encoding='utf-8').write(head + '\n'.join(urls) + '\n</urlset>\n')
+          print(len(urls), 'urls in the flattened sitemap')
+          PY
+      - name: Fetch the snapshot of the last submission
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          id=$(gh run list --workflow indexnow.yml --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          if [ -n "$id" ]; then gh run download "$id" --name sitemap-snapshot-hub --dir prev || echo "no hub snapshot in run $id"; fi
+      - name: Submit the changed URLs to IndexNow
+        env:
+          INDEXNOW_TOKEN: ${{ secrets.INDEXNOW_TOKEN }}
+        run: |
+          if [ -z "$INDEXNOW_TOKEN" ]; then
+            echo "INDEXNOW_TOKEN secret not set - skipping"; exit 0
+          fi
+          if [ -s prev/sitemap-hub-flat.xml ]; then
+            curl -fsS -X POST -H 'content-type: application/xml' --data-binary @prev/sitemap-hub-flat.xml "https://bunnyverse.org/api/indexnow?token=${INDEXNOW_TOKEN}"
+          else
+            echo "no previous hub sitemap: recording the baseline, submitting nothing"
+            curl -fsS -X POST --data-binary '' "https://bunnyverse.org/api/indexnow?token=${INDEXNOW_TOKEN}"
+          fi
+      - name: Keep this sitemap for the next run
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-snapshot-hub
+          path: current/sitemap-hub-flat.xml
           retention-days: 90
