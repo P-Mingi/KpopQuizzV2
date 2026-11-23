@@ -13,21 +13,23 @@ const read = (p: string): string => readFileSync(join(SRC, p), 'utf8');
 const css = read('styles/sites/hub/dle.css');
 const rule = (sel: string): string => new RegExp(`${sel.replace(/[.]/g, '\\.')} \\{([^}]*)\\}`).exec(css)![1]!;
 
-describe('the answer block in a toggle', () => {
-  it('is inside a details with its own h2, after the how-to toggle, and the text is still rendered by the server component', () => {
+// SEO-LAUNCH-1 lane D (owner, 2026-11-23, rule 3.1): this block used to be folded in a toggle after the how-to (owner, 2026-11-17). It now opens the page, under the H1, visible without a click,
+// so the test pins the new place and keeps the words of the block.
+describe('the answer block under the H1', () => {
+  it('is passed to the game as `intro`, shown by the game right after the H1, and no longer in a toggle of the guide', () => {
     const page = read('components/hub/dle/dle-game-page.tsx');
-    const i = page.indexOf('<details className="hub-dle-howto hub-dle-about">');
-    expect(i).toBeGreaterThan(page.indexOf('<details className="hub-dle-howto">'));
-    const block = page.slice(i, page.indexOf('</details>', i));
-    expect(block).toContain('<h2>{t.whatIsTitle(g.brand)}</h2>');
-    expect(block).toContain('<p className="hub-dle-answer">{gameAnswerBlock(game, locale, pool.entities.length, day.date)}</p>');
-    expect(page).not.toMatch(/<\/details>\s*\{pool && day \? <p className="hub-dle-answer">/);
+    expect(page).toContain('intro={intro}');
+    expect(page).toContain('gameAnswerBlock(game, locale, pool.entities.length, day.date');
+    expect(page).not.toContain('hub-dle-about');
+    const game = read('components/hub/dle/dle-game.tsx');
+    expect(game.indexOf('<h1 id="dle-h1">{w.h1}</h1>')).toBeGreaterThan(0);
+    expect(game.indexOf('className="hub-dle-answer hub-dle-intro"')).toBeGreaterThan(game.indexOf('<h1 id="dle-h1">'));
   });
 
   it('has a title in both languages and the block keeps its words', () => {
     expect(dleCopy('fr').whatIsTitle('Kpopdle')).toBe('Qu’est-ce que Kpopdle ?');
     expect(dleCopy('en').whatIsTitle('Kpopdle')).toBe('What is Kpopdle?');
-    expect(gameAnswerBlock('kpopdle-idol', 'fr', 216, '2026-11-16')).toContain('Le jeu compte 216 idols au 16 novembre 2026. Nouvelle idol à minuit UTC.');
+    expect(gameAnswerBlock('kpopdle-idol', 'fr', 216, '2026-11-16')).toContain('Le jeu compte 216 idols au 16 novembre 2026.');
   });
 });
 

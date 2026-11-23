@@ -18,10 +18,10 @@ export const DLE_FR_REVIEWED = false;
 type L10n = Readonly<Record<DleLocale, string>>;
 
 export const BURROW_SEO: { readonly title: L10n; readonly description: L10n } = {
-  title: { en: 'Daily games: K-pop and anime puzzles', fr: 'Jeux du jour : les énigmes K-pop et anime' },
+  title: { en: 'Daily K-pop and Anime Games: Kpopdle, Otakudle', fr: 'Jeux du jour K-pop et anime : Kpopdle, Otakudle' },
   description: {
-    en: 'The daily games gather our K-pop and anime puzzles: Kpopdle and Otakudle, one puzzle each, the same for everyone, a new one at midnight UTC.',
-    fr: 'Les jeux du jour réunissent nos énigmes K-pop et anime : Kpopdle et Otakudle, une énigme chacun, la même pour tout le monde, une nouvelle à minuit UTC.',
+    en: 'Play the daily K-pop and anime games of Bunnyverse: Kpopdle, the idol of the day, and Otakudle, the anime character of the day. New at midnight UTC.',
+    fr: 'Joue aux jeux du jour K-pop et anime de Bunnyverse : Kpopdle, l’idol du jour, et Otakudle, le personnage d’anime du jour. Nouveau à minuit UTC.',
   },
 };
 
@@ -35,7 +35,7 @@ export const GAME_SEO: Readonly<Partial<Record<DleGameId, { readonly title: L10n
     app: { en: 'Kpopdle by Bunnyverse, a free daily K-pop idol guessing game', fr: 'Kpopdle par Bunnyverse, un jeu gratuit pour deviner l’idol K-pop du jour' },
   },
   otakudle: {
-    title: { en: 'Otakudle: Guess the Anime Character Daily', fr: 'Otakudle : devine le perso d’anime du jour' },
+    title: { en: 'Otakudle: Guess the Anime Character of the Day', fr: 'Otakudle : devine le perso d’anime du jour' },
     description: {
       en: 'Otakudle is a free daily game: guess the anime character of the day from the series, species, role, year and studio. No spoilers, new character at midnight UTC.',
       fr: 'Otakudle est un jeu gratuit : devine le personnage d’anime du jour grâce à la série, l’espèce, le rôle, l’année et le studio. Sans spoiler, nouveau chaque jour.',
@@ -43,45 +43,50 @@ export const GAME_SEO: Readonly<Partial<Record<DleGameId, { readonly title: L10n
     app: { en: 'Otakudle by Bunnyverse, a free daily anime character guessing game', fr: 'Otakudle par Bunnyverse, un jeu gratuit pour deviner le personnage d’anime du jour' },
   },
   'otakudle-one-piece': {
-    title: { en: 'Otakudle One Piece: Guess the Character Daily', fr: 'Otakudle One Piece : le perso du jour' },
+    title: { en: 'One Piece Character Guessing Game: Otakudle', fr: 'Jeu du personnage One Piece : Otakudle' },
     description: {
-      en: 'Otakudle One Piece is a free daily game: guess the One Piece character of the day from the crew, Devil Fruit, Haki, bounty and more. New one at midnight UTC.',
-      fr: 'Otakudle One Piece est un jeu gratuit : devine le personnage One Piece du jour grâce à l’équipage, au fruit du démon, au Haki, à la prime. Nouveau chaque jour.',
+      en: 'Guess the One Piece character of the day from crew, Devil Fruit, Haki, bounty and debut arc. A free daily game by Otakudle, new at midnight UTC.',
+      fr: 'Devine le personnage One Piece du jour : équipage, fruit du démon, Haki, prime et arc de début. Un jeu gratuit d’Otakudle, nouveau à minuit UTC.',
     },
     app: { en: 'Otakudle One Piece by Bunnyverse, a free daily One Piece character guessing game', fr: 'Otakudle One Piece par Bunnyverse, un jeu gratuit pour deviner le personnage One Piece du jour' },
   },
   'otakudle-dragon-ball': {
-    title: { en: 'Otakudle Dragon Ball: Guess the Character Daily', fr: 'Otakudle Dragon Ball : le perso du jour' },
+    title: { en: 'Dragon Ball Character Guessing Game: Otakudle', fr: 'Jeu du personnage Dragon Ball : Otakudle' },
     description: {
-      en: 'Otakudle Dragon Ball is a free daily game: guess the Dragon Ball character of the day from the race, planet, universe, saga and more. New one at midnight UTC.',
-      fr: 'Otakudle Dragon Ball est un jeu gratuit : devine le personnage Dragon Ball du jour grâce à la race, à la planète, à l’univers, à la saga. Nouveau chaque jour.',
+      en: 'Guess the Dragon Ball character of the day from race, planet, universe and saga. A free daily game by Otakudle, with a new character at midnight UTC.',
+      fr: 'Devine le personnage Dragon Ball du jour : race, planète, univers et saga. Un jeu quotidien gratuit d’Otakudle, nouveau personnage à minuit UTC.',
     },
     app: { en: 'Otakudle Dragon Ball by Bunnyverse, a free daily Dragon Ball character guessing game', fr: 'Otakudle Dragon Ball par Bunnyverse, un jeu gratuit pour deviner le personnage Dragon Ball du jour' },
   },
 };
 
-/** The self-contained block under a game (rule 3.1, 40 to 60 words): what it is, one real number with its date. */
-export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: number, date: string): string {
+/**
+ * The self-contained block under the H1 of a game (rule 3.1, 40 to 60 words): what it is, one real number with its date. The brand is always written "{Game} by Bunnyverse" (owner,
+ * 2026-11-23). `seriesCount` (Otakudle across all series): the number of series of the pool, counted by the page from the pool itself.
+ */
+export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: number, date: string, seriesCount?: number): string {
   const day = new Intl.DateTimeFormat(locale === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T12:00:00Z`));
   if (game === 'kpopdle-idol') {
     return locale === 'fr'
-      ? `Kpopdle est un jeu quotidien gratuit de Bunnyverse pour deviner une idol K-pop. Tape une idol : chaque case compare un indice avec l’idol du jour, comme le groupe, l’agence, la nationalité, l’année de naissance, le début, la génération et le rôle. Le jeu compte ${poolSize} idols au ${day}. Nouvelle idol à minuit UTC.`
-      : `Kpopdle is a free daily K-pop idol guessing game by Bunnyverse. Type an idol, and each cell compares one fact with the idol of the day: group, agency, nationality, birth year, debut, generation and role. The game holds ${poolSize} idols on ${day}. A new idol comes at midnight UTC.`;
+      ? `Kpopdle par Bunnyverse est un jeu quotidien gratuit pour deviner une idol K-pop. Tout le monde a la même idol, et une nouvelle commence à minuit UTC. Tape une idol : chaque case compare le genre, le groupe, l’agence, la nationalité, la naissance, le début, la génération et le rôle. Le jeu compte ${poolSize} idols au ${day}.`
+      : `Kpopdle by Bunnyverse is a free daily K-pop idol guessing game. Everyone gets the same idol, and a new one starts at midnight UTC. Type any idol: each cell compares gender, group, agency, nationality, birth year, debut, generation and role with the answer. The game holds ${poolSize} idols on ${day}.`;
   }
   if (game === 'otakudle') {
+    const fromEn = seriesCount ? ` from ${seriesCount} series` : '';
+    const fromFr = seriesCount ? ` de ${seriesCount} séries` : '';
     return locale === 'fr'
-      ? `Otakudle est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage d’anime. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
-      : `Otakudle is a free daily anime character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: series, genres, year, studio, gender, species and role. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
+      ? `Otakudle par Bunnyverse est un jeu quotidien gratuit pour deviner un personnage d’anime. Tout le monde a le même, et un nouveau commence à minuit UTC. Chaque essai compare la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle, sans dire qui vit ou meurt. Le jeu compte ${poolSize} personnages${fromFr} au ${day}.`
+      : `Otakudle by Bunnyverse is a free daily anime character guessing game. Everyone gets the same character, and a new one starts at midnight UTC. Each guess compares series, genres, year, studio, gender, species and role, taken at first appearance, so no cell reveals who lives or dies. The game holds ${poolSize} characters${fromEn} on ${day}.`;
   }
   if (game === 'otakudle-one-piece') {
     return locale === 'fr'
-      ? `Otakudle One Piece est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage de One Piece. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme l’affiliation, le fruit du démon, le Haki, la prime, la taille et l’arc de début. Le jeu compte ${poolSize} personnages au ${day}. Nouveau à minuit UTC.`
-      : `Otakudle One Piece is a free daily One Piece character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: affiliation, Devil Fruit, Haki, bounty, height and debut arc. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
+      ? `Otakudle One Piece par Bunnyverse est un jeu quotidien gratuit pour deviner un personnage de One Piece. Tout le monde a le même personnage, et un nouveau commence à minuit UTC. Chaque essai compare l’affiliation, le fruit du démon, le Haki, la prime, la taille et l’arc de début. Le jeu compte ${poolSize} personnages au ${day}.`
+      : `Otakudle One Piece by Bunnyverse is a free daily One Piece character guessing game. Everyone gets the same character, and a new one starts at midnight UTC. Each guess compares affiliation, Devil Fruit, Haki, bounty, height and debut arc with the answer. The game holds ${poolSize} characters on ${day}.`;
   }
   if (game === 'otakudle-dragon-ball') {
     return locale === 'fr'
-      ? `Otakudle Dragon Ball est un jeu quotidien gratuit de Bunnyverse pour deviner un personnage de Dragon Ball. Tape un personnage : chaque case compare un indice avec le personnage du jour, comme la race, l’affiliation, la planète d’origine, l’univers, la série et la saga de début. Le jeu compte ${poolSize} personnages au ${day}. Nouveau personnage à minuit UTC.`
-      : `Otakudle Dragon Ball is a free daily Dragon Ball character guessing game by Bunnyverse. Type a character, and each cell compares one fact with the character of the day: race, affiliation, home planet, universe, debut series and debut saga. The game holds ${poolSize} characters on ${day}. A new character comes at midnight UTC.`;
+      ? `Otakudle Dragon Ball par Bunnyverse est un jeu quotidien gratuit pour deviner un personnage de Dragon Ball. Tout le monde a le même personnage, et un nouveau commence à minuit UTC. Chaque essai compare la race, l’affiliation, la planète d’origine, l’univers, la série et la saga de début. Le jeu compte ${poolSize} personnages au ${day}.`
+      : `Otakudle Dragon Ball by Bunnyverse is a free daily Dragon Ball character guessing game. Everyone gets the same character, and a new one starts at midnight UTC. Each guess compares race, affiliation, home planet, universe, debut series and debut saga with the answer. The game holds ${poolSize} characters on ${day}.`;
   }
   return GAME_SEO[game]?.description[locale] ?? '';
 }
@@ -117,13 +122,21 @@ export function breadcrumbJsonLd(items: readonly { readonly name: string; readon
   };
 }
 
+/** "Kpopdle", "Otakudle", "Otakudle One Piece": the game's name before " by Bunnyverse". */
+export function gameLabel(game: DleGameId): string {
+  const g = dleGame(game);
+  return g.series ? `${g.brand} ${g.series.name}` : g.brand;
+}
+
 /** WebApplication and VideoGame (v2 section 11.11): no rating, no count, never the answer. */
 export function gameJsonLd(game: DleGameId, locale: DleLocale): Record<string, unknown> {
   const g = dleGame(game);
   const seo = GAME_SEO[game];
   return {
     '@context': 'https://schema.org', '@type': ['WebApplication', 'VideoGame'],
-    name: `${g.brand} ${g.guess[locale]}`,
+    // The owner always writes "Kpopdle by Bunnyverse" / "Otakudle by Bunnyverse" (2026-11-23): the name is the brand with its network, the alternate names are the short brand and the game's own name.
+    name: `${gameLabel(game)} by Bunnyverse`,
+    alternateName: [gameLabel(game), `${g.brand} ${g.guess[locale]}`],
     description: seo?.app[locale],
     url: abs(localePath(g.path, locale)),
     inLanguage: locale,

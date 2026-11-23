@@ -4,7 +4,7 @@
 // without a server. Every URL is on the registry origin of the site (never another site's, never a hardcoded host).
 
 import { builtGames } from '@/lib/dle/games';
-import { readDay } from '@/lib/dle/read';
+import { readDay, settleDleRead } from '@/lib/dle/read';
 import { dleSitemapRows } from '@/lib/dle/seo';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
@@ -131,10 +131,10 @@ export function zoneSitemaps(site: SiteConfig, children: readonly SiteConfig[], 
 
 /**
  * Daily games step 4 (rule 9.6, the sitemap lists only indexable URLs): the built games whose page says index today, i.e. the ones that answer dle_day, and the date of the day. A game that is off
- * (dle_unavailable), under its minimum pool, or whose read fails is left out, like its page says noindex (lib/dle/page-meta.ts): a read that fails closes the game for this answer, never lists it.
+ * (dle_unavailable), under its minimum pool, is left out, like its page says noindex (lib/dle/page-meta.ts). A read that FAILS is not a game that is off: the error reaches the caller (a 500 the crawler retries), so one failed read never drops a game from the sitemap.
  */
 async function liveDleGames(db: SeriesDb): Promise<{ readonly ids: readonly DleGameId[]; readonly date: string | null }> {
-  const days = await Promise.all(builtGames().map(async (g) => ({ id: g.id, day: await readDay(db, g.id).catch(() => null) })));
+  const days = await Promise.all(builtGames().map(async (g) => ({ id: g.id, day: await readDay(db, g.id).catch(settleDleRead) })));
   const answering = days.filter((d) => d.day !== null);
   return { ids: answering.map((d) => d.id), date: answering[0]?.day?.date ?? null };
 }
