@@ -88,7 +88,7 @@ describe('126-dup-bias.sql: the files', () => {
     expect(up.indexOf(INSERTED)).toBeGreaterThan(up.indexOf('-- The pack: swap a group half'));
     expect(up.indexOf(INSERTED)).toBeLessThan(up.indexOf('-- lot 7, the missing part rule'));
   });
-  it('no file after 125 redefines cards_open, and the constant is written once, in cards_dup_bias', () => {
+  it('the constant is written once, in cards_dup_bias, and the helpers have their attributes', () => {
     const up = rd(UP);
     const code = up.split('\n').filter((l) => !l.startsWith('--')).join('\n');
     expect(code.split('0.35').length - 1).toBe(1);
