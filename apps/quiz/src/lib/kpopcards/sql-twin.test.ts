@@ -1,5 +1,5 @@
-// KpopCards: the TypeScript views and the database agree. The wallet (cards_wallet as prod runs it, 110 then 118 and 120, the cap of 7 of
-// lot LAUNCH-PREP, against walletNow of model.ts) over random states
+// KpopCards: the TypeScript views and the database agree. The wallet (cards_wallet as prod runs it, 110 then 118, 120, 121 and 125, the cap of 5 of
+// lot LAUNCH-POLISH-2, against walletNow of model.ts) over random states
 // around the cap, the day cap, Paris midnight, the clock changes and the 2 hour pause; the pack of the day (cards_daily_group against dailyGroup)
 // is checked in sql-core.test.ts.
 import { describe, expect, it, vi } from 'vitest';
@@ -14,10 +14,12 @@ import { parisDayOf } from '../cards/rules';
 
 describe('cards_wallet and walletNow agree', () => {
   it('on 400 random wallets', async () => {
-    // the chain prod will run: the bundle, 116, 117, 118 (parts) and 120 (the cap of 7); 110 alone keeps its cap of 10 (sql-core.test.ts)
+    // the chain prod will run: the bundle, 116, 117, 118 (parts), 120 (the cap of 7), 121 and 125 (the cap of 5); 110 alone keeps its cap of 10 (sql-core.test.ts)
     const db = await prodDb();
     await run(db, build([]).sql);
     await run(db, rd('120-cap-7.sql'));
+    await run(db, rd('121-ad-packs.sql'));
+    await run(db, rd('125-cap-5.sql'));
     const r = seededRng(99);
     const base = [Date.parse('2026-03-28T20:00:00Z'), Date.parse('2026-10-24T20:00:00Z'), Date.parse('2026-11-12T08:00:00Z')];
     for (let i = 0; i < 400; i++) {

@@ -33,7 +33,7 @@ describe('the guest lobby', () => {
   it('draws the stack empty: ten empty segments and a rule sentence, no count of packs', () => {
     expect(html).toContain('id="stack"');
     expect(html.match(/<i class="on"/g)).toBeNull();
-    expect(html).toContain('<b class="num">-</b> of 7 packs ready');
+    expect(html).toContain('<b class="num">-</b> of 5 packs ready');
     expect(html).toContain('id="open5-btn"');
   });
   it('keeps every block of the lobby in place, the personal ones empty', () => {
