@@ -1354,3 +1354,14 @@ html.rm .bvc .c-rim{animation:none}
 .bvc .ad-intro div{display:flex;gap:10px;margin-top:14px}
 .bvc .ad-intro button{flex:1;min-height:46px;border:0;border-radius:999px;font:inherit;font-weight:800;cursor:pointer;background:#f1e8f7;color:#2a1740}
 .bvc .ad-intro button:first-child{background:linear-gradient(135deg,#FF3E86,#C55BFF);color:#fff}
+/* Site switcher in the KpopCards bar (owner, 2026-11-23). The switcher's own rules ship with the component; here only its colours: the Cards pages are
+   light only (color-scheme:light), so the switcher takes the Cards tokens, also when the visitor's theme is dark. */
+html.ux-v1 .bvc .ux-sw.ux-sw{--ux-ink:var(--txt1);--ux-muted:var(--txt2);--ux-surface:var(--surface-alt);--ux-raised:var(--surface);--ux-edge:var(--border);--sw-edge:var(--border);--sw-chip-hub:#1F1B17;--sw-chip-hub-ink:#fff}
+.bvc .ux-sw .brand.kc{min-height:0;gap:8px}
+/* The Cards base rules (".bvc a" pink and underlined, ".bvc ul" with bullets and a margin) are more specific than the switcher's own: put its links and list back. */
+.bvc .ux-sw a.ux-sw-i{color:var(--ux-ink);text-decoration:none}
+.bvc .ux-sw .ux-sw-list{list-style:none;margin:0;padding:0}
+.bvc .ux-sw-btn{min-height:44px;font-family:var(--f-ui)}
+@media (max-width:420px){
+  .bvc .ux-sw-btn{gap:4px;padding:0 4px 0 6px;margin-left:-6px}
+}
