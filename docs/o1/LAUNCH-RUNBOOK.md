@@ -87,7 +87,9 @@ SQL (apply in the Supabase SQL Editor: one file at a time, each is one DO block,
 - [ ] The train (the one PR with all lanes) is merged and the three projects show the same commit, Ready.
 - [ ] Run the GitHub workflow **Cards publish** (Actions, Cards publish, Run workflow; type the Supabase host the form asks for; the reviewer of environment `cards-publish` approves). It uses a service key kept in GitHub, not in this file.
 - [ ] After that run, in this order: `cards/124-photoless-owned.sql`, then `cards/119-photocheck.sql`, then `cards/123-refill.sql` (124 first: the code that draws the "photo coming" frame is live after the train, and 124 keeps owned counts right when 119 takes photos away). Then run **Cards publish** again so the 139 new photos of 123 are cut. Expected, after 119 and 123 and the second publish: 1,050 cards in the packs (`docs/o1/reports/CARDS/REFILL.md`).
-- [ ] Still pending after all of the above: nothing in the Cards range 099 to 124 and L30 to L33, once the confirmations above are done. 121 serves the rewarded ad pack (the web claim) once the ad flags are on; no SQL 125 was needed.
+- [ ] The dle fills of 2026-11-22 (PR #250), any order, each after its base: `multisite/launch/L34-l1-kpopdle-fill.sql` (after L19, L20), `L35-l1-otakudle-fill.sql` (after L23), `L36-l1-series-fill.sql` (after L21).
+- [ ] LAUNCH-POLISH-2 (2026-11-23), once its PR is merged: `cards/125-cap-5.sql` (the stack cap 7 to 5; needs 120 and 121, refuses without them; a stack of 6 or 7 is kept) and `multisite/launch/L37-l1-launch-polish-data.sql` (after L34, L35, L36: AKMU on Cemter of Inspiration, Heeseung out of the Kpopdle pool, the One Piece bounties Unknown and the compare rule for them).
+- [ ] Still pending after all of the above: nothing in the Cards range 099 to 125 and L30 to L37, once the confirmations above are done. 121 serves the rewarded ad pack (the web claim) once the ad flags are on.
 
 Content gates (`docs/launch/o1/PRIVATE-LAUNCH.md` step 4 and the audit, section 7):
 
