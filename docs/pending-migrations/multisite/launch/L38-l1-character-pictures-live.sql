@@ -5,7 +5,8 @@
 --         entity_images_public of 022, the Otakudle views of 023, 024, L18 and L23). In the same statement a source page written http:// becomes
 --         https:// (the view passes on an https source page or none; the rest of the address is kept). A picture already verified is touched only
 --         for that https move. A picture with no 96 px file cannot be verified (entity_images_verified_thumb_check of 022) and stays hidden: the
---         notice gives their number; saving them again in the admin makes the file.
+--         notice gives their number; saving them again in the admin makes the file, and apps/quiz/scripts/cards/character-thumbs/character-thumbs.mjs
+--         (owner-run, with the service key) makes it for all of them at once; then run this file again.
 --         Each changed row is written first to public.o1_l38_verified_pictures (its id, its former flag and former source page), a table with RLS on
 --         and no grant to the browser roles, so the rollback restores exactly those rows.
 -- Why:    the owner, 2026-11-23: "je veux que tu ecrives un script qui les fasse toutes cocher en accepte, c'est moi qui ai tout publie", and in the same
