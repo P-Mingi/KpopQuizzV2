@@ -370,7 +370,7 @@ declare
 {"name":"CORTIS","slug":"cortis","label":"BigHit Music","gen":5,"url":"https://en.wikipedia.org/wiki/Cortis","rev":"1387062606"},
 {"name":"Hearts2Hearts","slug":"hearts2hearts","label":"SM Entertainment","gen":5,"url":"https://en.wikipedia.org/wiki/Hearts2Hearts","rev":"1386732075"},
 {"name":"&TEAM","slug":"team","label":"YX LABELS","gen":4,"url":"https://en.wikipedia.org/wiki/&Team","rev":"1383800489"},
-{"name":"AKMU","slug":"akmu","label":"YG Entertainment","gen":3,"url":"https://en.wikipedia.org/wiki/AKMU","rev":"1383771025"},
+{"name":"AKMU","slug":"akmu","label":"Cemter of Inspiration","gen":3,"url":"https://en.wikipedia.org/wiki/AKMU","rev":"1383771025"},
 {"name":"ASTRO","slug":"astro","label":"Fantagio","gen":3,"url":"https://en.wikipedia.org/wiki/Astro_(South_Korean_band)","rev":"1382319710"}
 ]';
   c_gender integer := 0;
