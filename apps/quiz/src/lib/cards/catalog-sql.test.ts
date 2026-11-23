@@ -177,7 +177,7 @@ describe('101-catalog.sql on fixture groups and idols', () => {
       ...(existsSync(path.join(CARDS_SQL, '../../design/cards/data/lot7/parts.json')) ? ['118-group-parts.rollback.sql', '118-group-parts.sql'] : []),
       // lots LAUNCH-PREP and REFILL (integrator, 2026-11-17 and 18): each lane's file and its rollback, as soon as the file is in the folder; the
       // same lines in every branch of these lots, so the branches merge in any order
-      ...['119-photocheck', '120-cap-7', '121-ad-packs', '122-pulls-feed', '123-refill', '124-photoless-owned']
+      ...['119-photocheck', '120-cap-7', '121-ad-packs', '122-pulls-feed', '123-refill', '124-photoless-owned', '125-cap-5']
         .filter((f) => existsSync(path.join(CARDS_SQL, `${f}.sql`)))
         .flatMap((f) => [`${f}.rollback.sql`, `${f}.sql`]),
       'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);

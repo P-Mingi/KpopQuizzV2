@@ -12,6 +12,7 @@ import { httpApi } from '@/lib/cards/ui-api';
 import { utcDate } from '@/lib/dle/day';
 import { builtGames, DAILY_PATH } from '@/lib/dle/games';
 import { gamesLeftToday, readHistory } from '@/lib/dle/local';
+import { KC } from '@/lib/kpopcards/contract';
 import { withBasePath } from '@/lib/site/base-path';
 
 export interface PassportLiveWords {
@@ -120,7 +121,7 @@ export function HubPassportLive({ cards, words: w }: { cards: boolean; words: Pa
             {packs === null ? <span className="hub-pp-skel" /> : packs.stock === 0 ? w.packsNone : packs.stock === 1 ? w.packsReady1 : fill(w.packsReady, { n: packs.stock })}
           </p>
           <span aria-hidden="true" className="hub-pp-packs">
-            {Array.from({ length: Math.min(packs?.stock ?? 0, 7) }, (_, i) => <span key={i} />)}
+            {Array.from({ length: Math.min(packs?.stock ?? 0, KC.STACK_CAP) }, (_, i) => <span key={i} />)}
           </span>
           <p className="hub-pp-meta hub-pp-num">{packs === null ? ' ' : packs.nextAt === null ? w.packsFull : fill(w.packsNext, { clock: next === null ? '' : short(next) })}</p>
           <a className="hub-pp-tilecta" href={withBasePath(CARDS_PATH)}>{w.packsCta}</a>

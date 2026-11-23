@@ -109,7 +109,7 @@ export function createMockApi(opts: MockOptions): MockApi {
 
   // The example player of the prototype v6 (its fresh(true) state), on the catalog it is given: 44 Standard, 16 Stage, 6 Holo, 2 Era and 1 Gold cards chosen by
   // the seed outside one group that is owned complete (the prototype's aespa: here the smallest group), copies 1 to 3, 3 starred cards of Holo or better, a
-  // wishlist of 3 missing Holo cards of another group, the 4 newest cards flagged New, 7 packs in the stack, 34 shards, 14 timer packs used, 48 packs opened,
+  // wishlist of 3 missing Holo cards of another group, the 4 newest cards flagged New, a full stack (KC.STACK_CAP packs), 34 shards, 14 timer packs used, 48 packs opened,
   // 6 packs of history, the week at 12 packs, 1 Kpopdle win and 7 new cards, the nickname mingi. A rarity the catalog does not have is skipped.
   const seedExample = (): void => {
     const r = seededRng(seed * 7919 + 23);
@@ -154,7 +154,7 @@ export function createMockApi(opts: MockOptions): MockApi {
     const other = rest.find((g) => g !== almost);
     if (other) for (const c of w.cards.filter((x) => x.rarity === 'R' && other.ids.includes(x.entity) && !p.owned.has(x.n)).slice(0, 3)) p.wishlist.add(c.n);
     for (const n of owned.slice(-4)) p.owned.get(n)!.seen = false;
-    p.shards = 34; p.stock = 7; p.timerToday = 14; p.anchor = now() - 3 * 60000; p.opened = 48; p.sinceGold = 0;
+    p.shards = 34; p.stock = KC.STACK_CAP; p.timerToday = 14; p.anchor = now() - 3 * 60000; p.opened = 48; p.sinceGold = 0;
     const bests: Rarity[] = ['R', 'C', 'U', 'SR', 'U', 'R'];
     const nws = [2, 1, 3, 2, 0, 4];
     p.recent = bests.map((best, k) => ({ at: now() - (k * 2 + 1) * 3600000 - k * 600000, best, source: k === 4 ? 'shards' as const : 'stock' as const, newCount: nws[k]! }));

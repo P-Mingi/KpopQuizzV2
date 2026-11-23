@@ -39,7 +39,7 @@ describe('the seeded mock of the KpopCards contract', () => {
     const r2 = (await a.open({ key: k(3), source: 'stock' })) as OpenResponse;
     expect(r2.replayed).toBe(true);
     expect(r2.packs).toEqual(r1.packs);
-    expect(a.data.stock).toBe(6);
+    expect(a.data.stock).toBe(4);
     expect(await a.open({ key: k(3), source: 'daily' })).toEqual({ error: 'idem_conflict' });
     expect(await a.open({ key: 'x', source: 'stock' })).toEqual({ error: 'idem_missing' });
   });
@@ -51,18 +51,18 @@ describe('the seeded mock of the KpopCards contract', () => {
     expect(await a.open({ key: k(6), source: 'stock' })).toEqual({ error: 'empty' });
     expect(await a.open({ key: k(7), source: 'stock', packs: 5 })).toEqual({ error: 'stack_short' });
   });
-  it('the stack holds seven, the timer adds a pack every ten minutes', async () => {
+  it('the stack holds five, the timer adds a pack every ten minutes', async () => {
     let t = T0;
     const a = createMockApi({ world: WORLD, seed: 6, now: () => t, example: false });
     const s0 = await a.state();
     if (isApiError(s0)) throw new Error('x');
     expect(s0.cap).toBe(KC.STACK_CAP);
-    expect(s0.stock).toBe(7);
+    expect(s0.stock).toBe(5);
     await a.open({ key: k(8), source: 'stock' });
     t += 25 * 60000;
     const s1 = await a.state();
     if (isApiError(s1)) throw new Error('x');
-    expect(s1.stock).toBe(7);
+    expect(s1.stock).toBe(5);
   });
   it('answers every read of the contract', async () => {
     const a = createMockApi({ world: WORLD, seed: 7, now: () => T0 });
@@ -124,7 +124,7 @@ describe('the seeded mock of the KpopCards contract', () => {
     const a = createMockApi({ world: WORLD, seed: 1, now: () => T0, start: 'example' });
     const st = await a.state();
     if (isApiError(st)) throw new Error('x');
-    expect([st.stock, st.shards, st.timerUsed, st.golden.opened, st.nickname]).toEqual([7, 34, 14, 48, 'mingi']);
+    expect([st.stock, st.shards, st.timerUsed, st.golden.opened, st.nickname]).toEqual([5, 34, 14, 48, 'mingi']);
     expect((st.recent ?? []).map((r) => r.best)).toEqual(['holo', 'std', 'stage', 'era', 'stage', 'holo']);
     expect((st.recent ?? []).map((r) => r.newCount)).toEqual([2, 1, 3, 2, 0, 4]);
     expect(st.owned.filter((o) => o.fav)).toHaveLength(3);

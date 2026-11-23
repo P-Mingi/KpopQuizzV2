@@ -22,8 +22,8 @@ export type { CardKind, Edition, OwnedEntry, Rarity, RecentPack };
 /* ------------------------------------------------------------------ constants the screens may print */
 
 export const KC = {
-  /** The stack holds this many packs (was 5). */
-  STACK_CAP: 7,
+  /** The stack holds this many packs (was 5, then 10, then 7; the owner's rule of 2026-11-23 is 5 again). The SQL twin is 125-cap-5.sql. */
+  STACK_CAP: 5,
   /** A pack from the timer every 10 minutes. */
   PERIOD_MIN: 10,
   /** At most this many timer packs a Paris day (the midnight top-up is not counted). */

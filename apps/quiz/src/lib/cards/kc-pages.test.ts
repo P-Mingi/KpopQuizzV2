@@ -83,7 +83,7 @@ describe('the legacy interface over the contract (the seeded mock)', () => {
     setKcApi(mock);
     const api = legacyApi(mock);
     const st = await api.state();
-    expect(st && !('error' in st) && st.cap).toBe(7);
+    expect(st && !('error' in st) && st.cap).toBe(5);
     const r = await api.open('stock');
     expect('error' in r).toBe(false);
     if (!('error' in r)) expect(r.pack.cards).toHaveLength(5);
