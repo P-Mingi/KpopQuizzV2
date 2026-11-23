@@ -4,7 +4,7 @@
 //   - the meta tag  <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">   (the id as it is)
 //   - /ads.txt      google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0              (the id without "ca-")
 // A value of another shape (a bare `pub-...`, a short id, spaces inside, a letter) is treated as not set: nothing is served, never a half line.
-// Hub only: kpopquiz.org and the anime build never serve either file.
+// The hub and kpopquiz.org (LAUNCH-POLISH-2 E, 2026-11-23: ready for AdSense, no ad slot); the anime build never serves either file.
 
 /** Google's own certification authority id for AdSense lines of ads.txt (the same for every publisher). */
 export const ADSENSE_AUTHORITY_ID = 'f08c47fec0942fa0';
@@ -35,7 +35,7 @@ export function adsTxtBody(raw: string | null | undefined): string | null {
   return line === null ? null : `${line}\n`;
 }
 
-/** The `other` entry of the root metadata for the verification meta tag, or an empty object. Only the hub's root uses it. */
+/** The `other` entry of the root metadata for the verification meta tag, or an empty object. The roots of the hub and of kpopquiz.org use it. */
 export function adsenseMetaOther(raw: string | null | undefined): Record<string, string> {
   const a = parseAdsenseAccount(raw);
   return a ? { [ADSENSE_META_NAME]: a.client } : {};

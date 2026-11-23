@@ -13,7 +13,6 @@ import { jsonLdString } from '@/lib/seo/json-ld';
 import { ht } from '@/lib/site/hub/copy';
 import { hotItemListJsonLd } from '@/lib/site/hub/home-jsonld';
 import { homeUrl } from '@/lib/site/hub/home-types';
-import { isoWeek, weekRange } from '@/lib/site/hub/home-week';
 import { websiteJsonLdFor } from '@/lib/site/jsonld';
 
 import { HomeCommunity, communitySub } from './home-community';
@@ -61,8 +60,6 @@ export interface HomeData {
   readonly stickers?: readonly PageSticker[];
   /** Bunnyverse bridges: the KpopCards band and tab. Set only with NET_CARDS and NET_CARDS_BRIDGES on (lib/cards-bridge/flags.ts); absent, the home is today's. */
   readonly cards?: boolean;
-  /** The moment the page is built at (the week of the eyebrow of Popular this week); tests set it, the page reads the clock. */
-  readonly now?: Date;
 }
 
 function card(q: HomeQuiz): HotCard {
@@ -86,7 +83,6 @@ function card(q: HomeQuiz): HotCard {
 export function HomePage({ data }: { data: HomeData }): React.ReactElement {
   const { hot, viewer, today, quick, crossover, assets, icons, burrow, stickers = [] } = data;
   const description = ht('hp.meta.description');
-  const now = data.now ?? new Date();
   const panels: HotPanel[] | null = hot
     ? (['kpop', 'anime'] as const).map((site) => ({
         site,
@@ -130,7 +126,7 @@ export function HomePage({ data }: { data: HomeData }): React.ReactElement {
                       labels={{
                         title: ht('hp.hot.title'),
                         sub: ht('hp.hot.sub'),
-                        eyebrow: ht('hp.hot.eyebrow', { week: isoWeek(now), range: weekRange(now) }),
+                        eyebrow: ht('hp.hot.eyebrow'),
                         seeAll: ht('hp.hot.seeAll'),
                         rank: ht('hp.hot.rank'),
                         newLabel: ht('hp.hot.new'),

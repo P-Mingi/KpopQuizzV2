@@ -588,12 +588,13 @@ describe('Popular this week', () => {
   const panelOf = (hot: string, id: 'hot-k-h' | 'hot-a-h'): string => block(hot, `<section aria-labelledby="${id}"`, 'section');
 
   // Lot HUB-HOT-B (2026-11-22, direction B): two panels, the top three of each site by plays of the week; the filter is gone.
-  it('is the band of the two panels: the eyebrow with the ISO week, the h2, the new line, an h3 per panel, no filter and no Start easy', async () => {
+  it('is the band of the two panels: the eyebrow Last 7 days, the h2, the new line, an h3 per panel, no filter and no Start easy', async () => {
     const html = await renderHome();
     const band = block(html, '<section id="hot"', 'section');
     expect(band).toContain('aria-labelledby="hot-h"');
     const hot = popular(html);
-    expect(hot).toMatch(/<p class="hub-h2-eyebrow hub-h2-hot-eyebrow">Week \d{1,2} · (\d{1,2}-\d{1,2} [A-Z][a-z]{2}|\d{1,2} [A-Z][a-z]{2}-\d{1,2} [A-Z][a-z]{2})<\/p>/);
+    // Integrator, 2026-11-23: the eyebrow says what the count is, the rolling last 7 days (it was the ISO week and its dates).
+    expect(hot).toContain('<p class="hub-h2-eyebrow hub-h2-hot-eyebrow">Last 7 days</p>');
     expect(hot).toContain('<h2 id="hot-h" class="hub-h2-h2">Popular this week</h2>');
     expect(hot).toContain('The top three on each side, ranked by plays this week.');
     expect(hot).not.toContain('Hot right now');

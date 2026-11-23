@@ -82,31 +82,101 @@ describe('which destinations are open', () => {
 });
 
 describe('the markup', () => {
-  it('a labelled nav, the current site as aria-current text, the others as nofollow links with visible names, the one trigger button', async () => {
-    env('kpop', ON);
+  async function render(site: Site, vars: Record<string, string>): Promise<string> {
+    env(site, vars);
     const model = (await import('./model')).siteSwitch()!;
     const { SiteSwitch } = await import('@/components/site-switch/site-switch');
-    const html = renderToStaticMarkup(h(SiteSwitch, { model }));
-    expect(html).toContain('<nav aria-label="Switch site"');
-    expect(html).toMatch(/<span class="ux-sw-i" aria-current="true" data-site="kpop">.*<b>KpopQuiz<\/b>.*You are here/);
+    return renderToStaticMarkup(h(SiteSwitch, { model }));
+  }
+  // Changed 2026-11-23 (redesign): the current row is a span with aria-current="page" (was "true"), carries a check instead of "You are here",
+  // the blurbs and the one trigger button are the new ones; the nav label, the nofollow links, the visible names and no absolute href stay.
+  it('a labelled nav, the current site as aria-current page text, the others as nofollow links with visible names', async () => {
+    const html = await render('kpop', ON);
+    expect(html).toContain('<nav class="ux-sw-menu"');
+    expect(html).toContain('aria-label="Switch site"');
+    expect(html).toMatch(/<span class="ux-sw-i" aria-current="page" data-site="kpop">.*<b>KpopQuiz<\/b>/);
     expect(html).toMatch(/<a class="ux-sw-i" href="\/auth\/passport\/out\?to=anime[^"]*" rel="nofollow" data-site="anime">.*<b>OtakuQuiz<\/b>/);
     expect(html).toMatch(/rel="nofollow" data-site="hub">.*<b>Bunnyverse<\/b>/);
-    expect(html).toContain('aria-expanded="false"');
-    expect(html).toContain('>Switch site<');
+    expect(html).not.toContain('You are here');
     expect(html).toContain('@media (max-width:760px)');
     expect(html).not.toMatch(/href="https?:/);
   });
-  it('OtakuQuiz marks itself current', async () => {
-    env('anime', { NET_CARDS_BRIDGES: '1', PRIVATE_LAUNCH: '0' });
-    const model = (await import('./model')).siteSwitch()!;
-    const { SiteSwitch } = await import('@/components/site-switch/site-switch');
-    const html = renderToStaticMarkup(h(SiteSwitch, { model }));
-    expect(html).toMatch(/aria-current="true" data-site="anime">.*<b>OtakuQuiz</);
-    expect((html.match(/aria-current="true"/g) ?? []).length).toBe(1);
+  it('one button holds the logo, the site name and the chevron, with aria-haspopup and aria-expanded', async () => {
+    const html = await render('kpop', ON);
+    expect((html.match(/<button/g) ?? []).length).toBe(1);
+    const btn = html.match(/<button[^>]*>.*?<\/button>/)![0];
+    expect(btn).toContain('aria-haspopup="true"');
+    expect(btn).toContain('aria-expanded="false"');
+    expect(btn).toContain('ux-brand-rabbit');
+    expect(btn).toMatch(/Kpop<b[^>]*>Quiz<\/b>/);
+    expect(btn).toContain('ux-sw-chev');
+    expect(html).not.toContain('title="Switch site"');
+  });
+  it('the rows: label, one line and an initial chip per site, the Bunnyverse row after a separator with a black chip and an arrow', async () => {
+    const html = await render('kpop', ON);
+    expect(html).toContain('>Switch site</p>');
+    expect(html).toMatch(/data-chip="kpop"[^>]*>K<\/span><span class="ux-sw-t"><b>KpopQuiz<\/b><small>K-pop quizzes<\/small>/);
+    expect(html).toMatch(/data-chip="anime"[^>]*>O<\/span><span class="ux-sw-t"><b>OtakuQuiz<\/b><small>Anime quizzes<\/small>/);
+    expect(html).toMatch(/data-chip="hub"[^>]*>B<\/span><span class="ux-sw-t"><b>Bunnyverse<\/b><small>Every site, one passport<\/small>/);
+    expect(html.indexOf('role="separator"')).toBeGreaterThan(html.indexOf('data-site="anime"'));
+    expect(html.indexOf('role="separator"')).toBeLessThan(html.indexOf('data-site="hub"'));
+    expect(html).toMatch(/data-site="hub".*data-end="arrow"/);
+    expect(html).toContain('font-size:11px');
+    expect(html).toContain('width:340px');
+    expect(html).toContain('border-radius:20px');
+    expect(html).toContain('#E6E0D7');
+    expect(html).toContain('min-height:60px');
+    expect(html).toContain('min-height:64px');
+  });
+  it('the current row is not a link and carries the check; the other rows are links', async () => {
+    const html = await render('kpop', ON);
+    expect((html.match(/aria-current="page"/g) ?? []).length).toBe(1);
+    expect(html).toMatch(/aria-current="page" data-site="kpop">.*data-end="check"/);
+    expect((html.match(/data-end="check"/g) ?? []).length).toBe(1);
+    expect((html.match(/<a class="ux-sw-i"/g) ?? []).length).toBe(2);
+  });
+  it('OtakuQuiz marks itself current and brands the button with its own name', async () => {
+    const html = await render('anime', { NET_CARDS_BRIDGES: '1', PRIVATE_LAUNCH: '0' });
+    expect(html).toMatch(/aria-current="page" data-site="anime">.*<b>OtakuQuiz</);
+    expect((html.match(/aria-current="page"/g) ?? []).length).toBe(1);
+    expect(html.match(/<button[^>]*>.*?<\/button>/)![0]).toMatch(/Otaku<b[^>]*>Quiz<\/b>/);
+  });
+  it('without the hub (OtakuQuiz in public, bridges off): two rows and no separator', async () => {
+    const html = await render('anime', { PRIVATE_LAUNCH: '0' });
+    expect(html).not.toContain('role="separator"');
+    expect(html).not.toContain('data-site="hub"');
+  });
+  it('the chip fills keep 4.5:1 with a white initial', async () => {
+    const { CHIP_FILL } = await import('@/components/site-switch/site-switch');
+    const lum = (hex: string): number => {
+      const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+      return 0.2126 * c[0]! + 0.7152 * c[1]! + 0.0722 * c[2]!;
+    };
+    for (const id of ['kpop', 'anime', 'hub']) expect(1.05 / (lum(CHIP_FILL[id]!) + 0.05), id).toBeGreaterThanOrEqual(4.5);
+  });
+  it('no switcher: the brand is today\'s link, byte for byte', async () => {
+    env('kpop');
+    const { UxBrand, UxBrandMark } = await import('@/components/ux-v1/brand');
+    // React hoists the image preload hint ahead of the link: compare without it.
+    const noPreload = (x: string): string => x.replace(/<link[^>]*\/>/, '');
+    const html = noPreload(renderToStaticMarkup(h(UxBrand, {})));
+    const mark = noPreload(renderToStaticMarkup(h(UxBrandMark, {})));
+    expect(html).toBe(`<a class="ux-brand" aria-label="KpopQuiz home" href="/">${mark}</a>`);
+    expect(html).toContain('ux-brand-rabbit');
+    expect(html).not.toContain('ux-sw');
   });
   it('no en or em dash in what this feature wrote', () => {
     for (const f of ['lib/site-switch/model.ts', 'components/site-switch/site-switch.tsx', 'lib/cards-bridge/nav.ts']) {
       expect(readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8'), f).not.toMatch(DASH);
     }
+  });
+});
+
+// LAUNCH-POLISH-2 F (2026-11-23), seen in the browser: the shell drew the logo AND the switcher button (two "KpopQuiz" side by side).
+describe('the shell draws the brand once', () => {
+  it('the switcher replaces the logo link when it shows; without it, the logo link', () => {
+    const src = readFileSync(new URL('../../components/layout/ux-v1/ux-client-shell.tsx', import.meta.url), 'utf8');
+    expect(src).toContain('{siteSwitch ? <SiteSwitch model={siteSwitch} /> : <UxBrand />}');
+    expect(src.match(/<UxBrand \/>/g)).toHaveLength(1);
   });
 });

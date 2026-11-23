@@ -10,7 +10,7 @@ import { KC } from '@/lib/kpopcards/contract';
 
 import { REMOVAL_PROMISE } from './report-form';
 
-// The stack of KpopCards holds 7 packs (KC.STACK_CAP); CAP of lib/cards/rules.ts is the old Bunnyverse Cards stack of 5.
+// The stack of KpopCards holds KC.STACK_CAP packs; CAP of lib/cards/rules.ts is the old Bunnyverse Cards stack of 5.
 const CAP = KC.STACK_CAP;
 
 /** The packs a day a rewarded ad can give (CARDS_AD_PACKS_PER_DAY, default 3), read when the page renders. */

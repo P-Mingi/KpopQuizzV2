@@ -113,7 +113,8 @@ export const COPY = {
   'hp.hot.listName': 'Hot right now',
   'hp.hot.sub': 'The top three on each side, ranked by plays this week.',
   // Lot HUB-HOT-B (2026-11-22, direction B): the eyebrow above the title ("Week 47 · 16-22 Nov"), the panels, the rank, the weekly count.
-  'hp.hot.eyebrow': 'Week {week} · {range}',
+  // Integrator, 2026-11-23: the count is the rolling last 7 days, so the eyebrow says so (no week number, no dates).
+  'hp.hot.eyebrow': 'Last 7 days',
   'hp.hot.seeAll': 'See all',
   'hp.hot.rank': 'Rank',
   'hp.hot.weekPlays': '{n} plays this week',

@@ -102,6 +102,7 @@ function constSink(names: ReadonlySet<string>): RegExp | null {
 const EXCEPTIONS: readonly (readonly [string, string, string])[] = [
   ['components/create/create-funnel.tsx', '', 'the flag-off funnel: a world build runs NEXT_PUBLIC_UX_V1=1 (flags-env.md 2) and renders the P5 funnel'],
   ['components/hub/home/', '', 'the hub home: rendered by the hub build only, which has no base path'],
+  ['components/cards-bridge/cards-banner.tsx', '', 'the KpopCards banner: drawn by the hub and kpopquiz.org builds only (cardsBridgesHubOn / cardsBridgesKpopOn), neither has a base path'],
   ['components/verse/brand/verse-wordmarks.tsx', '', 'the Verse: kpop only (features.verse is off on anime and the hub)'],
   ['components/personality/quiz.tsx', "fetch('/api/auth/update-profile'", 'the kpop branch of the bias (a world site saves the oshi above it)'],
   ['lib/passport/handoff.ts', '', 'the land page of the passport jump: lane 3 (o1/fv-l3) writes it with the base path of the build'],

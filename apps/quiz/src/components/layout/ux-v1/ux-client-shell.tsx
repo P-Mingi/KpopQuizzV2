@@ -86,8 +86,8 @@ export function UxClientShell({ children, showFandoms, year, bare, barePaths, na
         <UxChromeGate part="nav">
           <header className="ux-nav ux-chrome" id="ux-nav">
             <div className="ux-wrap ux-nav-in">
-              <UxBrand />
-              {siteSwitch ? <SiteSwitch model={siteSwitch} /> : null}
+              {/* LAUNCH-POLISH-2 F (2026-11-23): with an open sister site the switcher IS the brand (one button: logo, name, chevron); else today's logo. */}
+              {siteSwitch ? <SiteSwitch model={siteSwitch} /> : <UxBrand />}
               <UxNavLinks />
               {navBridges ? <NavBridgeLinks items={navBridges} /> : null}
               <UxNavActions {...(CARDS_MENU

@@ -218,7 +218,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
         ) : null}
         <div className="openrow">
           <button type="button" className="btn-primary xl" id="open-btn" onClick={primary} disabled={busy || (!guest && (!ready || main.disabled))}><span id="open-label">{guest || !ready ? 'Open a pack' : main.label}</span></button>
-          {ready || guest ? <button type="button" className="btn-x5" id="open5-btn" disabled={guest || stock < 5} title={stock < 5 ? 'Needs 5 packs ready' : 'Open 5 packs at once'} onClick={() => goOpen('stock', 5)}>Open 5</button> : null}
+          {ready || guest ? <button type="button" className="btn-x5" id="open5-btn" disabled={guest || stock < KC.OPEN_MANY} title={stock < KC.OPEN_MANY ? `Needs ${KC.OPEN_MANY} packs ready` : `Open ${KC.OPEN_MANY} packs at once`} onClick={() => goOpen('stock', KC.OPEN_MANY)}>Open {KC.OPEN_MANY}</button> : null}
         </div>
         <p className="hint" id="cta-sub">{guest ? 'Packs belong to your account.' : !ready ? '' : hasPack ? 'You can also tap the pack.' : rested ? 'The timer is done for today. Midnight brings the stack back to full.' : main.kind === 'wait' && w?.nextAt ? `Or wait ${fmtClock(nextMs)} for a free pack.` : ''}</p>
         {guest ? (

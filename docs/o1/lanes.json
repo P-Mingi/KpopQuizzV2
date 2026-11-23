@@ -167,5 +167,14 @@
     ],
     "kind": "code",
     "hotExempt": true
+  },
+  "CARDS": {
+    "sites": [
+      "hub"
+    ],
+    "kind": "code",
+    "specs": [
+      "CARDS/hub-hot-panels.o1.ts"
+    ]
   }
 }
