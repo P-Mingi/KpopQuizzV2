@@ -41,7 +41,7 @@ Public variables (`NEXT_PUBLIC_*`) are baked in at build: changing one needs a r
 |---|---|---|---|---|
 | `SITE_SCOPE` | `1`, owner, RUNBOOK B6, after 002 is verified | `1`, set 2026-10-28 by the integrator | `1`, set 2026-10-28 by the integrator | `1`. Server and build. On anime and hub the scoped reads filter by site even if it is unset (fail closed); it is set anyway so the three projects match. Must be on in kpopquiz before any anime row exists. |
 | `PASSPORT_JUMP` | `1`, owner, RUNBOOK K7 | `1`, K7 | `1`, K7 | `1`, all three in the same batch of redeploys, after 006 and 007 are applied and the domain is live. |
-| `NEXT_PUBLIC_NET_FOOTER` | `1`, owner, RUNBOOK L3 step 1 | `1`, L3 | `1`, L3 | `1`. Visible on kpopquiz.org. |
+| `NEXT_PUBLIC_NET_FOOTER` | stays off, rule 16 | stays off, rule 16 | stays off, rule 16 | Unset on all three (SEO-LAUNCH-1, owner 2026-11-23). Rule 16 of `kpopquiz-seo`: sister sites link to each other only in context, never in a site-wide footer. The contextual bridges are enough. Do not set it, and drop the L3 step 1 of the runbook. |
 | `NEXT_PUBLIC_NET_MENU` | `1`, L3 step 2 | `1` | `1` | `1`. Visible on kpopquiz.org. |
 | `NEXT_PUBLIC_NET_BEACON` | `1`, L3 step 3 | `1` | `1` | `1`. Counts clicks between sites (aggregate counters only, no identifier). |
 | `NEXT_PUBLIC_NET_FACTS` | `1` later | not used | `1` later | `1`, only when L11 (X1) has been applied (after launch). |
