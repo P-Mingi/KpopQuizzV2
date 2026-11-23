@@ -182,6 +182,8 @@ describe('101-catalog.sql on fixture groups and idols', () => {
         .flatMap((f) => [`${f}.rollback.sql`, `${f}.sql`]),
       // owner, 2026-11-23: the one-off "KpopCards is here" notification to every account (a data file, lettered like 116c: no cards function)
       ...(existsSync(path.join(CARDS_SQL, '127n-kpopcards-launch-notice.sql')) ? ['127n-kpopcards-launch-notice.rollback.sql', '127n-kpopcards-launch-notice.sql'] : []),
+      // owner, 2026-11-23: the per-player figures of the KpopCards tab of the admin (one read only function, cards_admin_stats)
+      ...(existsSync(path.join(CARDS_SQL, '128-admin-stats.sql')) ? ['128-admin-stats.rollback.sql', '128-admin-stats.sql'] : []),
       'ALL-099-115.sql', 'ALL-rollback.sql', 'ALL-verify.sql']);
   });
   it('the rollback removes it all, and refuses while a player owns a card', async () => {
