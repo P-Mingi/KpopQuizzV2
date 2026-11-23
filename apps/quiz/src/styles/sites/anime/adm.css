@@ -97,6 +97,38 @@ html.ux-v1[data-site="anime"] .anime-adm-credits-box > summary:focus-visible { o
 html.ux-v1[data-site="anime"] .anime-adm-credits-list { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 4px; }
 html.ux-v1[data-site="anime"] .anime-adm-credits-list a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
+/* the KpopCards tab: totals, filters, the table of players, the pager */
+html.ux-v1[data-site="anime"] .anime-adm-kc-totals { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 0 0 18px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-totals > div { padding: 12px 14px; border: 1px solid var(--ux-line); border-radius: 14px; background: var(--ux-raised); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-totals dt { font-size: 12px; font-weight: 600; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-totals dd { margin: 4px 0 0; font-size: 22px; font-weight: 700; color: var(--ux-ink); font-variant-numeric: tabular-nums; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin: 0 0 14px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-field { display: grid; gap: 4px; min-width: 0; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-field input[type="search"] { width: 220px; max-width: 100%; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-field input[type="number"] { width: 110px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-field input,
+html.ux-v1[data-site="anime"] .anime-adm-kc-field select { min-height: 40px; padding: 0 12px; border: 1px solid var(--ux-line); border-radius: 12px; background: var(--ux-raised); color: var(--ux-ink); font: inherit; font-size: 14px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-field input:focus-visible,
+html.ux-v1[data-site="anime"] .anime-adm-kc-field select:focus-visible { outline: 2px solid var(--ux-pink-ink); outline-offset: 2px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-scroll { overflow-x: auto; border: 1px solid var(--ux-line); border-radius: 14px; background: var(--ux-raised); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-scroll:focus-visible { outline: 2px solid var(--ux-pink-ink); outline-offset: 2px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table th,
+html.ux-v1[data-site="anime"] .anime-adm-kc-table td { padding: 8px 10px; border-bottom: 1px solid var(--ux-line); text-align: right; white-space: nowrap; color: var(--ux-ink); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table thead th { position: sticky; top: 0; background: var(--ux-surface); font-size: 12px; font-weight: 600; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table thead th a { color: var(--ux-muted); text-decoration: none; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table thead th[aria-sort="ascending"] a,
+html.ux-v1[data-site="anime"] .anime-adm-kc-table thead th[aria-sort="descending"] a { color: var(--ux-pink-ink); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table thead th a:focus-visible { outline: 2px solid var(--ux-pink-ink); outline-offset: 2px; border-radius: 4px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table th:first-child,
+html.ux-v1[data-site="anime"] .anime-adm-kc-table td:first-child { text-align: left; position: sticky; left: 0; background: var(--ux-raised); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-table tbody tr:hover > * { background: var(--ux-surface); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-name { color: var(--ux-pink-ink); font-weight: 600; text-underline-offset: 2px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-none { color: var(--ux-muted); font-style: italic; font-weight: 400; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-pager { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 14px 0; font-size: 14px; color: var(--ux-muted); }
+html.ux-v1[data-site="anime"] .anime-adm-kc-pager a { color: var(--ux-pink-ink); font-weight: 600; text-underline-offset: 2px; }
+html.ux-v1[data-site="anime"] .anime-adm-kc-off { opacity: .5; }
+
 @media (max-width: 860px) {
   html.ux-v1[data-site="anime"] .anime-adm-cols { grid-template-columns: minmax(0, 1fr); }
   html.ux-v1[data-site="anime"] .anime-adm-list-box { position: static; }

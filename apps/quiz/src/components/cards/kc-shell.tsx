@@ -13,6 +13,9 @@ import { KC } from '@/lib/kpopcards/contract';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { withBasePath } from '@/lib/site/base-path';
 import { MASCOT_PATH } from '@/lib/cards/ui-logo';
+import { SiteSwitch } from '@/components/site-switch/site-switch';
+
+import type { SiteSwitchModel } from '@/lib/site-switch/model';
 
 import { Ico } from './card-art';
 import { previewTick } from './opening-output';
@@ -39,7 +42,10 @@ export function tabOf(path: string): TabId | null {
   return null;
 }
 
-export function KcShell({ children }: { children: React.ReactNode }): React.ReactElement {
+// Owner, 2026-11-23: the bar carries the site switcher of the other sites (KpopQuiz, OtakuQuiz, Bunnyverse; KpopCards is the current row). It IS the brand, as
+// on the other sites: the button holds the rabbit and the KPOPCARDS wordmark. The model is read on the server (the layout); with none the bar keeps the
+// plain brand link to the lobby, which the Lobby tab and the phone tab bar reach anyway.
+export function KcShell({ children, switcher = null }: { children: React.ReactNode; switcher?: SiteSwitchModel | null }): React.ReactElement {
   const { status, lobby: w, newSet } = useCards();
   const path = usePathname() ?? '';
   const tab = tabOf(path);
@@ -78,16 +84,22 @@ export function KcShell({ children }: { children: React.ReactNode }): React.Reac
 
   const badge = (id: TabId): React.ReactElement | null => ((badges[id] ?? 0) > 0 ? <span className="badge" aria-label={`${badges[id]} ${id === 'collection' ? 'new' : 'to claim'}`}>{badges[id]}</span> : null);
 
+  // The Bunnyverse rabbit (public/mascot), not the card icon of the older bar.
+  const brandMark = (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="kc-ico" src={withBasePath(MASCOT_PATH)} alt="" width={34} height={34} />
+      <span className="kc-word">Kpop<b>Cards</b></span>
+    </>
+  );
+
   return (
     <>
       <header className="top" ref={bar}>
         <div className="wrap">
-          <Link className="brand kc" href={kcPath.lobby} aria-label="KpopCards lobby">
-            {/* The Bunnyverse rabbit (public/mascot), not the card icon of the older bar. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="kc-ico" src={withBasePath(MASCOT_PATH)} alt="" width={34} height={34} />
-            <span className="kc-word">Kpop<b>Cards</b></span>
-          </Link>
+          {switcher ? <SiteSwitch model={switcher} brand={<span className="brand kc kc-brand">{brandMark}</span>} /> : (
+            <Link className="brand kc" href={kcPath.lobby} aria-label="KpopCards lobby">{brandMark}</Link>
+          )}
           <nav className="tabs" aria-label="KpopCards">
             {TABS.map((t) => (
               <Link key={t.id} href={t.href} {...(t.id === 'collection' ? { 'data-kc-target': 'collection' } : {})} aria-current={tab === t.id ? 'page' : undefined}><Ico name={t.icon} />{t.label}{t.id === 'collection' || t.id === 'missions' ? <> {badge(t.id)}</> : null}</Link>

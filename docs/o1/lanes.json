@@ -176,7 +176,8 @@
     "specs": [
       "CARDS/hub-hot-panels.o1.ts",
       "CARDS/site-switch-layout.o1.ts",
-      "CARDS/hub-site-switch.o1.ts"
+      "CARDS/hub-site-switch.o1.ts",
+      "CARDS/kc-site-switch.o1.ts"
     ]
   }
 }

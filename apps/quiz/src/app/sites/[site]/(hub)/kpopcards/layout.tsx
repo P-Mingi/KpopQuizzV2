@@ -17,6 +17,7 @@ import { demoOn } from '@/lib/cards/demo';
 import { loadCatalog } from '@/lib/cards/ui-catalog';
 import { cardsFixtureOn, cardsOn } from '@/lib/cards/ui-flag';
 import { buildSlim } from '@/lib/cards/ui-model';
+import { siteSwitchCards } from '@/lib/site-switch/model';
 import { UxPage } from '@/components/ux-v1/page';
 
 export default async function KpopCardsLayout({ children }: { children: React.ReactNode }): Promise<React.ReactElement> {
@@ -27,7 +28,7 @@ export default async function KpopCardsLayout({ children }: { children: React.Re
       <CardsSprite />
       {cat ? (
         <CardsProvider catalog={buildSlim(cat)} fixture={cardsFixtureOn()} demo={cardsFixtureOn() || demoOn()}>
-          <KcShell>{children}</KcShell>
+          <KcShell switcher={siteSwitchCards()}>{children}</KcShell>
         </CardsProvider>
       ) : (
         <div className="wrap page">

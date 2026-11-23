@@ -5,12 +5,15 @@
 // ADMIN_USER_IDS get the 404 of the site, for every tab, before anything is read. ADMIN-1: the gate is requireAdmin (verified
 // session, listed id, aal2); an admin at aal1 is sent to the TOTP code or setup page first.
 import AdminPage from '@/app/(site)/admin/page';
+import { CardsStatsView } from '@/components/anime/admin/cards-stats-admin';
 import { ImagesAdmin } from '@/components/anime/admin/images-admin';
 import { Segmented } from '@/components/ux-v1/segmented';
 import { UxPage } from '@/components/ux-v1/page';
 import { requireAdmin } from '@/lib/admin/guard';
 import { ADMIN_TABS, adminTabOf } from '@/lib/anime/admin-tabs';
+import { loadCardsStats, parseStatsQuery } from '@/lib/cards/admin-stats';
 import { withBasePath } from '@/lib/site/base-path';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 
 import type { Metadata } from 'next';
 
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-interface AdminProps { searchParams?: Promise<{ tab?: string | string[]; kind?: string | string[] }> }
+interface AdminProps { searchParams?: Promise<Record<string, string | string[] | undefined>> }
 
 export default async function AnimeAdminPage({ searchParams }: AdminProps): Promise<React.ReactElement> {
   await requireAdmin();
@@ -33,6 +36,9 @@ export default async function AnimeAdminPage({ searchParams }: AdminProps): Prom
     const { PhotosAdminPage } = await import('@/components/admin/photos/photos-admin-page');
     return PhotosAdminPage({ nav, kind: params?.kind });
   }
+  // Owner, 2026-11-23: the KpopCards tab reads cards_admin_stats (SQL 128) with the service role, after the gate above; the filters are the URL.
+  const cardsStats = tab === 'cards-stats' ? { query: parseStatsQuery(params) } : null;
+  const cardsResult = cardsStats ? await loadCardsStats(createServiceRoleClient, cardsStats.query) : null;
   return (
     <UxPage width="wide" className="anime-adm-page">
       <h1 className="ux-h1">Admin</h1>
@@ -43,7 +49,7 @@ export default async function AnimeAdminPage({ searchParams }: AdminProps): Prom
           options={ADMIN_TABS.map((t) => ({ value: t.id, label: t.label, href: `/admin?tab=${t.id}` }))}
         />
       </div>
-      {tab === 'images' ? <ImagesAdmin /> : <AdminPage />}
+      {tab === 'images' ? <ImagesAdmin /> : cardsStats && cardsResult ? <CardsStatsView result={cardsResult} query={cardsStats.query} /> : <AdminPage />}
     </UxPage>
   );
 }

@@ -5,6 +5,8 @@ export const ADMIN_TABS = [
   { id: 'overview', label: 'Overview' },
   // Daily games step 2: the licensed photos, banners, icons and stickers of Bunnyverse (board Admin.dc.html).
   { id: 'photos', label: 'Photos' },
+  // Owner, 2026-11-23: the figures of every KpopCards player (SQL 128), with filters and sort in the URL.
+  { id: 'cards-stats', label: 'KpopCards' },
 ] as const;
 
 export type AdminTabId = (typeof ADMIN_TABS)[number]['id'];

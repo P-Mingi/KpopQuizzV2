@@ -375,8 +375,11 @@ describe('link 10: the Daily games module of the OtakuQuiz home (lib/ux-v1/p1/an
   });
   it('flag off, the home keeps its tree: one place, the gate imported, the module behind the dynamic import', () => {
     const home = app('components/home/ux-v1/ux-home.tsx');
-    expect(home).toContain('const kpopdle = (await loadKpopdleHome()) ?? (await loadAnimeDailyHome());');
-    expect(home).toContain('{kpopdle ? <><ContinuePlaying />{kpopdle}</> : <ContinuePlaying />}');
+    // Owner, 2026-11-23 ("put the daily game and daily quiz side by side"): Kpopdle moved next to the quiz of the day; the OtakuQuiz module
+    // keeps its one place under Continue playing, loaded only when Kpopdle is not (the same choice as the former `??`).
+    expect(home).toContain('const kpopdle = await loadKpopdleHome();');
+    expect(home).toContain('const animeDaily = kpopdle ? null : await loadAnimeDailyHome();');
+    expect(home).toContain('{animeDaily ? <><ContinuePlaying />{animeDaily}</> : <ContinuePlaying />}');
     expect(home).toContain("from '@/lib/ux-v1/p1/anime-daily-home'");
     expect(home).not.toMatch(/from '[^']*(lib\/dle|components\/home\/ux-v1\/anime-daily-home|passerelles)/);
     const gate = app('lib/ux-v1/p1/anime-daily-home.ts');

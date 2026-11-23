@@ -12,8 +12,11 @@ import { REGISTRY, SITE_ID } from '@/lib/site/registry';
 
 import type { SiteId } from '@/lib/site/types';
 
+/** The three sites, plus KpopCards: a site inside Bunnyverse that only its own bar lists (siteSwitchCards). */
+export type SwitchId = SiteId | 'cards';
+
 export interface SwitchItem {
-  readonly id: SiteId;
+  readonly id: SwitchId;
   /** The brand name of the site, shown as it is. */
   readonly label: string;
   /** Null for the current site (not a link). */
@@ -21,8 +24,8 @@ export interface SwitchItem {
 }
 
 export interface SiteSwitchModel {
-  readonly current: SiteId;
-  /** Always KpopQuiz, OtakuQuiz, Bunnyverse in that order, the current one included. */
+  readonly current: SwitchId;
+  /** Always KpopQuiz, OtakuQuiz, Bunnyverse in that order, the current one included (the KpopCards bar adds KpopCards, its current row, last). */
   readonly items: readonly SwitchItem[];
 }
 
@@ -62,5 +65,23 @@ export function siteSwitch(): SiteSwitchModel | null {
       label: REGISTRY[id].brand.name,
       href: id === SITE_ID ? null : hrefTo(id),
     })),
+  };
+}
+
+/**
+ * The switcher of the KpopCards bar (owner, 2026-11-23: "from kpopcard on the nav a button to go back to kpopquiz or bunnyverse"). KpopCards is served by the
+ * hub build, so the destinations are those of the hub's own bar: KpopQuiz through the signed-in jump, OtakuQuiz a plain link (same origin), and
+ * Bunnyverse a link to the hub home (the player is in KpopCards, not on the home). KpopCards is the current row (no link). Null on the other builds.
+ */
+export function siteSwitchCards(): SiteSwitchModel | null {
+  if (SITE_ID !== 'hub') return null;
+  return {
+    current: 'cards',
+    items: [
+      { id: 'kpop', label: REGISTRY.kpop.brand.name, href: hrefTo('kpop') },
+      { id: 'anime', label: REGISTRY.anime.brand.name, href: hrefTo('anime') },
+      { id: 'hub', label: REGISTRY.hub.brand.name, href: '/' },
+      { id: 'cards', label: 'KpopCards', href: null },
+    ],
   };
 }

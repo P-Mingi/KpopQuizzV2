@@ -186,8 +186,11 @@ describe('what keeps the flag-off home byte-identical (read from the sources)', 
   const gate = src('../../../lib/ux-v1/p1/kpopdle-home.ts');
   const card = src('./kpopdle-home.tsx');
 
+  // Owner, 2026-11-23: "Put the daily game and daily quiz side by side". The module moved next to the quiz of the day; without it the slot is
+  // the quiz of the day row itself, the same element as before, and Continue playing keeps its own slot (shared with the OtakuQuiz module).
   it('one slot of the tree, the same element without the module: no extra child in the page data', () => {
-    expect(home).toContain('{kpopdle ? <><ContinuePlaying />{kpopdle}</> : <ContinuePlaying />}');
+    expect(home).toContain('const today = qotdOnly && kpopdle ? <div className="p1-today">{qotdOnly}{kpopdle}</div> : (qotdOnly ?? kpopdle);');
+    expect(home).toContain('{animeDaily ? <><ContinuePlaying />{animeDaily}</> : <ContinuePlaying />}');
     expect(home.match(/<ContinuePlaying \/>/g)).toHaveLength(2);
   });
   it('the home imports the gate only; the module file, its reads and the game code load behind the flag', () => {

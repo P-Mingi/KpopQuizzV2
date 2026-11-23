@@ -20,13 +20,13 @@ import type { SiteSwitchModel, SwitchItem } from '@/lib/site-switch/model';
 export type SwitchLocale = 'en' | 'fr';
 /** The words of the menu: its label and the line under each site name. */
 export const SWITCH_COPY: Readonly<Record<SwitchLocale, { readonly label: string; readonly blurb: Readonly<Record<string, string>> }>> = {
-  en: { label: 'Switch site', blurb: { kpop: 'K-pop quizzes', anime: 'Anime quizzes', hub: 'Every site, one passport' } },
-  fr: { label: 'Changer de site', blurb: { kpop: 'Quiz K-pop', anime: 'Quiz anime', hub: 'Tous les sites, un seul passeport' } },
+  en: { label: 'Switch site', blurb: { kpop: 'K-pop quizzes', anime: 'Anime quizzes', hub: 'Every site, one passport', cards: 'Collect idol cards' } },
+  fr: { label: 'Changer de site', blurb: { kpop: 'Quiz K-pop', anime: 'Quiz anime', hub: 'Tous les sites, un seul passeport', cards: 'Collectionne les cartes' } },
 };
-const INITIAL: Readonly<Record<string, string>> = { kpop: 'K', anime: 'O', hub: 'B' };
+const INITIAL: Readonly<Record<string, string>> = { kpop: 'K', anime: 'O', hub: 'B', cards: 'C' };
 // Chip fills: the accent fill of each site (registry tokens pink-fill: kpop #D13A6E, OtakuQuiz #C2410C), white initial, 4.5:1 or more in both
 // themes (kpop 4.9, OtakuQuiz 5.18). The Bunnyverse chip is the ink of the hub; in dark mode it turns to the light ink so it stays visible.
-export const CHIP_FILL: Readonly<Record<string, string>> = { kpop: '#D13A6E', anime: '#C2410C', hub: '#1F1B17' };
+export const CHIP_FILL: Readonly<Record<string, string>> = { kpop: '#D13A6E', anime: '#C2410C', hub: '#1F1B17', cards: '#7B3FA8' };
 
 const CSS = [
   '.ux-sw{position:relative;flex:0 0 auto;display:flex;align-items:center;--sw-edge:#E6E0D7;--sw-chip-hub:#1F1B17;--sw-chip-hub-ink:#fff}',
@@ -58,7 +58,9 @@ const CSS = [
   '@media (prefers-reduced-motion:reduce){.ux-sw-btn .ux-sw-chev{transition:none}}',
 ].join('');
 
-export function SiteSwitch({ model, locale = 'en' }: { model: SiteSwitchModel; locale?: SwitchLocale }): React.ReactElement {
+// KpopCards (owner, 2026-11-23): the bar of KpopCards passes its own brand (the rabbit and the KPOPCARDS wordmark) to put inside the button; every other
+// caller leaves it out and gets the brand of the site. The KpopCards model adds a fourth row, KpopCards (current, no link), after Bunnyverse.
+export function SiteSwitch({ model, locale = 'en', brand }: { model: SiteSwitchModel; locale?: SwitchLocale; brand?: React.ReactNode }): React.ReactElement {
   const copy = SWITCH_COPY[locale];
   const [open, setOpen] = useState(false);
   const menuId = useId();
@@ -75,13 +77,14 @@ export function SiteSwitch({ model, locale = 'en' }: { model: SiteSwitchModel; l
     document.addEventListener('pointerdown', onDown);
     return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown); };
   }, [open]);
-  const quiz = model.items.filter((it) => it.id !== 'hub');
+  const quiz = model.items.filter((it) => it.id !== 'hub' && it.id !== 'cards');
   const hub = model.items.find((it) => it.id === 'hub');
+  const cards = model.items.find((it) => it.id === 'cards');
   return (
     <div className="ux-sw" ref={root} data-testid="site-switch" {...(open ? { 'data-open': '' } : {})}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <button type="button" className="ux-sw-btn" aria-haspopup="true" aria-expanded={open} aria-controls={menuId} onClick={() => setOpen((o) => !o)}>
-        <UxBrandMark />
+        {brand ?? <UxBrandMark />}
         <Icon name="chev" className="ux-sw-chev" />
       </button>
       <div className="ux-sw-scrim" aria-hidden="true" onClick={() => setOpen(false)} />
@@ -91,6 +94,7 @@ export function SiteSwitch({ model, locale = 'en' }: { model: SiteSwitchModel; l
           {quiz.map((it) => <li key={it.id}><Row item={it} blurb={copy.blurb[it.id] ?? ''} /></li>)}
           {hub ? <li className="ux-sw-sep" role="separator" /> : null}
           {hub ? <li><Row item={hub} blurb={copy.blurb.hub ?? ''} /></li> : null}
+          {cards ? <li><Row item={cards} blurb={copy.blurb.cards ?? ''} /></li> : null}
         </ul>
       </nav>
     </div>
