@@ -8,6 +8,7 @@ import { REPORT_CREDIT, REPORT_PATH, REPORT_SCORES, REPORT_TITLE, REPORT_WINDOW 
 import { DATA_LICENCE, LINK_NOTE, PRESS_EMAIL, SITE_URL } from '@/lib/seo/org';
 import { exact, fillStats } from '@/lib/stats/site-stats';
 import { isLivePage } from '@/lib/seo/targets';
+import { NETWORK } from '@/lib/site/registry';
 
 import type { PublicStats } from '@/lib/stats/site-stats';
 import type { TargetCluster } from '@/lib/seo/targets';
@@ -55,6 +56,7 @@ ${live.map(targetLine).join('\n')}
 Our numbers, charts and reports are under ${DATA_LICENCE.name} (${DATA_LICENCE.url}): credit kpopquiz.org. ${LINK_NOTE} A ready credit line for the report: "${REPORT_CREDIT}". The quizzes are written by fans and are not under this licence.
 
 ## About
+- Network: kpopquiz.org is the sister site of ${NETWORK.name} (${NETWORK.url.replace(/^https?:\/\//, '')}), run by the same founder, home of Kpopdle, the daily K-pop idol game
 - [About kpopquiz.org](${abs('/about')}): who runs the site and how quizzes are made
 - [Editorial policy](${abs('/editorial-policy')}): sources, moderation, AI use and the corrections log
 - [Press kit](${abs('/press')}): live numbers, logos, licences, and the press contact ${PRESS_EMAIL}

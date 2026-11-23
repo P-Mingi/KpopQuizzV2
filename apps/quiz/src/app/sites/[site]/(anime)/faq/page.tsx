@@ -59,7 +59,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Are the quizzes accurate?',
-    a: 'Quizzes are made by fans who know their series. The community reports mistakes, and the most-played quizzes rise to the top, so the best content is easy to find.',
+    a: 'Quizzes are made by fans who know their series. The community reports mistakes, and the most-played quizzes rise to the top, so popular quizzes are easy to find.',
   },
 ];
 

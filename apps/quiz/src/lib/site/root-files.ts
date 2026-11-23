@@ -3,7 +3,7 @@
 // The pure parts (text of a robots file, XML of a sitemap) and the list of a site's URLs live here so they can be tested
 // without a server. Every URL is on the registry origin of the site (never another site's, never a hardcoded host).
 
-import { builtGames } from '@/lib/dle/games';
+import { builtGames, DAILY_PATH } from '@/lib/dle/games';
 import { readDay } from '@/lib/dle/read';
 import { dleSitemapRows } from '@/lib/dle/seo';
 import { fetchAllRows } from '@/lib/db/fetch-all';
@@ -12,8 +12,11 @@ import { loadSeriesDirectory } from '@/lib/anime/directory';
 import { whichCharacterPath } from '@/lib/personality/series';
 import { listSeriesSets } from '@/lib/personality/sets';
 
+import { cardsOn } from '@/lib/cards/ui-flag';
+
 import { basePathOf, joinSiteUrl, zoneChildrenOf } from './base-path';
 import { indexingOpenFor, parseLaunchDate } from './indexing';
+import { REGISTRY } from './registry';
 import { forSite } from './scope';
 
 import type { MetadataRoute } from 'next';
@@ -198,10 +201,15 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
 
 /**
  * /llms.txt of anime and hub (routes.md, "Per-site root files"): fixed facts and real routes only, no count (a hardcoded one
- * would rot, a live one is not worth a read for a file nothing is proven to consume), the site's own name and host, never
- * kpopquiz.org's. kpop keeps app/llms.txt/route.ts.
+ * would rot, a live one is not worth a read for a file nothing is proven to consume), the site's own name and host (the anime file never
+ * names kpopquiz.org; the hub file names it once as the sister site). kpop keeps app/llms.txt/route.ts.
  */
-export function llmsText(site: SiteConfig, children: readonly SiteConfig[] = zoneChildrenOf(site), raw: string | undefined = process.env.NET_INDEXING): string {
+export function llmsText(
+  site: SiteConfig,
+  children: readonly SiteConfig[] = zoneChildrenOf(site),
+  raw: string | undefined = process.env.NET_INDEXING,
+  cards: boolean = cardsOn(),
+): string {
   const { name } = site.brand;
   const title = site.seo.llmsTxt.title;
   // Bunnyverse (lane 1): a site in a sub-folder is named by its full address (bunnyverse.org/anime, the url without its scheme: the
@@ -209,19 +217,43 @@ export function llmsText(site: SiteConfig, children: readonly SiteConfig[] = zon
   const address = site.url.replace(/^https?:\/\//, '');
   const b = basePathOf(site.url);
   if (site.id === 'hub') {
-    // The sites in its sub-folders (/anime), once open (openZoneChildren): each keeps its own llms.txt under its base path.
-    const zones = openZoneChildren(children, raw).map((c) => `- ${basePathOf(c.url)}: ${c.brand.name}, a quiz site of the network (its own llms.txt: ${basePathOf(c.url)}/llms.txt)\n`).join('');
+    // SEO-LAUNCH-1 lane A: fixed facts and real routes, no typed number. The games come from the code (builtGames), the sites in its
+    // sub-folders (/anime) once open (openZoneChildren), KpopCards only with NET_CARDS (its pages are a 404 without it).
+    const built = builtGames();
+    const kpopdle = built.find((g) => g.brand === 'Kpopdle');
+    const otakudle = built.find((g) => g.brand === 'Otakudle' && !g.series);
+    const seriesGames = built.filter((g) => g.series !== undefined);
+    const kpopquiz = REGISTRY.kpop.url;
+    const daily = built.length ? `- ${DAILY_PATH}: the daily games of the day, in one place\n` : '';
+    const games = [
+      kpopdle ? `- ${kpopdle.path}: Kpopdle by ${name}, the daily K-pop idol game. Guess the idol of the day from clues that compare each guess with the idol. Unlimited guesses, a new idol at midnight UTC, the same for everyone\n` : '',
+      otakudle ? `- ${otakudle.path}: Otakudle by ${name}, the daily anime character game, spoiler-free\n` : '',
+      ...seriesGames.map((g) => `- ${g.path}: Otakudle by ${name} for ${g.series?.name ?? ''} only, one character of the series a day\n`),
+    ].join('');
+    const cardsLines = cards
+      ? `- /kpopcards: KpopCards, a free K-pop photocard game with free packs on a timer, no money and no market
+- /kpopcards/odds: the published drop rates of every pack
+- /kpopcards/help: how packs, shards and crafting work
+`
+      : '';
+    const zones = openZoneChildren(children, raw).map((c) => `- ${basePathOf(c.url)}: ${c.brand.name} at ${c.url.replace(/^https?:\/\//, '')}, the anime quiz site of the network (its own llms.txt: ${basePathOf(c.url)}/llms.txt)\n`).join('');
     return `# ${title}
 
-> ${name} is the home of one account shared by a network of independent fan quiz sites. It holds no quiz of its own.
+> ${name} is a K-pop and anime games site: daily guessing games, a free photocard game and anime quizzes. It is run by the founder of kpopquiz.org, its sister site.
 
 ## What this site is
-${name} lists the quiz sites of the network and shows a signed-in member which of them they have joined. Each site keeps its
-own quizzes, scores and community; the account is the only thing they share.
+${name} is an independent fan project. It is not affiliated with the artists, their agencies or the studios of the series it features.
+The daily games and KpopCards live here. The K-pop quizzes live on the sister site ${kpopquiz.replace(/^https?:\/\//, '')}, run by the same founder.
+One ${name} account is shared by these sites; each keeps its own scores and community.
 
-## Best entry points
-- /: the sites of the network
-${zones}- /privacy: what one account shares between the sites
+## Games and sites
+${daily}${games}${cardsLines}${zones}- ${kpopquiz}: kpopquiz.org, the K-pop quiz site, sister site of ${name}
+
+## Sources and policies
+- /credits: the licensed photos of the games, with their authors and licences
+- /privacy: what one account shares between the sites
+- /terms, /legal, /contact, /dmca: terms, legal notice, contact and takedown requests
+- Kpopdle clues come from Wikidata, MusicBrainz and official sites
 
 ## What we do not publish
 We do not publish simulated scores, invented play counts, or fabricated opponents.
@@ -229,11 +261,12 @@ We do not publish simulated scores, invented play counts, or fabricated opponent
   }
   return `# ${title}
 
-> Free, fan-made anime quizzes. Every quiz is written by a fan, and every statistic on the site comes from real plays, never simulated.
+> Free anime quizzes written by fans, with a spoiler shield. Every statistic on the site comes from real plays, never simulated.
 
 ## What this site is
 ${address} is an independent anime quiz site. Visitors play quizzes about anime series, with a spoiler shield that keeps
-questions beyond the episode or chapter a visitor has reached out of sight. Quizzes are created by fans and checked before they go live.
+questions beyond the episode or chapter a visitor has reached out of sight. Fans write the quizzes and each one shows its creator. A few
+accounts labelled Team publish through an editorial review. A quiz that players report is hidden until it is reviewed.
 
 ## Best entry points
 - ${b}/quizzes: every published quiz, filterable by series and type

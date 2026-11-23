@@ -1,24 +1,25 @@
 // Bunnyverse Cards, lane KCBANNER (lot LAUNCH-POLISH-2): the KpopCards banner, ONE component shared by the hub home (components/hub/home/home-cards.tsx
 // wraps it in its band) and the kpopquiz.org home (lib/cards-bridge/home.ts). A change here shows on both sites. It carries its own styles
 // (banner-styles.ts, scoped under #kpopcards) because the kpop build reads no sheet of styles/sites/. Owner, 2026-11-22: "Make this a beautiful CTA".
-// The words come from the KpopCards page itself: the numbers come from the rules (the timer period and the editions), never typed. No photo of a
+// The words come from the KpopCards page itself: the numbers come from the contract (the timer period) and the rules (the editions), never typed. No photo of a
 // person: the cards are foil and the back with the rabbit only. The caller gives the button's href (the hub: /kpopcards; kpopquiz.org: the signed-in
 // jump whose destination is bunnyverse.org/kpopcards).
 import Image from 'next/image';
 
-import { PERIOD_S, RARITY_LABEL } from '@/lib/cards/rules';
+import { RARITY_LABEL } from '@/lib/cards/rules';
+import { KC } from '@/lib/kpopcards/contract';
 
 import { CARDS_BANNER_CSS } from './banner-styles';
 
 const WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
 
-/** The three facts of the KpopCards page, from the rules: the timer gives a pack every PERIOD_S, and every idol has one edition per rarity. */
+/** The three facts of the KpopCards page: the minutes between two timer packs come from the contract (KC.PERIOD_MIN), the most editions an idol has from the rules (an idol or a group can have fewer: "up to"). */
 export function cardsFacts(): readonly string[] {
-  const minutes = Math.round(PERIOD_S / 60);
+  const minutes = KC.PERIOD_MIN;
   const editions = Object.keys(RARITY_LABEL).length;
   return [
     `A free pack every ${minutes} minutes`,
-    `${WORDS[editions] ?? String(editions)} editions of every idol`,
+    `Up to ${(WORDS[editions] ?? String(editions)).toLowerCase()} editions per idol`,
     'No money, no market',
   ];
 }

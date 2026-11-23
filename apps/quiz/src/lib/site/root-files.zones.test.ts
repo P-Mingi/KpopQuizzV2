@@ -83,18 +83,18 @@ describe('the pure parts', () => {
     }
   });
 
-  it('the hub\'s llms.txt names /anime once open, and no site in a sub-folder while closed (same text as before)', async () => {
+  it('the hub\'s llms.txt names /anime once open, and no site in a sub-folder while closed (SEO-LAUNCH-1 lane A: the hub text is rewritten, the open/closed difference is still only that line)', async () => {
     const { llmsText } = await import('./root-files');
     const { REGISTRY } = await import('./registry');
     const hub = { ...REGISTRY.hub, url: 'https://bunnyverse.org', domain: 'bunnyverse.org' };
     const anime = { ...REGISTRY.anime, url: 'https://bunnyverse.org/anime', domain: 'bunnyverse.org' };
     const open = llmsText(hub, [anime], '1');
-    expect(open).toContain('- /: the sites of the network\n- /anime: OtakuQuiz, a quiz site of the network (its own llms.txt: /anime/llms.txt)\n- /privacy:');
+    expect(open).toContain('- /anime: OtakuQuiz at bunnyverse.org/anime, the anime quiz site of the network (its own llms.txt: /anime/llms.txt)\n- https://kpopquiz.org:');
     for (const closed of [undefined, '', '0']) {
       const text = llmsText(hub, [anime], closed);
       expect(text, String(closed)).not.toContain('/anime');
-      expect(text, String(closed)).toContain('- /: the sites of the network\n- /privacy: what one account shares between the sites\n');
-      expect(open.replace('- /anime: OtakuQuiz, a quiz site of the network (its own llms.txt: /anime/llms.txt)\n', '')).toBe(text);
+      expect(text, String(closed)).toContain('- /privacy: what one account shares between the sites\n');
+      expect(open.replace('- /anime: OtakuQuiz at bunnyverse.org/anime, the anime quiz site of the network (its own llms.txt: /anime/llms.txt)\n', '')).toBe(text);
     }
   });
 
@@ -160,7 +160,7 @@ describe('the route handlers on bunnyverse.org', () => {
     expect(index.status).toBe(200);
     expect(locs(await index.text())).toEqual(['https://bunnyverse.org/sitemap-hub.xml', 'https://bunnyverse.org/anime/sitemap.xml']);
     const llms = await (await llmsRoute()).GET(req, ctx('hub'));
-    expect(await llms.text()).toContain('- /anime: OtakuQuiz, a quiz site of the network (its own llms.txt: /anime/llms.txt)\n');
+    expect(await llms.text()).toContain('- /anime: OtakuQuiz at bunnyverse.org/anime, the anime quiz site of the network (its own llms.txt: /anime/llms.txt)\n');
   });
 
   it('hub closed: llms.txt names no site in a sub-folder', async () => {

@@ -210,10 +210,10 @@ describe('the words, in English and French', () => {
   it('the share text names the game and the series, never the answer', () => {
     const g = [guess(ZORO, ['correct', 'correct', 'wrong', 'correct', 'wrong', 'wrong', 'correct', 'correct']), guess(LUFFY, Array(8).fill('correct'))];
     expect(shareText(dleGame('otakudle-one-piece'), 4, g, true, 'bunnyverse.org/otakudle/one-piece', 'en')).toBe(
-      'Otakudle #4 · One Piece character of the day · found in 2 guesses\n5/8 · 8/8\nbunnyverse.org/otakudle/one-piece',
+      'Otakudle by Bunnyverse #4 · One Piece character of the day · found in 2 guesses\n5/8 · 8/8\nbunnyverse.org/otakudle/one-piece',
     );
     expect(shareText(dleGame('otakudle-dragon-ball'), 4, g, false, 'bunnyverse.org/fr/otakudle/dragon-ball', 'fr')).toBe(
-      'Otakudle #4 · Le personnage Dragon Ball du jour · abandon\n5/8 · 8/8\nbunnyverse.org/fr/otakudle/dragon-ball',
+      'Otakudle by Bunnyverse #4 · Le personnage Dragon Ball du jour · abandon\n5/8 · 8/8\nbunnyverse.org/fr/otakudle/dragon-ball',
     );
   });
 });

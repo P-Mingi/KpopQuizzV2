@@ -79,7 +79,7 @@ const FEATURES = [
   },
   {
     title: 'Made by fans',
-    desc: 'Every quiz is created by the community. Make your own in a couple of minutes.',
+    desc: 'Fans write the quizzes. Make your own in a couple of minutes.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
@@ -129,7 +129,7 @@ export default async function AboutPage(): Promise<React.ReactElement> {
           <h2 className="mb-2 text-lg font-bold text-[var(--text-primary)]">Who runs OtakuQuiz?</h2>
           <p>
             {`OtakuQuiz (${siteAddress(SITE)}) is run by `}{FOUNDER.name}, its founder. It is an independent fan site: it is not affiliated
-            with any artist, label or agency.
+            with any studio, publisher or rights holder of the series it features.
           </p>
         </div>
         <div>
