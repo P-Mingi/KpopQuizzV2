@@ -126,6 +126,30 @@ export async function getDlePictures(kind: string | null): Promise<Readonly<Reco
   return picturesOf(await getPublicPictures(), kind);
 }
 
+/**
+ * The result screen's photos of an Otakudle pool (owner, 2026-11-24: the card showed the series photo where the character's own picture is live since
+ * L38). The pool keys a character by its person id, entity_images_public by series/slug: the tile ties them, as the pool's 96 px file of a character
+ * (023: a verified licence only) is the thumb_path of exactly one row of the view. Each character whose tile is such a file gets that row's large
+ * picture and focal point; any other keeps the series card. Only anime character rows of the view are read, so nothing unverified can show.
+ */
+export function characterPicturesOf(pool: Pick<DlePool, 'entities'> | null, pictures: readonly PublicPicture[]): Readonly<Record<string, DlePicture>> {
+  const out: Record<string, DlePicture> = {};
+  if (!pool) return out;
+  const byThumb = new Map<string, PublicPicture>();
+  for (const p of pictures) {
+    if (p.site === 'anime' && p.kind === 'character' && p.thumb) byThumb.set(p.thumb, p);
+  }
+  for (const e of pool.entities) {
+    const p = e.thumb ? byThumb.get(e.thumb) : undefined;
+    if (p) out[e.id] = { url: p.url, position: p.position };
+  }
+  return out;
+}
+
+export async function getDleCharacterPictures(pool: Pick<DlePool, 'entities'> | null): Promise<Readonly<Record<string, DlePicture>>> {
+  return pool ? characterPicturesOf(pool, await getPublicPictures()) : {};
+}
+
 // ---- the links to KpopQuiz ---------------------------------------------------------------------------------------------------------
 
 export async function readKpopGroupSlugs(db: Db): Promise<Readonly<Record<string, string>>> {

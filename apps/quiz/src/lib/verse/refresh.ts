@@ -62,6 +62,34 @@ async function mb(path: string): Promise<Record<string, unknown>> {
   throw new Error('MB retries exhausted');
 }
 
+/**
+ * What the weekly refresh writes for one group, from the rows of its SPARQL answer:
+ *  - the first value Wikidata gives for each field, as before;
+ *  - record_label: Wikidata lists every label of a group (BTS: BigHit Music, Columbia Records, Def Jam Japan...) in no fixed order, so the one the
+ *    group holds is kept while Wikidata still lists it; the first one is taken only when it does not;
+ *  - a field in `corrected` (an entity_sources row of another source than wikidata: a Wikipedia or official correction, L19, L34, L37) is never
+ *    written: it is left out of the answer, so neither the column nor its wikidata source row moves.
+ */
+export function refreshValues(
+  rows: readonly Readonly<Record<string, { value: string }>>[],
+  current: Readonly<Record<string, string | null | undefined>>,
+  corrected: ReadonlySet<string>,
+): Record<string, string | null> {
+  const vals: Record<string, string | null> = { inception_date: null, record_label: null, origin_country: null, official_website: null };
+  const labels = new Set<string>();
+  for (const r of rows) {
+    if (r.inception && !vals.inception_date) vals.inception_date = r.inception.value.slice(0, 10);
+    if (r.labelLabel) labels.add(r.labelLabel.value);
+    if (r.labelLabel && !vals.record_label) vals.record_label = r.labelLabel.value;
+    if (r.countryLabel && !vals.origin_country) vals.origin_country = r.countryLabel.value;
+    if (r.website && !vals.official_website) vals.official_website = r.website.value;
+  }
+  const held = current.record_label;
+  if (typeof held === 'string' && held !== '' && labels.has(held)) vals.record_label = held;
+  for (const f of corrected) delete vals[f];
+  return vals;
+}
+
 async function refreshGroupFields(
   svc: SupabaseClient,
   groupId: number,
@@ -75,13 +103,11 @@ SELECT ?inception ?labelLabel ?countryLabel ?website WHERE {
   OPTIONAL { wd:${qid} wdt:P856 ?website. }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }`);
-  const vals: Record<string, string | null> = { inception_date: null, record_label: null, origin_country: null, official_website: null };
-  for (const r of rows) {
-    if (r.inception && !vals.inception_date) vals.inception_date = r.inception.value.slice(0, 10);
-    if (r.labelLabel && !vals.record_label) vals.record_label = r.labelLabel.value;
-    if (r.countryLabel && !vals.origin_country) vals.origin_country = r.countryLabel.value;
-    if (r.website && !vals.official_website) vals.official_website = r.website.value;
-  }
+  // The group as it stands and the fields another source corrected (owner, 2026-11-24: the run of 2026-11-23 put back the US labels L19 and L34
+  // had corrected from Wikipedia). A failed read keeps nothing back, as before.
+  const { data: cur } = await svc.from('groups').select('inception_date,record_label,origin_country,official_website').eq('id', groupId).maybeSingle();
+  const { data: corr } = await svc.from('entity_sources').select('field').eq('entity_type', 'group').eq('entity_id', String(groupId)).neq('source', 'wikidata');
+  const vals = refreshValues(rows, (cur ?? {}) as Record<string, string | null>, new Set((corr ?? []).map((c: { field: string }) => c.field)));
   // detect conflicts against existing overrides (never overwrite them)
   const { data: ovs } = await svc.from('entity_overrides').select('field,value').eq('entity_type', 'group').eq('entity_id', String(groupId));
   const ovMap = new Map((ovs ?? []).map((o: { field: string; value: string | null }) => [o.field, o.value]));
@@ -89,7 +115,7 @@ SELECT ?inception ?labelLabel ?countryLabel ?website WHERE {
   for (const [field, v] of Object.entries(vals)) {
     if (ovMap.has(field) && String(ovMap.get(field) ?? '') !== String(v ?? '')) conflicts++;
   }
-  await svc.from('groups').update(vals).eq('id', groupId);
+  if (Object.keys(vals).length > 0) await svc.from('groups').update(vals).eq('id', groupId);
   const srcRows = Object.entries(vals).filter(([, v]) => v != null).map(([field]) => ({
     entity_type: 'group', entity_id: String(groupId), field, source: 'wikidata',
     source_ref: qid, fetched_at: new Date().toISOString(),
