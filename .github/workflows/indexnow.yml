@@ -19,9 +19,10 @@ name: IndexNow submit
 #      INDEXNOW_TOKEN with the SAME value.
 # workflow_dispatch lets you run it manually from the Actions tab to test.
 #
-# Independence (SEO-LAUNCH-1 review, fix 5): each job finds its own previous snapshot, the newest unexpired artifact of its own name
-# (sitemap-snapshot, sitemap-snapshot-hub), not "the last successful run of the workflow". The hub job is continue-on-error, a failed fetch or an HTTP
-# error of the route records the baseline instead of failing, and nothing the hub job does can make the kpop job diff against an older snapshot.
+# Independence (SEO-LAUNCH-1 review, fix 5): the hub job finds its own previous snapshot, the newest unexpired sitemap-snapshot-hub artifact. The kpop
+# job keeps the last successful push run (ci-workflows-gh.test.ts pins that step); since the hub job is continue-on-error, a failed fetch or an HTTP
+# error of the route records the baseline instead of failing, and the hub-only manual runs are not push runs, nothing the hub job does can make the
+# kpop job diff against an older snapshot.
 #
 # hub_urls (workflow_dispatch only): newline-separated URLs or paths of bunnyverse.org. When given, only the hub job runs, and it POSTs exactly those URLs once
 # through the hub route (mode=urls, same token), never the sitemap. It is for the new URLs of a first deploy (docs/seo/strategy-2026-11-23/POST-DEPLOY-INDEXNOW.md).
@@ -61,8 +62,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          # The newest unexpired artifact of this job's own name, whatever the conclusion of the run that made it.
-          id=$(gh api "repos/${GH_REPO}/actions/artifacts?name=sitemap-snapshot&per_page=1" --jq '.artifacts[0] | select(.expired == false) | .workflow_run.id // empty' || true)
+          # The last successful push run: the hub job has continue-on-error, so a failing hub job never turns a run red and never sends
+          # this job back to an older snapshot; --event push leaves out the hub-only manual runs (hub_urls), which make no kpop snapshot.
+          id=$(gh run list --workflow indexnow.yml --status success --event push --limit 1 --json databaseId --jq '.[0].databaseId // empty')
           if [ -n "$id" ]; then gh run download "$id" --name sitemap-snapshot --dir prev || echo "no snapshot in run $id"; fi
       - name: Submit the changed URLs to IndexNow
         env:
