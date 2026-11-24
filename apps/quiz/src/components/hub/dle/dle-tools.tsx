@@ -9,7 +9,7 @@ import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { utcDate } from '@/lib/dle/day';
 import { builtGames, localePath } from '@/lib/dle/games';
 import {
-  DEFAULT_SETTINGS, eraseData, exportData, gameStats, gamesLeftToday, importData, languageTarget, readHistory, readSettings, universeStreak, writeSettings,
+  DEFAULT_SETTINGS, eraseData, exportData, gameStats, gamesLeftToday, importData, languageHint, languageTarget, readHistory, readSettings, savedLanguageTarget, universeStreak, writeSettings,
 } from '@/lib/dle/local';
 import { withBasePath } from '@/lib/site/base-path';
 import { createBrowserClient } from '@/lib/supabase/client';
@@ -48,15 +48,34 @@ function saveSettings(s: DleSettings): void {
 /** The path of this page in a locale (the page's path comes from the server, so a shared ?r= link goes to the clean address). */
 const go = (enPath: string, locale: DleLocale): void => window.location.assign(withBasePath(localePath(enPath, locale)));
 
-/** The language rule: a choice is kept; with none, a browser in French reads French. Browser only, never for a crawler's first answer. */
-export function DleLanguage({ enPath, locale }: { enPath: string; locale: DleLocale }): null {
+/** The words of the visible language link, in the language of the page it sits on (not part of the game copy). */
+const HINT: Readonly<Record<DleLocale, { readonly note: string; readonly link: string }>> = {
+  en: { note: 'This page is also in French.', link: 'Lire en français' },
+  fr: { note: 'Cette page existe aussi en anglais.', link: 'Read in English' },
+};
+
+/**
+ * The language rule (SEO-LAUNCH-1, rule 10.5): a saved choice is kept and may move the visitor to the page in that language. With no choice nothing moves: a browser whose language
+ * is the other one sees a visible link to the twin page, and a crawler always gets the page it asked for. Never from the IP address.
+ */
+export function DleLanguage({ enPath, locale }: { enPath: string; locale: DleLocale }): React.ReactElement | null {
+  const [hint, setHint] = useState<DleLocale | null>(null);
   useEffect(() => {
     const s = readSettings(deviceStore());
     applyRootClasses(s);
-    const target = languageTarget(s.lang, window.navigator.language, locale);
-    if (target) window.location.replace(withBasePath(localePath(enPath, target)));
+    const saved = savedLanguageTarget(s.lang, locale);
+    if (saved) { window.location.replace(withBasePath(localePath(enPath, saved))); return; }
+    setHint(languageHint(s.lang, window.navigator.language, locale));
   }, [enPath, locale]);
-  return null;
+  if (!hint) return null;
+  const words = HINT[locale];
+  return (
+    <p className="hub-dle-langhint" role="note">
+      {words.note}{' '}
+      <a href={withBasePath(localePath(enPath, hint))} lang={hint} hrefLang={hint}
+        onClick={(e) => { e.preventDefault(); saveSettings({ ...readSettings(deviceStore()), lang: hint }); go(enPath, hint); }}>{words.link}</a>
+    </p>
+  );
 }
 
 export function DleLangSwitch({ enPath, locale }: { enPath: string; locale: DleLocale }): React.ReactElement {

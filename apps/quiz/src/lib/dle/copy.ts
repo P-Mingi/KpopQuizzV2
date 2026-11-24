@@ -16,7 +16,7 @@ export interface DleCopy {
   readonly streakDays: (n: number) => string; readonly streakSr: string;
   readonly footTag: string; readonly footAbout: string; readonly footPrivacy: string; readonly footLegal: string; readonly footCredits: string;
   // the Terrier
-  readonly burrowH1: string; readonly burrowLead: string; readonly nextPuzzles: string; readonly gamesLabel: string; readonly day: string; readonly yesterday: string;
+  readonly burrowH1: string; readonly nextPuzzles: string; readonly gamesLabel: string; readonly day: string; readonly yesterday: string;
   readonly whatIsTitle: (brand: string) => string;
   readonly of: (done: number, total: number) => string;
   readonly play: string; readonly continueTo: (mode: string) => string; readonly seeResults: string; readonly soon: string; readonly toPlay: string;
@@ -65,7 +65,7 @@ const EN: DleCopy = {
   help: 'How to play', stats: 'Statistics', settings: 'Settings and language', close: 'Close',
   streakDays: (n) => `${n} ${n === 1 ? 'day' : 'days'}`, streakSr: 'K-pop streak',
   footTag: 'Quizzes and daily games for K-pop and anime fans.', footAbout: 'About', footPrivacy: 'Privacy', footLegal: 'Legal notice', footCredits: 'Photo credits',
-  burrowH1: 'Daily games', burrowLead: 'Two games, one puzzle each, the same for everyone.', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
+  burrowH1: 'Daily K-pop and anime games', nextPuzzles: 'New puzzles in', gamesLabel: 'Today’s games', day: 'Your day', yesterday: 'Yesterday’s answers',
   of: (d, t) => `${d} of ${t}`,
   play: 'Play', continueTo: (m) => `Continue: ${lowerFirst(m)}`, seeResults: 'See my results', soon: 'soon', toPlay: 'to play',
   foundIn: (n) => `found in ${n}`, gaveUp: 'gave up', inProgress: (n) => `in progress · ${n}`,
@@ -73,7 +73,7 @@ const EN: DleCopy = {
   gameNo: (k, n) => `${k} no. ${n}`, burrowStreak: (l, n) => `${l}: ${n} ${n === 1 ? 'day' : 'days'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
   show: 'Show', hiddenAnswer: 'Hidden, no spoilers', quizOf: (g) => `${g} quiz`, blindOf: (g) => `${g} blind test`,
   aboutTitle: 'What are the daily games?',
-  about1: 'The daily games gather the Bunnyverse puzzles of the day. Kpopdle: guess today’s K-pop idol, then the group, the song and the hidden members. Otakudle: guess today’s anime character, across all series or one series, spoiler-free.',
+  about1: 'The daily games gather the Bunnyverse puzzles of the day. Kpopdle: guess today’s K-pop idol from clues that compare each guess with the idol of the day. Otakudle: guess today’s anime character, across all series or one series, spoiler-free.',
   about2: 'Unlimited guesses, a new puzzle at midnight UTC.',
   seriesTilesTitle: 'Play one series', seriesTilesLabel: 'Otakudle, one game per series',
   breadcrumb: 'Breadcrumb', stepsLabel: 'The Kpopdle games, in order', stepNow: 'playing', stepDone: 'found',
@@ -98,8 +98,8 @@ const EN: DleCopy = {
   dlgFoot: 'A new idol every day at midnight UTC, the same for everyone. The data comes from Wikidata, MusicBrainz and official sites.',
   dlgStats: 'Your statistics', sPlays: 'Plays', sWins: 'Wins', sAvg: 'Average guesses', sFirst: 'First try', sStreak: 'Current streak', sBest: 'Best streak', sHist: 'Guesses per win',
   sHistAria: (l) => `Distribution: ${l}`, sHistItem: (w, g) => `${w} ${w === 1 ? 'win' : 'wins'} in ${g}`, sShare: 'Share my stats', sNote: 'Kept on this device. Transfer them from the settings.', sNone: 'No finished game on this device yet.',
-  sShareText: (b, g, w, p, best, url) => `${b} · ${g}: ${w} wins in ${p} plays, best streak ${best}\n${url}`,
-  dlgSettings: 'Settings', gameLang: 'Game language', auto: 'Automatic', autoHelp: 'Your browser’s language if it is French. Any other language: English.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
+  sShareText: (b, g, w, p, best, url) => `${b} by Bunnyverse · ${g}: ${w} wins in ${p} plays, best streak ${best}\n${url}`,
+  dlgSettings: 'Settings', gameLang: 'Game language', auto: 'Automatic', autoHelp: 'The language of the page you open. If your browser uses the other one, a link offers it.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
   display: 'Display', colorblind: 'Colour-blind mode', colorblindHelp: 'Blue for right, orange for close', reduced: 'Reduced motion', reducedHelp: 'Also follows your device’s setting',
   transfer: 'Transfer my data', transferHelp: 'Copy this text on this device, paste it on the other one.', transferCopy: 'Copy my data', transferApply: 'Add the pasted data', transferDone: 'Done.', transferBad: 'This text is not an export.', erase: 'Erase on this device', eraseDone: 'Erased.',
 };
@@ -112,7 +112,7 @@ const FR: DleCopy = {
   help: 'Comment jouer', stats: 'Statistiques', settings: 'Réglages et langue', close: 'Fermer',
   streakDays: (n) => `${n} ${n === 1 ? 'jour' : 'jours'}`, streakSr: 'de série K-pop',
   footTag: 'Des quiz et des jeux du jour pour les fans de K-pop et d’anime.', footAbout: 'À propos', footPrivacy: 'Confidentialité', footLegal: 'Mentions légales', footCredits: 'Crédits photos',
-  burrowH1: 'Jeux du jour', burrowLead: 'Deux jeux, une énigme chacun, la même pour tout le monde.', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
+  burrowH1: 'Jeux du jour K-pop et anime', nextPuzzles: 'Nouvelles énigmes dans', gamesLabel: 'Les jeux du jour', day: 'Ta journée', yesterday: 'Les réponses d’hier',
   of: (d, t) => `${d} sur ${t}`,
   play: 'Jouer', continueTo: (m) => `Continuer : ${lowerFirst(m)}`, seeResults: 'Voir mes résultats', soon: 'bientôt', toPlay: 'à jouer',
   foundIn: (n) => `trouvé en ${n}`, gaveUp: 'abandon', inProgress: (n) => `en cours · ${n}`,
@@ -120,7 +120,7 @@ const FR: DleCopy = {
   gameNo: (k, n) => `${k} n° ${n}`, burrowStreak: (l, n) => `${l} : ${n} ${n === 1 ? 'jour' : 'jours'}`, kpopLabel: 'K-pop', animeLabel: 'Anime',
   show: 'Afficher', hiddenAnswer: 'Masqué, sans spoiler', quizOf: (g) => `Quiz ${g}`, blindOf: (g) => `Blind test ${g}`,
   aboutTitle: 'C’est quoi, les jeux du jour ?',
-  about1: 'Les jeux du jour réunissent les énigmes quotidiennes de Bunnyverse. Kpopdle : devine l’idol K-pop du jour, puis le groupe, la chanson et les membres cachés. Otakudle : devine le personnage d’anime du jour, toutes séries ou une seule, sans spoiler.',
+  about1: 'Les jeux du jour réunissent les énigmes quotidiennes de Bunnyverse. Kpopdle : devine l’idol K-pop du jour grâce à des indices qui comparent chaque essai avec l’idol du jour. Otakudle : devine le personnage d’anime du jour, toutes séries ou une seule, sans spoiler.',
   about2: 'Essais illimités, nouvelle énigme à minuit UTC (1 h à Paris en hiver).',
   seriesTilesTitle: 'Joue une seule série', seriesTilesLabel: 'Otakudle, un jeu par série',
   breadcrumb: 'Fil d’Ariane', stepsLabel: 'Les jeux Kpopdle, dans l’ordre', stepNow: 'en cours', stepDone: 'trouvée',
@@ -145,8 +145,8 @@ const FR: DleCopy = {
   dlgFoot: 'Nouvelle idol chaque jour à minuit UTC, la même pour tout le monde. Les données viennent de Wikidata, MusicBrainz et des sites officiels.',
   dlgStats: 'Tes statistiques', sPlays: 'Parties', sWins: 'Victoires', sAvg: 'Essais en moyenne', sFirst: 'Du premier coup', sStreak: 'Série en cours', sBest: 'Meilleure série', sHist: 'Essais par victoire',
   sHistAria: (l) => `Répartition : ${l}`, sHistItem: (w, g) => `${w} ${w === 1 ? 'victoire' : 'victoires'} en ${g}`, sShare: 'Partager mes stats', sNote: 'Gardées sur cet appareil. Transfère-les depuis les réglages.', sNone: 'Aucune partie finie sur cet appareil pour l’instant.',
-  sShareText: (b, g, w, p, best, url) => `${b} · ${g} : ${w} victoires en ${p} parties, meilleure série ${best}\n${url}`,
-  dlgSettings: 'Réglages', gameLang: 'Langue du jeu', auto: 'Automatique', autoHelp: 'Langue du navigateur : français. Autre langue que français ou anglais : anglais.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
+  sShareText: (b, g, w, p, best, url) => `${b} by Bunnyverse · ${g} : ${w} victoires en ${p} parties, meilleure série ${best}\n${url}`,
+  dlgSettings: 'Réglages', gameLang: 'Langue du jeu', auto: 'Automatique', autoHelp: 'La langue de la page ouverte. Si votre navigateur est dans l’autre langue, un lien vous la propose.', french: 'Français', frenchHelp: 'Toujours en français', english: 'English', englishHelp: 'Always in English',
   display: 'Affichage', colorblind: 'Mode daltonien', colorblindHelp: 'Bleu pour juste, orange pour proche', reduced: 'Animations réduites', reducedHelp: 'Suit aussi le réglage de ton appareil',
   transfer: 'Transférer mes données', transferHelp: 'Copie ce texte sur cet appareil, colle-le sur l’autre.', transferCopy: 'Copier mes données', transferApply: 'Ajouter les données collées', transferDone: 'C’est fait.', transferBad: 'Ce texte n’est pas un export.', erase: 'Effacer sur cet appareil', eraseDone: 'Effacé.',
 };
@@ -317,11 +317,11 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
       empty: 'Propose un premier personnage pour voir les cases se remplir.', nextIn: 'nouveau personnage dans',
       stepsLabel: 'Les jeux Otakudle', stepDone: 'trouvé', yesterdayLine: 'Le personnage d’hier :', howTitle: 'Comment jouer à Otakudle ?',
       how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
-      how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
       poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
       dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
       dlgFoot: 'Nouveau personnage chaque jour à minuit UTC, le même pour tout le monde. Les données viennent de Wikidata et de Wikipedia.',
-      noPhoto: 'Pas d’image du personnage : les visuels d’anime appartiennent aux studios. On en affichera seulement avec une licence écrite.',
+      noPhoto: 'Pas d’image pour ce personnage : les visuels d’anime appartiennent à leurs ayants droit.',
       found: 'Trouvé !', dlgNear: 'Proche. Deux ans d’écart au plus, un studio ou un genre en commun.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'de série anime', yesterdayShow: 'Afficher, sans spoiler',
     };
   }
@@ -333,11 +333,11 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
     empty: 'Propose a first character to see the cells fill up.', nextIn: 'next character in',
     stepsLabel: 'The Otakudle games', stepDone: 'found', yesterdayLine: 'Yesterday’s character:', howTitle: 'How to play Otakudle?',
     how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, genres, year, studio, gender, species and role. Full when right, striped when close, grey when wrong. Hints open after 5 and 10 mistakes.',
-    how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. No character art without a licence.',
+    how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. Character pictures belong to their rights holders.',
     poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
     dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
     dlgFoot: 'A new character every day at midnight UTC, the same for everyone. The data comes from Wikidata and Wikipedia.',
-    noPhoto: 'No picture of the character: anime art belongs to the studios. We will show some only with a written licence.',
+    noPhoto: 'No picture for this character yet: anime art belongs to its rights holders.',
     found: 'Found!', dlgNear: 'Close. Two years apart at most, one studio in common, or one genre in common.', dlgSamples: ['MAPPA', '2018', 'Bones'], streakSr: 'anime streak', yesterdayShow: 'Show, no spoilers',
   };
 };
@@ -434,8 +434,8 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
       fr: 'Le nom du fruit du démon s’ouvre après 5 erreurs (« Pas de fruit du démon » pour un personnage qui n’en a pas), l’initiale du nom après 10.',
     },
     dataNote: {
-      en: 'The values follow the story up to the Egghead arc, the last arc finished in the anime. No column says who is alive or dead. No character art without a licence.',
-      fr: 'Les valeurs suivent l’histoire jusqu’à l’arc d’Egghead, le dernier arc terminé dans l’anime. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      en: 'The values follow the story up to the Egghead arc, the last arc finished in the anime. No column says who is alive or dead. Character pictures belong to their rights holders.',
+      fr: 'Les valeurs suivent l’histoire jusqu’à l’arc d’Egghead, le dernier arc terminé dans l’anime. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
     },
     near: { en: 'Close. The same affiliation family (pirates, Marines, World Government, Revolutionary Army) or one Haki in common.', fr: 'Proche. La même famille d’affiliation (pirates, Marine, Gouvernement mondial, Armée révolutionnaire) ou un Haki en commun.' },
   },
@@ -452,8 +452,8 @@ const SERIES_SPEC: Readonly<Record<'otakudle-one-piece' | 'otakudle-dragon-ball'
       fr: 'À 5 erreurs, l’indice est la technique signature, ou le doubleur japonais quand le personnage n’en a pas. L’initiale du nom s’ouvre après 10.',
     },
     dataNote: {
-      en: 'The values go up to Dragon Ball Daima. No column says who is alive or dead. No character art without a licence.',
-      fr: 'Les valeurs vont jusqu’à Dragon Ball Daima. Aucune colonne ne dit qui est vivant ou mort. Aucun visuel de personnage sans licence.',
+      en: 'The values go up to Dragon Ball Daima. No column says who is alive or dead. Character pictures belong to their rights holders.',
+      fr: 'Les valeurs vont jusqu’à Dragon Ball Daima. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
     },
     near: { en: 'Close. One team or organisation in common.', fr: 'Proche. Une équipe ou une organisation en commun.' },
     hintsPending: { en: { signature_technique: 'Technique or voice actor' }, fr: { signature_technique: 'Technique ou doubleur' } },

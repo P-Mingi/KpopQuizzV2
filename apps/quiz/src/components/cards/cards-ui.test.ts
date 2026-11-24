@@ -3,7 +3,7 @@
 // flag off, nothing on kpopquiz.org or OtakuQuiz, and no raw colour outside the card art sheet.
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { createElement } from 'react';
+import { Fragment, createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -24,6 +24,7 @@ import { CardDetail } from './card-detail';
 import { CreditBlock } from './credit-block';
 import { DropRates } from './drop-rates';
 import { LobbyView } from './lobby-view';
+import { CardsIntro } from './cards-landing';
 import { BinderView } from './binder-view';
 import { ReportForm } from './report-form';
 import { LOCK_SENTENCES, RARITIES, computeOdds } from '@/lib/cards/rules';
@@ -50,7 +51,11 @@ afterEach(() => { vi.unstubAllEnvs(); });
 
 describe('one H1 a page', () => {
   it('Packs, Binder, a card page and the report form each have exactly one', () => {
-    expect(h1s(wrap(createElement(LobbyView, { odds: oddsOf(['C', 'U', 'R', 'UR']), ads: ADS_OFF })))).toBe(1);
+    // SEO-LAUNCH-1 lane B (owner rule): the H1 of /kpopcards is now the landing's, in the server HTML (CardsIntro); the lobby's "Your packs" is an H2.
+    // The page (intro + lobby) still has exactly one H1, and the lobby alone none.
+    const lobby = createElement(LobbyView, { odds: oddsOf(['C', 'U', 'R', 'UR']), ads: ADS_OFF });
+    expect(h1s(wrap(lobby))).toBe(0);
+    expect(h1s(wrap(createElement(Fragment, null, createElement(CardsIntro, { stats: null }), lobby)))).toBe(1);
     expect(h1s(wrap(createElement(BinderView, { ads: ADS_OFF })))).toBe(1);
     const d = buildDetail(cat, 'BV1-0001', null)!;
     expect(h1s(wrap(createElement(CardDetail, { ...d.props, credit: createElement(CreditBlock, { photo: d.photo, num: 'BV1-0001' }) })))).toBe(1);

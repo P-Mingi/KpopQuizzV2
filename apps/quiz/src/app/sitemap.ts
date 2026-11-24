@@ -101,12 +101,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/easy-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/hard-kpop-quizzes`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${SITE_URL}/kpop-quiz-2026`, lastModified: STATIC_DATE, changeFrequency: 'daily', priority: 0.7 },
-    { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
+    // SEO-LAUNCH-1 (rule 3.5): this page and /kpop-games gained content in the lot (the link to Kpopdle, the games of the network): lastmod 2026-11-23, a real material change.
+    { url: `${SITE_URL}/guess-the-kpop-idol`, lastModified: new Date('2026-11-23'), changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/kpop-true-or-false`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/blindtest`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.8 },
     // SEO Mission 2 (owner, 2026-10-15): every game of the site in one page. lastmod is the day
     // the page was written; its counts move every day and never bump it (rulebook 9.6).
-    { url: `${SITE_URL}/kpop-games`, lastModified: new Date('2026-10-15'), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/kpop-games`, lastModified: new Date('2026-11-23'), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${SITE_URL}/stats`, lastModified: STATIC_DATE, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${SITE_URL}/about`, lastModified: STATIC_DATE, changeFrequency: 'monthly', priority: 0.4 },
     // SEO Mission 1 (owner, 2026-10-14): the editorial policy and its dated corrections log.

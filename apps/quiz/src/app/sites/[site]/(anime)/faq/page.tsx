@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions',
   description:
-    'Answers to common questions about OtakuQuiz: is it free, do you need an account, how to create a anime quiz, which series are covered, the mini-games, and more.',
+    'Answers to common questions about OtakuQuiz: is it free, do you need an account, how to create an anime quiz, which series are covered and the mini-games.',
   alternates: { canonical: '/faq' },
   openGraph: {
     title: 'OtakuQuiz FAQ',
@@ -59,7 +59,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'Are the quizzes accurate?',
-    a: 'Quizzes are made by fans who know their series. The community reports mistakes, and the most-played quizzes rise to the top, so the best content is easy to find.',
+    a: 'Quizzes are made by fans who know their series. The community reports mistakes, and the most-played quizzes rise to the top, so popular quizzes are easy to find.',
   },
 ];
 

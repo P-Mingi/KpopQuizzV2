@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { parseFrom } from '@/lib/analytics';
-import { DAILY_HUB_DESCRIPTION, DAILY_HUB_TITLE, dailyHubAnswer, dailyHubOn } from '@/lib/daily-hub';
+import { DAILY_HUB_DESCRIPTION, DAILY_HUB_H1, DAILY_HUB_TITLE, dailyHubAnswer, dailyHubOn } from '@/lib/daily-hub';
 import { addDays } from '@/lib/daily-rest';
 import { getQuizOfDate, getQuizOfTheDay } from '@/lib/db/queries/quizzes';
 import { safeFetch } from '@/lib/error-handling';
@@ -60,7 +60,7 @@ export default async function DailyPage({ searchParams }: { searchParams: Promis
       }) }} />
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Daily' }]} />
       <header>
-        <h1>Daily K-pop quiz, blindtest and Kpopdle</h1>
+        <h1>{DAILY_HUB_H1}</h1>
         <p>{dailyHubAnswer({ date, questions: qotd?.question_count ?? null })}</p>
       </header>
 

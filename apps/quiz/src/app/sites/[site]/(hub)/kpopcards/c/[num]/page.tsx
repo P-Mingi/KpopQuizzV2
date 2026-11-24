@@ -33,7 +33,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const cat = await loadCatalog();
   const d = cat ? buildDetail(cat, num, lockOf(q.lock)) : null;
   if (!d) notFound();
-  // A card page is never indexed (the credit lives on /credits): robotsFor(false) is noindex, nofollow on every build.
+  // A card page is never indexed (the credit lives on /credits): robotsFor(false) is noindex, nofollow while the hub is closed (NET_INDEXING off) and noindex, follow once it is open.
   return { title: `${d.card.name}, ${EDITIONS[d.card.rarity].name} (${d.card.num})`, robots: robotsFor(false) };
 }
 

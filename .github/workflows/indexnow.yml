@@ -8,15 +8,35 @@ name: IndexNow submit
 # a different lastmod (src/lib/indexnow-diff.ts). With no previous snapshot (first run) it submits 0 and records the baseline, so an
 # unchanged push submits 0. Only main triggers it (the seo-indexation branch trigger is gone).
 #
+# Two jobs, one per domain. `submit` is kpopquiz.org. `submit-hub` is bunnyverse.org, the hub and /anime (SEO-LAUNCH-1, lane C): its /sitemap.xml is a
+# sitemap index, so the snapshot is the flattened urlset of /sitemap-hub.xml and /anime/sitemap.xml (the children the index lists), never the index itself.
+# The route of the hub build compares that snapshot with the same two children, and its key (the hub key, at the root of bunnyverse.org) covers the /anime URLs too.
+#
 # SETUP (one time):
-#   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy).
+#   1. Vercel: set env INDEXNOW_TRIGGER_TOKEN to a secret string (redeploy). Set it on the kpopquiz project AND on the bunnyverse.org (fandomverse) project,
+#      with the SAME value (the hub job answers 401 without it).
 #   2. GitHub: repo Settings > Secrets and variables > Actions > New secret
 #      INDEXNOW_TOKEN with the SAME value.
 # workflow_dispatch lets you run it manually from the Actions tab to test.
+#
+# Independence (SEO-LAUNCH-1 review, fix 5): the hub job finds its own previous snapshot, the newest unexpired sitemap-snapshot-hub artifact. The kpop
+# job keeps the last successful push run (ci-workflows-gh.test.ts pins that step); since the hub job is continue-on-error, a failed fetch or an HTTP
+# error of the route records the baseline instead of failing, and the hub-only manual runs are not push runs, nothing the hub job does can make the
+# kpop job diff against an older snapshot.
+#
+# hub_urls (workflow_dispatch only): newline-separated URLs or paths of bunnyverse.org. When given, only the hub job runs, and it POSTs exactly those URLs once
+# through the hub route (mode=urls, same token), never the sitemap. It is for the new URLs of a first deploy (docs/seo/strategy-2026-11-23/POST-DEPLOY-INDEXNOW.md).
+# The route sends nothing while the hub is closed to search engines (NET_INDEXING). The run still records the live sitemap, so the next push does not send them again.
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      hub_urls:
+        description: 'bunnyverse.org URLs or paths to submit once, one per line (leave empty for the normal diff run)'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   actions: read
@@ -24,6 +44,9 @@ permissions:
 
 jobs:
   submit:
+    name: submit (kpopquiz.org)
+    # A run with a hub_urls list is a hub-only run.
+    if: ${{ github.event.inputs.hub_urls == '' }}
     runs-on: ubuntu-latest
     steps:
       - name: Wait for the Vercel deploy to go live
@@ -39,7 +62,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          id=$(gh run list --workflow indexnow.yml --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          # The last successful push run: the hub job has continue-on-error, so a failing hub job never turns a run red and never sends
+          # this job back to an older snapshot; --event push leaves out the hub-only manual runs (hub_urls), which make no kpop snapshot.
+          id=$(gh run list --workflow indexnow.yml --status success --event push --limit 1 --json databaseId --jq '.[0].databaseId // empty')
           if [ -n "$id" ]; then gh run download "$id" --name sitemap-snapshot --dir prev || echo "no snapshot in run $id"; fi
       - name: Submit the changed URLs to IndexNow
         env:
@@ -59,4 +84,83 @@ jobs:
         with:
           name: sitemap-snapshot
           path: current/sitemap.xml
+          retention-days: 90
+
+  submit-hub:
+    name: submit (bunnyverse.org, hub and /anime)
+    # Independent of the kpopquiz.org job: its failure never fails the run, and it never decides what the other job compares with.
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the Vercel deploy to go live
+        run: sleep 120
+      - name: Fetch the live sitemaps of the hub and of OtakuQuiz, flattened into one urlset
+        id: fetch
+        run: |
+          mkdir -p current prev
+          # A failed fetch of the hub sitemap is not an error of the run: nothing is recorded or submitted, and the previous snapshot stays the newest one.
+          if ! curl -fsS https://bunnyverse.org/sitemap-hub.xml -o hub.xml; then
+            echo "the hub sitemap could not be fetched: nothing submitted, no new snapshot"
+            echo "ok=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          # /anime/sitemap.xml is listed by the index only once the hub is open; a missing one is not an error.
+          curl -fsS https://bunnyverse.org/anime/sitemap.xml -o anime.xml || : > anime.xml
+          python3 - <<'PY'
+          import re
+          urls = []
+          for name in ('hub.xml', 'anime.xml'):
+              try:
+                  text = open(name, encoding='utf-8').read()
+              except OSError:
+                  continue
+              urls += re.findall(r'<url>.*?</url>', text, re.S)
+          head = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          open('current/sitemap-hub-flat.xml', 'w', encoding='utf-8').write(head + '\n'.join(urls) + '\n</urlset>\n')
+          print(len(urls), 'urls in the flattened sitemap')
+          PY
+          echo "ok=true" >> "$GITHUB_OUTPUT"
+      - name: Fetch the snapshot of the last hub submission
+        if: ${{ steps.fetch.outputs.ok == 'true' && github.event.inputs.hub_urls == '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # The newest unexpired artifact named sitemap-snapshot-hub, from whichever run produced it (a run whose kpopquiz.org job failed still counts, and so does a run
+          # whose hub job failed after uploading).
+          id=$(gh api "repos/${GH_REPO}/actions/artifacts?name=sitemap-snapshot-hub&per_page=1" --jq '.artifacts[0] | select(.expired == false) | .workflow_run.id // empty' || true)
+          if [ -n "$id" ]; then gh run download "$id" --name sitemap-snapshot-hub --dir prev || echo "no hub snapshot in run $id"; fi
+      - name: Submit the changed URLs to IndexNow
+        if: ${{ steps.fetch.outputs.ok == 'true' && github.event.inputs.hub_urls == '' }}
+        env:
+          INDEXNOW_TOKEN: ${{ secrets.INDEXNOW_TOKEN }}
+        run: |
+          if [ -z "$INDEXNOW_TOKEN" ]; then
+            echo "INDEXNOW_TOKEN secret not set - skipping"; exit 0
+          fi
+          # An HTTP error of the route is reported, not fatal: the live sitemap is still recorded below as the baseline.
+          if [ -s prev/sitemap-hub-flat.xml ]; then
+            curl -fsS -X POST -H 'content-type: application/xml' --data-binary @prev/sitemap-hub-flat.xml "https://bunnyverse.org/api/indexnow?token=${INDEXNOW_TOKEN}" \
+              || echo "the hub route answered an error: recording the baseline anyway"
+          else
+            echo "no previous hub sitemap: recording the baseline, submitting nothing"
+            curl -fsS -X POST --data-binary '' "https://bunnyverse.org/api/indexnow?token=${INDEXNOW_TOKEN}" || echo "the hub route answered an error: recording the baseline anyway"
+          fi
+      - name: Submit the listed URLs (hub_urls) once
+        if: ${{ github.event.inputs.hub_urls != '' }}
+        env:
+          INDEXNOW_TOKEN: ${{ secrets.INDEXNOW_TOKEN }}
+          HUB_URLS: ${{ github.event.inputs.hub_urls }}
+        run: |
+          if [ -z "$INDEXNOW_TOKEN" ]; then
+            echo "INDEXNOW_TOKEN secret not set - skipping"; exit 0
+          fi
+          # Exactly the lines given, nothing else: the route (mode=urls) keeps the URLs of bunnyverse.org and answers how many it sent.
+          printf '%s\n' "$HUB_URLS" | curl -fsS -X POST -H 'content-type: text/plain' --data-binary @- "https://bunnyverse.org/api/indexnow?token=${INDEXNOW_TOKEN}&mode=urls" \
+            || echo "the hub route answered an error: nothing more is sent"
+      - name: Keep this sitemap for the next run
+        if: ${{ steps.fetch.outputs.ok == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-snapshot-hub
+          path: current/sitemap-hub-flat.xml
           retention-days: 90

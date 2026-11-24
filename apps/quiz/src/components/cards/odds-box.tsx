@@ -1,6 +1,7 @@
 // KpopCards: the "Drop rates" box of the lobby (v6): a colour bar of the editions, the table (Edition, Cards 1 to 4, Card 5) and the four rules. Server-safe, no state.
 // The percentages are the real catalog's (computeOdds of lib/cards/rules.ts): only the editions that have a card in packs are listed.
 import { PITY_UR, RARITY_LABEL } from '@/lib/cards/rules';
+import { KC } from '@/lib/kpopcards/contract';
 import { dupBiasExempt, dupBiasRule } from '@/lib/kpopcards/dup-text';
 
 import { Gem } from './card-art';
@@ -32,7 +33,7 @@ export function OddsBox({ odds, pityLeft = null }: { odds: CatalogOdds | null; p
       <ul className="rules">
         <li><b>Duplicates.</b> {dupBiasRule()} {dupBiasExempt()}</li>
         <li><b>Gold guarantee.</b> If {PITY_UR - 1} packs in a row bring nothing Gold or better, the fifth card of pack {PITY_UR} is Gold. {pityLeft !== null ? <span id="pity-r">You are at {PITY_UR - pityLeft} of {PITY_UR - 1}.</span> : null}</li>
-        <li><b>Golden pack.</b> Every 10th pack is golden: its fifth card is Holo or better.</li>
+        <li><b>Golden pack.</b> Every {KC.GOLDEN_EVERY}th pack is golden: its fifth card is Holo or better.</li>
         <li><b>Missing half.</b> When you own one half of a group card, the same edition gives you the other half.</li>
         <li><b>Themed packs</b> only change which idols can come out, never the odds of an edition.</li>
       </ul>

@@ -12,7 +12,7 @@ import { isKnownRouteFor, rewritesFor } from '@/lib/site/routing';
 
 import { dleCopy, gameCopy, hintValueLabel, valueLabel } from './copy';
 import { DLE_GAMES, builtGames, dleGame, futurePaths, livePaths, localePath, seriesPath } from './games';
-import { GAME_SEO, dleAlternates, dleRobots, gameAnswerBlock, gameJsonLd } from './seo';
+import { DLE_FR_REVIEWED, GAME_SEO, dleAlternates, dleRobots, gameAnswerBlock, gameJsonLd } from './seo';
 import { parseShareImage } from './share-image';
 import { shareText } from './share';
 import { ALIGNMENT, HAKI, LABEL_FR, VALUE_FR, seriesValueLabel } from './value-i18n';
@@ -203,17 +203,18 @@ describe('the words, in English and French', () => {
     expect(new Set(SERIES_GAMES.flatMap((id) => LOCALES.map((l) => GAME_SEO[id]!.description[l]))).size).toBe(4);
     const j = gameJsonLd('otakudle-one-piece', 'fr');
     expect(j.url).toBe('https://bunnyverse.org/fr/otakudle/one-piece');
-    expect(j.name).toBe('Otakudle Le personnage One Piece du jour');
+    expect(j.name).toBe('Otakudle One Piece by Bunnyverse');
+    expect(j.alternateName).toEqual(['Otakudle One Piece', 'Otakudle Le personnage One Piece du jour']);
     expect(JSON.stringify(j)).not.toMatch(/aggregateRating|numberOfPlayers/);
   });
 
   it('the share text names the game and the series, never the answer', () => {
     const g = [guess(ZORO, ['correct', 'correct', 'wrong', 'correct', 'wrong', 'wrong', 'correct', 'correct']), guess(LUFFY, Array(8).fill('correct'))];
     expect(shareText(dleGame('otakudle-one-piece'), 4, g, true, 'bunnyverse.org/otakudle/one-piece', 'en')).toBe(
-      'Otakudle #4 · One Piece character of the day · found in 2 guesses\n5/8 · 8/8\nbunnyverse.org/otakudle/one-piece',
+      'Otakudle by Bunnyverse #4 · One Piece character of the day · found in 2 guesses\n5/8 · 8/8\nbunnyverse.org/otakudle/one-piece',
     );
     expect(shareText(dleGame('otakudle-dragon-ball'), 4, g, false, 'bunnyverse.org/fr/otakudle/dragon-ball', 'fr')).toBe(
-      'Otakudle #4 · Le personnage Dragon Ball du jour · abandon\n5/8 · 8/8\nbunnyverse.org/fr/otakudle/dragon-ball',
+      'Otakudle by Bunnyverse #4 · Le personnage Dragon Ball du jour · abandon\n5/8 · 8/8\nbunnyverse.org/fr/otakudle/dragon-ball',
     );
   });
 });
@@ -553,7 +554,7 @@ describe('the pages behind the flag', () => {
     }
   });
 
-  it('flag on: the metadata is the page\'s own: title, canonical, hreflang both ways, index in English, noindex in French until the owner reviewed it', async () => {
+  it('flag on: the metadata is the page\'s own: title, canonical, hreflang both ways, index in English, index in French once the owner reviewed it (DLE_FR_REVIEWED)', async () => {
     for (const [rel, id, l] of PAGES) {
       gate.open = true;
       gate.day = DAY(id);
@@ -566,7 +567,8 @@ describe('the pages behind the flag', () => {
       expect(meta.alternates).toEqual(dleAlternates(enPath, l));
       expect(meta.alternates.canonical).toBe(l === 'fr' ? `/fr${enPath}` : enPath);
       expect(meta.alternates.languages).toEqual({ en: enPath, fr: `/fr${enPath}`, 'x-default': enPath });
-      expect(meta.robots.index, `${rel} index`).toBe(l === 'en');
+      // Owner rule of 2026-11-23: the French pages are reviewed, so they say index like the English ones.
+      expect(meta.robots.index, `${rel} index`).toBe(l === 'en' || DLE_FR_REVIEWED);
       expect(meta.robots).toEqual(dleRobots(l, true));
     }
     // a game with no pool says noindex, in English too

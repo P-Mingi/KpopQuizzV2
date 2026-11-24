@@ -183,8 +183,9 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   return (
     <div className="wrap page packs2 lobby">
       <div className="p-head2">
-        <h1 className="h1" id="t-lobby">Your packs</h1>
-        <p className="lede">A free pack every 10 minutes, up to {cap} waiting. The stack is full again at midnight, Paris time.</p>
+        {/* The one H1 of /kpopcards is in the server HTML above (CardsIntro); "Your packs" is the H2 of this section. */}
+        <h2 className="h1" id="t-lobby">Your packs</h2>
+        <p className="lede">A free pack every {KC.PERIOD_MIN} minutes, up to {cap} waiting. The stack is full again at midnight, Paris time.</p>
       </div>
       {guest ? (
         <div className="guest" id="guest">
@@ -204,7 +205,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
       <div className="stage" id="stage">
         <span className={`golden-chip${golden ? ' now' : ''}`} id="golden-chip" hidden={guest ? false : !ready || toGolden === null}>
           <svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-UR" /></svg>
-          {guest ? <><span className="lg">Every 10th pack is golden</span><span className="sh">Every 10th golden</span></> : <><span className="lg">{golden ? 'Next pack is golden' : `Golden pack in ${toGolden} packs`}</span><span className="sh">{golden ? 'Golden next' : `Golden in ${toGolden}`}</span></>}
+          {guest ? <><span className="lg">Every {KC.GOLDEN_EVERY}th pack is golden</span><span className="sh">Every {KC.GOLDEN_EVERY}th golden</span></> : <><span className="lg">{golden ? 'Next pack is golden' : `Golden pack in ${toGolden} packs`}</span><span className="sh">{golden ? 'Golden next' : `Golden in ${toGolden}`}</span></>}
         </span>
         <button type="button" ref={packRef} key={swap} id="pack" className={`pack float${face.className}${swap ? ' swap' : ''}`} style={face.style} aria-label={guest ? 'Sign in to open a pack' : 'Open a pack'} aria-disabled={guest || !ready || hasPack || !main.disabled ? 'false' : 'true'} onClick={primary}>
           {face.body}
@@ -226,7 +227,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
           <div className="ichips">
             <span className="ichip">
               <span className="ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle className="bg" cx="24" cy="24" r="20" /></svg></span>
-              <span className="ct"><b className="num">10:00</b><small>next pack · every 10 mins</small></span>
+              <span className="ct"><b className="num">{KC.PERIOD_MIN}:00</b><small>next pack · every {KC.PERIOD_MIN} mins</small></span>
             </span>
             <span className="ichip">
               <span className="moon"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg></span>
@@ -234,7 +235,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
             </span>
             <span className="ichip gold">
               <span className="moon gold"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-UR" /></svg></span>
-              <span className="ct"><b className="num">30 packs</b><small>to a sure Gold</small></span>
+              <span className="ct"><b className="num">{KC.GOLD_BY_PACK} packs</b><small><Link href={kcPath.odds}>to a sure Gold</Link></small></span>
               <span className="pity" aria-hidden="true"><i /></span>
             </span>
           </div>
@@ -252,7 +253,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
             {pityLeft !== null ? (
               <span className="ichip gold">
                 <span className="moon gold"><svg className="gem" viewBox="0 0 24 24" aria-hidden="true"><use href="#bvc-g-UR" /></svg></span>
-                <span className="ct"><b className="num" id="pity-t">{pityLeft <= 1 ? 'Next pack' : `${pityLeft} packs`}</b><small id="pity-l">{pityLeft <= 1 ? 'brings a sure Gold' : 'to a sure Gold'}</small></span>
+                <span className="ct"><b className="num" id="pity-t">{pityLeft <= 1 ? 'Next pack' : `${pityLeft} packs`}</b><small id="pity-l"><Link href={kcPath.odds}>{pityLeft <= 1 ? 'brings a sure Gold' : 'to a sure Gold'}</Link></small></span>
                 <span className="pity" aria-hidden="true"><i id="pity-bar" style={{ width: `${pityProgress(pityLeft).toFixed(1)}%` }} /></span>
               </span>
             ) : null}

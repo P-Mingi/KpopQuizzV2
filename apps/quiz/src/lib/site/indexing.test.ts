@@ -40,17 +40,39 @@ describe('NET_INDEXING', () => {
 });
 
 describe('llmsText', () => {
-  it('names the site, its host and real routes, never kpopquiz.org or K-pop', async () => {
+  it('names the site, its host and real routes; the anime file never names kpopquiz.org or K-pop', async () => {
     vi.resetModules();
     const { REGISTRY } = await import('./registry');
     const { llmsText } = await import('./root-files');
     for (const site of [REGISTRY.anime, REGISTRY.hub]) {
       const text = llmsText(site);
       expect(text.startsWith(`# ${site.seo.llmsTxt.title}\n`)).toBe(true);
-      expect(text).not.toMatch(/kpopquiz|K-pop|kpop/i);
       expect(text).not.toMatch(/\d+\+? quizzes/);
     }
+    // SEO-LAUNCH-1 lane A (owner rule: the hub file now names the K-pop side, so the K-pop ban applies to the anime file only).
+    expect(llmsText(REGISTRY.anime)).not.toMatch(/kpopquiz|K-pop|kpop/i);
     expect(llmsText(REGISTRY.anime)).toContain('/series');
     expect(llmsText(REGISTRY.hub)).toContain('/privacy');
+  });
+
+  it('the hub file lists the daily games from the code, KpopCards only with the flag, the anime site and the sister site; no typed number', async () => {
+    vi.resetModules();
+    const { REGISTRY } = await import('./registry');
+    const { llmsText } = await import('./root-files');
+    const { builtGames } = await import('@/lib/dle/games');
+    const on = llmsText(REGISTRY.hub, [REGISTRY.anime], '1', true);
+    expect(on).not.toContain('holds no quiz');
+    expect(on).toContain('Kpopdle by Bunnyverse');
+    expect(on).toContain('Otakudle by Bunnyverse');
+    for (const g of builtGames()) expect(on, g.path).toContain(`- ${g.path}:`);
+    expect(on).toContain('- /daily:');
+    expect(on).toContain('- /kpopcards/odds:');
+    expect(on).toContain('- /anime: OtakuQuiz at bunnyverse.org/anime');
+    expect(on).toContain('sister site');
+    expect(on).toContain('https://kpopquiz.org');
+    expect(on).not.toMatch(/\d{3,}/);
+    expect(on).not.toMatch(/[\u2013\u2014]/);
+    const off = llmsText(REGISTRY.hub, [REGISTRY.anime], '1', false);
+    expect(off).not.toContain('/kpopcards');
   });
 });

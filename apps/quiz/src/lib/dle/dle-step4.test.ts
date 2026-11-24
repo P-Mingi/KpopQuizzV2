@@ -14,10 +14,10 @@ import { HINT_LABELS, IDOL_COLUMNS, OTAKUDLE_COLUMNS, dleCopy, gameCopy, valueLa
 import { dleGame, livePaths, localePath, SHARE_R_PATTERN } from './games';
 import { FIXTURE_POOL_SIZE, kpopdleDb, rpcAs } from './game-fixture';
 import {
-  eraseData, exportData, gameStats, gamesLeftToday, getToken, importData, languageTarget, readHistory, readSettings, recordPlay, resetToken, universeStreak, writeSettings,
+  eraseData, exportData, gameStats, gamesLeftToday, getToken, importData, languageHint, languageTarget, savedLanguageTarget, readHistory, readSettings, recordPlay, resetToken, universeStreak, writeSettings,
 } from './local';
 import { parseDay, parsePool, readDay, readKpopGroupSlugs, readPool } from './read';
-import { BURROW_SEO, DLE_FR_REVIEWED, GAME_SEO, breadcrumbJsonLd, dleAlternates, dleSitemapRows, gameAnswerBlock, gameJsonLd, itemListJsonLd } from './seo';
+import { BURROW_SEO, DLE_FR_REVIEW, DLE_FR_REVIEWED, GAME_SEO, breadcrumbJsonLd, dleAlternates, dleSitemapRows, gameAnswerBlock, gameJsonLd, itemListJsonLd } from './seo';
 import { parseShareImage } from './share-image';
 import { DLE_WORLDS, liveGame, liveModes, worldHref, worldOf } from './worlds';
 
@@ -271,10 +271,27 @@ describe('SEO, section 11', () => {
     expect(dleAlternates('/kpopdle', 'fr')).toEqual({ canonical: '/fr/kpopdle', languages: { en: '/kpopdle', fr: '/fr/kpopdle', 'x-default': '/kpopdle' } });
   });
 
+  it('hreflang only between indexable equivalents: a page that says noindex carries its canonical alone', () => {
+    expect(dleAlternates('/kpopdle', 'fr', false)).toEqual({ canonical: '/fr/kpopdle' });
+    expect(dleAlternates('/kpopdle', 'en', false)).toEqual({ canonical: '/kpopdle' });
+  });
+
+  it('the language rule: only a saved choice moves the visitor; with none, a browser in the other language gets a hint, never a redirect', () => {
+    expect(savedLanguageTarget('auto', 'en')).toBeNull();
+    expect(savedLanguageTarget('fr', 'en')).toBe('fr');
+    expect(savedLanguageTarget('fr', 'fr')).toBeNull();
+    expect(languageHint('auto', 'fr-FR', 'en')).toBe('fr');
+    expect(languageHint('auto', 'en-US', 'fr')).toBe('en');
+    expect(languageHint('auto', 'en-US', 'en')).toBeNull();
+    expect(languageHint('en', 'fr-FR', 'en')).toBeNull();
+  });
+
   it('the sitemap: nothing with the flag off or the site closed; French only once reviewed; never /credits; real date', () => {
     expect(dleSitemapRows(false, TODAY, true, true)).toEqual([]);
     expect(dleSitemapRows(true, TODAY, true, false)).toEqual([]);
-    expect(DLE_FR_REVIEWED).toBe(false);
+    // Owner rule of 2026-11-23: the French pages are reviewed (was false until then), recorded as who and when.
+    expect(DLE_FR_REVIEW).toEqual({ reviewed_by: 'owner', reviewed_at: '2026-11-23' });
+    expect(DLE_FR_REVIEWED).toBe(true);
     expect(dleSitemapRows(true, null, false, true).map((r) => r.path)).toEqual(['/daily', '/kpopdle', '/otakudle', '/otakudle/one-piece', '/otakudle/dragon-ball']);
     const all = dleSitemapRows(true, '2026-11-02', true, true);
     expect(all.map((r) => r.path)).toEqual([

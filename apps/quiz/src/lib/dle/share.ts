@@ -18,9 +18,9 @@ const WORDS: Readonly<Record<DleLocale, { found: (n: number) => string; gaveUp: 
   fr: { found: (n) => `trouvé en ${n} ${n === 1 ? 'essai' : 'essais'}`, gaveUp: 'abandon' },
 };
 
-/** "Kpopdle #12 · Idol of the day · found in 4 guesses", the line of counts, then the address. */
+/** "Kpopdle by Bunnyverse #12 · Idol of the day · found in 4 guesses", the line of counts, then the address. The names stay, with "by Bunnyverse" always (owner, 2026-11-23). */
 export function shareText(game: DleGameDef, gameNo: number, guesses: readonly DleGuess[], won: boolean, url: string, locale: DleLocale): string {
   const w = WORDS[locale];
   const outcome = won ? w.found(guesses.length) : w.gaveUp;
-  return [`${game.brand} #${gameNo} · ${game.guess[locale]} · ${outcome}`, shareLine(guesses), url].join('\n');
+  return [`${game.brand} by Bunnyverse #${gameNo} · ${game.guess[locale]} · ${outcome}`, shareLine(guesses), url].join('\n');
 }
