@@ -1,0 +1,31 @@
+diff --git a/apps/quiz/e2e/ux-v1/shell.spec.ts b/apps/quiz/e2e/ux-v1/shell.spec.ts
+index 100ebb4..f794a43 100644
+--- a/apps/quiz/e2e/ux-v1/shell.spec.ts
++++ b/apps/quiz/e2e/ux-v1/shell.spec.ts
+@@ -291,7 +291,7 @@ test.describe('client navigation', () => {
+     const h1 = page.locator('#main h1').first();
+     const noRing = (): Promise<string> => h1.evaluate((el) => getComputedStyle(el).outlineStyle);
+     const steps: [string, RegExp][] = desktop
+-      ? [['.ux-links a[data-nav="quizzes"]', /\/quizzes$/], ['.ux-links a[data-nav="groups"]', /\/groups$/], ['.ux-links a[data-nav="blindtest"]', /\/blindtest$/], ['.ux-links a[data-nav="home"]', /\/$/]]
++      ? [['.ux-links a[data-nav="quizzes"]', /\/quizzes$/], ['.ux-links a[data-nav="blindtest"]', /\/blindtest$/], ['.ux-links a[data-nav="home"]', /\/$/]]
+       : [['.ux-tab[href="/quizzes"]', /\/quizzes$/], ['.ux-tab[href="/blindtest"]', /\/blindtest$/], ['.ux-tab[href="/"]', /\/$/]];
+     for (const [link, url] of steps) {
+       const before = await page.title();
+@@ -320,7 +320,7 @@ test.describe('client navigation', () => {
+     await page.goto('/');
+     test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
+     await waitHydrated(page);
+-    const target = page.locator('.ux-links a[data-nav="groups"]');
++    const target = page.locator('.ux-links > a[data-nav="blindtest"]');
+     let reached = false;
+     for (let i = 0; i < 15 && !reached; i++) {
+       await page.keyboard.press('Tab');
+@@ -328,7 +328,7 @@ test.describe('client navigation', () => {
+     }
+     expect(reached).toBe(true);
+     await page.keyboard.press('Enter');
+-    await expect(page).toHaveURL(/\/groups$/, { timeout: 60_000 });
++    await expect(page).toHaveURL(/\/blindtest$/, { timeout: 60_000 });
+     const h1 = page.locator('#main h1').first();
+     await expect(h1).toBeFocused({ timeout: 15_000 });
+     expect(await h1.evaluate((el) => getComputedStyle(el).outlineStyle)).toBe('none');
