@@ -62,13 +62,13 @@ describe('the line under the input, in the markup of the game', () => {
     return renderToStaticMarkup(createElement(DleGame, { locale, game, gameNo: 5, stats: null, pool, pictures: {}, quizLinks: {}, kpopName: 'KpopQuiz', ...(yesterday === null ? {} : { yesterday }) }));
   };
 
-  it('Kpopdle: the idol, EN and FR, right under the input', async () => {
-    expect(await render('kpopdle-idol', 'en', 'Karina')).toContain('<p class="hub-dle-yline">Yesterday’s idol was <strong class="hub-dle-ylast">Karina</strong></p>');
-    expect(await render('kpopdle-idol', 'fr', 'Karina')).toContain('<p class="hub-dle-yline">L’idol d’hier était <strong class="hub-dle-ylast">Karina</strong></p>');
+  it('Kpopdle: "Yesterday: name" (DLE2-A, owner 2026-11-25), EN and FR, under the input', async () => {
+    expect(await render('kpopdle-idol', 'en', 'Karina')).toContain('<p class="hub-dle-yline">Yesterday: <strong class="hub-dle-ylast">Karina</strong></p>');
+    expect(await render('kpopdle-idol', 'fr', 'Karina')).toContain('<p class="hub-dle-yline">Hier : <strong class="hub-dle-ylast">Karina</strong></p>');
   });
 
   it('a series game: the character; no line when there is no yesterday', async () => {
-    expect(await render('otakudle-one-piece', 'en', 'Zoro')).toContain('Yesterday’s One Piece character was <strong class="hub-dle-ylast">Zoro</strong>');
+    expect(await render('otakudle-one-piece', 'en', 'Zoro')).toContain('Yesterday: <strong class="hub-dle-ylast">Zoro</strong>');
     expect(await render('otakudle-one-piece', 'en', null)).not.toContain('hub-dle-yline');
   });
 });

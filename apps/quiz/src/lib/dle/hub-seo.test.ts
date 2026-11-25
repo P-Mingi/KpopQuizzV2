@@ -327,7 +327,7 @@ describe('the pages, the flag on: one H1, the answer block, the JSON-LD, the lin
     }
   });
 
-  it('SEO-LAUNCH-1: the server HTML runs H1, answer block, the game, How to play, then the three questions, each an h2 with its answer open', async () => {
+  it('SEO-LAUNCH-1: the server HTML runs the game switch, H1, answer block, the game, How to play, then the three questions, each an h2 with its answer open', async () => {
     gate.open = true;
     gate.live = new Set(ALL_GAMES);
     for (const p of GAME_PAGES) {
@@ -335,7 +335,8 @@ describe('the pages, the flag on: one H1, the answer block, the JSON-LD, the lin
       const w = gameCopy(p.game!, p.locale);
       const whole = gameAnswerBlock(p.game!, p.locale, NAMES.length, DATE);
       const marks = [
-        html.indexOf('<h1'), html.indexOf(whole.slice(0, whole.indexOf(String(NAMES.length)))), html.indexOf('hub-dle-steps'), html.indexOf(w.howTitle),
+        // DLE2-A: the breadcrumb, then the game switch, then the meta line and the H1, the answer block right under it, the game, How to play, the questions.
+        html.indexOf('hub-dle-steps'), html.indexOf('<h1'), html.indexOf(whole.slice(0, whole.indexOf(String(NAMES.length)))), html.indexOf(w.howTitle),
         ...gameQuestions(p.game!, p.locale).map((x) => html.indexOf(`<h2>${x.q}</h2>`)),
       ];
       for (const m of marks) expect(m, `${p.path} marks ${marks.join(',')}`).toBeGreaterThan(-1);

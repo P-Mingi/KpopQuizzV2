@@ -48,7 +48,7 @@ async function verify(file: string): Promise<void> {
 
 beforeAll(async () => {
   db = await kpopdleDb(EPOCH);
-  const pool = await readPool({ rpc: (fn, args) => rpcAs(db, fn, args) }, GAME);
+  const pool = await readPool({ rpc: (fn: string, args: Record<string, unknown>) => rpcAs(db, fn, args) }, GAME);
   target = await one<string>(db, `select public.dle_target('${GAME}', $1::date)`, [TODAY]);
   wrong = pool!.entities.find((e) => e.id !== target)!.id;
 });

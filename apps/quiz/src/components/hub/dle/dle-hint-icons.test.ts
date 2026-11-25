@@ -24,22 +24,25 @@ describe('the icons of the hints', () => {
     expect(new Set([...keys].map((k) => hintIcon(k))).size).toBe(keys.size);
   });
 
-  it('each hint box draws one hidden icon before its words, in English and French, for every game with hints', async () => {
+  // DLE2-A (owner, 2026-11-25): the two hint cards and their bars are gone. One short line under the input: "{hint label} in N guesses" items, the value replacing the words once opened.
+  it('each game with hints draws one line of items under the input, in English and French, and no card, icon tile or bar', async () => {
     const { DleGame } = await import('./dle-game');
     for (const g of DLE_GAMES.filter((x) => x.hints.length > 0 && x.built)) {
       for (const locale of ['en', 'fr'] as const) {
         const html = renderToStaticMarkup(createElement(DleGame, { locale, game: g.id, gameNo: 4, stats: null, pool: { ...POOL, game: g.id, universe: g.universe }, pictures: {}, quizLinks: {}, kpopName: 'KpopQuiz' }));
-        const boxes = [...html.matchAll(/<div class="hub-dle-hint(?: [^"]*)?">(.*?)<\/div><\/div>/g)].map((m) => m[1]!);
-        expect(boxes, `${g.id} ${locale}`).toHaveLength(g.hints.length);
-        for (const b of boxes) expect(b).toMatch(/^<span aria-hidden="true" class="hub-dle-hint-ic"><svg [^>]*><path d="[^"]+"><\/path><\/svg><\/span><div class="hub-dle-hint-body"><span class="hub-dle-hint-label">/);
+        const list = /<ul aria-label="[^"]*" class="hub-dle-hintlist">(.*?)<\/ul>/.exec(html);
+        expect(list, `${g.id} ${locale}`).not.toBeNull();
+        const items = [...list![1]!.matchAll(/<li[^>]*>(.*?)<\/li>/g)].map((m) => m[1]!);
+        expect(items, `${g.id} ${locale}`).toHaveLength(g.hints.length);
+        items.forEach((it, i) => expect(it).toContain(locale === 'fr' ? `dans ${g.hints[i]!.after} essais` : `in ${g.hints[i]!.after} guesses`));
+        expect(html).not.toMatch(/hub-dle-hint-ic|hub-dle-hint-track|hub-dle-hintgrid/);
         expect(html).not.toMatch(DASH);
       }
     }
   });
 
-  it('the hints are narrower (540 px, was 760) and the icon has its tile', () => {
-    expect(css).toMatch(/\.hub-dle-hints \{ width: 100%; max-width: 540px;/);
-    expect(css).toMatch(/\.hub-dle-hint-ic \{ flex: none; width: 34px; height: 34px;/);
-    expect(css).toMatch(/\.hub-dle-hint-body \{/);
+  it('the stylesheet has no hint card any more, and the line is small and muted', () => {
+    expect(css).not.toMatch(/\.hub-dle-hint-ic|\.hub-dle-hintgrid|\.hub-dle-hint-track/);
+    expect(css).toMatch(/\.hub-dle-hintline \{[^}]*font-size: 13px; color: var\(--hub-dle-muted\)/);
   });
 });

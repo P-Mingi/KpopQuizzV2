@@ -19,15 +19,18 @@ export function iconBox(cfg: IconSettings, state: IconState, size: number): Reac
 }
 
 /** An icon (the library's path, or a PNG) inside its state box. Decorative: the name of the game or row is always in the text beside it. */
-export function IconMark({ cfg, png, state, size, glyph, slot }: {
+export function IconMark({ cfg, png, state, size, glyph, slot, plain = false }: {
   cfg: IconSettings; png: string | null; state: IconState; size: number; glyph: number; slot?: string;
+  /** DLE2-A: the picture alone, as large as the box, with no circle, ring or ground behind it (the game switch of the daily game pages). */
+  plain?: boolean;
 }): React.ReactElement {
-  const img = cfg.circle ? Math.round(size * 0.62) : Math.round(size * 0.86);
+  const shown: IconSettings = plain ? { ...cfg, circle: false } : cfg;
+  const img = plain ? size : cfg.circle ? Math.round(size * 0.62) : Math.round(size * 0.86);
   return (
-    <span style={iconBox(cfg, state, size)} data-slot-icon={slot} data-slot-mode={slot ? (cfg.mode === 'png' && png ? 'png' : 'icon') : undefined}>
+    <span style={iconBox(shown, state, size)} data-slot-icon={slot} data-slot-mode={slot ? (cfg.mode === 'png' && png ? 'png' : 'icon') : undefined}>
       {cfg.mode === 'png' && png
         // eslint-disable-next-line @next/next/no-img-element -- a 96 px file made at upload; no image optimisation on these builds
-        ? <img src={png} alt="" width={img} height={img} style={{ width: img, height: img, objectFit: 'contain', opacity: state === 'next' && !cfg.circle ? 0.45 : 1 }} />
+        ? <img src={png} alt="" width={img} height={img} style={{ width: img, height: img, objectFit: 'contain', opacity: state === 'next' && !shown.circle ? 0.45 : 1 }} />
         : (
           <svg aria-hidden="true" width={glyph} height={glyph} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
             <path d={ICON_LIBRARY[cfg.icon] ?? ICON_LIBRARY.idol!} />

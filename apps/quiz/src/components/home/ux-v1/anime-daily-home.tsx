@@ -44,7 +44,7 @@ const CSS = `
 .p5-ad-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); min-width: 0; }
 .p5-ad-tiles { flex: none; display: grid; grid-template-columns: repeat(4, 16px); gap: 4px; padding: 12px; border-radius: 16px; background: var(--ux-pink-soft); }
 .p5-ad-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-ok); }
-.p5-ad-near { background: repeating-linear-gradient(135deg, var(--ux-close-2) 0 3px, var(--ux-close) 3px 6px); }
+.p5-ad-near { background: var(--ux-close); }
 .p5-ad-off { background: var(--ux-no); }
 .p5-ad-main { flex: 1 1 auto; min-width: 0; width: 100%; }
 .p5-ad-no { font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ux-pink-ink); }

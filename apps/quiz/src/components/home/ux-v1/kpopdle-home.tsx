@@ -61,7 +61,7 @@ const CSS = `
 .p1-kd-card:has(.p1-kd-go:hover) { border-color: var(--ux-pink-ink); }
 .p1-kd-tiles { flex: none; display: grid; grid-template-columns: repeat(4, 16px); gap: 4px; padding: 12px; border-radius: 16px; background: var(--ux-pink-soft); }
 .p1-kd-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-ok); }
-.p1-kd-near { background: repeating-linear-gradient(135deg, var(--ux-close-2) 0 3px, var(--ux-close) 3px 6px); }
+.p1-kd-near { background: var(--ux-close); }
 .p1-kd-off { background: var(--ux-no); }
 .p1-kd-mark { flex: none; display: block; }
 .p1-kd-main { flex: 1; min-width: 0; align-self: stretch; display: flex; flex-direction: column; }
