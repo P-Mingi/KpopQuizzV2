@@ -1,20 +1,20 @@
 /* Daily games step 4: the Terrier and the game pages (boards docs/strategy/o1/dle/prototype/Main.dc.html, Kpopdle.dc.html, Reglages.dc.html). Every selector starts with the site scope and names only hub-dle-* classes. The boards are light; the dark values
-   follow the hub's dark theme, like the home. Colours of the cells (owner, 2026-11-10): Right green, Close orange with the stripes, Wrong red, in --hub-dle-* tokens; the colour-blind option keeps blue, orange and grey; the colour family of a game is hub-dle-k or hub-dle-a. Motion stops for prefers-reduced-motion and for the setting (hub-dle-still). */
+   follow the hub's dark theme, like the home. Colours of the cells (owner, 2026-11-10; Close is a solid yellow since 2026-11-25): Right green, Close yellow #EFC94C with ink #412402, Wrong red, in --hub-dle-* tokens; the colour-blind option keeps blue, orange and grey; the colour family of a game is hub-dle-k or hub-dle-a. Motion stops for prefers-reduced-motion and for the setting (hub-dle-still). */
 html.ux-v1[data-site="hub"] {
   --hub-dle-wrong: #DC2626; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #DCD6CD; --hub-dle-cb-wrong-ink: #33302C; --hub-dle-card: #FFFFFF; --hub-dle-line: #ECE8E3; --hub-dle-line-2: #D9D3CB; --hub-dle-muted: #6B655E; --hub-dle-text: #4A443E; --hub-dle-field: #FFFFFF;
   --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #BBF7D0;
-  --hub-dle-near-1: #FB923C; --hub-dle-near-2: #F97316; --hub-dle-near-ink: #451A03; --hub-dle-near-edge: #C2410C; --hub-dle-hint-edge: #FCC9C9; --hub-dle-dark: #1F1B17; --hub-dle-dark-ink: #FAF8F5; --hub-dle-marq-ink: #F59BBB;
+  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-near-edge: #A88414; --hub-dle-hint-edge: #FCC9C9; --hub-dle-dark: #1F1B17; --hub-dle-dark-ink: #FAF8F5; --hub-dle-marq-ink: #F59BBB;
 }
 html.ux-v1.dark[data-site="hub"] {
   --hub-dle-wrong: #B91C1C; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #3A3631; --hub-dle-cb-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
   --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #14532D;
-  --hub-dle-near-1: #FB923C; --hub-dle-near-2: #F97316; --hub-dle-near-ink: #451A03; --hub-dle-near-edge: #FDBA74; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
+  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-near-edge: #A88414; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
 }
 @media (prefers-color-scheme: dark) {
   html.ux-v1[data-site="hub"]:not(.light) {
     --hub-dle-wrong: #B91C1C; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #3A3631; --hub-dle-cb-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
     --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #14532D;
-  --hub-dle-near-1: #FB923C; --hub-dle-near-2: #F97316; --hub-dle-near-ink: #451A03; --hub-dle-near-edge: #FDBA74; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
+  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-near-edge: #A88414; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
   }
 }
 html.ux-v1[data-site="hub"] .hub-dle-root { position: relative; flex: 1 1 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--ux-page); color: var(--ux-ink); font-family: var(--font-dm-sans), "DM Sans", "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
@@ -166,7 +166,6 @@ html.ux-v1[data-site="hub"] .hub-dle-main { position: relative; width: 100%; max
 html.ux-v1[data-site="hub"] .hub-dle-title { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
 html.ux-v1[data-site="hub"] .hub-dle-crumbs { list-style: none; margin: 0 0 4px; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; font-size: 13px; color: var(--hub-dle-muted); }
 html.ux-v1[data-site="hub"] .hub-dle-crumbs [aria-current] { color: var(--ux-ink); font-weight: 700; }
-html.ux-v1[data-site="hub"] .hub-dle-kicker { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--hub-dle-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-title h1 { margin: 0; font-size: 44px; line-height: 1.05; letter-spacing: -0.03em; font-weight: 800; }
 html.ux-v1[data-site="hub"] .hub-dle-line { margin: 0; font-size: 14px; color: var(--hub-dle-muted); }
 html.ux-v1[data-site="hub"] .hub-dle-z2 { position: relative; z-index: 2; }
@@ -175,51 +174,10 @@ html.ux-v1[data-site="hub"] .hub-dle-a.hub-dle-game { background-image: radial-g
 html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-keys, html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-cbdemo { --hub-dle-c: var(--hub-a); }
 html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-brand-name span { color: var(--hub-a); }
 html.ux-v1[data-site="hub"] .hub-dle-a .hub-dle-center { flex-direction: column; align-items: center; gap: 16px; }
-html.ux-v1[data-site="hub"] .hub-dle-steps { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; justify-content: center; }
-html.ux-v1[data-site="hub"] .hub-dle-steps li { display: flex; align-items: flex-start; }
-html.ux-v1[data-site="hub"] .hub-dle-stepline { display: block; width: 36px; height: 2px; margin-top: 28px; border-radius: 2px; background: var(--hub-dle-line-2); }
-html.ux-v1[data-site="hub"] .hub-dle-step { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 92px; text-decoration: none; }
-html.ux-v1[data-site="hub"] .hub-dle-stepic { position: relative; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; transition: transform .2s ease; background: var(--hub-dle-card); color: var(--hub-ink-2); border: 1.5px solid var(--hub-dle-line-2); }
-html.ux-v1[data-site="hub"] a.hub-dle-step:hover .hub-dle-stepic { transform: translateY(-2px); }
-html.ux-v1[data-site="hub"] .hub-dle-stepic-current { background: var(--hub-dle-c); color: #FFFFFF; border: 0; animation: hub-dle-breathe 2.4s ease-in-out infinite; }
-@keyframes hub-dle-breathe { 0%, 100% { box-shadow: 0 0 0 5px var(--hub-dle-soft); } 50% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--hub-dle-soft) 55%, transparent); } }
-html.ux-v1[data-site="hub"] .hub-dle-stepic-done { background: var(--hub-dle-soft); color: var(--hub-dle-c); border: 0; }
-html.ux-v1[data-site="hub"] .hub-dle-stepic-soon { background: transparent; color: var(--ux-muted); border: 1.5px dashed var(--hub-dle-line-2); }
 /* The owner's step icon (admin, Icônes du jeu): IconMark draws the circle; this box keeps the hover, the breathing of the current step and the check. */
-html.ux-v1[data-site="hub"] .hub-dle-stepmark { position: relative; display: block; width: 56px; height: 56px; transition: transform .2s ease; }
-html.ux-v1[data-site="hub"] a.hub-dle-step:hover .hub-dle-stepmark { transform: translateY(-2px); }
-html.ux-v1[data-site="hub"] .hub-dle-stepmark-current > span:first-child { animation: hub-dle-breathe 2.4s ease-in-out infinite; }
-html.ux-v1[data-site="hub"] .hub-dle-stepmark-soon { opacity: .6; }
-html.ux-v1[data-site="hub"] .hub-dle-stepchk { position: absolute; top: -2px; right: -2px; width: 20px; height: 20px; border-radius: 50%; background: var(--hub-dle-c); border: 2px solid var(--ux-page); display: grid; place-items: center; color: #FFFFFF; }
-html.ux-v1[data-site="hub"] .hub-dle-steplabel { font-size: 13px; font-weight: 700; }
-html.ux-v1[data-site="hub"] .hub-dle-steplabel-current { font-weight: 800; }
-html.ux-v1[data-site="hub"] .hub-dle-steplabel-soon { color: var(--ux-muted); }
-html.ux-v1[data-site="hub"] .hub-dle-stepstate { min-height: 14px; font-size: 11px; font-weight: 700; color: var(--ux-muted); }
-html.ux-v1[data-site="hub"] .hub-dle-stepstate-current { color: var(--hub-dle-c); }
 
 /* ---- hints and box */
-html.ux-v1[data-site="hub"] .hub-dle-hints { width: 100%; max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-html.ux-v1[data-site="hub"] .hub-dle-hints h2 { margin: 0; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; flex-wrap: wrap; }
-html.ux-v1[data-site="hub"] .hub-dle-hints h2 > svg { color: var(--hub-dle-c); }
-html.ux-v1[data-site="hub"] .hub-dle-hints h2 span { font-size: 13px; font-weight: 500; color: var(--hub-dle-muted); }
-html.ux-v1[data-site="hub"] .hub-dle-hintgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-html.ux-v1[data-site="hub"] .hub-dle-hintgrid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-html.ux-v1[data-site="hub"] .hub-dle-hint { display: flex; flex-direction: row; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px 10px 12px; border-radius: 14px; background: color-mix(in srgb, var(--hub-dle-card) 85%, transparent); border: 1px solid var(--hub-dle-line); }
 /* Owner, 2026-11-22: an icon per hint (components/hub/dle/dle-icons.tsx HINT_ICONS) and narrower boxes (the hints are 540 px wide, was 760). */
-html.ux-v1[data-site="hub"] .hub-dle-hint-ic { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--hub-dle-soft); color: var(--hub-dle-c); }
-html.ux-v1[data-site="hub"] .hub-dle-hint-shown .hub-dle-hint-ic { background: var(--hub-dle-card); }
-html.ux-v1[data-site="hub"] .hub-dle-hint-body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-html.ux-v1[data-site="hub"] .hub-dle-hint-ready { background: var(--hub-dle-card); border: 1.5px solid var(--hub-dle-c); }
-html.ux-v1[data-site="hub"] .hub-dle-hint-shown { background: var(--hub-dle-soft); border: 1px solid var(--hub-dle-hint-edge); }
-html.ux-v1[data-site="hub"] .hub-dle-hint-label { font-size: 12px; font-weight: 700; color: var(--hub-dle-muted); }
-html.ux-v1[data-site="hub"] .hub-dle-hint-lock { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--hub-dle-text); }
-html.ux-v1[data-site="hub"] .hub-dle-hint-lock svg { color: var(--ux-muted); flex: none; }
-html.ux-v1[data-site="hub"] .hub-dle-hint-track { display: block; height: 4px; border-radius: 4px; background: var(--hub-dle-line); overflow: hidden; }
-html.ux-v1[data-site="hub"] .hub-dle-fill { display: block; height: 4px; border-radius: 4px; background: var(--hub-dle-c); transform-origin: left; animation: hub-dle-fill .9s cubic-bezier(.2, .8, .2, 1) both; }
-html.ux-v1[data-site="hub"] .hub-dle-hint-btn { align-self: flex-start; min-height: 32px; padding: 0 12px; border-radius: 999px; border: 0; background: var(--hub-dle-c); color: #FFFFFF; font: inherit; font-weight: 800; font-size: 13px; cursor: pointer; }
-html.ux-v1[data-site="hub"] .hub-dle-hint-value { font-size: 16px; font-weight: 800; }
-html.ux-v1[data-site="hub"] .hub-dle-pulse { animation: hub-dle-pulse 1.6s ease-in-out infinite; }
-@keyframes hub-dle-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(209, 58, 110, .38); } 50% { box-shadow: 0 0 0 8px rgba(209, 58, 110, 0); } }
 html.ux-v1[data-site="hub"] .hub-dle-box { position: relative; z-index: 5; width: 100%; max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
 html.ux-v1[data-site="hub"] .hub-dle-off { margin: 0; padding: 16px 20px; border-radius: 16px; background: var(--hub-dle-card); border: 1px solid var(--hub-dle-line); font-size: 15px; color: var(--hub-dle-text); text-align: center; }
 html.ux-v1[data-site="hub"] .hub-dle-inputwrap { position: relative; width: 100%; }
@@ -246,9 +204,7 @@ html.ux-v1[data-site="hub"] .hub-dle-thumb img { width: 100%; height: 100%; obje
 html.ux-v1[data-site="hub"] .hub-dle-thumb { position: relative; background: linear-gradient(165deg, var(--dle-a, #DCE3EE) 0%, var(--dle-b, #97A9C9) 100%); }
 html.ux-v1[data-site="hub"] .hub-dle-thumb-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(165deg, var(--dle-a, #DCE3EE) 0%, var(--dle-b, #97A9C9) 100%); opacity: .3; mix-blend-mode: multiply; }
 html.ux-v1[data-site="hub"] .hub-dle-thumb-pat { color: #1F1B17; text-shadow: none; background: radial-gradient(rgba(31, 27, 23, .16) 1.1px, transparent 1.6px) 0 0 / 8px 8px, linear-gradient(165deg, var(--dle-a, #DCE3EE) 0%, var(--dle-b, #97A9C9) 100%); box-shadow: inset 0 0 0 1px rgba(31, 27, 23, .14); }
-html.ux-v1[data-site="hub"] .hub-dle-boxnote { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 14px; font-size: 13px; color: var(--hub-dle-muted); }
 html.ux-v1[data-site="hub"] .hub-dle-giveup { min-height: 36px; padding: 0 4px; border: 0; background: transparent; font: inherit; font-size: 13px; font-weight: 700; color: var(--hub-dle-muted); text-decoration: underline; cursor: pointer; }
-html.ux-v1[data-site="hub"] .hub-dle-yline { margin: -10px 0 0; font-size: 14px; line-height: 1.4; color: var(--hub-dle-text); text-align: center; overflow-wrap: anywhere; }
 html.ux-v1[data-site="hub"] .hub-dle-error { margin: 0; font-size: 14px; font-weight: 600; color: #A3302B; text-align: center; }
 html.ux-v1[data-site="hub"] .hub-dle-close { display: inline-flex; align-items: center; gap: 10px; min-height: 42px; padding: 0 16px 0 7px; border-radius: 999px; background: var(--hub-dle-dark); color: var(--hub-dle-dark-ink); font-size: 14px; font-weight: 700; }
 html.ux-v1[data-site="hub"] .hub-dle-close-ic { width: 28px; height: 28px; border-radius: 50%; background: var(--hub-dle-c); display: grid; place-items: center; color: #FFFFFF; }
@@ -326,7 +282,7 @@ html.ux-v1[data-site="hub"] .hub-dle-legend { display: flex; flex-wrap: wrap; al
 html.ux-v1[data-site="hub"] .hub-dle-legend > span { display: inline-flex; align-items: center; gap: 6px; }
 html.ux-v1[data-site="hub"] .hub-dle-sw { display: inline-block; width: 16px; height: 16px; border-radius: 5px; }
 html.ux-v1[data-site="hub"] .hub-dle-sw-correct { background: var(--hub-dle-right); }
-html.ux-v1[data-site="hub"] .hub-dle-sw-near { background: repeating-linear-gradient(135deg, var(--hub-dle-near-1) 0 3px, var(--hub-dle-near-2) 3px 6px); box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge); }
+html.ux-v1[data-site="hub"] .hub-dle-sw-near { background: var(--hub-dle-near); box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge); }
 html.ux-v1[data-site="hub"] .hub-dle-sw-wrong { background: var(--hub-dle-wrong); }
 html.ux-v1[data-site="hub"] .hub-dle-gridwrap { overflow-x: auto; padding-bottom: 6px; }
 html.ux-v1[data-site="hub"] .hub-dle-grid { width: 100%; min-width: 1040px; border-collapse: separate; border-spacing: 8px 8px; table-layout: fixed; }
@@ -344,12 +300,10 @@ html.ux-v1[data-site="hub"] .hub-dle-rowin { animation: hub-dle-rowin .32s ease-
 html.ux-v1[data-site="hub"] .hub-dle-tile { position: relative; width: 100%; min-height: 72px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 6px; text-align: center; font-weight: 700; font-size: 14px; line-height: 1.2; overflow-wrap: anywhere; }
 html.ux-v1[data-site="hub"] .hub-dle-tile-long { font-size: 12px; }
 html.ux-v1[data-site="hub"] .hub-dle-t-correct { background: var(--hub-dle-right); color: var(--hub-dle-right-ink); }
-html.ux-v1[data-site="hub"] .hub-dle-t-near { background: repeating-linear-gradient(135deg, var(--hub-dle-near-1) 0 6px, var(--hub-dle-near-2) 6px 12px); color: var(--hub-dle-near-ink); box-shadow: inset 0 0 0 1.5px var(--hub-dle-near-edge); }
+html.ux-v1[data-site="hub"] .hub-dle-t-near { background: var(--hub-dle-near); color: var(--hub-dle-near-ink); box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge); }
 html.ux-v1[data-site="hub"] .hub-dle-t-wrong { background: var(--hub-dle-wrong); color: var(--hub-dle-wrong-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-t-unknown { background: var(--hub-dle-card); color: var(--hub-ink-2); box-shadow: inset 0 0 0 1.5px var(--hub-dle-line-2); }
 html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-correct, html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-correct { background: #1D4ED8; color: #FFFFFF; }
-html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-near { background: repeating-linear-gradient(135deg, #FFEDD5 0 6px, #FED7AA 6px 12px); color: #7C2D12; box-shadow: inset 0 0 0 1.5px #FB923C; }
-html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-near { background: repeating-linear-gradient(135deg, #FFEDD5 0 3px, #FED7AA 3px 6px); box-shadow: inset 0 0 0 1px #FB923C; }
 html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-wrong, html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-wrong { background: var(--hub-dle-cb-wrong); color: var(--hub-dle-cb-wrong-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-mark { position: absolute; top: 6px; right: 7px; display: block; }
 html.ux-v1[data-site="hub"] .hub-dle-approx { font-size: 14px; line-height: 1; }
@@ -478,10 +432,7 @@ html.ux-v1[data-site="hub"] .hub-dle-erase { min-height: 44px; padding: 0; borde
   html.ux-v1[data-site="hub"] .hub-dle-title h1 { font-size: 32px; }
   html.ux-v1[data-site="hub"] .hub-dle-iconbtn { width: 40px; height: 40px; }
   html.ux-v1[data-site="hub"] .hub-dle-streak { height: 40px; padding: 0 10px; }
-  html.ux-v1[data-site="hub"] .hub-dle-step { width: 72px; }
-  html.ux-v1[data-site="hub"] .hub-dle-stepline { width: 12px; }
   html.ux-v1[data-site="hub"] .hub-dle-seriesnav ul { grid-template-columns: minmax(0, 1fr); }
-  html.ux-v1[data-site="hub"] .hub-dle-hintgrid, html.ux-v1[data-site="hub"] .hub-dle-hintgrid-2 { grid-template-columns: minmax(0, 1fr); }
   html.ux-v1[data-site="hub"] .hub-dle-go { padding: 0 16px; }
   html.ux-v1[data-site="hub"] .hub-dle-inputrow input { padding: 0 12px; font-size: 16px; }
   html.ux-v1[data-site="hub"] .hub-dle-photo { min-height: 300px; }
@@ -511,4 +462,51 @@ html.ux-v1[data-site="hub"] .hub-dle-review li code { font-weight: 700; }
 @media (max-width: 900px) {
   html.ux-v1[data-site="hub"] .hub-dle-tabs { display: none; }
   html.ux-v1[data-site="hub"] .hub-dle-actions { margin-left: auto; }
+}
+
+/* ---- DLE2-A (owner, 2026-11-25): the daily game page keeps less at the top: breadcrumb, the game switch, one meta line, the H1, the box with one line of hints, yesterday. The guess board is 20% narrower. */
+html.ux-v1[data-site="hub"] .hub-dle-title { gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-dle-crumbs { margin: 0; font-size: 12px; }
+html.ux-v1[data-site="hub"] .hub-dle-switch { display: flex; justify-content: center; margin: 6px 0 2px; }
+html.ux-v1[data-site="hub"] .hub-dle-steps { list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start; justify-content: center; gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-dle-steps li { display: flex; }
+html.ux-v1[data-site="hub"] .hub-dle-step { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 96px; text-decoration: none; color: inherit; }
+html.ux-v1[data-site="hub"] .hub-dle-stepmark, html.ux-v1[data-site="hub"] .hub-dle-stepic { display: grid; place-items: center; width: 56px; height: 56px; transition: transform .2s ease; }
+html.ux-v1[data-site="hub"] .hub-dle-stepic { color: var(--hub-dle-c); }
+html.ux-v1[data-site="hub"] a.hub-dle-step:hover .hub-dle-stepmark, html.ux-v1[data-site="hub"] a.hub-dle-step:hover .hub-dle-stepic { transform: translateY(-2px); }
+html.ux-v1[data-site="hub"] .hub-dle-stepmark-soon, html.ux-v1[data-site="hub"] .hub-dle-stepic-soon { opacity: .55; }
+html.ux-v1[data-site="hub"] .hub-dle-steplabel { font-size: 13px; font-weight: 700; line-height: 1.2; text-align: center; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+html.ux-v1[data-site="hub"] .hub-dle-steplabel-soon { color: var(--hub-dle-muted); }
+html.ux-v1[data-site="hub"] a.hub-dle-step[aria-current="step"] .hub-dle-steplabel { font-weight: 800; border-bottom-color: var(--hub-dle-c); }
+html.ux-v1[data-site="hub"] .hub-dle-stepstate { display: inline-flex; align-items: center; gap: 3px; min-height: 14px; font-size: 11px; font-weight: 600; color: var(--hub-dle-muted); }
+html.ux-v1[data-site="hub"] .hub-dle-meta { margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 0; font-size: 13px; color: var(--hub-dle-muted); }
+html.ux-v1[data-site="hub"] .hub-dle-meta > span + span::before { content: "·"; margin: 0 8px; }
+html.ux-v1[data-site="hub"] .hub-dle-title .hub-dle-intro { margin: 0 auto; max-width: 560px; font-size: 13px; line-height: 1.55; color: var(--hub-dle-muted); text-align: center; }
+html.ux-v1[data-site="hub"] .hub-dle-box { gap: 10px; }
+html.ux-v1[data-site="hub"] .hub-dle-hintline { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0 14px; font-size: 13px; color: var(--hub-dle-muted); text-align: center; }
+html.ux-v1[data-site="hub"] .hub-dle-hintlist { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; }
+html.ux-v1[data-site="hub"] .hub-dle-hintlist li + li::before { content: "·"; margin: 0 8px; }
+html.ux-v1[data-site="hub"] .hub-dle-hint-open { color: var(--hub-dle-text); }
+html.ux-v1[data-site="hub"] .hub-dle-hint-value { font-weight: 800; }
+html.ux-v1[data-site="hub"] .hub-dle-yline { margin: 0; font-size: 12px; line-height: 1.4; color: var(--hub-dle-muted); }
+html.ux-v1[data-site="hub"] .hub-dle-rank { margin: 6px 0 0; font-size: 16px; font-weight: 800; }
+html.ux-v1[data-site="hub"] .hub-dle-rank span { font-weight: 500; color: var(--hub-dle-muted); }
+/* The board: every tile 20% narrower and shorter (80 px and 58 px, was about 100 and 72), centred, the character column sticky so a phone scrolls the rest sideways under it. */
+html.ux-v1[data-site="hub"] .hub-dle-gridwrap { width: fit-content; max-width: 100%; margin: 0 auto; }
+html.ux-v1[data-site="hub"] .hub-dle-grid, html.ux-v1[data-site="hub"] .hub-dle-grid-wide { width: max-content; min-width: 0; table-layout: auto; border-spacing: 6px; }
+html.ux-v1[data-site="hub"] .hub-dle-grid thead th { width: 80px; min-width: 80px; max-width: 80px; padding: 0 2px; font-size: 11px; letter-spacing: .02em; vertical-align: bottom; overflow-wrap: anywhere; }
+html.ux-v1[data-site="hub"] .hub-dle-grid thead .hub-dle-th-name { width: 150px; min-width: 150px; max-width: 150px; }
+html.ux-v1[data-site="hub"] .hub-dle-grid thead .hub-dle-th-name, html.ux-v1[data-site="hub"] .hub-dle-grid tbody th { position: sticky; left: 0; z-index: 3; background: var(--ux-page); box-shadow: 6px 0 0 var(--ux-page); }
+html.ux-v1[data-site="hub"] .hub-dle-tile { width: 80px; min-height: 58px; border-radius: 11px; padding: 5px 4px; font-size: 12px; line-height: 1.15; }
+html.ux-v1[data-site="hub"] .hub-dle-tile-long { font-size: 11px; }
+html.ux-v1[data-site="hub"] .hub-dle-mark { top: 4px; right: 5px; }
+html.ux-v1[data-site="hub"] .hub-dle-rowhead { box-sizing: border-box; width: 150px; min-height: 58px; padding: 0 8px; gap: 8px; border-radius: 11px; }
+html.ux-v1[data-site="hub"] .hub-dle-rowname strong { font-size: 13px; line-height: 1.15; }
+html.ux-v1[data-site="hub"] .hub-dle-rowname small { font-size: 11px; }
+html.ux-v1[data-site="hub"] .hub-dle-avatar-empty { width: 36px; height: 36px; border-radius: 10px; }
+@media (max-width: 640px) {
+  html.ux-v1[data-site="hub"] .hub-dle-steps { gap: 4px; }
+  html.ux-v1[data-site="hub"] .hub-dle-step { width: 76px; }
+  html.ux-v1[data-site="hub"] .hub-dle-gridwrap { width: 100%; }
+  html.ux-v1[data-site="hub"] .hub-dle-grid thead .hub-dle-th-name, html.ux-v1[data-site="hub"] .hub-dle-rowhead { width: 124px; min-width: 124px; max-width: 124px; }
 }

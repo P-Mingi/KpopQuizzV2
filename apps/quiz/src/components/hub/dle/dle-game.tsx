@@ -9,10 +9,10 @@ import { DleError, shareParam } from '@/lib/dle/client';
 import { dleCopy, formatCount, gameCopy, hintValueLabel, valueLabel } from '@/lib/dle/copy';
 import { dleGame, localePath } from '@/lib/dle/games';
 import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
+import { LIVE_REFRESH_MS, liveCopy, shownPlayers, shownRank } from '@/lib/dle/live';
 import { suggest } from '@/lib/dle/search';
 import { correctCounts, shareText } from '@/lib/dle/share';
 import { utcDate } from '@/lib/dle/day';
-import { yesterdayLead } from '@/lib/dle/yesterday';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
 
@@ -20,7 +20,7 @@ import { clock, deviceStore, useDleClient, useDlePreview, useResetCountdown } fr
 import { DleSeriesReview } from './dle-series-review';
 import { IconMark } from '@/components/photos/icon-mark';
 
-import { D, Flame, Ic, Spark, hintIcon, libraryIcon, savedIcon } from './dle-icons';
+import { D, Flame, Ic, Spark, libraryIcon, savedIcon } from './dle-icons';
 import { Avatar, firstValue, parentName } from './dle-avatar';
 import { DleCard } from './dle-card';
 
@@ -195,7 +195,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
               <tr key={row.id}>
                 <th scope="row">
                   <span className={`hub-dle-rowhead${isTarget ? ' hub-dle-rowhead-win' : ''}${isNew ? ' hub-dle-rowin' : ''}`}>
-                    {e ? <Avatar entity={e} tone={sub} size={44} radius={12} font={14} look={look?.(e)} /> : null}
+                    {e ? <Avatar entity={e} tone={sub} size={36} radius={10} font={12} look={look?.(e)} /> : null}
                     <span className="hub-dle-rowname"><strong>{e?.name ?? row.id}</strong><small>{e ? subText(g, e, w.subKey, locale) : ''}</small></span>
                   </span>
                 </th>
@@ -220,8 +220,6 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const g = dleGame(game);
   const w = gameCopy(game, locale);
   const world = worldOf(game);
-  // The slot "Indices" belongs to the Kpopdle page of the admin's board (its colour is Kpopdle's); Otakudle keeps its own drawing.
-  const hintsMark = world.id === 'kpopdle' ? savedIcon(icons, 'hints') : null;
   const client = useDleClient();
   const left = useResetCountdown();
   // The owner's private preview (E2): asked for after the page, Otakudle only, only when the server said this build may offer it.
@@ -246,7 +244,8 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const [error, setError] = useState('');
   const [fresh, setFresh] = useState<string | null>(null);
   const [justOver, setJustOver] = useState(false);
-  const [revealed, setRevealed] = useState<readonly string[]>([]);
+  // L40: the plays of the day as the server counts them (null until the browser has read them, and while the server does not send them); the page shows them from 10.
+  const [players, setPlayers] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
   const [streak, setStreak] = useState(0);
@@ -275,6 +274,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
     setDate(next.date);
     setNo(next.game_no);
     if (next.stats) setStats(next.stats);
+    if (typeof next.players_today === 'number') setPlayers(next.players_today);
     if (next.status !== 'playing' && next.guesses.length > 0) {
       const history = recordPlay(deviceStore(), game, next.date, { won: next.status === 'won', guesses: next.guesses.length });
       setStreak(universeStreak(history, worldGames, utcDate(new Date())));
@@ -299,6 +299,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
       setDate(d.date);
       setNo(d.game_no);
       if (d.stats) setStats(d.stats);
+      if (typeof d.players_today === 'number') setPlayers(d.players_today);
       if (d.play) applyPlay(d.play, false);
     }).catch((e: unknown) => {
       if (!alive) return;
@@ -309,6 +310,21 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
     // One read of the day per visit.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // The count of the meta line is read again every minute while the tab is visible, and when it becomes visible again.
+  useEffect(() => {
+    if (off) return undefined;
+    let alive = true;
+    const refresh = (): void => {
+      if (document.visibilityState !== 'visible') return;
+      client.day(game).then((d) => { if (alive && typeof d.players_today === 'number') setPlayers(d.players_today); }).catch(() => undefined);
+    };
+    const id = window.setInterval(refresh, LIVE_REFRESH_MS);
+    document.addEventListener('visibilitychange', refresh);
+    return () => { alive = false; window.clearInterval(id); document.removeEventListener('visibilitychange', refresh); };
+    // The client and the game do not change for the life of the page.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [off]);
 
   function messageOf(e: unknown): string {
     const code = e instanceof DleError ? e.code : 'dle_network';
@@ -398,7 +414,9 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
     } catch { /* no clipboard: the text is on the screen */ }
   };
 
-  const fans = stats ? formatCount(stats.wins, locale) : null;
+  const words2 = liveCopy(locale);
+  const livePlayers = shownPlayers(players);
+  const rank = won ? shownRank(play?.solve_rank, players) : null;
   const target: DlePublicEntity | null = over ? play?.target ?? null : null;
   // What stands next to the name: the series of a game of one series, else the group (the first value of the sub column).
   const targetGroup = target ? (g.series ? g.series.name : firstValue(target.attrs[w.subKey]?.v)) : '';
@@ -424,45 +442,35 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             </>
           ) : <li aria-current="page">{g.brand} · {g.guess[locale]}</li>}
         </ol>
-        {no !== null ? <p className="hub-dle-kicker hub-dle-num">{t.gameNo(w.noLabel ?? `${g.brand} ${world.modes.find((m) => m.game === game)!.step[locale]}`, no)}</p> : null}
-        <h1 id="dle-h1">{w.h1}</h1>
-        {intro ? <p className="hub-dle-answer hub-dle-intro">{intro}</p> : null}
-        <p className="hub-dle-line">
-          {fans ? <><span className="hub-dle-num">{t.fansLine(fans)}</span> · </> : null}
-          {w.nextIn} <span className="hub-dle-num">{clock(left)}</span>
-        </p>
-      </section>
 
-      <div className="hub-dle-z2 hub-dle-center">
-        <nav aria-label={w.stepsLabel}>
+        <nav aria-label={w.stepsLabel} className="hub-dle-z2 hub-dle-switch">
           <ol className="hub-dle-steps">
-            {world.modes.map((m, i) => {
+            {world.modes.map((m) => {
               const live = liveGame(m);
               const isHere = m.game === game;
               const state = isHere ? (over && won ? 'done' : 'current') : live ? 'next' : 'soon';
               const line = isHere ? (over ? (won ? w.stepDone : t.gaveUp) : t.stepNow) : live ? '' : t.soon;
-              // The owner's icon of this step once saved in the admin (its colour, circle or PNG); else the page's own drawing.
+              // The owner's icon of this game once saved in the admin (its picture, drawn plain: no circle or ring); else the page's own drawing.
               const mine = savedIcon(icons, m.iconSlot);
               const inner = (
                 <>
                   {mine ? (
                     <span className={`hub-dle-stepmark hub-dle-stepmark-${state}`}>
-                      <IconMark cfg={mine.cfg} png={mine.png} state={state === 'soon' ? 'next' : state} size={56} glyph={24} slot={m.iconSlot} />
-                      {state === 'done' ? <span aria-hidden="true" className="hub-dle-stepchk"><Ic d={D.check} size={10} width={4} /></span> : null}
+                      <IconMark cfg={mine.cfg} png={mine.png} state={state === 'soon' ? 'next' : state} size={56} glyph={52} slot={m.iconSlot} plain />
                     </span>
                   ) : (
                     <span className={`hub-dle-stepic hub-dle-stepic-${state}`}>
-                      <Ic d={libraryIcon(m.icon)} size={24} width={1.9} />
-                      {state === 'done' ? <span aria-hidden="true" className="hub-dle-stepchk"><Ic d={D.check} size={10} width={4} /></span> : null}
+                      <Ic d={libraryIcon(m.icon)} size={44} width={1.7} />
                     </span>
                   )}
                   <span className={`hub-dle-steplabel hub-dle-steplabel-${state}`}>{m.step[locale]}</span>
-                  <span className={`hub-dle-stepstate hub-dle-stepstate-${state}`}>{line || ' '}</span>
+                  <span className={`hub-dle-stepstate hub-dle-stepstate-${state}`}>
+                    {state === 'done' ? <Ic d={D.check} size={11} width={3.4} /> : null}{line || ' '}
+                  </span>
                 </>
               );
               return (
                 <li key={m.id}>
-                  {i > 0 ? <span aria-hidden="true" className="hub-dle-stepline" /> : null}
                   {live
                     ? <a href={withBasePath(localePath(live.path, locale))} aria-current={isHere ? 'step' : undefined} className="hub-dle-step">{inner}</a>
                     : <span aria-disabled="true" className="hub-dle-step">{inner}</span>}
@@ -471,51 +479,26 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             })}
           </ol>
         </nav>
-      </div>
 
-      {g.hints.length ? (
-        <section aria-labelledby="dle-hints" className="hub-dle-z2 hub-dle-hints">
-          <h2 id="dle-hints">{hintsMark ? <IconMark cfg={hintsMark.cfg} png={hintsMark.png} state="done" size={18} glyph={18} slot="hints" /> : <Ic d={D.bulb} />} {t.hintsTitle}<span>{t.hintsAfter(g.hints.map((h, i) => (i === g.hints.length - 1 ? (locale === 'fr' ? `et ${h.after}` : `and ${h.after}`) : `${h.after}${i === g.hints.length - 2 ? '' : ','}`)).join(' '))}</span></h2>
-          <div className={`hub-dle-hintgrid${g.hints.length === 2 ? ' hub-dle-hintgrid-2' : ''}`}>
-            {g.hints.map((h) => {
-              // The server opens a hint by the errors counted, also on a finished play: a hint it did not open stays closed, its value is not on this page.
-              const unlocked = errors >= h.after;
-              const served = hintServed(h);
-              const value = served?.value ?? null;
-              const shown = unlocked && (over || revealed.includes(h.key));
-              const ready = unlocked && !shown;
-              const miss = h.after - errors;
-              return (
-                <div key={h.key} className={`hub-dle-hint${ready ? ' hub-dle-hint-ready hub-dle-pulse' : shown ? ' hub-dle-hint-shown' : ''}`}>
-                  <span aria-hidden="true" className="hub-dle-hint-ic"><Ic d={hintIcon(served?.key ?? h.key)} size={17} width={2} /></span>
-                  <div className="hub-dle-hint-body">
-                  <span className="hub-dle-hint-label">{hintLabel(w, h, served?.key ?? null)}</span>
-                  {!unlocked && over ? <span className="hub-dle-hint-lock"><Ic d={D.lock} size={13} width={2.4} />{t.hintClosed}</span> : null}
-                  {!unlocked && !over ? (
-                    <>
-                      <span className="hub-dle-hint-lock"><Ic d={D.lock} size={13} width={2.4} />{t.hintIn(miss)}</span>
-                      <span aria-hidden="true" className="hub-dle-hint-track"><span className="hub-dle-fill" style={{ width: `${Math.min(100, Math.round((Math.max(0, errors) / h.after) * 100))}%` }} /></span>
-                    </>
-                  ) : null}
-                  {ready ? <button type="button" className="hub-dle-hint-btn" onClick={() => setRevealed((r) => [...r, h.key])}>{t.seeHint}</button> : null}
-                  {shown ? <span className="hub-dle-hint-value hub-dle-toast">{value ?? t.hintNone}</span> : null}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      ) : null}
+        <p className="hub-dle-meta hub-dle-num">
+          {no !== null ? <span>{t.gameNo(w.noLabel ?? `${g.brand} ${world.modes.find((m) => m.game === game)!.step[locale]}`, no)}</span> : null}
+          {livePlayers !== null ? <span>{words2.playersToday(livePlayers)}</span> : null}
+          <span>{words2.nextShort} {clock(left)}</span>
+        </p>
+        <h1 id="dle-h1">{w.h1}</h1>
+        {intro ? <p className="hub-dle-answer hub-dle-intro">{intro}</p> : null}
+      </section>
 
       <section aria-label={w.proposeLabel} className="hub-dle-box">
         {off ? <p role="status" className="hub-dle-off">{t.unavailable}</p> : (
           <>
             <div className="hub-dle-inputwrap" onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}>
               <label htmlFor="dle-guess" className="hub-dle-sr">{t.guessLabel}</label>
+              <span id="dle-enter-help" className="hub-dle-sr">{t.enterHelp}</span>
               <div className="hub-dle-inputrow">
                 <input
                   ref={inputRef} id="dle-guess" type="text" autoComplete="off" spellCheck={false} value={query} disabled={over} placeholder={w.placeholder}
-                  role="combobox" aria-autocomplete="list" aria-controls="dle-sugg" aria-expanded={sugg.length > 0}
+                  role="combobox" aria-autocomplete="list" aria-controls="dle-sugg" aria-expanded={sugg.length > 0} aria-describedby="dle-enter-help"
                   aria-activedescendant={sugg[active] ? `dle-opt-${sugg[active]!.id}` : undefined}
                   onChange={(e) => { setQuery(e.target.value); setOpen(true); setActive(0); setFresh(null); }}
                   onFocus={() => setOpen(true)} onKeyDown={onKey}
@@ -544,11 +527,27 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
                 </ul>
               ) : null}
             </div>
-            <div className="hub-dle-boxnote">
-              <span>{t.enterHelp}</span>
+            <div className="hub-dle-hintline">
+              {g.hints.length ? (
+                <ul aria-label={t.hintsTitle} className="hub-dle-hintlist">
+                  {g.hints.map((h) => {
+                    // The server opens a hint by the errors counted, also on a finished play: a hint it did not open stays closed, its value is not on this page.
+                    const unlocked = errors >= h.after;
+                    const served = hintServed(h);
+                    const name = hintLabel(w, h, served?.key ?? null);
+                    return (
+                      <li key={h.key} className={unlocked ? 'hub-dle-hint-open' : undefined}>
+                        {unlocked
+                          ? <>{name} : <strong className="hub-dle-hint-value hub-dle-toast">{served?.value ?? t.hintNone}</strong></>
+                          : <>{name} <span>{over ? t.hintClosed : t.hintIn(h.after - errors)}</span></>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : null}
               {!over && guesses.length > 0 ? <button type="button" className="hub-dle-giveup" disabled={busy} onClick={() => void giveUp()}>{t.giveUp}</button> : null}
             </div>
-            {yesterday ? <p className="hub-dle-yline">{yesterdayLead(locale, w.yesterdayLine)}<strong className="hub-dle-ylast">{yesterday}</strong></p> : null}
+            {yesterday ? <p className="hub-dle-yline">{words2.yesterdayShort}<strong className="hub-dle-ylast">{yesterday}</strong></p> : null}
             {error ? <p role="alert" className="hub-dle-error">{error}</p> : null}
             {!over && lastCount >= 4 ? (
               <div role="status" className="hub-dle-close hub-dle-toast">
@@ -583,6 +582,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <p className="hub-dle-eyebrow">{won ? w.found ?? t.found : t.answerWas}</p>
               <h2 id="dle-win">{target.name}{targetGroup ? <span> {g.series ? targetGroup : valueLabel(w.subKey, targetGroup, locale)}</span> : null}</h2>
               <p>{won ? t.wonLine(guesses.length, stats ? formatCount(stats.wins, locale) : null) : t.gaveUpLine(guesses.length, label)}</p>
+              {rank !== null && livePlayers !== null ? <p className="hub-dle-rank">{words2.rankLine(target.name, rank)}<span> {words2.outOf(livePlayers)}</span></p> : null}
               {BonusPackLine && won && world.id === 'kpopdle' ? <BonusPackLine /> : null}
             </div>
             {streak > 0 ? (

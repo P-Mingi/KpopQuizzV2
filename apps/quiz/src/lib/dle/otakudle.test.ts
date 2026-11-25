@@ -514,7 +514,8 @@ describe('the screen drawn on the server', () => {
       expect(html).toContain(dleCopy(locale).soon);
       expect(html).not.toContain('Eren Yeager');
       expect(html).toContain(locale === 'fr' ? 'Otakudle n° 4' : 'Otakudle no. 4');
-      expect(html.match(/class="hub-dle-hint"/g)).toHaveLength(2);
+      // DLE2-A: the two hint cards became one line of two items under the input.
+      expect(/<ul aria-label="[^"]*" class="hub-dle-hintlist">((?:<li[^>]*>.*?<\/li>){2})<\/ul>/.test(html)).toBe(true);
       expect(html).not.toContain(locale === 'fr' ? 'Première apparition' : 'First appearance');
     }
     const idol = renderToStaticMarkup(createElement(DleGame, { locale: 'en', game: 'kpopdle-idol', gameNo: 4, stats: null, pool: { ...POOL, game: 'kpopdle-idol' }, pictures: {}, quizLinks: {}, kpopName: 'KpopQuiz' }));

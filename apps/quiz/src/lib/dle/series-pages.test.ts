@@ -343,16 +343,15 @@ describe('the hint slot follows the key the server served', () => {
     expect(hintLabel(gameCopy('otakudle-one-piece', 'fr'), slot, null)).toBe('Nom du fruit du démon');
   });
 
-  it('the page draws two slots for each game, locked, with the thresholds 5 and 10 in the HTML', async () => {
+  it('the page draws two hint items for each game, locked, with the thresholds 5 and 10 in the HTML', async () => {
     const { DleGame } = await import('@/components/hub/dle/dle-game');
     for (const id of SERIES_GAMES) {
       for (const l of LOCALES) {
         const html = renderToStaticMarkup(createElement(DleGame, { locale: l, game: id, gameNo: 4, stats: null, pool: id === 'otakudle-one-piece' ? OP_POOL : DB_POOL, pictures: {}, quizLinks: {}, kpopName: 'OtakuQuiz' }));
-        expect(html.match(/class="hub-dle-hint"/g), `${id} ${l}`).toHaveLength(2);
-        expect(html).toContain('hub-dle-hintgrid-2');
+        // DLE2-A: one line of two items under the input (no cards, no bars).
+        expect(/<ul aria-label="[^"]*" class="hub-dle-hintlist">((?:<li[^>]*>.*?<\/li>){2})<\/ul>/.test(html), `${id} ${l}`).toBe(true);
         expect(html).toContain(dleCopy(l).hintIn(5));
         expect(html).toContain(dleCopy(l).hintIn(10));
-        expect(html).toContain(l === 'fr' ? 'après 5 et 10 erreurs' : 'after 5 and 10 mistakes');
       }
     }
     const db = renderToStaticMarkup(createElement(DleGame, { locale: 'en', game: 'otakudle-dragon-ball', gameNo: 4, stats: null, pool: DB_POOL, pictures: {}, quizLinks: {}, kpopName: 'OtakuQuiz' }));

@@ -3,6 +3,7 @@
 // the game's page (hubGameOpen), then dle_day, read directly (unstable_cache would keep a game that went off). A game that fails hides its own card; no card left, no module (min-gate).
 // It reads no token, so dle_day never gives a play or a target: only the game number and the count of wins reach the markup, never an answer. No K-pop game, and no link to the Burrow,
 // which lists K-pop games too: OtakuQuiz points only at the three anime games.
+import { GameMark, firstSavedIcon, gameIconSlot } from '@/components/photos/game-mark';
 import { SectionHeader } from '@/components/ux-v1/section-header';
 import { UxButton } from '@/components/ux-v1/button';
 import { formatCount, gameCopy } from '@/lib/dle/copy';
@@ -11,11 +12,13 @@ import { readDay } from '@/lib/dle/read';
 import { editorialHref } from '@/lib/network/links';
 import { hubGameOpen } from '@/lib/passerelles/open';
 import { GAME_ICON_BOX_STYLE, loadGameIcons } from '@/lib/photos/game-icons';
+import { getLiveIcons } from '@/lib/photos/icons-read';
 import { createPublicReadClient } from '@/lib/supabase/server';
 
 import type { DleGameId } from '@/lib/dle/games';
 import type { DleDay } from '@/lib/dle/types';
 import type { GameIcon, GameIcons } from '@/lib/photos/game-icons';
+import type { LiveIcon, LiveIcons } from '@/lib/photos/icons-read';
 
 /** The games of the module, in the order of the chain (Plan.dc.html, link 8). */
 export const ANIME_DAILY_GAMES: readonly DleGameId[] = ['otakudle', 'otakudle-one-piece', 'otakudle-dragon-ball'];
@@ -44,8 +47,9 @@ const CSS = `
 .p5-ad-card { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; border: 1px solid var(--ux-line); border-radius: 20px; background: var(--ux-raised); color: var(--ux-ink); min-width: 0; }
 .p5-ad-tiles { flex: none; display: grid; grid-template-columns: repeat(4, 16px); gap: 4px; padding: 12px; border-radius: 16px; background: var(--ux-pink-soft); }
 .p5-ad-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-ok); }
-.p5-ad-near { background: repeating-linear-gradient(135deg, var(--ux-close-2) 0 3px, var(--ux-close) 3px 6px); }
+.p5-ad-near { background: var(--ux-close); }
 .p5-ad-off { background: var(--ux-no); }
+.p5-ad-mark { flex: none; display: grid; width: 88px; height: 88px; }
 .p5-ad-main { flex: 1 1 auto; min-width: 0; width: 100%; }
 .p5-ad-no { font-size: 13px; font-weight: 600; line-height: 1.6; color: var(--ux-pink-ink); }
 .p5-ad-main h3 { font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; margin-top: 2px; }
@@ -59,8 +63,11 @@ const CSS = `
 }
 `;
 
-/** `icon` is the picture the owner set for this game in the admin (o1/adminpics); with none the card draws its grid of squares, as before. */
-export function AnimeDailyCard({ view, icon }: { view: AnimeDailyCardView; icon?: GameIcon | undefined }): React.ReactElement {
+/**
+ * The picture of the card, in this order (owner, 2026-11-25): `mark`, the icon the owner saved for this game in the admin's Icônes du jeu (the slot of its switch on
+ * the game page: o-char, o-by-one-piece...), drawn plain and large, with no frame; else `icon`, the picture of Bannières et images (o1/adminpics); else the grid of squares, as before.
+ */
+export function AnimeDailyCard({ view, icon, mark }: { view: AnimeDailyCardView; icon?: GameIcon | undefined; mark?: LiveIcon | null | undefined }): React.ReactElement {
   const g = dleGame(view.game);
   const w = gameCopy(view.game, 'en');
   const facts = [
@@ -70,13 +77,17 @@ export function AnimeDailyCard({ view, icon }: { view: AnimeDailyCardView; icon?
   ].filter((x): x is string => x !== null);
   return (
     <div className="p5-ad-card" data-game={view.game}>
-      <span className="p5-ad-tiles" aria-hidden="true" {...(icon ? { style: GAME_ICON_BOX_STYLE } : {})}>
-        {icon ? (
-          // The owner's icon: a fixed WebP of the bucket, so a plain img (no image optimiser), the size and rounding of the grid it replaces.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={icon.src} alt="" width={100} height={80} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: icon.position }} />
-        ) : TILES.map((t, i) => <span key={i} className={TILE_CLASS[t]} />)}
-      </span>
+      {mark ? (
+        <span className="p5-ad-mark" aria-hidden="true"><GameMark icon={mark} size={88} slot={gameIconSlot(view.game) ?? undefined} /></span>
+      ) : (
+        <span className="p5-ad-tiles" aria-hidden="true" {...(icon ? { style: GAME_ICON_BOX_STYLE } : {})}>
+          {icon ? (
+            // The owner's icon: a fixed WebP of the bucket, so a plain img (no image optimiser), the size and rounding of the grid it replaces.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={icon.src} alt="" width={100} height={80} loading="lazy" decoding="async" style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', objectPosition: icon.position }} />
+          ) : TILES.map((t, i) => <span key={i} className={TILE_CLASS[t]} />)}
+        </span>
+      )}
       <div className="p5-ad-main">
         <p className="p5-ad-no ux-num">{w.noLabel ?? g.brand} · no. {view.gameNo}</p>
         <h3>{g.series ? `Guess today's ${g.series.name} character` : "Guess today's anime character"}</h3>
@@ -90,13 +101,13 @@ export function AnimeDailyCard({ view, icon }: { view: AnimeDailyCardView; icon?
   );
 }
 
-export function AnimeDailyModule({ views, icons }: { views: readonly AnimeDailyCardView[]; icons?: GameIcons | undefined }): React.ReactElement {
+export function AnimeDailyModule({ views, icons, marks }: { views: readonly AnimeDailyCardView[]; icons?: GameIcons | undefined; marks?: LiveIcons | undefined }): React.ReactElement {
   return (
     <section className="ux-sec ux-sec-lg" aria-labelledby="p5-ad-h">
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
       <SectionHeader id="p5-ad-h" icon="grid" title="Daily games" />
       <div className="p5-ad-list">
-        {views.map((v) => <AnimeDailyCard key={v.game} view={v} icon={icons?.[v.game]} />)}
+        {views.map((v) => <AnimeDailyCard key={v.game} view={v} icon={icons?.[v.game]} mark={firstSavedIcon(marks, gameIconSlot(v.game) ?? '')} />)}
       </div>
       <p className="p1-note p5-ad-foot">Free daily games on bunnyverse.org, a new character every day.</p>
     </section>
@@ -114,5 +125,7 @@ export async function animeDailyHome(): Promise<React.ReactElement | null> {
     if (r.status === 'fulfilled' && r.value) views.push(r.value);
     else if (r.status === 'rejected') console.error('[home] daily game hidden:', (r.reason as Error)?.message ?? r.reason);
   }
-  return views.length > 0 ? <AnimeDailyModule views={views} icons={await loadGameIcons()} /> : null;
+  if (views.length === 0) return null;
+  const [icons, marks] = await Promise.all([loadGameIcons(), getLiveIcons().catch(() => undefined)]);
+  return <AnimeDailyModule views={views} icons={icons} marks={marks} />;
 }

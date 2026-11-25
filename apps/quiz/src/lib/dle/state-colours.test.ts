@@ -1,6 +1,6 @@
-// Owner, 2026-11-10 (was 2026-11-08: Close red, Wrong grey): Right is green, Close is ORANGE with the same stripes, Wrong is RED, on every dle game and in both
-// themes. This reads the stylesheet the games ship
-// (styles/sites/hub/dle.css), so a change of a token fails here, and proves the text of every cell is AA (4.5:1) on the colour under it (the lighter and the darker stripe for Close).
+// Owner, 2026-11-10 (was 2026-11-08: Close red, Wrong grey): Right is green, Wrong is RED, on every dle game and in both themes. Owner, 2026-11-25 (DLE2-A): Close is a SOLID yellow, #EFC94C with the ink #412402, no stripes, everywhere
+// (tiles, legend, the home modules). This reads the stylesheet the games ship
+// (styles/sites/hub/dle.css), so a change of a token fails here, and proves the text of every cell is AA (4.5:1) on the colour under it (Close: the one yellow).
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -30,12 +30,13 @@ const DARK_AUTO = { ...LIGHT, ...tokens('  html.ux-v1[data-site="hub"]:not(.ligh
 
 describe('the cell colours, in the stylesheet', () => {
   const rule = (sel: string): string => CSS.split('\n').find((l) => l.includes(`${sel} {`)) ?? '';
-  it('Right paints with the green tokens, Close with the stripes of the orange tokens, Wrong with the red tokens', () => {
+  it('Right paints with the green tokens, Close with the solid yellow token, Wrong with the red tokens', () => {
     expect(rule('.hub-dle-t-correct')).toContain('background: var(--hub-dle-right)');
     expect(rule('.hub-dle-t-correct')).toContain('color: var(--hub-dle-right-ink)');
     expect(rule('.hub-dle-sw-correct')).toContain('background: var(--hub-dle-right)');
-    expect(rule('.hub-dle-t-near')).toContain('repeating-linear-gradient(135deg, var(--hub-dle-near-1) 0 6px, var(--hub-dle-near-2) 6px 12px)');
-    expect(rule('.hub-dle-sw-near')).toContain('repeating-linear-gradient(135deg, var(--hub-dle-near-1) 0 3px, var(--hub-dle-near-2) 3px 6px)');
+    expect(rule('.hub-dle-t-near')).toContain('background: var(--hub-dle-near); color: var(--hub-dle-near-ink)');
+    expect(rule('.hub-dle-sw-near')).toContain('background: var(--hub-dle-near)');
+    expect(CSS).not.toContain('repeating-linear-gradient(135deg');
     expect(rule('.hub-dle-t-wrong')).toContain('background: var(--hub-dle-wrong)');
   });
 
@@ -44,7 +45,7 @@ describe('the cell colours, in the stylesheet', () => {
     expect(overrides).toEqual([]);
   });
 
-  it('the green is green, the stripes are orange and Wrong is red, in both themes', () => {
+  it('the green is green, Close is the yellow of the owner and Wrong is red, in both themes', () => {
     const hue = (hex: string): number => {
       const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number];
       const max = Math.max(r, g, b); const min = Math.min(r, g, b); const d = max - min;
@@ -55,11 +56,11 @@ describe('the cell colours, in the stylesheet', () => {
     for (const t of [LIGHT, DARK, DARK_AUTO]) {
       expect(hue(t['hub-dle-right']!)).toBeGreaterThan(90);
       expect(hue(t['hub-dle-right']!)).toBeLessThan(160);
-      // was: every near token red (hue under 15 or over 345); now the stripes, their ink and their edge are orange (15 to 45)
-      for (const k of ['hub-dle-near-1', 'hub-dle-near-2', 'hub-dle-near-ink', 'hub-dle-near-edge']) {
-        const h = hue(t[k]!);
-        expect(h >= 15 && h <= 45, `${k} ${t[k]}`).toBe(true);
-      }
+      // Close: the solid yellow of the owner (2026-11-25) with its brown ink, in every theme
+      expect(t['hub-dle-near']).toBe('#EFC94C');
+      expect(t['hub-dle-near-ink']).toBe('#412402');
+      const y = hue(t['hub-dle-near']!);
+      expect(y >= 40 && y <= 55, `yellow hue ${y}`).toBe(true);
       // was: Wrong grey; now red, with white text
       const w = hue(t['hub-dle-wrong']!);
       expect(w >= 0 && (w < 10 || w > 350), `hub-dle-wrong ${t['hub-dle-wrong']}`).toBe(true);
@@ -68,30 +69,35 @@ describe('the cell colours, in the stylesheet', () => {
   });
 });
 
-describe('Close reads as a clear orange, never a pastel (owner 2026-11-08, orange since 2026-11-10)', () => {
-  const sat = (hex: string): { s: number; l: number } => {
-    const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255) as [number, number, number];
-    const max = Math.max(r, g, b); const min = Math.min(r, g, b); const l = (max + min) / 2;
-    return { s: max === min ? 0 : (max - min) / (1 - Math.abs(2 * l - 1)), l };
-  };
-  for (const [name, t] of Object.entries({ light: LIGHT, dark: DARK, 'dark (system)': DARK_AUTO })) {
-    it(`${name}: both stripes are saturated and neither is a pastel`, () => {
-      for (const k of ['hub-dle-near-1', 'hub-dle-near-2']) {
-        const { s, l } = sat(t[k]!);
-        expect(s, `${name} ${k} saturation`).toBeGreaterThanOrEqual(0.6);
-        expect(l, `${name} ${k} lightness`).toBeLessThanOrEqual(0.72);
-      }
-    });
-  }
-  // The two home modules draw a row of clues as decoration: Close with the games' orange stripes, Wrong red (was: the red stripes, Wrong grey).
+describe('Close is the one solid yellow, never striped (owner 2026-11-25)', () => {
+  it('the three themes carry the same two tokens and no stripe token is left', () => {
+    for (const t of [LIGHT, DARK, DARK_AUTO]) {
+      expect(t['hub-dle-near']).toBe('#EFC94C');
+      expect(t['hub-dle-near-1']).toBeUndefined();
+      expect(t['hub-dle-near-2']).toBeUndefined();
+    }
+  });
+  // The colour-blind option keeps blue and grey and now shares the yellow of Close (no pastel stripes of its own).
+  // The fill stays #EFC94C (1.5:1 on the light page): a 1 px edge in a darker yellow makes the shape read at 3:1 on the page (the coordinator asked for about #C9A227, which is only 2.3:1, so #A88414 is used).
+  it('near tiles and the legend square carry a 1 px edge that reads at 3:1 on the page, the fill and the ink unchanged', () => {
+    for (const t of [LIGHT, DARK, DARK_AUTO]) expect(t['hub-dle-near-edge']).toBe('#A88414');
+    expect(ratio(LIGHT['hub-dle-near-edge']!, '#FAF8F5')).toBeGreaterThanOrEqual(3);
+    expect(ratio(DARK['hub-dle-near-edge']!, '#141312')).toBeGreaterThanOrEqual(3);
+    expect(CSS.split('\n').find((l) => l.includes('.hub-dle-t-near {'))).toContain('box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge)');
+    expect(CSS.split('\n').find((l) => l.includes('.hub-dle-sw-near {'))).toContain('box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge)');
+  });
+  it('the colour-blind option has no rule of its own for Close', () => {
+    expect(CSS.split('\n').filter((l) => /\.hub-dle-cb .*(t|sw)-near/.test(l))).toEqual([]);
+  });
+  // The two home modules draw a row of clues as decoration: Close with the same yellow, Wrong red.
   for (const [file, prefix] of [['kpopdle-home.tsx', '.p1-kd'], ['anime-daily-home.tsx', '.p5-ad']] as const) {
-    it(`the ${file} module: Close with the orange stripes of the games, Wrong red`, () => {
+    it(`the ${file} module: Close with the yellow of the games, Wrong red`, () => {
       const mod = readFileSync(join(__dirname, `../../components/home/ux-v1/${file}`), 'utf8');
       const line = (cls: string): string => mod.split('\n').find((l) => l.startsWith(`${prefix}-${cls} `)) ?? '';
-      expect(line('near')).toContain('repeating-linear-gradient(135deg, var(--ux-close-2) 0 3px, var(--ux-close) 3px 6px)');
-      // the two site tokens are the games' own orange stripes (styles/ux-v1/a0.css, every theme)
+      expect(line('near')).toContain('background: var(--ux-close)');
+      expect(line('near')).not.toContain('repeating-linear-gradient');
       const a0 = readFileSync(join(__dirname, '../../styles/ux-v1/a0.css'), 'utf8');
-      expect(a0.match(/--ux-close: (#[0-9A-F]{6}); --ux-close-2: (#[0-9A-F]{6});/g)).toEqual(Array(3).fill(`--ux-close: ${LIGHT['hub-dle-near-2']}; --ux-close-2: ${LIGHT['hub-dle-near-1']};`));
+      expect(a0.match(/--ux-close: (#[0-9A-F]{6}); --ux-close-2: (#[0-9A-F]{6});/g)).toEqual(Array(3).fill(`--ux-close: ${LIGHT['hub-dle-near']}; --ux-close-2: ${LIGHT['hub-dle-near']};`));
       expect(line('off')).toContain('background: var(--ux-no)');
       expect(line('t')).toContain('background: var(--ux-ok)');
     });
@@ -101,25 +107,21 @@ describe('Close reads as a clear orange, never a pastel (owner 2026-11-08, orang
 describe('the text of every cell is AA (4.5:1), computed', () => {
   const themes = { light: LIGHT, dark: DARK, 'dark (system)': DARK_AUTO } as const;
   for (const [name, t] of Object.entries(themes)) {
-    it(`${name}: Right, Close (both stripes), Wrong`, () => {
+    it(`${name}: Right, Close, Wrong`, () => {
       const r = {
         right: ratio(t['hub-dle-right-ink']!, t['hub-dle-right']!),
-        nearOnLight: ratio(t['hub-dle-near-ink']!, t['hub-dle-near-1']!),
-        nearOnDark: ratio(t['hub-dle-near-ink']!, t['hub-dle-near-2']!),
+        near: ratio(t['hub-dle-near-ink']!, t['hub-dle-near']!),
         wrong: ratio(t['hub-dle-wrong-ink']!, t['hub-dle-wrong']!),
       };
       for (const [k, v] of Object.entries(r)) expect(v, `${name} ${k}`).toBeGreaterThanOrEqual(4.5);
     });
   }
 
-  it('the colour-blind palette (blue and orange, an option of the settings) stays AA too', () => {
+  it('the colour-blind palette (blue and grey, an option of the settings) stays AA too', () => {
     const lines = CSS.split('\n').filter((l) => l.includes('.hub-dle-cb .hub-dle-t-'));
     const blue = lines.find((l) => l.includes('.hub-dle-t-correct'))!;
     expect(ratio('#FFFFFF', blue.match(/background: (#[0-9A-F]{6})/)![1]!)).toBeGreaterThanOrEqual(4.5);
-    const near = lines.find((l) => l.includes('.hub-dle-t-near'))!;
-    const [a, b, ink] = [...near.matchAll(/#[0-9A-F]{6}/g)].map((m) => m[0]);
-    expect(ratio(ink!, a!)).toBeGreaterThanOrEqual(4.5);
-    expect(ratio(ink!, b!)).toBeGreaterThanOrEqual(4.5);
+    // Close keeps the yellow in this option too (AA is proved above); blue against yellow stays apart.
     // the colour-blind option keeps Wrong grey (blue, orange, grey: as the owner kept it), AA in every theme
     const wrong = lines.find((l) => l.includes('.hub-dle-t-wrong'))!;
     expect(wrong).toContain('background: var(--hub-dle-cb-wrong); color: var(--hub-dle-cb-wrong-ink)');

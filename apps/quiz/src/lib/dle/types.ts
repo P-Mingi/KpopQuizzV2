@@ -3,7 +3,7 @@
 
 export type DleLocale = 'en' | 'fr';
 
-/** A column's result for one guess. near: the striped cell (same parent group, mother company, a year or two off). */
+/** A column's result for one guess. near: the yellow cell (same parent group, mother company, a year or two off). */
 export type DleStatus = 'correct' | 'near' | 'wrong' | 'unknown';
 /** From the guess to the target: up = the target is higher (later, younger generation number). */
 export type DleArrow = 'up' | 'down' | null;
@@ -56,6 +56,10 @@ export interface DlePlayState {
   readonly hints: readonly { readonly key: string; readonly value: unknown }[];
   readonly target: DlePublicEntity | null;
   readonly stats: DleStats | null;
+  /** L40: the order in which this play found the answer that day (won plays only); absent before L40 is applied. */
+  readonly solve_rank?: number | null;
+  /** L40: the plays of the day; absent before L40 is applied. */
+  readonly players_today?: number;
 }
 
 /** dle_day. yesterday only once yesterday is closed (03:00 UTC); stats null under 100 plays. */
@@ -67,6 +71,8 @@ export interface DleDay {
   readonly seconds_left: number;
   readonly yesterday: { readonly date: string; readonly game_no: number; readonly answer: DlePublicEntity } | null;
   readonly stats: DleStats | null;
+  /** L40: the plays of the day whatever the floor of 100 on `stats` (the client shows it from 10); absent before L40 is applied. */
+  readonly players_today?: number;
   readonly play: DlePlayState | null;
 }
 

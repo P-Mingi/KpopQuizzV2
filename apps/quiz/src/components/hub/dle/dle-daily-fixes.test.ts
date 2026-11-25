@@ -34,10 +34,10 @@ describe('the answer block under the H1', () => {
 });
 
 describe('the line of yesterday and the head of the guesses', () => {
-  it('names the idol in the game pink (the token of the page), apart from the sentence, and brings the line closer to the box', () => {
+  it('names the idol in the game pink (the token of the page), apart from the sentence, and is a small muted line of the box (DLE2-A)', () => {
     expect(read('components/hub/dle/dle-game.tsx')).toContain('<strong className="hub-dle-ylast">{yesterday}</strong>');
     expect(rule('.hub-dle-ylast')).toContain('color: var(--hub-dle-c)');
-    expect(rule('.hub-dle-yline')).toMatch(/margin: -10px 0 0;/);
+    expect(rule('.hub-dle-yline')).toMatch(/margin: 0;/);
   });
 
   it('has a thin divider under the "Tes essais" head, and room above the guide', () => {
