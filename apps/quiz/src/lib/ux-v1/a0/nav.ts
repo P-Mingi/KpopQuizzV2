@@ -72,6 +72,29 @@ export function navItemsFor(site: typeof SITE = SITE): NavItem<NavKey>[] {
     });
 }
 
+/**
+ * Owner request 2026-11-25 (kpopquiz.org only): Groups is a sub-item of Quizzes and Leaderboard a sub-item of Community, each opening from its parent's
+ * toggle in the top bar. Every URL stays; a path of a child lights its parent too (NavGroup in ux-nav-links.tsx). The other sites keep the flat bar of navItemsFor.
+ * The phone tab bar already has neither (activeTab lights Quizzes for /groups and Community for /leaderboard), so it is unchanged.
+ */
+export const NAV_CHILDREN: Readonly<Partial<Record<NavKey, readonly NavKey[]>>> = { quizzes: ['groups'], community: ['leaderboard'] };
+
+export interface NavNode extends NavItem<NavKey> {
+  /** The sub-items of the item, in order; empty for an item with none (every item of the other sites). */
+  children: NavItem<NavKey>[];
+}
+
+/** The top bar as a tree: on kpop, Quizzes holds Groups and Community holds Leaderboard; on any other site the flat list of navItemsFor, no children. */
+export function navTreeFor(site: typeof SITE = SITE): NavNode[] {
+  const items = navItemsFor(site);
+  if (site.id !== 'kpop') return items.map((it) => ({ ...it, children: [] }));
+  const byKey = new Map(items.map((it) => [it.key, it]));
+  const nested = new Set<NavKey>(Object.values(NAV_CHILDREN).flat());
+  return items
+    .filter((it) => !nested.has(it.key))
+    .map((it) => ({ ...it, children: (NAV_CHILDREN[it.key] ?? []).flatMap((k) => byKey.get(k) ?? []) }));
+}
+
 export const TAB_ITEMS: NavItem<TabKey>[] = [
   { key: 'home', label: 'Home', href: '/', icon: 'home' },
   { key: 'quizzes', label: 'Quizzes', href: '/quizzes', icon: 'layers' },

@@ -1,5 +1,5 @@
 // Run O1, lane O1 (lot a, finishing): the top navigation follows the site's vocabulary. kpop renders the markup it rendered
-// before this change (the files of __o1_kpop_nav__/, written ONCE from the base commit 894cb7c, never from the head: a plain
+// before this change, except the owner request of 2026-11-25 (Groups under Quizzes, Leaderboard under Community: the files of __o1_kpop_nav__/ were rewritten once for it; a plain
 // run compares).
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
@@ -23,7 +23,7 @@ const PATHS = ['/', '/quizzes', '/groups', '/bts-quiz', '/leaderboard', '/blindt
 
 describe('UxNavLinks', () => {
   for (const p of PATHS) {
-    it(`kpop ${p}: the markup of the base commit`, async () => {
+    it(`kpop ${p}: the markup (the owner tree of 2026-11-25)`, async () => {
       const name = p === '/' ? 'home' : p.slice(1).replace(/\//g, '-');
       await expect(`${await nav('kpop', p)}\n`).toMatchFileSnapshot(`./__o1_kpop_nav__/${name}.html`);
     });
@@ -45,5 +45,28 @@ describe('UxNavLinks, anime', () => {
 
   it('a series hub lights the Series item', async () => {
     expect(await nav('anime', '/one-piece-quiz')).toMatch(/<a data-nav="groups" aria-current="page"/);
+  });
+});
+
+describe('UxNavLinks, kpop dropdowns (owner request 2026-11-25)', () => {
+  it('Groups sits under the Quizzes toggle and Leaderboard under Community, every link in the server HTML', async () => {
+    const html = await nav('kpop', '/');
+    expect(html).toMatch(/<div class="ux-nd"><a data-nav="quizzes"[^>]*href="\/quizzes"/);
+    expect(html).toMatch(/<button type="button" class="ux-nd-t" aria-expanded="false" aria-controls="[^"]+" aria-label="Quizzes menu"/);
+    expect(html).toMatch(/<ul id="[^"]+" class="ux-nd-m"><li><a data-nav="groups"[^>]*href="\/groups"/);
+    expect(html).toMatch(/<div class="ux-nd"><a data-nav="community"[^>]*href="\/community"/);
+    expect(html).toMatch(/<ul id="[^"]+" class="ux-nd-m"><li><a data-nav="leaderboard"[^>]*href="\/leaderboard"/);
+    // No top-level Groups or Leaderboard pill: both only inside a list.
+    expect(html.match(/<nav[^>]*>.*<\/nav>/)![0].replace(/<ul .*?<\/ul>/g, '')).not.toMatch(/data-nav="(groups|leaderboard)"/);
+  });
+
+  it('a sub-page lights its parent (aria-current true) and its own item (page)', async () => {
+    const g = await nav('kpop', '/groups');
+    expect(g).toMatch(/<a data-nav="quizzes" aria-current="true"/);
+    expect(g).toMatch(/<a data-nav="groups" aria-current="page"/);
+    const l = await nav('kpop', '/leaderboard');
+    expect(l).toMatch(/<a data-nav="community" aria-current="true"/);
+    expect(l).toMatch(/<a data-nav="leaderboard" aria-current="page"/);
+    expect(await nav('kpop', '/quizzes')).toMatch(/<a data-nav="quizzes" aria-current="page"/);
   });
 });

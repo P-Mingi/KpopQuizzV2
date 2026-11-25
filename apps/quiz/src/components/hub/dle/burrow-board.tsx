@@ -9,6 +9,7 @@ import { utcDate } from '@/lib/dle/day';
 import { builtGames, dleGame, localePath } from '@/lib/dle/games';
 import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { DLE_WORLDS, coverImage, liveGame, liveModes, modeImage, worldHref } from '@/lib/dle/worlds';
+import { GameMark, firstSavedIcon } from '@/components/photos/game-mark';
 import { withBasePath } from '@/lib/site/base-path';
 
 import { PageStickers } from '../page-stickers';
@@ -18,6 +19,7 @@ import { clock, deviceStore, useDleClient, useResetCountdown } from './dle-hooks
 import { D, Flame, Ic, libraryIcon } from './dle-icons';
 
 import type { DleImages } from '@/lib/dle/read';
+import type { LiveIcons } from '@/lib/photos/icons-read';
 import type { PageSticker } from '@/lib/photos/stickers';
 import type { DleGameId } from '@/lib/dle/games';
 import type { DleLocale, DlePublicEntity, DleStats } from '@/lib/dle/types';
@@ -39,6 +41,8 @@ interface BurrowBoardProps {
   readonly answer?: string;
   readonly facts: Readonly<Partial<Record<DleGameId, BurrowGameFacts>>>;
   readonly images: DleImages;
+  /** The icon slots of the admin (lib/photos/icons-read.ts): a game whose switch icon the owner saved draws it, plain, in place of its line icon. */
+  readonly icons?: LiveIcons;
   /** Group name to the address of its quiz on KpopQuiz: the link of an answer. */
   readonly quizLinks: Readonly<Record<string, string>>;
   /** The owner's stickers of the page (admin Photos, Stickers, page daily). */
@@ -51,7 +55,7 @@ function stateOf(mode: DleMode, plays: Readonly<Record<string, ModeState>>): Mod
   return plays[g.id] ?? { kind: 'todo' };
 }
 
-export function BurrowBoard({ locale, dateLabel, answer, facts, images, quizLinks, stickers = [] }: BurrowBoardProps): React.ReactElement {
+export function BurrowBoard({ locale, dateLabel, answer, facts, images, icons, quizLinks, stickers = [] }: BurrowBoardProps): React.ReactElement {
   const t = dleCopy(locale);
   const client = useDleClient();
   const left = useResetCountdown();
@@ -133,6 +137,16 @@ export function BurrowBoard({ locale, dateLabel, answer, facts, images, quizLink
               {w.modes.map((m) => {
                 const s = stateOf(m, plays);
                 const img = modeImage(images, m);
+                const mark = firstSavedIcon(icons, m.iconSlot);
+                if (mark) {
+                  // The admin's icon of this game, plain and larger than the old 36 px ring; a done game keeps its tick.
+                  return (
+                    <span key={m.id} title={m.name[locale]} className={`hub-dle-mbare hub-dle-mbare-${s.kind}`} style={{ position: 'relative', display: 'inline-grid', flex: 'none' }}>
+                      <GameMark icon={mark} size={44} slot={m.iconSlot} state={s.kind === 'soon' ? 'next' : 'done'} />
+                      {s.kind === 'done' ? <span aria-hidden="true" className="hub-dle-chk"><Ic d={D.check} size={8} width={4} /></span> : null}
+                    </span>
+                  );
+                }
                 return (
                   <span key={m.id} title={m.name[locale]} className={`hub-dle-mdot hub-dle-mdot-${s.kind}`}>
                     {img ? (
@@ -206,14 +220,22 @@ export function BurrowBoard({ locale, dateLabel, answer, facts, images, quizLink
                     const g = liveGame(m);
                     const s = stateOf(m, plays);
                     const img = modeImage(images, m);
+                    const mark = firstSavedIcon(icons, m.iconSlot);
                     const inner = (
                       <>
-                        <span className={`hub-dle-th${img ? ' hub-dle-th-img' : ''}`}>
-                          {img ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={img.small} alt="" width={34} height={34} loading="lazy" decoding="async" />
-                          ) : <Ic d={libraryIcon(m.icon)} size={17} width={1.9} />}
-                        </span>
+                        {mark ? (
+                          // The admin's icon of this game, plain (no tile, no circle) and larger than the old 34 px tile.
+                          <span className="hub-dle-thbare" style={{ flex: 'none', display: 'inline-grid', width: 40, height: 40 }}>
+                            <GameMark icon={mark} size={40} slot={m.iconSlot} state={s.kind === 'soon' ? 'next' : 'done'} />
+                          </span>
+                        ) : (
+                          <span className={`hub-dle-th${img ? ' hub-dle-th-img' : ''}`}>
+                            {img ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={img.small} alt="" width={34} height={34} loading="lazy" decoding="async" />
+                            ) : <Ic d={libraryIcon(m.icon)} size={17} width={1.9} />}
+                          </span>
+                        )}
                         <span className="hub-dle-linename">{m.name[locale]}</span>
                         <span className={`hub-dle-linestate hub-dle-linestate-${s.kind}`}>{statusOf(m)}</span>
                       </>
