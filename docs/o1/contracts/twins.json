@@ -814,7 +814,7 @@
       "id": "24",
       "site": "anime",
       "route": "/about",
-      "file": "apps/quiz/src/app/sites/[site]/(anime)/about/page.tsx",
+      "file": "apps/quiz/src/app/sites/[site]/about/page.tsx",
       "twin": "apps/quiz/src/app/(site)/about/page.tsx",
       "mustImport": [],
       "renders": [

@@ -21,6 +21,7 @@ export function fromPayload(p: CatalogPayload): UiCatalog {
       return { n: c.n, num: c.num, entity: c.entity, kind: c.kind, rarity: c.rarity, edition: c.edition, name: c.name, group: c.group, debutYear: c.debutYear, photo, ...half, ...(c.endYear ? { endYear: c.endYear } : {}), ...(c.retired ? { retired: true as const } : {}) };
   };
   return {
+    ...(p.generatedAt ? { generatedAt: p.generatedAt } : {}),
     odds: p.odds,
     entities: p.entities.map((e) => ({ id: e.id, kind: e.kind, name: e.name, group: e.group, debutYear: e.debutYear, sortKey: e.sortKey, lockReasons: e.lockReasons, ...(e.endYear ? { endYear: e.endYear } : {}), ...(e.locked ? { locked: true as const } : {}) })),
     cards: p.cards.map(card),

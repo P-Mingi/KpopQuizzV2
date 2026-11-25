@@ -3,17 +3,23 @@
 // The pure parts (text of a robots file, XML of a sitemap) and the list of a site's URLs live here so they can be tested
 // without a server. Every URL is on the registry origin of the site (never another site's, never a hardcoded host).
 
-import { builtGames } from '@/lib/dle/games';
-import { readDay } from '@/lib/dle/read';
+import { builtGames, DAILY_PATH } from '@/lib/dle/games';
+import { readDay, settleDleRead } from '@/lib/dle/read';
 import { dleSitemapRows } from '@/lib/dle/seo';
+import { cardsSitemapRows } from '@/lib/kpopcards/seo';
+import { hubBurrowOpen, hubGameOpen } from '@/lib/passerelles/open';
+import { HUB_ABOUT_PATH, HUB_ABOUT_UPDATED } from '@/lib/site/hub/about';
 import { fetchAllRows } from '@/lib/db/fetch-all';
 import { createPublicReadClient } from '@/lib/supabase/server';
 import { loadSeriesDirectory } from '@/lib/anime/directory';
 import { whichCharacterPath } from '@/lib/personality/series';
 import { listSeriesSets } from '@/lib/personality/sets';
 
+import { cardsOn } from '@/lib/cards/ui-flag';
+
 import { basePathOf, joinSiteUrl, zoneChildrenOf } from './base-path';
 import { indexingOpenFor, parseLaunchDate } from './indexing';
+import { REGISTRY } from './registry';
 import { forSite } from './scope';
 
 import type { MetadataRoute } from 'next';
@@ -131,17 +137,17 @@ export function zoneSitemaps(site: SiteConfig, children: readonly SiteConfig[], 
 
 /**
  * Daily games step 4 (rule 9.6, the sitemap lists only indexable URLs): the built games whose page says index today, i.e. the ones that answer dle_day, and the date of the day. A game that is off
- * (dle_unavailable), under its minimum pool, or whose read fails is left out, like its page says noindex (lib/dle/page-meta.ts): a read that fails closes the game for this answer, never lists it.
+ * (dle_unavailable), under its minimum pool, is left out, like its page says noindex (lib/dle/page-meta.ts). A read that FAILS is not a game that is off: the error reaches the caller (a 500 the crawler retries), so one failed read never drops a game from the sitemap.
  */
 async function liveDleGames(db: SeriesDb): Promise<{ readonly ids: readonly DleGameId[]; readonly date: string | null }> {
-  const days = await Promise.all(builtGames().map(async (g) => ({ id: g.id, day: await readDay(db, g.id).catch(() => null) })));
+  const days = await Promise.all(builtGames().map(async (g) => ({ id: g.id, day: await readDay(db, g.id).catch(settleDleRead) })));
   const answering = days.filter((d) => d.day !== null);
   return { ids: answering.map((d) => d.id), date: answering[0]?.day?.date ?? null };
 }
 
 /**
  * The URLs a non-kpop site lists, in the order a crawler should meet them.
- *   hub:   its home, and its /privacy, /legal, /terms, /contact and /dmca once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
+ *   hub:   its home, and its /privacy, /legal, /terms, /contact, /dmca and /about once the network is open (NET_INDEXING); while it is closed /privacy is a noindex draft and stays out.
  *          (/legal is indexable only once its [BRACKETED] facts are filled: lib/site/hub/legal.ts fails an open build that still prints one.)
  *   anime: its home, /series, every series hub that has at least `seo.minPublishedForIndexableHub` published quizzes
  *          (below it the hub page is noindex, so it stays out), the Which character are you page of every series that has a quiz
@@ -162,12 +168,14 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
     return [
       home,
       ...dle,
+      ...cardsSitemapRows(),
       { path: '/privacy', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/legal', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       // Launch polish (owner, 2026-11-20): the terms, the contact page and the DMCA page, indexable like /legal (components/hub/legal).
       { path: '/terms', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/contact', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
       { path: '/dmca', ...(launch ? { lastModified: new Date(`${launch}T00:00:00Z`) } : {}), changeFrequency: 'yearly', priority: 0.3 },
+      { path: HUB_ABOUT_PATH, lastModified: new Date(`${HUB_ABOUT_UPDATED}T00:00:00Z`), changeFrequency: 'yearly', priority: 0.5 },
     ];
   }
   if (site.id !== 'anime') throw new Error('sitemapEntriesFor: kpop has app/sitemap.ts');
@@ -198,10 +206,16 @@ export async function sitemapEntriesFor(site: SiteConfig, db: SeriesDb = createP
 
 /**
  * /llms.txt of anime and hub (routes.md, "Per-site root files"): fixed facts and real routes only, no count (a hardcoded one
- * would rot, a live one is not worth a read for a file nothing is proven to consume), the site's own name and host, never
- * kpopquiz.org's. kpop keeps app/llms.txt/route.ts.
+ * would rot, a live one is not worth a read for a file nothing is proven to consume), the site's own name and host (the anime file never
+ * names kpopquiz.org; the hub file names it once as the sister site). kpop keeps app/llms.txt/route.ts.
  */
-export function llmsText(site: SiteConfig, children: readonly SiteConfig[] = zoneChildrenOf(site), raw: string | undefined = process.env.NET_INDEXING): string {
+export function llmsText(
+  site: SiteConfig,
+  children: readonly SiteConfig[] = zoneChildrenOf(site),
+  raw: string | undefined = process.env.NET_INDEXING,
+  cards: boolean = cardsOn(),
+  credits: boolean = false,
+): string {
   const { name } = site.brand;
   const title = site.seo.llmsTxt.title;
   // Bunnyverse (lane 1): a site in a sub-folder is named by its full address (bunnyverse.org/anime, the url without its scheme: the
@@ -209,31 +223,58 @@ export function llmsText(site: SiteConfig, children: readonly SiteConfig[] = zon
   const address = site.url.replace(/^https?:\/\//, '');
   const b = basePathOf(site.url);
   if (site.id === 'hub') {
-    // The sites in its sub-folders (/anime), once open (openZoneChildren): each keeps its own llms.txt under its base path.
-    const zones = openZoneChildren(children, raw).map((c) => `- ${basePathOf(c.url)}: ${c.brand.name}, a quiz site of the network (its own llms.txt: ${basePathOf(c.url)}/llms.txt)\n`).join('');
+    // SEO-LAUNCH-1 lane A: fixed facts and real routes, no typed number. The games come from the code (builtGames), the sites in its
+    // sub-folders (/anime) once open (openZoneChildren), KpopCards only with NET_CARDS (its pages are a 404 without it).
+    // Review fix 19: a sentence about a game, KpopCards or /credits is written only when that page answers (the hub's dailyGuess switch and route map, NET_CARDS, a credits page that lists something).
+    const built = builtGames().filter((g) => hubGameOpen(g.id, site.features));
+    const burrow = built.length > 0 && hubBurrowOpen(site.features);
+    const kpopdle = built.find((g) => g.brand === 'Kpopdle');
+    const otakudle = built.find((g) => g.brand === 'Otakudle' && !g.series);
+    const seriesGames = built.filter((g) => g.series !== undefined);
+    const kpopquiz = REGISTRY.kpop.url;
+    const daily = burrow ? `- ${DAILY_PATH}: the daily games of the day, in one place\n` : '';
+    const games = [
+      kpopdle ? `- ${kpopdle.path}: Kpopdle by ${name}, the daily K-pop idol game. Guess the idol of the day from clues that compare each guess with the idol. Unlimited guesses, a new idol at midnight UTC, the same for everyone\n` : '',
+      otakudle ? `- ${otakudle.path}: Otakudle by ${name}, the daily anime character game, spoiler-free\n` : '',
+      ...seriesGames.map((g) => `- ${g.path}: Otakudle by ${name} for ${g.series?.name ?? ''} only, one character of the series a day\n`),
+    ].join('');
+    const cardsLines = cards
+      ? `- /kpopcards: KpopCards, a free K-pop photocard game with free packs on a timer, no money and no market
+- /kpopcards/odds: the published drop rates of every pack
+- /kpopcards/help: how packs, shards and crafting work
+`
+      : '';
+    const zones = openZoneChildren(children, raw).map((c) => `- ${basePathOf(c.url)}: ${c.brand.name} at ${c.url.replace(/^https?:\/\//, '')}, the anime quiz site of the network (its own llms.txt: ${basePathOf(c.url)}/llms.txt)\n`).join('');
+    const offers = [burrow ? 'daily guessing games' : '', cards ? 'a free photocard game' : '', 'anime quizzes'].filter(Boolean);
+    const here = [burrow ? 'The daily games' : '', cards ? 'KpopCards' : ''].filter(Boolean);
     return `# ${title}
 
-> ${name} is the home of one account shared by a network of independent fan quiz sites. It holds no quiz of its own.
+> ${name} is a K-pop and anime fan site${offers.length ? `: ${offers.length > 1 ? `${offers.slice(0, -1).join(', ')} and ${offers[offers.length - 1]}` : offers[0]}` : ''}. It is run by the founder of kpopquiz.org, its sister site.
 
 ## What this site is
-${name} lists the quiz sites of the network and shows a signed-in member which of them they have joined. Each site keeps its
-own quizzes, scores and community; the account is the only thing they share.
+${name} is an independent fan project. It is not affiliated with the artists, their agencies or the studios of the series it features.
+${here.length ? `${here.join(' and ')} ${here.length > 1 || here[0] === 'The daily games' ? 'live' : 'lives'} here. ` : ''}The K-pop quizzes live on the sister site ${kpopquiz.replace(/^https?:\/\//, '')}, run by the same founder.
+One ${name} account is shared by these sites; each keeps its own scores and community.
 
-## Best entry points
-- /: the sites of the network
-${zones}- /privacy: what one account shares between the sites
+## Games and sites
+${daily}${games}${cardsLines}${zones}- ${kpopquiz}: kpopquiz.org, the K-pop quiz site, sister site of ${name}
 
+## Sources and policies
+${credits ? '- /credits: the licensed photos of the games, with their authors and licences\n' : ''}- /privacy: what one account shares between the sites
+- /terms, /legal, /contact, /dmca: terms, legal notice, contact and takedown requests
+${kpopdle ? '- Kpopdle clues come from Wikidata, MusicBrainz and official sites\n' : ''}
 ## What we do not publish
 We do not publish simulated scores, invented play counts, or fabricated opponents.
 `;
   }
   return `# ${title}
 
-> Free, fan-made anime quizzes. Every quiz is written by a fan, and every statistic on the site comes from real plays, never simulated.
+> Free anime quizzes written by fans, with a spoiler shield. Every statistic on the site comes from real plays, never simulated.
 
 ## What this site is
 ${address} is an independent anime quiz site. Visitors play quizzes about anime series, with a spoiler shield that keeps
-questions beyond the episode or chapter a visitor has reached out of sight. Quizzes are created by fans and checked before they go live.
+questions beyond the episode or chapter a visitor has reached out of sight. Fans write the quizzes and each one shows its creator. A few
+accounts labelled Team publish through an editorial review. Reported quizzes are reviewed by the team.
 
 ## Best entry points
 - ${b}/quizzes: every published quiz, filterable by series and type

@@ -13,8 +13,8 @@ import { GET, POST } from './route';
 
 const U = (p: string): string => `https://kpopquiz.org${p}`;
 const xml = (rows: Array<[string, string?]>): string => `<urlset>${rows.map(([l, m]) => `<url><loc>${l}</loc>${m ? `<lastmod>${m}</lastmod>` : ''}</url>`).join('')}</urlset>`;
-const req = (method: string, body: string | null = null, token: string | null = 't0k'): NextRequest =>
-  new NextRequest(`https://kpopquiz.org/api/indexnow${token ? `?token=${token}` : ''}`, { method, body });
+const req = (method: string, body: string | null = null, token: string | null = 't0k', extra = ''): NextRequest =>
+  new NextRequest(`https://kpopquiz.org/api/indexnow${token ? `?token=${token}${extra}` : ''}`, { method, body });
 
 beforeEach(() => {
   state.pinged = [];
@@ -46,6 +46,25 @@ describe('/api/indexnow', () => {
     for (const res of [await POST(req('POST', '')), await GET(req('GET'))]) {
       expect(await res.json()).toMatchObject({ ok: true, submitted: 0 });
     }
+    expect(state.pinged).toEqual([]);
+  });
+
+  // SEO-LAUNCH-1 review fix 5: an explicit list, for the new URLs of a first deploy (the workflow input hub_urls). Same token, never the sitemap.
+  it('mode=urls submits exactly the listed URLs once (dupes, blanks and junk dropped) and keeps the token', async () => {
+    const body = `${U('/about')}\n\n  /kpopcards  \n${U('/about')}\nnot a url\r\n/fr/daily\n`;
+    const res = await POST(req('POST', body, 't0k', '&mode=urls'));
+    expect(await res.json()).toMatchObject({ ok: true, submitted: 3, listed: 3 });
+    expect(state.pinged).toEqual([[U('/about'), '/kpopcards', '/fr/daily']]);
+    state.pinged = [];
+    expect((await POST(req('POST', body, 'nope', '&mode=urls'))).status).toBe(401);
+    expect((await POST(req('POST', body, null, '&mode=urls'))).status).toBe(401);
+    expect(state.pinged).toEqual([]);
+  });
+
+  it('mode=urls with an empty list submits nothing, and a list over the cap is refused', async () => {
+    expect(await (await POST(req('POST', '\n \n', 't0k', '&mode=urls'))).json()).toMatchObject({ ok: true, submitted: 0 });
+    const many = Array.from({ length: 101 }, (_, i) => `/p${i}`).join('\n');
+    expect((await POST(req('POST', many, 't0k', '&mode=urls'))).status).toBe(413);
     expect(state.pinged).toEqual([]);
   });
 });

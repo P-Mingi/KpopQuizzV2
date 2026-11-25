@@ -309,6 +309,8 @@ export function hubRouteAllow(features: Pick<SiteFeatures, 'dailyGuess'>, cards:
     '/', '/privacy', '/legal', '/passport', '/u/{username}', '/settings/**', '/login', '/directory', '/credits',
     // Launch polish (owner, 2026-11-20): the terms, the contact page and the DMCA page, twins of OtakuQuiz's (app/sites/[site]/terms|contact|dmca).
     '/terms', '/contact', '/dmca',
+    // SEO-LAUNCH-1 (lane C): the trust page of rule 12 (app/sites/[site]/about, dispatching on SITE_ID like /contact).
+    '/about',
     ...(features.dailyGuess === true ? dleLivePaths() : []),
     // Bunnyverse Cards (lane U): the pages are in the map only with NET_CARDS on; off, they answer as any unknown URL.
     ...(cards ? CARDS_PATHS : []),

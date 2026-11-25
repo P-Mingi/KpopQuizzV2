@@ -62,22 +62,49 @@ export async function readPool(db: Db, game: string): Promise<DlePool | null> {
 const dayCached = unstable_cache(async (game: string) => readDay(createPublicReadClient(), game), ['db:hub:dle-day:v1'], { revalidate: DLE_TTL, tags: ['dle'] });
 const poolCached = unstable_cache(async (game: string) => readPool(createPublicReadClient(), game), ['db:hub:dle-pool:v1'], { revalidate: DLE_TTL * 5, tags: ['dle'] });
 
-/** The public facts of today's game, or null. A failed read is never kept by the cache: the next render tries again. */
-export async function getDleDay(game: DleGameId): Promise<DleDay | null> {
+/**
+ * The game itself says it cannot answer (switched off, an unknown game, a pool under its minimum, no schedule): a state of the game, not a failure of the read. Every such answer
+ * of the database starts with "dle_" (019-dle-core.sql); a network error, a timeout or a missing function does not.
+ */
+export function isDleOff(err: unknown): boolean {
+  const m = typeof err === 'string' ? err : (err as { message?: unknown } | null)?.message;
+  return typeof m === 'string' && /^dle_(unavailable|unknown_game|no_epoch|pool_too_small|bank_unsatisfiable|no_schedule)\b/.test(m);
+}
+
+/**
+ * What a failed read of a game page does (SEO-LAUNCH-1, lane D): a game that is really off answers null (the page says noindex, the sitemap leaves it out); during `next build` there is no
+ * last good page to keep, so it also answers null; any other failure is thrown, so ISR keeps serving the last good page (with its index robots and its row in the sitemap) and tries again
+ * on the next request, instead of caching a noindex answer.
+ */
+export function settleDleRead(err: unknown): null {
+  if (isDleOff(err)) return null;
+  if (process.env.NEXT_PHASE === 'phase-production-build') return null;
+  throw err instanceof Error ? err : new Error(String(err));
+}
+
+const dbConfigured = (): boolean => Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+
+/**
+ * The public facts of today's game, or null. A failed read is never kept by the cache: the next render tries again. By default a failed read answers null (the pages of other sites use it
+ * for a card); the pages of the games pass `strict`, and a failure other than "the game is off" is then thrown (see settleDleRead). No database settings at all answers null.
+ */
+export async function getDleDay(game: DleGameId, opts?: { readonly strict?: boolean }): Promise<DleDay | null> {
   try {
     return await dayCached(game);
   } catch (err) {
+    if (isDleOff(err)) return null;
     console.error('[dle] dle_day read failed:', (err as Error)?.message ?? err);
-    return null;
+    return opts?.strict && dbConfigured() ? settleDleRead(err) : null;
   }
 }
 
-export async function getDlePool(game: DleGameId): Promise<DlePool | null> {
+export async function getDlePool(game: DleGameId, opts?: { readonly strict?: boolean }): Promise<DlePool | null> {
   try {
     return await poolCached(game);
   } catch (err) {
+    if (isDleOff(err)) return null;
     console.error('[dle] dle_pool read failed:', (err as Error)?.message ?? err);
-    return null;
+    return opts?.strict && dbConfigured() ? settleDleRead(err) : null;
   }
 }
 

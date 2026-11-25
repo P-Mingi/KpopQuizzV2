@@ -5,8 +5,9 @@ import Link from 'next/link';
 
 import { adsPerDay } from '@/lib/cards/flags';
 import { kcPath } from '@/lib/cards/kc-paths';
-import { CRAFT_COST, PERIOD_S, PITY_UR, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
+import { CRAFT_COST, RARITY_LABEL, SHARDS, SHARD_PACK_COST, TIMER_PACKS_PER_DAY } from '@/lib/cards/rules';
 import { KC } from '@/lib/kpopcards/contract';
+import { editionCount } from '@/lib/kpopcards/seo';
 import { dupBiasExempt, dupBiasRule } from '@/lib/kpopcards/dup-text';
 
 import { REMOVAL_PROMISE } from './report-form';
@@ -26,11 +27,11 @@ const craftLine = (['C', 'U', 'R', 'SR', 'UR'] as const).map((r) => `${RARITY_LA
 
 export const FAQ: readonly FaqItem[] = [
   { id: 'free', q: 'Is it free?', a: <>Yes. Packs are never sold, and cards can&apos;t be sold or turned into money. The game pays for itself with a few ads on bunnyverse.org.</> },
-  { id: 'account', q: 'Do I need an account?', a: <>Not to try it: anyone can open one demo pack. To keep cards and get a pack every {PERIOD_S / 60} minutes, sign in with your free Bunnyverse passport, the same one as kpopquiz.org.</> },
+  { id: 'account', q: 'Do I need an account?', a: <>Not to try it: anyone can open one demo pack. To keep cards and get a pack every {KC.PERIOD_MIN} minutes, sign in with your free Bunnyverse passport, the same one as kpopquiz.org.</> },
   { id: 'crypto', q: 'Is there crypto, NFTs or a marketplace?', a: <>No. Cards have no money value, there is no market and no auction, and no card is ever numbered to look scarce.</> },
   {
     id: 'odds', q: 'How do the odds work?',
-    a: <>Each card is drawn on its own with the <Link href={kcPath.odds}>odds</Link> of the lobby, the same for everyone. The fifth card is Stage or better. {dupBiasRule()} {dupBiasExempt()} <b>{RARITY_LABEL.UR} guarantee:</b> if {PITY_UR - 1} packs in a row bring nothing {RARITY_LABEL.UR} or better, the fifth card of pack {PITY_UR} is {RARITY_LABEL.UR}.</>,
+    a: <>Each card is drawn on its own with the <Link href={kcPath.odds}>odds</Link> of the lobby, the same for everyone. The fifth card is Stage or better. {dupBiasRule()} {dupBiasExempt()} <b><Link href={kcPath.odds}>{RARITY_LABEL.UR} guarantee</Link>:</b> if {KC.GOLD_BY_PACK - 1} packs in a row bring nothing {RARITY_LABEL.UR} or better, the fifth card of pack {KC.GOLD_BY_PACK} is {RARITY_LABEL.UR}.</>,
   },
   {
     id: 'shards', q: 'What are shards?',
@@ -59,8 +60,8 @@ export function CardsFaq({ children }: { children?: React.ReactNode }): React.Re
   return (
     <>
       <div className="steps" aria-labelledby="faq-how">
-        <div className="stepc"><span className="n">1</span><b>Open</b><p>A free pack every {PERIOD_S / 60} minutes, up to {CAP} waiting. The stack fills up again at midnight, Paris time.</p></div>
-        <div className="stepc"><span className="n">2</span><b>Collect</b><p>Every idol has up to 6 editions, from Standard to Full Art, and each edition uses its own photo.</p></div>
+        <div className="stepc"><span className="n">1</span><b>Open</b><p>A free pack every {KC.PERIOD_MIN} minutes, up to {CAP} waiting. The stack fills up again at midnight, Paris time.</p></div>
+        <div className="stepc"><span className="n">2</span><b>Collect</b><p>Every idol has up to {editionCount()} editions, from {RARITY_LABEL.C} to {RARITY_LABEL.L}, and each edition uses its own photo.</p></div>
         <div className="stepc"><span className="n">3</span><b>Complete</b><p>Sets and the weekly list give packs. Extra copies turn into shards, and shards craft the cards you miss.</p></div>
       </div>
       {children}

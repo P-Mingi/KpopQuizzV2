@@ -4,6 +4,8 @@ import { getQuizzesByType } from '@/lib/db/queries/quizzes';
 import { QuizCard } from '@/components/quiz/quiz-card';
 import { safeFetch } from '@/lib/error-handling';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { NetEditorialLink } from '@/components/network/net-editorial-link';
+import { hubGameOpen } from '@/lib/passerelles/open';
 import { DEFAULT_OG_IMAGE } from '@/lib/seo/og';
 
 import type { Metadata } from 'next';
@@ -46,6 +48,12 @@ export default async function GuessTheKpopIdolPage(): Promise<React.ReactElement
         You get 3 clues. Guess with fewer clues for more points.
         How well do you really know your faves?
       </p>
+      {/* SEO-LAUNCH-1 (lane C, owner 2026-11-23): one followed link in context to the daily idol game, link-allowlist row guess-idol-kpopdle. Only while the hub serves the page. */}
+      {hubGameOpen('kpopdle-idol') ? (
+        <p className="text-sm text-secondary mt-3 leading-relaxed">
+          Want one new idol to guess every day? Try <NetEditorialLink dst="hub" path="/kpopdle" className="underline">Kpopdle, the daily idol game</NetEditorialLink>, from our sister site Bunnyverse.
+        </p>
+      ) : null}
 
       {quizzes.length > 0 ? (
         <div className="space-y-3 mt-5">

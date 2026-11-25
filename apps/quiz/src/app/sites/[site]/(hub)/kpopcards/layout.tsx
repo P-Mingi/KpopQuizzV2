@@ -32,7 +32,9 @@ export default async function KpopCardsLayout({ children }: { children: React.Re
         </CardsProvider>
       ) : (
         <div className="wrap page">
-          {/* The fallback is a page of its own, so it carries the one H1 the children would have given. */}
+          {/* The fallback is a page of its own, so it carries the one H1 the children would have given. A page that cannot show its cards must not be
+              indexed as an empty shell (the three pages say index when the catalog reads): React moves this tag into the head, where it joins the page's own robots. */}
+          <meta name="robots" content="noindex, follow" />
           <h1 className="h1">KpopCards</h1>
           <p className="page-note" role="status">The cards are not available right now. Try again in a few minutes.</p>
         </div>

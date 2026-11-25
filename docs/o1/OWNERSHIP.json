@@ -516,6 +516,7 @@
     "apps/quiz/e2e/o1/CARDS/**",
     "apps/quiz/vitest.config.ts",
     "docs/pending-migrations/cards/**",
+    "docs/seo/**",
     "docs/design/cards/**",
     "docs/o1/evidence/cards/**",
     "docs/o1/reports/CARDS/**",

@@ -145,7 +145,7 @@ describe('share line: the right columns of each guess, never a colour grid', () 
 
   it('the text: brand, number, game, outcome, counts, address; never the answer', () => {
     const t = shareText(DLE_GAMES[0]!, 12, guesses, true, 'https://bunnyverse.org/kpopdle', 'en');
-    expect(t).toBe('Kpopdle #12 · Idol of the day · found in 2 guesses\n2/8 · 8/8\nhttps://bunnyverse.org/kpopdle');
+    expect(t).toBe('Kpopdle by Bunnyverse #12 · Idol of the day · found in 2 guesses\n2/8 · 8/8\nhttps://bunnyverse.org/kpopdle');
     expect(shareText(DLE_GAMES[0]!, 12, guesses.slice(0, 1), false, 'https://bunnyverse.org/fr/kpopdle', 'fr')).toContain('Idol du jour · abandon');
     expect(t).not.toMatch(/[🟩🟨⬛]/u);
   });

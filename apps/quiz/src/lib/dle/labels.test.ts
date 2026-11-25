@@ -23,8 +23,9 @@ describe('the page of the dle games has its new name', () => {
   it('the labels of the nav, the title, the breadcrumb and the way back', () => {
     expect(dleCopy('en').navBurrow).toBe('Daily games');
     expect(dleCopy('fr').navBurrow).toBe('Jeux du jour');
-    expect(dleCopy('en').burrowH1).toBe('Daily games');
-    expect(dleCopy('fr').burrowH1).toBe('Jeux du jour');
+    // SEO-LAUNCH-1 lane D (owner, 2026-11-23): the H1 of /daily names the two worlds; the nav, the tab and the breadcrumb keep "Daily games".
+    expect(dleCopy('en').burrowH1).toBe('Daily K-pop and anime games');
+    expect(dleCopy('fr').burrowH1).toBe('Jeux du jour K-pop et anime');
     expect(dleCopy('en').backToBurrow).toBe('Back to the daily games');
     expect(dleCopy('fr').backToBurrow).toBe('Retour aux jeux du jour');
     expect(dleCopy('en').aboutTitle).toBe('What are the daily games?');
@@ -40,12 +41,13 @@ describe('the page of the dle games has its new name', () => {
   }
 
   it('the metadata of the page names the games, in both languages', () => {
-    expect(BURROW_SEO.title.en).toBe('Daily games: K-pop and anime puzzles');
-    expect(BURROW_SEO.title.fr).toBe('Jeux du jour : les énigmes K-pop et anime');
+    // SEO-LAUNCH-1 lane D (owner, 2026-11-23): the titles of agent 2 section 4, with the names of the two games.
+    expect(BURROW_SEO.title.en).toBe('Daily K-pop and Anime Games: Kpopdle, Otakudle');
+    expect(BURROW_SEO.title.fr).toBe('Jeux du jour K-pop et anime : Kpopdle, Otakudle');
     // rule 2: one primary phrase shared by the title, the H1 and the description; the title fits 60 characters with " | Bunnyverse"
     for (const l of ['en', 'fr'] as const) {
       const phrase = dleCopy(l).burrowH1;
-      expect(BURROW_SEO.title[l].startsWith(phrase), l).toBe(true);
+      expect(BURROW_SEO.title[l].toLowerCase().startsWith(phrase.toLowerCase()), l).toBe(true);
       expect(BURROW_SEO.description[l].toLowerCase(), l).toContain(phrase.toLowerCase());
       expect(`${BURROW_SEO.title[l]} | Bunnyverse`.length, l).toBeLessThanOrEqual(60);
       expect(BURROW_SEO.description[l].length, l).toBeGreaterThanOrEqual(120);
