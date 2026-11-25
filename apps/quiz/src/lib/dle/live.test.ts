@@ -59,6 +59,6 @@ describe('the words', () => {
   });
   it('has no dash', () => {
     const src = readFileSync(join(__dirname, 'live.ts'), 'utf8');
-    expect(src).not.toMatch(/[–—…]/);
+    expect(src).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013, 0x2014, 0x2026)}]`));
   });
 });

@@ -155,7 +155,7 @@ describe('the files', () => {
       if (/\bupdate\s+public\./i.test(s) && /\bset\b/i.test(s)) expect(s, 'UPDATE with a WHERE').toMatch(/\bwhere\b/i);
       if (/\bdelete\s+from\b/i.test(s)) expect(s).toMatch(/\bwhere\b/i);
     }
-    expect(sql).not.toMatch(/[–—…]/);
+    expect(sql).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013, 0x2014, 0x2026)}]`));
     for (const k of ['What', 'Why', 'Rows', 'WHEN']) expect(sql).toMatch(new RegExp(`^-- ${k}:`, 'm'));
     if (file === UP) expect(sql).toMatch(/^-- Undo:/m);
   });
