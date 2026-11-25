@@ -3,7 +3,7 @@
 
 export type DleLocale = 'en' | 'fr';
 
-/** A column's result for one guess. near: the striped cell (same parent group, mother company, a year or two off). */
+/** A column's result for one guess. near: the yellow cell (same parent group, mother company, a year or two off). */
 export type DleStatus = 'correct' | 'near' | 'wrong' | 'unknown';
 /** From the guess to the target: up = the target is higher (later, younger generation number). */
 export type DleArrow = 'up' | 'down' | null;

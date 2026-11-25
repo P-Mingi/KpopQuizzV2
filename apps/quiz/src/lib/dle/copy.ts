@@ -88,7 +88,7 @@ const EN: DleCopy = {
   whatNow: 'What next', backToBurrow: 'Back to the daily games', allDone: 'All done today', allDoneLine: 'New puzzles at midnight UTC.', onKpopQuiz: 'On KpopQuiz', photoBy: (a, l) => `Photo: ${a}, ${l}`, source: 'Source', noPhoto: 'No licensed photo yet, so we show a card with the name.',
   whatIsTitle: (brand) => `What is ${brand}?`,
   yesterdayLine: 'Yesterday’s idol:', howTitle: 'How to play Kpopdle Idol?',
-  how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, striped when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 10 mistakes.',
+  how1: 'Type an idol’s name and confirm. Each cell compares one clue with the idol of the day: full when right, yellow when close, grey when wrong. An arrow says whether the answer’s year is more recent or older. Hints open after 5 and 10 mistakes.',
   how2: 'Only adult idols of major groups are in the game. Every photo is licensed and credited; without a licence, we show a card with the name.',
   thCell: 'Cell', thNear: 'Close if', thSource: 'Source',
   unavailable: 'Today’s game is not available right now. Come back in a moment.', errorRate: 'Too many guesses in a minute. Wait a little and try again.', errorNetwork: 'The connection failed. Try again.', errorUnknown: 'This name is not in the game.', errorNewDay: 'A new day has started. Reload the page for the new puzzle.', errorTooMany: 'That is the most guesses a day can hold.',
@@ -135,7 +135,7 @@ const FR: DleCopy = {
   whatNow: 'Et maintenant', backToBurrow: 'Retour aux jeux du jour', allDone: 'Tout est fait aujourd’hui', allDoneLine: 'Nouvelles énigmes à minuit UTC.', onKpopQuiz: 'Sur KpopQuiz', photoBy: (a, l) => `Photo : ${a}, ${l}`, source: 'Source', noPhoto: 'Pas encore de photo sous licence : on montre une carte avec le nom.',
   whatIsTitle: (brand) => `Qu’est-ce que ${brand} ?`,
   yesterdayLine: 'L’idol d’hier :', howTitle: 'Comment jouer à Kpopdle Idol ?',
-  how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 10 erreurs.',
+  how1: 'Tape le nom d’une idol et valide. Chaque case compare un indice avec l’idol du jour : pleine si c’est juste, jaune si c’est proche, grise si c’est faux. Une flèche indique si l’année de la réponse est plus récente ou plus ancienne. Les indices s’ouvrent après 5 et 10 erreurs.',
   how2: 'Seules les idols adultes des groupes majeurs entrent dans le jeu. Les photos sont toutes sous licence et créditées ; sans licence, on affiche une carte avec le nom.',
   thCell: 'Case', thNear: 'Proche si', thSource: 'Source',
   unavailable: 'Le jeu du jour n’est pas disponible pour le moment. Reviens dans un instant.', errorRate: 'Trop d’essais en une minute. Attends un peu et réessaie.', errorNetwork: 'La connexion a échoué. Réessaie.', errorUnknown: 'Ce nom n’est pas dans le jeu.', errorNewDay: 'Un nouveau jour a commencé. Recharge la page pour la nouvelle énigme.', errorTooMany: 'C’est le maximum d’essais pour une journée.',
@@ -283,8 +283,8 @@ const idolWords = (locale: DleLocale): DleGameCopy => {
 export const OTAKUDLE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string, DleColumnCopy>>>> = {
   en: {
     series: { label: 'Series', help: 'The series of the character', near: 'same franchise', source: 'Wikidata, Wikipedia' },
-    genres: { label: 'Genres', help: 'Genres of the work. Striped: one genre in common.', near: 'one genre in common', source: 'Wikipedia' },
-    year: { label: 'Series year', help: 'Year the original work began, not the character’s debut. Striped: within 2 years.', near: '2 years apart at most', source: 'Wikidata, Wikipedia' },
+    genres: { label: 'Genres', help: 'Genres of the work. Yellow: one genre in common.', near: 'one genre in common', source: 'Wikipedia' },
+    year: { label: 'Series year', help: 'Year the original work began, not the character’s debut. Yellow: within 2 years.', near: '2 years apart at most', source: 'Wikidata, Wikipedia' },
     studio: { label: 'Studio', help: 'Studio of the first adaptation, close if one in common', near: 'one studio in common', source: 'Wikidata, Wikipedia' },
     gender: { label: 'Gender', help: 'As the series presents them first', near: 'never', source: 'Wikidata, Wikipedia' },
     species: { label: 'Species', help: 'As shown first, or the one everyone knows', near: 'never', source: 'Wikidata, Wikipedia' },
@@ -292,8 +292,8 @@ export const OTAKUDLE_COLUMNS: Readonly<Record<DleLocale, Readonly<Record<string
   },
   fr: {
     series: { label: 'Série', help: 'La série du personnage', near: 'même franchise', source: 'Wikidata, Wikipedia' },
-    genres: { label: 'Thèmes', help: 'Genres de l’œuvre. Rayé : un genre en commun.', near: 'un genre en commun', source: 'Wikipedia' },
-    year: { label: 'Année de la série', help: 'Année de début de l’œuvre, pas de l’apparition du personnage. Rayé : à 2 ans près.', near: '2 ans d’écart au plus', source: 'Wikidata, Wikipedia' },
+    genres: { label: 'Thèmes', help: 'Genres de l’œuvre. Jaune : un genre en commun.', near: 'un genre en commun', source: 'Wikipedia' },
+    year: { label: 'Année de la série', help: 'Année de début de l’œuvre, pas de l’apparition du personnage. Jaune : à 2 ans près.', near: '2 ans d’écart au plus', source: 'Wikidata, Wikipedia' },
     studio: { label: 'Studio', help: 'Studio de la première adaptation, proche si un en commun', near: 'un studio en commun', source: 'Wikidata, Wikipedia' },
     gender: { label: 'Genre', help: 'Tel que la série le présente d’abord', near: 'jamais', source: 'Wikidata, Wikipedia' },
     species: { label: 'Espèce', help: 'Celle montrée d’abord, ou celle que tout le monde connaît', near: 'jamais', source: 'Wikidata, Wikipedia' },
@@ -316,7 +316,7 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
       proposeLabel: 'Proposer un personnage', placeholder: 'Nom, prénom ou surnom, toutes séries', rowHead: 'Personnage', tableCaption: 'Comparaison de chaque essai avec le personnage du jour',
       empty: 'Propose un premier personnage pour voir les cases se remplir.', nextIn: 'nouveau personnage dans',
       stepsLabel: 'Les jeux Otakudle', stepDone: 'trouvé', yesterdayLine: 'Le personnage d’hier :', howTitle: 'Comment jouer à Otakudle ?',
-      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
+      how1: 'Otakudle est un jeu quotidien : propose un personnage, chaque case compare un indice avec la réponse du jour : la série, les thèmes, l’année, le studio, le genre, l’espèce et le rôle. Pleine si c’est juste, jaune si c’est proche, grise si c’est faux. Les indices s’ouvrent après 5 et 10 erreurs.',
       how2: 'Les valeurs sont celles de la première apparition du personnage, sauf l’espèce de quelques personnages, donnée telle que tout le monde la connaît. Aucune colonne ne dit qui est vivant ou mort. Les images des personnages appartiennent à leurs ayants droit.',
       poolTitle: 'Les personnages du jeu', poolHead: ['Série', 'Personnages'],
       dlgHow1: 'Tape un personnage et valide. Une ligne de cases apparaît.', dlgHow2: 'Chaque case compare un indice avec le personnage du jour.', dlgHow3: 'Essais illimités. Les indices s’ouvrent après 5 et 10 erreurs.',
@@ -332,7 +332,7 @@ const otakudleWords = (locale: DleLocale): DleGameCopy => {
     proposeLabel: 'Propose a character', placeholder: 'Name or nickname, all series', rowHead: 'Character', tableCaption: 'Each guess compared with the character of the day',
     empty: 'Propose a first character to see the cells fill up.', nextIn: 'next character in',
     stepsLabel: 'The Otakudle games', stepDone: 'found', yesterdayLine: 'Yesterday’s character:', howTitle: 'How to play Otakudle?',
-    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, genres, year, studio, gender, species and role. Full when right, striped when close, grey when wrong. Hints open after 5 and 10 mistakes.',
+    how1: 'Otakudle is a daily game: propose a character, and each cell compares one clue with the answer of the day: series, genres, year, studio, gender, species and role. Full when right, yellow when close, grey when wrong. Hints open after 5 and 10 mistakes.',
     how2: 'The values are those of the character’s first appearance, except the species of a few characters, given as everyone knows it. No column says who is alive or dead. Character pictures belong to their rights holders.',
     poolTitle: 'The characters in the game', poolHead: ['Series', 'Characters'],
     dlgHow1: 'Type a character and confirm. A row of cells appears.', dlgHow2: 'Each cell compares one clue with the character of the day.', dlgHow3: 'Unlimited guesses. Hints open after 5 and 10 mistakes.',
@@ -484,8 +484,8 @@ const seriesWords = (game: 'otakudle-one-piece' | 'otakudle-dragon-ball', locale
     yesterdayLine: fr ? `Le personnage ${name} d’hier :` : `Yesterday’s ${name} character:`,
     howTitle: fr ? `Comment jouer à Otakudle ${name} ?` : `How to play Otakudle ${name}?`,
     how1: fr
-      ? `Otakudle ${name} est un jeu quotidien : propose un personnage de ${name}, et chaque case compare un indice avec la réponse du jour : ${spec.clues.fr}. Pleine si c’est juste, rayée si c’est proche, grise si c’est faux. Une flèche dit si la réponse est plus haute ou plus tardive. Les indices s’ouvrent après 5 et 10 erreurs.`
-      : `Otakudle ${name} is a daily game: propose a ${name} character, and each cell compares one clue with the answer of the day: ${spec.clues.en}. Full when right, striped when close, grey when wrong. An arrow says whether the answer is higher or later. Hints open after 5 and 10 mistakes.`,
+      ? `Otakudle ${name} est un jeu quotidien : propose un personnage de ${name}, et chaque case compare un indice avec la réponse du jour : ${spec.clues.fr}. Pleine si c’est juste, jaune si c’est proche, grise si c’est faux. Une flèche dit si la réponse est plus haute ou plus tardive. Les indices s’ouvrent après 5 et 10 erreurs.`
+      : `Otakudle ${name} is a daily game: propose a ${name} character, and each cell compares one clue with the answer of the day: ${spec.clues.en}. Full when right, yellow when close, grey when wrong. An arrow says whether the answer is higher or later. Hints open after 5 and 10 mistakes.`,
     how2: `${spec.hintsLine[locale]} ${spec.dataNote[locale]}`,
     poolTitle: fr ? `Les personnages ${name} du jeu` : `The ${name} characters in the game`, poolHead: spec.poolHead[locale],
     dlgHow1: fr ? `Tape un personnage de ${name} et valide. Une ligne de cases apparaît.` : `Type a ${name} character and confirm. A row of cells appears.`,

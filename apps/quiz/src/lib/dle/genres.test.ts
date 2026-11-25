@@ -102,7 +102,7 @@ describe('L18: the Genres column of Otakudle', () => {
     expect(Object.keys(GENRE.fr)).toEqual(WORDS);
     expect(valueLabel('genres', ['dark-fantasy', 'martial-arts'], 'fr')).toBe('Dark fantasy, Arts martiaux');
     expect(valueLabel('genres', ['mystery-thriller', 'slice-of-life'], 'en')).toBe('Mystery and thriller, Slice of life');
-    expect(OTAKUDLE_COLUMNS.en.genres).toMatchObject({ label: 'Genres', help: 'Genres of the work. Striped: one genre in common.' });
+    expect(OTAKUDLE_COLUMNS.en.genres).toMatchObject({ label: 'Genres', help: 'Genres of the work. Yellow: one genre in common.' });
     expect(OTAKUDLE_COLUMNS.fr.genres!.label).toBe('Thèmes');
     expect(OTAKUDLE_COLUMNS.fr.genres!.help.startsWith('Genres de l’œuvre')).toBe(true);
     expect(OTAKUDLE_COLUMNS.fr.gender!.label).toBe('Genre');
