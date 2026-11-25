@@ -1,4 +1,4 @@
-// KpopCards: POST /api/cards/prefs { sound?, vibration?, theme?, focus? } -> { prefs }. Sound and vibration are two separate switches.
+// KpopCards: POST /api/cards/prefs { sound?, vibration?, theme? } -> { prefs }. Sound and vibration are two separate switches.
 import { run } from '@/lib/kpopcards/route';
 import * as srv from '@/lib/kpopcards/server';
 

@@ -143,7 +143,7 @@ describe('lot 7: the panorama in the seeded mock', () => {
   it('a craft that completes the set grants the panorama once, in the same call; a replay answers the same', async () => {
     const api = createMockApi({ world: world(), start: 'empty', now: () => T0 });
     own(api, 1, 2);
-    api.data.shards = 100;
+    api.data.shards = 5000; // owner request of 2026-11-25: a craft costs 200 or more
     const c = ok<{ pano?: { p: number } | null; state: { panoramas?: number[] }; replayed: boolean }>(await api.craft({ key: k(6), n: 3 }));
     expect(c.pano).toMatchObject({ p: 1, num: 'P-0001' });
     expect(c.state.panoramas).toEqual([1]);
@@ -162,7 +162,7 @@ describe('lot 7: the panorama in the seeded mock', () => {
     api.forcePack(Array(5).fill({ rarity: 'C', isNew: false }));
     // Complete through a craft-free path: grant by an open that brings nothing new would not; hold the panorama directly through a craft of a fresh part.
     api.data.owned.delete(3);
-    api.data.shards = 100;
+    api.data.shards = 5000; // owner request of 2026-11-25: a craft costs 200 or more
     ok(await api.craft({ key: k(8), n: 3 }));
     api.data.owned.get(3)!.copies = 3;
     const rc = ok<{ recycled: number; state: { panoramas?: number[] } }>(await api.recycle({ key: k(9), confirm: true, n: 3 }));
@@ -178,7 +178,7 @@ describe('lot 7: the panorama in the seeded mock', () => {
   it('reset forgets the panoramas', async () => {
     const api = createMockApi({ world: world(), start: 'empty', now: () => T0 });
     own(api, 1, 2);
-    api.data.shards = 100;
+    api.data.shards = 5000; // owner request of 2026-11-25: a craft costs 200 or more
     ok(await api.craft({ key: k(11), n: 3 }));
     api.reset(false);
     const st = ok<{ panoramas?: number[] }>(await api.state());

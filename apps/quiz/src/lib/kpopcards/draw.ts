@@ -1,4 +1,4 @@
-// KpopCards: the pure pack draw of lots 3 to 5 (themes, golden pack, Gold guarantee, focus, missing half). No I/O: the rng is injected. The
+// KpopCards: the pure pack draw of lots 3 to 5 (themes, golden pack, Gold guarantee, missing half). No I/O: the rng is injected. The
 // server gives it crypto.randomInt (server-rng.ts); the mock and the tests give a seeded one. It builds on lib/cards/rules.ts (the odds, the
 // subject pick, the kind weights), so the rates a page shows (computeOdds) are the rates this draws.
 import { PACK_SIZE, RARITIES, cardsOfRarity, drawOne, indexPool, rollFrom, tableOf } from '../cards/rules';
@@ -15,8 +15,6 @@ export interface KcContext {
   golden: boolean;
   /** The card numbers the player owns now (a group edition of which he owns exactly one half gives him the other half). */
   owned?: ReadonlySet<number>;
-  /** A focus pack: the group (cards_entities id) whose cards come as cards 2 and 4. */
-  focus?: string | null;
 }
 
 export interface KcDrawn {
@@ -49,7 +47,6 @@ export function drawKcPack(theme: PoolIndex, all: PoolIndex, rng: Rng, ctx: KcCo
     const last = i === PACK_SIZE - 1;
     const opts: DrawOpts = {};
     if (owned) opts.owned = owned;
-    if (ctx.focus && (i === 1 || i === 3)) opts.focus = ctx.focus;
     let pool = theme;
     if (last && ctx.pity && cardsOfRarity(all, 'UR').length > 0) {
       // The guarantee: Gold, from the pack's own pool when it has one, else from the whole pool (the promise wins).
@@ -79,8 +76,8 @@ export function poolOf(cards: readonly PoolCard[], keep: (c: PoolCard) => boolea
  *  with the rng; the database picks one of the fifth cards from the player's state under the wallet lock (110-core.sql). */
 export interface KcPlan { c: number[]; g: number | null; u: number | null }
 
-export function planKcPack(theme: PoolIndex, all: PoolIndex, rng: Rng, focus: string | null = null): KcPlan {
-  const plain = drawKcPack(theme, all, rng, { pity: false, golden: false, focus });
+export function planKcPack(theme: PoolIndex, all: PoolIndex, rng: Rng): KcPlan {
+  const plain = drawKcPack(theme, all, rng, { pity: false, golden: false });
   // Candidate for a golden pack: the fifth-card roll lifted to Holo or better.
   const golden = drawOne(theme, rng, true, { rarity: goldenRarity(theme, rng) });
   // Candidate for the guarantee: a Gold card of the pack's pool, else of the whole pool; none when no Gold card is in packs.
@@ -109,8 +106,6 @@ export interface DupBiasInput {
   owned: ReadonlySet<number>;
   /** Every card number of the same photo (all the parts), or an empty list for a whole card; only the parts in packs. */
   siblings: (n: number) => readonly number[];
-  /** A focus pack: the group of the cards 2 and 4. */
-  focus?: string | null;
   /** The chance of the bias, KC.DUP_BIAS. */
   bias: number;
   /** True when card 5 is the Gold guarantee or the golden fifth card: it never leans toward an owned card (it is still checked for a repeat). */
@@ -120,7 +115,7 @@ export interface DupBiasInput {
 
 /**
  * The bias and the repeat check, card by card. (a) Unless exempt, with chance `bias` the card becomes a uniformly random card of the SAME rarity among
- * those the player owned BEFORE the pack that are in the pool, belong to the focus group for cards 2 and 4 when the group has a card of that rarity, are
+ * those the player owned BEFORE the pack that are in the pool, are
  * not a part whose photo still has a part the player lacks (the missing part rule would turn it into a new card), and are not already in the pack.
  * (b) A card already in the pack is redrawn among the other cards of its rarity (same checks, none already in the pack); with none it stays.
  */
@@ -132,16 +127,9 @@ export function applyDupBias(cards: readonly number[], o: DupBiasInput): number[
   cards.forEach((card, k) => {
     let final = card;
     const rarity = o.rarityOf(card);
-    const inFocus = (c: PoolCard): boolean => c.entity === o.focus || c.group === o.focus;
-    const focusOn = !!o.focus && (k === 1 || k === 3);
-    const focusOk = (list: readonly PoolCard[]): ((c: PoolCard) => boolean) => {
-      const on = focusOn && list.some((c) => c.rarity === rarity && inFocus(c));
-      return (c) => !on || inFocus(c);
-    };
     let done = false;
     if (!(k === PACK_SIZE - 1 && o.fifthExempt) && o.rng(unit) < hit) {
-      const ok = focusOk(o.pool);
-      const cands = o.pool.filter((c) => c.rarity === rarity && o.owned.has(c.n) && !out.includes(c.n) && ok(c) && !o.siblings(c.n).some((m) => !now.has(m)));
+      const cands = o.pool.filter((c) => c.rarity === rarity && o.owned.has(c.n) && !out.includes(c.n) && !o.siblings(c.n).some((m) => !now.has(m)));
       if (cands.length > 0) {
         final = (cands[o.rng(cands.length)] as PoolCard).n;
         done = true;
@@ -150,8 +138,7 @@ export function applyDupBias(cards: readonly number[], o: DupBiasInput): number[
     if (!done && out.includes(final)) {
       const inPool = o.pool.some((c) => c.n === final);
       const list = inPool ? o.pool : o.universe ?? o.pool;
-      const ok = focusOk(list);
-      const cands = list.filter((c) => c.rarity === rarity && !out.includes(c.n) && ok(c));
+      const cands = list.filter((c) => c.rarity === rarity && !out.includes(c.n));
       if (cands.length > 0) final = (cands[o.rng(cands.length)] as PoolCard).n;
     }
     now.add(final);

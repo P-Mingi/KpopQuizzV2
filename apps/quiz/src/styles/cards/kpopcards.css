@@ -122,6 +122,16 @@
 }
 .bvc .h1{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
 .bvc .lede{margin-top:8px;font-size:16px;color:var(--txt2);max-width:60ch}
+.bvc .kc-intro{text-align:center;padding-top:14px}
+.bvc .kc-h1{margin:0;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.bvc .kc-wm{font-size:32px;color:var(--txt1)}
+.bvc .kc-wm b{color:var(--brand);font-weight:800}
+.bvc .kc-sub{font-size:12px;font-weight:600;letter-spacing:.01em;color:var(--txt2)}
+.bvc .kc-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bvc #kc-answer{margin:6px auto 0;max-width:620px;font-size:13px;line-height:1.5}
+html[data-kc-in] .bvc #kc-answer{display:none}
+.bvc .kc-intro + .packs2{padding-top:6px!important}
+@media (max-width:600px){.bvc .kc-wm{font-size:26px}}
 .bvc .h2{font-size:22px;font-weight:800;letter-spacing:-.015em;display:flex;align-items:center;gap:10px}
 .bvc .h2 .ico{color:var(--brand-btn);width:22px;height:22px;stroke-width:1.7}
 .bvc .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:40px 0 14px}
@@ -651,8 +661,6 @@
 .bvc .guest{display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;padding:16px 18px;border-radius:16px;background:var(--brand-light);margin-top:18px}
 .bvc .guest p{flex:1 1 260px;font-size:15px}
 /* aside boxes */
-.bvc .fsel{display:block;width:100%;min-height:44px;margin-top:12px;padding:0 40px 0 14px;border-radius:12px;border:1px solid var(--border-h);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B6560' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center/18px;font:inherit;font-size:15px;color:var(--txt1);-webkit-appearance:none;appearance:none;cursor:pointer}
-.bvc .fsel:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .bvc .box p.small{font-size:14px;color:var(--txt2);margin-top:6px}
 .bvc .box .row2{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin-top:12px}
 .bvc .box .row2 small{font-size:13.5px;color:var(--txt2)}
@@ -1141,13 +1149,11 @@ html.rm .bvc .btn-ad::after{animation:none!important;display:none}
 .bvc .mx-btn:hover{background:var(--mxico)}
 .bvc .m-coll{--mxbg:linear-gradient(160deg,#F5ECFF,#fff 62%);--mxline:#E5D4FA;--mxglow:rgba(155,89,217,.28);--mxico:#EEE1FC;--mxink:#6B33A0}
 .bvc .m-week{--mxbg:linear-gradient(160deg,#E6FAF1,#fff 62%);--mxline:#C6EDD9;--mxglow:rgba(18,168,119,.24);--mxico:#D9F5E8;--mxink:#0B7A54}
-.bvc .m-focus{--fg:#FF9E7A;--mxbg:linear-gradient(160deg,color-mix(in srgb,var(--fg) 20%,#fff),#fff 62%);--mxline:color-mix(in srgb,var(--fg) 35%,#fff);--mxglow:color-mix(in srgb,var(--fg) 40%,transparent);--mxico:color-mix(in srgb,var(--fg) 22%,#fff);--mxink:color-mix(in srgb,var(--fg) 55%,#3A1020)}
 .bvc .m-rank{--mxbg:linear-gradient(160deg,#FFF6D9,#fff 62%);--mxline:#F6E1A2;--mxglow:rgba(217,154,0,.26);--mxico:#FFEFBF;--mxink:#8A5A00}
 .bvc .m-quiz{--mxbg:linear-gradient(160deg,#FFE9F2,#fff 62%);--mxline:#FBCDDF;--mxglow:rgba(232,69,122,.26);--mxico:#FCDFEA;--mxink:#B5345F}
 .bvc .m-odds{--mxbg:linear-gradient(160deg,#E8F2FF,#fff 62%);--mxline:#CDE0FA;--mxglow:rgba(47,128,237,.22);--mxico:#DDEAFD;--mxink:#1D62C4}
 .bvc .m-week .wk .tick{background:#fff}
 .bvc .m-week .wk li .bar i{background:linear-gradient(90deg,#12A877,#4BE3A3)}
-.bvc .m-focus .btn-primary{background:var(--mxink)}
 .bvc .coll-row{display:flex;align-items:center;gap:16px}
 .bvc .ringbig{position:relative;width:86px;height:86px;flex:none;display:grid;place-items:center}
 .bvc .ringbig svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
@@ -1276,8 +1282,6 @@ html.rm .bvc .c-rim{animation:none}
 .bvc .top .wrap{max-width:1440px}
 /* polish */
 .bvc .almost-row{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
-.bvc .m-focus .row2{flex-direction:column;align-items:stretch;gap:8px}
-.bvc .m-focus .row2 small{text-align:center}
 .bvc .sp.daily .ribbon2{top:-11px;right:50%;transform:translateX(50%);box-shadow:0 4px 10px -4px rgba(209,58,110,.6);white-space:nowrap}
 .bvc .sp.daily{margin-top:6px}
 @media (min-width:760px){

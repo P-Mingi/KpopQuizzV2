@@ -17,7 +17,6 @@ import { weekOf } from './kc-views';
 describe('addresses', () => {
   it('every page is under /kpopcards and the route map holds them and the old tree', () => {
     expect(kcPath.open('girls', 5)).toBe('/kpopcards/open/girls?packs=5');
-    expect(kcPath.focus('twice')).toBe('/kpopcards/open/focus/twice');
     expect(kcPath.player('dalgom_daisy')).toBe('/kpopcards/u/dalgom_daisy');
     expect([...CARDS_PATHS]).toEqual([...KC_ROUTE_PATTERNS]);
     for (const p of ['/kpopcards', '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/{nickname}', '/kpopcards/odds', '/kpopcards/idol/{name}', '/cards/**']) expect(KC_ROUTE_PATTERNS).toContain(p);
@@ -36,18 +35,17 @@ describe('addresses', () => {
     expect(specOf({ segments: ['solo'], from: 'shards' })).toEqual({ kind: 'theme', theme: 'solo', packs: 1, from: 'shards' });
     expect(specOf({ segments: ['all'], demo: '1' })).toEqual({ kind: 'demo' });
     expect(specOf({ segments: ['daily'] })).toEqual({ kind: 'daily' });
-    expect(specOf({ segments: ['focus', 'twice'] })).toEqual({ kind: 'focus', group: 'twice' });
+    expect(specOf({ segments: ['focus', 'twice'] })).toBeNull();
     expect(specOf({ segments: ['nope'] })).toBeNull();
   });
 });
 
 describe('the pack looks (v6 values)', () => {
-  it('four themes with the prototype colours, a golden pack, the pack of the day and a focus pack', () => {
+  it('four themes with the prototype colours, a golden pack, the pack of the day', () => {
     expect(THEMES.map((t) => t.title)).toEqual(['ALL IDOLS', 'GIRL GROUPS', 'BOY GROUPS', 'SOLOISTS']);
     expect(packLook({ theme: 'boys' }).c).toEqual(['#3D7BFF', '#7C5CFF', '#36D1C4']);
     expect(packLook({ theme: 'all', golden: true })).toMatchObject({ title: 'GOLDEN PACK', c: GOLD_C, golden: true });
     expect(packLook({ daily: { name: 'Twice', a: '#fff', c: '#000' } })).toMatchObject({ title: 'TWICE', path: 'daily' });
-    expect(packLook({ focus: { slug: 'bts', name: 'BTS', color: '#7C5CFF' } })).toMatchObject({ title: 'FOCUS BTS', path: 'focus/bts' });
   });
 });
 

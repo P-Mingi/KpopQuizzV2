@@ -14,7 +14,7 @@ export interface OpeningInput {
   golden: boolean;
   goldenPacks: number;
   source: OpenedPack['source'];
-  /** 'all', 'girls', 'daily', 'focus' for the address and the face of the pack. */
+  /** 'all', 'girls', 'daily' for the address and the face of the pack. */
   theme: OpenedPack['theme'];
   group: OpenedPack['group'];
   finished: FinishedSetV[];

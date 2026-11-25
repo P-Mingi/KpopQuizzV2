@@ -20,7 +20,7 @@ function walk(dir: string, out: string[] = []): string[] {
 
 describe('the dynamic KpopCards pages answer on a production server', () => {
   const pages = [...walk(join(HUB, 'kpopcards')), ...walk(join(HUB, 'cards'))].filter((f) => /\[[^\]]+\]/.test(f.slice(HUB.length)));
-  it('finds the dynamic pages', () => { expect(pages.length).toBeGreaterThanOrEqual(7); });
+  it('finds the dynamic pages', () => { expect(pages.length).toBeGreaterThanOrEqual(6); }); // 6 since the focus pack page was deleted (owner request of 2026-11-25)
   it.each(pages.map((f) => [f.slice(HUB.length), f] as const))('%s is rendered per request, or lists its finite values with the site param', (_name, f) => {
     const src = readFileSync(f, 'utf8');
     expect(src).toMatch(/^export const dynamicParams = true;$/m);

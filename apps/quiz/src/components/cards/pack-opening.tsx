@@ -33,12 +33,12 @@ import type { SlimCard, SlimPano } from '@/lib/cards/ui-types';
 type Phase = 'pack' | 'tearing' | 'torn' | 'reveal' | 'multi' | 'grid' | 'summary' | 'pano';
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
-/** The face of the pack: three colours, the name under the word, the address of the page ("all", "daily", "focus/twice"), golden or not. */
+/** The face of the pack: three colours, the name under the word, the address of the page ("all", "daily"), golden or not. */
 export interface PackLook { c: readonly [string, string, string]; title: string; path: string; golden: boolean }
 export const GOLD_COLORS: readonly [string, string, string] = ['#FFF1B8', '#F2B53A', '#B77A0E'];
 const DEFAULT_LOOK: PackLook = { c: ['#FF3E86', '#C55BFF', '#4CC9FF'], title: 'ALL IDOLS', path: 'all', golden: false };
 
-export type OpeningSource = PackSource | 'daily' | 'focus';
+export type OpeningSource = PackSource | 'daily';
 /** What comes next when the player leaves: nothing, one more pack, or five more. */
 export type OpeningNext = 'none' | 'stock' | 'stock5';
 
@@ -227,7 +227,7 @@ export function PackOpening({ cards, source, look = DEFAULT_LOOK, packs = 1, gol
   const stockLeft = ctx.state?.stock ?? 0;
   const stepText = demo ? 'Demo pack'
     : multi ? `${packs} packs · ${stockLeft} left`
-    : source === 'ad' ? 'Pack from an ad' : source === 'shards' ? 'Pack bought with shards' : source === 'bonus' ? 'Bonus pack' : source === 'daily' ? 'Pack of the day' : source === 'focus' ? 'Focus pack'
+    : source === 'ad' ? 'Pack from an ad' : source === 'shards' ? 'Pack bought with shards' : source === 'bonus' ? 'Bonus pack' : source === 'daily' ? 'Pack of the day'
     : `${golden ? 'Golden pack · ' : ''}${stockLeft} pack${stockLeft === 1 ? '' : 's'} left`;
 
   /* ---- a tap during an animation runs it to its end ---- */

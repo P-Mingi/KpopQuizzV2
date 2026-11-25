@@ -117,9 +117,8 @@ export interface PlayerData {
   /** Bonus packs earned on the Paris day (cards_bonus_earned: the Kpopdle wins and, since 115, the quiz of the day) and already opened (cards_wallets.bonus_today). */
   bonusEarned: number;
   bonusUsed: number;
-  /** Paris day the pack of the day / a focus pack was last opened. */
+  /** Paris day the pack of the day was last opened. */
   dailyDay: string | null;
-  focusDay: string | null;
   claimedSets: Set<string>;
   week: { id: string; packs: number; dle: number; newc: number; claimed: boolean };
   prefs: Prefs;
@@ -136,8 +135,8 @@ export const STILL_THERE_AFTER_MS = 2 * 3600 * 1000;
 export function emptyPlayer(now: number, nickname: string | null = null): PlayerData {
   return {
     nickname, createdAt: now, owned: new Map(), panos: new Map(), wishlist: new Set(), shards: 0, stock: KC.STACK_CAP, anchor: now, timerToday: 0, parisDay: parisDayOf(now), adsToday: 0,
-    opened: 0, sinceGold: 0, bonusEarned: 0, bonusUsed: 0, dailyDay: null, focusDay: null, claimedSets: new Set(), week: { id: weekStartOf(now), packs: 0, dle: 0, newc: 0, claimed: false },
-    prefs: { sound: true, vibration: true, theme: 'all', focus: null }, lastSeen: now, recent: [], last: null, friends: [], code: null,
+    opened: 0, sinceGold: 0, bonusEarned: 0, bonusUsed: 0, dailyDay: null, claimedSets: new Set(), week: { id: weekStartOf(now), packs: 0, dle: 0, newc: 0, claimed: false },
+    prefs: { sound: true, vibration: true, theme: 'all' }, lastSeen: now, recent: [], last: null, friends: [], code: null,
   };
 }
 
@@ -361,7 +360,7 @@ export function lobbyState(i: LobbyInput): LobbyState {
   return {
     stock: wal.stock, cap: KC.STACK_CAP, nextAt: wal.nextAt === null ? null : new Date(wal.nextAt).toISOString(), midnightAt: new Date(wal.midnightAt).toISOString(),
     adsLeft: Math.max(0, adsPer - wal.adsToday), adsEnabled: i.adsEnabled ?? true, shards: p.shards, bonusLeft, owned: [...p.owned].map(([n, o]) => ({ n, copies: o.copies, fav: o.fav, at: new Date(o.lastAt).toISOString() })),
-    timerCap, timerUsed: wal.timerToday, timerLeft: Math.max(0, timerCap - wal.timerToday), pityLeft: guarantee.left, focusUsed: p.focusDay === day, wishlist: [...p.wishlist].sort((a, b) => a - b),
+    timerCap, timerUsed: wal.timerToday, timerLeft: Math.max(0, timerCap - wal.timerToday), pityLeft: guarantee.left, wishlist: [...p.wishlist].sort((a, b) => a - b),
     recent: p.recent.slice(0, 10).map((r) => ({ at: new Date(r.at).toISOString(), best: EDITIONS[r.best].edition, source: r.source, newCount: r.newCount })),
     odds: i.odds === false ? null : computeOdds(poolCards(w)),
     theme: p.prefs.theme, themes: themeInfos(w), daily, golden, guarantee, level: levelState(ownedCount), prefs: p.prefs, bell, week, claimable: ms.claimable, newCards,
@@ -559,7 +558,6 @@ export function oddsState(w: World, now: number, dailyOfDay?: Section | null): O
   const all = themeCards(w, 'all');
   if (all.length > 0) {
     const r = rows(indexPool(all.map((c) => ({ n: c.n, kind: c.kind, rarity: c.rarity, entity: c.entity }))));
-    packs.push({ id: 'focus', name: 'Focus pack', cards: all.length, rows: r });
     packs.push({ id: 'golden', name: 'Golden pack', cards: all.length, rows: r });
   }
   return {
@@ -569,7 +567,6 @@ export function oddsState(w: World, now: number, dailyOfDay?: Section | null): O
       { id: 'gold', text: `After ${KC.GOLD_BY_PACK - 1} packs in a row without a ${RARITY_LABEL.UR} or a ${RARITY_LABEL.L} card, the last card of the next pack is ${RARITY_LABEL.UR}.` },
       { id: 'golden', text: `Every ${KC.GOLDEN_EVERY}th pack is golden: its fifth card is ${RARITY_LABEL.R} or better.` },
       { id: 'pair', text: 'If you own one half of a group card, drawing that group edition gives you the other half.' },
-      { id: 'focus', text: 'Once a day you can pick a group for one pack from your stack: its 2nd and 4th cards come from that group, at the same odds for each edition.' },
       { id: 'daily', text: 'The pack of the day is free once a day and holds one group, chosen by the date (Paris time).' },
     ],
   };

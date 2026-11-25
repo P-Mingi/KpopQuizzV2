@@ -106,9 +106,9 @@ const PLAYER = {
   owned: [{ n: 4, copies: 2, fav: true, locked: false, seen: true, first: '2026-11-12T09:00:00+00:00', last: '2026-11-12T09:00:00+00:00', fpn: 3 }],
   wishlist: [2], gold_count: 3, claimed: [],
   week: { week_start: '2026-11-09', packs_opened: 7, kpopdle_wins: 1, new_cards: 3, claimed: false },
-  prefs: { sound: true, vibration: true, theme: 'all', focus: null },
+  prefs: { sound: true, vibration: true, theme: 'all' },
   recent: [{ opened_at: '2026-11-12T09:00:00+00:00', best: 'UR', source: 'stock', new_count: 2 }],
-  bonus_earned: 0, bonus_today: 0, daily_used: false, focus_used: false, last: { at: '2026-11-12T09:00:00+00:00', pack_no: 3, cards: [1, 2, 3, 4, 5] },
+  bonus_earned: 0, bonus_today: 0, daily_used: false, last: { at: '2026-11-12T09:00:00+00:00', pack_no: 3, cards: [1, 2, 3, 4, 5] },
 };
 const OPENED = {
   replayed: false, owned_before: 1, owned_after: 5, finished: [],
@@ -132,8 +132,8 @@ beforeEach(() => {
   h.maybe = { profiles: { username: 'tester' } };
   h.tables = { cards_catalog: CARD_ROWS, cards_entities: ENTITY_ROWS, cards_photos: [], cards_group_types: [{ entity_id: 'group:G', gender: 'girl' }] };
   h.rpcResult = {
-    cards_player: { data: PLAYER }, cards_open: { data: OPENED }, cards_prefs_get: { data: { sound: true, vibration: true, theme: 'all', focus: null } },
-    cards_prefs_set: { data: { sound: false, vibration: true, theme: 'all', focus: null } },
+    cards_player: { data: PLAYER }, cards_open: { data: OPENED }, cards_prefs_get: { data: { sound: true, vibration: true, theme: 'all' } },
+    cards_prefs_set: { data: { sound: false, vibration: true, theme: 'all' } },
     cards_craft: { data: { replayed: false, card_no: 2, rarity: 'R', cost: 50, shards: 12, finished: [] } },
     cards_wish: { data: { on: true, count: 1 } }, cards_favorite: { data: true },
     cards_recycle: { data: { replayed: false, recycled: 4, shards: 16, shards_total: 28, skipped: { locked: 0, goldAndFullArt: 1 } } },
@@ -301,9 +301,9 @@ describe('GET /api/cards/state: the lobby', () => {
     expect(res.status).toBe(200);
     const b = await res.json();
     expect(b).toMatchObject({
-      cap: 5, shards: 12, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2], focusUsed: false,
+      cap: 5, shards: 12, timerCap: 40, timerUsed: 4, theme: 'all', nickname: 'tester', wishlist: [2],
       golden: { next: false, packsUntil: 3, opened: 7 }, guarantee: { streak: 3, by: 30 }, level: { level: 1, title: 'Rookie' },
-      prefs: { sound: true, vibration: true, theme: 'all', focus: null },
+      prefs: { sound: true, vibration: true, theme: 'all' },
       owned: [{ n: 4, copies: 2, fav: true }], daily: { used: false, group: { id: 'group:G', name: 'Group' } },
     });
     expect(b.themes.map((t: { id: string }) => t.id)).toEqual(['all', 'girls', 'boys', 'solo']);
@@ -360,9 +360,9 @@ describe('POST /api/cards/open', () => {
     h.rpcResult.cards_open = { data: { ...OPENED, replayed: true } };
     expect((await (await open(withKey('/api/cards/open', { source: 'stock' }))).json()).replayed).toBe(true);
   });
-  it('refuses a bad body (400) before any read: source, packs, theme, focus, 5 packs of a daily pack', async () => {
+  it('refuses a bad body (400) before any read: source (the removed focus pack included), packs, theme, 5 packs of a daily pack', async () => {
     const bad: unknown[] = [{ source: 'ad' }, { source: 'gift' }, {}, { source: 5 }, { source: 'stock', packs: 3 }, { source: 'stock', theme: 'idols' }, { source: 'daily', packs: 5 },
-      { source: 'focus' }, { source: 'focus', focus: 'idol:Q1' }, { source: 'shards', packs: 5 }];
+      { source: 'focus' }, { source: 'focus', focus: 'group:G' }, { source: 'shards', packs: 5 }];
     for (const b of bad) {
       const res = await open(withKey('/api/cards/open', b));
       expect([JSON.stringify(b), res.status < 500 && res.status >= 400]).toEqual([JSON.stringify(b), true]);
@@ -372,7 +372,7 @@ describe('POST /api/cards/open', () => {
   });
   it.each([
     ['cards: empty', 409, 'empty'], ['cards: stack_short', 409, 'stack_short'], ['cards: shards', 409, 'shards'], ['cards: daily_used', 409, 'daily_used'],
-    ['cards: focus_used', 409, 'focus_used'], ['cards: idem_conflict', 409, 'idem_conflict'], ['cards: pack', 409, 'pack'],
+    ['cards: idem_conflict', 409, 'idem_conflict'], ['cards: pack', 409, 'pack'],
   ])('a refusal "%s" is %i %s', async (message, status, error) => {
     h.rpcResult.cards_open = { error: { message } };
     const res = await open(withKey('/api/cards/open', { source: 'stock' }));
@@ -384,12 +384,13 @@ describe('POST /api/cards/open', () => {
     expect(res.status).toBe(500);
     expect(JSON.stringify(await res.json())).not.toMatch(/relation/);
   });
-  it('the daily pack asks the database for the group of the Paris day; a focus pack carries its group', async () => {
+  it('the daily pack asks the database for the group of the Paris day; a focus pack is refused (owner request of 2026-11-25, the focus pack is deleted)', async () => {
     await open(withKey('/api/cards/open', { source: 'daily' }));
     expect(h.rpcCalls.find((c) => c.fn === 'cards_daily_group')).toBeDefined();
     expect(h.rpcCalls.find((c) => c.fn === 'cards_open')?.args).toMatchObject({ p_source: 'daily', p_theme: null, p_focus: null });
-    await open(withKey('/api/cards/open', { source: 'focus', focus: 'group:G' }));
-    expect(h.rpcCalls.filter((c) => c.fn === 'cards_open')[1]?.args).toMatchObject({ p_source: 'focus', p_focus: 'group:G' });
+    const res = await open(withKey('/api/cards/open', { source: 'focus', focus: 'group:G' }));
+    expect(res.status).toBe(400);
+    expect(h.rpcCalls.filter((c) => c.fn === 'cards_open')).toHaveLength(1);
   });
   it('a Kpopdle bonus pack: the database re-reads the wins first, then opens with the day cap; bridges off means cap 0', async () => {
     await open(withKey('/api/cards/open', { source: 'bonus' }));
@@ -582,7 +583,7 @@ describe('the other writes of the contract', () => {
     expect(h.rpcCalls.filter((c) => c.fn === 'cards_ranking')[1]?.args).toMatchObject({ p_scope: 'friends' });
     const o = await (await odds(req('/api/cards/odds'))).json();
     expect(o.packs.map((p: { id: string }) => p.id)).toContain('golden');
-    expect(o.guarantees.map((g: { id: string }) => g.id)).toEqual(['five', 'gold', 'golden', 'pair', 'focus', 'daily']);
+    expect(o.guarantees.map((g: { id: string }) => g.id)).toEqual(['five', 'gold', 'golden', 'pair', 'daily']);
     expect((await (await help(req('/api/cards/help'))).json()).rules).toMatchObject({ stackCap: 5, goldByPack: 30 });
   });
   it('the moment of a card: the event with its precision, my first copy, the quiz link; bad numbers are refused', async () => {

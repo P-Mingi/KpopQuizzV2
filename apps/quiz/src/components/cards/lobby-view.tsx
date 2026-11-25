@@ -48,7 +48,7 @@ type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
  *  A win is a Kpopdle win (a quiz of the day is finished, never won). At most the width of "+1 pack each" (78.6 px at 12.5 px), or the heading wraps. */
 const QUIZ_ASIDE_DLE = 'Win: +1 pack';
 
-const SOURCE_LABEL: Record<string, string> = { stock: 'Pack', shards: 'Bought with shards', ad: 'Pack', bonus: 'Bonus pack', focus: 'Focus pack', daily: 'Pack of the day', demo: 'Demo pack' };
+const SOURCE_LABEL: Record<string, string> = { stock: 'Pack', shards: 'Bought with shards', ad: 'Pack', bonus: 'Bonus pack', daily: 'Pack of the day', demo: 'Demo pack' };
 
 function PackFace({ c, title, golden, count = '5 CARDS' }: { c: readonly string[]; title: string; golden: boolean; count?: string }): { style: Vars; className: string; body: React.ReactElement } {
   return {
@@ -86,7 +86,6 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
   const adBtn = useRef<HTMLButtonElement | null>(null);
   const packRef = useRef<HTMLButtonElement | null>(null);
   const [push, setPush] = useState<PushState>('unsupported');
-  const [focusG, setFocusG] = useState('');
 
   useEffect(() => { if (w) setThemeState(w.theme); else { try { const t = localStorage.getItem(THEME_KEY); if (isThemeId(t)) setThemeState(t); } catch { /* private mode */ } } }, [w?.theme]);
   useEffect(() => { void pushState().then(setPush); }, []);
@@ -163,11 +162,6 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
     return [];
   }, [lastPack, owned, byN, w?.last]);
   const topCards = useMemo(() => [...owned.keys()].map((n) => byN.get(n)).filter((x): x is NonNullable<typeof x> => !!x && !x.soon).sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || a.n - b.n).slice(0, 3), [owned, byN]);
-  const groups = useMemo(() => catalog.sections.filter((s) => s.id !== 'events' && s.id !== 'soloists' && !s.soon), [catalog.sections]);
-  // The prototype's default focus group is TWICE (S.focus "twice"); a catalog without it starts on its first group.
-  useEffect(() => { if (!focusG && groups[0]) setFocusG((groups.find((g) => g.name === 'TWICE') ?? groups[0]).id); }, [focusG, groups]);
-  const focusGroup = groups.find((g) => g.id === focusG) ?? groups[0] ?? null;
-  const focusUsed = w?.focusUsed === true;
   const adsLeft = w?.adsLeft ?? 0;
   const shards = w?.shards ?? 0;
   const pityLeft = w?.guarantee.left ?? null;
@@ -341,7 +335,7 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
           {almost.length ? almost.map((x) => {
             const m = byN.get(x.next.n);
             if (!m) return null;
-            // The prototype colours a row with its section's colour (an idol with its group's, a soloist with the Soloists'), as the binder's dots and the focus box.
+            // The prototype colours a row with its section's colour (an idol with its group's, a soloist with the Soloists').
             const col = catalog.sections.find((s) => s.ns.includes(m.n))?.color ?? paletteFor(`group:${x.name}`).dot;
             return (
               <div className="al" key={`${x.type}-${x.id}`} style={{ '--c': col } as Vars}>
@@ -386,15 +380,6 @@ export function LobbyView({ ads, odds, dailyGuest = null }: LobbyProps): React.R
             <WeekList week={guest ? guestWeek(now ?? Date.now()) : weekView} />
             <Link href={kcPath.missions} className="mx-btn">All missions and sets</Link>
           </div>
-          {groups.length ? (
-            <div className="mx m-focus" id="m-focus" style={focusGroup ? ({ '--fg': focusGroup.color } as Vars) : undefined}>
-              <div className="mx-head"><span className="mx-ico"><svg className="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4" /></svg></span><h2 className="h2">Focus pack</h2><span className="mx-aside">Once a day</span></div>
-              <p className="small">One of your packs brings 2 of its 5 cards from the group you pick. The odds for each edition stay the same.</p>
-              <label className="hint" htmlFor="focus-g" style={{ display: 'block', marginTop: 12 }}>Group</label>
-              <select className="fsel" id="focus-g" style={{ marginTop: 6 }} value={focusG} onChange={(e) => setFocusG(e.target.value)}>{groups.map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select>
-              <div className="row2"><button type="button" className="btn-primary" id="focus-btn" disabled={!ready || focusUsed || !hasPack || !focusGroup} onClick={() => focusGroup && router.push(kcPath.focus(focusGroup.id))}>Open a focus pack</button><small id="focus-s">{focusUsed ? 'Used today. The next one comes after midnight.' : !ready || !hasPack ? 'No pack ready right now.' : 'Uses one of your packs.'}</small></div>
-            </div>
-          ) : null}
           <div className="mx m-rank">
             <div className="mx-head"><span className="mx-ico"><Ico name="trophy" /></span><h2 className="h2">Friends</h2><span className="mx-aside">By completion</span></div>
             <ol className="rk-mini" id="rk-mini">

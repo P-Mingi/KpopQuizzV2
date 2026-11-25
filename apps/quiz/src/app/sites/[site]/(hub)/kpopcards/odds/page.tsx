@@ -15,7 +15,7 @@ export default async function KpopCardsOddsPage(): Promise<React.ReactElement> {
     <article className="wrap help">
       <CardsJsonLd page="odds" />
       <OddsIntro odds={cat?.odds ?? null} />
-      <p className="lede">A theme or a focus pack only changes which idols can come out, never the odds of an edition.</p>
+      <p className="lede">A theme only changes which idols can come out, never the odds of an edition.</p>
       <div className="box" style={{ padding: '6px 20px 20px', marginTop: 22 }}><DropRates odds={cat?.odds ?? null} /></div>
       <OddsLinks />
     </article>

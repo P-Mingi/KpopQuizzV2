@@ -160,13 +160,15 @@ describe('the seeded mock of the KpopCards contract', () => {
   });
   it('the example player has an Almost there card the shards can craft, as the prototype does', async () => {
     const a = createMockApi({ world: WORLD, seed: 1, now: () => T0, start: 'example' });
+    // Owner request of 2026-11-25: a craft costs 200 or more, the example's 34 shards no longer cover one.
+    a.data.shards = 1000;
     const al = await a.almost();
     if (isApiError(al)) throw new Error('x');
     const g = al.items.find((i) => i.type === 'group' && i.craft !== null && i.craft.canAfford);
     expect(g).toBeDefined();
     expect(g!.missing).toBe(1);
     expect(al.items[0]!.id).toBe(g!.id);
-    expect([10, 20]).toContain(g!.craft!.cost);
+    expect([200, 400]).toContain(g!.craft!.cost);
     const before = await a.state();
     if (isApiError(before)) throw new Error('x');
     const done = await a.craft({ key: k(50), n: g!.next.n });

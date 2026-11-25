@@ -1,7 +1,7 @@
 'use client';
 
 // KpopCards: the mount point of the opening (agent C's PackOpening) on the /kpopcards/open/... pages. It draws the pack(s) through the contract (one pack, five,
-// the pack of the day, a focus pack, a pack bought with shards, or the guest's demo pack), applies the result to the wallet, and renders the opening full
+// the pack of the day, a pack bought with shards, or the guest's demo pack), applies the result to the wallet, and renders the opening full
 // screen. On close it goes back to the lobby (or opens the next pack). Nothing here decides a result: the five cards come from the server.
 // The `ovopen` class on <html> (the pages behind the opening are hidden) is PackOpening's own (agent C).
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,7 @@ import type { OpenedCard } from '@/lib/cards/types';
 
 const ERRORS: Record<string, string> = {
   empty: 'No pack left. The next one comes soon.', shards: 'You need 50 shards for a pack.', forbidden: 'This account cannot open packs.', limit: 'That pack was already opened today.',
-  network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', focus_used: 'Today’s focus pack is already opened.',
+  network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.',
 };
 
 interface Dealt { cards: OpenedCard[]; source: OpeningSource; demo: boolean; extra: Partial<Pick<OpeningInput, 'golden' | 'goldenPacks' | 'finished' | 'headline' | 'copiesShards'>> }
@@ -68,13 +68,10 @@ export function OpeningMount({ spec: pageSpec }: { spec: OpenSpec }): React.Reac
       }
       if (status === 'guest') { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); back(); return; }
       if (status !== 'ready') { back(ERRORS.failed); return; }
-      const entity = spec.kind === 'focus' ? ((): string | null => { for (const it of catalog.items) if (!it.locked && it.sec === spec.group && it.card.kind === 'group') return it.card.entity; return null; })() : null;
-      if (spec.kind === 'focus' && !entity) { back(ERRORS.failed); return; }
       const r = await kc.open({
         key: newKey(),
-        source: spec.kind === 'daily' ? 'daily' : spec.kind === 'focus' ? 'focus' : spec.from === 'shards' ? 'shards' : 'stock',
+        source: spec.kind === 'daily' ? 'daily' : spec.from === 'shards' ? 'shards' : 'stock',
         ...(spec.kind === 'theme' ? { theme: spec.theme as ThemeId, packs: spec.packs } : { packs: 1 as const }),
-        ...(entity ? { focus: entity } : {}),
       });
       if (isKcError(r)) {
         if (r.error === 'unauthorized') { signIn({ title: 'Sign in to open packs', sub: 'Your collection lives with your account.' }); back(); return; }
@@ -86,18 +83,17 @@ export function OpeningMount({ spec: pageSpec }: { spec: OpenSpec }): React.Reac
       c.applyResult({ pack: { id: last.id, cards: last.cards.map((x) => ({ n: x.n, isNew: x.isNew, completesPair: x.completesPair, ...(x.pano ? { pano: x.pano.p } : {}) })), newCount: last.newCount, packNo: last.packNo }, state: r.state });
       const inp = openingInput(r);
       const cards = inp.cards as unknown as OpenedCard[];
-      // The source names the pack in the opening's step line (the prototype's #ov-step: "Pack of the day", "Focus pack", "Pack bought with shards").
-      const source: OpeningSource = spec.kind === 'daily' ? 'daily' : spec.kind === 'focus' ? 'focus' : spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
+      // The source names the pack in the opening's step line (the prototype's #ov-step: "Pack of the day", "Pack bought with shards").
+      const source: OpeningSource = spec.kind === 'daily' ? 'daily' : spec.kind === 'theme' && spec.from === 'shards' ? 'shards' : 'stock';
       setDealt({ cards, source, demo: false, extra: { golden: inp.golden, goldenPacks: inp.goldenPacks, finished: inp.finished, headline: inp.headline, copiesShards: inp.copiesShards } });
       return;
 
     })();
-  }, [status, api, kc, key, spec, router, signIn, toast, c, catalog.items]);
+  }, [status, api, kc, key, spec, router, signIn, toast, c]);
 
   const look = useMemo(() => {
     const golden = dealt ? dealt.extra.golden === true : w?.golden.next === true;
     if (spec.kind === 'daily') return packLook({ daily: w ? (() => { const p = paletteFor(`group:${w.daily.group.name}`); return { name: w.daily.group.name, a: p.a, c: p.c }; })() : null, golden });
-    if (spec.kind === 'focus') { const g = catalog.sections.find((s) => s.id === spec.group); return packLook({ focus: { slug: spec.group, name: g?.name ?? spec.group, color: g?.color ?? '#FF3E86' }, golden }); }
     return packLook({ theme: spec.kind === 'theme' ? spec.theme : 'all', golden });
   }, [spec, catalog, now, w?.golden.next, dealt]);
 

@@ -23,10 +23,9 @@ export function isThemeId(s: string | null | undefined): s is ThemeId {
 
 export interface PackLook { c: readonly [string, string, string]; title: string; path: string; golden: boolean }
 
-/** The face of the pack for a way of opening it: a theme, the pack of the day (the group's colour), a focus pack (the picked group), a golden pack. */
-export function packLook(o: { theme?: string | null; daily?: { name: string; a: string; c: string } | null; focus?: { slug: string; name: string; color: string } | null; golden?: boolean }): PackLook {
+/** The face of the pack for a way of opening it: a theme, the pack of the day (the group's colour), a golden pack. */
+export function packLook(o: { theme?: string | null; daily?: { name: string; a: string; c: string } | null; golden?: boolean }): PackLook {
   if (o.daily) return { c: [o.daily.a, '#B48CFF', o.daily.c], title: o.daily.name.toUpperCase(), path: 'daily', golden: !!o.golden };
-  if (o.focus) return { c: [o.focus.color, '#C55BFF', '#4CC9FF'], title: `FOCUS ${o.focus.name.toUpperCase()}`, path: `focus/${o.focus.slug}`, golden: !!o.golden };
   const t = themeBy(o.theme);
   return o.golden ? { c: GOLD_C, title: 'GOLDEN PACK', path: t.id, golden: true } : { c: t.c, title: t.title, path: t.id, golden: false };
 }

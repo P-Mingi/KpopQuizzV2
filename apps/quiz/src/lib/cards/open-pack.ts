@@ -21,14 +21,14 @@ interface PackJson {
 
 /** What the player is told for each refusal (409, the state of his wallet did not allow it). */
 const ERROR_NAME = {
-  empty: 'empty', shards: 'shards', bonus: 'bonus', focus_used: 'focus_used', reward: 'reward',
+  empty: 'empty', shards: 'shards', bonus: 'bonus', reward: 'reward',
 } as const;
 
-export async function openPack(db: ServiceDb, userId: string, source: Exclude<PackSource, 'ad'>, focus: string | null = null): Promise<NextResponse> {
+export async function openPack(db: ServiceDb, userId: string, source: Exclude<PackSource, 'ad'>): Promise<NextResponse> {
   const lim = limits();
   for (let attempt = 0; attempt < 2; attempt++) {
-    // Lot 3: the draw knows the player (the Gold guarantee, the group halves he owns, the focus group).
-    const ctx = await loadPackContext(db, userId, await loadPool(), focus);
+    // Lot 3: the draw knows the player (the Gold guarantee, the group halves he owns).
+    const ctx = await loadPackContext(db, userId, await loadPool());
     const cards = await drawServerPack({ ctx });
     const { data, error } = await db.rpc('cards_apply_pack', {
       p_user: userId,
@@ -39,7 +39,6 @@ export async function openPack(db: ServiceDb, userId: string, source: Exclude<Pa
       p_ads_limit: lim.ads,
       p_bonus_cap: lim.bonus,
       p_timer_cap: lim.timer,
-      p_focus: focus,
     });
     if (!error && data) {
       const pack = data as PackJson;
@@ -62,7 +61,6 @@ export async function openPack(db: ServiceDb, userId: string, source: Exclude<Pa
       // Another pack of the player landed between the count and the store: count again and draw once more.
       continue;
     }
-    if (why === 'focus') return json({ error: 'bad_request' }, 400);
     if (why && why in ERROR_NAME) return json({ error: ERROR_NAME[why as keyof typeof ERROR_NAME] }, 409);
     return json({ error: 'server' }, 500);
   }

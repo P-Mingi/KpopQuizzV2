@@ -6,8 +6,10 @@ import Link from 'next/link';
 import { kcPath } from '@/lib/cards/kc-paths';
 import { jsonLdString } from '@/lib/seo/json-ld';
 import {
-  CARDS_H1, CARDS_ODDS_CHANGED, DISCLAIMER, cardsJsonLd, landingAnswer, landingQuestions, longDate, oddsAnswer,
+  CARDS_H1, CARDS_ODDS_CHANGED, CARDS_PHRASE, DISCLAIMER, cardsJsonLd, landingAnswer, landingQuestions, longDate, oddsAnswer,
 } from '@/lib/kpopcards/seo';
+
+import { KcAnswer } from './kc-answer';
 
 import type { CardsPageKey, CardsStats } from '@/lib/kpopcards/seo';
 import type { CatalogOdds } from '@/lib/cards/types';
@@ -17,13 +19,23 @@ export function CardsJsonLd({ page, stats = null }: { page: CardsPageKey; stats?
   return <>{cardsJsonLd(page, stats).map((d, i) => <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(d) }} />)}</>;
 }
 
-/** The top of /kpopcards for every visitor: the one H1 and the 59-word answer block. The lobby ("Your packs", an H2) follows. */
+/** Set before the first paint when the browser holds a session cookie (the Supabase auth cookie), so a signed-in player's header is compact from the start (see kc-answer.tsx). */
+const SIGNED_IN_HINT = "try{if(/(?:^|;\\s*)sb-[^=;]+-auth-token/.test(document.cookie))document.documentElement.setAttribute('data-kc-in','1')}catch(e){}";
+
+/**
+ * The top of /kpopcards: the one H1 and, for a signed-out visitor, the 59-word answer block. The lobby ("Your packs", an H2) follows. Owner request of 2026-11-25:
+ * a compact header, the wordmark "Kpop" and "Cards" in the brand colour (as the Kpopdle and Otakudle titles) with the primary phrase as a small second line inside
+ * the H1 (its text is still CARDS_H1.landing), and the answer block for the signed-out only (KcAnswer).
+ */
 export function CardsIntro({ stats }: { stats: CardsStats | null }): React.ReactElement {
   return (
-    <header className="wrap kc-intro" id="kc-intro" style={{ textAlign: 'center', paddingTop: 18 }}>
-      <h1 className="h1" id="t-kpopcards">{CARDS_H1.landing}</h1>
-      <p className="lede" id="kc-answer" style={{ margin: '8px auto 0', maxWidth: 640 }}>{landingAnswer(stats)}</p>
-    </header>
+    <>
+      <script dangerouslySetInnerHTML={{ __html: SIGNED_IN_HINT }} />
+      <header className="wrap kc-intro" id="kc-intro">
+        <h1 className="kc-h1" id="t-kpopcards"><span className="kc-wm">Kpop<b>Cards</b></span><span className="kc-vh">: </span><small className="kc-sub">{CARDS_PHRASE}</small></h1>
+        <KcAnswer>{landingAnswer(stats)}</KcAnswer>
+      </header>
+    </>
   );
 }
 

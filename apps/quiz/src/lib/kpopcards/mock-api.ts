@@ -186,15 +186,12 @@ export function createMockApi(opts: MockOptions): MockApi {
   const sec = (c: UiCard): void => { void c; };
   void sec;
 
-  function packOf(source: OpenRequest['source'], theme: ThemeId, focus: string | undefined, golden: boolean, pity: boolean, owned: Set<number>): { drawn: ReturnType<typeof drawKcPack>; kind: PackKind; pool: PoolIndex } {
+  function packOf(source: OpenRequest['source'], theme: ThemeId, golden: boolean, pity: boolean, owned: Set<number>): { drawn: ReturnType<typeof drawKcPack>; kind: PackKind; pool: PoolIndex } {
     const all = indexPool(poolCards(w));
     if (source === 'daily') {
       const g = dailyGroup(w, p.parisDay)!;
       const pool = indexPool(poolCards(w).filter((c) => groupCards(w, g.id).some((x) => x.n === c.n)));
       return { drawn: drawKcPack(pool, all, rng, { pity, golden, owned }), kind: 'daily', pool };
-    }
-    if (source === 'focus') {
-      return { drawn: drawKcPack(all, all, rng, { pity, golden, owned, focus: focus ?? null }), kind: 'focus', pool: all };
     }
     const cs = themeCards(w, theme);
     const pool = theme === 'all' ? all : indexPool(poolCards(w).filter((c) => cs.some((x) => x.n === c.n)));
@@ -247,17 +244,12 @@ export function createMockApi(opts: MockOptions): MockApi {
       if (k && 'hit' in k) return { ...(k.hit as object), replayed: true } as never;
       touch();
       const source = req.source;
-      if (!['stock', 'daily', 'focus', 'shards', 'bonus'].includes(source)) return err('source');
+      if (!['stock', 'daily', 'shards', 'bonus'].includes(source)) return err('source');
       const n = req.packs === 5 ? 5 : 1;
       if (n === 5 && source !== 'stock') return err('bad_request');
       const theme: ThemeId = req.theme && THEME_IDS.includes(req.theme) ? req.theme : p.prefs.theme;
       const day = p.parisDay;
       if (source === 'daily' && p.dailyDay === day) return err('daily_used');
-      if (source === 'focus') {
-        if (!req.focus || !w.entities.some((e) => e.id === req.focus && e.kind === 'group')) return err('focus');
-        if (p.focusDay === day) return err('focus_used');
-        if (p.stock < 1) return err('empty');
-      }
       if (source === 'stock') { if (p.stock < n) return err(n === 5 ? 'stack_short' : 'empty'); }
       if (source === 'shards' && p.shards < KC.SHARD_PACK) return err('shards');
       if (source === 'bonus') {
@@ -266,11 +258,10 @@ export function createMockApi(opts: MockOptions): MockApi {
       }
       const before = levelOf(ownedNs().size);
       const finishedBefore = new Set(missionSets(w, p).filter((s) => s.done).map((s) => s.id));
-      if (source === 'stock' || source === 'focus') p.stock -= n;
+      if (source === 'stock') p.stock -= n;
       if (source === 'shards') p.shards -= KC.SHARD_PACK;
       if (source === 'bonus') p.bonusUsed += 1;
       if (source === 'daily') p.dailyDay = day;
-      if (source === 'focus') p.focusDay = day;
       const packs: OpenedPack[] = [];
       const givenPanos: PanoRef[] = [];
       let copiesShards = 0, copies = 0, newCards = 0, goldenPacks = 0, guaranteePacks = 0;
@@ -280,11 +271,11 @@ export function createMockApi(opts: MockOptions): MockApi {
         const golden = forceGoldenNext || packNo % KC.GOLDEN_EVERY === 0;
         const pity = forceGuarantee || (p.sinceGold >= KC.GOLD_BY_PACK - 1 && w.cards.some((c) => c.rarity === 'UR'));
         forceGoldenNext = false; forceGuarantee = false;
-        const { drawn, kind, pool: packPool } = packOf(source, theme, req.focus, golden, pity, ownedNs());
+        const { drawn, kind, pool: packPool } = packOf(source, theme, golden, pity, ownedNs());
         // Fewer new cards (the twin of cards_dup_pick, 126-dup-bias.sql): the same bias, the same exemptions (the Gold guarantee and the golden fifth card).
         drawn.cards.splice(0, 5, ...applyDupBias(drawn.cards, {
           pool: [...packPool.values()].flat(), universe: poolCards(w), rarityOf: (cn) => w.cards.find((x) => x.n === cn)!.rarity, owned: ownedNs(), siblings: siblingsOf,
-          focus: source === 'focus' ? req.focus ?? null : null, bias: KC.DUP_BIAS, fifthExempt: drawn.golden || drawn.guarantee, rng,
+          bias: KC.DUP_BIAS, fifthExempt: drawn.golden || drawn.guarantee, rng,
         }));
         if (forcedPack) {
           // The pattern of the dev control: new cards are unowned cards of the rarity, copies are owned ones (given first when he has none).
@@ -334,7 +325,7 @@ export function createMockApi(opts: MockOptions): MockApi {
         p.opened = packNo;
         p.week.packs += 1; p.week.newc += nw;
         newCards += nw; if (drawn.golden) goldenPacks++; if (drawn.guarantee) guaranteePacks++;
-        const grp = source === 'daily' ? dailyGroup(w, day) : source === 'focus' ? sectionsOf(w).find((s) => s.id === req.focus) ?? null : null;
+        const grp = source === 'daily' ? dailyGroup(w, day) : null;
         packs.push({ id: `mock-${seed}-${packNo}`, packNo, source, theme: kind, group: grp ? { id: grp.id, slug: grp.slug, name: grp.name, kind: grp.kind } : null, golden: drawn.golden, guarantee: drawn.guarantee, cards, newCount: nw, best: EDITIONS[best].edition, ...(w.panoramas ? { panoramas: packPanos } : {}) });
         p.recent.unshift({ at: now(), best, source: source === 'shards' ? 'shards' : source === 'bonus' ? 'bonus' : 'stock', newCount: nw });
         p.recent = p.recent.slice(0, 10);
@@ -447,7 +438,6 @@ export function createMockApi(opts: MockOptions): MockApi {
       if (req.sound !== undefined) p.prefs.sound = !!req.sound;
       if (req.vibration !== undefined) p.prefs.vibration = !!req.vibration;
       if (req.theme !== undefined) { if (!THEME_IDS.includes(req.theme)) return err('pref'); p.prefs.theme = req.theme; }
-      if (req.focus !== undefined) { if (req.focus !== null && !w.entities.some((e) => e.id === req.focus && e.kind === 'group')) return err('pref'); p.prefs.focus = req.focus; }
       return { prefs: { ...p.prefs } };
     },
     async lock(req) {

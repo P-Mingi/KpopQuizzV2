@@ -4,7 +4,7 @@
 //     in it, an answer from the database that is missing or late locks (fail closed);
 //   - the binder shows a pocket "Card coming" for each locked subject (a pair for a group), in its group's section, and nothing counts it:
 //     the cards, a section's card numbers, the completion by kind, the locks and editions of the ladder, the odds;
-//   - a locked subject is never a search result, a missing, owned or favourite card, a focus pack or a lobby group; it has no star, no heart,
+//   - a locked subject is never a search result, a missing, owned or favourite card, it has no star, no heart,
 //     no "new" mark and no link; no ranking line, set, goal, almost-there line, idol page, theme or pack of the day is made of it;
 //   - the admin reads the opening month (and "inconnue" when it is null), the pages never.
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -194,11 +194,6 @@ describe('the binder: a pocket "Card coming" that nothing counts', () => {
     expect(src).toContain('list.filter((i) => !(i.locked && i.soon)).length');
     // the totals of the page are the cards', not the pockets'
     expect(src).toContain('const total = scopedCards.length;');
-  });
-  it('is no group a player can open a pack for or pick in the lobby: the focus page and the lobby list leave the sections of locked pockets out', () => {
-    const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '../..');
-    expect(readFileSync(path.join(root, 'components/cards/lobby-view.tsx'), 'utf8')).toContain("s.id !== 'soloists' && !s.soon");
-    expect(readFileSync(path.join(root, 'app/sites/[site]/(hub)/kpopcards/open/focus/[group]/page.tsx'), 'utf8')).toContain("s.id !== 'events' && !s.soon");
   });
 });
 

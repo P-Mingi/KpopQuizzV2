@@ -189,8 +189,6 @@ export interface WalletState {
   timerLeft?: number;
   /** Lot 3 A11: packs left up to and including the one with a Gold card 5 for sure (1 = the next pack); null while no Gold card is in packs. */
   pityLeft?: number | null;
-  /** Lot 3 A17: true once today's focus pack is opened. */
-  focusUsed?: boolean;
   /** Lot 3 A17: the card numbers of the wishlist (missing cards only, at most WISHLIST_MAX). */
   wishlist?: number[];
   /** Lot 4 B3: the last 10 packs, newest first. */
@@ -285,8 +283,6 @@ export interface PoolCard {
   /** Lot 2: the subject (cards_entities.id). The draw picks a subject first, then one of its cards of the rolled rarity (the two halves of a
    *  group), so a group with a pair comes out as often as a subject with one card. Without it, every card is its own subject. */
   entity?: string;
-  /** Lot 3 (C4): the group of the card's subject (cards_entities.group_id of an idol), so a focus pack finds a group's idols. */
-  group?: string | null;
 }
 
 /** An integer in [0, maxExclusive). The server passes crypto.randomInt; the tests pass a seeded generator. */

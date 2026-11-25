@@ -52,8 +52,10 @@ export const CARDS_TITLE: Readonly<Record<CardsPageKey, string>> = {
 };
 
 /** The H1 of /kpopcards and /kpopcards/odds (the help page keeps its own, "How KpopCards works"). */
+/** The primary phrase of /kpopcards: in the title, the H1 (as its small second line), the meta description and the answer block. */
+export const CARDS_PHRASE = 'free K-pop photocard game';
 export const CARDS_H1 = {
-  landing: 'KpopCards: free K-pop photocard game',
+  landing: `KpopCards: ${CARDS_PHRASE}`,
   odds: 'KpopCards odds and drop rates',
   help: 'How KpopCards works',
 } as const;
