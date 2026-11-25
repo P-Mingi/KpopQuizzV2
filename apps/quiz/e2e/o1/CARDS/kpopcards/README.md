@@ -11,7 +11,7 @@ overflow, journey, accessibility, flip and fps checks. Config: `apps/quiz/e2e/o1
    - `./node_modules/.bin/playwright test -c e2e/o1/CARDS/playwright.kpopcards.config.ts visual` : pixels and boxes, 3 viewports x every screen
      (`KC_SCREENS=lobby,help`, `KC_VPS=390x664`)
    - `... overflow` : no horizontal scroll or clipped element 360 to 1920 px on every page, and the opening fits 13 sizes
-   - `... journeys` : guest demo, open 1, open 5, pack of the day, focus pack, golden, Gold, Full Art, Reveal all, craft, set reward, week, ranking, friend by code, idol page, recycle, locks
+   - `... journeys` : guest demo, open 1, open 5, pack of the day, golden, Gold, Full Art, Reveal all, craft, set reward, week, ranking, friend by code, idol page, recycle, locks
    - `... a11y` : targets of 44 px, visible focus, names, reduced motion
    - `KC_PROJECT=chromium|firefox|webkit ... flip` : the card view flip never shows the back through the front
    - `... fps` (chromium) : CPU 4x slower, Full Art opening, prototype and app, 390x664 and 1366x657
