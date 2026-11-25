@@ -172,7 +172,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
               {quizLinks[yGroup] ? <> · <a href={quizLinks[yGroup]}>{t.quizOf(yShown)}</a></> : null}
             </p>
           )) : null}
-          <details className="hub-dle-howto" open>
+          <details className="hub-dle-howto">
             <summary>
               <span>{howtoMark ? <IconMark cfg={howtoMark.cfg} png={howtoMark.png} state="done" size={20} glyph={20} slot="howto" /> : <Ic d={D.help} size={20} />}<h2>{w.howTitle}</h2></span>
               <Ic d={D.chev} size={20} className="hub-dle-chev" />
@@ -190,8 +190,8 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
             </div>
           </details>
           {questions.map((x) => (
-            // A question, answered in its first sentence, open in the server HTML (rule 3.2). Text only: no FAQPage markup.
-            <details key={x.q} className="hub-dle-howto hub-dle-q" open>
+            // A question, answered in its first sentence. Closed by default (owner, 2026-11-25); the answer stays in the server HTML (rule 3.4). Text only: no FAQPage markup.
+            <details key={x.q} className="hub-dle-howto hub-dle-q">
               <summary>
                 <span><Ic d={D.help} size={20} /><h2>{x.q}</h2></span>
                 <Ic d={D.chev} size={20} className="hub-dle-chev" />

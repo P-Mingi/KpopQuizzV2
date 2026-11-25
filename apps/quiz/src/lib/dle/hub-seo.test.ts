@@ -341,11 +341,11 @@ describe('the pages, the flag on: one H1, the answer block, the JSON-LD, the lin
       ];
       for (const m of marks) expect(m, `${p.path} marks ${marks.join(',')}`).toBeGreaterThan(-1);
       expect([...marks].sort((a, b) => a - b), `${p.path} order`).toEqual(marks);
-      // The questions are open (visible without a click) and carry their answer in the HTML.
+      // The questions are closed by default (owner, 2026-11-25) and still carry their answer in the server HTML (rule 3.4).
       for (const x of gameQuestions(p.game!, p.locale)) {
         const i = html.indexOf(`<h2>${x.q}</h2>`);
         expect(html.lastIndexOf('<details', i), p.path).toBeGreaterThan(-1);
-        expect(html.slice(html.lastIndexOf('<details', i), i), p.path).toContain(' open');
+        expect(html.slice(html.lastIndexOf('<details', i), i), p.path).not.toContain(' open');
         // Review fix 17: "Bunnyverse" of the third answer is a link to /about, so the text is compared without its tags.
         expect(html.replace(/<[^>]+>/g, ''), p.path).toContain(x.a);
       }
