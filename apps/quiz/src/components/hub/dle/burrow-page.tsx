@@ -5,6 +5,7 @@ import { breadcrumbJsonLd, burrowAnswerBlock, burrowGamesJsonLd } from '@/lib/dl
 import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, localePath } from '@/lib/dle/games';
 import { getAnimeSeriesSlugs, getDleDay, getDleImages, getKpopGroupSlugs, quizLinksOf } from '@/lib/dle/read';
+import { getLiveIcons } from '@/lib/photos/icons-read';
 import { getLiveStickers } from '@/lib/photos/public-read';
 import { pageStickers } from '@/lib/photos/stickers';
 
@@ -28,7 +29,7 @@ export async function burrowFacts(): Promise<Readonly<Partial<Record<DleGameId, 
 
 export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<React.ReactElement> {
   const t = dleCopy(locale);
-  const [facts, images, kpopSlugs, animeSlugs, showCredits, live] = await Promise.all([burrowFacts(), getDleImages(), getKpopGroupSlugs(), getAnimeSeriesSlugs(), siteHasCredits(), getLiveStickers()]);
+  const [facts, images, kpopSlugs, animeSlugs, icons, showCredits, live] = await Promise.all([burrowFacts(), getDleImages(), getKpopGroupSlugs(), getAnimeSeriesSlugs(), getLiveIcons(), siteHasCredits(), getLiveStickers()]);
   const quizLinks: Record<string, string> = {};
   for (const g of builtGames()) {
     const a = facts[g.id]?.yesterday?.answer;
@@ -50,7 +51,7 @@ export async function BurrowPage({ locale }: { locale: DleLocale }): Promise<Rea
           <span aria-hidden="true" className="hub-dle-banner-fade" />
         </figure>
       ) : null}
-      <BurrowBoard locale={locale} dateLabel={dateLabel} answer={burrowAnswerBlock(locale, dateLabel)} facts={facts} images={images} quizLinks={quizLinks} stickers={pageStickers(live, 'daily')} />
+      <BurrowBoard locale={locale} dateLabel={dateLabel} answer={burrowAnswerBlock(locale, dateLabel)} facts={facts} images={images} icons={icons} quizLinks={quizLinks} stickers={pageStickers(live, 'daily')} />
     </DleChrome>
   );
 }

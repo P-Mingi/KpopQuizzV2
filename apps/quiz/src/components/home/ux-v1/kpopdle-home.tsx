@@ -4,7 +4,7 @@
 // dle_day (an error, dle_unavailable, or production without the dle tables throws, and the loader reads that as no module). dle_day is read directly, not through
 // getDleDay: unstable_cache keeps serving its last answer when a refresh fails, which would keep the module up on a game that went off. The home's own ISR is the cache.
 // It reads no token, so dle_day never gives a play or a target; only the game number and the count of wins reach the markup, never yesterday's answer.
-import { IconMark } from '@/components/photos/icon-mark';
+import { GameMark, firstSavedIcon } from '@/components/photos/game-mark';
 import { Icon } from '@/components/ux-v1/icon';
 import { UxButton } from '@/components/ux-v1/button';
 import { formatCount } from '@/lib/dle/copy';
@@ -63,7 +63,7 @@ const CSS = `
 .p1-kd-t { display: block; width: 16px; height: 16px; border-radius: 4px; background: var(--ux-ok); }
 .p1-kd-near { background: var(--ux-close); }
 .p1-kd-off { background: var(--ux-no); }
-.p1-kd-mark { flex: none; display: block; }
+.p1-kd-mark { flex: none; display: grid; width: 96px; height: 96px; }
 .p1-kd-main { flex: 1; min-width: 0; align-self: stretch; display: flex; flex-direction: column; }
 .p1-kd-head { display: flex; align-items: center; gap: 4px 12px; flex-wrap: wrap; }
 .p1-kd-head h2 { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; line-height: 1.6; letter-spacing: 0; color: var(--ux-pink-ink); }
@@ -91,8 +91,8 @@ const CSS = `
 
 /**
  * The picture of the card, in this order (owner, 2026-11-23: "je le veux ici", the admin's Icônes du jeu, Accueil, jeux du jour, Kpopdle):
- * `mark`, the icon the owner saved in that slot (the same slot draws the Kpopdle card of the bunnyverse.org home, lib/photos/icons-read.ts), drawn
- * as there (IconMark, state "done"); else `icon`, the picture of Bannières et images, "Icône de la carte Kpopdle" (o1/adminpics); else the grid of
+ * `mark`, the icon the owner saved for the game: the slot of its switch on the game page (k-idol), else the slot of the Kpopdle card of the bunnyverse.org
+ * home (lib/photos/icons-read.ts); drawn plain and large, with no frame (owner, 2026-11-25); else `icon`, the picture of Bannières et images, "Icône de la carte Kpopdle" (o1/adminpics); else the grid of
  * squares, as before. A slot with nothing saved changes nothing.
  */
 export function KpopdleHomeCard({ view, icon, mark }: { view: KpopdleHomeView; icon?: GameIcon | undefined; mark?: LiveIcon | undefined }): React.ReactElement {
@@ -109,7 +109,7 @@ export function KpopdleHomeCard({ view, icon, mark }: { view: KpopdleHomeView; i
       <div className="p1-kd-card">
         {mark ? (
           <span className="p1-kd-mark" aria-hidden="true">
-            <IconMark cfg={mark.cfg} png={mark.png} state="done" size={80} glyph={40} slot={HOME_TODAY_ICON.kpopdle} />
+            <GameMark icon={mark} size={96} slot={mark.id} />
           </span>
         ) : (
           <span className="p1-kd-tiles" aria-hidden="true" {...(icon ? { style: GAME_ICON_BOX_STYLE } : {})}>
@@ -150,11 +150,10 @@ export async function kpopdleHome(): Promise<React.ReactElement | null> {
   return <KpopdleHomeCard view={view} icon={icons[GAME]} mark={mark} />;
 }
 
-/** The Kpopdle icon the owner saved in the Icônes du jeu (a live row), or undefined: the defaults of the slot never replace the card's picture. */
+/** The Kpopdle icon the owner saved in the Icônes du jeu (a live row of k-idol, else of the home slot), or undefined: the defaults of the slot never replace the card's picture. */
 async function savedMark(): Promise<LiveIcon | undefined> {
   try {
-    const m = (await getLiveIcons())[HOME_TODAY_ICON.kpopdle];
-    return m && m.live ? m : undefined;
+    return firstSavedIcon(await getLiveIcons(), 'k-idol', HOME_TODAY_ICON.kpopdle) ?? undefined;
   } catch {
     return undefined;
   }

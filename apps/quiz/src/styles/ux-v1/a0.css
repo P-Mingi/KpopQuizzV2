@@ -212,6 +212,27 @@ button.ux-lnk { background: none; padding: 0; border: 0; cursor: pointer; font-f
 .ux-links a .ux-ico { width: 16px; height: 16px; }
 .ux-links a:hover { background: var(--ux-surface); color: var(--ux-ink); }
 .ux-links a[aria-current="page"] { background: var(--ux-pink-fill); color: var(--ux-on-accent); font-weight: 600; }
+/* Owner request 2026-11-25 (kpopquiz.org): an item with sub-items (Quizzes: Groups, Community: Leaderboard). The wrapper is the pill, the link and the toggle sit inside it, the list
+   is a card under it. The list stays in the DOM (visibility, not display) so its links are in the server HTML; hidden, it is out of the tab order and the accessibility tree. */
+.ux-nd { position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; height: 38px; border-radius: 999px; transition: background .15s, color .15s; }
+.ux-nd:hover, .ux-nd[data-open="true"] { background: var(--ux-surface); }
+.ux-nd:has(> a[aria-current]) { background: var(--ux-pink-fill); }
+.ux-links .ux-nd > a { background: transparent; padding-right: 2px; }
+.ux-links .ux-nd > a:hover { background: transparent; color: var(--ux-ink); }
+.ux-links .ux-nd > a[aria-current] { background: transparent; color: var(--ux-on-accent); font-weight: 600; }
+.ux-nd-t { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 38px; padding: 0 6px 0 0; border: 0; border-radius: 999px; background: transparent; color: var(--ux-muted); cursor: pointer; }
+.ux-nd-t .ux-ico { width: 14px; height: 14px; transition: transform .15s; }
+.ux-nd[data-open="true"] .ux-nd-t .ux-ico { transform: rotate(180deg); }
+.ux-nd:has(> a[aria-current]) .ux-nd-t { color: var(--ux-on-accent); }
+.ux-nd-t:focus-visible { outline: 2px solid var(--ux-pink-ink); outline-offset: 1px; }
+.ux-nd-m { position: absolute; top: 100%; left: 0; z-index: 70; min-width: 190px; margin: 6px 0 0; padding: 6px; list-style: none; background: var(--ux-raised); border: 1px solid var(--ux-line); border-radius: 16px; box-shadow: var(--ux-shadow-ov); visibility: hidden; opacity: 0; transform: translateY(-4px); transition: opacity .14s, transform .14s, visibility 0s .14s; }
+.ux-nd::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 8px; }
+.ux-nd:hover .ux-nd-m, .ux-nd[data-open="true"] .ux-nd-m { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+.ux-links .ux-nd-m a { display: flex; width: 100%; box-sizing: border-box; height: 40px; padding: 0 12px; border-radius: 10px; color: var(--ux-ink); font-weight: 500; }
+.ux-links .ux-nd-m a:hover { background: var(--ux-surface); }
+.ux-links .ux-nd-m a[aria-current="page"] { background: var(--ux-pink-fill); color: var(--ux-on-accent); font-weight: 600; }
+.ux-links .ux-nd-m a .ux-ico { display: inline-block; }
+@media (prefers-reduced-motion: reduce) { .ux-nd-m, .ux-nd-t .ux-ico { transition: none; } }
 .ux-nav-r { margin-left: auto; display: flex; align-items: center; gap: 4px; position: relative; }
 .ux-sbtn { width: 40px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 999px; color: var(--ux-muted); transition: background .15s; }
 .ux-sbtn:hover { background: var(--ux-surface); }
@@ -545,7 +566,7 @@ html.ux-create .ux-tabbar, html.ux-create .ux-foot,
 }
 @media (max-width: 1100px) {
   .ux-qgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ux-links a[data-nav="leaderboard"], .ux-lsp:has(+ a[data-nav="leaderboard"]) { display: none; }
+  .ux-links > a[data-nav="leaderboard"], .ux-lsp:has(+ a[data-nav="leaderboard"]) { display: none; }
 }
 @media (max-width: 900px) {
   .ux-tgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

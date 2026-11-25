@@ -290,11 +290,13 @@ test.describe('client navigation', () => {
     const desktop = widthOf(page) > 760;
     const h1 = page.locator('#main h1').first();
     const noRing = (): Promise<string> => h1.evaluate((el) => getComputedStyle(el).outlineStyle);
-    const steps: [string, RegExp][] = desktop
-      ? [['.ux-links a[data-nav="quizzes"]', /\/quizzes$/], ['.ux-links a[data-nav="groups"]', /\/groups$/], ['.ux-links a[data-nav="blindtest"]', /\/blindtest$/], ['.ux-links a[data-nav="home"]', /\/$/]]
+    // Groups sits under the Quizzes toggle since the owner's request of 2026-11-25: its step opens the toggle first.
+    const steps: [string, RegExp, string?][] = desktop
+      ? [['.ux-links a[data-nav="quizzes"]', /\/quizzes$/], ['.ux-links a[data-nav="groups"]', /\/groups$/, '.ux-links button[aria-label="Quizzes menu"]'], ['.ux-links a[data-nav="blindtest"]', /\/blindtest$/], ['.ux-links a[data-nav="home"]', /\/$/]]
       : [['.ux-tab[href="/quizzes"]', /\/quizzes$/], ['.ux-tab[href="/blindtest"]', /\/blindtest$/], ['.ux-tab[href="/"]', /\/$/]];
-    for (const [link, url] of steps) {
+    for (const [link, url, opener] of steps) {
       const before = await page.title();
+      if (opener) await page.locator(opener).click();
       await page.locator(link).click();
       await expect(page).toHaveURL(url, { timeout: 60_000 });
       await expect(h1).toBeFocused({ timeout: 15_000 });
@@ -320,13 +322,19 @@ test.describe('client navigation', () => {
     await page.goto('/');
     test.skip(!(await hasShell(page)), 'UX v1 flag is OFF on this build');
     await waitHydrated(page);
-    const target = page.locator('.ux-links a[data-nav="groups"]');
-    let reached = false;
-    for (let i = 0; i < 15 && !reached; i++) {
-      await page.keyboard.press('Tab');
-      reached = await target.evaluate((el) => el === document.activeElement);
-    }
-    expect(reached).toBe(true);
+    // Groups sits under the Quizzes toggle (owner request of 2026-11-25): Tab to the toggle, Enter opens it, Tab to Groups.
+    const tabTo = async (selector: string): Promise<boolean> => {
+      const el = page.locator(selector);
+      for (let i = 0; i < 15; i++) {
+        await page.keyboard.press('Tab');
+        if (await el.evaluate((node) => node === document.activeElement)) return true;
+      }
+      return false;
+    };
+    expect(await tabTo('.ux-links button[aria-label="Quizzes menu"]')).toBe(true);
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.ux-links button[aria-label="Quizzes menu"]')).toHaveAttribute('aria-expanded', 'true');
+    expect(await tabTo('.ux-links a[data-nav="groups"]')).toBe(true);
     await page.keyboard.press('Enter');
     await expect(page).toHaveURL(/\/groups$/, { timeout: 60_000 });
     const h1 = page.locator('#main h1').first();
