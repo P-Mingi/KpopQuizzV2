@@ -3,18 +3,18 @@
 html.ux-v1[data-site="hub"] {
   --hub-dle-wrong: #DC2626; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #DCD6CD; --hub-dle-cb-wrong-ink: #33302C; --hub-dle-card: #FFFFFF; --hub-dle-line: #ECE8E3; --hub-dle-line-2: #D9D3CB; --hub-dle-muted: #6B655E; --hub-dle-text: #4A443E; --hub-dle-field: #FFFFFF;
   --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #BBF7D0;
-  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-hint-edge: #FCC9C9; --hub-dle-dark: #1F1B17; --hub-dle-dark-ink: #FAF8F5; --hub-dle-marq-ink: #F59BBB;
+  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-near-edge: #A88414; --hub-dle-hint-edge: #FCC9C9; --hub-dle-dark: #1F1B17; --hub-dle-dark-ink: #FAF8F5; --hub-dle-marq-ink: #F59BBB;
 }
 html.ux-v1.dark[data-site="hub"] {
   --hub-dle-wrong: #B91C1C; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #3A3631; --hub-dle-cb-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
   --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #14532D;
-  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
+  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-near-edge: #A88414; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
 }
 @media (prefers-color-scheme: dark) {
   html.ux-v1[data-site="hub"]:not(.light) {
     --hub-dle-wrong: #B91C1C; --hub-dle-wrong-ink: #FFFFFF; --hub-dle-cb-wrong: #3A3631; --hub-dle-cb-wrong-ink: #E8E3DB; --hub-dle-card: #1B1917; --hub-dle-line: #2C2926; --hub-dle-line-2: #45403A; --hub-dle-muted: #ADA69C; --hub-dle-text: #CFC8BE; --hub-dle-field: #1B1917;
     --hub-dle-right: #15803D; --hub-dle-right-ink: #FFFFFF; --hub-dle-right-soft: #14532D;
-  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
+  --hub-dle-near: #EFC94C; --hub-dle-near-ink: #412402; --hub-dle-near-edge: #A88414; --hub-dle-hint-edge: #532424; --hub-dle-dark: #0F0E0D; --hub-dle-dark-ink: #FAF8F5;
   }
 }
 html.ux-v1[data-site="hub"] .hub-dle-root { position: relative; flex: 1 1 auto; min-height: 100vh; display: flex; flex-direction: column; background: var(--ux-page); color: var(--ux-ink); font-family: var(--font-dm-sans), "DM Sans", "Pretendard", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
@@ -282,7 +282,7 @@ html.ux-v1[data-site="hub"] .hub-dle-legend { display: flex; flex-wrap: wrap; al
 html.ux-v1[data-site="hub"] .hub-dle-legend > span { display: inline-flex; align-items: center; gap: 6px; }
 html.ux-v1[data-site="hub"] .hub-dle-sw { display: inline-block; width: 16px; height: 16px; border-radius: 5px; }
 html.ux-v1[data-site="hub"] .hub-dle-sw-correct { background: var(--hub-dle-right); }
-html.ux-v1[data-site="hub"] .hub-dle-sw-near { background: var(--hub-dle-near); }
+html.ux-v1[data-site="hub"] .hub-dle-sw-near { background: var(--hub-dle-near); box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge); }
 html.ux-v1[data-site="hub"] .hub-dle-sw-wrong { background: var(--hub-dle-wrong); }
 html.ux-v1[data-site="hub"] .hub-dle-gridwrap { overflow-x: auto; padding-bottom: 6px; }
 html.ux-v1[data-site="hub"] .hub-dle-grid { width: 100%; min-width: 1040px; border-collapse: separate; border-spacing: 8px 8px; table-layout: fixed; }
@@ -300,7 +300,7 @@ html.ux-v1[data-site="hub"] .hub-dle-rowin { animation: hub-dle-rowin .32s ease-
 html.ux-v1[data-site="hub"] .hub-dle-tile { position: relative; width: 100%; min-height: 72px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 6px; text-align: center; font-weight: 700; font-size: 14px; line-height: 1.2; overflow-wrap: anywhere; }
 html.ux-v1[data-site="hub"] .hub-dle-tile-long { font-size: 12px; }
 html.ux-v1[data-site="hub"] .hub-dle-t-correct { background: var(--hub-dle-right); color: var(--hub-dle-right-ink); }
-html.ux-v1[data-site="hub"] .hub-dle-t-near { background: var(--hub-dle-near); color: var(--hub-dle-near-ink); }
+html.ux-v1[data-site="hub"] .hub-dle-t-near { background: var(--hub-dle-near); color: var(--hub-dle-near-ink); box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge); }
 html.ux-v1[data-site="hub"] .hub-dle-t-wrong { background: var(--hub-dle-wrong); color: var(--hub-dle-wrong-ink); }
 html.ux-v1[data-site="hub"] .hub-dle-t-unknown { background: var(--hub-dle-card); color: var(--hub-ink-2); box-shadow: inset 0 0 0 1.5px var(--hub-dle-line-2); }
 html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-t-correct, html.ux-v1[data-site="hub"] .hub-dle-cb .hub-dle-sw-correct { background: #1D4ED8; color: #FFFFFF; }

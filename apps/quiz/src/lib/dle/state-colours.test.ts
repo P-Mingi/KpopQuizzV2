@@ -78,6 +78,14 @@ describe('Close is the one solid yellow, never striped (owner 2026-11-25)', () =
     }
   });
   // The colour-blind option keeps blue and grey and now shares the yellow of Close (no pastel stripes of its own).
+  // The fill stays #EFC94C (1.5:1 on the light page): a 1 px edge in a darker yellow makes the shape read at 3:1 on the page (the coordinator asked for about #C9A227, which is only 2.3:1, so #A88414 is used).
+  it('near tiles and the legend square carry a 1 px edge that reads at 3:1 on the page, the fill and the ink unchanged', () => {
+    for (const t of [LIGHT, DARK, DARK_AUTO]) expect(t['hub-dle-near-edge']).toBe('#A88414');
+    expect(ratio(LIGHT['hub-dle-near-edge']!, '#FAF8F5')).toBeGreaterThanOrEqual(3);
+    expect(ratio(DARK['hub-dle-near-edge']!, '#141312')).toBeGreaterThanOrEqual(3);
+    expect(CSS.split('\n').find((l) => l.includes('.hub-dle-t-near {'))).toContain('box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge)');
+    expect(CSS.split('\n').find((l) => l.includes('.hub-dle-sw-near {'))).toContain('box-shadow: inset 0 0 0 1px var(--hub-dle-near-edge)');
+  });
   it('the colour-blind option has no rule of its own for Close', () => {
     expect(CSS.split('\n').filter((l) => /\.hub-dle-cb .*(t|sw)-near/.test(l))).toEqual([]);
   });
