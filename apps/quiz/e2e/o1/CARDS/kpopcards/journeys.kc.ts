@@ -59,15 +59,6 @@ test('pack of the day opens once, then says opened today', async ({ page }) => {
   await expect(page.locator('#daily-btn')).toBeDisabled();
 });
 
-test('focus pack: opens from the chosen group, once a day', async ({ page }) => {
-  await go(page);
-  await page.click('#focus-btn');
-  await expect(page.locator('#ov-step')).toContainText(/Focus pack/i);
-  await finishOpening(page);
-  await page.click('#ov-add');
-  await expect(page.locator('#focus-btn')).toBeDisabled();
-});
-
 test('golden pack: the fifth card is Holo or better', async ({ page }) => {
   await go(page);
   await control(page, 'force-golden');

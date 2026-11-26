@@ -71,9 +71,9 @@ const PANO = { pano_no: 1, num: 'P-0001', entity_id: 'group:G', rarity: 'C', edi
 const PLAYER = {
   wallet: { stock: 3, anchor: '2026-11-12T10:30:00+00:00', paris_day: '2026-11-12', ads_today: 0, timer_today: 4, shards: 12, packs_opened: 7, seen_at: '2026-11-12T10:30:00+00:00', created_at: '2026-11-01T10:00:00+00:00' },
   owned: [1, 2, 3].map((n) => ({ n, copies: 1, fav: false, locked: false, seen: true, first: '2026-11-12T09:00:00+00:00', last: '2026-11-12T09:00:00+00:00', fpn: 3 })),
-  wishlist: [], gold_count: 3, claimed: [], bonus_earned: 0, bonus_today: 0, daily_used: false, focus_used: false,
+  wishlist: [], gold_count: 3, claimed: [], bonus_earned: 0, bonus_today: 0, daily_used: false,
   week: { week_start: '2026-11-09', packs_opened: 7, kpopdle_wins: 1, new_cards: 3, claimed: false },
-  prefs: { sound: true, vibration: true, theme: 'all', focus: null }, recent: [], last: null,
+  prefs: { sound: true, vibration: true, theme: 'all' }, recent: [], last: null,
 };
 const pack = (cards: Array<{ n: number; pano?: number }>, panoramas?: number[]) => ({
   replayed: false, owned_before: 2, owned_after: 3, finished: [],
@@ -90,7 +90,7 @@ beforeEach(() => {
     cards_panoramas: [PANO], cards_panoramas_owned: [{ pano_no: 1, granted_at: '2026-11-12T10:00:00+00:00', source: 'pack', seen: false }],
   };
   h.rpcResult = {
-    cards_player: { data: PLAYER }, cards_prefs_get: { data: { sound: true, vibration: true, theme: 'all', focus: null } },
+    cards_player: { data: PLAYER }, cards_prefs_get: { data: { sound: true, vibration: true, theme: 'all' } },
     cards_open: { data: pack([{ n: 4 }, { n: 1 }, { n: 2 }, { n: 3, pano: 1 }, { n: 4 }], [1]) },
     cards_craft: { data: { replayed: false, card_no: 3, rarity: 'C', cost: 10, shards: 2, finished: [], pano: 1 } },
   };

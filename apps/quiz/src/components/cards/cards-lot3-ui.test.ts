@@ -252,7 +252,7 @@ describe('the Help text (point A18)', () => {
     expect(html).toContain('the fifth card of pack 30 is Gold');
     expect(html).toContain('50 shards open a pack');
     expect(html).toContain('Standard 1, Stage 2, Holo 5, Era 12, Gold 30, Full Art 80');
-    expect(html).toContain('Standard 10, Stage 20, Holo 50, Era 120, Gold 300');
+    expect(html).toContain('Standard 200, Stage 400, Holo 800, Era 1600, Gold 3200');
     expect(html).toContain('Add to Home Screen');
   });
   it('has no retired rarity name and no dash', () => {

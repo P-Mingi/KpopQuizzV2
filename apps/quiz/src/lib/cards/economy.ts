@@ -1,9 +1,8 @@
 // Bunnyverse Cards, lots 3 and 4 (lane ECON): the pure rules the pages share for the economy: the timer cap (A13), the Gold guarantee (A11),
-// crafting (A14), the wishlist and the focus pack (A17), the main button (B4). No I/O. Every rarity word a player reads is RARITY_LABEL.
+// crafting (A14), the wishlist (A17), the main button (B4). No I/O. Every rarity word a player reads is RARITY_LABEL.
 import { CRAFT_COST, PITY_UR, RARITIES, RARITY_LABEL, SHARD_PACK_COST, craftCost } from './rules';
 
 import type { Rarity, WalletState } from './types';
-import type { SlimCard } from './ui-types';
 
 /** The wishlist holds at most this many cards (the SQL twin is cards_wish). */
 export const WISHLIST_MAX = 50;
@@ -54,13 +53,6 @@ export function craftView(rarity: Rarity, shards: number, owned: boolean): Craft
   return { cost, reason: null };
 }
 
-/** The groups a focus pack can be opened for: the groups that have a card in the catalog, by name. */
-export function focusGroups(cards: readonly SlimCard[]): Array<{ id: string; name: string }> {
-  const seen = new Map<string, string>();
-  for (const c of cards) if (c.kind === 'group' && !seen.has(c.entity)) seen.set(c.entity, c.name);
-  return [...seen].map(([id, name]) => ({ id, name })).sort((a, b) => a.name.localeCompare(b.name));
-}
-
 export type MainButtonKind = 'open' | 'shards' | 'ad' | 'wait';
 
 export interface MainButton {
@@ -98,13 +90,12 @@ export function mainButton(i: MainButtonInput): MainButton {
  *  `present` the rarities that have a card in packs (a rarity's craft cost is told only once such a card exists). */
 export function economySentences(
   timerCap: number, present: readonly Rarity[] = RARITIES, adsPerDay = 3,
-): { pity: string; half: string; focus: string; timer: string; craft: string; ad: string } {
+): { pity: string; half: string; timer: string; craft: string; ad: string } {
   const gold = RARITY_LABEL.UR;
   const craftable = RARITIES.filter((r) => present.includes(r) && CRAFT_COST[r] !== undefined);
   return {
     pity: `After ${PITY_UR - 1} packs in a row without a ${gold} or a ${RARITY_LABEL.L} card, the last card of the next pack is ${gold}.`,
     half: 'If you own one half of a group card, drawing that group edition gives you the other half.',
-    focus: 'Once a day you can pick a group for one pack from your stack: its 2nd and 4th cards come from that group (same odds for each edition), the other three are drawn as usual.',
     timer: `The timer adds at most ${timerCap} packs a day, Paris time. A pack already in your stack always opens.`,
     craft: `A card you are missing can be crafted with shards: ${craftable.map((r) => `${RARITY_LABEL[r]} ${CRAFT_COST[r]}`).join(', ')}. ${RARITY_LABEL.L} cards can't be crafted.`,
     ad: `A rewarded ad you choose to watch gives 1 pack, up to ${adsPerDay} a day. Packs and cards won this way cannot be traded or given.`,

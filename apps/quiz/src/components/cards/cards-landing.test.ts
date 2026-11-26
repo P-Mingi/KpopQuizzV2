@@ -40,7 +40,11 @@ describe('/kpopcards server HTML (a guest, Googlebot)', () => {
   it('has exactly one H1, the owner string, before the lobby', async () => {
     const html = await landing();
     expect(count(html, /<h1[ >]/g)).toBe(1);
-    expect(html).toContain(`<h1 class="h1" id="t-kpopcards">${CARDS_H1.landing}</h1>`);
+    // Owner request of 2026-11-25: a wordmark ("Kpop" and "Cards") with the primary phrase as a small second line, all inside the H1; its text is still the owner string.
+    const h1 = /<h1 class="kc-h1" id="t-kpopcards">(.*?)<\/h1>/.exec(html);
+    expect(h1).not.toBeNull();
+    expect(h1![1]).toBe('<span class="kc-wm">Kpop<b>Cards</b></span><span class="kc-vh">: </span><small class="kc-sub">free K-pop photocard game</small>');
+    expect(h1![1]!.replace(/<[^>]+>/g, '')).toBe(CARDS_H1.landing);
     expect(html.indexOf('<h1')).toBeLessThan(html.indexOf('id="pack"'));
   });
   it('writes the answer block right under the H1, with the values of the helpers (fixture catalog)', async () => {
@@ -51,6 +55,24 @@ describe('/kpopcards server HTML (a guest, Googlebot)', () => {
     expect(html.indexOf('id="kc-answer"')).toBeLessThan(html.indexOf('id="pack"'));
     expect(answer).toContain(`every ${KC.PERIOD_MIN} minutes`);
     expect(answer).toContain(`${atLeast(stats.cards)} cards are in the packs`);
+  });
+  it('the answer block is for the signed out: a signed-in player does not get it, and the server HTML hints the state before the first paint (owner request of 2026-11-25)', async () => {
+    const guest = await landing();
+    expect(guest).toContain('id="kc-answer"');
+    expect(guest).toContain("document.documentElement.setAttribute('data-kc-in','1')");
+    expect(guest.indexOf('data-kc-in')).toBeLessThan(guest.indexOf('<header class="wrap kc-intro"'));
+    const css = readFileSync(join(__dirname, '../../styles/cards/kpopcards.css'), 'utf8');
+    expect(css).toContain('html[data-kc-in] .bvc #kc-answer{display:none}');
+    const was = ctx.status;
+    ctx.status = 'ready';
+    try {
+      const player = await landing();
+      expect(player).not.toContain('id="kc-answer"');
+      expect(count(player, /<h1[ >]/g)).toBe(1);
+      expect(player).toContain('Kpop<b>Cards</b>');
+    } finally {
+      ctx.status = was;
+    }
   });
   it('has the four question H2s, the disclaimer and the links to the odds, the help and the credits', async () => {
     const html = decode(await landing());
@@ -149,8 +171,8 @@ describe('metadata of the three pages and the pages that stay out of Google', ()
     walk(root);
     const inGoogle = new Set(['page.tsx', 'odds/page.tsx', 'help/page.tsx']);
     const out = files.filter((f) => !inGoogle.has(f.slice(root.length + 1)));
-    // c, collection, collection/{group}, credits, idol, missions, open/{theme}, open/focus/{group}, ranking, report, u
-    expect(out).toHaveLength(11);
+    // c, collection, collection/{group}, credits, idol, missions, open/{theme}, ranking, report, u
+    expect(out).toHaveLength(10);
     for (const f of out) {
       const src = readFileSync(f, 'utf8');
       expect(src, f).toContain('robotsFor(false)');

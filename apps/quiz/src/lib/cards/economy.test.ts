@@ -1,8 +1,8 @@
-// Bunnyverse Cards lots 3 and 4 (lane ECON): the pure rules of the economy: the Gold guarantee in the draw, the missing half, the focus pack
-// (cards 2 and 4), the timer cap in walletAt, the quiet hours, the craft costs, the main button, the sentences and the settings.
+// Bunnyverse Cards lots 3 and 4 (lane ECON): the pure rules of the economy: the Gold guarantee in the draw, the missing half,
+// the timer cap in walletAt, the quiet hours, the craft costs, the main button, the sentences and the settings.
 import { describe, expect, it } from 'vitest';
 
-import { WISHLIST_MAX, craftView, economySentences, focusGroups, mainButton, pityLine, pityProgress, restingLine, timerLine, timerResting } from './economy';
+import { WISHLIST_MAX, craftView, economySentences, mainButton, pityLine, pityProgress, restingLine, timerLine, timerResting } from './economy';
 import { adsPerDay, timerPerDay } from './flags';
 import {
   CRAFT_COST, PACK_SIZE, PERIOD_MS, PITY_UR, QUIET_HOURS, RARITY_LABEL, TIMER_PACKS_PER_DAY, craftCost, drawPack, indexPool, inQuietHours, walletAt,
@@ -23,13 +23,12 @@ const rngOf = (seed: number) => {
 const card = (n: number, rarity: Rarity, entity: string, o: Partial<PoolCard> = {}): PoolCard => ({ n, kind: 'idol', rarity, entity, ...o });
 // Group G (idols a and b, its own pair), group H (idol c); every rarity from C to Gold
 const POOL: PoolCard[] = [
-  card(1, 'C', 'idol:a', { group: 'group:G' }), card(2, 'U', 'idol:a', { group: 'group:G' }), card(3, 'UR', 'idol:a', { group: 'group:G' }), card(4, 'L', 'idol:a', { group: 'group:G' }),
-  card(5, 'C', 'idol:b', { group: 'group:G' }), card(6, 'U', 'idol:b', { group: 'group:G' }),
-  card(7, 'C', 'idol:c', { group: 'group:H' }), card(8, 'U', 'idol:c', { group: 'group:H' }), card(9, 'R', 'idol:c', { group: 'group:H' }),
+  card(1, 'C', 'idol:a'), card(2, 'U', 'idol:a'), card(3, 'UR', 'idol:a'), card(4, 'L', 'idol:a'),
+  card(5, 'C', 'idol:b'), card(6, 'U', 'idol:b'),
+  card(7, 'C', 'idol:c'), card(8, 'U', 'idol:c'), card(9, 'R', 'idol:c'),
   card(10, 'C', 'idol:d'), card(11, 'U', 'idol:d'), card(12, 'R', 'idol:d'), card(13, 'SR', 'idol:d'), card(14, 'UR', 'idol:d'),
 ];
 const rarityOf = new Map(POOL.map((c) => [c.n, c.rarity]));
-const groupOf = new Map(POOL.map((c) => [c.n, c.group ?? null]));
 
 describe('A11, the Gold guarantee in the draw', () => {
   it('without the flag the 5th card is rolled; with it the 5th card of every pack is Gold', () => {
@@ -60,39 +59,6 @@ describe('A11, the Gold guarantee in the draw', () => {
   });
   it('PITY_UR is the 30th pack', () => {
     expect(PITY_UR).toBe(30);
-  });
-});
-
-describe('A17, the focus pack: cards 2 and 4', () => {
-  it('cards 2 and 4 come from the group wherever the rolled edition exists there, the others from the whole pool', () => {
-    const idx = indexPool(POOL);
-    let outside = 0;
-    for (let s = 1; s <= 400; s++) {
-      const cards = drawPack(idx, rngOf(s), { focus: 'group:G' });
-      for (const i of [1, 3]) {
-        const r = rarityOf.get(cards[i] as number) as Rarity;
-        const groupHas = POOL.some((c) => c.group === 'group:G' && c.rarity === r);
-        if (groupHas) expect(groupOf.get(cards[i] as number)).toBe('group:G');
-      }
-      for (const i of [0, 2, 4]) if (groupOf.get(cards[i] as number) !== 'group:G') outside++;
-    }
-    expect(outside).toBeGreaterThan(0); // cards 1, 3 and 5 are drawn as usual
-  });
-  it('a group with no card of the rolled edition falls back to the whole pool', () => {
-    const idx = indexPool(POOL);
-    const seen = new Set<number>();
-    for (let s = 1; s <= 600; s++) for (const i of [1, 3]) seen.add(drawPack(idx, rngOf(s), { focus: 'group:H' })[i] as number);
-    // H has C, U, R only: a Gold or an Era card in position 2 or 4 can only come from the fallback
-    expect([...seen].some((n) => ['SR', 'UR', 'L'].includes(rarityOf.get(n) as string))).toBe(true);
-  });
-  it('the edition is rolled with the normal odds: the focus changes who, not how rare', () => {
-    const idx = indexPool(POOL);
-    const count = (focus: string | undefined): number => {
-      let u = 0;
-      for (let s = 1; s <= 4000; s++) if (rarityOf.get(drawPack(idx, rngOf(s * 7), focus ? { focus } : {})[1] as number) === 'U') u++;
-      return u;
-    };
-    expect(Math.abs(count('group:G') - count(undefined))).toBeLessThan(260);
   });
 });
 
@@ -177,14 +143,14 @@ describe('A13, the quiet hours (no push from 22:00 to 08:00 Paris)', () => {
 });
 
 describe('A14, craft', () => {
-  it('Standard 10, Stage 20, Holo 50, Era 120, Gold 300; a Full Art is not craftable', () => {
-    expect(CRAFT_COST).toEqual({ C: 10, U: 20, R: 50, SR: 120, UR: 300 });
+  it('Standard 200, Stage 400, Holo 800, Era 1600, Gold 3200 (owner request of 2026-11-25); a Full Art is not craftable', () => {
+    expect(CRAFT_COST).toEqual({ C: 200, U: 400, R: 800, SR: 1600, UR: 3200 });
     expect(craftCost('L')).toBeNull();
-    expect(craftCost('UR')).toBe(300);
+    expect(craftCost('UR')).toBe(3200);
   });
   it('the button: short of shards, owned, a Full Art, ready', () => {
-    expect(craftView('R', 20, false)).toEqual({ cost: 50, reason: 'You need 30 more shards (50 in all).' });
-    expect(craftView('R', 50, false)).toEqual({ cost: 50, reason: null });
+    expect(craftView('R', 200, false)).toEqual({ cost: 800, reason: 'You need 600 more shards (800 in all).' });
+    expect(craftView('R', 800, false)).toEqual({ cost: 800, reason: null });
     expect(craftView('R', 500, true).reason).toMatch(/already have/);
     const l = craftView('L', 5000, false);
     expect(l.cost).toBeNull();
@@ -239,7 +205,7 @@ describe('B4, the main button', () => {
   });
 });
 
-describe('the odds page sentences and the focus picker', () => {
+describe('the odds page sentences', () => {
   it('say Gold and Full Art, never Ultra Rare or Legendary, and contain no dash', () => {
     const s = economySentences(40);
     const all = Object.values(s).join(' ');
@@ -247,16 +213,10 @@ describe('the odds page sentences and the focus picker', () => {
     expect(all).not.toMatch(new RegExp(`[${String.fromCharCode(0x2013, 0x2014)}]`));
     expect(s.pity).toBe('After 29 packs in a row without a Gold or a Full Art card, the last card of the next pack is Gold.');
     expect(s.half).toMatch(/other half/);
-    expect(s.focus).toMatch(/2nd and 4th/);
     expect(s.timer).toContain('40 packs a day');
-    expect(s.craft).toContain('Gold 300');
+    expect(s.craft).toContain('Gold 3200');
     expect(s.craft).not.toMatch(/Full Art \d/);
     expect(s.ad).toBe('A rewarded ad you choose to watch gives 1 pack, up to 3 a day. Packs and cards won this way cannot be traded or given.');
     expect(economySentences(12, ['C', 'U'], 40).timer).toContain('12 packs');
-  });
-  it('the groups of the picker, by name, once each', () => {
-    const slim = (entity: string, name: string, kind: 'group' | 'idol') => ({ entity, name, kind }) as never;
-    expect(focusGroups([slim('group:B', 'Beta', 'group'), slim('group:B', 'Beta', 'group'), slim('idol:x', 'X', 'idol'), slim('group:A', 'Alpha', 'group')])).toEqual([
-      { id: 'group:A', name: 'Alpha' }, { id: 'group:B', name: 'Beta' }]);
   });
 });

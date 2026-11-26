@@ -315,37 +315,32 @@ describe('the pages, the flag on: one H1, the answer block, the JSON-LD, the lin
         expect(block, p.path).toMatch(/2026/);
         expect(block, p.path).not.toMatch(/[\u2013\u2014]/);
       }
-      // SEO-LAUNCH-1 lane D: the block is now under the H1 and, for Otakudle across all series, names the number of series of the pool ("from N series"), counted by the page: the test checks the
-      // text up to the pool, the pool and the date, not that exact sentence.
+      // The owner removed the block from the game page on 2026-11-26 ("too much"): the function keeps its words and numbers (above), the page no longer shows it.
       const html = await render(p);
       const whole = gameAnswerBlock(p.game!, p.locale, NAMES.length, DATE);
       const head = whole.slice(0, whole.indexOf(String(NAMES.length)));
-      expect(html, p.path).toContain(head);
-      expect(html, p.path).toContain(`${NAMES.length}`);
-      expect(html.indexOf(head), p.path).toBeGreaterThan(html.indexOf('<h1'));
-      expect(html.indexOf(head), p.path).toBeLessThan(html.indexOf('id="dle-hints"') > 0 ? html.indexOf('id="dle-hints"') : Infinity);
+      expect(html, p.path).not.toContain(head);
     }
   });
 
-  it('SEO-LAUNCH-1: the server HTML runs the game switch, H1, answer block, the game, How to play, then the three questions, each an h2 with its answer open', async () => {
+  it('SEO-LAUNCH-1: the server HTML runs the game switch, H1, the game, How to play, then the three questions, each an h2 with its answer in the HTML', async () => {
     gate.open = true;
     gate.live = new Set(ALL_GAMES);
     for (const p of GAME_PAGES) {
       const html = await render(p);
       const w = gameCopy(p.game!, p.locale);
-      const whole = gameAnswerBlock(p.game!, p.locale, NAMES.length, DATE);
       const marks = [
-        // DLE2-A: the breadcrumb, then the game switch, then the meta line and the H1, the answer block right under it, the game, How to play, the questions.
-        html.indexOf('hub-dle-steps'), html.indexOf('<h1'), html.indexOf(whole.slice(0, whole.indexOf(String(NAMES.length)))), html.indexOf(w.howTitle),
+        // DLE2-A: the breadcrumb, then the game switch, then the meta line and the H1, the game, How to play, the questions (no answer block since the owner's 2026-11-26 request).
+        html.indexOf('hub-dle-steps'), html.indexOf('<h1'), html.indexOf(w.howTitle),
         ...gameQuestions(p.game!, p.locale).map((x) => html.indexOf(`<h2>${x.q}</h2>`)),
       ];
       for (const m of marks) expect(m, `${p.path} marks ${marks.join(',')}`).toBeGreaterThan(-1);
       expect([...marks].sort((a, b) => a - b), `${p.path} order`).toEqual(marks);
-      // The questions are open (visible without a click) and carry their answer in the HTML.
+      // The questions are closed by default (owner, 2026-11-25) and still carry their answer in the server HTML (rule 3.4).
       for (const x of gameQuestions(p.game!, p.locale)) {
         const i = html.indexOf(`<h2>${x.q}</h2>`);
         expect(html.lastIndexOf('<details', i), p.path).toBeGreaterThan(-1);
-        expect(html.slice(html.lastIndexOf('<details', i), i), p.path).toContain(' open');
+        expect(html.slice(html.lastIndexOf('<details', i), i), p.path).not.toContain(' open');
         // Review fix 17: "Bunnyverse" of the third answer is a link to /about, so the text is compared without its tags.
         expect(html.replace(/<[^>]+>/g, ''), p.path).toContain(x.a);
       }

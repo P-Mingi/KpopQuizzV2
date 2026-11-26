@@ -681,7 +681,7 @@ describe('middleware step and the sites/[site] guard', () => {
     // Bunnyverse Cards (lane U) is the second family closed by a flag: NET_CARDS off, its pages answer as any unknown URL; on, each public address is in the map.
     // KpopCards lives under /kpopcards; the old /cards tree is one catch-all page that redirects (308) to it (lib/cards/kc-paths.ts).
     const cards = new Set([
-      '/kpopcards', '/kpopcards/open/xtheme', '/kpopcards/open/focus/xgroup', '/kpopcards/collection', '/kpopcards/collection/xgroup', '/kpopcards/c/xnum', '/kpopcards/idol/xname',
+      '/kpopcards', '/kpopcards/open/xtheme', '/kpopcards/collection', '/kpopcards/collection/xgroup', '/kpopcards/c/xnum', '/kpopcards/idol/xname',
       '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/xnickname', '/kpopcards/odds', '/kpopcards/help', '/kpopcards/credits', '/kpopcards/report', '/cards/x[...rest]',
     ]);
     for (const p of cards) {

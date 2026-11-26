@@ -18,7 +18,7 @@ const heads = ['o1/c3goals', 'o1/kcscreens', 'o1/c3motion'].map((b) => `${b} ${s
 // who owns what: opening and motion = C; backend and data = A; screens = B
 const owner = (r) => {
   const s = r.screen || r.name || r.kind || '';
-  if (r.kind === 'fps' || r.kind === 'opening-fit' || r.kind === 'reduced-motion' || /^open/.test(s) || /open|reveal|golden|gold|daily|focus|flip/i.test(r.name || '')) return 'C';
+  if (r.kind === 'fps' || r.kind === 'opening-fit' || r.kind === 'reduced-motion' || /^open/.test(s) || /open|reveal|golden|gold|daily|flip/i.test(r.name || '')) return 'C';
   if (r.kind === 'flip') return /^open/.test(s) ? 'C' : 'B';
   if (r.kind === 'journey' && /guest|craft|set |week|friend|idol|recycle|ranking/i.test(r.name)) return 'A';
   return 'B';

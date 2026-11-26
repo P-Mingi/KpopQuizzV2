@@ -1,11 +1,10 @@
-// Bunnyverse Cards, lots 3 and 4 (lane ECON): the browser's calls for the economy: craft, wishlist, focus pack. Kept apart from ui-api.ts so
+// Bunnyverse Cards, lots 3 and 4 (lane ECON): the browser's calls for the economy: craft, wishlist. Kept apart from ui-api.ts so
 // the stand-in API of the fixture needs no change; the pages that use these refresh the wallet from GET /api/cards/state afterwards.
 import { isApiError } from '../kpopcards/contract';
 import { getKcApi, newKey } from '../kpopcards/registry';
 
 import type { KpopCardsApi } from '../kpopcards/contract';
 import type { FinishedSet } from './goals';
-import type { OpenResult } from './types';
 
 export type EconError = { error: string };
 
@@ -27,19 +26,10 @@ export async function wishCard(n: number, on: boolean): Promise<{ on: boolean; c
   const r = await api.wish({ n, on });
   return isApiError(r) ? toErr(r) : { on: r.on, count: r.count };
 }
-export async function openFocus(group: string): Promise<OpenResult | EconError> {
-  const api = kc();
-  if (!api) return { error: 'network' };
-  const r = await api.open({ key: newKey(), source: 'focus', focus: group, packs: 1 });
-  if (isApiError(r)) return toErr(r);
-  const p = r.packs[0]!;
-  return { pack: { id: p.id, cards: p.cards.map((c) => ({ n: c.n, isNew: c.isNew, completesPair: c.completesPair, ...(c.pano ? { pano: c.pano.p } : {}) })), newCount: p.newCount, packNo: p.packNo }, state: r.state };
-}
-
 /** What the player is told when the server refuses. */
 export const ECON_ERRORS: Record<string, string> = {
   shards: 'Not enough shards.', owned: 'You already have this card.', card: 'This card is not in packs.', no_craft: "A Full Art card can't be crafted.",
-  wish_limit: 'Your wishlist is full (50 cards). Remove one first.', empty: 'No pack left in your stack.', focus_used: 'Today’s focus pack is already opened.',
+  wish_limit: 'Your wishlist is full (50 cards). Remove one first.', empty: 'No pack left in your stack.',
   daily_used: 'The pack of the day is already opened.', stack_short: 'You need 5 packs in your stack for Open 5.', server: 'Something went wrong. Try again.', ad_limit: 'No ads left today.',
-  bad_request: 'Pick a group first.', network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', forbidden: 'This account cannot do that.',
+  bad_request: 'Something went wrong. Try again.', network: 'The connection dropped. Try again.', failed: 'Something went wrong. Try again.', forbidden: 'This account cannot do that.',
 };

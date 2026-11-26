@@ -71,9 +71,9 @@ export const TIMER_PACKS_PER_DAY = 40;
 /** Lot 3 point A13: the quiet hours of any reminder the game may send (Paris time, from 22:00 to 08:00). The game sends none today. */
 export const QUIET_HOURS = { from: 22, to: 8 } as const;
 
-/** Lot 3 point A14: the shards a missing card costs to craft: Standard 10, Stage 20, Holo 50, Era 120, Gold 300. A Full Art is NOT craftable
+/** Lot 3 point A14: the shards a missing card costs to craft: Standard 200, Stage 400, Holo 800, Era 1600, Gold 3200 (owner request of 2026-11-25: 200 for a basic card, x2 for each rarer one). A Full Art is NOT craftable
  *  (no entry). A pack still costs SHARD_PACK_COST. */
-export const CRAFT_COST: Partial<Record<Rarity, number>> = { C: 10, U: 20, R: 50, SR: 120, UR: 300 };
+export const CRAFT_COST: Partial<Record<Rarity, number>> = { C: 200, U: 400, R: 800, SR: 1600, UR: 3200 };
 
 /** The craft cost of a rarity, null for a Full Art (it cannot be crafted). */
 export function craftCost(r: Rarity): number | null {
@@ -202,13 +202,6 @@ export interface DrawOpts {
   /** A12: the card numbers the player owns; the cards drawn so far in the pack are added by drawPack. A group edition of which he owns
    *  exactly one half gives him the other half. */
   owned?: ReadonlySet<number>;
-  /** A17: a group (cards_entities.id of kind 'group'); the card comes from its subjects at the rolled rarity, else from the whole pool. */
-  focus?: string | null;
-}
-
-/** The cards of a group for the focus pack: the group's own cards and those of the idols whose group_id is that group. */
-export function focusCards(list: readonly PoolCard[], focus: string): PoolCard[] {
-  return list.filter((c) => c.entity === focus || c.group === focus);
 }
 
 /** One of a subject's cards. With `owned`, a subject of which the player holds some but not all halves gives one he lacks (B11). */
@@ -230,11 +223,6 @@ function pickSubject(list: readonly PoolCard[], rng: Rng, owned: ReadonlySet<num
 /** One card of the pack: never a rarity without a card, kinds by weight among the kinds that have one. Exported for the tests. */
 export function drawOne(byKey: Map<string, PoolCard[]>, rng: Rng, fifth: boolean, opts: DrawOpts = {}): PoolCard {
   const rarity = opts.rarity ?? rollFrom(tableOf(byKey, fifth), rng);
-  if (opts.focus) {
-    // Lot 3 C4: a subject of the focus group at this rarity; a group with no card of the rarity falls back to the plain draw below.
-    const mine = focusCards(cardsOfRarity(byKey, rarity), opts.focus);
-    if (mine.length > 0) return pickSubject(mine, rng, opts.owned);
-  }
   if (!hasPlanForm(byKey)) {
     // Owner decision 2026-11-13: no kind weight before the plan's form; one subject of the rarity at random, then one of its cards.
     return pickSubject(cardsOfRarity(byKey, rarity), rng, opts.owned);
@@ -339,8 +327,6 @@ export interface PackContext {
   pity?: boolean;
   /** A12: the card numbers the player owns now. */
   owned?: ReadonlySet<number>;
-  /** A17: the group of a focus pack (cards 2 and 4 come from it, at the edition rolled with the normal odds). */
-  focus?: string | null;
 }
 
 /** True for the two rarities that end the Gold count (Gold and Full Art). */
@@ -357,7 +343,6 @@ export function drawPack(pool: readonly PoolCard[] | Map<string, PoolCard[]>, rn
     const last = i === PACK_SIZE - 1;
     const opts: DrawOpts = {};
     if (owned) opts.owned = owned;
-    if (ctx.focus && (i === 1 || i === 3)) opts.focus = ctx.focus;
     if (last && mustUr) opts.rarity = 'UR';
     const card = drawOne(byKey, rng, last, opts);
     owned?.add(card.n);

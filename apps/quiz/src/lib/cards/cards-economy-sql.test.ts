@@ -11,7 +11,7 @@ vi.setConfig({ testTimeout: 120_000, hookTimeout: 120_000 });
 
 import { CARDS_SQL, SCHEMA_FILES, failure, freshCardsDb, one, readCardsSql, rows } from './sql-harness';
 import { WISHLIST_MAX } from './economy';
-import { CRAFT_COST, PITY_UR, TIMER_PACKS_PER_DAY, walletAt } from './rules';
+import { PITY_UR, TIMER_PACKS_PER_DAY, walletAt } from './rules';
 
 import type { PGlite } from '@electric-sql/pglite';
 
@@ -340,8 +340,9 @@ describe('A14, craft', () => {
   beforeAll(async () => { db = await econDb(); });
   const craft = (u: string, n: number, at = T0): Promise<string | null> => failure(db, 'select public.cards_craft($1::uuid, $2, $3::timestamptz)', [u, n, at]);
 
-  it('the costs: Standard 10, Stage 20, Holo 50, Era 120, Gold 300; a Full Art has none (CRAFT_COST twin)', async () => {
-    expect(CRAFT_COST).toEqual({ C: 10, U: 20, R: 50, SR: 120, UR: 300 });
+  // Owner request of 2026-11-25: the TypeScript list (CRAFT_COST) is now 200 to 3200; these are the prices of the older body (104), which L41 replaces
+  // (craft-cost-sql.test.ts proves the new body and that the SQL and CRAFT_COST agree once L41 is applied).
+  it('the costs of the 104 body: Standard 10, Stage 20, Holo 50, Era 120, Gold 300; a Full Art has none', async () => {
     const u = await newUser(db);
     await setWallet(db, u, { stock: 5, anchor: T0, day: '2026-11-12', shards: 1000 });
     const want: Array<[number, number]> = [[1, 10], [2, 20], [3, 50], [4, 120], [5, 300]];

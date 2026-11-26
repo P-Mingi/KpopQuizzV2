@@ -1,5 +1,5 @@
 // KpopCards launch polish 3 (2026-11-23): the TypeScript twin of the duplicate bias (applyDupBias, used by the dev mock) behaves like cards_dup_pick of
-// 126-dup-bias.sql: the share of cards already owned, the same rarity, the exemptions, the focus group, the missing part rule. The SQL itself is proved
+// 126-dup-bias.sql: the share of cards already owned, the same rarity, the exemptions, the missing part rule. The SQL itself is proved
 // on PGlite in lib/cards/dup-bias-sql.test.ts.
 import { describe, expect, it } from 'vitest';
 
@@ -13,7 +13,7 @@ import type { PoolCard } from '../cards/types';
 import type { OpenResponse } from './contract';
 
 /** 100 Standard and 100 Stage cards of 100 soloists. */
-const POOL: PoolCard[] = Array.from({ length: 200 }, (_, i) => ({ n: i + 1, kind: 'idol' as const, rarity: i < 100 ? ('C' as const) : ('U' as const), entity: `idol:s${i % 100}`, group: null }));
+const POOL: PoolCard[] = Array.from({ length: 200 }, (_, i) => ({ n: i + 1, kind: 'idol' as const, rarity: i < 100 ? ('C' as const) : ('U' as const), entity: `idol:s${i % 100}` }));
 const none = (): readonly number[] => [];
 const rarityOf = (n: number): 'C' | 'U' => (n <= 100 ? 'C' : 'U');
 
@@ -82,40 +82,20 @@ describe('applyDupBias', () => {
       expect(out[4]).not.toBe(150);
       expect(rarityOf(out[4]!)).toBe('U');
     }
-    const one: PoolCard[] = [{ n: 1, kind: 'idol', rarity: 'U', entity: 'idol:a', group: null }, { n: 2, kind: 'idol', rarity: 'C', entity: 'idol:b', group: null }];
+    const one: PoolCard[] = [{ n: 1, kind: 'idol', rarity: 'U', entity: 'idol:a' }, { n: 2, kind: 'idol', rarity: 'C', entity: 'idol:b' }];
     expect(applyDupBias([1, 2, 1], { pool: one, rarityOf: (n) => (n === 1 ? 'U' : 'C'), owned: new Set(), siblings: none, bias: 0, fifthExempt: false, rng })).toEqual([1, 2, 1]);
   });
   it('a repeat of a card out of the pool is redrawn from the whole catalog (the guarantee fallback)', () => {
-    const inPool: PoolCard[] = [{ n: 1, kind: 'idol', rarity: 'C', entity: 'idol:a', group: null }];
-    const all: PoolCard[] = [...inPool, { n: 9, kind: 'idol', rarity: 'UR', entity: 'idol:b', group: null }, { n: 10, kind: 'idol', rarity: 'UR', entity: 'idol:c', group: null }];
+    const inPool: PoolCard[] = [{ n: 1, kind: 'idol', rarity: 'C', entity: 'idol:a' }];
+    const all: PoolCard[] = [...inPool, { n: 9, kind: 'idol', rarity: 'UR', entity: 'idol:b' }, { n: 10, kind: 'idol', rarity: 'UR', entity: 'idol:c' }];
     const r = (n: number): 'C' | 'UR' => (n === 1 ? 'C' : 'UR');
     const out = applyDupBias([9, 1, 1, 1, 9], { pool: inPool, universe: all, rarityOf: r, owned: new Set(), siblings: none, bias: 0, fifthExempt: true, rng: seededRng(6) });
     expect(out[4]).toBe(10);
   });
-  it('the cards 2 and 4 of a focus pack stay in the focus group when it has a card of the rarity', () => {
-    const pool: PoolCard[] = [
-      { n: 1, kind: 'idol', rarity: 'C', entity: 'idol:a', group: 'group:g' }, { n: 2, kind: 'idol', rarity: 'C', entity: 'idol:b', group: 'group:g' },
-      { n: 3, kind: 'idol', rarity: 'C', entity: 'idol:c', group: null }, { n: 4, kind: 'idol', rarity: 'U', entity: 'idol:c', group: null },
-      { n: 5, kind: 'idol', rarity: 'C', entity: 'idol:d', group: null },
-    ];
-    const r = (n: number): 'C' | 'U' => (n === 4 ? 'U' : 'C');
-    const rng = seededRng(2);
-    for (let i = 0; i < 30; i++) {
-      const out = applyDupBias([3, 1, 5, 2, 4], { pool, rarityOf: r, owned: new Set([3, 5]), siblings: none, bias: 1, fifthExempt: false, rng, focus: 'group:g' });
-      expect(out[1]).toBe(1);
-      expect(out[3]).toBe(2);
-      expect([3, 5]).toContain(out[0]);
-      expect([3, 5]).toContain(out[2]);
-      expect(new Set(out).size).toBe(5);
-    }
-    // the group has no card of that rarity: the whole pool is allowed
-    const u = applyDupBias([3, 4, 3, 4, 4], { pool, rarityOf: r, owned: new Set([4]), siblings: none, bias: 1, fifthExempt: false, rng, focus: 'group:g' });
-    expect(u[1]).toBe(4);
-  });
   it('never picks an owned part whose photo still has a missing part', () => {
     const pool: PoolCard[] = [
-      { n: 1, kind: 'group', rarity: 'U', entity: 'group:x', group: null }, { n: 2, kind: 'group', rarity: 'U', entity: 'group:x', group: null },
-      { n: 3, kind: 'idol', rarity: 'U', entity: 'idol:y', group: null }, { n: 4, kind: 'idol', rarity: 'U', entity: 'idol:z', group: null },
+      { n: 1, kind: 'group', rarity: 'U', entity: 'group:x' }, { n: 2, kind: 'group', rarity: 'U', entity: 'group:x' },
+      { n: 3, kind: 'idol', rarity: 'U', entity: 'idol:y' }, { n: 4, kind: 'idol', rarity: 'U', entity: 'idol:z' },
     ];
     const sib = (n: number): readonly number[] => (n === 1 || n === 2 ? [1, 2] : []);
     const rng = seededRng(8);

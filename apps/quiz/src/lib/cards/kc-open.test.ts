@@ -12,12 +12,11 @@ describe('the next opening', () => {
     expect(runKey(nextSpec(all, 'stock'), 0)).toBe(runKey(all, 0));
     expect(runKey(nextSpec(all, 'stock'), 1)).not.toBe(runKey(all, 0));
   });
-  it('keeps the theme for one pack, opens five of "all", and leaves a daily, focus or demo opening for a plain pack', () => {
+  it('keeps the theme for one pack, opens five of "all", and leaves a daily or demo opening for a plain pack', () => {
     expect(nextSpec({ kind: 'theme', theme: 'girls', packs: 1 }, 'stock')).toEqual({ kind: 'theme', theme: 'girls', packs: 1 });
     expect(nextSpec({ kind: 'theme', theme: 'girls', packs: 1 }, 'stock5')).toEqual({ kind: 'theme', theme: 'all', packs: 5 });
     expect(nextSpec({ kind: 'theme', theme: 'all', packs: 5 }, 'stock5')).toEqual({ kind: 'theme', theme: 'all', packs: 5 });
     expect(nextSpec({ kind: 'daily' }, 'stock')).toEqual(all);
-    expect(nextSpec({ kind: 'focus', group: 'x' }, 'stock')).toEqual(all);
     expect(nextSpec({ kind: 'demo' }, 'stock')).toEqual(all);
   });
   it('the mount draws again on a new round and drops the old cards, instead of waiting for the address to change', () => {

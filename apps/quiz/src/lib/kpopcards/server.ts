@@ -32,7 +32,7 @@ export const serverRng: Rng = (max) => randomInt(max);
 /* ------------------------------------------------------------------ errors */
 
 const WORDS: Record<string, ErrorCode> = {
-  bonus: 'bonus', empty: 'empty', stack_short: 'stack_short', shards: 'shards', daily_used: 'daily_used', focus_used: 'focus_used', focus: 'focus', pack: 'pack', source: 'source',
+  bonus: 'bonus', empty: 'empty', stack_short: 'stack_short', shards: 'shards', daily_used: 'daily_used', pack: 'pack', source: 'source',
   theme: 'bad_request', key: 'idem_missing', idem_conflict: 'idem_conflict', locked: 'locked', lastcopy: 'last_copy', nothing: 'nothing_to_recycle',
   notowned: 'not_owned', owned: 'owned', card: 'card', no_craft: 'no_craft', ad_limit: 'ad_limit', ticket: 'ticket', claimed: 'already_claimed', set: 'set_unknown',
   nickname: 'no_nickname', code: 'bad_request', user: 'bad_request', pref: 'pref', wish_limit: 'wish_limit', scope: 'bad_request', goal: 'set_not_done',
@@ -111,14 +111,13 @@ interface PlayerJson {
   bonus_today: number;
   claimed: string[];
   week: { week_start: string; packs_opened: number; kpopdle_wins: number; new_cards: number; claimed: boolean };
-  prefs: { sound: boolean; vibration: boolean; theme: ThemeId; focus: string | null };
+  prefs: { sound: boolean; vibration: boolean; theme: ThemeId };
   recent: { opened_at: string; best: PlayerData['recent'][number]['best'] | null; source: PlayerData['recent'][number]['source']; new_count: number | null }[];
   daily_used: boolean;
-  focus_used: boolean;
   last: { at: string; pack_no: number; cards: number[] } | null;
 }
 
-/** The rows of cards_player as a PlayerData (pure). `today` is the Paris day, to read the daily and focus flags. */
+/** The rows of cards_player as a PlayerData (pure). `today` is the Paris day, to read the daily flag. */
 export function playerFrom(j: PlayerJson, nickname: string | null, friends: string[], today: string): PlayerData {
   const t = (v: string): number => Date.parse(v);
   const owned = new Map<number, OwnedRow>(j.owned.map((o) => [o.n, { copies: o.copies, fav: o.fav, locked: o.locked, seen: o.seen, firstAt: t(o.first), lastAt: t(o.last) }]));
@@ -137,7 +136,7 @@ export function playerFrom(j: PlayerJson, nickname: string | null, friends: stri
   })() : null;
   return {
     nickname, createdAt: t(w.created_at), owned, wishlist: new Set(j.wishlist), shards: w.shards, stock: w.stock, anchor: t(w.anchor), timerToday: w.timer_today,
-    parisDay: w.paris_day, adsToday: w.ads_today, opened: w.packs_opened, sinceGold: j.gold_count, bonusEarned: j.bonus_earned ?? 0, bonusUsed: j.bonus_today ?? 0, dailyDay: j.daily_used ? today : null, focusDay: j.focus_used ? today : null,
+    parisDay: w.paris_day, adsToday: w.ads_today, opened: w.packs_opened, sinceGold: j.gold_count, bonusEarned: j.bonus_earned ?? 0, bonusUsed: j.bonus_today ?? 0, dailyDay: j.daily_used ? today : null,
     claimedSets: new Set(j.claimed),
     week: { id: j.week.week_start, packs: j.week.packs_opened, dle: j.week.kpopdle_wins, newc: j.week.new_cards, claimed: j.week.claimed },
     prefs: j.prefs, lastSeen: t(w.seen_at),
@@ -165,7 +164,6 @@ export async function loadPlayer(c: Ctx): Promise<PlayerData> {
   p.panos = await loadPanos(c);
   const today = new Date(c.now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
   if (p.dailyDay) p.dailyDay = today;
-  if (p.focusDay) p.focusDay = today;
   // The ads left today are the ad packs not yet earned (cards_ad_events), the one cap of the ad: a pack ad does not move the wallet's own counter.
   if (cardsAdsOn()) {
     try {
@@ -421,34 +419,30 @@ export function openResponseFrom(w: World, j: OpenJson, state: LobbyState, retir
   };
 }
 
-/** The plans of the packs of one request: the pool of the pack kind, drawn with the rng. Needs the daily group for 'daily' and the group for 'focus'. */
-export function plansFor(w: World, req: Pick<OpenRequest, 'source' | 'theme' | 'focus'>, dailyGroupId: string | null, n: number, rng: Rng, theme: ThemeId) {
+/** The plans of the packs of one request: the pool of the pack kind, drawn with the rng. Needs the daily group for 'daily'. */
+export function plansFor(w: World, req: Pick<OpenRequest, 'source' | 'theme'>, dailyGroupId: string | null, n: number, rng: Rng, theme: ThemeId) {
   const all = indexPool(poolCards(w));
   let pool = all;
-  let focus: string | null = null;
   if (req.source === 'daily') {
     if (!dailyGroupId) return null;
     const cs = groupCards(w, dailyGroupId);
     if (cs.length === 0) return null;
     pool = indexPool(cs.map((x) => ({ n: x.n, kind: x.kind, rarity: x.rarity, entity: x.entity })));
-  } else if (req.source === 'focus') {
-    focus = req.focus ?? null;
   } else if (theme !== 'all') {
     const cs = themeCards(w, theme);
     if (cs.length === 0) return null;
     pool = indexPool(cs.map((x) => ({ n: x.n, kind: x.kind, rarity: x.rarity, entity: x.entity })));
   }
   const out = [];
-  for (let i = 0; i < n; i++) out.push(planKcPack(pool, all, rng, focus));
+  for (let i = 0; i < n; i++) out.push(planKcPack(pool, all, rng));
   return out;
 }
 
 export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResponse>> {
   const n = req.packs === 5 ? 5 : 1;
-  if (!['stock', 'daily', 'focus', 'shards', 'bonus'].includes(req.source) || (req.packs !== undefined && req.packs !== 1 && req.packs !== 5)) return fail('bad_request');
+  if (!['stock', 'daily', 'shards', 'bonus'].includes(req.source) || (req.packs !== undefined && req.packs !== 1 && req.packs !== 5)) return fail('bad_request');
   if (n === 5 && req.source !== 'stock') return fail('bad_request');
   if (req.theme !== undefined && !THEME_IDS.includes(req.theme)) return fail('bad_request');
-  if (req.source === 'focus' && (typeof req.focus !== 'string' || !/^group:[A-Za-z0-9_.-]{1,80}$/.test(req.focus))) return fail('focus');
   const w = await loadWorld(c.db, c.now);
   const day = new Date(c.now).toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
   let theme: ThemeId = req.theme ?? 'all';
@@ -472,7 +466,7 @@ export async function open(c: Ctx, req: OpenRequest): Promise<ApiResult<OpenResp
   const lim = { ads: adsPerDay(), timer: timerPerDay() };
   const { data, error } = await c.db.rpc('cards_open', {
     p_user: c.userId, p_key: req.key, p_source: req.source, p_theme: req.source === 'stock' || req.source === 'shards' || req.source === 'bonus' ? theme : null,
-    p_focus: req.source === 'focus' ? req.focus : null, p_draws: plans, p_now: new Date(c.now).toISOString(), p_ads_limit: lim.ads, p_bonus_cap: bonusCap(), p_timer_cap: lim.timer,
+    p_focus: null, p_draws: plans, p_now: new Date(c.now).toISOString(), p_ads_limit: lim.ads, p_bonus_cap: bonusCap(), p_timer_cap: lim.timer,
   });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
   const p = await loadPlayer(c);
@@ -521,7 +515,6 @@ export async function prefs(c: Ctx, req: PrefsRequest) {
   if (req.sound !== undefined) patch.sound = req.sound;
   if (req.vibration !== undefined) patch.vibration = req.vibration;
   if (req.theme !== undefined) patch.theme = req.theme;
-  if (req.focus !== undefined) patch.focus = req.focus;
   const { data, error } = await c.db.rpc('cards_prefs_set', { p_user: c.userId, p_patch: patch, p_now: new Date(c.now).toISOString() });
   if (error || !data) return fail(errorOf(error?.message) ?? 'server');
   return { prefs: data as LobbyState['prefs'] };

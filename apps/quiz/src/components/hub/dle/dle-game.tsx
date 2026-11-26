@@ -57,8 +57,6 @@ export interface DleGameProps {
   readonly kpopName: string;
   /** The name of yesterday's answer (lib/dle/yesterday.ts), or null: the line under the input is then absent. */
   readonly yesterday?: string | null;
-  /** The answer block of the page (lib/dle/seo.ts gameAnswerBlock), shown under the H1 before the game: rule 3.1, server HTML. */
-  readonly intro?: string | null;
   /** The icon slots of the admin (lib/photos/icons-read.ts): a step, or the title of the hints, draws the owner's icon once a row is saved. Read on the server. */
   readonly icons?: LiveIcons;
   /** Lot 3 DLE (E3): the public path of the series photo already in place on the anime pages, by series name, for the tiles and the card of a character. Empty for a K-pop game. */
@@ -215,7 +213,7 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
-export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, thumbs, quizLinks, blindLinks, kpopName, yesterday = null, intro = null, icons, seriesArt, ownerPreview = false, cardsHref }: DleGameProps): React.ReactElement {
+export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, thumbs, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false, cardsHref }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
   const w = gameCopy(game, locale);
@@ -486,7 +484,6 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
           <span>{words2.nextShort} {clock(left)}</span>
         </p>
         <h1 id="dle-h1">{w.h1}</h1>
-        {intro ? <p className="hub-dle-answer hub-dle-intro">{intro}</p> : null}
       </section>
 
       <section aria-label={w.proposeLabel} className="hub-dle-box">

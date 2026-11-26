@@ -107,7 +107,6 @@ interface WalletJson {
   timer_left?: number;
   timer_used?: number;
   pity_left?: number | null;
-  focus_used?: boolean;
 }
 
 interface OwnedRow {
@@ -192,7 +191,6 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
     timerUsed: w.timer_used ?? 0,
     timerLeft: w.timer_left ?? lim.timer,
     pityLeft: w.pity_left ?? null,
-    focusUsed: w.focus_used === true,
     wishlist: wish.map((x) => x.card_no),
     ...(rewardPacks > 0 ? { rewardPacks } : {}),
     recent: await recentPacks(db, userId),
@@ -203,9 +201,9 @@ export async function loadState(db: ServiceDb, userId: string, now: Date = new D
 /** The refusals of cards_apply_pack, by the word after "cards: " in its message. */
 export type PackRefusal =
   | 'empty' | 'shards' | 'bonus' | 'ad_limit' | 'ticket' | 'pack' | 'source' | 'user'
-  | 'timer_cap' | 'pity' | 'focus_used' | 'focus' | 'owned' | 'card' | 'wish_limit' | 'no_craft' | 'reward' | 'claimed' | 'goal';
+  | 'timer_cap' | 'pity' | 'owned' | 'card' | 'wish_limit' | 'no_craft' | 'reward' | 'claimed' | 'goal';
 
 export function refusalOf(message: string | undefined): PackRefusal | null {
-  const m = /cards: (empty|shards|bonus|ad_limit|ticket|pack|source|user|timer_cap|pity|focus_used|focus|owned|card|wish_limit|no_craft|reward|claimed|goal)\b/.exec(message ?? '');
+  const m = /cards: (empty|shards|bonus|ad_limit|ticket|pack|source|user|timer_cap|pity|owned|card|wish_limit|no_craft|reward|claimed|goal)\b/.exec(message ?? '');
   return m ? (m[1] as PackRefusal) : null;
 }

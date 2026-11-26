@@ -290,7 +290,7 @@ export const DLE_BUILT_GAMES: readonly { readonly id: string; readonly path: str
 /** The public pages of KpopCards on the hub, under /kpopcards (behind NET_CARDS), and the old /cards tree, which only redirects (lib/cards/kc-paths.ts). */
 // Spelled here (not imported from lib/cards/kc-paths.ts, which a test keeps equal) so the kpop pages keep their module graph.
 export const CARDS_PATHS: readonly string[] = [
-  '/kpopcards', '/kpopcards/open/{theme}', '/kpopcards/open/focus/{group}', '/kpopcards/collection', '/kpopcards/collection/{group}', '/kpopcards/c/{num}', '/kpopcards/idol/{name}',
+  '/kpopcards', '/kpopcards/open/{theme}', '/kpopcards/collection', '/kpopcards/collection/{group}', '/kpopcards/c/{num}', '/kpopcards/idol/{name}',
   '/kpopcards/missions', '/kpopcards/ranking', '/kpopcards/u/{nickname}', '/kpopcards/odds', '/kpopcards/help', '/kpopcards/credits', '/kpopcards/report', '/cards', '/cards/**',
 ];
 

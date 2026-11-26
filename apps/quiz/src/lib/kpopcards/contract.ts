@@ -72,7 +72,7 @@ export type ErrorCode =
   | 'bad_request' | 'unauthorized' | 'not_found' | 'origin' | 'editorial_account' | 'rate_limited' | 'server'
   | 'idem_conflict' | 'idem_missing'
   // packs
-  | 'bonus' | 'empty' | 'stack_short' | 'shards' | 'daily_used' | 'focus_used' | 'focus' | 'pack' | 'source'
+  | 'bonus' | 'empty' | 'stack_short' | 'shards' | 'daily_used' | 'pack' | 'source'
   // ads
   | 'ad_limit' | 'ticket'
   // collection
@@ -91,7 +91,7 @@ export type ErrorCode =
 export const ERROR_STATUS: Record<ErrorCode, number> = {
   bad_request: 400, unauthorized: 401, not_found: 404, origin: 403, editorial_account: 403, rate_limited: 429, server: 500,
   idem_conflict: 409, idem_missing: 400,
-  bonus: 409, empty: 409, stack_short: 409, shards: 409, daily_used: 409, focus_used: 409, focus: 400, pack: 409, source: 400,
+  bonus: 409, empty: 409, stack_short: 409, shards: 409, daily_used: 409, pack: 409, source: 400,
   ad_limit: 409, ticket: 409,
   card: 404, owned: 409, no_craft: 409, wish_limit: 409, locked: 409, not_owned: 409,
   confirm_required: 400, nothing_to_recycle: 409, last_copy: 409,
@@ -112,8 +112,8 @@ export type ThemeId = 'all' | 'girls' | 'boys' | 'solo';
 export const THEME_IDS: readonly ThemeId[] = ['all', 'girls', 'boys', 'solo'];
 export const THEME_NAMES: Record<ThemeId, string> = { all: 'All idols', girls: 'Girl groups', boys: 'Boy groups', solo: 'Soloists' };
 
-/** What a pack was opened as. `theme` packs come from the stack (or shards); `daily` and `focus` have their own address. */
-export type PackKind = ThemeId | 'daily' | 'focus';
+/** What a pack was opened as. `theme` packs come from the stack (or shards); `daily` has its own address. */
+export type PackKind = ThemeId | 'daily';
 
 /** A card as a list shows it. `n` is the card number everywhere; the catalog (GET /api/cards/catalog) gives names and pictures. */
 export interface CardRef {
@@ -208,8 +208,6 @@ export interface Prefs {
   vibration: boolean;
   /** The theme of the pack in the centre. */
   theme: ThemeId;
-  /** The group of the focus pack (cards_entities id), null when none was chosen yet. */
-  focus: string | null;
 }
 
 export interface WeekMini {
@@ -272,13 +270,11 @@ export interface LobbyState extends WalletState {
 export interface OpenRequest {
   /** UUID, one per intention (Idempotency-Key header or this field). */
   key: string;
-  /** 'stock' a pack of the stack (theme), 'daily' the pack of the day (free once a Paris day), 'focus' a focus pack from the stack,
+  /** 'stock' a pack of the stack (theme), 'daily' the pack of the day (free once a Paris day),
    *  'shards' a pack bought with 50 shards, 'bonus' the pack a Kpopdle win earned (LobbyState.bridges.kpopdle.left > 0; not from the stack). */
-  source: 'stock' | 'daily' | 'focus' | 'shards' | 'bonus';
+  source: 'stock' | 'daily' | 'shards' | 'bonus';
   /** The theme, for 'stock', 'shards' and 'bonus'; default: the player's saved theme. */
   theme?: ThemeId;
-  /** The group (cards_entities id 'group:...'), for 'focus'. */
-  focus?: string;
   /** 1 or 5. 5 is only for 'stock' and needs five packs in the stack. */
   packs?: 1 | 5;
 }
@@ -302,9 +298,9 @@ export interface OpenedPack {
   id: string;
   /** The player's pack number (every pack counts, whatever its source). */
   packNo: number;
-  source: 'stock' | 'daily' | 'focus' | 'shards' | 'bonus';
+  source: 'stock' | 'daily' | 'shards' | 'bonus';
   theme: PackKind;
-  /** The group of a daily or focus pack. */
+  /** The group of a daily pack. */
   group: GroupRef | null;
   /** A golden pack: its fifth card is Holo or better. */
   golden: boolean;
@@ -541,7 +537,7 @@ export interface OddsPack {
 export interface OddsState {
   packs: OddsPack[];
   /** The guarantees, in plain sentences. */
-  guarantees: { id: 'gold' | 'golden' | 'pair' | 'focus' | 'daily' | 'five'; text: string }[];
+  guarantees: { id: 'gold' | 'golden' | 'pair' | 'daily' | 'five'; text: string }[];
   generatedAt: string;
 }
 
@@ -561,7 +557,7 @@ export interface CardMoment {
 /** POST /api/cards-bridge/bonus { source: 'kpopdle' } (sent by the Kpopdle win line; the server reads the wins itself): the bonus packs recorded for the Paris day. */
 export interface BonusAnswer { signedIn: boolean; earned?: number; bonusLeft?: number }
 
-export interface PrefsRequest { sound?: boolean; vibration?: boolean; theme?: ThemeId; focus?: string | null }
+export interface PrefsRequest { sound?: boolean; vibration?: boolean; theme?: ThemeId }
 export interface PrefsResponse { prefs: Prefs }
 
 export interface LockRequest { n: number; on: boolean }
@@ -707,7 +703,7 @@ export const PAGES = {
   ranking: '/kpopcards/ranking',
   odds: '/kpopcards/odds',
   help: '/kpopcards/help',
-  open: (p: PackKind): string => `/kpopcards/open/${p === 'focus' ? 'focus' : p}`,
+  open: (p: PackKind): string => `/kpopcards/open/${p}`,
   idol: (slug: string): string => `/kpopcards/idol/${slug}`,
   player: (nickname: string): string => `/kpopcards/u/${nickname}`,
 } as const;

@@ -47,7 +47,7 @@ export async function readPool(): Promise<PoolCard[]> {
   const pool: PoolCard[] = [];
   for (const r of rows) {
     const e = Array.isArray(r.cards_entities) ? r.cards_entities[0] : r.cards_entities;
-    if (e?.active) pool.push({ n: r.card_no, kind: e.kind, rarity: r.rarity, entity: r.entity_id, group: e.group_id });
+    if (e?.active) pool.push({ n: r.card_no, kind: e.kind, rarity: r.rarity, entity: r.entity_id });
   }
   return pool;
 }
@@ -65,7 +65,7 @@ export function resetPoolCache(): void {
   cached = null;
 }
 
-/** One pack of 5 card numbers, drawn on the server. `ctx` is the player's own state (lot 3: the Ultra Rare guarantee, the owned halves, the focus). */
+/** One pack of 5 card numbers, drawn on the server. `ctx` is the player's own state (lot 3: the Ultra Rare guarantee, the owned halves). */
 export async function drawServerPack(opts: { rng?: Rng; read?: () => Promise<PoolCard[]>; now?: number; ctx?: PackContext } = {}): Promise<number[]> {
   const index = await loadPool(opts.read, opts.now);
   return drawPack(index, opts.rng ?? serverRng, opts.ctx);

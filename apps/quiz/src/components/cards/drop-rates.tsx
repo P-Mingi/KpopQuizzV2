@@ -15,7 +15,7 @@ const pct = (v: number | undefined): string => `${(v ?? 0).toFixed(2)}%`;
 
 /**
  * `rules`: list items (<li>) appended to the "Pack rules" list under the table. That list is the place of the rules sentences: lane ECON
- * adds the Gold guarantee, the missing half and the focus pack there (id "rates-rules", data-slot "pack-rules").
+ * adds the Gold guarantee and the missing half there (id "rates-rules", data-slot "pack-rules").
  */
 export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; rules?: React.ReactNode }): React.ReactElement {
   const t = oddsView(odds);
@@ -55,11 +55,10 @@ export function DropRates({ odds, rules = null }: { odds: CatalogOdds | null; ru
         <ul className="rules-list">
           <li>Each card is drawn on its own.{t.fifthFloor ? ` The fifth card of every pack is ${RARITY_LABEL[t.fifthFloor]} or better.` : ''}</li>
           <li>Packs are never sold and cards can&apos;t be sold.</li>
-          {/* Lots 3 and 4 (lane ECON): the guarantee, the missing half, the focus pack and the economy, in plain sentences. */}
+          {/* Lots 3 and 4 (lane ECON): the guarantee, the missing half and the economy, in plain sentences. */}
           <li>{dupBiasRule()} {dupBiasExempt()}</li>
           <li>{econ.pity}</li>
           <li>{econ.half}</li>
-          <li>{econ.focus}</li>
           <li>{econ.timer}</li>
           <li>{econ.craft}</li>
           <li>{econ.ad}</li>

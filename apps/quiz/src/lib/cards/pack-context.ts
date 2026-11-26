@@ -1,6 +1,6 @@
 // Bunnyverse Cards, lot 3: what the draw needs to know about ONE player (server only, service role). The pure rules are in rules.ts
-// (drawPack with a PackContext); here the three facts are read: whether the Ultra Rare guarantee is due (B10), which group halves
-// the player owns (B11) and the focus group (C4).
+// (drawPack with a PackContext); here the two facts are read: whether the Ultra Rare guarantee is due (B10), which group halves
+// the player owns (B11).
 import { fetchAllRows } from '@/lib/db/fetch-all';
 
 import { PITY_UR, subjectsOf } from './rules';
@@ -22,9 +22,8 @@ export function poolHasUr(index: Map<string, PoolCard[]>): boolean {
   return (['idol', 'group', 'event'] as const).some((k) => (index.get(`${k}|UR`)?.length ?? 0) > 0);
 }
 
-export async function loadPackContext(db: ServiceDb, userId: string, index: Map<string, PoolCard[]>, focus: string | null): Promise<PackContext> {
-  const ctx: { pity?: boolean; owned?: ReadonlySet<number>; focus?: string | null } = {};
-  if (focus) ctx.focus = focus;
+export async function loadPackContext(db: ServiceDb, userId: string, index: Map<string, PoolCard[]>): Promise<PackContext> {
+  const ctx: { pity?: boolean; owned?: ReadonlySet<number> } = {};
   if (poolHasUr(index)) {
     const { data } = await db.rpc('cards_pity_count', { p_user: userId });
     ctx.pity = typeof data === 'number' && data >= PITY_UR - 1;
