@@ -534,7 +534,8 @@ describe('the pages behind the flag', () => {
       // the how-to table lists the eight columns, each with its rule and its source
       const rows = html.slice(html.indexOf('<tbody>', html.indexOf('hub-dle-howto')));
       for (const c of Object.values(w.columns)) expect(rows.replace(/&#x27;/g, '’'), `${rel} ${c.label}`).toContain(`<strong>${c.label.replace(/'/g, '’')}</strong>`);
-      expect(html).toContain(gameAnswerBlock(id, l, (gate.pool as DlePool).entities.length, '2026-11-03'));
+      // The answer block is no longer on the game page (owner, 2026-11-26).
+      expect(html).not.toContain(gameAnswerBlock(id, l, (gate.pool as DlePool).entities.length, '2026-11-03'));
       // yesterday's answer, behind a native fold, with the name of the series and the link to its quiz
       expect(html).toContain('<details class="hub-dle-yfold">');
       expect(html).toContain(id === 'otakudle-one-piece' ? 'Monkey D. Luffy' : 'Son Goku');

@@ -15,7 +15,7 @@ import { EMPTY_IDOL_PICTURES } from '@/lib/dle/idol-pictures';
 import { getKpopdleIdolPictures } from '@/lib/dle/idol-pictures-read';
 import { dleCopy, gameCopy, valueLabel } from '@/lib/dle/copy';
 import { DAILY_PATH, builtGames, dleGame, localePath } from '@/lib/dle/games';
-import { breadcrumbJsonLd, gameAnswerBlock, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
+import { breadcrumbJsonLd, gameJsonLd, itemListJsonLd } from '@/lib/dle/seo';
 import { gameIntro, gameQuestions } from '@/lib/dle/seo-text';
 import { burrowHref, otherWorld, worldHref, worldOf } from '@/lib/dle/worlds';
 import { yesterdayName } from '@/lib/dle/yesterday';
@@ -100,8 +100,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
   // The owner's stickers of the world's page (admin Photos, Stickers): read fresh at each build of the page (lib/photos/public-read.ts getLiveStickers), so a saved size is not held back by the cache of the banners.
   const stickers = pageStickers(await getLiveStickers(), world.id);
-  // SEO-LAUNCH-1 (lane D): the answer block opens the page, under the H1, visible (rule 3.1). Its numbers come from dle_pool and dle_day: the size of the pool, the series of the pool, the date of the day.
-  const intro = pool && day ? gameAnswerBlock(game, locale, pool.entities.length, day.date, g.series ? undefined : groupNames.length || undefined) : null;
+  // The answer block of SEO-LAUNCH-1 is no longer shown under the H1 (owner, 2026-11-26: "too much"). The How to play guide keeps the intro of the game in the server HTML.
   const questions = gameQuestions(game, locale);
   return (
     <DleChrome
@@ -136,7 +135,7 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
         <PageStickers stickers={stickers} />
         <DleGame
           locale={locale} game={game} gameNo={day?.game_no ?? null} stats={day?.stats ?? null} pool={pool} pictures={{ ...idolSet.pictures, ...pictures, ...characterPictures }} thumbs={idolSet.thumbs}
-          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} intro={intro} icons={icons}
+          quizLinks={quizLinks} blindLinks={blindLinks} kpopName={REGISTRY[world.universe].brand.name} yesterday={yesterdayName(day)} icons={icons}
           seriesArt={seriesArt} ownerPreview={world.universe === 'anime' && previewConfigured()}
           {...(cardsBridgesHubOn() ? { cardsHref: CARDS_PATH } : {})}
         />

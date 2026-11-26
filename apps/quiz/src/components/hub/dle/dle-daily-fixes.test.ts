@@ -13,17 +13,17 @@ const read = (p: string): string => readFileSync(join(SRC, p), 'utf8');
 const css = read('styles/sites/hub/dle.css');
 const rule = (sel: string): string => new RegExp(`${sel.replace(/[.]/g, '\\.')} \\{([^}]*)\\}`).exec(css)![1]!;
 
-// SEO-LAUNCH-1 lane D (owner, 2026-11-23, rule 3.1): this block used to be folded in a toggle after the how-to (owner, 2026-11-17). It now opens the page, under the H1, visible without a click,
-// so the test pins the new place and keeps the words of the block.
-describe('the answer block under the H1', () => {
-  it('is passed to the game as `intro`, shown by the game right after the H1, and no longer in a toggle of the guide', () => {
+// The answer block opened the page under the H1 since SEO-LAUNCH-1 (owner, 2026-11-23, rule 3.1). The owner removed it on 2026-11-26 ("too much"):
+// the game page no longer shows it, under the H1 or in a toggle. The words of the block are still pinned below (lib/dle/seo.ts keeps the function).
+describe('the answer block of the game page', () => {
+  it('is no longer on the game page: not passed to the game, not drawn under the H1, not in a toggle of the guide (owner, 2026-11-26)', () => {
     const page = read('components/hub/dle/dle-game-page.tsx');
-    expect(page).toContain('intro={intro}');
-    expect(page).toContain('gameAnswerBlock(game, locale, pool.entities.length, day.date');
+    expect(page).not.toContain('intro={intro}');
+    expect(page).not.toContain('gameAnswerBlock(');
     expect(page).not.toContain('hub-dle-about');
     const game = read('components/hub/dle/dle-game.tsx');
     expect(game.indexOf('<h1 id="dle-h1">{w.h1}</h1>')).toBeGreaterThan(0);
-    expect(game.indexOf('className="hub-dle-answer hub-dle-intro"')).toBeGreaterThan(game.indexOf('<h1 id="dle-h1">'));
+    expect(game).not.toContain('hub-dle-intro');
   });
 
   it('has a title in both languages and the block keeps its words', () => {
