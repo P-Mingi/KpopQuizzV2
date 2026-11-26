@@ -97,7 +97,8 @@ export async function DleGamePage({ game, locale }: { game: DleGameId; locale: D
   // The games of one series, offered as two tiles on the page of Otakudle across all series (Plan.dc.html, link 8).
   const seriesGames = g.series ? [] : builtGames().filter((x) => x.series && worldOf(x.id) === world);
   const universeGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
-  const rules = Object.entries(w.columns).filter(([, c]) => c.near && c.source);
+  // Otakudle in two steps lists the columns its pool holds (step 1) and the gender of step 2; before L42 the pool holds seven, so the table is the one of before.
+  const rules = Object.entries(w.columns).filter(([k, c]) => c.near && c.source && (game !== 'otakudle' || !pool || k === 'gender' || pool.attributes.some((a) => a.key === k)));
   // The owner's stickers of the world's page (admin Photos, Stickers): read fresh at each build of the page (lib/photos/public-read.ts getLiveStickers), so a saved size is not held back by the cache of the banners.
   const stickers = pageStickers(await getLiveStickers(), world.id);
   // The answer block of SEO-LAUNCH-1 is no longer shown under the H1 (owner, 2026-11-26: "too much"). The How to play guide keeps the intro of the game in the server HTML.
