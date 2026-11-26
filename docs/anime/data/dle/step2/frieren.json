@@ -1,0 +1,556 @@
+{
+ "series_slug": "frieren",
+ "columns": [
+  {
+   "key": "race",
+   "kind": "single",
+   "label": {
+    "en": "Race",
+    "fr": "Race"
+   },
+   "help": {
+    "en": "Race at the first appearance",
+    "fr": "Race à la première apparition"
+   }
+  },
+  {
+   "key": "class",
+   "kind": "single",
+   "label": {
+    "en": "Class",
+    "fr": "Classe"
+   },
+   "help": {
+    "en": "Fighting role or class at the first appearance",
+    "fr": "Rôle ou classe de combat à la première apparition"
+   }
+  },
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Party or faction at the first appearance",
+    "fr": "Groupe ou camp à la première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "frieren",
+   "name": "Frieren",
+   "values": {
+    "race": "Elf",
+    "class": "Mage",
+    "group": "Frieren's party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "fern",
+   "name": "Fern",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Frieren's party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "stark",
+   "name": "Stark",
+   "values": {
+    "race": "Human",
+    "class": "Warrior",
+    "group": "Frieren's party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "sein",
+   "name": "Sein",
+   "values": {
+    "race": "Human",
+    "class": "Priest",
+    "group": "Frieren's party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "himmel",
+   "name": "Himmel",
+   "values": {
+    "race": "Human",
+    "class": "Hero",
+    "group": "Hero Party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "heiter",
+   "name": "Heiter",
+   "values": {
+    "race": "Human",
+    "class": "Priest",
+    "group": "Hero Party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "eisen",
+   "name": "Eisen",
+   "values": {
+    "race": "Dwarf",
+    "class": "Other",
+    "group": "Hero Party",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "qual",
+   "name": "Qual",
+   "values": {
+    "race": "Demon",
+    "class": "Demon",
+    "group": "Demons",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "aura",
+   "name": "Aura",
+   "values": {
+    "race": "Demon",
+    "class": "Demon",
+    "group": "Demons",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "serie",
+   "name": "Serie",
+   "values": {
+    "race": "Elf",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "denken",
+   "name": "Denken",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ubel",
+   "name": "Übel",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "land",
+   "name": "Land",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "methode",
+   "name": "Methode",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kanne",
+   "name": "Kanne",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "lawine",
+   "name": "Lawine",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "wirbel",
+   "name": "Wirbel",
+   "values": {
+    "race": "Human",
+    "class": "Mage",
+    "group": "Mages",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "revolte",
+   "name": "Revolte",
+   "values": {
+    "race": "Demon",
+    "class": "Demon",
+    "group": "Demons",
+    "debut_arc": 1
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "hero-of-the-south",
+   "name": "Hero of the South",
+   "values": {
+    "race": "Human",
+    "class": "Hero",
+    "group": "Other",
+    "debut_arc": 2
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "macht",
+   "name": "Macht",
+   "values": {
+    "race": "Demon",
+    "class": "Demon",
+    "group": "Demons",
+    "debut_arc": 2
+   },
+   "sources": {
+    "race": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "class": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Frieren_characters",
+     "https://en.wikipedia.org/wiki/List_of_Frieren_episodes"
+    ]
+   }
+  }
+ ]
+}

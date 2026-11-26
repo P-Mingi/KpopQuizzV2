@@ -1,0 +1,223 @@
+{
+ "series_slug": "steins-gate",
+ "columns": [
+  {
+   "key": "setting",
+   "kind": "single",
+   "label": {
+    "en": "Setting",
+    "fr": "Cadre"
+   },
+   "help": {
+    "en": "Place of study, work or home tied to the character at the first appearance, Other if the page gives none",
+    "fr": "Lieu d'études, de travail ou de vie lié au personnage à la première apparition, Autre si la page n'en donne pas"
+   }
+  },
+  {
+   "key": "occupation",
+   "kind": "single",
+   "label": {
+    "en": "Occupation",
+    "fr": "Occupation"
+   },
+   "help": {
+    "en": "Main occupation in the story",
+    "fr": "Occupation principale dans l'histoire"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "rintaro-okabe",
+   "name": "Rintaro Okabe",
+   "values": {
+    "setting": "Laboratory",
+    "occupation": "Mad scientist"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kurisu-makise",
+   "name": "Kurisu Makise",
+   "values": {
+    "setting": "University",
+    "occupation": "Researcher"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mayuri-shiina",
+   "name": "Mayuri Shiina",
+   "values": {
+    "setting": "Maid cafe",
+    "occupation": "Maid cafe worker"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "itaru-hashida",
+   "name": "Itaru Hashida",
+   "values": {
+    "setting": "Other",
+    "occupation": "Hacker"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "moeka-kiryu",
+   "name": "Moeka Kiryu",
+   "values": {
+    "setting": "Media",
+    "occupation": "Journalist"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "luka-urushibara",
+   "name": "Luka Urushibara",
+   "values": {
+    "setting": "School",
+    "occupation": "Student"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "faris-nyannyan",
+   "name": "Faris NyanNyan",
+   "values": {
+    "setting": "Maid cafe",
+    "occupation": "Maid cafe worker"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "suzuha-amane",
+   "name": "Suzuha Amane",
+   "values": {
+    "setting": "TV repair store",
+    "occupation": "Part-time worker"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yugo-tennouji",
+   "name": "Yugo Tennouji",
+   "values": {
+    "setting": "TV repair store",
+    "occupation": "Landlord"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nae-tennouji",
+   "name": "Nae Tennouji",
+   "values": {
+    "setting": "TV repair store",
+    "occupation": "Other"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "doctor-nakabachi",
+   "name": "Doctor Nakabachi",
+   "values": {
+    "setting": "Other",
+    "occupation": "Researcher"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Steins;Gate_characters"
+    ]
+   }
+  },
+  {
+   "slug": "maho-hiyajo",
+   "name": "Maho Hiyajo",
+   "values": {
+    "setting": "University",
+    "occupation": "Researcher"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/Steins;Gate_0"
+    ]
+   }
+  }
+ ]
+}

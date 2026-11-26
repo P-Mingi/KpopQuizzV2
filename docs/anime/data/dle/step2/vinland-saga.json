@@ -1,0 +1,296 @@
+{
+ "series_slug": "vinland-saga",
+ "columns": [
+  {
+   "key": "faction",
+   "kind": "single",
+   "label": {
+    "en": "Faction",
+    "fr": "Camp"
+   },
+   "help": {
+    "en": "Band, court or home at the first appearance",
+    "fr": "Bande, cour ou foyer à la première apparition"
+   }
+  },
+  {
+   "key": "occupation",
+   "kind": "single",
+   "label": {
+    "en": "Occupation",
+    "fr": "Occupation"
+   },
+   "help": {
+    "en": "Occupation at the first appearance",
+    "fr": "Occupation à la première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "thorfinn",
+   "name": "Thorfinn",
+   "values": {
+    "faction": "Askeladd's company",
+    "occupation": "Viking",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "askeladd",
+   "name": "Askeladd",
+   "values": {
+    "faction": "Askeladd's company",
+    "occupation": "Viking",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "thors",
+   "name": "Thors",
+   "values": {
+    "faction": "Jomsvikings",
+    "occupation": "Viking",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "canute",
+   "name": "Canute",
+   "values": {
+    "faction": "Danish royal family",
+    "occupation": "Prince",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "thorkell",
+   "name": "Thorkell",
+   "values": {
+    "faction": "Jomsvikings",
+    "occupation": "Viking",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "leif",
+   "name": "Leif",
+   "values": {
+    "faction": "Greenland",
+    "occupation": "Sailor",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "floki",
+   "name": "Floki",
+   "values": {
+    "faction": "Jomsvikings",
+    "occupation": "Viking",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "bjorn",
+   "name": "Bjorn",
+   "values": {
+    "faction": "Askeladd's company",
+    "occupation": "Viking",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "einar",
+   "name": "Einar",
+   "values": {
+    "faction": "Ketil's farm",
+    "occupation": "Slave",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "ketil",
+   "name": "Ketil",
+   "values": {
+    "faction": "Ketil's farm",
+    "occupation": "Landowner",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "gudrid",
+   "name": "Gudrid",
+   "values": {
+    "faction": "Greenland",
+    "occupation": "Other",
+    "debut_arc": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  },
+  {
+   "slug": "hild",
+   "name": "Hild",
+   "values": {
+    "faction": "Norway",
+    "occupation": "Hunter",
+    "debut_arc": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Vinland_Saga_characters",
+     "https://en.wikipedia.org/wiki/Vinland_Saga_(manga)"
+    ]
+   }
+  }
+ ]
+}

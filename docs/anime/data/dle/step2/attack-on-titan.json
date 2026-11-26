@@ -1,0 +1,734 @@
+{
+ "series_slug": "attack-on-titan",
+ "columns": [
+  {
+   "key": "affiliation",
+   "kind": "single",
+   "label": {
+    "en": "Affiliation",
+    "fr": "Affiliation"
+   },
+   "help": {
+    "en": "Group the character is shown in at the first appearance (a shifter whose side is hidden is Other)",
+    "fr": "Groupe dans lequel le personnage est montré à sa première apparition (un métamorphe dont le camp est caché est Other)"
+   }
+  },
+  {
+   "key": "cohort",
+   "kind": "single",
+   "label": {
+    "en": "Cohort",
+    "fr": "Promotion"
+   },
+   "help": {
+    "en": "104th Training Corps cadet, or Other",
+    "fr": "Cadet de la 104e promotion du Corps d'entraînement, ou Other"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Season of the first appearance, arrows",
+    "fr": "Saison de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "eren-yeager",
+   "name": "Eren Yeager",
+   "values": {
+    "affiliation": "Civilians",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "mikasa-ackerman",
+   "name": "Mikasa Ackerman",
+   "values": {
+    "affiliation": "Civilians",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "armin-arlert",
+   "name": "Armin Arlert",
+   "values": {
+    "affiliation": "Civilians",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "levi-ackerman",
+   "name": "Levi Ackerman",
+   "values": {
+    "affiliation": "Survey Corps",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "erwin-smith",
+   "name": "Erwin Smith",
+   "values": {
+    "affiliation": "Survey Corps",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "hange-zoe",
+   "name": "Hange Zoë",
+   "values": {
+    "affiliation": "Survey Corps",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "jean-kirstein",
+   "name": "Jean Kirstein",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "connie-springer",
+   "name": "Connie Springer",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "sasha-blouse",
+   "name": "Sasha Blouse",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "krista-lenz",
+   "name": "Krista Lenz",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "ymir",
+   "name": "Ymir",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "reiner-braun",
+   "name": "Reiner Braun",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "bertolt-hoover",
+   "name": "Bertolt Hoover",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "annie-leonhart",
+   "name": "Annie Leonhart",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "marco-bott",
+   "name": "Marco Bott",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "104th",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "keith-shadis",
+   "name": "Keith Shadis",
+   "values": {
+    "affiliation": "Training Corps",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "hannes",
+   "name": "Hannes",
+   "values": {
+    "affiliation": "Garrison Regiment",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "dot-pixis",
+   "name": "Dot Pixis",
+   "values": {
+    "affiliation": "Garrison Regiment",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "mike-zacharius",
+   "name": "Mike Zacharius",
+   "values": {
+    "affiliation": "Survey Corps",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "petra-ral",
+   "name": "Petra Ral",
+   "values": {
+    "affiliation": "Survey Corps",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "zeke-yeager",
+   "name": "Zeke Yeager",
+   "values": {
+    "affiliation": "Other",
+    "cohort": "Other",
+    "debut_arc": 2
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kenny-ackerman",
+   "name": "Kenny Ackerman",
+   "values": {
+    "affiliation": "Military Police",
+    "cohort": "Other",
+    "debut_arc": 3
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "rod-reiss",
+   "name": "Rod Reiss",
+   "values": {
+    "affiliation": "Royal family",
+    "cohort": "Other",
+    "debut_arc": 3
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "grisha-yeager",
+   "name": "Grisha Yeager",
+   "values": {
+    "affiliation": "Civilians",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "carla-yeager",
+   "name": "Carla Yeager",
+   "values": {
+    "affiliation": "Civilians",
+    "cohort": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "gabi-braun",
+   "name": "Gabi Braun",
+   "values": {
+    "affiliation": "Marley",
+    "cohort": "Other",
+    "debut_arc": 5
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "falco-grice",
+   "name": "Falco Grice",
+   "values": {
+    "affiliation": "Marley",
+    "cohort": "Other",
+    "debut_arc": 5
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "pieck-finger",
+   "name": "Pieck Finger",
+   "values": {
+    "affiliation": "Other",
+    "cohort": "Other",
+    "debut_arc": 4
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "porco-galliard",
+   "name": "Porco Galliard",
+   "values": {
+    "affiliation": "Marley",
+    "cohort": "Other",
+    "debut_arc": 5
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "willy-tybur",
+   "name": "Willy Tybur",
+   "values": {
+    "affiliation": "Marley",
+    "cohort": "Other",
+    "debut_arc": 5
+   },
+   "sources": {
+    "affiliation": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "cohort": [
+     "https://en.wikipedia.org/wiki/List_of_Attack_on_Titan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_1",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_2",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_3",
+     "https://en.wikipedia.org/wiki/Attack_on_Titan_season_4"
+    ]
+   }
+  }
+ ]
+}

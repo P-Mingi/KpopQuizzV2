@@ -1,0 +1,351 @@
+{
+ "series_slug": "spy-x-family",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group or place the character list ties the character to",
+    "fr": "Groupe ou lieu auquel la liste des personnages lie le personnage"
+   }
+  },
+  {
+   "key": "side",
+   "kind": "single",
+   "label": {
+    "en": "Tied to",
+    "fr": "Lié à"
+   },
+   "help": {
+    "en": "Which Forger the character list ties the character to: Loid (spy work), Yor (her life) or Anya (school), or the family itself",
+    "fr": "À quel Forger la liste des personnages lie le personnage: Loid (espionnage), Yor (sa vie), Anya (école), ou la famille elle-même"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "loid-forger",
+   "name": "Loid Forger",
+   "values": {
+    "group": "Forger family",
+    "side": "The family"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "anya-forger",
+   "name": "Anya Forger",
+   "values": {
+    "group": "Forger family",
+    "side": "The family"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yor-forger",
+   "name": "Yor Forger",
+   "values": {
+    "group": "Forger family",
+    "side": "The family"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "bond-forger",
+   "name": "Bond Forger",
+   "values": {
+    "group": "Forger family",
+    "side": "The family"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "damian-desmond",
+   "name": "Damian Desmond",
+   "values": {
+    "group": "Eden Academy",
+    "side": "Anya"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "becky-blackbell",
+   "name": "Becky Blackbell",
+   "values": {
+    "group": "Eden Academy",
+    "side": "Anya"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yuri-briar",
+   "name": "Yuri Briar",
+   "values": {
+    "group": "Ministry of Foreign Affairs",
+    "side": "Yor"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sylvia-sherwood",
+   "name": "Sylvia Sherwood",
+   "values": {
+    "group": "WISE",
+    "side": "Loid"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "fiona-frost",
+   "name": "Fiona Frost",
+   "values": {
+    "group": "WISE",
+    "side": "Loid"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "franky-franklin",
+   "name": "Franky Franklin",
+   "values": {
+    "group": "Informant",
+    "side": "Loid"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "donovan-desmond",
+   "name": "Donovan Desmond",
+   "values": {
+    "group": "Desmond family",
+    "side": "Loid"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "henry-henderson",
+   "name": "Henry Henderson",
+   "values": {
+    "group": "Eden Academy",
+    "side": "Anya"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "emile-elman",
+   "name": "Emile Elman",
+   "values": {
+    "group": "Eden Academy",
+    "side": "Anya"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ewen-egeburg",
+   "name": "Ewen Egeburg",
+   "values": {
+    "group": "Eden Academy",
+    "side": "Anya"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "melinda-desmond",
+   "name": "Melinda Desmond",
+   "values": {
+    "group": "Desmond family",
+    "side": "Yor"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "camilla",
+   "name": "Camilla",
+   "values": {
+    "group": "Berlint City Hall",
+    "side": "Yor"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "millie",
+   "name": "Millie",
+   "values": {
+    "group": "Berlint City Hall",
+    "side": "Yor"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sharon",
+   "name": "Sharon",
+   "values": {
+    "group": "Berlint City Hall",
+    "side": "Yor"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "martha-marriott",
+   "name": "Martha Marriott",
+   "values": {
+    "group": "Blackbell household",
+    "side": "Anya"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  },
+  {
+   "slug": "dominic",
+   "name": "Dominic",
+   "values": {
+    "group": "Ministry of Foreign Affairs",
+    "side": "Yor"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Spy_%C3%97_Family_characters"
+    ]
+   }
+  }
+ ]
+}

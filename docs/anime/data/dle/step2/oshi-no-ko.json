@@ -1,0 +1,351 @@
+{
+ "series_slug": "oshi-no-ko",
+ "columns": [
+  {
+   "key": "setting",
+   "kind": "single",
+   "label": {
+    "en": "Industry",
+    "fr": "Milieu"
+   },
+   "help": {
+    "en": "Industry or place the character is shown in at the first appearance",
+    "fr": "Milieu ou lieu dans lequel le personnage est montré à sa première apparition"
+   }
+  },
+  {
+   "key": "performer",
+   "kind": "single",
+   "label": {
+    "en": "Performer",
+    "fr": "Artiste"
+   },
+   "help": {
+    "en": "Whether the character performs (idol, actor, model or online creator) at the first appearance",
+    "fr": "Si le personnage se produit (idole, acteur, mannequin ou créateur en ligne) à sa première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "aqua-hoshino",
+   "name": "Aqua Hoshino",
+   "values": {
+    "setting": "Other",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ruby-hoshino",
+   "name": "Ruby Hoshino",
+   "values": {
+    "setting": "Other",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ai-hoshino",
+   "name": "Ai Hoshino",
+   "values": {
+    "setting": "Idol agency",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kana-arima",
+   "name": "Kana Arima",
+   "values": {
+    "setting": "Film and TV",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "akane-kurokawa",
+   "name": "Akane Kurokawa",
+   "values": {
+    "setting": "Stage theatre",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mem-cho",
+   "name": "MEM-cho",
+   "values": {
+    "setting": "Other",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "taishi-gotanda",
+   "name": "Taishi Gotanda",
+   "values": {
+    "setting": "Film and TV",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ichigo-saito",
+   "name": "Ichigo Saitō",
+   "values": {
+    "setting": "Idol agency",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "miyako-saito",
+   "name": "Miyako Saitō",
+   "values": {
+    "setting": "Idol agency",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "melt-narushima",
+   "name": "Melt Narushima",
+   "values": {
+    "setting": "Film and TV",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gorou-amamiya",
+   "name": "Gorou Amamiya",
+   "values": {
+    "setting": "Hospital",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sarina-tendoji",
+   "name": "Sarina Tendōji",
+   "values": {
+    "setting": "Hospital",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "frill-shiranui",
+   "name": "Frill Shiranui",
+   "values": {
+    "setting": "School",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "taiki-himekawa",
+   "name": "Taiki Himekawa",
+   "values": {
+    "setting": "Stage theatre",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "masaya-kaburagi",
+   "name": "Masaya Kaburagi",
+   "values": {
+    "setting": "Film and TV",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "pieyon",
+   "name": "Pieyon",
+   "values": {
+    "setting": "Idol agency",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "abiko-samejima",
+   "name": "Abiko Samejima",
+   "values": {
+    "setting": "Manga",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yoriko-kichijouji",
+   "name": "Yoriko Kichijouji",
+   "values": {
+    "setting": "Manga",
+    "performer": "No"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sakuya-kamoshida",
+   "name": "Sakuya Kamoshida",
+   "values": {
+    "setting": "Stage theatre",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  },
+  {
+   "slug": "minami-kotobuki",
+   "name": "Minami Kotobuki",
+   "values": {
+    "setting": "School",
+    "performer": "Yes"
+   },
+   "sources": {
+    "setting": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ],
+    "performer": [
+     "https://en.wikipedia.org/wiki/List_of_Oshi_no_Ko_characters"
+    ]
+   }
+  }
+ ]
+}

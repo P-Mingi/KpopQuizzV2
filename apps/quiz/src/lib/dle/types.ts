@@ -29,6 +29,8 @@ export interface DleCell {
 export interface DleGuess {
   readonly id: string;
   readonly result: readonly DleCell[];
+  /** L42: a guess of the right anime also carries its cells of step 2 (Otakudle only). */
+  readonly step2?: readonly DleStepCell[];
 }
 
 export interface DlePublicEntity {
@@ -60,6 +62,15 @@ export interface DlePlayState {
   readonly solve_rank?: number | null;
   /** L40: the plays of the day; absent before L40 is applied. */
   readonly players_today?: number;
+  /** L42 (Otakudle): 1 while no guess is a character of the right anime, 2 from the first one. Absent: the one board game. */
+  readonly step?: 1 | 2;
+  /** L42, from step 2: the slug and the title of the anime, the guess that found it, the guesses that are its characters, how many characters it has in the pool, and the columns of step 2. */
+  readonly series?: string;
+  readonly series_label?: string;
+  readonly step1_guesses?: number;
+  readonly step2_guesses?: number;
+  readonly step2_total?: number;
+  readonly step2_columns?: readonly DleStepColumn[];
 }
 
 /** dle_day. yesterday only once yesterday is closed (03:00 UTC); stats null under 100 plays. */
@@ -86,4 +97,27 @@ export interface DlePool {
   readonly universe: string;
   readonly attributes: readonly { readonly key: string; readonly kind: DleColumnKind; readonly near: number | null }[];
   readonly entities: readonly DlePoolEntity[];
+}
+
+// ---- Otakudle in two steps (L42, owner request of 2026-11-26). Every field is absent before L42 is applied: the client then plays the one board game.
+
+/** A value of a column of step 2: v, and l (the words of an ordinal step or an arc, in English) with lf (in French when it differs). */
+export interface DleStepValue {
+  readonly v: string | number | readonly (string | number)[] | null;
+  readonly l?: string;
+  readonly lf?: string;
+}
+
+/** One cell of step 2: the status against the target and the value of the guessed character. */
+export interface DleStepCell extends DleCell {
+  readonly value?: DleStepValue | null;
+}
+
+/** A column of step 2, in the order of the board. label and help are in English and French for the columns of L42a; the columns of One Piece and Dragon Ball carry none (the app has their words). */
+export interface DleStepColumn {
+  readonly key: string;
+  readonly kind: DleColumnKind;
+  readonly near?: number;
+  readonly label?: Readonly<Record<DleLocale, string>>;
+  readonly help?: Readonly<Record<DleLocale, string>>;
 }

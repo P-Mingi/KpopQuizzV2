@@ -1,0 +1,464 @@
+{
+ "series_slug": "fullmetal-alchemist",
+ "columns": [
+  {
+   "key": "faction",
+   "kind": "single",
+   "label": {
+    "en": "Faction",
+    "fr": "Camp"
+   },
+   "help": {
+    "en": "Side or group at the first appearance",
+    "fr": "Camp ou groupe à la première apparition"
+   }
+  },
+  {
+   "key": "craft",
+   "kind": "single",
+   "label": {
+    "en": "Alchemy",
+    "fr": "Alchimie"
+   },
+   "help": {
+    "en": "Alchemist status or art at the first appearance, None if neither",
+    "fr": "Statut ou art alchimique à la première apparition, Aucun sinon"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Adaptation of the first appearance (2003 anime or Brotherhood), arrows",
+    "fr": "Adaptation de la première apparition (anime 2003 ou Brotherhood), flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "edward-elric",
+   "name": "Edward Elric",
+   "values": {
+    "faction": "State Military",
+    "craft": "State Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "alphonse-elric",
+   "name": "Alphonse Elric",
+   "values": {
+    "faction": "Other",
+    "craft": "Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "roy-mustang",
+   "name": "Roy Mustang",
+   "values": {
+    "faction": "State Military",
+    "craft": "State Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "winry-rockbell",
+   "name": "Winry Rockbell",
+   "values": {
+    "faction": "Other",
+    "craft": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "riza-hawkeye",
+   "name": "Riza Hawkeye",
+   "values": {
+    "faction": "State Military",
+    "craft": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "alex-louis-armstrong",
+   "name": "Alex Louis Armstrong",
+   "values": {
+    "faction": "State Military",
+    "craft": "State Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "maes-hughes",
+   "name": "Maes Hughes",
+   "values": {
+    "faction": "State Military",
+    "craft": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "izumi-curtis",
+   "name": "Izumi Curtis",
+   "values": {
+    "faction": "Other",
+    "craft": "Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "van-hohenheim",
+   "name": "Van Hohenheim",
+   "values": {
+    "faction": "Other",
+    "craft": "Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "scar",
+   "name": "Scar",
+   "values": {
+    "faction": "Ishbal",
+    "craft": "Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "lin-yao",
+   "name": "Lin Yao",
+   "values": {
+    "faction": "Xing",
+    "craft": "None",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "may-chang",
+   "name": "May Chang",
+   "values": {
+    "faction": "Xing",
+    "craft": "Alkahestry",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "olivier-mira-armstrong",
+   "name": "Olivier Mira Armstrong",
+   "values": {
+    "faction": "State Military",
+    "craft": "None",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "envy",
+   "name": "Envy",
+   "values": {
+    "faction": "Homunculi",
+    "craft": "Homunculus",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "greed",
+   "name": "Greed",
+   "values": {
+    "faction": "Homunculi",
+    "craft": "Homunculus",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "king-bradley",
+   "name": "King Bradley",
+   "values": {
+    "faction": "State Military",
+    "craft": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "father",
+   "name": "Father",
+   "values": {
+    "faction": "Homunculi",
+    "craft": "Homunculus",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist:_Brotherhood_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "dante",
+   "name": "Dante",
+   "values": {
+    "faction": "Other",
+    "craft": "Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "shou-tucker",
+   "name": "Shou Tucker",
+   "values": {
+    "faction": "State Military",
+    "craft": "State Alchemist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "truth",
+   "name": "Truth",
+   "values": {
+    "faction": "Other",
+    "craft": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "craft": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_characters",
+     "https://en.wikipedia.org/wiki/List_of_Fullmetal_Alchemist_episodes"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,484 @@
+{
+ "series_slug": "re-zero",
+ "columns": [
+  {
+   "key": "camp",
+   "kind": "single",
+   "label": {
+    "en": "Royal camp",
+    "fr": "Camp royal"
+   },
+   "help": {
+    "en": "Royal selection candidate the character stands with at the first appearance, None if no camp",
+    "fr": "Candidate de la sélection royale que le personnage soutient à sa première apparition, None si aucun camp"
+   }
+  },
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role",
+    "fr": "Rôle"
+   },
+   "help": {
+    "en": "Role at the first appearance",
+    "fr": "Rôle à la première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Season of the first appearance, arrows",
+    "fr": "Saison de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "subaru-natsuki",
+   "name": "Subaru Natsuki",
+   "values": {
+    "camp": "None",
+    "role": "Commoner",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "emilia",
+   "name": "Emilia",
+   "values": {
+    "camp": "Emilia",
+    "role": "Candidate",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "puck",
+   "name": "Puck",
+   "values": {
+    "camp": "Emilia",
+    "role": "Spirit",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "felt",
+   "name": "Felt",
+   "values": {
+    "camp": "Felt",
+    "role": "Candidate",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "reinhard-van-astrea",
+   "name": "Reinhard van Astrea",
+   "values": {
+    "camp": "None",
+    "role": "Knight or retainer",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "elsa-granhiert",
+   "name": "Elsa Granhiert",
+   "values": {
+    "camp": "None",
+    "role": "Assassin",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "rem",
+   "name": "Rem",
+   "values": {
+    "camp": "Emilia",
+    "role": "Knight or retainer",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "ram",
+   "name": "Ram",
+   "values": {
+    "camp": "Emilia",
+    "role": "Knight or retainer",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "beatrice",
+   "name": "Beatrice",
+   "values": {
+    "camp": "Emilia",
+    "role": "Spirit",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "roswaal-l-mathers",
+   "name": "Roswaal L. Mathers",
+   "values": {
+    "camp": "Emilia",
+    "role": "Noble",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "crusch-karsten",
+   "name": "Crusch Karsten",
+   "values": {
+    "camp": "Crusch",
+    "role": "Candidate",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "priscilla-barielle",
+   "name": "Priscilla Barielle",
+   "values": {
+    "camp": "Priscilla",
+    "role": "Candidate",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "anastasia-hoshin",
+   "name": "Anastasia Hoshin",
+   "values": {
+    "camp": "Anastasia",
+    "role": "Candidate",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "julius-juukulius",
+   "name": "Julius Juukulius",
+   "values": {
+    "camp": "Anastasia",
+    "role": "Knight or retainer",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "otto-suwen",
+   "name": "Otto Suwen",
+   "values": {
+    "camp": "None",
+    "role": "Commoner",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "petelgeuse-romanee-conti",
+   "name": "Petelgeuse Romanée-Conti",
+   "values": {
+    "camp": "None",
+    "role": "Witch Cult",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "satella",
+   "name": "Satella",
+   "values": {
+    "camp": "None",
+    "role": "Witch",
+    "debut_arc": 1
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "garfiel-tinzel",
+   "name": "Garfiel Tinzel",
+   "values": {
+    "camp": "None",
+    "role": "Knight or retainer",
+    "debut_arc": 2
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "echidna",
+   "name": "Echidna",
+   "values": {
+    "camp": "None",
+    "role": "Witch",
+    "debut_arc": 2
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "regulus-corneas",
+   "name": "Regulus Corneas",
+   "values": {
+    "camp": "None",
+    "role": "Witch Cult",
+    "debut_arc": 4
+   },
+   "sources": {
+    "camp": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Re:Zero_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Re:Zero_season_1",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_2",
+     "https://en.wikipedia.org/wiki/Re:Zero_season_3"
+    ]
+   }
+  }
+ ]
+}

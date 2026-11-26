@@ -1,0 +1,464 @@
+{
+ "series_slug": "that-time-i-got-reincarnated-as-a-slime",
+ "columns": [
+  {
+   "key": "species",
+   "kind": "single",
+   "label": {
+    "en": "Species",
+    "fr": "Espèce"
+   },
+   "help": {
+    "en": "Species at the first appearance",
+    "fr": "Espèce à la première apparition"
+   }
+  },
+  {
+   "key": "realm",
+   "kind": "single",
+   "label": {
+    "en": "Realm",
+    "fr": "Domaine"
+   },
+   "help": {
+    "en": "Land or power block of the character at the first appearance",
+    "fr": "Territoire ou puissance du personnage à la première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "rimuru-tempest",
+   "name": "Rimuru Tempest",
+   "values": {
+    "species": "Slime",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "veldora-tempest",
+   "name": "Veldora Tempest",
+   "values": {
+    "species": "Dragon",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "gobta",
+   "name": "Gobta",
+   "values": {
+    "species": "Hobgoblin",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ranga",
+   "name": "Ranga",
+   "values": {
+    "species": "Direwolf",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "benimaru",
+   "name": "Benimaru",
+   "values": {
+    "species": "Ogre",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "shion",
+   "name": "Shion",
+   "values": {
+    "species": "Ogre",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "shuna",
+   "name": "Shuna",
+   "values": {
+    "species": "Ogre",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "souei",
+   "name": "Souei",
+   "values": {
+    "species": "Ogre",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kurobe",
+   "name": "Kurobe",
+   "values": {
+    "species": "Ogre",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "geld",
+   "name": "Geld",
+   "values": {
+    "species": "Orc",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "gabil",
+   "name": "Gabil",
+   "values": {
+    "species": "Lizardman",
+    "realm": "Great Jura Forest",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "milim-nava",
+   "name": "Milim Nava",
+   "values": {
+    "species": "Dragonoid",
+    "realm": "Demon Lords",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ramiris",
+   "name": "Ramiris",
+   "values": {
+    "species": "Fairy",
+    "realm": "Demon Lords",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "shizue-izawa",
+   "name": "Shizue Izawa",
+   "values": {
+    "species": "Human",
+    "realm": "Other",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "hinata-sakaguchi",
+   "name": "Hinata Sakaguchi",
+   "values": {
+    "species": "Human",
+    "realm": "Western Holy Empire",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "diablo",
+   "name": "Diablo",
+   "values": {
+    "species": "Demon",
+    "realm": "Great Jura Forest",
+    "debut_arc": 2
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "clayman",
+   "name": "Clayman",
+   "values": {
+    "species": "Deathman",
+    "realm": "Demon Lords",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "luminous-valentine",
+   "name": "Luminous Twilight Valentine",
+   "values": {
+    "species": "Vampire",
+    "realm": "Western Holy Empire",
+    "debut_arc": 3
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "masayuki",
+   "name": "Masayuki Rudra Nam Ul Nasca",
+   "values": {
+    "species": "Human",
+    "realm": "Eastern Empire",
+    "debut_arc": 4
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "yuuki-kagurazaka",
+   "name": "Yuuki Kagurazaka",
+   "values": {
+    "species": "Human",
+    "realm": "Kingdom of Ingrassia",
+    "debut_arc": 1
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "realm": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_characters",
+     "https://en.wikipedia.org/wiki/List_of_That_Time_I_Got_Reincarnated_as_a_Slime_episodes"
+    ]
+   }
+  }
+ ]
+}

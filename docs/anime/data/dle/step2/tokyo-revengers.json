@@ -1,0 +1,464 @@
+{
+ "series_slug": "tokyo-revengers",
+ "columns": [
+  {
+   "key": "gang",
+   "kind": "single",
+   "label": {
+    "en": "Gang",
+    "fr": "Gang"
+   },
+   "help": {
+    "en": "Gang at the first appearance, None if in no gang",
+    "fr": "Gang à la première apparition, Aucun si dans aucun gang"
+   }
+  },
+  {
+   "key": "rank",
+   "kind": "single",
+   "label": {
+    "en": "Rank",
+    "fr": "Rang"
+   },
+   "help": {
+    "en": "Leadership or division of a gang at the first appearance, None if none",
+    "fr": "Direction ou division d'un gang à la première apparition, Aucun sinon"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "takemichi-hanagaki",
+   "name": "Takemichi Hanagaki",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "manjiro-sano",
+   "name": "Manjiro Sano",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Leadership",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ken-ryuguji",
+   "name": "Ken Ryuguji",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Leadership",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "hinata-tachibana",
+   "name": "Hinata Tachibana",
+   "values": {
+    "gang": "None",
+    "rank": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "naoto-tachibana",
+   "name": "Naoto Tachibana",
+   "values": {
+    "gang": "None",
+    "rank": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "tetta-kisaki",
+   "name": "Tetta Kisaki",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Leadership",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "keisuke-baji",
+   "name": "Keisuke Baji",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "First Division",
+    "debut_arc": 2
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "takashi-mitsuya",
+   "name": "Takashi Mitsuya",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Second Division",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "haruki-hayashida",
+   "name": "Haruki Hayashida",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Third Division",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "masataka-kiyomizu",
+   "name": "Masataka Kiyomizu",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "chifuyu-matsuno",
+   "name": "Chifuyu Matsuno",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "First Division",
+    "debut_arc": 2
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kazutora-hanemiya",
+   "name": "Kazutora Hanemiya",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "None",
+    "debut_arc": 2
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "hakkai-shiba",
+   "name": "Hakkai Shiba",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Second Division",
+    "debut_arc": 3
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "taiju-shiba",
+   "name": "Taiju Shiba",
+   "values": {
+    "gang": "Black Dragons",
+    "rank": "Leadership",
+    "debut_arc": 3
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "yuzuha-shiba",
+   "name": "Yuzuha Shiba",
+   "values": {
+    "gang": "None",
+    "rank": "None",
+    "debut_arc": 3
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "izana-kurokawa",
+   "name": "Izana Kurokawa",
+   "values": {
+    "gang": "Tenjiku",
+    "rank": "Leadership",
+    "debut_arc": 4
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kakucho",
+   "name": "Kakucho",
+   "values": {
+    "gang": "Tenjiku",
+    "rank": "None",
+    "debut_arc": 4
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "shuji-hanma",
+   "name": "Shuji Hanma",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "emma-sano",
+   "name": "Emma Sano",
+   "values": {
+    "gang": "None",
+    "rank": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "haruchiyo-sanzu",
+   "name": "Haruchiyo Sanzu",
+   "values": {
+    "gang": "Tokyo Manji Gang",
+    "rank": "Fifth Division",
+    "debut_arc": 4
+   },
+   "sources": {
+    "gang": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_characters",
+     "https://en.wikipedia.org/wiki/List_of_Tokyo_Revengers_episodes"
+    ]
+   }
+  }
+ ]
+}

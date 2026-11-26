@@ -510,3 +510,14 @@ html.ux-v1[data-site="hub"] .hub-dle-avatar-empty { width: 36px; height: 36px; b
   html.ux-v1[data-site="hub"] .hub-dle-gridwrap { width: 100%; }
   html.ux-v1[data-site="hub"] .hub-dle-grid thead .hub-dle-th-name, html.ux-v1[data-site="hub"] .hub-dle-rowhead { width: 124px; min-width: 124px; max-width: 124px; }
 }
+
+/* ---- Otakudle in two steps (L42, owner request of 2026-11-26): the banner between the input and the boards, and the second board with its own header row. The colours of the cells are the same as step 1 (the near cell stays the solid yellow). */
+html.ux-v1[data-site="hub"] .hub-dle-stepbanner { width: 100%; max-width: 680px; margin: 0 auto; padding: 14px 18px; border-radius: 16px; background: var(--hub-dle-soft); border: 1.5px solid var(--hub-dle-c); color: var(--hub-dle-ink); }
+html.ux-v1[data-site="hub"] .hub-dle-stepbanner p { margin: 0; font-size: 15px; line-height: 1.45; font-weight: 500; text-align: center; }
+html.ux-v1[data-site="hub"] .hub-dle-stepbanner strong { font-weight: 800; }
+html.ux-v1[data-site="hub"] .hub-dle-step2 { margin-top: 14px; }
+html.ux-v1[data-site="hub"] .hub-dle-grid-step2 thead th { color: var(--hub-dle-ink); }
+@media (max-width: 640px) {
+  html.ux-v1[data-site="hub"] .hub-dle-stepbanner { padding: 12px 14px; border-radius: 14px; }
+  html.ux-v1[data-site="hub"] .hub-dle-stepbanner p { font-size: 14px; text-align: left; }
+}

@@ -1,0 +1,296 @@
+{
+ "series_slug": "sailor-moon",
+ "columns": [
+  {
+   "key": "planet",
+   "kind": "single",
+   "label": {
+    "en": "Guardian of",
+    "fr": "Gardienne de"
+   },
+   "help": {
+    "en": "Sailor Guardian patron at the first appearance, None if not a Guardian",
+    "fr": "Patronne de Sailor Guardian à la première apparition, Aucune si pas Guardian"
+   }
+  },
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role",
+    "fr": "Rôle"
+   },
+   "help": {
+    "en": "Role at the first appearance",
+    "fr": "Rôle à la première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "usagi-tsukino",
+   "name": "Usagi Tsukino",
+   "values": {
+    "planet": "Moon",
+    "role": "Guardian",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "ami-mizuno",
+   "name": "Ami Mizuno",
+   "values": {
+    "planet": "Mercury",
+    "role": "Guardian",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "rei-hino",
+   "name": "Rei Hino",
+   "values": {
+    "planet": "Mars",
+    "role": "Guardian",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "makoto-kino",
+   "name": "Makoto Kino",
+   "values": {
+    "planet": "Jupiter",
+    "role": "Guardian",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "minako-aino",
+   "name": "Minako Aino",
+   "values": {
+    "planet": "Venus",
+    "role": "Guardian",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "mamoru-chiba",
+   "name": "Mamoru Chiba",
+   "values": {
+    "planet": "None",
+    "role": "Ally",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "luna",
+   "name": "Luna",
+   "values": {
+    "planet": "None",
+    "role": "Advisor",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "artemis",
+   "name": "Artemis",
+   "values": {
+    "planet": "None",
+    "role": "Advisor",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "queen-beryl",
+   "name": "Queen Beryl",
+   "values": {
+    "planet": "None",
+    "role": "Villain",
+    "debut_arc": 1
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "chibiusa",
+   "name": "Chibiusa",
+   "values": {
+    "planet": "None",
+    "role": "Ally",
+    "debut_arc": 2
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "haruka-tenoh",
+   "name": "Haruka Tenoh",
+   "values": {
+    "planet": "Uranus",
+    "role": "Guardian",
+    "debut_arc": 3
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  },
+  {
+   "slug": "michiru-kaioh",
+   "name": "Michiru Kaioh",
+   "values": {
+    "planet": "Neptune",
+    "role": "Guardian",
+    "debut_arc": 3
+   },
+   "sources": {
+    "planet": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Sailor_Moon_characters",
+     "https://en.wikipedia.org/wiki/Sailor_Moon_(TV_series)"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,351 @@
+{
+ "series_slug": "code-geass",
+ "columns": [
+  {
+   "key": "section",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group the character list files the character under",
+    "fr": "Groupe sous lequel la liste des personnages classe le personnage"
+   }
+  },
+  {
+   "key": "pilot",
+   "kind": "single",
+   "label": {
+    "en": "Knightmare pilot",
+    "fr": "Pilote de Knightmare"
+   },
+   "help": {
+    "en": "Whether the character list says the character pilots or fights in a Knightmare Frame",
+    "fr": "Indique si la liste des personnages dit que le personnage pilote ou combat dans un Knightmare Frame"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "lelouch-lamperouge",
+   "name": "Lelouch Lamperouge",
+   "values": {
+    "section": "Main characters",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "suzaku-kururugi",
+   "name": "Suzaku Kururugi",
+   "values": {
+    "section": "Main characters",
+    "pilot": "Pilots one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "cc",
+   "name": "C.C.",
+   "values": {
+    "section": "Main characters",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kallen-stadtfeld",
+   "name": "Kallen Stadtfeld",
+   "values": {
+    "section": "Main characters",
+    "pilot": "Pilots one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nunnally-lamperouge",
+   "name": "Nunnally Lamperouge",
+   "values": {
+    "section": "Ashford Academy",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shirley-fenette",
+   "name": "Shirley Fenette",
+   "values": {
+    "section": "Ashford Academy",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "milly-ashford",
+   "name": "Milly Ashford",
+   "values": {
+    "section": "Ashford Academy",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rivalz-cardemonde",
+   "name": "Rivalz Cardemonde",
+   "values": {
+    "section": "Ashford Academy",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nina-einstein",
+   "name": "Nina Einstein",
+   "values": {
+    "section": "Ashford Academy",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "euphemia-li-britannia",
+   "name": "Euphemia li Britannia",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "cornelia-li-britannia",
+   "name": "Cornelia li Britannia",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Pilots one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "schneizel-el-britannia",
+   "name": "Schneizel el Britannia",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "charles-zi-britannia",
+   "name": "Charles zi Britannia",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jeremiah-gottwald",
+   "name": "Jeremiah Gottwald",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Pilots one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rolo-lamperouge",
+   "name": "Rolo Lamperouge",
+   "values": {
+    "section": "Ashford Academy",
+    "pilot": "Pilots one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lloyd-asplund",
+   "name": "Lloyd Asplund",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kaguya-sumeragi",
+   "name": "Kaguya Sumeragi",
+   "values": {
+    "section": "Black Knights",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kyoshiro-tohdoh",
+   "name": "Kyoshiro Tohdoh",
+   "values": {
+    "section": "Black Knights",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "diethard-ried",
+   "name": "Diethard Ried",
+   "values": {
+    "section": "Black Knights",
+    "pilot": "Not stated as a pilot"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  },
+  {
+   "slug": "bismarck-waldstein",
+   "name": "Bismarck Waldstein",
+   "values": {
+    "section": "Holy Britannian Empire",
+    "pilot": "Pilots one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ],
+    "pilot": [
+     "https://en.wikipedia.org/wiki/List_of_Code_Geass_characters"
+    ]
+   }
+  }
+ ]
+}

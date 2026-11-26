@@ -1,0 +1,617 @@
+{
+ "series_slug": "bleach",
+ "columns": [
+  {
+   "key": "faction",
+   "kind": "single",
+   "label": {
+    "en": "Faction",
+    "fr": "Faction"
+   },
+   "help": {
+    "en": "Group the character belongs to at the first appearance",
+    "fr": "Groupe auquel le personnage appartient à la première apparition"
+   }
+  },
+  {
+   "key": "squad",
+   "kind": "single",
+   "label": {
+    "en": "Squad",
+    "fr": "Division"
+   },
+   "help": {
+    "en": "Gotei 13 squad at the first appearance, or None",
+    "fr": "Division du Gotei 13 à la première apparition, ou aucune"
+   }
+  },
+  {
+   "key": "rank",
+   "kind": "ordinal",
+   "label": {
+    "en": "Rank",
+    "fr": "Rang"
+   },
+   "help": {
+    "en": "Rank held at the first appearance, arrows",
+    "fr": "Rang tenu à la première apparition, flèches"
+   },
+   "order": [
+    {
+     "v": 1,
+     "label": {
+      "en": "None",
+      "fr": "Aucun"
+     }
+    },
+    {
+     "v": 2,
+     "label": {
+      "en": "Soul Reaper (no post)",
+      "fr": "Shinigami sans poste"
+     }
+    },
+    {
+     "v": 3,
+     "label": {
+      "en": "Lieutenant",
+      "fr": "Lieutenant"
+     }
+    },
+    {
+     "v": 4,
+     "label": {
+      "en": "Captain",
+      "fr": "Capitaine"
+     }
+    },
+    {
+     "v": 5,
+     "label": {
+      "en": "Espada",
+      "fr": "Espada"
+     }
+    },
+    {
+     "v": 6,
+     "label": {
+      "en": "Faction leader",
+      "fr": "Chef de faction"
+     }
+    }
+   ]
+  }
+ ],
+ "characters": [
+  {
+   "slug": "ichigo-kurosaki",
+   "name": "Ichigo Kurosaki",
+   "values": {
+    "faction": "Human",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rukia-kuchiki",
+   "name": "Rukia Kuchiki",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 13",
+    "rank": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ]
+   }
+  },
+  {
+   "slug": "orihime-inoue",
+   "name": "Orihime Inoue",
+   "values": {
+    "faction": "Human",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "uryu-ishida",
+   "name": "Uryū Ishida",
+   "values": {
+    "faction": "Quincy",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yasutora-sado",
+   "name": "Yasutora Sado",
+   "values": {
+    "faction": "Human",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kisuke-urahara",
+   "name": "Kisuke Urahara",
+   "values": {
+    "faction": "Other",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "isshin-kurosaki",
+   "name": "Isshin Kurosaki",
+   "values": {
+    "faction": "Human",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kon",
+   "name": "Kon",
+   "values": {
+    "faction": "Mod-Soul",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "karin-kurosaki",
+   "name": "Karin Kurosaki",
+   "values": {
+    "faction": "Human",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tatsuki-arisawa",
+   "name": "Tatsuki Arisawa",
+   "values": {
+    "faction": "Human",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "renji-abarai",
+   "name": "Renji Abarai",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 6",
+    "rank": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach",
+     "https://en.wikipedia.org/wiki/Renji_Abarai"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach",
+     "https://en.wikipedia.org/wiki/Renji_Abarai"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach",
+     "https://en.wikipedia.org/wiki/Renji_Abarai"
+    ]
+   }
+  },
+  {
+   "slug": "yoruichi-shihoin",
+   "name": "Yoruichi Shihōin",
+   "values": {
+    "faction": "Other",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ganju-shiba",
+   "name": "Ganju Shiba",
+   "values": {
+    "faction": "Other",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kukaku-shiba",
+   "name": "Kūkaku Shiba",
+   "values": {
+    "faction": "Other",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sousuke-aizen",
+   "name": "Sousuke Aizen",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 5",
+    "rank": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach",
+     "https://en.wikipedia.org/wiki/S%C5%8Dsuke_Aizen"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach",
+     "https://en.wikipedia.org/wiki/S%C5%8Dsuke_Aizen"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach",
+     "https://en.wikipedia.org/wiki/S%C5%8Dsuke_Aizen"
+    ]
+   }
+  },
+  {
+   "slug": "jin-kariya",
+   "name": "Jin Kariya",
+   "values": {
+    "faction": "Bount",
+    "squad": "None",
+    "rank": 6
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shinji-hirako",
+   "name": "Shinji Hirako",
+   "values": {
+    "faction": "Vizard",
+    "squad": "None",
+    "rank": 6
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nozomi-kujo",
+   "name": "Nozomi Kujō",
+   "values": {
+    "faction": "Mod-Soul",
+    "squad": "None",
+    "rank": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kugo-ginjo",
+   "name": "Kūgo Ginjō",
+   "values": {
+    "faction": "Fullbringer",
+    "squad": "None",
+    "rank": 6
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yhwach",
+   "name": "Yhwach",
+   "values": {
+    "faction": "Quincy",
+    "squad": "None",
+    "rank": 6
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toshiro-hitsugaya",
+   "name": "Tōshirō Hitsugaya",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 10",
+    "rank": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ]
+   }
+  },
+  {
+   "slug": "byakuya-kuchiki",
+   "name": "Byakuya Kuchiki",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 6",
+    "rank": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ]
+   }
+  },
+  {
+   "slug": "kenpachi-zaraki",
+   "name": "Kenpachi Zaraki",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 11",
+    "rank": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ]
+   }
+  },
+  {
+   "slug": "mayuri-kurotsuchi",
+   "name": "Mayuri Kurotsuchi",
+   "values": {
+    "faction": "Soul Reaper",
+    "squad": "Squad 12",
+    "rank": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Soul_Reapers_in_Bleach"
+    ]
+   }
+  },
+  {
+   "slug": "ulquiorra-cifer",
+   "name": "Ulquiorra Cifer",
+   "values": {
+    "faction": "Arrancar",
+    "squad": "None",
+    "rank": 5
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Hollows_in_Bleach"
+    ],
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Hollows_in_Bleach"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Bleach_characters",
+     "https://en.wikipedia.org/wiki/List_of_Hollows_in_Bleach"
+    ]
+   }
+  }
+ ]
+}

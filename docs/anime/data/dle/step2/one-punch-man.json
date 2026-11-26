@@ -1,0 +1,260 @@
+{
+ "series_slug": "one-punch-man",
+ "columns": [
+  {
+   "key": "hero_class",
+   "kind": "ordinal",
+   "label": {
+    "en": "Hero class",
+    "fr": "Classe de héros"
+   },
+   "help": {
+    "en": "Hero Association class at the first appearance, arrows",
+    "fr": "Classe de l'Association des héros à la première apparition, flèches"
+   },
+   "order": [
+    {
+     "v": 1,
+     "label": {
+      "en": "No rank",
+      "fr": "Sans rang"
+     }
+    },
+    {
+     "v": 2,
+     "label": {
+      "en": "C-Class",
+      "fr": "Classe C"
+     }
+    },
+    {
+     "v": 3,
+     "label": {
+      "en": "B-Class",
+      "fr": "Classe B"
+     }
+    },
+    {
+     "v": 4,
+     "label": {
+      "en": "A-Class",
+      "fr": "Classe A"
+     }
+    },
+    {
+     "v": 5,
+     "label": {
+      "en": "S-Class",
+      "fr": "Classe S"
+     }
+    }
+   ]
+  },
+  {
+   "key": "side",
+   "kind": "single",
+   "label": {
+    "en": "Side",
+    "fr": "Camp"
+   },
+   "help": {
+    "en": "Side at the first appearance",
+    "fr": "Camp à la première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "saitama",
+   "name": "Saitama",
+   "values": {
+    "hero_class": 2,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "genos",
+   "name": "Genos",
+   "values": {
+    "hero_class": 5,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mumen-rider",
+   "name": "Mumen Rider",
+   "values": {
+    "hero_class": 2,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "speed-o-sound-sonic",
+   "name": "Speed-o'-Sound Sonic",
+   "values": {
+    "hero_class": 1,
+    "side": "Villain"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "king",
+   "name": "King",
+   "values": {
+    "hero_class": 5,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "bang",
+   "name": "Bang",
+   "values": {
+    "hero_class": 5,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "atomic-samurai",
+   "name": "Atomic Samurai",
+   "values": {
+    "hero_class": 5,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tatsumaki",
+   "name": "Tatsumaki",
+   "values": {
+    "hero_class": 5,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "garou",
+   "name": "Garou",
+   "values": {
+    "hero_class": 1,
+    "side": "Villain"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "boros",
+   "name": "Boros",
+   "values": {
+    "hero_class": 1,
+    "side": "Monster"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "fubuki",
+   "name": "Fubuki",
+   "values": {
+    "hero_class": 3,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "blast",
+   "name": "Blast",
+   "values": {
+    "hero_class": 5,
+    "side": "Hero"
+   },
+   "sources": {
+    "hero_class": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ],
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_One-Punch_Man_characters"
+    ]
+   }
+  }
+ ]
+}

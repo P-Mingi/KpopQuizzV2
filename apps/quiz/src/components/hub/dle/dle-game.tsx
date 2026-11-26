@@ -11,7 +11,8 @@ import { dleGame, localePath } from '@/lib/dle/games';
 import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { LIVE_REFRESH_MS, liveCopy, shownPlayers, shownRank } from '@/lib/dle/live';
 import { suggest } from '@/lib/dle/search';
-import { correctCounts, shareText } from '@/lib/dle/share';
+import { correctCounts, shareTextSteps } from '@/lib/dle/share';
+import { board1, board2, columnWords, offered, stepCopy, stepText, stepView } from '@/lib/dle/steps';
 import { utcDate } from '@/lib/dle/day';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
 import { withBasePath } from '@/lib/site/base-path';
@@ -31,7 +32,8 @@ import type { LocalHistory } from '@/lib/dle/local';
 import type { DlePicture } from '@/lib/dle/read';
 import type { DleGameCopy } from '@/lib/dle/copy';
 import type { DleGameDef, DleGameId, DleHintDef } from '@/lib/dle/games';
-import type { DleCell, DleGuess, DleLocale, DlePlayState, DlePool, DlePoolEntity, DlePublicEntity, DleStats } from '@/lib/dle/types';
+import type { StepView } from '@/lib/dle/steps';
+import type { DleCell, DleGuess, DleLocale, DlePlayState, DlePool, DlePoolEntity, DlePublicEntity, DleStats, DleStepColumn } from '@/lib/dle/types';
 import dynamic from 'next/dynamic';
 
 import { flagOn } from '@/lib/site/registry';
@@ -213,6 +215,59 @@ export function DleGrid({ locale, game, pool, guesses, byId, wonId, fresh, words
   );
 }
 
+/** The board of step 2 (Otakudle in two steps): the columns the server sent for the anime found, a row per character of that anime guessed, newest first. */
+export function DleStepGrid({ locale, game, view, guesses, byId, wonId, fresh, words, look }: {
+  readonly locale: DleLocale; readonly game: DleGameId; readonly view: StepView; readonly guesses: readonly DleGuess[];
+  readonly byId: ReadonlyMap<string, DlePoolEntity>; readonly wonId: string | null; readonly fresh: string | null; readonly words: GridWords;
+  readonly look?: (e: DlePoolEntity) => AvatarLook;
+}): React.ReactElement {
+  const g = dleGame(game);
+  const w = gameCopy(game, locale);
+  const sc = stepCopy(locale);
+  const columns: readonly DleStepColumn[] = view.columns;
+  const own = (id: DleGameId): Readonly<Record<string, { label: string; help: string }>> => gameCopy(id, locale).columns;
+  const word = (c: DleStepColumn): { label: string; help: string } => columnWords(c, view.series, locale, own);
+  return (
+    <div className="hub-dle-gridwrap">
+      <table className={`hub-dle-grid hub-dle-grid-step2${columns.length > 7 ? ' hub-dle-grid-wide' : ''}`}>
+        <caption className="hub-dle-sr">{sc.board2Caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col" className="hub-dle-th-name">{sc.rowHead2}</th>
+            {columns.map((c) => <th key={c.key} scope="col" title={word(c).help}>{word(c).label}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {[...guesses].reverse().map((row) => {
+            const e = byId.get(row.id);
+            const isTarget = wonId !== null && row.id === wonId;
+            const isNew = fresh === row.id;
+            const sub = e ? firstValue(e.attrs[w.subKey]?.v) : '';
+            return (
+              <tr key={row.id}>
+                <th scope="row">
+                  <span className={`hub-dle-rowhead${isTarget ? ' hub-dle-rowhead-win' : ''}${isNew ? ' hub-dle-rowin' : ''}`}>
+                    {e ? <Avatar entity={e} tone={sub} size={36} radius={10} font={12} look={look?.(e)} /> : null}
+                    <span className="hub-dle-rowname"><strong>{e?.name ?? row.id}</strong><small>{e ? subText(g, e, w.subKey, locale) : ''}</small></span>
+                  </span>
+                </th>
+                {(row.step2 ?? []).map((c, i) => {
+                  const col = columns.find((x) => x.key === c.key) ?? { key: c.key, kind: 'single' as const };
+                  return (
+                    <td key={c.key}>
+                      <Cell cell={c} value={stepText(col, view.series, c.value, locale)} label={word(col).label} words={words} fresh={isNew} index={i} />
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictures, thumbs, quizLinks, blindLinks, kpopName, yesterday = null, icons, seriesArt, ownerPreview = false, cardsHref }: DleGameProps): React.ReactElement {
   const t = dleCopy(locale);
   const g = dleGame(game);
@@ -254,13 +309,21 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   const byId = useMemo(() => new Map((pool?.entities ?? []).map((e) => [e.id, e])), [pool]);
   const guesses = play?.guesses ?? [];
   const guessed = useMemo(() => new Set(guesses.map((x) => x.id)), [guesses]);
+  // L42: Otakudle in two steps. Without the step fields of the play state, none of this applies and the page is the one board game.
+  const sv = stepView(play);
+  const sc = stepCopy(locale);
+  const seriesShown = sv.seriesLabel ? valueLabel('series', sv.seriesLabel, locale) : '';
+  const entities = useMemo(() => offered(pool?.entities ?? [], sv), [pool, sv.found, sv.seriesLabel]);  // eslint-disable-line react-hooks/exhaustive-deps
   const over = play ? play.status !== 'playing' : false;
   const won = play?.status === 'won';
   const errors = guesses.length - (won ? 1 : 0);
-  const sugg = useMemo(() => (open && pool ? suggest(pool.entities, query, guessed) : []), [open, pool, query, guessed]);
+  const sugg = useMemo(() => (open && pool ? suggest(entities, query, guessed) : []), [open, pool, entities, query, guessed]);
   const counts = correctCounts(guesses);
-  const lastCount = counts[counts.length - 1] ?? 0;
-  const lastSize = guesses[guesses.length - 1]?.result.length ?? 0;
+  // The "so close" toast reads the board the player is on: in two steps, the cells of step 2 of the last guess (never the 4 of step 1, which only say the anime is right).
+  const lastGuess = guesses[guesses.length - 1];
+  const lastCells = sv.two ? lastGuess?.step2 ?? [] : lastGuess?.result ?? [];
+  const lastCount = lastCells.filter((c) => c.status === 'correct').length;
+  const lastSize = lastCells.length;
   const label = world.universe === 'kpop' ? t.kpopLabel : t.animeLabel;
   const worldGames = world.modes.flatMap((m) => (m.game ? [m.game] : []));
   const liveGames = world.modes.flatMap((m) => (liveGame(m) ? [m.game!] : []));
@@ -390,18 +453,19 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   // ---- the words that depend on the play
   const nameOf = (id: string): string => byId.get(id)?.name ?? '';
   const last = guesses[guesses.length - 1];
+  const columnLabel = (key: string): string => { const col = sv.columns.find((x) => x.key === key); return col ? columnWords(col, sv.series, locale, (id) => gameCopy(id, locale).columns).label : key; };
   const announce = won && play?.target
     ? t.announceWon(play.target.name, guesses.length)
-    : last ? `${t.announceGuess(guesses.length, nameOf(last.id))} ${last.result.map((c) => `${w.columns[c.key]?.label ?? c.key}: ${c.status === 'correct' ? t.right : c.status === 'near' ? t.near : c.status === 'wrong' ? t.wrong : t.unknownCell}`).join(', ')}.` : '';
+    : last ? `${t.announceGuess(guesses.length, nameOf(last.id))} ${(last.step2 && sv.found ? last.step2 : last.result).map((c) => `${last.step2 && sv.found ? columnLabel(c.key) : w.columns[c.key]?.label ?? c.key}: ${c.status === 'correct' ? t.right : c.status === 'near' ? t.near : c.status === 'wrong' ? t.wrong : t.unknownCell}`).join(', ')}.${last.step2 && sv.found && guesses.length === sv.anime ? ` ${sc.announceFound(sv.anime, seriesShown)}` : ''}` : '';
   const hintServed = (h: DleHintDef): { readonly key: string; readonly value: string } | null => servedHint(h, play?.hints ?? [], locale);
   const words = { right: t.right, near: t.near, wrong: t.wrong, unknown: t.unknownCell, up: t.answerUp, down: t.answerDown };
   const shareUrl = (): string => {
     const base = `${window.location.origin}${withBasePath(localePath(g.path, locale))}`;
     return counts.length ? `${base}?r=${shareParam(counts)}` : base;
   };
-  const shareBody = (): string => shareText(g, no ?? 0, guesses, won, shareUrl(), locale);
+  const shareBody = (): string => shareTextSteps(g, no ?? 0, guesses, won, shareUrl(), locale, sv);
   const previewUrl = `bunnyverse.org${localePath(g.path, locale)}`;
-  const preview = play && over ? shareText(g, no ?? 0, guesses, won, previewUrl, locale) : '';
+  const preview = play && over ? shareTextSteps(g, no ?? 0, guesses, won, previewUrl, locale, sv) : '';
 
   const copy = async (): Promise<void> => {
     analytics.shareClick('dle_result', 'dle');
@@ -486,7 +550,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
         <h1 id="dle-h1">{w.h1}</h1>
       </section>
 
-      <section aria-label={w.proposeLabel} className="hub-dle-box">
+      <section aria-label={sv.found ? sc.proposeLabel(seriesShown) : w.proposeLabel} className="hub-dle-box">
         {off ? <p role="status" className="hub-dle-off">{t.unavailable}</p> : (
           <>
             <div className="hub-dle-inputwrap" onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false); }}>
@@ -494,7 +558,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               <span id="dle-enter-help" className="hub-dle-sr">{t.enterHelp}</span>
               <div className="hub-dle-inputrow">
                 <input
-                  ref={inputRef} id="dle-guess" type="text" autoComplete="off" spellCheck={false} value={query} disabled={over} placeholder={w.placeholder}
+                  ref={inputRef} id="dle-guess" type="text" autoComplete="off" spellCheck={false} value={query} disabled={over} placeholder={sv.found ? sc.placeholder(seriesShown) : w.placeholder}
                   role="combobox" aria-autocomplete="list" aria-controls="dle-sugg" aria-expanded={sugg.length > 0} aria-describedby="dle-enter-help"
                   aria-activedescendant={sugg[active] ? `dle-opt-${sugg[active]!.id}` : undefined}
                   onChange={(e) => { setQuery(e.target.value); setOpen(true); setActive(0); setFresh(null); }}
@@ -555,6 +619,12 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
         )}
       </section>
 
+      {sv.found ? (
+        <section aria-label={sc.stepSr(2)} className="hub-dle-stepbanner" data-testid="dle-step-banner">
+          <p role="status"><strong>{sc.bannerTitle(sv.anime, seriesShown)}</strong> {sc.bannerText(sv.total)}</p>
+        </section>
+      ) : null}
+
       <p aria-live="polite" className="hub-dle-sr">{announce}</p>
 
       {over && target ? (
@@ -578,7 +648,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
             <div className="hub-dle-resulthead">
               <p className="hub-dle-eyebrow">{won ? w.found ?? t.found : t.answerWas}</p>
               <h2 id="dle-win">{target.name}{targetGroup ? <span> {g.series ? targetGroup : valueLabel(w.subKey, targetGroup, locale)}</span> : null}</h2>
-              <p>{won ? t.wonLine(guesses.length, stats ? formatCount(stats.wins, locale) : null) : t.gaveUpLine(guesses.length, label)}</p>
+              <p>{won ? (sv.found ? `${sc.wonLine(guesses.length, sv.anime, sv.character)}${stats ? ` ${t.fansLine(formatCount(stats.wins, locale))}.` : ''}` : t.wonLine(guesses.length, stats ? formatCount(stats.wins, locale) : null)) : t.gaveUpLine(guesses.length, label)}</p>
               {rank !== null && livePlayers !== null ? <p className="hub-dle-rank">{words2.rankLine(target.name, rank)}<span> {words2.outOf(livePlayers)}</span></p> : null}
               {BonusPackLine && won && world.id === 'kpopdle' ? <BonusPackLine /> : null}
             </div>
@@ -602,14 +672,14 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               </div>
             </div>
             <DleAfter locale={locale} game={game} quizHref={quizHref} blindHref={blindHref} parentLabel={targetShown} kpopName={kpopName} allDone={allDone} clockText={clock(left)} />
-            {cardsHref ? <p style={{ marginTop: 12 }} data-testid="dle-cards-link"><a className="ux-lnk" href={cardsHref}>Open free card packs on KpopCards</a></p> : null}
+            {cardsHref ? <p style={{ marginTop: 12 }} data-testid="dle-cards-link"><a className="ux-lnk" href={cardsHref}>{locale === 'fr' ? 'Ouvre des paquets de cartes gratuits sur KpopCards' : 'Open free card packs on KpopCards'}</a></p> : null}
           </div>
         </section>
       ) : null}
 
       <section aria-labelledby="dle-grid" className="hub-dle-gridsec">
         <div className="hub-dle-gridhead">
-          <h2 id="dle-grid">{t.tries}{guesses.length ? <span className="hub-dle-num"> ({guesses.length})</span> : null}</h2>
+          <h2 id="dle-grid">{sv.two ? sc.board1Title : t.tries}{board1(guesses, sv).length ? <span className="hub-dle-num"> ({board1(guesses, sv).length})</span> : null}</h2>
           <div aria-label={t.legend} className="hub-dle-legend">
             <span><i aria-hidden="true" className="hub-dle-sw hub-dle-sw-correct" />{t.right}</span>
             <span><i aria-hidden="true" className="hub-dle-sw hub-dle-sw-near" />{t.near}</span>
@@ -619,7 +689,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
         </div>
         {guesses.length || (pool && pool.attributes.length > 0 && !over && !off) ? (
           <DleGrid
-            locale={locale} game={game} pool={pool} guesses={guesses} byId={byId} wonId={play?.status === 'won' ? play.target?.id ?? null : null} fresh={fresh}
+            locale={locale} game={game} pool={pool} guesses={board1(guesses, sv)} byId={byId} wonId={play?.status === 'won' ? play.target?.id ?? null : null} fresh={fresh}
             words={words} look={lookOf} placeholder
           />
         ) : (
@@ -630,6 +700,17 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
           </div>
         )}
       </section>
+      {sv.found ? (
+        <section aria-labelledby="dle-grid2" className="hub-dle-gridsec hub-dle-step2" data-testid="dle-step2">
+          <div className="hub-dle-gridhead">
+            <h2 id="dle-grid2">{sc.board2Title}{board2(guesses).length ? <span className="hub-dle-num"> ({board2(guesses).length})</span> : null}</h2>
+          </div>
+          <DleStepGrid
+            locale={locale} game={game} view={sv} guesses={board2(guesses)} byId={byId} wonId={play?.status === 'won' ? play.target?.id ?? null : null} fresh={fresh}
+            words={words} look={lookOf}
+          />
+        </section>
+      ) : null}
       {/* The owner's check of the series pictures that remain (2026-11-14): the general Otakudle page only, asked for after the page, nothing for anyone else. */}
       <DleSeriesReview enabled={ownerPreview && g.universe === 'anime' && !g.series} />
     </>

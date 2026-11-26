@@ -35,8 +35,8 @@ export function gameIntro(game: DleGameId, locale: DleLocale): string {
       : `Otakudle ${n} is a ${n} character guessing game: every day you guess the ${n} character of the day, the same character for everyone, with unlimited guesses. Only ${n} characters are in the game, and each guess answers with cells that compare one clue at a time.`;
   }
   return fr
-    ? 'Otakudle est un jeu d’anime quotidien pour deviner un personnage : chaque jour, tu cherches le personnage d’anime du jour, le même pour tout le monde, avec des essais illimités. Chaque essai répond par des cases qui comparent un indice à la fois, et aucun indice ne spoile l’histoire.'
-    : 'Otakudle is a daily anime game and an anime character guessing game: you guess the anime character of the day, the same character for everyone, with unlimited guesses. Each guess answers with cells that compare one clue at a time, and no clue spoils the story.';
+    ? 'Otakudle est un jeu d’anime quotidien pour deviner un personnage : chaque jour, tu cherches le personnage d’anime du jour, le même pour tout le monde, avec des essais illimités. Le jeu a deux étapes : d’abord l’anime, puis le personnage parmi ceux de cet anime. Chaque essai répond par des cases qui comparent un indice à la fois, et aucun indice ne spoile l’histoire.'
+    : 'Otakudle is a daily anime game and an anime character guessing game: you guess the anime character of the day, the same character for everyone, with unlimited guesses. The game has two steps: first the anime, then the character among the characters of that anime. Each guess answers with cells that compare one clue at a time, and no clue spoils the story.';
 }
 
 /**

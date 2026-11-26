@@ -1,0 +1,806 @@
+{
+ "series_slug": "demon-slayer",
+ "columns": [
+  {
+   "key": "faction",
+   "kind": "single",
+   "label": {
+    "en": "Faction",
+    "fr": "Camp"
+   },
+   "help": {
+    "en": "Side at the first appearance: Demon Slayer Corps, Twelve Kizuki or other demon",
+    "fr": "Camp à la première apparition : Pourfendeurs, Douze Lunes ou autre démon"
+   }
+  },
+  {
+   "key": "rank",
+   "kind": "single",
+   "label": {
+    "en": "Rank",
+    "fr": "Rang"
+   },
+   "help": {
+    "en": "Rank or role at the first appearance",
+    "fr": "Rang ou rôle à la première apparition"
+   }
+  },
+  {
+   "key": "art",
+   "kind": "single",
+   "label": {
+    "en": "Breathing or art",
+    "fr": "Souffle ou art"
+   },
+   "help": {
+    "en": "Breathing style, or Blood Demon Art for demons, None if neither",
+    "fr": "Style de souffle, ou Art Démoniaque pour les démons, Aucun sinon"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "tanjiro-kamado",
+   "name": "Tanjiro Kamado",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Demon Slayer",
+    "art": "Water",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "nezuko-kamado",
+   "name": "Nezuko Kamado",
+   "values": {
+    "faction": "Other demon",
+    "rank": "Unranked demon",
+    "art": "Blood Demon Art",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "zenitsu-agatsuma",
+   "name": "Zenitsu Agatsuma",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Demon Slayer",
+    "art": "Thunder",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "inosuke-hashibira",
+   "name": "Inosuke Hashibira",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Demon Slayer",
+    "art": "Beast",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "muzan-kibutsuji",
+   "name": "Muzan Kibutsuji",
+   "values": {
+    "faction": "Other demon",
+    "rank": "Unranked demon",
+    "art": "Blood Demon Art",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "giyu-tomioka",
+   "name": "Giyu Tomioka",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Water",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "kyojuro-rengoku",
+   "name": "Kyojuro Rengoku",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Flame",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "shinobu-kocho",
+   "name": "Shinobu Kocho",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Insect",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "tengen-uzui",
+   "name": "Tengen Uzui",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Sound",
+    "debut_arc": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    ]
+   }
+  },
+  {
+   "slug": "mitsuri-kanroji",
+   "name": "Mitsuri Kanroji",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Love",
+    "debut_arc": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "muichiro-tokito",
+   "name": "Muichiro Tokito",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Mist",
+    "debut_arc": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "kanao-tsuyuri",
+   "name": "Kanao Tsuyuri",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Demon Slayer",
+    "art": "Flower",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "akaza",
+   "name": "Akaza",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 2
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    ]
+   }
+  },
+  {
+   "slug": "sanemi-shinazugawa",
+   "name": "Sanemi Shinazugawa",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Wind",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "gyomei-himejima",
+   "name": "Gyomei Himejima",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Stone",
+    "debut_arc": 5
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "obanai-iguro",
+   "name": "Obanai Iguro",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Hashira",
+    "art": "Serpent",
+    "debut_arc": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    ]
+   }
+  },
+  {
+   "slug": "genya-shinazugawa",
+   "name": "Genya Shinazugawa",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Demon Slayer",
+    "art": "None",
+    "debut_arc": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "kagaya-ubuyashiki",
+   "name": "Kagaya Ubuyashiki",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Support",
+    "art": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "sakonji-urokodaki",
+   "name": "Sakonji Urokodaki",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Support",
+    "art": "Water",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "doma",
+   "name": "Doma",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 6
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Infinity_Castle"
+    ]
+   }
+  },
+  {
+   "slug": "kokushibo",
+   "name": "Kokushibo",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 6
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_%E2%80%93_The_Movie:_Infinity_Castle"
+    ]
+   }
+  },
+  {
+   "slug": "tamayo",
+   "name": "Tamayo",
+   "values": {
+    "faction": "Other demon",
+    "rank": "Unranked demon",
+    "art": "Blood Demon Art",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "yushiro",
+   "name": "Yushiro",
+   "values": {
+    "faction": "Other demon",
+    "rank": "Unranked demon",
+    "art": "Blood Demon Art",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "rui",
+   "name": "Rui",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Lower Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "enmu",
+   "name": "Enmu",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Lower Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  },
+  {
+   "slug": "daki",
+   "name": "Daki",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    ]
+   }
+  },
+  {
+   "slug": "gyutaro",
+   "name": "Gyutaro",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 3
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_2"
+    ]
+   }
+  },
+  {
+   "slug": "hantengu",
+   "name": "Hantengu",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "gyokko",
+   "name": "Gyokko",
+   "values": {
+    "faction": "Twelve Kizuki",
+    "rank": "Upper Rank",
+    "art": "Blood Demon Art",
+    "debut_arc": 4
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_3"
+    ]
+   }
+  },
+  {
+   "slug": "hotaru-haganezuka",
+   "name": "Hotaru Haganezuka",
+   "values": {
+    "faction": "Demon Slayer Corps",
+    "rank": "Support",
+    "art": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "art": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Demon_Slayer:_Kimetsu_no_Yaiba_characters",
+     "https://en.wikipedia.org/wiki/Demon_Slayer:_Kimetsu_no_Yaiba_season_1"
+    ]
+   }
+  }
+ ]
+}

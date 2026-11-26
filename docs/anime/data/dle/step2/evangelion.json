@@ -1,0 +1,284 @@
+{
+ "series_slug": "evangelion",
+ "columns": [
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role",
+    "fr": "Rôle"
+   },
+   "help": {
+    "en": "Eva pilot, Nerv staff or Other at the first appearance",
+    "fr": "Pilote d'Eva, personnel de Nerv ou Other à la première apparition"
+   }
+  },
+  {
+   "key": "child",
+   "kind": "single",
+   "label": {
+    "en": "Child number",
+    "fr": "Numéro d'Enfant"
+   },
+   "help": {
+    "en": "Pilot number at the first appearance (First to Fifth Child), None if not a pilot yet",
+    "fr": "Numéro de pilote à la première apparition (First à Fifth Child), None si pas encore pilote"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Part of the first appearance, arrows",
+    "fr": "Partie de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "shinji-ikari",
+   "name": "Shinji Ikari",
+   "values": {
+    "role": "Pilot",
+    "child": "Third Child",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "rei-ayanami",
+   "name": "Rei Ayanami",
+   "values": {
+    "role": "Pilot",
+    "child": "First Child",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "asuka-langley-soryu",
+   "name": "Asuka Langley Soryu",
+   "values": {
+    "role": "Pilot",
+    "child": "Second Child",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "misato-katsuragi",
+   "name": "Misato Katsuragi",
+   "values": {
+    "role": "Nerv staff",
+    "child": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "gendo-ikari",
+   "name": "Gendo Ikari",
+   "values": {
+    "role": "Nerv staff",
+    "child": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ritsuko-akagi",
+   "name": "Ritsuko Akagi",
+   "values": {
+    "role": "Nerv staff",
+    "child": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ryoji-kaji",
+   "name": "Ryoji Kaji",
+   "values": {
+    "role": "Nerv staff",
+    "child": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kaworu-nagisa",
+   "name": "Kaworu Nagisa",
+   "values": {
+    "role": "Pilot",
+    "child": "Fifth Child",
+    "debut_arc": 2
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "toji-suzuhara",
+   "name": "Toji Suzuhara",
+   "values": {
+    "role": "Other",
+    "child": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kozo-fuyutsuki",
+   "name": "Kozo Fuyutsuki",
+   "values": {
+    "role": "Nerv staff",
+    "child": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "yui-ikari",
+   "name": "Yui Ikari",
+   "values": {
+    "role": "Other",
+    "child": "None",
+    "debut_arc": 2
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "mari-illustrious-makinami",
+   "name": "Mari Illustrious Makinami",
+   "values": {
+    "role": "Pilot",
+    "child": "None",
+    "debut_arc": 5
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "child": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Neon_Genesis_Evangelion_episodes"
+    ]
+   }
+  }
+ ]
+}

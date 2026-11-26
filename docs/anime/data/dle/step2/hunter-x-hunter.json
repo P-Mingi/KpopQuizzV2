@@ -1,0 +1,484 @@
+{
+ "series_slug": "hunter-x-hunter",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Affiliation",
+    "fr": "Affiliation"
+   },
+   "help": {
+    "en": "Group the character is shown in at the first appearance",
+    "fr": "Groupe dans lequel le personnage est montré à sa première apparition"
+   }
+  },
+  {
+   "key": "licensed",
+   "kind": "single",
+   "label": {
+    "en": "Hunter license",
+    "fr": "Licence de Hunter"
+   },
+   "help": {
+    "en": "Whether the character already holds a Hunter license at the first appearance",
+    "fr": "Si le personnage possède déjà une licence de Hunter à sa première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "gon-freecss",
+   "name": "Gon Freecss",
+   "values": {
+    "group": "Hunter Exam applicant",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "killua-zoldyck",
+   "name": "Killua Zoldyck",
+   "values": {
+    "group": "Hunter Exam applicant",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kurapika",
+   "name": "Kurapika",
+   "values": {
+    "group": "Hunter Exam applicant",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "leorio-paradinight",
+   "name": "Leorio Paradinight",
+   "values": {
+    "group": "Hunter Exam applicant",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "illumi-zoldyck",
+   "name": "Illumi Zoldyck",
+   "values": {
+    "group": "Hunter Exam applicant",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "isaac-netero",
+   "name": "Isaac Netero",
+   "values": {
+    "group": "Hunter Association",
+    "licensed": "Yes",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kite",
+   "name": "Kite",
+   "values": {
+    "group": "Hunter Association",
+    "licensed": "Yes",
+    "debut_arc": 5
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ging-freecss",
+   "name": "Ging Freecss",
+   "values": {
+    "group": "Hunter Association",
+    "licensed": "Yes",
+    "debut_arc": 5
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "silva-zoldyck",
+   "name": "Silva Zoldyck",
+   "values": {
+    "group": "Zoldyck family",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "chrollo-lucilfer",
+   "name": "Chrollo Lucilfer",
+   "values": {
+    "group": "Phantom Troupe",
+    "licensed": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "feitan-portor",
+   "name": "Feitan Portor",
+   "values": {
+    "group": "Phantom Troupe",
+    "licensed": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "machi-komacine",
+   "name": "Machi Komacine",
+   "values": {
+    "group": "Phantom Troupe",
+    "licensed": "No",
+    "debut_arc": 2
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "uvogin",
+   "name": "Uvogin",
+   "values": {
+    "group": "Phantom Troupe",
+    "licensed": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "biscuit-krueger",
+   "name": "Biscuit Krueger",
+   "values": {
+    "group": "Hunter Association",
+    "licensed": "Yes",
+    "debut_arc": 4
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "meruem",
+   "name": "Meruem",
+   "values": {
+    "group": "Chimera Ants",
+    "licensed": "No",
+    "debut_arc": 5
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "neferpitou",
+   "name": "Neferpitou",
+   "values": {
+    "group": "Chimera Ants",
+    "licensed": "No",
+    "debut_arc": 5
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "komugi",
+   "name": "Komugi",
+   "values": {
+    "group": "Other",
+    "licensed": "No",
+    "debut_arc": 5
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "pariston-hill",
+   "name": "Pariston Hill",
+   "values": {
+    "group": "Hunter Association",
+    "licensed": "Yes",
+    "debut_arc": 6
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "alluka-zoldyck",
+   "name": "Alluka Zoldyck",
+   "values": {
+    "group": "Zoldyck family",
+    "licensed": "No",
+    "debut_arc": 6
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "hisoka-morow",
+   "name": "Hisoka Morow",
+   "values": {
+    "group": "Hunter Exam applicant",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "phinks-magcub",
+   "name": "Phinks Magcub",
+   "values": {
+    "group": "Phantom Troupe",
+    "licensed": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "zeno-zoldyck",
+   "name": "Zeno Zoldyck",
+   "values": {
+    "group": "Zoldyck family",
+    "licensed": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "licensed": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Hunter_%C3%97_Hunter_(2011_TV_series)_episodes"
+    ]
+   }
+  }
+ ]
+}

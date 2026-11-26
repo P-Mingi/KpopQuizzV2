@@ -1,0 +1,511 @@
+{
+ "series_slug": "jujutsu-kaisen",
+ "columns": [
+  {
+   "key": "side",
+   "kind": "single",
+   "label": {
+    "en": "Side",
+    "fr": "Camp"
+   },
+   "help": {
+    "en": "Sorcerer, curse, curse user or other, at the first appearance",
+    "fr": "Sorcier, fléau, utilisateur de fléaux ou autre, à la première apparition"
+   }
+  },
+  {
+   "key": "school",
+   "kind": "single",
+   "label": {
+    "en": "School",
+    "fr": "École"
+   },
+   "help": {
+    "en": "Tokyo school, Kyoto school or neither, as the character list states",
+    "fr": "École de Tokyo, école de Kyoto ou aucune, selon la liste des personnages"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "yuji-itadori",
+   "name": "Yuji Itadori",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "satoru-gojo",
+   "name": "Satoru Gojo",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "megumi-fushiguro",
+   "name": "Megumi Fushiguro",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nobara-kugisaki",
+   "name": "Nobara Kugisaki",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ryomen-sukuna",
+   "name": "Ryomen Sukuna",
+   "values": {
+    "side": "Curse user",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kento-nanami",
+   "name": "Kento Nanami",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "maki-zenin",
+   "name": "Maki Zen'in",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toge-inumaki",
+   "name": "Toge Inumaki",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "panda",
+   "name": "Panda",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "aoi-todo",
+   "name": "Aoi Todo",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Kyoto Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mahito",
+   "name": "Mahito",
+   "values": {
+    "side": "Curse",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "suguru-geto",
+   "name": "Suguru Geto",
+   "values": {
+    "side": "Curse user",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yuta-okkotsu",
+   "name": "Yuta Okkotsu",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toji-fushiguro",
+   "name": "Toji Fushiguro",
+   "values": {
+    "side": "Other",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "choso",
+   "name": "Choso",
+   "values": {
+    "side": "Curse",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kenjaku",
+   "name": "Kenjaku",
+   "values": {
+    "side": "Curse user",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jogo",
+   "name": "Jogo",
+   "values": {
+    "side": "Curse",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hanami",
+   "name": "Hanami",
+   "values": {
+    "side": "Curse",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kinji-hakari",
+   "name": "Kinji Hakari",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hajime-kashimo",
+   "name": "Hajime Kashimo",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hiromi-higuruma",
+   "name": "Hiromi Higuruma",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yuki-tsukumo",
+   "name": "Yuki Tsukumo",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rika-orimoto",
+   "name": "Rika Orimoto",
+   "values": {
+    "side": "Curse",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "junpei-yoshino",
+   "name": "Junpei Yoshino",
+   "values": {
+    "side": "Other",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "riko-amanai",
+   "name": "Riko Amanai",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Neither"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mai-zenin",
+   "name": "Mai Zen'in",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Kyoto Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kasumi-miwa",
+   "name": "Kasumi Miwa",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Kyoto Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "utahime-iori",
+   "name": "Utahime Iori",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Kyoto Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shoko-ieiri",
+   "name": "Shoko Ieiri",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kiyotaka-ijichi",
+   "name": "Kiyotaka Ijichi",
+   "values": {
+    "side": "Sorcerer",
+    "school": "Tokyo Jujutsu High"
+   },
+   "sources": {
+    "side": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ],
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Jujutsu_Kaisen_characters"
+    ]
+   }
+  }
+ ]
+}
