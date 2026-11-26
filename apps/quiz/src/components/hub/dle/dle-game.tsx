@@ -672,7 +672,7 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
               </div>
             </div>
             <DleAfter locale={locale} game={game} quizHref={quizHref} blindHref={blindHref} parentLabel={targetShown} kpopName={kpopName} allDone={allDone} clockText={clock(left)} />
-            {cardsHref ? <p style={{ marginTop: 12 }} data-testid="dle-cards-link"><a className="ux-lnk" href={cardsHref}>Open free card packs on KpopCards</a></p> : null}
+            {cardsHref ? <p style={{ marginTop: 12 }} data-testid="dle-cards-link"><a className="ux-lnk" href={cardsHref}>{locale === 'fr' ? 'Ouvre des paquets de cartes gratuits sur KpopCards' : 'Open free card packs on KpopCards'}</a></p> : null}
           </div>
         </section>
       ) : null}
