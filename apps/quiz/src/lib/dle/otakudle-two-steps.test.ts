@@ -239,6 +239,19 @@ describe('the two steps on the real data', () => {
   });
 });
 
+describe('the coverage of the pool', () => {
+  it('every character of the Otakudle pool (the ones left out through dle_curation excepted) has its values in the set of its series, and every set holds at least its pool', async () => {
+    const lacking = await rows(db, `select v.balance_key, c.slug from public.dle_src_anime_character v join public.characters c on c.id = v.entity_id::integer
+      where not exists (select 1 from public.dle_curation k where k.game_id = 'otakudle' and k.entity_id = v.entity_id and k.excluded)
+        and not exists (select 1 from public.character_game_facts f where f.character_id = v.entity_id::integer and f.game_id = public.dle_otakudle_set_id(v.balance_key))`);
+    expect(lacking).toEqual([]);
+    const pools = await rows<{ balance_key: string; n: number }>(db, `select balance_key, count(*)::int as n from public.dle_entities where game_id = 'otakudle' and in_pool group by 1 order by 1`);
+    expect(pools.length).toBe(50);
+    expect(pools.every((x) => x.n >= 2)).toBe(true);
+    if (process.env.OTK2_STATS) require('node:fs').writeFileSync(process.env.OTK2_STATS, JSON.stringify({ pools, targets: await rows(db, `select count(*)::int as n from public.dle_entities where game_id = 'otakudle' and in_pool and can_be_target`) }));
+  });
+});
+
 describe('the rollbacks', () => {
   const snap = async (): Promise<unknown> => ([
     await rows(db, `select proname, md5(prosrc) as src from pg_proc where proname like 'dle\\_%' order by 1`),

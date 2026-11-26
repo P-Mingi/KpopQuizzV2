@@ -78,8 +78,8 @@ export function gameAnswerBlock(game: DleGameId, locale: DleLocale, poolSize: nu
     const fromEn = seriesCount ? ` from ${seriesCount} series` : '';
     const fromFr = seriesCount ? ` de ${seriesCount} séries` : '';
     return locale === 'fr'
-      ? `Otakudle by Bunnyverse est un jeu quotidien gratuit en deux étapes pour deviner un personnage d’anime. Tout le monde a le même, et un nouveau commence à minuit UTC. Trouve d’abord l’anime, puis son personnage, avec des indices propres à chaque anime et aucun qui dise qui vit ou meurt. Le jeu compte ${poolSize} personnages${fromFr} au ${day}.`
-      : `Otakudle by Bunnyverse is a free daily anime character guessing game in two steps. Everyone gets the same character, and a new one starts at midnight UTC. Find the anime first, then its character, with clues of their own for each anime and none that spoils who lives or dies. The game holds ${poolSize} characters${fromEn} on ${day}.`;
+      ? `Otakudle by Bunnyverse est un jeu quotidien gratuit pour deviner un personnage d’anime. Tout le monde a le même, et un nouveau commence à minuit UTC. Il a deux étapes : trouve l’anime, puis son personnage, avec des indices propres à chaque anime et aucun qui dise qui vit ou meurt. Le jeu compte ${poolSize} personnages${fromFr} au ${day}.`
+      : `Otakudle by Bunnyverse is a free daily anime character guessing game. Everyone gets the same character, and a new one starts at midnight UTC. It has two steps: find the anime, then its character, with clues of their own for each anime and none that spoils who lives or dies. The game holds ${poolSize} characters${fromEn} on ${day}.`;
   }
   if (game === 'otakudle-one-piece') {
     return locale === 'fr'
