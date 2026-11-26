@@ -1,0 +1,351 @@
+{
+ "series_slug": "black-clover",
+ "columns": [
+  {
+   "key": "squad",
+   "kind": "single",
+   "label": {
+    "en": "Magic Knight squad",
+    "fr": "Escouade des Chevaliers Magiques"
+   },
+   "help": {
+    "en": "Squad the character belongs to at the first appearance, None if not in a squad",
+    "fr": "Escouade à laquelle le personnage appartient à sa première apparition, None si aucune"
+   }
+  },
+  {
+   "key": "rank",
+   "kind": "single",
+   "label": {
+    "en": "Rank",
+    "fr": "Rang"
+   },
+   "help": {
+    "en": "Applicant, Knight, Captain or Wizard King at the first appearance, Other if none applies",
+    "fr": "Applicant, Knight, Captain ou Wizard King à la première apparition, Other si rien ne sapplique"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "asta",
+   "name": "Asta",
+   "values": {
+    "squad": "None",
+    "rank": "Applicant"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yuno-grinberryall",
+   "name": "Yuno Grinberryall",
+   "values": {
+    "squad": "None",
+    "rank": "Applicant"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "noelle-silva",
+   "name": "Noelle Silva",
+   "values": {
+    "squad": "None",
+    "rank": "Applicant"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yami-sukehiro",
+   "name": "Yami Sukehiro",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Captain"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "finral-roulacase",
+   "name": "Finral Roulacase",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "magna-swing",
+   "name": "Magna Swing",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "luck-voltia",
+   "name": "Luck Voltia",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gauche-adlai",
+   "name": "Gauche Adlai",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "charmy-pappitson",
+   "name": "Charmy Pappitson",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "vanessa-enoteca",
+   "name": "Vanessa Enoteca",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gordon-agrippa",
+   "name": "Gordon Agrippa",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "zora-ideale",
+   "name": "Zora Ideale",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "secre-swallowtail",
+   "name": "Secre Swallowtail",
+   "values": {
+    "squad": "None",
+    "rank": "Other"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nacht-faust",
+   "name": "Nacht Faust",
+   "values": {
+    "squad": "Black Bulls",
+    "rank": "Knight"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "julius-novachrono",
+   "name": "Julius Novachrono",
+   "values": {
+    "squad": "Wizard King",
+    "rank": "Wizard King"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "william-vangeance",
+   "name": "William Vangeance",
+   "values": {
+    "squad": "Golden Dawn",
+    "rank": "Captain"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mimosa-vermillion",
+   "name": "Mimosa Vermillion",
+   "values": {
+    "squad": "None",
+    "rank": "Applicant"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "fuegoleon-vermillion",
+   "name": "Fuegoleon Vermillion",
+   "values": {
+    "squad": "Crimson Lion Kings",
+    "rank": "Captain"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nozel-silva",
+   "name": "Nozel Silva",
+   "values": {
+    "squad": "Silver Eagles",
+    "rank": "Captain"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  },
+  {
+   "slug": "zagred",
+   "name": "Zagred",
+   "values": {
+    "squad": "None",
+    "rank": "Other"
+   },
+   "sources": {
+    "squad": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ],
+    "rank": [
+     "https://en.wikipedia.org/wiki/List_of_Black_Clover_characters"
+    ]
+   }
+  }
+ ]
+}

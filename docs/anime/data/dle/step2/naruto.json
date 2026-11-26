@@ -1,0 +1,643 @@
+{
+ "series_slug": "naruto",
+ "columns": [
+  {
+   "key": "village",
+   "kind": "single",
+   "label": {
+    "en": "Village",
+    "fr": "Village"
+   },
+   "help": {
+    "en": "Village the character is shown belonging to at the first appearance",
+    "fr": "Village auquel le personnage est rattaché à sa première apparition"
+   }
+  },
+  {
+   "key": "clan",
+   "kind": "single",
+   "label": {
+    "en": "Clan",
+    "fr": "Clan"
+   },
+   "help": {
+    "en": "Clan named for the character, None if no clan is named",
+    "fr": "Clan nommé pour le personnage, None si aucun clan n'est nommé"
+   }
+  },
+  {
+   "key": "team",
+   "kind": "single",
+   "label": {
+    "en": "Team or group",
+    "fr": "Équipe ou groupe"
+   },
+   "help": {
+    "en": "Team or group shown at the first appearance",
+    "fr": "Équipe ou groupe montré à la première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "naruto-uzumaki",
+   "name": "Naruto Uzumaki",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Uzumaki",
+    "team": "Team 7"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sasuke-uchiha",
+   "name": "Sasuke Uchiha",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Uchiha",
+    "team": "Team 7"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sakura-haruno",
+   "name": "Sakura Haruno",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "Team 7"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kakashi-hatake",
+   "name": "Kakashi Hatake",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Hatake",
+    "team": "Team 7"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "iruka-umino",
+   "name": "Iruka Umino",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hiruzen-sarutobi",
+   "name": "Hiruzen Sarutobi",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Sarutobi",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "konohamaru-sarutobi",
+   "name": "Konohamaru Sarutobi",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Sarutobi",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jiraiya",
+   "name": "Jiraiya",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "Legendary Sannin"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tsunade",
+   "name": "Tsunade Senju",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Senju",
+    "team": "Legendary Sannin"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "orochimaru",
+   "name": "Orochimaru",
+   "values": {
+    "village": "Otogakure",
+    "clan": "None",
+    "team": "Legendary Sannin"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "itachi-uchiha",
+   "name": "Itachi Uchiha",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Uchiha",
+    "team": "Akatsuki"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kisame-hoshigaki",
+   "name": "Kisame Hoshigaki",
+   "values": {
+    "village": "Kirigakure",
+    "clan": "None",
+    "team": "Akatsuki"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gaara",
+   "name": "Gaara",
+   "values": {
+    "village": "Sunagakure",
+    "clan": "None",
+    "team": "Sand Siblings"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rock-lee",
+   "name": "Rock Lee",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "Team Guy"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "neji-hyuga",
+   "name": "Neji Hyuga",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Hyuga",
+    "team": "Team Guy"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hinata-hyuga",
+   "name": "Hinata Hyuga",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Hyuga",
+    "team": "Team 8"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shikamaru-nara",
+   "name": "Shikamaru Nara",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Nara",
+    "team": "Team 10"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "might-guy",
+   "name": "Might Guy",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "Team Guy"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "zabuza-momochi",
+   "name": "Zabuza Momochi",
+   "values": {
+    "village": "Kirigakure",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "haku",
+   "name": "Haku",
+   "values": {
+    "village": "None",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kabuto-yakushi",
+   "name": "Kabuto Yakushi",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kurama",
+   "name": "Kurama",
+   "values": {
+    "village": "None",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "killer-bee",
+   "name": "Killer Bee",
+   "values": {
+    "village": "Kumogakure",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nagato",
+   "name": "Nagato",
+   "values": {
+    "village": "Amegakure",
+    "clan": "None",
+    "team": "Akatsuki"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "minato-namikaze",
+   "name": "Minato Namikaze",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "None",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "madara-uchiha",
+   "name": "Madara Uchiha",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Uchiha",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "obito-uchiha",
+   "name": "Obito Uchiha",
+   "values": {
+    "village": "None",
+    "clan": "None",
+    "team": "Akatsuki"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kaguya-otsutsuki",
+   "name": "Kaguya Otsutsuki",
+   "values": {
+    "village": "None",
+    "clan": "Otsutsuki",
+    "team": "None"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "boruto-uzumaki",
+   "name": "Boruto Uzumaki",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Uzumaki",
+    "team": "Team Konohamaru"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sarada-uchiha",
+   "name": "Sarada Uchiha",
+   "values": {
+    "village": "Konohagakure",
+    "clan": "Uchiha",
+    "team": "Team Konohamaru"
+   },
+   "sources": {
+    "village": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "clan": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ],
+    "team": [
+     "https://en.wikipedia.org/wiki/List_of_Naruto_characters"
+    ]
+   }
+  }
+ ]
+}

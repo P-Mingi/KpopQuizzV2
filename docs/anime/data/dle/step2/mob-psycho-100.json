@@ -1,0 +1,351 @@
+{
+ "series_slug": "mob-psycho-100",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group or school the character is shown with at the first appearance",
+    "fr": "Groupe ou école avec lequel le personnage est montré à sa première apparition"
+   }
+  },
+  {
+   "key": "esper",
+   "kind": "single",
+   "label": {
+    "en": "Esper",
+    "fr": "Esper"
+   },
+   "help": {
+    "en": "Whether the character has psychic powers at the first appearance",
+    "fr": "Si le personnage a des pouvoirs psychiques à sa première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "shigeo-kageyama",
+   "name": "Shigeo Kageyama",
+   "values": {
+    "group": "Spirits and Such",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "arataka-reigen",
+   "name": "Arataka Reigen",
+   "values": {
+    "group": "Spirits and Such",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ritsu-kageyama",
+   "name": "Ritsu Kageyama",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "teruki-hanazawa",
+   "name": "Teruki Hanazawa",
+   "values": {
+    "group": "Black Vinegar Middle School",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "dimple",
+   "name": "Dimple",
+   "values": {
+    "group": "Spirits and Such",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tsubomi-takane",
+   "name": "Tsubomi Takane",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "musashi-goda",
+   "name": "Musashi Goda",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tome-kurata",
+   "name": "Tome Kurata",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tenga-onigawara",
+   "name": "Tenga Onigawara",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "touichirou-suzuki",
+   "name": "Touichirou Suzuki",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "katsuya-serizawa",
+   "name": "Katsuya Serizawa",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ryo-shimazaki",
+   "name": "Ryo Shimazaki",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toshiki-minegishi",
+   "name": "Toshiki Minegishi",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hiroshi-shibata",
+   "name": "Hiroshi Shibata",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nozomu-hatori",
+   "name": "Nozomu Hatori",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shou-suzuki",
+   "name": "Shou Suzuki",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "keiji-mogami",
+   "name": "Keiji Mogami",
+   "values": {
+    "group": "Other",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "megumu-koyama",
+   "name": "Megumu Koyama",
+   "values": {
+    "group": "Claw",
+    "esper": "Yes"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kenji-mitsuura",
+   "name": "Kenji Mitsuura",
+   "values": {
+    "group": "Mitsuura Group",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ichi-mezato",
+   "name": "Ichi Mezato",
+   "values": {
+    "group": "Salt Middle School",
+    "esper": "No"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ],
+    "esper": [
+     "https://en.wikipedia.org/wiki/List_of_Mob_Psycho_100_characters"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,351 @@
+{
+ "series_slug": "chainsaw-man",
+ "columns": [
+  {
+   "key": "section",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group the character list files the character under",
+    "fr": "Groupe sous lequel la liste des personnages classe le personnage"
+   }
+  },
+  {
+   "key": "hunter",
+   "kind": "single",
+   "label": {
+    "en": "Devil Hunter",
+    "fr": "Chasseur de diables"
+   },
+   "help": {
+    "en": "Whether the character list calls the character a Devil Hunter",
+    "fr": "Indique si la liste des personnages qualifie le personnage de chasseur de diables"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "denji",
+   "name": "Denji",
+   "values": {
+    "section": "Main characters",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "pochita",
+   "name": "Pochita",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "power",
+   "name": "Power",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "aki-hayakawa",
+   "name": "Aki Hayakawa",
+   "values": {
+    "section": "Public Safety Organization",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "makima",
+   "name": "Makima",
+   "values": {
+    "section": "Public Safety Organization",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kobeni-higashiyama",
+   "name": "Kobeni Higashiyama",
+   "values": {
+    "section": "Public Safety Organization",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "himeno",
+   "name": "Himeno",
+   "values": {
+    "section": "Public Safety Organization",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kishibe",
+   "name": "Kishibe",
+   "values": {
+    "section": "Public Safety Organization",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "angel-devil",
+   "name": "Angel Devil",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "katana-man",
+   "name": "Katana Man",
+   "values": {
+    "section": "Other groups",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "reze",
+   "name": "Reze",
+   "values": {
+    "section": "Other groups",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "santa-claus",
+   "name": "Santa Claus",
+   "values": {
+    "section": "Other groups",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "quanxi",
+   "name": "Quanxi",
+   "values": {
+    "section": "Other groups",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "beam",
+   "name": "Beam",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "galgali",
+   "name": "Galgali",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "asa-mitaka",
+   "name": "Asa Mitaka",
+   "values": {
+    "section": "Main characters",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yoru",
+   "name": "Yoru",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "fami",
+   "name": "Fami",
+   "values": {
+    "section": "Devils and Fiends",
+    "hunter": "Not stated as one"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "fumiko-mifune",
+   "name": "Fumiko Mifune",
+   "values": {
+    "section": "Public Safety Organization",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yoshida",
+   "name": "Yoshida",
+   "values": {
+    "section": "Other groups",
+    "hunter": "Devil Hunter"
+   },
+   "sources": {
+    "section": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ],
+    "hunter": [
+     "https://en.wikipedia.org/wiki/List_of_Chainsaw_Man_characters"
+    ]
+   }
+  }
+ ]
+}

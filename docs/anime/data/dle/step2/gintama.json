@@ -1,0 +1,447 @@
+{
+ "series_slug": "gintama",
+ "columns": [
+  {
+   "key": "species",
+   "kind": "single",
+   "label": {
+    "en": "Species",
+    "fr": "Espèce"
+   },
+   "help": {
+    "en": "Species at the first appearance",
+    "fr": "Espèce à la première apparition"
+   }
+  },
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group or district at the first appearance",
+    "fr": "Groupe ou quartier à la première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "gintoki-sakata",
+   "name": "Gintoki Sakata",
+   "values": {
+    "species": "Human",
+    "group": "Yorozuya"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shinpachi-shimura",
+   "name": "Shinpachi Shimura",
+   "values": {
+    "species": "Human",
+    "group": "Yorozuya"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kagura",
+   "name": "Kagura",
+   "values": {
+    "species": "Amanto",
+    "group": "Yorozuya"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sadaharu",
+   "name": "Sadaharu",
+   "values": {
+    "species": "Other",
+    "group": "Yorozuya"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "elizabeth",
+   "name": "Elizabeth",
+   "values": {
+    "species": "Other",
+    "group": "Joi faction"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kotaro-katsura",
+   "name": "Kotaro Katsura",
+   "values": {
+    "species": "Human",
+    "group": "Joi faction"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tatsuma-sakamoto",
+   "name": "Tatsuma Sakamoto",
+   "values": {
+    "species": "Human",
+    "group": "Other"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shinsuke-takasugi",
+   "name": "Shinsuke Takasugi",
+   "values": {
+    "species": "Human",
+    "group": "Kiheitai"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "isao-kondo",
+   "name": "Isao Kondo",
+   "values": {
+    "species": "Human",
+    "group": "Shinsengumi"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toshiro-hijikata",
+   "name": "Toshiro Hijikata",
+   "values": {
+    "species": "Human",
+    "group": "Shinsengumi"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sogo-okita",
+   "name": "Sougo Okita",
+   "values": {
+    "species": "Human",
+    "group": "Shinsengumi"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sagaru-yamazaki",
+   "name": "Sagaru Yamazaki",
+   "values": {
+    "species": "Human",
+    "group": "Shinsengumi"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "katakuriko-matsudaira",
+   "name": "Katakuriko Matsudaira",
+   "values": {
+    "species": "Human",
+    "group": "Shinsengumi"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "otose",
+   "name": "Otose",
+   "values": {
+    "species": "Human",
+    "group": "Kabuki District"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "catherine",
+   "name": "Catherine",
+   "values": {
+    "species": "Amanto",
+    "group": "Kabuki District"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tae-shimura",
+   "name": "Tae Shimura",
+   "values": {
+    "species": "Human",
+    "group": "Kabuki District"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "taizo-hasegawa",
+   "name": "Taizo Hasegawa",
+   "values": {
+    "species": "Human",
+    "group": "Kabuki District"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tama",
+   "name": "Tama",
+   "values": {
+    "species": "Other",
+    "group": "Kabuki District"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ayame-sarutobi",
+   "name": "Ayame Sarutobi",
+   "values": {
+    "species": "Human",
+    "group": "Iga ninjas"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tsukuyo",
+   "name": "Tsukuyo",
+   "values": {
+    "species": "Human",
+    "group": "Yoshiwara"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kyubei-yagyu",
+   "name": "Kyubei Yagyu",
+   "values": {
+    "species": "Human",
+    "group": "Yagyu family"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kamui",
+   "name": "Kamui",
+   "values": {
+    "species": "Amanto",
+    "group": "Harusame"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "umibozu",
+   "name": "Umibozu",
+   "values": {
+    "species": "Amanto",
+    "group": "Other"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "utsuro",
+   "name": "Utsuro",
+   "values": {
+    "species": "Other",
+    "group": "Tenshouin Naraku"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shoyo-yoshida",
+   "name": "Shoyo Yoshida",
+   "values": {
+    "species": "Human",
+    "group": "Other"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  },
+  {
+   "slug": "oboro",
+   "name": "Oboro",
+   "values": {
+    "species": "Human",
+    "group": "Tenshouin Naraku"
+   },
+   "sources": {
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Gintama_characters"
+    ]
+   }
+  }
+ ]
+}

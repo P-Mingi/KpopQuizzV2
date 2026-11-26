@@ -1,0 +1,372 @@
+{
+ "series_slug": "jojo",
+ "columns": [
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role in its part",
+    "fr": "Rôle dans sa partie"
+   },
+   "help": {
+    "en": "Main protagonist or main antagonist of its part, as the character list says, or Neither",
+    "fr": "Protagoniste principal ou antagoniste principal de sa partie, selon la liste des personnages, ou aucun des deux"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First part",
+    "fr": "Première partie"
+   },
+   "help": {
+    "en": "Part of the first appearance, arrows",
+    "fr": "Partie de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "jonathan-joestar",
+   "name": "Jonathan Joestar",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "dio-brando",
+   "name": "Dio Brando",
+   "values": {
+    "role": "Main antagonist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "joseph-joestar",
+   "name": "Joseph Joestar",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 2
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "caesar-zeppeli",
+   "name": "Caesar Anthonio Zeppeli",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 2
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "lisa-lisa",
+   "name": "Lisa Lisa",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 2
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kars",
+   "name": "Kars",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 2
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "jotaro-kujo",
+   "name": "Jotaro Kujo",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 3
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "avdol",
+   "name": "Mohammed Avdol",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 3
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kakyoin",
+   "name": "Noriaki Kakyoin",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 3
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "polnareff",
+   "name": "Jean Pierre Polnareff",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 3
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "josuke-higashikata",
+   "name": "Josuke Higashikata",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 4
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "yoshikage-kira",
+   "name": "Yoshikage Kira",
+   "values": {
+    "role": "Main antagonist",
+    "debut_arc": 4
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "rohan-kishibe",
+   "name": "Rohan Kishibe",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 4
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "giorno-giovanna",
+   "name": "Giorno Giovanna",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 5
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "bruno-bucciarati",
+   "name": "Bruno Bucciarati",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 5
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "jolyne-cujoh",
+   "name": "Jolyne Cujoh",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 6
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "enrico-pucci",
+   "name": "Enrico Pucci",
+   "values": {
+    "role": "Main antagonist",
+    "debut_arc": 6
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "johnny-joestar",
+   "name": "Johnny Joestar",
+   "values": {
+    "role": "Main protagonist",
+    "debut_arc": 7
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "gyro-zeppeli",
+   "name": "Gyro Zeppeli",
+   "values": {
+    "role": "Neither",
+    "debut_arc": 7
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "funny-valentine",
+   "name": "Funny Valentine",
+   "values": {
+    "role": "Main antagonist",
+    "debut_arc": 7
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_characters",
+     "https://en.wikipedia.org/wiki/List_of_JoJo%27s_Bizarre_Adventure_episodes"
+    ]
+   }
+  }
+ ]
+}

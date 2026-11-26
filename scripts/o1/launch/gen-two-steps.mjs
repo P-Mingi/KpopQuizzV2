@@ -12,14 +12,15 @@ import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { buildData, validateSeries } from './dle-step2.mjs';
+import { buildData, l04Characters, validateSeries } from './dle-step2.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '../../..');
 const arg = (name, fallback) => { const i = process.argv.indexOf(`--${name}`); return i >= 0 ? process.argv[i + 1] : fallback; };
 
 /** [{data, series}] of a folder of step 2 files, sorted by slug; throws with every problem of the contract. */
-export function readInputs(dataDir, seriesDir) {
+export function readInputs(dataDir, seriesDir, l04File = path.join(ROOT, 'docs/pending-migrations/multisite/launch/L04-K1-series.sql')) {
+  const l04 = l04Characters(readFileSync(l04File, 'utf8'));
   const files = readdirSync(dataDir).filter((f) => f.endsWith('.json')).sort();
   const inputs = [];
   const bad = [];
@@ -27,7 +28,7 @@ export function readInputs(dataDir, seriesDir) {
     const raw = readFileSync(path.join(dataDir, f), 'utf8');
     const data = JSON.parse(raw);
     if (`${data.series_slug}.json` !== f) bad.push(`${f}: series_slug is ${data.series_slug}`);
-    const series = JSON.parse(readFileSync(path.join(seriesDir, f), 'utf8'));
+    const series = { ...JSON.parse(readFileSync(path.join(seriesDir, f), 'utf8')), characters: l04.get(f.slice(0, -5)) ?? [] };
     bad.push(...validateSeries(data, series, raw));
     inputs.push({ data, series });
   }

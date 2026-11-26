@@ -1,0 +1,351 @@
+{
+ "series_slug": "kaguya-sama-love-is-war",
+ "columns": [
+  {
+   "key": "circle",
+   "kind": "single",
+   "label": {
+    "en": "Circle",
+    "fr": "Cercle"
+   },
+   "help": {
+    "en": "Club, family or group at the first appearance",
+    "fr": "Club, famille ou groupe à la première apparition"
+   }
+  },
+  {
+   "key": "council",
+   "kind": "single",
+   "label": {
+    "en": "Council seat",
+    "fr": "Poste au conseil"
+   },
+   "help": {
+    "en": "Seat on a Shuchiin student council at the first appearance, None if none",
+    "fr": "Poste à un conseil des élèves de Shuchiin à la première apparition, Aucun sinon"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "kaguya-shinomiya",
+   "name": "Kaguya Shinomiya",
+   "values": {
+    "circle": "Student council",
+    "council": "Vice president"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "miyuki-shirogane",
+   "name": "Miyuki Shirogane",
+   "values": {
+    "circle": "Student council",
+    "council": "President"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "chika-fujiwara",
+   "name": "Chika Fujiwara",
+   "values": {
+    "circle": "Student council",
+    "council": "Secretary"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yu-ishigami",
+   "name": "Yu Ishigami",
+   "values": {
+    "circle": "Student council",
+    "council": "Treasurer"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ai-hayasaka",
+   "name": "Ai Hayasaka",
+   "values": {
+    "circle": "Shinomiya family",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "miko-iino",
+   "name": "Miko Iino",
+   "values": {
+    "circle": "Disciplinary committee",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nagisa-kashiwagi",
+   "name": "Nagisa Kashiwagi",
+   "values": {
+    "circle": "Classmates",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tsubasa-tanuma",
+   "name": "Tsubasa Tanuma",
+   "values": {
+    "circle": "Classmates",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kei-shirogane",
+   "name": "Kei Shirogane",
+   "values": {
+    "circle": "Junior high council",
+    "council": "Junior high council"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "moeha-fujiwara",
+   "name": "Moeha Fujiwara",
+   "values": {
+    "circle": "Junior high council",
+    "council": "Junior high council"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "maki-shijo",
+   "name": "Maki Shijo",
+   "values": {
+    "circle": "Classmates",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kobachi-osaragi",
+   "name": "Kobachi Osaragi",
+   "values": {
+    "circle": "Disciplinary committee",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tsubame-koyasu",
+   "name": "Tsubame Koyasu",
+   "values": {
+    "circle": "Cheer squad",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "karen-kino",
+   "name": "Karen Kino",
+   "values": {
+    "circle": "Mass media club",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "erika-kose",
+   "name": "Erika Kose",
+   "values": {
+    "circle": "Mass media club",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "papa-shirogane",
+   "name": "Papa Shirogane",
+   "values": {
+    "circle": "Shirogane family",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "unyo-shinomiya",
+   "name": "Un'yo Shinomiya",
+   "values": {
+    "circle": "Shinomiya family",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "oko-shinomiya",
+   "name": "Oko Shinomiya",
+   "values": {
+    "circle": "Shinomiya family",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mikado-shijo",
+   "name": "Mikado Shijo",
+   "values": {
+    "circle": "Shijo Group",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ganan-shinomiya",
+   "name": "Gan'an Shinomiya",
+   "values": {
+    "circle": "Shinomiya family",
+    "council": "None"
+   },
+   "sources": {
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ],
+    "council": [
+     "https://en.wikipedia.org/wiki/List_of_Kaguya-sama:_Love_Is_War_characters"
+    ]
+   }
+  }
+ ]
+}

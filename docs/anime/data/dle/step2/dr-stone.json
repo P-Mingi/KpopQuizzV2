@@ -1,0 +1,550 @@
+{
+ "series_slug": "dr-stone",
+ "columns": [
+  {
+   "key": "era",
+   "kind": "single",
+   "label": {
+    "en": "Origin",
+    "fr": "Origine"
+   },
+   "help": {
+    "en": "Modern world (petrified in the present day), Stone World (born after the petrification), or Other",
+    "fr": "Modern world (pétrifié à l'époque actuelle), Stone World (né après la pétrification) ou Other"
+   }
+  },
+  {
+   "key": "faction",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group the character is shown with at the first appearance",
+    "fr": "Groupe avec lequel le personnage est montré à sa première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "senku-ishigami",
+   "name": "Senku Ishigami",
+   "values": {
+    "era": "Modern world",
+    "faction": "Kingdom of Science",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "taiju-oki",
+   "name": "Taiju Oki",
+   "values": {
+    "era": "Modern world",
+    "faction": "Kingdom of Science",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "yuzuriha-ogawa",
+   "name": "Yuzuriha Ogawa",
+   "values": {
+    "era": "Modern world",
+    "faction": "Kingdom of Science",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "tsukasa-shishio",
+   "name": "Tsukasa Shishio",
+   "values": {
+    "era": "Modern world",
+    "faction": "Tsukasa Empire",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kohaku",
+   "name": "Kohaku",
+   "values": {
+    "era": "Stone World",
+    "faction": "Ishigami Village",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "chrome",
+   "name": "Chrome",
+   "values": {
+    "era": "Stone World",
+    "faction": "Ishigami Village",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "ruri",
+   "name": "Ruri",
+   "values": {
+    "era": "Stone World",
+    "faction": "Ishigami Village",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kokuyo",
+   "name": "Kokuyo",
+   "values": {
+    "era": "Stone World",
+    "faction": "Ishigami Village",
+    "debut_arc": 2
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "gen-asagiri",
+   "name": "Gen Asagiri",
+   "values": {
+    "era": "Modern world",
+    "faction": "Tsukasa Empire",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "suika",
+   "name": "Suika",
+   "values": {
+    "era": "Stone World",
+    "faction": "Ishigami Village",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kaseki",
+   "name": "Kaseki",
+   "values": {
+    "era": "Stone World",
+    "faction": "Ishigami Village",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "byakuya-ishigami",
+   "name": "Byakuya Ishigami",
+   "values": {
+    "era": "Modern world",
+    "faction": "Space station crew",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "hyoga-akatsuki",
+   "name": "Hyoga Akatsuki",
+   "values": {
+    "era": "Modern world",
+    "faction": "Tsukasa Empire",
+    "debut_arc": 1
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "ukyo-saionji",
+   "name": "Ukyo Saionji",
+   "values": {
+    "era": "Modern world",
+    "faction": "Tsukasa Empire",
+    "debut_arc": 2
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "mirai-shishio",
+   "name": "Mirai Shishio",
+   "values": {
+    "era": "Modern world",
+    "faction": "Tsukasa Empire",
+    "debut_arc": 2
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "ryusui-nanami",
+   "name": "Ryusui Nanami",
+   "values": {
+    "era": "Modern world",
+    "faction": "Kingdom of Science",
+    "debut_arc": 3
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "francois",
+   "name": "Francois",
+   "values": {
+    "era": "Modern world",
+    "faction": "Kingdom of Science",
+    "debut_arc": 4
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "ibara",
+   "name": "Ibara",
+   "values": {
+    "era": "Stone World",
+    "faction": "Petrification Kingdom",
+    "debut_arc": 4
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "soyuz",
+   "name": "Soyuz",
+   "values": {
+    "era": "Stone World",
+    "faction": "Petrification Kingdom",
+    "debut_arc": 4
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "dr-xeno",
+   "name": "Dr. Xeno",
+   "values": {
+    "era": "Modern world",
+    "faction": "American colony",
+    "debut_arc": 5
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "stanley-snyder",
+   "name": "Stanley Snyder",
+   "values": {
+    "era": "Modern world",
+    "faction": "American colony",
+    "debut_arc": 5
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "why-man",
+   "name": "Why-Man",
+   "values": {
+    "era": "Other",
+    "faction": "Other",
+    "debut_arc": 4
+   },
+   "sources": {
+    "era": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "faction": [
+     "https://en.wikipedia.org/wiki/List_of_Dr._Stone_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_1",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_2",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_3",
+     "https://en.wikipedia.org/wiki/Dr._Stone_season_4"
+    ]
+   }
+  }
+ ]
+}

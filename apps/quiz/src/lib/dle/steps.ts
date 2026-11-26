@@ -1,6 +1,7 @@
 // Otakudle in two steps (L42, owner request of 2026-11-26): what the page reads in the play state and the words it adds. Pure, no I/O. A play state without the step fields (the SQL of
 // L42 not applied, or a game other than Otakudle) is the old one board game: stepView says so and nothing else of this file is used.
 import { OTAKUDLE_COLUMNS, valueLabel } from './copy';
+import { stepValueFr } from './step-value-fr';
 import { dleGame } from './games';
 
 import type { DleColumnCopy } from './copy';
@@ -73,7 +74,9 @@ export function stepText(col: DleStepColumn, series: string | null, value: DleSt
   const g = legacyGame(series);
   if (g && !col.label) return valueLabel(col.key, value.v, locale, { series: true, ...(value.l ? { label: value.l } : {}) });
   if (col.kind === 'ordinal') return (locale === 'fr' ? value.lf ?? value.l : value.l) ?? String(value.v);
-  return Array.isArray(value.v) ? value.v.join(', ') : String(value.v);
+  // The words of a value are the data's English; on the French page a common word reads in French (step-value-fr.ts), a proper noun stays as stored.
+  const word = (x: string | number): string => (locale === 'fr' && typeof x === 'string' ? stepValueFr(x) : String(x));
+  return Array.isArray(value.v) ? value.v.map(word).join(', ') : word(value.v as string | number);
 }
 
 /** The right cells of each guess of step 2, for the share. */

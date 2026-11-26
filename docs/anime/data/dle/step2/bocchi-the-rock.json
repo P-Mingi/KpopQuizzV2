@@ -1,0 +1,323 @@
+{
+ "series_slug": "bocchi-the-rock",
+ "columns": [
+  {
+   "key": "band",
+   "kind": "single",
+   "label": {
+    "en": "Band or place",
+    "fr": "Groupe ou lieu"
+   },
+   "help": {
+    "en": "Band, live house or household the character list files the character under",
+    "fr": "Groupe, salle ou foyer sous lequel la liste des personnages classe le personnage"
+   }
+  },
+  {
+   "key": "instrument",
+   "kind": "single",
+   "label": {
+    "en": "Instrument",
+    "fr": "Instrument"
+   },
+   "help": {
+    "en": "Instrument the character list gives, or Not stated",
+    "fr": "Instrument donné par la liste des personnages, ou non précisé"
+   }
+  },
+  {
+   "key": "vocals",
+   "kind": "single",
+   "label": {
+    "en": "Vocals",
+    "fr": "Chant"
+   },
+   "help": {
+    "en": "Whether the character list calls the character a vocalist",
+    "fr": "Indique si la liste des personnages qualifie le personnage de chanteur"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "hitori-goto",
+   "name": "Hitori Gotō",
+   "values": {
+    "band": "Kessoku Band",
+    "instrument": "Guitar",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "nijika-ijichi",
+   "name": "Nijika Ijichi",
+   "values": {
+    "band": "Kessoku Band",
+    "instrument": "Drums",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "ryo-yamada",
+   "name": "Ryō Yamada",
+   "values": {
+    "band": "Kessoku Band",
+    "instrument": "Bass",
+    "vocals": "Vocalist"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "ikuyo-kita",
+   "name": "Ikuyo Kita",
+   "values": {
+    "band": "Kessoku Band",
+    "instrument": "Guitar",
+    "vocals": "Vocalist"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "seika-ijichi",
+   "name": "Seika Ijichi",
+   "values": {
+    "band": "Starry",
+    "instrument": "Not stated",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "pa-san",
+   "name": "PA-san",
+   "values": {
+    "band": "Starry",
+    "instrument": "Not stated",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "kikuri-hiroi",
+   "name": "Kikuri Hiroi",
+   "values": {
+    "band": "Sick Hack",
+    "instrument": "Bass",
+    "vocals": "Vocalist"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "eliza-shimizu",
+   "name": "Eliza Shimizu",
+   "values": {
+    "band": "Sick Hack",
+    "instrument": "Guitar",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "shima-iwashita",
+   "name": "Shima Iwashita",
+   "values": {
+    "band": "Sick Hack",
+    "instrument": "Drums",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "yoyoko-otsuki",
+   "name": "Yoyoko Ōtsuki",
+   "values": {
+    "band": "Sideros",
+    "instrument": "Guitar",
+    "vocals": "Vocalist"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "futari-goto",
+   "name": "Futari Gotō",
+   "values": {
+    "band": "Gotō family",
+    "instrument": "Not stated",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "michiyo-goto",
+   "name": "Michiyo Gotō",
+   "values": {
+    "band": "Gotō family",
+    "instrument": "Not stated",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "naoki-goto",
+   "name": "Naoki Gotō",
+   "values": {
+    "band": "Gotō family",
+    "instrument": "Not stated",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  },
+  {
+   "slug": "jimihen",
+   "name": "JimiHen",
+   "values": {
+    "band": "Gotō family",
+    "instrument": "Not stated",
+    "vocals": "Not stated as one"
+   },
+   "sources": {
+    "band": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "instrument": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ],
+    "vocals": [
+     "https://en.wikipedia.org/wiki/Bocchi_the_Rock!"
+    ]
+   }
+  }
+ ]
+}

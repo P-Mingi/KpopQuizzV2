@@ -1,0 +1,444 @@
+{
+ "series_slug": "dandadan",
+ "columns": [
+  {
+   "key": "nature",
+   "kind": "single",
+   "label": {
+    "en": "Nature",
+    "fr": "Nature"
+   },
+   "help": {
+    "en": "Human, spirit or alien, as the character list sorts them",
+    "fr": "Humain, esprit ou alien, comme la liste des personnages les classe"
+   }
+  },
+  {
+   "key": "student",
+   "kind": "single",
+   "label": {
+    "en": "Student",
+    "fr": "Élève"
+   },
+   "help": {
+    "en": "Whether the character is a high school student at the first appearance",
+    "fr": "Si le personnage est lycéen à sa première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First season",
+    "fr": "Première saison"
+   },
+   "help": {
+    "en": "Season of the first appearance, arrows",
+    "fr": "Saison de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "momo-ayase",
+   "name": "Momo Ayase",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ken-takakura",
+   "name": "Ken Takakura",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "turbo-granny",
+   "name": "Turbo Granny",
+   "values": {
+    "nature": "Spirit",
+    "student": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "seiko-ayase",
+   "name": "Seiko Ayase",
+   "values": {
+    "nature": "Human",
+    "student": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "aira-shiratori",
+   "name": "Aira Shiratori",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "acrobatic-silky",
+   "name": "Acrobatic Silky",
+   "values": {
+    "nature": "Spirit",
+    "student": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "alien-serpo",
+   "name": "Alien Serpo",
+   "values": {
+    "nature": "Alien",
+    "student": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "jin-enjoji",
+   "name": "Jin Enjoji",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "peeny-weeny",
+   "name": "Peeny-Weeny",
+   "values": {
+    "nature": "Alien",
+    "student": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "evil-eye",
+   "name": "Evil Eye",
+   "values": {
+    "nature": "Spirit",
+    "student": "No",
+    "debut_arc": 2
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kinta-sakata",
+   "name": "Kinta Sakata",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 2
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "rin-sawaki",
+   "name": "Rin Sawaki",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 2
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "chiquitita",
+   "name": "Chiquitita",
+   "values": {
+    "nature": "Alien",
+    "student": "No",
+    "debut_arc": 2
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "taro",
+   "name": "Taro",
+   "values": {
+    "nature": "Spirit",
+    "student": "No",
+    "debut_arc": 1
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "vamola",
+   "name": "Vamola",
+   "values": {
+    "nature": "Alien",
+    "student": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "ludris",
+   "name": "Ludris",
+   "values": {
+    "nature": "Alien",
+    "student": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "reiko-kashima",
+   "name": "Reiko Kashima",
+   "values": {
+    "nature": "Spirit",
+    "student": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "count-saint-germain",
+   "name": "Count Saint-Germain",
+   "values": {
+    "nature": "Human",
+    "student": "No",
+    "debut_arc": 3
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "unji-zuma",
+   "name": "Unji Zuma",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 3
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kouki-yukishiro",
+   "name": "Kouki Yukishiro",
+   "values": {
+    "nature": "Human",
+    "student": "Yes",
+    "debut_arc": 3
+   },
+   "sources": {
+    "nature": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "student": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Dandadan_episodes"
+    ]
+   }
+  }
+ ]
+}

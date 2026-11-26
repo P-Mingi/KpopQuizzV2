@@ -1,0 +1,443 @@
+{
+ "series_slug": "sakamoto-days",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group the character list files the character under",
+    "fr": "Groupe sous lequel la liste des personnages classe le personnage"
+   }
+  },
+  {
+   "key": "status",
+   "kind": "single",
+   "label": {
+    "en": "Status",
+    "fr": "Statut"
+   },
+   "help": {
+    "en": "Hitman status that the character list states, or Not stated",
+    "fr": "Statut de tueur à gages indiqué par la liste des personnages, ou non précisé"
+   }
+  },
+  {
+   "key": "link",
+   "kind": "single",
+   "label": {
+    "en": "Link to Sakamoto",
+    "fr": "Lien avec Sakamoto"
+   },
+   "help": {
+    "en": "Tie to Taro Sakamoto that the character list states, or Not stated",
+    "fr": "Lien avec Taro Sakamoto indiqué par la liste des personnages, ou non précisé"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "taro-sakamoto",
+   "name": "Taro Sakamoto",
+   "values": {
+    "group": "Sakamoto's Convenience Store",
+    "status": "Former hitman",
+    "link": "Himself"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shin-asakura",
+   "name": "Shin Asakura",
+   "values": {
+    "group": "Sakamoto's Convenience Store",
+    "status": "Former hitman",
+    "link": "Works for him"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lu-xiaotang",
+   "name": "Lu Xiaotang",
+   "values": {
+    "group": "Sakamoto's Convenience Store",
+    "status": "Not stated",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "aoi-sakamoto",
+   "name": "Aoi Sakamoto",
+   "values": {
+    "group": "Sakamoto's Convenience Store",
+    "status": "Not stated",
+    "link": "Family"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hana-sakamoto",
+   "name": "Hana Sakamoto",
+   "values": {
+    "group": "Sakamoto's Convenience Store",
+    "status": "Not stated",
+    "link": "Family"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "heisuke-mashimo",
+   "name": "Heisuke Mashimo",
+   "values": {
+    "group": "Sakamoto's Convenience Store",
+    "status": "Hitman or killer",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yoichi-nagumo",
+   "name": "Yoichi Nagumo",
+   "values": {
+    "group": "The Order",
+    "status": "Not stated",
+    "link": "Classmate"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shishiba",
+   "name": "Shishiba",
+   "values": {
+    "group": "The Order",
+    "status": "Not stated",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "osaragi",
+   "name": "Osaragi",
+   "values": {
+    "group": "The Order",
+    "status": "Hitman or killer",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hyo",
+   "name": "Hyo",
+   "values": {
+    "group": "The Order",
+    "status": "Not stated",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "boiled",
+   "name": "Boiled",
+   "values": {
+    "group": "Other characters",
+    "status": "Not stated",
+    "link": "Classmate"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lu-wutang",
+   "name": "Lu Wutang",
+   "values": {
+    "group": "Other characters",
+    "status": "Not stated",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "takamura",
+   "name": "Takamura",
+   "values": {
+    "group": "The Order",
+    "status": "Hitman or killer",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kanaguri",
+   "name": "Kanaguri",
+   "values": {
+    "group": "The Order",
+    "status": "Hitman or killer",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "akira-akao",
+   "name": "Akira Akao",
+   "values": {
+    "group": "JCC",
+    "status": "Student",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "natsuki-seba",
+   "name": "Natsuki Seba",
+   "values": {
+    "group": "JCC",
+    "status": "Student",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kei-uzuki",
+   "name": "Kei Uzuki",
+   "values": {
+    "group": "X's Organization",
+    "status": "Hitman or killer",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rion-akao",
+   "name": "Rion Akao",
+   "values": {
+    "group": "JCC",
+    "status": "Hitman or killer",
+    "link": "Classmate"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gaku",
+   "name": "Gaku",
+   "values": {
+    "group": "X's Organization",
+    "status": "Not stated",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kashima",
+   "name": "Kashima",
+   "values": {
+    "group": "X's Organization",
+    "status": "Not stated",
+    "link": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ],
+    "link": [
+     "https://en.wikipedia.org/wiki/List_of_Sakamoto_Days_characters"
+    ]
+   }
+  }
+ ]
+}

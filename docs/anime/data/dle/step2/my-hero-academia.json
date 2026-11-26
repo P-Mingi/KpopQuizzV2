@@ -1,0 +1,511 @@
+{
+ "series_slug": "my-hero-academia",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Affiliation",
+    "fr": "Affiliation"
+   },
+   "help": {
+    "en": "Group the character is shown in at the first appearance, as the character list sorts them",
+    "fr": "Groupe dans lequel le personnage est montré à sa première apparition, comme le classe la liste des personnages"
+   }
+  },
+  {
+   "key": "standing",
+   "kind": "single",
+   "label": {
+    "en": "Standing",
+    "fr": "Statut"
+   },
+   "help": {
+    "en": "Student, pro hero, villain or civilian at the first appearance",
+    "fr": "Élève, pro hero, vilain ou civil à la première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "izuku-midoriya",
+   "name": "Izuku Midoriya",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "katsuki-bakugo",
+   "name": "Katsuki Bakugo",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ochaco-uraraka",
+   "name": "Ochaco Uraraka",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shoto-todoroki",
+   "name": "Shoto Todoroki",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tenya-ida",
+   "name": "Tenya Ida",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "eijiro-kirishima",
+   "name": "Eijiro Kirishima",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "momo-yaoyorozu",
+   "name": "Momo Yaoyorozu",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tsuyu-asui",
+   "name": "Tsuyu Asui",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "denki-kaminari",
+   "name": "Denki Kaminari",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "fumikage-tokoyami",
+   "name": "Fumikage Tokoyami",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mina-ashido",
+   "name": "Mina Ashido",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kyoka-jiro",
+   "name": "Kyoka Jiro",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "minoru-mineta",
+   "name": "Minoru Mineta",
+   "values": {
+    "group": "Class 1-A",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "all-might",
+   "name": "All Might",
+   "values": {
+    "group": "Pro heroes",
+    "standing": "Pro hero"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shota-aizawa",
+   "name": "Shota Aizawa",
+   "values": {
+    "group": "U.A. faculty",
+    "standing": "Pro hero"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "recovery-girl",
+   "name": "Recovery Girl",
+   "values": {
+    "group": "U.A. faculty",
+    "standing": "Pro hero"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "present-mic",
+   "name": "Present Mic",
+   "values": {
+    "group": "U.A. faculty",
+    "standing": "Pro hero"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "inko-midoriya",
+   "name": "Inko Midoriya",
+   "values": {
+    "group": "Civilians",
+    "standing": "Civilian"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "endeavor",
+   "name": "Endeavor",
+   "values": {
+    "group": "Pro heroes",
+    "standing": "Pro hero"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hitoshi-shinso",
+   "name": "Hitoshi Shinso",
+   "values": {
+    "group": "Other U.A. students",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "stain",
+   "name": "Stain",
+   "values": {
+    "group": "Other villains",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "tomura-shigaraki",
+   "name": "Tomura Shigaraki",
+   "values": {
+    "group": "League of Villains",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kurogiri",
+   "name": "Kurogiri",
+   "values": {
+    "group": "League of Villains",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mirio-togata",
+   "name": "Mirio Togata",
+   "values": {
+    "group": "Other U.A. students",
+    "standing": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "dabi",
+   "name": "Dabi",
+   "values": {
+    "group": "League of Villains",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "himiko-toga",
+   "name": "Himiko Toga",
+   "values": {
+    "group": "League of Villains",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "twice",
+   "name": "Twice",
+   "values": {
+    "group": "League of Villains",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "overhaul",
+   "name": "Overhaul",
+   "values": {
+    "group": "Shie Hassaikai",
+    "standing": "Villain"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hawks",
+   "name": "Hawks",
+   "values": {
+    "group": "Pro heroes",
+    "standing": "Pro hero"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  },
+  {
+   "slug": "eri",
+   "name": "Eri",
+   "values": {
+    "group": "Civilians",
+    "standing": "Civilian"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ],
+    "standing": [
+     "https://en.wikipedia.org/wiki/List_of_My_Hero_Academia_characters"
+    ]
+   }
+  }
+ ]
+}

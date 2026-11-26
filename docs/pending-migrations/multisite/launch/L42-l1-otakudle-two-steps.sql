@@ -22,7 +22,7 @@
 -- Verify: select count(*) from pg_proc where proname in ('dle_otakudle_set_id', 'dle_set_attrs', 'dle_step2_cells');   expect 3
 -- Verify: select has_function_privilege('anon', 'public.dle_set_attrs(text, text)', 'execute')::int + has_function_privilege('authenticated', 'public.dle_step2_cells(text, jsonb, jsonb)', 'execute')::int;   expect 0
 -- Verify: select count(*) from public.dle_games where id like 'otakudle-s-%' and not active;   expect 48
--- Verify: select count(*) from public.dle_src_anime_character v where not exists (select 1 from public.character_game_facts f where f.character_id = v.entity_id::integer and f.game_id = public.dle_otakudle_set_id(v.balance_key));   expect 0
+-- Verify: select count(*) from public.dle_src_anime_character v where not exists (select 1 from public.dle_curation k where k.game_id = 'otakudle' and k.entity_id = v.entity_id and k.excluded) and not exists (select 1 from public.character_game_facts f where f.character_id = v.entity_id::integer and f.game_id = public.dle_otakudle_set_id(v.balance_key));   expect 0
 -- Verify: select has_function_privilege('anon', 'public.dle_day(text, text, date)', 'execute')::int + has_function_privilege('anon', 'public.dle_guess_at(timestamptz, text, date, text, text)', 'execute')::int;   expect 1
 -- Undo:   L42-l1-otakudle-two-steps.rollback.sql (puts back the L40 dle_play_state and the three columns; the three helpers are dropped)
 -- o1-transaction: single, ONE DO block (atomic on its own, in psql and in the Supabase SQL Editor). Idempotent: a second run changes nothing.
@@ -176,12 +176,12 @@ end $$;
   -- Step 1 asks the work columns only.
   delete from public.dle_attributes where game_id = 'otakudle' and key in ('gender', 'species', 'role');
 
-  -- Self-check: the columns, the function, the grants, and every character of the pool has its values in the set of its series (a guess of the right anime always has its cells of step 2).
+  -- Self-check: the columns, the function, the grants, and every character of the pool (the ones the owner left out through dle_curation, like hisoka-morrow, excepted) has its values in the set of its series (a guess of the right anime always has its cells of step 2).
   if (select string_agg(key, ',' order by position) from public.dle_attributes where game_id = 'otakudle') is distinct from 'series,genres,year,studio' then raise exception 'L42: otakudle is not series, genres, year, studio'; end if;
   if (select prosrc from pg_proc where oid = to_regprocedure('public.dle_play_state(public.dle_plays)')) not like '%step2_columns%' then raise exception 'L42: dle_play_state is not the new one'; end if;
   if has_function_privilege('anon', 'public.dle_set_attrs(text, text)', 'execute') or has_function_privilege('authenticated', 'public.dle_step2_cells(text, jsonb, jsonb)', 'execute') then raise exception 'L42: a helper is open to the browser'; end if;
   if not has_function_privilege('anon', 'public.dle_day(text, text, date)', 'execute') or has_function_privilege('anon', 'public.dle_guess_at(timestamptz, text, date, text, text)', 'execute') then raise exception 'L42: the grants changed'; end if;
-  if exists (select 1 from public.dle_src_anime_character v where not exists (select 1 from public.character_game_facts f where f.character_id = v.entity_id::integer and f.game_id = public.dle_otakudle_set_id(v.balance_key))) then
+  if exists (select 1 from public.dle_src_anime_character v where not exists (select 1 from public.dle_curation k where k.game_id = 'otakudle' and k.entity_id = v.entity_id and k.excluded) and not exists (select 1 from public.character_game_facts f where f.character_id = v.entity_id::integer and f.game_id = public.dle_otakudle_set_id(v.balance_key))) then
     raise exception 'L42: a character of the Otakudle pool has no values in the set of its series (apply L42a, or generate it again)';
   end if;
   raise notice 'L42: Otakudle is in two steps';

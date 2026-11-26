@@ -1,0 +1,351 @@
+{
+ "series_slug": "fruits-basket",
+ "columns": [
+  {
+   "key": "zodiac",
+   "kind": "single",
+   "label": {
+    "en": "Zodiac animal",
+    "fr": "Animal du zodiaque"
+   },
+   "help": {
+    "en": "Animal of the Sohma curse at the first appearance, None if not cursed",
+    "fr": "Animal de la malédiction Sohma à la première apparition, Aucun si non maudit"
+   }
+  },
+  {
+   "key": "circle",
+   "kind": "single",
+   "label": {
+    "en": "Circle",
+    "fr": "Cercle"
+   },
+   "help": {
+    "en": "Family or circle the character belongs to at the first appearance",
+    "fr": "Famille ou cercle du personnage à la première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "tohru-honda",
+   "name": "Tohru Honda",
+   "values": {
+    "zodiac": "None",
+    "circle": "Honda family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yuki-sohma",
+   "name": "Yuki Sohma",
+   "values": {
+    "zodiac": "Rat",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kyo-sohma",
+   "name": "Kyo Sohma",
+   "values": {
+    "zodiac": "Cat",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shigure-sohma",
+   "name": "Shigure Sohma",
+   "values": {
+    "zodiac": "Dog",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "akito-sohma",
+   "name": "Akito Sohma",
+   "values": {
+    "zodiac": "None",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ayame-sohma",
+   "name": "Ayame Sohma",
+   "values": {
+    "zodiac": "Snake",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hatori-sohma",
+   "name": "Hatori Sohma",
+   "values": {
+    "zodiac": "Dragon",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hatsuharu-sohma",
+   "name": "Hatsuharu Sohma",
+   "values": {
+    "zodiac": "Ox",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "momiji-sohma",
+   "name": "Momiji Sohma",
+   "values": {
+    "zodiac": "Rabbit",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kagura-sohma",
+   "name": "Kagura Sohma",
+   "values": {
+    "zodiac": "Boar",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kisa-sohma",
+   "name": "Kisa Sohma",
+   "values": {
+    "zodiac": "Tiger",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hiro-sohma",
+   "name": "Hiro Sohma",
+   "values": {
+    "zodiac": "Ram",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ritsu-sohma",
+   "name": "Ritsu Sohma",
+   "values": {
+    "zodiac": "Monkey",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "isuzu-sohma",
+   "name": "Isuzu Sohma",
+   "values": {
+    "zodiac": "Horse",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "arisa-uotani",
+   "name": "Arisa Uotani",
+   "values": {
+    "zodiac": "None",
+    "circle": "Tohru's friends"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "saki-hanajima",
+   "name": "Saki Hanajima",
+   "values": {
+    "zodiac": "None",
+    "circle": "Tohru's friends"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kyoko-honda",
+   "name": "Kyoko Honda",
+   "values": {
+    "zodiac": "None",
+    "circle": "Honda family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "katsuya-honda",
+   "name": "Katsuya Honda",
+   "values": {
+    "zodiac": "None",
+    "circle": "Honda family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kazuma-sohma",
+   "name": "Kazuma Sohma",
+   "values": {
+    "zodiac": "None",
+    "circle": "Sohma family"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  },
+  {
+   "slug": "machi-kuragi",
+   "name": "Machi Kuragi",
+   "values": {
+    "zodiac": "None",
+    "circle": "Student council"
+   },
+   "sources": {
+    "zodiac": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ],
+    "circle": [
+     "https://en.wikipedia.org/wiki/List_of_Fruits_Basket_characters"
+    ]
+   }
+  }
+ ]
+}

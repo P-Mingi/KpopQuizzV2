@@ -1,0 +1,296 @@
+{
+ "series_slug": "kaiju-no-8",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Company or Defense Force unit the character list gives",
+    "fr": "Entreprise ou unité de la Force de défense donnée par la liste des personnages"
+   }
+  },
+  {
+   "key": "position",
+   "kind": "single",
+   "label": {
+    "en": "Position",
+    "fr": "Poste"
+   },
+   "help": {
+    "en": "Post the character list gives",
+    "fr": "Poste donné par la liste des personnages"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First season",
+    "fr": "Première saison"
+   },
+   "help": {
+    "en": "Season of the first appearance, arrows",
+    "fr": "Saison de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "kafka-hibino",
+   "name": "Kafka Hibino",
+   "values": {
+    "group": "Kaiju disposal company",
+    "position": "Cleaner",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "reno-ichikawa",
+   "name": "Reno Ichikawa",
+   "values": {
+    "group": "Kaiju disposal company",
+    "position": "Recruit",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kikoru-shinomiya",
+   "name": "Kikoru Shinomiya",
+   "values": {
+    "group": "Third Division",
+    "position": "Recruit",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "mina-ashiro",
+   "name": "Mina Ashiro",
+   "values": {
+    "group": "Third Division",
+    "position": "Captain",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "soshiro-hoshina",
+   "name": "Soshiro Hoshina",
+   "values": {
+    "group": "Third Division",
+    "position": "Vice-captain",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "gen-narumi",
+   "name": "Gen Narumi",
+   "values": {
+    "group": "First Division",
+    "position": "Captain",
+    "debut_arc": 2
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "isao-shinomiya",
+   "name": "Isao Shinomiya",
+   "values": {
+    "group": "Defense Force headquarters",
+    "position": "Executive",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "iharu-furuhashi",
+   "name": "Iharu Furuhashi",
+   "values": {
+    "group": "Third Division",
+    "position": "Recruit",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "haruichi-izumo",
+   "name": "Haruichi Izumo",
+   "values": {
+    "group": "Third Division",
+    "position": "Recruit",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "keiji-itami",
+   "name": "Keiji Itami",
+   "values": {
+    "group": "Defense Force headquarters",
+    "position": "Executive",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kaiju-no-9",
+   "name": "Kaiju No. 9",
+   "values": {
+    "group": "Kaiju",
+    "position": "Kaiju",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  },
+  {
+   "slug": "kaiju-no-10",
+   "name": "Kaiju No. 10",
+   "values": {
+    "group": "Kaiju",
+    "position": "Kaiju",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_characters",
+     "https://en.wikipedia.org/wiki/List_of_Kaiju_No._8_episodes"
+    ]
+   }
+  }
+ ]
+}

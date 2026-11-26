@@ -1,0 +1,562 @@
+{
+ "series_slug": "solo-leveling",
+ "columns": [
+  {
+   "key": "rank",
+   "kind": "ordinal",
+   "label": {
+    "en": "Hunter rank",
+    "fr": "Rang de chasseur"
+   },
+   "help": {
+    "en": "Hunter rank the character list states, or Not stated, arrows",
+    "fr": "Rang de chasseur indiqué par la liste des personnages, ou non précisé, flèches"
+   },
+   "order": [
+    {
+     "v": 1,
+     "label": {
+      "en": "Not stated",
+      "fr": "Non précisé"
+     }
+    },
+    {
+     "v": 2,
+     "label": {
+      "en": "E-Rank",
+      "fr": "Rang E"
+     }
+    },
+    {
+     "v": 3,
+     "label": {
+      "en": "D-Rank",
+      "fr": "Rang D"
+     }
+    },
+    {
+     "v": 4,
+     "label": {
+      "en": "C-Rank",
+      "fr": "Rang C"
+     }
+    },
+    {
+     "v": 5,
+     "label": {
+      "en": "B-Rank",
+      "fr": "Rang B"
+     }
+    },
+    {
+     "v": 6,
+     "label": {
+      "en": "S-Rank",
+      "fr": "Rang S"
+     }
+    },
+    {
+     "v": 7,
+     "label": {
+      "en": "National Level",
+      "fr": "Niveau national"
+     }
+    }
+   ]
+  },
+  {
+   "key": "country",
+   "kind": "single",
+   "label": {
+    "en": "Country",
+    "fr": "Pays"
+   },
+   "help": {
+    "en": "Country the character list gives, or Not stated",
+    "fr": "Pays donné par la liste des personnages, ou non précisé"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "sung-jin-woo",
+   "name": "Sung Jin-woo",
+   "values": {
+    "rank": 2,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "sung-jin-ah",
+   "name": "Sung Jin-ah",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "park-kyung-hye",
+   "name": "Park Kyung-hye",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "yoo-jin-ho",
+   "name": "Yoo Jin-ho",
+   "values": {
+    "rank": 3,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "lee-joo-hee",
+   "name": "Lee Joo-hee",
+   "values": {
+    "rank": 5,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "song-chi-yul",
+   "name": "Song Chi-yul",
+   "values": {
+    "rank": 4,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "igris",
+   "name": "Igris",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "cha-hae-in",
+   "name": "Cha Hae-in",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "go-gun-hee",
+   "name": "Go Gun-hee",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "baek-yoon-ho",
+   "name": "Baek Yoon-ho",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "choi-jong-in",
+   "name": "Choi Jong-in",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "kang-tae-shik",
+   "name": "Kang Tae-shik",
+   "values": {
+    "rank": 5,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "min-byung-gyu",
+   "name": "Min Byung-gyu",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "beru",
+   "name": "Beru",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "bellion",
+   "name": "Bellion",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "ashborn",
+   "name": "Ashborn",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "sung-il-hwan",
+   "name": "Sung Il-hwan",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "sung-suho",
+   "name": "Sung Suho",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "thomas-andre",
+   "name": "Thomas Andre",
+   "values": {
+    "rank": 7,
+    "country": "United States"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "liu-zhigang",
+   "name": "Liu Zhigang",
+   "values": {
+    "rank": 7,
+    "country": "China"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "christopher-reed",
+   "name": "Christopher Reed",
+   "values": {
+    "rank": 7,
+    "country": "United States"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "siddharth-bachchan",
+   "name": "Siddharth Bachchan",
+   "values": {
+    "rank": 7,
+    "country": "India"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "lennart-niermann",
+   "name": "Lennart Niermann",
+   "values": {
+    "rank": 6,
+    "country": "Germany"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "goto-ryuji",
+   "name": "Goto Ryuji",
+   "values": {
+    "rank": 6,
+    "country": "Japan"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "lim-tae-gyu",
+   "name": "Lim Tae-gyu",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "ma-dong-wook",
+   "name": "Ma Dong-wook",
+   "values": {
+    "rank": 6,
+    "country": "South Korea"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "antares",
+   "name": "Antares",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "rakan",
+   "name": "Rakan",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "sillad",
+   "name": "Sillad",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  },
+  {
+   "slug": "querehsha",
+   "name": "Querehsha",
+   "values": {
+    "rank": 1,
+    "country": "Not stated"
+   },
+   "sources": {
+    "rank": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ],
+    "country": [
+     "https://en.wikipedia.org/wiki/Solo_Leveling"
+    ]
+   }
+  }
+ ]
+}

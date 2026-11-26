@@ -1,0 +1,479 @@
+{
+ "series_slug": "detective-conan",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group the character list files the character under; None of the above for the others",
+    "fr": "Groupe sous lequel la liste des personnages classe le personnage; aucun des groupes pour les autres"
+   }
+  },
+  {
+   "key": "occupation",
+   "kind": "single",
+   "label": {
+    "en": "Occupation",
+    "fr": "Métier"
+   },
+   "help": {
+    "en": "Job or status the character list gives, or Not stated",
+    "fr": "Métier ou statut donné par la liste des personnages, ou non précisé"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "conan-edogawa",
+   "name": "Conan Edogawa",
+   "values": {
+    "group": "Main characters",
+    "occupation": "Detective"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ran-mori",
+   "name": "Ran Mori",
+   "values": {
+    "group": "Main characters",
+    "occupation": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kogoro-mori",
+   "name": "Kogoro Mori",
+   "values": {
+    "group": "Main characters",
+    "occupation": "Detective"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "heiji-hattori",
+   "name": "Heiji Hattori",
+   "values": {
+    "group": "Major supporting characters",
+    "occupation": "Detective"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kazuha-toyama",
+   "name": "Kazuha Toyama",
+   "values": {
+    "group": "Major supporting characters",
+    "occupation": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ai-haibara",
+   "name": "Ai Haibara",
+   "values": {
+    "group": "Junior Detective League",
+    "occupation": "Scientist"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hiroshi-agasa",
+   "name": "Hiroshi Agasa",
+   "values": {
+    "group": "Major supporting characters",
+    "occupation": "Scientist"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "genta-kojima",
+   "name": "Genta Kojima",
+   "values": {
+    "group": "Junior Detective League",
+    "occupation": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mitsuhiko-tsuburaya",
+   "name": "Mitsuhiko Tsuburaya",
+   "values": {
+    "group": "Junior Detective League",
+    "occupation": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ayumi-yoshida",
+   "name": "Ayumi Yoshida",
+   "values": {
+    "group": "Junior Detective League",
+    "occupation": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "juzo-megure",
+   "name": "Juzo Megure",
+   "values": {
+    "group": "Major supporting characters",
+    "occupation": "Police officer"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "wataru-takagi",
+   "name": "Wataru Takagi",
+   "values": {
+    "group": "Law enforcement",
+    "occupation": "Police officer"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "miwako-sato",
+   "name": "Miwako Sato",
+   "values": {
+    "group": "Law enforcement",
+    "occupation": "Police officer"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ninzaburo-shiratori",
+   "name": "Ninzaburo Shiratori",
+   "values": {
+    "group": "Law enforcement",
+    "occupation": "Police officer"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kaito-kid",
+   "name": "Kaito Kid",
+   "values": {
+    "group": "Other recurring characters",
+    "occupation": "Thief"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gin",
+   "name": "Gin",
+   "values": {
+    "group": "Black Organization",
+    "occupation": "Criminal"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "vermouth",
+   "name": "Vermouth",
+   "values": {
+    "group": "Black Organization",
+    "occupation": "Criminal"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rum",
+   "name": "Rum",
+   "values": {
+    "group": "Black Organization",
+    "occupation": "Criminal"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toru-amuro",
+   "name": "Toru Amuro",
+   "values": {
+    "group": "None of the above",
+    "occupation": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "subaru-okiya",
+   "name": "Subaru Okiya",
+   "values": {
+    "group": "None of the above",
+    "occupation": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "masumi-sera",
+   "name": "Masumi Sera",
+   "values": {
+    "group": "Other recurring characters",
+    "occupation": "Detective"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jodie-starling",
+   "name": "Jodie Starling",
+   "values": {
+    "group": "None of the above",
+    "occupation": "Teacher"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "james-black",
+   "name": "James Black",
+   "values": {
+    "group": "Law enforcement",
+    "occupation": "Law enforcement"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yusaku-kudo",
+   "name": "Yusaku Kudo",
+   "values": {
+    "group": "Other recurring characters",
+    "occupation": "Writer"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yukiko-kudo",
+   "name": "Yukiko Kudo",
+   "values": {
+    "group": "Other recurring characters",
+    "occupation": "Actress"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sonoko-suzuki",
+   "name": "Sonoko Suzuki",
+   "values": {
+    "group": "Major supporting characters",
+    "occupation": "Not stated"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "makoto-kyogoku",
+   "name": "Makoto Kyogoku",
+   "values": {
+    "group": "Other recurring characters",
+    "occupation": "Student"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  },
+  {
+   "slug": "eri-kisaki",
+   "name": "Eri Kisaki",
+   "values": {
+    "group": "Other recurring characters",
+    "occupation": "Lawyer"
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ],
+    "occupation": [
+     "https://en.wikipedia.org/wiki/List_of_Case_Closed_characters"
+    ]
+   }
+  }
+ ]
+}

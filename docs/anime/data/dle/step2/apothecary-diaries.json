@@ -1,0 +1,223 @@
+{
+ "series_slug": "apothecary-diaries",
+ "columns": [
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role",
+    "fr": "Rôle"
+   },
+   "help": {
+    "en": "Role at the first appearance as the character list describes it",
+    "fr": "Rôle à la première apparition tel que la liste des personnages le décrit"
+   }
+  },
+  {
+   "key": "place",
+   "kind": "single",
+   "label": {
+    "en": "Place",
+    "fr": "Lieu"
+   },
+   "help": {
+    "en": "Rear palace, Imperial army or Verdigris House district at the first appearance",
+    "fr": "Rear palace, Imperial army ou Verdigris House district à la première apparition"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "maomao",
+   "name": "Maomao",
+   "values": {
+    "role": "Apothecary",
+    "place": "Verdigris House district"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jinshi",
+   "name": "Jinshi",
+   "values": {
+    "role": "Palace official",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gaoshun",
+   "name": "Gaoshun",
+   "values": {
+    "role": "Palace official",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "gyokuyo",
+   "name": "Gyokuyō",
+   "values": {
+    "role": "Consort",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lihua",
+   "name": "Lihua",
+   "values": {
+    "role": "Consort",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lishu",
+   "name": "Lishu",
+   "values": {
+    "role": "Consort",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ah-duo",
+   "name": "Ah-Duo",
+   "values": {
+    "role": "Consort",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lakan",
+   "name": "Lakan",
+   "values": {
+    "role": "Military",
+    "place": "Imperial army"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "lihaku",
+   "name": "Lihaku",
+   "values": {
+    "role": "Military",
+    "place": "Imperial army"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "xiaolan",
+   "name": "Xiaolan",
+   "values": {
+    "role": "Servant",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "basen",
+   "name": "Basen",
+   "values": {
+    "role": "Palace official",
+    "place": "Rear palace"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  },
+  {
+   "slug": "luomen",
+   "name": "Luomen",
+   "values": {
+    "role": "Apothecary",
+    "place": "Verdigris House district"
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ],
+    "place": [
+     "https://en.wikipedia.org/wiki/List_of_The_Apothecary_Diaries_characters"
+    ]
+   }
+  }
+ ]
+}

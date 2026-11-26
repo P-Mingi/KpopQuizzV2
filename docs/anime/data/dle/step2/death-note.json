@@ -1,0 +1,464 @@
+{
+ "series_slug": "death-note",
+ "columns": [
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Group, job or place the character is shown with at the first appearance",
+    "fr": "Groupe, métier ou lieu avec lequel le personnage est montré à sa première apparition"
+   }
+  },
+  {
+   "key": "species",
+   "kind": "single",
+   "label": {
+    "en": "Species",
+    "fr": "Espèce"
+   },
+   "help": {
+    "en": "Human or Shinigami",
+    "fr": "Humain ou Shinigami"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First part",
+    "fr": "Première partie"
+   },
+   "help": {
+    "en": "Part of the first appearance, arrows",
+    "fr": "Partie de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "light-yagami",
+   "name": "Light Yagami",
+   "values": {
+    "group": "Students",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "l",
+   "name": "L",
+   "values": {
+    "group": "L's team",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ryuk",
+   "name": "Ryuk",
+   "values": {
+    "group": "Shinigami",
+    "species": "Shinigami",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "misa-amane",
+   "name": "Misa Amane",
+   "values": {
+    "group": "Entertainment",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "soichiro-yagami",
+   "name": "Soichiro Yagami",
+   "values": {
+    "group": "Police",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "touta-matsuda",
+   "name": "Touta Matsuda",
+   "values": {
+    "group": "Police",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "near",
+   "name": "Near",
+   "values": {
+    "group": "SPK",
+    "species": "Human",
+    "debut_arc": 2
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mello",
+   "name": "Mello",
+   "values": {
+    "group": "Mafia",
+    "species": "Human",
+    "debut_arc": 2
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "teru-mikami",
+   "name": "Teru Mikami",
+   "values": {
+    "group": "Prosecutors",
+    "species": "Human",
+    "debut_arc": 2
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kiyomi-takada",
+   "name": "Kiyomi Takada",
+   "values": {
+    "group": "Students",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "watari",
+   "name": "Watari",
+   "values": {
+    "group": "L's team",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rem",
+   "name": "Rem",
+   "values": {
+    "group": "Shinigami",
+    "species": "Shinigami",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sidoh",
+   "name": "Sidoh",
+   "values": {
+    "group": "Shinigami",
+    "species": "Shinigami",
+    "debut_arc": 2
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "sayu-yagami",
+   "name": "Sayu Yagami",
+   "values": {
+    "group": "Students",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shuichi-aizawa",
+   "name": "Shuichi Aizawa",
+   "values": {
+    "group": "Police",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kanzo-mogi",
+   "name": "Kanzo Mogi",
+   "values": {
+    "group": "Police",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hideki-ide",
+   "name": "Hideki Ide",
+   "values": {
+    "group": "Police",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hirokazu-ukita",
+   "name": "Hirokazu Ukita",
+   "values": {
+    "group": "Police",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "raye-penber",
+   "name": "Raye Penber",
+   "values": {
+    "group": "FBI",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  },
+  {
+   "slug": "naomi-misora",
+   "name": "Naomi Misora",
+   "values": {
+    "group": "FBI",
+    "species": "Human",
+    "debut_arc": 1
+   },
+   "sources": {
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "species": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_episodes",
+     "https://en.wikipedia.org/wiki/List_of_Death_Note_characters"
+    ]
+   }
+  }
+ ]
+}

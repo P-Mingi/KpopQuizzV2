@@ -1,0 +1,223 @@
+{
+ "series_slug": "omniscient-readers-viewpoint",
+ "columns": [
+  {
+   "key": "background",
+   "kind": "single",
+   "label": {
+    "en": "Background",
+    "fr": "Profil"
+   },
+   "help": {
+    "en": "Occupation or kind at the first appearance, Other if the page gives none",
+    "fr": "Occupation ou nature à la première apparition, Autre si la page n'en donne pas"
+   }
+  },
+  {
+   "key": "novel_role",
+   "kind": "single",
+   "label": {
+    "en": "Role in the novel",
+    "fr": "Rôle dans le roman"
+   },
+   "help": {
+    "en": "Standing in the web novel Ways of Survival, or in the real world",
+    "fr": "Place dans le roman web Ways of Survival, ou dans le monde réel"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "kim-dokja",
+   "name": "Kim Dokja",
+   "values": {
+    "background": "Office worker",
+    "novel_role": "Reader"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "yoo-joonghyuk",
+   "name": "Yoo Joonghyuk",
+   "values": {
+    "background": "Other",
+    "novel_role": "Protagonist"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "han-sooyoung",
+   "name": "Han Sooyoung",
+   "values": {
+    "background": "Web novelist",
+    "novel_role": "Author"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "yoo-sangah",
+   "name": "Yoo Sangah",
+   "values": {
+    "background": "Office worker",
+    "novel_role": "Real-world person"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "jung-heewon",
+   "name": "Jung Heewon",
+   "values": {
+    "background": "Other",
+    "novel_role": "Minor character"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "lee-hyunsung",
+   "name": "Lee Hyunsung",
+   "values": {
+    "background": "Former soldier",
+    "novel_role": "Main character"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "lee-gilyoung",
+   "name": "Lee Gilyoung",
+   "values": {
+    "background": "Child",
+    "novel_role": "Other"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "lee-jihye",
+   "name": "Lee Jihye",
+   "values": {
+    "background": "Other",
+    "novel_role": "Main character"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "gong-pildu",
+   "name": "Gong Pildu",
+   "values": {
+    "background": "Building owners' leader",
+    "novel_role": "Antagonist"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "han-myungoh",
+   "name": "Han Myungoh",
+   "values": {
+    "background": "Office worker",
+    "novel_role": "Real-world person"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "bihyung",
+   "name": "Bihyung",
+   "values": {
+    "background": "Dokkaebi",
+    "novel_role": "Dokkaebi"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  },
+  {
+   "slug": "shin-yoosung",
+   "name": "Shin Yoosung",
+   "values": {
+    "background": "Child",
+    "novel_role": "Main character"
+   },
+   "sources": {
+    "background": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ],
+    "novel_role": [
+     "https://zh.wikipedia.org/wiki/%E5%85%A8%E7%9F%A5%E8%AE%80%E8%80%85%E8%A6%96%E8%A7%92"
+    ]
+   }
+  }
+ ]
+}

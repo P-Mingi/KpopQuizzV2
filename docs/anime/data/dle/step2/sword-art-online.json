@@ -1,0 +1,484 @@
+{
+ "series_slug": "sword-art-online",
+ "columns": [
+  {
+   "key": "world",
+   "kind": "single",
+   "label": {
+    "en": "World",
+    "fr": "Monde"
+   },
+   "help": {
+    "en": "Game world the character is first shown in",
+    "fr": "Monde de jeu dans lequel le personnage est montré en premier"
+   }
+  },
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role",
+    "fr": "Rôle"
+   },
+   "help": {
+    "en": "Fighter, Support or crafter, Leader, or Antagonist at the first appearance",
+    "fr": "Fighter, Support or crafter, Leader ou Antagonist à la première apparition"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "kirito",
+   "name": "Kirito",
+   "values": {
+    "world": "Aincrad",
+    "role": "Fighter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "asuna",
+   "name": "Asuna",
+   "values": {
+    "world": "Aincrad",
+    "role": "Fighter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "klein",
+   "name": "Klein",
+   "values": {
+    "world": "Aincrad",
+    "role": "Fighter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "agil",
+   "name": "Agil",
+   "values": {
+    "world": "Aincrad",
+    "role": "Fighter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "akihiko-kayaba",
+   "name": "Akihiko Kayaba",
+   "values": {
+    "world": "Aincrad",
+    "role": "Antagonist",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "yui",
+   "name": "Yui",
+   "values": {
+    "world": "Aincrad",
+    "role": "Support or crafter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "lisbeth",
+   "name": "Lisbeth",
+   "values": {
+    "world": "Aincrad",
+    "role": "Support or crafter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "silica",
+   "name": "Silica",
+   "values": {
+    "world": "Aincrad",
+    "role": "Support or crafter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "sachi",
+   "name": "Sachi",
+   "values": {
+    "world": "Aincrad",
+    "role": "Fighter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "diavel",
+   "name": "Diavel",
+   "values": {
+    "world": "Aincrad",
+    "role": "Leader",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "kibaou",
+   "name": "Kibaou",
+   "values": {
+    "world": "Aincrad",
+    "role": "Leader",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "argo",
+   "name": "Argo",
+   "values": {
+    "world": "Aincrad",
+    "role": "Support or crafter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "sasha",
+   "name": "Sasha",
+   "values": {
+    "world": "Aincrad",
+    "role": "Support or crafter",
+    "debut_arc": 1
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "leafa",
+   "name": "Leafa",
+   "values": {
+    "world": "Alfheim Online",
+    "role": "Fighter",
+    "debut_arc": 2
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "sinon",
+   "name": "Sinon",
+   "values": {
+    "world": "Gun Gale Online",
+    "role": "Fighter",
+    "debut_arc": 3
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "death-gun",
+   "name": "Death Gun",
+   "values": {
+    "world": "Gun Gale Online",
+    "role": "Antagonist",
+    "debut_arc": 3
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "yuuki-konno",
+   "name": "Yuuki Konno",
+   "values": {
+    "world": "Alfheim Online",
+    "role": "Fighter",
+    "debut_arc": 5
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "eugeo",
+   "name": "Eugeo",
+   "values": {
+    "world": "Underworld",
+    "role": "Fighter",
+    "debut_arc": 6
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "alice-zuberg",
+   "name": "Alice Zuberg",
+   "values": {
+    "world": "Underworld",
+    "role": "Fighter",
+    "debut_arc": 6
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  },
+  {
+   "slug": "bercouli",
+   "name": "Bercouli",
+   "values": {
+    "world": "Underworld",
+    "role": "Leader",
+    "debut_arc": 6
+   },
+   "sources": {
+    "world": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "role": [
+     "https://en.wikipedia.org/wiki/List_of_Sword_Art_Online_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_season_1",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online_II",
+     "https://en.wikipedia.org/wiki/Sword_Art_Online:_Alicization"
+    ]
+   }
+  }
+ ]
+}

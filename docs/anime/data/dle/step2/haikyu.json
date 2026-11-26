@@ -1,0 +1,619 @@
+{
+ "series_slug": "haikyu",
+ "columns": [
+  {
+   "key": "school",
+   "kind": "single",
+   "label": {
+    "en": "School",
+    "fr": "Lycée"
+   },
+   "help": {
+    "en": "High school team of the character",
+    "fr": "Lycée et équipe du personnage"
+   }
+  },
+  {
+   "key": "position",
+   "kind": "single",
+   "label": {
+    "en": "Position",
+    "fr": "Poste"
+   },
+   "help": {
+    "en": "Volleyball position, as the character list gives it",
+    "fr": "Poste de volley, tel que la liste des personnages le donne"
+   }
+  },
+  {
+   "key": "year",
+   "kind": "ordinal",
+   "label": {
+    "en": "School year",
+    "fr": "Année"
+   },
+   "help": {
+    "en": "School year at the first appearance, arrows",
+    "fr": "Année scolaire à la première apparition, flèches"
+   },
+   "order": [
+    {
+     "v": 1,
+     "label": {
+      "en": "First-year",
+      "fr": "Première année"
+     }
+    },
+    {
+     "v": 2,
+     "label": {
+      "en": "Second-year",
+      "fr": "Deuxième année"
+     }
+    },
+    {
+     "v": 3,
+     "label": {
+      "en": "Third-year",
+      "fr": "Troisième année"
+     }
+    }
+   ]
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Arc of the first appearance, arrows",
+    "fr": "Arc de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "shoyo-hinata",
+   "name": "Shoyo Hinata",
+   "values": {
+    "school": "Karasuno",
+    "position": "Middle blocker",
+    "year": 1,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "tobio-kageyama",
+   "name": "Tobio Kageyama",
+   "values": {
+    "school": "Karasuno",
+    "position": "Setter",
+    "year": 1,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kei-tsukishima",
+   "name": "Kei Tsukishima",
+   "values": {
+    "school": "Karasuno",
+    "position": "Middle blocker",
+    "year": 1,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "tadashi-yamaguchi",
+   "name": "Tadashi Yamaguchi",
+   "values": {
+    "school": "Karasuno",
+    "position": "Middle blocker",
+    "year": 1,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "daichi-sawamura",
+   "name": "Daichi Sawamura",
+   "values": {
+    "school": "Karasuno",
+    "position": "Wing spiker",
+    "year": 3,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "koshi-sugawara",
+   "name": "Kōshi Sugawara",
+   "values": {
+    "school": "Karasuno",
+    "position": "Setter",
+    "year": 3,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "asahi-azumane",
+   "name": "Asahi Azumane",
+   "values": {
+    "school": "Karasuno",
+    "position": "Wing spiker",
+    "year": 3,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "yu-nishinoya",
+   "name": "Yū Nishinoya",
+   "values": {
+    "school": "Karasuno",
+    "position": "Libero",
+    "year": 2,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "ryunosuke-tanaka",
+   "name": "Ryūnosuke Tanaka",
+   "values": {
+    "school": "Karasuno",
+    "position": "Wing spiker",
+    "year": 2,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "hitoka-yachi",
+   "name": "Hitoka Yachi",
+   "values": {
+    "school": "Karasuno",
+    "position": "Manager",
+    "year": 1,
+    "debut_arc": 2
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "toru-oikawa",
+   "name": "Tōru Oikawa",
+   "values": {
+    "school": "Aoba Johsai",
+    "position": "Setter",
+    "year": 3,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kenma-kozume",
+   "name": "Kenma Kozume",
+   "values": {
+    "school": "Nekoma",
+    "position": "Setter",
+    "year": 2,
+    "debut_arc": 1
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "tetsuro-kuroo",
+   "name": "Tetsurō Kuroo",
+   "values": {
+    "school": "Nekoma",
+    "position": "Middle blocker",
+    "year": 3,
+    "debut_arc": 2
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kotaro-bokuto",
+   "name": "Kōtarō Bokuto",
+   "values": {
+    "school": "Fukurodani",
+    "position": "Wing spiker",
+    "year": 3,
+    "debut_arc": 2
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "keiji-akaashi",
+   "name": "Keiji Akaashi",
+   "values": {
+    "school": "Fukurodani",
+    "position": "Setter",
+    "year": 2,
+    "debut_arc": 2
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "wakatoshi-ushijima",
+   "name": "Wakatoshi Ushijima",
+   "values": {
+    "school": "Shiratorizawa",
+    "position": "Wing spiker",
+    "year": 3,
+    "debut_arc": 2
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "satori-tendo",
+   "name": "Satori Tendō",
+   "values": {
+    "school": "Shiratorizawa",
+    "position": "Middle blocker",
+    "year": 3,
+    "debut_arc": 3
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "atsumu-miya",
+   "name": "Atsumu Miya",
+   "values": {
+    "school": "Inarizaki",
+    "position": "Setter",
+    "year": 2,
+    "debut_arc": 4
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "kiyoomi-sakusa",
+   "name": "Kiyoomi Sakusa",
+   "values": {
+    "school": "Itachiyama",
+    "position": "Wing spiker",
+    "year": 2,
+    "debut_arc": 4
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  },
+  {
+   "slug": "korai-hoshiumi",
+   "name": "Kōrai Hoshiumi",
+   "values": {
+    "school": "Kamomedai",
+    "position": "Wing spiker",
+    "year": 2,
+    "debut_arc": 4
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "year": [
+     "https://en.wikipedia.org/wiki/List_of_Haikyu!!_characters"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_1",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_2",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_3",
+     "https://en.wikipedia.org/wiki/Haikyu!!_season_4"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,351 @@
+{
+ "series_slug": "tower-of-god",
+ "columns": [
+  {
+   "key": "status",
+   "kind": "single",
+   "label": {
+    "en": "Status",
+    "fr": "Statut"
+   },
+   "help": {
+    "en": "Status in the Tower at the first appearance",
+    "fr": "Statut dans la Tour à la première apparition"
+   }
+  },
+  {
+   "key": "group",
+   "kind": "single",
+   "label": {
+    "en": "Group",
+    "fr": "Groupe"
+   },
+   "help": {
+    "en": "Team or organisation at the first appearance, None if none",
+    "fr": "Équipe ou organisation à la première apparition, Aucun sinon"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "twenty-fifth-bam",
+   "name": "Twenty-Fifth Bam",
+   "values": {
+    "status": "Irregular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rachel",
+   "name": "Rachel",
+   "values": {
+    "status": "Regular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "khun-aguero-agnes",
+   "name": "Khun Aguero Agnes",
+   "values": {
+    "status": "Regular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "rak-wraithraiser",
+   "name": "Rak Wraithraiser",
+   "values": {
+    "status": "Regular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "headon",
+   "name": "Headon",
+   "values": {
+    "status": "Guardian",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shibisu",
+   "name": "Shibisu",
+   "values": {
+    "status": "Regular",
+    "group": "Team Isu"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hatz",
+   "name": "Hatz",
+   "values": {
+    "status": "Regular",
+    "group": "Team Isu"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "phonsekal-lauroe",
+   "name": "Phonsekal Lauroe",
+   "values": {
+    "status": "Regular",
+    "group": "Team Isu"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "anaak-jahad",
+   "name": "Anaak Jahad",
+   "values": {
+    "status": "Regular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "endorsi-jahad",
+   "name": "Endorsi Jahad",
+   "values": {
+    "status": "Jahad family",
+    "group": "Jahad family"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ha-yuri-jahad",
+   "name": "Ha-Yuri Jahad",
+   "values": {
+    "status": "Jahad family",
+    "group": "Jahad family"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "evan-edrok",
+   "name": "Evan Edrok",
+   "values": {
+    "status": "Guide",
+    "group": "Jahad family"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jahad",
+   "name": "Jahad",
+   "values": {
+    "status": "Jahad family",
+    "group": "Jahad family"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ja-wangnan",
+   "name": "Ja Wangnan",
+   "values": {
+    "status": "Regular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hwa-ryun",
+   "name": "Hwa Ryun",
+   "values": {
+    "status": "Guide",
+    "group": "FUG"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "urek-mazino",
+   "name": "Urek Mazino",
+   "values": {
+    "status": "Irregular",
+    "group": "Wolhaiksong"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ha-jinsung",
+   "name": "Ha Jinsung",
+   "values": {
+    "status": "Ranker",
+    "group": "FUG"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "enryu",
+   "name": "Enryu",
+   "values": {
+    "status": "Irregular",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "white",
+   "name": "White",
+   "values": {
+    "status": "Slayer",
+    "group": "FUG"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  },
+  {
+   "slug": "phantaminum",
+   "name": "Phantaminum",
+   "values": {
+    "status": "Ranker",
+    "group": "None"
+   },
+   "sources": {
+    "status": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ],
+    "group": [
+     "https://en.wikipedia.org/wiki/List_of_Tower_of_God_characters"
+    ]
+   }
+  }
+ ]
+}

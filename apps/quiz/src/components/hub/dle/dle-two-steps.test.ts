@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest';
 
 import { dleCopy, gameCopy } from '@/lib/dle/copy';
 import { dleGame } from '@/lib/dle/games';
+import type { DleGameId } from '@/lib/dle/games';
 import { shareText, shareTextSteps } from '@/lib/dle/share';
 import { board1, board2, columnWords, hasSteps, offered, stepCopy, stepText, stepView } from '@/lib/dle/steps';
 import type { DleGuess, DlePlayState, DlePoolEntity, DleStepColumn } from '@/lib/dle/types';
@@ -49,7 +50,8 @@ describe('the play state without the step fields is the old game', () => {
   });
 
   it('step 1 (the field says so, no anime found yet) is two boards in waiting: one board, all guesses, all characters', () => {
-    const v = stepView({ ...FOUND, step: 1, series: undefined, step2_columns: undefined });
+    const { series: _s, step2_columns: _c, ...rest } = FOUND;
+    const v = stepView({ ...rest, step: 1 });
     expect(v).toMatchObject({ two: true, found: false, anime: 0, character: 0 });
     expect(board1(G, v)).toEqual(G);
   });
@@ -71,7 +73,7 @@ describe('step 2', () => {
     expect(offered(all, stepView({ ...FOUND, step: 1 })).map((e) => e.id)).toEqual(['a', 'b', 'd']);
   });
   it('the words of the columns: gender is the app, the columns of the data carry both languages, One Piece and Dragon Ball use their own game', () => {
-    const own = (id: 'otakudle-one-piece' | 'otakudle-dragon-ball') => gameCopy(id, 'fr').columns;
+    const own = (id: DleGameId) => gameCopy(id, 'fr').columns;
     expect(columnWords(COLUMNS[0]!, 'naruto', 'fr', own).label).toBe('Genre');
     expect(columnWords(COLUMNS[1]!, 'naruto', 'fr', own)).toEqual({ label: 'Village', help: 'Village d’origine' });
     expect(columnWords(COLUMNS[2]!, 'naruto', 'en', own).label).toBe('Rank');
@@ -87,6 +89,10 @@ describe('step 2', () => {
     expect(stepText({ key: 'height_cm', kind: 'number' }, 'one-piece', { v: 174 }, 'en')).toBe('174 cm');
     expect(stepText({ key: 'bounty', kind: 'number' }, 'one-piece', { v: 0, l: 'No bounty' }, 'en')).toBe('No bounty');
     expect(stepText(COLUMNS[1]!, 'naruto', null, 'en')).toBe('');
+    // French: a common word reads in French (Not stated is a normal category), a proper noun stays as stored.
+    expect(stepText(COLUMNS[1]!, 'naruto', { v: 'Not stated' }, 'fr')).toBe('Non précisé');
+    expect(stepText(COLUMNS[3]!, 'naruto', { v: ['Human', 'Konohagakure'] }, 'fr')).toBe('Humain, Konohagakure');
+    expect(stepText(COLUMNS[3]!, 'naruto', { v: ['Human', 'Konohagakure'] }, 'en')).toBe('Human, Konohagakure');
   });
   it('the share text says both counts and one line of counts per board, and never the answer', () => {
     const t = shareTextSteps(dleGame('otakudle'), 5, G, true, 'https://x/otakudle', 'en', v);
@@ -101,7 +107,7 @@ describe('step 2', () => {
     expect(fr.split('\n')[2]).toBe('Personnage 1/4 · 4/4');
   });
   it('a play given up before the anime was found shares one board', () => {
-    const t = shareTextSteps(dleGame('otakudle'), 5, [G[0]!, G[2]!], false, 'https://x/o', 'en', stepView({ ...FOUND, step: 1, status: 'given_up' }));
+    const t = shareTextSteps(dleGame('otakudle'), 5, [G[0]!, G[2]!], false, 'https://x/o', 'en', stepView({ date: FOUND.date, game_no: 5, status: 'given_up', guesses: [], hints: [], target: null, stats: null, step: 1 }));
     expect(t.split('\n')).toEqual(['Otakudle by Bunnyverse #5 · Character of the day · gave up', 'Anime 1/4 · 0/4', 'https://x/o']);
   });
   it('only Otakudle across all series has two steps', () => {
@@ -152,7 +158,7 @@ describe('the words and the page', () => {
   it('the how to play of Otakudle explains the two steps and the columns of each anime, in both languages', () => {
     for (const l of ['en', 'fr'] as const) {
       const w = gameCopy('otakudle', l);
-      expect(w.how1).toMatch(l === 'en' ? /Step 1.*step 2/s : /Étape 1.*étape 2/s);
+      expect(w.how1).toMatch(l === 'en' ? /Step 1[\s\S]*step 2/ : /Étape 1[\s\S]*étape 2/);
       expect(w.how1).toMatch(l === 'en' ? /columns of their own for each anime/ : /colonnes propres à chaque anime/);
       expect(w.how1).toMatch(/5 (and|et) 10/);
       expect(w.how2).toMatch(l === 'en' ? /one total/ : /seul total/);

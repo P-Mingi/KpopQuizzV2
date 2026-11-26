@@ -1,0 +1,380 @@
+{
+ "series_slug": "violet-evergarden",
+ "columns": [
+  {
+   "key": "role",
+   "kind": "single",
+   "label": {
+    "en": "Role",
+    "fr": "Rôle"
+   },
+   "help": {
+    "en": "Role at the first appearance",
+    "fr": "Rôle à la première apparition"
+   }
+  },
+  {
+   "key": "military",
+   "kind": "single",
+   "label": {
+    "en": "Military service",
+    "fr": "Service militaire"
+   },
+   "help": {
+    "en": "Army, Navy or None, as the characters page gives it",
+    "fr": "Army, Navy ou None, tel que la page des personnages le donne"
+   }
+  },
+  {
+   "key": "debut_arc",
+   "kind": "ordinal",
+   "label": {
+    "en": "First arc",
+    "fr": "Premier arc"
+   },
+   "help": {
+    "en": "Release of the first appearance, arrows",
+    "fr": "Sortie de la première apparition, flèches"
+   },
+   "order": "arcs"
+  }
+ ],
+ "characters": [
+  {
+   "slug": "violet-evergarden",
+   "name": "Violet Evergarden",
+   "values": {
+    "role": "Soldier",
+    "military": "Army",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "claudia-hodgins",
+   "name": "Claudia Hodgins",
+   "values": {
+    "role": "Postal staff",
+    "military": "Army",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "gilbert-bougainvillea",
+   "name": "Gilbert Bougainvillea",
+   "values": {
+    "role": "Soldier",
+    "military": "Army",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "cattleya-baudelaire",
+   "name": "Cattleya Baudelaire",
+   "values": {
+    "role": "Auto Memory Doll",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "benedict-blue",
+   "name": "Benedict Blue",
+   "values": {
+    "role": "Postal staff",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "erica-brown",
+   "name": "Erica Brown",
+   "values": {
+    "role": "Auto Memory Doll",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "iris-cannary",
+   "name": "Iris Cannary",
+   "values": {
+    "role": "Auto Memory Doll",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "luculia-marlborough",
+   "name": "Luculia Marlborough",
+   "values": {
+    "role": "Auto Memory Doll",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "dietfried-bougainvillea",
+   "name": "Dietfried Bougainvillea",
+   "values": {
+    "role": "Soldier",
+    "military": "Navy",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "charlotte-drossel",
+   "name": "Charlotte Abelfreyja Drossel",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "leon-stephanotis",
+   "name": "Leon Stephanotis",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "oscar-webster",
+   "name": "Oscar Webster",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "anne-magnolia",
+   "name": "Anne Magnolia",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "clara-magnolia",
+   "name": "Clara Magnolia",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 1
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "isabella-york",
+   "name": "Isabella York",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 3
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  },
+  {
+   "slug": "taylor-bartlett",
+   "name": "Taylor Bartlett",
+   "values": {
+    "role": "Client",
+    "military": "None",
+    "debut_arc": 3
+   },
+   "sources": {
+    "role": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "military": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden"
+    ],
+    "debut_arc": [
+     "https://en.wikipedia.org/wiki/Violet_Evergarden",
+     "https://en.wikipedia.org/wiki/Violet_Evergarden:_Eternity_and_the_Auto_Memory_Doll"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,351 @@
+{
+ "series_slug": "slam-dunk",
+ "columns": [
+  {
+   "key": "school",
+   "kind": "single",
+   "label": {
+    "en": "School",
+    "fr": "Lycée"
+   },
+   "help": {
+    "en": "School at the first appearance",
+    "fr": "Lycée à la première apparition"
+   }
+  },
+  {
+   "key": "position",
+   "kind": "single",
+   "label": {
+    "en": "Position",
+    "fr": "Poste"
+   },
+   "help": {
+    "en": "Basketball position, None for staff and supporters",
+    "fr": "Poste de basket, Aucun pour le staff et les supporters"
+   }
+  }
+ ],
+ "characters": [
+  {
+   "slug": "hanamichi-sakuragi",
+   "name": "Hanamichi Sakuragi",
+   "values": {
+    "school": "Shohoku High",
+    "position": "Power forward"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kaede-rukawa",
+   "name": "Kaede Rukawa",
+   "values": {
+    "school": "Shohoku High",
+    "position": "Small forward"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "takenori-akagi",
+   "name": "Takenori Akagi",
+   "values": {
+    "school": "Shohoku High",
+    "position": "Center"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "haruko-akagi",
+   "name": "Haruko Akagi",
+   "values": {
+    "school": "Shohoku High",
+    "position": "None"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ayako",
+   "name": "Ayako",
+   "values": {
+    "school": "Shohoku High",
+    "position": "None"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "mitsuyoshi-anzai",
+   "name": "Mitsuyoshi Anzai",
+   "values": {
+    "school": "Shohoku High",
+    "position": "None"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "yohei-mito",
+   "name": "Yohei Mito",
+   "values": {
+    "school": "Other",
+    "position": "None"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kiminobu-kogure",
+   "name": "Kiminobu Kogure",
+   "values": {
+    "school": "Shohoku High",
+    "position": "Shooting guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "hisashi-mitsui",
+   "name": "Hisashi Mitsui",
+   "values": {
+    "school": "Shohoku High",
+    "position": "Shooting guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "ryota-miyagi",
+   "name": "Ryota Miyagi",
+   "values": {
+    "school": "Shohoku High",
+    "position": "Point guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "akira-sendoh",
+   "name": "Akira Sendoh",
+   "values": {
+    "school": "Ryonan High",
+    "position": "Small forward"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "jun-uozumi",
+   "name": "Jun Uozumi",
+   "values": {
+    "school": "Ryonan High",
+    "position": "Center"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kenji-fujima",
+   "name": "Kenji Fujima",
+   "values": {
+    "school": "Shoyo High",
+    "position": "Point guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "toru-hanagata",
+   "name": "Toru Hanagata",
+   "values": {
+    "school": "Shoyo High",
+    "position": "Center"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "shinichi-maki",
+   "name": "Shinichi Maki",
+   "values": {
+    "school": "Kainan High",
+    "position": "Point guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "nobunaga-kiyota",
+   "name": "Nobunaga Kiyota",
+   "values": {
+    "school": "Kainan High",
+    "position": "Small forward"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "soichiro-jin",
+   "name": "Soichiro Jin",
+   "values": {
+    "school": "Kainan High",
+    "position": "Shooting guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "kazunari-fukatsu",
+   "name": "Kazunari Fukatsu",
+   "values": {
+    "school": "Sannoh Industrial",
+    "position": "Point guard"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "eiji-sawakita",
+   "name": "Eiji Sawakita",
+   "values": {
+    "school": "Sannoh Industrial",
+    "position": "Small forward"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  },
+  {
+   "slug": "masashi-kawata",
+   "name": "Masashi Kawata",
+   "values": {
+    "school": "Sannoh Industrial",
+    "position": "Center"
+   },
+   "sources": {
+    "school": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ],
+    "position": [
+     "https://en.wikipedia.org/wiki/List_of_Slam_Dunk_characters"
+    ]
+   }
+  }
+ ]
+}

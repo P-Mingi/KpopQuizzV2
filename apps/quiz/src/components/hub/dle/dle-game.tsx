@@ -11,7 +11,7 @@ import { dleGame, localePath } from '@/lib/dle/games';
 import { readHistory, recordPlay, universeStreak } from '@/lib/dle/local';
 import { LIVE_REFRESH_MS, liveCopy, shownPlayers, shownRank } from '@/lib/dle/live';
 import { suggest } from '@/lib/dle/search';
-import { correctCounts, shareText, shareTextSteps } from '@/lib/dle/share';
+import { correctCounts, shareTextSteps } from '@/lib/dle/share';
 import { board1, board2, columnWords, offered, stepCopy, stepText, stepView } from '@/lib/dle/steps';
 import { utcDate } from '@/lib/dle/day';
 import { burrowHref, liveGame, nextLiveMode, worldOf } from '@/lib/dle/worlds';
@@ -453,9 +453,10 @@ export function DleGame({ locale, game, gameNo, stats: initialStats, pool, pictu
   // ---- the words that depend on the play
   const nameOf = (id: string): string => byId.get(id)?.name ?? '';
   const last = guesses[guesses.length - 1];
+  const columnLabel = (key: string): string => { const col = sv.columns.find((x) => x.key === key); return col ? columnWords(col, sv.series, locale, (id) => gameCopy(id, locale).columns).label : key; };
   const announce = won && play?.target
     ? t.announceWon(play.target.name, guesses.length)
-    : last ? `${t.announceGuess(guesses.length, nameOf(last.id))} ${last.result.map((c) => `${w.columns[c.key]?.label ?? c.key}: ${c.status === 'correct' ? t.right : c.status === 'near' ? t.near : c.status === 'wrong' ? t.wrong : t.unknownCell}`).join(', ')}.` : '';
+    : last ? `${t.announceGuess(guesses.length, nameOf(last.id))} ${(last.step2 && sv.found ? last.step2 : last.result).map((c) => `${last.step2 && sv.found ? columnLabel(c.key) : w.columns[c.key]?.label ?? c.key}: ${c.status === 'correct' ? t.right : c.status === 'near' ? t.near : c.status === 'wrong' ? t.wrong : t.unknownCell}`).join(', ')}.${last.step2 && sv.found && guesses.length === sv.anime ? ` ${sc.announceFound(sv.anime, seriesShown)}` : ''}` : '';
   const hintServed = (h: DleHintDef): { readonly key: string; readonly value: string } | null => servedHint(h, play?.hints ?? [], locale);
   const words = { right: t.right, near: t.near, wrong: t.wrong, unknown: t.unknownCell, up: t.answerUp, down: t.answerDown };
   const shareUrl = (): string => {

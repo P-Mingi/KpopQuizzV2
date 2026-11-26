@@ -21,7 +21,7 @@ export function setId(series) {
   return LEGACY_SETS[series] ?? `otakudle-s-${series.slice(0, 30)}`;
 }
 
-// A source is the English Wikipedia or an official site: never a Fandom wiki or a fan database (the owner's rulebook 5.3), never another Wikipedia.
+// A source is Wikipedia (any language) or an official site: never a Fandom wiki or a fan database (the owner's rulebook 5.3), never another Wikipedia.
 const FORBIDDEN_HOSTS = [
   'fandom.com', 'wikia.com', 'wikia.org', 'myanimelist.net', 'anilist.co', 'kitsu.io', 'kitsu.app', 'anidb.net', 'tvtropes.org', 'fanlore.org', 'miraheze.org',
   'namu.wiki', 'wikitubia.com', 'animenewsnetwork.com', 'imdb.com', 'wikidata.org', 'reddit.com', 'youtube.com', 'youtu.be', 'archive.org', 'web.archive.org',
@@ -34,7 +34,8 @@ export function sourceKind(url) {
   try { u = new URL(url); } catch { return null; }
   if (u.protocol !== 'https:') return null;
   const host = u.hostname.toLowerCase();
-  if (host === 'en.wikipedia.org') return /^\/wiki\/[^/]+/.test(u.pathname) ? 'wikipedia' : null;
+  // Any Wikipedia language is a source (owner's rule, 2026-11-26: the series of a language other than English may be sourced from its own Wikipedia).
+  if (/^[a-z]{2,3}(-[a-z]+)?\.wikipedia\.org$/.test(host)) return /^\/wiki\/[^/]+/.test(u.pathname) ? 'wikipedia' : null;
   if (host.endsWith('wikipedia.org') || host.endsWith('wikimedia.org')) return null;
   if (FORBIDDEN_HOSTS.some((h) => host === h || host.endsWith(`.${h}`))) return null;
   return 'official';
@@ -83,6 +84,8 @@ export function validateSeries(data, series, raw = JSON.stringify(data)) {
       if (c.near_distance !== undefined && !(typeof c.near_distance === 'number' && c.near_distance >= 0)) at(`${c.key}: near_distance is a number from 0`);
     } else if (c.near_distance !== undefined) at(`${c.key}: only a number has a near_distance`);
   }
+  // The characters the site has (L04): a series file may list more characters than the pool holds, and the facts are only for the pool. Every character of the data must be a character of the site;
+  // that every character of the pool has its values is checked by L42 itself and by its test on PGlite.
   const wanted = new Map((series?.characters ?? []).map((c) => [c.slug, c]));
   const chars = Array.isArray(data.characters) ? data.characters : [];
   const seenChars = new Set();
@@ -105,12 +108,20 @@ export function validateSeries(data, series, raw = JSON.stringify(data)) {
       }
       const src = ch.sources?.[c.key];
       if (!Array.isArray(src) || src.length === 0) at(`${w}: no source`);
-      else for (const u of src) if (sourceKind(u) === null) at(`${w}: the source ${u} is neither en.wikipedia.org nor an official site`);
+      else for (const u of src) if (sourceKind(u) === null) at(`${w}: the source ${u} is neither a Wikipedia page nor an official site`);
     }
     for (const k of Object.keys(ch.values ?? {})) if (!byKey.has(k)) at(`${cs}: a value for ${k}, which is not a column`);
   }
-  for (const s of wanted.keys()) if (!seenChars.has(s)) at(`the character ${s} of the series file has no values`);
   return bad;
+}
+
+/** The characters of each series that L04 gives the site: Map series slug to the list of {slug}. */
+export function l04Characters(l04Sql) {
+  const out = new Map();
+  const re = /^insert into public\.characters \([^)]*\) values \(\(select id from public\.groups where slug = '([a-z0-9-]+)' and site_id = 'anime'\), '([a-z0-9-]+)',/gm;
+  let m;
+  while ((m = re.exec(l04Sql))) { if (!out.has(m[1])) out.set(m[1], []); out.get(m[1]).push({ slug: m[2] }); }
+  return out;
 }
 
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
